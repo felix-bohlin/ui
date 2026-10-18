@@ -14,7 +14,7 @@ Chip
 
   Optional content at the start, such as an icon.
 
-- `.ui-text`
+- `.ui-chip > .ui-text`
 
   The label.
 
@@ -99,6 +99,7 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 ```html
 <div class="ui-chip ui-tonal">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -115,6 +116,7 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 <div class="ui-chip ui-outlined">
   <span class="ui-text">Outlined</span>
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -192,6 +194,7 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
 <div class="example-row">
   <button type="button" class="ui-chip ui-tonal">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -207,6 +210,7 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
   <button type="button" class="ui-chip ui-outlined">
     <span class="ui-text">Sort by</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -231,6 +235,7 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
 <a href="#" class="ui-chip ui-outlined">
   <span class="ui-text">Outlined link</span>
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -246,7 +251,7 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
 
 ## Disabled
 
-Disable a button chip with the `disabled` attribute, and use `aria-disabled="true"` on a link chip. A static `<div class="ui-chip">` can't be disabled, so the `.ui-disabled` class only dims it a little and keeps its text readable.
+Disable a button chip with the `disabled` attribute. On a link chip, remove the `href` and add `aria-disabled="true"`. A static `<div class="ui-chip">` can't be disabled, so the `.ui-disabled` class only dims it a little and keeps its text readable.
 
 ```html
 <button type="button" class="ui-chip ui-tonal" disabled>
@@ -264,20 +269,20 @@ Disable a button chip with the `disabled` attribute, and use `aria-disabled="tru
 | Type     | Modifiers                                                               | Default     | Description                                                                                                     |
 | -------- | ----------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
 | Colors   | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -           | Optional colors.                                                                                                |
+| Dot      | `.ui-dot`                                                               | -           | Adds a leading dot in the chip's color. Its shape follows the color.                                            |
 | Layout   | `.ui-multiline`                                                         | -           | Lets the label wrap to multiple lines.                                                                          |
 | Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`                                 | -           | The size of the element.                                                                                        |
 | State    | `.ui-disabled`                                                          | -           | Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips. |
-| Variants | `.ui-dot`                                                               | -           | Adds a leading dot in the chip's color. Its shape follows the color.                                            |
 | Variants | `.ui-outlined`, `.ui-tonal`                                             | `.ui-tonal` | The variant to use.                                                                                             |
 
 #### Parts
 
-| Part       | Description                                               |
-| ---------- | --------------------------------------------------------- |
-| `.ui-chip` | Container element. Can be a `<div>`, `<a>` or `<button>`. |
-| `<svg>`    | Optional content at the start, such as an icon.           |
-| `.ui-text` | The label.                                                |
-| `<svg>`    | Optional content at the end, such as an icon.             |
+| Part                  | Description                                               |
+| --------------------- | --------------------------------------------------------- |
+| `.ui-chip`            | Container element. Can be a `<div>`, `<a>` or `<button>`. |
+| `<svg>`               | Optional content at the start, such as an icon.           |
+| `.ui-chip > .ui-text` | The label.                                                |
+| `<svg>`               | Optional content at the end, such as an icon.             |
 
 #### CSS variables
 
@@ -311,13 +316,18 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property          | Kind   | Description                                                                                                                                              |
-| ----------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`     | Output | The current background. Set by the variant, tone and hover states.                                                                                       |
-| `--_border-color` | Output | The current border color. Set by the tone classes.                                                                                                       |
-| `--_dot-color`    | Output | The color of the `.ui-dot` marker. `currentColor`, or derived from `--_tone`.                                                                            |
-| `--_text-color`   | Output | The current text color. Set by the variant, tone and disabled states.                                                                                    |
-| `--_tone`         | Input  | The tone color the background, border, text and dot are derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`. |
+| Property                 | Kind   | Description                                                                                                                                         |
+| ------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`              | Input  | The color the background, border, text and dot are derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`. |
+| `--_bg-color`            | Output | The current background. Set by the variant, color classes and hover states.                                                                         |
+| `--_border-color`        | Output | The current border color. Set by the color classes.                                                                                                 |
+| `--_dot-color`           | Output | The color of the `.ui-dot` marker. `currentColor`, or derived from `--_accent`.                                                                     |
+| `--_font-size`           | Input  | The font size. `.ui-large` sets it.                                                                                                                 |
+| `--_icon-padding-inline` | Input  | Inline padding on the side of a leading or trailing `svg`. `.ui-large` sets it.                                                                     |
+| `--_icon-size`           | Input  | Width of an `svg`. `.ui-large` sets it.                                                                                                             |
+| `--_padding-inline`      | Input  | The inline padding. `.ui-large` sets it.                                                                                                            |
+| `--_size`                | Input  | The height. Defaults to `--chip-size`, set by the size classes.                                                                                     |
+| `--_text-color`          | Output | The current text color. Set by the variant, color classes and disabled states.                                                                      |
 
 ## Under the hood
 
@@ -425,7 +435,7 @@ Step 4 of 4: Hover
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Chip.md).
@@ -440,6 +450,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Large](#sizes) size with `.ui-large`, and small chips are 28px to match the control sizes.
 - Long labels truncate with an ellipsis unless the chip is [`.ui-multiline`](#api).
-- Breaking: the hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
+- The hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
 - Takes `.ui-x-small`. [Sizes](#sizes)
 - [Colors](#colors) for statuses with `.ui-success`, `.ui-warning` and more, and a shape-coded [`.ui-dot`](#dot).
+- [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
+- Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
+- Breaking: [disabled link chips](#disabled) have no `href`, so they can't be focused or followed.

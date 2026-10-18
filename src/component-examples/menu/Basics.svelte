@@ -2,15 +2,15 @@
   import { Button, Menu } from "opui-css/svelte"
 </script>
 
-<Button commandfor="menu-basics" command="toggle-popover" variant="outlined">
+<Button commandfor="menu-basics-1" command="toggle-popover" variant="outlined">
   Options
 </Button>
 <Menu
-  id="menu-basics"
+  id="menu-basics-1"
   items={[
-    { label: "Edit", shortcut: "E" },
-    { label: "Duplicate", shortcut: "D" },
-    { label: "Archive", disabled: true },
-    { label: "Delete", borderTop: true, critical: true },
+    { text: "Edit", shortcut: "E" },
+    { text: "Duplicate", shortcut: "D" },
+    { text: "Archive", disabled: true },
+    { text: "Delete", borderTop: true, critical: true },
   ]}
 />

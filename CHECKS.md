@@ -1,4 +1,4 @@
-Manual checks before releasing 6.0.0. The tests cover Chromium only, without real fonts, screen readers or touch, so these checks are about everything they can't see. Run the docs with `pnpm dev` (the stress test pages need `OPUI_TEST_PAGES=1 pnpm dev`), or use the Netlify preview of the pull request.
+Manual checks before releasing 6.0.0. The tests cover Chromium only, without real fonts, screen readers or touch, so these checks are about everything they can't see. Run the docs with `pnpm dev`, which also renders the stress test pages at `/tests/`, or use the Netlify preview of the pull request.
 
 ## CI and baselines
 
@@ -46,7 +46,7 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
 - [ ] Badge
   - [Badge](/html/components/badge/): every placement on avatars, chips and buttons, also in RTL. White text on critical, info and success fills is readable in light and dark.
 - [ ] Button
-  - [Button](/html/components/button/): padding scale, icon side padding with wrapped labels, icon-only buttons are square, `rounded` makes a circle, disabled links look disabled.
+  - [Button](/html/components/button/): padding scale, icon side padding with wrapped labels, icon-only buttons are square, `round` makes a circle, disabled links look disabled.
   - Hover styles only on devices with hover: tapping on iOS doesn't leave a button looking hovered.
 - [ ] Button `kbd` looks right on a Mac
   - The [Keyboard](/html/components/button/#keyboard) example, with macOS system fonts.
@@ -93,7 +93,7 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
 - [ ] Select in Chrome
   - [Select](/html/components/select/): the customizable picker has rounded corners, keyboard and typeahead work, groups and the header show.
 - [ ] Select in Firefox and Safari
-  - Without customizable select it falls back to the [Classic select](/html/components/select/#classic-select) and the browser's own picker.
+  - Without customizable select it falls back to the native select (see [Fallback](/html/components/select/#fallback)) and the browser's own picker.
 - [ ] Spinner
   - [Spinner](/html/components/spinner/): every size, stops with reduced motion.
 - [ ] Switch

@@ -4,19 +4,19 @@ Leverages the [List component](https://open-props-ui.netlify.app/vue/components/
 
 ## Anatomy
 
-Label Description Option one (1) ¤ EUR Header Footer Supporting text
+Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
 - `<Select>`
 
   Container element.
 
-- `v-slot:label`
+- `label / v-slot:label`
 
   The label for the field.
 
-- `v-slot:description`
+- `startText / v-slot:start-text`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -42,7 +42,7 @@ Label Description Option one (1) ¤ EUR Header Footer Supporting text
 
   Content below the select, inside the border, with a divider.
 
-- `v-slot:end-text`
+- `endText / v-slot:end-text`
 
   Supporting text displayed below the field.
 
@@ -171,6 +171,7 @@ import { Select } from "opui-css/vue"
   <Select label="Country">
     <template #prefix
       ><svg
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -279,9 +280,9 @@ import { Select } from "opui-css/vue"
 
 ## Validation
 
-- Add the `required` attribute on the component. It is forwarded to the underlying `<select>`.
-- Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the select, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
-- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
+- `required` toggles the required styles on the `<select>`.
+- `error` toggles the invalid styles, and screen readers announce the `<select>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```vue
 <script setup lang="ts">
@@ -325,7 +326,7 @@ import { Select } from "opui-css/vue"
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the select on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the select on the right. The layout collapses to a column on narrow containers.
 
 ```vue
 <script setup lang="ts">
@@ -335,7 +336,7 @@ import { Select } from "opui-css/vue"
 <template>
   <Select spread>
     <template #label>Country</template>
-    <template #description>Select your country of residence</template>
+    <template #start-text>Select your country of residence</template>
     <option value="">Select a country</option>
     <option>Denmark</option>
     <option>Finland</option>
@@ -346,7 +347,7 @@ import { Select } from "opui-css/vue"
 
   <Select spread variant="filled">
     <template #label>Language</template>
-    <template #description>Choose your preferred language</template>
+    <template #start-text>Choose your preferred language</template>
     <template #end-text>This affects UI translations</template>
     <option value="">Select a language</option>
     <option>Danish</option>
@@ -358,7 +359,7 @@ import { Select } from "opui-css/vue"
 
   <Select spread required>
     <template #label>Required</template>
-    <template #description>You must select an option</template>
+    <template #start-text>You must select an option</template>
     <option value="">Select an option</option>
     <option>Option 1</option>
     <option>Option 2</option>
@@ -366,20 +367,20 @@ import { Select } from "opui-css/vue"
 
   <Select spread disabled>
     <template #label>Disabled</template>
-    <template #description>This select is disabled</template>
+    <template #start-text>This select is disabled</template>
     <option>Option 1</option>
   </Select>
 
   <Select spread error>
     <template #label>Invalid Select</template>
-    <template #description>This select has an error</template>
+    <template #start-text>This select has an error</template>
     <template #end-text>Please select a valid option.</template>
     <option>Option 1</option>
   </Select>
 
   <Select spread>
     <template #label>Time zone</template>
-    <template #description>Used for reminders and due dates</template>
+    <template #start-text>Used for reminders and due dates</template>
     <template #prefix>UTC</template>
     <option>-03:00</option>
     <option>+00:00</option>
@@ -390,9 +391,10 @@ import { Select } from "opui-css/vue"
 
   <Select spread variant="filled">
     <template #label>Region</template>
-    <template #description>Affects data residency and latency</template>
+    <template #start-text>Affects data residency and latency</template>
     <template #prefix>
       <svg
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -418,30 +420,6 @@ import { Select } from "opui-css/vue"
 </template>
 ```
 
-## Classic select
-
-Bog-standard native HTML `<select>` without customized option list. Use it when the browser's own picker is all you need, and the Select above when the options need styles, icons or groups.
-
-```vue
-<script setup lang="ts">
-import { ClassicSelect } from "opui-css/vue"
-</script>
-
-<template>
-  <ClassicSelect label="Label">
-    <option value="">-</option>
-    <option>Option 1</option>
-    <option>Option 2</option>
-  </ClassicSelect>
-
-  <ClassicSelect label="Label" variant="filled">
-    <option value="">-</option>
-    <option>Option 1</option>
-    <option>Option 2</option>
-  </ClassicSelect>
-</template>
-```
-
 ## Accessibility
 
 `appearance: base-select` only changes how the select looks. The browser keeps the behavior of a native `<select>`:
@@ -454,151 +432,98 @@ import { ClassicSelect } from "opui-css/vue"
 
 ### Fallback
 
-Browsers without customizable select drop the `<button>` and the list wrapper from the `<select>` and keep its options. The select then looks like the [Classic select](#classic-select) and opens the browser's own picker.
+Browsers without customizable select drop the `<button>` and the list wrapper from the `<select>` and keep its options. The select keeps the field styles and the chevron, and opens the browser's own picker.
 
 ## API
 
 ### Select API
 
-| Prop                                                                                                                                                                        | Type                                         | Default      | Description                                                               |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `dense`                                                                                                                                                                     | `boolean`                                    | `false`      | Packs the options tighter.                                                |
-| `description`                                                                                                                                                               | `string`                                     | -            | Description text displayed above the field.                               |
-| `endText`                                                                                                                                                                   | `string`                                     | -            | Supporting text displayed below the field.                                |
-| `error`                                                                                                                                                                     | `boolean`                                    | `false`      | Marks the control invalid and shows error styles.                         |
-| `id`                                                                                                                                                                        | `string`                                     | -            | The id of the `<select>`.                                                 |
-| `items`                                                                                                                                                                     | `Item[]`                                     | `[]`         | The options, as `{ selected, text, value }` objects.                      |
-| `label`                                                                                                                                                                     | `string`                                     | -            | The label for the field.                                                  |
-| `size`                                                                                                                                                                      | `"small"` , `"x-small"` , `"large"`          | -            | The size of the element.                                                  |
-| `spread`                                                                                                                                                                    | `boolean`                                    | `false`      | Pushes the label and description to one side and the select to the other. |
-| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number` , `(string \| number)[]` | -            | The selected value, or values with `multiple`.                            |
-| `variant`                                                                                                                                                                   | `"outlined"` , `"filled"`                    | `"outlined"` | The variant to use.                                                       |
+| Prop                                                                                                                                                                        | Type                                         | Default      | Description                                                              |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------ | ------------------------------------------------------------------------ |
+| `dense`                                                                                                                                                                     | `boolean`                                    | `false`      | Packs the options tighter.                                               |
+| `endText`                                                                                                                                                                   | `string`                                     | -            | Supporting text displayed below the field.                               |
+| `error`                                                                                                                                                                     | `boolean`                                    | `false`      | Marks the control invalid and shows error styles.                        |
+| `id`                                                                                                                                                                        | `string`                                     | -            | The id of the `<select>`.                                                |
+| `items`                                                                                                                                                                     | `SelectItem[]`                               | `[]`         | The options, as `{ selected, text, value }` objects.                     |
+| `label`                                                                                                                                                                     | `string`                                     | -            | The label for the field.                                                 |
+| `size`                                                                                                                                                                      | `"large"` , `"small"` , `"x-small"`          | -            | The size of the element.                                                 |
+| `spread`                                                                                                                                                                    | `boolean`                                    | `false`      | Pushes the label and start text to one side and the select to the other. |
+| `startText`                                                                                                                                                                 | `string`                                     | -            | Start text displayed above the field.                                    |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number` , `(string \| number)[]` | -            | The selected value, or values with `multiple`.                           |
+| `value`                                                                                                                                                                     | `(string \| number)[]` , `number` , `string` | -            | The selected value, or values with `multiple`.                           |
+| `variant`                                                                                                                                                                   | `"filled"` , `"outlined"`                    | `"outlined"` | The variant to use.                                                      |
 
 #### Slots
 
-| Slot          | Description                                                  |
-| ------------- | ------------------------------------------------------------ |
-| `default`     | Extra `<option>` and `<optgroup>` elements.                  |
-| `description` | Description text displayed above the field.                  |
-| `end-text`    | Supporting text displayed below the field.                   |
-| `footer`      | Content below the select, inside the border, with a divider. |
-| `header`      | Content above the select, inside the border, with a divider. |
-| `label`       | The label for the field.                                     |
-| `prefix`      | Content at the inline-start of the field, inside the border. |
-| `suffix`      | Content at the inline-end of the field, inside the border.   |
+| Slot         | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| `default`    | Extra `<option>` and `<optgroup>` elements.                  |
+| `end-text`   | Supporting text displayed below the field.                   |
+| `footer`     | Content below the select, inside the border, with a divider. |
+| `header`     | Content above the select, inside the border, with a divider. |
+| `label`      | The label for the field.                                     |
+| `prefix`     | Content at the inline-start of the field, inside the border. |
+| `start-text` | Start text displayed above the field.                        |
+| `suffix`     | Content at the inline-end of the field, inside the border.   |
 
 #### CSS variables
 
-| Variable                     | Default                                                                                 | Description                                                                                                                                                                                                                      |
-| ---------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-radius`            | `var(--size-2)`                                                                         | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                                            |
-| `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
-| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                                                  |
-| `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                                         |
-| `--field-border-radius`      | Unset                                                                                   | Corner radius for fields. When unset, they follow `--border-radius`, also where it's set on a part of the page.                                                                                                                  |
-| `--field-border-width`       | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                       |
-| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                                                |
-| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                                                 |
-| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                                                                                               |
-| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                                                                                                     |
-| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                                      |
-| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                                             |
-| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                                                  |
-| `--field-size`               | `var(--control-size)`                                                                   | Default field height.                                                                                                                                                                                                            |
-| `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                                                   |
-| `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                                                   |
-| `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                                                 |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                  |
-| `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`                                                    | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                |
-| `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                                                   |
-| `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                                                 |
-| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                                         |
-| `--font-body`                | `var(--font-sans)`                                                                      | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                                             |
-| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--font-weight-medium`       | `var(--font-weight-5)`                                                                  | Font weight for badges, overlines and group labels.                                                                                                                                                                              |
-| `--icon-size`                | `var(--size-4)`                                                                         | Default icon size inside components.                                                                                                                                                                                             |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                                             |
-| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                                        |
-| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).                          |
-| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                                                     |
-| `--shadow-overlay`           | `var(--shadow-3)`                                                                       | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                                                      |
-| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                                                                                                        |
-| `--surface-elevated`         | `light-dark(var(--gray-1), var(--gray-12))`                                             | Background of elevated cards and accordions.                                                                                                                                                                                     |
-| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
-| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                                                                                                                                    |
-| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                                                                                                                                 |
-| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
+| Variable                      | Default                                                                                 | Description                                                                                                                                                                                                                      |
+| ----------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`                                             | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
+| `--border-radius`             | `var(--size-2)`                                                                         | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`              | `1px`                                                                                   | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--choice-size-small`         | `calc(var(--size-3) * var(--density))`                                                  | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                                                                            |
+| `--control-size`              | `calc(40px * var(--density))`                                                           | Shared default height for fields and buttons so they line up.                                                                                                                                                                    |
+| `--disabled-opacity`          | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                                            |
+| `--duration`                  | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
+| `--ease`                      | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                                                  |
+| `--field-border-color`        | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                                         |
+| `--field-border-radius`       | Unset                                                                                   | Corner radius for fields. When unset, they follow `--border-radius`, also where it's set on a part of the page.                                                                                                                  |
+| `--field-border-width`        | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                       |
+| `--field-helper-color`        | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                                                |
+| `--field-helper-font-size`    | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                                                 |
+| `--field-helper-line-height`  | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                                                                                               |
+| `--field-label-color`         | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                                                                                                     |
+| `--field-label-font-size`     | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                                      |
+| `--field-label-font-weight`   | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                                             |
+| `--field-required-color`      | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                                                  |
+| `--field-size`                | `var(--control-size)`                                                                   | Default field height.                                                                                                                                                                                                            |
+| `--field-size-large`          | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                                                   |
+| `--field-size-small`          | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                                                   |
+| `--field-size-x-small`        | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                                                 |
+| `--focus-ring-color`          | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
+| `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`                                                    | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                |
+| `--focus-ring-offset`         | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                                                   |
+| `--focus-ring-style`          | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                                                 |
+| `--focus-ring-width`          | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                                         |
+| `--font-body`                 | `var(--font-sans)`                                                                      | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                                             |
+| `--font-code`                 | `var(--font-mono)`                                                                      | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                |
+| `--font-size-05`              | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--font-weight-medium`        | `var(--font-weight-5)`                                                                  | Font weight for badges, overlines and group labels.                                                                                                                                                                              |
+| `--font-weight-normal`        | `var(--font-weight-4)`                                                                  | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                                     |
+| `--icon-size`                 | `var(--size-4)`                                                                         | Default icon size inside components.                                                                                                                                                                                             |
+| `--icon-size-small`           | `var(--size-3)`                                                                         | Icon size inside `Chip`.                                                                                                                                                                                                         |
+| `--invalid-color`             | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                                             |
+| `--invalid-text-color`        | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                                        |
+| `--motion`                    | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).                          |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                                                     |
+| `--shadow-overlay`            | `var(--shadow-3)`                                                                       | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                                                      |
+| `--state-active-alpha-accent` | `25%`                                                                                   | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                |
+| `--state-hover-alpha-accent`  | `15%`                                                                                   | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                  |
+| `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                                                                                                        |
+| `--surface-elevated`          | `light-dark(var(--gray-1), var(--gray-12))`                                             | Background of elevated cards and accordions.                                                                                                                                                                                     |
+| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
+| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                                                                                                                                    |
+| `--switch-dot-size-small`     | `calc(0.75rem * var(--density))`                                                        | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                                                 |
+| `--switch-track-height-small` | `calc(var(--size-4) * var(--density))`                                                  | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                                                 |
+| `--switch-track-width-small`  | `calc(2.5rem * var(--density))`                                                         | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                                                  |
+| `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                                                                                                                                 |
+| `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<select>`, like `disabled` or `name`.
-
-### Classic select API
-
-| Prop                                                                                                                                                                        | Type                                         | Default      | Description                                       |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------ | ------------------------------------------------- |
-| `endText`                                                                                                                                                                   | `string`                                     | -            | Supporting text displayed below the field.        |
-| `error`                                                                                                                                                                     | `boolean`                                    | `false`      | Marks the control invalid and shows error styles. |
-| `id`                                                                                                                                                                        | `string`                                     | -            | The id of the `<select>`. Generated when omitted. |
-| `items`                                                                                                                                                                     | `Item[]`                                     | `[]`         | The options, as `{ text, value }` objects.        |
-| `label`                                                                                                                                                                     | `string`                                     | -            | The label for the field.                          |
-| `size`                                                                                                                                                                      | `"small"` , `"x-small"` , `"large"`          | -            | The size of the element.                          |
-| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number` , `(string \| number)[]` | -            | The selected value, or values with `multiple`.    |
-| `variant`                                                                                                                                                                   | `"outlined"` , `"filled"`                    | `"outlined"` | The variant to use.                               |
-
-#### Slots
-
-| Slot      | Description                                 |
-| --------- | ------------------------------------------- |
-| `default` | Extra `<option>` and `<optgroup>` elements. |
-
-#### CSS variables
-
-| Variable                     | Default                                                                                 | Description                                                                                                                                                                                                                      |
-| ---------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-radius`            | `var(--size-2)`                                                                         | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                                            |
-| `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
-| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                                                  |
-| `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                                         |
-| `--field-border-radius`      | Unset                                                                                   | Corner radius for fields. When unset, they follow `--border-radius`, also where it's set on a part of the page.                                                                                                                  |
-| `--field-border-width`       | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                       |
-| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                                                |
-| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                                                 |
-| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                                                                                               |
-| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                                                                                                     |
-| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                                                      |
-| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                                             |
-| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                                                                                                  |
-| `--field-size`               | `var(--control-size)`                                                                   | Default field height.                                                                                                                                                                                                            |
-| `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                                                   |
-| `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                                                   |
-| `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                                                 |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                  |
-| `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`                                                    | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                |
-| `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                                                   |
-| `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                                                 |
-| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                                         |
-| `--font-body`                | `var(--font-sans)`                                                                      | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                                             |
-| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--font-weight-medium`       | `var(--font-weight-5)`                                                                  | Font weight for badges, overlines and group labels.                                                                                                                                                                              |
-| `--icon-size`                | `var(--size-4)`                                                                         | Default icon size inside components.                                                                                                                                                                                             |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                                             |
-| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                                        |
-| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).                          |
-| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                                                     |
-| `--shadow-overlay`           | `var(--shadow-3)`                                                                       | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                                                      |
-| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                                                                                                        |
-| `--surface-elevated`         | `light-dark(var(--gray-1), var(--gray-12))`                                             | Background of elevated cards and accordions.                                                                                                                                                                                     |
-| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
-| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                                                                                                                                    |
-| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                                                                                                                                 |
-| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
-
-Attributes that aren't props go to the `<select>`, like `disabled` or `name`.
+Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`.
 
 ## Component properties
 
@@ -607,7 +532,6 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property      | Kind  | Description                                                                 |
 | ------------- | ----- | --------------------------------------------------------------------------- |
 | `--_bg-color` | Input | Background of the `.ui-list` in the picker. Defaults to `--surface-filled`. |
-| `--_motion`   | Input | Motion multiplier for the arrow and picker transitions. `0` turns them off. |
 
 ## Under the hood
 
@@ -789,16 +713,16 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the components from `opui-css/vue`:
+Import the component from `opui-css/vue`:
 
 ### Dependencies
 
 - [Text Field](https://open-props-ui.netlify.app/vue/components/text-field.md)
-- [Description List](https://open-props-ui.netlify.app/vue/components/description-list.md)
+- [List](https://open-props-ui.netlify.app/vue/components/list.md)
 
-- `opui-css/css/components/text-field.css`
-- `opui-css/css/components/select.css`
-- `opui-css/css/components/list.css`
+* `opui-css/css/components/text-field.css`
+* `opui-css/css/components/select.css`
+* `opui-css/css/components/list.css`
 
 ## See also
 
@@ -812,9 +736,13 @@ Import the components from `opui-css/vue`:
 - [x-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
 - [Preselect](#preselected) options with `value` or `selected` on an item.
-- The arrow is a chevron, also on the [classic select](#classic-select).
+- The arrow is a chevron.
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
-- Breaking: [`ClassicSelect`](#classic-select) no longer sets `aria-labelledby`. The wrapping `<label>` names the select, so `endText` is part of the name.
 - Breaking: `error` only sets `aria-invalid="true"` on the select, no more `data-invalid` on the root ([Validation](#validation)).
+- Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-height`, `--_label-color` is `--_affix-color` and `--_end-text-color` is `--_helper-color` ([Under the hood](#under-the-hood)).
+- Breaking: [`items`](#preselected) takes `SelectItem[]`, exported under that name.
+- Breaking: `ClassicSelect` is gone. Use `Select`, which falls back to the browser's own picker ([Fallback](#fallback)).
+- Breaking: `startText` replaces `description`, matching `endText` ([Spread](#spread)).
+- Breaking: `style` goes to the root, like `class`, instead of the `<select>` ([API](#api)).
 - Corners follow `--border-radius` through [`--field-border-radius`](#api), so one token squares or rounds every component.
 - The picker shadow is [`--shadow-overlay`](#api), shared with menus, drawers and toasts.

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getTabsContext, setTabsContext } from "./context"
+  import { getTabsContext, setTabsContext } from "./context.svelte"
   import type { TabsItemProps as Props } from "./types.svelte"
 
   let {

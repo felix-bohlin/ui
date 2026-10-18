@@ -1,7 +1,9 @@
 import { useId } from "react"
 import { cx } from "../cx"
+import { warnUnnamed } from "../dev"
+import { idRefs } from "../id"
 import RadioInput from "./RadioInput.react"
-import type { RadioProps as Props } from "./types.react"
+import type { Props } from "./types.react"
 
 export default function Radio({
   className,
@@ -16,8 +18,12 @@ export default function Radio({
 }: Props) {
   const uid = useId()
   const endTextId = endText ? `end-text-${uid}` : undefined
-  const describedBy =
-    [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
+  const describedBy = idRefs(endTextId, rest["aria-describedby"])
+
+  warnUnnamed(
+    "Radio",
+    children || rest["aria-label"] || rest["aria-labelledby"],
+  )
 
   return (
     <label

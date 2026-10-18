@@ -14,6 +14,14 @@ export default {
       values: { center: ".ui-align-center", start: null },
     },
     {
+      attribute: "[aria-label]",
+      description: "Accessible name of the carousel.",
+      group: "Label",
+      inherited: true,
+      prop: "aria-label",
+      type: "string",
+    },
+    {
       cssVar: "--_media-aspect-ratio",
       default: '"16 / 9"',
       description:
@@ -27,14 +35,18 @@ export default {
       description:
         'Previous and next buttons. `"outside"` places them beside the items.',
       group: "Buttons",
+      htmlDescription:
+        "Previous and next buttons. `.ui-buttons-outside` places them beside the items, together with `.ui-with-buttons`.",
       prop: "buttons",
       values: { outside: ".ui-buttons-outside" },
     },
     {
-      attribute: "[aria-label]",
-      description: "Accessible name of the carousel.",
-      group: "Label",
-      prop: "label",
+      class: ".ui-motion-off",
+      default: "false",
+      description: "Turns off smooth scrolling, like `--motion: 0`.",
+      frameworks: ["html"],
+      group: "Motion",
+      prop: "motionOff",
     },
     {
       class: ".ui-with-markers",
@@ -46,7 +58,7 @@ export default {
     {
       default: '"horizontal"',
       description:
-        "Scroll direction. Vertical carousels need a block size, set with `--_block-size`.",
+        "The orientation of the element. Vertical carousels need a block size, set with `--_block-size`.",
       group: "Orientation",
       prop: "orientation",
       values: { horizontal: null, vertical: ".ui-vertical" },
@@ -91,13 +103,15 @@ export default {
     },
     {
       code: "::scroll-button(inline-start)",
-      description: "The previous button.",
+      description:
+        "The previous button. `::scroll-button(block-start)` when vertical.",
       props: ["buttons"],
       selector: ".ui-carousel::scroll-button(inline-start)",
     },
     {
       code: "::scroll-button(inline-end)",
-      description: "The next button.",
+      description:
+        "The next button. `::scroll-button(block-end)` when vertical.",
       props: ["buttons"],
       selector: ".ui-carousel::scroll-button(inline-end)",
     },
@@ -109,6 +123,7 @@ export default {
     },
   ],
   root: {
+    anchorName: "--ui-carousel",
     description: "The scroller.",
     selector: "ul.ui-carousel",
   },

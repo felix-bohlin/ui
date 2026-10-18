@@ -3,7 +3,7 @@
 </script>
 
 <TextField label="Amount" placeholder="0.00">
-  {#snippet prefix()}¢{/snippet}
+  {#snippet prefix()}€{/snippet}
   {#snippet suffix()}EUR{/snippet}
 </TextField>
 
@@ -17,6 +17,7 @@
 
 <TextField label="Search" placeholder="Search...">
   {#snippet prefix()}<svg
+      aria-hidden="true"
       width="16"
       height="16"
       viewBox="0 0 24 24"

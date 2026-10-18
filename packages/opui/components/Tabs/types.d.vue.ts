@@ -1,4 +1,4 @@
-import type { HTMLAttributes, InjectionKey, Ref, Slot } from "vue"
+import type { Class, DefaultSlots } from "../vue"
 import type {
   Props as BaseProps,
   TabsItemProps as BaseTabsItemProps,
@@ -6,25 +6,12 @@ import type {
   TabsTabProps as BaseTabsTabProps,
 } from "./types"
 
-export type Props = BaseProps & {
-  class?: HTMLAttributes["class"]
-}
+export type Props = BaseProps & Class
 
-export type TabsItemProps = BaseTabsItemProps & {
-  class?: HTMLAttributes["class"]
-}
+export type TabsItemProps = BaseTabsItemProps & Class
 
-export type TabsPanelProps = BaseTabsPanelProps & {
-  class?: HTMLAttributes["class"]
-}
+export type TabsPanelProps = BaseTabsPanelProps & Class
 
-export type TabsTabProps = BaseTabsTabProps & {
-  class?: HTMLAttributes["class"]
-}
+export type TabsTabProps = BaseTabsTabProps & Class
 
-export type Slots = {
-  default?: Slot
-}
-
-export const TabsGroupNameKey = Symbol() as InjectionKey<Readonly<Ref<string>>>
-export const CurrentTabIdKey = Symbol() as InjectionKey<string>
+export type Slots = DefaultSlots

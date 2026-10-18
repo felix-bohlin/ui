@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, provide, reactive, useId } from "vue"
-import { ToggleGroupKey, type Props, type Slots } from "./types.d.vue"
+import { ToggleGroupKey } from "./context.vue"
+import { selectionOf } from "./selection"
+import type { Props, Slots } from "./types.d.vue"
 
 const {
   name,
@@ -8,34 +10,39 @@ const {
   scrollable,
   selection = "multiple",
   shrink,
-  size = "default",
+  size,
 } = defineProps<Props>()
 defineSlots<Slots>()
-
-defineOptions({
-  inheritAttrs: false,
-})
+const model = defineModel<string | string[]>()
 
 const uid = useId()
-const groupName = computed(() => name || uid)
+const groupName = computed(() => name || `toggle-group-${uid}`)
 const inputType = computed(() =>
   selection === "single" ? "radio" : "checkbox",
 )
+const change = (input: HTMLInputElement) => {
+  model.value = selectionOf(input, selection)
+}
 
-provide(ToggleGroupKey, reactive({ name: groupName, type: inputType }))
+provide(
+  ToggleGroupKey,
+  reactive({ change, groupName, inputType, value: model }),
+)
 </script>
 
 <template>
   <div
     :class="[
       'ui-toggle-group',
-      size !== 'default' && size && `ui-${size}`,
-      orientation && `ui-${orientation}`,
-      { 'ui-scrollable': scrollable, 'ui-shrink': shrink },
+      {
+        'ui-scrollable': scrollable,
+        'ui-shrink': shrink,
+        'ui-vertical': orientation === 'vertical',
+      },
+      size && `ui-${size}`,
       $props.class,
     ]"
     :role="selection === 'single' ? 'radiogroup' : 'group'"
-    v-bind="$attrs"
   >
     <slot></slot>
   </div>

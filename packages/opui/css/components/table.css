@@ -33,14 +33,6 @@
       }
     }
 
-    /* Remove bottom border only on the last row of the table */
-    & > *:last-child tr:last-child {
-      th,
-      td {
-        border-block-end: none;
-      }
-    }
-
     th {
       background-color: var(--surface-filled);
       color: var(--text-primary);
@@ -90,8 +82,14 @@
       }
     }
 
+    /* Remove bottom border only on the last row of the table */
     /* Logic for bottom corners (whether in tbody or tfoot) */
     & > *:last-child tr:last-child {
+      th,
+      td {
+        border-block-end: none;
+      }
+
       :where(th, td):first-child {
         border-end-start-radius: var(--_border-radius);
       }
@@ -132,7 +130,9 @@
     }
 
     &.ui-sticky-header {
-      --_motion: var(--motion, 1);
+      --_motion: var(--motion);
+      --_duration: calc(var(--duration) * var(--_motion));
+      --_ease: var(--ease);
       --_scroll-shadow: var(--shadow-4);
       --_sticky-offset: 0;
 
@@ -143,7 +143,7 @@
         z-index: 1;
 
         th {
-          transition: box-shadow calc(var(--duration) * var(--_motion));
+          transition: box-shadow var(--_duration) var(--_ease);
         }
       }
 

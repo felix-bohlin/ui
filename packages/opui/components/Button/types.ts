@@ -1,27 +1,28 @@
-export type Props = {
+export type SharedProps = {
   color?: "critical" | "primary"
-  rounded?: boolean
+  round?: boolean
   size?: "x-small" | "small" | "large"
   variant?: "outlined" | "tonal" | "filled"
 } & (
   | {
+      as?: "a"
+      href: string
+      disabled?: boolean
+    }
+  | {
+      as?: "button"
+      href?: never
+      disabled?: boolean
+    }
+)
+
+export type IconOnlyProps =
+  | {
       iconOnly: true
-      label: string
+      "aria-label": string
     }
   | {
       iconOnly?: false
-      label?: string
     }
-) &
-  (
-    | {
-        as?: "a"
-        href: string
-        disabled?: boolean
-      }
-    | {
-        as?: "button"
-        href?: never
-        disabled?: boolean
-      }
-  )
+
+export type Props = SharedProps & IconOnlyProps

@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { getFieldContext } from "../FieldGroup/context"
-  import type { Item } from "./types"
+  import { content } from "../content.svelte"
+  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { idRefs } from "../id"
+  import type { SelectItem } from "./types"
   import type { Props } from "./types.svelte"
-  import type { Snippet } from "svelte"
+  import { untrack } from "svelte"
 
   let {
     class: className,
@@ -13,37 +15,43 @@
     name,
     size,
     spread,
+    style,
     value = $bindable(),
     variant = "outlined",
 
     // Snippets
     children,
-    description,
     endText,
     footer,
     header,
     label,
     prefix,
+    startText,
     suffix,
     ...rest
   }: Props = $props()
 
-  const uid = $props.id()
-  const field = getFieldContext()
-  const labelId = `select-label-${uid}`
-  const endTextId = $derived(endText ? `end-text-${uid}` : undefined)
+  untrack(() => {
+    if (value === undefined && rest.multiple)
+      value = items.filter((item) => item.selected).map((item) => item.value)
+  })
 
-  const isSelected = (item: Item) =>
+  const uid = $props.id()
+  const field = getFieldGroupContext()
+  const labelId = `select-label-${uid}`
+  const startTextId = $derived(startText ? `start-text-${uid}` : undefined)
+  const endTextId = $derived(endText ? `end-text-${uid}` : undefined)
+  const describedBy = $derived(
+    idRefs(startTextId, endTextId, rest["aria-describedby"]),
+  )
+
+  const isSelected = (item: SelectItem) =>
     value === undefined
       ? item.selected
       : Array.isArray(value)
         ? value.includes(item.value)
         : item.value === value
 </script>
-
-{#snippet content(
-  part: string | Snippet,
-)}{#if typeof part === "string"}{part}{:else}{@render part()}{/if}{/snippet}
 
 <label
   class={[
@@ -55,26 +63,27 @@
     },
     className,
   ]}
+  {style}
 >
   {#if label}
     <span class="ui-label" id={labelId}>
       {@render content(label)}
     </span>
   {/if}
-  {#if description}
-    <span class="ui-start-text">
-      {@render content(description)}
+  {#if startText}
+    <span class="ui-start-text" id={startTextId}>
+      {@render content(startText)}
     </span>
   {/if}
   <span class="ui-field">
     <select
-      aria-describedby={endTextId}
-      aria-invalid={error ? "true" : undefined}
-      aria-labelledby={label ? labelId : undefined}
+      {...rest}
+      aria-describedby={describedBy}
+      aria-invalid={error ? "true" : rest["aria-invalid"]}
+      aria-labelledby={label ? labelId : rest["aria-labelledby"]}
       bind:value
       {id}
       name={name ?? field?.name}
-      {...rest}
     >
       <button>
         <selectedcontent></selectedcontent>

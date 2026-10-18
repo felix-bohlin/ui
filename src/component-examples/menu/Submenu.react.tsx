@@ -1,25 +1,22 @@
 import { Button, ListItem, Menu } from "opui-css/react"
 
-const formats = ["PDF", "PNG", "SVG"].map((label) => ({
-  commandfor: "menu-file",
-  label,
-}))
+const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
 
 export default function Submenu() {
   return (
     <>
       <Button
-        commandfor="menu-file"
+        commandfor="menu-submenu-1"
         command="toggle-popover"
         variant="outlined"
       >
         File
       </Button>
-      <Menu id="menu-file" items={[{ label: "New" }, { label: "Open" }]}>
+      <Menu id="menu-submenu-1" items={[{ text: "New" }, { text: "Open" }]}>
         <ListItem
           as="button"
           headline="Export"
-          commandfor="menu-export"
+          commandfor="menu-submenu-2"
           command="toggle-popover"
           end={
             <svg
@@ -35,7 +32,7 @@ export default function Submenu() {
             </svg>
           }
           submenu={
-            <Menu id="menu-export" items={formats} placement="inline-end" />
+            <Menu id="menu-submenu-2" items={formats} placement="inline-end" />
           }
         />
       </Menu>

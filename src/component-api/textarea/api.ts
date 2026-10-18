@@ -10,12 +10,12 @@ export default {
   },
   notes: {
     astro:
-      "Textarea attributes go to the `<textarea>`: `cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows` and `value`. Other attributes go to the root `<label>`.",
+      "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `class` and `style` go to the root `<label>`.",
     react:
       "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `style` goes to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
     svelte:
       "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `style` goes to the root `<label>`.",
-    vue: "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`.",
+    vue: "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
     {
@@ -36,7 +36,7 @@ export default {
     },
     {
       description: "The id of the `<textarea>`.",
-      frameworks: ["astro", "react", "svelte", "vue"],
+      inherited: true,
       prop: "id",
       type: "string",
     },
@@ -54,7 +54,7 @@ export default {
       class: ".ui-spread",
       default: "false",
       description:
-        "Pushes the label and description to one side and the textarea to the other.",
+        "Pushes the label and start text to one side and the textarea to the other.",
       group: "Layout",
       prop: "spread",
     },
@@ -74,10 +74,10 @@ export default {
       slots: ["label"],
     },
     {
-      description: "Description text displayed above the field.",
-      props: ["description"],
+      description: "Start text displayed above the field.",
+      props: ["startText"],
       selector: ".ui-start-text",
-      slots: ["description"],
+      slots: ["start-text"],
     },
     {
       description: "The boxed textarea area.",
@@ -114,7 +114,6 @@ export default {
     },
     {
       description: "Supporting text displayed below the field.",
-      legacy: { slots: ["supporting-text"] },
       props: ["endText"],
       selector: ".ui-end-text",
       slots: ["end-text"],

@@ -2,7 +2,7 @@
 
 It's just a line.
 
-## Default
+## Basics
 
 ```astro
 ---
@@ -49,7 +49,7 @@ import { Button, Divider } from "opui-css/astro"
 <Divider align="end" variant="primary">Today</Divider>
 
 <Divider>
-  <Button rounded size="small" variant="outlined">Show 12 more replies</Button>
+  <Button round size="small" variant="outlined">Show 12 more replies</Button>
 </Divider>
 ```
 
@@ -85,8 +85,8 @@ import { Card, CardContent, Divider } from "opui-css/astro"
 
 | Prop      | Type                                 | Default    | Description                         |
 | --------- | ------------------------------------ | ---------- | ----------------------------------- |
-| `align`   | `"center"` , `"start"` , `"end"`     | `"center"` | Where the content sits on the line. |
-| `variant` | `"tonal"` , `"primary"` , `"filled"` | -          | The variant to use.                 |
+| `align`   | `"center"` , `"end"` , `"start"`     | `"center"` | Where the content sits on the line. |
+| `variant` | `"filled"` , `"primary"` , `"tonal"` | -          | The variant to use.                 |
 
 #### Slots
 
@@ -99,6 +99,7 @@ import { Card, CardContent, Divider } from "opui-css/astro"
 | Variable           | Default                                          | Description                                                                                                                                                                                                           |
 | ------------------ | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`      | Default border color for cards, lists, tables and dividers.                                                                                                                                                           |
+| `--border-width`   | `1px`                                            | Default border width for components that draw a border.                                                                                                                                                               |
 | `--divider-space`  | `calc(var(--size-fluid-3) * var(--space-scale))` | Block margin around a `Divider`, times `--space-scale`. Cards, callouts, dialogs and drawers set it to `--space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it. |
 | `--primary`        | `light-dark(var(--color-9), var(--color-6))`     | Brand color for primary actions and accents.                                                                                                                                                                          |
 | `--space-3`        | `calc(var(--size-3) * var(--space-scale))`       | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                          |
@@ -112,9 +113,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
 
-| Property   | Kind  | Description                                                                                       |
-| ---------- | ----- | ------------------------------------------------------------------------------------------------- |
-| `--_color` | Input | The line color. Defaults to `--border-color`, `.ui-filled`, `.ui-primary` and `.ui-tonal` set it. |
+| Property           | Kind  | Description                                                                                       |
+| ------------------ | ----- | ------------------------------------------------------------------------------------------------- |
+| `--_divider-color` | Input | The line color. Defaults to `--border-color`, `.ui-filled`, `.ui-primary` and `.ui-tonal` set it. |
 
 ## Under the hood
 
@@ -189,8 +190,8 @@ Step 5 of 5: Ship it
 
 ## Browser support
 
-- Chromium: Full support Supported since v111.
-- Firefox: Full support Supported since v151.
+- Chromium: Full support Supported since v133.
+- Firefox: Partial support Missing: text-box.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Divider.md).

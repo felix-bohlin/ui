@@ -8,6 +8,3 @@ export type CalloutContentProps = Base.CalloutContentProps &
 
 export type CalloutIconProps = Base.CalloutIconProps &
   JSX.SvgSVGAttributes<SVGSVGElement>
-
-export type CalloutTitleProps = Base.CalloutTitleProps &
-  JSX.HTMLAttributes<HTMLHeadingElement>

@@ -32,8 +32,7 @@
         margin-block-start: var(--space-1);
       }
 
-      dt,
-      .ui-term {
+      dt {
         display: block;
         font-weight: var(--font-weight-bold);
         overflow: hidden;
@@ -51,8 +50,7 @@
     &.ui-bordered > .ui-item {
       grid-template-columns: auto 1fr auto;
 
-      dt,
-      .ui-term {
+      dt {
         order: 0;
       }
 

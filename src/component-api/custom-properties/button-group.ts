@@ -1,11 +1,6 @@
 import type { CustomProperties } from "../types"
 
 export default {
-  "--_bg-color": {
-    description:
-      "The current background of each button. Set by the group's variant, hover and active states.",
-    kind: "output",
-  },
   "--_border-color": {
     description: "Border color of each button, `transparent` in a group.",
     kind: "output",
@@ -17,34 +12,17 @@ export default {
   },
   "--_divider-color": {
     description:
-      "Color of the lines between buttons, from the button's `--_accent-tonal`, or `--_accent` in `.ui-outlined` and `.ui-filled`.",
+      "Color of the lines between buttons, from the button's `--_accent-tonal`, `--_accent` in `.ui-outlined` and `currentColor` in `.ui-filled`.",
     kind: "output",
+  },
+  "--_edge-accent": {
+    description:
+      "Outline color of `.ui-outlined`. `.ui-primary` and `.ui-critical` set it.",
+    kind: "input",
   },
   "--_edge-color": {
     description:
-      "Outline color around the group. Set by `.ui-outlined`, with `.ui-primary` and `.ui-critical`.",
-    kind: "input",
-  },
-  "--_font-size": {
-    description: "Font size of each button. Set by the group's size classes.",
-    kind: "input",
-  },
-  "--_icon-size": {
-    description: "Icon size in icon-only buttons.",
-    kind: "input",
-  },
-  "--_min-height": {
-    description: "Height of each button. Set by the group's size classes.",
-    kind: "input",
-  },
-  "--_padding-inline": {
-    description:
-      "Inline padding of each button. Set by the group's size classes.",
-    kind: "input",
-  },
-  "--_text-color": {
-    description:
-      "The current text color of each button. Set by the group's variant, hover and active states.",
+      "The current outline color around the group. `transparent`, or `--_edge-accent` in `.ui-outlined`.",
     kind: "output",
   },
 } satisfies CustomProperties

@@ -25,9 +25,23 @@ export default {
       "Corner radius of the track. The selected tab's radius is reduced by `--_inset`.",
     kind: "input",
   },
+  "--_duration": {
+    description:
+      "Duration of the transitions, `--duration-fast` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description:
+      "Easing of the transitions and focus ring. Defaults to `--ease`.",
+    kind: "input",
+  },
   "--_indicator-color": {
     description:
       "Color of the line under the selected tab. `transparent` unless `.ui-line`.",
+    kind: "input",
+  },
+  "--_indicator-size": {
+    description: "Thickness of the line under the selected tab.",
     kind: "input",
   },
   "--_inset": {

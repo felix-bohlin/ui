@@ -36,12 +36,18 @@
 
 ```svelte
 <script lang="ts">
-  import { List } from "opui-css/svelte"
-  import ListAll from "./partials/ListAll.svelte"
+  import { List, ListItem } from "opui-css/svelte"
 </script>
 
 <List>
-  <ListAll prefix="default-" />
+  <ListItem headline="Headline" />
+  <ListItem
+    headline="Headline"
+    description="Supporting text that truly is quite long enough to fill up multiple lines."
+  />
+  <ListItem headline="Trailing supporting text">
+    {#snippet end()}100+{/snippet}
+  </ListItem>
 </List>
 ```
 
@@ -70,22 +76,20 @@ Without a color class the list uses the filled surface, because lists usually si
   import { List, ListItem } from "opui-css/svelte"
 </script>
 
-<div class="column" style="gap: var(--size-4)">
-  <List>
-    <ListItem headline="Filled (default)" />
-    <ListItem headline="Second item" />
-  </List>
+<List>
+  <ListItem headline="Filled (default)" />
+  <ListItem headline="Second item" />
+</List>
 
-  <List variant="tonal">
-    <ListItem headline="Tonal" />
-    <ListItem headline="Second item" />
-  </List>
+<List variant="tonal">
+  <ListItem headline="Tonal" />
+  <ListItem headline="Second item" />
+</List>
 
-  <List variant="transparent">
-    <ListItem headline="Transparent" />
-    <ListItem headline="Second item" />
-  </List>
-</div>
+<List variant="transparent">
+  <ListItem headline="Transparent" />
+  <ListItem headline="Second item" />
+</List>
 ```
 
 ## Clickable list item
@@ -102,12 +106,8 @@ Wrap the elements of your List item with an `a`, `button` or `label` depending o
 <List>
   <ListItem as="button" headline="Button list item" />
   <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
-  <ListItem
-    type="checkbox"
-    for="clickable-checkbox"
-    headline="Checkbox list item"
-  >
-    {#snippet end()}<CheckboxInput id="clickable-checkbox" />{/snippet}
+  <ListItem type="checkbox" headline="Checkbox list item">
+    {#snippet end()}<CheckboxInput />{/snippet}
   </ListItem>
 </List>
 ```
@@ -122,21 +122,13 @@ Add `aria-current="page"` to the link inside the `ListItem`.
 </script>
 
 <List>
-  <ListItem>
-    <a href="#" aria-current="page">
-      <div class="ui-text">
-        <p>Selected item</p>
-        <p>This item has aria-current="page" on its link</p>
-      </div>
-    </a>
-  </ListItem>
-  <ListItem>
-    <a href="#">
-      <div class="ui-text">
-        <p>Normal item</p>
-      </div>
-    </a>
-  </ListItem>
+  <ListItem
+    href="#"
+    aria-current="page"
+    headline="Selected item"
+    description={'This item has aria-current="page" on its link'}
+  />
+  <ListItem href="#" headline="Normal item" />
 </List>
 ```
 
@@ -331,7 +323,7 @@ Authored via the `end` snippet on `ListItem`.
 
 ### Checkbox
 
-Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-checkbox">` to make the entire surface clickable.
 
 Read more: [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
 
@@ -341,20 +333,20 @@ Read more: [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkb
 </script>
 
 <List>
-  <ListItem type="checkbox" for="checkbox-example-1">
+  <ListItem type="checkbox">
     {#snippet text()}Checkbox 1{/snippet}
-    {#snippet end()}<CheckboxInput id="checkbox-example-1" />{/snippet}
+    {#snippet end()}<CheckboxInput />{/snippet}
   </ListItem>
-  <ListItem type="checkbox" for="checkbox-example-2">
+  <ListItem type="checkbox">
     {#snippet text()}Checkbox 2{/snippet}
-    {#snippet end()}<CheckboxInput id="checkbox-example-2" />{/snippet}
+    {#snippet end()}<CheckboxInput />{/snippet}
   </ListItem>
 </List>
 ```
 
 ### Radio
 
-Wrap the List item content with a `<label class="ui-radio" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-radio">` to make the entire surface clickable.
 
 Radio group: Add a common name to each `<input>` for radio group behavior.
 
@@ -366,18 +358,16 @@ Read more: [Radio](https://open-props-ui.netlify.app/svelte/components/radio.md)
 </script>
 
 <List>
-  <ListItem type="radio" for="radio-example-1">
+  <ListItem type="radio">
     {#snippet text()}Radio 1{/snippet}
     {#snippet end()}<RadioInput
-        id="radio-example-1"
         name="radio-example-group"
         value="1"
       />{/snippet}
   </ListItem>
-  <ListItem type="radio" for="radio-example-2">
+  <ListItem type="radio">
     {#snippet text()}Radio 2{/snippet}
     {#snippet end()}<RadioInput
-        id="radio-example-2"
         name="radio-example-group"
         value="2"
       />{/snippet}
@@ -395,13 +385,13 @@ Read more: [Switch](https://open-props-ui.netlify.app/svelte/components/switch.m
 </script>
 
 <List>
-  <ListItem type="switch" for="switch-example-1">
+  <ListItem type="switch">
     {#snippet text()}Switch 1{/snippet}
-    {#snippet end()}<SwitchInput id="switch-example-1" />{/snippet}
+    {#snippet end()}<SwitchInput />{/snippet}
   </ListItem>
-  <ListItem type="switch" for="switch-example-2">
+  <ListItem type="switch">
     {#snippet text()}Switch 2{/snippet}
-    {#snippet end()}<SwitchInput id="switch-example-2" />{/snippet}
+    {#snippet end()}<SwitchInput />{/snippet}
   </ListItem>
 </List>
 ```
@@ -445,17 +435,13 @@ Add the `gutterless` prop to the `List` to remove the inline padding on the list
 
 ```svelte
 <script lang="ts">
-  import { List, ListItem } from "opui-css/svelte"
+  import { Button, List, ListItem } from "opui-css/svelte"
 </script>
 
 <List gutterless>
   <ListItem headline="Gutterless list item">
     {#snippet end()}
-      <button
-        aria-label="Delete"
-        class="ui-button ui-rounded ui-small"
-        type="button"
-      >
+      <Button aria-label="Delete" iconOnly round size="small">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -467,7 +453,7 @@ Add the `gutterless` prop to the `List` to remove the inline padding on the list
             d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
           ></path>
         </svg>
-      </button>
+      </Button>
     {/snippet}
   </ListItem>
   <ListItem headline="Headline" description="Supporting text">
@@ -527,12 +513,18 @@ Just add the `dense` prop to the `List`!
 
 ```svelte
 <script lang="ts">
-  import { List } from "opui-css/svelte"
-  import ListAll from "./partials/ListAll.svelte"
+  import { List, ListItem } from "opui-css/svelte"
 </script>
 
 <List dense>
-  <ListAll prefix="dense-" />
+  <ListItem headline="Headline" />
+  <ListItem
+    headline="Headline"
+    description="Supporting text that truly is quite long enough to fill up multiple lines."
+  />
+  <ListItem headline="Trailing supporting text">
+    {#snippet end()}100+{/snippet}
+  </ListItem>
 </List>
 ```
 
@@ -554,8 +546,9 @@ Just add the `dense` prop to the `List`!
 | ----------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                       |
 | `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                                                                                           |
-| `--choice-size-small`         | `var(--size-3)`                              | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                             |
+| `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                             |
 | `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                                                                                     |
+| `--disabled-opacity`          | `0.64`                                       | Opacity applied to disabled controls.                                                                                                                                             |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                 |
 | `--font-code`                 | `var(--font-mono)`                           | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                             |
@@ -563,11 +556,13 @@ Just add the `dense` prop to the `List`!
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                              |
 | `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                                                                                          |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                      |
+| `--state-active-alpha-accent` | `25%`                                        | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                 |
+| `--state-hover-alpha-accent`  | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                                                                                   |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                     |
-| `--switch-dot-size-small`     | `0.75rem`                                    | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                  |
-| `--switch-track-height-small` | `var(--size-4)`                              | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                  |
-| `--switch-track-width-small`  | `2.5rem`                                     | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                   |
+| `--switch-dot-size-small`     | `calc(0.75rem * var(--density))`             | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                  |
+| `--switch-track-height-small` | `calc(var(--size-4) * var(--density))`       | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                  |
+| `--switch-track-width-small`  | `calc(2.5rem * var(--density))`              | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                   |
 | `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                  |
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                            |
 
@@ -580,17 +575,18 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `as`          | `"a"` , `"button"` , `"div"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`. |
 | `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                   |
 | `children`    | `Snippet`                             | -       | Extra content inside `.ui-text`, or all the content when there's no text.                                                                       |
+| `critical`    | `boolean`                             | `false` | A destructive item in a [Menu](https://open-props-ui.netlify.app/svelte/components/menu.md).                                                    |
 | `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
 | `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
-| `end`         | `string` , `Snippet`                  | -       | Optional content at the end, such as a value or an action.                                                                                      |
+| `end`         | `Snippet`                             | -       | Optional content at the end, such as a value or an action.                                                                                      |
 | `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                        |
 | `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                                                              |
 | `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                            |
 | `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                             |
-| `start`       | `string` , `Snippet`                  | -       | Optional content at the start, such as an icon or avatar.                                                                                       |
-| `submenu`     | `string` , `Snippet`                  | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                                                     |
-| `text`        | `string` , `Snippet`                  | -       | The text content.                                                                                                                               |
-| `type`        | `"switch"` , `"checkbox"` , `"radio"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.                                                                               |
+| `start`       | `Snippet`                             | -       | Optional content at the start, such as an icon or avatar.                                                                                       |
+| `submenu`     | `Snippet`                             | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                                                     |
+| `text`        | `Snippet`                             | -       | The text content.                                                                                                                               |
+| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                        |
 
 #### CSS variables
 
@@ -598,8 +594,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | ----------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                       |
 | `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                                                                                           |
-| `--choice-size-small`         | `var(--size-3)`                              | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                             |
+| `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                             |
 | `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                                                                                     |
+| `--disabled-opacity`          | `0.64`                                       | Opacity applied to disabled controls.                                                                                                                                             |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                 |
 | `--font-code`                 | `var(--font-mono)`                           | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                             |
@@ -607,11 +604,13 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                              |
 | `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                                                                                          |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                      |
+| `--state-active-alpha-accent` | `25%`                                        | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                 |
+| `--state-hover-alpha-accent`  | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                                                                                   |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                     |
-| `--switch-dot-size-small`     | `0.75rem`                                    | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                  |
-| `--switch-track-height-small` | `var(--size-4)`                              | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                  |
-| `--switch-track-width-small`  | `2.5rem`                                     | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                   |
+| `--switch-dot-size-small`     | `calc(0.75rem * var(--density))`             | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                  |
+| `--switch-track-height-small` | `calc(var(--size-4) * var(--density))`       | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                  |
+| `--switch-track-width-small`  | `calc(2.5rem * var(--density))`              | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                   |
 | `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                  |
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                            |
 
@@ -621,17 +620,14 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
 
-| Property             | Kind  | Description                                                                                                     |
-| -------------------- | ----- | --------------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`        | Input | Background of the list and its items. Defaults to `--surface-filled`, `.ui-transparent` and `.ui-tonal` set it. |
-| `--_dot-size`        | Input | Dot size of a `.ui-switch` item, the small switch size.                                                         |
-| `--_hover-bg-color`  | Input | Background of hovered, selected and current items, from `--primary`.                                            |
-| `--_input-size`      | Input | Size of `.ui-checkbox` and `.ui-radio` in `.ui-dense`.                                                          |
-| `--_item-gap`        | Input | Gap between the content of an item. Smaller in `.ui-dense`.                                                     |
-| `--_separator-color` | Input | Color of the lines between items in `.ui-bordered` and on `.ui-border-top`.                                     |
-| `--_start-size`      | Input | Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.        |
-| `--_track-height`    | Input | Track height of a `.ui-switch` item, the small switch size.                                                     |
-| `--_track-width`     | Input | Track width of a `.ui-switch` item, the small switch size.                                                      |
+| Property             | Kind  | Description                                                                                                                             |
+| -------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_bg-color`        | Input | Background of the list and its items. Defaults to `--surface-filled`, `.ui-transparent` and `.ui-tonal` set it.                         |
+| `--_divider-color`   | Input | Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. `currentColor` at 18%, `--border-color` with more contrast. |
+| `--_hover-bg-color`  | Input | Background of hovered, selected and current items, from `--primary`.                                                                    |
+| `--_item-gap`        | Input | Gap between the content of an item. Smaller in `.ui-dense`.                                                                             |
+| `--_separator-space` | Input | Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.                                 |
+| `--_start-size`      | Input | Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.                                |
 
 ## Under the hood
 
@@ -762,7 +758,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the components from `opui-css/svelte`:
 
-- `opui-css/css/components/list.css`
+### Used by
+
+- [Menu](https://open-props-ui.netlify.app/svelte/components/menu.md)
+- [Select](https://open-props-ui.netlify.app/svelte/components/select.md)
+
+* `opui-css/css/components/list.css`
 
 ## Changelog
 
@@ -771,3 +772,6 @@ Import the components from `opui-css/svelte`:
 - Smaller [start](#icon) and end icons.
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
 - Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
+- Breaking: `--_bg-color-hover` is `--_hover-bg-color` ([Under the hood](#under-the-hood)).
+- A checked [option](#radio) uses `--state-active-alpha-accent`.
+- Breaking: [`type`](#checkbox) can't be combined with `as` or `href` (types).

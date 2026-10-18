@@ -4,19 +4,19 @@ export default function Manual() {
   return (
     <>
       <Button
-        commandfor="menu-manual"
+        commandfor="menu-manual-1"
         command="toggle-popover"
         variant="outlined"
       >
         View
       </Button>
       <Menu
-        id="menu-manual"
+        id="menu-manual-1"
         popover="manual"
         items={[
-          { label: "Show grid", closeOnClick: false },
-          { label: "Show rulers", closeOnClick: false },
-          { label: "Done", borderTop: true },
+          { text: "Show grid", closeOnClick: false },
+          { text: "Show rulers", closeOnClick: false },
+          { text: "Done", borderTop: true },
         ]}
       />
     </>

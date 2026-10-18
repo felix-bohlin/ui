@@ -91,6 +91,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
   <button type="button" class="ui-button ui-outlined ui-x-small">
     <span class="ui-text">x-small</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -105,6 +106,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
   <button type="button" class="ui-button ui-outlined ui-small">
     <span class="ui-text">Small</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -119,6 +121,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
   <button type="button" class="ui-button ui-outlined">
     <span class="ui-text">Default</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -133,6 +136,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
   <button type="button" class="ui-button ui-outlined ui-large">
     <span class="ui-text">Large</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -156,6 +160,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
   <button type="button" class="ui-button">
     <span class="ui-text">Text</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -171,6 +176,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
   <button type="button" class="ui-button ui-outlined">
     <span class="ui-text">Outlined</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -186,6 +192,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
   <button type="button" class="ui-button ui-tonal">
     <span class="ui-text">Tonal</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -201,6 +208,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
   <button type="button" class="ui-button ui-filled">
     <span class="ui-text">Filled</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -216,6 +224,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
 <div class="example-row">
   <button type="button" class="ui-button">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -230,6 +239,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
   </button>
   <button type="button" class="ui-button ui-outlined">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -245,6 +255,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
 
   <button type="button" class="ui-button ui-tonal">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -260,6 +271,7 @@ Include an icon alongside text by nesting an SVG element within the button. Wrap
 
   <button type="button" class="ui-button ui-filled">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -289,12 +301,13 @@ Use the `<kbd>` element to provide keyboard hints within a button.
 
 ## Icon-only
 
-Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` for a circle.
+Name a button whose only child is an `svg` with `aria-label`. Add `.ui-round` for a circle.
 
 ```html
 <div class="example-row">
   <button type="button" class="ui-button" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -306,8 +319,9 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
       ></path>
     </svg>
   </button>
-  <button type="button" class="ui-button ui-rounded" aria-label="Edit">
+  <button type="button" class="ui-button ui-round" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -323,6 +337,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
 <div class="example-row">
   <button type="button" class="ui-button ui-outlined" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -336,10 +351,11 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
   </button>
   <button
     type="button"
-    class="ui-button ui-rounded ui-outlined"
+    class="ui-button ui-round ui-outlined"
     aria-label="Edit"
   >
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -355,6 +371,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
 <div class="example-row">
   <button type="button" class="ui-button ui-tonal" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -366,8 +383,9 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
       ></path>
     </svg>
   </button>
-  <button type="button" class="ui-button ui-rounded ui-tonal" aria-label="Edit">
+  <button type="button" class="ui-button ui-round ui-tonal" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -383,6 +401,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
 <div class="example-row">
   <button type="button" class="ui-button ui-filled" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -394,12 +413,9 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
       ></path>
     </svg>
   </button>
-  <button
-    type="button"
-    class="ui-button ui-rounded ui-filled"
-    aria-label="Edit"
-  >
+  <button type="button" class="ui-button ui-round ui-filled" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -415,10 +431,11 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
 <div class="example-row">
   <button
     type="button"
-    class="ui-button ui-rounded ui-x-small ui-tonal"
+    class="ui-button ui-round ui-x-small ui-tonal"
     aria-label="Edit"
   >
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -432,10 +449,11 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
   </button>
   <button
     type="button"
-    class="ui-button ui-rounded ui-small ui-tonal"
+    class="ui-button ui-round ui-small ui-tonal"
     aria-label="Edit"
   >
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -447,8 +465,9 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
       ></path>
     </svg>
   </button>
-  <button type="button" class="ui-button ui-rounded ui-tonal" aria-label="Edit">
+  <button type="button" class="ui-button ui-round ui-tonal" aria-label="Edit">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -462,10 +481,11 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
   </button>
   <button
     type="button"
-    class="ui-button ui-rounded ui-large ui-tonal"
+    class="ui-button ui-round ui-large ui-tonal"
     aria-label="Edit"
   >
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -482,7 +502,7 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-rounded` 
 
 ## Disabled
 
-Disable the button with the `disabled` attribute. Links can't be disabled, so use `aria-disabled="true"` on an `<a>`, which blocks clicks. The link can still be focused and followed with `Enter`.
+Disable the button with the `disabled` attribute. Links can't be disabled, so remove the `href` of an `<a>` and add `aria-disabled="true"`. The link can't be clicked or focused.
 
 ```html
 <div class="example-row">
@@ -499,6 +519,7 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
   <button type="button" class="ui-button" disabled>
     <span class="ui-text">Text</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -514,6 +535,7 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
   <button type="button" class="ui-button ui-outlined" disabled>
     <span class="ui-text">Outlined</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -529,6 +551,7 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
   <button type="button" class="ui-button ui-tonal" disabled>
     <span class="ui-text">Tonal</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -544,6 +567,7 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
   <button type="button" class="ui-button ui-filled" disabled>
     <span class="ui-text">Filled</span>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -558,13 +582,13 @@ Disable the button with the `disabled` attribute. Links can't be disabled, so us
 </div>
 
 <div class="example-row">
-  <a href="#" class="ui-button" aria-disabled="true">Text</a>
+  <a class="ui-button" aria-disabled="true">Text</a>
 
-  <a href="#" class="ui-button ui-outlined" aria-disabled="true">Outlined</a>
+  <a class="ui-button ui-outlined" aria-disabled="true">Outlined</a>
 
-  <a href="#" class="ui-button ui-tonal" aria-disabled="true">Tonal</a>
+  <a class="ui-button ui-tonal" aria-disabled="true">Tonal</a>
 
-  <a href="#" class="ui-button ui-filled" aria-disabled="true">Filled</a>
+  <a class="ui-button ui-filled" aria-disabled="true">Filled</a>
 </div>
 ```
 
@@ -576,13 +600,13 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ### Button API
 
-| Type     | Modifiers                                 | Default | Description                                     |
-| -------- | ----------------------------------------- | ------- | ----------------------------------------------- |
-| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                |
-| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only. |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                        |
-| State    | `[disabled]`                              | -       | Disables the button.                            |
-| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                             |
+| Type     | Modifiers                                 | Default | Description                                                                                                                 |
+| -------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                                                                            |
+| Shape    | `.ui-round`                               | -       | Fully rounded corners, a circle when icon-only.                                                                             |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                                                                                    |
+| State    | `[disabled]`, `a[aria-disabled="true"]`   | -       | Disables the button. A link button, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |
+| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                                                                                                         |
 
 #### Parts
 
@@ -597,6 +621,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | Variable                      | Default                                                                               | Description                                                                                                                                                                                                                      |
 | ----------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-radius`             | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
 | `--button-border-radius`      | Unset                                                                                 | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--border-radius`, also where it's set on a part of the page.                                                               |
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                                         |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                                                |
@@ -643,6 +668,8 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_border-width`             | Input  | The border width.                                                                                                             |
 | `--_default-active-bg-color`  | Output | Pressed background of text buttons, from `--_accent`.                                                                         |
 | `--_default-hover-bg-color`   | Output | Hover background of text buttons, from `--_accent`.                                                                           |
+| `--_duration`                 | Output | Duration of the transitions, `--duration-fast` times `--_motion`.                                                             |
+| `--_ease`                     | Input  | Easing of the transitions. Defaults to `--ease`.                                                                              |
 | `--_filled-active-bg-color`   | Output | Pressed background of filled buttons, from `--_accent`.                                                                       |
 | `--_filled-hover-bg-color`    | Output | Hover background of filled buttons, from `--_accent`.                                                                         |
 | `--_font-size`                | Input  | The font size. Set by the size classes.                                                                                       |
@@ -740,16 +767,23 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-- `opui-css/css/components/button.css`
+### Used by
+
+- [Button Group](https://open-props-ui.netlify.app/html/components/button-group.md)
+
+* `opui-css/css/components/button.css`
 
 ## Changelog
 
 ### What's new
 
-- [Icon-only](#icon-only) buttons need no extra class, and `.ui-rounded` makes them round.
-- Replaces `IconButton`. An [icon-only](#icon-only) button is a `Button` with just an `svg`.
+- [Icon-only](#icon-only) buttons need no extra class, and `.ui-round` makes them round.
+- Breaking: `.ui-icon-button` and `icon-button.css` are gone. An [icon-only](#icon-only) button is a `.ui-button` with just an `svg`.
 - Breaking: icon styles only apply to a direct child `svg`. Wrap the label in a `<span class="ui-text">` next to an icon to [tighten the padding](#buttons-with-icon-and-label), or the button renders as icon-only.
 - Breaking: `.ui-icon-only` is removed. A button whose only child is an `svg` is [square](#icon-only).
 - Links with `aria-disabled="true"` [look and act disabled](#disabled).
 - [Primary and critical](#colors) colors pass contrast in light and dark mode.
+- Breaking: `--_color`, `--_color-contrast` and `--_color-tonal` are `--_accent`, `--_accent-contrast` and `--_accent-tonal` ([Under the hood](#under-the-hood)).
+- Breaking: [disabled links](#disabled) have no `href`, so they can't be focused or followed.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--border-radius` through [`--button-border-radius`](#api), so one token squares or rounds every component.

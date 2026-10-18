@@ -1,11 +1,13 @@
 import type { ElementType } from "react"
 import { cx } from "../cx"
+import { tagAttrs } from "../tag"
 import type { Props } from "./types.react"
 
 export default function Chip({
   as,
   className,
   color,
+  disabled,
   dot,
   href,
   label,
@@ -17,7 +19,8 @@ export default function Chip({
   start,
   ...rest
 }: Props) {
-  const Tag: ElementType = as || (href ? "a" : "div")
+  const tag = as || (href ? "a" : "div")
+  const Tag: ElementType = tag
 
   return (
     <Tag
@@ -32,8 +35,7 @@ export default function Chip({
         variant && `ui-${variant}`,
         className,
       ])}
-      href={Tag === "a" ? href : undefined}
-      type={Tag === "button" ? "button" : undefined}
+      {...tagAttrs(tag, disabled, href)}
       {...(rest as object)}
     >
       {start}

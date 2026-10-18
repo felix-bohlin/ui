@@ -23,6 +23,7 @@ Default, and `.ui-dot`.
 ```html
 <span class="ui-anchor ui-badge">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -40,6 +41,7 @@ Default, and `.ui-dot`.
 
 <span class="ui-anchor ui-badge ui-dot">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -56,13 +58,14 @@ Default, and `.ui-dot`.
 </span>
 ```
 
-## Severities
+## Colors
 
-`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`.
+Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` or `.ui-warning`.
 
 ```html
 <span class="ui-anchor ui-badge ui-critical">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -73,13 +76,14 @@ Default, and `.ui-dot`.
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator">5</span>
-  </span>
+  <span class="ui-anchor-floating"
+    ><span class="ui-badge-indicator">5</span></span
+  >
 </span>
 
 <span class="ui-anchor ui-badge ui-info">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -90,47 +94,14 @@ Default, and `.ui-dot`.
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator">5</span>
-  </span>
-</span>
-
-<span class="ui-anchor ui-badge ui-success">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
+  <span class="ui-anchor-floating"
+    ><span class="ui-badge-indicator">5</span></span
   >
-    <path
-      fill="currentColor"
-      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-    ></path>
-  </svg>
-  <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator">5</span>
-  </span>
-</span>
-
-<span class="ui-anchor ui-badge ui-warning">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
-  >
-    <path
-      fill="currentColor"
-      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-    ></path>
-  </svg>
-  <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator">5</span>
-  </span>
 </span>
 
 <span class="ui-anchor ui-badge ui-neutral">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -141,9 +112,45 @@ Default, and `.ui-dot`.
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator">5</span>
-  </span>
+  <span class="ui-anchor-floating"
+    ><span class="ui-badge-indicator">5</span></span
+  >
+</span>
+
+<span class="ui-anchor ui-badge ui-success">
+  <svg
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+    ></path>
+  </svg>
+  <span class="ui-anchor-floating"
+    ><span class="ui-badge-indicator">5</span></span
+  >
+</span>
+
+<span class="ui-anchor ui-badge ui-warning">
+  <svg
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+    ></path>
+  </svg>
+  <span class="ui-anchor-floating"
+    ><span class="ui-badge-indicator">5</span></span
+  >
 </span>
 ```
 
@@ -154,6 +161,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
 ```html
 <span class="ui-anchor ui-badge">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -173,6 +181,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
 
 <span class="ui-anchor ui-badge">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -198,6 +207,7 @@ Change the badge's visibility using the `.ui-invisible` class.
 ```html
 <span class="ui-anchor ui-badge ui-invisible">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -208,26 +218,9 @@ Change the badge's visibility using the `.ui-invisible` class.
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator">5</span>
-  </span>
-</span>
-
-<span class="ui-anchor ui-badge ui-dot ui-invisible">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
+  <span class="ui-anchor-floating"
+    ><span class="ui-badge-indicator">5</span></span
   >
-    <path
-      fill="currentColor"
-      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-    ></path>
-  </svg>
-  <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator"></span>
-  </span>
 </span>
 ```
 
@@ -240,6 +233,7 @@ Where the badge should be placed over the child.
 ```html
 <span class="ui-anchor ui-badge ui-start-start">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -257,6 +251,7 @@ Where the badge should be placed over the child.
 
 <span class="ui-anchor ui-badge">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -274,6 +269,7 @@ Where the badge should be placed over the child.
 
 <span class="ui-anchor ui-badge ui-end-start">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -291,6 +287,7 @@ Where the badge should be placed over the child.
 
 <span class="ui-anchor ui-badge ui-end-end">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -319,7 +316,7 @@ Where the badge should be placed over the child.
 | ---------- | ----------------------------------------------------------------------- | ------- | ------------------------------------------------ |
 | Alignment  | default, `.ui-end-end`, `.ui-end-start`, `.ui-start-start`              | default | Where the indicator is placed.                   |
 | Colors     | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | Optional colors.                                 |
-| Variants   | `.ui-dot`                                                               | -       | Renders the indicator as a dot, without a label. |
+| Dot        | `.ui-dot`                                                               | -       | Renders the indicator as a dot, without a label. |
 | Visibility | `.ui-invisible`                                                         | -       | Hides the indicator.                             |
 
 #### Parts
@@ -344,7 +341,6 @@ Where the badge should be placed over the child.
 | `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
 | `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
 | `--success`            | `var(--green)`                                                                        | Severity color for success messages.                                                                                                                                                                         |
-| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 | `--warning`            | `var(--orange)`                                                                       | Severity color for warnings.                                                                                                                                                                                 |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
@@ -355,12 +351,16 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property          | Kind   | Description                                                                                                               |
 | ----------------- | ------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`       | Input  | The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info` and `.ui-success`.                  |
 | `--_anchor-tx`    | Output | Horizontal shift of the indicator, from `--_sign-x`. `.ui-dot` and round avatars change it.                               |
 | `--_anchor-ty`    | Output | Vertical shift of the indicator, from `--_sign-y`. `.ui-dot` and round avatars change it.                                 |
 | `--_bg-color`     | Input  | Background of the indicator. Defaults to `--primary`, set by the color classes.                                           |
 | `--_border-color` | Input  | Border color of the indicator. Set by the color classes.                                                                  |
+| `--_border-width` | Input  | Border width of the indicator.                                                                                            |
 | `--_dir`          | Output | Direction flag that flips `--_anchor-tx`. `1`, or `-1` in right-to-left.                                                  |
 | `--_dot-size`     | Input  | Width and height of the indicator in `.ui-dot`.                                                                           |
+| `--_duration`     | Output | Duration of the indicator fade, `--duration` times `--_motion`.                                                           |
+| `--_ease`         | Input  | Easing of the indicator fade. Defaults to `--ease-enter`.                                                                 |
 | `--_inset`        | Input  | Distance of the indicator from the opposite edges. `100%` places it on the corner, round avatars move it onto the circle. |
 | `--_inset-block`  | Output | Block inset of the indicator, from `--_inset` and the alignment classes.                                                  |
 | `--_inset-inline` | Output | Inline inset of the indicator, from `--_inset` and the alignment classes.                                                 |
@@ -484,9 +484,9 @@ Step 4 of 4: Dot
 
 ## Browser support
 
-- Chromium: Full support Supported since v125.
+- Chromium: Full support Supported since v144.
 - Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v18.
+- Safari: Full support Supported since v26.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Badge.md).
 
@@ -496,8 +496,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md)
 
-- `opui-css/css/components/badge.css`
-- `opui-css/css/components/anchor.css`
+* `opui-css/css/components/badge.css`
+* `opui-css/css/components/anchor.css`
 
 ## Changelog
 
@@ -505,3 +505,5 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - Badges on round avatars sit on the avatar's edge ([Alignment](#alignment)), and in an avatar group on the start side.
 - [Indicator](#indicator) context for screen readers with `.ui-sr-only`.
+- Breaking: `--_badge-inset` is `--_inset-block` and `--_inset-inline` ([Under the hood](#under-the-hood)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

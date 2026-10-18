@@ -1,4 +1,5 @@
-export type CheckboxProps = {
+export type Props = {
+  endText?: string
   error?: boolean
   hideLabel?: boolean
   indeterminate?: boolean
@@ -7,7 +8,7 @@ export type CheckboxProps = {
   stack?: boolean
 }
 
-export type CheckboxSlots<S> = {
+export type Slots<S> = {
   endText?: string | S
 }
 

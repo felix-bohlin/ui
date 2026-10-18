@@ -57,6 +57,7 @@
       opacity: var(--disabled-opacity);
       user-select: none;
 
+      button,
       input,
       label,
       .ui-label {
@@ -65,21 +66,16 @@
     }
 
     /* Error / validation */
-    &:has([aria-invalid="true"]) > :where(.ui-end-text) {
+    &:has([aria-invalid="true"], :user-invalid) > :where(.ui-end-text) {
       color: var(--invalid-text-color);
     }
 
     /* Required */
     &:has(:required) {
-      :where(legend, .ui-legend) {
-        padding-inline-end: 1ex;
-        position: relative;
-
-        &::after {
-          color: var(--field-required-color);
-          content: "*";
-          margin-inline-start: 0.25ex;
-        }
+      :where(legend, .ui-legend)::after {
+        color: var(--field-required-color);
+        content: "*";
+        margin-inline-start: 0.25ex;
       }
     }
   }

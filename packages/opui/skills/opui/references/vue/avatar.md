@@ -47,8 +47,9 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar>
+  <Avatar aria-label="Developer" role="img">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -61,8 +62,9 @@ import { Avatar } from "opui-css/vue"
     </svg>
   </Avatar>
 
-  <Avatar>
+  <Avatar aria-label="Contact" role="img">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -75,8 +77,9 @@ import { Avatar } from "opui-css/vue"
     </svg>
   </Avatar>
 
-  <Avatar>
+  <Avatar aria-label="Guest" role="img">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -101,7 +104,7 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar variant="squared">SQ</Avatar>
+  <Avatar aria-label="Sam Quist" role="img" variant="squared">SQ</Avatar>
 
   <Avatar
     variant="rounded"
@@ -136,22 +139,22 @@ import { Avatar } from "opui-css/vue"
 
 ## Grouped
 
-Group multiple avatars by setting the `isGroup` prop on a parent container.
+Group multiple avatars in an `AvatarGroup` with an `aria-label`.
 
 ```vue
 <script setup lang="ts">
-import { Avatar } from "opui-css/vue"
+import { Avatar, AvatarGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar aria-label="Team" isGroup>
+  <AvatarGroup aria-label="Team">
     <Avatar aria-label="Anna Berg" role="img">AB</Avatar>
     <Avatar aria-label="Carl Dahl" role="img">CD</Avatar>
     <Avatar aria-label="Eva Falk" as="button">EF</Avatar>
     <Avatar aria-label="Gustav Holm" as="button">GH</Avatar>
     <Avatar aria-label="Ida Jansson" href="#">IJ</Avatar>
     <Avatar aria-label="Karl Lund" href="#">KL</Avatar>
-  </Avatar>
+  </AvatarGroup>
 </template>
 ```
 
@@ -167,19 +170,15 @@ A [Badge](https://open-props-ui.netlify.app/vue/components/badge.md) on an avata
 
 ### Avatar API
 
-| Prop          | Type                                     | Default | Description                                                                                               |
-| ------------- | ---------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
-| `alt`         | `string`                                 | -       | Alternative text for the image. Required with src; use an empty string when the name is shown next to it. |
-| `as`          | `"a"` , `"button"` , `"div"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
-| `command`     | `string`                                 | -       | The command to send to the `commandfor` target.                                                           |
-| `commandfor`  | `string`                                 | -       | The id of the element the command targets.                                                                |
-| `disabled`    | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                                                              |
-| `href`        | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
-| `interestfor` | `string`                                 | -       | The id of the element to show on interest.                                                                |
-| `isGroup`     | `boolean`                                | `false` | Renders a container that groups avatars.                                                                  |
-| `size`        | `"small"` , `"x-small"` , `"large"`      | -       | The size of the avatar.                                                                                   |
-| `src`         | `string`                                 | -       | The image source. Replaces the content.                                                                   |
-| `variant`     | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                                                       |
+| Prop       | Type                                     | Default | Description                                                                                               |
+| ---------- | ---------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| `alt`      | `string`                                 | -       | Alternative text for the image. Required with src; use an empty string when the name is shown next to it. |
+| `as`       | `"a"` , `"button"` , `"div"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
+| `disabled` | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                                                              |
+| `href`     | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
+| `size`     | `"large"` , `"small"` , `"x-small"`      | -       | The size of the element.                                                                                  |
+| `src`      | `string`                                 | -       | The image source. Replaces the content.                                                                   |
+| `variant`  | `"rounded"` , `"squared"` , `"squircle"` | -       | The variant to use.                                                                                       |
 
 #### Slots
 
@@ -192,6 +191,35 @@ A [Badge](https://open-props-ui.netlify.app/vue/components/badge.md) on an avata
 | Variable                 | Default                                                                               | Description                                                                                                                                                                                                                      |
 | ------------------------ | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-radius`        | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--control-size`         | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                                    |
+| `--control-size-large`   | `calc(46px * var(--density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                                      |
+| `--control-size-small`   | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                                      |
+| `--control-size-x-small` | `calc(28px * var(--density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                                    |
+| `--font-size-05`         | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                                             |
+| `--icon-size-large`      | `var(--size-5)`                                                                       | Icon size inside `Avatar` and `List`.                                                                                                                                                                                            |
+| `--icon-size-small`      | `var(--size-3)`                                                                       | Icon size inside `Chip`.                                                                                                                                                                                                         |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                                     |
+| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text.                     |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                                        |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
+
+### Avatar group API
+
+#### Slots
+
+| Slot      | Description  |
+| --------- | ------------ |
+| `default` | The avatars. |
+
+#### CSS variables
+
+| Variable                 | Default                                                                               | Description                                                                                                                                                                                                                      |
+| ------------------------ | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-radius`        | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
 | `--control-size`         | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                                    |
 | `--control-size-large`   | `calc(46px * var(--density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                                      |
 | `--control-size-small`   | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                                      |
@@ -217,6 +245,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_icon-size`     | Input | The maximum width of an `svg`. Set by the size classes.                                                 |
 | `--_margin`        | Input | How much avatars in a `.ui-avatar-group` overlap. Set on the group.                                     |
 | `--_outline-color` | Input | The ring around each avatar in a `.ui-avatar-group`. Defaults to `--surface-default`. Set on the group. |
+| `--_outline-width` | Input | Width of the ring around each avatar in a `.ui-avatar-group`. Set on the group.                         |
 | `--_size`          | Input | The width and height. Defaults to `--control-size`, set by the size classes.                            |
 | `--_text-color`    | Input | The text and icon color. Defaults to `--primary-contrast`.                                              |
 
@@ -344,7 +373,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Import the component from `opui-css/vue`:
+Import the components from `opui-css/vue`:
 
 - `opui-css/css/components/avatar.css`
 
@@ -352,8 +381,12 @@ Import the component from `opui-css/vue`:
 
 ### What's new
 
-- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
+- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover, with the same ring as the avatars.
 - Breaking: [`alt`](#image) is required when `src` is set.
 - Breaking: `as="button"` renders `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.
 - [Sizes](#sizes) with `size="x-small"`, `size="small"` and `size="large"`.
+- Breaking: `--_color` is `--_text-color` and `--_width` is `--_size` ([Under the hood](#under-the-hood)).
+- `command`, `commandfor` and `interestfor` pass through as attributes instead of props ([API](#api)).
+- Breaking: a button avatar needs `as="button"`, and `disabled` only goes with it (types).
+- Breaking: [`AvatarGroup`](#grouped) groups avatars and replaces the `isGroup` prop.
 - Rounded avatars never get rounder than [`--border-radius`](#api), so `0` squares them.

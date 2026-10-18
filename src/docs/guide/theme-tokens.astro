@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-} from "@opui/astro"
+} from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
 import Guide from "../../layouts/Guide.astro"
 import { formatInline } from "../../utils/format-inline"
@@ -81,9 +81,9 @@ const slug = (title: string) =>
         <div class="table-scroll wide">
           <Table>
             <TableColumnGroup>
-              <TableColumn width="min-width: 220px" />
-              <TableColumn width="min-width: 200px" />
-              <TableColumn width="min-width: 300px" />
+              <TableColumn style="min-width: 220px" />
+              <TableColumn style="min-width: 200px" />
+              <TableColumn style="min-width: 300px" />
             </TableColumnGroup>
             <TableHead>
               <TableRow>

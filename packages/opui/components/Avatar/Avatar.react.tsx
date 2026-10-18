@@ -1,13 +1,14 @@
 import type { ElementType } from "react"
 import { cx } from "../cx"
+import { tagAttrs } from "../tag"
 import type { Props } from "./types.react"
 
 export default function Avatar({
   alt,
   as,
   className,
+  disabled,
   href,
-  isGroup,
   size,
   src,
   variant,
@@ -19,14 +20,12 @@ export default function Avatar({
   return (
     <Tag
       className={cx([
-        { "ui-avatar": !isGroup, "ui-avatar-group": isGroup },
-        !isGroup && size && `ui-${size}`,
-        !isGroup && variant && `ui-${variant}`,
+        "ui-avatar",
+        size && `ui-${size}`,
+        variant && `ui-${variant}`,
         className,
       ])}
-      href={href}
-      role={isGroup ? "group" : undefined}
-      type={Tag === "button" ? "button" : undefined}
+      {...tagAttrs(Tag as string, disabled, href)}
       {...(rest as object)}
     >
       {src ? <img src={src} alt={alt ?? ""} /> : children}

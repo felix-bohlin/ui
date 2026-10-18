@@ -1,10 +1,11 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
-import { Callout, CalloutContent } from "@opui/astro"
+import { Callout, CalloutContent } from "opui-css/astro"
 import Code from "../../../components/Code.astro"
 import CodeGroup from "../../../components/CodeGroup.astro"
 import DocLink from "../../../components/DocLink.astro"
 import Example from "../../../components/Example/index"
+import { pickAndChooseCss } from "../../../utils/getting-started"
 ---
 
 <Guide overline="Guide">
@@ -24,8 +25,10 @@ import Example from "../../../components/Example/index"
             href="/components">component</DocLink
           > CSS straight from the docs - no install required. It reads tokens from
           Open Props, <code>palette.css</code> and <code>theme.css</code>, so
-          those need to be on the page too. The CDN link below has all of it in
-          one file.
+          those need to be on the page too, after <code>layers.css</code> sets the
+          layer order. <code>normalize.css</code> adds the focus ring and
+          <code>utils.css</code> adds <code>.ui-sr-only</code> and the motion classes.
+          The CDN link below has all of it in one file.
         </p>
       </CalloutContent>
     </Callout>
@@ -77,16 +80,16 @@ import Example from "../../../components/Example/index"
     <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
 
     <p>Or pick and choose the parts you want to include:</p>
-    <Code
-      code={`@import "opui-css/css/layers.css";
-@import "opui-css/open-props.css";
-@import "opui-css/core/palette.css";
-@import "opui-css/css/theme.css";
-@import "opui-css/core/normalize.css";
-@import "opui-css/css/components.css";
-@import "opui-css/core/utils.css";`}
-      lang="css"
-    />
+    <Code code={pickAndChooseCss} lang="css" />
+    <p>
+      Import <code>layers.css</code> first and <code>utils.css</code> last, it holds
+      <code>.ui-sr-only</code> and the motion classes. Add <code
+        >choice.css</code
+      > with <code>checkbox.css</code>, <code>radio.css</code> or <code
+        >switch.css</code
+      >. Import <code>opui-css/css/components.css</code> instead of single component
+      files to get every component.
+    </p>
   </section>
 
   <section>
@@ -169,9 +172,13 @@ import Example from "../../../components/Example/index"
       A few components need a bit of JavaScript in plain HTML: the Toast manager
       in <code>css/js/toast.js</code> and indeterminate checkboxes in <code
         >css/js/checkbox.js</code
-      >. <DocLink href="/guide/concepts">Concepts</DocLink> explains the class names,
-      the cascade layers and what needs JavaScript. Then browse the <DocLink
-        href="/components">components</DocLink
+      >. Import them in a <code>&lt;script type="module"&gt;</code>, from <code
+        >https://cdn.jsdelivr.net/npm/opui-css@6/css/js/</code
+      > without a bundler. <DocLink href="/guide/concepts#javascript"
+        >Concepts</DocLink
+      > shows the imports and explains the class names, the cascade layers and what
+      needs JavaScript. Then browse the <DocLink href="/components"
+        >components</DocLink
       >. <DocLink href="/guide/theming">Theming</DocLink> covers colors, density,
       motion and contrast.
     </p>

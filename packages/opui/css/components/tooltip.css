@@ -1,7 +1,9 @@
 @layer components.extended {
   :where(.ui-tooltip) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_bg-color: var(--surface-inverse);
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease-enter);
     --_min-inline-size: 10rem;
     --_offset: var(--size-2);
     --_shift: var(--size-4);
@@ -25,6 +27,7 @@
       padding-inline: var(--space-2);
       position-area: var(--anchor-position-area, block-start);
       position-try-fallbacks:
+        flip-inline,
         flip-block,
         --ui-tooltip-shift-start,
         --ui-tooltip-shift-end,
@@ -93,9 +96,9 @@
     & > .ui-anchor-floating[popover] {
       opacity: 0;
       transition:
-        display calc(var(--duration) * var(--_motion)) allow-discrete,
-        opacity calc(var(--duration) * var(--_motion)) var(--ease-enter),
-        overlay calc(var(--duration) * var(--_motion)) allow-discrete;
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        overlay var(--_duration) allow-discrete;
 
       &:popover-open {
         opacity: 1;

@@ -11,10 +11,10 @@ const places = [
 
 <template>
   <Carousel
+    aria-label="Destinations"
     buttons="outside"
-    label="Destinations"
-    :per-view="2"
-    persistent-buttons
+    :perView="2"
+    persistentButtons
   >
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">

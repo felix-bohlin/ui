@@ -1,4 +1,5 @@
-import type { HTMLAttributes, InjectionKey, Ref, Slot } from "vue"
+import type { HTMLAttributes } from "vue"
+import type { Class, DefaultSlots } from "../vue"
 import type {
   DialogActionsProps as BaseDialogActionsProps,
   DialogContentProps as BaseDialogContentProps,
@@ -6,22 +7,15 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-type Class = {
-  class?: HTMLAttributes["class"]
-}
-
 export type Props = BaseProps & Class
 
 export type DialogActionsProps = BaseDialogActionsProps & Class
 
 export type DialogContentProps = BaseDialogContentProps & Class
 
-export type DialogHeaderProps = BaseDialogHeaderProps & Class
+export type DialogHeaderProps = BaseDialogHeaderProps &
+  Class & {
+    id?: HTMLAttributes["id"]
+  }
 
-export type Slots = {
-  default?: Slot
-}
-
-export const DialogHeaderIdKey = Symbol() as InjectionKey<
-  Readonly<Ref<string | undefined>>
->
+export type Slots = DefaultSlots

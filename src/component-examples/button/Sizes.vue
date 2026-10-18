@@ -20,6 +20,7 @@ import { Button } from "opui-css/vue"
     <Button size="x-small" variant="outlined">
       <span class="ui-text">x-small</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -34,6 +35,7 @@ import { Button } from "opui-css/vue"
     <Button size="small" variant="outlined">
       <span class="ui-text">Small</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -48,6 +50,7 @@ import { Button } from "opui-css/vue"
     <Button variant="outlined">
       <span class="ui-text">Default</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -62,6 +65,7 @@ import { Button } from "opui-css/vue"
     <Button variant="outlined" size="large">
       <span class="ui-text">Large</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"

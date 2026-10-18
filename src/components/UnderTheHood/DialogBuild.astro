@@ -1,5 +1,5 @@
 ---
-import { Button } from "@opui/astro"
+import { Button } from "opui-css/astro"
 import BuildUp from "./BuildUp.astro"
 
 const steps = [
@@ -63,7 +63,7 @@ const steps = [
 }
 
 .dialog > .content {
-  overflow-y: auto;
+  overflow-block: auto;
   overscroll-behavior: contain;
 }`,
     features: ["overscroll-behavior", "viewport-unit-variants"],

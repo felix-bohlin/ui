@@ -3,9 +3,9 @@ import {
   FRAMEWORKS,
   DEFAULT_FRAMEWORK,
   type FrameworkId,
-} from "../../utils/framework-routing"
+} from "../../utils/framework"
 import Code from "../Code.astro"
-import { Chip, Tabs, TabsItem, TabsPanel, TabsTab } from "@opui/astro"
+import { Chip, Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 import { format } from "prettier"
 import MountReactExamples from "./MountReactExamples.astro"
 import MountSvelteExamples from "./MountSvelteExamples.astro"
@@ -43,49 +43,37 @@ type Props = {
   centered?: boolean
   class?: string
   column?: boolean
-  exampleClass?: string
-  output?: "always-show" | "toggled"
-  richText?: "rich-text" | "not-rich-text"
   row?: boolean
   showCode?: boolean
   spacious?: boolean
   reactExampleId?: string
   svelteExampleId?: string
   vueExampleId?: string
-  wrapperClass?: string
 }
 
 const {
   centered,
   class: className,
   column,
-  exampleClass,
-  output = "toggled",
-  richText = "not-rich-text",
   row,
   showCode = true,
   spacious,
   reactExampleId,
   svelteExampleId,
   vueExampleId,
-  wrapperClass,
 } = Astro.props
 
-const activeFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const activeFramework = Astro.locals.framework
 
-const decodeEntities = (str: string) => {
-  const decode = (s: string) =>
-    s
-      .replace(/&lt;/g, "<")
-      .replace(/&gt;/g, ">")
-      .replace(/&amp;/g, "&")
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'")
-  // Split on <pre> blocks so entities inside them are preserved as-is
-  const parts = str.split(/(<pre\b[\s\S]*?<\/pre>)/gi)
-  return parts.map((part, i) => (i % 2 === 0 ? decode(part) : part)).join("")
+const ENTITIES: Record<string, string> = {
+  "&#39;": "'",
+  "&amp;": "&",
+  "&gt;": ">",
+  "&lt;": "<",
+  "&quot;": '"',
 }
+const unescape = (text: string) =>
+  text.replace(/&(?:#39|amp|gt|lt|quot);/g, (entity) => ENTITIES[entity])
 
 // Pick the preview slot for the active framework, falling back to the default
 // framework, then to any available preview, so partial migrations keep working.
@@ -124,19 +112,18 @@ const isLiveSveltePreview =
   previewSlot?.name === "preview-svelte" && !!svelteExampleId
 
 // Render the chosen preview as HTML for the rendered output. Used both for the
-// visible preview and (when output="toggled") as the "Output" tab content for
-// non-HTML frameworks.
+// visible preview and as the "Output" tab content for non-HTML frameworks.
 let previewHtml = ""
 if (previewSlot) {
-  const unescaped = decodeEntities(previewSlot.raw).trim()
-  previewHtml = (await prettify(unescaped)) || clean(unescaped)
+  const raw = previewSlot.raw.trim()
+  previewHtml = (await prettify(raw)) || clean(raw)
 }
 
 // Code content for the source tab.
 let codeContent = ""
 let codeLangId: FrameworkId = activeFramework
 if (codeSlot) {
-  codeContent = decodeEntities(codeSlot.raw).trim()
+  codeContent = unescape(codeSlot.raw).trim()
   codeLangId = codeSlot.name.replace(/^code-/, "") as FrameworkId
 } else if (activeFramework === "html" && previewHtml) {
   // For HTML, fall back to the rendered preview as the source.
@@ -146,10 +133,9 @@ if (codeSlot) {
 
 // Output (the rendered HTML view) is only meaningful when the source code is
 // in a different framework - otherwise it's identical to the source.
-const outputContent =
-  output && previewHtml && codeLangId !== "html" ? previewHtml : ""
+const outputContent = previewHtml && codeLangId !== "html" ? previewHtml : ""
 
-const showOutput = !!(output && outputContent)
+const showOutput = !!outputContent
 const hasCode = !!codeContent
 
 const codeLangLabel =
@@ -171,9 +157,7 @@ const outputId = `${groupName}-output`
 
 <div
   class:list={[
-    "example-container ui-card ui-outlined",
-    richText && `ui-${richText}`,
-    wrapperClass && `ui-${wrapperClass}`,
+    "example-container ui-card ui-outlined ui-not-rich-text",
     { "example-centered": centered },
   ]}
   data-expanded="false"
@@ -188,7 +172,6 @@ const outputId = `${groupName}-output`
         class:list={[
           "example-preview",
           className,
-          exampleClass && `ui-${exampleClass}`,
           {
             "example-column": column,
             "example-row": row,
@@ -242,14 +225,6 @@ const outputId = `${groupName}-output`
             </svg>
           </Chip>
         )}
-      </div>
-    )
-  }
-
-  {
-    showOutput && output === "always-show" && (
-      <div class="example-output-standalone">
-        <Code code={previewHtml} lang="html" />
       </div>
     )
   }
@@ -327,24 +302,6 @@ const outputId = `${groupName}-output`
       }
     }
 
-    &[data-expanded="true"] {
-      .example-output-standalone {
-        display: none;
-      }
-    }
-
-    .example-output-standalone {
-      background-color: var(--surface-default);
-      border-block-end: var(--border-width) solid var(--border-color);
-      overflow-x: auto;
-
-      :global(pre) {
-        border: none !important;
-        border-radius: 0 !important;
-        margin: 0 !important;
-      }
-    }
-
     .show-code-button {
       align-items: center;
       bottom: anchor(bottom);
@@ -360,6 +317,10 @@ const outputId = `${groupName}-output`
       &[aria-expanded="true"] svg {
         transform: rotate(180deg);
       }
+
+      @media (scripting: none) {
+        display: none;
+      }
     }
 
     .example-preview {
@@ -371,10 +332,6 @@ const outputId = `${groupName}-output`
       overflow: auto hidden;
       padding: var(--size-4);
       position: relative;
-
-      &.example-column {
-        gap: var(--size-3);
-      }
 
       &.example-row {
         align-items: start;
@@ -447,6 +404,38 @@ const outputId = `${groupName}-output`
     gap: var(--size-3);
     justify-content: center;
   }
+
+  .example-row.ui-spacious {
+    gap: var(--size-6);
+  }
+
+  .example-compass {
+    align-items: center;
+    display: grid;
+    gap: var(--size-3);
+    grid-template-areas:
+      ". block-start ."
+      "inline-start . inline-end"
+      ". block-end .";
+    justify-content: center;
+    justify-items: center;
+
+    & > :nth-child(1) {
+      grid-area: block-start;
+    }
+
+    & > :nth-child(2) {
+      grid-area: inline-start;
+    }
+
+    & > :nth-child(3) {
+      grid-area: inline-end;
+    }
+
+    & > :nth-child(4) {
+      grid-area: block-end;
+    }
+  }
 </style>
 
 <script>
@@ -459,7 +448,7 @@ const outputId = `${groupName}-output`
       ".show-code-button",
     ) as HTMLElement | null
 
-    if (toggleBtn && !(toggleBtn as any)._hasListener) {
+    if (toggleBtn) {
       toggleBtn.addEventListener("click", () => {
         const template = container.querySelector<HTMLTemplateElement>(
           "template.example-code",
@@ -480,8 +469,25 @@ const outputId = `${groupName}-output`
           `${nextState ? "Hide" : "Show"} ${codeLabel ?? "code"}`,
         )
       })
-      ;(toggleBtn as any)._hasListener = true
     }
+
+    const toggle = (input: HTMLInputElement) => {
+      const { toggleClass, toggleTarget } =
+        input.closest<HTMLElement>("[data-toggle-class]")?.dataset ?? {}
+      if (!toggleClass || !toggleTarget) return
+      container
+        .querySelectorAll(`.example-preview :is(${toggleTarget})`)
+        .forEach((el) => el.classList.toggle(toggleClass, input.checked))
+    }
+
+    container
+      .querySelectorAll<HTMLInputElement>(
+        "[data-toggle-class] input, input[data-toggle-class]",
+      )
+      .forEach(toggle)
+    container.addEventListener("change", (event) => {
+      if (event.target instanceof HTMLInputElement) toggle(event.target)
+    })
   }
 
   function init() {

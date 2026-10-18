@@ -3,6 +3,7 @@ import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
 import {
   Table,
@@ -13,10 +14,12 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-} from "@opui/astro"
+} from "opui-css/astro"
 
 import ListCSS from "@opui/css/components/list.css?raw"
 import MenuCSS from "@opui/css/components/menu.css?raw"
+
+import menuApi from "../../component-api/menu/api"
 
 export const description = "A popover list of actions or links."
 ---
@@ -39,6 +42,7 @@ export const description = "A popover list of actions or links."
     "starting-style",
     "transition-behavior",
   ]}
+  apis={[{ title: "Menu API", api: menuApi }]}
   changelogPaths={[
     {
       path: "packages/opui/components/Menu/Menu.astro",
@@ -53,7 +57,6 @@ export const description = "A popover list of actions or links."
     { title: "menu.css", code: MenuCSS, lang: "css" },
     { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
   ]}
-  seeAlsoLinks={[{ name: "List", href: "/components/list" }]}
 >
   <Fragment slot="title">Menu</Fragment>
   <Fragment slot="preamble">
@@ -67,34 +70,29 @@ export const description = "A popover list of actions or links."
   <section>
     <h2 id="basics">Basics</h2>
     <Conditional as="p">
+      <Fragment slot="components"
+        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
+          >disabled</code
+        > and <code>shortcut</code>.</Fragment
+      >
       <Fragment slot="html"
         ><code>command="toggle-popover"</code> to open, and <code
           >command="hide-popover"</code
         > to close.</Fragment
       >
-      <Fragment slot="astro"
-        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
-          >disabled</code
-        > and <code>shortcut</code>.</Fragment
-      >
-      <Fragment slot="react"
-        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
-          >disabled</code
-        > and <code>shortcut</code>.</Fragment
-      >
-      <Fragment slot="svelte"
-        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
-          >disabled</code
-        > and <code>shortcut</code>.</Fragment
-      >
-      <Fragment slot="vue"
-        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
-          >disabled</code
-        > and <code>shortcut</code>.</Fragment
-      >
     </Conditional>
 
     <AutoExample name="Basics" centered row />
+  </section>
+
+  <section>
+    <h2 id="bordered">Bordered</h2>
+    <p>
+      <PropOrClass prop="bordered" class=".ui-bordered" /> draws a line between every
+      item.
+    </p>
+
+    <AutoExample name="Bordered" centered />
   </section>
 
   <section>
@@ -107,30 +105,15 @@ export const description = "A popover list of actions or links."
   <section>
     <h2 id="placement">Placement</h2>
     <Conditional as="p">
+      <Fragment slot="components"
+        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
+          >align="end"</code
+        > to line up with the end edge.</Fragment
+      >
       <Fragment slot="html"
         ><code>.ui-block-start</code>, <code>.ui-inline-start</code>, <code
           >.ui-inline-end</code
         >, or any <code>--anchor-position-area</code>. <code>.ui-align-end</code
-        > to line up with the end edge.</Fragment
-      >
-      <Fragment slot="astro"
-        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
-          >align="end"</code
-        > to line up with the end edge.</Fragment
-      >
-      <Fragment slot="react"
-        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
-          >align="end"</code
-        > to line up with the end edge.</Fragment
-      >
-      <Fragment slot="svelte"
-        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
-          >align="end"</code
-        > to line up with the end edge.</Fragment
-      >
-      <Fragment slot="vue"
-        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
-          >align="end"</code
         > to line up with the end edge.</Fragment
       >
     </Conditional>
@@ -141,37 +124,32 @@ export const description = "A popover list of actions or links."
   <section>
     <h2 id="submenu">Submenu</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code
           >ListItem</code
         >. Mark the item with an icon from your icon library in the <code
           >end</code
-        > slot.
+        > slot. Submenu items close the whole menu.
       </Fragment>
       <Fragment slot="html">
         Put a <code>menu</code> in the <code>li</code>, after its button. Mark
         the item with an icon from your icon library in <code>div.ui-end</code>.
+        Point the <code>commandfor</code> of the submenu items at the root menu to
+        close the whole menu.
       </Fragment>
       <Fragment slot="react">
         Pass a <code>Menu</code> to the <code>submenu</code> prop of a <code
           >ListItem</code
         >. Mark the item with an icon from your icon library in the <code
           >end</code
-        > prop.
+        > prop. Submenu items close the whole menu.
       </Fragment>
       <Fragment slot="svelte">
         Pass a <code>Menu</code> to the <code>submenu</code> snippet of a <code
           >ListItem</code
         >. Mark the item with an icon from your icon library in the <code
           >end</code
-        > snippet.
-      </Fragment>
-      <Fragment slot="vue">
-        Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code
-          >ListItem</code
-        >. Mark the item with an icon from your icon library in the <code
-          >end</code
-        > slot.
+        > snippet. Submenu items close the whole menu.
       </Fragment>
     </Conditional>
 
@@ -181,7 +159,7 @@ export const description = "A popover list of actions or links."
   <section>
     <h2 id="manual">Manual</h2>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         ><code>popover="manual"</code> keeps the menu open until the trigger or an
         item closes it. Esc and a click outside don't close it, and opening another
         menu doesn't either. Items close the menu by default, so set <code
@@ -194,34 +172,13 @@ export const description = "A popover list of actions or links."
         menu doesn't either. Give <code>command="hide-popover"</code> only to the
         items that should close it.</Fragment
       >
-      <Fragment slot="react"
-        ><code>popover="manual"</code> keeps the menu open until the trigger or an
-        item closes it. Esc and a click outside don't close it, and opening another
-        menu doesn't either. Items close the menu by default, so set <code
-          >closeOnClick: false</code
-        > on the ones that should keep it open.</Fragment
-      >
-      <Fragment slot="svelte"
-        ><code>popover="manual"</code> keeps the menu open until the trigger or an
-        item closes it. Esc and a click outside don't close it, and opening another
-        menu doesn't either. Items close the menu by default, so set <code
-          >closeOnClick: false</code
-        > on the ones that should keep it open.</Fragment
-      >
-      <Fragment slot="vue"
-        ><code>popover="manual"</code> keeps the menu open until the trigger or an
-        item closes it. Esc and a click outside don't close it, and opening another
-        menu doesn't either. Items close the menu by default, so set <code
-          >closeOnClick: false</code
-        > on the ones that should keep it open.</Fragment
-      >
     </Conditional>
 
     <AutoExample name="Manual" centered />
   </section>
 
   <Fragment slot="accessibility">
-    <h3 id="role">Role</h3>
+    <h3 id="role-attributes">Role & attributes</h3>
     <p>
       A menu is a <code>&lt;menu&gt;</code> of buttons and links, not an ARIA menu.
       It has no <code>role="menu"</code> or <code>role="menuitem"</code>, so

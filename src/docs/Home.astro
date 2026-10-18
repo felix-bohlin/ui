@@ -1,5 +1,5 @@
 ---
-import { Button, Chip } from "@opui/astro"
+import { Button, Chip } from "opui-css/astro"
 import AstroLogo from "../components/AstroLogo.astro"
 import ChipRain from "../components/ChipRain.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
@@ -8,18 +8,12 @@ import ReactLogo from "../components/ReactLogo.astro"
 import SvelteLogo from "../components/SvelteLogo.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
-import {
-  DEFAULT_FRAMEWORK,
-  FRAMEWORKS,
-  hrefFor,
-  type FrameworkId,
-} from "../utils/framework-routing"
+import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import opuiPackage from "../../packages/opui/package.json"
 
 const version = opuiPackage.version
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 const componentsHref = hrefFor(currentFramework, "/components")
 const quickstartHref = hrefFor(currentFramework, "/guide/getting-started")
 const migratingHref = hrefFor(currentFramework, "/guide/migrating")
@@ -38,18 +32,20 @@ const FRAMEWORK_BRANDING: Record<
 
 <Default>
   <main id="main-content" class="container is-wide">
-    <ComponentShowcase aria-hidden="true">
-      <hgroup class="ui-hgroup" id="main-heading">
-        <p>
-          {version}
-          <a class="ui-link" href={migratingHref}>Migrating to v6</a>
-        </p>
+    <ComponentShowcase>
+      <div id="main-heading">
+        <hgroup class="ui-hgroup">
+          <p>
+            {version}
+            <a class="ui-link" href={migratingHref}>Migrating to v6</a>
+          </p>
 
-        <h1 class="ui-h1">Open Props UI</h1>
+          <h1 class="ui-h1">Open Props UI</h1>
 
-        <p class="hero-description">
-          Components built on modern CSS & HTML, and how they work.
-        </p>
+          <p class="hero-description">
+            Components built on modern CSS & HTML, and how they work.
+          </p>
+        </hgroup>
 
         <div class="hero-ctas">
           <Button href={quickstartHref} variant="filled" color="primary">
@@ -60,7 +56,7 @@ const FRAMEWORK_BRANDING: Record<
           </Button>
         </div>
 
-        <p class="framework-support" aria-label="Supported frameworks">
+        <p class="framework-support">
           <span class="ui-label">Works with</span>
           {
             FRAMEWORKS.map((framework) => {
@@ -81,7 +77,7 @@ const FRAMEWORK_BRANDING: Record<
             })
           }
         </p>
-      </hgroup>
+      </div>
     </ComponentShowcase>
   </main>
 
@@ -90,6 +86,7 @@ const FRAMEWORK_BRANDING: Record<
 
 <script>
   import { hexToOklch } from "../utils/color-utils"
+  import { FRAMEWORK_STORAGE_KEY } from "../utils/framework"
   import { themeStore, tokenDefaults } from "../utils/theme-store"
 
   // Clicking a framework chip in the hero re-tints the site to match that
@@ -104,7 +101,7 @@ const FRAMEWORK_BRANDING: Record<
         const framework = chip.dataset.framework
         if (framework) {
           try {
-            localStorage.setItem("opui-framework", framework)
+            localStorage.setItem(FRAMEWORK_STORAGE_KEY, framework)
           } catch (_) {
             // private mode / storage disabled - non-fatal
           }
@@ -156,10 +153,6 @@ const FRAMEWORK_BRANDING: Record<
 </style>
 
 <style>
-  .hero-badge {
-    margin-block-end: var(--size-4);
-  }
-
   .hero-description {
     font-size: var(--font-size-2);
     line-height: var(--font-lineheight-4);
@@ -195,10 +188,6 @@ const FRAMEWORK_BRANDING: Record<
 
   :is(h1, h2, p) {
     text-wrap: pretty;
-  }
-
-  .skip-link {
-    position: absolute;
   }
 
   #main-content {

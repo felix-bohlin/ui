@@ -32,11 +32,11 @@ Label 50 Start text End text
 
 ```html
 <label class="ui-range">
-  <span class="ui-label" id="range-default-1-label">Label</span>
-  <span class="ui-start-text" id="range-default-1-start-text">Min</span>
+  <span class="ui-label" id="range-basics-1-label">Label</span>
+  <span class="ui-start-text" id="range-basics-1-start-text">Min</span>
   <input
-    aria-describedby="range-default-1-start-text"
-    aria-labelledby="range-default-1-label"
+    aria-describedby="range-basics-1-start-text"
+    aria-labelledby="range-basics-1-label"
     type="range"
   />
 </label>
@@ -71,16 +71,16 @@ Use the `.ui-filled` or `.ui-tonal` class to swap the track surface for better c
 
 ```html
 <label class="ui-range">
-  <span class="ui-label" id="range-start-end-1-label">Label</span>
-  <span class="ui-start-text" id="range-start-end-1-start-text"
+  <span class="ui-label" id="range-start-end-text-1-label">Label</span>
+  <span class="ui-start-text" id="range-start-end-text-1-start-text"
     >Start helper text</span
   >
   <input
-    aria-describedby="range-start-end-1-start-text range-start-end-1-end-text"
-    aria-labelledby="range-start-end-1-label"
+    aria-describedby="range-start-end-text-1-start-text range-start-end-text-1-end-text"
+    aria-labelledby="range-start-end-text-1-label"
     type="range"
   />
-  <span class="ui-end-text" id="range-start-end-1-end-text"
+  <span class="ui-end-text" id="range-start-end-text-1-end-text"
     >End helper text</span
   >
 </label>
@@ -93,11 +93,11 @@ Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointin
 ```html
 <label class="ui-range">
   <span class="ui-label" id="range-value-1-label">Hue</span>
-  <output class="ui-value" for="hueRange" data-suffix="°">250°</output>
+  <output class="ui-value" for="range-value-1" data-suffix="°">250°</output>
   <input
     aria-labelledby="range-value-1-label"
     type="range"
-    id="hueRange"
+    id="range-value-1"
     min="0"
     max="360"
     value="250"
@@ -106,8 +106,8 @@ Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointin
 
 <script>
   {
-    const input = document.getElementById("hueRange")
-    const output = document.querySelector('output[for="hueRange"]')
+    const input = document.getElementById("range-value-1")
+    const output = document.querySelector('output[for="range-value-1"]')
     input.addEventListener("input", () => {
       output.textContent = `${input.value}${output.dataset.suffix ?? ""}`
     })
@@ -121,15 +121,15 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 
 ```html
 <label class="ui-range">
-  <span class="ui-label" id="range-tick-marks-1-label"
+  <span class="ui-label" id="range-tick-marks-labels-1-label"
     >Tick marks with labels</span
   >
   <input
-    aria-labelledby="range-tick-marks-1-label"
-    list="labeled-markers"
+    aria-labelledby="range-tick-marks-labels-1-label"
+    list="range-tick-marks-labels-1-list"
     type="range"
   />
-  <datalist id="labeled-markers">
+  <datalist id="range-tick-marks-labels-1-list">
     <option value="0" label="0%"></option>
     <option value="25" label="25%"></option>
     <option value="50" label="50%"></option>
@@ -152,9 +152,9 @@ Add `disabled` to the `<input>` to disable the slider. The whole `.ui-range` dim
 
 ## Validation
 
-- Add `aria-invalid="true"` to the `<input>` to toggle invalid styles: the thumb, the fill and the helper texts turn the invalid color. Screen readers announce it as invalid.
-- Say what's wrong in the end text, and point `aria-describedby` at it.
-- The same styles apply when the browser's own validation fails (`:user-invalid`), such as after `setCustomValidity()`.
+- The invalid styles turn the thumb, the fill and the helper texts the invalid color. A range always has a value, so `required` doesn't apply, and the browser's own validation only fails after `setCustomValidity()`.
+- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. Point `aria-describedby` at it.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
 
 ```html
 <label class="ui-range">
@@ -177,50 +177,50 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 
 ```html
 <label class="ui-range ui-spread">
-  <span class="ui-label" id="range-row-1-label">Spread Layout</span>
-  <span class="ui-start-text" id="range-row-1-start-text">Start text</span>
+  <span class="ui-label" id="range-spread-1-label">Spread Layout</span>
+  <span class="ui-start-text" id="range-spread-1-start-text">Start text</span>
   <input
-    aria-describedby="range-row-1-start-text range-row-1-end-text"
-    aria-labelledby="range-row-1-label"
+    aria-describedby="range-spread-1-start-text range-spread-1-end-text"
+    aria-labelledby="range-spread-1-label"
     type="range"
   />
-  <span class="ui-end-text" id="range-row-1-end-text">End text</span>
+  <span class="ui-end-text" id="range-spread-1-end-text">End text</span>
 </label>
 
 <label class="ui-range ui-spread">
-  <span class="ui-label" id="range-row-2-label">Disabled</span>
-  <span class="ui-start-text" id="range-row-2-start-text">Start text</span>
+  <span class="ui-label" id="range-spread-2-label">Disabled</span>
+  <span class="ui-start-text" id="range-spread-2-start-text">Start text</span>
   <input
-    aria-describedby="range-row-2-start-text range-row-2-end-text"
-    aria-labelledby="range-row-2-label"
+    aria-describedby="range-spread-2-start-text range-spread-2-end-text"
+    aria-labelledby="range-spread-2-label"
     type="range"
     disabled
   />
-  <span class="ui-end-text" id="range-row-2-end-text">End text</span>
+  <span class="ui-end-text" id="range-spread-2-end-text">End text</span>
 </label>
 
 <label class="ui-range ui-spread">
-  <span class="ui-label" id="range-row-3-label">Invalid Range</span>
-  <span class="ui-start-text" id="range-row-3-start-text">Start text</span>
+  <span class="ui-label" id="range-spread-3-label">Invalid Range</span>
+  <span class="ui-start-text" id="range-spread-3-start-text">Start text</span>
   <input
     aria-invalid="true"
-    aria-describedby="range-row-3-start-text range-row-3-end-text"
-    aria-labelledby="range-row-3-label"
+    aria-describedby="range-spread-3-start-text range-spread-3-end-text"
+    aria-labelledby="range-spread-3-label"
     type="range"
   />
-  <span class="ui-end-text" id="range-row-3-end-text"
+  <span class="ui-end-text" id="range-spread-3-end-text"
     >This value is incorrect.</span
   >
 </label>
 
 <label class="ui-range ui-spread">
-  <span class="ui-label" id="range-row-4-label">Tick marks with labels</span>
+  <span class="ui-label" id="range-spread-4-label">Tick marks with labels</span>
   <input
-    aria-labelledby="range-row-4-label"
-    list="labeled-markers-spread"
+    aria-labelledby="range-spread-4-label"
+    list="range-spread-4-list"
     type="range"
   />
-  <datalist id="labeled-markers-spread">
+  <datalist id="range-spread-4-list">
     <option value="0" label="0%"></option>
     <option value="25" label="25%"></option>
     <option value="50" label="50%"></option>
@@ -297,18 +297,21 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property                   | Kind   | Description                                                                                                     |
 | -------------------------- | ------ | --------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                | Input  | Color of the thumb, its ring and the track fill. Defaults to `--primary`, set by the invalid state.             |
+| `--_duration`              | Output | Duration of the thumb ring transition, `--duration-fast` times `--_motion`.                                     |
+| `--_ease`                  | Input  | Easing of the thumb ring transition and focus ring. Defaults to `--ease`.                                       |
 | `--_forced-fill-color`     | Output | Thumb and fill color in forced colors mode. `GrayText` when disabled.                                           |
 | `--_forced-track-color`    | Output | Track color in forced colors mode. `GrayText` when disabled.                                                    |
 | `--_inset`                 | Output | Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`. |
 | `--_motion`                | Input  | Motion multiplier for the thumb highlight and focus ring. `0` turns them off.                                   |
-| `--_thumb-bg-color`        | Output | The current thumb color. From `--primary`, set by the invalid and disabled states.                              |
-| `--_thumb-highlight-color` | Output | Color of the ring around the thumb. From `--primary`, set by the invalid state.                                 |
+| `--_thumb-bg-color`        | Output | The current thumb color. From `--_accent`, set by the disabled state.                                           |
+| `--_thumb-highlight-color` | Output | Color of the ring around the thumb, from `--_accent`.                                                           |
 | `--_thumb-highlight-size`  | Output | Current width of the ring around the thumb. Set by the hover and active states.                                 |
-| `--_thumb-offset`          | Input  | Vertical offset that centers the thumb on the track.                                                            |
+| `--_thumb-offset`          | Output | Vertical offset that centers the thumb on the track.                                                            |
 | `--_thumb-size`            | Input  | Width and height of the thumb. Larger on touch screens.                                                         |
 | `--_track-color`           | Output | The current track color. Set by `.ui-filled`, `.ui-tonal` and the active and disabled states.                   |
 | `--_track-fill`            | Output | How much of the track is filled, animated from the thumb position.                                              |
-| `--_track-fill-color`      | Output | Color of the filled part of the track. From `--primary`, set by the invalid state.                              |
+| `--_track-fill-color`      | Output | Color of the filled part of the track, from `--_accent`.                                                        |
 | `--_track-height`          | Input  | Height of the track.                                                                                            |
 | `--_track-radius`          | Input  | Corner radius of the track.                                                                                     |
 
@@ -565,3 +568,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - The track fill is CSS only, so plain HTML ranges [fill](#basics) too.
 - Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
 - Breaking: mark an invalid range with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root ([Validation](#validation)).
+- Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
+- The thumb, its halo and the track fill follow `--_accent` on `.ui-range` ([Under the hood](#under-the-hood)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

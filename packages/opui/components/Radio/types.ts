@@ -1,4 +1,5 @@
-export type RadioProps = {
+export type Props = {
+  endText?: string
   error?: boolean
   hideLabel?: boolean
   size?: "x-small" | "small" | "large"
@@ -8,6 +9,6 @@ export type RadioProps = {
 
 export type RadioInputProps = {}
 
-export type RadioSlots<S> = {
+export type Slots<S> = {
   endText?: string | S
 }

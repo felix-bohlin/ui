@@ -6,12 +6,6 @@ export default {
   page: "tabs",
   parts: [],
   root: {
-    component: {
-      astro: "TabsPanel",
-      react: "TabsPanel",
-      svelte: "TabsPanel",
-      vue: "TabsPanel",
-    },
     description: "The panel.",
     selector: ".ui-tab-panel",
   },

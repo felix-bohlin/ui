@@ -3,8 +3,8 @@ import type { SvelteHTMLElements } from "svelte/elements"
 
 export type Props = Base.Props & SvelteHTMLElements["dl"]
 
-export type TermProps = SvelteHTMLElements["dt"]
+export type DescriptionListDescriptionProps = SvelteHTMLElements["dd"]
 
-export type DescriptionProps = SvelteHTMLElements["dd"]
+export type DescriptionListItemProps = SvelteHTMLElements["div"]
 
-export type ItemProps = SvelteHTMLElements["div"]
+export type DescriptionListTermProps = SvelteHTMLElements["dt"]

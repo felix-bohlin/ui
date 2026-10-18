@@ -19,7 +19,7 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 ## Already checked by tools
 
-The build warns with `[component-api]` when a prop or slot is missing from `api.ts` or documented but not in the source. Don't repeat those checks by hand. Run `pnpm build` only when a full audit needs it, and report its `[component-api]` lines.
+`tests/unit/component-api.test.ts` lists every `[component-api]` problem: a prop or slot missing from `api.ts`, a documented prop, part prop, snippet, slot or enum value that isn't in the source, and an exported component without an `api.ts`. Don't repeat those checks by hand. Run `pnpm exec vitest run tests/unit/component-api.test.ts` and report its problems.
 
 ## Check
 
@@ -31,4 +31,4 @@ The build warns with `[component-api]` when a prop or slot is missing from `api.
 - **Slots.** Every slot the components render is documented, with kebab-case names.
 - **Wording.** Descriptions are short and use the standard phrases from the guide. Classes have the `ui-` prefix and a dot, `default` has neither, and every value is in its own `<code>`.
 - **Docs pages.** The page in `src/docs/components/` doesn't contradict the API: props, classes and defaults it mentions match.
-- **Hand-written tables.** `menu` and `toast` still use `.astro` tables. Check them the same way, for every framework.
+- **Hand-written tables.** Only `toast` still uses an `.astro` table. Check it the same way, for every framework.

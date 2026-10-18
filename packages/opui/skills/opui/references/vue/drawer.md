@@ -24,7 +24,7 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
   The footer.
 
-## Usage
+## Basics
 
 Change the opening side with the `side` prop.
 
@@ -49,22 +49,20 @@ import {
 </script>
 
 <template>
-  <div class="drawer-examples">
-    <Button class="top" commandfor="drawer-block-start" command="show-modal"
+  <div class="example-compass">
+    <Button commandfor="drawer-basics-3" command="show-modal"
       >Block Start</Button
     >
-    <Button class="left" commandfor="drawer-inline-start" command="show-modal"
+    <Button commandfor="drawer-basics-1" command="show-modal"
       >Inline Start</Button
     >
-    <Button class="right" commandfor="drawer-inline-end" command="show-modal"
+    <Button commandfor="drawer-basics-2" command="show-modal"
       >Inline End</Button
     >
-    <Button class="bottom" commandfor="drawer-block-end" command="show-modal"
-      >Block End</Button
-    >
+    <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
   </div>
 
-  <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
+  <Drawer id="drawer-basics-1" side="inline-start" closedby="any">
     <DrawerHeader>
       <DrawerTitle>Inline Start</DrawerTitle>
     </DrawerHeader>
@@ -88,13 +86,13 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-inline-start" command="close"
+      <Button size="small" commandfor="drawer-basics-1" command="close"
         >Close</Button
       >
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
+  <Drawer id="drawer-basics-2" side="inline-end" closedby="any">
     <DrawerHeader>
       <DrawerTitle>Inline End</DrawerTitle>
     </DrawerHeader>
@@ -118,13 +116,13 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-inline-end" command="close"
+      <Button size="small" commandfor="drawer-basics-2" command="close"
         >Close</Button
       >
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-block-start" side="block-start" closedby="any">
+  <Drawer id="drawer-basics-3" side="block-start" closedby="any">
     <DrawerHeader>
       <DrawerTitle>Block Start</DrawerTitle>
     </DrawerHeader>
@@ -142,13 +140,13 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-block-start" command="close"
+      <Button size="small" commandfor="drawer-basics-3" command="close"
         >Close</Button
       >
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-block-end" side="block-end" closedby="any">
+  <Drawer id="drawer-basics-4" side="block-end" closedby="any">
     <DrawerHeader>
       <DrawerTitle>Block End</DrawerTitle>
     </DrawerHeader>
@@ -166,7 +164,7 @@ import {
       </p>
     </DrawerContent>
     <DrawerFooter>
-      <Button size="small" commandfor="drawer-block-end" command="close"
+      <Button size="small" commandfor="drawer-basics-4" command="close"
         >Close</Button
       >
     </DrawerFooter>
@@ -216,11 +214,11 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 
 | Prop         | Type                                                                | Default          | Description                                                                                                                               |
 | ------------ | ------------------------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `backdrop`   | `"transparent"` , `"blurred"`                                       | `"blurred"`      | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
-| `closedby`   | `"none"` , `"any"` , `"closerequest"`                               | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
+| `backdrop`   | `"blurred"` , `"transparent"`                                       | `"blurred"`      | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
+| `closedby`   | `"any"` , `"closerequest"` , `"none"`                               | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
 | `id`         | `string`                                                            | -                | The id of the `<dialog>`. Generated when omitted.                                                                                         |
 | `scrollLock` | `boolean`                                                           | `true`           | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
-| `side`       | `"inline-start"` , `"inline-end"` , `"block-start"` , `"block-end"` | `"inline-start"` | The side it opens from.                                                                                                                   |
+| `side`       | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"inline-start"` | The side it opens from.                                                                                                                   |
 
 #### Slots
 
@@ -416,7 +414,7 @@ Step 1 of 5: Modal
 
 .drawer > .content {
   flex: 1;
-  overflow-y: auto;
+  overflow-block: auto;
   overscroll-behavior: contain;
 }
 ```
@@ -590,7 +588,9 @@ Import the components from `opui-css/vue`:
 
 ### What's new
 
-- Breaking: [`DrawerTitle` and `DrawerContent`](#usage) replace the `heading` prop and the slots. `DrawerTitle` names the drawer; without it, pass `aria-label`. The `DrawerHeader` close button uses `command="close"`.
-- Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
+- Breaking: [`DrawerTitle` and `DrawerContent`](#basics) replace the `heading` prop and the slots. `DrawerTitle` names the drawer; without it, pass `aria-label`. The `DrawerHeader` close button uses `command="close"`.
+- Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Basics](#basics)).
 - Named by [`DrawerTitle`](#accessibility) through `aria-labelledby`.
+- The [backdrop](#basics) dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`.
+- Breaking: `--_color` is `--_text-color`, and `--_transition-duration` and `--_transition-timing` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
 - The drawer shadow is [`--shadow-overlay`](#api), shared with menus, select pickers and toasts. Padding reads the `--space-*` scale.

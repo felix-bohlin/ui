@@ -6,7 +6,7 @@ import {
   DescriptionListDescription as UIDescriptionListDescription,
   DescriptionListItem as UIDescriptionListItem,
   DescriptionListTerm as UIDescriptionListTerm,
-} from "@opui/astro"
+} from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 import DescriptionListCSS from "@opui/css/components/description-list.css?raw"
@@ -51,13 +51,13 @@ export const description =
 
   <section>
     <h2 id="basics">Basics</h2>
-    <AutoExample name="Default" />
+    <AutoExample name="Basics" />
   </section>
 
   <section>
     <h2 id="bordered">Bordered</h2>
     <Conditional>
-      <Fragment slot="astro">
+      <Fragment slot="components">
         <p>
           Set <code>bordered</code> on <code>DescriptionList</code> to add a separator
           between the term and description on all items. Use{" "}
@@ -68,27 +68,6 @@ export const description =
         <p>
           Add <code>.ui-bordered</code> to the <code>&lt;dl&gt;</code> element. For
           a dotted style, also add <code>.ui-dotted</code>.
-        </p>
-      </Fragment>
-      <Fragment slot="react">
-        <p>
-          Set <code>bordered</code> on <code>DescriptionList</code> to add a separator
-          between the term and description on all items. Use{" "}
-          <code>bordered="dotted"</code> for a dotted style.
-        </p>
-      </Fragment>
-      <Fragment slot="svelte">
-        <p>
-          Set <code>bordered</code> on <code>DescriptionList</code> to add a separator
-          between the term and description on all items. Use{" "}
-          <code>bordered="dotted"</code> for a dotted style.
-        </p>
-      </Fragment>
-      <Fragment slot="vue">
-        <p>
-          Set <code>bordered</code> on <code>DescriptionList</code> to add a separator
-          between the term and description on all items. Use{" "}
-          <code>bordered="dotted"</code> for a dotted style.
         </p>
       </Fragment>
     </Conditional>

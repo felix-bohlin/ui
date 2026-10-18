@@ -1,10 +1,12 @@
 @layer components.extended {
   :where(.ui-textarea) {
+    --_max-block-size: 20lh;
+
     textarea {
       block-size: auto;
       field-sizing: content;
-      max-block-size: var(--_max-block-size, 20lh);
-      min-block-size: calc(var(--_field-padding-block) * 2 + 3lh);
+      max-block-size: var(--_max-block-size);
+      min-block-size: calc(var(--_field-padding-block-fit) * 2 + 3lh);
       resize: block;
     }
 

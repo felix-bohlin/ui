@@ -25,10 +25,20 @@ export default {
       "Opacity of disabled scroll buttons. `0` hides them, `.ui-buttons-persistent` sets `1`.",
     kind: "input",
   },
-  "--_button-end-icon": {
+  "--_button-end-flip": {
     description:
-      "Icon of the inline-end button. `--_button-next-icon`, swapped with `--_button-prev-icon` in right-to-left.",
+      "Mirrors the inline-end button. `1`, or `-1` in right-to-left.",
     kind: "output",
+  },
+  "--_button-flip": {
+    description:
+      "Mirrors a scroll button, `1` or `-1`. From `--_button-start-flip` and `--_button-end-flip`.",
+    kind: "output",
+  },
+  "--_button-icon": {
+    description:
+      "Icon of the scroll buttons, pointing forward. The previous button mirrors it.",
+    kind: "input",
   },
   "--_button-icon-size": {
     description: "The icon size in the scroll buttons.",
@@ -38,21 +48,17 @@ export default {
     description: "Space between the scroll buttons and the carousel edge.",
     kind: "input",
   },
-  "--_button-next-icon": {
-    description: "Icon of the next button.",
-    kind: "input",
-  },
   "--_button-next-label": {
     description: "Accessible label of the next button.",
-    kind: "input",
-  },
-  "--_button-prev-icon": {
-    description: "Icon of the previous button.",
     kind: "input",
   },
   "--_button-prev-label": {
     description: "Accessible label of the previous button.",
     kind: "input",
+  },
+  "--_button-scale": {
+    description: "The current scale of a scroll button. `0.94` while pressed.",
+    kind: "output",
   },
   "--_button-shadow": {
     description: "Shadow of the scroll buttons. Defaults to `--shadow-2`.",
@@ -63,10 +69,19 @@ export default {
       "Size of the scroll buttons. Defaults to `--button-size-small`.",
     kind: "input",
   },
-  "--_button-start-icon": {
+  "--_button-start-flip": {
     description:
-      "Icon of the inline-start button. `--_button-prev-icon`, swapped with `--_button-next-icon` in right-to-left.",
+      "Mirrors the inline-start button. `-1`, or `1` in right-to-left.",
     kind: "output",
+  },
+  "--_duration": {
+    description:
+      "Duration of the transitions and focus ring animation, `--duration` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description: "Easing of the transitions. Defaults to `--ease`.",
+    kind: "input",
   },
   "--_gap": {
     description: "Space between items.",
@@ -76,12 +91,13 @@ export default {
     description: "The size of each item, from `--_per-view` and `--_gap`.",
     kind: "output",
   },
-  "--_marker-color": {
-    description: "Color of the markers.",
+  "--_marker-active-bg-color": {
+    description: "Background of the current marker. Defaults to `--primary`.",
     kind: "input",
   },
-  "--_marker-color-active": {
-    description: "Color of the current marker. Defaults to `--primary`.",
+  "--_marker-bg-color": {
+    description:
+      "Background of the markers. Defaults to `--text-primary` at 25% opacity.",
     kind: "input",
   },
   "--_marker-gap": {
@@ -97,7 +113,7 @@ export default {
     description: "Size of the markers.",
     kind: "input",
   },
-  "--_markers-margin-block-start": {
+  "--_markers-gap": {
     description: "Space between the items and the markers.",
     kind: "input",
   },

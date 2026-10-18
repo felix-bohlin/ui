@@ -25,7 +25,6 @@ The spinner's size is set to `1em`, which means it will adjust to its current fo
 Simply add `aria-busy="true"` to a `<button>`.
 
 ```html
-<!-- Text buttons -->
 <div class="example-row">
   <button type="button" aria-busy="true" class="ui-button">Text</button>
   <button type="button" aria-busy="true" disabled class="ui-button ui-outlined">
@@ -36,7 +35,6 @@ Simply add `aria-busy="true"` to a `<button>`.
   </button>
 </div>
 
-<!-- Icon buttons -->
 <div class="example-row">
   <button type="button" aria-busy="true" class="ui-button">
     <span class="ui-sr-only">Text</span>
@@ -70,17 +68,19 @@ See [progress accessibility](https://open-props-ui.netlify.app/html/components/p
 
 ## API
 
+### Spinner API
+
 | Type  | Modifiers   | Default | Description                                            |
 | ----- | ----------- | ------- | ------------------------------------------------------ |
 | Sizes | `font-size` | `1em`   | Spinner size follows the element's computed font size. |
 
-### Parts
+#### Parts
 
 | Part                 | Description                                                            |
 | -------------------- | ---------------------------------------------------------------------- |
 | `[aria-busy="true"]` | Renders a spinner pseudo-element on the element. Always indeterminate. |
 
-### CSS variables
+#### CSS variables
 
 | Variable   | Default | Description                                                                                                                                                                                              |
 | ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -89,6 +89,14 @@ See [progress accessibility](https://open-props-ui.netlify.app/html/components/p
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 These never show a spinner: `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>`. Neither do elements with `aria-describedby`, except buttons and links.
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
+
+| Property    | Kind  | Description                                                               |
+| ----------- | ----- | ------------------------------------------------------------------------- |
+| `--_motion` | Input | Motion multiplier for the spin. `0` slows it down instead of stopping it. |
 
 ## Under the hood
 

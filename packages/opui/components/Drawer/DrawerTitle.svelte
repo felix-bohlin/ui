@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getDrawerContext } from "./context"
+  import { getDrawerContext } from "./context.svelte"
   import type { DrawerTitleProps as Props } from "./types.svelte"
 
   let { children, class: className, id, ...rest }: Props = $props()

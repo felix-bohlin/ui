@@ -15,54 +15,36 @@
     color: var(--text-primary);
     font-family: var(--font-heading, var(--font-body));
     font-weight: var(--font-weight-bold);
-    line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
+    line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
     text-wrap: pretty;
   }
 
   :where(.ui-h1) {
-    font-size: round(
-      var(--font-size-h1, var(--font-size-7)),
-      var(--rhythm-step, 0.25rem) / 2
-    );
+    font-size: round(var(--font-size-h1), var(--rhythm-step) / 2);
     letter-spacing: -0.02em;
   }
 
   :where(.ui-h2) {
-    font-size: round(
-      var(--font-size-h2, var(--font-size-5, 2rem)),
-      var(--rhythm-step, 0.25rem) / 2
-    );
+    font-size: round(var(--font-size-h2), var(--rhythm-step) / 2);
     letter-spacing: -0.02em;
   }
 
   :where(.ui-h3) {
-    font-size: round(
-      var(--font-size-h3, var(--font-size-4, 1.5rem)),
-      var(--rhythm-step, 0.25rem) / 2
-    );
+    font-size: round(var(--font-size-h3), var(--rhythm-step) / 2);
     letter-spacing: -0.01em;
   }
 
   :where(.ui-h4) {
-    font-size: round(
-      var(--font-size-h4, var(--font-size-3, 1.25rem)),
-      var(--rhythm-step, 0.25rem) / 2
-    );
+    font-size: round(var(--font-size-h4), var(--rhythm-step) / 2);
     letter-spacing: -0.01em;
   }
 
   :where(.ui-h5) {
-    font-size: round(
-      var(--font-size-h5, var(--font-size-2, 1.1rem)),
-      var(--rhythm-step, 0.25rem) / 2
-    );
+    font-size: round(var(--font-size-h5), var(--rhythm-step) / 2);
   }
 
   :where(.ui-h6) {
-    font-size: round(
-      var(--font-size-h6, var(--font-size-1, 1rem)),
-      var(--rhythm-step, 0.25rem) / 2
-    );
+    font-size: round(var(--font-size-h6), var(--rhythm-step) / 2);
   }
 
   /** Overline */
@@ -87,7 +69,7 @@
     }
 
     & > :where(h1, h2, h3, h4, h5, h6) {
-      margin-block: 0 round(0.4em, var(--rhythm-step, 0.25rem));
+      margin-block: 0 round(0.4em, var(--rhythm-step));
     }
 
     /* First p element (overline) */
@@ -115,11 +97,11 @@
       }
 
       font-size: var(--font-size-3);
-      line-height: round(up, 1.6em, var(--rhythm-step, 0.25rem));
+      line-height: round(up, 1.6em, var(--rhythm-step));
     }
 
     & > p + p {
-      margin-block-start: round(0.75em, var(--rhythm-step, 0.25rem));
+      margin-block-start: round(0.75em, var(--rhythm-step));
     }
   }
 
@@ -163,7 +145,7 @@
   }
 
   :where(p:not(.ui-p), small, span).ui-small {
-    font-size: max(0.5em, var(--font-size-0, 0.75rem));
+    font-size: max(0.75em, var(--font-size-0, 0.75rem));
   }
 
   :where(.ui-cite) {
@@ -171,11 +153,11 @@
   }
 
   /* Code */
-  :where(.ui-kbd) {
+  :where(.ui-kbd, .ui-var) {
     background-color: var(--text-muted);
     border-color: var(--text-muted);
     border-radius: min(var(--radius-2), var(--border-radius));
-    border-width: var(--border-size-1);
+    border-width: var(--border-width);
     color: var(--text-muted-contrast);
     font-family: var(--font-code);
     overflow-wrap: anywhere;
@@ -226,18 +208,6 @@
     text-underline-offset: 1px;
   }
 
-  :where(.ui-var) {
-    background-color: var(--text-muted);
-    border-color: var(--text-muted);
-    border-radius: min(var(--radius-2), var(--border-radius));
-    border-width: var(--border-size-1);
-    color: var(--text-muted-contrast);
-    font-family: var(--font-code);
-    overflow-wrap: anywhere;
-    padding-block: 0.1ex;
-    padding-inline: 0.3ex;
-  }
-
   :where(.ui-samp) {
     font-family: var(--font-code);
   }
@@ -270,7 +240,7 @@
     font-family: var(--font-code);
     font-size: var(--font-size-05);
     max-inline-size: 100%;
-    overflow-x: auto;
+    overflow-inline: auto;
     padding-block: var(--space-3);
     padding-inline: var(--space-4);
     scrollbar-width: thin;
@@ -298,7 +268,7 @@
 @layer components.prose {
   @scope (.ui-rich-text) to (.ui-not-rich-text) {
     :scope {
-      --_flow-space: round(1.25em, var(--rhythm-step, 0.25rem));
+      --_flow-space: round(1.25em, var(--rhythm-step));
       min-inline-size: 0;
       overflow-wrap: break-word;
     }
@@ -332,13 +302,18 @@
     }
 
     a[href]:where(:not([class*="ui-"])) {
-      color: var(--primary);
+      --_text-color: light-dark(
+        oklch(from var(--primary) min(l, 0.47) c h),
+        oklch(from var(--primary) max(l, 0.78) c h)
+      );
+
+      color: var(--_text-color);
       cursor: pointer;
       font-size: inherit;
       font-weight: var(--font-weight-bold);
       line-height: inherit;
       text-decoration: underline;
-      text-decoration-color: var(--primary);
+      text-decoration-color: var(--_text-color);
       text-underline-offset: 2px;
 
       @media (hover: hover) {
@@ -399,13 +374,10 @@
       border-radius: var(--border-radius);
       color: var(--color-1);
       font-size: 0.875em;
-      line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
-      margin-block: round(
-        var(--_flow-space) * 1.5,
-        var(--rhythm-step, 0.25rem)
-      );
+      line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
+      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step));
       max-inline-size: 100%;
-      overflow-x: auto;
+      overflow-inline: auto;
       padding-block: var(--space-3);
       padding-inline: var(--space-4);
       scrollbar-width: thin;
@@ -433,10 +405,7 @@
     figure {
       display: grid;
       gap: var(--space-2);
-      margin-block: round(
-        var(--_flow-space) * 1.5,
-        var(--rhythm-step, 0.25rem)
-      );
+      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step));
       place-items: center;
 
       & > * {
@@ -455,7 +424,7 @@
       & figcaption {
         color: var(--text-muted);
         font-size: var(--font-size-0);
-        line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
+        line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
         text-wrap: pretty;
       }
     }
@@ -473,7 +442,7 @@
     /* Horizontal rules */
     hr {
       &:not([class]) {
-        border-block-start: var(--border-size-1) solid var(--border-color);
+        border-block-start: var(--border-width) solid var(--border-color);
         margin-block: calc(var(--_flow-space) * 2);
       }
 
@@ -496,14 +465,14 @@
 
       color: var(--text-primary);
       font-weight: var(--font-weight-bold);
-      line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
+      line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
       text-wrap: pretty;
     }
 
     h1:where(:not([class])) {
       font-size: round(
-        calc(var(--font-size-h1, var(--font-size-7)) * var(--_font-scale, 1)),
-        var(--rhythm-step, 0.25rem) / 2
+        calc(var(--font-size-h1) * var(--_font-scale, 1)),
+        var(--rhythm-step) / 2
       );
       letter-spacing: -0.02em;
       margin-block: calc(var(--_flow-space) * 3) var(--_flow-space);
@@ -511,63 +480,50 @@
 
     h2:where(:not([class])) {
       font-size: round(
-        calc(
-          var(--font-size-h2, var(--font-size-5, 2rem)) * var(--_font-scale, 1)
-        ),
-        var(--rhythm-step, 0.25rem) / 2
+        calc(var(--font-size-h2) * var(--_font-scale, 1)),
+        var(--rhythm-step) / 2
       );
       letter-spacing: -0.02em;
       margin-block: calc(var(--_flow-space) * 3)
-        round(var(--_flow-space) * 0.75, var(--rhythm-step, 0.25rem));
+        round(var(--_flow-space) * 0.75, var(--rhythm-step));
     }
 
     h3:where(:not([class])) {
       font-size: round(
-        calc(
-          var(--font-size-h3, var(--font-size-4, 1.5rem)) *
-            var(--_font-scale, 1)
-        ),
-        var(--rhythm-step, 0.25rem) / 2
+        calc(var(--font-size-h3) * var(--_font-scale, 1)),
+        var(--rhythm-step) / 2
       );
       letter-spacing: -0.01em;
       margin-block: calc(var(--_flow-space) * 2)
-        round(var(--_flow-space) * 0.5, var(--rhythm-step, 0.25rem));
+        round(var(--_flow-space) * 0.5, var(--rhythm-step));
     }
 
     h4:where(:not([class])) {
       font-size: round(
-        calc(
-          var(--font-size-h4, var(--font-size-3, 1.25rem)) *
-            var(--_font-scale, 1)
-        ),
-        var(--rhythm-step, 0.25rem) / 2
+        calc(var(--font-size-h4) * var(--_font-scale, 1)),
+        var(--rhythm-step) / 2
       );
       letter-spacing: -0.01em;
-      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step, 0.25rem))
-        round(var(--_flow-space) * 0.5, var(--rhythm-step, 0.25rem));
+      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step))
+        round(var(--_flow-space) * 0.5, var(--rhythm-step));
     }
 
     h5:where(:not([class])) {
       font-size: round(
-        calc(
-          var(--font-size-h5, var(--font-size-2, 1.1rem)) *
-            var(--_font-scale, 1)
-        ),
-        var(--rhythm-step, 0.25rem) / 2
+        calc(var(--font-size-h5) * var(--_font-scale, 1)),
+        var(--rhythm-step) / 2
       );
-      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step, 0.25rem))
-        round(var(--_flow-space) * 0.5, var(--rhythm-step, 0.25rem));
+      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step))
+        round(var(--_flow-space) * 0.5, var(--rhythm-step));
     }
 
     h6:where(:not([class])) {
       font-size: round(
-        calc(
-          var(--font-size-h6, var(--font-size-1, 1rem)) * var(--_font-scale, 1)
-        ),
-        var(--rhythm-step, 0.25rem) / 2
+        calc(var(--font-size-h6) * var(--_font-scale, 1)),
+        var(--rhythm-step) / 2
       );
-      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step, 0.25rem))
-        round(var(--_flow-space) * 0.5, var(--rhythm-step, 0.25rem));
+      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step))
+        round(var(--_flow-space) * 0.5, var(--rhythm-step));
     }
 
     /** Overline */
@@ -594,15 +550,11 @@
       }
 
       & > :where(h1, h2, h3, h4, h5, h6) {
-        margin-block: 0
-          round(var(--_flow-space) * 0.75, var(--rhythm-step, 0.25rem));
+        margin-block: 0 round(var(--_flow-space) * 0.75, var(--rhythm-step));
       }
 
       & + * {
-        margin-block-start: round(
-          var(--_flow-space) * 2.5,
-          var(--rhythm-step, 0.25rem)
-        );
+        margin-block-start: round(var(--_flow-space) * 2.5, var(--rhythm-step));
       }
 
       /* Body paragraphs after the heading */
@@ -614,13 +566,13 @@
         }
 
         font-size: var(--font-size-3);
-        line-height: round(up, 1.6em, var(--rhythm-step, 0.25rem));
+        line-height: round(up, 1.6em, var(--rhythm-step));
       }
 
       & > p + p {
         margin-block-start: round(
           var(--_flow-space) * 0.75,
-          var(--rhythm-step, 0.25rem)
+          var(--rhythm-step)
         );
       }
     }
@@ -736,18 +688,18 @@
       display: block;
       font-variant-numeric: tabular-nums;
       inline-size: 100%;
-      overflow-x: auto;
+      overflow-inline: auto;
 
       caption {
         color: var(--text-muted);
         font-size: var(--font-size-0);
-        line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
+        line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
         padding-block-end: var(--space-2);
         text-align: start;
       }
 
       :where(th, td) {
-        border-block-end: var(--border-size-1) solid var(--border-color);
+        border-block-end: var(--border-width) solid var(--border-color);
         overflow-wrap: break-word;
         padding-block: 0.5em;
         padding-inline: 0.75em;
@@ -833,7 +785,7 @@
     }
 
     /* Code */
-    :where(code, kbd, samp, pre) {
+    :where(code, kbd, samp, pre, var) {
       font-family: var(--font-code);
     }
 
@@ -865,14 +817,15 @@
       background-color: var(--text-muted);
       border-color: var(--text-muted);
       border-radius: min(var(--radius-2), var(--border-radius));
-      border-width: var(--border-size-1);
+      border-width: var(--border-width);
       color: var(--text-muted-contrast);
       padding-block: 0.1ex;
       padding-inline: 0.3ex;
     }
 
     :not(pre) > code,
-    kbd {
+    kbd,
+    var {
       overflow-wrap: anywhere;
     }
 

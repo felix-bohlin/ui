@@ -1,7 +1,6 @@
 @layer components.root {
   :where(dialog.ui-drawer) {
-    --_dir: 1;
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_backdrop-bg-color: var(--backdrop-color);
     --_backdrop-blur: blur(var(--backdrop-blur));
     --_bg-color: var(--surface-default);
@@ -9,6 +8,7 @@
     --_border-color: var(--border-color);
     --_border-width: var(--border-width);
     --_content-padding: var(--space-4);
+    --_dir: 1;
     --_duration: calc(var(--duration) * var(--_motion));
     --_ease: var(--ease-enter);
     --_footer-gap: var(--space-3);
@@ -54,7 +54,7 @@
       --_backdrop-blur: none;
     }
 
-    .ui-header {
+    & > .ui-header {
       align-items: center;
       border-block-end: var(--_border-width) solid var(--_border-color);
       display: flex;
@@ -73,12 +73,12 @@
       }
     }
 
-    .ui-content {
+    & > .ui-content {
       anchor-name: --ui-drawer-content;
       anchor-scope: --ui-drawer-content;
       container-type: scroll-state;
       flex: 1;
-      overflow-y: auto;
+      overflow-block: auto;
       overscroll-behavior: contain;
       padding: var(--_content-padding);
 
@@ -107,18 +107,18 @@
     }
 
     @container scroll-state(scrollable: block-start) {
-      .ui-content::before {
+      & > .ui-content::before {
         opacity: 1;
       }
     }
 
     @container scroll-state(scrollable: block-end) {
-      .ui-content::after {
+      & > .ui-content::after {
         opacity: 1;
       }
     }
 
-    .ui-footer {
+    & > .ui-footer {
       border-block-start: var(--_border-width) solid var(--_border-color);
       display: flex;
       gap: var(--_footer-gap);
@@ -147,7 +147,7 @@
       inset-inline-start: auto;
       translate: calc(100% * var(--_dir)) 0;
 
-      .ui-footer {
+      & > .ui-footer {
         justify-content: start;
       }
     }

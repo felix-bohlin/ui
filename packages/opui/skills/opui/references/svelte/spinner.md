@@ -68,17 +68,19 @@ See [progress accessibility](https://open-props-ui.netlify.app/svelte/components
 
 ## API
 
+### Spinner API
+
 | Type  | Modifiers   | Default | Description                                            |
 | ----- | ----------- | ------- | ------------------------------------------------------ |
 | Sizes | `font-size` | `1em`   | Spinner size follows the element's computed font size. |
 
-### Parts
+#### Parts
 
 | Part                 | Description                                                            |
 | -------------------- | ---------------------------------------------------------------------- |
 | `[aria-busy="true"]` | Renders a spinner pseudo-element on the element. Always indeterminate. |
 
-### CSS variables
+#### CSS variables
 
 | Variable   | Default | Description                                                                                                                                                                                                |
 | ---------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -89,6 +91,14 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 These never show a spinner: `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>`. Neither do elements with `aria-describedby`, except buttons and links.
 
 Set `aria-busy` on any element to show a spinner. There is no Svelte component.
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
+
+| Property    | Kind  | Description                                                               |
+| ----------- | ----- | ------------------------------------------------------------------------- |
+| `--_motion` | Input | Motion multiplier for the spin. `0` slows it down instead of stopping it. |
 
 ## Under the hood
 

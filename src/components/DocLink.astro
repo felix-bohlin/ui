@@ -1,17 +1,16 @@
 ---
 // Framework-aware anchor for cross-doc navigation. Resolves the `href` to the
-// current request's framework variant at build time via `Astro.locals.link`,
-// so SSR'd HTML is correct on first paint - no runtime rewriting, no flicker,
-// and view transitions / prefetch work cleanly.
+// current request's framework variant (`/<framework>/...`) at build time via
+// `Astro.locals.link`, so framework pages are correct on first paint. On
+// framework-free pages, `relinkDocs()` in Layout.astro repoints the link to the
+// visitor's framework at runtime.
 //
 // Use this for any internal docs link in a regular `<a>`. For components that
 // render their own anchor (Button, Chip, ListItem, etc.), use
 // `Astro.locals.link()` directly on the `href` prop instead.
-type Props = {
-  [key: string]: any
-  class?: string
-  href: string
-}
+import type { HTMLAttributes } from "astro/types"
+
+type Props = HTMLAttributes<"a"> & { href: string }
 
 const { class: className, href, ...rest } = Astro.props
 const { link } = Astro.locals

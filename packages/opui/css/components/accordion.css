@@ -1,6 +1,6 @@
 @layer components.extended {
   :where(details.ui-accordion) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_actions-gap: var(--space-1);
     --_actions-margin-block-start: 0;
     --_actions-padding-block-end: var(--_summary-padding-block);
@@ -13,10 +13,10 @@
     --_content-padding-inline: var(--_padding-inline);
     --_duration: calc(var(--duration) * var(--_motion));
     --_ease: var(--ease);
-    --_focus-ring-offset: var(--focus-ring-offset, 2px);
+    --_focus-ring-offset: var(--focus-ring-offset);
     --_margin-inline: var(--space-1);
     --_overflow: visible;
-    --_padding-inline: initial;
+    --_padding-inline: 0;
     --_shadow: none;
     --_summary-padding-block: var(--space-3);
     --_summary-padding-inline: var(--_padding-inline);
@@ -39,12 +39,15 @@
     /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
     interpolate-size: allow-keywords;
 
-    &.ui-elevated {
-      --_bg-color: var(--surface-elevated);
-      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
+    &:is(.ui-elevated, .ui-outlined, .ui-tonal) {
+      --_focus-ring-offset: calc(-2 * var(--focus-ring-width));
       --_margin-inline: 0;
       --_overflow: hidden;
       --_padding-inline: var(--space-3);
+    }
+
+    &.ui-elevated {
+      --_bg-color: var(--surface-elevated);
       --_shadow: var(--shadow-raised);
     }
 
@@ -52,18 +55,10 @@
       --_bg-color: var(--surface-default);
       --_border-color: var(--border-color);
       --_border-width: var(--border-width);
-      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
-      --_margin-inline: 0;
-      --_overflow: hidden;
-      --_padding-inline: var(--space-3);
     }
 
     &.ui-tonal {
       --_bg-color: var(--surface-tonal);
-      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
-      --_margin-inline: 0;
-      --_overflow: hidden;
-      --_padding-inline: var(--space-3);
     }
 
     @media (forced-colors: active) {
@@ -76,11 +71,11 @@
     &::details-content {
       block-size: 0;
       opacity: 0;
-      overflow-y: clip;
+      overflow-block: clip;
       transition:
         content-visibility var(--_duration) allow-discrete,
-        opacity var(--_duration),
-        block-size var(--_duration);
+        opacity var(--_duration) var(--_ease),
+        block-size var(--_duration) var(--_ease);
     }
 
     &[open]::details-content {
@@ -165,29 +160,22 @@
   }
 
   /* Accordion group  */
-  :where(.ui-card[role="group"]:has(details.ui-accordion)) {
+  :where(.ui-card[role="group"]:has(> details.ui-accordion)) {
+    --_divider-color: var(--border-color);
     --_group-radius: var(--border-radius);
-    --_gutter-color: var(--border-color);
     --_item-padding-inline: var(--space-3);
     --_item-summary-padding-inline: var(--_item-padding-inline);
 
     display: block;
 
-    &.ui-card {
-      &:not(.ui-tonal, .ui-outlined, .ui-elevated) {
-        --_item-padding-inline: 0;
-      }
-    }
-
-    & > .ui-content {
-      margin-block: 0;
-      padding: 0;
+    &:not(.ui-elevated, .ui-outlined, .ui-tonal) {
+      --_item-padding-inline: 0;
     }
 
     & > details.ui-accordion {
       --_border-color: transparent;
       --_border-width: 0;
-      --_focus-ring-offset: calc(-2 * var(--focus-ring-width, 2px));
+      --_focus-ring-offset: calc(-2 * var(--focus-ring-width));
       --_margin-inline: 0;
       --_padding-inline: var(--_item-padding-inline);
       --_shadow: none;
@@ -195,7 +183,7 @@
 
       /* Border between accordion items */
       & + & {
-        border-block-start: var(--border-width) solid var(--_gutter-color);
+        border-block-start: var(--border-width) solid var(--_divider-color);
         border-radius: 0;
       }
 

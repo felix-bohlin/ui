@@ -16,10 +16,10 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 </script>
 
 <template>
-  <Tooltip id="tooltip-basic">
+  <Tooltip id="tooltip-basics-1">
     <Button
-      interestfor="tooltip-basic"
-      commandfor="tooltip-basic"
+      interestfor="tooltip-basics-1"
+      commandfor="tooltip-basics-1"
       command="toggle-popover"
       >Save</Button
     >
@@ -38,10 +38,10 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 </script>
 
 <template>
-  <Tooltip id="tooltip-rich">
+  <Tooltip id="tooltip-rich-content-1">
     <Button
-      interestfor="tooltip-rich"
-      commandfor="tooltip-rich"
+      interestfor="tooltip-rich-content-1"
+      commandfor="tooltip-rich-content-1"
       command="toggle-popover"
       >Keyboard shortcuts</Button
     >
@@ -62,38 +62,38 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 </script>
 
 <template>
-  <div class="tooltip-alignment-grid">
-    <Tooltip alignment="block-start" id="tooltip-top">
+  <div class="example-compass">
+    <Tooltip alignment="block-start" id="tooltip-alignment-1">
       <Button
-        interestfor="tooltip-top"
-        commandfor="tooltip-top"
+        interestfor="tooltip-alignment-1"
+        commandfor="tooltip-alignment-1"
         command="toggle-popover"
         >Top</Button
       >
       <TooltipContent>Above</TooltipContent>
     </Tooltip>
-    <Tooltip alignment="inline-start" id="tooltip-start">
+    <Tooltip alignment="inline-start" id="tooltip-alignment-2">
       <Button
-        interestfor="tooltip-start"
-        commandfor="tooltip-start"
+        interestfor="tooltip-alignment-2"
+        commandfor="tooltip-alignment-2"
         command="toggle-popover"
         >Start</Button
       >
       <TooltipContent>Before</TooltipContent>
     </Tooltip>
-    <Tooltip alignment="inline-end" id="tooltip-end">
+    <Tooltip alignment="inline-end" id="tooltip-alignment-3">
       <Button
-        interestfor="tooltip-end"
-        commandfor="tooltip-end"
+        interestfor="tooltip-alignment-3"
+        commandfor="tooltip-alignment-3"
         command="toggle-popover"
         >End</Button
       >
       <TooltipContent>After</TooltipContent>
     </Tooltip>
-    <Tooltip alignment="block-end" id="tooltip-bottom">
+    <Tooltip alignment="block-end" id="tooltip-alignment-4">
       <Button
-        interestfor="tooltip-bottom"
-        commandfor="tooltip-bottom"
+        interestfor="tooltip-alignment-4"
+        commandfor="tooltip-alignment-4"
         command="toggle-popover"
         >Bottom</Button
       >
@@ -101,32 +101,6 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
     </Tooltip>
   </div>
 </template>
-
-<style>
-.tooltip-alignment-grid {
-  align-items: center;
-  display: grid;
-  gap: var(--size-3);
-  grid-template-areas:
-    ".     top    .  "
-    "start .      end"
-    ".     bottom .  ";
-  justify-items: center;
-}
-
-.tooltip-alignment-grid > :nth-child(1) {
-  grid-area: top;
-}
-.tooltip-alignment-grid > :nth-child(2) {
-  grid-area: start;
-}
-.tooltip-alignment-grid > :nth-child(3) {
-  grid-area: end;
-}
-.tooltip-alignment-grid > :nth-child(4) {
-  grid-area: bottom;
-}
-</style>
 ```
 
 ## Arrow
@@ -139,10 +113,10 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 </script>
 
 <template>
-  <Tooltip arrow id="tooltip-arrow">
+  <Tooltip arrow id="tooltip-arrow-1">
     <Button
-      interestfor="tooltip-arrow"
-      commandfor="tooltip-arrow"
+      interestfor="tooltip-arrow-1"
+      commandfor="tooltip-arrow-1"
       command="toggle-popover"
       >Save</Button
     >
@@ -188,15 +162,17 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
 
-| Property             | Kind  | Description                                                                   |
-| -------------------- | ----- | ----------------------------------------------------------------------------- |
-| `--_arrow-size`      | Input | Size of the arrow in `.ui-with-arrow`.                                        |
-| `--_bg-color`        | Input | Background of the tooltip and its arrow. Defaults to `--surface-inverse`.     |
-| `--_min-inline-size` | Input | The minimum width, unless the content is narrower.                            |
-| `--_motion`          | Input | Motion multiplier for the fade. `0` turns it off.                             |
-| `--_offset`          | Input | Distance from the trigger. `.ui-with-arrow` computes it from `--_arrow-size`. |
-| `--_shift`           | Input | How far a shifted tooltip reaches past the center of the trigger.             |
-| `--_text-color`      | Input | The text color. Defaults to `--text-inverse`.                                 |
+| Property             | Kind   | Description                                                                   |
+| -------------------- | ------ | ----------------------------------------------------------------------------- |
+| `--_arrow-size`      | Input  | Size of the arrow in `.ui-with-arrow`.                                        |
+| `--_bg-color`        | Input  | Background of the tooltip and its arrow. Defaults to `--surface-inverse`.     |
+| `--_duration`        | Output | Duration of the fade, `--duration` times `--_motion`.                         |
+| `--_ease`            | Input  | Easing of the fade. Defaults to `--ease-enter`.                               |
+| `--_min-inline-size` | Input  | The minimum width, unless the content is narrower.                            |
+| `--_motion`          | Input  | Motion multiplier for the fade. `0` turns it off.                             |
+| `--_offset`          | Input  | Distance from the trigger. `.ui-with-arrow` computes it from `--_arrow-size`. |
+| `--_shift`           | Input  | How far a shifted tooltip reaches past the center of the trigger.             |
+| `--_text-color`      | Input  | The text color. Defaults to `--text-inverse`.                                 |
 
 ## Under the hood
 
@@ -379,12 +355,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/vue`:
 
-- `opui-css/css/components/tooltip.css`
-- `opui-css/css/components/anchor.css`
-
-## See also
+### Dependencies
 
 - [Anchor](https://open-props-ui.netlify.app/vue/components/anchor.md)
+
+* `opui-css/css/components/tooltip.css`
+* `opui-css/css/components/anchor.css`
 
 ## Changelog
 
@@ -394,4 +370,6 @@ Import the component from `opui-css/vue`:
 - Breaking: [`id`](#api) is required.
 - Breaking: no `<span interestfor>` around the trigger. Put `interestfor` with the tooltip `id` on the [trigger](#basics).
 - The [arrow](#arrow) points at the trigger in every position, also after a flip.
+- Breaking: `--_tooltip-bg` and `--_tooltip-color` are `--_bg-color` and `--_text-color`, and `--_tooltip-offset` is `--_offset` ([Under the hood](#under-the-hood)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners never get rounder than [`--border-radius`](#api), so `0` squares them.

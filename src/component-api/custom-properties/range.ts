@@ -1,6 +1,21 @@
 import type { CustomProperties } from "../types"
 
 export default {
+  "--_accent": {
+    description:
+      "Color of the thumb, its ring and the track fill. Defaults to `--primary`, set by the invalid state.",
+    kind: "input",
+  },
+  "--_duration": {
+    description:
+      "Duration of the thumb ring transition, `--duration-fast` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description:
+      "Easing of the thumb ring transition and focus ring. Defaults to `--ease`.",
+    kind: "input",
+  },
   "--_forced-fill-color": {
     description:
       "Thumb and fill color in forced colors mode. `GrayText` when disabled.",
@@ -22,12 +37,11 @@ export default {
   },
   "--_thumb-bg-color": {
     description:
-      "The current thumb color. From `--primary`, set by the invalid and disabled states.",
+      "The current thumb color. From `--_accent`, set by the disabled state.",
     kind: "output",
   },
   "--_thumb-highlight-color": {
-    description:
-      "Color of the ring around the thumb. From `--primary`, set by the invalid state.",
+    description: "Color of the ring around the thumb, from `--_accent`.",
     kind: "output",
   },
   "--_thumb-highlight-size": {
@@ -37,7 +51,7 @@ export default {
   },
   "--_thumb-offset": {
     description: "Vertical offset that centers the thumb on the track.",
-    kind: "input",
+    kind: "output",
   },
   "--_thumb-size": {
     description: "Width and height of the thumb. Larger on touch screens.",
@@ -54,8 +68,7 @@ export default {
     kind: "output",
   },
   "--_track-fill-color": {
-    description:
-      "Color of the filled part of the track. From `--primary`, set by the invalid state.",
+    description: "Color of the filled part of the track, from `--_accent`.",
     kind: "output",
   },
   "--_track-height": {

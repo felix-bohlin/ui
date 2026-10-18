@@ -13,7 +13,7 @@ const places = ["Kyoto", "Lima", "Lisbon"]
     "
   >
     <div>
-      <Carousel label="Destinations" markers>
+      <Carousel aria-label="Destinations" markers>
         <li v-for="title in places" :key="title">
           <Card variant="tonal">
             <CardHeader>

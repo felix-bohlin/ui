@@ -3,23 +3,28 @@ import type { ComponentApi } from "../types"
 export default {
   component: "ToggleButton",
   notes: {
+    astro:
+      "Other attributes go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`.",
     react:
-      "`pressed` sets the starting state. To control it, pass `checked` and `onChange`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `style` goes to the root `<label>`. `pressed` sets the starting state. To control it, pass `checked` and `onChange`. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value sets the state instead.",
+    svelte:
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `style` goes to the root `<label>`. In a `ToggleGroup` with `bind:value`, the group's value sets the state instead of `pressed`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. In a `ToggleGroup` with `v-model`, the group's value sets the state instead of `pressed`.",
   },
   options: [
     {
       attribute: "[disabled]",
       default: "false",
       description: "Disables the button.",
-      frameworks: ["astro", "html", "react", "svelte", "vue"],
-      group: "State",
+      group: "Disabled",
+      inherited: true,
       part: "input",
       prop: "disabled",
       type: "boolean",
     },
     {
       description: "The id of the `<input>`.",
-      frameworks: ["astro", "react", "svelte", "vue"],
+      inherited: true,
       prop: "id",
       type: "string",
     },
@@ -30,7 +35,7 @@ export default {
     },
     {
       description: "The name of the input. Set by the group.",
-      frameworks: ["astro", "react", "svelte", "vue"],
+      inherited: true,
       prop: "name",
       type: "string",
     },
@@ -38,7 +43,7 @@ export default {
       attribute: "[checked]",
       default: "false",
       description: "Selects the button.",
-      group: "State",
+      group: "Checked",
       part: "input",
       prop: "pressed",
     },
@@ -62,7 +67,7 @@ export default {
     },
     {
       description: "The value of the input.",
-      frameworks: ["astro", "react", "svelte", "vue"],
+      inherited: true,
       prop: "value",
       type: "string",
     },

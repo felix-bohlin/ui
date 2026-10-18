@@ -1,6 +1,11 @@
 import type { CustomProperties } from "../types"
 
 export default {
+  "--_accent": {
+    description:
+      "The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info` and `.ui-success`.",
+    kind: "input",
+  },
   "--_anchor-tx": {
     description:
       "Horizontal shift of the indicator, from `--_sign-x`. `.ui-dot` and round avatars change it.",
@@ -20,6 +25,10 @@ export default {
     description: "Border color of the indicator. Set by the color classes.",
     kind: "input",
   },
+  "--_border-width": {
+    description: "Border width of the indicator.",
+    kind: "input",
+  },
   "--_dir": {
     description:
       "Direction flag that flips `--_anchor-tx`. `1`, or `-1` in right-to-left.",
@@ -27,6 +36,15 @@ export default {
   },
   "--_dot-size": {
     description: "Width and height of the indicator in `.ui-dot`.",
+    kind: "input",
+  },
+  "--_duration": {
+    description:
+      "Duration of the indicator fade, `--duration` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description: "Easing of the indicator fade. Defaults to `--ease-enter`.",
     kind: "input",
   },
   "--_inset": {

@@ -1,0 +1,66 @@
+---
+import type { TodoNote } from "../../utils/todo"
+import InlineText from "./InlineText.astro"
+
+type Props = {
+  class?: string
+  notes: TodoNote[]
+}
+
+const { class: className, notes } = Astro.props
+---
+
+{
+  notes.length > 0 && (
+    <div class:list={["todo-notes", className]}>
+      {notes.map((note) =>
+        note.kind === "code" ? (
+          <pre
+            class="todo-note ui-code-block"
+            set:text={note.code}
+            style={`--level: ${note.level}`}
+          />
+        ) : (
+          <p
+            class:list={["todo-note", `todo-note-${note.kind}`]}
+            style={`--level: ${note.level}`}
+          >
+            <InlineText links text={note.text} />
+          </p>
+        ),
+      )}
+    </div>
+  )
+}
+
+<style>
+  .todo-notes {
+    display: grid;
+    font-size: var(--font-size-05);
+    gap: var(--size-2);
+  }
+
+  .todo-note {
+    margin: 0;
+    margin-inline-start: calc(var(--level) * var(--size-4));
+    min-inline-size: 0;
+  }
+
+  .todo-note-item {
+    padding-inline-start: var(--size-3);
+    position: relative;
+
+    &::before {
+      content: "•";
+      inset-inline-start: 0;
+      position: absolute;
+    }
+  }
+
+  .todo-note-comment {
+    border-inline-start: var(--border-size-3) solid var(--border-color);
+    color: var(--text-muted);
+    font-style: italic;
+    padding-inline-start: var(--size-3);
+  }
+</style>

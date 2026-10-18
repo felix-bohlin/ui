@@ -24,7 +24,7 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
   The footer.
 
-## Usage
+## Basics
 
 Change the opening side with the `.ui-inline-start`, `.ui-inline-end`, `.ui-block-start`, and `.ui-block-end` classes.
 
@@ -35,35 +35,35 @@ The backdrop dims and blurs the page by default. Use the `.ui-backdrop-transpare
 Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling while it's open. With `.ui-backdrop-transparent` the page stays scrollable, except on screens narrower than 500px. Omit the class to allow background scrolling.
 
 ```html
-<div class="drawer-examples">
+<div class="example-compass">
   <button
     type="button"
-    class="ui-button top"
-    commandfor="drawer-block-start-html"
+    class="ui-button"
+    commandfor="drawer-basics-3"
     command="show-modal"
   >
     Block Start
   </button>
   <button
     type="button"
-    class="ui-button left"
-    commandfor="drawer-inline-start-html"
+    class="ui-button"
+    commandfor="drawer-basics-1"
     command="show-modal"
   >
     Inline Start
   </button>
   <button
     type="button"
-    class="ui-button right"
-    commandfor="drawer-inline-end-html"
+    class="ui-button"
+    commandfor="drawer-basics-2"
     command="show-modal"
   >
     Inline End
   </button>
   <button
     type="button"
-    class="ui-button bottom"
-    commandfor="drawer-block-end-html"
+    class="ui-button"
+    commandfor="drawer-basics-4"
     command="show-modal"
   >
     Block End
@@ -72,17 +72,17 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 
 <dialog
   class="ui-drawer ui-scroll-lock ui-inline-start"
-  id="drawer-inline-start-html"
-  aria-labelledby="drawer-inline-start-html-heading"
+  id="drawer-basics-1"
+  aria-labelledby="drawer-basics-1-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <h2 id="drawer-inline-start-html-heading">Inline Start</h2>
+    <h2 id="drawer-basics-1-heading">Inline Start</h2>
     <button
       type="button"
-      class="ui-button ui-rounded ui-small"
+      class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-inline-start-html"
+      commandfor="drawer-basics-1"
       command="close"
     >
       <svg
@@ -121,7 +121,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
     <button
       type="button"
       class="ui-button ui-small"
-      commandfor="drawer-inline-start-html"
+      commandfor="drawer-basics-1"
       command="close"
     >
       Close
@@ -131,17 +131,17 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 
 <dialog
   class="ui-drawer ui-scroll-lock ui-inline-end"
-  id="drawer-inline-end-html"
-  aria-labelledby="drawer-inline-end-html-heading"
+  id="drawer-basics-2"
+  aria-labelledby="drawer-basics-2-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <h2 id="drawer-inline-end-html-heading">Inline End</h2>
+    <h2 id="drawer-basics-2-heading">Inline End</h2>
     <button
       type="button"
-      class="ui-button ui-rounded ui-small"
+      class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-inline-end-html"
+      commandfor="drawer-basics-2"
       command="close"
     >
       <svg
@@ -180,7 +180,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
     <button
       type="button"
       class="ui-button ui-small"
-      commandfor="drawer-inline-end-html"
+      commandfor="drawer-basics-2"
       command="close"
     >
       Close
@@ -190,17 +190,17 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 
 <dialog
   class="ui-drawer ui-scroll-lock ui-block-start"
-  id="drawer-block-start-html"
-  aria-labelledby="drawer-block-start-html-heading"
+  id="drawer-basics-3"
+  aria-labelledby="drawer-basics-3-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <h2 id="drawer-block-start-html-heading">Block Start</h2>
+    <h2 id="drawer-basics-3-heading">Block Start</h2>
     <button
       type="button"
-      class="ui-button ui-rounded ui-small"
+      class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-block-start-html"
+      commandfor="drawer-basics-3"
       command="close"
     >
       <svg
@@ -234,7 +234,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
     <button
       type="button"
       class="ui-button ui-small"
-      commandfor="drawer-block-start-html"
+      commandfor="drawer-basics-3"
       command="close"
     >
       Close
@@ -244,17 +244,17 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 
 <dialog
   class="ui-drawer ui-scroll-lock ui-block-end"
-  id="drawer-block-end-html"
-  aria-labelledby="drawer-block-end-html-heading"
+  id="drawer-basics-4"
+  aria-labelledby="drawer-basics-4-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <h2 id="drawer-block-end-html-heading">Block End</h2>
+    <h2 id="drawer-basics-4-heading">Block End</h2>
     <button
       type="button"
-      class="ui-button ui-rounded ui-small"
+      class="ui-button ui-round ui-small"
       aria-label="Close"
-      commandfor="drawer-block-end-html"
+      commandfor="drawer-basics-4"
       command="close"
     >
       <svg
@@ -288,44 +288,13 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
     <button
       type="button"
       class="ui-button ui-small"
-      commandfor="drawer-block-end-html"
+      commandfor="drawer-basics-4"
       command="close"
     >
       Close
     </button>
   </div>
 </dialog>
-
-<style>
-  .drawer-examples {
-    display: grid;
-    grid-template-areas:
-      ". top ."
-      "left . right"
-      ". bottom .";
-    gap: var(--size-3);
-    justify-items: center;
-    align-items: center;
-    margin: var(--size-8) auto;
-    width: fit-content;
-  }
-
-  .top {
-    grid-area: top;
-  }
-
-  .left {
-    grid-area: left;
-  }
-
-  .right {
-    grid-area: right;
-  }
-
-  .bottom {
-    grid-area: bottom;
-  }
-</style>
 ```
 
 ## How to close a drawer
@@ -569,7 +538,7 @@ Step 1 of 5: Modal
 
 .drawer > .content {
   flex: 1;
-  overflow-y: auto;
+  overflow-block: auto;
   overscroll-behavior: contain;
 }
 ```
@@ -741,6 +710,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
-- Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Usage](#usage)).
+- Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Basics](#basics)).
 - Name it with [`aria-labelledby`](#accessibility) pointing at the header heading.
+- The [backdrop](#basics) dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`.
+- Breaking: `--_color` is `--_text-color`, and `--_transition-duration` and `--_transition-timing` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
 - The drawer shadow is [`--shadow-overlay`](#api), shared with menus, select pickers and toasts. Padding reads the `--space-*` scale.

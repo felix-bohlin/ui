@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description ¢ EUR Header Footer Supporting text
+Label Start text € EUR Header Footer Supporting text
 
 - `<TextField>`
 
@@ -12,9 +12,9 @@ Label Description ¢ EUR Header Footer Supporting text
 
   The label for the field.
 
-- `description`
+- `startText`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -80,15 +80,15 @@ export default function Sizes() {
 }
 ```
 
-## Description
+## Start text
 
-Use the `description` prop for text between the label and the input.
+Use the `startText` prop for text between the label and the input.
 
 ```tsx
 import { TextField } from "opui-css/react"
 
 export default function Description() {
-  return <TextField description="As it appears on your ID" label="Name" />
+  return <TextField startText="As it appears on your ID" label="Name" />
 }
 ```
 
@@ -97,7 +97,7 @@ export default function Description() {
 ```tsx
 import { TextField } from "opui-css/react"
 
-export default function SupportingText() {
+export default function EndText() {
   return (
     <TextField label="Label" placeholder="Outlined" endText="Supporting text" />
   )
@@ -114,7 +114,7 @@ import { TextField } from "opui-css/react"
 export default function Affix() {
   return (
     <>
-      <TextField label="Amount" placeholder="0.00" prefix="¢" suffix="EUR" />
+      <TextField label="Amount" placeholder="0.00" prefix="€" suffix="EUR" />
       <TextField label="Website" placeholder="example.com" prefix="https://" />
       <TextField label="Weight" type="numeric" placeholder="0" suffix="kg" />
       <TextField
@@ -122,6 +122,7 @@ export default function Affix() {
         placeholder="Search..."
         prefix={
           <svg
+            aria-hidden="true"
             width="16"
             height="16"
             viewBox="0 0 24 24"
@@ -169,11 +170,9 @@ export default function Headers() {
 
 ## Validation
 
-Set the `required` prop on the component. It is forwarded to the underlying `<input>`.
-
-Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
-
-Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
+- `required` toggles the required styles on the `<input>`.
+- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The wrapping `<label>` makes it part of the field's name.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```tsx
 import { TextField } from "opui-css/react"
@@ -215,19 +214,19 @@ export default function Validation() {
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the input on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the input on the right. The layout collapses to a column on narrow containers.
 
 ```tsx
 import { TextField } from "opui-css/react"
 
-export default function Orientation() {
+export default function Spread() {
   return (
     <>
       <TextField
         spread
         placeholder="Evil Rabbit"
         label="Name"
-        description="Provide your full name for identification"
+        startText="Provide your full name for identification"
       />
 
       <TextField
@@ -236,7 +235,7 @@ export default function Orientation() {
         type="email"
         variant="filled"
         label="Email"
-        description="We'll use this to contact you"
+        startText="We'll use this to contact you"
         endText="Please use a valid email address"
       />
 
@@ -244,21 +243,21 @@ export default function Orientation() {
         spread
         required
         label="Required"
-        description="You must fill this in"
+        startText="You must fill this in"
       />
 
       <TextField
         spread
         disabled
         label="Disabled"
-        description="This field is disabled"
+        startText="This field is disabled"
       />
 
       <TextField
         spread
         error
         label="Invalid Name"
-        description="This field has an error"
+        startText="This field has an error"
         endText="This value is too short."
       />
 
@@ -266,8 +265,8 @@ export default function Orientation() {
         spread
         label="Amount"
         placeholder="0.00"
-        description="Daily spending limit"
-        prefix="¢"
+        startText="Daily spending limit"
+        prefix="€"
         suffix="EUR"
       />
 
@@ -276,7 +275,7 @@ export default function Orientation() {
         label="Website"
         placeholder="example.com"
         variant="filled"
-        description="Your public profile URL"
+        startText="Your public profile URL"
         prefix="https://"
         endText="Must include a valid domain"
       />
@@ -285,7 +284,7 @@ export default function Orientation() {
         spread
         label="Project name"
         placeholder="my-project"
-        description="Used to generate the project URL"
+        startText="Used to generate the project URL"
         header="acme.dev/"
         footer="Lowercase letters and dashes only"
       />
@@ -296,9 +295,10 @@ export default function Orientation() {
         label="API key"
         placeholder="Paste your key"
         type="password"
-        description="Stored encrypted at rest"
+        startText="Stored encrypted at rest"
         prefix={
           <svg
+            aria-hidden="true"
             width="16"
             height="16"
             viewBox="0 0 24 24"
@@ -336,85 +336,31 @@ export default function AutoFit() {
 ## Input types
 
 ```tsx
+import { TextField } from "opui-css/react"
+
 export default function InputTypes() {
   return (
     <>
       <div className="example-column">
-        <label className="ui-text-field input-type-field">
-          <span className="ui-label">Color</span>
-          <span className="ui-field">
-            <input type="color" placeholder="Color" />
-          </span>
-        </label>
-        <label className="ui-text-field input-type-field">
-          <span className="ui-label">Email</span>
-          <span className="ui-field">
-            <input type="email" placeholder="name@email.com" />
-          </span>
-        </label>
-        <label className="ui-text-field input-type-field">
-          <span className="ui-label">Password</span>
-          <span className="ui-field">
-            <input type="password" placeholder="Password" />
-          </span>
-        </label>
-        <label className="ui-text-field input-type-field">
-          <span className="ui-label">Search</span>
-          <span className="ui-field">
-            <input type="search" placeholder="Search" />
-          </span>
-        </label>
-        <label className="ui-text-field input-type-field">
-          <span className="ui-label">Phone</span>
-          <span className="ui-field">
-            <input type="tel" placeholder="(666) 666-1337" />
-          </span>
-        </label>
-        <label className="ui-text-field input-type-field">
-          <span className="ui-label">Text</span>
-          <span className="ui-field">
-            <input type="text" placeholder="Text" />
-          </span>
-        </label>
-        <label className="ui-text-field input-type-field">
-          <span className="ui-label">URL</span>
-          <span className="ui-field">
-            <input type="url" placeholder="https://yoursite.com" />
-          </span>
-        </label>
+        <TextField label="Color" placeholder="Color" type="color" />
+        <TextField label="Email" placeholder="name@email.com" type="email" />
+        <TextField label="Password" placeholder="Password" type="password" />
+        <TextField label="Search" placeholder="Search" type="search" />
+        <TextField label="Phone" placeholder="(666) 666-1337" type="tel" />
+        <TextField label="Text" placeholder="Text" type="text" />
+        <TextField label="URL" placeholder="https://yoursite.com" type="url" />
       </div>
 
       <div className="example-column">
-        <label className="ui-text-field input-type-field">
-          <span className="ui-label">Date</span>
-          <span className="ui-field">
-            <input type="date" placeholder="Date" />
-          </span>
-        </label>
-        <label className="ui-text-field input-type-field">
-          <span className="ui-label">Datetime local</span>
-          <span className="ui-field">
-            <input type="datetime-local" placeholder="Datetime local" />
-          </span>
-        </label>
-        <label className="ui-text-field input-type-field">
-          <span className="ui-label">Month</span>
-          <span className="ui-field">
-            <input type="month" placeholder="Month" />
-          </span>
-        </label>
-        <label className="ui-text-field input-type-field">
-          <span className="ui-label">Time</span>
-          <span className="ui-field">
-            <input type="time" placeholder="Time" />
-          </span>
-        </label>
-        <label className="ui-text-field input-type-field">
-          <span className="ui-label">Week</span>
-          <span className="ui-field">
-            <input type="week" placeholder="Week" />
-          </span>
-        </label>
+        <TextField label="Date" placeholder="Date" type="date" />
+        <TextField
+          label="Datetime local"
+          placeholder="Datetime local"
+          type="datetime-local"
+        />
+        <TextField label="Month" placeholder="Month" type="month" />
+        <TextField label="Time" placeholder="Time" type="time" />
+        <TextField label="Week" placeholder="Week" type="week" />
       </div>
     </>
   )
@@ -477,7 +423,7 @@ export default function File() {
 
 ## Autosuggest
 
-Leverages the `<input>` + `<datalist>` element combo.
+Leverages the `<input>` + `<datalist>` element combo. An input with a `list` shows the Select chevron in place of the browser's arrow.
 
 - `<input list="DATALISTID">`
 - `<datalist id="DATALISTID">`
@@ -488,8 +434,12 @@ import { TextField } from "opui-css/react"
 export default function Autosuggest() {
   return (
     <>
-      <TextField label="Users" list="users" placeholder="Placeholder">
-        <datalist id="users">
+      <TextField
+        label="Users"
+        list="text-field-autosuggest-1-list"
+        placeholder="Placeholder"
+      >
+        <datalist id="text-field-autosuggest-1-list">
           <option value="Ray Manzarek"></option>
           <option value="Jonny Greenwood"></option>
           <option value="Marika Hackman"></option>
@@ -499,11 +449,11 @@ export default function Autosuggest() {
       <TextField
         variant="filled"
         label="Emails"
-        list="users-email"
+        list="text-field-autosuggest-2-list"
         placeholder="Placeholder"
         type="email"
       >
-        <datalist id="users-email">
+        <datalist id="text-field-autosuggest-2-list">
           <option value="ray.manzarek@the.doors"></option>
           <option value="jonny.greenwood@radio.head"></option>
           <option value="marika@hack.man"></option>
@@ -525,14 +475,10 @@ Think of `<datalist>` as a list of *suggested* values.
 No. But you get some accessibility wins for free with `<label>`. It's recommended to label your inputs somehow.
 
 ```tsx
+import { TextField } from "opui-css/react"
+
 export default function NoLabel() {
-  return (
-    <div className="ui-text-field">
-      <span className="ui-field">
-        <input aria-label="Search" placeholder="Search" type="text" />
-      </span>
-    </div>
-  )
+  return <TextField aria-label="Search" placeholder="Search" />
 }
 ```
 
@@ -544,25 +490,23 @@ export default function NoLabel() {
 
 ### Text field API
 
-| Prop             | Type                                | Default      | Description                                                               |
-| ---------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `autoFit`        | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                           |
-| `children`       | `ReactNode`                         | -            | Extra content inside the root, such as a `<datalist>`.                    |
-| `description`    | `ReactNode`                         | -            | Description text displayed above the field.                               |
-| `endText`        | `ReactNode`                         | -            | Supporting text displayed below the field.                                |
-| `error`          | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
-| `footer`         | `ReactNode`                         | -            | Content below the input, inside the border, with a divider.               |
-| `header`         | `ReactNode`                         | -            | Content above the input, inside the border, with a divider.               |
-| `id`             | `string`                            | -            | The id of the `<input>`.                                                  |
-| `label`          | `ReactNode`                         | -            | The label for the field.                                                  |
-| `prefix`         | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.              |
-| `size`           | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                  |
-| `spread`         | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
-| `startText`      | `string`                            | -            | Legacy alias of `description`.                                            |
-| `suffix`         | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                |
-| `supportingText` | `ReactNode`                         | -            | Legacy alias of `endText`.                                                |
-| `type`           | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
-| `variant`        | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
+| Prop        | Type                                | Default      | Description                                                               |
+| ----------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `autoFit`   | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                           |
+| `children`  | `ReactNode`                         | -            | Extra content inside the root, such as a `<datalist>`.                    |
+| `endText`   | `ReactNode`                         | -            | Supporting text displayed below the field.                                |
+| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
+| `footer`    | `ReactNode`                         | -            | Content below the input, inside the border, with a divider.               |
+| `header`    | `ReactNode`                         | -            | Content above the input, inside the border, with a divider.               |
+| `id`        | `string`                            | -            | The id of the `<input>`.                                                  |
+| `label`     | `ReactNode`                         | -            | The label for the field.                                                  |
+| `prefix`    | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.              |
+| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
+| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the input to the other.   |
+| `startText` | `ReactNode`                         | -            | Start text displayed above the field.                                     |
+| `suffix`    | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                |
+| `type`      | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
+| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
 
 #### CSS variables
 
@@ -586,7 +530,7 @@ export default function NoLabel() {
 | `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                                                   |
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                                                   |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                                                 |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                  |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                                                   |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                                         |
@@ -610,22 +554,25 @@ Attributes that aren't props go to the `<input>`, like `disabled` or `placeholde
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
 
-| Property                     | Kind   | Description                                                                                               |
-| ---------------------------- | ------ | --------------------------------------------------------------------------------------------------------- |
-| `--_accent`                  | Output | Border color of the focused `.ui-field`. From `--primary`, set by the invalid state.                      |
-| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                         |
-| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                           |
-| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                 |
-| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                            |
-| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                     |
-| `--_end-text-color`          | Output | The current color of `.ui-start-text` and `.ui-end-text`. Set by the invalid state.                       |
-| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                      |
-| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                         |
-| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                       |
-| `--_font-size`               | Input  | The font size of the control and affixes.                                                                 |
-| `--_label-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Set by the invalid state. |
-| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--field-size`, set by the size classes.                   |
-| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                |
+| Property                     | Kind   | Description                                                                                                                           |
+| ---------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                  | Output | Border color of the focused `.ui-field`. From `--primary`, set by the invalid state.                                                  |
+| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--text-muted`, set by the invalid state. |
+| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                     |
+| `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.             |
+| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                       |
+| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                                             |
+| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                                                        |
+| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                 |
+| `--_duration`                | Output | Duration of the transitions and focus ring animation, `--duration` times `--_motion`.                                                 |
+| `--_ease`                    | Input  | Easing of the transitions. Defaults to `--ease`.                                                                                      |
+| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                                                  |
+| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                                                     |
+| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                                                   |
+| `--_font-size`               | Input  | The font size of the control and affixes.                                                                                             |
+| `--_helper-color`            | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--field-helper-color`, set by the invalid state.               |
+| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--field-size`, set by the size classes.                                               |
+| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                            |
 
 ## Under the hood
 
@@ -670,9 +617,9 @@ Step 1 of 4: Wrapper
 ```css
 .text-field {
   --accent: var(--primary);
+  --affix: var(--text-muted);
   --border: var(--field-border-color);
   --helper: var(--field-helper-color);
-  --label: var(--text-muted);
 
   display: grid;
 }
@@ -738,7 +685,7 @@ Step 2 of 4: Affixes
 .prefix,
 .suffix {
   align-items: center;
-  color: var(--label);
+  color: var(--affix);
   display: inline-flex;
   padding-inline: 0.5rem;
 }
@@ -766,7 +713,7 @@ Step 3 of 4: Required
 .text-field:has(:required) .label::after {
   color: var(--field-required-color);
   content: "*";
-  margin-inline-start: 0.25em;
+  margin-inline-start: 0.25ex;
 }
 ```
 
@@ -777,9 +724,9 @@ Step 4 of 4: Validation
 ```css
 .text-field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--invalid-color);
+  --affix: var(--invalid-text-color);
   --border: var(--invalid-color);
   --helper: var(--invalid-text-color);
-  --label: var(--invalid-text-color);
 }
 ```
 
@@ -795,8 +742,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/react`:
 
-- `opui-css/css/components/text-field.css`
-- `opui-css/css/components/text-input.css`
+### Used by
+
+- [Select](https://open-props-ui.netlify.app/react/components/select.md)
+- [Textarea](https://open-props-ui.netlify.app/react/components/textarea.md)
+
+* `opui-css/css/components/text-field.css`
 
 ## Changelog
 
@@ -805,4 +756,8 @@ Import the component from `opui-css/react`:
 - [x-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
 - The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.
+- Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-height`, `--_label-color` is `--_affix-color` and `--_end-text-color` is `--_helper-color` ([Under the hood](#under-the-hood)).
+- Breaking: [`startText`](#start-text) replaces `description`, matching `endText`. `supportingText` is gone, use [`endText`](#end-text).
+- Breaking: the [autosuggest](#autosuggest) and other input styles are in `text-field.css`, and `text-input.css` is gone. Remove its import.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--border-radius` through [`--field-border-radius`](#api), so one token squares or rounds every component.

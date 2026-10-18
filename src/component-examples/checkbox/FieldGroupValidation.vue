@@ -4,14 +4,16 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 
 <template>
   <Form>
-    <FieldSet>
+    <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup direction="row" name="checkbox-group-validation">
         <Checkbox checked error>Checkbox 1</Checkbox>
         <Checkbox error>Checkbox 2</Checkbox>
         <Checkbox error>Checkbox 3</Checkbox>
       </FieldGroup>
-      <span class="ui-end-text">Something went wrong!</span>
+      <span class="ui-end-text" id="checkbox-field-group-validation-1-error"
+        >Something went wrong!</span
+      >
     </FieldSet>
   </Form>
 </template>

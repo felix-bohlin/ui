@@ -5,3 +5,13 @@ declare namespace App {
     $id: (prefix: string) => string
   }
 }
+
+declare namespace astroHTML.JSX {
+  interface AnchorHTMLAttributes {
+    interestfor?: string
+  }
+
+  interface ButtonHTMLAttributes {
+    interestfor?: string
+  }
+}

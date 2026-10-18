@@ -1,8 +1,8 @@
-import { Avatar } from "opui-css/react"
+import { Avatar, AvatarGroup } from "opui-css/react"
 
 export default function Grouped() {
   return (
-    <Avatar aria-label="Team" isGroup>
+    <AvatarGroup aria-label="Team">
       <Avatar aria-label="Anna Berg" role="img">
         AB
       </Avatar>
@@ -21,6 +21,6 @@ export default function Grouped() {
       <Avatar aria-label="Karl Lund" href="#">
         KL
       </Avatar>
-    </Avatar>
+    </AvatarGroup>
   )
 }

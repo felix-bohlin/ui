@@ -1,23 +1,44 @@
+import { readFileSync } from "node:fs"
 import { expect, test } from "@playwright/test"
-import { openFixture } from "./fixtures"
+import { openFixture, STRESS_TESTS } from "./fixtures"
 import {
   expectChipHeights,
   expectSharedHeights,
   expectSizedRows,
-  measureChips,
-  measureRows,
+  measure,
 } from "./stress-sizes"
 
-test("form controls of one size share one height", async ({ page }) => {
-  await openFixture(page, "html", "stress/forms")
+const SIZED = STRESS_TESTS.filter((fixture) =>
+  readFileSync(
+    new URL(
+      `../../src/stress-tests/${fixture.slice("stress/".length)}.html`,
+      import.meta.url,
+    ),
+    "utf-8",
+  ).includes("data-size="),
+)
 
-  await expectSizedRows(page)
-})
+for (const fixture of SIZED) {
+  test(`${fixture} controls of one size share one height`, async ({ page }) => {
+    await openFixture(page, "html", fixture)
+
+    await expectSizedRows(page)
+  })
+
+  test(`${fixture} controls keep their height in forced colors mode`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ forcedColors: "active" })
+    await openFixture(page, "html", fixture)
+
+    await expectSizedRows(page)
+  })
+}
 
 test("chips one size step up match the control size", async ({ page }) => {
   await openFixture(page, "html", "stress/forms")
 
-  const chips = await measureChips(page)
+  const { chips } = await measure(page)
   expect(
     [
       ...new Set(
@@ -29,31 +50,6 @@ test("chips one size step up match the control size", async ({ page }) => {
   ).toEqual(["default", "small", "x-small"])
   expectChipHeights(chips)
 })
-
-test("form controls keep their height in high contrast mode", async ({
-  page,
-}) => {
-  await openFixture(page, "html", "stress/contrast")
-
-  await expectSizedRows(page)
-})
-
-test("busy controls keep their height", async ({ page }) => {
-  await openFixture(page, "html", "stress/data-display")
-
-  await expectSizedRows(page)
-})
-
-for (const fixture of ["contrast", "forms"]) {
-  test(`${fixture} controls keep their height in forced colors mode`, async ({
-    page,
-  }) => {
-    await page.emulateMedia({ forcedColors: "active" })
-    await openFixture(page, "html", `stress/${fixture}`)
-
-    await expectSizedRows(page)
-  })
-}
 
 const DENSITIES = {
   "0.875": {
@@ -78,7 +74,7 @@ for (const [density, heights] of Object.entries(DENSITIES)) {
       density,
     )
 
-    const rows = await measureRows(page)
+    const { rows } = await measure(page)
     for (const { expected, row, size } of rows) {
       expect(expected, row).toBe(heights[size as keyof typeof heights])
     }

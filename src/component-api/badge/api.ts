@@ -31,7 +31,7 @@ export default {
       class: ".ui-dot",
       default: "false",
       description: "Renders the indicator as a dot, without a label.",
-      group: "Variants",
+      group: "Dot",
       prop: "dot",
     },
     {
@@ -44,9 +44,7 @@ export default {
     {
       description:
         'Visually hidden text that describes the badge to assistive technology, such as "3 unread".',
-      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "srLabel",
-      type: "string",
     },
   ],
   parts: [

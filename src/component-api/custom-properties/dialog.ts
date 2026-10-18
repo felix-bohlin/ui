@@ -9,6 +9,15 @@ export default {
     description: "The backdrop filter. Defaults to a `--backdrop-blur` blur.",
     kind: "input",
   },
+  "--_duration": {
+    description:
+      "Duration of the open transition and scroll shadows, `--duration` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description: "Easing of the open transition. Defaults to `--ease-enter`.",
+    kind: "input",
+  },
   "--_max-inline-size": {
     description: "Maximum width, capped to fit the viewport.",
     kind: "input",

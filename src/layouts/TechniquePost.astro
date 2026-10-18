@@ -7,8 +7,7 @@ import {
   componentHasFramework,
   DEFAULT_FRAMEWORK,
   hrefFor,
-  type FrameworkId,
-} from "../utils/framework-routing"
+} from "../utils/framework"
 
 type Props = {
   slug: string
@@ -19,8 +18,7 @@ const { slug, topic: topicProp } = Astro.props
 const post = posts.find((entry) => entry.slug === slug)!
 const component = post.component!
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 const docsHref = hrefFor(
   componentHasFramework(currentFramework, component)

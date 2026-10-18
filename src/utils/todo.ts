@@ -2,7 +2,7 @@ export type TodoNote =
   | { code: string; kind: "code"; level: number }
   | { kind: "comment" | "item" | "text"; level: number; text: string }
 
-export type TodoItem = {
+type TodoItem = {
   line: string
   notes: TodoNote[]
   severity?: number
@@ -10,7 +10,7 @@ export type TodoItem = {
   text: string
 }
 
-export type TodoSection = {
+type TodoSection = {
   items: TodoItem[]
   title: string
 }
@@ -75,7 +75,7 @@ export const parseTodo = (source: string) => {
 
 const indentOf = (line: string) => line.length - line.trimStart().length
 
-export const parseNotes = (lines: string[]) => {
+const parseNotes = (lines: string[]) => {
   const notes: TodoNote[] = []
 
   for (let index = 0; index < lines.length; index++) {
@@ -147,3 +147,8 @@ export const slugify = (text: string) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "")
+
+export const plainText = (text: string) =>
+  splitInlineCode(text)
+    .map((part) => part.value)
+    .join("")

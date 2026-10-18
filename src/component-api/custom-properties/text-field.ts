@@ -6,9 +6,19 @@ export default {
       "Border color of the focused `.ui-field`. From `--primary`, set by the invalid state.",
     kind: "output",
   },
+  "--_affix-color": {
+    description:
+      "The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--text-muted`, set by the invalid state.",
+    kind: "output",
+  },
   "--_arrow-inset": {
     description: "Distance of the select arrow from the inline end.",
     kind: "input",
+  },
+  "--_arrow-space": {
+    description:
+      "Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.",
+    kind: "output",
   },
   "--_bg-color": {
     description:
@@ -28,10 +38,14 @@ export default {
     description: "Width and height of the select arrow.",
     kind: "input",
   },
-  "--_end-text-color": {
+  "--_duration": {
     description:
-      "The current color of `.ui-start-text` and `.ui-end-text`. Set by the invalid state.",
+      "Duration of the transitions and focus ring animation, `--duration` times `--_motion`.",
     kind: "output",
+  },
+  "--_ease": {
+    description: "Easing of the transitions. Defaults to `--ease`.",
+    kind: "input",
   },
   "--_field-padding-block": {
     description:
@@ -52,9 +66,9 @@ export default {
     description: "The font size of the control and affixes.",
     kind: "input",
   },
-  "--_label-color": {
+  "--_helper-color": {
     description:
-      "The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Set by the invalid state.",
+      "The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--field-helper-color`, set by the invalid state.",
     kind: "output",
   },
   "--_min-height": {

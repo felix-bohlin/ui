@@ -5,7 +5,12 @@ export default {
   options: [
     {
       description:
-        'The element to render. Defaults to `"a"` with `href`, otherwise `"button"`.',
+        "The accessible name. Required with `iconOnly`, for buttons without visible text.",
+      prop: "aria-label",
+    },
+    {
+      default: '"button"',
+      description: 'The element to render. Defaults to `"a"` with `href`.',
       prop: "as",
     },
     {
@@ -15,11 +20,18 @@ export default {
       values: { critical: ".ui-critical", primary: ".ui-primary" },
     },
     {
-      attribute: "[disabled]",
       default: "false",
-      description: "Disables the button.",
-      group: "State",
+      description:
+        'Disables the button. A link button drops its `href` and gets `aria-disabled="true"`.',
       prop: "disabled",
+    },
+    {
+      description:
+        'Disables the button. A link button, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
+      frameworks: ["html"],
+      group: "State",
+      prop: "disabledState",
+      values: { button: "[disabled]", link: 'a[aria-disabled="true"]' },
     },
     {
       description: "The link to use. Renders an `<a>`.",
@@ -28,23 +40,15 @@ export default {
     {
       default: "false",
       description:
-        "Marks the button as icon-only, so `label` is required. Types only.",
-      frameworks: ["astro", "react", "svelte", "vue"],
+        "Marks the button as icon-only, so `aria-label` is required. Types only.",
       prop: "iconOnly",
-      type: "boolean",
     },
     {
-      description: "The accessible name. Use it on icon-only buttons.",
-      frameworks: ["astro", "react", "svelte", "vue"],
-      prop: "label",
-      type: "string",
-    },
-    {
-      class: ".ui-rounded",
+      class: ".ui-round",
       default: "false",
       description: "Fully rounded corners, a circle when icon-only.",
       group: "Shape",
-      prop: "rounded",
+      prop: "round",
     },
     {
       description: "The size of the element.",

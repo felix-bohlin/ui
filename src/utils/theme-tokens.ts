@@ -18,6 +18,33 @@ const DECLARATION = /^(\s*)(--[\w-]+):\s*(.*)$/
 const OPTIONAL = /^\s*\/\*\s*(--[\w-]+):\s*(.*?);?\s*\*\/\s*$/
 const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
 const THEME_SCOPE = /\bhtml\b/
+const SECTION_ORDER = [
+  "Palette",
+  "Named colors (no severity meaning)",
+  "Intent tokens",
+  "Primary",
+  "Text",
+  "Surfaces",
+  "Borders",
+  "Field / input",
+  "Focus ring",
+  "Typography",
+  "Spacing",
+  "Control sizes",
+  "Button",
+  "Divider",
+  "Motion",
+  "Contrast",
+  "State",
+  "Icons",
+  "Choice controls",
+  "Elevation",
+  "Overlays",
+]
+const sectionOrder = (title: string) => {
+  const index = SECTION_ORDER.indexOf(title)
+  return index < 0 ? SECTION_ORDER.length : index
+}
 
 type Line =
   | { kind: "comment" }
@@ -143,7 +170,9 @@ export const parseThemeTokens = (css = themeSource): ThemeSection[] => {
     if (line.dark) continue
     section.tokens.push({ name: line.name, value: line.value })
   }
-  return sections
+  return sections.toSorted(
+    (a, b) => sectionOrder(a.title) - sectionOrder(b.title),
+  )
 }
 
 const themeTokensIn = (sections: ThemeSection[]) =>

@@ -1,6 +1,10 @@
 <script lang="ts">
+  import { untrack } from "svelte"
+  import { content } from "../content.svelte"
+  import { warnUnnamed } from "../dev"
+  import { idRefs } from "../id"
   import CheckboxInput from "./CheckboxInput.svelte"
-  import type { CheckboxProps as Props } from "./types.svelte"
+  import type { Props } from "./types.svelte"
 
   let {
     checked = $bindable(),
@@ -20,9 +24,13 @@
 
   const id = $props.id()
   const endTextId = $derived(endText ? `end-text-${id}` : undefined)
-  const describedBy = $derived(
-    [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") ||
-      undefined,
+  const describedBy = $derived(idRefs(endTextId, rest["aria-describedby"]))
+
+  untrack(() =>
+    warnUnnamed(
+      "Checkbox",
+      children || rest["aria-label"] || rest["aria-labelledby"],
+    ),
   )
 </script>
 
@@ -51,7 +59,7 @@
   {/if}
   {#if endText}
     <span id={endTextId} class="ui-end-text">
-      {#if typeof endText === "string"}{endText}{:else}{@render endText()}{/if}
+      {@render content(endText)}
     </span>
   {/if}
 </label>

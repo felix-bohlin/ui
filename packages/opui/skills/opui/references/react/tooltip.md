@@ -15,10 +15,10 @@ import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 export default function Basics() {
   return (
-    <Tooltip id="tooltip-basic">
+    <Tooltip id="tooltip-basics-1">
       <Button
-        interestfor="tooltip-basic"
-        commandfor="tooltip-basic"
+        interestfor="tooltip-basics-1"
+        commandfor="tooltip-basics-1"
         command="toggle-popover"
       >
         Save
@@ -38,10 +38,10 @@ import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 export default function RichContent() {
   return (
-    <Tooltip id="tooltip-rich">
+    <Tooltip id="tooltip-rich-content-1">
       <Button
-        interestfor="tooltip-rich"
-        commandfor="tooltip-rich"
+        interestfor="tooltip-rich-content-1"
+        commandfor="tooltip-rich-content-1"
         command="toggle-popover"
       >
         Keyboard shortcuts
@@ -62,17 +62,27 @@ Use the `alignment` prop.
 import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 const tooltips = [
-  { alignment: "block-start", id: "tooltip-top", label: "Above", text: "Top" },
+  {
+    alignment: "block-start",
+    id: "tooltip-alignment-1",
+    label: "Above",
+    text: "Top",
+  },
   {
     alignment: "inline-start",
-    id: "tooltip-start",
+    id: "tooltip-alignment-2",
     label: "Before",
     text: "Start",
   },
-  { alignment: "inline-end", id: "tooltip-end", label: "After", text: "End" },
+  {
+    alignment: "inline-end",
+    id: "tooltip-alignment-3",
+    label: "After",
+    text: "End",
+  },
   {
     alignment: "block-end",
-    id: "tooltip-bottom",
+    id: "tooltip-alignment-4",
     label: "Below",
     text: "Bottom",
   },
@@ -80,43 +90,16 @@ const tooltips = [
 
 export default function Alignment() {
   return (
-    <>
-      <div className="tooltip-alignment-grid">
-        {tooltips.map(({ alignment, id, label, text }) => (
-          <Tooltip key={id} alignment={alignment} id={id}>
-            <Button interestfor={id} commandfor={id} command="toggle-popover">
-              {text}
-            </Button>
-            <TooltipContent>{label}</TooltipContent>
-          </Tooltip>
-        ))}
-      </div>
-      <style>{`
-        .tooltip-alignment-grid {
-          align-items: center;
-          display: grid;
-          gap: var(--size-3);
-          grid-template-areas:
-            ".     top    .  "
-            "start .      end"
-            ".     bottom .  ";
-          justify-items: center;
-        }
-
-        .tooltip-alignment-grid > :nth-child(1) {
-          grid-area: top;
-        }
-        .tooltip-alignment-grid > :nth-child(2) {
-          grid-area: start;
-        }
-        .tooltip-alignment-grid > :nth-child(3) {
-          grid-area: end;
-        }
-        .tooltip-alignment-grid > :nth-child(4) {
-          grid-area: bottom;
-        }
-      `}</style>
-    </>
+    <div className="example-compass">
+      {tooltips.map(({ alignment, id, label, text }) => (
+        <Tooltip key={id} alignment={alignment} id={id}>
+          <Button interestfor={id} commandfor={id} command="toggle-popover">
+            {text}
+          </Button>
+          <TooltipContent>{label}</TooltipContent>
+        </Tooltip>
+      ))}
+    </div>
   )
 }
 ```
@@ -130,10 +113,10 @@ import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 export default function Arrow() {
   return (
-    <Tooltip arrow id="tooltip-arrow">
+    <Tooltip arrow id="tooltip-arrow-1">
       <Button
-        interestfor="tooltip-arrow"
-        commandfor="tooltip-arrow"
+        interestfor="tooltip-arrow-1"
+        commandfor="tooltip-arrow-1"
         command="toggle-popover"
       >
         Save
@@ -176,15 +159,17 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
 
-| Property             | Kind  | Description                                                                   |
-| -------------------- | ----- | ----------------------------------------------------------------------------- |
-| `--_arrow-size`      | Input | Size of the arrow in `.ui-with-arrow`.                                        |
-| `--_bg-color`        | Input | Background of the tooltip and its arrow. Defaults to `--surface-inverse`.     |
-| `--_min-inline-size` | Input | The minimum width, unless the content is narrower.                            |
-| `--_motion`          | Input | Motion multiplier for the fade. `0` turns it off.                             |
-| `--_offset`          | Input | Distance from the trigger. `.ui-with-arrow` computes it from `--_arrow-size`. |
-| `--_shift`           | Input | How far a shifted tooltip reaches past the center of the trigger.             |
-| `--_text-color`      | Input | The text color. Defaults to `--text-inverse`.                                 |
+| Property             | Kind   | Description                                                                   |
+| -------------------- | ------ | ----------------------------------------------------------------------------- |
+| `--_arrow-size`      | Input  | Size of the arrow in `.ui-with-arrow`.                                        |
+| `--_bg-color`        | Input  | Background of the tooltip and its arrow. Defaults to `--surface-inverse`.     |
+| `--_duration`        | Output | Duration of the fade, `--duration` times `--_motion`.                         |
+| `--_ease`            | Input  | Easing of the fade. Defaults to `--ease-enter`.                               |
+| `--_min-inline-size` | Input  | The minimum width, unless the content is narrower.                            |
+| `--_motion`          | Input  | Motion multiplier for the fade. `0` turns it off.                             |
+| `--_offset`          | Input  | Distance from the trigger. `.ui-with-arrow` computes it from `--_arrow-size`. |
+| `--_shift`           | Input  | How far a shifted tooltip reaches past the center of the trigger.             |
+| `--_text-color`      | Input  | The text color. Defaults to `--text-inverse`.                                 |
 
 ## Under the hood
 
@@ -367,16 +352,18 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/react`:
 
-- `opui-css/css/components/tooltip.css`
-- `opui-css/css/components/anchor.css`
-
-## See also
+### Dependencies
 
 - [Anchor](https://open-props-ui.netlify.app/react/components/anchor.md)
+
+* `opui-css/css/components/tooltip.css`
+* `opui-css/css/components/anchor.css`
 
 ## Changelog
 
 ### What's new
 
 - The [arrow](#arrow) points at the trigger in every position, also after a flip.
+- Breaking: `--_tooltip-bg` and `--_tooltip-color` are `--_bg-color` and `--_text-color`, and `--_tooltip-offset` is `--_offset` ([Under the hood](#under-the-hood)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners never get rounder than [`--border-radius`](#api), so `0` squares them.

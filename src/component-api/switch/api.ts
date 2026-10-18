@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Switch",
+  css: ["choice", "switch"],
   model: {
     description: "The checked state, or the checked values of a group.",
     frameworks: {
@@ -59,14 +60,14 @@ export default {
       class: ".ui-spread",
       default: "false",
       description: "Pushes the label and the switch to opposite ends.",
-      group: "Layout",
+      group: "Spread",
       prop: "spread",
     },
     {
       class: ".ui-stack",
       default: "false",
       description: "Stacks the label under the switch.",
-      group: "Layout",
+      group: "Stack",
       prop: "stack",
     },
   ],
@@ -94,6 +95,7 @@ export default {
     },
     {
       description: "Supporting text displayed below the label.",
+      props: ["endText"],
       selector: ".ui-end-text",
       slots: ["end-text"],
     },

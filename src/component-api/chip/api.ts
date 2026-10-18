@@ -7,6 +7,7 @@ export default {
       default: '"div"',
       description: 'The element to render. Defaults to `"a"` with `href`.',
       prop: "as",
+      type: '"a" | "button" | "div"',
     },
     {
       description: "Optional colors.",
@@ -24,9 +25,10 @@ export default {
       class: ".ui-disabled",
       default: "false",
       description:
-        "Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips.",
-      frameworks: ["html"],
+        'Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead.',
       group: "State",
+      htmlDescription:
+        "Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips.",
       prop: "disabled",
     },
     {
@@ -34,7 +36,7 @@ export default {
       default: "false",
       description:
         "Adds a leading dot in the chip's color. Its shape follows the color.",
-      group: "Variants",
+      group: "Dot",
       prop: "dot",
     },
     {
@@ -76,7 +78,7 @@ export default {
     {
       description: "The label.",
       props: ["label"],
-      selector: ".ui-text",
+      selector: ".ui-chip > .ui-text",
     },
     {
       code: "<svg>",

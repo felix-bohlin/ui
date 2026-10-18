@@ -8,15 +8,15 @@ Label 50 Start text End text
 
   Container element.
 
-- `slot="default"`
+- `label / slot="default"`
 
   The label for the range.
 
-- `slot="value"`
+- `valueSuffix / slot="value"`
 
   Shows the current value, with an optional `valueSuffix`.
 
-- `slot="start-text"`
+- `startText / slot="start-text"`
 
   Description text displayed above the input.
 
@@ -24,7 +24,7 @@ Label 50 Start text End text
 
   The range input.
 
-- `slot="end-text"`
+- `endText / slot="end-text"`
 
   Supporting text displayed below the input.
 
@@ -68,7 +68,7 @@ import { Range } from "opui-css/astro"
 
 ## Value
 
-Pass the `valueSuffix` prop (or use the `value` named slot) to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and keeps its text in sync with the input.
+Pass the `valueSuffix` prop to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and its script keeps the text in sync with the input. Content in the `value` named slot replaces the readout. It renders once on the server, and the script leaves it as it is.
 
 ```astro
 ---
@@ -80,7 +80,7 @@ import { Range } from "opui-css/astro"
 
 ## Tick marks
 
-Pass an id to the `list` prop together with an `options` array - `options=[{ value, label }]` - and the component renders a matching `<datalist>`.
+Pass an `options` array - `options=[{ value, label }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id.
 
 ```astro
 ---
@@ -89,7 +89,6 @@ import { Range } from "opui-css/astro"
 
 <Range
   label="Tick marks with labels"
-  list="labeled-markers"
   options={[
     { value: 0, label: "0%" },
     { value: 25, label: "25%" },
@@ -114,9 +113,9 @@ import { Range } from "opui-css/astro"
 
 ## Validation
 
-- Use the `error` prop to toggle invalid styles: the thumb, the fill and the helper texts turn the invalid color. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid.
-- Say what's wrong in the end text. The component points `aria-describedby` at it.
-- The same styles apply when the browser's own validation fails (`:user-invalid`), such as after `setCustomValidity()`.
+- The invalid styles turn the thumb, the fill and the helper texts the invalid color. A range always has a value, so `required` doesn't apply, and the browser's own validation only fails after `setCustomValidity()`.
+- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```astro
 ---
@@ -154,7 +153,6 @@ import { Range } from "opui-css/astro"
 
 <Range
   label="Tick marks with labels"
-  list="labeled-markers-spread"
   spread
   options={[
     { value: 0, label: "0%" },
@@ -181,19 +179,19 @@ import { Range } from "opui-css/astro"
 
 ### Range API
 
-| Prop          | Type                                                                                | Default | Description                                                                                   |
-| ------------- | ----------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `endText`     | `string`                                                                            | -       | Supporting text displayed below the input.                                                    |
-| `error`       | `boolean`                                                                           | `false` | Marks the control invalid and shows error styles.                                             |
-| `id`          | `string`                                                                            | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
-| `label`       | `string`                                                                            | -       | The label for the range.                                                                      |
-| `list`        | `string`                                                                            | -       | The id of the `<datalist>`. Needed with `options`.                                            |
-| `options`     | `(string \| number \| { value: string \| number; label?: string \| undefined; })[]` | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
-| `spread`      | `boolean`                                                                           | `false` | Pushes the label and description to one side and the input to the other.                      |
-| `startText`   | `string`                                                                            | -       | Description text displayed above the input.                                                   |
-| `value`       | `number` , `string`                                                                 | -       | The current value.                                                                            |
-| `valueSuffix` | `string`                                                                            | -       | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. |
-| `variant`     | `"tonal"` , `"filled"`                                                              | -       | The track surface. Without one, the track uses the field border color.                        |
+| Prop          | Type                   | Default | Description                                                                                   |
+| ------------- | ---------------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `endText`     | `string`               | -       | Supporting text displayed below the input.                                                    |
+| `error`       | `boolean`              | `false` | Marks the control invalid and shows error styles.                                             |
+| `id`          | `string`               | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
+| `label`       | `string`               | -       | The label for the range.                                                                      |
+| `list`        | `string`               | -       | The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.          |
+| `options`     | `RangeOption[]`        | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
+| `spread`      | `boolean`              | `false` | Pushes the label and description to one side and the input to the other.                      |
+| `startText`   | `string`               | -       | Description text displayed above the input.                                                   |
+| `value`       | `number` , `string`    | -       | The current value.                                                                            |
+| `valueSuffix` | `string`               | -       | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. |
+| `variant`     | `"filled"` , `"tonal"` | -       | The track surface. Without one, the track uses the field border color.                        |
 
 #### Slots
 
@@ -232,7 +230,7 @@ import { Range } from "opui-css/astro"
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Input attributes go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`.
+Input attributes go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`, and `class` and `style` go to the root `<label>`.
 
 ## Component properties
 
@@ -240,18 +238,21 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property                   | Kind   | Description                                                                                                     |
 | -------------------------- | ------ | --------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                | Input  | Color of the thumb, its ring and the track fill. Defaults to `--primary`, set by the invalid state.             |
+| `--_duration`              | Output | Duration of the thumb ring transition, `--duration-fast` times `--_motion`.                                     |
+| `--_ease`                  | Input  | Easing of the thumb ring transition and focus ring. Defaults to `--ease`.                                       |
 | `--_forced-fill-color`     | Output | Thumb and fill color in forced colors mode. `GrayText` when disabled.                                           |
 | `--_forced-track-color`    | Output | Track color in forced colors mode. `GrayText` when disabled.                                                    |
 | `--_inset`                 | Output | Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`. |
 | `--_motion`                | Input  | Motion multiplier for the thumb highlight and focus ring. `0` turns them off.                                   |
-| `--_thumb-bg-color`        | Output | The current thumb color. From `--primary`, set by the invalid and disabled states.                              |
-| `--_thumb-highlight-color` | Output | Color of the ring around the thumb. From `--primary`, set by the invalid state.                                 |
+| `--_thumb-bg-color`        | Output | The current thumb color. From `--_accent`, set by the disabled state.                                           |
+| `--_thumb-highlight-color` | Output | Color of the ring around the thumb, from `--_accent`.                                                           |
 | `--_thumb-highlight-size`  | Output | Current width of the ring around the thumb. Set by the hover and active states.                                 |
-| `--_thumb-offset`          | Input  | Vertical offset that centers the thumb on the track.                                                            |
+| `--_thumb-offset`          | Output | Vertical offset that centers the thumb on the track.                                                            |
 | `--_thumb-size`            | Input  | Width and height of the thumb. Larger on touch screens.                                                         |
 | `--_track-color`           | Output | The current track color. Set by `.ui-filled`, `.ui-tonal` and the active and disabled states.                   |
 | `--_track-fill`            | Output | How much of the track is filled, animated from the thumb position.                                              |
-| `--_track-fill-color`      | Output | Color of the filled part of the track. From `--primary`, set by the invalid state.                              |
+| `--_track-fill-color`      | Output | Color of the filled part of the track, from `--_accent`.                                                        |
 | `--_track-height`          | Input  | Height of the track.                                                                                            |
 | `--_track-radius`          | Input  | Corner radius of the track.                                                                                     |
 
@@ -510,3 +511,11 @@ Import the component from `opui-css/astro`:
 - Breaking: the track fill is CSS only ([Under the hood](#under-the-hood)). The component no longer sets `--_track-fill` from script.
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
+- Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
+- `options` is typed as [`RangeOption[]`](#tick-marks), exported from every framework.
+- [`options`](#tick-marks) renders a linked `<datalist>` without a `list` id.
+- Breaking: `style` goes to the root, like `class`, instead of the `<input>` ([API](#api)).
+- Breaking: extra attributes are typed as `<input>` attributes, where they go ([API](#api)).
+- The thumb, its halo and the track fill follow `--_accent` on `.ui-range` ([Under the hood](#under-the-hood)).
+- Breaking: deep type imports from `components/Range/types` are named `Props` and `Slots` (was `RangeProps` and `RangeSlots`). Import [`RangeProps`](#api) from the framework entry instead.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

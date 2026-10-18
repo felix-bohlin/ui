@@ -3,10 +3,6 @@ import type { Props, Slots } from "./types.d.vue"
 
 const { bordered, inline } = defineProps<Props>()
 defineSlots<Slots>()
-
-defineOptions({
-  inheritAttrs: false,
-})
 </script>
 
 <template>
@@ -20,7 +16,6 @@ defineOptions({
       },
       $props.class,
     ]"
-    v-bind="$attrs"
   >
     <slot></slot>
   </dl>

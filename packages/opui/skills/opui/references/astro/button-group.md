@@ -28,8 +28,7 @@ Change the appearance of the entire group with the `variant` prop.
 
 ```astro
 ---
-import { ButtonGroup } from "opui-css/astro"
-import { Button } from "opui-css/astro"
+import { Button, ButtonGroup } from "opui-css/astro"
 ---
 
 <ButtonGroup>
@@ -63,8 +62,7 @@ Set the `color` prop to `primary` or `critical` to recolor the entire group. The
 
 ```astro
 ---
-import { ButtonGroup } from "opui-css/astro"
-import { Button } from "opui-css/astro"
+import { Button, ButtonGroup } from "opui-css/astro"
 ---
 
 <ButtonGroup color="primary" variant="filled">
@@ -86,8 +84,7 @@ Adjust the size of all buttons in the group using the `size` prop.
 
 ```astro
 ---
-import { ButtonGroup } from "opui-css/astro"
-import { Button } from "opui-css/astro"
+import { Button, ButtonGroup } from "opui-css/astro"
 ---
 
 <ButtonGroup size="x-small" variant="outlined">
@@ -121,20 +118,19 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/astro/c
 
 ```astro
 ---
-import { ButtonGroup } from "opui-css/astro"
-import { Button } from "opui-css/astro"
+import { Button, ButtonGroup } from "opui-css/astro"
 
-const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"></path></svg>`
-const helpIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M11.499 10.803A4.505 4.505 0 0 1 16 6.5a4.5 4.5 0 0 1 4.5 4.5c0 1.276-.298 2.02-.676 2.565c-.368.53-.836.925-1.471 1.459l-.286.241c-.745.632-1.614 1.42-2.268 2.628c-.659 1.217-1.049 2.76-1.049 4.857a1.25 1.25 0 0 0 2.5 0c0-1.778.328-2.892.748-3.667c.424-.783.993-1.324 1.685-1.91l.259-.217c.616-.515 1.363-1.139 1.937-1.966C22.579 13.98 23 12.724 23 11a7 7 0 0 0-7-7a7.005 7.005 0 0 0-6.999 6.695a1.25 1.25 0 1 0 2.498.108M16 29a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3"></path></svg>`
-const closeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"></path></svg>`
+const checkIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"></path></svg>`
+const helpIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M11.499 10.803A4.505 4.505 0 0 1 16 6.5a4.5 4.5 0 0 1 4.5 4.5c0 1.276-.298 2.02-.676 2.565c-.368.53-.836.925-1.471 1.459l-.286.241c-.745.632-1.614 1.42-2.268 2.628c-.659 1.217-1.049 2.76-1.049 4.857a1.25 1.25 0 0 0 2.5 0c0-1.778.328-2.892.748-3.667c.424-.783.993-1.324 1.685-1.91l.259-.217c.616-.515 1.363-1.139 1.937-1.966C22.579 13.98 23 12.724 23 11a7 7 0 0 0-7-7a7.005 7.005 0 0 0-6.999 6.695a1.25 1.25 0 1 0 2.498.108M16 29a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3"></path></svg>`
+const closeIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"></path></svg>`
 ---
 
 <ButtonGroup variant="outlined">
-  <Button iconOnly label="OK">
+  <Button aria-label="OK" iconOnly>
     <Fragment set:html={checkIcon} />
   </Button>
   <Button> Maybe </Button>
-  <Button iconOnly label="No">
+  <Button aria-label="No" iconOnly>
     <Fragment set:html={closeIcon} />
   </Button>
 </ButtonGroup>
@@ -163,22 +159,23 @@ A [Menu](https://open-props-ui.netlify.app/astro/components/menu.md) after the l
 ---
 import { Button, ButtonGroup, Menu } from "opui-css/astro"
 
-const chevronIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"></path></svg>`
+const chevronIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M5.293 11.293a1 1 0 0 1 1.414 0L16 20.586l9.293-9.293a1 1 0 1 1 1.414 1.414l-10 10a1 1 0 0 1-1.414 0l-10-10a1 1 0 0 1 0-1.414"></path></svg>`
 ---
 
 <ButtonGroup variant="outlined">
   <Button>Save</Button>
   <Button
     aria-label="More save options"
-    commandfor="split-button-menu"
+    iconOnly
+    commandfor="button-group-split-button-1"
     command="toggle-popover"
   >
     <Fragment set:html={chevronIcon} />
   </Button>
   <Menu
-    id="split-button-menu"
+    id="button-group-split-button-1"
     align="end"
-    items={[{ label: "Save as draft" }, { label: "Save and publish" }]}
+    items={[{ text: "Save as draft" }, { text: "Save and publish" }]}
   />
 </ButtonGroup>
 ```
@@ -189,8 +186,7 @@ Disable individual buttons within a group by setting the `disabled` prop on each
 
 ```astro
 ---
-import { ButtonGroup } from "opui-css/astro"
-import { Button } from "opui-css/astro"
+import { Button, ButtonGroup } from "opui-css/astro"
 ---
 
 <ButtonGroup variant="filled">
@@ -212,46 +208,45 @@ Change the layout of the group with the `orientation="vertical"` prop.
 
 ```astro
 ---
-import { ButtonGroup } from "opui-css/astro"
-import { Button } from "opui-css/astro"
+import { Button, ButtonGroup } from "opui-css/astro"
 
-const plusIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`
-const minusIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`
+const plusIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`
+const minusIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`
 ---
 
 <div class="example-row">
   <ButtonGroup orientation="vertical">
-    <Button aria-label="Increase">
+    <Button aria-label="Increase" iconOnly>
       <Fragment set:html={plusIcon} />
     </Button>
-    <Button aria-label="Decrease">
+    <Button aria-label="Decrease" iconOnly>
       <Fragment set:html={minusIcon} />
     </Button>
   </ButtonGroup>
 
   <ButtonGroup orientation="vertical" variant="outlined">
-    <Button aria-label="Increase">
+    <Button aria-label="Increase" iconOnly>
       <Fragment set:html={plusIcon} />
     </Button>
-    <Button aria-label="Decrease">
+    <Button aria-label="Decrease" iconOnly>
       <Fragment set:html={minusIcon} />
     </Button>
   </ButtonGroup>
 
   <ButtonGroup orientation="vertical" variant="tonal">
-    <Button aria-label="Increase">
+    <Button aria-label="Increase" iconOnly>
       <Fragment set:html={plusIcon} />
     </Button>
-    <Button aria-label="Decrease">
+    <Button aria-label="Decrease" iconOnly>
       <Fragment set:html={minusIcon} />
     </Button>
   </ButtonGroup>
 
   <ButtonGroup orientation="vertical" variant="filled">
-    <Button aria-label="Increase">
+    <Button aria-label="Increase" iconOnly>
       <Fragment set:html={plusIcon} />
     </Button>
-    <Button aria-label="Decrease">
+    <Button aria-label="Decrease" iconOnly>
       <Fragment set:html={minusIcon} />
     </Button>
   </ButtonGroup>
@@ -315,14 +310,14 @@ import { Button, ButtonGroup } from "opui-css/astro"
 
 ### Button group API
 
-| Prop          | Type                                  | Default | Description                                                                                                       |
-| ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
-| `color`       | `"critical"` , `"primary"`            | -       | Optional colors for the buttons.                                                                                  |
-| `orientation` | `"vertical"`                          | -       | The orientation of the element.                                                                                   |
-| `scrollable`  | `boolean`                             | `false` | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `shrink`      | `boolean`                             | `false` | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"small"` , `"x-small"` , `"large"`   | -       | The size of the buttons.                                                                                          |
-| `variant`     | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant of the buttons.                                                                                       |
+| Prop          | Type                                  | Default        | Description                                                                                                       |
+| ------------- | ------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `color`       | `"critical"` , `"primary"`            | -              | Optional colors for the buttons.                                                                                  |
+| `orientation` | `"horizontal"` , `"vertical"`         | `"horizontal"` | The orientation of the element.                                                                                   |
+| `scrollable`  | `boolean`                             | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `shrink`      | `boolean`                             | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`        | `"large"` , `"small"` , `"x-small"`   | -              | The size of the buttons.                                                                                          |
+| `variant`     | `"filled"` , `"outlined"` , `"tonal"` | -              | The variant of the buttons.                                                                                       |
 
 #### Slots
 
@@ -368,17 +363,17 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Button API
 
-| Prop       | Type                                  | Default | Description                                                                 |
-| ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `as`       | `"a"` , `"button"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
-| `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
-| `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
-| `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |
-| `iconOnly` | `boolean`                             | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
-| `label`    | `string`                              | -       | The accessible name. Use it on icon-only buttons.                           |
-| `rounded`  | `boolean`                             | `false` | Fully rounded corners, a circle when icon-only.                             |
-| `size`     | `"small"` , `"x-small"` , `"large"`   | -       | The size of the element.                                                    |
-| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant to use.                                                         |
+| Prop         | Type                                  | Default    | Description                                                                          |
+| ------------ | ------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| `aria-label` | `string`                              | -          | The accessible name. Required with `iconOnly`, for buttons without visible text.     |
+| `as`         | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.                                |
+| `color`      | `"critical"` , `"primary"`            | -          | Optional colors.                                                                     |
+| `disabled`   | `boolean`                             | `false`    | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
+| `href`       | `string`                              | -          | The link to use. Renders an `<a>`.                                                   |
+| `iconOnly`   | `boolean`                             | `false`    | Marks the button as icon-only, so `aria-label` is required. Types only.              |
+| `round`      | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                                      |
+| `size`       | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                                             |
+| `variant`    | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                                  |
 
 #### Slots
 
@@ -391,6 +386,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | Variable                      | Default                                                                               | Description                                                                                                                                                                                                                      |
 | ----------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-radius`             | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
 | `--button-border-radius`      | Unset                                                                                 | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--border-radius`, also where it's set on a part of the page.                                                               |
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                                         |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                                                |
@@ -424,18 +420,13 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
 
-| Property            | Kind   | Description                                                                                                                 |
-| ------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`       | Output | The current background of each button. Set by the group's variant, hover and active states.                                 |
-| `--_border-color`   | Output | Border color of each button, `transparent` in a group.                                                                      |
-| `--_border-radius`  | Input  | Corner radius of the group. Defaults to `--button-border-radius`.                                                           |
-| `--_divider-color`  | Output | Color of the lines between buttons, from the button's `--_accent-tonal`, or `--_accent` in `.ui-outlined` and `.ui-filled`. |
-| `--_edge-color`     | Input  | Outline color around the group. Set by `.ui-outlined`, with `.ui-primary` and `.ui-critical`.                               |
-| `--_font-size`      | Input  | Font size of each button. Set by the group's size classes.                                                                  |
-| `--_icon-size`      | Input  | Icon size in icon-only buttons.                                                                                             |
-| `--_min-height`     | Input  | Height of each button. Set by the group's size classes.                                                                     |
-| `--_padding-inline` | Input  | Inline padding of each button. Set by the group's size classes.                                                             |
-| `--_text-color`     | Output | The current text color of each button. Set by the group's variant, hover and active states.                                 |
+| Property           | Kind   | Description                                                                                                                                |
+| ------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--_border-color`  | Output | Border color of each button, `transparent` in a group.                                                                                     |
+| `--_border-radius` | Input  | Corner radius of the group. Defaults to `--button-border-radius`.                                                                          |
+| `--_divider-color` | Output | Color of the lines between buttons, from the button's `--_accent-tonal`, `--_accent` in `.ui-outlined` and `currentColor` in `.ui-filled`. |
+| `--_edge-accent`   | Input  | Outline color of `.ui-outlined`. `.ui-primary` and `.ui-critical` set it.                                                                  |
+| `--_edge-color`    | Output | The current outline color around the group. `transparent`, or `--_edge-accent` in `.ui-outlined`.                                          |
 
 ## Under the hood
 
@@ -543,8 +534,8 @@ Import the component from `opui-css/astro`:
 
 - [Button](https://open-props-ui.netlify.app/astro/components/button.md)
 
-- `opui-css/css/components/button-group.css`
-- `opui-css/css/components/button.css`
+* `opui-css/css/components/button-group.css`
+* `opui-css/css/components/button.css`
 
 ## Changelog
 
@@ -559,4 +550,6 @@ Import the component from `opui-css/astro`:
 - [Small](#sizes) groups use the same text size as a small `Button`.
 - [Wraps](#overflow) when it doesn't fit, or scrolls with `scrollable` or truncates with `shrink`.
 - Button links (`href`) get the group styles too, see [Variants](#variants).
+- [Icon-only buttons](#icons) in a group use the button's icon size.
+- [`orientation`](#vertical-orientation) takes `"horizontal"`, the default, like `Carousel`.
 - Corners follow `--border-radius` through [`--button-border-radius`](#api), so one token squares or rounds every component.

@@ -50,14 +50,11 @@
 
     .checkout-submit {
       inline-size: 100%;
-      justify-content: center;
     }
 
     .checkout-secure {
       align-items: center;
-      color: var(--text-muted);
       display: flex;
-      font-size: var(--font-size-0);
       gap: var(--size-1);
       justify-content: center;
       margin: 0;
@@ -82,7 +79,7 @@
 
     .checkout-thumb {
       aspect-ratio: 1;
-      border-radius: var(--radius-2);
+      border-radius: var(--border-radius);
       inline-size: var(--size-8);
     }
 
@@ -308,7 +305,7 @@
           <li>
             <label class="ui-radio" for="checkout-delivery-standard">
               <div class="ui-text">
-                <p>Standard · <span class="checkout-price">€4.90</span></p>
+                <p>Standard, <span class="checkout-price">€4.90</span></p>
                 <p>3–5 business days to a pickup point</p>
               </div>
               <div class="ui-end">
@@ -325,7 +322,7 @@
           <li>
             <label class="ui-radio" for="checkout-delivery-home">
               <div class="ui-text">
-                <p>Home delivery · <span class="checkout-price">€9.90</span></p>
+                <p>Home delivery, <span class="checkout-price">€9.90</span></p>
                 <p>2–3 business days, evening slot</p>
               </div>
               <div class="ui-end">
@@ -341,7 +338,7 @@
           <li>
             <label class="ui-radio" for="checkout-delivery-express">
               <div class="ui-text">
-                <p>Express · <span class="checkout-price">€19.00</span></p>
+                <p>Express, <span class="checkout-price">€19.00</span></p>
                 <p>Next business day if ordered before 14:00</p>
               </div>
               <div class="ui-end">
@@ -471,7 +468,7 @@
         >
           Pay €154.30
         </button>
-        <p class="checkout-secure">
+        <p class="checkout-secure ui-caption">
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -509,7 +506,7 @@
             </div>
             <div class="ui-text">
               <p>Merino base layer</p>
-              <p>Pine · M · Qty 1</p>
+              <p>Pine, M, Qty 1</p>
             </div>
             <div class="ui-end checkout-price">€89.00</div>
           </li>
@@ -523,7 +520,7 @@
             </div>
             <div class="ui-text">
               <p>Trail running cap</p>
-              <p>Sand · One size · Qty 1</p>
+              <p>Sand, One size, Qty 1</p>
             </div>
             <div class="ui-end checkout-price">€29.00</div>
           </li>
@@ -537,7 +534,7 @@
             </div>
             <div class="ui-text">
               <p>Wool hiking socks</p>
-              <p>Fjord · 39–42 · Qty 2</p>
+              <p>Fjord, 39–42, Qty 2</p>
             </div>
             <div class="ui-end checkout-price">€48.00</div>
           </li>

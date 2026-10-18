@@ -129,8 +129,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 <template>
   <ButtonGroup variant="outlined">
-    <Button iconOnly label="OK">
+    <Button aria-label="OK" iconOnly>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -143,8 +144,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </svg>
     </Button>
     <Button> Maybe </Button>
-    <Button iconOnly label="No">
+    <Button aria-label="No" iconOnly>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -161,6 +163,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
   <ButtonGroup variant="outlined">
     <Button>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -175,6 +178,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </Button>
     <Button>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -189,6 +193,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </Button>
     <Button>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -219,10 +224,12 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
     <Button>Save</Button>
     <Button
       aria-label="More save options"
-      commandfor="split-button-menu"
+      iconOnly
+      commandfor="button-group-split-button-1"
       command="toggle-popover"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -235,9 +242,9 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
       </svg>
     </Button>
     <Menu
-      id="split-button-menu"
+      id="button-group-split-button-1"
       align="end"
-      :items="[{ label: 'Save as draft' }, { label: 'Save and publish' }]"
+      :items="[{ text: 'Save as draft' }, { text: 'Save and publish' }]"
     />
   </ButtonGroup>
 </template>
@@ -279,8 +286,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
 <template>
   <div class="example-row">
     <ButtonGroup orientation="vertical">
-      <Button aria-label="Increase">
+      <Button aria-label="Increase" iconOnly>
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -295,8 +303,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
-      <Button aria-label="Decrease">
+      <Button aria-label="Decrease" iconOnly>
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -313,8 +322,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </ButtonGroup>
 
     <ButtonGroup orientation="vertical" variant="outlined">
-      <Button aria-label="Increase">
+      <Button aria-label="Increase" iconOnly>
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -329,8 +339,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
-      <Button aria-label="Decrease">
+      <Button aria-label="Decrease" iconOnly>
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -347,8 +358,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </ButtonGroup>
 
     <ButtonGroup orientation="vertical" variant="tonal">
-      <Button aria-label="Increase">
+      <Button aria-label="Increase" iconOnly>
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -363,8 +375,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
-      <Button aria-label="Decrease">
+      <Button aria-label="Decrease" iconOnly>
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -381,8 +394,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </ButtonGroup>
 
     <ButtonGroup orientation="vertical" variant="filled">
-      <Button aria-label="Increase">
+      <Button aria-label="Increase" iconOnly>
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -397,8 +411,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
-      <Button aria-label="Decrease">
+      <Button aria-label="Decrease" iconOnly>
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -476,14 +491,14 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 ### Button group API
 
-| Prop          | Type                                  | Default | Description                                                                                                       |
-| ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
-| `color`       | `"critical"` , `"primary"`            | -       | Optional colors for the buttons.                                                                                  |
-| `orientation` | `"vertical"`                          | -       | The orientation of the element.                                                                                   |
-| `scrollable`  | `boolean`                             | `false` | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `shrink`      | `boolean`                             | `false` | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"small"` , `"x-small"` , `"large"`   | -       | The size of the buttons.                                                                                          |
-| `variant`     | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant of the buttons.                                                                                       |
+| Prop          | Type                                  | Default        | Description                                                                                                       |
+| ------------- | ------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `color`       | `"critical"` , `"primary"`            | -              | Optional colors for the buttons.                                                                                  |
+| `orientation` | `"horizontal"` , `"vertical"`         | `"horizontal"` | The orientation of the element.                                                                                   |
+| `scrollable`  | `boolean`                             | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `shrink`      | `boolean`                             | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`        | `"large"` , `"small"` , `"x-small"`   | -              | The size of the buttons.                                                                                          |
+| `variant`     | `"filled"` , `"outlined"` , `"tonal"` | -              | The variant of the buttons.                                                                                       |
 
 #### Slots
 
@@ -529,17 +544,17 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Button API
 
-| Prop       | Type                                  | Default | Description                                                                 |
-| ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `as`       | `"a"` , `"button"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
-| `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
-| `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
-| `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |
-| `iconOnly` | `boolean`                             | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
-| `label`    | `string`                              | -       | The accessible name. Use it on icon-only buttons.                           |
-| `rounded`  | `boolean`                             | `false` | Fully rounded corners, a circle when icon-only.                             |
-| `size`     | `"small"` , `"x-small"` , `"large"`   | -       | The size of the element.                                                    |
-| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant to use.                                                         |
+| Prop         | Type                                  | Default    | Description                                                                          |
+| ------------ | ------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| `aria-label` | `string`                              | -          | The accessible name. Required with `iconOnly`, for buttons without visible text.     |
+| `as`         | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.                                |
+| `color`      | `"critical"` , `"primary"`            | -          | Optional colors.                                                                     |
+| `disabled`   | `boolean`                             | `false`    | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
+| `href`       | `string`                              | -          | The link to use. Renders an `<a>`.                                                   |
+| `iconOnly`   | `boolean`                             | `false`    | Marks the button as icon-only, so `aria-label` is required. Types only.              |
+| `round`      | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                                      |
+| `size`       | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                                             |
+| `variant`    | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                                  |
 
 #### Slots
 
@@ -552,6 +567,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | Variable                      | Default                                                                               | Description                                                                                                                                                                                                                      |
 | ----------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-radius`             | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
 | `--button-border-radius`      | Unset                                                                                 | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--border-radius`, also where it's set on a part of the page.                                                               |
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                                         |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                                                |
@@ -585,18 +601,13 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
 
-| Property            | Kind   | Description                                                                                                                 |
-| ------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`       | Output | The current background of each button. Set by the group's variant, hover and active states.                                 |
-| `--_border-color`   | Output | Border color of each button, `transparent` in a group.                                                                      |
-| `--_border-radius`  | Input  | Corner radius of the group. Defaults to `--button-border-radius`.                                                           |
-| `--_divider-color`  | Output | Color of the lines between buttons, from the button's `--_accent-tonal`, or `--_accent` in `.ui-outlined` and `.ui-filled`. |
-| `--_edge-color`     | Input  | Outline color around the group. Set by `.ui-outlined`, with `.ui-primary` and `.ui-critical`.                               |
-| `--_font-size`      | Input  | Font size of each button. Set by the group's size classes.                                                                  |
-| `--_icon-size`      | Input  | Icon size in icon-only buttons.                                                                                             |
-| `--_min-height`     | Input  | Height of each button. Set by the group's size classes.                                                                     |
-| `--_padding-inline` | Input  | Inline padding of each button. Set by the group's size classes.                                                             |
-| `--_text-color`     | Output | The current text color of each button. Set by the group's variant, hover and active states.                                 |
+| Property           | Kind   | Description                                                                                                                                |
+| ------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--_border-color`  | Output | Border color of each button, `transparent` in a group.                                                                                     |
+| `--_border-radius` | Input  | Corner radius of the group. Defaults to `--button-border-radius`.                                                                          |
+| `--_divider-color` | Output | Color of the lines between buttons, from the button's `--_accent-tonal`, `--_accent` in `.ui-outlined` and `currentColor` in `.ui-filled`. |
+| `--_edge-accent`   | Input  | Outline color of `.ui-outlined`. `.ui-primary` and `.ui-critical` set it.                                                                  |
+| `--_edge-color`    | Output | The current outline color around the group. `transparent`, or `--_edge-accent` in `.ui-outlined`.                                          |
 
 ## Under the hood
 
@@ -704,8 +715,8 @@ Import the component from `opui-css/vue`:
 
 - [Button](https://open-props-ui.netlify.app/vue/components/button.md)
 
-- `opui-css/css/components/button-group.css`
-- `opui-css/css/components/button.css`
+* `opui-css/css/components/button-group.css`
+* `opui-css/css/components/button.css`
 
 ## Changelog
 
@@ -720,4 +731,6 @@ Import the component from `opui-css/vue`:
 - [Small](#sizes) groups use the same text size as a small `Button`.
 - [Wraps](#overflow) when it doesn't fit, or scrolls with `scrollable` or truncates with `shrink`.
 - Button links (`href`) get the group styles too, see [Variants](#variants).
+- [Icon-only buttons](#icons) in a group use the button's icon size.
+- [`orientation`](#vertical-orientation) takes `"horizontal"`, the default, like `Carousel`.
 - Corners follow `--border-radius` through [`--button-border-radius`](#api), so one token squares or rounds every component.

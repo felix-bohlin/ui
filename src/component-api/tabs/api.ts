@@ -23,7 +23,8 @@ export default {
       prop: "scrollable",
     },
     {
-      description: "The variant to use.",
+      description:
+        "The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill.",
       group: "Variants",
       prop: "variant",
       values: {
@@ -36,35 +37,20 @@ export default {
   parts: [
     {
       code: ".ui-tab-input",
-      component: {
-        astro: "TabsItem",
-        react: "TabsItem",
-        svelte: "TabsItem",
-        vue: "TabsItem",
-      },
+      component: "TabsItem",
       description:
         "A visually hidden radio input that holds a tab's state. The tab is its label.",
       selector: ".ui-tab-input:not(:checked) + .ui-tab-label",
     },
     {
       code: ".ui-tab-label",
-      component: {
-        astro: "TabsTab",
-        react: "TabsTab",
-        svelte: "TabsTab",
-        vue: "TabsTab",
-      },
+      component: "TabsTab",
       description: "A tab.",
       selector: ".ui-tab-input:checked + .ui-tab-label",
     },
     {
       code: ".ui-tab-panel",
-      component: {
-        astro: "TabsPanel",
-        react: "TabsPanel",
-        svelte: "TabsPanel",
-        vue: "TabsPanel",
-      },
+      component: "TabsPanel",
       description: "The panel of the selected tab.",
       selector: ".ui-tab-input:checked + .ui-tab-label + .ui-tab-panel",
     },

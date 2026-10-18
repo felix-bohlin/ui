@@ -1,0 +1,19 @@
+---
+import { Textarea } from "opui-css/astro"
+
+type Props = {
+  label: string
+}
+
+const { label } = Astro.props
+---
+
+<div class="copy-fallback" data-copy-fallback hidden>
+  <Textarea label={label} readonly rows={8} spread />
+</div>
+
+<style>
+  .copy-fallback {
+    inline-size: 100%;
+  }
+</style>

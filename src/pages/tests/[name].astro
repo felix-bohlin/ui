@@ -1,20 +1,18 @@
 ---
+import SchemeFromQuery from "../../components/SchemeFromQuery.astro"
 import "@opui/css/imports.css"
+import {
+  stressPages,
+  stressSlug,
+  testPagesEnabled,
+} from "../../utils/test-pages"
 
 export function getStaticPaths() {
-  if (!process.env.OPUI_TEST_PAGES && !import.meta.env.DEV) return []
+  if (!testPagesEnabled()) return []
 
-  const sources = import.meta.glob<string>("../../stress-tests/*.html", {
-    eager: true,
-    import: "default",
-    query: "?raw",
-  })
-
-  return Object.entries(sources)
+  return Object.entries(stressPages)
     .map(([path, source]) => ({
-      params: {
-        name: path.match(/stress-tests\/([^/]+)\.html$/)![1],
-      },
+      params: { name: stressSlug(path) },
       props: { source },
     }))
     .toSorted((a, b) => a.params.name.localeCompare(b.params.name))
@@ -40,13 +38,10 @@ const themes = Object.fromEntries(
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex" />
     <title>{`${name} stress test`}</title>
+    <SchemeFromQuery />
     <script is:inline>
       {
-        const params = new URLSearchParams(location.search)
-        const example = params.get("example")
-        const scheme = params.get("scheme")
-        if (scheme === "dark" || scheme === "light")
-          document.documentElement.classList.add(`ui-${scheme}`)
+        const example = new URLSearchParams(location.search).get("example")
         if (example) {
           const style = document.createElement("style")
           style.textContent = `main > h1, .stress:not([data-example="${CSS.escape(example)}"]) { display: none; } .stress { border: 0; padding-block-start: 0; }`

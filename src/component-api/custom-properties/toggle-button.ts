@@ -6,16 +6,30 @@ export default {
       "The current background. Set by the hover and selected states.",
     kind: "output",
   },
+  "--_duration": {
+    description:
+      "Duration of the focus ring animation, `--duration` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description: "Easing of the focus ring animation. Defaults to `--ease`.",
+    kind: "input",
+  },
   "--_font-size": {
-    description: "The font size. Set by the size classes.",
+    description: "The font size. Set by the group's size classes.",
     kind: "input",
   },
-  "--_size": {
-    description: "Height and minimum width. Set by the size classes.",
+  "--_icon-size": {
+    description: "Size of a direct child `svg`. Defaults to `--icon-size`.",
     kind: "input",
   },
-  "--_svg-size": {
-    description: "Size of a child `svg`. Defaults to `--icon-size`.",
+  "--_min-height": {
+    description: "Height and minimum width. Set by the group's size classes.",
+    kind: "input",
+  },
+  "--_motion": {
+    description:
+      "Motion multiplier for the focus ring animation. `0` turns it off.",
     kind: "input",
   },
 } satisfies CustomProperties

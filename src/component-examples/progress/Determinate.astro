@@ -1,12 +1,12 @@
 ---
-import { Progress } from "@opui/astro"
+import { Progress } from "opui-css/astro"
 ---
 
-<Progress id="determinate-progress" max="100" value="10" />
+<Progress id="progress-determinate-1" max="100" value="10" />
 
 <script>
   const progress = document.querySelector(
-    "#determinate-progress",
+    "#progress-determinate-1",
   ) as HTMLProgressElement
   if (progress) {
     setInterval(() => {

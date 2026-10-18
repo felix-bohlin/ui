@@ -7,13 +7,13 @@ export { default as AccordionSummary } from "../components/Accordion/AccordionSu
 export { default as Anchor } from "../components/Anchor/Anchor.svelte"
 export { default as AnchorContent } from "../components/Anchor/AnchorContent.svelte"
 export { default as Avatar } from "../components/Avatar/Avatar.svelte"
+export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.svelte"
 export { default as Badge } from "../components/Badge/Badge.svelte"
 export { default as Button } from "../components/Button/Button.svelte"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.svelte"
 export { default as Callout } from "../components/Callout/Callout.svelte"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.svelte"
 export { default as CalloutIcon } from "../components/Callout/CalloutIcon.svelte"
-export { default as CalloutTitle } from "../components/Callout/CalloutTitle.svelte"
 export { default as Card } from "../components/Card/Card.svelte"
 export { default as CardActions } from "../components/Card/CardActions.svelte"
 export { default as CardContent } from "../components/Card/CardContent.svelte"
@@ -22,11 +22,10 @@ export { default as Carousel } from "../components/Carousel/Carousel.svelte"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.svelte"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.svelte"
 export { default as Chip } from "../components/Chip/Chip.svelte"
-export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.svelte"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.svelte"
-export { default as DescriptionListDescription } from "../components/DescriptionList/Description.svelte"
-export { default as DescriptionListItem } from "../components/DescriptionList/Item.svelte"
-export { default as DescriptionListTerm } from "../components/DescriptionList/Term.svelte"
+export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.svelte"
+export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.svelte"
+export { default as DescriptionListTerm } from "../components/DescriptionList/DescriptionListTerm.svelte"
 export { default as Dialog } from "../components/Dialog/Dialog.svelte"
 export { default as DialogActions } from "../components/Dialog/DialogActions.svelte"
 export { default as DialogContent } from "../components/Dialog/DialogContent.svelte"
@@ -53,13 +52,15 @@ export { default as Select } from "../components/Select/Select.svelte"
 export { default as Switch } from "../components/Switch/Switch.svelte"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.svelte"
 export { default as Table } from "../components/Table/Table.svelte"
-export { default as TableBody } from "../components/Table/Body.svelte"
-export { default as TableCell } from "../components/Table/Cell.svelte"
-export { default as TableColumn } from "../components/Table/Column.svelte"
-export { default as TableColumnGroup } from "../components/Table/ColumnGroup.svelte"
-export { default as TableHead } from "../components/Table/Head.svelte"
-export { default as TableHeaderCell } from "../components/Table/HeaderCell.svelte"
-export { default as TableRow } from "../components/Table/Row.svelte"
+export { default as TableBody } from "../components/Table/TableBody.svelte"
+export { default as TableCaption } from "../components/Table/TableCaption.svelte"
+export { default as TableCell } from "../components/Table/TableCell.svelte"
+export { default as TableColumn } from "../components/Table/TableColumn.svelte"
+export { default as TableColumnGroup } from "../components/Table/TableColumnGroup.svelte"
+export { default as TableFoot } from "../components/Table/TableFoot.svelte"
+export { default as TableHead } from "../components/Table/TableHead.svelte"
+export { default as TableHeaderCell } from "../components/Table/TableHeaderCell.svelte"
+export { default as TableRow } from "../components/Table/TableRow.svelte"
 export { default as Tabs } from "../components/Tabs/Tabs.svelte"
 export { default as TabsItem } from "../components/Tabs/TabsItem.svelte"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.svelte"
@@ -81,7 +82,10 @@ export type {
   Props as AnchorProps,
   AnchorContentProps as TooltipContentProps,
 } from "../components/Anchor/types.svelte"
-export type { Props as AvatarProps } from "../components/Avatar/types.svelte"
+export type {
+  AvatarGroupProps,
+  Props as AvatarProps,
+} from "../components/Avatar/types.svelte"
 export type { Props as BadgeProps } from "../components/Badge/types.svelte"
 export type { Props as ButtonProps } from "../components/Button/types.svelte"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.svelte"
@@ -89,7 +93,6 @@ export type {
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,
-  CalloutTitleProps,
 } from "../components/Callout/types.svelte"
 export type {
   CardActionsProps,
@@ -100,16 +103,14 @@ export type {
 export type { Props as CarouselProps } from "../components/Carousel/types.svelte"
 export type {
   CheckboxInputProps,
-  CheckboxProps,
+  Props as CheckboxProps,
 } from "../components/Checkbox/types.svelte"
 export type { Props as ChipProps } from "../components/Chip/types.svelte"
-export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
-export type { ClassicSelectProps } from "../components/ClassicSelect/types.svelte"
 export type {
-  DescriptionProps as DescriptionListDescriptionProps,
-  ItemProps as DescriptionListItemProps,
+  DescriptionListDescriptionProps,
+  DescriptionListItemProps,
   Props as DescriptionListProps,
-  TermProps as DescriptionListTermProps,
+  DescriptionListTermProps,
 } from "../components/DescriptionList/types.svelte"
 export type {
   DialogActionsProps,
@@ -132,24 +133,34 @@ export type { Props as FieldSetProps } from "../components/FieldSet/types.svelte
 export type { Props as FormProps } from "../components/Form/types.svelte"
 export type { Props as ListProps } from "../components/List/types.svelte"
 export type { Props as ListItemProps } from "../components/ListItem/types.svelte"
-export type { MenuItem } from "../components/Menu/types"
-export type { Props as MenuProps } from "../components/Menu/types.svelte"
+export type {
+  MenuItem,
+  Props as MenuProps,
+} from "../components/Menu/types.svelte"
 export type { Props as ProgressProps } from "../components/Progress/types.svelte"
 export type {
   RadioInputProps,
-  RadioProps,
+  Props as RadioProps,
 } from "../components/Radio/types.svelte"
-export type { RangeProps } from "../components/Range/types.svelte"
-export type { Item as SelectItem } from "../components/Select/types"
+export type { RangeOption } from "../components/Range/types"
+export type { Props as RangeProps } from "../components/Range/types.svelte"
+export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.svelte"
 export type {
   SwitchInputProps,
-  SwitchProps,
+  Props as SwitchProps,
 } from "../components/Switch/types.svelte"
 export type {
-  ColumnProps as TableColumnProps,
+  TableBodyProps,
+  TableCaptionProps,
+  TableCellProps,
+  TableColumnGroupProps,
+  TableColumnProps,
+  TableFootProps,
+  TableHeaderCellProps,
+  TableHeadProps,
   Props as TableProps,
-  SectionProps as TableSectionProps,
+  TableRowProps,
 } from "../components/Table/types.svelte"
 export type {
   TabsItemProps,

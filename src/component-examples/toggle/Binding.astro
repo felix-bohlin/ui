@@ -1,0 +1,44 @@
+---
+import { Button, ToggleButton, ToggleGroup } from "opui-css/astro"
+---
+
+<ToggleGroup aria-label="View" name="calendar-view" selection="single">
+  <ToggleButton value="day">Day</ToggleButton>
+  <ToggleButton pressed value="week">Week</ToggleButton>
+  <ToggleButton value="month">Month</ToggleButton>
+</ToggleGroup>
+<ToggleGroup aria-label="Text format" name="text-format">
+  <ToggleButton pressed value="bold">Bold</ToggleButton>
+  <ToggleButton value="italic">Italic</ToggleButton>
+  <ToggleButton value="underline">Underline</ToggleButton>
+</ToggleGroup>
+<p class="toggle-binding-text">View: week. Format: bold.</p>
+<Button class="toggle-binding-reset">Reset</Button>
+
+<script>
+  const text = document.querySelector(".toggle-binding-text")
+  const inputs = [
+    ...document.querySelectorAll<HTMLInputElement>(
+      '[name="calendar-view"], [name="text-format"]',
+    ),
+  ]
+  const checked = (name: string) =>
+    inputs
+      .filter((input) => input.name === name && input.checked)
+      .map((input) => input.value)
+
+  const update = () => {
+    if (!text) return
+    text.textContent = `View: ${checked("calendar-view")[0]}. Format: ${
+      checked("text-format").join(", ") || "none"
+    }.`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".toggle-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>

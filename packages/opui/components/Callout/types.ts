@@ -7,6 +7,4 @@ export type CalloutContentProps = {}
 
 export type CalloutIconProps = {}
 
-export type CalloutTitleProps = {
-  level?: 2 | 3 | 4 | 5 | 6
-}
+export type Context = Pick<Props, "severity">

@@ -14,7 +14,7 @@ const tutorials = [
 
 export default function Embeds() {
   return (
-    <Carousel label="Tutorials" markers>
+    <Carousel aria-label="Tutorials" markers>
       {tutorials.map(({ id, title }) => (
         <li key={id}>
           <iframe

@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { getFieldContext, setFieldContext } from "./context"
+  import { getFieldGroupContext, setFieldGroupContext } from "./context.svelte"
   import type { Props } from "./types.svelte"
 
   let { children, class: className, direction, name, ...rest }: Props = $props()
 
-  const parent = getFieldContext()
-  setFieldContext({
+  const parent = getFieldGroupContext()
+  setFieldGroupContext({
     get name() {
       return name || parent?.name
     },

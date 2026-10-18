@@ -30,7 +30,7 @@ Dog Cat
 
   Lays out related fields.
 
-## Usage
+## Basics
 
 ```svelte
 <script lang="ts">
@@ -199,6 +199,8 @@ Set `disabled` on `FieldSet` to disable every field inside.
 
 Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end-text` directly inside it. The end text turns red when a field has `error` set.
 
+Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
+
 ```svelte
 <script lang="ts">
   import {
@@ -210,14 +212,16 @@ Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end
   } from "opui-css/svelte"
 </script>
 
-<FieldSet>
+<FieldSet aria-describedby="form-fieldset-invalid-1-error">
   <FieldLegend>Pet food</FieldLegend>
   <FieldDescription>Pick at least one.</FieldDescription>
   <FieldGroup name="food">
     <Checkbox error value="kibble">Kibble</Checkbox>
     <Checkbox error value="wet-food">Wet food</Checkbox>
   </FieldGroup>
-  <span class="ui-end-text">Your pet is hungry.</span>
+  <span class="ui-end-text" id="form-fieldset-invalid-1-error"
+    >Your pet is hungry.</span
+  >
 </FieldSet>
 ```
 
@@ -240,9 +244,9 @@ The legend gets an asterisk when a field inside is required.
 <FieldSet>
   <FieldLegend>Pet info</FieldLegend>
   <FieldDescription>We must know your pet's information.</FieldDescription>
-  <FieldGroup name="bio">
+  <FieldGroup>
     <TextField label="Name" name="name" />
-    <Textarea required label="Life story" />
+    <Textarea label="Life story" name="story" required />
   </FieldGroup>
 </FieldSet>
 ```
@@ -296,8 +300,9 @@ Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `FieldSet` a
 </script>
 
 <Form as="div">
-  <FieldSet aria-labelledby="delivery-legend" as="div">
-    <FieldLegend as="p" id="delivery-legend">Delivery</FieldLegend>
+  <FieldSet aria-labelledby="form-adaptive-output-1-legend" as="div">
+    <FieldLegend as="p" id="form-adaptive-output-1-legend">Delivery</FieldLegend
+    >
     <FieldDescription>Rendered as div and p elements.</FieldDescription>
   </FieldSet>
 </Form>
@@ -322,8 +327,8 @@ Everything at once.
     Range,
     Select,
     Switch,
-    TextField,
     Textarea,
+    TextField,
   } from "opui-css/svelte"
 
   const roleItems = [
@@ -331,14 +336,9 @@ Everything at once.
     { text: "Designer", value: "design" },
     { text: "Manager", value: "manager" },
   ]
-
-  let emailNotifs = $state(true)
-  let smsNotifs = $state(false)
-  let theme = $state("light")
-  let experience = $state(5)
 </script>
 
-<Form id="kitchen-sink-example">
+<Form id="form-kitchen-sink-1">
   <FieldSet>
     <FieldLegend>User Profile</FieldLegend>
     <FieldDescription>
@@ -363,13 +363,9 @@ Everything at once.
     <FieldDescription>
       Configure how you want to receive updates.
     </FieldDescription>
-    <FieldGroup name="notifications">
-      <Switch bind:checked={emailNotifs} name="email_notifs"
-        >Email Notifications</Switch
-      >
-      <Switch bind:checked={smsNotifs} name="sms_notifs"
-        >SMS Notifications</Switch
-      >
+    <FieldGroup>
+      <Switch name="email_notifs" checked>Email Notifications</Switch>
+      <Switch name="sms_notifs">SMS Notifications</Switch>
     </FieldGroup>
   </FieldSet>
 
@@ -379,9 +375,9 @@ Everything at once.
     <FieldLegend>Theme Preference</FieldLegend>
     <FieldDescription>Select your preferred visual style.</FieldDescription>
     <FieldGroup name="theme">
-      <Radio bind:group={theme} value="light">Light Theme</Radio>
-      <Radio bind:group={theme} value="dark">Dark Theme</Radio>
-      <Radio bind:group={theme} value="system">System Default</Radio>
+      <Radio value="light" checked>Light Theme</Radio>
+      <Radio value="dark">Dark Theme</Radio>
+      <Radio value="system">System Default</Radio>
     </FieldGroup>
   </FieldSet>
 
@@ -398,7 +394,7 @@ Everything at once.
         min="0"
         max="20"
         step="1"
-        bind:value={experience}
+        value="5"
         startText="Drag the slider to match your total tenure."
       />
     </FieldGroup>
@@ -409,9 +405,10 @@ Everything at once.
   <FieldSet>
     <FieldLegend>Additional Info</FieldLegend>
     <FieldDescription>Anything else we should know?</FieldDescription>
-    <FieldGroup name="details">
+    <FieldGroup>
       <Textarea
         label="Biography"
+        name="biography"
         placeholder="Tell us about yourself..."
         rows={4}
       />
@@ -422,7 +419,7 @@ Everything at once.
 
   <FieldSet>
     <FieldLegend>Legal</FieldLegend>
-    <FieldGroup name="legal">
+    <FieldGroup>
       <Checkbox name="terms" required>
         I agree to the terms and conditions
         {#snippet endText()}Support this text{/snippet}
@@ -563,11 +560,11 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                                                |
-| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `children`  | `Snippet`            | -       | The fields, such as checkboxes, radios or switches.                                                                                        |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.                                   |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In React, Svelte and Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                              |
+| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| `children`  | `Snippet`            | -       | The fields, such as checkboxes, radios or switches.                                                      |
+| `direction` | `"column"` , `"row"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
 
 #### CSS variables
 
@@ -717,17 +714,10 @@ Step 3 of 4: Groups
 Step 4 of 4: Required
 
 ```css
-.fieldset:has(:required) legend {
-  padding-inline-end: 1ex;
-  position: relative;
-}
-
 .fieldset:has(:required) legend::after {
   color: var(--field-required-color);
   content: "*";
-  inset-block: 0 auto;
-  inset-inline: auto -0.25ex;
-  position: absolute;
+  margin-inline-start: 0.25ex;
 }
 ```
 
@@ -745,17 +735,19 @@ This doesn't include all the styles for all form elements, just the scaffolding 
 
 Import the components from `opui-css/svelte`:
 
-### See also
+### Used by
+
+- [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
+- [Radio](https://open-props-ui.netlify.app/svelte/components/radio.md)
+- [Switch](https://open-props-ui.netlify.app/svelte/components/switch.md)
+
+* `opui-css/css/components/form.css`
+
+## See also
 
 - [Button](https://open-props-ui.netlify.app/svelte/components/button.md)
-- [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
 - [Divider](https://open-props-ui.netlify.app/svelte/components/divider.md)
-- [Radio](https://open-props-ui.netlify.app/svelte/components/radio.md)
 - [Range](https://open-props-ui.netlify.app/svelte/components/range.md)
 - [Select](https://open-props-ui.netlify.app/svelte/components/select.md)
-- [Switch](https://open-props-ui.netlify.app/svelte/components/switch.md)
-- [Textarea](https://open-props-ui.netlify.app/svelte/components/textarea.md)
 - [Text Field](https://open-props-ui.netlify.app/svelte/components/text-field.md)
-
-- `opui-css/css/components/form.css`
-
+- [Textarea](https://open-props-ui.netlify.app/svelte/components/textarea.md)

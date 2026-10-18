@@ -41,7 +41,7 @@ Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-
 ```html
 <button
   type="button"
-  commandfor="example-dialog-html"
+  commandfor="dialog-basics-1"
   command="show-modal"
   class="ui-button ui-outlined"
 >
@@ -49,11 +49,11 @@ Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-
 </button>
 
 <dialog
-  id="example-dialog-html"
+  id="dialog-basics-1"
   class="ui-dialog ui-card ui-elevated"
-  aria-labelledby="example-dialog-title-html"
+  aria-labelledby="dialog-basics-1-title"
 >
-  <hgroup id="example-dialog-title-html">
+  <hgroup id="dialog-basics-1-title">
     <h2 class="ui-h4">Newsletter</h2>
   </hgroup>
   <div class="ui-content">
@@ -63,7 +63,7 @@ Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-
   </div>
   <div class="ui-actions">
     <button
-      commandfor="example-dialog-html"
+      commandfor="dialog-basics-1"
       command="close"
       class="ui-button"
       type="button"
@@ -71,7 +71,7 @@ Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-
       Not now
     </button>
     <button
-      commandfor="example-dialog-html"
+      commandfor="dialog-basics-1"
       command="close"
       class="ui-button ui-filled"
       type="button"
@@ -89,7 +89,7 @@ Actions sit at the end. Add `.ui-align-start` to `.ui-actions` to move them to t
 ```html
 <button
   type="button"
-  commandfor="actions-alignment-html"
+  commandfor="dialog-actions-alignment-1"
   command="show-modal"
   class="ui-button ui-outlined"
 >
@@ -97,11 +97,11 @@ Actions sit at the end. Add `.ui-align-start` to `.ui-actions` to move them to t
 </button>
 
 <dialog
-  id="actions-alignment-html"
+  id="dialog-actions-alignment-1"
   class="ui-dialog ui-card ui-elevated"
-  aria-labelledby="actions-alignment-title-html"
+  aria-labelledby="dialog-actions-alignment-1-title"
 >
-  <hgroup id="actions-alignment-title-html">
+  <hgroup id="dialog-actions-alignment-1-title">
     <h2 class="ui-h4">Keyboard shortcuts</h2>
   </hgroup>
   <div class="ui-content">
@@ -109,7 +109,7 @@ Actions sit at the end. Add `.ui-align-start` to `.ui-actions` to move them to t
   </div>
   <div class="ui-actions ui-align-start">
     <button
-      commandfor="actions-alignment-html"
+      commandfor="dialog-actions-alignment-1"
       command="close"
       class="ui-button ui-filled"
       type="button"
@@ -127,7 +127,7 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
 ```html
 <button
   type="button"
-  commandfor="alert-dialog-html"
+  commandfor="dialog-alert-dialog-1"
   command="show-modal"
   class="ui-button ui-outlined ui-critical"
 >
@@ -135,23 +135,23 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
 </button>
 
 <dialog
-  id="alert-dialog-html"
+  id="dialog-alert-dialog-1"
   class="ui-dialog ui-card ui-elevated"
   role="alertdialog"
-  aria-labelledby="alert-dialog-title-html"
-  aria-describedby="alert-dialog-description-html"
+  aria-labelledby="dialog-alert-dialog-1-title"
+  aria-describedby="dialog-alert-dialog-1-description"
 >
-  <hgroup id="alert-dialog-title-html">
+  <hgroup id="dialog-alert-dialog-1-title">
     <h2 class="ui-h4">Delete project?</h2>
   </hgroup>
   <div class="ui-content">
-    <p id="alert-dialog-description-html">
+    <p id="dialog-alert-dialog-1-description">
       This deletes the project and all its files. You can't undo this.
     </p>
   </div>
   <div class="ui-actions">
     <button
-      commandfor="alert-dialog-html"
+      commandfor="dialog-alert-dialog-1"
       command="close"
       class="ui-button"
       type="button"
@@ -159,7 +159,7 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
       Cancel
     </button>
     <button
-      commandfor="alert-dialog-html"
+      commandfor="dialog-alert-dialog-1"
       command="close"
       class="ui-button ui-filled ui-critical"
       type="button"
@@ -181,7 +181,7 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
 ```html
 <button
   type="button"
-  commandfor="example-dialog-long-html"
+  commandfor="dialog-long-content-1"
   command="show-modal"
   class="ui-button ui-outlined"
 >
@@ -189,11 +189,11 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
 </button>
 
 <dialog
-  id="example-dialog-long-html"
+  id="dialog-long-content-1"
   class="ui-dialog ui-card ui-elevated"
-  aria-labelledby="example-dialog-long-title-html"
+  aria-labelledby="dialog-long-content-1-title"
 >
-  <hgroup id="example-dialog-long-title-html">
+  <hgroup id="dialog-long-content-1-title">
     <h2 class="ui-h4">Terms of service</h2>
   </hgroup>
   <div class="ui-content">
@@ -263,7 +263,7 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
   </div>
   <div class="ui-actions">
     <button
-      commandfor="example-dialog-long-html"
+      commandfor="dialog-long-content-1"
       command="close"
       class="ui-button"
       type="button"
@@ -271,7 +271,7 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
       Decline
     </button>
     <button
-      commandfor="example-dialog-long-html"
+      commandfor="dialog-long-content-1"
       command="close"
       class="ui-button ui-filled"
       type="button"
@@ -297,7 +297,7 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 ```html
 <button
   type="button"
-  commandfor="closing-behaviors-dialog-html"
+  commandfor="dialog-close-behaviors-1"
   command="show-modal"
   class="ui-button ui-outlined"
 >
@@ -305,12 +305,12 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 </button>
 
 <dialog
-  aria-labelledby="dialog-header"
-  id="closing-behaviors-dialog-html"
+  aria-labelledby="dialog-close-behaviors-1-title"
+  id="dialog-close-behaviors-1"
   class="ui-dialog ui-card ui-elevated"
   closedby="any"
 >
-  <hgroup id="dialog-header">
+  <hgroup id="dialog-close-behaviors-1-title">
     <h2 class="ui-h4">How to close</h2>
   </hgroup>
   <div class="ui-content">
@@ -335,7 +335,7 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
   <div class="ui-actions">
     <button
       type="button"
-      commandfor="closing-behaviors-dialog-html"
+      commandfor="dialog-close-behaviors-1"
       command="close"
       class="ui-button"
     >
@@ -345,18 +345,16 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
 </dialog>
 
 <script>
-  const radios = document.querySelectorAll('input[name="closedby-demo"]')
-
-  radios.forEach((radio) => {
-    radio.addEventListener("change", () => {
-      const dialog = radio
-        .closest(".example-preview")
-        ?.querySelector("#closing-behaviors-dialog-html")
-      if (dialog instanceof HTMLDialogElement) {
-        dialog.setAttribute("closedby", radio.value)
-      }
-    })
-  })
+  {
+    const dialog = document.getElementById("dialog-close-behaviors-1")
+    document
+      .querySelectorAll('input[name="closedby-demo"]')
+      .forEach((radio) => {
+        radio.addEventListener("change", () =>
+          dialog?.setAttribute("closedby", radio.value),
+        )
+      })
+  }
 </script>
 ```
 
@@ -401,14 +399,29 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 #### CSS variables
 
-| Variable           | Default                                    | Description                                                                                                                                                                                              |
-| ------------------ | ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--backdrop-blur`  | `1px`                                      | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                         |
-| `--backdrop-color` | `rgb(0 0 0 / 0.5)`                         | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                       |
-| `--duration`       | `0.2s`                                     | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
-| `--ease-enter`     | `var(--ease-out-3)`                        | Easing for elements entering the screen.                                                                                                                                                                 |
-| `--motion`         | `1`                                        | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
-| `--space-3`        | `calc(var(--size-3) * var(--space-scale))` | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                             |
+| Variable              | Default                                                                        | Description                                                                                                                                                                                                                                     |
+| --------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`     | `1px`                                                                          | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                                                                |
+| `--backdrop-color`    | `rgb(0 0 0 / 0.5)`                                                             | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                                                              |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`                                    | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                     |
+| `--border-radius`     | `var(--size-2)`                                                                | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                |
+| `--border-width`      | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                                                         |
+| `--duration`          | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                                          |
+| `--ease`              | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                                                                 |
+| `--ease-enter`        | `var(--ease-out-3)`                                                            | Easing for elements entering the screen.                                                                                                                                                                                                        |
+| `--focus-ring-color`  | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                                |
+| `--focus-ring-offset` | `2px`                                                                          | Distance between a control and its focus ring.                                                                                                                                                                                                  |
+| `--focus-ring-style`  | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                                                                |
+| `--focus-ring-width`  | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                                                        |
+| `--motion`            | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                                        |
+| `--shadow-raised`     | `var(--shadow-raised-light)` `var(--shadow-raised-dark)` in dark mode          | Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--shadow-raised-light` and `--shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one. |
+| `--space-2`           | `calc(var(--size-2) * var(--space-scale))`                                     | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                                    |
+| `--space-3`           | `calc(var(--size-3) * var(--space-scale))`                                     | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                                    |
+| `--space-4`           | `calc(var(--size-4) * var(--space-scale))`                                     | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                                                                    |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                                    | Page and card background.                                                                                                                                                                                                                       |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))`                                    | Background of elevated cards and accordions.                                                                                                                                                                                                    |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                                    | Background of tonal variants.                                                                                                                                                                                                                   |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                                    | Body text color.                                                                                                                                                                                                                                |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -443,13 +456,15 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property               | Kind  | Description                                                                     |
-| ---------------------- | ----- | ------------------------------------------------------------------------------- |
-| `--_backdrop-bg-color` | Input | The backdrop color. Defaults to `--backdrop-color`.                             |
-| `--_backdrop-blur`     | Input | The backdrop filter. Defaults to a `--backdrop-blur` blur.                      |
-| `--_max-inline-size`   | Input | Maximum width, capped to fit the viewport.                                      |
-| `--_motion`            | Input | Motion multiplier for the transitions. `0` turns them off.                      |
-| `--_scroll-shadow`     | Input | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--shadow-4`. |
+| Property               | Kind   | Description                                                                         |
+| ---------------------- | ------ | ----------------------------------------------------------------------------------- |
+| `--_backdrop-bg-color` | Input  | The backdrop color. Defaults to `--backdrop-color`.                                 |
+| `--_backdrop-blur`     | Input  | The backdrop filter. Defaults to a `--backdrop-blur` blur.                          |
+| `--_duration`          | Output | Duration of the open transition and scroll shadows, `--duration` times `--_motion`. |
+| `--_ease`              | Input  | Easing of the open transition. Defaults to `--ease-enter`.                          |
+| `--_max-inline-size`   | Input  | Maximum width, capped to fit the viewport.                                          |
+| `--_motion`            | Input  | Motion multiplier for the transitions. `0` turns them off.                          |
+| `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--shadow-4`.     |
 
 ## Under the hood
 
@@ -552,7 +567,7 @@ Step 2 of 5: Place
 }
 
 .dialog > .content {
-  overflow-y: auto;
+  overflow-block: auto;
   overscroll-behavior: contain;
 }
 ```
@@ -661,8 +676,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Card](https://open-props-ui.netlify.app/html/components/card.md)
 
-- `opui-css/css/components/dialog.css`
-- `opui-css/css/components/card.css`
+* `opui-css/css/components/dialog.css`
+* `opui-css/css/components/card.css`
 
 ## Changelog
 
@@ -671,3 +686,5 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Long content](#long-content) scrolls between a fixed header and actions.
 - A subtle scroll shadow shows under the header and above the actions while the [content scrolls](#long-content).
 - [Width](#width) with `--_max-inline-size`, keeping the margin on small screens.
+- Breaking: the page scroll lock lives in `utils.css`. Import it too if you import single files.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

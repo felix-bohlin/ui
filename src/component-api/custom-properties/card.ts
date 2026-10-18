@@ -14,9 +14,27 @@ export default {
     description: "The current border width. Set by the variants.",
     kind: "output",
   },
+  "--_duration": {
+    description:
+      "Duration of the focus ring animation, `--duration` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description: "Easing of the focus ring animation. Defaults to `--ease`.",
+    kind: "input",
+  },
   "--_elevated-bg-color": {
     description:
       "Background of `.ui-elevated`. Defaults to `--surface-elevated`.",
+    kind: "input",
+  },
+  "--_elevated-shadow": {
+    description: "Shadow of `.ui-elevated`. Defaults to `--shadow-raised`.",
+    kind: "input",
+  },
+  "--_motion": {
+    description:
+      "Motion multiplier for the focus ring animation. `0` turns it off.",
     kind: "input",
   },
   "--_outlined-border-color": {
@@ -26,12 +44,8 @@ export default {
   },
   "--_shadow": {
     description:
-      "The current shadow. `.ui-elevated` sets `--_shadow-elevated`.",
+      "The current shadow. `.ui-elevated` sets `--_elevated-shadow`.",
     kind: "output",
-  },
-  "--_shadow-elevated": {
-    description: "Shadow of `.ui-elevated`. Defaults to `--shadow-raised`.",
-    kind: "input",
   },
   "--_surface-bg-color": {
     description:

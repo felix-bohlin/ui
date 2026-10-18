@@ -1,16 +1,11 @@
+import { components } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "Table",
-  notes: {
-    astro:
-      "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
-    react:
-      "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
-    svelte:
-      "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
-    vue: "Set column widths with `TableColumnGroup` and `TableColumn`. `TableColumn` takes a `width`.",
-  },
+  notes: components(
+    "Set column widths with `TableColumnGroup` and `TableColumn`.",
+  ),
   options: [
     {
       class: ".ui-sticky-header",
@@ -29,59 +24,46 @@ export default {
   ],
   parts: [
     {
+      code: "<caption>",
+      component: "TableCaption",
+      description: "An optional title for the table.",
+      selector: "caption",
+    },
+    {
       code: "<thead>",
-      component: {
-        astro: "TableHead",
-        react: "TableHead",
-        svelte: "TableHead",
-        vue: "TableHead",
-      },
+      component: "TableHead",
       description: "The header rows.",
       selector: "thead",
     },
     {
       code: "<th>",
-      component: {
-        astro: "TableHeaderCell",
-        react: "TableHeaderCell",
-        svelte: "TableHeaderCell",
-        vue: "TableHeaderCell",
-      },
+      component: "TableHeaderCell",
       description: "A header cell.",
       selector: "thead th:first-child",
     },
     {
       code: "<tbody>",
-      component: {
-        astro: "TableBody",
-        react: "TableBody",
-        svelte: "TableBody",
-        vue: "TableBody",
-      },
+      component: "TableBody",
       description: "The body rows.",
       selector: "tbody",
     },
     {
       code: "<tr>",
-      component: {
-        astro: "TableRow",
-        react: "TableRow",
-        svelte: "TableRow",
-        vue: "TableRow",
-      },
+      component: "TableRow",
       description: "A row.",
       selector: "tbody tr:first-child",
     },
     {
       code: "<td>",
-      component: {
-        astro: "TableCell",
-        react: "TableCell",
-        svelte: "TableCell",
-        vue: "TableCell",
-      },
+      component: "TableCell",
       description: "A data cell.",
       selector: "tbody tr:first-child td:last-child",
+    },
+    {
+      code: "<tfoot>",
+      component: "TableFoot",
+      description: "Optional footer rows, such as totals.",
+      selector: "tfoot",
     },
   ],
   root: {

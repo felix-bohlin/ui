@@ -9,6 +9,7 @@ import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
 import avatarApi from "../../component-api/avatar/api"
+import avatarGroupApi from "../../component-api/avatar-group/api"
 import AvatarBuild from "../../components/UnderTheHood/AvatarBuild.astro"
 export const description =
   "Avatars show a person or entity as an image, initials or icon."
@@ -17,7 +18,10 @@ export const description =
 <Component
   description={description}
   slug="avatar"
-  apis={[{ title: "Avatar API", api: avatarApi }]}
+  apis={[
+    { title: "Avatar API", api: avatarApi },
+    { title: "Avatar group API", api: avatarGroupApi },
+  ]}
   browserSupport={["corner-shape", "has", "overflow-clip"]}
   changelogPaths={[
     {
@@ -58,22 +62,13 @@ export const description =
     <h2 id="variants">Variants</h2>
 
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Change the shape of the avatar with the <code>variant</code> prop.
       </Fragment>
       <Fragment slot="html">
         Change the shape of the avatar with the <code>.ui-squared</code>, <code
           >.ui-rounded</code
         > and <code>.ui-squircle</code> classes.
-      </Fragment>
-      <Fragment slot="react">
-        Change the shape of the avatar with the <code>variant</code> prop.
-      </Fragment>
-      <Fragment slot="svelte">
-        Change the shape of the avatar with the <code>variant</code> prop.
-      </Fragment>
-      <Fragment slot="vue">
-        Change the shape of the avatar with the <code>variant</code> prop.
       </Fragment>
     </Conditional>
 
@@ -99,25 +94,14 @@ export const description =
     <h2 id="grouped">Grouped</h2>
 
     <Conditional as="p">
-      <Fragment slot="astro">
-        Group multiple avatars by setting the <code>isGroup</code> prop on a parent
-        container.
+      <Fragment slot="components">
+        Group multiple avatars in an <code>AvatarGroup</code> with an <code
+          >aria-label</code
+        >.
       </Fragment>
       <Fragment slot="html">
         Group multiple avatars in a <code>.ui-avatar-group</code> element with
         <code>role="group"</code> and an <code>aria-label</code>.
-      </Fragment>
-      <Fragment slot="react">
-        Group multiple avatars by setting the <code>isGroup</code> prop on a parent
-        container.
-      </Fragment>
-      <Fragment slot="svelte">
-        Group multiple avatars by setting the <code>isGroup</code> prop on a parent
-        container.
-      </Fragment>
-      <Fragment slot="vue">
-        Group multiple avatars by setting the <code>isGroup</code> prop on a parent
-        container.
       </Fragment>
     </Conditional>
 

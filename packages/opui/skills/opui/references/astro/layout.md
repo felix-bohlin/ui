@@ -8,7 +8,7 @@ Four classes for the space between components: `.ui-flow`, `.ui-cluster`, `.ui-g
 
 ```astro
 ---
-import { Card, CardContent } from "opui-css/astro"
+import { Card, CardContent } from "@opui/astro"
 ---
 
 <div class="ui-flow">
@@ -30,7 +30,7 @@ import { Card, CardContent } from "opui-css/astro"
 
 ```astro
 ---
-import { Button } from "opui-css/astro"
+import { Button } from "@opui/astro"
 ---
 
 <div class="ui-cluster">
@@ -47,7 +47,7 @@ import { Button } from "opui-css/astro"
 
 ```astro
 ---
-import { Card, CardContent } from "opui-css/astro"
+import { Card, CardContent } from "@opui/astro"
 ---
 
 <div class="ui-grid" style="--_min-inline-size: 10rem">
@@ -78,7 +78,7 @@ The size classes set the gap of `.ui-flow`, `.ui-cluster` and `.ui-grid`: `.ui-x
 
 ```astro
 ---
-import { Button } from "opui-css/astro"
+import { Button } from "@opui/astro"
 ---
 
 <div class="ui-flow">
@@ -111,7 +111,7 @@ import { Button } from "opui-css/astro"
 
 ```astro
 ---
-import { Button, Card, CardContent } from "opui-css/astro"
+import { Button, Card, CardContent } from "@opui/astro"
 ---
 
 <div class="ui-container" style="--_max-inline-size: 40rem">
@@ -167,7 +167,7 @@ import { Button, Card, CardContent } from "opui-css/astro"
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Add the classes to elements in your templates. There is no Astro component.
+Add the classes to elements in your templates. There is no Astro component. There is no Astro component.
 
 ## Component properties
 

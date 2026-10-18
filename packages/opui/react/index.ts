@@ -6,13 +6,13 @@ export { default as AccordionSummary } from "../components/Accordion/AccordionSu
 export { default as Anchor } from "../components/Anchor/Anchor.react"
 export { default as AnchorContent } from "../components/Anchor/AnchorContent.react"
 export { default as Avatar } from "../components/Avatar/Avatar.react"
+export { default as AvatarGroup } from "../components/Avatar/AvatarGroup.react"
 export { default as Badge } from "../components/Badge/Badge.react"
 export { default as Button } from "../components/Button/Button.react"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.react"
 export { default as Callout } from "../components/Callout/Callout.react"
 export { default as CalloutContent } from "../components/Callout/CalloutContent.react"
 export { default as CalloutIcon } from "../components/Callout/CalloutIcon.react"
-export { default as CalloutTitle } from "../components/Callout/CalloutTitle.react"
 export { default as Card } from "../components/Card/Card.react"
 export { default as CardActions } from "../components/Card/CardActions.react"
 export { default as CardContent } from "../components/Card/CardContent.react"
@@ -21,11 +21,10 @@ export { default as Carousel } from "../components/Carousel/Carousel.react"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.react"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.react"
 export { default as Chip } from "../components/Chip/Chip.react"
-export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.react"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.react"
-export { default as DescriptionListDescription } from "../components/DescriptionList/Description.react"
-export { default as DescriptionListItem } from "../components/DescriptionList/Item.react"
-export { default as DescriptionListTerm } from "../components/DescriptionList/Term.react"
+export { default as DescriptionListDescription } from "../components/DescriptionList/DescriptionListDescription.react"
+export { default as DescriptionListItem } from "../components/DescriptionList/DescriptionListItem.react"
+export { default as DescriptionListTerm } from "../components/DescriptionList/DescriptionListTerm.react"
 export { default as Dialog } from "../components/Dialog/Dialog.react"
 export { default as DialogActions } from "../components/Dialog/DialogActions.react"
 export { default as DialogContent } from "../components/Dialog/DialogContent.react"
@@ -52,13 +51,15 @@ export { default as Select } from "../components/Select/Select.react"
 export { default as Switch } from "../components/Switch/Switch.react"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.react"
 export { default as Table } from "../components/Table/Table.react"
-export { default as TableBody } from "../components/Table/Body.react"
-export { default as TableCell } from "../components/Table/Cell.react"
-export { default as TableColumn } from "../components/Table/Column.react"
-export { default as TableColumnGroup } from "../components/Table/ColumnGroup.react"
-export { default as TableHead } from "../components/Table/Head.react"
-export { default as TableHeaderCell } from "../components/Table/HeaderCell.react"
-export { default as TableRow } from "../components/Table/Row.react"
+export { default as TableBody } from "../components/Table/TableBody.react"
+export { default as TableCaption } from "../components/Table/TableCaption.react"
+export { default as TableCell } from "../components/Table/TableCell.react"
+export { default as TableColumn } from "../components/Table/TableColumn.react"
+export { default as TableColumnGroup } from "../components/Table/TableColumnGroup.react"
+export { default as TableFoot } from "../components/Table/TableFoot.react"
+export { default as TableHead } from "../components/Table/TableHead.react"
+export { default as TableHeaderCell } from "../components/Table/TableHeaderCell.react"
+export { default as TableRow } from "../components/Table/TableRow.react"
 export { default as Tabs } from "../components/Tabs/Tabs.react"
 export { default as TabsItem } from "../components/Tabs/TabsItem.react"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.react"
@@ -80,7 +81,10 @@ export type {
   Props as AnchorProps,
   AnchorContentProps as TooltipContentProps,
 } from "../components/Anchor/types.react"
-export type { Props as AvatarProps } from "../components/Avatar/types.react"
+export type {
+  AvatarGroupProps,
+  Props as AvatarProps,
+} from "../components/Avatar/types.react"
 export type { Props as BadgeProps } from "../components/Badge/types.react"
 export type { Props as ButtonProps } from "../components/Button/types.react"
 export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.react"
@@ -88,7 +92,6 @@ export type {
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,
-  CalloutTitleProps,
 } from "../components/Callout/types.react"
 export type {
   CardActionsProps,
@@ -99,16 +102,14 @@ export type {
 export type { Props as CarouselProps } from "../components/Carousel/types.react"
 export type {
   CheckboxInputProps,
-  CheckboxProps,
+  Props as CheckboxProps,
 } from "../components/Checkbox/types.react"
 export type { Props as ChipProps } from "../components/Chip/types.react"
-export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
-export type { ClassicSelectProps } from "../components/ClassicSelect/types.react"
 export type {
-  DescriptionProps as DescriptionListDescriptionProps,
-  ItemProps as DescriptionListItemProps,
+  DescriptionListDescriptionProps,
+  DescriptionListItemProps,
   Props as DescriptionListProps,
-  TermProps as DescriptionListTermProps,
+  DescriptionListTermProps,
 } from "../components/DescriptionList/types.react"
 export type {
   DialogActionsProps,
@@ -138,19 +139,27 @@ export type {
 export type { Props as ProgressProps } from "../components/Progress/types.react"
 export type {
   RadioInputProps,
-  RadioProps,
+  Props as RadioProps,
 } from "../components/Radio/types.react"
-export type { RangeProps } from "../components/Range/types.react"
-export type { Item as SelectItem } from "../components/Select/types"
+export type { RangeOption } from "../components/Range/types"
+export type { Props as RangeProps } from "../components/Range/types.react"
+export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.react"
 export type {
   SwitchInputProps,
-  SwitchProps,
+  Props as SwitchProps,
 } from "../components/Switch/types.react"
 export type {
-  ColumnProps as TableColumnProps,
+  TableBodyProps,
+  TableCaptionProps,
+  TableCellProps,
+  TableColumnGroupProps,
+  TableColumnProps,
+  TableFootProps,
+  TableHeaderCellProps,
+  TableHeadProps,
   Props as TableProps,
-  SectionProps as TableSectionProps,
+  TableRowProps,
 } from "../components/Table/types.react"
 export type {
   TabsItemProps,

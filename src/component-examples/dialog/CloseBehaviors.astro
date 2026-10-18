@@ -9,18 +9,18 @@ import {
   FieldLegend,
   FieldSet,
   Radio,
-} from "@opui/astro"
+} from "opui-css/astro"
 ---
 
 <Button
-  commandfor="closing-behaviors-dialog"
+  commandfor="dialog-close-behaviors-1"
   command="show-modal"
   variant="outlined"
 >
   Open dialog
 </Button>
 
-<Dialog id="closing-behaviors-dialog" closedby="any">
+<Dialog id="dialog-close-behaviors-1" closedby="any">
   <DialogHeader>
     <h2 class="ui-h4">How to close</h2>
   </DialogHeader>
@@ -35,24 +35,19 @@ import {
     </FieldSet>
   </DialogContent>
   <DialogActions>
-    <Button commandfor="closing-behaviors-dialog" command="close">
+    <Button commandfor="dialog-close-behaviors-1" command="close">
       Close manually
     </Button>
   </DialogActions>
 </Dialog>
 
 <script>
-  const dialog = document.getElementById(
-    "closing-behaviors-dialog",
-  ) as HTMLDialogElement
-  const radios = document.querySelectorAll('input[name="closedby-demo"]')
-
-  radios.forEach((radio) => {
-    radio.addEventListener("change", (e) => {
-      const target = e.target as HTMLInputElement
-      if (dialog) {
-        dialog.setAttribute("closedby", target.value)
-      }
+  const dialog = document.getElementById("dialog-close-behaviors-1")
+  document
+    .querySelectorAll<HTMLInputElement>('input[name="closedby-demo"]')
+    .forEach((radio) => {
+      radio.addEventListener("change", () =>
+        dialog?.setAttribute("closedby", radio.value),
+      )
     })
-  })
 </script>

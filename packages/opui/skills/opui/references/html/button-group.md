@@ -108,6 +108,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
 <div role="group" class="ui-button-group ui-outlined">
   <button type="button" class="ui-button" aria-label="OK">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -124,6 +125,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
 
   <button type="button" class="ui-button" aria-label="No">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -140,6 +142,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
 <div role="group" class="ui-button-group ui-outlined">
   <button type="button" class="ui-button">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -155,6 +158,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
 
   <button type="button" class="ui-button">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -170,6 +174,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
 
   <button type="button" class="ui-button">
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -197,10 +202,11 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
     type="button"
     class="ui-button"
     aria-label="More save options"
-    commandfor="split-button-menu-html"
+    commandfor="button-group-split-button-1"
     command="toggle-popover"
   >
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -214,7 +220,7 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
   </button>
 
   <menu
-    id="split-button-menu-html"
+    id="button-group-split-button-1"
     class="ui-menu ui-list ui-align-end"
     popover
   >
@@ -222,7 +228,7 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
       <button
         type="button"
         command="hide-popover"
-        commandfor="split-button-menu-html"
+        commandfor="button-group-split-button-1"
       >
         <div class="ui-text"><p>Save as draft</p></div>
       </button>
@@ -231,7 +237,7 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
       <button
         type="button"
         command="hide-popover"
-        commandfor="split-button-menu-html"
+        commandfor="button-group-split-button-1"
       >
         <div class="ui-text"><p>Save and publish</p></div>
       </button>
@@ -267,6 +273,7 @@ Change the layout of the group with the `.ui-vertical` class.
   <div class="ui-button-group ui-vertical" role="group">
     <button type="button" aria-label="Increase" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -283,6 +290,7 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
     <button type="button" aria-label="Decrease" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -301,6 +309,7 @@ Change the layout of the group with the `.ui-vertical` class.
   <div class="ui-button-group ui-outlined ui-vertical" role="group">
     <button type="button" aria-label="Increase" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -317,6 +326,7 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
     <button type="button" aria-label="Decrease" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -335,6 +345,7 @@ Change the layout of the group with the `.ui-vertical` class.
   <div class="ui-button-group ui-tonal ui-vertical" role="group">
     <button type="button" aria-label="Increase" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -351,6 +362,7 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
     <button type="button" aria-label="Decrease" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -369,6 +381,7 @@ Change the layout of the group with the `.ui-vertical` class.
   <div class="ui-button-group ui-filled ui-vertical" role="group">
     <button type="button" aria-label="Increase" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -385,6 +398,7 @@ Change the layout of the group with the `.ui-vertical` class.
     </button>
     <button type="button" aria-label="Decrease" class="ui-button">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -455,9 +469,9 @@ Buttons wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep th
 | Type        | Modifiers                                 | Default | Description                                                                                                       |
 | ----------- | ----------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
 | Colors      | `.ui-critical`, `.ui-primary`             | -       | Optional colors for the buttons.                                                                                  |
-| Orientation | `.ui-vertical`                            | -       | The orientation of the element.                                                                                   |
-| Overflow    | `.ui-scrollable`                          | -       | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| Overflow    | `.ui-shrink`                              | -       | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| Orientation | default, `.ui-vertical`                   | default | The orientation of the element.                                                                                   |
+| Scroll      | `.ui-scrollable`                          | -       | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| Shrink      | `.ui-shrink`                              | -       | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
 | Sizes       | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the buttons.                                                                                          |
 | Variants    | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant of the buttons.                                                                                       |
 
@@ -508,13 +522,13 @@ The root needs `role="group"`.
 
 ### Button API
 
-| Type     | Modifiers                                 | Default | Description                                     |
-| -------- | ----------------------------------------- | ------- | ----------------------------------------------- |
-| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                |
-| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only. |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                        |
-| State    | `[disabled]`                              | -       | Disables the button.                            |
-| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                             |
+| Type     | Modifiers                                 | Default | Description                                                                                                                 |
+| -------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                                                                            |
+| Shape    | `.ui-round`                               | -       | Fully rounded corners, a circle when icon-only.                                                                             |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                                                                                    |
+| State    | `[disabled]`, `a[aria-disabled="true"]`   | -       | Disables the button. A link button, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |
+| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                                                                                                         |
 
 #### Parts
 
@@ -529,6 +543,7 @@ The root needs `role="group"`.
 | Variable                      | Default                                                                               | Description                                                                                                                                                                                                                      |
 | ----------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-radius`             | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
 | `--button-border-radius`      | Unset                                                                                 | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--border-radius`, also where it's set on a part of the page.                                                               |
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                                         |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                                                |
@@ -562,18 +577,13 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property            | Kind   | Description                                                                                                                 |
-| ------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`       | Output | The current background of each button. Set by the group's variant, hover and active states.                                 |
-| `--_border-color`   | Output | Border color of each button, `transparent` in a group.                                                                      |
-| `--_border-radius`  | Input  | Corner radius of the group. Defaults to `--button-border-radius`.                                                           |
-| `--_divider-color`  | Output | Color of the lines between buttons, from the button's `--_accent-tonal`, or `--_accent` in `.ui-outlined` and `.ui-filled`. |
-| `--_edge-color`     | Input  | Outline color around the group. Set by `.ui-outlined`, with `.ui-primary` and `.ui-critical`.                               |
-| `--_font-size`      | Input  | Font size of each button. Set by the group's size classes.                                                                  |
-| `--_icon-size`      | Input  | Icon size in icon-only buttons.                                                                                             |
-| `--_min-height`     | Input  | Height of each button. Set by the group's size classes.                                                                     |
-| `--_padding-inline` | Input  | Inline padding of each button. Set by the group's size classes.                                                             |
-| `--_text-color`     | Output | The current text color of each button. Set by the group's variant, hover and active states.                                 |
+| Property           | Kind   | Description                                                                                                                                |
+| ------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--_border-color`  | Output | Border color of each button, `transparent` in a group.                                                                                     |
+| `--_border-radius` | Input  | Corner radius of the group. Defaults to `--button-border-radius`.                                                                          |
+| `--_divider-color` | Output | Color of the lines between buttons, from the button's `--_accent-tonal`, `--_accent` in `.ui-outlined` and `currentColor` in `.ui-filled`. |
+| `--_edge-accent`   | Input  | Outline color of `.ui-outlined`. `.ui-primary` and `.ui-critical` set it.                                                                  |
+| `--_edge-color`    | Output | The current outline color around the group. `transparent`, or `--_edge-accent` in `.ui-outlined`.                                          |
 
 ## Under the hood
 
@@ -679,8 +689,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Button](https://open-props-ui.netlify.app/html/components/button.md)
 
-- `opui-css/css/components/button-group.css`
-- `opui-css/css/components/button.css`
+* `opui-css/css/components/button-group.css`
+* `opui-css/css/components/button.css`
 
 ## Changelog
 
@@ -695,4 +705,5 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Small](#sizes) groups use the same text size as a small `Button`.
 - [Wraps](#overflow) when it doesn't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
 - `<a class="ui-button">` links get the group styles too, see [Variants](#variants).
+- [Icon-only buttons](#icons) in a group use the button's icon size.
 - Corners follow `--border-radius` through [`--button-border-radius`](#api), so one token squares or rounds every component.

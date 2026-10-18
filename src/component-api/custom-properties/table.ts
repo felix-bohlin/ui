@@ -6,6 +6,16 @@ export default {
       "Corner radius of the table and its corner cells. Defaults to `--border-radius`.",
     kind: "input",
   },
+  "--_duration": {
+    description:
+      "Duration of the header shadow transition, `--duration` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description:
+      "Easing of the header shadow transition. Defaults to `--ease`.",
+    kind: "input",
+  },
   "--_motion": {
     description:
       "Motion multiplier for the header shadow transition in `.ui-sticky-header`. `0` turns it off.",

@@ -285,9 +285,6 @@ importers:
       hast-util-select:
         specifier: ^6.0.4
         version: 6.0.4
-      hast-util-to-text:
-        specifier: ^4.0.2
-        version: 4.0.2
       oxlint:
         specifier: ^1.85.0
         version: 1.85.0

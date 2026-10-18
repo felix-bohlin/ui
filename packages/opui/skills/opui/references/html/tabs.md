@@ -31,29 +31,29 @@ General account settings.
   <input
     type="radio"
     name="basic-tabs"
-    id="tab-profile"
+    id="tabs-basics-1"
     class="ui-tab-input"
     checked
   />
-  <label for="tab-profile" class="ui-tab-label">Profile</label>
+  <label for="tabs-basics-1" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
   <input
     type="radio"
     name="basic-tabs"
-    id="tab-settings"
+    id="tabs-basics-2"
     class="ui-tab-input"
   />
-  <label for="tab-settings" class="ui-tab-label">Settings</label>
+  <label for="tabs-basics-2" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
 
   <input
     type="radio"
     name="basic-tabs"
-    id="tab-notifications"
+    id="tabs-basics-3"
     class="ui-tab-input"
   />
-  <label for="tab-notifications" class="ui-tab-label">Notifications</label>
+  <label for="tabs-basics-3" class="ui-tab-label">Notifications</label>
   <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
@@ -67,31 +67,29 @@ Use `.ui-filled` to fill the selected tab with the primary color.
   <input
     type="radio"
     name="filled-tabs"
-    id="filled-tab-profile"
+    id="tabs-filled-1"
     class="ui-tab-input"
     checked
   />
-  <label for="filled-tab-profile" class="ui-tab-label">Profile</label>
+  <label for="tabs-filled-1" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
   <input
     type="radio"
     name="filled-tabs"
-    id="filled-tab-settings"
+    id="tabs-filled-2"
     class="ui-tab-input"
   />
-  <label for="filled-tab-settings" class="ui-tab-label">Settings</label>
+  <label for="tabs-filled-2" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
 
   <input
     type="radio"
     name="filled-tabs"
-    id="filled-tab-notifications"
+    id="tabs-filled-3"
     class="ui-tab-input"
   />
-  <label for="filled-tab-notifications" class="ui-tab-label"
-    >Notifications</label
-  >
+  <label for="tabs-filled-3" class="ui-tab-label">Notifications</label>
   <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
@@ -105,29 +103,19 @@ Use `.ui-line` for tabs without a background, marking the selected tab with a li
   <input
     type="radio"
     name="line-tabs"
-    id="line-tab-profile"
+    id="tabs-line-1"
     class="ui-tab-input"
     checked
   />
-  <label for="line-tab-profile" class="ui-tab-label">Profile</label>
+  <label for="tabs-line-1" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
-  <input
-    type="radio"
-    name="line-tabs"
-    id="line-tab-settings"
-    class="ui-tab-input"
-  />
-  <label for="line-tab-settings" class="ui-tab-label">Settings</label>
+  <input type="radio" name="line-tabs" id="tabs-line-2" class="ui-tab-input" />
+  <label for="tabs-line-2" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
 
-  <input
-    type="radio"
-    name="line-tabs"
-    id="line-tab-notifications"
-    class="ui-tab-input"
-  />
-  <label for="line-tab-notifications" class="ui-tab-label">Notifications</label>
+  <input type="radio" name="line-tabs" id="tabs-line-3" class="ui-tab-input" />
+  <label for="tabs-line-3" class="ui-tab-label">Notifications</label>
   <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
@@ -141,31 +129,29 @@ Use `.ui-outlined` for a bordered track without a background.
   <input
     type="radio"
     name="outlined-tabs"
-    id="outlined-tab-profile"
+    id="tabs-outlined-1"
     class="ui-tab-input"
     checked
   />
-  <label for="outlined-tab-profile" class="ui-tab-label">Profile</label>
+  <label for="tabs-outlined-1" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
   <input
     type="radio"
     name="outlined-tabs"
-    id="outlined-tab-settings"
+    id="tabs-outlined-2"
     class="ui-tab-input"
   />
-  <label for="outlined-tab-settings" class="ui-tab-label">Settings</label>
+  <label for="tabs-outlined-2" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
 
   <input
     type="radio"
     name="outlined-tabs"
-    id="outlined-tab-notifications"
+    id="tabs-outlined-3"
     class="ui-tab-input"
   />
-  <label for="outlined-tab-notifications" class="ui-tab-label"
-    >Notifications</label
-  >
+  <label for="tabs-outlined-3" class="ui-tab-label">Notifications</label>
   <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
@@ -179,49 +165,47 @@ Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-profile"
+    id="tabs-scrollable-1"
     class="ui-tab-input"
     checked
   />
-  <label for="scrollable-tab-profile" class="ui-tab-label">Profile</label>
+  <label for="tabs-scrollable-1" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-settings"
+    id="tabs-scrollable-2"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-settings" class="ui-tab-label">Settings</label>
+  <label for="tabs-scrollable-2" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-notifications"
+    id="tabs-scrollable-3"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-notifications" class="ui-tab-label"
-    >Notifications</label
-  >
+  <label for="tabs-scrollable-3" class="ui-tab-label">Notifications</label>
   <div class="ui-tab-panel">Manage your notifications.</div>
 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-billing"
+    id="tabs-scrollable-4"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-billing" class="ui-tab-label">Billing</label>
+  <label for="tabs-scrollable-4" class="ui-tab-label">Billing</label>
   <div class="ui-tab-panel">Plans, invoices and payment methods.</div>
 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-security"
+    id="tabs-scrollable-5"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-security" class="ui-tab-label">Security</label>
+  <label for="tabs-scrollable-5" class="ui-tab-label">Security</label>
   <div class="ui-tab-panel">
     Passwords, sessions and two-factor authentication.
   </div>
@@ -229,30 +213,28 @@ Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-integrations"
+    id="tabs-scrollable-6"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-integrations" class="ui-tab-label"
-    >Integrations</label
-  >
+  <label for="tabs-scrollable-6" class="ui-tab-label">Integrations</label>
   <div class="ui-tab-panel">Connected apps and webhooks.</div>
 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-team"
+    id="tabs-scrollable-7"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-team" class="ui-tab-label">Team</label>
+  <label for="tabs-scrollable-7" class="ui-tab-label">Team</label>
   <div class="ui-tab-panel">Members and roles.</div>
 
   <input
     type="radio"
     name="scrollable-tabs"
-    id="scrollable-tab-advanced"
+    id="tabs-scrollable-8"
     class="ui-tab-input"
   />
-  <label for="scrollable-tab-advanced" class="ui-tab-label">Advanced</label>
+  <label for="tabs-scrollable-8" class="ui-tab-label">Advanced</label>
   <div class="ui-tab-panel">Export data or delete the account.</div>
 </div>
 ```
@@ -271,7 +253,7 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 | `input` | `checked` | Selects the tab that is open initially.                    |
 | `label` | `for`     | Names the radio button after the tab.                      |
 
-### Keyboard interaction
+### Keyboard support
 
 - **Tab**: Moves focus to the selected tab (its radio button), then into the open panel, then to the next focusable element after the tabs.
 - **Down Arrow / Up Arrow**: Moves focus to the next or previous tab and selects it.
@@ -281,11 +263,11 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 ### Tabs API
 
-| Type     | Modifiers                                | Default | Description                                                              |
-| -------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| Group    | `.ui-tab-input[name]`                    | -       | The name shared by the tab inputs.                                       |
-| Overflow | `.ui-scrollable`                         | -       | Keeps the tabs on one row and scrolls them sideways when they don't fit. |
-| Variants | `.ui-filled`, `.ui-line`, `.ui-outlined` | -       | The variant to use.                                                      |
+| Type     | Modifiers                                | Default | Description                                                                                          |
+| -------- | ---------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
+| Group    | `.ui-tab-input[name]`                    | -       | The name shared by the tab inputs.                                                                   |
+| Overflow | `.ui-scrollable`                         | -       | Keeps the tabs on one row and scrolls them sideways when they don't fit.                             |
+| Variants | `.ui-filled`, `.ui-line`, `.ui-outlined` | -       | The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill. |
 
 #### Parts
 
@@ -302,10 +284,11 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 | ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
 | `--border-radius`      | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`       | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
 | `--duration`           | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
 | `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                                                                                                                                |
 | `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                                                  |
-| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                  |
+| `--focus-ring-color`   | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`        | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
 | `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                                                   |
 | `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                                         |
@@ -313,6 +296,7 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 | `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
 | `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                                     |
 | `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text.                     |
+| `--state-hover-alpha`  | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                                                 |
 | `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                                        |
 | `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                                    |
 | `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                                                 |
@@ -340,10 +324,11 @@ Each tab is three elements, in this order: `input.ui-tab-input[type="radio"]`, `
 | ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
 | `--border-radius`      | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`       | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
 | `--duration`           | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
 | `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                                                                                                                                |
 | `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                                                  |
-| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                  |
+| `--focus-ring-color`   | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`        | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
 | `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                                                   |
 | `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                                         |
@@ -351,6 +336,7 @@ Each tab is three elements, in this order: `input.ui-tab-input[type="radio"]`, `
 | `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
 | `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                                     |
 | `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text.                     |
+| `--state-hover-alpha`  | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                                                 |
 | `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                                        |
 | `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                                    |
 | `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                                                 |
@@ -372,10 +358,11 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
 | `--border-radius`      | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`       | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
 | `--duration`           | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
 | `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                                                                                                                                |
 | `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                                                  |
-| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                  |
+| `--focus-ring-color`   | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`        | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
 | `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                                                   |
 | `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                                         |
@@ -383,6 +370,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
 | `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                                     |
 | `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text.                     |
+| `--state-hover-alpha`  | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                                                 |
 | `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                                        |
 | `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                                    |
 | `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                                                 |
@@ -404,10 +392,11 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
 | `--border-radius`      | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`       | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
 | `--duration`           | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
 | `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                                                                                                                                |
 | `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                                                                                                                                  |
-| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                  |
+| `--focus-ring-color`   | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`        | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
 | `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                                                                                                                                   |
 | `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                                                                                                                         |
@@ -415,6 +404,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
 | `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                                     |
 | `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text.                     |
+| `--state-hover-alpha`  | `10%`                                                                                 | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                                                 |
 | `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                                        |
 | `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                                                                                                                                    |
 | `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                                                                                                                                 |
@@ -426,20 +416,23 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property                 | Kind  | Description                                                                                                 |
-| ------------------------ | ----- | ----------------------------------------------------------------------------------------------------------- |
-| `--_active-bg-color`     | Input | Background of the selected tab. Set by the variant classes.                                                 |
-| `--_active-border-color` | Input | Border color of the selected tab. Set by the variant classes.                                               |
-| `--_active-shadow`       | Input | Shadow of the selected tab. `.ui-line` and `.ui-outlined` remove it.                                        |
-| `--_active-text-color`   | Input | Text color of the selected tab. Defaults to `--text-primary`, `.ui-filled` sets it to `--primary-contrast`. |
-| `--_border-radius`       | Input | Corner radius of the track. The selected tab's radius is reduced by `--_inset`.                             |
-| `--_indicator-color`     | Input | Color of the line under the selected tab. `transparent` unless `.ui-line`.                                  |
-| `--_inset`               | Input | Gap between the track edge and the selected tab's background. `0px` in `.ui-line`.                          |
-| `--_motion`              | Input | Motion multiplier for the transitions. `0` turns them off.                                                  |
-| `--_text-color`          | Input | Text color of the unselected tabs.                                                                          |
-| `--_track-border-color`  | Input | Border color of the track. `.ui-outlined` sets it to `--border-color`.                                      |
-| `--_track-border-width`  | Input | Border width of the track. `0px` in `.ui-line`.                                                             |
-| `--_track-color`         | Input | Background of the track behind the tabs. Defaults to `--surface-tonal`.                                     |
+| Property                 | Kind   | Description                                                                                                 |
+| ------------------------ | ------ | ----------------------------------------------------------------------------------------------------------- |
+| `--_active-bg-color`     | Input  | Background of the selected tab. Set by the variant classes.                                                 |
+| `--_active-border-color` | Input  | Border color of the selected tab. Set by the variant classes.                                               |
+| `--_active-shadow`       | Input  | Shadow of the selected tab. `.ui-line` and `.ui-outlined` remove it.                                        |
+| `--_active-text-color`   | Input  | Text color of the selected tab. Defaults to `--text-primary`, `.ui-filled` sets it to `--primary-contrast`. |
+| `--_border-radius`       | Input  | Corner radius of the track. The selected tab's radius is reduced by `--_inset`.                             |
+| `--_duration`            | Output | Duration of the transitions, `--duration-fast` times `--_motion`.                                           |
+| `--_ease`                | Input  | Easing of the transitions and focus ring. Defaults to `--ease`.                                             |
+| `--_indicator-color`     | Input  | Color of the line under the selected tab. `transparent` unless `.ui-line`.                                  |
+| `--_indicator-size`      | Input  | Thickness of the line under the selected tab.                                                               |
+| `--_inset`               | Input  | Gap between the track edge and the selected tab's background. `0px` in `.ui-line`.                          |
+| `--_motion`              | Input  | Motion multiplier for the transitions. `0` turns them off.                                                  |
+| `--_text-color`          | Input  | Text color of the unselected tabs.                                                                          |
+| `--_track-border-color`  | Input  | Border color of the track. `.ui-outlined` sets it to `--border-color`.                                      |
+| `--_track-border-width`  | Input  | Border width of the track. `0px` in `.ui-line`.                                                             |
+| `--_track-color`         | Input  | Background of the track behind the tabs. Defaults to `--surface-tonal`.                                     |
 
 ## Under the hood
 
@@ -605,3 +598,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. Style `.ui-tab-label` and `.ui-tab-panel` instead of `[role="tab"]` and `[role="tabpanel"]`.
 - [Scrollable](#scrollable) tabs with `.ui-scrollable`.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with `.ui-filled`, `.ui-line` and `.ui-outlined`.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

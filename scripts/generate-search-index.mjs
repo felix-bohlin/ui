@@ -6,6 +6,12 @@ import { globby } from "globby"
 import { blockCategories, blocks } from "../src/utils/blocks-data.ts"
 import { posts } from "../src/utils/learn-posts.ts"
 import { componentHasFramework, FRAMEWORKS } from "../src/utils/framework.js"
+import { componentName } from "../src/utils/names.js"
+import { SEARCH_CATEGORIES } from "../src/utils/search-categories.js"
+
+/** @typedef {import("../src/utils/search-categories.js").SearchItem} SearchItem */
+
+const CATEGORY_IDS = new Set(SEARCH_CATEGORIES.map((category) => category.id))
 
 const API_LABEL_PATTERN = FRAMEWORKS.map((f) => f.label).join("|")
 const LABEL_TO_ID = Object.fromEntries(FRAMEWORKS.map((f) => [f.label, f.id]))
@@ -17,14 +23,19 @@ function frameworkUrl(framework, sharedPath) {
 }
 
 function readHeadings(content) {
-  const headingMatches = content.matchAll(
-    /<h[23][^>]*id=["'](.*?)["'].*?>(.*?)<\/h[23]>/gi,
-  )
+  const headingMatches = content
+    .replace(/^---\n[\s\S]*?\n---\n/, "")
+    .matchAll(/<h[23][^>]*\bid=["'][^"']*["'][^>]*>(.*?)<\/h[23]>/gis)
   // Dedupe: a docs page may declare the same heading inside both an
   // astro and html `<Conditional>` slot, but at runtime only one is rendered.
   return Array.from(
     new Set(
-      Array.from(headingMatches, (m) => m[2].replace(/<[^>]*>/g, "").trim()),
+      Array.from(headingMatches, (m) =>
+        m[1]
+          .replace(/<[^>]*>/g, "")
+          .replace(/\s+/g, " ")
+          .trim(),
+      ),
     ),
   )
 }
@@ -77,10 +88,10 @@ async function generateIndex() {
   const gettingStartedPages = (
     await globby(["src/docs/guide/getting-started/[A-Z]*.astro"])
   ).sort()
-  const homePages = await globby(["src/pages/index.astro"])
   const apiFiles = (await globby(["src/component-api/**/*.astro"])).sort()
   const apiDataFiles = (await globby(["src/component-api/*/api.ts"])).sort()
 
+  /** @type {SearchItem[]} */
   const index = []
 
   // Component documentation: one entry per (component × framework). Each
@@ -152,21 +163,6 @@ async function generateIndex() {
     })
   }
 
-  // Home/landing pages
-  for (const file of homePages) {
-    const meta = readMeta(file)
-    if (!meta) continue
-
-    index.push({
-      id: "home-/",
-      title: meta.title,
-      description: meta.preamble,
-      headings: meta.headings.join(" "),
-      category: "Guide",
-      url: "/",
-    })
-  }
-
   // Learn posts are framework-agnostic and live at /learn/<slug>.
   for (const post of posts.toSorted((a, b) => a.slug.localeCompare(b.slug))) {
     const content = fs.readFileSync(
@@ -221,10 +217,7 @@ async function generateIndex() {
     const frameworkId = LABEL_TO_ID[type]
     if (!frameworkId) continue
 
-    const componentName = folder
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ")
+    const name = componentName(folder)
 
     const cellMatches = content.matchAll(
       /<TableCell\b[^>]*>(.*?)<\/TableCell\s*>/gs,
@@ -245,8 +238,8 @@ async function generateIndex() {
       `${folder}/${type}`,
       {
         id: `api-${folder}-${frameworkId}`,
-        title: `${componentName} API`,
-        description: `Reference for ${componentName} ${type} component.`,
+        title: `${name} API`,
+        description: `Reference for ${name} ${type} component.`,
         headings: apiContent.join(" "),
         category: "API",
         frameworkId,
@@ -262,17 +255,23 @@ async function generateIndex() {
     )
     const folder = path.basename(path.dirname(file))
 
-    const componentName = folder
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ")
+    const name = componentName(folder)
 
     for (const framework of FRAMEWORKS) {
       const html = framework.id === "html"
-      const options = api.options.filter(
-        (option) =>
-          !option.frameworks || option.frameworks.includes(framework.id),
-      )
+      const options = api.options
+        .filter(
+          (option) =>
+            !option.frameworks || option.frameworks.includes(framework.id),
+        )
+        .filter(
+          (option) =>
+            !html ||
+            option.class ||
+            option.attribute ||
+            option.cssVar ||
+            option.values,
+        )
       const terms = [
         html ? api.root.selector : api.component,
         api.root.description,
@@ -300,8 +299,8 @@ async function generateIndex() {
         `${folder}/${framework.label}`,
         {
           id: `api-${folder}-${framework.id}`,
-          title: `${componentName} API`,
-          description: `Reference for ${componentName} ${framework.label} component.`,
+          title: `${name} API`,
+          description: `Reference for ${name} ${framework.label} component.`,
           headings: terms.join(" "),
           category: "API",
           frameworkId: framework.id,
@@ -314,6 +313,13 @@ async function generateIndex() {
 
   apiEntries.sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
   index.push(...apiEntries.map(([, entry]) => entry))
+
+  const unknown = index.filter((item) => !CATEGORY_IDS.has(item.category))
+  if (unknown.length > 0) {
+    throw new Error(
+      `Unknown search categories: ${[...new Set(unknown.map((item) => item.category))].toSorted().join(", ")}`,
+    )
+  }
 
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(index, null, 2))
   console.log(`Generated index with ${index.length} items at ${OUTPUT_FILE}`)

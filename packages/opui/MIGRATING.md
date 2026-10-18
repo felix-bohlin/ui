@@ -28,6 +28,8 @@ In Astro and Vue the regions are parts instead of slots. The root no longer wrap
   </Accordion>
 ```
 
+`types.ts` no longer exports a `Slots` type.
+
 `AccordionSummary` renders a chevron marker by default. If you put your own chevron in the summary, you get two: move it to the `marker` slot on `AccordionSummary` and give it `.ui-marker`.
 
 ```diff
@@ -36,6 +38,13 @@ In Astro and Vue the regions are parts instead of slots. The root no longer wrap
 +   Title
 +   <svg slot="marker" class="ui-marker">…</svg>
 + </AccordionSummary>
+```
+
+`variant` no longer accepts `"default"`. Leave it out for the default look.
+
+```diff
+- <Accordion variant="default">
++ <Accordion>
 ```
 
 ## Anchor
@@ -52,6 +61,15 @@ In Astro and Vue the floating content goes in `AnchorContent` instead of the `an
   </Anchor>
 ```
 
+`types.ts` no longer exports a `Slots` type.
+
+With `trigger="hover"`, `id` is required and no longer generated. Pass the same `id` to `interestfor` on the trigger.
+
+```diff
+- <Anchor trigger="hover">
++ <Anchor id="repo-card" trigger="hover">
+```
+
 ## Avatar
 
 `alt` is required when `src` is set (types). Use `alt=""` for decorative images.
@@ -59,6 +77,16 @@ In Astro and Vue the floating content goes in `AnchorContent` instead of the `an
 `Avatar` with `as="button"` renders `type="button"` by default in Astro and Vue, so it no longer submits a form. Pass `type="submit"` if it should.
 
 Text uses `--primary-contrast`, and sizes follow `--control-size` and `--button-size-*`.
+
+`isGroup` is removed. Wrap the avatars in `AvatarGroup`, which renders `.ui-avatar-group` with `role="group"`. It doesn't take `src`, `size` or `variant`.
+
+```diff
+- <Avatar aria-label="Team" isGroup>
++ <AvatarGroup aria-label="Team">
+    <Avatar alt="Jane Doe" src="/jane.jpg" />
+- </Avatar>
++ </AvatarGroup>
+```
 
 ## Badge
 
@@ -103,6 +131,13 @@ In Astro and Vue, `Button` renders `type="button"` by default, so it no longer s
 
 Colors changed: critical buttons keep light text on their fill, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode.
 
+A disabled link has no `href`. The components drop it for you. In HTML, remove `href` from links with `aria-disabled="true"`, because the CSS no longer blocks clicks on them. The same goes for `Chip` links.
+
+```diff
+- <a href="/x" class="ui-button" aria-disabled="true">…</a>
++ <a class="ui-button" aria-disabled="true">…</a>
+```
+
 ## Button group
 
 Variants apply to the whole group. Move a variant from a button inside a group to the group.
@@ -118,7 +153,7 @@ Groups wrap onto more rows when they don't fit, instead of overflowing. Use `scr
 
 ## Callout
 
-In Astro and Vue the regions are parts instead of slots. The root no longer renders the severity icon or wraps its children in `.ui-content`: add `CalloutIcon` and `CalloutContent`. `headingLevel` is `level` on `CalloutTitle`, and a custom icon is an `svg` placed first in `Callout` instead of the `icon` slot.
+In Astro and Vue the regions are parts instead of slots. The root no longer renders the severity icon or wraps its children in `.ui-content`: add `CalloutIcon` and `CalloutContent`. The `title` slot and `headingLevel` are gone: write the title as a plain heading first in `CalloutContent`. A custom icon is an `svg` placed first in `Callout` instead of the `icon` slot.
 
 ```diff
 - <Callout severity="info" headingLevel={4}>
@@ -128,11 +163,13 @@ In Astro and Vue the regions are parts instead of slots. The root no longer rend
 + <Callout severity="info">
 +   <CalloutIcon />
 +   <CalloutContent>
-+     <CalloutTitle level={4}>Heads up</CalloutTitle>
++     <h4>Heads up</h4>
 +     Text
 +   </CalloutContent>
 + </Callout>
 ```
+
+`types.ts` no longer exports a `Slots` type.
 
 ## Card
 
@@ -153,21 +190,27 @@ In Astro and Vue the regions are parts instead of slots. `actionsAlign` is `alig
 + </Card>
 ```
 
+`types.ts` no longer exports a `Slots` type.
+
 ## Checkbox
 
 Internal variables are private. Rename any overrides:
 
-| v5                   | v6               |
-| -------------------- | ---------------- |
-| `--isLTR`, `--isRTL` | `--_dir-rtl`     |
-| `--highlight-size`   | `--_ripple-size` |
-| `--thumb-scale`      | `--_thumb-scale` |
+| v5                   | v6                               |
+| -------------------- | -------------------------------- |
+| `--isLTR`, `--isRTL` | removed, the halo centers itself |
+| `--highlight-size`   | `--_ripple-size`                 |
+| `--thumb-scale`      | `--_thumb-scale`                 |
 
 The root selector is wrapped in `:where()`, like other components, so your own selectors win more easily. The input lines up with the first line of the label. In dark mode the marker stays light on a darkened fill.
 
 Without a visible label the checkbox aligns to the middle, so it centers in table cells. Give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML). Astro and Vue no longer render an empty `.ui-label` without a default slot, and warn in dev when there's no accessible name.
 
 `aria-invalid="true"` on the `<input>` replaces `data-invalid` on `.ui-checkbox`.
+
+In Astro, `type` is no longer a typed prop. Remove it, the component sets it.
+
+Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Chip
 
@@ -177,11 +220,23 @@ The hover and press ripple is removed. Delete any `--ripple` overrides.
 
 Chips use `--border-radius` (8px) instead of Open Props `--radius-2` (5px), small chips are `--chip-size-small` (28px) instead of 24px, and labels truncate with an ellipsis unless the chip is `multiline`.
 
+A button chip needs `as="button"` and a link chip needs `href` (types). `disabled` works on both: a link chip renders `aria-disabled="true"`. The same applies to `Avatar`, and `Button` takes link attributes only with `href`.
+
+```diff
+- <Chip disabled label="Archived" />
++ <Chip as="button" disabled label="Archived" />
+```
+
 ## Classic select
 
-`ClassicSelect` no longer sets `aria-labelledby` or a label `id`. The wrapping `<label>` names the select, so `endText` is part of its accessible name, like `TextField`. The arrow is a chevron instead of a triangle.
+`ClassicSelect` is removed. Use `Select` with the same `label`, `items` (now `SelectItem[]`), `endText`, `size`, `variant` and `error`. Options passed as children go in Select's default slot. Browsers without customizable select show the native picker.
 
-Same as Text field: `aria-invalid="true"` on the `<select>` replaces `data-invalid` on `.ui-select`.
+```diff
+- <ClassicSelect label="Fruit" items={items} />
++ <Select label="Fruit" items={items} />
+```
+
+In HTML, add `<button><selectedcontent></selectedcontent></button>` and wrap the options in `<div class="ui-list">` inside the `<select>`.
 
 ## Description list
 
@@ -198,6 +253,24 @@ In Astro, import the parts by their flat names. The `DescriptionList.Item`, `Des
 - <DescriptionList.Item>
 + <DescriptionListItem>
 ```
+
+The part files are renamed to `DescriptionListDescription.*`, `DescriptionListItem.*` and `DescriptionListTerm.*`. The `opui-css/<framework>` exports are unchanged; update deep `opui-css/components/*` imports.
+
+```diff
+- import Item from "opui-css/components/DescriptionList/Item.astro"
++ import DescriptionListItem from "opui-css/components/DescriptionList/DescriptionListItem.astro"
+```
+
+`.ui-term` is gone, and the parts no longer render `.ui-term` or `.ui-description`. Drop the classes from `dt` and `dd`, and select `dt` and `dd` in your own CSS.
+
+```diff
+- <dt class="ui-term">Name</dt>
+- <dd class="ui-description">Ada</dd>
++ <dt>Name</dt>
++ <dd>Ada</dd>
+```
+
+Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Dialog
 
@@ -217,6 +290,10 @@ In Astro and Vue the regions are parts instead of slots, like `Card`: `DialogHea
 +   <DialogActions align="end"><Button>Close</Button></DialogActions>
 + </Dialog>
 ```
+
+`types.ts` no longer exports a `Slots` type.
+
+The page scroll lock behind a modal dialog moved to `core/utils.css`. If you import single files, import `utils.css` too.
 
 ## Divider
 
@@ -250,6 +327,8 @@ In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces 
   </Drawer>
 ```
 
+`types.ts` no longer exports a `Slots` type, and the Vue types no longer export `DrawerHeadingIdKey`, `DrawerSlots`, `DrawerHeaderSlots` or `DrawerFooterSlots`.
+
 ## Field group and field set
 
 `FieldGroup` no longer sets `role="group"`. Inside a fieldset nothing changes. A `FieldGroup` without a fieldset can take `role` and `aria-label` itself. In HTML, drop `role="group"` from `.ui-field-group`.
@@ -264,20 +343,20 @@ In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces 
 
 `FieldSet` with another element in `as` gets `role="group"`.
 
-`data-invalid` on `.ui-fieldset` no longer colors the fields inside. Put `aria-invalid="true"` on each control (Astro and Vue: `error` on each `Checkbox`, `Radio` or `Switch`). The fieldset's own `.ui-end-text` (a direct child) turns red when a control inside has `aria-invalid="true"`. Switches in an invalid fieldset keep the primary track color like a standalone invalid switch; only the red ring shows.
+`data-invalid` on `.ui-fieldset` no longer colors the fields inside. Put `aria-invalid="true"` on each control (Astro and Vue: `error` on each `Checkbox`, `Radio` or `Switch`). The fieldset's own `.ui-end-text` (a direct child) turns red when a control inside has `aria-invalid="true"` or is `:user-invalid`. A checked invalid switch turns its track red, like Checkbox and Radio.
 
 ## Icon button
 
-`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `rounded` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`.
+`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `round` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`.
 
 ```diff
 - <IconButton aria-label="Edit">
-+ <Button rounded size="x-small" aria-label="Edit">
++ <Button round size="x-small" aria-label="Edit">
 ```
 
 ```diff
 - <button class="ui-icon-button">
-+ <button class="ui-button ui-rounded ui-x-small">
++ <button class="ui-button ui-round ui-x-small">
 ```
 
 Icons are smaller than before. Set `--_icon-size: var(--size-5)` to get the old 24px back. The icon color is the button's accent instead of the inherited text color.
@@ -313,13 +392,13 @@ Only direct `li`/`option` children (and options in a `[role="group"]`) are style
 
 `as` only accepts `"a"`, `"button"` or `"div"` (types).
 
-## Menu
-
-Critical items keep readable text in light and dark mode, like `Button`. The menu has a subtle light gray border in dark mode, is capped to the space on its side and only flips when that side has less than `12rem`.
+`type` can't be combined with `as` or `href` (types).
 
 ## Progress
 
 Without a visible label the progress bar aligns to the middle. Give it a hidden label (`.ui-sr-only` in HTML).
+
+In Astro and Vue, `style` goes to the root `<div>` instead of the `<progress>`, like `class`. Set `--_` properties through `style`, and style the `<progress>` itself with a class or CSS.
 
 `variant="default"` (`.ui-default`, the page surface) is gone. Use no variant, `filled` or `tonal`.
 
@@ -337,17 +416,21 @@ Without a visible label the progress bar aligns to the middle. Give it a hidden 
 
 Internal variables are private. Rename any overrides:
 
-| v5                   | v6               |
-| -------------------- | ---------------- |
-| `--isLTR`, `--isRTL` | `--_dir-rtl`     |
-| `--highlight-size`   | `--_ripple-size` |
-| `--thumb-scale`      | `--_thumb-scale` |
+| v5                   | v6                               |
+| -------------------- | -------------------------------- |
+| `--isLTR`, `--isRTL` | removed, the halo centers itself |
+| `--highlight-size`   | `--_ripple-size`                 |
+| `--thumb-scale`      | `--_thumb-scale`                 |
 
 Radios are `--choice-size` (20px) like `Checkbox`, instead of 18px. The root selector is wrapped in `:where()`, the input lines up with the first line of the label, and the marker stays light on a darkened fill in dark mode.
 
 Without a visible label the radio aligns to the middle. Give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML). Astro and Vue no longer render an empty `.ui-label` without a default slot.
 
 `aria-invalid="true"` on the `<input>` replaces `data-invalid` on `.ui-radio`. For an invalid group, put it on every radio in the group.
+
+In Astro, `type` and the native `size` are no longer typed props. Remove `type`, the component sets it.
+
+Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Range
 
@@ -369,13 +452,35 @@ With `spread`, the label and the range split the container into equal columns, a
 
 `aria-invalid="true"` on the `<input type="range">` replaces `data-invalid` on `.ui-range`.
 
+In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
+
+In Astro, extra attributes are typed as `<input>` attributes only, since they go to the input.
+
+Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
+
 ## Select
 
 Astro and Vue no longer generate an `id` for the select. Pass `id` when something outside the component references it.
 
+In Astro and Vue, `style` goes to the root `<label>` instead of the `<select>`, like `class`. Set `--_` properties through `style`, and style the select itself with a class or CSS.
+
 With `spread`, label and field split the container into equal columns. Selects keep a `12ch` minimum width in table cells, and the arrow is a chevron instead of a triangle.
 
 Same as Text field: `aria-invalid="true"` on the `<select>` replaces `data-invalid` on `.ui-select`.
+
+The `items` type is `SelectItem`, exported from every framework barrel, and its `value` is `number | string` instead of `any`.
+
+```diff
+- import type { Item } from "opui-css/components/Select/types"
++ import type { SelectItem } from "opui-css/react"
+```
+
+`description` is `startText` (the `start-text` slot in Astro and Vue), like Text field.
+
+```diff
+- <Select label="Country" description="Where you live" items={items} />
++ <Select label="Country" startText="Where you live" items={items} />
+```
 
 ## Switch
 
@@ -390,6 +495,10 @@ The switch lines up with the first line of its label, keeps a light marker in da
 
 `aria-invalid="true"` on the `<input role="switch">` replaces `data-invalid` on `.ui-switch`.
 
+In Astro, `type` is no longer a typed prop. Remove it, the component sets it.
+
+Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
+
 ## Table
 
 Dense cells have less block padding.
@@ -402,6 +511,22 @@ In Astro, import the parts by their flat names, such as `TableHead`, `TableRow` 
 + import { Table, TableHead } from "opui-css/astro"
 + <TableHead>
 ```
+
+The part files are renamed to `TableBody.*`, `TableCell.*`, `TableColumn.*`, `TableColumnGroup.*`, `TableHead.*`, `TableHeaderCell.*` and `TableRow.*`. The `opui-css/<framework>` exports are unchanged; update deep `opui-css/components/*` imports.
+
+```diff
+- import Head from "opui-css/components/Table/Head.astro"
++ import TableHead from "opui-css/components/Table/TableHead.astro"
+```
+
+`TableColumn` `width` takes a CSS length. A declaration string is no longer parsed and renders invalid CSS without a warning, so pass it as `style`.
+
+```diff
+- <TableColumn width="min-width: 10rem" />
++ <TableColumn style="min-width: 10rem" />
+```
+
+Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Tabs
 
@@ -447,7 +572,12 @@ Astro and Vue no longer generate an input `id`. Pass `id` when something outside
 
 In Astro, extra attributes go to the `<input>` instead of the `<label>`. `class` and `style` stay on the label. In Vue, `style` now goes to the label instead of the input. Check selectors and tests that look for attributes on the label.
 
-The `startText` slot is gone (it was never rendered). The `startText` prop stays.
+`description` is `startText` (the `start-text` slot in Astro and Vue), matching `endText`. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
+
+```diff
+- <TextField label="Name" startText="Full name" supportingText="Required" />
++ <TextField label="Name" startText="Full name" endText="Required" />
+```
 
 With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--invalid-color`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
 
@@ -465,6 +595,13 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 + <label class="ui-text-field"> … <input aria-invalid="true">
 ```
 
+`text-input.css` is gone, its styles are in `text-field.css`. Remove the import:
+
+```diff
+  @import "opui-css/css/components/text-field.css";
+- @import "opui-css/css/components/text-input.css";
+```
+
 ## Textarea
 
 `Textarea` takes a `size` prop instead of `small`, like `TextField`.
@@ -474,7 +611,7 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 + <Textarea size="small" label="Message" />
 ```
 
-Astro and Vue no longer generate an `id`, extra attributes go to the `<textarea>` in Astro (`class` and `style` stay on the label), and in Vue `style` goes to the label. The `startText` slot is gone, the prop stays.
+Astro and Vue no longer generate an `id`, extra attributes go to the `<textarea>` in Astro (`class` and `style` stay on the label), and in Vue `style` goes to the label. `description` is `startText` (the `start-text` slot), like Text field. `supportingText` (the `supporting-text` slot) is gone. Use `endText`.
 
 The minimum height is three lines plus padding at every size (small was a fixed 64px). With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
 
@@ -497,13 +634,31 @@ The keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `to
 
 Text shrinks with the size like `Button`: `--font-size-05` when small and `--font-size-0` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
 
+`ToggleButton` in Astro and Vue no longer generates an input `id`. Pass `id` when something outside the component references the input.
+
+In Astro and Vue, `style` on a `ToggleButton` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
+
 `ToggleGroup` no longer exports the unused `ToggleContext` type.
 
-`ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`. `.ui-disabled` stays on `Chip`, to dim a static chip.
+`ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`.
 
 ```diff
 - <label class="ui-toggle-button ui-disabled"><input type="checkbox" />Bold</label>
 + <label class="ui-toggle-button"><input type="checkbox" disabled />Bold</label>
+```
+
+`ToggleGroup` `size` no longer accepts `"default"`. Leave it out for the default size.
+
+```diff
+- <ToggleGroup size="default">
++ <ToggleGroup>
+```
+
+`ToggleButton` icon styles only apply to a direct child `svg`, sized with `--_icon-size`. An `svg` nested in another element is no longer sized, so move it out of its wrapper:
+
+```diff
+- <label class="ui-toggle-button"><input type="checkbox" /><span><svg>…</svg></span></label>
++ <label class="ui-toggle-button"><input type="checkbox" /><svg>…</svg></label>
 ```
 
 ## Tooltip
@@ -521,11 +676,13 @@ In Astro and Vue the text goes in `TooltipContent` instead of `label` or the `co
   </Tooltip>
 ```
 
-Tooltips use `--surface-inverse` and `--text-inverse`, and tooltips with an arrow shift along the edge like other tooltips.
+`types.ts` no longer exports a `Slots` type.
+
+Tooltips use `--surface-inverse` and `--text-inverse`, and shift along the viewport edge instead of squeezing, with or without an arrow.
 
 ## Theme and tokens
 
-`theme.css` no longer sets `--focus-ring-color` (it was `var(--primary)`). The global focus ring reads it now and keeps the inverted page background color while it's unset. If your styles read `var(--focus-ring-color)`, set it in your theme:
+`theme.css` sets `--focus-ring-color` to the inverted page background instead of `var(--primary)`, and the global focus ring and the component rings read it. To keep the old value, set it in your theme:
 
 ```css
 @layer theme.brand {
@@ -560,47 +717,52 @@ The `Select` picker and `Drawer` use `--shadow-overlay` (`--shadow-3`, was `--sh
 
 `--motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `theme.css`, and the `.ui-motion-*` classes moved to `core/utils.css`. `theme.css` also declares `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma`. If you import single files, import `theme.css` and `utils.css` too.
 
-Component borders read `--border-width` (`Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`. `Carousel` buttons, `Drawer`, `Menu`, the `Progress` high contrast outline and the `Textarea` minimum height also read `--border-width`, and `Select` reads `--field-border-width`. If you set either token, check those components too.
+Component borders read `--border-width` (`Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`. If you set either token, check those components too.
 
 Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick.
 
 Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size` and `--_min-height` for sizes. Rename them where you set them:
 
-| Component                   | Old                                                                   | New                                                                                                  |
-| --------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Accordion                   | `--_transition`                                                       | `--_duration`                                                                                        |
-| Accordion                   | `--_svg-transition`                                                   | removed, the chevron uses `--_duration` and `--_ease`                                                |
-| Avatar                      | `--_color`                                                            | `--_text-color`                                                                                      |
-| Avatar                      | `--_width`                                                            | `--_size`                                                                                            |
-| Badge                       | `--_badge-inset-block`, `--_badge-inset-inline`                       | `--_inset-block`, `--_inset-inline`                                                                  |
-| Button                      | `--_color`, `--_color-contrast`, `--_color-tonal`                     | `--_accent`, `--_accent-contrast`, `--_accent-tonal`                                                 |
-| Callout                     | `--_color`                                                            | `--_text-color`                                                                                      |
-| Callout                     | `--_outlined-color`                                                   | `--_outlined-text-color`                                                                             |
-| Callout                     | `--_surface-bg`                                                       | `--_surface-bg-color`                                                                                |
-| Card                        | `--_card-bg-color`                                                    | `--_bg-color`                                                                                        |
-| Card                        | `--_card-border-color`                                                | `--_border-color`                                                                                    |
-| Card                        | `--_card-border-width`                                                | `--_border-width`                                                                                    |
-| Card                        | `--_card-shadow`                                                      | `--_shadow`                                                                                          |
-| Card                        | `--_border-color` (outlined border)                                   | `--_outlined-border-color`                                                                           |
-| Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`                      | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                   |
-| Card                        | `--_shadow-light`, `--_shadow-dark`                                   | removed, set `--shadow-raised-light` and `--shadow-raised-dark`, or `--_shadow-elevated` on the card |
-| Chip                        | `--_color`                                                            | `--_text-color`                                                                                      |
-| Drawer                      | `--_color`                                                            | `--_text-color`                                                                                      |
-| Drawer                      | `--_transition-duration`, `--_transition-timing`                      | `--_duration`, `--_ease`                                                                             |
-| List, Menu                  | `--_bg-color-hover`                                                   | `--_hover-bg-color`                                                                                  |
-| Menu                        | `--_transition-duration`                                              | `--_duration` (and `--_ease`)                                                                        |
-| Progress                    | `--_accent-color`                                                     | `--_accent`                                                                                          |
-| Range                       | `--_thumb-bg`                                                         | `--_thumb-bg-color`                                                                                  |
-| Switch                      | `--_accent-color`                                                     | `--_accent`                                                                                          |
-| Switch                      | `--_transition-time`, `--_transition-tf`                              | `--_duration`, `--_ease`                                                                             |
-| Table                       | `--_table-border-radius`                                              | `--_border-radius`                                                                                   |
-| TextField, Textarea, Select | `--_accent-color`                                                     | `--_accent`                                                                                          |
-| TextField, Textarea, Select | `--_height`                                                           | `--_min-height`                                                                                      |
-| Toast                       | `--_anim-enter`, `--_anim-exit`                                       | `--_enter-duration`, `--_exit-duration`                                                              |
-| Toast                       | `--_duration` (hold time)                                             | `--_hold-duration`                                                                                   |
-| ToggleButton                | `--_button-bg-color`                                                  | `--_bg-color`                                                                                        |
-| Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`                                   | `--_bg-color`, `--_text-color`                                                                       |
-| Tooltip                     | `--_tooltip-min-inline-size`, `--_tooltip-offset`, `--_tooltip-shift` | `--_min-inline-size`, `--_offset`, `--_shift`                                                        |
+| Component                   | Old                                               | New                                                                                                  |
+| --------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Accordion                   | `--_transition`                                   | `--_duration`                                                                                        |
+| Accordion                   | `--_svg-transition`                               | removed, the chevron uses `--_duration` and `--_ease`                                                |
+| Accordion                   | `--_gutter-color` (group)                         | `--_divider-color`                                                                                   |
+| Avatar                      | `--_color`                                        | `--_text-color`                                                                                      |
+| Avatar                      | `--_width`                                        | `--_size`                                                                                            |
+| Badge                       | `--_badge-inset`                                  | `--_inset-block`, `--_inset-inline`                                                                  |
+| Button                      | `--_color`, `--_color-contrast`, `--_color-tonal` | `--_accent`, `--_accent-contrast`, `--_accent-tonal`                                                 |
+| Callout                     | `--_color`                                        | `--_text-color`                                                                                      |
+| Callout                     | `--_outlined-color`                               | `--_outlined-text-color`                                                                             |
+| Callout                     | `--_surface-bg`                                   | `--_surface-bg-color`                                                                                |
+| Card                        | `--_card-bg-color`                                | `--_bg-color`                                                                                        |
+| Card                        | `--_card-border-color`                            | `--_border-color`                                                                                    |
+| Card                        | `--_card-border-width`                            | `--_border-width`                                                                                    |
+| Card                        | `--_card-shadow`                                  | `--_shadow`                                                                                          |
+| Card                        | `--_border-color` (outlined border)               | `--_outlined-border-color`                                                                           |
+| Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`  | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                   |
+| Card                        | `--_shadow-elevated`                              | `--_elevated-shadow`                                                                                 |
+| Card                        | `--_shadow-light`, `--_shadow-dark`               | removed, set `--shadow-raised-light` and `--shadow-raised-dark`, or `--_elevated-shadow` on the card |
+| Chip                        | `--_color`                                        | `--_text-color`                                                                                      |
+| Drawer                      | `--_color`                                        | `--_text-color`                                                                                      |
+| Drawer                      | `--_transition-duration`, `--_transition-timing`  | `--_duration`, `--_ease`                                                                             |
+| List                        | `--_bg-color-hover`                               | `--_hover-bg-color`                                                                                  |
+| normalize.css               | `--_page-bg-color`                                | removed, `html` reads `--surface-default`                                                            |
+| Progress                    | `--_accent-color`                                 | `--_accent`                                                                                          |
+| Range                       | `--_thumb-bg`                                     | `--_thumb-bg-color`                                                                                  |
+| Switch                      | `--_accent-color`                                 | `--_accent`                                                                                          |
+| Switch                      | `--_transition-time`, `--_transition-tf`          | `--_duration`, `--_ease`                                                                             |
+| Table                       | `--_table-border-radius`                          | `--_border-radius`                                                                                   |
+| TextField, Textarea, Select | `--_accent-color`                                 | `--_accent`                                                                                          |
+| TextField, Textarea, Select | `--_height`                                       | `--_min-height`                                                                                      |
+| TextField, Textarea, Select | `--_label-color`                                  | `--_affix-color`                                                                                     |
+| TextField, Textarea, Select | `--_end-text-color`                               | `--_helper-color`                                                                                    |
+| Toast                       | `--_anim-enter`, `--_anim-exit`                   | `--_enter-duration`, `--_exit-duration`                                                              |
+| ToggleButton                | `--_button-bg-color`                              | `--_bg-color`                                                                                        |
+| ToggleButton                | `--_size`                                         | `--_min-height` (a minimum height)                                                                   |
+| ToggleButton                | `--_svg-size`                                     | `--_icon-size` (direct child `svg`s only)                                                            |
+| Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`               | `--_bg-color`, `--_text-color`                                                                       |
+| Tooltip                     | `--_tooltip-offset`                               | `--_offset`                                                                                          |
 
 `--info` and `--blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette, so info badges, toasts and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--blue` in your theme.
 
@@ -633,8 +795,6 @@ Spacing changed, so rich text pages look a bit different:
 - `sup` and `sub` are `0.75em` and no longer change the line height.
 - Figure captions are muted and start-aligned under quotes, code blocks and tables.
 
-Rich text tables scroll sideways in a narrow column instead of breaking words letter by letter, and a table with short content no longer stretches to full width.
-
 ## Package and imports
 
 Import `opui-css/css/layers.css` first when you import single component files, so the layers keep their order:
@@ -643,6 +803,24 @@ Import `opui-css/css/layers.css` first when you import single component files, s
 @import "opui-css/css/layers.css";
 @import "opui-css/css/components/button.css";
 ```
+
+`checkbox.css`, `radio.css` and `switch.css` moved their layout, label, end text, sizes and disabled styles into `choice.css`. Import it with them, in any order, or the labels lose their layout:
+
+```diff
+  @import "opui-css/css/layers.css";
++ @import "opui-css/css/components/choice.css";
+  @import "opui-css/css/components/checkbox.css";
+```
+
+Deep type imports from `opui-css/components/*` follow one naming scheme: the root is `Props`, its slots `Slots`, and each part is named after the part. `CheckboxProps` and `CheckboxSlots` in `components/Checkbox/types*` are `Props` and `Slots` (likewise `Radio`, `Switch` and `Range`), `TermProps`, `DescriptionProps` and `ItemProps` are `DescriptionListTermProps`, `DescriptionListDescriptionProps` and `DescriptionListItemProps`, and Table's `SectionProps` and `ColumnProps` are one type per part, such as `TableCellProps`, and `TableColumnProps`. Import the names from the framework entry instead:
+
+```diff
+- import type { CheckboxProps } from "opui-css/components/Checkbox/types.astro"
+- import type { SectionProps } from "opui-css/components/Table/types.astro"
++ import type { CheckboxProps, TableCellProps } from "opui-css/astro"
+```
+
+`opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). `opui.css` still has them through `core/palette.css`. If you load `op.css` on its own and read those properties, also import `opui-css/core/palette.css`.
 
 # Migrating from v5.4 to v5.5
 

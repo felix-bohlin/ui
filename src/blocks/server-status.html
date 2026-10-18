@@ -124,8 +124,6 @@
       }
 
       .status-hour {
-        color: var(--text-muted);
-        font-size: var(--font-size-0);
         translate: 0 calc(100% + var(--size-1));
       }
     }
@@ -148,9 +146,7 @@
     }
 
     .status-history-legend {
-      color: var(--text-muted);
       display: flex;
-      font-size: var(--font-size-0);
       gap: var(--size-2);
       justify-content: space-between;
       margin-block: var(--size-2) 0;
@@ -169,10 +165,8 @@
 
     .status-incident-meta {
       align-items: center;
-      color: var(--text-muted);
       display: flex;
       flex-wrap: wrap;
-      font-size: var(--font-size-0);
       font-weight: var(--font-weight-4);
       gap: var(--size-2);
     }
@@ -245,7 +239,7 @@
         ></path>
       </svg>
       <div class="ui-content">
-        <h2 class="ui-title">Search is slower than usual</h2>
+        <h2>Search is slower than usual</h2>
         <p>
           Some search requests in eu-north take up to 2 seconds. All other
           services are running normally.
@@ -320,77 +314,77 @@
           <ol class="status-response">
             <li>
               <span class="status-bar" style="--value: 22%"></span>
-              <span class="status-hour"
+              <span class="status-hour ui-caption"
                 ><span aria-hidden="true">04</span
                 ><span class="ui-sr-only">04:00: 132 ms</span></span
               >
             </li>
             <li>
               <span class="status-bar" style="--value: 20%"></span>
-              <span class="status-hour"
+              <span class="status-hour ui-caption"
                 ><span aria-hidden="true">05</span
                 ><span class="ui-sr-only">05:00: 121 ms</span></span
               >
             </li>
             <li>
               <span class="status-bar" style="--value: 24%"></span>
-              <span class="status-hour"
+              <span class="status-hour ui-caption"
                 ><span aria-hidden="true">06</span
                 ><span class="ui-sr-only">06:00: 140 ms</span></span
               >
             </li>
             <li>
               <span class="status-bar" style="--value: 30%"></span>
-              <span class="status-hour"
+              <span class="status-hour ui-caption"
                 ><span aria-hidden="true">07</span
                 ><span class="ui-sr-only">07:00: 176 ms</span></span
               >
             </li>
             <li>
               <span class="status-bar" style="--value: 34%"></span>
-              <span class="status-hour"
+              <span class="status-hour ui-caption"
                 ><span aria-hidden="true">08</span
                 ><span class="ui-sr-only">08:00: 198 ms</span></span
               >
             </li>
             <li>
               <span class="status-bar" style="--value: 32%"></span>
-              <span class="status-hour"
+              <span class="status-hour ui-caption"
                 ><span aria-hidden="true">09</span
                 ><span class="ui-sr-only">09:00: 187 ms</span></span
               >
             </li>
             <li>
               <span class="status-bar" style="--value: 35%"></span>
-              <span class="status-hour"
+              <span class="status-hour ui-caption"
                 ><span aria-hidden="true">10</span
                 ><span class="ui-sr-only">10:00: 204 ms</span></span
               >
             </li>
             <li>
               <span class="status-bar" style="--value: 33%"></span>
-              <span class="status-hour"
+              <span class="status-hour ui-caption"
                 ><span aria-hidden="true">11</span
                 ><span class="ui-sr-only">11:00: 192 ms</span></span
               >
             </li>
             <li class="status-slow">
               <span class="status-bar" style="--value: 78%"></span>
-              <span class="status-hour"
+              <span class="status-hour ui-caption"
                 ><span aria-hidden="true">12</span
                 ><span class="ui-sr-only">12:00: 468 ms, slow</span></span
               >
             </li>
             <li class="status-slow">
               <span class="status-bar" style="--value: 94%"></span>
-              <span class="status-hour"
+              <span class="status-hour ui-caption"
                 ><span aria-hidden="true">13</span
                 ><span class="ui-sr-only">13:00: 562 ms, slow</span></span
               >
             </li>
             <li class="status-slow">
               <span class="status-bar" style="--value: 70%"></span>
-              <span class="status-hour"
+              <span class="status-hour ui-caption"
                 ><span aria-hidden="true">14</span
                 ><span class="ui-sr-only">14:00: 421 ms, slow</span></span
               >
@@ -398,12 +392,12 @@
           </ol>
           <dl class="ui-description-list status-response-summary">
             <div class="ui-item">
-              <dt class="ui-term">Median today</dt>
-              <dd class="ui-description">189 ms</dd>
+              <dt>Median today</dt>
+              <dd>189 ms</dd>
             </div>
             <div class="ui-item">
-              <dt class="ui-term">Slowest hour</dt>
-              <dd class="ui-description">562 ms at 13:00</dd>
+              <dt>Slowest hour</dt>
+              <dd>562 ms at 13:00</dd>
             </div>
           </dl>
         </div>
@@ -455,7 +449,7 @@
           <span></span>
           <span style="--day: var(--warning)"></span>
         </div>
-        <p aria-hidden="true" class="status-history-legend">
+        <p aria-hidden="true" class="status-history-legend ui-caption">
           <span>9 Sep</span><span>Today</span>
         </p>
       </div>
@@ -472,7 +466,7 @@
           <summary>
             <span>
               Slow search responses in eu-north
-              <span class="status-incident-meta">
+              <span class="status-incident-meta ui-caption">
                 <span class="status-state status-degraded">Identified</span>
                 <span>Started today, 12:04</span>
               </span>
@@ -494,7 +488,7 @@
             <ol class="status-updates" reversed>
               <li>
                 <p class="ui-caption">
-                  <time datetime="2026-10-08T13:40">13:40</time> · Identified
+                  <time datetime="2026-10-08T13:40">13:40</time>, identified
                 </p>
                 <p>
                   A search index rebuild is competing for disk with live
@@ -503,7 +497,7 @@
               </li>
               <li>
                 <p class="ui-caption">
-                  <time datetime="2026-10-08T12:18">12:18</time> · Investigating
+                  <time datetime="2026-10-08T12:18">12:18</time>, investigating
                 </p>
                 <p>
                   We're seeing slower search responses in eu-north and are
@@ -517,7 +511,7 @@
           <summary>
             <span>
               Delayed webhook deliveries
-              <span class="status-incident-meta">
+              <span class="status-incident-meta ui-caption">
                 <span class="status-state status-resolved">Resolved</span>
                 <span>3 Oct, 47 minutes</span>
               </span>
@@ -546,7 +540,7 @@
           <summary>
             <span>
               Sign-in errors for SSO users
-              <span class="status-incident-meta">
+              <span class="status-incident-meta ui-caption">
                 <span class="status-state status-resolved">Resolved</span>
                 <span>21 Sep, 1 hour 12 minutes</span>
               </span>

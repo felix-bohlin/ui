@@ -6,6 +6,11 @@ Read the guide for the files you're editing:
 - `src/component-api/AGENTS.md`: the `api.ts` data behind the API tables and anatomy diagrams.
 - `src/docs/components/AGENTS.md`: the component docs pages and their examples.
 
+## Characters
+
+- Never use the em dash (U+2014) or the middle dot (U+00B7), in prose, UI text, examples, code, comments, generated labels or commit messages. Use a comma, a slash or parentheses instead.
+- `pnpm check-characters`, part of `pnpm check`, fails on them in every tracked or new text file.
+
 ## Sorting
 
 Always sort and order items in ascending order (ASC) whenever possible. This applies to:
@@ -37,8 +42,9 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 ## Changelog and What's new
 
 - Log every user-facing change to the package in `packages/opui/CHANGELOG.md` under `## Unreleased`, in `Breaking`, `Removed`, `Added`, `Changed` or `Fixed`.
+- Entries describe the change since the last release. When you rework something already added or changed in the unreleased version, update that entry instead of adding a `Changed` or `Fixed` one.
 - Start the entry with the component name in backticks, e.g. "- `Tabs` take a `variant` prop.".
-- For `Added`, `Breaking` and `Changed` entries, add or update a short note for the component page in `src/utils/whats-new.ts`. It renders the What's new callout on the page and the New badge in the sidebar.
+- For `Added`, `Breaking` and `Changed` entries, add or update a short note for the component page in `src/utils/whats-new.ts`. It renders the What's new callout on the page, and the New badge in the sidebar when the slug is also in `highlighted`.
 - Use `html`, `astro`, `react`, `svelte` and `vue` keys when the notes differ per framework (classes vs props). A framework without a note gets no callout or badge.
 - Link to the section on the page that documents the change (`<a href="#line">`).
 - Keep the notes in sync when a change is reworked, and only remove notes when asked.
@@ -48,9 +54,9 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 - ALWAYS run `pnpm check` before finishing a change. It runs formatting, linting, CSS declaration order, component checks, custom property references, type checks, unit tests and the build. `pnpm check:fast` runs everything except the build while iterating.
 - The build regenerates `public/search-index.json`, the agent skill references in `packages/opui/skills/opui/references` and `packages/opui/tokens.json`. Commit them; CI fails when they're stale.
 - `tests/unit/released-tokens.json` lists the theme tokens of the last published version. A token from it that disappears from `theme.css` fails the tests until a `Breaking` or `Removed` entry in the CHANGELOG names it. Update the file after a release.
-- CSS declarations are sorted alphabetically, in `.css` files and in `<style>` blocks. Run `pnpm sort-css` to fix order.
-- The docs build fails on `[component-api]` errors: every prop and slot a component exposes must be described in its `api.ts`, and every documented prop must exist.
-- Run `pnpm test:e2e` when a change affects rendering or behavior. It runs visual, accessibility and interaction tests against the fixture pages at `/<framework>/test/<component>`, theming checks against `/<framework>/test/theming`, and layout and accessibility checks on every `heroAnatomy` docs page. The fixture pages only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
+- CSS declarations are sorted alphabetically, in `.css` files and in `<style>` blocks (HTML files included). Private `--_*` properties are sorted too, with `--_motion` first. Run `pnpm sort-css` to fix order.
+- `pnpm test` and the docs build fail on `[component-api]` problems: every prop and slot a component exposes must be described in its `api.ts`, and every documented prop, part prop and slot must exist.
+- Run `pnpm test:e2e` when a change affects rendering or behavior. It runs visual, accessibility and interaction tests against the fixture pages at `/<framework>/test/<component>` (accessibility on the HTML pages only), theming checks against the `/tests/theming/` stress page, and layout and accessibility checks on every `heroAnatomy` docs page. The fixture pages only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
 - Stress test pages combine many components to show how they play together. Each is an HTML file in `src/stress-tests/` that renders at `/tests/<name>/`, also in `pnpm dev`. Every `<section class="stress" data-example="Name">` gets a visual snapshot and an axe check, and `tests/e2e/stress.spec.ts` checks that the controls in each `[data-size]` row share one control size. Add a file to stress test something new.
 - Reference themes live in `packages/opui/themes/`. `tests/e2e/themes.spec.ts` opens every stress test page with each of them (`/tests/<name>/?theme=<theme>`) in light and dark mode, and checks axe, control sizes and visual snapshots. A new theme needs CI baselines (the `update-snapshots` label).
 - Parity tests render every example in `src/component-examples/` for Astro, React, Svelte, Vue and HTML and compare the markup. Astro output must match the HTML example, and React, Svelte and Vue output must match Astro. One markup snapshot per example lives in `tests/unit/__snapshots__/`; accepted drift is recorded next to it as a `.diff` file per framework.

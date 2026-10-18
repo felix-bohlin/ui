@@ -1,9 +1,7 @@
 ---
 import { componentsFor, componentHrefFor } from "../utils/components"
-import { DEFAULT_FRAMEWORK, type FrameworkId } from "../utils/framework-routing"
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 ---
 
 <ul class="card-grid">

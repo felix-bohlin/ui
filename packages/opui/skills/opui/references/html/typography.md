@@ -37,7 +37,7 @@ Utils that you can plop down wherever.
 <blockquote class="ui-blockquote">
   “Occupy your mind, don't stay home. Talk to all your friends, but don't look
   at your phone”
-  <footer>— Marika Hackman, <cite>No Caffeine</cite></footer>
+  <footer>Marika Hackman, <cite>No Caffeine</cite></footer>
 </blockquote>
 ```
 
@@ -65,8 +65,8 @@ Use `.ui-link` for links outside `.ui-rich-text`. Inside rich text, links get th
 | ----------------- | ----------------- | ----------- |
 | Abbr.             | `<abbr>`          | `.ui-abbr`  |
 | Definition        | `<dfn>`           | `.ui-dfn`   |
-| **Bold**          | `<strong>`, `<b>` | —           |
-| *Italic*          | `<i>`, `<em>`     | —           |
+| **Bold**          | `<strong>`, `<b>` | None        |
+| *Italic*          | `<i>`, `<em>`     | None        |
 | Citation          | `<cite>`          | `.ui-cite`  |
 | `Ctrl + S`        | `<kbd>`           | `.ui-kbd`   |
 | [Link](#link)     | `<a href>`        | `.ui-link`  |
@@ -96,7 +96,7 @@ Headings, lists and tables with a class keep their own styles, and components lo
 
 ### Classless showcase
 
-Let's put everything together and see how all elements look in a classless, rich-text context.
+Let's put everything together and see how all elements look in a classless, rich-text context. It's plain HTML on every framework page, the way rich text arrives from a CMS.
 
 ```html
 <article class="ui-rich-text">
@@ -115,7 +115,7 @@ Let's put everything together and see how all elements look in a classless, rich
     swag four loko vaporware poutine roof party. Raclette
     <em>drinking vinegar</em> chartreuse gochujang kogi heirloom ugh snackwave
     banh mi cray cliche locavore,
-    <a href="#inline-text">skip to inline text</a>.
+    <a href="#typography-default-1">skip to inline text</a>.
   </p>
   <p>
     Gluten-free ennui air plant franzen tattooed poutine scenester tote bag
@@ -125,7 +125,7 @@ Let's put everything together and see how all elements look in a classless, rich
     Cornhole actually <code>h1</code> tumblr tacos mumblecore twee. Crucifix
     pour-over leggings heirloom chartreuse cloud bread trust fund lyft keytar.
     <footer>
-      — <cite>Flexitarian single-origin, somewhere off the L train</cite>
+      <cite>Flexitarian single-origin, somewhere off the L train</cite>
     </footer>
   </blockquote>
   <p>
@@ -135,7 +135,7 @@ Let's put everything together and see how all elements look in a classless, rich
 
   <hr />
 
-  <h2 id="inline-text">Inline text</h2>
+  <h2 id="typography-default-1">Inline text</h2>
   <p>
     <strong>Strong</strong>, <b>bold</b>, <em>emphasis</em>, <i>italic</i>,
     <strong><em>strong emphasis</em></strong
@@ -153,23 +153,26 @@ Let's put everything together and see how all elements look in a classless, rich
     <data value="42">forty-two</data> and a <span>plain span</span>.
   </p>
   <p>
-    Nested inline elements: <a href="#inline-text"><code>linked code</code></a
-    >, <a href="#inline-text"><strong>linked strong</strong></a
-    >, <mark>highlight with <a href="#inline-text">a link</a> inside</mark>,
-    <del><code>deleted code</code></del
+    Nested inline elements:
+    <a href="#typography-default-1"><code>linked code</code></a
+    >, <a href="#typography-default-1"><strong>linked strong</strong></a
+    >,
+    <mark>highlight with <a href="#typography-default-1">a link</a> inside</mark
+    >, <del><code>deleted code</code></del
     >, <ins><code>inserted code</code></ins
     >, <em><code>emphasized code</code></em
     >,
     <small
-      >small with <code>code</code> and <a href="#inline-text">link</a></small
+      >small with <code>code</code> and
+      <a href="#typography-default-1">link</a></small
     >, <strong><kbd>Enter</kbd></strong> and
-    <sup><a href="#inline-text">sup link</a></sup
+    <sup><a href="#typography-default-1">sup link</a></sup
     >.
   </p>
   <p>
     Links come in a few flavors: an
     <a href="https://github.com/felix-bohlin/ui">external link</a>, an
-    <a href="#inline-text">in-page anchor</a>, and a placeholder
+    <a href="#typography-default-1">in-page anchor</a>, and a placeholder
     <a>anchor without an href</a> that shouldn't look clickable.
   </p>
   <p>
@@ -179,7 +182,7 @@ Let's put everything together and see how all elements look in a classless, rich
       keeps going until it breaks onto another line and keeps its padding</mark
     >
     and then
-    <a href="#inline-text"
+    <a href="#typography-default-1"
       >this link also runs long enough that it needs to wrap across a line break
       without losing its underline</a
     >. Same goes for
@@ -187,12 +190,12 @@ Let's put everything together and see how all elements look in a classless, rich
       >a.very.long.inline.code.span.that.has.no.natural.break.points.whatsoever</code
     >
     and a bare URL like
-    https://example.com/a/really/long/path/that/does/not/contain/any/spaces/at/all/and/overflows?utm_source=typography&utm_medium=stress-test.
+    https://example.com/a/really/long/path/that/does/not/contain/any/spaces/at/all/and/overflows?utm_source=typography&amp;utm_medium=stress-test.
   </p>
   <p>
     Superscripts and subscripts must not blow out the line height of a
     paragraph. Here is a footnote reference<sup
-      ><a href="#footnote-1" id="footnote-ref-1">1</a></sup
+      ><a href="#typography-default-2" id="typography-default-2-ref">1</a></sup
     >
     in the middle of a line, then some more text so it wraps, CO<sub>2</sub>
     emissions, 2<sup>10</sup> = 1024 and the 21<sup>st</sup> century, just to be
@@ -237,7 +240,7 @@ Let's put everything together and see how all elements look in a classless, rich
 
   <h3>
     A heading with <code>code</code>, <em>emphasis</em> and
-    <a href="#inline-text">a link</a> in it
+    <a href="#typography-default-1">a link</a> in it
   </h3>
   <p>Shoreditch tbh mlkshk wolf.</p>
 
@@ -402,7 +405,7 @@ Let's put everything together and see how all elements look in a classless, rich
       <li>Palo santo trust fund vexillologist.</li>
     </ul>
     <p>Roof party microdosing flannel cloud bread.</p>
-    <footer>— <cite>Someone who owns a fixie</cite></footer>
+    <footer><cite>Someone who owns a fixie</cite></footer>
   </blockquote>
   <p>Nested, like an email reply chain:</p>
   <blockquote>
@@ -419,7 +422,7 @@ Let's put everything together and see how all elements look in a classless, rich
     <blockquote>
       <p>The kombucha was fermenting before it was cool.</p>
     </blockquote>
-    <figcaption>— A barista, probably</figcaption>
+    <figcaption>A barista, probably</figcaption>
   </figure>
 
   <h2>Code</h2>
@@ -524,8 +527,8 @@ cold-brew 1.0.0</samp></pre>
     <tfoot>
       <tr>
         <th scope="row">Average</th>
-        <td>—</td>
-        <td>—</td>
+        <td></td>
+        <td></td>
         <td>7.4</td>
       </tr>
     </tfoot>
@@ -567,22 +570,24 @@ cold-brew 1.0.0</samp></pre>
     <ul>
       <li>An unstyled list item</li>
     </ul>
-    <p><a href="#inline-text">An unstyled link</a></p>
+    <p><a href="#typography-default-1">An unstyled link</a></p>
   </div>
   <p>And now we're back in rich text.</p>
 
   <hr />
 
   <ol>
-    <li id="footnote-1">
+    <li id="typography-default-2">
       A footnote at the very end of the article.
-      <a href="#footnote-ref-1" aria-label="Back to reference 1">↩</a>
+      <a href="#typography-default-2-ref" aria-label="Back to reference 1">↩</a>
     </li>
   </ol>
 </article>
 ```
 
 ## API
+
+### Typography API
 
 | Type          | Modifiers                                                                                                                                                  | Default | Description                                                                                                                                        |
 | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -597,11 +602,43 @@ cold-brew 1.0.0</samp></pre>
 | Paragraph     | `.ui-p`                                                                                                                                                    | -       | Body paragraph styling.                                                                                                                            |
 | Sizes         | `.ui-large`, `.ui-small`                                                                                                                                   | -       | Size modifiers on `.ui-p`.                                                                                                                         |
 
-### Parts
+#### Parts
 
 | Part            | Description                                         |
 | --------------- | --------------------------------------------------- |
 | `.ui-rich-text` | Classless typography for uncontrolled child markup. |
+
+#### CSS variables
+
+| Variable                | Default                                              | Description                                                                                                                                                                                                                      |
+| ----------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`        | `light-dark(var(--gray-4), var(--gray-12))`          | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
+| `--border-radius`       | `var(--size-2)`                                      | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`        | `1px`                                                | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--font-body`           | `var(--font-sans)`                                   | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                                             |
+| `--font-code`           | `var(--font-mono)`                                   | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                |
+| `--font-heading`        | Unset                                                | Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. When unset, headings follow `--font-body`.                                                                                                                          |
+| `--font-size-05`        | `0.875rem`                                           | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--font-size-h1`        | `var(--font-size-fluid-3)`                           | Font size for `h1` and `.ui-h1`.                                                                                                                                                                                                 |
+| `--font-size-h2`        | `var(--font-size-fluid-2)`                           | Font size for `h2` and `.ui-h2`.                                                                                                                                                                                                 |
+| `--font-size-h3`        | `clamp(var(--font-size-3), 4vi, var(--font-size-4))` | Font size for `h3` and `.ui-h3`.                                                                                                                                                                                                 |
+| `--font-size-h4`        | `clamp(var(--font-size-2), 3vi, var(--font-size-3))` | Font size for `h4` and `.ui-h4`.                                                                                                                                                                                                 |
+| `--font-size-h5`        | `var(--font-size-2)`                                 | Font size for `h5` and `.ui-h5`.                                                                                                                                                                                                 |
+| `--font-size-h6`        | `var(--font-size-1)`                                 | Font size for `h6` and `.ui-h6`.                                                                                                                                                                                                 |
+| `--font-weight-bold`    | `var(--font-weight-7)`                               | Font weight for headings, buttons and terms.                                                                                                                                                                                     |
+| `--font-weight-medium`  | `var(--font-weight-5)`                               | Font weight for badges, overlines and group labels.                                                                                                                                                                              |
+| `--primary`             | `light-dark(var(--color-9), var(--color-6))`         | Brand color for primary actions and accents.                                                                                                                                                                                     |
+| `--primary-dark`        | `oklch(from var(--primary) calc(l * 0.75) c h)`      | A darker `--primary`.                                                                                                                                                                                                            |
+| `--primary-light`       | `oklch(from var(--primary) calc(l * 1.25) c h)`      | A lighter `--primary`.                                                                                                                                                                                                           |
+| `--rhythm-step`         | `0.25rem`                                            | Vertical rhythm unit. Rich text margins and heading line heights round to it.                                                                                                                                                    |
+| `--space-2`             | `calc(var(--size-2) * var(--space-scale))`           | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                     |
+| `--space-3`             | `calc(var(--size-3) * var(--space-scale))`           | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                     |
+| `--space-4`             | `calc(var(--size-4) * var(--space-scale))`           | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                                                     |
+| `--text-muted`          | `light-dark(var(--gray-13), var(--gray-4))`          | Body text color.                                                                                                                                                                                                                 |
+| `--text-muted-contrast` | `light-dark(var(--gray-4), var(--gray-13))`          | Muted text color on an inverted surface.                                                                                                                                                                                         |
+| `--text-primary`        | `light-dark(var(--gray-15), var(--gray-1))`          | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Component properties
 
@@ -615,12 +652,13 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 ### typography.css
 
-| Property          | Kind   | Description                                                                                      |
-| ----------------- | ------ | ------------------------------------------------------------------------------------------------ |
-| `--_count-digits` | Output | Digits reserved for the numbers of an `ol`, from its number of items.                            |
-| `--_flow-space`   | Input  | Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it. |
-| `--_font-scale`   | Output | Ratio of `1em` to `1rem` that scales heading sizes with the surrounding font size.               |
-| `--_start-digits` | Output | Digits reserved for the numbers of an `ol`, from its `start` attribute.                          |
+| Property          | Kind   | Description                                                                                                                |
+| ----------------- | ------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `--_count-digits` | Output | Digits reserved for the numbers of an `ol`, from its number of items.                                                      |
+| `--_flow-space`   | Input  | Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it.                           |
+| `--_font-scale`   | Output | Ratio of `1em` to `1rem` that scales heading sizes with the surrounding font size.                                         |
+| `--_start-digits` | Output | Digits reserved for the numbers of an `ol`, from its `start` attribute.                                                    |
+| `--_text-color`   | Input  | Color and underline color of links without a `ui-` class in `.ui-rich-text`. From `--primary`, with its lightness clamped. |
 
 ## Under the hood
 
@@ -724,9 +762,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
 - Breaking: [heading sizes](#variants) changed. Sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
 - Breaking: [rich text](#classless) only styles headings without a class, like lists. Add a `.ui-h1`–`.ui-h6` class to a heading that has another class.
-- [Rich text](#rich-text-showcase) styles tables, `hr` and task lists.
+- [Rich text](#rich-text-showcase) styles tables, which scroll sideways in narrow columns, `hr` and task lists.
 - Breaking: [rich text](#classless) sits in the `components.prose` layer, below components, so components inside prose keep their own styles. If you declare the layer order yourself, add `components.prose` before `components.root`.
-- [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size.
+- [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size, and so does [`.ui-small`](#inline-text-elements).
+- Rich text `var` is monospace, like [`.ui-var`](#inline-text-elements).
 - [Links](#link) are documented, and get a thicker underline on hover.
-- [Rich text](#rich-text-showcase) tables scroll sideways in narrow columns instead of breaking words letter by letter.
 - Headings read [`--font-heading`](#api), and code, `kbd`, `samp` and `.ui-var` read `--font-code`. Rich text margins read the `--space-*` scale.

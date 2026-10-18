@@ -3,19 +3,24 @@
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--border-color);
     --_dot-color: currentColor;
+    --_font-size: var(--font-size-0);
+    --_icon-padding-inline: var(--size-1);
+    --_icon-size: var(--icon-size-small);
+    --_padding-inline: var(--size-2);
+    --_size: var(--chip-size);
     --_text-color: var(--text-primary);
 
     align-items: center;
     background-color: var(--_bg-color);
-    block-size: var(--chip-size);
+    block-size: var(--_size);
     border: var(--border-width) solid var(--_border-color);
     border-radius: var(--border-radius);
     color: var(--_text-color);
     display: inline-flex;
-    font-size: var(--font-size-0);
+    font-size: var(--_font-size);
     gap: var(--size-1);
     max-inline-size: 100%;
-    padding-inline: var(--size-2);
+    padding-inline: var(--_padding-inline);
     text-decoration: none;
 
     &:not(.ui-multiline) > .ui-text {
@@ -36,9 +41,7 @@
       --_text-color: var(--text-primary);
     }
 
-    &:where(button, a):where(
-        :not([disabled], [aria-disabled="true"], .ui-disabled)
-      ) {
+    &:where(button, a):where(:not(:disabled, [aria-disabled="true"])) {
       @media (hover: hover) {
         &:hover {
           --_bg-color: light-dark(
@@ -51,32 +54,30 @@
 
     &:is(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
       --_dot-color: light-dark(
-        oklch(from var(--_tone) min(l, 0.6) c h),
-        oklch(from var(--_tone) max(l, 0.72) c h)
+        oklch(from var(--_accent) min(l, 0.6) c h),
+        oklch(from var(--_accent) max(l, 0.72) c h)
       );
 
       &:where(:not(.ui-outlined)) {
         --_bg-color: light-dark(
-          oklch(from var(--_tone) 0.96 calc(c * 0.25) h),
-          oklch(from var(--_tone) 0.3 calc(c * 0.35) h)
+          oklch(from var(--_accent) 0.96 calc(c * 0.25) h),
+          oklch(from var(--_accent) 0.3 calc(c * 0.35) h)
         );
         --_border-color: light-dark(
-          oklch(from var(--_tone) 0.86 calc(c * 0.5) h),
-          oklch(from var(--_tone) 0.42 calc(c * 0.5) h)
+          oklch(from var(--_accent) 0.86 calc(c * 0.5) h),
+          oklch(from var(--_accent) 0.42 calc(c * 0.5) h)
         );
         --_text-color: light-dark(
-          oklch(from var(--_tone) 0.4 c h),
-          oklch(from var(--_tone) 0.92 calc(c * 0.5) h)
+          oklch(from var(--_accent) 0.4 c h),
+          oklch(from var(--_accent) 0.92 calc(c * 0.5) h)
         );
 
-        &:where(button, a):where(
-            :not([disabled], [aria-disabled="true"], .ui-disabled)
-          ) {
+        &:where(button, a):where(:not(:disabled, [aria-disabled="true"])) {
           @media (hover: hover) {
             &:hover {
               --_bg-color: light-dark(
-                oklch(from var(--_tone) 0.92 calc(c * 0.35) h),
-                oklch(from var(--_tone) 0.35 calc(c * 0.4) h)
+                oklch(from var(--_accent) 0.92 calc(c * 0.35) h),
+                oklch(from var(--_accent) 0.35 calc(c * 0.4) h)
               );
             }
           }
@@ -85,23 +86,23 @@
     }
 
     &.ui-critical {
-      --_tone: var(--critical);
+      --_accent: var(--critical);
     }
 
     &.ui-info {
-      --_tone: var(--info);
+      --_accent: var(--info);
     }
 
     &.ui-neutral {
-      --_tone: var(--neutral);
+      --_accent: var(--neutral);
     }
 
     &.ui-success {
-      --_tone: var(--success);
+      --_accent: var(--success);
     }
 
     &.ui-warning {
-      --_tone: var(--warning);
+      --_accent: var(--warning);
     }
 
     &.ui-dot::before {
@@ -141,45 +142,33 @@
 
     /* Icon */
     &:has(> svg:first-child) {
-      padding-inline-start: var(--size-1);
+      padding-inline-start: var(--_icon-padding-inline);
     }
 
     &:has(> svg:last-child) {
-      padding-inline-end: var(--size-1);
+      padding-inline-end: var(--_icon-padding-inline);
     }
 
-    &:has(svg) {
-      svg {
-        flex-shrink: 0;
-        inline-size: var(--icon-size-small);
-      }
+    svg {
+      flex-shrink: 0;
+      inline-size: var(--_icon-size);
     }
 
     /* Sizes */
     &.ui-x-small {
-      block-size: var(--chip-size-x-small);
+      --_size: var(--chip-size-x-small);
     }
 
     &.ui-small {
-      block-size: var(--chip-size-small);
+      --_size: var(--chip-size-small);
     }
 
     &.ui-large {
-      block-size: var(--chip-size-large);
-      font-size: var(--font-size-05);
-      padding-inline: var(--size-3);
-
-      &:has(> svg:first-child) {
-        padding-inline-start: var(--size-2);
-      }
-
-      &:has(> svg:last-child) {
-        padding-inline-end: var(--size-2);
-      }
-
-      svg {
-        inline-size: var(--icon-size);
-      }
+      --_font-size: var(--font-size-05);
+      --_icon-padding-inline: var(--size-2);
+      --_icon-size: var(--icon-size);
+      --_padding-inline: var(--size-3);
+      --_size: var(--chip-size-large);
     }
 
     &.ui-multiline {
@@ -187,7 +176,7 @@
     }
 
     /* Disabled */
-    &:is([disabled], [aria-disabled="true"], .ui-disabled) {
+    &:is([disabled], [aria-disabled="true"]) {
       --_text-color: var(--text-disabled);
 
       cursor: not-allowed;
@@ -198,16 +187,13 @@
       --_text-color: var(--text-primary);
 
       cursor: auto;
+      opacity: var(--disabled-opacity);
 
       @container style(--contrast: more) {
         --_text-color: var(--text-muted);
 
         opacity: 1;
       }
-    }
-
-    &:where(a):where([aria-disabled="true"], .ui-disabled) {
-      pointer-events: none;
     }
   }
 }

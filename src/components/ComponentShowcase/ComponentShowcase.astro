@@ -6,12 +6,12 @@ import {
   Anchor,
   AnchorContent,
   Avatar,
+  AvatarGroup,
   Badge,
   Button,
   ButtonGroup,
   Callout,
   CalloutContent,
-  CalloutTitle,
   Card,
   CardActions,
   CardContent,
@@ -34,7 +34,6 @@ import {
   Progress,
   Radio,
   Range,
-  Select,
   Switch,
   Table,
   TableBody,
@@ -50,7 +49,7 @@ import {
   Textarea,
   ToggleButton,
   ToggleGroup,
-} from "@opui/astro"
+} from "opui-css/astro"
 import ComponentCard from "./ComponentCard.astro"
 import FrameworkPicker from "../FrameworkPicker.astro"
 ---
@@ -102,7 +101,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Avatar" href="/components/avatar">
-    <Avatar aria-hidden="true" isGroup>
+    <AvatarGroup aria-hidden="true">
       <Avatar
         src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="Avatar"
@@ -120,7 +119,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
           ></path></svg
         >
       </Avatar>
-    </Avatar>
+    </AvatarGroup>
   </ComponentCard>
 
   <ComponentCard name="Badge" href="/components/badge">
@@ -141,7 +140,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   <ComponentCard name="Callout" href="/components/callout" size="wide">
     <Callout aria-hidden="true" variant="tonal" severity="neutral">
       <CalloutContent>
-        <CalloutTitle>Heads up!</CalloutTitle>
+        <h3>Heads up!</h3>
         Nah, just kidding. It wasn't important.
       </CalloutContent>
     </Callout>
@@ -168,7 +167,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       inert
       buttons={false}
       class="showcase-carousel"
-      label="Destinations"
+      aria-label="Destinations"
     >
       {
         ["Kyoto", "Lima", "Lisbon", "Oslo", "Tunis"].map((title) => (

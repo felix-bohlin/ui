@@ -10,35 +10,21 @@ import {
   FieldSet,
   Radio,
 } from "opui-css/vue"
-import { onMounted } from "vue"
+import { ref } from "vue"
 
-onMounted(() => {
-  const dialog = document.getElementById(
-    "closing-behaviors-dialog",
-  ) as HTMLDialogElement
-  const radios = document.querySelectorAll('input[name="closedby-demo"]')
-
-  radios.forEach((radio) => {
-    radio.addEventListener("change", (e) => {
-      const target = e.target as HTMLInputElement
-      if (dialog) {
-        dialog.setAttribute("closedby", target.value)
-      }
-    })
-  })
-})
+const closedby = ref<"any" | "closerequest" | "none">("any")
 </script>
 
 <template>
   <Button
-    commandfor="closing-behaviors-dialog"
+    commandfor="dialog-close-behaviors-1"
     command="show-modal"
     variant="outlined"
   >
     Open dialog
   </Button>
 
-  <Dialog id="closing-behaviors-dialog" closedby="any">
+  <Dialog id="dialog-close-behaviors-1" :closedby="closedby">
     <DialogHeader>
       <h2 class="ui-h4">How to close</h2>
     </DialogHeader>
@@ -46,14 +32,14 @@ onMounted(() => {
       <FieldSet>
         <FieldLegend>Choose a closing behavior:</FieldLegend>
         <FieldGroup name="closedby-demo">
-          <Radio value="any" checked>any</Radio>
-          <Radio value="closerequest">closerequest</Radio>
-          <Radio value="none">none</Radio>
+          <Radio v-model="closedby" value="any">any</Radio>
+          <Radio v-model="closedby" value="closerequest">closerequest</Radio>
+          <Radio v-model="closedby" value="none">none</Radio>
         </FieldGroup>
       </FieldSet>
     </DialogContent>
     <DialogActions>
-      <Button commandfor="closing-behaviors-dialog" command="close">
+      <Button commandfor="dialog-close-behaviors-1" command="close">
         Close manually
       </Button>
     </DialogActions>

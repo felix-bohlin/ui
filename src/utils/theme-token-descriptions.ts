@@ -2,7 +2,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--backdrop-blur": "Blur radius behind an open `Dialog` or `Drawer`.",
   "--backdrop-color": "Overlay color behind an open `Dialog` or `Drawer`.",
   "--blue":
-    "A literal blue derived from the palette lightness. No severity meaning.",
+    "A literal blue, Open Props' `--hue-blue` at the palette lightness. No severity meaning.",
   "--border-color":
     "Default border color for cards, lists, tables and dividers.",
   "--border-radius":
@@ -68,7 +68,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--field-size-small": "Field height with `.ui-small`.",
   "--field-size-x-small": "Field height with `.ui-x-small`.",
   "--focus-ring-color":
-    "Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.",
+    "Color of the keyboard focus ring. By default the page background color inverted.",
   "--focus-ring-inset":
     "Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.",
   "--focus-ring-offset": "Distance between a control and its focus ring.",
@@ -96,7 +96,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--gray-chroma": "Chroma of the gray ramp. Raise it for tinted grays.",
   "--gray-hue": "Hue of the gray ramp.",
   "--green":
-    "A literal green derived from the palette lightness. No severity meaning.",
+    "A literal green, Open Props' `--hue-green` at the palette lightness. No severity meaning.",
   "--icon-size": "Default icon size inside components.",
   "--icon-size-large": "Icon size inside `Avatar` and `List`.",
   "--icon-size-small": "Icon size inside `Chip`.",
@@ -108,7 +108,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](/guide/theming#motion).",
   "--neutral": "Severity color for neutral messages.",
   "--orange":
-    "A literal orange derived from the palette lightness. No severity meaning.",
+    "A literal orange, Open Props' `--hue-orange` at the palette lightness. No severity meaning.",
   "--palette-chroma":
     "Chroma of the palette source color, as a multiplier of `0.21`.",
   "--palette-hue":
@@ -123,7 +123,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--primary-dark": "A darker `--primary`.",
   "--primary-light": "A lighter `--primary`.",
   "--red":
-    "A literal red derived from the palette lightness. No severity meaning.",
+    "A literal red, Open Props' `--hue-red` at the palette lightness. No severity meaning.",
   "--rhythm-step":
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
   "--ripple-color": "Halo color for the `Checkbox` and `Radio` hover effect.",
@@ -187,6 +187,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--text-muted": "Body text color.",
   "--text-muted-contrast": "Muted text color on an inverted surface.",
   "--text-primary": "Emphasized text color for headings, labels and values.",
-  "--text-primary-contrast": "Emphasized text color on an inverted surface.",
+  "--text-primary-contrast":
+    "Same as `--text-inverse`. Kept for older themes, use `--text-inverse` instead.",
   "--warning": "Severity color for warnings.",
 }

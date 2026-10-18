@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from "react"
 import { cx } from "../cx"
-import { useFieldContext } from "../FieldGroup/context.react"
-import type { RangeProps as Props } from "./types.react"
+import { useFieldGroupContext } from "../FieldGroup/context.react"
+import { idRefs } from "../id"
+import type { Props } from "./types.react"
 
 export default function Range({
   className,
@@ -21,6 +22,7 @@ export default function Range({
   spread,
   startText,
   step,
+  style,
   value,
   valueSuffix,
   variant,
@@ -31,7 +33,7 @@ export default function Range({
   ...rest
 }: Props) {
   const uid = useId()
-  const field = useFieldContext()
+  const field = useFieldGroupContext()
   const [current, setCurrent] = useState(defaultValue)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -54,6 +56,7 @@ export default function Range({
 
   const hasLabel = !!label || !!children
   const hasValue = valueSuffix !== undefined || !!valueText
+  const hasDatalist = !!options || !!datalist
   const middle = () => {
     const minValue = Number(min ?? 0)
     const maxValue = Math.max(minValue, Number(max ?? 100))
@@ -69,8 +72,8 @@ export default function Range({
   const labelId = hasLabel ? `range-label-${uid}` : undefined
   const startTextId = startText ? `range-start-${uid}` : undefined
   const endTextId = endText ? `range-end-${uid}` : undefined
-  const describedBy =
-    [startTextId, endTextId].filter(Boolean).join(" ") || undefined
+  const listId = list ?? (hasDatalist ? `range-list-${uid}` : undefined)
+  const describedBy = idRefs(startTextId, endTextId, rest["aria-describedby"])
 
   return (
     <label
@@ -80,6 +83,7 @@ export default function Range({
         { "ui-spread": spread },
         className,
       ])}
+      style={style}
     >
       {hasLabel && (
         <span className="ui-label" id={labelId}>
@@ -93,7 +97,9 @@ export default function Range({
           data-suffix={valueSuffix}
           htmlFor={inputId}
         >
-          {valueText ?? `${value ?? current ?? middle()}${valueSuffix ?? ""}`}
+          {valueText
+            ? valueText(Number(value ?? current ?? middle()))
+            : `${value ?? current ?? middle()}${valueSuffix ?? ""}`}
         </output>
       )}
       {startText && (
@@ -102,12 +108,13 @@ export default function Range({
         </span>
       )}
       <input
+        {...rest}
         aria-describedby={describedBy}
-        aria-invalid={error ? "true" : undefined}
-        aria-labelledby={labelId}
+        aria-invalid={error ? "true" : rest["aria-invalid"]}
+        aria-labelledby={labelId ?? rest["aria-labelledby"]}
         defaultValue={defaultValue}
         id={inputId}
-        list={list}
+        list={listId}
         max={max}
         min={min}
         name={name ?? field?.name}
@@ -119,10 +126,9 @@ export default function Range({
         step={step}
         type="range"
         value={value}
-        {...rest}
       />
-      {(options || datalist) && (
-        <datalist id={list}>
+      {hasDatalist && (
+        <datalist id={listId}>
           {options?.map((option) =>
             typeof option === "object" ? (
               <option

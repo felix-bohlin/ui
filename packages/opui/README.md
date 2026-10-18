@@ -120,7 +120,11 @@ export const onRequest = defineMiddleware((context, next) => {
 })
 ```
 
-Add `/// <reference types="opui-css/env.d.ts" />` to your `env.d.ts` to type `$id`.
+Add `/// <reference types="opui-css/env.d.ts" />` to your `env.d.ts` to type `$id` and the `interestfor` attribute on `<a>` and `<button>`.
+
+#### Astro runtime
+
+The Astro components pass settings to their parts with `AsyncLocalStorage` (`node:async_hooks`), so they run on Node, Deno and Bun. On Cloudflare, enable the `nodejs_compat` compatibility flag.
 
 ### Plain HTML + CSS (no build step)
 
@@ -182,9 +186,12 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/css/js/toast.js`          | `initToastManager()` and `showToast()` for the HTML Toast                                                              |
 | `opui-css/css/js/checkbox.js`       | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework |
 | `opui-css/astro`                    | All Astro components                                                                                                   |
+| `opui-css/react`                    | All React components                                                                                                   |
 | `opui-css/svelte`                   | All Svelte components                                                                                                  |
 | `opui-css/vue`                      | All Vue components                                                                                                     |
-| `opui-css/components/*`             | Individual Astro, Svelte and Vue component sources                                                                     |
+| `opui-css/components/*`             | Individual Astro, React, Svelte and Vue component sources                                                              |
+
+Importing a React component from `opui-css/components/*` skips the type augmentation in `opui-css/react`, which adds `command`, `commandfor` and `interestfor` to React's element types. `Menu` and `DrawerHeader` need it, so add `import type {} from "opui-css/react"` once in your app.
 
 ## Themes
 

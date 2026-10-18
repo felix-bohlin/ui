@@ -97,6 +97,7 @@ export default function Icon() {
         variant="tonal"
         start={
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -115,6 +116,7 @@ export default function Icon() {
         variant="outlined"
         end={
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -212,6 +214,7 @@ export default function Button() {
           variant="tonal"
           start={
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="32"
               height="32"
@@ -231,6 +234,7 @@ export default function Button() {
           variant="outlined"
           end={
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="32"
               height="32"
@@ -266,6 +270,7 @@ export default function Link() {
         variant="outlined"
         end={
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
@@ -287,7 +292,7 @@ export default function Link() {
 
 ## Disabled
 
-Disable a button chip with the `disabled` prop. A static chip can't be disabled, so `className="ui-disabled"` only dims it a little and keeps its text readable.
+Disable a button or link chip with the `disabled` prop. A link chip drops its `href` and gets `aria-disabled="true"` instead. A static chip can't be disabled, so `className="ui-disabled"` only dims it a little and keeps its text readable.
 
 ```tsx
 import { Chip } from "opui-css/react"
@@ -306,19 +311,20 @@ export default function Disabled() {
 
 ### Chip API
 
-| Prop        | Type                                                              | Default   | Description                                                          |
-| ----------- | ----------------------------------------------------------------- | --------- | -------------------------------------------------------------------- |
-| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                |
-| `children`  | `ReactNode`                                                       | -         | Content placed before the label.                                     |
-| `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                     |
-| `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color. |
-| `end`       | `ReactNode`                                                       | -         | Optional content at the end, such as an icon.                        |
-| `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                   |
-| `label`     | `string`                                                          | -         | The label.                                                           |
-| `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                               |
-| `size`      | `"small"` , `"x-small"` , `"large"`                               | -         | The size of the element.                                             |
-| `start`     | `ReactNode`                                                       | -         | Optional content at the start, such as an icon.                      |
-| `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                  |
+| Prop        | Type                                                              | Default   | Description                                                                                   |
+| ----------- | ----------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------- |
+| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                                         |
+| `children`  | `ReactNode`                                                       | -         | Content placed before the label.                                                              |
+| `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                                              |
+| `disabled`  | `boolean`                                                         | `false`   | Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead. |
+| `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color.                          |
+| `end`       | `ReactNode`                                                       | -         | Optional content at the end, such as an icon.                                                 |
+| `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                                            |
+| `label`     | `string`                                                          | -         | The label.                                                                                    |
+| `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                                                        |
+| `size`      | `"large"` , `"small"` , `"x-small"`                               | -         | The size of the element.                                                                      |
+| `start`     | `ReactNode`                                                       | -         | Optional content at the start, such as an icon.                                               |
+| `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                           |
 
 #### CSS variables
 
@@ -352,13 +358,18 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
 
-| Property          | Kind   | Description                                                                                                                                              |
-| ----------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`     | Output | The current background. Set by the variant, tone and hover states.                                                                                       |
-| `--_border-color` | Output | The current border color. Set by the tone classes.                                                                                                       |
-| `--_dot-color`    | Output | The color of the `.ui-dot` marker. `currentColor`, or derived from `--_tone`.                                                                            |
-| `--_text-color`   | Output | The current text color. Set by the variant, tone and disabled states.                                                                                    |
-| `--_tone`         | Input  | The tone color the background, border, text and dot are derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`. |
+| Property                 | Kind   | Description                                                                                                                                         |
+| ------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`              | Input  | The color the background, border, text and dot are derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`. |
+| `--_bg-color`            | Output | The current background. Set by the variant, color classes and hover states.                                                                         |
+| `--_border-color`        | Output | The current border color. Set by the color classes.                                                                                                 |
+| `--_dot-color`           | Output | The color of the `.ui-dot` marker. `currentColor`, or derived from `--_accent`.                                                                     |
+| `--_font-size`           | Input  | The font size. `.ui-large` sets it.                                                                                                                 |
+| `--_icon-padding-inline` | Input  | Inline padding on the side of a leading or trailing `svg`. `.ui-large` sets it.                                                                     |
+| `--_icon-size`           | Input  | Width of an `svg`. `.ui-large` sets it.                                                                                                             |
+| `--_padding-inline`      | Input  | The inline padding. `.ui-large` sets it.                                                                                                            |
+| `--_size`                | Input  | The height. Defaults to `--chip-size`, set by the size classes.                                                                                     |
+| `--_text-color`          | Output | The current text color. Set by the variant, color classes and disabled states.                                                                      |
 
 ## Under the hood
 
@@ -466,7 +477,7 @@ Step 4 of 4: Hover
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/react/guide/browser-support/?components=Chip.md).
@@ -483,6 +494,11 @@ Import the component from `opui-css/react`:
 
 - [Large](#sizes) size with `size="large"`, and small chips are 28px to match the control sizes.
 - Long labels truncate with an ellipsis unless the chip is [`multiline`](#api).
-- Breaking: the hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
+- The hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - [Colors](#colors) for statuses with `color`, and a shape-coded [`dot`](#dot).
+- [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
+- Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
+- [`disabled`](#disabled) works on button and link chips. A link chip gets `aria-disabled="true"`.
+- Breaking: a button chip needs `as="button"`, and a link chip needs `href` (types).
+- Breaking: [disabled link chips](#disabled) have no `href`, so they can't be focused or followed.

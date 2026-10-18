@@ -12,20 +12,14 @@
   }
 
   :where(html) {
-    /* Inverts the --_page-bg-color */
-    --_focus-visible-color: rgb(
-      from var(--_page-bg-color) calc(255 - r) calc(255 - g) calc(255 - b)
-    );
-    --_page-bg-color: var(--surface-default);
-
     accent-color: var(--primary);
-    background-color: var(--_page-bg-color);
-    block-size: 100%;
+    background-color: var(--surface-default);
     caret-color: var(--primary);
     color: var(--text-muted);
     font-family: var(--font-body);
     interpolate-size: allow-keywords;
     line-height: var(--font-lineheight-4);
+    min-block-size: 100%;
 
     /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
     /* Firefox and Safari fallback */
@@ -47,7 +41,7 @@
     font-weight: 400;
     inline-size: 100%;
     margin: 0;
-    min-block-size: 100%;
+    min-block-size: 100svb;
     min-inline-size: 320px;
     position: relative;
   }
@@ -106,9 +100,9 @@
 
   :focus-visible {
     animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
-    outline: var(--focus-ring-width, 2px) var(--focus-ring-style, solid)
-      var(--focus-ring-color, var(--_focus-visible-color));
-    outline-offset: var(--focus-ring-offset, 2px);
+    outline: var(--focus-ring-width) var(--focus-ring-style)
+      var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
   }
 
   @keyframes ui-focus-ring {

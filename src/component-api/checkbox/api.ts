@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Checkbox",
+  css: ["checkbox", "choice"],
   hydration: {
     react: [
       {
@@ -97,14 +98,14 @@ export default {
       class: ".ui-spread",
       default: "false",
       description: "Pushes the label and the input to opposite ends.",
-      group: "Layout",
+      group: "Spread",
       prop: "spread",
     },
     {
       class: ".ui-stack",
       default: "false",
       description: "Stacks the label under the input.",
-      group: "Layout",
+      group: "Stack",
       prop: "stack",
     },
   ],
@@ -122,6 +123,7 @@ export default {
     },
     {
       description: "Supporting text displayed below the label.",
+      props: ["endText"],
       selector: ".ui-end-text",
       slots: ["end-text"],
     },

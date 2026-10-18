@@ -8,9 +8,12 @@ Lists meant to be used stand-alone or as part of Select elements
 */
   :where(.ui-list) {
     --_bg-color: var(--surface-filled);
-    --_hover-bg-color: oklch(from var(--primary) l c h / 15%);
+    --_divider-color: color-mix(in oklch, currentColor 18%, transparent);
+    --_hover-bg-color: oklch(
+      from var(--primary) l c h / var(--state-hover-alpha-accent)
+    );
     --_item-gap: var(--size-3);
-    --_separator-color: color-mix(in oklch, currentColor 18%, transparent);
+    --_separator-space: var(--size-3);
     --_start-size: var(--icon-size);
 
     background-color: var(--_bg-color);
@@ -28,7 +31,7 @@ Lists meant to be used stand-alone or as part of Select elements
     }
 
     @container style(--contrast: more) {
-      --_separator-color: var(--border-color);
+      --_divider-color: var(--border-color);
     }
 
     /* Background color */
@@ -41,29 +44,29 @@ Lists meant to be used stand-alone or as part of Select elements
     }
 
     /* Borders on all list items */
-    &.ui-bordered {
-      & > :where(li + li, option + option),
-      & > :where([role="group"]) > :where(option + option) {
-        margin-block-start: var(--size-3);
+    /* Border between list items */
+    &.ui-bordered > :where(li + li, option + option),
+    &.ui-bordered > :where([role="group"]) > :where(option + option),
+    & > :where(li, option).ui-border-top,
+    & > :where([role="group"]) > :where(label, option).ui-border-top {
+      margin-block-start: var(--_separator-space);
 
-        &::before {
-          block-size: 1px;
-          border-block-start: var(--border-width) solid var(--_separator-color);
-          content: "";
-          display: block;
-          inline-size: 100%;
-          inset-block: calc(-1 * var(--size-2)) auto;
-          inset-inline: 0;
-          position: absolute;
-          visibility: visible;
-          /* override select > option:before style */
-        }
+      &::before {
+        border-block-start: var(--border-width) solid var(--_divider-color);
+        content: "";
+        display: block;
+        inset-block: calc(var(--_separator-space) / -2) auto;
+        inset-inline: 0;
+        position: absolute;
+        visibility: visible;
+        /* override select > option:before style */
       }
     }
 
     /* Dense - less gaps and spacing */
     &.ui-dense {
       --_item-gap: var(--size-2);
+      --_separator-space: var(--size-2);
       --_start-size: var(--icon-size-small);
 
       & > :where(li, option),
@@ -71,15 +74,6 @@ Lists meant to be used stand-alone or as part of Select elements
         min-block-size: var(--size-7);
         padding-block: var(--size-1);
         padding-inline: var(--size-3);
-
-        &.ui-border-top {
-          margin-block-start: var(--size-2);
-
-          &::before {
-            inset-block: calc(-1 * var(--size-1)) auto;
-            inset-inline: 0;
-          }
-        }
 
         /* Clickable list item */
         &:has(> a, > button, > label) {
@@ -100,7 +94,7 @@ Lists meant to be used stand-alone or as part of Select elements
           }
 
           &:where(.ui-checkbox, .ui-radio) {
-            --_input-size: var(--choice-size-small);
+            --choice-size: var(--choice-size-small);
           }
         }
 
@@ -118,7 +112,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
           .ui-checkbox,
           .ui-radio {
-            --_input-size: var(--choice-size-small);
+            --choice-size: var(--choice-size-small);
           }
         }
       }
@@ -202,7 +196,9 @@ Lists meant to be used stand-alone or as part of Select elements
         }
 
         &:checked {
-          background-color: oklch(from var(--primary) l c h / 30%);
+          background-color: oklch(
+            from var(--primary) l c h / var(--state-active-alpha-accent)
+          );
         }
       }
 
@@ -238,6 +234,17 @@ Lists meant to be used stand-alone or as part of Select elements
         }
       }
 
+      & > :where(a, button):is([disabled], [aria-disabled="true"]) {
+        cursor: not-allowed;
+        opacity: var(--disabled-opacity);
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--_bg-color);
+          }
+        }
+      }
+
       /* Checkbox / Radio / Switch */
       & > label {
         &:where(.ui-checkbox, .ui-radio, .ui-switch) {
@@ -254,9 +261,9 @@ Lists meant to be used stand-alone or as part of Select elements
 
         /* Switches look comically big in lists, so it's better to use a smaller variant  */
         &.ui-switch {
-          --_dot-size: var(--switch-dot-size-small);
-          --_track-height: var(--switch-track-height-small);
-          --_track-width: var(--switch-track-width-small);
+          --switch-dot-size: var(--switch-dot-size-small);
+          --switch-track-height: var(--switch-track-height-small);
+          --switch-track-width: var(--switch-track-width-small);
         }
       }
 
@@ -264,22 +271,6 @@ Lists meant to be used stand-alone or as part of Select elements
       &:has(video) {
         padding-block: 0.75rem;
         padding-inline: 0 var(--size-3);
-      }
-
-      /* Border between list items */
-      &.ui-border-top {
-        margin-block-start: var(--size-3);
-
-        &::before {
-          block-size: 1px;
-          border-block-start: var(--border-width) solid var(--_separator-color);
-          content: "";
-          display: block;
-          inline-size: 100%;
-          inset-block: calc(-1 * var(--size-2)) auto;
-          inset-inline: 0;
-          position: absolute;
-        }
       }
 
       /* Text */
@@ -362,12 +353,14 @@ Lists meant to be used stand-alone or as part of Select elements
 
       /* Inset */
       &.ui-inset {
-        .ui-text {
+        & > .ui-text,
+        & > :where(a, button, label) > .ui-text {
           padding-inline-start: calc(var(--_start-size) + var(--_item-gap));
         }
 
         /* Safety measure so it won't look bad if there for some reason should exist a leading element inside. */
-        .ui-start {
+        & > .ui-start,
+        & > :where(a, button, label) > .ui-start {
           display: none;
         }
       }

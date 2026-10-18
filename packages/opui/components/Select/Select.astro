@@ -1,14 +1,17 @@
 ---
-import type { Item } from "./types"
+import type { SelectItem } from "./types"
 import type { Props } from "./types.astro"
-import { createId } from "../id"
+import { createId, idRefs } from "../id"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
 
 export const title = "Select"
 
 const {
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
   class: className,
   dense,
-  description,
   endText,
   error,
   id,
@@ -17,20 +20,26 @@ const {
   name,
   size,
   spread,
+  startText,
+  style,
   value,
   variant = "outlined",
   ...rest
 } = Astro.props
 
+const field = fieldGroupContext.get()
 const $id = createId(Astro.locals)
 const labelId = $id("select-label")
+const startTextId =
+  startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
 const endTextId =
   endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
-const isSelected = (item: Item) =>
+const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
+const isSelected = (item: SelectItem) =>
   value === undefined
     ? item.selected
     : Array.isArray(value)
-      ? value.includes(item.value)
+      ? value.some((selected) => selected === item.value)
       : item.value === value
 ---
 
@@ -44,6 +53,7 @@ const isSelected = (item: Item) =>
     },
     className,
   ]}
+  style={style}
 >
   {
     (label || Astro.slots.has("label")) && (
@@ -54,21 +64,23 @@ const isSelected = (item: Item) =>
     )
   }
   {
-    (description || Astro.slots.has("description")) && (
-      <span class="ui-start-text">
-        {description}
-        <slot name="description" />
+    (startText || Astro.slots.has("start-text")) && (
+      <span class="ui-start-text" id={startTextId}>
+        {startText}
+        <slot name="start-text" />
       </span>
     )
   }
   <span class="ui-field">
     <select
-      aria-describedby={endTextId}
-      aria-invalid={error ? "true" : undefined}
-      aria-labelledby={label || Astro.slots.has("label") ? labelId : undefined}
-      id={id}
-      name={name}
       {...rest}
+      aria-describedby={describedBy}
+      aria-invalid={error ? "true" : ariaInvalid}
+      aria-labelledby={label || Astro.slots.has("label")
+        ? labelId
+        : ariaLabelledBy}
+      id={id}
+      name={name ?? field?.name}
     >
       <button>
         <selectedcontent></selectedcontent>

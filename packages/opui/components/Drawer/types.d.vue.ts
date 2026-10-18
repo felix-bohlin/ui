@@ -1,4 +1,5 @@
-import type { HTMLAttributes, InjectionKey, Slot } from "vue"
+import type { HTMLAttributes } from "vue"
+import type { Class, DefaultSlots } from "../vue"
 import type {
   DrawerContentProps as BaseDrawerContentProps,
   DrawerFooterProps as BaseDrawerFooterProps,
@@ -6,10 +7,6 @@ import type {
   DrawerTitleProps as BaseDrawerTitleProps,
   Props as BaseProps,
 } from "./types"
-
-type Class = {
-  class?: HTMLAttributes["class"]
-}
 
 export type Props = BaseProps & Class
 
@@ -19,13 +16,9 @@ export type DrawerFooterProps = BaseDrawerFooterProps & Class
 
 export type DrawerHeaderProps = BaseDrawerHeaderProps & Class
 
-export type DrawerTitleProps = BaseDrawerTitleProps & Class
+export type DrawerTitleProps = BaseDrawerTitleProps &
+  Class & {
+    id?: HTMLAttributes["id"]
+  }
 
-export type Slots = {
-  default?: Slot
-}
-
-export const DrawerKey = Symbol() as InjectionKey<{
-  id: string
-  titleId?: string
-}>
+export type Slots = DefaultSlots

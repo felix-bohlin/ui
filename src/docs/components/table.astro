@@ -6,14 +6,18 @@ import Conditional from "../../components/Conditional.astro"
 import {
   Table as UITable,
   TableBody as UITableBody,
+  TableCaption as UITableCaption,
   TableCell as UITableCell,
+  TableFoot as UITableFoot,
   TableHead as UITableHead,
   TableHeaderCell as UITableHeaderCell,
   TableRow as UITableRow,
-} from "@opui/astro"
+} from "opui-css/astro"
 
 import TableCSS from "@opui/css/components/table.css?raw"
 import tableApi from "../../component-api/table/api"
+import tableColumnApi from "../../component-api/table-column/api"
+import tableColumnGroupApi from "../../component-api/table-column-group/api"
 import TableBuild from "../../components/UnderTheHood/TableBuild.astro"
 
 export const description =
@@ -24,7 +28,11 @@ export const description =
   description={description}
   slug="table"
   heroAnatomy
-  apis={[{ title: "Table API", api: tableApi }]}
+  apis={[
+    { title: "Table API", api: tableApi },
+    { title: "Table column group API", api: tableColumnGroupApi },
+    { title: "Table column API", api: tableColumnApi },
+  ]}
   installationTabs={[{ title: "table.css", code: TableCSS, lang: "css" }]}
   browserSupport={[
     "container-scroll-state-queries",
@@ -44,6 +52,8 @@ export const description =
       type: "css",
     },
     { path: "src/component-api/table", type: "api" },
+    { path: "src/component-api/table-column", type: "api" },
+    { path: "src/component-api/table-column-group", type: "api" },
   ]}
 >
   <Fragment slot="title">Table</Fragment>
@@ -51,6 +61,7 @@ export const description =
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UITable>
+        <UITableCaption>Components</UITableCaption>
         <UITableHead>
           <UITableRow>
             <UITableHeaderCell>Name</UITableHeaderCell>
@@ -67,6 +78,12 @@ export const description =
             <UITableCell>3 kB</UITableCell>
           </UITableRow>
         </UITableBody>
+        <UITableFoot>
+          <UITableRow>
+            <UITableCell>Total</UITableCell>
+            <UITableCell>5 kB</UITableCell>
+          </UITableRow>
+        </UITableFoot>
       </UITable>
     </Anatomy>
   </Fragment>
@@ -75,7 +92,7 @@ export const description =
     <h2 id="variants">Variants</h2>
 
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Change the cell padding with <code>variant="dense"</code> or <code
           >variant="spacious"</code
         >.
@@ -84,21 +101,6 @@ export const description =
         Change the cell padding with the <code>.ui-dense</code> or <code
           >.ui-spacious</code
         > class.
-      </Fragment>
-      <Fragment slot="react">
-        Change the cell padding with <code>variant="dense"</code> or <code
-          >variant="spacious"</code
-        >.
-      </Fragment>
-      <Fragment slot="svelte">
-        Change the cell padding with <code>variant="dense"</code> or <code
-          >variant="spacious"</code
-        >.
-      </Fragment>
-      <Fragment slot="vue">
-        Change the cell padding with <code>variant="dense"</code> or <code
-          >variant="spacious"</code
-        >.
       </Fragment>
     </Conditional>
 
@@ -115,7 +117,7 @@ export const description =
   <section>
     <h2 id="sticky-header">Sticky header</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         <code>stickyHeader</code> keeps the header rows at the top of the nearest
         scroll container while the rows scroll under them, and adds a shadow once
         the header is stuck. Put the table in a scroll box, or let it stick to the
@@ -124,27 +126,6 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         <code>.ui-sticky-header</code> keeps the header rows at the top of the nearest
-        scroll container while the rows scroll under them, and adds a shadow once
-        the header is stuck. Put the table in a scroll box, or let it stick to the
-        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
-        bar.
-      </Fragment>
-      <Fragment slot="react">
-        <code>stickyHeader</code> keeps the header rows at the top of the nearest
-        scroll container while the rows scroll under them, and adds a shadow once
-        the header is stuck. Put the table in a scroll box, or let it stick to the
-        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
-        bar.
-      </Fragment>
-      <Fragment slot="svelte">
-        <code>stickyHeader</code> keeps the header rows at the top of the nearest
-        scroll container while the rows scroll under them, and adds a shadow once
-        the header is stuck. Put the table in a scroll box, or let it stick to the
-        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
-        bar.
-      </Fragment>
-      <Fragment slot="vue">
-        <code>stickyHeader</code> keeps the header rows at the top of the nearest
         scroll container while the rows scroll under them, and adds a shadow once
         the header is stuck. Put the table in a scroll box, or let it stick to the
         page and set <code>--_sticky-offset</code> on the table to clear a fixed top

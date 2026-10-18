@@ -50,7 +50,7 @@ Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.
 </div>
 ```
 
-**Why does a text variant exist?**
+### Why does a text variant exist?
 
 On the page you won't see a difference. Put a card on a tonal surface or in a dialog, though, and the default one turns into a page-colored box. The text variant stays see-through.
 
@@ -98,7 +98,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
   <div class="ui-actions">
     <button
       type="button"
-      class="ui-button ui-rounded ui-small"
+      class="ui-button ui-round ui-small"
       aria-label="Favorite"
     >
       <svg
@@ -116,7 +116,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
     </button>
     <button
       type="button"
-      class="ui-button ui-rounded ui-small"
+      class="ui-button ui-round ui-small"
       aria-label="Share"
     >
       <svg
@@ -162,7 +162,7 @@ Align actions to the end with the `.ui-align-end` class.
   <div class="ui-actions ui-align-end">
     <button
       type="button"
-      class="ui-button ui-rounded ui-small"
+      class="ui-button ui-round ui-small"
       aria-label="Favorite"
     >
       <svg
@@ -180,7 +180,7 @@ Align actions to the end with the `.ui-align-end` class.
     </button>
     <button
       type="button"
-      class="ui-button ui-rounded ui-small"
+      class="ui-button ui-round ui-small"
       aria-label="Share"
     >
       <svg
@@ -244,26 +244,26 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 #### CSS variables
 
-| Variable              | Default                                                               | Description                                                                                                                                                                                                                                     |
-| --------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                     |
-| `--border-radius`     | `var(--size-2)`                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                |
-| `--border-width`      | `1px`                                                                 | Default border width for components that draw a border.                                                                                                                                                                                         |
-| `--duration`          | `0.2s`                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                                          |
-| `--ease`              | `ease`                                                                | Default easing for transitions.                                                                                                                                                                                                                 |
-| `--focus-ring-color`  | Unset                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                                 |
-| `--focus-ring-offset` | `2px`                                                                 | Distance between a control and its focus ring.                                                                                                                                                                                                  |
-| `--focus-ring-style`  | `solid`                                                               | Outline style of the focus ring.                                                                                                                                                                                                                |
-| `--focus-ring-width`  | `2px`                                                                 | Width of the focus ring.                                                                                                                                                                                                                        |
-| `--motion`            | `1`                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                                        |
-| `--shadow-raised`     | `var(--shadow-raised-light)` `var(--shadow-raised-dark)` in dark mode | Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--shadow-raised-light` and `--shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one. |
-| `--space-2`           | `calc(var(--size-2) * var(--space-scale))`                            | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                                    |
-| `--space-3`           | `calc(var(--size-3) * var(--space-scale))`                            | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                                    |
-| `--space-4`           | `calc(var(--size-4) * var(--space-scale))`                            | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                                                                    |
-| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                           | Page and card background.                                                                                                                                                                                                                       |
-| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))`                           | Background of elevated cards and accordions.                                                                                                                                                                                                    |
-| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                           | Background of tonal variants.                                                                                                                                                                                                                   |
-| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                           | Body text color.                                                                                                                                                                                                                                |
+| Variable              | Default                                                                        | Description                                                                                                                                                                                                                                     |
+| --------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`                                    | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                     |
+| `--border-radius`     | `var(--size-2)`                                                                | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                |
+| `--border-width`      | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                                                         |
+| `--duration`          | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                                          |
+| `--ease`              | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                                                                 |
+| `--focus-ring-color`  | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                                |
+| `--focus-ring-offset` | `2px`                                                                          | Distance between a control and its focus ring.                                                                                                                                                                                                  |
+| `--focus-ring-style`  | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                                                                |
+| `--focus-ring-width`  | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                                                        |
+| `--motion`            | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                                        |
+| `--shadow-raised`     | `var(--shadow-raised-light)` `var(--shadow-raised-dark)` in dark mode          | Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--shadow-raised-light` and `--shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one. |
+| `--space-2`           | `calc(var(--size-2) * var(--space-scale))`                                     | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                                    |
+| `--space-3`           | `calc(var(--size-3) * var(--space-scale))`                                     | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                                    |
+| `--space-4`           | `calc(var(--size-4) * var(--space-scale))`                                     | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                                                                    |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                                    | Page and card background.                                                                                                                                                                                                                       |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))`                                    | Background of elevated cards and accordions.                                                                                                                                                                                                    |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                                    | Background of tonal variants.                                                                                                                                                                                                                   |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                                    | Body text color.                                                                                                                                                                                                                                |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -283,26 +283,26 @@ To make the whole card clickable, add `.ui-card-link` to one link in it. Other l
 
 #### CSS variables
 
-| Variable              | Default                                                               | Description                                                                                                                                                                                                                                     |
-| --------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                     |
-| `--border-radius`     | `var(--size-2)`                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                |
-| `--border-width`      | `1px`                                                                 | Default border width for components that draw a border.                                                                                                                                                                                         |
-| `--duration`          | `0.2s`                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                                          |
-| `--ease`              | `ease`                                                                | Default easing for transitions.                                                                                                                                                                                                                 |
-| `--focus-ring-color`  | Unset                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                                 |
-| `--focus-ring-offset` | `2px`                                                                 | Distance between a control and its focus ring.                                                                                                                                                                                                  |
-| `--focus-ring-style`  | `solid`                                                               | Outline style of the focus ring.                                                                                                                                                                                                                |
-| `--focus-ring-width`  | `2px`                                                                 | Width of the focus ring.                                                                                                                                                                                                                        |
-| `--motion`            | `1`                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                                        |
-| `--shadow-raised`     | `var(--shadow-raised-light)` `var(--shadow-raised-dark)` in dark mode | Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--shadow-raised-light` and `--shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one. |
-| `--space-2`           | `calc(var(--size-2) * var(--space-scale))`                            | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                                    |
-| `--space-3`           | `calc(var(--size-3) * var(--space-scale))`                            | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                                    |
-| `--space-4`           | `calc(var(--size-4) * var(--space-scale))`                            | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                                                                    |
-| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                           | Page and card background.                                                                                                                                                                                                                       |
-| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))`                           | Background of elevated cards and accordions.                                                                                                                                                                                                    |
-| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                           | Background of tonal variants.                                                                                                                                                                                                                   |
-| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                           | Body text color.                                                                                                                                                                                                                                |
+| Variable              | Default                                                                        | Description                                                                                                                                                                                                                                     |
+| --------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`                                    | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                     |
+| `--border-radius`     | `var(--size-2)`                                                                | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                |
+| `--border-width`      | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                                                         |
+| `--duration`          | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                                          |
+| `--ease`              | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                                                                 |
+| `--focus-ring-color`  | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                                |
+| `--focus-ring-offset` | `2px`                                                                          | Distance between a control and its focus ring.                                                                                                                                                                                                  |
+| `--focus-ring-style`  | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                                                                |
+| `--focus-ring-width`  | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                                                        |
+| `--motion`            | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                                        |
+| `--shadow-raised`     | `var(--shadow-raised-light)` `var(--shadow-raised-dark)` in dark mode          | Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--shadow-raised-light` and `--shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one. |
+| `--space-2`           | `calc(var(--size-2) * var(--space-scale))`                                     | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                                    |
+| `--space-3`           | `calc(var(--size-3) * var(--space-scale))`                                     | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                                    |
+| `--space-4`           | `calc(var(--size-4) * var(--space-scale))`                                     | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                                                                    |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                                    | Page and card background.                                                                                                                                                                                                                       |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))`                                    | Background of elevated cards and accordions.                                                                                                                                                                                                    |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                                    | Background of tonal variants.                                                                                                                                                                                                                   |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                                    | Body text color.                                                                                                                                                                                                                                |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -315,10 +315,13 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_bg-color`              | Output | The current background. Set by the variants.                                                                                         |
 | `--_border-color`          | Output | The current border color. Set by the variants and by hovering `.ui-card-link`.                                                       |
 | `--_border-width`          | Output | The current border width. Set by the variants.                                                                                       |
+| `--_duration`              | Output | Duration of the focus ring animation, `--duration` times `--_motion`.                                                                |
+| `--_ease`                  | Input  | Easing of the focus ring animation. Defaults to `--ease`.                                                                            |
 | `--_elevated-bg-color`     | Input  | Background of `.ui-elevated`. Defaults to `--surface-elevated`.                                                                      |
+| `--_elevated-shadow`       | Input  | Shadow of `.ui-elevated`. Defaults to `--shadow-raised`.                                                                             |
+| `--_motion`                | Input  | Motion multiplier for the focus ring animation. `0` turns it off.                                                                    |
 | `--_outlined-border-color` | Input  | Border color of `.ui-outlined`. Defaults to `--border-color`.                                                                        |
-| `--_shadow`                | Output | The current shadow. `.ui-elevated` sets `--_shadow-elevated`.                                                                        |
-| `--_shadow-elevated`       | Input  | Shadow of `.ui-elevated`. Defaults to `--shadow-raised`.                                                                             |
+| `--_shadow`                | Output | The current shadow. `.ui-elevated` sets `--_elevated-shadow`.                                                                        |
 | `--_surface-bg-color`      | Input  | Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated`. Defaults to `--surface-default`. |
 | `--_tonal-bg-color`        | Input  | Background of `.ui-tonal`. Defaults to `--surface-tonal`.                                                                            |
 
@@ -449,9 +452,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-Other components might depend on the card component. Be mindful when making changes. [Accordion](https://open-props-ui.netlify.app/html/components/accordion.md), [Dialog](https://open-props-ui.netlify.app/html/components/dialog.md)
+### Used by
 
-- `opui-css/css/components/card.css`
+- [Accordion](https://open-props-ui.netlify.app/html/components/accordion.md)
+- [Dialog](https://open-props-ui.netlify.app/html/components/dialog.md)
+
+* `opui-css/css/components/card.css`
 
 ## Changelog
 
@@ -460,5 +466,7 @@ Other components might depend on the card component. Be mindful when making chan
 - Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.
+- Breaking: `--_card-bg-color`, `--_card-border-color`, `--_card-border-width` and `--_card-shadow` drop the `card-` prefix, the outlined `--_border-color` is `--_outlined-border-color`, and `--_bg-surface`, `--_bg-tonal` and `--_bg-elevated` are `--_surface-bg-color`, `--_tonal-bg-color` and `--_elevated-bg-color`, and `--_elevated-shadow` is `--_elevated-shadow` ([Under the hood](#under-the-hood)).
+- `--_duration` and `--_ease` set the focus ring animation's duration and easing ([Under the hood](#under-the-hood)).
 - Elevated cards use [`--shadow-raised`](#api), and padding and gaps read the `--space-*` scale.
-- Breaking: `--_shadow-light` and `--_shadow-dark` are gone. Set [`--shadow-raised-light` and `--shadow-raised-dark`](#api) in your theme, or [`--_shadow-elevated`](#component-properties) on the card.
+- Breaking: `--_shadow-light` and `--_shadow-dark` are gone. Set [`--shadow-raised-light` and `--shadow-raised-dark`](#api) in your theme, or [`--_elevated-shadow`](#component-properties) on the card.

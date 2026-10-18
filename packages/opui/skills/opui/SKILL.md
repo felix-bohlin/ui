@@ -11,7 +11,7 @@ A CSS UI library built on [Open Props](https://open-props.style/). It ships fram
 
 Install with `npm install opui-css open-props`.
 
-- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or import `opui-css/css/layers.css` first, then the base files (`open-props.css`, `core/palette.css`, `css/theme.css`, `core/normalize.css`) and one component at a time from `opui-css/css/components/<name>.css`. `references/<framework>/getting-started.md` has the full list.
+- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or import `opui-css/css/layers.css` first, then `opui-css/open-props.css`, `opui-css/core/palette.css`, `opui-css/css/theme.css`, `opui-css/core/normalize.css`, the components from `opui-css/css/components/<name>.css` (`choice.css` before `checkbox.css`, `radio.css` or `switch.css`), and `opui-css/core/utils.css` last. `references/<framework>/getting-started.md` has the full list.
 - Without a bundler, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`.
 - Astro: `import { Button } from "opui-css/astro"`. React: `import { Button } from "opui-css/react"`. Svelte: `import { Button } from "opui-css/svelte"`. Vue: `import { Button } from "opui-css/vue"`. All still need the CSS imported once.
 

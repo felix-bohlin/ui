@@ -12,7 +12,7 @@ const tutorials = [
 </script>
 
 <template>
-  <Carousel label="Tutorials" markers>
+  <Carousel aria-label="Tutorials" markers>
     <li v-for="{ id, title } in tutorials" :key="id">
       <iframe
         allow="encrypted-media; fullscreen; picture-in-picture"

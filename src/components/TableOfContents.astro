@@ -8,6 +8,7 @@ const { selector = "#main-content", variant = "default" } = Astro.props
 ---
 
 <nav
+  aria-label="On this page"
   data-toc-selector={selector}
   class:list={{ "toc-drawer": variant === "drawer" }}
 >

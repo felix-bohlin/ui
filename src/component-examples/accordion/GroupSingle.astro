@@ -4,38 +4,20 @@ import {
   AccordionContent,
   AccordionSummary,
   Card,
-} from "@opui/astro"
+} from "opui-css/astro"
 ---
 
 <Card variant="outlined" role="group">
   <Accordion name="example-group">
-    <AccordionSummary>Accordion title</AccordionSummary>
+    <AccordionSummary>First</AccordionSummary>
     <AccordionContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <p>Only one accordion in the group is open at a time.</p>
     </AccordionContent>
   </Accordion>
   <Accordion name="example-group">
-    <AccordionSummary>Accordion title</AccordionSummary>
+    <AccordionSummary>Second</AccordionSummary>
     <AccordionContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
-    </AccordionContent>
-  </Accordion>
-  <Accordion name="example-group">
-    <AccordionSummary>Accordion title</AccordionSummary>
-    <AccordionContent>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
-        ac mollis neque ante id justo.
-      </p>
+      <p>Only one accordion in the group is open at a time.</p>
     </AccordionContent>
   </Accordion>
 </Card>

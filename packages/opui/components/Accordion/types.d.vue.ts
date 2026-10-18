@@ -1,4 +1,5 @@
-import type { HTMLAttributes, Slot } from "vue"
+import type { Slot } from "vue"
+import type { Class, DefaultSlots } from "../vue"
 import type {
   AccordionActionsProps as BaseAccordionActionsProps,
   AccordionContentProps as BaseAccordionContentProps,
@@ -7,15 +8,7 @@ import type {
   Props as BaseProps,
 } from "./types"
 
-type Class = {
-  class?: HTMLAttributes["class"]
-}
-
-export type Props = BaseProps &
-  Class & {
-    name?: string
-    open?: boolean
-  }
+export type Props = BaseProps & Class
 
 export type AccordionActionsProps = BaseAccordionActionsProps & Class
 
@@ -23,10 +16,7 @@ export type AccordionContentProps = BaseAccordionContentProps & Class
 
 export type AccordionSummaryProps = BaseAccordionSummaryProps & Class
 
-export type Slots = {
-  default?: Slot
-}
+export type Slots = DefaultSlots
 
-export type AccordionSummarySlots = BaseAccordionSummarySlots<Slot> & {
-  default?: Slot
-}
+export type AccordionSummarySlots = BaseAccordionSummarySlots<Slot> &
+  DefaultSlots

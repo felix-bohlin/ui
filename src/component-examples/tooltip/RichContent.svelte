@@ -2,10 +2,10 @@
   import { Button, Tooltip, TooltipContent } from "opui-css/svelte"
 </script>
 
-<Tooltip id="tooltip-rich">
+<Tooltip id="tooltip-rich-content-1">
   <Button
-    interestfor="tooltip-rich"
-    commandfor="tooltip-rich"
+    interestfor="tooltip-rich-content-1"
+    commandfor="tooltip-rich-content-1"
     command="toggle-popover">Keyboard shortcuts</Button
   >
   <TooltipContent>

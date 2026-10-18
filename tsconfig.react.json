@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "include": [
-    "packages/opui/components/**/*.react.ts",
-    "packages/opui/components/**/*.react.tsx",
-    "packages/opui/react/**/*.ts",
-    "src/**/*.react.tsx"
-  ]
-}

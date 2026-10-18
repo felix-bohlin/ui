@@ -24,11 +24,11 @@
 
 * `::scroll-button(inline-start)`
 
-  The previous button.
+  The previous button. `::scroll-button(block-start)` when vertical.
 
 * `::scroll-button(inline-end)`
 
-  The next button.
+  The next button. `::scroll-button(block-end)` when vertical.
 
 * `li::scroll-marker`
 
@@ -383,6 +383,10 @@ Use `.ui-peek` to show part of the neighbouring items, and `.ui-align-center` to
 </ul>
 ```
 
+### Gallery
+
+Square photos, three per view.
+
 ```html
 <ul
   class="ui-carousel ui-with-buttons"
@@ -439,7 +443,7 @@ Use `.ui-peek` to show part of the neighbouring items, and `.ui-align-center` to
 
 ## Video
 
-`video` and `iframe` fill the item too.
+`video` fills the item too.
 
 ```html
 <ul class="ui-carousel ui-with-buttons ui-with-markers" aria-label="Videos">
@@ -463,6 +467,10 @@ Use `.ui-peek` to show part of the neighbouring items, and `.ui-align-center` to
   </li>
 </ul>
 ```
+
+### Embeds
+
+So does an `iframe`.
 
 ```html
 <ul class="ui-carousel ui-with-buttons ui-with-markers" aria-label="Tutorials">
@@ -607,7 +615,7 @@ Use `.ui-buttons-persistent` to keep both buttons visible at the ends. A disable
 
 ## Custom buttons
 
-`--_button-prev-icon` and `--_button-next-icon` take any SVG, for example from your icon library. Set `--_button-icon-size` to scale them.
+`--_button-icon` takes any SVG, for example from your icon library. Draw a white glyph that points right. The previous button mirrors it, and a vertical carousel rotates it. Set `--_button-icon-size` to scale it.
 
 ```html
 <ul
@@ -665,8 +673,7 @@ Use `.ui-buttons-persistent` to keep both buttons visible at the ends. A disable
 <style>
   .carousel-custom-buttons {
     --_button-bg-color: var(--primary);
-    --_button-next-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 12h14m-6-6 6 6-6 6'/%3E%3C/svg%3E");
-    --_button-prev-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 12H5m6-6-6 6 6 6'/%3E%3C/svg%3E");
+    --_button-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 12h14m-6-6 6 6-6 6'/%3E%3C/svg%3E");
   }
 </style>
 ```
@@ -745,46 +752,47 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 | ------------------ | ----------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------- |
 | Alignment          | default, `.ui-align-center`               | default  | Where items snap.                                                                                                     |
 | Aspect ratio       | `--_media-aspect-ratio`                   | `16 / 9` | Aspect ratio that images, videos and iframes are cropped to.                                                          |
-| Buttons            | `.ui-buttons-outside`, `.ui-with-buttons` | -        | Previous and next buttons. `"outside"` places them beside the items.                                                  |
+| Buttons            | `.ui-buttons-outside`, `.ui-with-buttons` | -        | Previous and next buttons. `.ui-buttons-outside` places them beside the items, together with `.ui-with-buttons`.      |
 | Items per view     | `--_per-view`                             | `1`      | Number of visible items.                                                                                              |
 | Label              | `[aria-label]`                            | -        | Accessible name of the carousel.                                                                                      |
 | Markers            | `.ui-with-markers`                        | -        | One marker per item, after the list.                                                                                  |
-| Orientation        | default, `.ui-vertical`                   | default  | Scroll direction. Vertical carousels need a block size, set with `--_block-size`.                                     |
+| Motion             | `.ui-motion-off`                          | -        | Turns off smooth scrolling, like `--motion: 0`.                                                                       |
+| Orientation        | default, `.ui-vertical`                   | default  | The orientation of the element. Vertical carousels need a block size, set with `--_block-size`.                       |
 | Peek               | `.ui-peek`                                | -        | Shows part of the neighbouring items.                                                                                 |
 | Persistent buttons | `.ui-buttons-persistent`                  | -        | Keeps the buttons visible at the ends. A disabled button has a muted border.                                          |
 | Stretch            | `.ui-stretch`                             | -        | Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it. |
 
 #### Parts
 
-| Part                            | Description             |
-| ------------------------------- | ----------------------- |
-| `ul.ui-carousel`                | The scroller.           |
-| `<li>`                          | An item.                |
-| `::scroll-button(inline-start)` | The previous button.    |
-| `::scroll-button(inline-end)`   | The next button.        |
-| `li::scroll-marker`             | A marker, one per item. |
+| Part                            | Description                                                        |
+| ------------------------------- | ------------------------------------------------------------------ |
+| `ul.ui-carousel`                | The scroller.                                                      |
+| `<li>`                          | An item.                                                           |
+| `::scroll-button(inline-start)` | The previous button. `::scroll-button(block-start)` when vertical. |
+| `::scroll-button(inline-end)`   | The next button. `::scroll-button(block-end)` when vertical.       |
+| `li::scroll-marker`             | A marker, one per item.                                            |
 
 #### CSS variables
 
-| Variable              | Default                                      | Description                                                                                                                                                                                                                      |
-| --------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-radius`     | `var(--size-2)`                              | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--border-width`      | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--button-size-small` | `var(--control-size-small)`                  | `Button` height with `.ui-small`.                                                                                                                                                                                                |
-| `--duration`          | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
-| `--duration-fast`     | `0.1s`                                       | Transition duration for hover and press feedback.                                                                                                                                                                                |
-| `--ease`              | `ease`                                       | Default easing for transitions.                                                                                                                                                                                                  |
-| `--focus-ring-color`  | Unset                                        | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                  |
-| `--focus-ring-offset` | `2px`                                        | Distance between a control and its focus ring.                                                                                                                                                                                   |
-| `--focus-ring-style`  | `solid`                                      | Outline style of the focus ring.                                                                                                                                                                                                 |
-| `--focus-ring-width`  | `2px`                                        | Width of the focus ring.                                                                                                                                                                                                         |
-| `--motion`            | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
-| `--primary`           | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                                                     |
-| `--space-2`           | `calc(var(--size-2) * var(--space-scale))`   | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                     |
-| `--space-3`           | `calc(var(--size-3) * var(--space-scale))`   | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                     |
-| `--space-8`           | `calc(var(--size-8) * var(--space-scale))`   | Spacing step 8: Open Props `--size-8` times `--space-scale`.                                                                                                                                                                     |
-| `--surface-inverse`   | `light-dark(var(--gray-15), var(--gray-2))`  | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                                                  |
-| `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
+| Variable              | Default                                                                        | Description                                                                                                                                                                                                                      |
+| --------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-radius`     | `var(--size-2)`                                                                | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`      | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--button-size-small` | `var(--control-size-small)`                                                    | `Button` height with `.ui-small`.                                                                                                                                                                                                |
+| `--duration`          | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
+| `--duration-fast`     | `0.1s`                                                                         | Transition duration for hover and press feedback.                                                                                                                                                                                |
+| `--ease`              | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                                                  |
+| `--focus-ring-color`  | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
+| `--focus-ring-offset` | `2px`                                                                          | Distance between a control and its focus ring.                                                                                                                                                                                   |
+| `--focus-ring-style`  | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                                                 |
+| `--focus-ring-width`  | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                                         |
+| `--motion`            | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
+| `--primary`           | `light-dark(var(--color-9), var(--color-6))`                                   | Brand color for primary actions and accents.                                                                                                                                                                                     |
+| `--space-2`           | `calc(var(--size-2) * var(--space-scale))`                                     | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                     |
+| `--space-3`           | `calc(var(--size-3) * var(--space-scale))`                                     | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                     |
+| `--space-8`           | `calc(var(--size-8) * var(--space-scale))`                                     | Spacing step 8: Open Props `--size-8` times `--space-scale`.                                                                                                                                                                     |
+| `--surface-inverse`   | `light-dark(var(--gray-15), var(--gray-2))`                                    | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                                                  |
+| `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`                                    | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -794,38 +802,41 @@ The root is a `<ul>` with an `aria-label`. CSS adds the buttons and markers.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property                          | Kind   | Description                                                                                                  |
-| --------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
-| `--_block-size`                   | Input  | The height of `.ui-vertical`.                                                                                |
-| `--_button-bg-color`              | Input  | Background of the scroll buttons. Defaults to `--surface-inverse`.                                           |
-| `--_button-border-color`          | Output | Border color of the scroll buttons, from `--_button-bg-color`.                                               |
-| `--_button-disabled-border-color` | Output | Border color of disabled scroll buttons, from `--_button-bg-color`.                                          |
-| `--_button-disabled-opacity`      | Input  | Opacity of disabled scroll buttons. `0` hides them, `.ui-buttons-persistent` sets `1`.                       |
-| `--_button-end-icon`              | Output | Icon of the inline-end button. `--_button-next-icon`, swapped with `--_button-prev-icon` in right-to-left.   |
-| `--_button-icon-size`             | Input  | The icon size in the scroll buttons.                                                                         |
-| `--_button-inset`                 | Input  | Space between the scroll buttons and the carousel edge.                                                      |
-| `--_button-next-icon`             | Input  | Icon of the next button.                                                                                     |
-| `--_button-next-label`            | Input  | Accessible label of the next button.                                                                         |
-| `--_button-prev-icon`             | Input  | Icon of the previous button.                                                                                 |
-| `--_button-prev-label`            | Input  | Accessible label of the previous button.                                                                     |
-| `--_button-shadow`                | Input  | Shadow of the scroll buttons. Defaults to `--shadow-2`.                                                      |
-| `--_button-size`                  | Input  | Size of the scroll buttons. Defaults to `--button-size-small`.                                               |
-| `--_button-start-icon`            | Output | Icon of the inline-start button. `--_button-prev-icon`, swapped with `--_button-next-icon` in right-to-left. |
-| `--_gap`                          | Input  | Space between items.                                                                                         |
-| `--_item-size`                    | Output | The size of each item, from `--_per-view` and `--_gap`.                                                      |
-| `--_marker-color`                 | Input  | Color of the markers.                                                                                        |
-| `--_marker-color-active`          | Input  | Color of the current marker. Defaults to `--primary`.                                                        |
-| `--_marker-gap`                   | Input  | Space between markers.                                                                                       |
-| `--_marker-label`                 | Input  | Accessible label of each marker, followed by the item number.                                                |
-| `--_marker-size`                  | Input  | Size of the markers.                                                                                         |
-| `--_markers-margin-block-start`   | Input  | Space between the items and the markers.                                                                     |
-| `--_media-aspect-ratio`           | Input  | Aspect ratio of `img`, `video` and `iframe` in items.                                                        |
-| `--_media-border-radius`          | Input  | Corner radius of `img`, `video` and `iframe` in items. Defaults to `--border-radius`.                        |
-| `--_motion`                       | Input  | Motion multiplier for the button and marker transitions. `0` turns them off.                                 |
-| `--_padding-block`                | Input  | Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.                           |
-| `--_padding-inline`               | Input  | The inline padding, showing the neighboring items. Set by `.ui-peek`.                                        |
-| `--_per-view`                     | Input  | Number of items per view.                                                                                    |
-| `--_snap-align`                   | Input  | Snap alignment of items. `.ui-align-center` sets `center`.                                                   |
+| Property                          | Kind   | Description                                                                                 |
+| --------------------------------- | ------ | ------------------------------------------------------------------------------------------- |
+| `--_block-size`                   | Input  | The height of `.ui-vertical`.                                                               |
+| `--_button-bg-color`              | Input  | Background of the scroll buttons. Defaults to `--surface-inverse`.                          |
+| `--_button-border-color`          | Output | Border color of the scroll buttons, from `--_button-bg-color`.                              |
+| `--_button-disabled-border-color` | Output | Border color of disabled scroll buttons, from `--_button-bg-color`.                         |
+| `--_button-disabled-opacity`      | Input  | Opacity of disabled scroll buttons. `0` hides them, `.ui-buttons-persistent` sets `1`.      |
+| `--_button-end-flip`              | Output | Mirrors the inline-end button. `1`, or `-1` in right-to-left.                               |
+| `--_button-flip`                  | Output | Mirrors a scroll button, `1` or `-1`. From `--_button-start-flip` and `--_button-end-flip`. |
+| `--_button-icon`                  | Input  | Icon of the scroll buttons, pointing forward. The previous button mirrors it.               |
+| `--_button-icon-size`             | Input  | The icon size in the scroll buttons.                                                        |
+| `--_button-inset`                 | Input  | Space between the scroll buttons and the carousel edge.                                     |
+| `--_button-next-label`            | Input  | Accessible label of the next button.                                                        |
+| `--_button-prev-label`            | Input  | Accessible label of the previous button.                                                    |
+| `--_button-scale`                 | Output | The current scale of a scroll button. `0.94` while pressed.                                 |
+| `--_button-shadow`                | Input  | Shadow of the scroll buttons. Defaults to `--shadow-2`.                                     |
+| `--_button-size`                  | Input  | Size of the scroll buttons. Defaults to `--button-size-small`.                              |
+| `--_button-start-flip`            | Output | Mirrors the inline-start button. `-1`, or `1` in right-to-left.                             |
+| `--_duration`                     | Output | Duration of the transitions and focus ring animation, `--duration` times `--_motion`.       |
+| `--_ease`                         | Input  | Easing of the transitions. Defaults to `--ease`.                                            |
+| `--_gap`                          | Input  | Space between items.                                                                        |
+| `--_item-size`                    | Output | The size of each item, from `--_per-view` and `--_gap`.                                     |
+| `--_marker-active-bg-color`       | Input  | Background of the current marker. Defaults to `--primary`.                                  |
+| `--_marker-bg-color`              | Input  | Background of the markers. Defaults to `--text-primary` at 25% opacity.                     |
+| `--_marker-gap`                   | Input  | Space between markers.                                                                      |
+| `--_marker-label`                 | Input  | Accessible label of each marker, followed by the item number.                               |
+| `--_marker-size`                  | Input  | Size of the markers.                                                                        |
+| `--_markers-gap`                  | Input  | Space between the items and the markers.                                                    |
+| `--_media-aspect-ratio`           | Input  | Aspect ratio of `img`, `video` and `iframe` in items.                                       |
+| `--_media-border-radius`          | Input  | Corner radius of `img`, `video` and `iframe` in items. Defaults to `--border-radius`.       |
+| `--_motion`                       | Input  | Motion multiplier for the button and marker transitions. `0` turns them off.                |
+| `--_padding-block`                | Input  | Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.          |
+| `--_padding-inline`               | Input  | The inline padding, showing the neighboring items. Set by `.ui-peek`.                       |
+| `--_per-view`                     | Input  | Number of items per view.                                                                   |
+| `--_snap-align`                   | Input  | Snap alignment of items. `.ui-align-center` sets `center`.                                  |
 
 ## Under the hood
 
@@ -870,7 +881,7 @@ Step 1 of 4: Grid track
     (100% - (var(--per-view) - 1) * var(--gap)) / var(--per-view)
   );
   grid-auto-flow: column;
-  overflow-x: auto;
+  overflow-inline: auto;
 }
 
 .carousel > li {
@@ -994,9 +1005,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
-- [Images](#images) are cropped with the `aspectRatio` prop.
+- [Images](#images) are cropped with `--_media-aspect-ratio`.
 - A [playground](#playground) to try the options together.
 - New component. A [scroll snap carousel](#basics) with buttons and markers generated by CSS.
 - [Persistent buttons](#persistent-buttons) with `.ui-buttons-persistent`.
 - [Vertical](#vertical) carousels with `.ui-vertical`.
 - [Stretch](#stretch) cards to equal height with `.ui-stretch`.
+- The [scroll buttons](#buttons-outside) draw one glyph as the inverse of the button face, so it follows `.ui-dark`, `.ui-light` and forced colors in every browser.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

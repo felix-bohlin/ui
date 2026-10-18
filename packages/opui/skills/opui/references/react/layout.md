@@ -184,7 +184,7 @@ export default function Composition() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Add the classes to elements in your markup. There is no React component.
+Add the classes to elements in your markup. There is no React component. There is no React component.
 
 ## Component properties
 

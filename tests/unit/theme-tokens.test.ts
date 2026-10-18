@@ -1,4 +1,5 @@
 import { existsSync } from "node:fs"
+import paletteSource from "@opui/core/palette.css?raw"
 import themeSource from "@opui/css/theme.css?raw"
 import { describe, expect, test } from "vitest"
 import { cssVarRows, stylesheets } from "../../src/component-api/rows"
@@ -18,6 +19,24 @@ import {
 const sections = parseThemeTokens()
 const tokens = themeTokens()
 const find = (name: string) => tokens.find((token) => token.name === name)
+
+const selectorList = (selector: string) => {
+  const list = selector.trim().replace(/^:where\(([\s\S]*)\)$/, "$1")
+  const parts = [""]
+  let depth = 0
+  for (const char of list) {
+    if (char === "(") depth++
+    if (char === ")") depth--
+    if (char === "," && depth === 0) parts.push("")
+    else parts[parts.length - 1] += char
+  }
+  return parts.map((part) => part.replaceAll(/\s+/g, ""))
+}
+
+const paletteSourceScopes = (css: string) =>
+  [...css.replaceAll(/\/\*[\s\S]*?\*\//g, "").matchAll(/([^{}]+)\{([^{}]*)\}/g)]
+    .filter(([, , body]) => /--palette-source\s*:/.test(body))
+    .map(([, selector, body]) => ({ body, selectors: selectorList(selector) }))
 
 describe("theme tokens", () => {
   test("sections follow the headers in theme.css", () => {
@@ -67,7 +86,7 @@ describe("theme tokens", () => {
     expect(find("--motion")?.dark).toBeUndefined()
     expect(find("--palette-hue-rotate-by")?.value).toBe("0")
     expect(find("--palette-source")?.optional).toBe(true)
-    expect(find("--focus-ring-color")?.optional).toBe(true)
+    expect(find("--focus-ring-color")?.optional).toBeUndefined()
     expect(find("--color-scheme")).toBeUndefined()
   })
 
@@ -107,6 +126,17 @@ describe("theme tokens", () => {
         expect(overridden, token.name).toContain(token.name)
       }
     }
+  })
+
+  test("every scope that sets --palette-source re-derives the palette", () => {
+    const derived = paletteSourceScopes(paletteSource).find(({ body }) =>
+      /--color-1\s*:/.test(body),
+    )?.selectors
+    const scopes = paletteSourceScopes(themeSource).flatMap(
+      ({ selectors }) => selectors,
+    )
+    expect(scopes).toContain(".ui-warning")
+    for (const scope of scopes) expect(derived, scope).toContain(scope)
   })
 
   test("setThemeToken replaces the light declaration only", () => {

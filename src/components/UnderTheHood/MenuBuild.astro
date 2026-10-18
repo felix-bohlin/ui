@@ -1,5 +1,5 @@
 ---
-import { Button } from "@opui/astro"
+import { Button } from "opui-css/astro"
 import BuildUp from "./BuildUp.astro"
 
 const steps = [
@@ -52,7 +52,7 @@ const steps = [
     css: `
 .menu {
   max-block-size: 60dvb;
-  overflow-y: auto;
+  overflow-block: auto;
   overscroll-behavior: contain;
 
   @supports (min-block-size: calc-size(fit-content, size)) {

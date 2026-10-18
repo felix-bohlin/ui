@@ -19,11 +19,11 @@ import { Progress } from "opui-css/astro"
 import { Progress } from "opui-css/astro"
 ---
 
-<Progress id="determinate-progress" max="100" value="10" />
+<Progress id="progress-determinate-1" max="100" value="10" />
 
 <script>
   const progress = document.querySelector(
-    "#determinate-progress",
+    "#progress-determinate-1",
   ) as HTMLProgressElement
   if (progress) {
     setInterval(() => {
@@ -63,11 +63,11 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ### Progress API
 
-| Prop      | Type                                        | Default   | Description                                                          |
-| --------- | ------------------------------------------- | --------- | -------------------------------------------------------------------- |
-| `max`     | `string` , `number`                         | -         | The maximum value.                                                   |
-| `value`   | `string` , `number` , `(number & string[])` | -         | The current value. Omit it for an indeterminate state.               |
-| `variant` | `"tonal"` , `"filled"`                      | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
+| Prop      | Type                   | Default   | Description                                                          |
+| --------- | ---------------------- | --------- | -------------------------------------------------------------------- |
+| `max`     | `number` , `string`    | -         | The maximum value.                                                   |
+| `value`   | `number` , `string`    | -         | The current value. Omit it for an indeterminate state.               |
+| `variant` | `"filled"` , `"tonal"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
 
 #### Slots
 
@@ -91,17 +91,19 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Other attributes go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.
+Other attributes go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
 
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
 
-| Property      | Kind  | Description                                                                 |
-| ------------- | ----- | --------------------------------------------------------------------------- |
-| `--_accent`   | Input | Color of the bar. Defaults to `--primary`.                                  |
-| `--_bg-color` | Input | Color of the track. Set by `.ui-filled` and `.ui-tonal`.                    |
-| `--_motion`   | Input | Motion multiplier for the value transition and the indeterminate animation. |
+| Property      | Kind   | Description                                                                 |
+| ------------- | ------ | --------------------------------------------------------------------------- |
+| `--_accent`   | Input  | Color of the bar. Defaults to `--primary`.                                  |
+| `--_bg-color` | Input  | Color of the track. Set by `.ui-filled` and `.ui-tonal`.                    |
+| `--_duration` | Output | Duration of the value transition, `--duration` times `--_motion`.           |
+| `--_ease`     | Input  | Easing of the value transition. Defaults to `--ease-enter`.                 |
+| `--_motion`   | Input  | Motion multiplier for the value transition and the indeterminate animation. |
 
 ## Under the hood
 
@@ -257,3 +259,7 @@ Import the component from `opui-css/astro`:
 ### What's new
 
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
+- Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).
+- [Progress bars](#indeterminate) center in table cells and lines of text.
+- Breaking: `style` goes to the root, like `class`, instead of the `<progress>` ([API](#api)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

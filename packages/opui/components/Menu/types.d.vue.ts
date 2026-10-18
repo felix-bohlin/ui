@@ -1,10 +1,16 @@
-import type { HTMLAttributes, Slot } from "vue"
-import type { Props as BaseProps } from "./types"
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "vue"
+import type { Class, DefaultSlots } from "../vue"
+import type { MenuItem as BaseMenuItem, Props as BaseProps } from "./types"
 
-export type Props = BaseProps & {
-  class?: HTMLAttributes["class"]
-}
+export type MenuItem = BaseMenuItem &
+  Omit<
+    AnchorHTMLAttributes & ButtonHTMLAttributes,
+    keyof BaseMenuItem | "children"
+  >
 
-export type Slots = {
-  default?: Slot
-}
+export type Props = Omit<BaseProps, "items"> &
+  Class & {
+    items?: MenuItem[]
+  }
+
+export type Slots = DefaultSlots

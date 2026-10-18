@@ -3,7 +3,7 @@ import type { ComponentFramework, Framework } from "./frameworks"
 export type ApiPart = {
   anchorName?: string
   code?: string
-  component?: Partial<Record<ComponentFramework, string>>
+  component?: string
   description: string
   legacy?: { props?: string[]; slots?: string[] }
   model?: boolean
@@ -31,9 +31,8 @@ export type ApiOption = {
   htmlDescription?: string
   part?: string
   prop: string
-  type?: string
   values?: Partial<Record<string, string | null>>
-}
+} & ({ inherited: true; type: string } | { inherited?: never; type?: string })
 
 export type ApiModel = { description: string; prop: string; type: string }
 
@@ -45,19 +44,17 @@ export type CustomProperties = Record<
 export type ComponentApi = {
   component: string
   css?: string[]
-  file?: string
-  hydration?: Partial<Record<ComponentFramework, ApiHydration[]>>
+  hydration?: Partial<
+    Record<Exclude<ComponentFramework, "astro"> | "default", ApiHydration[]>
+  >
   model?: ApiModel & {
     frameworks?: Partial<Record<ComponentFramework, ApiModel[]>>
   }
-  notes?: Partial<Record<Framework, string>>
+  notes?: Partial<Record<Framework | "default", string>>
   options: ApiOption[]
   page?: string
   parts: ApiPart[]
-  root: Pick<
-    ApiPart,
-    "anchorName" | "code" | "component" | "description" | "selector"
-  >
+  root: Pick<ApiPart, "anchorName" | "code" | "description" | "selector">
   slots?: { description: string; name: string }[]
   source?: string
 }

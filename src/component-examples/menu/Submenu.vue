@@ -1,21 +1,22 @@
 <script setup lang="ts">
 import { Button, ListItem, Menu } from "opui-css/vue"
 
-const formats = ["PDF", "PNG", "SVG"].map((label) => ({
-  commandfor: "menu-file",
-  label,
-}))
+const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
 </script>
 
 <template>
-  <Button commandfor="menu-file" command="toggle-popover" variant="outlined">
+  <Button
+    commandfor="menu-submenu-1"
+    command="toggle-popover"
+    variant="outlined"
+  >
     File
   </Button>
-  <Menu id="menu-file" :items="[{ label: 'New' }, { label: 'Open' }]">
+  <Menu id="menu-submenu-1" :items="[{ text: 'New' }, { text: 'Open' }]">
     <ListItem
       as="button"
       headline="Export"
-      commandfor="menu-export"
+      commandfor="menu-submenu-2"
       command="toggle-popover"
     >
       <template #end>
@@ -32,7 +33,7 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
         </svg>
       </template>
       <template #submenu>
-        <Menu id="menu-export" :items="formats" placement="inline-end" />
+        <Menu id="menu-submenu-2" :items="formats" placement="inline-end" />
       </template>
     </ListItem>
   </Menu>

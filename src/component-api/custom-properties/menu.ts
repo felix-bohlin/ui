@@ -6,7 +6,7 @@ export default {
     kind: "input",
   },
   "--_border-color": {
-    description: "Color of the border and the item separators.",
+    description: "The border color. `--_divider-color` follows it.",
     kind: "input",
   },
   "--_border-radius": {
@@ -15,6 +15,10 @@ export default {
   },
   "--_border-width": {
     description: "The border width.",
+    kind: "input",
+  },
+  "--_divider-color": {
+    description: "Color of the item separators. Defaults to `--_border-color`.",
     kind: "input",
   },
   "--_duration": {

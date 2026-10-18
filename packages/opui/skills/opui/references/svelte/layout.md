@@ -167,7 +167,7 @@ The size classes set the gap of `.ui-flow`, `.ui-cluster` and `.ui-grid`: `.ui-x
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Add the classes to elements in your markup. There is no Svelte component.
+Add the classes to elements in your markup. There is no Svelte component. There is no Svelte component.
 
 ## Component properties
 

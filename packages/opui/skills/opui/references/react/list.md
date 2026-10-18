@@ -35,13 +35,17 @@
 ## Basics
 
 ```tsx
-import { List } from "opui-css/react"
-import ListAll from "./partials/ListAll.react"
+import { List, ListItem } from "opui-css/react"
 
-export default function Default() {
+export default function Basics() {
   return (
     <List>
-      <ListAll prefix="default-" />
+      <ListItem headline="Headline" />
+      <ListItem
+        headline="Headline"
+        description="Supporting text that truly is quite long enough to fill up multiple lines."
+      />
+      <ListItem headline="Trailing supporting text" end="100+" />
     </List>
   )
 }
@@ -72,7 +76,7 @@ import { List, ListItem } from "opui-css/react"
 
 export default function Variants() {
   return (
-    <div className="column" style={{ gap: "var(--size-4)" }}>
+    <>
       <List>
         <ListItem headline="Filled (default)" />
         <ListItem headline="Second item" />
@@ -87,7 +91,7 @@ export default function Variants() {
         <ListItem headline="Transparent" />
         <ListItem headline="Second item" />
       </List>
-    </div>
+    </>
   )
 }
 ```
@@ -108,9 +112,8 @@ export default function Clickable() {
       <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
       <ListItem
         type="checkbox"
-        htmlFor="clickable-checkbox"
         headline="Checkbox list item"
-        end={<CheckboxInput id="clickable-checkbox" />}
+        end={<CheckboxInput />}
       />
     </List>
   )
@@ -127,21 +130,13 @@ import { List, ListItem } from "opui-css/react"
 export default function Selected() {
   return (
     <List>
-      <ListItem>
-        <a href="#" aria-current="page">
-          <div className="ui-text">
-            <p>Selected item</p>
-            <p>This item has aria-current="page" on its link</p>
-          </div>
-        </a>
-      </ListItem>
-      <ListItem>
-        <a href="#">
-          <div className="ui-text">
-            <p>Normal item</p>
-          </div>
-        </a>
-      </ListItem>
+      <ListItem
+        href="#"
+        aria-current="page"
+        headline="Selected item"
+        description='This item has aria-current="page" on its link'
+      />
+      <ListItem href="#" headline="Normal item" />
     </List>
   )
 }
@@ -368,7 +363,7 @@ export default function EndKeyboard() {
 
 ### Checkbox
 
-Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-checkbox">` to make the entire surface clickable.
 
 Read more: [Checkbox](https://open-props-ui.netlify.app/react/components/checkbox.md)
 
@@ -378,18 +373,8 @@ import { CheckboxInput, List, ListItem } from "opui-css/react"
 export default function EndCheckbox() {
   return (
     <List>
-      <ListItem
-        type="checkbox"
-        htmlFor="checkbox-example-1"
-        text="Checkbox 1"
-        end={<CheckboxInput id="checkbox-example-1" />}
-      />
-      <ListItem
-        type="checkbox"
-        htmlFor="checkbox-example-2"
-        text="Checkbox 2"
-        end={<CheckboxInput id="checkbox-example-2" />}
-      />
+      <ListItem type="checkbox" text="Checkbox 1" end={<CheckboxInput />} />
+      <ListItem type="checkbox" text="Checkbox 2" end={<CheckboxInput />} />
     </List>
   )
 }
@@ -397,7 +382,7 @@ export default function EndCheckbox() {
 
 ### Radio
 
-Wrap the List item content with a `<label class="ui-radio" for="INPUTID">` to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-radio">` to make the entire surface clickable.
 
 Radio group: Add a common name to each `<input>` for radio group behavior.
 
@@ -411,27 +396,13 @@ export default function EndRadio() {
     <List>
       <ListItem
         type="radio"
-        htmlFor="radio-example-1"
         text="Radio 1"
-        end={
-          <RadioInput
-            id="radio-example-1"
-            name="radio-example-group"
-            value="1"
-          />
-        }
+        end={<RadioInput name="radio-example-group" value="1" />}
       />
       <ListItem
         type="radio"
-        htmlFor="radio-example-2"
         text="Radio 2"
-        end={
-          <RadioInput
-            id="radio-example-2"
-            name="radio-example-group"
-            value="2"
-          />
-        }
+        end={<RadioInput name="radio-example-group" value="2" />}
       />
     </List>
   )
@@ -448,18 +419,8 @@ import { List, ListItem, SwitchInput } from "opui-css/react"
 export default function EndSwitch() {
   return (
     <List>
-      <ListItem
-        type="switch"
-        htmlFor="switch-example-1"
-        text="Switch 1"
-        end={<SwitchInput id="switch-example-1" />}
-      />
-      <ListItem
-        type="switch"
-        htmlFor="switch-example-2"
-        text="Switch 2"
-        end={<SwitchInput id="switch-example-2" />}
-      />
+      <ListItem type="switch" text="Switch 1" end={<SwitchInput />} />
+      <ListItem type="switch" text="Switch 2" end={<SwitchInput />} />
     </List>
   )
 }
@@ -509,7 +470,7 @@ export default function Inset() {
 Add the `gutterless` prop to the `List` to remove the inline padding on the list items.
 
 ```tsx
-import { List, ListItem } from "opui-css/react"
+import { Button, List, ListItem } from "opui-css/react"
 
 export default function Gutterless() {
   return (
@@ -517,11 +478,7 @@ export default function Gutterless() {
       <ListItem
         headline="Gutterless list item"
         end={
-          <button
-            aria-label="Delete"
-            className="ui-button ui-rounded ui-small"
-            type="button"
-          >
+          <Button aria-label="Delete" iconOnly round size="small">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -533,7 +490,7 @@ export default function Gutterless() {
                 d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
               ></path>
             </svg>
-          </button>
+          </Button>
         }
       />
       <ListItem
@@ -602,13 +559,17 @@ export default function SingleBorder() {
 Just add the `dense` prop to the `List`!
 
 ```tsx
-import { List } from "opui-css/react"
-import ListAll from "./partials/ListAll.react"
+import { List, ListItem } from "opui-css/react"
 
 export default function Dense() {
   return (
     <List dense>
-      <ListAll prefix="dense-" />
+      <ListItem headline="Headline" />
+      <ListItem
+        headline="Headline"
+        description="Supporting text that truly is quite long enough to fill up multiple lines."
+      />
+      <ListItem headline="Trailing supporting text" end="100+" />
     </List>
   )
 }
@@ -632,8 +593,9 @@ export default function Dense() {
 | ----------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                       |
 | `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                                                                                           |
-| `--choice-size-small`         | `var(--size-3)`                              | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                             |
+| `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                             |
 | `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                                                                                     |
+| `--disabled-opacity`          | `0.64`                                       | Opacity applied to disabled controls.                                                                                                                                             |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                 |
 | `--font-code`                 | `var(--font-mono)`                           | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                             |
@@ -641,11 +603,13 @@ export default function Dense() {
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                              |
 | `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                                                                                          |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                      |
+| `--state-active-alpha-accent` | `25%`                                        | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                 |
+| `--state-hover-alpha-accent`  | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                                                                                   |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                     |
-| `--switch-dot-size-small`     | `0.75rem`                                    | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                  |
-| `--switch-track-height-small` | `var(--size-4)`                              | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                  |
-| `--switch-track-width-small`  | `2.5rem`                                     | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                   |
+| `--switch-dot-size-small`     | `calc(0.75rem * var(--density))`             | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                  |
+| `--switch-track-height-small` | `calc(var(--size-4) * var(--density))`       | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                  |
+| `--switch-track-width-small`  | `calc(2.5rem * var(--density))`              | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                   |
 | `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                  |
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                            |
 
@@ -658,6 +622,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `as`          | `"a"` , `"button"` , `"div"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`. |
 | `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                   |
 | `children`    | `ReactNode`                           | -       | Extra content inside `.ui-text`, or all the content when there's no text.                                                                       |
+| `critical`    | `boolean`                             | `false` | A destructive item in a [Menu](https://open-props-ui.netlify.app/react/components/menu.md).                                                     |
 | `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
 | `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
 | `end`         | `ReactNode`                           | -       | Optional content at the end, such as a value or an action.                                                                                      |
@@ -668,7 +633,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `start`       | `ReactNode`                           | -       | Optional content at the start, such as an icon or avatar.                                                                                       |
 | `submenu`     | `ReactNode`                           | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                                                     |
 | `text`        | `ReactNode`                           | -       | The text content.                                                                                                                               |
-| `type`        | `"switch"` , `"checkbox"` , `"radio"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.                                                                               |
+| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                        |
 
 #### CSS variables
 
@@ -676,8 +641,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | ----------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                       |
 | `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                                                                                           |
-| `--choice-size-small`         | `var(--size-3)`                              | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                             |
+| `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                             |
 | `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                                                                                     |
+| `--disabled-opacity`          | `0.64`                                       | Opacity applied to disabled controls.                                                                                                                                             |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                 |
 | `--font-code`                 | `var(--font-mono)`                           | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                             |
@@ -685,11 +651,13 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                              |
 | `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                                                                                          |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                      |
+| `--state-active-alpha-accent` | `25%`                                        | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                 |
+| `--state-hover-alpha-accent`  | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                                                                                   |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                     |
-| `--switch-dot-size-small`     | `0.75rem`                                    | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                  |
-| `--switch-track-height-small` | `var(--size-4)`                              | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                  |
-| `--switch-track-width-small`  | `2.5rem`                                     | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                   |
+| `--switch-dot-size-small`     | `calc(0.75rem * var(--density))`             | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                  |
+| `--switch-track-height-small` | `calc(var(--size-4) * var(--density))`       | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                  |
+| `--switch-track-width-small`  | `calc(2.5rem * var(--density))`              | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                   |
 | `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                  |
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                            |
 
@@ -699,17 +667,14 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
 
-| Property             | Kind  | Description                                                                                                     |
-| -------------------- | ----- | --------------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`        | Input | Background of the list and its items. Defaults to `--surface-filled`, `.ui-transparent` and `.ui-tonal` set it. |
-| `--_dot-size`        | Input | Dot size of a `.ui-switch` item, the small switch size.                                                         |
-| `--_hover-bg-color`  | Input | Background of hovered, selected and current items, from `--primary`.                                            |
-| `--_input-size`      | Input | Size of `.ui-checkbox` and `.ui-radio` in `.ui-dense`.                                                          |
-| `--_item-gap`        | Input | Gap between the content of an item. Smaller in `.ui-dense`.                                                     |
-| `--_separator-color` | Input | Color of the lines between items in `.ui-bordered` and on `.ui-border-top`.                                     |
-| `--_start-size`      | Input | Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.        |
-| `--_track-height`    | Input | Track height of a `.ui-switch` item, the small switch size.                                                     |
-| `--_track-width`     | Input | Track width of a `.ui-switch` item, the small switch size.                                                      |
+| Property             | Kind  | Description                                                                                                                             |
+| -------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_bg-color`        | Input | Background of the list and its items. Defaults to `--surface-filled`, `.ui-transparent` and `.ui-tonal` set it.                         |
+| `--_divider-color`   | Input | Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. `currentColor` at 18%, `--border-color` with more contrast. |
+| `--_hover-bg-color`  | Input | Background of hovered, selected and current items, from `--primary`.                                                                    |
+| `--_item-gap`        | Input | Gap between the content of an item. Smaller in `.ui-dense`.                                                                             |
+| `--_separator-space` | Input | Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.                                 |
+| `--_start-size`      | Input | Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.                                |
 
 ## Under the hood
 
@@ -840,7 +805,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the components from `opui-css/react`:
 
-- `opui-css/css/components/list.css`
+### Used by
+
+- [Menu](https://open-props-ui.netlify.app/react/components/menu.md)
+- [Select](https://open-props-ui.netlify.app/react/components/select.md)
+
+* `opui-css/css/components/list.css`
 
 ## Changelog
 
@@ -849,3 +819,6 @@ Import the components from `opui-css/react`:
 - Smaller [start](#icon) and end icons.
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
 - Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
+- Breaking: `--_bg-color-hover` is `--_hover-bg-color` ([Under the hood](#under-the-hood)).
+- A checked [option](#radio) uses `--state-active-alpha-accent`.
+- Breaking: [`type`](#checkbox) can't be combined with `as` or `href` (types).

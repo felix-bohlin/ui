@@ -23,7 +23,7 @@
 <Card variant="outlined">
   <CardContent>Icon buttons work too!</CardContent>
   <CardActions>
-    <Button rounded size="small" aria-label="Favorite">
+    <Button aria-label="Favorite" iconOnly round size="small">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@
         ></path>
       </svg>
     </Button>
-    <Button rounded size="small" aria-label="Share">
+    <Button aria-label="Share" iconOnly round size="small">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"

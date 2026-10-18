@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description  ¢ EUR Header Footer Supporting text
+Label Start text  € EUR Header Footer Supporting text
 
 - `label.ui-textarea`
 
@@ -14,7 +14,7 @@ Label Description  ¢ EUR Header Footer Supporting text
 
 - `.ui-start-text`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -98,7 +98,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 </label>
 ```
 
-## Description
+## Start text
 
 Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the label and the textarea.
 
@@ -118,23 +118,17 @@ Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the 
 <label class="ui-textarea">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <textarea
-      aria-describedby="supporting-end-text-1"
-      placeholder="Default"
-    ></textarea>
+    <textarea placeholder="Default"></textarea>
   </span>
-  <span class="ui-end-text" id="supporting-end-text-1">Supporting text</span>
+  <span class="ui-end-text">Supporting text</span>
 </label>
 
 <label class="ui-textarea ui-filled">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <textarea
-      aria-describedby="supporting-end-text-2"
-      placeholder="Filled"
-    ></textarea>
+    <textarea placeholder="Filled"></textarea>
   </span>
-  <span class="ui-end-text" id="supporting-end-text-2">Supporting text</span>
+  <span class="ui-end-text">Supporting text</span>
 </label>
 ```
 
@@ -149,6 +143,7 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
     <textarea placeholder="Add a note..."></textarea>
     <span class="ui-prefix">
       <svg
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -192,11 +187,9 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
 
 ## Validation
 
-Add `[required]` to the `<textarea>` element to toggle required styles.
-
-Add `aria-invalid="true"` to the `<textarea>` to toggle invalid styles. Screen readers announce it as invalid. Make use of the end text to give extra feedback on the error, and point `aria-describedby` at it.
-
-Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
+- `[required]` toggles the required styles on the `<textarea>`.
+- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<textarea>` as invalid. Say what's wrong in the end text. Keep it inside the `<label>`, so it's part of the field's name.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
 
 ```html
 <div class="example-row">
@@ -218,26 +211,16 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
   <label class="ui-textarea">
     <span class="ui-label">Label</span>
     <span class="ui-field">
-      <textarea
-        aria-describedby="validation-end-text-1"
-        aria-invalid="true"
-        placeholder="Default"
-      ></textarea>
+      <textarea aria-invalid="true" placeholder="Default"></textarea>
     </span>
-    <span class="ui-end-text" id="validation-end-text-1"
-      >Only double-negatives are allowed.</span
-    >
+    <span class="ui-end-text">Only double-negatives are allowed.</span>
   </label>
   <label class="ui-textarea ui-filled">
     <span class="ui-label">Label</span>
     <span class="ui-field">
-      <textarea
-        aria-describedby="validation-end-text-2"
-        aria-invalid="true"
-        placeholder="Filled"
-      ></textarea>
+      <textarea aria-invalid="true" placeholder="Filled"></textarea>
     </span>
-    <span class="ui-end-text" id="validation-end-text-2"
+    <span class="ui-end-text"
       >Only letters from the first half of the alphabet are allowed.</span
     >
   </label>
@@ -246,7 +229,7 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
 
 ## Spread
 
-Add the `.ui-spread` class to display the label and description on the left with the textarea on the right. The layout collapses to a column on narrow containers.
+Add the `.ui-spread` class to display the label and start text on the left with the textarea on the right. The layout collapses to a column on narrow containers.
 
 ```html
 <label class="ui-textarea ui-spread">
@@ -264,14 +247,9 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Notes</span>
   <span class="ui-start-text">Add any additional notes or comments</span>
   <span class="ui-field">
-    <textarea
-      aria-describedby="orientation-end-text-1"
-      placeholder="Additional notes..."
-    ></textarea>
+    <textarea placeholder="Additional notes..."></textarea>
   </span>
-  <span class="ui-end-text" id="orientation-end-text-1"
-    >Maximum 500 characters</span
-  >
+  <span class="ui-end-text">Maximum 500 characters</span>
 </label>
 
 <label class="ui-textarea ui-spread">
@@ -294,14 +272,9 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Invalid Message</span>
   <span class="ui-start-text">This textarea has an error</span>
   <span class="ui-field">
-    <textarea
-      aria-describedby="orientation-end-text-2"
-      aria-invalid="true"
-    ></textarea>
+    <textarea aria-invalid="true"></textarea>
   </span>
-  <span class="ui-end-text" id="orientation-end-text-2"
-    >This value is too short.</span
-  >
+  <span class="ui-end-text">This value is too short.</span>
 </label>
 
 <label class="ui-textarea ui-spread">
@@ -311,6 +284,7 @@ Add the `.ui-spread` class to display the label and description on the left with
     <textarea placeholder="Tell us about yourself..."></textarea>
     <span class="ui-prefix">
       <svg
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -336,16 +310,11 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Release notes</span>
   <span class="ui-start-text">Shown on the changelog page</span>
   <span class="ui-field">
-    <textarea
-      aria-describedby="orientation-end-text-3"
-      placeholder="Markdown supported..."
-    ></textarea>
+    <textarea placeholder="Markdown supported..."></textarea>
     <span class="ui-header">v1.4.0</span>
     <span class="ui-footer">Saved 2 minutes ago</span>
   </span>
-  <span class="ui-end-text" id="orientation-end-text-3"
-    >Drafts are auto-saved</span
-  >
+  <span class="ui-end-text">Drafts are auto-saved</span>
 </label>
 ```
 
@@ -366,13 +335,13 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 
 ### Textarea API
 
-| Type       | Modifiers                               | Default | Description                                                                 |
-| ---------- | --------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| Auto-fit   | `.ui-auto-fit`                          | -       | Lets the width follow the content and allows resizing in both directions.   |
-| Layout     | `.ui-spread`                            | -       | Pushes the label and description to one side and the textarea to the other. |
-| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                    |
-| Validation | `textarea[aria-invalid="true"]`         | -       | Marks the control invalid and shows error styles.                           |
-| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                         |
+| Type       | Modifiers                               | Default | Description                                                                |
+| ---------- | --------------------------------------- | ------- | -------------------------------------------------------------------------- |
+| Auto-fit   | `.ui-auto-fit`                          | -       | Lets the width follow the content and allows resizing in both directions.  |
+| Layout     | `.ui-spread`                            | -       | Pushes the label and start text to one side and the textarea to the other. |
+| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                   |
+| Validation | `textarea[aria-invalid="true"]`         | -       | Marks the control invalid and shows error styles.                          |
+| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                        |
 
 #### Parts
 
@@ -380,7 +349,7 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 | ------------------- | -------------------------------------------------------------- |
 | `label.ui-textarea` | Container element.                                             |
 | `.ui-label`         | The label for the field.                                       |
-| `.ui-start-text`    | Description text displayed above the field.                    |
+| `.ui-start-text`    | Start text displayed above the field.                          |
 | `.ui-field`         | The boxed textarea area.                                       |
 | `.ui-header`        | Content above the textarea, inside the border, with a divider. |
 | `.ui-prefix`        | Content at the inline-start of the field, inside the border.   |
@@ -411,7 +380,7 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 | `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                                                   |
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                                                   |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                                                 |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                  |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                                                   |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                                         |
@@ -428,6 +397,14 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
+
+| Property            | Kind  | Description                                              |
+| ------------------- | ----- | -------------------------------------------------------- |
+| `--_max-block-size` | Input | Maximum height the `textarea` grows to with its content. |
 
 ## Under the hood
 
@@ -554,8 +531,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Text Field](https://open-props-ui.netlify.app/html/components/text-field.md)
 
-- `opui-css/css/components/text-field.css`
-- `opui-css/css/components/textarea.css`
+* `opui-css/css/components/text-field.css`
+* `opui-css/css/components/textarea.css`
 
 ## Changelog
 
@@ -563,5 +540,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [x-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
+- The minimum height is three lines plus padding at every [size](#sizes).
 - Breaking: mark an invalid field with `aria-invalid="true"` on the `<textarea>` instead of `data-invalid` on the root ([Validation](#validation)).
+- Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-height`, `--_label-color` is `--_affix-color` and `--_end-text-color` is `--_helper-color` ([Under the hood](#under-the-hood)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--border-radius` through [`--field-border-radius`](#api), so one token squares or rounds every component.

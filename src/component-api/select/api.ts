@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Select",
-  css: ["select", "text-field"],
+  css: ["list", "select", "text-field"],
   model: {
     description: "The selected value, or values with `multiple`.",
     prop: "value",
@@ -10,13 +10,11 @@ export default {
   },
   notes: {
     astro:
-      "Other attributes go to the `<select>`, like `disabled`, `multiple`, `name` and `required`.",
+      "Other attributes go to the `<select>`, like `disabled`, `multiple`, `name` and `required`, and `class` and `style` go to the root `<label>`.",
+    default:
+      "Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `style` goes to the root `<label>`.",
     html: "The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.",
-    react:
-      "Attributes that aren't props go to the `<select>`, like `disabled` or `name`.",
-    svelte:
-      "Attributes that aren't props go to the `<select>`, like `disabled` or `name`.",
-    vue: "Attributes that aren't props go to the `<select>`, like `disabled` or `name`.",
+    vue: "Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
     {
@@ -37,7 +35,7 @@ export default {
     },
     {
       description: "The id of the `<select>`.",
-      frameworks: ["astro", "react", "svelte", "vue"],
+      inherited: true,
       prop: "id",
       type: "string",
     },
@@ -60,7 +58,7 @@ export default {
       class: ".ui-spread",
       default: "false",
       description:
-        "Pushes the label and description to one side and the select to the other.",
+        "Pushes the label and start text to one side and the select to the other.",
       group: "Layout",
       prop: "spread",
     },
@@ -80,10 +78,10 @@ export default {
       slots: ["label"],
     },
     {
-      description: "Description text displayed above the field.",
-      props: ["description"],
+      description: "Start text displayed above the field.",
+      props: ["startText"],
       selector: ".ui-start-text",
-      slots: ["description"],
+      slots: ["start-text"],
     },
     {
       description: "The boxed select area.",

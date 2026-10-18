@@ -139,7 +139,7 @@ import {
 
 | Prop       | Type                   | Default | Description                                                                                                              |
 | ---------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description.                                                                      |
+| `bordered` | `"dotted"` , `boolean` | `false` | Adds a border between the term and the description.                                                                      |
 | `inline`   | `boolean`              | `false` | Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower. |
 
 #### Slots
@@ -311,3 +311,4 @@ Import the components from `opui-css/vue`:
 
 - Breaking: `Description` is now [`DescriptionListDescription`](#api), like Astro.
 - [Inline](#inline) keeps terms and descriptions side by side at any width with `inline`.
+- Breaking: `DescriptionListTerm` and `DescriptionListDescription` no longer render `.ui-term` and `.ui-description`. Select `dt` and `dd` in your CSS ([Basics](#basics)).

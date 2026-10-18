@@ -6,7 +6,6 @@ export default function Carousel({
   aspectRatio,
   buttons = true,
   className,
-  label,
   markers,
   orientation,
   peek,
@@ -24,7 +23,6 @@ export default function Carousel({
 
   return (
     <ul
-      aria-label={label}
       className={cx([
         "ui-carousel",
         {

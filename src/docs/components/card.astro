@@ -10,7 +10,7 @@ import {
   CardActions as UICardActions,
   CardContent as UICardContent,
   CardHeader as UICardHeader,
-} from "@opui/astro"
+} from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 import CardCSS from "@opui/css/components/card.css?raw"
@@ -56,7 +56,7 @@ import cardActionsApi from "../../component-api/card-actions/api"
     <h2 id="variants">Variants</h2>
 
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Change the card variant with the <code>variant</code> prop. Without a variant
         the card has the page surface color and no border. Put the body in <code
           >CardContent</code
@@ -69,24 +69,6 @@ import cardActionsApi from "../../component-api/card-actions/api"
         a variant class the card has the page surface color and no border. Put the
         body in <code>.ui-content</code>.
       </Fragment>
-      <Fragment slot="react">
-        Change the card variant with the <code>variant</code> prop. Without a variant
-        the card has the page surface color and no border. Put the body in <code
-          >CardContent</code
-        >.
-      </Fragment>
-      <Fragment slot="svelte">
-        Change the card variant with the <code>variant</code> prop. Without a variant
-        the card has the page surface color and no border. Put the body in <code
-          >CardContent</code
-        >.
-      </Fragment>
-      <Fragment slot="vue">
-        Change the card variant with the <code>variant</code> prop. Without a variant
-        the card has the page surface color and no border. Put the body in <code
-          >CardContent</code
-        >.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Variants" column />
@@ -94,12 +76,12 @@ import cardActionsApi from "../../component-api/card-actions/api"
     <div class="ui-not-rich-text">
       <UICallout>
         <UICalloutContent>
-          <div class="ui-rich-text">
-            <p><strong>Why does a text variant exist?</strong></p>
-            On the page you won't see a difference. Put a card on a tonal surface
-            or in a dialog, though, and the default one turns into a page-colored
-            box. The text variant stays see-through.
-          </div>
+          <h3>Why does a text variant exist?</h3>
+          <p>
+            On the page you won't see a difference. Put a card on a tonal
+            surface or in a dialog, though, and the default one turns into a
+            page-colored box. The text variant stays see-through.
+          </p>
         </UICalloutContent>
       </UICallout>
     </div>
@@ -108,17 +90,10 @@ import cardActionsApi from "../../component-api/card-actions/api"
   <section>
     <h2 id="header">Header</h2>
     <Conditional as="p">
-      <Fragment slot="astro"> Using <code>CardHeader</code>. </Fragment>
+      <Fragment slot="components"> Using <code>CardHeader</code>. </Fragment>
       <Fragment slot="html">
         Using the <code>&lt;hgroup&gt;</code>.
       </Fragment>
-      <Fragment slot="react">
-        Using <code>CardHeader</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Using <code>CardHeader</code>.
-      </Fragment>
-      <Fragment slot="vue"> Using <code>CardHeader</code>. </Fragment>
     </Conditional>
     <AutoExample name="Header" column />
   </section>
@@ -126,20 +101,11 @@ import cardActionsApi from "../../component-api/card-actions/api"
   <section>
     <h2 id="actions">Actions</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Using <code>CardActions</code>.
       </Fragment>
       <Fragment slot="html">
         Using the <code>.ui-actions</code> class.
-      </Fragment>
-      <Fragment slot="react">
-        Using <code>CardActions</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Using <code>CardActions</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Using <code>CardActions</code>.
       </Fragment>
     </Conditional>
     <p>
@@ -151,28 +117,13 @@ import cardActionsApi from "../../component-api/card-actions/api"
 
     <h3 id="actions-alignment">Alignment</h3>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Align actions to the end with <code>align="end"</code> on <code
           >CardActions</code
         >.
       </Fragment>
       <Fragment slot="html">
         Align actions to the end with the <code>.ui-align-end</code> class.
-      </Fragment>
-      <Fragment slot="react">
-        Align actions to the end with <code>align="end"</code> on <code
-          >CardActions</code
-        >.
-      </Fragment>
-      <Fragment slot="svelte">
-        Align actions to the end with <code>align="end"</code> on <code
-          >CardActions</code
-        >.
-      </Fragment>
-      <Fragment slot="vue">
-        Align actions to the end with <code>align="end"</code> on <code
-          >CardActions</code
-        >.
       </Fragment>
     </Conditional>
 
@@ -223,17 +174,4 @@ import cardActionsApi from "../../component-api/card-actions/api"
       </UICard>
     </Anatomy>
   </Fragment>
-
-  <div slot="installation" class="ui-not-rich-text">
-    <UICallout>
-      <UICalloutContent>
-        <div class="ui-rich-text">
-          Other components might depend on the card component. Be mindful when
-          making changes. <DocLink href="/components/accordion"
-            >Accordion</DocLink
-          >, <DocLink href="/components/dialog">Dialog</DocLink>
-        </div>
-      </UICalloutContent>
-    </UICallout>
-  </div>
 </Component>

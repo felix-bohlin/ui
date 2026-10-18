@@ -1,6 +1,6 @@
 @layer components.extended {
   :where(.ui-menu) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_bg-color: var(--surface-elevated);
     --_border-color: light-dark(
       var(--border-color),
@@ -8,6 +8,7 @@
     );
     --_border-radius: var(--border-radius);
     --_border-width: var(--border-width);
+    --_divider-color: var(--_border-color);
     --_duration: calc(var(--duration) * var(--_motion));
     --_ease: var(--ease-enter);
     --_margin-block: var(--_offset);
@@ -16,10 +17,10 @@
     --_min-block-size: 12rem;
     --_min-inline-size: 12rem;
     --_offset: var(--size-1);
-    --_side: block-end;
-    --_span: span-inline-end;
     --_position-area: var(--_side) var(--_span);
     --_shadow: var(--shadow-overlay);
+    --_side: block-end;
+    --_span: span-inline-end;
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
@@ -29,15 +30,10 @@
     margin: 0;
     max-block-size: var(--_max-block-size);
     min-inline-size: var(--_min-inline-size);
-    overflow-y: auto;
+    overflow-block: auto;
     overscroll-behavior: contain;
     padding-block: var(--space-1);
     padding-inline: 0;
-
-    & > .ui-border-top::before,
-    &.ui-bordered > :where(li + li, option + option)::before {
-      border-block-start-color: var(--_border-color);
-    }
 
     /* Popover - positioned against its invoker (implicit anchor) */
     &[popover] {
@@ -61,7 +57,7 @@
         overlay var(--_duration) allow-discrete,
         scale var(--_duration) var(--_ease);
 
-      /* Firefox and Safari fallback */
+      /* Where calc-size() works: cap to the side's space, flip below --_min-block-size */
       @supports (min-block-size: calc-size(fit-content, size)) {
         max-block-size: min(
           var(--_max-block-size),
@@ -120,6 +116,11 @@
       anchor-scope: --ui-menu-root;
     }
 
+    /* Submenus of submenus keep a flipped parent's direction: once the parent
+       item sits on the root menu's start side, their end edge stops at the
+       root menu's start edge. * 1000 makes min() and max() pick either that
+       edge or 0. Replace with an anchored(fallback: flip-inline) container
+       query once lightningcss parses it. */
     & .ui-menu .ui-menu[popover] {
       inset-inline-end: max(
         0px,
@@ -131,6 +132,8 @@
       inset-inline-start: 0;
     }
 
+    /* iOS Safari doesn't place a submenu at its trigger item, so there it
+       anchors to the parent menu. Remove once iOS Safari does. */
     @supports (-webkit-touch-callout: none) {
       &:has(.ui-menu[popover]) {
         anchor-name: --ui-menu;
@@ -143,17 +146,6 @@
     }
 
     /* Items */
-    li > :is(a, button):is([disabled], [aria-disabled="true"]) {
-      cursor: not-allowed;
-      opacity: var(--disabled-opacity);
-
-      @media (hover: hover) {
-        &:hover {
-          background-color: transparent;
-        }
-      }
-    }
-
     :where(li.ui-critical),
     li > :is(a, button).ui-critical {
       --_hover-bg-color: oklch(

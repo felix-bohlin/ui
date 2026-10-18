@@ -42,8 +42,12 @@ A scope is a class that changes the theme for one element and everything inside 
 - `.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning` and `.ui-neutral` swap the palette to red, blue, green, orange or gray. The `--color-1` to `--color-16` steps inside follow, while `--primary` and the text colors keep the page values.
 - `.ui-palette` re-derives the palette and every color token from the knobs set on that element, so one page can carry several brands.
 
+On an element, `.ui-dark` and `.ui-light` only switch between light and dark colors. The palette hue and the shadows still come from the page. So on a light page, a `.ui-dark` box stays green and keeps the light shadows, while a dark page is blue. Add `.ui-palette` with the dark hue to make the box match dark mode:
+
 ```html
-<aside class="ui-dark">Always dark</aside>
+<aside class="ui-dark ui-palette" style="--palette-hue: var(--hue-blue)">
+  Always dark
+</aside>
 
 <section class="ui-palette" style="--palette-hue: 30">
   <button class="ui-button ui-primary ui-filled" type="button">
@@ -143,7 +147,7 @@ Components use a local `--_motion` variable that allows you to disable motion fo
 Additionally, this is how you could include `--motion` in your CSS:
 
 ```css
-transition: transform calc(var(--duration) * var(--motion, 1)) var(--ease);
+transition: transform calc(var(--duration) * var(--motion)) var(--ease);
 ```
 
 ## Contrast
@@ -163,7 +167,7 @@ Try it with the **High contrast** switch in the theme config drawer.
 
 ### Custom values
 
-Style queries match against the parent element, so the high-contrast values are set on `body` instead of `html`. They are set again on the children of `.ui-contrast-more` and on the surfaces that have their own border colors: `.ui-palette`, elevated and tonal cards, filled lists and table headers. They replace any value you set on `html` for the same tokens. To tune them, write your own style query with the same selectors:
+Style queries match against the parent element, so the high-contrast values are set on `body` instead of `html`. They are set again on the children of `.ui-contrast-more` and on the surfaces that have their own border colors: `.ui-palette`, elevated and tonal accordions and cards, default callouts, filled lists and table headers. They replace any value you set on `html` for the same tokens. To tune them, write your own style query with the same selectors:
 
 ```css
 @container style(--contrast: more) {
@@ -171,8 +175,16 @@ Style queries match against the parent element, so the high-contrast values are 
     body,
     .ui-contrast-more > *,
     .ui-palette,
-    .ui-card.ui-elevated,
-    .ui-card.ui-tonal,
+    .ui-accordion:is(.ui-elevated, .ui-tonal),
+    .ui-callout:not(
+      .ui-critical,
+      .ui-info,
+      .ui-neutral,
+      .ui-outlined,
+      .ui-success,
+      .ui-warning
+    ),
+    .ui-card:is(.ui-elevated, .ui-tonal),
     .ui-list:not(.ui-tonal, .ui-transparent),
     .ui-table th
   ) {

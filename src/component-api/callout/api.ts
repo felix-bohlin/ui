@@ -1,16 +1,11 @@
+import { components } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "Callout",
-  notes: {
-    astro:
-      'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.',
-    react:
-      'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.',
-    svelte:
-      'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.',
-    vue: 'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.',
-  },
+  notes: components(
+    'For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.',
+  ),
   options: [
     {
       description:
@@ -36,36 +31,15 @@ export default {
   parts: [
     {
       code: "<svg>",
-      component: {
-        astro: "CalloutIcon",
-        react: "CalloutIcon",
-        svelte: "CalloutIcon",
-        vue: "CalloutIcon",
-      },
+      component: "CalloutIcon",
       description:
         "An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical.",
       selector: ".ui-callout > svg",
     },
     {
-      component: {
-        astro: "CalloutContent",
-        react: "CalloutContent",
-        svelte: "CalloutContent",
-        vue: "CalloutContent",
-      },
-      description: "The content.",
+      component: "CalloutContent",
+      description: "The content, with an optional heading first.",
       selector: ".ui-content",
-    },
-    {
-      code: "<h3>",
-      component: {
-        astro: "CalloutTitle",
-        react: "CalloutTitle",
-        svelte: "CalloutTitle",
-        vue: "CalloutTitle",
-      },
-      description: "An optional title inside the content.",
-      selector: ".ui-content > h3",
     },
   ],
   root: {

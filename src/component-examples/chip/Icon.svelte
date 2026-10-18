@@ -4,6 +4,7 @@
 
 <Chip variant="tonal">
   {#snippet start()}<svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -19,6 +20,7 @@
 <Chip variant="outlined">
   <span class="ui-text">Outlined</span>
   {#snippet end()}<svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"

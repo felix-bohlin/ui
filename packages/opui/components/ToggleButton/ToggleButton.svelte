@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { getFieldContext } from "../FieldGroup/context"
-  import { getToggleGroupContext } from "../ToggleGroup/context"
+  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { getToggleGroupContext } from "../ToggleGroup/context.svelte"
+  import { isSelected } from "../ToggleGroup/selection"
   import type { Props } from "./types.svelte"
 
   let {
@@ -8,8 +9,10 @@
     disabled,
     label,
     name,
+    onchange,
     pressed,
     size,
+    style,
     type,
     value,
 
@@ -18,25 +21,28 @@
     ...rest
   }: Props = $props()
 
-  const field = getFieldContext()
+  const field = getFieldGroupContext()
   const group = getToggleGroupContext()
 
   const finalName = $derived(name || group?.groupName || field?.name)
   const finalType = $derived(
-    group?.inputType === "radio"
-      ? "radio"
-      : type || group?.inputType || "checkbox",
+    group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
   )
+  const checked = $derived(isSelected(group?.value, value || label) ?? pressed)
 </script>
 
-<label class={["ui-toggle-button", size && `ui-${size}`, className]}>
+<label class={["ui-toggle-button", size && `ui-${size}`, className]} {style}>
   <input
-    checked={pressed}
+    {checked}
     {disabled}
     name={finalName}
     type={finalType}
     value={value || label}
     {...rest}
+    onchange={(event) => {
+      group?.change(event.currentTarget)
+      onchange?.(event)
+    }}
   />
   {#if children}{@render children()}{:else}{label}{/if}
 </label>

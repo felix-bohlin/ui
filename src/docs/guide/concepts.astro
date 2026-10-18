@@ -190,8 +190,8 @@ import Example from "../../components/Example/index"
       ]}
     />
     <p>
-      Boolean props turn into a class of the same name (<code>rounded</code> is <code
-        >.ui-rounded</code
+      Boolean props turn into a class of the same name (<code>round</code> is <code
+        >.ui-round</code
       >), and native states stay native: a disabled button is <code
         >disabled</code
       >, not a class. Every component's API table lists the prop and the class
@@ -213,7 +213,7 @@ import Example from "../../components/Example/index"
       <code>.ui-not-rich-text</code> stops it for a subtree, handy for a demo or a
       widget in the middle of an article.
     </p>
-    <Example richText="not-rich-text">
+    <Example>
       <article class="ui-rich-text">
         <h3>Release notes</h3>
         <p>Plain HTML, styled by the wrapper.</p>
@@ -286,15 +286,35 @@ import Example from "../../components/Example/index"
         a tiny script for it, and React, Svelte and Vue do it reactively.
       </li>
     </ul>
-    <Code
-      code={`<script type="module">
+    <p>
+      Import them from the CDN in a plain page, or by package name when a
+      bundler resolves your scripts:
+    </p>
+    <CodeGroup
+      tabs={[
+        {
+          title: "CDN",
+          code: `<script type="module">
+  import { activateIndeterminate } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
+  import { initToastManager } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/toast.js"
+
+  activateIndeterminate()
+  initToastManager()
+</script>`,
+          lang: "html",
+        },
+        {
+          title: "Bundler",
+          code: `<script type="module">
   import { activateIndeterminate } from "opui-css/css/js/checkbox.js"
   import { initToastManager } from "opui-css/css/js/toast.js"
 
   activateIndeterminate()
   initToastManager()
-</script>`}
-      lang="html"
+</script>`,
+          lang: "html",
+        },
+      ]}
     />
   </section>
 </Guide>

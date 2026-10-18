@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { mergeStyle } from "../style"
   import type { Props } from "./types.svelte"
 
   let {
@@ -6,7 +7,6 @@
     aspectRatio,
     buttons = true,
     class: className,
-    label,
     markers,
     orientation,
     peek,
@@ -22,7 +22,6 @@
 </script>
 
 <ul
-  aria-label={label}
   class={[
     "ui-carousel",
     {
@@ -37,13 +36,10 @@
     align && align !== "start" && `ui-align-${align}`,
     className,
   ]}
-  style={[
-    perView && `--_per-view: ${perView};`,
-    aspectRatio && `--_media-aspect-ratio: ${aspectRatio};`,
+  style={mergeStyle(
+    { "--_per-view": perView, "--_media-aspect-ratio": aspectRatio },
     style,
-  ]
-    .filter(Boolean)
-    .join(" ") || undefined}
+  )}
   {...rest}
 >
   {@render children?.()}

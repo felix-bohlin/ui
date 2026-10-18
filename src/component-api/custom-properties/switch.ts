@@ -3,11 +3,12 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Fill and border of the checked track. From `--primary`, with its lightness capped in dark mode.",
+      "Fill and border of the checked track. `SelectedItem` in forced colors, `GrayText` when disabled.",
     kind: "input",
   },
   "--_accent-contrast": {
-    description: "Color of the checked dot on `--_accent`.",
+    description:
+      "Color of the checked dot on `--_accent`. `SelectedItemText` in forced colors.",
     kind: "input",
   },
   "--_dot-bg-color": {
@@ -41,6 +42,10 @@ export default {
   "--_icon-size": {
     description:
       "Size of the `.ui-icon-checked` and `.ui-icon-unchecked` icons, computed to fit beside the dot.",
+    kind: "output",
+  },
+  "--_input-size": {
+    description: "Height the label centers on, `--_track-height`.",
     kind: "output",
   },
   "--_motion": {

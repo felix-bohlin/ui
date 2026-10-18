@@ -3,10 +3,10 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 </script>
 
 <template>
-  <Tooltip id="tooltip-basic">
+  <Tooltip id="tooltip-basics-1">
     <Button
-      interestfor="tooltip-basic"
-      commandfor="tooltip-basic"
+      interestfor="tooltip-basics-1"
+      commandfor="tooltip-basics-1"
       command="toggle-popover"
       >Save</Button
     >

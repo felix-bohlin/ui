@@ -45,6 +45,11 @@ export default {
       "Inline padding of `.ui-content`. Defaults to `--_padding-inline`.",
     kind: "input",
   },
+  "--_divider-color": {
+    description:
+      "Color of the border between items in a group. Defaults to `--border-color`.",
+    kind: "input",
+  },
   "--_duration": {
     description: "Duration of the transitions, `--duration` times `--_motion`.",
     kind: "output",
@@ -61,11 +66,6 @@ export default {
   "--_group-radius": {
     description:
       "Corner radius of the first and last item in a group. Defaults to `--border-radius`.",
-    kind: "input",
-  },
-  "--_gutter-color": {
-    description:
-      "Color of the border between items in a group. Defaults to `--border-color`.",
     kind: "input",
   },
   "--_item-padding-inline": {

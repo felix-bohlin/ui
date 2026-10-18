@@ -1,0 +1,26 @@
+---
+import type { AstroInstance } from "astro"
+import { FRAMEWORK_IDS } from "../../../utils/framework"
+
+export const pages = Object.fromEntries(
+  Object.entries(
+    import.meta.glob<AstroInstance>("../../../docs/guide/*.astro", {
+      eager: true,
+    }),
+  ).map(([path, module]) => [
+    path.split("/").pop()!.replace(".astro", ""),
+    module.default,
+  ]),
+)
+
+export const getStaticPaths = () =>
+  FRAMEWORK_IDS.flatMap((framework) =>
+    Object.keys(pages)
+      .toSorted()
+      .map((page) => ({ params: { framework, page } })),
+  )
+
+const Page = pages[Astro.params.page]
+---
+
+<Page />

@@ -1,5 +1,6 @@
 ---
 import "@opui/css/imports.css"
+import ThemeBootstrap from "../../../components/ThemeBootstrap.astro"
 import { allBlocks, isFullPage } from "../../../utils/blocks"
 
 export function getStaticPaths() {
@@ -20,6 +21,7 @@ const fullPage = isFullPage(block.source)
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
     <title>{`${block.name} - Open Props UI blocks`}</title>
+    <ThemeBootstrap />
     <script is:inline>
       {
         const root = document.documentElement
@@ -40,23 +42,6 @@ const fullPage = isFullPage(block.source)
             attributeFilter: ["class", "style"],
             attributes: true,
           })
-        } else {
-          try {
-            const theme = localStorage.getItem("theme")
-            const contrast = localStorage.getItem("contrast")
-            if (theme) root.classList.add(`ui-${theme}`)
-            if (contrast) root.classList.add(`ui-contrast-${contrast}`)
-            const custom = localStorage.getItem(
-              `opui-custom-theme-${theme ?? "light"}`,
-            )
-            for (const [name, value] of Object.entries(
-              custom ? JSON.parse(custom) : {},
-            )) {
-              if (name === "enable-grays")
-                root.classList.toggle("no-grays", value === "false")
-              else root.style.setProperty(name, value)
-            }
-          } catch {}
         }
       }
     </script>

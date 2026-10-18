@@ -2,13 +2,13 @@
 import Code from "../../components/Code.astro"
 
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
-import CodeBlockHtml from "../../component-examples/typography/CodeBlock.html?raw"
 
 import LinkCSS from "@opui/css/components/link.css?raw"
 import TypographyCSS from "@opui/css/components/typography.css?raw"
+
+import typographyApi from "../../component-api/typography/api"
 ---
 
 <Component
@@ -26,6 +26,7 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
     "scrollbar-width",
     "text-wrap-pretty",
   ]}
+  apis={[{ title: "Typography API", api: typographyApi }]}
   changelogPaths={[
     { path: "src/docs/components/typography.astro", type: "docs" },
     { path: "src/component-examples/typography", type: "docs" },
@@ -69,10 +70,7 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
     <AutoExample name="Link" />
 
     <h3 id="code-block">Code block</h3>
-    <Example column>
-      <Example.Preview slot="preview-html" code={CodeBlockHtml} />
-      <Example.Preview slot="preview-astro" code={CodeBlockHtml} />
-    </Example>
+    <AutoExample name="CodeBlock" column />
   </section>
 
   <section>
@@ -100,12 +98,12 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
           <tr>
             <td><strong>Bold</strong></td>
             <td><code>&lt;strong&gt;</code>, <code>&lt;b&gt;</code></td>
-            <td>—</td>
+            <td>None</td>
           </tr>
           <tr>
             <td><i>Italic</i></td>
             <td><code>&lt;i&gt;</code>, <code>&lt;em&gt;</code></td>
-            <td>—</td>
+            <td>None</td>
           </tr>
           <tr>
             <td><cite class="ui-cite">Citation</cite></td>
@@ -197,7 +195,8 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
     <h3 id="rich-text-showcase">Classless showcase</h3>
     <p>
       Let's put everything together and see how all elements look in a
-      classless, rich-text context.
+      classless, rich-text context. It's plain HTML on every framework page, the
+      way rich text arrives from a CMS.
     </p>
     <AutoExample name="Default" />
   </section>

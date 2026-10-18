@@ -6,7 +6,6 @@ pnpm-workspace.yaml
 dist
 node_modules
 dist-test
-packages/opui/components/AGENTS.md
 playwright-report
 public/search-index.json
 test-results

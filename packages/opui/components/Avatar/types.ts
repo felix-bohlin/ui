@@ -1,8 +1,4 @@
 export type Props = {
-  command?: string
-  commandfor?: string
-  interestfor?: string
-  isGroup?: boolean
   size?: "x-small" | "small" | "large"
   variant?: "squared" | "rounded" | "squircle"
 } & (
@@ -17,7 +13,7 @@ export type Props = {
       disabled?: never
     }
   | {
-      as?: "button"
+      as: "button"
       href?: never
       disabled?: boolean
     }
@@ -32,6 +28,8 @@ export type Props = {
         src?: never
       }
   )
+
+export type AvatarGroupProps = {}
 
 export type Slots<S> = {
   children?: S

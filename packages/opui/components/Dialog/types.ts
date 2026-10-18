@@ -1,4 +1,6 @@
-export type Props = {}
+export type Props = {
+  closedby?: "any" | "closerequest" | "none"
+}
 
 export type DialogActionsProps = {
   align?: "start" | "end"
@@ -7,3 +9,7 @@ export type DialogActionsProps = {
 export type DialogContentProps = {}
 
 export type DialogHeaderProps = {}
+
+export type Context = {
+  headerId?: string
+}

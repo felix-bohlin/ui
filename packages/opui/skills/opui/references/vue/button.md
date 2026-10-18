@@ -98,19 +98,19 @@ import { Button } from "opui-css/vue"
 
   <Button size="x-small" variant="outlined">
     <span class="ui-text">x-small</span>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button size="small" variant="outlined">
     <span class="ui-text">Small</span>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="outlined">
     <span class="ui-text">Default</span>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="outlined" size="large">
     <span class="ui-text">Large</span>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
 </template>
 ```
@@ -127,35 +127,35 @@ import { Button } from "opui-css/vue"
 <template>
   <Button>
     <span class="ui-text">Text</span>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="outlined">
     <span class="ui-text">Outlined</span>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="tonal">
     <span class="ui-text">Tonal</span>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="filled">
     <span class="ui-text">Filled</span>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
   </Button>
 
   <Button>
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
     <span class="ui-text">Text</span>
   </Button>
   <Button variant="outlined">
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
     <span class="ui-text">Outlined</span>
   </Button>
   <Button variant="tonal">
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
     <span class="ui-text">Tonal</span>
   </Button>
   <Button variant="filled">
-    <svg><!-- --></svg>
+    <svg aria-hidden="true"><!-- --></svg>
     <span class="ui-text">Filled</span>
   </Button>
 </template>
@@ -179,7 +179,7 @@ import { Button } from "opui-css/vue"
 
 ## Icon-only
 
-Set `icon-only` and name the button with `label`, which renders `aria-label`. The types require `label` when `icon-only` is set. Add `rounded` for a circle.
+Set `iconOnly` and name the button with `aria-label`. The types require `aria-label` when `iconOnly` is set. Add `round` for a circle.
 
 ```vue
 <script setup lang="ts">
@@ -188,8 +188,9 @@ import { Button } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <Button icon-only label="Edit">
+    <Button aria-label="Edit" iconOnly>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -201,36 +202,9 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button icon-only label="Edit" rounded>
+    <Button aria-label="Edit" iconOnly round>
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-        ></path>
-      </svg>
-    </Button>
-  </div>
-  <div class="example-row">
-    <Button icon-only label="Edit" variant="outlined">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-        ></path>
-      </svg>
-    </Button>
-    <Button icon-only label="Edit" rounded variant="outlined">
-      <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -244,8 +218,9 @@ import { Button } from "opui-css/vue"
     </Button>
   </div>
   <div class="example-row">
-    <Button icon-only label="Edit" variant="tonal">
+    <Button aria-label="Edit" iconOnly variant="outlined">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -257,36 +232,9 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button icon-only label="Edit" rounded variant="tonal">
+    <Button aria-label="Edit" iconOnly round variant="outlined">
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-        ></path>
-      </svg>
-    </Button>
-  </div>
-  <div class="example-row">
-    <Button icon-only label="Edit" variant="filled">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
-        ></path>
-      </svg>
-    </Button>
-    <Button icon-only label="Edit" rounded variant="filled">
-      <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -300,8 +248,9 @@ import { Button } from "opui-css/vue"
     </Button>
   </div>
   <div class="example-row">
-    <Button icon-only label="Edit" rounded size="x-small" variant="tonal">
+    <Button aria-label="Edit" iconOnly variant="tonal">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -313,8 +262,9 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button icon-only label="Edit" rounded size="small" variant="tonal">
+    <Button aria-label="Edit" iconOnly round variant="tonal">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -326,8 +276,11 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button icon-only label="Edit" rounded variant="tonal">
+  </div>
+  <div class="example-row">
+    <Button aria-label="Edit" iconOnly variant="filled">
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -339,8 +292,67 @@ import { Button } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button icon-only label="Edit" rounded size="large" variant="tonal">
+    <Button aria-label="Edit" iconOnly round variant="filled">
       <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+        ></path>
+      </svg>
+    </Button>
+  </div>
+  <div class="example-row">
+    <Button aria-label="Edit" iconOnly round size="x-small" variant="tonal">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+        ></path>
+      </svg>
+    </Button>
+    <Button aria-label="Edit" iconOnly round size="small" variant="tonal">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+        ></path>
+      </svg>
+    </Button>
+    <Button aria-label="Edit" iconOnly round variant="tonal">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+        ></path>
+      </svg>
+    </Button>
+    <Button aria-label="Edit" iconOnly round size="large" variant="tonal">
+      <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -358,7 +370,7 @@ import { Button } from "opui-css/vue"
 
 ## Disabled
 
-Disable the button with the `disabled` prop. Links can't be disabled, so with `href` it sets `aria-disabled="true"` and blocks clicks instead. The link can still be focused and followed with `Enter`.
+Disable the button with the `disabled` prop. Links can't be disabled, so with `href` it drops the `href` and sets `aria-disabled="true"` instead. The link can't be clicked or focused.
 
 ```vue
 <script setup lang="ts">
@@ -379,17 +391,17 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ### Button API
 
-| Prop       | Type                                  | Default | Description                                                                 |
-| ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `as`       | `"a"` , `"button"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
-| `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
-| `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
-| `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |
-| `iconOnly` | `boolean`                             | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
-| `label`    | `string`                              | -       | The accessible name. Use it on icon-only buttons.                           |
-| `rounded`  | `boolean`                             | `false` | Fully rounded corners, a circle when icon-only.                             |
-| `size`     | `"small"` , `"x-small"` , `"large"`   | -       | The size of the element.                                                    |
-| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant to use.                                                         |
+| Prop         | Type                                  | Default    | Description                                                                          |
+| ------------ | ------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| `aria-label` | `string`                              | -          | The accessible name. Required with `iconOnly`, for buttons without visible text.     |
+| `as`         | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.                                |
+| `color`      | `"critical"` , `"primary"`            | -          | Optional colors.                                                                     |
+| `disabled`   | `boolean`                             | `false`    | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
+| `href`       | `string`                              | -          | The link to use. Renders an `<a>`.                                                   |
+| `iconOnly`   | `boolean`                             | `false`    | Marks the button as icon-only, so `aria-label` is required. Types only.              |
+| `round`      | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                                      |
+| `size`       | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                                             |
+| `variant`    | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                                  |
 
 #### Slots
 
@@ -402,6 +414,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | Variable                      | Default                                                                               | Description                                                                                                                                                                                                                      |
 | ----------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-radius`             | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`              | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
 | `--button-border-radius`      | Unset                                                                                 | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--border-radius`, also where it's set on a part of the page.                                                               |
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                                                                                                                         |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                                                                                                                                |
@@ -448,6 +461,8 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_border-width`             | Input  | The border width.                                                                                                             |
 | `--_default-active-bg-color`  | Output | Pressed background of text buttons, from `--_accent`.                                                                         |
 | `--_default-hover-bg-color`   | Output | Hover background of text buttons, from `--_accent`.                                                                           |
+| `--_duration`                 | Output | Duration of the transitions, `--duration-fast` times `--_motion`.                                                             |
+| `--_ease`                     | Input  | Easing of the transitions. Defaults to `--ease`.                                                                              |
 | `--_filled-active-bg-color`   | Output | Pressed background of filled buttons, from `--_accent`.                                                                       |
 | `--_filled-hover-bg-color`    | Output | Hover background of filled buttons, from `--_accent`.                                                                         |
 | `--_font-size`                | Input  | The font size. Set by the size classes.                                                                                       |
@@ -547,17 +562,25 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/vue`:
 
-- `opui-css/css/components/button.css`
+### Used by
+
+- [Button Group](https://open-props-ui.netlify.app/vue/components/button-group.md)
+
+* `opui-css/css/components/button.css`
 
 ## Changelog
 
 ### What's new
 
-- [Icon-only](#icon-only) buttons need no extra class, and `rounded` makes them round.
-- Replaces `IconButton`. An [icon-only](#icon-only) button is a `Button` with just an `svg`.
+- [Icon-only](#icon-only) buttons need no extra class, and `round` makes them round.
+- Breaking: replaces `IconButton`. An [icon-only](#icon-only) button is a `Button` with just an `svg`.
 - Breaking: icon styles only apply to a direct child `svg`. Wrap the label in a `<span class="ui-text">` next to an icon to [tighten the padding](#buttons-with-icon-and-label), or the button renders as icon-only.
 - Links with `aria-disabled="true"` [look and act disabled](#disabled).
 - Breaking: no `.ui-disabled` on a [disabled](#disabled) button. Style `:disabled` or `[aria-disabled="true"]`.
 - [Primary and critical](#colors) colors pass contrast in light and dark mode.
 - Breaking: buttons render `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.
+- [`iconOnly`](#icon-only) makes `aria-label` required on icon-only buttons (types only).
+- Breaking: `--_color`, `--_color-contrast` and `--_color-tonal` are `--_accent`, `--_accent-contrast` and `--_accent-tonal` ([Under the hood](#under-the-hood)).
+- Breaking: [disabled links](#disabled) have no `href`, so they can't be focused or followed.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--border-radius` through [`--button-border-radius`](#api), so one token squares or rounds every component.

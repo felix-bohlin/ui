@@ -8,7 +8,6 @@ import {
   Callout as UICallout,
   CalloutContent as UICalloutContent,
   CalloutIcon as UICalloutIcon,
-  CalloutTitle as UICalloutTitle,
   Dialog as UIDialog,
   DialogActions as UIDialogActions,
   DialogContent as UIDialogContent,
@@ -21,23 +20,16 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-} from "@opui/astro"
+} from "opui-css/astro"
 
 import DialogCSS from "@opui/css/components/dialog.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
 
 import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
-import {
-  componentHasFramework,
-  DEFAULT_FRAMEWORK,
-  type FrameworkId,
-} from "../../utils/framework-routing"
+import { componentHasFramework } from "../../utils/framework"
 
-const hasToast = componentHasFramework(
-  (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId,
-  "toast",
-)
+const hasToast = componentHasFramework(Astro.locals.framework, "toast")
 
 import dialogApi from "../../component-api/dialog/api"
 import dialogActionsApi from "../../component-api/dialog-actions/api"
@@ -99,7 +91,7 @@ export const description =
   <div class="ui-not-rich-text">
     <UICallout>
       <UICalloutContent>
-        <UICalloutTitle>Modal vs dialog</UICalloutTitle>
+        <h3>Modal vs dialog</h3>
         <p>
           The terms "modal" and "dialog" are often used interchangeably, but
           there's an important difference. A modal window describes parts of a
@@ -144,7 +136,7 @@ export const description =
       <UICallout severity="info">
         <UICalloutIcon />
         <UICalloutContent>
-          <UICalloutTitle>HTML only</UICalloutTitle>
+          <h3>HTML only</h3>
           <p>
             In browsers that support <a
               href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
@@ -157,7 +149,7 @@ export const description =
     </div>
 
     <Conditional>
-      <p slot="astro">
+      <p slot="components">
         Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
         <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
         it gets an <code>aria-labelledby</code> that points at the header. A dialog
@@ -169,33 +161,15 @@ export const description =
         > and the buttons in <code>.ui-actions</code>. Name the dialog by
         pointing <code>aria-labelledby</code> at its title.
       </p>
-      <p slot="react">
-        Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
-        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
-        it gets an <code>aria-labelledby</code> that points at the header. A dialog
-        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
-      </p>
-      <p slot="svelte">
-        Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
-        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
-        it gets an <code>aria-labelledby</code> that points at the header. A dialog
-        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
-      </p>
-      <p slot="vue">
-        Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
-        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
-        it gets an <code>aria-labelledby</code> that points at the header. A dialog
-        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
-      </p>
     </Conditional>
 
-    <AutoExample name="Usage" row />
+    <AutoExample name="Basics" row />
   </section>
 
   <section>
     <h2 id="actions">Actions</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Actions sit at the end. Set <code>align="start"</code> on <code
           >DialogActions</code
         > to move them to the start.
@@ -203,21 +177,6 @@ export const description =
       <Fragment slot="html">
         Actions sit at the end. Add <code>.ui-align-start</code> to <code
           >.ui-actions</code
-        > to move them to the start.
-      </Fragment>
-      <Fragment slot="react">
-        Actions sit at the end. Set <code>align="start"</code> on <code
-          >DialogActions</code
-        > to move them to the start.
-      </Fragment>
-      <Fragment slot="svelte">
-        Actions sit at the end. Set <code>align="start"</code> on <code
-          >DialogActions</code
-        > to move them to the start.
-      </Fragment>
-      <Fragment slot="vue">
-        Actions sit at the end. Set <code>align="start"</code> on <code
-          >DialogActions</code
         > to move them to the start.
       </Fragment>
     </Conditional>
@@ -252,7 +211,7 @@ export const description =
   <section>
     <h2 id="long-content">Long content</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         The dialog grows up to 85% of the viewport height. The header and
         actions stay put while the <code>DialogContent</code> scrolls, with a shadow
         on the scrolled edge. A modal dialog also locks page scroll.
@@ -261,21 +220,6 @@ export const description =
         The dialog grows up to 85% of the viewport height. The header and
         actions stay put while <code>.ui-content</code> scrolls, with a shadow on
         the scrolled edge. A modal dialog also locks page scroll.
-      </Fragment>
-      <Fragment slot="react">
-        The dialog grows up to 85% of the viewport height. The header and
-        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
-        on the scrolled edge. A modal dialog also locks page scroll.
-      </Fragment>
-      <Fragment slot="svelte">
-        The dialog grows up to 85% of the viewport height. The header and
-        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
-        on the scrolled edge. A modal dialog also locks page scroll.
-      </Fragment>
-      <Fragment slot="vue">
-        The dialog grows up to 85% of the viewport height. The header and
-        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
-        on the scrolled edge. A modal dialog also locks page scroll.
       </Fragment>
     </Conditional>
 

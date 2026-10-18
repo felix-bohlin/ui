@@ -1,21 +1,24 @@
 ---
-const docs = import.meta.glob("../../docs/learn/*.astro", {
-  eager: true,
-})
+import type { AstroInstance } from "astro"
 
-const slugOf = (path: string) => path.split("/").pop()!.replace(".astro", "")
+export const posts = Object.fromEntries(
+  Object.entries(
+    import.meta.glob<AstroInstance>("../../docs/learn/*.astro", {
+      eager: true,
+    }),
+  ).map(([path, module]) => [
+    path.split("/").pop()!.replace(".astro", ""),
+    module.default,
+  ]),
+)
 
-export function getStaticPaths() {
-  return Object.keys(import.meta.glob("../../docs/learn/*.astro"))
-    .map((path) => path.split("/").pop()!.replace(".astro", ""))
+export const getStaticPaths = () =>
+  Object.keys(posts)
     .filter((slug) => slug !== "index")
-    .sort()
-    .map((slug) => ({ params: { post: slug } }))
-}
+    .toSorted()
+    .map((post) => ({ params: { post } }))
 
-const { post } = Astro.params
-const match = Object.entries(docs).find(([path]) => slugOf(path) === post)
-const Doc = (match![1] as { default: any }).default
+const Doc = posts[Astro.params.post]
 ---
 
 <Doc />

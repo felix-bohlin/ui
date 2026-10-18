@@ -1,5 +1,5 @@
 ---
-import { Button, Checkbox } from "@opui/astro"
+import { Button, Checkbox } from "opui-css/astro"
 import BuildUp from "./BuildUp.astro"
 
 const steps = [
@@ -21,7 +21,7 @@ const steps = [
 
 .drawer > .content {
   flex: 1;
-  overflow-y: auto;
+  overflow-block: auto;
   overscroll-behavior: contain;
 }`,
     features: [
@@ -261,7 +261,7 @@ const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width=
             aria-label="Close"
             command="close"
             commandfor={drawer.id}
-            rounded
+            round
             size="small"
           >
             <Fragment set:html={close} />

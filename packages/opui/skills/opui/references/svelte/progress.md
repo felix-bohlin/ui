@@ -28,7 +28,7 @@ See also: [Spinner](https://open-props-ui.netlify.app/svelte/components/spinner.
   })
 </script>
 
-<Progress id="determinate-progress" max="100" {value} />
+<Progress id="progress-determinate-1" max="100" {value} />
 ```
 
 ## Variants
@@ -60,9 +60,9 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 | Prop       | Type                   | Default   | Description                                                          |
 | ---------- | ---------------------- | --------- | -------------------------------------------------------------------- |
 | `children` | `Snippet`              | -         | Fallback content inside the `<progress>`.                            |
-| `max`      | `string` , `number`    | -         | The maximum value.                                                   |
-| `value`    | `string` , `number`    | -         | The current value. Omit it for an indeterminate state.               |
-| `variant`  | `"tonal"` , `"filled"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
+| `max`      | `number` , `string`    | -         | The maximum value.                                                   |
+| `value`    | `number` , `string`    | -         | The current value. Omit it for an indeterminate state.               |
+| `variant`  | `"filled"` , `"tonal"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
 
 #### CSS variables
 
@@ -80,17 +80,19 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.
+Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `style` goes to the root `<div>`.
 
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
 
-| Property      | Kind  | Description                                                                 |
-| ------------- | ----- | --------------------------------------------------------------------------- |
-| `--_accent`   | Input | Color of the bar. Defaults to `--primary`.                                  |
-| `--_bg-color` | Input | Color of the track. Set by `.ui-filled` and `.ui-tonal`.                    |
-| `--_motion`   | Input | Motion multiplier for the value transition and the indeterminate animation. |
+| Property      | Kind   | Description                                                                 |
+| ------------- | ------ | --------------------------------------------------------------------------- |
+| `--_accent`   | Input  | Color of the bar. Defaults to `--primary`.                                  |
+| `--_bg-color` | Input  | Color of the track. Set by `.ui-filled` and `.ui-tonal`.                    |
+| `--_duration` | Output | Duration of the value transition, `--duration` times `--_motion`.           |
+| `--_ease`     | Input  | Easing of the value transition. Defaults to `--ease-enter`.                 |
+| `--_motion`   | Input  | Motion multiplier for the value transition and the indeterminate animation. |
 
 ## Under the hood
 
@@ -241,3 +243,10 @@ Import the component from `opui-css/svelte`:
 
 - `opui-css/css/components/progress.css`
 
+## Changelog
+
+### What's new
+
+- Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).
+- [Progress bars](#indeterminate) center in table cells and lines of text.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

@@ -1,20 +1,9 @@
 <script setup lang="ts">
 import { computed } from "vue"
+import { tagAttrs } from "../tag"
 import type { Props, Slots } from "./types.d.vue"
 
-const {
-  alt,
-  as,
-  command,
-  commandfor,
-  disabled,
-  href,
-  interestfor,
-  isGroup,
-  size,
-  src,
-  variant,
-} = defineProps<Props>()
+const { alt, as, disabled, href, size, src, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
 const Tag = computed(() => as || (href ? "a" : "div"))
@@ -24,18 +13,12 @@ const Tag = computed(() => as || (href ? "a" : "div"))
   <component
     :is="Tag"
     :class="[
-      { 'ui-avatar': !isGroup, 'ui-avatar-group': isGroup },
-      !isGroup && size && `ui-${size}`,
-      !isGroup && variant && `ui-${variant}`,
+      'ui-avatar',
+      size && `ui-${size}`,
+      variant && `ui-${variant}`,
       $props.class,
     ]"
-    :command="command"
-    :commandfor="commandfor"
-    :disabled="disabled"
-    :href="href"
-    :interestfor="interestfor"
-    :role="isGroup ? 'group' : undefined"
-    :type="Tag === 'button' ? 'button' : undefined"
+    v-bind="tagAttrs(Tag, disabled, href)"
   >
     <img v-if="src" :src="src" :alt="alt ?? ''" />
     <slot v-else></slot>

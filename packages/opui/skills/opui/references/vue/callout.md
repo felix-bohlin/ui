@@ -18,11 +18,7 @@ Supporting text that explains the callout in more detail.
 
 - `<CalloutContent>`
 
-  The content.
-
-- `<CalloutTitle>`
-
-  An optional title inside the content.
+  The content, with an optional heading first.
 
 ### Alternatives
 
@@ -32,17 +28,17 @@ You might want to check out:
 
 ## Variants
 
-Tonal (default) and outlined variants are available via the `variant` prop. Put the text in `CalloutContent`, with an optional `CalloutTitle` first. The title is an `<h3>`; set `level` for another heading level.
+Tonal (default) and outlined variants are available via the `variant` prop. Put the text in `CalloutContent`, with an optional heading such as an `<h3>` first. Every heading level gets the same title style.
 
 ```vue
 <script setup lang="ts">
-import { Callout, CalloutContent, CalloutTitle } from "opui-css/vue"
+import { Callout, CalloutContent } from "opui-css/vue"
 </script>
 
 <template>
   <Callout>
     <CalloutContent>
-      <CalloutTitle>Note</CalloutTitle>
+      <h3>Note</h3>
       <p>
         This is a tonal Callout. Notice the lack of icons - it's not really
         needed here.
@@ -51,12 +47,11 @@ import { Callout, CalloutContent, CalloutTitle } from "opui-css/vue"
   </Callout>
   <Callout variant="outlined">
     <CalloutContent>
-      <CalloutTitle>Another Callout</CalloutTitle>
+      <h3>Another Callout</h3>
       <p>
         This is an outlined Callout. Why not use a
-        <a class="ui-link" href="/components/card">Card</a> since they look very
-        similar? For one, the Callout is a more focused component with different
-        properties.
+        <a class="ui-link" href="#">Card</a> since they look very similar? For
+        one, the Callout is a more focused component with different properties.
       </p>
     </CalloutContent>
   </Callout>
@@ -187,37 +182,6 @@ import { Callout, CalloutContent } from "opui-css/vue"
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.
-
-### Callout title API
-
-| Prop    | Type                        | Default | Description                     |
-| ------- | --------------------------- | ------- | ------------------------------- |
-| `level` | `2` , `3` , `4` , `5` , `6` | `3`     | The heading level of the title. |
-
-#### Slots
-
-| Slot      | Description     |
-| --------- | --------------- |
-| `default` | The title text. |
-
-#### CSS variables
-
-| Variable                 | Default                                      | Description                                                                                                                                                                                                                      |
-| ------------------------ | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
-| `--border-radius`        | `var(--size-2)`                              | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--border-width`         | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--font-size-05`         | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--font-weight-semibold` | `var(--font-weight-6)`                       | Font weight for labels, table headers and titles.                                                                                                                                                                                |
-| `--icon-size`            | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                                                                             |
-| `--primary`              | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                                                     |
-| `--space-2`              | `calc(var(--size-2) * var(--space-scale))`   | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                     |
-| `--space-3`              | `calc(var(--size-3) * var(--space-scale))`   | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                     |
-| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                                                                                                                                        |
-| `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                                                    |
-| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 ## Component properties
 
@@ -388,11 +352,13 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 Import the components from `opui-css/vue`:
 
 - `opui-css/css/components/callout.css`
+
 `theme tokens (snippet)`
 
 ## Changelog
 
 ### What's new
 
-- Breaking: [`CalloutIcon`](#icon), `CalloutContent` and `CalloutTitle` replace the automatic icon, the content wrapper and the slots, and `level` on `CalloutTitle` replaces `headingLevel`.
+- Breaking: [`CalloutIcon`](#icon) and [`CalloutContent`](#variants) replace the automatic icon, the content wrapper and the slots. Write the title as a plain heading in `CalloutContent` instead of the `title` slot and `headingLevel`.
 - [`CalloutIcon`](#icon) has a `success` icon, like `info`, `warning` and `critical`.
+- Breaking: `--_color` is `--_text-color`, `--_outlined-color` is `--_outlined-text-color` and `--_surface-bg` is `--_surface-bg-color` ([Under the hood](#under-the-hood)).

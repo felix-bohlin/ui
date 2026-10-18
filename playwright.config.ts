@@ -35,9 +35,12 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   webServer: {
-    command: "pnpm test:e2e:serve",
+    command: process.env.E2E_PREBUILT
+      ? "pnpm test:e2e:preview"
+      : "pnpm test:e2e:serve",
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
     url: "http://localhost:4322/html/test/button/",
   },
+  workers: process.env.CI ? "100%" : undefined,
 })

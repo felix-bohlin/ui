@@ -5,7 +5,6 @@ import { Range } from "opui-css/vue"
 <template>
   <Range
     label="Tick marks with labels"
-    list="labeled-markers"
     :options="[
       { value: 0, label: '0%' },
       { value: 25, label: '25%' },

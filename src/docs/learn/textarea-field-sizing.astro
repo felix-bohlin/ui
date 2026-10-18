@@ -42,9 +42,7 @@ import Code from "../../components/Code.astro"
   block-size: auto;
   field-sizing: content;
   max-block-size: var(--_max-block-size, 20lh);
-  min-block-size: calc(
-    var(--padding-block) * 2 + var(--border-width) * 2 + 3lh
-  );
+  min-block-size: calc(var(--_field-padding-block-fit) * 2 + 3lh);
   resize: block;
 }`}
     />

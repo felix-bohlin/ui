@@ -1,15 +1,17 @@
 @layer components.root {
   :where(.ui-card) {
-    --_elevated-bg-color: var(--surface-elevated);
-    --_outlined-border-color: var(--border-color);
-    --_surface-bg-color: var(--surface-default);
-    --_tonal-bg-color: var(--surface-tonal);
+    --_motion: var(--motion);
     --_bg-color: var(--_surface-bg-color);
     --_border-color: transparent;
     --_border-width: 0;
-
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease);
+    --_elevated-bg-color: var(--surface-elevated);
+    --_elevated-shadow: var(--shadow-raised);
+    --_outlined-border-color: var(--border-color);
     --_shadow: none;
-    --_shadow-elevated: var(--shadow-raised);
+    --_surface-bg-color: var(--surface-default);
+    --_tonal-bg-color: var(--surface-tonal);
 
     background-color: var(--_bg-color);
     border-color: var(--_border-color);
@@ -44,7 +46,7 @@
       --_bg-color: var(--_elevated-bg-color);
       --_border-color: var(--_surface-bg-color);
       --_border-width: var(--border-width);
-      --_shadow: var(--_shadow-elevated);
+      --_shadow: var(--_elevated-shadow);
     }
 
     &.ui-outlined {
@@ -100,7 +102,7 @@
       padding-block: var(--space-2);
       padding-inline: var(--space-3);
 
-      &:has(.ui-button:first-child[class="ui-button"]) {
+      &:has(> .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
         padding-inline: max(0px, var(--space-3) - var(--size-3) + var(--size-1))
           var(--space-3);
       }
@@ -109,11 +111,15 @@
       &.ui-align-end {
         justify-content: end;
 
-        &:has(.ui-button:first-child[class="ui-button"]) {
+        &:has(
+          > .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)
+        ) {
           padding-inline: var(--space-3);
         }
 
-        &:has(.ui-button:last-child[class="ui-button"]) {
+        &:has(
+          > .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)
+        ) {
           padding-inline: var(--space-3)
             max(0px, var(--space-3) - var(--size-3) + var(--size-1));
         }
@@ -131,9 +137,9 @@
     &:has(.ui-card-link:focus-visible):not(
         :has(.ui-card .ui-card-link:focus-visible)
       ) {
-      animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
+      animation: ui-focus-ring var(--_duration) var(--_ease);
       outline: var(--focus-ring-width) var(--focus-ring-style)
-        var(--focus-ring-color, var(--_focus-visible-color));
+        var(--focus-ring-color);
       outline-offset: var(--focus-ring-offset);
     }
   }

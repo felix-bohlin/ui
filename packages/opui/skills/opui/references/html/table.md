@@ -6,10 +6,15 @@
 | ------ | ---- |
 | Card   | 2 kB |
 | Dialog | 3 kB |
+| Total  | 5 kB |
 
 - `table.ui-table`
 
   Container element.
+
+- `<caption>`
+
+  An optional title for the table.
 
 - `<thead>`
 
@@ -30,6 +35,10 @@
 - `<td>`
 
   A data cell.
+
+- `<tfoot>`
+
+  Optional footer rows, such as totals.
 
 ## Variants
 
@@ -104,22 +113,7 @@ Change the cell padding with the `.ui-dense` or `.ui-spacious` class.
       <td>Jonathan Davis</td>
       <td>Vocals</td>
     </tr>
-    <tr>
-      <td>Broken Bells</td>
-      <td>James Mercer</td>
-      <td>Vocals/Guitar</td>
-    </tr>
-    <tr>
-      <td>Pink Floyd</td>
-      <td>David Gilmour</td>
-      <td>Guitar/Vocals</td>
-    </tr>
   </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3">All great bands!</td>
-    </tr>
-  </tfoot>
 </table>
 ```
 
@@ -148,22 +142,7 @@ Change the cell padding with the `.ui-dense` or `.ui-spacious` class.
       <td>Jonathan Davis</td>
       <td>Vocals</td>
     </tr>
-    <tr>
-      <td>Broken Bells</td>
-      <td>James Mercer</td>
-      <td>Vocals/Guitar</td>
-    </tr>
-    <tr>
-      <td>Pink Floyd</td>
-      <td>David Gilmour</td>
-      <td>Guitar/Vocals</td>
-    </tr>
   </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3">All great bands!</td>
-    </tr>
-  </tfoot>
 </table>
 ```
 
@@ -341,14 +320,16 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 
 #### Parts
 
-| Part             | Description        |
-| ---------------- | ------------------ |
-| `table.ui-table` | Container element. |
-| `<thead>`        | The header rows.   |
-| `<th>`           | A header cell.     |
-| `<tbody>`        | The body rows.     |
-| `<tr>`           | A row.             |
-| `<td>`           | A data cell.       |
+| Part             | Description                           |
+| ---------------- | ------------------------------------- |
+| `table.ui-table` | Container element.                    |
+| `<caption>`      | An optional title for the table.      |
+| `<thead>`        | The header rows.                      |
+| `<th>`           | A header cell.                        |
+| `<tbody>`        | The body rows.                        |
+| `<tr>`           | A row.                                |
+| `<td>`           | A data cell.                          |
+| `<tfoot>`        | Optional footer rows, such as totals. |
 
 #### CSS variables
 
@@ -358,6 +339,71 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 | `--border-radius`        | `var(--size-2)`                             | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
 | `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                                          |
 | `--duration`             | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
+| `--ease`                 | `ease`                                      | Default easing for transitions.                                                                                                                                                                                                  |
+| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                                                                                                                                                |
+| `--motion`               | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
+| `--space-1`              | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                                                     |
+| `--space-2`              | `calc(var(--size-2) * var(--space-scale))`  | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                     |
+| `--space-3`              | `calc(var(--size-3) * var(--space-scale))`  | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                     |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                                        |
+| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                                                                                                                                 |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+
+### Table column group API
+
+#### Parts
+
+| Part         | Description                                |
+| ------------ | ------------------------------------------ |
+| `<colgroup>` | A group of columns, before the table head. |
+
+#### CSS variables
+
+| Variable                 | Default                                     | Description                                                                                                                                                                                                                      |
+| ------------------------ | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
+| `--border-radius`        | `var(--size-2)`                             | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--duration`             | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
+| `--ease`                 | `ease`                                      | Default easing for transitions.                                                                                                                                                                                                  |
+| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                                                                                                                                                |
+| `--motion`               | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
+| `--space-1`              | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                                                     |
+| `--space-2`              | `calc(var(--size-2) * var(--space-scale))`  | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                     |
+| `--space-3`              | `calc(var(--size-3) * var(--space-scale))`  | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                     |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                                                        |
+| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                                                                                                                                 |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+
+### Table column API
+
+| Type  | Modifiers | Default | Description                            |
+| ----- | --------- | ------- | -------------------------------------- |
+| Width | `width`   | -       | The column width, merged into `style`. |
+
+#### Parts
+
+| Part    | Description                          |
+| ------- | ------------------------------------ |
+| `<col>` | A column, inside `TableColumnGroup`. |
+
+#### CSS variables
+
+| Variable                 | Default                                     | Description                                                                                                                                                                                                                      |
+| ------------------------ | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
+| `--border-radius`        | `var(--size-2)`                             | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--duration`             | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
+| `--ease`                 | `ease`                                      | Default easing for transitions.                                                                                                                                                                                                  |
 | `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
 | `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                                                                                                                                                |
 | `--motion`               | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
@@ -375,12 +421,14 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property           | Kind  | Description                                                                                   |
-| ------------------ | ----- | --------------------------------------------------------------------------------------------- |
-| `--_border-radius` | Input | Corner radius of the table and its corner cells. Defaults to `--border-radius`.               |
-| `--_motion`        | Input | Motion multiplier for the header shadow transition in `.ui-sticky-header`. `0` turns it off.  |
-| `--_scroll-shadow` | Input | Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--shadow-4`.                  |
-| `--_sticky-offset` | Input | Distance from the top of the scroll container where the header of `.ui-sticky-header` sticks. |
+| Property           | Kind   | Description                                                                                   |
+| ------------------ | ------ | --------------------------------------------------------------------------------------------- |
+| `--_border-radius` | Input  | Corner radius of the table and its corner cells. Defaults to `--border-radius`.               |
+| `--_duration`      | Output | Duration of the header shadow transition, `--duration` times `--_motion`.                     |
+| `--_ease`          | Input  | Easing of the header shadow transition. Defaults to `--ease`.                                 |
+| `--_motion`        | Input  | Motion multiplier for the header shadow transition in `.ui-sticky-header`. `0` turns it off.  |
+| `--_scroll-shadow` | Input  | Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--shadow-4`.                  |
+| `--_sticky-offset` | Input  | Distance from the top of the scroll container where the header of `.ui-sticky-header` sticks. |
 
 ## Under the hood
 
@@ -552,3 +600,5 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Dense](#variants) tables (`.ui-dense`) have less block padding.
 - Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
 - [Sticky header](#sticky-header) with `.ui-sticky-header`.
+- Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

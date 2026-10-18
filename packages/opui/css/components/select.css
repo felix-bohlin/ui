@@ -1,6 +1,5 @@
 @layer components.extended {
   :where(.ui-select select) {
-    --_motion: var(--motion, 1);
     position: relative;
 
     /* Default arrow */
@@ -14,7 +13,7 @@
       mask: var(--_chevron-icon) center / contain no-repeat;
       pointer-events: none;
       position: absolute;
-      transition: scale calc(var(--duration) * var(--_motion)) var(--ease);
+      transition: scale var(--_duration) var(--_ease);
       translate: 0 -50%;
 
       @media (forced-colors: active) {
@@ -46,10 +45,10 @@
       }
 
       transition:
-        display calc(var(--duration) * var(--_motion)) allow-discrete,
-        opacity calc(var(--duration) * var(--_motion)) var(--ease),
-        overlay calc(var(--duration) * var(--_motion)) allow-discrete,
-        scale calc(var(--duration) * var(--_motion)) var(--ease);
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        overlay var(--_duration) allow-discrete,
+        scale var(--_duration) var(--_ease);
     }
 
     /* Animation off-stage styles */
@@ -115,14 +114,6 @@
   }
 
   :where(.ui-select:has(select)) {
-    /* Size */
-    &.ui-small,
-    &.ui-x-small {
-      button {
-        padding-inline: var(--size-2) var(--size-7);
-      }
-    }
-
     /*
     * Non-experimental Select
     *

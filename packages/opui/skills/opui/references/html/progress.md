@@ -14,12 +14,12 @@ See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md
 
 ```html
 <div class="ui-progress">
-  <progress id="determinate-progress" value="10" max="100"></progress>
+  <progress id="progress-determinate-1" value="10" max="100"></progress>
 </div>
 
 <script>
   {
-    const progress = document.querySelector("#determinate-progress")
+    const progress = document.querySelector("#progress-determinate-1")
     if (progress instanceof HTMLProgressElement) {
       setInterval(() => {
         if (progress.value >= 100) {
@@ -100,11 +100,13 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property      | Kind  | Description                                                                 |
-| ------------- | ----- | --------------------------------------------------------------------------- |
-| `--_accent`   | Input | Color of the bar. Defaults to `--primary`.                                  |
-| `--_bg-color` | Input | Color of the track. Set by `.ui-filled` and `.ui-tonal`.                    |
-| `--_motion`   | Input | Motion multiplier for the value transition and the indeterminate animation. |
+| Property      | Kind   | Description                                                                 |
+| ------------- | ------ | --------------------------------------------------------------------------- |
+| `--_accent`   | Input  | Color of the bar. Defaults to `--primary`.                                  |
+| `--_bg-color` | Input  | Color of the track. Set by `.ui-filled` and `.ui-tonal`.                    |
+| `--_duration` | Output | Duration of the value transition, `--duration` times `--_motion`.           |
+| `--_ease`     | Input  | Easing of the value transition. Defaults to `--ease-enter`.                 |
+| `--_motion`   | Input  | Motion multiplier for the value transition and the indeterminate animation. |
 
 ## Under the hood
 
@@ -258,3 +260,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ### What's new
 
 - Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
+- Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).
+- [Progress bars](#indeterminate) center in table cells and lines of text.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

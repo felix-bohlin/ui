@@ -1,0 +1,9 @@
+---
+import type { TableCellProps as Props } from "./types.astro"
+
+const { ...rest } = Astro.props
+---
+
+<td {...rest}>
+  <slot />
+</td>

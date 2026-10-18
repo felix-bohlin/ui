@@ -1,8 +1,8 @@
 {
-  "dark/stress/typography/HostileContent": [
+  "dark/html/stress/typography/HostileContent": [
     "scrollable-region-focusable"
   ],
-  "light/stress/typography/HostileContent": [
+  "light/html/stress/typography/HostileContent": [
     "scrollable-region-focusable"
   ]
 }

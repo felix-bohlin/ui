@@ -19,6 +19,7 @@ export default function Disabled() {
         <Button disabled>
           <span className="ui-text">Text</span>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -33,6 +34,7 @@ export default function Disabled() {
         <Button variant="outlined" disabled>
           <span className="ui-text">Outlined</span>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -47,6 +49,7 @@ export default function Disabled() {
         <Button variant="tonal" disabled>
           <span className="ui-text">Tonal</span>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -61,6 +64,7 @@ export default function Disabled() {
         <Button variant="filled" disabled>
           <span className="ui-text">Filled</span>
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"

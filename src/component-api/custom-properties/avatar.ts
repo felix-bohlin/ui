@@ -24,6 +24,11 @@ export default {
       "The ring around each avatar in a `.ui-avatar-group`. Defaults to `--surface-default`. Set on the group.",
     kind: "input",
   },
+  "--_outline-width": {
+    description:
+      "Width of the ring around each avatar in a `.ui-avatar-group`. Set on the group.",
+    kind: "input",
+  },
   "--_size": {
     description:
       "The width and height. Defaults to `--control-size`, set by the size classes.",

@@ -1,27 +1,40 @@
 <script setup lang="ts">
-import type { RangeProps, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.d.vue"
 import {
   computed,
   inject,
+  type InputHTMLAttributes,
   onBeforeUnmount,
   onMounted,
   useAttrs,
   useId,
-  useSlots,
   useTemplateRef,
 } from "vue"
-import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
+import { FieldGroupKey } from "../FieldGroup/context.vue"
+import { idRefs } from "../id"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<RangeProps>()
-defineSlots<Slots>()
+const {
+  endText,
+  error,
+  id,
+  label,
+  list,
+  options,
+  spread,
+  startText,
+  value,
+  valueSuffix,
+  variant,
+} = defineProps<Props>()
+const slots = defineSlots<Slots>()
 const modelValue = defineModel<number | string>()
 
 const model = computed({
-  get: () => modelValue.value ?? props.value,
+  get: () => modelValue.value ?? value,
   set: (value) => {
     modelValue.value = value
   },
@@ -39,7 +52,10 @@ onMounted(() => {
 })
 onBeforeUnmount(() => form?.removeEventListener("reset", syncAfterReset))
 
-const attrs = useAttrs()
+const attrs = useAttrs() as InputHTMLAttributes
+const inputAttrs = computed(() =>
+  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
+)
 const defaultValue = computed(() => {
   const min = Number(attrs.min ?? 0)
   const max = Math.max(min, Number(attrs.max ?? 100))
@@ -51,71 +67,75 @@ const defaultValue = computed(() => {
 })
 
 const uid = useId()
-const slots = useSlots()
-const currentFieldName = inject(CurrentFieldNameKey, undefined)
-const hasValue = computed(
-  () => props.valueSuffix !== undefined || !!slots.value,
+const field = inject(FieldGroupKey, undefined)
+const hasValue = computed(() => valueSuffix !== undefined || !!slots.value)
+const inputId = computed(
+  () => id || (hasValue.value ? `range-${uid}` : undefined),
 )
-const inputId = computed(() => props.id || (hasValue.value ? uid : undefined))
+const listId = computed(
+  () => list ?? (options || slots.datalist ? `range-list-${uid}` : undefined),
+)
 
-const labelId = useId()
-const startTextId = useId()
-const endTextId = useId()
+const labelId = `range-label-${uid}`
+const startTextId = `range-start-${uid}`
+const endTextId = `range-end-${uid}`
 </script>
 
 <template>
   <label
     :class="[
       'ui-range',
-      props.variant && `ui-${props.variant}`,
-      { 'ui-spread': props.spread },
-      props.class,
+      variant && `ui-${variant}`,
+      { 'ui-spread': spread },
+      $props.class,
     ]"
+    :style="$attrs.style"
   >
-    <span v-if="props.label || $slots.default" class="ui-label" :id="labelId">
-      <slot>{{ props.label }}</slot>
+    <span v-if="label || $slots.default" class="ui-label" :id="labelId">
+      <slot>{{ label }}</slot>
     </span>
     <output
-      v-if="props.valueSuffix !== undefined || $slots.value"
+      v-if="valueSuffix !== undefined || $slots.value"
       class="ui-value"
       :for="inputId"
-      :data-suffix="props.valueSuffix"
+      :data-suffix="valueSuffix"
     >
-      <slot name="value"
-        >{{ model ?? defaultValue }}{{ props.valueSuffix }}</slot
+      <slot name="value" :value="Number(model ?? defaultValue)"
+        >{{ model ?? defaultValue }}{{ valueSuffix }}</slot
       >
     </output>
     <span
-      v-if="props.startText || $slots['start-text']"
+      v-if="startText || $slots['start-text']"
       class="ui-start-text"
       :id="startTextId"
     >
-      <slot name="start-text">{{ props.startText }}</slot>
+      <slot name="start-text">{{ startText }}</slot>
     </span>
 
     <input
+      v-bind="inputAttrs"
+      v-model.number="model"
       :aria-describedby="
-        [
-          props.startText || $slots['start-text'] ? startTextId : undefined,
-          props.endText || $slots['end-text'] ? endTextId : undefined,
-        ]
-          .filter(Boolean)
-          .join(' ') || undefined
+        idRefs(
+          (startText || $slots['start-text']) && startTextId,
+          (endText || $slots['end-text']) && endTextId,
+          attrs['aria-describedby'],
+        )
       "
-      :aria-invalid="props.error ? 'true' : undefined"
-      :aria-labelledby="props.label || $slots.default ? labelId : undefined"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+      :aria-labelledby="
+        label || $slots.default ? labelId : attrs['aria-labelledby']
+      "
       :id="inputId"
-      :list="props.list"
-      :name="currentFieldName"
+      :list="listId"
+      :name="attrs.name ?? field?.name"
       ref="input"
       type="range"
-      v-bind="$attrs"
-      v-model.number="model"
     />
 
-    <datalist v-if="props.options || $slots.datalist" :id="props.list">
+    <datalist v-if="options || $slots.datalist" :id="listId">
       <template
-        v-for="option in props.options"
+        v-for="option in options"
         :key="typeof option === 'object' ? option.value : option"
       >
         <option
@@ -127,11 +147,11 @@ const endTextId = useId()
     </datalist>
 
     <span
-      v-if="props.endText || $slots['end-text']"
+      v-if="endText || $slots['end-text']"
       class="ui-end-text"
       :id="endTextId"
     >
-      <slot name="end-text">{{ props.endText }}</slot>
+      <slot name="end-text">{{ endText }}</slot>
     </span>
   </label>
 </template>

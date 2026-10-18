@@ -9,13 +9,13 @@ export default {
   },
   notes: {
     astro:
-      "Input attributes go to the `<input>`: `disabled`, `list`, `max`, `min`, `name`, `placeholder`, `required`, `step` and `value`. Other attributes go to the root `<label>`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
     html: "The control can also be a `<select>` or `<textarea>`. You can put a `<datalist>` inside the root.",
     react:
       "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
     svelte:
       "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
     {
@@ -35,7 +35,7 @@ export default {
     },
     {
       description: "The id of the `<input>`.",
-      frameworks: ["astro", "react", "svelte", "vue"],
+      inherited: true,
       prop: "id",
       type: "string",
     },
@@ -53,7 +53,7 @@ export default {
       class: ".ui-spread",
       default: "false",
       description:
-        "Pushes the label and description to one side and the input to the other.",
+        "Pushes the label and start text to one side and the input to the other.",
       group: "Layout",
       prop: "spread",
     },
@@ -61,7 +61,6 @@ export default {
       default: '"text"',
       description:
         'The input type. `"numeric"` renders a text input with a numeric keyboard.',
-      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "type",
       type: '"numeric" | string',
     },
@@ -81,11 +80,10 @@ export default {
       slots: ["label"],
     },
     {
-      description: "Description text displayed above the field.",
-      legacy: { props: ["startText"] },
-      props: ["description"],
+      description: "Start text displayed above the field.",
+      props: ["startText"],
       selector: ".ui-start-text",
-      slots: ["description"],
+      slots: ["start-text"],
     },
     {
       description: "The boxed input area.",
@@ -122,7 +120,6 @@ export default {
     },
     {
       description: "Supporting text displayed below the field.",
-      legacy: { slots: ["supporting-text"] },
       props: ["endText"],
       selector: ".ui-end-text",
       slots: ["end-text"],

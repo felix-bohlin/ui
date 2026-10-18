@@ -7,7 +7,7 @@
   ]
 </script>
 
-<Carousel label="Videos" markers>
+<Carousel aria-label="Videos" markers>
   {#each videos as { label, name } (name)}
     <li>
       <video

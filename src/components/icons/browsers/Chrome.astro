@@ -1,7 +1,8 @@
 ---
-type Props = {
-  [key: string]: any
-}
+import type { HTMLAttributes } from "astro/types"
+
+type Props = HTMLAttributes<"svg">
+
 const { ...rest } = Astro.props
 const uid = Astro.locals.$id("chrome")
 ---

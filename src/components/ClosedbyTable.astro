@@ -8,8 +8,7 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-} from "@opui/astro"
-import { DEFAULT_FRAMEWORK } from "../utils/framework-routing"
+} from "opui-css/astro"
 
 type Props = {
   componentDefault?: "any" | "closerequest" | "none"
@@ -18,7 +17,7 @@ type Props = {
 
 const { componentDefault, name } = Astro.props
 
-const isHtml = (Astro.currentLocale ?? DEFAULT_FRAMEWORK) === "html"
+const isHtml = Astro.locals.framework === "html"
 const defaultValue = isHtml ? undefined : componentDefault
 
 const rows = [

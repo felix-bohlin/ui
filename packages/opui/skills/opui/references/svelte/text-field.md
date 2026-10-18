@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description ¢ EUR Header Footer Supporting text
+Label Start text € EUR Header Footer Supporting text
 
 - `<TextField>`
 
@@ -12,9 +12,9 @@ Label Description ¢ EUR Header Footer Supporting text
 
   The label for the field.
 
-- `description`
+- `startText`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -72,16 +72,16 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <TextField label="Large" placeholder="Placeholder" size="large" />
 ```
 
-## Description
+## Start text
 
-Use the `description` prop or snippet for text between the label and the input.
+Use the `startText` prop or snippet for text between the label and the input.
 
 ```svelte
 <script lang="ts">
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField description="As it appears on your ID" label="Name" />
+<TextField startText="As it appears on your ID" label="Name" />
 ```
 
 ## End text
@@ -104,7 +104,7 @@ Use the `prefix`, `suffix`, `header`, and `footer` snippets to affix content ins
 </script>
 
 <TextField label="Amount" placeholder="0.00">
-  {#snippet prefix()}¢{/snippet}
+  {#snippet prefix()}€{/snippet}
   {#snippet suffix()}EUR{/snippet}
 </TextField>
 
@@ -118,6 +118,7 @@ Use the `prefix`, `suffix`, `header`, and `footer` snippets to affix content ins
 
 <TextField label="Search" placeholder="Search...">
   {#snippet prefix()}<svg
+      aria-hidden="true"
       width="16"
       height="16"
       viewBox="0 0 24 24"
@@ -153,11 +154,9 @@ Use the header for inside-field captions (filenames, categories) and the footer 
 
 ## Validation
 
-Add the `required` attribute on the component. It is forwarded to the underlying `<input>`.
-
-Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the input, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
-
-Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
+- `required` toggles the required styles on the `<input>`.
+- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The wrapping `<label>` makes it part of the field's name.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```svelte
 <script lang="ts">
@@ -195,7 +194,7 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the input on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the input on the right. The layout collapses to a column on narrow containers.
 
 ```svelte
 <script lang="ts">
@@ -204,42 +203,42 @@ Use the `spread` boolean prop to display the label and description on the left w
 
 <TextField spread placeholder="Evil Rabbit">
   {#snippet label()}Name{/snippet}
-  {#snippet description()}Provide your full name for identification{/snippet}
+  {#snippet startText()}Provide your full name for identification{/snippet}
 </TextField>
 
 <TextField spread placeholder="you@example.com" type="email" variant="filled">
   {#snippet label()}Email{/snippet}
-  {#snippet description()}We'll use this to contact you{/snippet}
+  {#snippet startText()}We'll use this to contact you{/snippet}
   {#snippet endText()}Please use a valid email address{/snippet}
 </TextField>
 
 <TextField spread required label="Required">
-  {#snippet description()}You must fill this in{/snippet}
+  {#snippet startText()}You must fill this in{/snippet}
 </TextField>
 
 <TextField spread disabled label="Disabled">
-  {#snippet description()}This field is disabled{/snippet}
+  {#snippet startText()}This field is disabled{/snippet}
 </TextField>
 
 <TextField spread error label="Invalid Name">
-  {#snippet description()}This field has an error{/snippet}
+  {#snippet startText()}This field has an error{/snippet}
   {#snippet endText()}This value is too short.{/snippet}
 </TextField>
 
 <TextField spread label="Amount" placeholder="0.00">
-  {#snippet description()}Daily spending limit{/snippet}
-  {#snippet prefix()}¢{/snippet}
+  {#snippet startText()}Daily spending limit{/snippet}
+  {#snippet prefix()}€{/snippet}
   {#snippet suffix()}EUR{/snippet}
 </TextField>
 
 <TextField spread label="Website" placeholder="example.com" variant="filled">
-  {#snippet description()}Your public profile URL{/snippet}
+  {#snippet startText()}Your public profile URL{/snippet}
   {#snippet prefix()}https://{/snippet}
   {#snippet endText()}Must include a valid domain{/snippet}
 </TextField>
 
 <TextField spread label="Project name" placeholder="my-project">
-  {#snippet description()}Used to generate the project URL{/snippet}
+  {#snippet startText()}Used to generate the project URL{/snippet}
   {#snippet header()}acme.dev/{/snippet}
   {#snippet footer()}Lowercase letters and dashes only{/snippet}
 </TextField>
@@ -251,9 +250,10 @@ Use the `spread` boolean prop to display the label and description on the left w
   placeholder="Paste your key"
   type="password"
 >
-  {#snippet description()}Stored encrypted at rest{/snippet}
+  {#snippet startText()}Stored encrypted at rest{/snippet}
   {#snippet prefix()}
     <svg
+      aria-hidden="true"
       width="16"
       height="16"
       viewBox="0 0 24 24"
@@ -288,82 +288,30 @@ Use `autoFit` to let the field's width follow its content, from `25ch`.
 ## Input types
 
 ```svelte
+<script lang="ts">
+  import { TextField } from "opui-css/svelte"
+</script>
+
 <div class="example-column">
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Color</span>
-    <span class="ui-field">
-      <input type="color" placeholder="Color" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Email</span>
-    <span class="ui-field">
-      <input type="email" placeholder="name@email.com" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Password</span>
-    <span class="ui-field">
-      <input type="password" placeholder="Password" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Search</span>
-    <span class="ui-field">
-      <input type="search" placeholder="Search" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Phone</span>
-    <span class="ui-field">
-      <input type="tel" placeholder="(666) 666-1337" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Text</span>
-    <span class="ui-field">
-      <input type="text" placeholder="Text" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">URL</span>
-    <span class="ui-field">
-      <input type="url" placeholder="https://yoursite.com" />
-    </span>
-  </label>
+  <TextField label="Color" placeholder="Color" type="color" />
+  <TextField label="Email" placeholder="name@email.com" type="email" />
+  <TextField label="Password" placeholder="Password" type="password" />
+  <TextField label="Search" placeholder="Search" type="search" />
+  <TextField label="Phone" placeholder="(666) 666-1337" type="tel" />
+  <TextField label="Text" placeholder="Text" type="text" />
+  <TextField label="URL" placeholder="https://yoursite.com" type="url" />
 </div>
 
 <div class="example-column">
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Date</span>
-    <span class="ui-field">
-      <input type="date" placeholder="Date" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Datetime local</span>
-    <span class="ui-field">
-      <input type="datetime-local" placeholder="Datetime local" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Month</span>
-    <span class="ui-field">
-      <input type="month" placeholder="Month" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Time</span>
-    <span class="ui-field">
-      <input type="time" placeholder="Time" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Week</span>
-    <span class="ui-field">
-      <input type="week" placeholder="Week" />
-    </span>
-  </label>
+  <TextField label="Date" placeholder="Date" type="date" />
+  <TextField
+    label="Datetime local"
+    placeholder="Datetime local"
+    type="datetime-local"
+  />
+  <TextField label="Month" placeholder="Month" type="month" />
+  <TextField label="Time" placeholder="Time" type="time" />
+  <TextField label="Week" placeholder="Week" type="week" />
 </div>
 ```
 
@@ -414,7 +362,7 @@ File is a weird one. Should it really be an `<input>` element? Well, it's what w
 
 ## Autosuggest
 
-Leverages the `<input>` + `<datalist>` element combo.
+Leverages the `<input>` + `<datalist>` element combo. An input with a `list` shows the Select chevron in place of the browser's arrow.
 
 - `<input list="DATALISTID">`
 - `<datalist id="DATALISTID">`
@@ -424,8 +372,12 @@ Leverages the `<input>` + `<datalist>` element combo.
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField label="Users" list="users" placeholder="Placeholder">
-  <datalist id="users">
+<TextField
+  label="Users"
+  list="text-field-autosuggest-1-list"
+  placeholder="Placeholder"
+>
+  <datalist id="text-field-autosuggest-1-list">
     <option value="Ray Manzarek"></option>
     <option value="Jonny Greenwood"></option>
     <option value="Marika Hackman"></option>
@@ -435,11 +387,11 @@ Leverages the `<input>` + `<datalist>` element combo.
 <TextField
   variant="filled"
   label="Emails"
-  list="users-email"
+  list="text-field-autosuggest-2-list"
   placeholder="Placeholder"
   type="email"
 >
-  <datalist id="users-email">
+  <datalist id="text-field-autosuggest-2-list">
     <option value="ray.manzarek@the.doors"></option>
     <option value="jonny.greenwood@radio.head"></option>
     <option value="marika@hack.man"></option>
@@ -458,11 +410,11 @@ Think of `<datalist>` as a list of *suggested* values.
 No. But you get some accessibility wins for free with `<label>`. It's recommended to label your inputs somehow.
 
 ```svelte
-<div class="ui-text-field">
-  <span class="ui-field">
-    <input aria-label="Search" placeholder="Search" type="text" />
-  </span>
-</div>
+<script lang="ts">
+  import { TextField } from "opui-css/svelte"
+</script>
+
+<TextField aria-label="Search" placeholder="Search" />
 ```
 
 ## Accessibility
@@ -478,21 +430,19 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `autoFit`                                                                                                                                                                      | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                           |
 | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number`                 | -            | The input value.                                                          |
 | `children`                                                                                                                                                                     | `Snippet`                           | -            | Extra content inside the root, such as a `<datalist>`.                    |
-| `description`                                                                                                                                                                  | `string` , `Snippet`                | -            | Description text displayed above the field.                               |
-| `endText`                                                                                                                                                                      | `string` , `Snippet`                | -            | Supporting text displayed below the field.                                |
+| `endText`                                                                                                                                                                      | `Snippet` , `string`                | -            | Supporting text displayed below the field.                                |
 | `error`                                                                                                                                                                        | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
-| `footer`                                                                                                                                                                       | `string` , `Snippet`                | -            | Content below the input, inside the border, with a divider.               |
-| `header`                                                                                                                                                                       | `string` , `Snippet`                | -            | Content above the input, inside the border, with a divider.               |
+| `footer`                                                                                                                                                                       | `Snippet` , `string`                | -            | Content below the input, inside the border, with a divider.               |
+| `header`                                                                                                                                                                       | `Snippet` , `string`                | -            | Content above the input, inside the border, with a divider.               |
 | `id`                                                                                                                                                                           | `string`                            | -            | The id of the `<input>`.                                                  |
-| `label`                                                                                                                                                                        | `string` , `Snippet`                | -            | The label for the field.                                                  |
-| `prefix`                                                                                                                                                                       | `string` , `Snippet`                | -            | Content at the inline-start of the field, inside the border.              |
-| `size`                                                                                                                                                                         | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                  |
-| `spread`                                                                                                                                                                       | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
-| `startText`                                                                                                                                                                    | `string`                            | -            | Legacy alias of `description`.                                            |
-| `suffix`                                                                                                                                                                       | `string` , `Snippet`                | -            | Content at the inline-end of the field, inside the border.                |
-| `supportingText`                                                                                                                                                               | `string` , `Snippet`                | -            | Legacy alias of `endText`.                                                |
+| `label`                                                                                                                                                                        | `Snippet` , `string`                | -            | The label for the field.                                                  |
+| `prefix`                                                                                                                                                                       | `Snippet` , `string`                | -            | Content at the inline-start of the field, inside the border.              |
+| `size`                                                                                                                                                                         | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
+| `spread`                                                                                                                                                                       | `boolean`                           | `false`      | Pushes the label and start text to one side and the input to the other.   |
+| `startText`                                                                                                                                                                    | `Snippet` , `string`                | -            | Start text displayed above the field.                                     |
+| `suffix`                                                                                                                                                                       | `Snippet` , `string`                | -            | Content at the inline-end of the field, inside the border.                |
 | `type`                                                                                                                                                                         | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
-| `variant`                                                                                                                                                                      | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
+| `variant`                                                                                                                                                                      | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
 
 #### CSS variables
 
@@ -516,7 +466,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                                                   |
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                                                   |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                                                 |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                  |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                                                   |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                                         |
@@ -540,22 +490,25 @@ Attributes that aren't props go to the `<input>`, like `disabled` or `placeholde
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
 
-| Property                     | Kind   | Description                                                                                               |
-| ---------------------------- | ------ | --------------------------------------------------------------------------------------------------------- |
-| `--_accent`                  | Output | Border color of the focused `.ui-field`. From `--primary`, set by the invalid state.                      |
-| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                         |
-| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                           |
-| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                 |
-| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                            |
-| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                     |
-| `--_end-text-color`          | Output | The current color of `.ui-start-text` and `.ui-end-text`. Set by the invalid state.                       |
-| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                      |
-| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                         |
-| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                       |
-| `--_font-size`               | Input  | The font size of the control and affixes.                                                                 |
-| `--_label-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Set by the invalid state. |
-| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--field-size`, set by the size classes.                   |
-| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                |
+| Property                     | Kind   | Description                                                                                                                           |
+| ---------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                  | Output | Border color of the focused `.ui-field`. From `--primary`, set by the invalid state.                                                  |
+| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--text-muted`, set by the invalid state. |
+| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                     |
+| `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.             |
+| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                       |
+| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                                             |
+| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                                                        |
+| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                 |
+| `--_duration`                | Output | Duration of the transitions and focus ring animation, `--duration` times `--_motion`.                                                 |
+| `--_ease`                    | Input  | Easing of the transitions. Defaults to `--ease`.                                                                                      |
+| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                                                  |
+| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                                                     |
+| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                                                   |
+| `--_font-size`               | Input  | The font size of the control and affixes.                                                                                             |
+| `--_helper-color`            | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--field-helper-color`, set by the invalid state.               |
+| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--field-size`, set by the size classes.                                               |
+| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                            |
 
 ## Under the hood
 
@@ -600,9 +553,9 @@ Step 1 of 4: Wrapper
 ```css
 .text-field {
   --accent: var(--primary);
+  --affix: var(--text-muted);
   --border: var(--field-border-color);
   --helper: var(--field-helper-color);
-  --label: var(--text-muted);
 
   display: grid;
 }
@@ -668,7 +621,7 @@ Step 2 of 4: Affixes
 .prefix,
 .suffix {
   align-items: center;
-  color: var(--label);
+  color: var(--affix);
   display: inline-flex;
   padding-inline: 0.5rem;
 }
@@ -696,7 +649,7 @@ Step 3 of 4: Required
 .text-field:has(:required) .label::after {
   color: var(--field-required-color);
   content: "*";
-  margin-inline-start: 0.25em;
+  margin-inline-start: 0.25ex;
 }
 ```
 
@@ -707,9 +660,9 @@ Step 4 of 4: Validation
 ```css
 .text-field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--invalid-color);
+  --affix: var(--invalid-text-color);
   --border: var(--invalid-color);
   --helper: var(--invalid-text-color);
-  --label: var(--invalid-text-color);
 }
 ```
 
@@ -725,8 +678,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the component from `opui-css/svelte`:
 
-- `opui-css/css/components/text-field.css`
-- `opui-css/css/components/text-input.css`
+### Used by
+
+- [Select](https://open-props-ui.netlify.app/svelte/components/select.md)
+- [Textarea](https://open-props-ui.netlify.app/svelte/components/textarea.md)
+
+* `opui-css/css/components/text-field.css`
 
 ## Changelog
 
@@ -735,4 +692,8 @@ Import the component from `opui-css/svelte`:
 - [x-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
 - The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.
+- Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-height`, `--_label-color` is `--_affix-color` and `--_end-text-color` is `--_helper-color` ([Under the hood](#under-the-hood)).
+- Breaking: [`startText`](#start-text) replaces `description`, matching `endText`. `supportingText` is gone, use [`endText`](#end-text).
+- Breaking: the [autosuggest](#autosuggest) and other input styles are in `text-field.css`, and `text-input.css` is gone. Remove its import.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--border-radius` through [`--field-border-radius`](#api), so one token squares or rounds every component.

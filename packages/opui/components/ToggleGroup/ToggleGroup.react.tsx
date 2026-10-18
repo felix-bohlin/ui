@@ -1,33 +1,49 @@
 "use client"
 
-import { useId } from "react"
+import { useId, useState } from "react"
 import { cx } from "../cx"
 import { ToggleGroupContext } from "./context.react"
+import { selectionOf } from "./selection"
 import type { Props } from "./types.react"
 
 export default function ToggleGroup({
   className,
+  defaultValue,
   name,
+  onValueChange,
   orientation,
   scrollable,
   selection = "multiple",
   shrink,
-  size = "default",
+  size,
+  value,
   children,
   ...rest
 }: Props) {
   const uid = useId()
   const groupName = name || `toggle-group-${uid}`
   const inputType = selection === "single" ? "radio" : "checkbox"
+  const [inner, setInner] = useState(defaultValue)
+
+  const change = (input: HTMLInputElement) => {
+    const next = selectionOf(input, selection)
+    if (inner !== undefined) setInner(next)
+    onValueChange?.(next as never)
+  }
 
   return (
-    <ToggleGroupContext value={{ groupName, inputType }}>
+    <ToggleGroupContext
+      value={{ change, groupName, inputType, value: value ?? inner }}
+    >
       <div
         className={cx([
           "ui-toggle-group",
-          size !== "default" && size && `ui-${size}`,
-          orientation && `ui-${orientation}`,
-          { "ui-scrollable": scrollable, "ui-shrink": shrink },
+          {
+            "ui-scrollable": scrollable,
+            "ui-shrink": shrink,
+            "ui-vertical": orientation === "vertical",
+          },
+          size && `ui-${size}`,
           className,
         ])}
         role={selection === "single" ? "radiogroup" : "group"}

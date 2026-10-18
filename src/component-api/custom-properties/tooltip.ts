@@ -10,6 +10,14 @@ export default {
       "Background of the tooltip and its arrow. Defaults to `--surface-inverse`.",
     kind: "input",
   },
+  "--_duration": {
+    description: "Duration of the fade, `--duration` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description: "Easing of the fade. Defaults to `--ease-enter`.",
+    kind: "input",
+  },
   "--_min-inline-size": {
     description: "The minimum width, unless the content is narrower.",
     kind: "input",

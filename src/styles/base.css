@@ -31,8 +31,8 @@
 }
 
 .anatomy {
-  --_anatomy-border-red: 2px dotted tomato;
   --_anatomy-border-gray: 2px dotted gray;
+  --_anatomy-border-red: 2px dotted tomato;
 
   pointer-events: none;
 
@@ -71,7 +71,6 @@
 
   /* Content width */
   --site-content-document: 80ch;
-  --site-content-sm: 540px;
   --site-content-md: 1140px;
   --site-content-lg: 1500px;
   --site-content-text: 65ch;
@@ -90,34 +89,11 @@
   );
 
   /* Sizes */
-  &.is-narrow {
-    max-inline-size: min(
-      calc(100% - var(--site-page-gutters)),
-      var(--site-content-sm)
-    );
-  }
-
   &.is-wide {
     max-inline-size: min(
       calc(100% - var(--site-page-gutters)),
       var(--site-content-lg)
     );
-  }
-
-  &.is-text {
-    max-inline-size: min(
-      calc(100% - var(--site-page-gutters)),
-      var(--site-content-text)
-    );
-  }
-
-  /* Horizontal alignment */
-  &.is-start {
-    margin-inline: var(--site-gap) auto;
-  }
-
-  &.is-end {
-    margin-inline: auto var(--site-gap);
   }
 }
 

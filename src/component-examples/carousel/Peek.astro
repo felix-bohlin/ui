@@ -1,5 +1,5 @@
 ---
-import { Card, CardHeader, Carousel } from "@opui/astro"
+import { Card, CardHeader, Carousel } from "opui-css/astro"
 
 const places = [
   { description: "Temples, gardens and quiet lanes.", title: "Kyoto" },
@@ -10,7 +10,7 @@ const places = [
 ]
 ---
 
-<Carousel align="center" buttons={false} label="Destinations" markers peek>
+<Carousel align="center" aria-label="Destinations" buttons={false} markers peek>
   {
     places.map(({ description, title }) => (
       <li>

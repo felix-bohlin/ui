@@ -1,11 +1,11 @@
-import { Callout, CalloutContent, CalloutTitle } from "opui-css/react"
+import { Callout, CalloutContent } from "opui-css/react"
 
 export default function Variants() {
   return (
     <>
       <Callout>
         <CalloutContent>
-          <CalloutTitle>Note</CalloutTitle>
+          <h3>Note</h3>
           <p>
             This is a tonal Callout. Notice the lack of icons - it's not really
             needed here.
@@ -14,10 +14,10 @@ export default function Variants() {
       </Callout>
       <Callout variant="outlined">
         <CalloutContent>
-          <CalloutTitle>Another Callout</CalloutTitle>
+          <h3>Another Callout</h3>
           <p>
             This is an outlined Callout. Why not use a{" "}
-            <a className="ui-link" href="/components/card">
+            <a className="ui-link" href="#">
               Card
             </a>{" "}
             since they look very similar? For one, the Callout is a more focused

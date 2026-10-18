@@ -1,19 +1,25 @@
 @layer components.root {
   :where(.ui-tabs) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_active-bg-color: light-dark(
       var(--surface-default),
-      oklch(100% 0 0 / 0.1)
+      oklch(100% 0 0 / var(--state-hover-alpha))
     );
-    --_active-border-color: light-dark(transparent, oklch(100% 0 0 / 0.08));
+    --_active-border-color: light-dark(
+      transparent,
+      oklch(100% 0 0 / calc(var(--state-hover-alpha) * 0.8))
+    );
     --_active-shadow: var(--shadow-1);
     --_active-text-color: var(--text-primary);
     --_border-radius: var(--border-radius);
+    --_duration: calc(var(--duration-fast) * var(--_motion));
+    --_ease: var(--ease);
     --_indicator-color: transparent;
-    --_inset: 3px;
+    --_indicator-size: 2px;
+    --_inset: calc(var(--size-1) - var(--_track-border-width));
     --_text-color: color-mix(in oklch, var(--text-primary) 60%, transparent);
     --_track-border-color: transparent;
-    --_track-border-width: 1px;
+    --_track-border-width: var(--border-width);
     --_track-color: var(--surface-tonal);
 
     @container style(--contrast: more) {
@@ -64,9 +70,9 @@
 
           &::before {
             animation: ui-focus-ring calc(var(--duration) * var(--_motion))
-              var(--ease);
+              var(--_ease);
             outline: var(--focus-ring-width) var(--focus-ring-style)
-              var(--focus-ring-color, var(--_focus-visible-color));
+              var(--focus-ring-color);
             outline-offset: var(--focus-ring-offset, 0);
           }
         }
@@ -93,12 +99,12 @@
       );
       padding-inline: var(--size-3);
       position: relative;
-      transition: color calc(var(--duration-fast) * var(--_motion)) var(--ease);
+      transition: color var(--_duration) var(--_ease);
       user-select: none;
       white-space: nowrap;
 
       &::before {
-        border: 1px solid transparent;
+        border: var(--border-width) solid transparent;
         border-radius: calc(
           var(--_border-radius) - var(--_inset) - var(--_track-border-width)
         );
@@ -107,23 +113,21 @@
         inset-inline: 0;
         position: absolute;
         transition:
-          background-color calc(var(--duration-fast) * var(--_motion))
-            var(--ease),
-          box-shadow calc(var(--duration-fast) * var(--_motion)) var(--ease);
+          background-color var(--_duration) var(--_ease),
+          box-shadow var(--_duration) var(--_ease);
         z-index: -1;
       }
 
       &::after {
         background-color: var(--_indicator-color);
-        block-size: 2px;
-        border-radius: 2px;
+        block-size: var(--_indicator-size);
+        border-radius: var(--_indicator-size);
         content: "";
         inset-block-end: 0;
         inset-inline: 0;
         opacity: 0;
         position: absolute;
-        transition: opacity calc(var(--duration-fast) * var(--_motion))
-          var(--ease);
+        transition: opacity var(--_duration) var(--_ease);
       }
 
       &:nth-child(1 of .ui-tab-label) {
@@ -200,7 +204,7 @@
       container-type: inline-size;
       display: grid;
       grid-auto-columns: max-content;
-      overflow-x: auto;
+      overflow-inline: auto;
       overscroll-behavior-inline: contain;
       scrollbar-width: thin;
 

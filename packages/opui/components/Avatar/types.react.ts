@@ -5,6 +5,8 @@ export type Props = Base.Props &
   Base.Slots<ReactNode> &
   (
     | ({ as?: "div" } & ComponentProps<"div">)
-    | ({ as?: "button" } & ComponentProps<"button">)
+    | ({ as: "button" } & ComponentProps<"button">)
     | ({ as?: "a" } & ComponentProps<"a">)
   )
+
+export type AvatarGroupProps = Base.AvatarGroupProps & ComponentProps<"div">

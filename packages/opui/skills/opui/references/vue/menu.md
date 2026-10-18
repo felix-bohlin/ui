@@ -12,17 +12,46 @@ import { Button, Menu } from "opui-css/vue"
 </script>
 
 <template>
-  <Button commandfor="menu-basics" command="toggle-popover" variant="outlined">
+  <Button
+    commandfor="menu-basics-1"
+    command="toggle-popover"
+    variant="outlined"
+  >
     Options
   </Button>
   <Menu
-    id="menu-basics"
+    id="menu-basics-1"
     :items="[
-      { label: 'Edit', shortcut: 'E' },
-      { label: 'Duplicate', shortcut: 'D' },
-      { label: 'Archive', disabled: true },
-      { label: 'Delete', borderTop: true, critical: true },
+      { text: 'Edit', shortcut: 'E' },
+      { text: 'Duplicate', shortcut: 'D' },
+      { text: 'Archive', disabled: true },
+      { text: 'Delete', borderTop: true, critical: true },
     ]"
+  />
+</template>
+```
+
+## Bordered
+
+`bordered` draws a line between every item.
+
+```vue
+<script setup lang="ts">
+import { Button, Menu } from "opui-css/vue"
+</script>
+
+<template>
+  <Button
+    commandfor="menu-bordered-1"
+    command="toggle-popover"
+    variant="outlined"
+  >
+    Options
+  </Button>
+  <Menu
+    bordered
+    id="menu-bordered-1"
+    :items="[{ text: 'Edit' }, { text: 'Duplicate' }, { text: 'Archive' }]"
   />
 </template>
 ```
@@ -38,10 +67,11 @@ import { Button, ListItem, Menu } from "opui-css/vue"
 
 <template>
   <Button
-    rounded
+    round
     size="small"
     aria-label="More actions"
-    commandfor="menu-custom"
+    iconOnly
+    commandfor="menu-custom-1"
     command="toggle-popover"
   >
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -51,12 +81,12 @@ import { Button, ListItem, Menu } from "opui-css/vue"
       ></path>
     </svg>
   </Button>
-  <Menu id="menu-custom">
+  <Menu id="menu-custom-1">
     <li class="ui-label">Document</li>
     <ListItem
       as="button"
       headline="Rename"
-      commandfor="menu-custom"
+      commandfor="menu-custom-1"
       command="hide-popover"
     >
       <template #start>
@@ -72,7 +102,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     <ListItem
       as="button"
       headline="Copy"
-      commandfor="menu-custom"
+      commandfor="menu-custom-1"
       command="hide-popover"
     >
       <template #start>
@@ -98,9 +128,9 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     <ListItem
       as="button"
       headline="Delete"
-      border-top
-      class="ui-critical"
-      commandfor="menu-custom"
+      borderTop
+      critical
+      commandfor="menu-custom-1"
       command="hide-popover"
     >
       <template #start>
@@ -124,71 +154,72 @@ import { Button, ListItem, Menu } from "opui-css/vue"
 <script setup lang="ts">
 import { Button, Menu } from "opui-css/vue"
 
-const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
+const items = [{ text: "First" }, { text: "Second" }, { text: "Third" }]
 </script>
 
 <template>
   <Button
-    commandfor="menu-block-start"
+    commandfor="menu-placement-1"
     command="toggle-popover"
     variant="outlined"
   >
     Block start
   </Button>
-  <Menu id="menu-block-start" :items="items" placement="block-start" />
+  <Menu id="menu-placement-1" :items="items" placement="block-start" />
 
   <Button
-    commandfor="menu-block-end"
+    commandfor="menu-placement-2"
     command="toggle-popover"
     variant="outlined"
   >
     Block end
   </Button>
-  <Menu id="menu-block-end" :items="items" />
+  <Menu id="menu-placement-2" :items="items" />
 
   <Button
-    commandfor="menu-inline-start"
+    commandfor="menu-placement-3"
     command="toggle-popover"
     variant="outlined"
   >
     Inline start
   </Button>
-  <Menu id="menu-inline-start" :items="items" placement="inline-start" />
+  <Menu id="menu-placement-3" :items="items" placement="inline-start" />
 
   <Button
-    commandfor="menu-inline-end"
+    commandfor="menu-placement-4"
     command="toggle-popover"
     variant="outlined"
   >
     Inline end
   </Button>
-  <Menu id="menu-inline-end" :items="items" placement="inline-end" />
+  <Menu id="menu-placement-4" :items="items" placement="inline-end" />
 </template>
 ```
 
 ## Submenu
 
-Pass a `Menu` to the `submenu` slot of a `ListItem`. Mark the item with an icon from your icon library in the `end` slot.
+Pass a `Menu` to the `submenu` slot of a `ListItem`. Mark the item with an icon from your icon library in the `end` slot. Submenu items close the whole menu.
 
 ```vue
 <script setup lang="ts">
 import { Button, ListItem, Menu } from "opui-css/vue"
 
-const formats = ["PDF", "PNG", "SVG"].map((label) => ({
-  commandfor: "menu-file",
-  label,
-}))
+const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
 </script>
 
 <template>
-  <Button commandfor="menu-file" command="toggle-popover" variant="outlined">
+  <Button
+    commandfor="menu-submenu-1"
+    command="toggle-popover"
+    variant="outlined"
+  >
     File
   </Button>
-  <Menu id="menu-file" :items="[{ label: 'New' }, { label: 'Open' }]">
+  <Menu id="menu-submenu-1" :items="[{ text: 'New' }, { text: 'Open' }]">
     <ListItem
       as="button"
       headline="Export"
-      commandfor="menu-export"
+      commandfor="menu-submenu-2"
       command="toggle-popover"
     >
       <template #end>
@@ -205,7 +236,7 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
         </svg>
       </template>
       <template #submenu>
-        <Menu id="menu-export" :items="formats" placement="inline-end" />
+        <Menu id="menu-submenu-2" :items="formats" placement="inline-end" />
       </template>
     </ListItem>
   </Menu>
@@ -222,16 +253,20 @@ import { Button, Menu } from "opui-css/vue"
 </script>
 
 <template>
-  <Button commandfor="menu-manual" command="toggle-popover" variant="outlined">
+  <Button
+    commandfor="menu-manual-1"
+    command="toggle-popover"
+    variant="outlined"
+  >
     View
   </Button>
   <Menu
-    id="menu-manual"
+    id="menu-manual-1"
     popover="manual"
     :items="[
-      { label: 'Show grid', closeOnClick: false },
-      { label: 'Show rulers', closeOnClick: false },
-      { label: 'Done', borderTop: true },
+      { text: 'Show grid', closeOnClick: false },
+      { text: 'Show rulers', closeOnClick: false },
+      { text: 'Done', borderTop: true },
     ]"
   />
 </template>
@@ -239,7 +274,7 @@ import { Button, Menu } from "opui-css/vue"
 
 ## Accessibility
 
-### Role
+### Role & attributes
 
 A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="menu"` or `role="menuitem"`, so screen readers announce a list of buttons, and the keyboard works like it does for any other button. The ARIA menu pattern needs a script for the arrow keys, which the library doesn't ship.
 
@@ -255,29 +290,63 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 ## API
 
-| Prop        | Type                                                             | Default        | Description                                                                                                               |
-| ----------- | ---------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `align`     | `"start"`, `"end"`                                               | `"start"`      | Which edge of the trigger the menu lines up with.                                                                         |
-| `class`     | `string`                                                         | -              | Optional CSS class.                                                                                                       |
-| `dense`     | `boolean`                                                        | `false`        | Less spacing.                                                                                                             |
-| `id`        | `string`                                                         | auto-generated | The trigger's `commandfor`.                                                                                               |
-| `items`     | `MenuItem[]`                                                     | -              | Menu items.                                                                                                               |
-| `placement` | `"block-end"`, `"block-start"`, `"inline-end"`, `"inline-start"` | `"block-end"`  | Where the menu opens.                                                                                                     |
-| `popover`   | `"auto"`, `"manual"`                                             | `"auto"`       | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either. |
-| default     | -                                                                | -              | Optional child content.                                                                                                   |
+### Menu API
 
-### MenuItem
+| Prop        | Type                                                                | Default       | Description                                                                                                                                                                                                                                                                      |
+| ----------- | ------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `align`     | `"end"` , `"start"`                                                 | `"start"`     | Which edge of the trigger the menu lines up with.                                                                                                                                                                                                                                |
+| `bordered`  | `boolean`                                                           | `false`       | Adds a border between the items.                                                                                                                                                                                                                                                 |
+| `dense`     | `boolean`                                                           | `false`       | Less spacing.                                                                                                                                                                                                                                                                    |
+| `id`        | `string`                                                            | -             | The id of the menu, which the trigger's `commandfor` points at. Generated when omitted.                                                                                                                                                                                          |
+| `items`     | `MenuItem[]`                                                        | -             | The items, as `{ borderTop, closeOnClick, critical, disabled, href, shortcut, text }` objects. An item renders a `<button>`, or an `<a>` with `href`. Other keys go to that element. A button item closes the whole menu, also from a submenu, unless `closeOnClick` is `false`. |
+| `placement` | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"block-end"` | Where the menu opens.                                                                                                                                                                                                                                                            |
+| `popover`   | `"auto"` , `"manual"`                                               | `"auto"`      | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                                                                                                                                                        |
 
-| Key            | Type      | Default | Description                         |
-| -------------- | --------- | ------- | ----------------------------------- |
-| `borderTop`    | `boolean` | `false` | Divider above the item.             |
-| `closeOnClick` | `boolean` | `true`  | Close the menu on click.            |
-| `critical`     | `boolean` | `false` | Destructive item.                   |
-| `disabled`     | `boolean` | `false` | Disables the item.                  |
-| `href`         | `string`  | -       | Renders a link instead of a button. |
-| `label`        | `string`  | -       | The item text.                      |
-| `shortcut`     | `string`  | -       | Keyboard shortcut hint.             |
-| any other key  | `unknown` | -       | Passed to the item element.         |
+#### Slots
+
+| Slot      | Description                                                                                                        |
+| --------- | ------------------------------------------------------------------------------------------------------------------ |
+| `default` | An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. |
+
+#### CSS variables
+
+| Variable                      | Default                                      | Description                                                                                                                                                                                                                      |
+| ----------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
+| `--border-radius`             | `var(--size-2)`                              | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                                                                            |
+| `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                                                                                                                                    |
+| `--critical`                  | `var(--red)`                                 | Severity color for errors and destructive actions.                                                                                                                                                                               |
+| `--disabled-opacity`          | `0.64`                                       | Opacity applied to disabled controls.                                                                                                                                                                                            |
+| `--duration`                  | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
+| `--ease-enter`                | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                                                                                                                         |
+| `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                |
+| `--font-code`                 | `var(--font-mono)`                           | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                |
+| `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--font-weight-bold`          | `var(--font-weight-7)`                       | Font weight for headings, buttons and terms.                                                                                                                                                                                     |
+| `--font-weight-normal`        | `var(--font-weight-4)`                       | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                                     |
+| `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                                                                             |
+| `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                                                                                                                                         |
+| `--motion`                    | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).                          |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                                                     |
+| `--shadow-overlay`            | `var(--shadow-3)`                            | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                                                      |
+| `--space-1`                   | `calc(var(--size-1) * var(--space-scale))`   | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                                                     |
+| `--space-2`                   | `calc(var(--size-2) * var(--space-scale))`   | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                     |
+| `--state-active-alpha-accent` | `25%`                                        | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                |
+| `--state-hover-alpha-accent`  | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                  |
+| `--surface-elevated`          | `light-dark(var(--gray-1), var(--gray-12))`  | Background of elevated cards and accordions.                                                                                                                                                                                     |
+| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
+| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                                                    |
+| `--switch-dot-size-small`     | `calc(0.75rem * var(--density))`             | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                                                 |
+| `--switch-track-height-small` | `calc(var(--size-4) * var(--density))`       | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                                                 |
+| `--switch-track-width-small`  | `calc(2.5rem * var(--density))`              | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                                                  |
+| `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                                                                 |
+| `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
+
+Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`.
 
 ## Component properties
 
@@ -286,9 +355,10 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property             | Kind   | Description                                                                                                 |
 | -------------------- | ------ | ----------------------------------------------------------------------------------------------------------- |
 | `--_bg-color`        | Input  | The background. Defaults to `--surface-elevated`.                                                           |
-| `--_border-color`    | Input  | Color of the border and the item separators.                                                                |
+| `--_border-color`    | Input  | The border color. `--_divider-color` follows it.                                                            |
 | `--_border-radius`   | Input  | The corner radius. Defaults to `--border-radius`.                                                           |
 | `--_border-width`    | Input  | The border width.                                                                                           |
+| `--_divider-color`   | Input  | Color of the item separators. Defaults to `--_border-color`.                                                |
 | `--_duration`        | Output | Duration of the transitions, `--duration` times `--_motion`.                                                |
 | `--_ease`            | Input  | Easing of the open transition. Defaults to `--ease-enter`.                                                  |
 | `--_hover-bg-color`  | Output | Hover background of `.ui-critical` items, from `--critical`.                                                |
@@ -390,7 +460,7 @@ Step 3 of 5: Fit
 ```css
 .menu {
   max-block-size: 60dvb;
-  overflow-y: auto;
+  overflow-block: auto;
   overscroll-behavior: contain;
 
   @supports (min-block-size: calc-size(fit-content, size)) {
@@ -468,22 +538,20 @@ Import the component from `opui-css/vue`:
 
 ### Dependencies
 
-- [Description List](https://open-props-ui.netlify.app/vue/components/description-list.md)
-
-- `opui-css/css/components/menu.css`
-- `opui-css/css/components/list.css`
-
-## See also
-
 - [List](https://open-props-ui.netlify.app/vue/components/list.md)
+
+* `opui-css/css/components/menu.css`
+* `opui-css/css/components/list.css`
 
 ## Changelog
 
 ### What's new
 
-- Smaller start and end icons, and dividers that show in dark mode ([Basics](#basics)).
+- Items are built like `List` items, with start and end icons, text and shortcuts ([Basics](#basics)).
 - New component. A [popover menu](#basics) that anchors to its trigger, with groups and submenus. HTML and CSS only.
 - [Submenus](#submenu) with the `submenu` slot on `ListItem`.
 - A subtle light gray border in dark mode, so [menus](#basics) stand out on dialogs and other raised surfaces.
-- Tall menus shrink to the space on their side instead of running off-screen ([Placement](#placement)).
+- Menus shrink to the space on their side and flip when it's less than `12rem` ([Placement](#placement)).
+- [Dividers between items](#bordered) with the `bordered` prop.
+- `critical` on a `ListItem` marks a destructive [custom item](#custom).
 - The menu shadow is [`--shadow-overlay`](#api), shared with drawers, select pickers and toasts.

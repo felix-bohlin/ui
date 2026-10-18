@@ -12,7 +12,7 @@
 
   The element the badge is anchored to.
 
-- `indicator`
+- `label / indicator`
 
   The indicator, inside `.ui-anchor-floating`.
 
@@ -27,6 +27,7 @@ Default, and `dot`.
 
 <Badge label="5">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -41,6 +42,7 @@ Default, and `dot`.
 
 <Badge dot>
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -54,9 +56,9 @@ Default, and `dot`.
 </Badge>
 ```
 
-## Severities
+## Colors
 
-`critical`, `info`, `neutral`, `success`, `warning`.
+Color the indicator with `color="critical"`, `color="info"`, `color="neutral"`, `color="success"` or `color="warning"`.
 
 ```svelte
 <script lang="ts">
@@ -65,68 +67,68 @@ Default, and `dot`.
 
 <Badge color="critical" label="5">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
     viewBox="0 0 32 32"
-  >
-    <path
+    ><path
       fill="currentColor"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-    ></path>
-  </svg>
+    ></path></svg
+  >
 </Badge>
 <Badge color="info" label="5">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
     viewBox="0 0 32 32"
-  >
-    <path
+    ><path
       fill="currentColor"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-    ></path>
-  </svg>
-</Badge>
-<Badge color="success" label="5">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
+    ></path></svg
   >
-    <path
-      fill="currentColor"
-      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-    ></path>
-  </svg>
-</Badge>
-<Badge color="warning" label="5">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
-  >
-    <path
-      fill="currentColor"
-      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-    ></path>
-  </svg>
 </Badge>
 <Badge color="neutral" label="5">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
     viewBox="0 0 32 32"
-  >
-    <path
+    ><path
       fill="currentColor"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-    ></path>
-  </svg>
+    ></path></svg
+  >
+</Badge>
+<Badge color="success" label="5">
+  <svg
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    ><path
+      fill="currentColor"
+      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+    ></path></svg
+  >
+</Badge>
+<Badge color="warning" label="5">
+  <svg
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    ><path
+      fill="currentColor"
+      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+    ></path></svg
+  >
 </Badge>
 ```
 
@@ -141,6 +143,7 @@ Set indicator text with the `label` prop or the `indicator` snippet. The `childr
 
 <Badge label="5" srLabel="unread messages">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -155,6 +158,7 @@ Set indicator text with the `label` prop or the `indicator` snippet. The `childr
 
 <Badge srLabel="unread messages">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -181,10 +185,6 @@ Change the badge's visibility using the `invisible` prop.
 <Badge label="5" invisible>
   <!-- -->
 </Badge>
-
-<Badge dot invisible>
-  <!-- -->
-</Badge>
 ```
 
 ## Alignment
@@ -200,6 +200,7 @@ Where the badge should be placed over the child.
 
 <Badge alignment="start-start" label="35">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -213,6 +214,7 @@ Where the badge should be placed over the child.
 </Badge>
 <Badge label="99+">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -226,6 +228,7 @@ Where the badge should be placed over the child.
 </Badge>
 <Badge alignment="end-start" label="OK!">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -239,6 +242,7 @@ Where the badge should be placed over the child.
 </Badge>
 <Badge alignment="end-end" label="3K">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -262,13 +266,13 @@ Where the badge should be placed over the child.
 
 | Prop        | Type                                                              | Default       | Description                                                                                |
 | ----------- | ----------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------ |
-| `alignment` | `"start-start"` , `"start-end"` , `"end-start"` , `"end-end"`     | `"start-end"` | Where the indicator is placed.                                                             |
+| `alignment` | `"end-end"` , `"end-start"` , `"start-end"` , `"start-start"`     | `"start-end"` | Where the indicator is placed.                                                             |
 | `children`  | `Snippet`                                                         | -             | The element the badge is anchored to.                                                      |
 | `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -             | Optional colors.                                                                           |
 | `dot`       | `boolean`                                                         | `false`       | Renders the indicator as a dot, without a label.                                           |
 | `indicator` | `Snippet`                                                         | -             | The indicator, inside `.ui-anchor-floating`.                                               |
 | `invisible` | `boolean`                                                         | `false`       | Hides the indicator.                                                                       |
-| `label`     | `string` , `number`                                               | -             | The indicator, inside `.ui-anchor-floating`.                                               |
+| `label`     | `number` , `string`                                               | -             | The indicator, inside `.ui-anchor-floating`.                                               |
 | `srLabel`   | `string`                                                          | -             | Visually hidden text that describes the badge to assistive technology, such as "3 unread". |
 
 #### CSS variables
@@ -285,7 +289,6 @@ Where the badge should be placed over the child.
 | `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
 | `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
 | `--success`            | `var(--green)`                                                                        | Severity color for success messages.                                                                                                                                                                         |
-| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                    |
 | `--warning`            | `var(--orange)`                                                                       | Severity color for warnings.                                                                                                                                                                                 |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
@@ -296,12 +299,16 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property          | Kind   | Description                                                                                                               |
 | ----------------- | ------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`       | Input  | The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info` and `.ui-success`.                  |
 | `--_anchor-tx`    | Output | Horizontal shift of the indicator, from `--_sign-x`. `.ui-dot` and round avatars change it.                               |
 | `--_anchor-ty`    | Output | Vertical shift of the indicator, from `--_sign-y`. `.ui-dot` and round avatars change it.                                 |
 | `--_bg-color`     | Input  | Background of the indicator. Defaults to `--primary`, set by the color classes.                                           |
 | `--_border-color` | Input  | Border color of the indicator. Set by the color classes.                                                                  |
+| `--_border-width` | Input  | Border width of the indicator.                                                                                            |
 | `--_dir`          | Output | Direction flag that flips `--_anchor-tx`. `1`, or `-1` in right-to-left.                                                  |
 | `--_dot-size`     | Input  | Width and height of the indicator in `.ui-dot`.                                                                           |
+| `--_duration`     | Output | Duration of the indicator fade, `--duration` times `--_motion`.                                                           |
+| `--_ease`         | Input  | Easing of the indicator fade. Defaults to `--ease-enter`.                                                                 |
 | `--_inset`        | Input  | Distance of the indicator from the opposite edges. `100%` places it on the corner, round avatars move it onto the circle. |
 | `--_inset-block`  | Output | Block inset of the indicator, from `--_inset` and the alignment classes.                                                  |
 | `--_inset-inline` | Output | Inline inset of the indicator, from `--_inset` and the alignment classes.                                                 |
@@ -425,9 +432,9 @@ Step 4 of 4: Dot
 
 ## Browser support
 
-- Chromium: Full support Supported since v125.
+- Chromium: Full support Supported since v144.
 - Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v18.
+- Safari: Full support Supported since v26.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/svelte/guide/browser-support/?components=Badge.md).
 
@@ -439,8 +446,8 @@ Import the component from `opui-css/svelte`:
 
 - [Anchor](https://open-props-ui.netlify.app/svelte/components/anchor.md)
 
-- `opui-css/css/components/badge.css`
-- `opui-css/css/components/anchor.css`
+* `opui-css/css/components/badge.css`
+* `opui-css/css/components/anchor.css`
 
 ## Changelog
 
@@ -449,3 +456,5 @@ Import the component from `opui-css/svelte`:
 - Badges on round avatars sit on the avatar's edge ([Alignment](#alignment)), and in an avatar group on the start side.
 - [Indicator](#indicator) context for screen readers with `srLabel`.
 - [`alignment`](#alignment) takes `"start-end"`, the default placement.
+- Breaking: `--_badge-inset` is `--_inset-block` and `--_inset-inline` ([Under the hood](#under-the-hood)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

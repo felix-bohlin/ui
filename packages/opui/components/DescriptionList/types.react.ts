@@ -3,8 +3,8 @@ import type { ComponentProps } from "react"
 
 export type Props = Base.Props & ComponentProps<"dl">
 
-export type TermProps = ComponentProps<"dt">
+export type DescriptionListDescriptionProps = ComponentProps<"dd">
 
-export type DescriptionProps = ComponentProps<"dd">
+export type DescriptionListItemProps = ComponentProps<"div">
 
-export type ItemProps = ComponentProps<"div">
+export type DescriptionListTermProps = ComponentProps<"dt">

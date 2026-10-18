@@ -44,6 +44,7 @@ For example, Button reads these:
 
 - `--_accent`: the accent color. Fills, borders, text, hover and active states are all derived from it.
 - `--_bg-color` and `--_text-color`: the current background and text color.
+- `--_duration` and `--_ease`: the transition duration and easing.
 - `--_icon-size`: the size of a direct child `svg`.
 - `--_min-height`: the height, set by the size classes.
 - `--_motion`: the motion multiplier, `0` turns transitions off.

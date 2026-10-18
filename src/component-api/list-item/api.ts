@@ -20,6 +20,13 @@ export default {
       prop: "borderTop",
     },
     {
+      class: ".ui-critical",
+      default: "false",
+      description: "A destructive item in a [Menu](/components/menu).",
+      group: "Colors",
+      prop: "critical",
+    },
+    {
       description: 'Disables the item when `as` is `"button"`.',
       prop: "disabled",
     },
@@ -36,7 +43,6 @@ export default {
       description: "The `for` attribute of the `<label>` when `type` is set.",
       frameworks: ["react"],
       prop: "htmlFor",
-      type: "string",
     },
     {
       class: ".ui-inset",
@@ -47,7 +53,7 @@ export default {
     },
     {
       description:
-        "Wraps the content in a `<label>` for a checkbox, radio or switch.",
+        "Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
       group: "Controls",
       prop: "type",
       values: {

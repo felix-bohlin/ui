@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { setCalloutContext } from "./context"
+  import { setCalloutContext } from "./context.svelte"
   import type { Props } from "./types.svelte"
 
   let {

@@ -1,0 +1,42 @@
+---
+import {
+  Button,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Radio,
+} from "opui-css/astro"
+---
+
+<FieldSet>
+  <FieldLegend>Plan</FieldLegend>
+  <FieldGroup name="radio-binding">
+    <Radio checked value="free">Free</Radio>
+    <Radio value="pro">Pro</Radio>
+    <Radio value="team">Team</Radio>
+  </FieldGroup>
+</FieldSet>
+<p class="radio-binding-text">Selected: free</p>
+<Button class="radio-binding-reset">Reset</Button>
+
+<script>
+  const text = document.querySelector(".radio-binding-text")
+  const inputs = [
+    ...document.querySelectorAll<HTMLInputElement>('[name="radio-binding"]'),
+  ]
+
+  function update() {
+    if (!text) return
+    text.textContent = `Selected: ${
+      inputs.find((input) => input.checked)?.value ?? "none"
+    }`
+  }
+
+  inputs.forEach((input) => input.addEventListener("change", update))
+  document
+    .querySelector(".radio-binding-reset")
+    ?.addEventListener("click", () => {
+      inputs.forEach((input) => (input.checked = input.defaultChecked))
+      update()
+    })
+</script>

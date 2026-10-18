@@ -1,13 +1,15 @@
 @layer components.root {
   :where(.ui-toggle-button) {
+    --_motion: var(--motion);
     --_bg-color: transparent;
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease);
     --_font-size: var(--font-size-1);
-    --_size: var(--field-size);
-    --_svg-size: var(--icon-size);
+    --_icon-size: var(--icon-size);
+    --_min-height: var(--button-size);
 
     align-items: center;
     background-color: var(--_bg-color);
-    block-size: var(--_size);
     border: var(--border-width) solid var(--border-color);
     border-radius: var(--button-border-radius, var(--border-radius));
     color: var(--text-primary);
@@ -17,7 +19,8 @@
     gap: var(--size-2);
     inline-size: fit-content;
     justify-content: center;
-    min-inline-size: var(--_size);
+    min-block-size: var(--_min-height);
+    min-inline-size: var(--_min-height);
     outline-offset: calc(-1 * var(--size-2));
     padding-block: 0;
     padding-inline: var(--size-2);
@@ -38,39 +41,47 @@
     /* Element states */
     @media (hover: hover) {
       &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
-        --_bg-color: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
+        --_bg-color: light-dark(
+          oklch(0% 0 0 / var(--state-hover-alpha)),
+          oklch(100% 0 0 / var(--state-hover-alpha-dark))
+        );
       }
     }
 
     &:has(input:focus-visible) {
       --focus-ring-offset: -6px;
-      animation: ui-focus-ring calc(var(--duration) * var(--motion)) var(--ease);
+      animation: ui-focus-ring var(--_duration) var(--_ease);
       outline: var(--focus-ring-width) var(--focus-ring-style)
-        var(--focus-ring-color, var(--_focus-visible-color));
+        var(--focus-ring-color);
       outline-offset: var(--focus-ring-offset);
     }
 
     /* Disabled */
     &:has(input:is(:disabled, [aria-disabled="true"])) {
-      border-color: color-mix(in oklch, var(--border-color) 50%, transparent);
-      color: color-mix(in oklch, var(--text-primary) 30%, transparent);
+      color: var(--text-disabled);
       cursor: not-allowed;
+      opacity: var(--disabled-opacity);
     }
 
     /* svgs */
-    svg {
-      block-size: var(--_svg-size);
+    & > svg {
+      block-size: var(--_icon-size);
       flex-shrink: 0;
-      inline-size: var(--_svg-size);
+      inline-size: var(--_icon-size);
     }
 
     /* Selected */
     &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
-      --_bg-color: oklch(from var(--primary) l c h / 25%);
+      --_bg-color: oklch(
+        from var(--primary) l c h / var(--state-active-alpha-accent)
+      );
 
       @media (hover: hover) {
         &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
-          --_bg-color: oklch(from var(--primary) l c h / 35%);
+          --_bg-color: oklch(
+            from var(--primary) l c h /
+              calc(var(--state-active-alpha-accent) + var(--state-hover-alpha))
+          );
         }
       }
 
@@ -87,18 +98,21 @@
     }
 
     /* Sizes */
-    &.ui-small {
-      --_font-size: var(--font-size-05);
-      --_size: var(--field-size-small);
-    }
-
-    &.ui-x-small {
+    &.ui-x-small,
+    :where(.ui-toggle-group.ui-x-small) > & {
       --_font-size: var(--font-size-0);
-      --_size: var(--field-size-x-small);
+      --_min-height: var(--button-size-x-small);
     }
 
-    &.ui-large {
-      --_size: var(--field-size-large);
+    &.ui-small,
+    :where(.ui-toggle-group.ui-small) > & {
+      --_font-size: var(--font-size-05);
+      --_min-height: var(--button-size-small);
+    }
+
+    &.ui-large,
+    :where(.ui-toggle-group.ui-large) > & {
+      --_min-height: var(--button-size-large);
       padding-inline: var(--size-3);
     }
 

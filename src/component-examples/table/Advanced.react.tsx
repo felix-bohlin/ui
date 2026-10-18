@@ -1,9 +1,11 @@
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableColumn,
   TableColumnGroup,
+  TableFoot,
   TableHead,
   TableHeaderCell,
   TableRow,
@@ -12,7 +14,7 @@ import {
 export default function Advanced() {
   return (
     <Table>
-      <caption>Nordic Countries Overview</caption>
+      <TableCaption>Nordic Countries Overview</TableCaption>
       <TableColumnGroup>
         <TableColumn />
         <TableColumn />
@@ -74,11 +76,11 @@ export default function Advanced() {
           <TableCell>Gyrfalcon</TableCell>
         </TableRow>
       </TableBody>
-      <tfoot>
+      <TableFoot>
         <TableRow>
           <TableCell colSpan={6}>Scandinavia != The Nordics</TableCell>
         </TableRow>
-      </tfoot>
+      </TableFoot>
     </Table>
   )
 }

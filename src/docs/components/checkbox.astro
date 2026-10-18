@@ -1,5 +1,5 @@
 ---
-import Code from "../../components/Code.astro"
+import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
@@ -7,16 +7,24 @@ import AutoExample from "../../components/AutoExample.astro"
 import {
   Callout as UICallout,
   CalloutContent as UICalloutContent,
-  CalloutTitle as UICalloutTitle,
   Checkbox as UICheckbox,
-} from "@opui/astro"
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
+import ChoiceCSS from "@opui/css/components/choice.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import checkboxApi from "../../component-api/checkbox/api"
+import checkboxInputApi from "../../component-api/checkbox-input/api"
 import fieldGroupApi from "../../component-api/field-group/api"
 
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
 import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 ---
 
@@ -33,6 +41,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
   ]}
   apis={[
     { title: "Checkbox API", api: checkboxApi },
+    { title: "Checkbox input API", api: checkboxInputApi },
     { title: "Field group API", api: fieldGroupApi },
   ]}
   changelogPaths={[
@@ -51,11 +60,13 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       type: "css",
     },
     { path: "src/component-api/checkbox", type: "api" },
+    { path: "src/component-api/checkbox-input", type: "api" },
     { path: "src/component-api/field-group", type: "api" },
   ]}
   installationTabs={[
     { title: "checkbox.css", code: CheckboxCSS, lang: "css" },
-    { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
+    { title: "choice.css", code: ChoiceCSS, lang: "css" },
+    { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
   ]}
 >
   <Fragment slot="title">Checkbox</Fragment>
@@ -71,13 +82,13 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
   <section>
     <h2 id="basics">Basics</h2>
-    <AutoExample name="Variants" row />
+    <AutoExample name="Basics" row />
   </section>
 
   <section>
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
         >, <code>small</code>, default and <code>large</code>.
@@ -89,21 +100,6 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
           >&lt;label class="ui-checkbox"&gt;</code
         >.
       </Fragment>
-      <Fragment slot="react">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
     </Conditional>
     <AutoExample name="Sizes" column centered spacious />
   </section>
@@ -111,7 +107,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
   <section>
     <h2 id="visible-label">Visible label</h2>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >The default slot is the label. Also, don't miss the info on label <a
           href="#accessibility"
           class="ui-link">accessibility</a
@@ -135,12 +131,6 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         on label <a href="#accessibility" class="ui-link">accessibility</a
         >.</Fragment
       >
-      <Fragment slot="vue"
-        >The default slot is the label. Also, don't miss the info on label <a
-          href="#accessibility"
-          class="ui-link">accessibility</a
-        >.</Fragment
-      >
     </Conditional>
 
     <AutoExample name="VisibleLabel" column centered />
@@ -149,93 +139,10 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <AutoExample name="LabelPosition" row spacious />
 
     <h3 id="end-text">End text</h3>
-    <AutoExample name="SupportingText" row spacious />
+    <AutoExample name="EndText" row spacious />
 
     <h3 id="validation">Validation</h3>
-    <ul>
-      <Conditional>
-        <li slot="astro">
-          Set <code>required</code> on the component to toggle required styles on
-          the input.
-        </li>
-        <li slot="react">
-          Set the <code>required</code> prop on the component. It is forwarded to
-          the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="svelte">
-          Add the <code>required</code> attribute on the component. It is forwarded
-          to the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="vue">
-          Add the <code>required</code> attribute on the component. It is forwarded
-          to the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="html">
-          Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to
-          toggle required styles.
-        </li>
-      </Conditional>
-      <Conditional>
-        <li slot="astro">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="react">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="svelte">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="vue">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="html">
-          Add <code>aria-invalid="true"</code> to the <code>&lt;input&gt;</code> to
-          toggle invalid styles. Screen readers announce it as invalid. Make use of
-          the end text to give extra feedback on the error, and point <code
-            >aria-describedby</code
-          > at it.
-        </li>
-      </Conditional>
-      <Conditional>
-        <li slot="astro">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use the <code>error</code> prop for server-side errors.
-        </li>
-        <li slot="react">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use the <code>error</code> prop for server-side errors.
-        </li>
-        <li slot="svelte">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use the <code>error</code> prop for server-side errors.
-        </li>
-        <li slot="vue">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use the <code>error</code> prop for server-side errors.
-        </li>
-        <li slot="html">
-          Checkboxes also get the invalid styles from the browser's own
-          validation (<code>:user-invalid</code>), after the user has edited
-          them. Use <code>aria-invalid="true"</code> for server-side errors.
-        </li>
-      </Conditional>
-    </ul>
+    <ValidationNotes element="input" subject="Checkboxes" />
 
     <AutoExample name="Validation" column spacious />
   </section>
@@ -255,23 +162,22 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         <div class="ui-not-rich-text">
           <UICallout>
             <UICalloutContent>
-              <UICalloutTitle>JavaScript required</UICalloutTitle>
+              <h3>JavaScript required</h3>
               <div class="ui-rich-text">
                 The <code>indeterminate</code> state cannot be set with HTML or CSS
                 alone. The browser only exposes it as a property on <code
                   >HTMLInputElement</code
-                >, so a small script is needed to flip <code
+                >, so the component ships a script that sets <code
                   >el.indeterminate = true</code
-                > after the element is in the DOM. The <code
-                  >:indeterminate</code
-                > CSS pseudo-class then matches and the dash glyph appears.
+                > on load. The <code>:indeterminate</code> CSS pseudo-class then matches
+                and the dash glyph appears. To change the state later, set
+                <code>el.indeterminate</code> yourself, as the example does.
               </div>
             </UICalloutContent>
           </UICallout>
         </div>
       </Fragment>
-
-      <Fragment slot="react">
+      <Fragment slot="components">
         <p>
           Set the <code>indeterminate</code> prop to render a partially-selected state.
           {" "}<code>indeterminate</code> is a JavaScript-only property on <code
@@ -280,37 +186,21 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
           the property at runtime.
         </p>
       </Fragment>
-      <Fragment slot="svelte">
-        <p>
-          Set the <code>indeterminate</code> prop to render a partially-selected state.
-          {" "}<code>indeterminate</code> is a JavaScript-only property on <code
-            >HTMLInputElement</code
-          >, so the component renders <code>data-indeterminate</code> and applies
-          the property at runtime.
-        </p>
-      </Fragment>
-      <Fragment slot="vue">
-        <p>
-          Set the <code>indeterminate</code> prop to render a partially-selected state.
-          {" "}<code>indeterminate</code> is a JavaScript-only property on <code
-            >HTMLInputElement</code
-          >, so the component renders <code>data-indeterminate</code> and applies
-          the property at runtime.
-        </p>
-      </Fragment>
-
       <div slot="html" class="ui-not-rich-text">
         <p>
           Add <code>data-indeterminate</code> to the <code
             >&lt;input type="checkbox"&gt;</code
           > and call <code>activateIndeterminate()</code> from <code
             >opui-css/css/js/checkbox.js</code
-          > once the element is in the DOM. The attribute alone has no effect.
+          > once the element is in the DOM. The attribute alone has no effect. When
+          you add or remove <code>data-indeterminate</code> later, call <code
+            >syncIndeterminate(input)</code
+          >.
         </p>
 
         <UICallout>
           <UICalloutContent>
-            <UICalloutTitle>JavaScript required</UICalloutTitle>
+            <h3>JavaScript required</h3>
             <div class="ui-rich-text">
               The <code>indeterminate</code> state cannot be set with HTML or CSS
               alone. The browser only exposes it as a property on <code
@@ -332,7 +222,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
   <section>
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>spread</code> prop to push the label to the left and the checkbox
         to the right. This is useful for full-width items like lists and menus.
       </Fragment>
@@ -343,18 +233,6 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         {" "}to push the label to the left and the checkbox to the right. This
         is useful for full-width items like lists and menus.
       </Fragment>
-      <Fragment slot="react">
-        Use the <code>spread</code> prop to push the label to the left and the checkbox
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>spread</code> prop to push the label to the left and the checkbox
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> prop to push the label to the left and the checkbox
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Spread" column />
@@ -362,35 +240,19 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
   <section>
     <h2 id="label-alignment">Label alignment</h2>
-    <p>
-      The checkbox lines up with the first line of its label and centers on the
-      label's capital letters, so it looks centered in any font and at any size.
-      If a font still looks off, nudge the label with
-      {" "}<code>--choice-label-offset</code>, in <code>em</code> or
-      {" "}<code>cap</code> so it scales with the label.
-    </p>
-    <Code lang="css" code={`:root {\n  --choice-label-offset: 0.05em;\n}`} />
+    <LabelAlignment control="checkbox" />
   </section>
 
   <section>
     <h2 id="field-group">Field group</h2>
     <p>Use field groups to group related checkboxes.</p>
     <Conditional>
-      <p slot="astro">
+      <p slot="components">
         The <code>name</code> prop will get passed down to each checkbox in the group.
       </p>
       <p slot="html">
         Give every <code>&lt;input type="checkbox"&gt;</code> in the group the same
         {" "}<code>name</code> attribute so they're submitted together.
-      </p>
-      <p slot="react">
-        The <code>name</code> prop will get passed down to each checkbox in the group.
-      </p>
-      <p slot="svelte">
-        The <code>name</code> prop will get passed down to each checkbox in the group.
-      </p>
-      <p slot="vue">
-        The <code>name</code> prop will get passed down to each checkbox in the group.
       </p>
     </Conditional>
     <p>
@@ -409,11 +271,19 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <AutoExample name="FieldGroupFieldDescription" column centered spacious />
 
     <h3 id="field-group-disabled">Disabled</h3>
-    <p>
-      Attach the <code>disabled</code> attribute to the <code
-        >&lt;fieldset&gt;</code
-      > element.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every checkbox
+        in it, or on a single <code>Checkbox</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Attach the <code>disabled</code> attribute to the <code
+          >&lt;fieldset&gt;</code
+        > element to disable every checkbox in it, or to a single <code
+          >&lt;input&gt;</code
+        >.
+      </Fragment>
+    </Conditional>
     <p>
       <code>aria-disabled="true"</code> on the <code>&lt;input&gt;</code> looks the
       same, but keeps the checkbox focusable and its value in the form. It doesn't
@@ -430,28 +300,60 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
     <h3 id="field-group-validation">Validation</h3>
     <Conditional>
+      <p slot="components">
+        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
+        text of the <code>FieldSet</code> turns red with them.
+      </p>
       <p slot="html">
         Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in
         the group. The end text of the <code>.ui-fieldset</code> turns red with them.
       </p>
-      <p slot="astro">
-        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
-        text of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="react">
-        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
-        text of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="svelte">
-        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
-        text of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="vue">
-        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
-        text of the <code>FieldSet</code> turns red with them.
-      </p>
     </Conditional>
+    <p>
+      Give the end text an <code>id</code> and point <code
+        >aria-describedby</code
+      >
+      on the fieldset at it, so screen readers read the error with the group.
+    </p>
     <AutoExample name="FieldGroupValidation" row />
+
+    <h3 id="field-group-binding">Binding</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Astro renders the group on the server, so it has no bound value. The
+        checked values live in the inputs, which share the group's <code
+          >name</code
+        >. Submit them with a form, where <code>FormData.getAll()</code> reads them,
+        or read the checked inputs in a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the <code>checked</code> boxes.
+      </Fragment>
+      <Fragment slot="html">
+        The checked values live in the inputs, which share a <code>name</code>.
+        Submit them with a form, where <code>FormData.getAll()</code> reads them,
+        or read the checked inputs in a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the <code>checked</code> inputs in the markup.
+      </Fragment>
+      <Fragment slot="react">
+        Keep the checked values in your own state. Pass each <code
+          >Checkbox</code
+        > a <code>checked</code> and an <code>onChange</code> that adds or removes
+        its <code>value</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Bind the checked values with <code>bind:group</code> on each <code
+          >Checkbox</code
+        >. The array holds the <code>value</code> of every checked box, and setting
+        it updates the boxes.
+      </Fragment>
+      <Fragment slot="vue">
+        Bind the checked values with <code>v-model</code> and an array ref on each
+        <code>Checkbox</code>. The array holds the <code>value</code> of every checked
+        box, and setting it updates the boxes.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="FieldGroupBinding" centered column />
   </section>
 
   <CheckboxBuild slot="under-the-hood" />
@@ -462,64 +364,56 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       Accessible checkboxes must have a label. You can choose between three
       approaches:
     </p>
-    <table class="ui-table">
-      <thead>
-        <tr>
-          <th>Approach</th>
-          <th>Usage in Checkbox component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Approach</TableHeaderCell>
+          <TableHeaderCell>Usage in Checkbox component</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>
             Provide a label text inside the <code>label</code> element
-          </td>
-          <td>Default</td>
-        </tr>
-        <tr>
-          <td>Add an <code>aria-label</code> on the input element</td>
-          <td>Not used</td>
-        </tr>
-        <tr>
-          <td>
+          </TableCell>
+          <TableCell>Default</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell
+            >Add an <code>aria-label</code> on the input element</TableCell
+          >
+          <TableCell>Not used</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
             Have a visible label that you reference with <code
               >aria-labelledby</code
             >
-          </td>
-          <td>Not used</td>
-        </tr>
-      </tbody>
-    </table>
+          </TableCell>
+          <TableCell>Not used</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
 
     <h3 id="keyboard-support">Keyboard support</h3>
     <div class="ui-not-rich-text">
-      <table class="ui-table">
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Function</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><kbd>Space</kbd></td>
-            <td>When Checkbox is focused it changes its state.</td>
-          </tr>
-        </tbody>
-      </table>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Key</TableHeaderCell>
+            <TableHeaderCell>Function</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell><kbd>Space</kbd></TableCell>
+            <TableCell>When Checkbox is focused it changes its state.</TableCell
+            >
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   </Fragment>
-
-  <style is:global>
-    .example-row {
-      align-items: center;
-      display: flex;
-      gap: var(--size-3);
-    }
-    .example-row.ui-spacious {
-      gap: var(--size-6);
-    }
-  </style>
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.5}>

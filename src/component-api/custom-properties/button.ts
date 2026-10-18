@@ -49,6 +49,15 @@ export default {
     description: "Hover background of text buttons, from `--_accent`.",
     kind: "output",
   },
+  "--_duration": {
+    description:
+      "Duration of the transitions, `--duration-fast` times `--_motion`.",
+    kind: "output",
+  },
+  "--_ease": {
+    description: "Easing of the transitions. Defaults to `--ease`.",
+    kind: "input",
+  },
   "--_filled-active-bg-color": {
     description: "Pressed background of filled buttons, from `--_accent`.",
     kind: "output",

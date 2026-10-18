@@ -90,6 +90,8 @@
     }
 
     .chat-messages {
+      --divider-space: 0;
+
       display: flex;
       flex-direction: column;
       gap: var(--size-3);
@@ -102,21 +104,6 @@
       }
     }
 
-    .chat-day {
-      align-items: center;
-      color: var(--text-muted);
-      display: flex;
-      font-size: var(--font-size-0);
-      gap: var(--size-3);
-
-      &::before,
-      &::after {
-        border-block-start: var(--border-width) solid var(--border-color);
-        content: "";
-        flex: 1;
-      }
-    }
-
     .chat-message {
       align-items: end;
       display: flex;
@@ -126,7 +113,7 @@
 
     .chat-bubble {
       background-color: var(--surface-tonal);
-      border-radius: var(--radius-3);
+      border-radius: var(--border-radius);
       display: grid;
       gap: var(--size-1);
       padding: var(--size-2) var(--size-3);
@@ -155,7 +142,7 @@
       align-items: center;
       background-color: var(--surface-default);
       border: var(--border-width) solid var(--border-color);
-      border-radius: var(--radius-2);
+      border-radius: var(--border-radius);
       display: flex;
       gap: var(--size-2);
       padding: var(--size-2);
@@ -171,8 +158,6 @@
     }
 
     .chat-typing {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
       margin: 0;
       padding: 0 var(--size-3) var(--size-2);
 
@@ -203,7 +188,7 @@
         <h2 class="ui-h5" id="chat-conversations-heading">Messages</h2>
         <button
           aria-label="New message"
-          class="ui-button ui-rounded ui-small"
+          class="ui-button ui-round ui-small"
           type="button"
         >
           <svg
@@ -317,7 +302,7 @@
     <header class="chat-thread-header">
       <button
         aria-label="Show conversations"
-        class="ui-button ui-rounded ui-small chat-conversations-button"
+        class="ui-button ui-round ui-small chat-conversations-button"
         command="show-modal"
         commandfor="chat-drawer"
         type="button"
@@ -343,7 +328,7 @@
       <div class="chat-thread-actions">
         <button
           aria-label="Start call"
-          class="ui-button ui-rounded ui-small"
+          class="ui-button ui-round ui-small"
           type="button"
         >
           <svg
@@ -361,7 +346,7 @@
         </button>
         <button
           aria-label="Conversation options"
-          class="ui-button ui-rounded ui-small"
+          class="ui-button ui-round ui-small"
           command="toggle-popover"
           commandfor="chat-options"
           type="button"
@@ -412,7 +397,7 @@
     </header>
 
     <ol aria-label="Messages with Saga Nyström" class="chat-messages">
-      <li class="chat-day">Today</li>
+      <li class="ui-divider">Today</li>
       <li class="chat-message">
         <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
         <div class="chat-bubble">
@@ -440,7 +425,7 @@
         <div class="chat-bubble">
           <p>Can you add the case study from Bergen Bikes too?</p>
           <p class="ui-caption">
-            <time datetime="2026-10-08T14:19">14:19</time> · Read
+            <time datetime="2026-10-08T14:19">14:19</time>, read
           </p>
         </div>
       </li>
@@ -465,7 +450,7 @@
               <a class="ui-link" href="#chat-file-proposal"
                 >Tromso-Outdoor-proposal.pdf</a
               >
-              <p class="ui-caption">PDF · 2.4 MB</p>
+              <p class="ui-caption">PDF, 2.4 MB</p>
             </div>
           </div>
           <p class="ui-caption">
@@ -485,11 +470,11 @@
     </ol>
 
     <div>
-      <p aria-live="polite" class="chat-typing">Saga is typing…</p>
+      <p aria-live="polite" class="chat-typing ui-caption">Saga is typing…</p>
       <form action="#" class="chat-composer">
         <button
           aria-label="Attach a file"
-          class="ui-button ui-rounded"
+          class="ui-button ui-round"
           type="button"
         >
           <svg
@@ -516,7 +501,7 @@
         </div>
         <button
           aria-label="Send"
-          class="ui-button ui-primary ui-filled ui-rounded"
+          class="ui-button ui-primary ui-filled ui-round"
           type="submit"
         >
           <svg
@@ -546,7 +531,7 @@
       <h2 id="chat-drawer-heading">Messages</h2>
       <button
         aria-label="Close"
-        class="ui-button ui-rounded ui-small"
+        class="ui-button ui-round ui-small"
         command="close"
         commandfor="chat-drawer"
         type="button"

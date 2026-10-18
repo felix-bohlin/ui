@@ -10,7 +10,7 @@ import {
   Button as UIButton,
   Card as UICard,
   CardContent as UICardContent,
-} from "@opui/astro"
+} from "opui-css/astro"
 
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
 
@@ -52,35 +52,17 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
   <section>
     <h2 id="always-visible">Always visible</h2>
     <Conditional as="p">
+      <Fragment slot="components">
+        Floating content that is always shown, like a coach mark beside a
+        button. Put it in <code>AnchorContent</code>, and set <code
+          >alignment</code
+        > to any <code>position-area</code> value to place it.
+      </Fragment>
       <Fragment slot="html">
         Floating content that is always shown, like a coach mark beside a
         button. Set <code>--anchor-position-area</code> on
         {" "}<code>.ui-anchor</code> to any <code>position-area</code> value to place
         it.
-      </Fragment>
-      <Fragment slot="astro">
-        Floating content that is always shown, like a coach mark beside a
-        button. Put it in <code>AnchorContent</code>, and set <code
-          >alignment</code
-        > to any <code>position-area</code> value to place it.
-      </Fragment>
-      <Fragment slot="react">
-        Floating content that is always shown, like a coach mark beside a
-        button. Put it in <code>AnchorContent</code>, and set <code
-          >alignment</code
-        > to any <code>position-area</code> value to place it.
-      </Fragment>
-      <Fragment slot="svelte">
-        Floating content that is always shown, like a coach mark beside a
-        button. Put it in <code>AnchorContent</code>, and set <code
-          >alignment</code
-        > to any <code>position-area</code> value to place it.
-      </Fragment>
-      <Fragment slot="vue">
-        Floating content that is always shown, like a coach mark beside a
-        button. Put it in <code>AnchorContent</code>, and set <code
-          >alignment</code
-        > to any <code>position-area</code> value to place it.
       </Fragment>
     </Conditional>
 
@@ -90,34 +72,16 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
   <section>
     <h2 id="hover-trigger">Hover trigger</h2>
     <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
+          >interestfor</code
+        > with that id to the trigger. <code>AnchorContent</code> gets the id and
+        <code>popover="hint"</code>.
+      </Fragment>
       <Fragment slot="html">
         Add <code>popover="hint"</code> and an id to
         {" "}<code>.ui-anchor-floating</code>, and <code>interestfor</code> with that
         id on the trigger.
-      </Fragment>
-      <Fragment slot="astro">
-        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
-          >interestfor</code
-        > with that id to the trigger. <code>AnchorContent</code> gets the id and
-        <code>popover="hint"</code>.
-      </Fragment>
-      <Fragment slot="react">
-        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
-          >interestfor</code
-        > with that id to the trigger. <code>AnchorContent</code> gets the id and
-        <code>popover="hint"</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
-          >interestfor</code
-        > with that id to the trigger. <code>AnchorContent</code> gets the id and
-        <code>popover="hint"</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
-          >interestfor</code
-        > with that id to the trigger. <code>AnchorContent</code> gets the id and
-        <code>popover="hint"</code>.
       </Fragment>
     </Conditional>
     <p>
@@ -128,7 +92,9 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
       Put a <DocLink href="/components/card">Card</DocLink> in the floating content
       for hover cards like GitHub's repository previews. Align the card below the
       trigger with <code>block-end span-inline-end</code>. It flips to the other
-      side when there isn't room.
+      side when there isn't room. The card keeps its interactive content
+      reachable, so the pointer can move from the link into the card without
+      closing it.
     </p>
 
     <AutoExample name="RepoCard" />
@@ -136,21 +102,9 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
 
   <section>
     <h2 id="link-preview">Link preview</h2>
-    <p>
-      Preview where a link goes before following it. The card keeps its
-      interactive content reachable, so the pointer can move from the link into
-      the card without closing it.
-    </p>
+    <p>Preview where a link goes before following it.</p>
 
     <AutoExample name="LinkPreview" />
-  </section>
-
-  <section>
-    <h2 id="used-by">Used by</h2>
-    <ul>
-      <li><DocLink href="/components/badge">Badge</DocLink></li>
-      <li><DocLink href="/components/tooltip">Tooltip</DocLink></li>
-    </ul>
   </section>
 
   <AnchorBuild slot="under-the-hood" />

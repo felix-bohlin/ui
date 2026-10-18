@@ -15,6 +15,11 @@ export default {
       "Duration of the exit animation, `--duration-slow` times `--_motion`.",
     kind: "output",
   },
+  "--_hold": {
+    description:
+      "How long the toast stays before it exits. `data-duration` in browsers with typed `attr()`, otherwise `--_hold-duration`.",
+    kind: "output",
+  },
   "--_hold-duration": {
     description:
       "How long the toast stays before it exits, in browsers without typed `attr()`. Others read `data-duration`, defaulting to `5s`.",

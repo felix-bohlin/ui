@@ -4,8 +4,8 @@ import { expect, test } from "@playwright/test"
 import {
   BLOCKS,
   COMPONENTS,
-  FRAMEWORKS,
   STRESS_TESTS,
+  axeNodes,
   openFixture,
 } from "./fixtures"
 
@@ -18,48 +18,35 @@ const RECORD = !!process.env.A11Y_RECORD
 const readKnown = (): Record<string, string[]> =>
   JSON.parse(readFileSync(KNOWN_VIOLATIONS_FILE, "utf-8"))
 
-const isCarousel = (html: string) =>
-  /^<[^>]*\bclass="[^"]*\bui-carousel\b/.test(html)
-
 const known = readKnown()
 const recorded: Record<string, string[]> = {}
-let scheme = ""
+const ran = new Set<string>()
 
-const TARGETS = [
-  ...FRAMEWORKS.flatMap((framework) =>
-    COMPONENTS.map((component) => ({ component, framework })),
-  ),
-  ...[...BLOCKS, ...STRESS_TESTS].map((component) => ({
-    component,
-    framework: "html" as const,
-  })),
-]
+const within = (key: string, prefix: string) =>
+  key === prefix || key.startsWith(`${prefix}/`)
 
-for (const { component, framework } of TARGETS) {
-  test(`${framework}/${component} has no new axe violations`, async ({
+if (RECORD) test.describe.configure({ mode: "serial" })
+
+const TARGETS = [...BLOCKS, ...COMPONENTS, ...STRESS_TESTS].toSorted()
+
+for (const component of TARGETS) {
+  test(`html/${component} has no new axe violations`, async ({
     page,
   }, testInfo) => {
-    scheme = testInfo.project.name
-    const prefix = `${scheme}/${component}`
-    await openFixture(page, framework, component)
+    if (RECORD) {
+      expect(
+        testInfo.config.workers,
+        "recording the ledger needs --workers=1",
+      ).toBe(1)
+    }
+    const prefix = `${testInfo.project.name}/html/${component}`
+    await openFixture(page, "html", component)
 
     const { violations } = await new AxeBuilder({ page })
       .include(component.startsWith("blocks/") ? "body" : "main")
       .exclude('iframe[src*="youtube"]')
       .analyze()
-    const nodes = violations.flatMap((violation) =>
-      violation.nodes
-        .filter(
-          (node) =>
-            violation.id !== "scrollable-region-focusable" ||
-            !isCarousel(node.html),
-        )
-        .map((node) => ({
-          help: violation.help,
-          id: violation.id,
-          target: node.target.join(" "),
-        })),
-    )
+    const nodes = axeNodes(violations)
     const examples = await page.evaluate(
       (targets) =>
         targets.map((target) => {
@@ -97,6 +84,7 @@ for (const { component, framework } of TARGETS) {
     })
 
     if (RECORD) {
+      ran.add(prefix)
       for (const [key, rules] of found) {
         recorded[key] = [
           ...new Set([...(recorded[key] ?? []), ...rules]),
@@ -128,14 +116,34 @@ for (const { component, framework } of TARGETS) {
       fixed,
       `fixed violations; remove them from a11y-known-violations.json`,
     ).toEqual([])
+
+    const stale = Object.keys(known).filter(
+      (key) => within(key, prefix) && !present.has(key),
+    )
+    expect(
+      stale,
+      `examples that no longer exist; remove them from a11y-known-violations.json`,
+    ).toEqual([])
   })
 }
 
+test("a11y-known-violations.json only lists pages that exist", () => {
+  const scheme = test.info().project.name
+  const prefixes = TARGETS.map((target) => `${scheme}/html/${target}`)
+  expect(
+    Object.keys(known).filter(
+      (key) =>
+        key.startsWith(`${scheme}/`) &&
+        !prefixes.some((prefix) => within(key, prefix)),
+    ),
+  ).toEqual([])
+})
+
 test.afterAll(() => {
-  if (!RECORD || !scheme) return
+  if (!RECORD || ran.size === 0) return
   const merged = Object.fromEntries(
     Object.entries(readKnown()).filter(
-      ([key]) => !key.startsWith(`${scheme}/`),
+      ([key]) => ![...ran].some((prefix) => within(key, prefix)),
     ),
   )
   Object.assign(merged, recorded)

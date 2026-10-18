@@ -1,7 +1,7 @@
 import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 
-export type Props = Base.Props & SvelteHTMLElements["dialog"]
+export type Props = Base.Props & Omit<SvelteHTMLElements["dialog"], "closedby">
 
 export type DialogActionsProps = Base.DialogActionsProps &
   SvelteHTMLElements["div"]

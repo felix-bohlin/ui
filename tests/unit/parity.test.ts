@@ -1,28 +1,35 @@
 import { existsSync } from "node:fs"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
-import { getContainerRenderer } from "@astrojs/vue/container-renderer"
-import { loadRenderers } from "astro:container"
+import type { AstroInstance } from "astro"
 import { createTwoFilesPatch } from "diff"
-import { createElement } from "react"
+import { createElement, type ComponentType } from "react"
 import { renderToString as renderReact } from "react-dom/server"
+import type { Component as SvelteComponent } from "svelte"
 import { render } from "svelte/server"
-import { createSSRApp } from "vue"
+import { createSSRApp, type Component as VueComponent } from "vue"
 import { renderToString } from "vue/server-renderer"
-import { beforeAll, describe, expect, test } from "vitest"
-import { normalize } from "./normalize"
+import { describe, expect, test } from "vitest"
+import {
+  DEFAULT_FRAMEWORK,
+  exampleExtension,
+  FRAMEWORK_IDS as FRAMEWORKS,
+  type FrameworkId as Framework,
+} from "../../src/utils/framework"
+import { createIdGenerator } from "../../src/utils/id"
+import { idsOf, normalize } from "./normalize"
 
 const RECORD = !!process.env.PARITY_RECORD
 
-const astroModules = import.meta.glob<{ default: any }>(
+const astroModules = import.meta.glob<AstroInstance>(
   "../../src/component-examples/**/*.astro",
 )
-const reactModules = import.meta.glob<{ default: any }>(
+const reactModules = import.meta.glob<{ default: ComponentType }>(
   "../../src/component-examples/**/*.react.tsx",
 )
-const svelteModules = import.meta.glob<{ default: any }>(
+const svelteModules = import.meta.glob<{ default: SvelteComponent }>(
   "../../src/component-examples/**/*.svelte",
 )
-const vueModules = import.meta.glob<{ default: any }>(
+const vueModules = import.meta.glob<{ default: VueComponent }>(
   "../../src/component-examples/**/*.vue",
 )
 const exampleSources = import.meta.glob<string>(
@@ -34,22 +41,13 @@ const htmlSources = import.meta.glob<string>(
   { import: "default", query: "?raw" },
 )
 
-const EXAMPLE_CLASSES = new Set([
-  "code",
-  "copy",
-  "frame",
-  "header",
-  "indent",
-  ...Object.values(exampleSources).flatMap((source) =>
+const EXAMPLE_CLASSES = new Set(
+  Object.values(exampleSources).flatMap((source) =>
     [...source.matchAll(/\b(?:class|className)="([^"{]+)"/g)].flatMap((match) =>
       match[1].split(/\s+/),
     ),
   ),
-])
-
-const FRAMEWORKS = ["html", "astro", "react", "svelte", "vue"] as const
-
-type Framework = (typeof FRAMEWORKS)[number]
+)
 
 const REFERENCES: Record<Framework, Framework[]> = {
   astro: ["html"],
@@ -59,9 +57,17 @@ const REFERENCES: Record<Framework, Framework[]> = {
   vue: ["astro", "html"],
 }
 
+type Loaded = {
+  astro: AstroInstance
+  html: string
+  react: { default: ComponentType }
+  svelte: { default: SvelteComponent }
+  vue: { default: VueComponent }
+}
+
 type Example = {
   key: string
-  loaders: Partial<Record<Framework, () => Promise<unknown>>>
+  loaders: { [F in Framework]?: () => Promise<Loaded[F]> }
 }
 
 const keyOf = (path: string) =>
@@ -70,9 +76,9 @@ const keyOf = (path: string) =>
     .replace(/(\.react)?\.[a-z]+$/, "")
 
 const examples = new Map<string, Example>()
-const register = (
-  framework: Framework,
-  modules: Record<string, () => Promise<unknown>>,
+const register = <F extends Framework>(
+  framework: F,
+  modules: Record<string, Example["loaders"][F]>,
 ) => {
   for (const [path, load] of Object.entries(modules)) {
     const key = keyOf(path)
@@ -86,35 +92,21 @@ register("react", reactModules)
 register("svelte", svelteModules)
 register("vue", vueModules)
 
-const cases = [...examples.values()]
-  .filter(({ key }) => !key.endsWith("Code"))
-  .toSorted((a, b) => a.key.localeCompare(b.key))
+const cases = [...examples.values()].toSorted((a, b) =>
+  a.key.localeCompare(b.key),
+)
 
-const createIdGenerator = () => {
-  const counts = new Map<string, number>()
-  return (prefix: string) => {
-    const count = (counts.get(prefix) ?? 0) + 1
-    counts.set(prefix, count)
-    return `${prefix}-${count}`
-  }
-}
+const container = await AstroContainer.create()
 
-let container: AstroContainer
-
-beforeAll(async () => {
-  const renderers = await loadRenderers([getContainerRenderer()])
-  container = await AstroContainer.create({ renderers })
-})
-
-const renderers: Record<
-  Framework,
-  (loaded: any, key: string) => Promise<string>
-> = {
+const renderers: {
+  [F in Framework]: (loaded: Loaded[F], key: string) => Promise<string>
+} = {
   astro: (loaded, key) =>
     container.renderToString(loaded.default, {
       locals: {
         $id: createIdGenerator(),
         componentSlug: key.split("/")[0],
+        framework: DEFAULT_FRAMEWORK,
         link: (path: string) => path,
       },
     }),
@@ -128,18 +120,46 @@ const renderers: Record<
   vue: (loaded) => renderToString(createSSRApp(loaded.default)),
 }
 
+const renderExample = <F extends Framework>(example: Example, framework: F) =>
+  example.loaders[framework]!().then((loaded) =>
+    renderers[framework](loaded, example.key),
+  )
+
+const renders = new Map<string, Promise<string>>()
+const rendered = (example: Example, framework: Framework) => {
+  const cacheKey = `${example.key}.${framework}`
+  if (!renders.has(cacheKey)) {
+    renders.set(cacheKey, renderExample(example, framework))
+  }
+  return renders.get(cacheKey)!
+}
+
 const cache = new Map<string, Promise<string>>()
 const markup = (example: Example, framework: Framework) => {
   const cacheKey = `${example.key}.${framework}`
   if (!cache.has(cacheKey)) {
-    cache.set(
-      cacheKey,
-      example.loaders[framework]!()
-        .then((loaded) => renderers[framework](loaded, example.key))
-        .then(normalize),
-    )
+    cache.set(cacheKey, rendered(example, framework).then(normalize))
   }
   return cache.get(cacheKey)!
+}
+
+const idPattern = (key: string) => {
+  const [slug, name] = key.split("/")
+  const example = name
+    .replace(/Code$/, "")
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .toLowerCase()
+  return new RegExp(`^${slug}-${example}-\\d+(-[a-z]+)*$`)
+}
+
+const authoredIds = async (example: Example, framework: Framework) => {
+  const source =
+    exampleSources[
+      `../../src/component-examples/${example.key}.${exampleExtension(framework)}`
+    ]
+  return idsOf(await rendered(example, framework)).filter((id) =>
+    source.includes(`"${id}"`),
+  )
 }
 
 describe.each(cases)("$key", (example) => {
@@ -163,6 +183,24 @@ describe.each(cases)("$key", (example) => {
         (name) => !name.startsWith("ui-") && !EXAMPLE_CLASSES.has(name),
       )
       expect(unprefixed).toEqual([])
+    },
+  )
+
+  test.each(frameworks)(
+    "%s ids follow <slug>-<example>-<n> and match html",
+    async (framework) => {
+      const pattern = idPattern(example.key)
+      const ids = await authoredIds(example, framework)
+      expect(
+        ids.filter((id) => !pattern.test(id)),
+        `ids must match ${pattern}`,
+      ).toEqual([])
+      if (framework === "html" || !example.loaders.html) return
+      const htmlIds = await authoredIds(example, "html")
+      expect(
+        ids.filter((id) => !htmlIds.includes(id)),
+        "ids must be the ones the html example uses",
+      ).toEqual([])
     },
   )
 

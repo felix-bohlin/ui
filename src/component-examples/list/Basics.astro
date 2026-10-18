@@ -1,0 +1,14 @@
+---
+import { List, ListItem } from "opui-css/astro"
+---
+
+<List>
+  <ListItem headline="Headline" />
+  <ListItem
+    headline="Headline"
+    description="Supporting text that truly is quite long enough to fill up multiple lines."
+  />
+  <ListItem headline="Trailing supporting text">
+    <Fragment slot="end">100+</Fragment>
+  </ListItem>
+</List>

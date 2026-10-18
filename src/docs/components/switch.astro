@@ -1,17 +1,28 @@
 ---
-import Code from "../../components/Code.astro"
+import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Switch as UISwitch } from "@opui/astro"
+import {
+  Switch as UISwitch,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import SwitchCSS from "@opui/css/components/switch.css?raw"
+import ChoiceCSS from "@opui/css/components/choice.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import fieldGroupApi from "../../component-api/field-group/api"
 import switchApi from "../../component-api/switch/api"
+import switchInputApi from "../../component-api/switch-input/api"
 
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 ---
@@ -29,6 +40,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   heroAnatomy
   apis={[
     { title: "Switch API", api: switchApi },
+    { title: "Switch input API", api: switchInputApi },
     { title: "Field group API", api: fieldGroupApi },
   ]}
   changelogPaths={[
@@ -47,11 +59,13 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
       type: "css",
     },
     { path: "src/component-api/switch", type: "api" },
+    { path: "src/component-api/switch-input", type: "api" },
     { path: "src/component-api/field-group", type: "api" },
   ]}
   installationTabs={[
     { title: "switch.css", code: SwitchCSS, lang: "css" },
-    { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
+    { title: "choice.css", code: ChoiceCSS, lang: "css" },
+    { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
   ]}
 >
   <Fragment slot="title">Switch</Fragment>
@@ -75,7 +89,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   <section>
     <h2 id="basics">Basics</h2>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >All switches should have an accessible name. Put the label text inside
         the component, also when there's no visible label: set <code
           >hideLabel</code
@@ -87,33 +101,15 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           >.ui-sr-only</code
         > instead of <code>.ui-label</code>.</Fragment
       >
-      <Fragment slot="react"
-        >All switches should have an accessible name. Put the label text inside
-        the component, also when there's no visible label: set <code
-          >hideLabel</code
-        > to hide it visually.</Fragment
-      >
-      <Fragment slot="svelte"
-        >All switches should have an accessible name. Put the label text inside
-        the component, also when there's no visible label: set <code
-          >hideLabel</code
-        > to hide it visually.</Fragment
-      >
-      <Fragment slot="vue"
-        >All switches should have an accessible name. Put the label text inside
-        the component, also when there's no visible label: set <code
-          >hideLabel</code
-        > to hide it visually.</Fragment
-      >
     </Conditional>
 
-    <AutoExample name="Variants" row />
+    <AutoExample name="Basics" row />
   </section>
 
   <section>
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
         >, <code>small</code>, default and <code>large</code>.
@@ -125,21 +121,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           >&lt;label class="ui-switch"&gt;</code
         >.
       </Fragment>
-      <Fragment slot="react">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Sizes" column centered spacious />
@@ -148,7 +129,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   <section>
     <h2 id="visible-label">Visible label</h2>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >The default slot is the label. Also, don't miss the info on label <a
           href="#accessibility"
           class="ui-link">accessibility</a
@@ -172,19 +153,13 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
         on label <a href="#accessibility" class="ui-link">accessibility</a
         >.</Fragment
       >
-      <Fragment slot="vue"
-        >The default slot is the label. Also, don't miss the info on label <a
-          href="#accessibility"
-          class="ui-link">accessibility</a
-        >.</Fragment
-      >
     </Conditional>
 
     <AutoExample name="VisibleLabel" column centered />
 
     <h3 id="label-position">Label position</h3>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >Set <code>stack</code> to put the label under the switch.</Fragment
       >
       <Fragment slot="html"
@@ -192,26 +167,17 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           >&lt;label class="ui-switch"&gt;</code
         > to put the label under the switch.</Fragment
       >
-      <Fragment slot="react"
-        >Set <code>stack</code> to put the label under the switch.</Fragment
-      >
-      <Fragment slot="svelte"
-        >Set <code>stack</code> to put the label under the switch.</Fragment
-      >
-      <Fragment slot="vue"
-        >Set <code>stack</code> to put the label under the switch.</Fragment
-      >
     </Conditional>
     <AutoExample name="LabelPosition" row spacious />
 
     <h3 id="end-text">End text</h3>
-    <AutoExample name="SupportingText" row spacious />
+    <AutoExample name="EndText" row spacious />
   </section>
 
   <section>
     <h2 id="icons">Icons</h2>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >Put an icon in the <code>icon-unchecked</code> and <code
           >icon-checked</code
         > slots to show it in the thumb. The component hides them from screen readers.</Fragment
@@ -233,106 +199,13 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           >iconChecked</code
         > snippets to show it in the thumb. The component hides them from screen readers.</Fragment
       >
-      <Fragment slot="vue"
-        >Put an icon in the <code>icon-unchecked</code> and <code
-          >icon-checked</code
-        > slots to show it in the thumb. The component hides them from screen readers.</Fragment
-      >
     </Conditional>
     <AutoExample name="Icons" column centered />
   </section>
 
   <section>
     <h2 id="validation">Validation</h2>
-    <ul>
-      <Conditional>
-        <li slot="astro">
-          Set <code>required</code> on the component to toggle required styles on
-          the input.
-        </li>
-        <li slot="react">
-          Set the <code>required</code> prop on the component. It is forwarded to
-          the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="svelte">
-          Add the <code>required</code> attribute on the component. It is forwarded
-          to the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="vue">
-          Add the <code>required</code> attribute on the component. It is forwarded
-          to the underlying <code>&lt;input&gt;</code>.
-        </li>
-        <li slot="html">
-          Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to
-          toggle required styles.
-        </li>
-      </Conditional>
-      <Conditional>
-        <li slot="astro">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="react">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="svelte">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="vue">
-          Use the <code>error</code> prop to toggle invalid styles. It sets <code
-            >aria-invalid="true"</code
-          > on the input, so screen readers announce it as invalid. Make use of the
-          end text to give extra feedback on the error.
-        </li>
-        <li slot="html">
-          Add <code>aria-invalid="true"</code> to the <code>&lt;input&gt;</code> to
-          toggle invalid styles. Screen readers announce it as invalid. Make use of
-          the end text to give extra feedback on the error, and point <code
-            >aria-describedby</code
-          > at it.
-        </li>
-      </Conditional>
-      <Conditional>
-        <li slot="astro">
-          Switches also get the invalid styles from the browser's own validation
-          (<code>:user-invalid</code>), after the user has edited them. Use the <code
-            >error</code
-          > prop for server-side errors.
-        </li>
-        <li slot="react">
-          Switches also get the invalid styles from the browser's own validation
-          (<code>:user-invalid</code>), after the user has edited them. Use the <code
-            >error</code
-          > prop for server-side errors.
-        </li>
-        <li slot="svelte">
-          Switches also get the invalid styles from the browser's own validation
-          (<code>:user-invalid</code>), after the user has edited them. Use the <code
-            >error</code
-          > prop for server-side errors.
-        </li>
-        <li slot="vue">
-          Switches also get the invalid styles from the browser's own validation
-          (<code>:user-invalid</code>), after the user has edited them. Use the <code
-            >error</code
-          > prop for server-side errors.
-        </li>
-        <li slot="html">
-          Switches also get the invalid styles from the browser's own validation
-          (<code>:user-invalid</code>), after the user has edited them. Use <code
-            >aria-invalid="true"</code
-          > for server-side errors.
-        </li>
-      </Conditional>
-    </ul>
+    <ValidationNotes element="input" subject="Switches" />
 
     <AutoExample name="Validation" column centered spacious />
   </section>
@@ -340,7 +213,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   <section>
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>spread</code> prop to push the label to the left and the switch
         to the right. This is useful for full-width items like lists and menus.
       </Fragment>
@@ -351,18 +224,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
         {" "}to push the label to the left and the switch to the right. This is
         useful for full-width items like lists and menus.
       </Fragment>
-      <Fragment slot="react">
-        Use the <code>spread</code> prop to push the label to the left and the switch
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>spread</code> prop to push the label to the left and the switch
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> prop to push the label to the left and the switch
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Spread" column />
@@ -370,21 +231,14 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 
   <section>
     <h2 id="label-alignment">Label alignment</h2>
-    <p>
-      The switch lines up with the first line of its label and centers on the
-      label's capital letters, so it looks centered in any font and at any size.
-      If a font still looks off, nudge the label with
-      {" "}<code>--choice-label-offset</code>, in <code>em</code> or
-      {" "}<code>cap</code> so it scales with the label.
-    </p>
-    <Code lang="css" code={`:root {\n  --choice-label-offset: 0.05em;\n}`} />
+    <LabelAlignment control="switch" />
   </section>
 
   <section>
     <h2 id="field-group">Field group</h2>
     <p>Use field groups to group related switches.</p>
     <Conditional>
-      <p slot="astro">
+      <p slot="components">
         The <code>name</code> prop will get passed down to each switch in the group.
       </p>
       <p slot="html">
@@ -392,15 +246,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           >name</code
         >
         {" "}attribute so they're submitted together.
-      </p>
-      <p slot="react">
-        The <code>name</code> prop will get passed down to each switch in the group.
-      </p>
-      <p slot="svelte">
-        The <code>name</code> prop will get passed down to each switch in the group.
-      </p>
-      <p slot="vue">
-        The <code>name</code> prop will get passed down to each switch in the group.
       </p>
     </Conditional>
     <p>
@@ -419,11 +264,19 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     <AutoExample name="FieldGroupFieldDescription" column centered spacious />
 
     <h3 id="field-group-disabled">Disabled</h3>
-    <p>
-      Attach the <code>disabled</code> attribute to the <code
-        >&lt;fieldset&gt;</code
-      > element.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every switch
+        in it, or on a single <code>Switch</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Attach the <code>disabled</code> attribute to the <code
+          >&lt;fieldset&gt;</code
+        > element to disable every switch in it, or to a single <code
+          >&lt;input&gt;</code
+        >.
+      </Fragment>
+    </Conditional>
     <p>
       <code>aria-disabled="true"</code> on the <code>&lt;input&gt;</code> looks the
       same, but keeps the switch focusable and its value in the form. It doesn't stop
@@ -433,78 +286,108 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 
     <h3 id="field-group-required">Required</h3>
     <p>
-      Attach the <code>required</code> attribute to at least one of your <code
-        >&lt;input&gt;</code
-      > elements.
+      Each switch with <code>required</code> must be on before the form submits. There's
+      no native "at least one" for switches.
     </p>
     <AutoExample name="FieldGroupRequired" row />
 
     <h3 id="field-group-validation">Validation</h3>
     <Conditional>
+      <p slot="components">
+        Set <code>error</code> on each <code>Switch</code> in the group. The end text
+        of the <code>FieldSet</code> turns red with them.
+      </p>
       <p slot="html">
         Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in
         the group. The end text of the <code>.ui-fieldset</code> turns red with them.
       </p>
-      <p slot="astro">
-        Set <code>error</code> on each <code>Switch</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="react">
-        Set <code>error</code> on each <code>Switch</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="svelte">
-        Set <code>error</code> on each <code>Switch</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="vue">
-        Set <code>error</code> on each <code>Switch</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
     </Conditional>
+    <p>
+      Give the end text an <code>id</code> and point <code
+        >aria-describedby</code
+      >
+      on the fieldset at it, so screen readers read the error with the group.
+    </p>
     <AutoExample name="FieldGroupValidation" row />
+
+    <h3 id="field-group-binding">Binding</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Astro renders the group on the server, so it has no bound value. The
+        checked values live in the inputs, which share the group's <code
+          >name</code
+        >. Submit them with a form, where <code>FormData.getAll()</code> reads them,
+        or read the checked inputs in a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the <code>checked</code> switches.
+      </Fragment>
+      <Fragment slot="html">
+        The checked values live in the inputs, which share a <code>name</code>.
+        Submit them with a form, where <code>FormData.getAll()</code> reads them,
+        or read the checked inputs in a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the <code>checked</code> inputs in the markup.
+      </Fragment>
+      <Fragment slot="react">
+        Keep the checked values in your own state. Pass each <code>Switch</code> a
+        <code>checked</code> and an <code>onChange</code> that adds or removes its
+        <code>value</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Bind the checked values with <code>bind:group</code> on each <code
+          >Switch</code
+        >. The array holds the <code>value</code> of every checked switch, and setting
+        it updates the switches.
+      </Fragment>
+      <Fragment slot="vue">
+        Bind the checked values with <code>v-model</code> and an array ref on each
+        <code>Switch</code>. The array holds the <code>value</code> of every checked
+        switch, and setting it updates the switches.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="FieldGroupBinding" centered column />
   </section>
 
   <SwitchBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <h3 id="role-attributes">Role & attributes</h3>
-    <table class="ui-table">
-      <thead>
-        <tr>
-          <th>Role/attribute</th>
-          <th>Usage</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>role="switch"</code></td>
-          <td>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Role/attribute</TableHeaderCell>
+          <TableHeaderCell>Usage</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell><code>role="switch"</code></TableCell>
+          <TableCell>
             Required on the <code>input</code> element. Identifies the element that
             serves as a switch.
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
 
     <h3 id="labels">Labels</h3>
     <p>
       Accessible switches should have a label. The first two approaches are
       equally ok:
     </p>
-    <table class="ui-table">
-      <thead>
-        <tr>
-          <th>Approach</th>
-          <th>Usage in Switch component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Provide a label inside the element</td>
-          <td>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Approach</TableHeaderCell>
+          <TableHeaderCell>Usage in Switch component</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>Provide a label inside the element</TableCell>
+          <TableCell>
             <Conditional>
-              <Fragment slot="astro"
+              <Fragment slot="components"
                 >The default slot is the <a
                   href="#visible-label"
                   class="ui-link">visible label</a
@@ -532,50 +415,43 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
                 >. Set <code>hideLabel</code> to hide it visually while keeping it
                 accessible.</Fragment
               >
-              <Fragment slot="vue"
-                >The default slot is the <a
-                  href="#visible-label"
-                  class="ui-link">visible label</a
-                >. Set <code>hideLabel</code> to hide it visually while keeping it
-                accessible.</Fragment
-              >
             </Conditional>
-          </td>
-        </tr>
-        <tr>
-          <td>Add an <code>aria-label</code> on the input</td>
-          <td
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Add an <code>aria-label</code> on the input</TableCell>
+          <TableCell
             >Not used. Use <PropOrClass prop="hideLabel" class=".ui-sr-only" /> instead,
-            also for icon-only switches.</td
+            also for icon-only switches.</TableCell
           >
-        </tr>
-        <tr>
-          <td>
+        </TableRow>
+        <TableRow>
+          <TableCell>
             Have a visible label that you reference with <code
               >aria-labelledby</code
             >
-          </td>
-          <td>Not used.</td>
-        </tr>
-      </tbody>
-    </table>
+          </TableCell>
+          <TableCell>Not used.</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
 
     <h3 id="keyboard-support">Keyboard support</h3>
     <div class="ui-not-rich-text">
-      <table class="ui-table">
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Function</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><kbd>Space</kbd></td>
-            <td>When Switch is focused it changes its state.</td>
-          </tr>
-        </tbody>
-      </table>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Key</TableHeaderCell>
+            <TableHeaderCell>Function</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell><kbd>Space</kbd></TableCell>
+            <TableCell>When Switch is focused it changes its state.</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   </Fragment>
 
@@ -628,15 +504,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 </Component>
 
 <style is:global>
-  .example-row {
-    align-items: center;
-    display: flex;
-    gap: var(--size-3);
-  }
-  .example-row.ui-spacious {
-    gap: var(--size-6);
-  }
-
   .switch-anatomy {
     align-items: start;
     display: flex;

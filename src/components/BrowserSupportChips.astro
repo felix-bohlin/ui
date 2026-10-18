@@ -1,5 +1,5 @@
 ---
-import { Chip, Tooltip, TooltipContent } from "@opui/astro"
+import { Chip, Tooltip, TooltipContent } from "opui-css/astro"
 import {
   computeEngineBrowserSupport,
   type EngineId,
@@ -17,11 +17,11 @@ const { ids } = Astro.props
 const { $id } = Astro.locals
 const entries = ids.length > 0 ? computeEngineBrowserSupport(ids) : []
 
-const ICONS: Record<EngineId, any[]> = {
+const ICONS = {
   chromium: [Chrome, Edge],
   gecko: [Firefox],
   webkit: [Safari],
-}
+} satisfies Record<EngineId, unknown[]>
 
 const HEADINGS = {
   full: "Full support",
@@ -146,16 +146,16 @@ const HEADINGS = {
     }
 
     &.full .status-icon {
-      color: var(--text-ok, #2e7d32);
+      color: var(--success);
     }
 
     &.partial {
       .status-icon {
-        color: var(--text-warning, #ed6c02);
+        color: var(--warning);
       }
 
       .version {
-        color: var(--text-warning, #ed6c02);
+        color: var(--warning);
       }
     }
 
@@ -163,7 +163,7 @@ const HEADINGS = {
       opacity: 0.85;
 
       .status-icon {
-        color: var(--text-critical, #c62828);
+        color: var(--critical);
       }
     }
   }

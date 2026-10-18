@@ -18,27 +18,23 @@ import { Progress } from "opui-css/vue"
 
 ```vue
 <script setup lang="ts">
-import { onMounted } from "vue"
+import { onBeforeUnmount, onMounted, ref } from "vue"
 import { Progress } from "opui-css/vue"
 
+const value = ref(10)
+let interval: ReturnType<typeof setInterval> | undefined
+
 onMounted(() => {
-  const progress = document.querySelector<HTMLProgressElement>(
-    "#determinate-progress",
-  )
-  if (progress) {
-    setInterval(() => {
-      if (progress.value >= 100) {
-        progress.value = 10
-      } else {
-        progress.value += 10
-      }
-    }, 3000)
-  }
+  interval = setInterval(() => {
+    value.value = value.value >= 100 ? 10 : value.value + 10
+  }, 3000)
 })
+
+onBeforeUnmount(() => clearInterval(interval))
 </script>
 
 <template>
-  <Progress id="determinate-progress" max="100" value="10" />
+  <Progress id="progress-determinate-1" max="100" :value="value" />
 </template>
 ```
 
@@ -72,9 +68,9 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 | Prop      | Type                   | Default   | Description                                                          |
 | --------- | ---------------------- | --------- | -------------------------------------------------------------------- |
-| `max`     | `string` , `number`    | -         | The maximum value.                                                   |
-| `value`   | `string` , `number`    | -         | The current value. Omit it for an indeterminate state.               |
-| `variant` | `"tonal"` , `"filled"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
+| `max`     | `number` , `string`    | -         | The maximum value.                                                   |
+| `value`   | `number` , `string`    | -         | The current value. Omit it for an indeterminate state.               |
+| `variant` | `"filled"` , `"tonal"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
 
 #### Slots
 
@@ -98,17 +94,19 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`.
+Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
 
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
 
-| Property      | Kind  | Description                                                                 |
-| ------------- | ----- | --------------------------------------------------------------------------- |
-| `--_accent`   | Input | Color of the bar. Defaults to `--primary`.                                  |
-| `--_bg-color` | Input | Color of the track. Set by `.ui-filled` and `.ui-tonal`.                    |
-| `--_motion`   | Input | Motion multiplier for the value transition and the indeterminate animation. |
+| Property      | Kind   | Description                                                                 |
+| ------------- | ------ | --------------------------------------------------------------------------- |
+| `--_accent`   | Input  | Color of the bar. Defaults to `--primary`.                                  |
+| `--_bg-color` | Input  | Color of the track. Set by `.ui-filled` and `.ui-tonal`.                    |
+| `--_duration` | Output | Duration of the value transition, `--duration` times `--_motion`.           |
+| `--_ease`     | Input  | Easing of the value transition. Defaults to `--ease-enter`.                 |
+| `--_motion`   | Input  | Motion multiplier for the value transition and the indeterminate animation. |
 
 ## Under the hood
 
@@ -264,3 +262,7 @@ Import the component from `opui-css/vue`:
 ### What's new
 
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
+- Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).
+- [Progress bars](#indeterminate) center in table cells and lines of text.
+- Breaking: `style` goes to the root, like `class`, instead of the `<progress>` ([API](#api)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

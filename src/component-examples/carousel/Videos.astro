@@ -1,5 +1,5 @@
 ---
-import { Carousel } from "@opui/astro"
+import { Carousel } from "opui-css/astro"
 
 const videos = [
   { label: "A red flower bud opening", name: "flower" },
@@ -7,7 +7,7 @@ const videos = [
 ]
 ---
 
-<Carousel label="Videos" markers>
+<Carousel aria-label="Videos" markers>
   {
     videos.map(({ label, name }) => (
       <li>

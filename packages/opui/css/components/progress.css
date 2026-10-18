@@ -1,8 +1,10 @@
 @layer components.root {
   :where(.ui-progress) {
-    --_motion: var(--motion, 1);
+    --_motion: var(--motion);
     --_accent: var(--primary);
     --_bg-color: var(--surface-tonal);
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease-enter);
 
     background-color: var(--_bg-color);
     block-size: var(--size-1);
@@ -29,7 +31,7 @@
     @media (forced-colors: active) {
       --_accent: SelectedItem;
 
-      outline: 1px solid CanvasText;
+      outline: var(--border-width) solid CanvasText;
     }
 
     & > progress {
@@ -47,8 +49,7 @@
 
       &[value]::-webkit-progress-value {
         background-color: var(--_accent);
-        transition: inline-size calc(var(--duration) * var(--_motion))
-          var(--ease-enter);
+        transition: inline-size var(--_duration) var(--_ease);
       }
 
       &::-moz-progress-bar {
@@ -67,7 +68,7 @@
       will-change: inset-inline-start, inset-inline-end;
     }
 
-    @container style(--motion: 0) {
+    @container style(--_motion: 0) {
       &::after {
         animation: ui-indeterminate-pulse 2s ease-in-out infinite;
         inset-inline: 0;

@@ -16,12 +16,12 @@ export default function RepoCard() {
         <Anchor
           alignment="block-end span-inline-end"
           trigger="hover"
-          id="anchor-repo-card"
+          id="anchor-repo-card-1"
         >
           <a
             className="ui-link"
             href="https://github.com/felix-bohlin/ui"
-            interestfor="anchor-repo-card"
+            interestfor="anchor-repo-card-1"
           >
             felix-bohlin/ui
           </a>
@@ -43,7 +43,7 @@ export default function RepoCard() {
                   A CSS UI library exploring how next-gen HTML &amp; CSS
                   features can change the way we create components.
                 </p>
-                <p className="ui-caption">CSS · MIT license</p>
+                <p className="ui-caption">CSS, MIT license</p>
               </CardContent>
               <CardActions>
                 <Button variant="outlined" size="small">

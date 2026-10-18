@@ -1,5 +1,5 @@
 ---
-import { Button } from "@opui/astro"
+import { Button } from "opui-css/astro"
 ---
 
 <Button size="x-small">x-small</Button>
@@ -14,17 +14,17 @@ import { Button } from "@opui/astro"
 
 <Button size="x-small" variant="outlined">
   <span class="ui-text">x-small</span>
-  <svg> <!-- --> </svg>
+  <svg aria-hidden="true"> <!-- --> </svg>
 </Button>
 <Button size="small" variant="outlined">
   <span class="ui-text">Small</span>
-  <svg> <!-- --> </svg>
+  <svg aria-hidden="true"> <!-- --> </svg>
 </Button>
 <Button variant="outlined">
   <span class="ui-text">Default</span>
-  <svg> <!-- --> </svg>
+  <svg aria-hidden="true"> <!-- --> </svg>
 </Button>
 <Button variant="outlined" size="large">
   <span class="ui-text">Large</span>
-  <svg> <!-- --> </svg>
+  <svg aria-hidden="true"> <!-- --> </svg>
 </Button>

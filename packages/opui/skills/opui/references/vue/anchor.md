@@ -55,7 +55,7 @@ Set `trigger="hover"` and an `id`, and add `interestfor` with that id to the tri
 
 [Under the hood](#under-the-hood) shows how hover, focus and tap open the card.
 
-Put a [Card](https://open-props-ui.netlify.app/vue/components/card.md) in the floating content for hover cards like GitHub's repository previews. Align the card below the trigger with `block-end span-inline-end`. It flips to the other side when there isn't room.
+Put a [Card](https://open-props-ui.netlify.app/vue/components/card.md) in the floating content for hover cards like GitHub's repository previews. Align the card below the trigger with `block-end span-inline-end`. It flips to the other side when there isn't room. The card keeps its interactive content reachable, so the pointer can move from the link into the card without closing it.
 
 ```vue
 <script setup lang="ts">
@@ -76,12 +76,12 @@ import {
     <Anchor
       alignment="block-end span-inline-end"
       trigger="hover"
-      id="anchor-repo-card"
+      id="anchor-repo-card-1"
     >
       <a
         class="ui-link"
         href="https://github.com/felix-bohlin/ui"
-        interestfor="anchor-repo-card"
+        interestfor="anchor-repo-card-1"
         >felix-bohlin/ui</a
       >
       <AnchorContent>
@@ -99,10 +99,10 @@ import {
               </div>
             </div>
             <p>
-              A CSS UI library exploring how next-gen HTML & CSS features
+              A CSS UI library exploring how next-gen HTML &amp; CSS features
               can change the way we create components.
             </p>
-            <p class="ui-caption">CSS · MIT license</p>
+            <p class="ui-caption">CSS, MIT license</p>
           </CardContent>
           <CardActions>
             <Button variant="outlined" size="small">Star</Button>
@@ -140,7 +140,7 @@ import {
 
 ## Link preview
 
-Preview where a link goes before following it. The card keeps its interactive content reachable, so the pointer can move from the link into the card without closing it.
+Preview where a link goes before following it.
 
 ```vue
 <script setup lang="ts">
@@ -153,12 +153,12 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/vue"
     <Anchor
       alignment="block-end span-inline-end"
       trigger="hover"
-      id="anchor-link-preview"
+      id="anchor-link-preview-1"
     >
       <a
         class="ui-link"
         href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
-        interestfor="anchor-link-preview"
+        interestfor="anchor-link-preview-1"
         >CSS anchor positioning</a
       >
       <AnchorContent>
@@ -201,11 +201,6 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/vue"
 </style>
 ```
 
-## Used by
-
-- [Badge](https://open-props-ui.netlify.app/vue/components/badge.md)
-- [Tooltip](https://open-props-ui.netlify.app/vue/components/tooltip.md)
-
 ## API
 
 ### Anchor API
@@ -221,6 +216,15 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/vue"
 | Slot      | Description                                            |
 | --------- | ------------------------------------------------------ |
 | `default` | The content to anchor to, followed by `AnchorContent`. |
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
+
+| Property       | Kind  | Description                                                 |
+| -------------- | ----- | ----------------------------------------------------------- |
+| `--_anchor-tx` | Input | Horizontal shift of `.ui-anchor-floating`. Defaults to `0`. |
+| `--_anchor-ty` | Input | Vertical shift of `.ui-anchor-floating`. Defaults to `0`.   |
 
 ## Under the hood
 
@@ -324,7 +328,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the components from `opui-css/vue`:
 
-- `opui-css/css/components/anchor.css`
+### Used by
+
+- [Badge](https://open-props-ui.netlify.app/vue/components/badge.md)
+- [Tooltip](https://open-props-ui.netlify.app/vue/components/tooltip.md)
+
+* `opui-css/css/components/anchor.css`
 
 ## Changelog
 
@@ -332,3 +341,4 @@ Import the components from `opui-css/vue`:
 
 - Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.
 - Breaking: [hover anchors](#hover-trigger) no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and put `interestfor` on the trigger.
+- Breaking: [hover anchors](#hover-trigger) require an `id`, which you pass to `interestfor` on the trigger.

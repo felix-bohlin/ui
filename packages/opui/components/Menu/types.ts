@@ -4,15 +4,20 @@ export type MenuItem = {
   critical?: boolean
   disabled?: boolean
   href?: string
-  label: string
   shortcut?: string
+  text: string
 }
 
 export type Props = {
   align?: "start" | "end"
+  bordered?: boolean
   dense?: boolean
   id?: string
   items?: MenuItem[]
   placement?: "block-end" | "block-start" | "inline-end" | "inline-start"
   popover?: "auto" | "manual"
+}
+
+export type Context = {
+  rootId?: string
 }

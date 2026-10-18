@@ -1,9 +1,22 @@
 import type * as Base from "./types"
 import type { ComponentProps } from "react"
 
-type Section = "colgroup" | "tbody" | "td" | "th" | "thead" | "tr"
-
-export type ColumnProps = Base.ColumnProps & ComponentProps<"col">
 export type Props = Base.Props & ComponentProps<"table">
-export type SectionProps<T extends Section = Section> = Base.SectionProps &
-  ComponentProps<T>
+
+export type TableBodyProps = ComponentProps<"tbody">
+
+export type TableCaptionProps = ComponentProps<"caption">
+
+export type TableCellProps = ComponentProps<"td">
+
+export type TableColumnGroupProps = ComponentProps<"colgroup">
+
+export type TableColumnProps = Base.TableColumnProps & ComponentProps<"col">
+
+export type TableFootProps = ComponentProps<"tfoot">
+
+export type TableHeaderCellProps = ComponentProps<"th">
+
+export type TableHeadProps = ComponentProps<"thead">
+
+export type TableRowProps = ComponentProps<"tr">

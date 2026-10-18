@@ -1,14 +1,10 @@
 ---
-import { Button, Chip, List } from "@opui/astro"
+import { Button, Chip, List } from "opui-css/astro"
 import Command from "./Command.astro"
+import { SEARCH_CATEGORIES } from "../utils/search-categories"
 ---
 
-<Command
-  isDialog
-  id="search-dialog"
-  class="search-modal"
-  aria-label="Search docs"
->
+<Command id="search-dialog" class="search-modal" aria-label="Search docs">
   <input
     slot="input"
     type="text"
@@ -23,7 +19,7 @@ import Command from "./Command.astro"
   />
 
   <Button
-    rounded
+    round
     size="small"
     slot="input-end"
     class="search-mobile-close"
@@ -59,51 +55,21 @@ import Command from "./Command.astro"
       class="filter-chip active"
       data-filter="all">All</Chip
     >
-    <Chip
-      aria-pressed="false"
-      as="button"
-      size="small"
-      type="button"
-      variant="outlined"
-      class="filter-chip"
-      data-filter="Component">Components</Chip
-    >
-    <Chip
-      aria-pressed="false"
-      as="button"
-      size="small"
-      type="button"
-      variant="outlined"
-      class="filter-chip"
-      data-filter="Blocks">Blocks</Chip
-    >
-    <Chip
-      aria-pressed="false"
-      as="button"
-      size="small"
-      type="button"
-      variant="outlined"
-      class="filter-chip"
-      data-filter="Guide">Guides</Chip
-    >
-    <Chip
-      aria-pressed="false"
-      as="button"
-      size="small"
-      type="button"
-      variant="outlined"
-      class="filter-chip"
-      data-filter="API">API</Chip
-    >
-    <Chip
-      aria-pressed="false"
-      as="button"
-      size="small"
-      type="button"
-      variant="outlined"
-      class="filter-chip"
-      data-filter="Learn">Learn</Chip
-    >
+    {
+      SEARCH_CATEGORIES.map((category) => (
+        <Chip
+          aria-pressed="false"
+          as="button"
+          size="small"
+          type="button"
+          variant="outlined"
+          class="filter-chip"
+          data-filter={category.id}
+        >
+          {category.label}
+        </Chip>
+      ))
+    }
   </div>
 
   <div id="search-results">
@@ -147,10 +113,15 @@ import Command from "./Command.astro"
   import MiniSearch from "minisearch"
   import {
     DEFAULT_FRAMEWORK,
-    FRAMEWORK_IDS,
     frameworkPrefixPattern,
+    isFrameworkId,
     type FrameworkId,
   } from "../utils/framework"
+  import {
+    SEARCH_CATEGORIES,
+    type SearchItem,
+  } from "../utils/search-categories"
+  import { readStored, writeStored } from "../utils/storage"
 
   const dialog = document.getElementById("search-dialog") as HTMLDialogElement
   const input = document.getElementById("search-input") as HTMLInputElement
@@ -162,44 +133,28 @@ import Command from "./Command.astro"
   const filterGroup = document.getElementById("search-filters")
   const closeBtn = document.getElementById("search-close")
 
-  let miniSearch: MiniSearch | null = null
-  let searchIndex: any[] = []
+  let miniSearch: MiniSearch<SearchItem> | null = null
+  let searchIndex: SearchItem[] = []
   let selectedIndex = -1
   let activeFilter = "all"
 
   function getActiveFrameworkId(): FrameworkId {
-    const fromDataset = document.documentElement.dataset.framework
-    if (fromDataset && (FRAMEWORK_IDS as string[]).includes(fromDataset)) {
-      return fromDataset as FrameworkId
-    }
-    const match = window.location.pathname.match(frameworkPrefixPattern())
-    if (match && (FRAMEWORK_IDS as string[]).includes(match[1])) {
-      return match[1] as FrameworkId
-    }
-    return DEFAULT_FRAMEWORK
+    const framework = document.documentElement.dataset.framework
+    return isFrameworkId(framework) ? framework : DEFAULT_FRAMEWORK
   }
 
-  function getItemFrameworkId(item: {
-    frameworkId?: string
-    url?: string
-  }): FrameworkId | undefined {
-    if (
-      item.frameworkId &&
-      (FRAMEWORK_IDS as string[]).includes(item.frameworkId)
-    ) {
-      return item.frameworkId as FrameworkId
-    }
-    const match = item.url?.match(frameworkPrefixPattern())
-    if (match && (FRAMEWORK_IDS as string[]).includes(match[1])) {
-      return match[1] as FrameworkId
-    }
+  function getItemFrameworkId(
+    item: Pick<SearchItem, "frameworkId" | "url">,
+  ): FrameworkId | undefined {
+    if (isFrameworkId(item.frameworkId)) return item.frameworkId
+    const fromUrl = item.url?.match(frameworkPrefixPattern())?.[1]
+    if (isFrameworkId(fromUrl)) return fromUrl
     return undefined
   }
 
-  function matchesActiveFramework(item: {
-    frameworkId?: string
-    url?: string
-  }): boolean {
+  function matchesActiveFramework(
+    item: Pick<SearchItem, "frameworkId" | "url">,
+  ): boolean {
     const frameworkId = getItemFrameworkId(item)
     return !frameworkId || frameworkId === getActiveFrameworkId()
   }
@@ -208,7 +163,6 @@ import Command from "./Command.astro"
   filterGroup?.addEventListener("click", (e) => {
     const target = e.target as HTMLElement
     const filterChip = target.closest(".filter-chip")
-    const typeChip = target.closest(".type-chip")
 
     if (filterChip) {
       filterGroup.querySelectorAll(".filter-chip").forEach((c) => {
@@ -231,7 +185,7 @@ import Command from "./Command.astro"
       const response = await fetch("/search-index.json")
       searchIndex = await response.json()
 
-      miniSearch = new MiniSearch({
+      miniSearch = new MiniSearch<SearchItem>({
         fields: ["title", "description", "headings"], // fields to index for full-text search
         storeFields: [
           "title",
@@ -253,33 +207,35 @@ import Command from "./Command.astro"
     }
   }
 
-  function getRecentSearches() {
-    const stored = localStorage.getItem("opui-recent-searches")
-    try {
-      return stored ? JSON.parse(stored) : []
-    } catch {
-      return []
-    }
-  }
+  const getRecentSearches = () =>
+    readStored<SearchItem[]>("opui-recent-searches", [])
 
-  function saveRecentSearch(item: any) {
+  function saveRecentSearch(item: SearchItem) {
     let recent = getRecentSearches()
     // Remove if exists
-    recent = recent.filter((r: any) => r.url !== item.url)
+    recent = recent.filter((r) => r.url !== item.url)
     // Add to front
     recent.unshift(item)
     // Limit to 5
     recent = recent.slice(0, 5)
-    localStorage.setItem("opui-recent-searches", JSON.stringify(recent))
+    writeStored("opui-recent-searches", recent)
   }
+
+  const escapeHtml = (text: string) =>
+    text.replace(/[&<>"]/g, (char) => `&#${char.charCodeAt(0)};`)
 
   function highlight(text: string, query: string) {
-    if (!query) return text
-    const regex = new RegExp(`(${query})`, "gi")
-    return text.replace(regex, "<mark>$1</mark>")
+    if (!query) return escapeHtml(text)
+    const pattern = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    return text
+      .split(new RegExp(`(${pattern})`, "gi"))
+      .map((part, index) =>
+        index % 2 ? `<mark>${escapeHtml(part)}</mark>` : escapeHtml(part),
+      )
+      .join("")
   }
 
-  function renderItem(item: any, id: string, isSelected: boolean) {
+  function renderItem(item: SearchItem, id: string, isSelected: boolean) {
     const query = input.value.trim()
     const li = document.createElement("li")
     li.id = id
@@ -333,26 +289,17 @@ import Command from "./Command.astro"
 
     if (!miniSearch) return
 
-    let results = miniSearch.search(query)
-
-    results = results.filter((r: any) => matchesActiveFramework(r))
+    const results = miniSearch
+      .search(query)
+      .map((result) => result as unknown as SearchItem)
+      .filter((r) => matchesActiveFramework(r))
 
     // Update Category Chips with counts
-    const categoryCounts: Record<string, number> = results.reduce(
-      (acc: any, item: any) => {
-        acc[item.category] = (acc[item.category] || 0) + 1
-        return acc
-      },
-      {},
-    )
-
-    updateChipCounts(results.length, categoryCounts)
+    updateChipCounts(results.length, countByCategory(results))
 
     let finalResults = results
     if (activeFilter !== "all") {
-      finalResults = finalResults.filter(
-        (r: any) => r.category === activeFilter,
-      )
+      finalResults = finalResults.filter((r) => r.category === activeFilter)
     }
 
     if (finalResults.length === 0) {
@@ -364,16 +311,15 @@ import Command from "./Command.astro"
     emptyState!.style.display = "none"
 
     // Group and sort by category
-    const grouped = finalResults.reduce((acc: any, item: any) => {
-      if (!acc[item.category]) acc[item.category] = []
-      acc[item.category].push(item)
-      return acc
-    }, {})
+    const grouped: Partial<Record<string, SearchItem[]>> = {}
+    for (const item of finalResults) {
+      ;(grouped[item.category] ??= []).push(item)
+    }
 
-    const categoryOrder = ["Component", "Blocks", "Guide", "API", "Learn"]
+    const categoryOrder = SEARCH_CATEGORIES.map((category) => category.id)
     const sortedCategories = Object.keys(grouped).sort((a, b) => {
-      const indexA = categoryOrder.indexOf(a)
-      const indexB = categoryOrder.indexOf(b)
+      const indexA = categoryOrder.indexOf(a as SearchItem["category"])
+      const indexB = categoryOrder.indexOf(b as SearchItem["category"])
       if (indexA === -1 && indexB === -1) return a.localeCompare(b)
       if (indexA === -1) return 1
       if (indexB === -1) return -1
@@ -392,7 +338,7 @@ import Command from "./Command.astro"
       ul.setAttribute("aria-labelledby", headingId)
       ul.setAttribute("role", "group")
 
-      grouped[category].forEach((item: any) => {
+      grouped[category]?.forEach((item) => {
         ul.appendChild(
           renderItem(item, `search-result-${globalIndex++}`, false),
         )
@@ -408,6 +354,14 @@ import Command from "./Command.astro"
     }
   }
 
+  function countByCategory(items: SearchItem[]) {
+    const counts: Record<string, number> = {}
+    for (const item of items) {
+      counts[item.category] = (counts[item.category] || 0) + 1
+    }
+    return counts
+  }
+
   function updateChipCounts(
     totalCount: number,
     categoryCounts: Record<string, number>,
@@ -418,11 +372,8 @@ import Command from "./Command.astro"
       const baseText =
         filter === "all"
           ? "All"
-          : filter === "Component"
-            ? "Components"
-            : filter === "Guide"
-              ? "Guides"
-              : filter
+          : SEARCH_CATEGORIES.find((category) => category.id === filter)
+              ?.label || filter
       const count = filter === "all" ? totalCount : categoryCounts[filter!] || 0
       label.textContent = `${baseText} (${count})`
     })
@@ -431,22 +382,14 @@ import Command from "./Command.astro"
   function renderRecent() {
     let recent = getRecentSearches()
 
-    recent = recent.filter((r: any) => matchesActiveFramework(r))
+    recent = recent.filter((r) => matchesActiveFramework(r))
 
     // Update counts based on Recent history
-    const categoryCounts: Record<string, number> = recent.reduce(
-      (acc: any, item: any) => {
-        acc[item.category] = (acc[item.category] || 0) + 1
-        return acc
-      },
-      {},
-    )
-
-    updateChipCounts(recent.length, categoryCounts)
+    updateChipCounts(recent.length, countByCategory(recent))
 
     // Apply active category filter
     if (activeFilter !== "all") {
-      recent = recent.filter((r: any) => r.category === activeFilter)
+      recent = recent.filter((r) => r.category === activeFilter)
     }
 
     recentList!.innerHTML = ""
@@ -463,7 +406,7 @@ import Command from "./Command.astro"
     }
 
     recentGroup!.style.display = "block"
-    recent.forEach((item: any, index: number) => {
+    recent.forEach((item, index) => {
       recentList!.appendChild(renderItem(item, `search-recent-${index}`, false))
     })
 
@@ -552,7 +495,8 @@ import Command from "./Command.astro"
   // Global shortcuts
   window.addEventListener("keydown", (e) => {
     const platform = (
-      (navigator as any).userAgentData?.platform ||
+      (navigator as Navigator & { userAgentData?: { platform: string } })
+        .userAgentData?.platform ||
       navigator.platform ||
       ""
     ).toLowerCase()
@@ -720,7 +664,7 @@ import Command from "./Command.astro"
       color: var(--text-muted);
       font-size: var(--font-size-1);
       font-weight: var(--font-weight-6);
-      letter-spacing: var(--font-letter-spacing-1);
+      letter-spacing: var(--font-letterspacing-1);
       padding-block: var(--size-1);
       padding-inline: var(--size-2);
       text-transform: uppercase;

@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Description ¢ EUR Header Footer Supporting text
+Label Start text € EUR Header Footer Supporting text
 
 - `label.ui-text-field`
 
@@ -14,7 +14,7 @@ Label Description ¢ EUR Header Footer Supporting text
 
 - `.ui-start-text`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -98,7 +98,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 </label>
 ```
 
-## Description
+## Start text
 
 Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the label and the input.
 
@@ -118,13 +118,9 @@ Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the 
 <label class="ui-text-field">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <input
-      aria-describedby="supporting-end-text-1"
-      type="text"
-      placeholder="Outlined"
-    />
+    <input type="text" placeholder="Outlined" />
   </span>
-  <span class="ui-end-text" id="supporting-end-text-1">Supporting text</span>
+  <span class="ui-end-text">Supporting text</span>
 </label>
 ```
 
@@ -137,7 +133,7 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
   <span class="ui-label">Amount</span>
   <span class="ui-field">
     <input type="text" placeholder="0.00" />
-    <span class="ui-prefix">¢</span>
+    <span class="ui-prefix">€</span>
     <span class="ui-suffix">EUR</span>
   </span>
 </label>
@@ -164,6 +160,7 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
     <input type="text" placeholder="Search..." />
     <span class="ui-prefix">
       <svg
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -205,11 +202,9 @@ Use the header for inside-field captions (filenames, categories) and the footer 
 
 ## Validation
 
-Add `[required]` to the `<input>` element to toggle required styles.
-
-Add `aria-invalid="true"` to the `<input>` to toggle invalid styles. Screen readers announce it as invalid. Make use of the end text to give extra feedback on the error, and point `aria-describedby` at it.
-
-Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
+- `[required]` toggles the required styles on the `<input>`.
+- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. Keep it inside the `<label>`, so it's part of the field's name.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
 
 ```html
 <div class="example-row">
@@ -232,29 +227,25 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
     <span class="ui-label">Label</span>
     <span class="ui-field">
       <input
-        aria-describedby="validation-end-text-1"
         aria-invalid="true"
         type="text"
         placeholder="Placeholder"
         value="This isn't right"
       />
     </span>
-    <span class="ui-end-text" id="validation-end-text-1"
-      >Only double-negatives are allowed.</span
-    >
+    <span class="ui-end-text">Only double-negatives are allowed.</span>
   </label>
   <label class="ui-text-field ui-filled">
     <span class="ui-label">Label</span>
     <span class="ui-field">
       <input
-        aria-describedby="validation-end-text-2"
         aria-invalid="true"
         type="text"
         placeholder="Placeholder"
         value="Uh-oh"
       />
     </span>
-    <span class="ui-end-text" id="validation-end-text-2"
+    <span class="ui-end-text"
       >Only letters from the first half of the alphabet are allowed.</span
     >
   </label>
@@ -263,7 +254,7 @@ Fields also get the invalid styles from the browser's own validation (`:user-inv
 
 ## Spread
 
-Add the `.ui-spread` class to display the label and description on the left with the input on the right. The layout collapses to a column on narrow containers.
+Add the `.ui-spread` class to display the label and start text on the left with the input on the right. The layout collapses to a column on narrow containers.
 
 ```html
 <label class="ui-text-field ui-spread">
@@ -278,15 +269,9 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Email</span>
   <span class="ui-start-text">We'll use this to contact you</span>
   <span class="ui-field">
-    <input
-      aria-describedby="orientation-end-text-1"
-      type="email"
-      placeholder="you@example.com"
-    />
+    <input type="email" placeholder="you@example.com" />
   </span>
-  <span class="ui-end-text" id="orientation-end-text-1"
-    >Please use a valid email address</span
-  >
+  <span class="ui-end-text">Please use a valid email address</span>
 </label>
 
 <label class="ui-text-field ui-spread">
@@ -309,15 +294,9 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Invalid Name</span>
   <span class="ui-start-text">This field has an error</span>
   <span class="ui-field">
-    <input
-      aria-describedby="orientation-end-text-2"
-      aria-invalid="true"
-      type="text"
-    />
+    <input aria-invalid="true" type="text" />
   </span>
-  <span class="ui-end-text" id="orientation-end-text-2"
-    >This value is too short.</span
-  >
+  <span class="ui-end-text">This value is too short.</span>
 </label>
 
 <label class="ui-text-field ui-spread">
@@ -325,7 +304,7 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-start-text">Daily spending limit</span>
   <span class="ui-field">
     <input type="text" placeholder="0.00" />
-    <span class="ui-prefix">¢</span>
+    <span class="ui-prefix">€</span>
     <span class="ui-suffix">EUR</span>
   </span>
 </label>
@@ -334,16 +313,10 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Website</span>
   <span class="ui-start-text">Your public profile URL</span>
   <span class="ui-field">
-    <input
-      aria-describedby="orientation-end-text-3"
-      type="text"
-      placeholder="example.com"
-    />
+    <input type="text" placeholder="example.com" />
     <span class="ui-prefix">https://</span>
   </span>
-  <span class="ui-end-text" id="orientation-end-text-3"
-    >Must include a valid domain</span
-  >
+  <span class="ui-end-text">Must include a valid domain</span>
 </label>
 
 <label class="ui-text-field ui-spread">
@@ -360,13 +333,10 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">API key</span>
   <span class="ui-start-text">Stored encrypted at rest</span>
   <span class="ui-field">
-    <input
-      aria-describedby="orientation-end-text-4"
-      type="password"
-      placeholder="Paste your key"
-    />
+    <input type="password" placeholder="Paste your key" />
     <span class="ui-prefix">
       <svg
+        aria-hidden="true"
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -383,9 +353,7 @@ Add the `.ui-spread` class to display the label and description on the left with
     <span class="ui-header">Secret</span>
     <span class="ui-footer">Rotates every 90 days</span>
   </span>
-  <span class="ui-end-text" id="orientation-end-text-4"
-    >Treat like a password</span
-  >
+  <span class="ui-end-text">Treat like a password</span>
 </label>
 ```
 
@@ -406,81 +374,62 @@ Use `.ui-auto-fit` to let the field's width follow its content, from `25ch`.
 
 ```html
 <div class="example-column">
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Color</span>
-    <span class="ui-field">
-      <input type="color" placeholder="Color" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Email</span>
-    <span class="ui-field">
-      <input type="email" placeholder="name@email.com" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Password</span>
-    <span class="ui-field">
-      <input type="password" placeholder="Password" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Search</span>
-    <span class="ui-field">
-      <input type="search" placeholder="Search" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Phone</span>
-    <span class="ui-field">
-      <input type="tel" placeholder="(666) 666-1337" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Text</span>
-    <span class="ui-field">
-      <input type="text" placeholder="Text" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">URL</span>
-    <span class="ui-field">
-      <input type="url" placeholder="https://yoursite.com" />
-    </span>
-  </label>
+  <label class="ui-text-field"
+    ><span class="ui-label">Color</span
+    ><span class="ui-field"><input type="color" placeholder="Color" /></span
+  ></label>
+  <label class="ui-text-field"
+    ><span class="ui-label">Email</span
+    ><span class="ui-field"
+      ><input type="email" placeholder="name@email.com" /></span
+  ></label>
+  <label class="ui-text-field"
+    ><span class="ui-label">Password</span
+    ><span class="ui-field"
+      ><input type="password" placeholder="Password" /></span
+  ></label>
+  <label class="ui-text-field"
+    ><span class="ui-label">Search</span
+    ><span class="ui-field"><input type="search" placeholder="Search" /></span
+  ></label>
+  <label class="ui-text-field"
+    ><span class="ui-label">Phone</span
+    ><span class="ui-field"
+      ><input type="tel" placeholder="(666) 666-1337" /></span
+  ></label>
+  <label class="ui-text-field"
+    ><span class="ui-label">Text</span
+    ><span class="ui-field"><input type="text" placeholder="Text" /></span
+  ></label>
+  <label class="ui-text-field"
+    ><span class="ui-label">URL</span
+    ><span class="ui-field"
+      ><input type="url" placeholder="https://yoursite.com" /></span
+  ></label>
 </div>
 
 <div class="example-column">
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Date</span>
-    <span class="ui-field">
-      <input type="date" placeholder="Date" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Datetime local</span>
-    <span class="ui-field">
-      <input type="datetime-local" placeholder="Datetime local" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Month</span>
-    <span class="ui-field">
-      <input type="month" placeholder="Month" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Time</span>
-    <span class="ui-field">
-      <input type="time" placeholder="Time" />
-    </span>
-  </label>
-  <label class="ui-text-field input-type-field">
-    <span class="ui-label">Week</span>
-    <span class="ui-field">
-      <input type="week" placeholder="Week" />
-    </span>
-  </label>
+  <label class="ui-text-field"
+    ><span class="ui-label">Date</span
+    ><span class="ui-field"><input type="date" placeholder="Date" /></span
+  ></label>
+  <label class="ui-text-field"
+    ><span class="ui-label">Datetime local</span
+    ><span class="ui-field"
+      ><input type="datetime-local" placeholder="Datetime local" /></span
+  ></label>
+  <label class="ui-text-field"
+    ><span class="ui-label">Month</span
+    ><span class="ui-field"><input type="month" placeholder="Month" /></span
+  ></label>
+  <label class="ui-text-field"
+    ><span class="ui-label">Time</span
+    ><span class="ui-field"><input type="time" placeholder="Time" /></span
+  ></label>
+  <label class="ui-text-field"
+    ><span class="ui-label">Week</span
+    ><span class="ui-field"><input type="week" placeholder="Week" /></span
+  ></label>
 </div>
 ```
 
@@ -544,7 +493,7 @@ File is a weird one. Should it really be an `<input>` element? Well, it's what w
 
 ## Autosuggest
 
-Leverages the `<input>` + `<datalist>` element combo.
+Leverages the `<input>` + `<datalist>` element combo. An input with a `list` shows the Select chevron in place of the browser's arrow.
 
 - `<input list="DATALISTID">`
 - `<datalist id="DATALISTID">`
@@ -553,9 +502,13 @@ Leverages the `<input>` + `<datalist>` element combo.
 <label class="ui-text-field">
   <span class="ui-label">Users</span>
   <span class="ui-field">
-    <input type="text" list="users" placeholder="Placeholder" />
+    <input
+      type="text"
+      list="text-field-autosuggest-1-list"
+      placeholder="Placeholder"
+    />
   </span>
-  <datalist id="users">
+  <datalist id="text-field-autosuggest-1-list">
     <option value="Ray Manzarek"></option>
     <option value="Jonny Greenwood"></option>
     <option value="Marika Hackman"></option>
@@ -565,9 +518,13 @@ Leverages the `<input>` + `<datalist>` element combo.
 <label class="ui-text-field ui-filled">
   <span class="ui-label">Emails</span>
   <span class="ui-field">
-    <input type="email" list="users-email" placeholder="Placeholder" />
+    <input
+      type="email"
+      list="text-field-autosuggest-2-list"
+      placeholder="Placeholder"
+    />
   </span>
-  <datalist id="users-email">
+  <datalist id="text-field-autosuggest-2-list">
     <option value="ray.manzarek@the.doors"></option>
     <option value="jonny.greenwood@radio.head"></option>
     <option value="marika@hack.man"></option>
@@ -586,11 +543,11 @@ Think of `<datalist>` as a list of *suggested* values.
 No. But you get some accessibility wins for free with `<label>`. It's recommended to label your inputs somehow.
 
 ```html
-<div class="ui-text-field">
+<label class="ui-text-field">
   <span class="ui-field">
     <input aria-label="Search" placeholder="Search" type="text" />
   </span>
-</div>
+</label>
 ```
 
 ## Accessibility
@@ -601,13 +558,13 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 ### Text field API
 
-| Type       | Modifiers                               | Default | Description                                                              |
-| ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| Auto-fit   | `.ui-auto-fit`                          | -       | Lets the width follow the content, from `25ch`.                          |
-| Layout     | `.ui-spread`                            | -       | Pushes the label and description to one side and the input to the other. |
-| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                 |
-| Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles.                        |
-| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                      |
+| Type       | Modifiers                               | Default | Description                                                             |
+| ---------- | --------------------------------------- | ------- | ----------------------------------------------------------------------- |
+| Auto-fit   | `.ui-auto-fit`                          | -       | Lets the width follow the content, from `25ch`.                         |
+| Layout     | `.ui-spread`                            | -       | Pushes the label and start text to one side and the input to the other. |
+| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                |
+| Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles.                       |
+| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                     |
 
 #### Parts
 
@@ -615,7 +572,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | --------------------- | ------------------------------------------------------------ |
 | `label.ui-text-field` | Container element.                                           |
 | `.ui-label`           | The label for the field.                                     |
-| `.ui-start-text`      | Description text displayed above the field.                  |
+| `.ui-start-text`      | Start text displayed above the field.                        |
 | `.ui-field`           | The boxed input area.                                        |
 | `.ui-header`          | Content above the input, inside the border, with a divider.  |
 | `.ui-prefix`          | Content at the inline-start of the field, inside the border. |
@@ -646,7 +603,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                                                   |
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                                                   |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                                                 |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                  |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                                                   |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                                         |
@@ -666,44 +623,29 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 The control can also be a `<select>` or `<textarea>`. You can put a `<datalist>` inside the root.
 
-### Text input API
-
-#### Parts
-
-| Part                              | Description                                                                                                                                          |
-| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `.ui-text-field:has(input[list])` | A text field whose input has a `list` (autosuggest). Hides the browser's datalist arrow and draws the Select chevron at the inline end of the field. |
-
-#### CSS variables
-
-| Variable         | Default                                     | Description                                            |
-| ---------------- | ------------------------------------------- | ------------------------------------------------------ |
-| `--text-primary` | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values. |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
-
-Needs `text-field.css`. It holds the field, variant and size styles.
-
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property                     | Kind   | Description                                                                                               |
-| ---------------------------- | ------ | --------------------------------------------------------------------------------------------------------- |
-| `--_accent`                  | Output | Border color of the focused `.ui-field`. From `--primary`, set by the invalid state.                      |
-| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                         |
-| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                           |
-| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                 |
-| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                            |
-| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                     |
-| `--_end-text-color`          | Output | The current color of `.ui-start-text` and `.ui-end-text`. Set by the invalid state.                       |
-| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                      |
-| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                         |
-| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                       |
-| `--_font-size`               | Input  | The font size of the control and affixes.                                                                 |
-| `--_label-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Set by the invalid state. |
-| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--field-size`, set by the size classes.                   |
-| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                |
+| Property                     | Kind   | Description                                                                                                                           |
+| ---------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                  | Output | Border color of the focused `.ui-field`. From `--primary`, set by the invalid state.                                                  |
+| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--text-muted`, set by the invalid state. |
+| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                     |
+| `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.             |
+| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                       |
+| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                                             |
+| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                                                        |
+| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                 |
+| `--_duration`                | Output | Duration of the transitions and focus ring animation, `--duration` times `--_motion`.                                                 |
+| `--_ease`                    | Input  | Easing of the transitions. Defaults to `--ease`.                                                                                      |
+| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                                                  |
+| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                                                     |
+| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                                                   |
+| `--_font-size`               | Input  | The font size of the control and affixes.                                                                                             |
+| `--_helper-color`            | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--field-helper-color`, set by the invalid state.               |
+| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--field-size`, set by the size classes.                                               |
+| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                            |
 
 ## Under the hood
 
@@ -748,9 +690,9 @@ Step 1 of 4: Wrapper
 ```css
 .text-field {
   --accent: var(--primary);
+  --affix: var(--text-muted);
   --border: var(--field-border-color);
   --helper: var(--field-helper-color);
-  --label: var(--text-muted);
 
   display: grid;
 }
@@ -816,7 +758,7 @@ Step 2 of 4: Affixes
 .prefix,
 .suffix {
   align-items: center;
-  color: var(--label);
+  color: var(--affix);
   display: inline-flex;
   padding-inline: 0.5rem;
 }
@@ -844,7 +786,7 @@ Step 3 of 4: Required
 .text-field:has(:required) .label::after {
   color: var(--field-required-color);
   content: "*";
-  margin-inline-start: 0.25em;
+  margin-inline-start: 0.25ex;
 }
 ```
 
@@ -855,9 +797,9 @@ Step 4 of 4: Validation
 ```css
 .text-field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--invalid-color);
+  --affix: var(--invalid-text-color);
   --border: var(--invalid-color);
   --helper: var(--invalid-text-color);
-  --label: var(--invalid-text-color);
 }
 ```
 
@@ -871,8 +813,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ## Installation
 
-- `opui-css/css/components/text-field.css`
-- `opui-css/css/components/text-input.css`
+### Used by
+
+- [Select](https://open-props-ui.netlify.app/html/components/select.md)
+- [Textarea](https://open-props-ui.netlify.app/html/components/textarea.md)
+
+* `opui-css/css/components/text-field.css`
 
 ## Changelog
 
@@ -882,4 +828,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Spread](#spread) fields line up at one width.
 - The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.
 - Breaking: mark an invalid field with `aria-invalid="true"` on the `<input>` instead of `data-invalid` on the root ([Validation](#validation)).
+- Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-height`, `--_label-color` is `--_affix-color` and `--_end-text-color` is `--_helper-color` ([Under the hood](#under-the-hood)).
+- Breaking: the [autosuggest](#autosuggest) and other input styles are in `text-field.css`, and `text-input.css` is gone. Remove its import.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--border-radius` through [`--field-border-radius`](#api), so one token squares or rounds every component.

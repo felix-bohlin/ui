@@ -36,8 +36,9 @@
 ## Icon
 
 ```html
-<div class="ui-avatar">
+<div class="ui-avatar" role="img" aria-label="Developer">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -50,8 +51,9 @@
   </svg>
 </div>
 
-<div class="ui-avatar">
+<div class="ui-avatar" role="img" aria-label="Contact">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -64,8 +66,9 @@
   </svg>
 </div>
 
-<div class="ui-avatar">
+<div class="ui-avatar" role="img" aria-label="Guest">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -84,7 +87,7 @@
 Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-squircle` classes.
 
 ```html
-<div class="ui-avatar ui-squared">SQ</div>
+<div class="ui-avatar ui-squared" role="img" aria-label="Sam Quist">SQ</div>
 
 <div class="ui-avatar ui-rounded">
   <img
@@ -139,11 +142,10 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 
 ### Avatar API
 
-| Type     | Modifiers                                    | Default | Description                              |
-| -------- | -------------------------------------------- | ------- | ---------------------------------------- |
-| Group    | `.ui-avatar-group`                           | -       | Renders a container that groups avatars. |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`      | -       | The size of the avatar.                  |
-| Variants | `.ui-rounded`, `.ui-squared`, `.ui-squircle` | -       | The variant to use.                      |
+| Type     | Modifiers                                    | Default | Description              |
+| -------- | -------------------------------------------- | ------- | ------------------------ |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`      | -       | The size of the element. |
+| Variants | `.ui-rounded`, `.ui-squared`, `.ui-squircle` | -       | The variant to use.      |
 
 #### Parts
 
@@ -157,6 +159,7 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 | Variable                 | Default                                                                               | Description                                                                                                                                                                                                                      |
 | ------------------------ | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--border-radius`        | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
 | `--control-size`         | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                                    |
 | `--control-size-large`   | `calc(46px * var(--density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                                      |
 | `--control-size-small`   | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                                      |
@@ -171,6 +174,36 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
+### Avatar group API
+
+#### Parts
+
+| Part               | Description                     |
+| ------------------ | ------------------------------- |
+| `.ui-avatar-group` | A group of overlapping avatars. |
+
+#### CSS variables
+
+| Variable                 | Default                                                                               | Description                                                                                                                                                                                                                      |
+| ------------------------ | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-radius`        | `var(--size-2)`                                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--control-size`         | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                                    |
+| `--control-size-large`   | `calc(46px * var(--density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                                      |
+| `--control-size-small`   | `calc(32px * var(--density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                                      |
+| `--control-size-x-small` | `calc(28px * var(--density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                                    |
+| `--font-size-05`         | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                                                                                                                                             |
+| `--icon-size-large`      | `var(--size-5)`                                                                       | Icon size inside `Avatar` and `List`.                                                                                                                                                                                            |
+| `--icon-size-small`      | `var(--size-3)`                                                                       | Icon size inside `Chip`.                                                                                                                                                                                                         |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                                     |
+| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text.                     |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                                                                                                                        |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+
+The root needs `role="group"` and an `aria-label`.
+
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
@@ -182,6 +215,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_icon-size`     | Input | The maximum width of an `svg`. Set by the size classes.                                                 |
 | `--_margin`        | Input | How much avatars in a `.ui-avatar-group` overlap. Set on the group.                                     |
 | `--_outline-color` | Input | The ring around each avatar in a `.ui-avatar-group`. Defaults to `--surface-default`. Set on the group. |
+| `--_outline-width` | Input | Width of the ring around each avatar in a `.ui-avatar-group`. Set on the group.                         |
 | `--_size`          | Input | The width and height. Defaults to `--control-size`, set by the size classes.                            |
 | `--_text-color`    | Input | The text and icon color. Defaults to `--primary-contrast`.                                              |
 
@@ -315,6 +349,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
-- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover.
+- A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover, with the same ring as the avatars.
 - [Sizes](#sizes) with `.ui-x-small`, `.ui-small` and `.ui-large`.
+- Breaking: `--_color` is `--_text-color` and `--_width` is `--_size` ([Under the hood](#under-the-hood)).
 - Rounded avatars never get rounder than [`--border-radius`](#api), so `0` squares them.

@@ -6,6 +6,8 @@ export type Props = Base.Props &
   Base.Slots<Snippet> &
   (
     | ({ as?: "div" } & SvelteHTMLElements["div"])
-    | ({ as?: "button" } & SvelteHTMLElements["button"])
+    | ({ as: "button" } & SvelteHTMLElements["button"])
     | ({ as?: "a" } & SvelteHTMLElements["a"])
   )
+
+export type AvatarGroupProps = Base.AvatarGroupProps & SvelteHTMLElements["div"]

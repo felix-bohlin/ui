@@ -8,7 +8,7 @@ const steps = [
   align-items: center;
   block-size: var(--field-size);
   border: 1px solid var(--border-color);
-  border-radius: var(--button-border-radius);
+  border-radius: var(--button-border-radius, var(--border-radius));
   color: var(--text-primary);
   cursor: pointer;
   display: inline-flex;
@@ -79,7 +79,7 @@ const steps = [
     css: `
 .toggle-group {
   background-color: var(--surface-default);
-  border-radius: var(--button-border-radius);
+  border-radius: var(--button-border-radius, var(--border-radius));
   display: inline-flex;
   flex-wrap: wrap;
   outline: 1px solid var(--border-color);

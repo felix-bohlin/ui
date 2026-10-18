@@ -38,13 +38,17 @@ Or pick and choose in a CSS file, and import that file in `main.ts` instead:
 @import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";
 @import "opui-css/core/normalize.css";
-@import "opui-css/css/components.css";
+@import "opui-css/css/components/button.css";
+@import "opui-css/css/components/choice.css";
+@import "opui-css/css/components/checkbox.css";
 @import "opui-css/core/utils.css";
 ```
 
 ```ts
 import "./styles/main.css"
 ```
+
+Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component.
 
 In Nuxt, add the file to `css` in `nuxt.config.ts` instead.
 
@@ -70,6 +74,6 @@ Without hydration (Nuxt, or Astro with `@astrojs/vue` and no `client:*` directiv
 
 - [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md#indeterminate) `indeterminate`: it's a DOM property, so the box looks unchecked. Or call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.
 - [Range](https://open-props-ui.netlify.app/vue/components/range.md#value) value: the `<output>` doesn't follow the thumb. The track fill is CSS, so it's fine.
-- `v-model` on [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md), [Classic select](https://open-props-ui.netlify.app/vue/components/select.md#classic-select), [Radio](https://open-props-ui.netlify.app/vue/components/radio.md), [Range](https://open-props-ui.netlify.app/vue/components/range.md), [Select](https://open-props-ui.netlify.app/vue/components/select.md), [Switch](https://open-props-ui.netlify.app/vue/components/switch.md), [Text field](https://open-props-ui.netlify.app/vue/components/text-field.md) and [Textarea](https://open-props-ui.netlify.app/vue/components/textarea.md): the ref stays put. The native value still changes and submits.
+- `v-model` on [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md), [Radio](https://open-props-ui.netlify.app/vue/components/radio.md), [Range](https://open-props-ui.netlify.app/vue/components/range.md), [Select](https://open-props-ui.netlify.app/vue/components/select.md), [Switch](https://open-props-ui.netlify.app/vue/components/switch.md), [Text field](https://open-props-ui.netlify.app/vue/components/text-field.md) and [Textarea](https://open-props-ui.netlify.app/vue/components/textarea.md): the ref stays put. The native value still changes and submits.
 
 Hydrate those (`client:load` in Astro) or use them in a client-rendered Vue app. Component pages say what needs hydration next to the browser support chips, and the API tables mark each prop with a crossed-out server icon.

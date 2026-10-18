@@ -1,7 +1,11 @@
 import type * as Base from "./types"
 import type { ComponentProps, ReactNode } from "react"
 
-export type SwitchProps = Base.SwitchProps &
-  Base.SwitchSlots<ReactNode> &
-  Omit<ComponentProps<"input">, "size">
-export type SwitchInputProps = Base.SwitchInputProps & ComponentProps<"input">
+type Slots = Base.Slots<ReactNode>
+
+export type Props = Omit<Base.Props, keyof Slots> &
+  Slots &
+  Omit<ComponentProps<"input">, "size" | "type">
+
+export type SwitchInputProps = Base.SwitchInputProps &
+  Omit<ComponentProps<"input">, "type">

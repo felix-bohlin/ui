@@ -2,19 +2,19 @@
 
 ## Anatomy
 
-Label Description  ¢ EUR Header Footer Supporting text
+Label Start text  € EUR Header Footer Supporting text
 
 - `<Textarea>`
 
   Container element.
 
-- `slot="label"`
+- `label / slot="label"`
 
   The label for the field.
 
-- `slot="description"`
+- `startText / slot="start-text"`
 
-  Description text displayed above the field.
+  Start text displayed above the field.
 
 - `.ui-field`
 
@@ -40,7 +40,7 @@ Label Description  ¢ EUR Header Footer Supporting text
 
   Content below the textarea, inside the border, with a divider.
 
-- `slot="end-text"`
+- `endText / slot="end-text"`
 
   Supporting text displayed below the field.
 
@@ -72,16 +72,16 @@ import { Textarea } from "opui-css/astro"
 <Textarea label="Large" placeholder="Placeholder" size="large" />
 ```
 
-## Description
+## Start text
 
-Use the `description` prop or slot for text between the label and the textarea.
+Use the `startText` prop or `start-text` slot for text between the label and the textarea.
 
 ```astro
 ---
 import { Textarea } from "opui-css/astro"
 ---
 
-<Textarea description="Shown on your public profile" label="Bio" />
+<Textarea startText="Shown on your public profile" label="Bio" />
 ```
 
 ## End text
@@ -111,6 +111,7 @@ import { Textarea } from "opui-css/astro"
 
 <Textarea label="Notes" placeholder="Add a note...">
   <svg
+    aria-hidden="true"
     slot="prefix"
     width="16"
     height="16"
@@ -145,11 +146,9 @@ import { Textarea } from "opui-css/astro"
 
 ## Validation
 
-Set `required` on the component to toggle required styles on the textarea.
-
-Use the `error` prop to toggle invalid styles. It sets `aria-invalid="true"` on the textarea, so screen readers announce it as invalid. Make use of the end text to give extra feedback on the error.
-
-Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use the `error` prop for server-side errors.
+- `required` toggles the required styles on the `<textarea>`.
+- `error` toggles the invalid styles, and screen readers announce the `<textarea>` as invalid. Say what's wrong in the end text. The wrapping `<label>` makes it part of the field's name.
+- Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```astro
 ---
@@ -180,7 +179,7 @@ import { Textarea } from "opui-css/astro"
 
 ## Spread
 
-Use the `spread` boolean prop to display the label and description on the left with the textarea on the right. The layout collapses to a column on narrow containers.
+Use the `spread` boolean prop to display the label and start text on the left with the textarea on the right. The layout collapses to a column on narrow containers.
 
 ```astro
 ---
@@ -189,7 +188,7 @@ import { Textarea } from "opui-css/astro"
 
 <Textarea spread placeholder="Hello, world!">
   <Fragment slot="label">Message</Fragment>
-  <Fragment slot="description"
+  <Fragment slot="start-text"
     >You can write your message here. Keep it short, preferably under 100
     characters.</Fragment
   >
@@ -197,27 +196,28 @@ import { Textarea } from "opui-css/astro"
 
 <Textarea spread placeholder="Additional notes..." variant="filled">
   <Fragment slot="label">Notes</Fragment>
-  <Fragment slot="description">Add any additional notes or comments</Fragment>
+  <Fragment slot="start-text">Add any additional notes or comments</Fragment>
   <Fragment slot="end-text">Maximum 500 characters</Fragment>
 </Textarea>
 
 <Textarea spread required label="Required">
-  <Fragment slot="description">You must provide a response</Fragment>
+  <Fragment slot="start-text">You must provide a response</Fragment>
 </Textarea>
 
 <Textarea spread disabled label="Disabled">
-  <Fragment slot="description">This textarea is disabled</Fragment>
+  <Fragment slot="start-text">This textarea is disabled</Fragment>
 </Textarea>
 
 <Textarea spread error label="Invalid Message">
-  <Fragment slot="description">This textarea has an error</Fragment>
+  <Fragment slot="start-text">This textarea has an error</Fragment>
   <Fragment slot="end-text">This value is too short.</Fragment>
 </Textarea>
 
 <Textarea spread label="Bio" placeholder="Tell us about yourself...">
-  <Fragment slot="description">Shown on your public profile</Fragment>
+  <Fragment slot="start-text">Shown on your public profile</Fragment>
   <Fragment slot="prefix">
     <svg
+      aria-hidden="true"
       width="16"
       height="16"
       viewBox="0 0 24 24"
@@ -241,7 +241,7 @@ import { Textarea } from "opui-css/astro"
   label="Release notes"
   placeholder="Markdown supported..."
 >
-  <Fragment slot="description">Shown on the changelog page</Fragment>
+  <Fragment slot="start-text">Shown on the changelog page</Fragment>
   <Fragment slot="header">v1.4.0</Fragment>
   <Fragment slot="footer">Saved 2 minutes ago</Fragment>
   <Fragment slot="end-text">Drafts are auto-saved</Fragment>
@@ -264,31 +264,30 @@ import { Textarea } from "opui-css/astro"
 
 ### Textarea API
 
-| Prop          | Type                                | Default      | Description                                                                 |
-| ------------- | ----------------------------------- | ------------ | --------------------------------------------------------------------------- |
-| `autoFit`     | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.   |
-| `description` | `string`                            | -            | Description text displayed above the field.                                 |
-| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                  |
-| `error`       | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                           |
-| `id`          | `string`                            | -            | The id of the `<textarea>`.                                                 |
-| `label`       | `string`                            | -            | The label for the field.                                                    |
-| `size`        | `"small"` , `"x-small"` , `"large"` | -            | The size of the element.                                                    |
-| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
-| `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                         |
+| Prop        | Type                                | Default      | Description                                                                |
+| ----------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------- |
+| `autoFit`   | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.  |
+| `endText`   | `string`                            | -            | Supporting text displayed below the field.                                 |
+| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                          |
+| `id`        | `string`                            | -            | The id of the `<textarea>`.                                                |
+| `label`     | `string`                            | -            | The label for the field.                                                   |
+| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                   |
+| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the textarea to the other. |
+| `startText` | `string`                            | -            | Start text displayed above the field.                                      |
+| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                        |
 
 #### Slots
 
-| Slot              | Description                                                    |
-| ----------------- | -------------------------------------------------------------- |
-| `default`         | Extra content inside the root.                                 |
-| `description`     | Description text displayed above the field.                    |
-| `end-text`        | Supporting text displayed below the field.                     |
-| `footer`          | Content below the textarea, inside the border, with a divider. |
-| `header`          | Content above the textarea, inside the border, with a divider. |
-| `label`           | The label for the field.                                       |
-| `prefix`          | Content at the inline-start of the field, inside the border.   |
-| `suffix`          | Content at the inline-end of the field, inside the border.     |
-| `supporting-text` | Legacy alias of the `end-text` slot.                           |
+| Slot         | Description                                                    |
+| ------------ | -------------------------------------------------------------- |
+| `default`    | Extra content inside the root.                                 |
+| `end-text`   | Supporting text displayed below the field.                     |
+| `footer`     | Content below the textarea, inside the border, with a divider. |
+| `header`     | Content above the textarea, inside the border, with a divider. |
+| `label`      | The label for the field.                                       |
+| `prefix`     | Content at the inline-start of the field, inside the border.   |
+| `start-text` | Start text displayed above the field.                          |
+| `suffix`     | Content at the inline-end of the field, inside the border.     |
 
 #### CSS variables
 
@@ -312,7 +311,7 @@ import { Textarea } from "opui-css/astro"
 | `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                                                                                                                                   |
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                                                                                                                                   |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                                                                                                                                 |
-| `--focus-ring-color`         | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                                                                                                  |
+| `--focus-ring-color`         | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )`          | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
 | `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                                                                                                   |
 | `--focus-ring-style`         | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                                                                                                                         |
@@ -330,7 +329,15 @@ import { Textarea } from "opui-css/astro"
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Textarea attributes go to the `<textarea>`: `cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows` and `value`. Other attributes go to the root `<label>`.
+Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `class` and `style` go to the root `<label>`.
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
+
+| Property            | Kind  | Description                                              |
+| ------------------- | ----- | -------------------------------------------------------- |
+| `--_max-block-size` | Input | Maximum height the `textarea` grows to with its content. |
 
 ## Under the hood
 
@@ -459,8 +466,8 @@ Import the component from `opui-css/astro`:
 
 - [Text Field](https://open-props-ui.netlify.app/astro/components/text-field.md)
 
-- `opui-css/css/components/text-field.css`
-- `opui-css/css/components/textarea.css`
+* `opui-css/css/components/text-field.css`
+* `opui-css/css/components/textarea.css`
 
 ## Changelog
 
@@ -468,8 +475,12 @@ Import the component from `opui-css/astro`:
 
 - [x-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
+- The minimum height is three lines plus padding at every [size](#sizes).
 - Breaking: extra attributes such as `autocomplete` and `aria-*` go to the textarea. `class` and `style` stay on the label ([API](#api)).
 - Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: `error` only sets `aria-invalid="true"` on the textarea, no more `data-invalid` on the root ([Validation](#validation)).
+- Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-height`, `--_label-color` is `--_affix-color` and `--_end-text-color` is `--_helper-color` ([Under the hood](#under-the-hood)).
+- Breaking: [`startText`](#start-text) replaces `description`, matching `endText`. `supportingText` is gone, use [`endText`](#end-text).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--border-radius` through [`--field-border-radius`](#api), so one token squares or rounds every component.

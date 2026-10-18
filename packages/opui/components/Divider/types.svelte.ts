@@ -1,4 +1,4 @@
 import type * as Base from "./types"
-import type { HTMLAttributes } from "svelte/elements"
+import type { SvelteHTMLElements } from "svelte/elements"
 
-export type Props = Base.Props & HTMLAttributes<HTMLElement>
+export type Props = Base.Props & SvelteHTMLElements["hr"]

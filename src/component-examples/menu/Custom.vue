@@ -4,10 +4,11 @@ import { Button, ListItem, Menu } from "opui-css/vue"
 
 <template>
   <Button
-    rounded
+    round
     size="small"
     aria-label="More actions"
-    commandfor="menu-custom"
+    iconOnly
+    commandfor="menu-custom-1"
     command="toggle-popover"
   >
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -17,12 +18,12 @@ import { Button, ListItem, Menu } from "opui-css/vue"
       ></path>
     </svg>
   </Button>
-  <Menu id="menu-custom">
+  <Menu id="menu-custom-1">
     <li class="ui-label">Document</li>
     <ListItem
       as="button"
       headline="Rename"
-      commandfor="menu-custom"
+      commandfor="menu-custom-1"
       command="hide-popover"
     >
       <template #start>
@@ -38,7 +39,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     <ListItem
       as="button"
       headline="Copy"
-      commandfor="menu-custom"
+      commandfor="menu-custom-1"
       command="hide-popover"
     >
       <template #start>
@@ -64,9 +65,9 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     <ListItem
       as="button"
       headline="Delete"
-      border-top
-      class="ui-critical"
-      commandfor="menu-custom"
+      borderTop
+      critical
+      commandfor="menu-custom-1"
       command="hide-popover"
     >
       <template #start>

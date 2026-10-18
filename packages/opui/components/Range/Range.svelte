@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { getFieldContext } from "../FieldGroup/context"
-  import type { RangeProps as Props } from "./types.svelte"
+  import { content } from "../content.svelte"
+  import { getFieldGroupContext } from "../FieldGroup/context.svelte"
+  import { idRefs } from "../id"
+  import type { Props } from "./types.svelte"
 
   let {
     class: className,
@@ -16,6 +18,7 @@
     spread,
     startText,
     step,
+    style,
     value = $bindable(),
     valueSuffix,
     variant,
@@ -28,10 +31,11 @@
   }: Props = $props()
 
   const uid = $props.id()
-  const field = getFieldContext()
+  const field = getFieldGroupContext()
 
   const hasLabel = $derived(!!label || !!children)
   const hasValue = $derived(valueSuffix !== undefined || !!valueText)
+  const hasDatalist = $derived(!!options || !!datalist)
   const defaultValue = $derived.by(() => {
     const minValue = Number(min ?? 0)
     const maxValue = Math.max(minValue, Number(max ?? 100))
@@ -47,8 +51,11 @@
   const labelId = $derived(hasLabel ? `range-label-${uid}` : undefined)
   const startTextId = $derived(startText ? `range-start-${uid}` : undefined)
   const endTextId = $derived(endText ? `range-end-${uid}` : undefined)
+  const listId = $derived(
+    list ?? (hasDatalist ? `range-list-${uid}` : undefined),
+  )
   const describedBy = $derived(
-    [startTextId, endTextId].filter(Boolean).join(" ") || undefined,
+    idRefs(startTextId, endTextId, rest["aria-describedby"]),
   )
 </script>
 
@@ -59,6 +66,7 @@
     { "ui-spread": spread },
     className,
   ]}
+  {style}
 >
   {#if hasLabel}
     <span class="ui-label" id={labelId}>
@@ -68,21 +76,23 @@
   {/if}
   {#if hasValue}
     <output class="ui-value" for={inputId} data-suffix={valueSuffix}>
-      {#if valueText}{@render valueText()}{:else}{value ??
-          defaultValue}{valueSuffix ?? ""}{/if}
+      {#if valueText}{@render valueText(
+          Number(value ?? defaultValue),
+        )}{:else}{value ?? defaultValue}{valueSuffix ?? ""}{/if}
     </output>
   {/if}
   {#if startText}
     <span class="ui-start-text" id={startTextId}>
-      {#if typeof startText === "string"}{startText}{:else}{@render startText()}{/if}
+      {@render content(startText)}
     </span>
   {/if}
   <input
+    {...rest}
     aria-describedby={describedBy}
-    aria-invalid={error ? "true" : undefined}
-    aria-labelledby={labelId}
+    aria-invalid={error ? "true" : rest["aria-invalid"]}
+    aria-labelledby={labelId ?? rest["aria-labelledby"]}
     id={inputId}
-    {list}
+    list={listId}
     {max}
     {min}
     name={name ?? field?.name}
@@ -95,10 +105,9 @@
       form?.addEventListener("reset", sync)
       return () => form?.removeEventListener("reset", sync)
     }}
-    {...rest}
   />
-  {#if options || datalist}
-    <datalist id={list}>
+  {#if hasDatalist}
+    <datalist id={listId}>
       {#each options ?? [] as option (typeof option === "object" ? option.value : option)}
         {#if typeof option === "object"}
           <option value={option.value} label={option.label}></option>
@@ -111,7 +120,7 @@
   {/if}
   {#if endText}
     <span class="ui-end-text" id={endTextId}>
-      {#if typeof endText === "string"}{endText}{:else}{@render endText()}{/if}
+      {@render content(endText)}
     </span>
   {/if}
 </label>

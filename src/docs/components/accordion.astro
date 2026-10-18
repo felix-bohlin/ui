@@ -7,7 +7,7 @@ import {
   AccordionContent as UIAccordionContent,
   AccordionSummary as UIAccordionSummary,
   Button as UIButton,
-} from "@opui/astro"
+} from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 
@@ -69,7 +69,7 @@ export const description =
     <h2 id="basics">Basics</h2>
 
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Put the header in <code>AccordionSummary</code> and the body in <code
           >AccordionContent</code
         >.
@@ -78,21 +78,6 @@ export const description =
         Put the header in the <code>&lt;summary&gt;</code> and the body in a <code
           >.ui-content</code
         > element.
-      </Fragment>
-      <Fragment slot="react">
-        Put the header in <code>AccordionSummary</code> and the body in <code
-          >AccordionContent</code
-        >.
-      </Fragment>
-      <Fragment slot="svelte">
-        Put the header in <code>AccordionSummary</code> and the body in <code
-          >AccordionContent</code
-        >.
-      </Fragment>
-      <Fragment slot="vue">
-        Put the header in <code>AccordionSummary</code> and the body in <code
-          >AccordionContent</code
-        >.
       </Fragment>
     </Conditional>
 
@@ -103,7 +88,7 @@ export const description =
     <h2 id="variants">Variants</h2>
 
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>variant</code> prop to change how it looks.
       </Fragment>
       <Fragment slot="html">
@@ -111,15 +96,6 @@ export const description =
           >.ui-elevated</code
         >, <code>.ui-tonal</code>) to the <code>&lt;details&gt;</code> element to
         change how it looks. Add <code>.ui-card</code> for the card styles.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>variant</code> prop to change how it looks.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>variant</code> prop to change how it looks.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>variant</code> prop to change how it looks.
       </Fragment>
     </Conditional>
 
@@ -130,7 +106,7 @@ export const description =
     <h2 id="accordion-group">Accordion group</h2>
 
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Group multiple accordions by wrapping them in a <code>Card</code>{" "}
         component with <code>role="group"</code>. To theme the entire group,
         apply the <code>variant</code> prop to the parent container.
@@ -140,21 +116,6 @@ export const description =
         with <code>role="group"</code>. To theme the entire group, apply the
         variant class to the parent container.
       </Fragment>
-      <Fragment slot="react">
-        Group multiple accordions by wrapping them in a <code>Card</code>{" "}
-        component with <code>role="group"</code>. To theme the entire group,
-        apply the <code>variant</code> prop to the parent container.
-      </Fragment>
-      <Fragment slot="svelte">
-        Group multiple accordions by wrapping them in a <code>Card</code>{" "}
-        component with <code>role="group"</code>. To theme the entire group,
-        apply the <code>variant</code> prop to the parent container.
-      </Fragment>
-      <Fragment slot="vue">
-        Group multiple accordions by wrapping them in a <code>Card</code>{" "}
-        component with <code>role="group"</code>. To theme the entire group,
-        apply the <code>variant</code> prop to the parent container.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Group" column />
@@ -162,7 +123,7 @@ export const description =
     <h3 id="mutually-exclusive">Mutually exclusive</h3>
 
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Set the same <code>name</code> prop on each accordion to allow only one of
         them to be open at a time.
       </Fragment>
@@ -170,18 +131,6 @@ export const description =
         Set the same <code>name</code> attribute on each <code
           >&lt;details&gt;</code
         > element to allow only one of them to be open at a time.
-      </Fragment>
-      <Fragment slot="react">
-        Set the same <code>name</code> prop on each accordion to allow only one of
-        them to be open at a time.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set the same <code>name</code> prop on each accordion to allow only one of
-        them to be open at a time.
-      </Fragment>
-      <Fragment slot="vue">
-        Set the same <code>name</code> prop on each accordion to allow only one of
-        them to be open at a time.
       </Fragment>
     </Conditional>
 
@@ -192,7 +141,7 @@ export const description =
     <h2 id="actions">Actions</h2>
 
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Add buttons or other interactive elements below the content with <code
           >AccordionActions</code
         >, after <code>AccordionContent</code>.
@@ -201,21 +150,6 @@ export const description =
         Add buttons or other interactive elements below the content in a <code
           >.ui-actions</code
         > element, after <code>.ui-content</code>.
-      </Fragment>
-      <Fragment slot="react">
-        Add buttons or other interactive elements below the content with <code
-          >AccordionActions</code
-        >, after <code>AccordionContent</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Add buttons or other interactive elements below the content with <code
-          >AccordionActions</code
-        >, after <code>AccordionContent</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Add buttons or other interactive elements below the content with <code
-          >AccordionActions</code
-        >, after <code>AccordionContent</code>.
       </Fragment>
     </Conditional>
 
@@ -232,6 +166,9 @@ export const description =
         >, and give it <code>.ui-marker</code> so it sits at the end and animates,
         and <code>aria-hidden="true"</code> since it's decorative. Other icons in
         <code>AccordionSummary</code>, such as a leading status icon, stay put.
+        An empty <code>marker</code> slot, <code
+          >&lt;Fragment slot="marker" /&gt;</code
+        >, falls back to the native arrow.
       </Fragment>
       <Fragment slot="html">
         Replace the <code>svg.ui-marker</code> inside the <code>summary</code> to
@@ -247,6 +184,8 @@ export const description =
         >, and give it <code>.ui-marker</code> so it sits at the end and animates,
         and <code>aria-hidden="true"</code> since it's decorative. Other icons in
         <code>AccordionSummary</code>, such as a leading status icon, stay put.
+        An empty <code>marker</code>, such as <code>{"marker={null}"}</code>,
+        falls back to the native arrow.
       </Fragment>
       <Fragment slot="svelte">
         Replace the default marker with the <code>marker</code> snippet on <code
@@ -254,6 +193,7 @@ export const description =
         >, and give it <code>.ui-marker</code> so it sits at the end and animates,
         and <code>aria-hidden="true"</code> since it's decorative. Other icons in
         <code>AccordionSummary</code>, such as a leading status icon, stay put.
+        An empty <code>marker</code> snippet falls back to the native arrow.
       </Fragment>
       <Fragment slot="vue">
         Replace the default marker with the <code>marker</code> slot on <code
@@ -261,6 +201,9 @@ export const description =
         >, and give it <code>.ui-marker</code> so it sits at the end and animates,
         and <code>aria-hidden="true"</code> since it's decorative. Other icons in
         <code>AccordionSummary</code>, such as a leading status icon, stay put.
+        An empty <code>marker</code> slot, <code
+          >&lt;template #marker /&gt;</code
+        >, falls back to the native arrow.
       </Fragment>
     </Conditional>
 
@@ -271,7 +214,7 @@ export const description =
     <h2 id="marker-animation">Marker animation</h2>
 
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Set the <code>markerAnimation</code> prop to change how the marker animates
         when the accordion opens. A custom marker in the <code>marker</code>
         slot on <code>AccordionSummary</code> animates too, as long as it has
@@ -294,12 +237,6 @@ export const description =
         Set the <code>markerAnimation</code> prop to change how the marker animates
         when the accordion opens. A custom marker in the <code>marker</code>
         snippet on <code>AccordionSummary</code> animates too, as long as it has
-        <code>.ui-marker</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Set the <code>markerAnimation</code> prop to change how the marker animates
-        when the accordion opens. A custom marker in the <code>marker</code>
-        slot on <code>AccordionSummary</code> animates too, as long as it has
         <code>.ui-marker</code>.
       </Fragment>
     </Conditional>

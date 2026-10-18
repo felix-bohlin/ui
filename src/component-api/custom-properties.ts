@@ -16,6 +16,8 @@ export const customProperties: Record<string, CustomProperties> =
   )
 
 const PAGE_STYLESHEETS: Record<string, string[]> = {
+  checkbox: ["checkbox", "choice"],
+  radio: ["choice", "radio"],
   toggle: ["toggle-button", "toggle-group"],
   typography: ["link", "typography"],
 }

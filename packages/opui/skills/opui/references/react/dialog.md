@@ -43,18 +43,18 @@ import {
   DialogHeader,
 } from "opui-css/react"
 
-export default function Usage() {
+export default function Basics() {
   return (
     <>
       <Button
-        commandfor="example-dialog"
+        commandfor="dialog-basics-1"
         command="show-modal"
         variant="outlined"
       >
         Open dialog
       </Button>
 
-      <Dialog id="example-dialog">
+      <Dialog id="dialog-basics-1">
         <DialogHeader>
           <h2 className="ui-h4">Newsletter</h2>
         </DialogHeader>
@@ -65,15 +65,10 @@ export default function Usage() {
           </p>
         </DialogContent>
         <DialogActions>
-          <Button commandfor="example-dialog" command="close" type="button">
+          <Button commandfor="dialog-basics-1" command="close">
             Not now
           </Button>
-          <Button
-            commandfor="example-dialog"
-            command="close"
-            type="button"
-            variant="filled"
-          >
+          <Button commandfor="dialog-basics-1" command="close" variant="filled">
             Subscribe
           </Button>
         </DialogActions>
@@ -100,13 +95,13 @@ export default function ActionsAlignment() {
   return (
     <>
       <Button
-        commandfor="actions-alignment-example"
+        commandfor="dialog-actions-alignment-1"
         command="show-modal"
         variant="outlined"
       >
         Show shortcuts
       </Button>
-      <Dialog id="actions-alignment-example">
+      <Dialog id="dialog-actions-alignment-1">
         <DialogHeader>
           <h2 className="ui-h4">Keyboard shortcuts</h2>
         </DialogHeader>
@@ -117,9 +112,8 @@ export default function ActionsAlignment() {
         </DialogContent>
         <DialogActions align="start">
           <Button
-            commandfor="actions-alignment-example"
+            commandfor="dialog-actions-alignment-1"
             command="close"
-            type="button"
             variant="filled"
           >
             Got it
@@ -149,38 +143,33 @@ export default function AlertDialog() {
     <>
       <Button
         color="critical"
-        commandfor="alert-dialog-example"
+        commandfor="dialog-alert-dialog-1"
         command="show-modal"
         variant="outlined"
       >
         Delete project
       </Button>
       <Dialog
-        id="alert-dialog-example"
+        id="dialog-alert-dialog-1"
         role="alertdialog"
-        aria-describedby="alert-dialog-description"
+        aria-describedby="dialog-alert-dialog-1-description"
       >
         <DialogHeader>
           <h2 className="ui-h4">Delete project?</h2>
         </DialogHeader>
         <DialogContent>
-          <p id="alert-dialog-description">
+          <p id="dialog-alert-dialog-1-description">
             This deletes the project and all its files. You can't undo this.
           </p>
         </DialogContent>
         <DialogActions>
-          <Button
-            commandfor="alert-dialog-example"
-            command="close"
-            type="button"
-          >
+          <Button commandfor="dialog-alert-dialog-1" command="close">
             Cancel
           </Button>
           <Button
             color="critical"
-            commandfor="alert-dialog-example"
+            commandfor="dialog-alert-dialog-1"
             command="close"
-            type="button"
             variant="filled"
           >
             Delete
@@ -213,13 +202,13 @@ export default function LongContent() {
   return (
     <>
       <Button
-        commandfor="example-dialog-long"
+        commandfor="dialog-long-content-1"
         command="show-modal"
         variant="outlined"
       >
         Read the terms
       </Button>
-      <Dialog id="example-dialog-long">
+      <Dialog id="dialog-long-content-1">
         <DialogHeader>
           <h2 className="ui-h4">Terms of service</h2>
         </DialogHeader>
@@ -294,17 +283,12 @@ export default function LongContent() {
           </p>
         </DialogContent>
         <DialogActions>
-          <Button
-            commandfor="example-dialog-long"
-            command="close"
-            type="button"
-          >
+          <Button commandfor="dialog-long-content-1" command="close">
             Decline
           </Button>
           <Button
-            commandfor="example-dialog-long"
+            commandfor="dialog-long-content-1"
             command="close"
-            type="button"
             variant="filled"
           >
             Accept
@@ -352,13 +336,13 @@ export default function CloseBehaviors() {
   return (
     <>
       <Button
-        commandfor="closing-behaviors-dialog"
+        commandfor="dialog-close-behaviors-1"
         command="show-modal"
         variant="outlined"
       >
         Open dialog
       </Button>
-      <Dialog id="closing-behaviors-dialog" closedby={closedby}>
+      <Dialog id="dialog-close-behaviors-1" closedby={closedby}>
         <DialogHeader>
           <h2 className="ui-h4">How to close</h2>
         </DialogHeader>
@@ -380,7 +364,7 @@ export default function CloseBehaviors() {
           </FieldSet>
         </DialogContent>
         <DialogActions>
-          <Button commandfor="closing-behaviors-dialog" command="close">
+          <Button commandfor="dialog-close-behaviors-1" command="close">
             Close manually
           </Button>
         </DialogActions>
@@ -423,14 +407,29 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 #### CSS variables
 
-| Variable           | Default                                    | Description                                                                                                                                                                                               |
-| ------------------ | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--backdrop-blur`  | `1px`                                      | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                          |
-| `--backdrop-color` | `rgb(0 0 0 / 0.5)`                         | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
-| `--duration`       | `0.2s`                                     | Default transition duration. Multiplied by `--motion`.                                                                                                                                                    |
-| `--ease-enter`     | `var(--ease-out-3)`                        | Easing for elements entering the screen.                                                                                                                                                                  |
-| `--motion`         | `1`                                        | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion). |
-| `--space-3`        | `calc(var(--size-3) * var(--space-scale))` | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                              |
+| Variable              | Default                                                                        | Description                                                                                                                                                                                                                                     |
+| --------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`     | `1px`                                                                          | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                                                                |
+| `--backdrop-color`    | `rgb(0 0 0 / 0.5)`                                                             | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                                                              |
+| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`                                    | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                     |
+| `--border-radius`     | `var(--size-2)`                                                                | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                |
+| `--border-width`      | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                                                         |
+| `--duration`          | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                                          |
+| `--ease`              | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                                                                 |
+| `--ease-enter`        | `var(--ease-out-3)`                                                            | Easing for elements entering the screen.                                                                                                                                                                                                        |
+| `--focus-ring-color`  | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                                |
+| `--focus-ring-offset` | `2px`                                                                          | Distance between a control and its focus ring.                                                                                                                                                                                                  |
+| `--focus-ring-style`  | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                                                                |
+| `--focus-ring-width`  | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                                                        |
+| `--motion`            | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion).                                       |
+| `--shadow-raised`     | `var(--shadow-raised-light)` `var(--shadow-raised-dark)` in dark mode          | Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--shadow-raised-light` and `--shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one. |
+| `--space-2`           | `calc(var(--size-2) * var(--space-scale))`                                     | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                                    |
+| `--space-3`           | `calc(var(--size-3) * var(--space-scale))`                                     | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                                    |
+| `--space-4`           | `calc(var(--size-4) * var(--space-scale))`                                     | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                                                                    |
+| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                                    | Page and card background.                                                                                                                                                                                                                       |
+| `--surface-elevated`  | `light-dark(var(--gray-1), var(--gray-12))`                                    | Background of elevated cards and accordions.                                                                                                                                                                                                    |
+| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                                    | Background of tonal variants.                                                                                                                                                                                                                   |
+| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                                    | Body text color.                                                                                                                                                                                                                                |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
@@ -440,7 +439,7 @@ Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labell
 
 | Prop       | Type                | Default | Description                   |
 | ---------- | ------------------- | ------- | ----------------------------- |
-| `align`    | `"start"` , `"end"` | `"end"` | Alignment for the actions.    |
+| `align`    | `"end"` , `"start"` | `"end"` | Alignment for the actions.    |
 | `children` | `ReactNode`         | -       | The actions, such as buttons. |
 
 #### CSS variables
@@ -460,13 +459,15 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
 
-| Property               | Kind  | Description                                                                     |
-| ---------------------- | ----- | ------------------------------------------------------------------------------- |
-| `--_backdrop-bg-color` | Input | The backdrop color. Defaults to `--backdrop-color`.                             |
-| `--_backdrop-blur`     | Input | The backdrop filter. Defaults to a `--backdrop-blur` blur.                      |
-| `--_max-inline-size`   | Input | Maximum width, capped to fit the viewport.                                      |
-| `--_motion`            | Input | Motion multiplier for the transitions. `0` turns them off.                      |
-| `--_scroll-shadow`     | Input | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--shadow-4`. |
+| Property               | Kind   | Description                                                                         |
+| ---------------------- | ------ | ----------------------------------------------------------------------------------- |
+| `--_backdrop-bg-color` | Input  | The backdrop color. Defaults to `--backdrop-color`.                                 |
+| `--_backdrop-blur`     | Input  | The backdrop filter. Defaults to a `--backdrop-blur` blur.                          |
+| `--_duration`          | Output | Duration of the open transition and scroll shadows, `--duration` times `--_motion`. |
+| `--_ease`              | Input  | Easing of the open transition. Defaults to `--ease-enter`.                          |
+| `--_max-inline-size`   | Input  | Maximum width, capped to fit the viewport.                                          |
+| `--_motion`            | Input  | Motion multiplier for the transitions. `0` turns them off.                          |
+| `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--shadow-4`.     |
 
 ## Under the hood
 
@@ -569,7 +570,7 @@ Step 2 of 5: Place
 }
 
 .dialog > .content {
-  overflow-y: auto;
+  overflow-block: auto;
   overscroll-behavior: contain;
 }
 ```
@@ -680,8 +681,8 @@ Import the components from `opui-css/react`:
 
 - [Card](https://open-props-ui.netlify.app/react/components/card.md)
 
-- `opui-css/css/components/dialog.css`
-- `opui-css/css/components/card.css`
+* `opui-css/css/components/dialog.css`
+* `opui-css/css/components/card.css`
 
 ## Changelog
 
@@ -690,3 +691,5 @@ Import the components from `opui-css/react`:
 - [Long content](#long-content) scrolls between a fixed header and actions.
 - A subtle scroll shadow shows under the header and above the actions while the [content scrolls](#long-content).
 - [Width](#width) with `--_max-inline-size`, keeping the margin on small screens.
+- [`closedby`](#how-to-close) is typed in every framework.
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

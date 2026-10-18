@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, provide, reactive } from "vue"
-import { CalloutKey, type Props, type Slots } from "./types.d.vue"
+import { CalloutKey } from "./context.vue"
+import type { Props, Slots } from "./types.d.vue"
 
 const { severity, variant } = defineProps<Props>()
 defineSlots<Slots>()

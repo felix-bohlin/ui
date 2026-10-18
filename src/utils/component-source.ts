@@ -149,11 +149,14 @@ export const snippetNames = (target: Target, framework: ComponentFramework) => {
   const text = read(target.source, componentFile(target, framework))
   if (!text) return []
 
-  const local = new Set(
-    [...text.matchAll(/\{#snippet (\w+)\(\s*(\w*)/g)].flatMap(
+  const local = new Set([
+    ...[...text.matchAll(/\{#snippet (\w+)\(\s*(\w*)/g)].flatMap(
       ([, name, param]) => [name, param],
     ),
-  )
+    ...[...text.matchAll(/import \{([^}]+)\} from "[^"]+\.svelte"/g)].flatMap(
+      ([, names]) => names.split(",").map((name) => name.trim()),
+    ),
+  ])
   const names = [
     ...text.matchAll(/\{@render (\w+)(?:\?\.)?\(/g),
     ...text.matchAll(/\{@render content\(\s*(\w+)/g),

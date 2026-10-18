@@ -1,4 +1,5 @@
 export type CheckboxProps = {
+  endText?: string
   error?: boolean
   hideLabel?: boolean
   indeterminate?: boolean

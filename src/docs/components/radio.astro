@@ -183,8 +183,9 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
     <h3 id="end-text">End text</h3>
     <Conditional as="p">
       <Fragment slot="astro"
-        >Use the <code>end-text</code> slot for supporting text under a single radio's
-        label. The component points <code>aria-describedby</code> at it.</Fragment
+        >Use the <code>endText</code> prop for supporting text under a single radio's
+        label, or the <code>end-text</code> slot for rich content. The component points
+        <code>aria-describedby</code> at it.</Fragment
       >
       <Fragment slot="html"
         >Add a <code>.ui-end-text</code> element after the label for supporting text
@@ -196,12 +197,15 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         label. The component points <code>aria-describedby</code> at it.</Fragment
       >
       <Fragment slot="svelte"
-        >Use the <code>endText</code> snippet for supporting text under a single radio's
-        label. The component points <code>aria-describedby</code> at it.</Fragment
+        >Use the <code>endText</code> prop for supporting text under a single radio's
+        label, or an <code>endText</code> snippet for rich content. The component
+        points
+        <code>aria-describedby</code> at it.</Fragment
       >
       <Fragment slot="vue"
-        >Use the <code>end-text</code> slot for supporting text under a single radio's
-        label. The component points <code>aria-describedby</code> at it.</Fragment
+        >Use the <code>endText</code> prop for supporting text under a single radio's
+        label, or the <code>end-text</code> slot for rich content. The component points
+        <code>aria-describedby</code> at it.</Fragment
       >
     </Conditional>
     <AutoExample name="EndText" row spacious />
@@ -373,6 +377,47 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
       on the fieldset at it, so screen readers read the error with the group.
     </p>
     <AutoExample name="FieldGroupValidation" row />
+  </section>
+
+  <section>
+    <h2 id="field-group-binding">Binding</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Astro renders the group on the server, so it has no bound value. The
+        selected value lives in the inputs, which share the group's <code
+          >name</code
+        >. Submit them with a form, where <code>FormData.get()</code> reads it, or
+        read the checked input in a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the <code>checked</code> radio.
+      </Fragment>
+      <Fragment slot="html">
+        The selected value lives in the inputs, which share a <code>name</code>.
+        Submit them with a form, where <code>FormData.get()</code> reads it, or read
+        the checked input in a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the <code>checked</code> input in the markup.
+      </Fragment>
+      <Fragment slot="react">
+        Keep the selected value in your own state. Pass each <code>Radio</code> a
+        <code>checked</code> and an <code>onChange</code> that stores its <code
+          >value</code
+        >.
+      </Fragment>
+      <Fragment slot="svelte">
+        Bind the selected value with <code>bind:group</code> on each <code
+          >Radio</code
+        >. It holds the <code>value</code> of the checked radio, and setting it updates
+        the radios.
+      </Fragment>
+      <Fragment slot="vue">
+        Bind the selected value with <code>v-model</code> on each <code
+          >Radio</code
+        >. It holds the <code>value</code> of the checked radio, and setting it updates
+        the radios.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="FieldGroupBinding" centered column />
   </section>
 
   <Fragment slot="accessibility">

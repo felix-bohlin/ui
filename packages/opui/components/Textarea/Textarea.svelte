@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { content } from "../content.svelte"
   import { getFieldContext } from "../FieldGroup/context"
   import type { Props } from "./types.svelte"
-  import type { Snippet } from "svelte"
 
   let {
     autoFit,
@@ -29,10 +29,6 @@
 
   const field = getFieldContext()
 </script>
-
-{#snippet content(
-  part: string | Snippet,
-)}{#if typeof part === "string"}{part}{:else}{@render part()}{/if}{/snippet}
 
 <label
   class={[

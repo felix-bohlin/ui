@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed, useAttrs } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
 defineOptions({
@@ -7,6 +8,10 @@ defineOptions({
 
 defineSlots<Slots>()
 const props = defineProps<Props>()
+const attrs = useAttrs()
+const progressAttrs = computed(() =>
+  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
+)
 </script>
 
 <template>
@@ -16,8 +21,9 @@ const props = defineProps<Props>()
       props.variant && `ui-${props.variant}`,
       props.class,
     ]"
+    :style="$attrs.style"
   >
-    <progress v-bind="$attrs" :max="props.max" :value="props.value">
+    <progress v-bind="progressAttrs" :max="props.max" :value="props.value">
       <slot></slot>
     </progress>
   </div>

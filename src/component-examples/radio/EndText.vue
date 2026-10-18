@@ -3,12 +3,15 @@ import { Radio } from "opui-css/vue"
 </script>
 
 <template>
-  <Radio name="radio-end-text" value="default" checked>
+  <Radio
+    name="radio-end-text"
+    value="default"
+    checked
+    endText="Supporting text"
+  >
     Default
-    <template #end-text>Supporting text</template>
   </Radio>
-  <Radio name="radio-end-text" value="stack" stack>
+  <Radio name="radio-end-text" value="stack" stack endText="Supporting text">
     Stack
-    <template #end-text>Supporting text</template>
   </Radio>
 </template>

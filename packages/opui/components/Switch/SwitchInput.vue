@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs } from "vue"
+import { computed, inject, type InputHTMLAttributes, useAttrs } from "vue"
 import type { SwitchInputProps } from "./types.d.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 
@@ -7,8 +7,8 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<SwitchInputProps>()
-const attrs = useAttrs()
+defineProps<SwitchInputProps>()
+const attrs = useAttrs() as InputHTMLAttributes
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
@@ -28,9 +28,9 @@ const model = computed({
   <input
     type="checkbox"
     role="switch"
-    :class="props.class"
-    :name="fieldName"
+    :class="$props.class"
     v-bind="$attrs"
+    :name="attrs.name ?? fieldName"
     v-model="model"
   />
 </template>

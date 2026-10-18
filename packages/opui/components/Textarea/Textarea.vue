@@ -7,7 +7,18 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<Props>()
+const {
+  autoFit,
+  endText,
+  error,
+  id,
+  label,
+  size,
+  spread,
+  startText,
+  value,
+  variant,
+} = defineProps<Props>()
 defineSlots<Slots>()
 const attrs = useAttrs() as TextareaHTMLAttributes
 const inputAttrs = computed(() =>
@@ -16,7 +27,7 @@ const inputAttrs = computed(() =>
 const modelValue = defineModel<string>()
 
 const model = computed({
-  get: () => modelValue.value ?? props.value,
+  get: () => modelValue.value ?? value,
   set: (value) => {
     modelValue.value = value
   },
@@ -29,30 +40,30 @@ const fieldName = inject(FieldGroupKey, undefined)
   <label
     :class="[
       'ui-textarea',
-      props.size && `ui-${props.size}`,
+      size && `ui-${size}`,
       {
-        'ui-auto-fit': props.autoFit,
+        'ui-auto-fit': autoFit,
         'ui-filled': variant === 'filled',
-        'ui-spread': props.spread,
+        'ui-spread': spread,
       },
-      props.class,
+      $props.class,
     ]"
     :style="$attrs.style"
   >
-    <span v-if="props.label || $slots.label" class="ui-label">
-      <slot name="label">{{ props.label }}</slot>
+    <span v-if="label || $slots.label" class="ui-label">
+      <slot name="label">{{ label }}</slot>
     </span>
 
-    <span v-if="props.startText || $slots['start-text']" class="ui-start-text">
-      <slot name="start-text">{{ props.startText }}</slot>
+    <span v-if="startText || $slots['start-text']" class="ui-start-text">
+      <slot name="start-text">{{ startText }}</slot>
     </span>
 
     <span class="ui-field">
       <textarea
         v-bind="inputAttrs"
         v-model="model"
-        :aria-invalid="props.error ? 'true' : attrs['aria-invalid']"
-        :id="props.id"
+        :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+        :id="id"
         :name="attrs.name ?? fieldName"
       ></textarea>
       <span class="ui-prefix" v-if="$slots.prefix"
@@ -69,8 +80,8 @@ const fieldName = inject(FieldGroupKey, undefined)
       ></span>
     </span>
 
-    <span v-if="props.endText || $slots['end-text']" class="ui-end-text">
-      <slot name="end-text">{{ props.endText }}</slot>
+    <span v-if="endText || $slots['end-text']" class="ui-end-text">
+      <slot name="end-text">{{ endText }}</slot>
     </span>
 
     <slot></slot>

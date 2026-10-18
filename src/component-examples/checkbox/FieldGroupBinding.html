@@ -1,0 +1,46 @@
+<fieldset class="ui-fieldset">
+  <legend>Fruit</legend>
+  <div class="ui-field-group">
+    <label class="ui-checkbox">
+      <input name="checkbox-binding" type="checkbox" value="apples" checked />
+      <span class="ui-label">Apples</span>
+    </label>
+    <label class="ui-checkbox">
+      <input name="checkbox-binding" type="checkbox" value="bananas" />
+      <span class="ui-label">Bananas</span>
+    </label>
+    <label class="ui-checkbox">
+      <input name="checkbox-binding" type="checkbox" value="cherries" />
+      <span class="ui-label">Cherries</span>
+    </label>
+  </div>
+</fieldset>
+<p class="checkbox-binding-text">Selected: apples</p>
+<button type="button" class="ui-button checkbox-binding-reset">Reset</button>
+
+<script>
+  function setupCheckboxBinding() {
+    const text = document.querySelector(".checkbox-binding-text")
+    const inputs = [...document.querySelectorAll('[name="checkbox-binding"]')]
+
+    function update() {
+      if (!text) return
+      text.textContent = `Selected: ${
+        inputs
+          .filter((input) => input.checked)
+          .map((input) => input.value)
+          .join(", ") || "none"
+      }`
+    }
+
+    inputs.forEach((input) => input.addEventListener("change", update))
+    document
+      .querySelector(".checkbox-binding-reset")
+      ?.addEventListener("click", () => {
+        inputs.forEach((input) => (input.checked = input.defaultChecked))
+        update()
+      })
+  }
+
+  setupCheckboxBinding()
+</script>

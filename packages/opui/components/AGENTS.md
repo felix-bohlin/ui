@@ -228,7 +228,7 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
 ```
 
 ### End Text & ARIA
-When providing `endText`, use `createId(Astro.locals)` (Astro), `useId()` (React and Vue) or `$props.id()` (Svelte) to link it to the input via `aria-describedby`, merged with the user's own `aria-describedby`. TextField and Textarea are the exception: the wrapping `<label>` names the control and already includes the end text, so they don't link it.
+When providing `endText`, use `createId(Astro.locals)` (Astro), `useId()` (React and Vue) or `$props.id()` (Svelte) to link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. TextField and Textarea are the exception: the wrapping `<label>` names the control and already includes the end text, so they don't link it.
 
 ```astro
 ---
@@ -236,14 +236,11 @@ const { "aria-describedby": ariaDescribedBy, endText, ...rest } = Astro.props
 const $id = createId(Astro.locals)
 const endTextId = endText ? $id("end-text") : undefined
 ---
-<input
-  {...rest}
-  aria-describedby={[endTextId, ariaDescribedBy]
-    .filter(Boolean)
-    .join(" ") || undefined}
-/>
+<input {...rest} aria-describedby={idRefs(endTextId, ariaDescribedBy)} />
 {endText && <span id={endTextId}>{endText}</span>}
 ```
+
+In Svelte, render a text region that takes a string or a snippet with the shared `content` snippet: `import { content } from "../content.svelte"`, then `{@render content(endText)}`.
 
 ### Input Attribute Mapping
 Native input attributes (`disabled`, `name`, `value`, …) come from the framework type, such as `HTMLAttributes<"input">`, and reach the input through `...rest`, so don't destructure and re-pass them. Destructure only the attributes the component merges, spread `...rest` first, then set the merged values so they win.
@@ -251,9 +248,7 @@ Native input attributes (`disabled`, `name`, `value`, …) come from the framewo
 ```astro
 <input
   {...rest}
-  aria-describedby={[endTextId, ariaDescribedBy]
-    .filter(Boolean)
-    .join(" ") || undefined}
+  aria-describedby={idRefs(endTextId, ariaDescribedBy)}
   aria-invalid={error ? "true" : ariaInvalid}
 />
 ```
@@ -316,7 +311,7 @@ const callout = calloutContext.get()
 For repetitive structures (Menu, Select), prefer an `items` prop alongside standard slots.
 
 ```astro
-type Item = { selected?: boolean; text: string; value: any }
+type Item = { selected?: boolean; text: string; value: number | string }
 type Props = { items?: Item[] }
 
 <select>

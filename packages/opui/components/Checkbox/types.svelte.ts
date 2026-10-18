@@ -9,8 +9,8 @@ type Group = { group?: (string | number)[] }
 export type CheckboxProps = Omit<Base.CheckboxProps, keyof Snippets> &
   Snippets &
   Group &
-  Omit<SvelteHTMLElements["input"], "size">
+  Omit<SvelteHTMLElements["input"], "size" | "type">
 
 export type CheckboxInputProps = Base.CheckboxInputProps &
   Group &
-  SvelteHTMLElements["input"]
+  Omit<SvelteHTMLElements["input"], "type">

@@ -7,7 +7,7 @@
   <Button
     aria-label="More save options"
     iconOnly
-    commandfor="split-button-menu"
+    commandfor="button-group-split-button-1"
     command="toggle-popover"
   >
     <svg
@@ -24,7 +24,7 @@
     </svg>
   </Button>
   <Menu
-    id="split-button-menu"
+    id="button-group-split-button-1"
     align="end"
     items={[{ text: "Save as draft" }, { text: "Save and publish" }]}
   />

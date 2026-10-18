@@ -11,21 +11,21 @@ export default function Basics() {
   return (
     <>
       <div className="example-compass">
-        <Button commandfor="drawer-block-start" command="show-modal">
+        <Button commandfor="drawer-basics-3" command="show-modal">
           Block Start
         </Button>
-        <Button commandfor="drawer-inline-start" command="show-modal">
+        <Button commandfor="drawer-basics-1" command="show-modal">
           Inline Start
         </Button>
-        <Button commandfor="drawer-inline-end" command="show-modal">
+        <Button commandfor="drawer-basics-2" command="show-modal">
           Inline End
         </Button>
-        <Button commandfor="drawer-block-end" command="show-modal">
+        <Button commandfor="drawer-basics-4" command="show-modal">
           Block End
         </Button>
       </div>
 
-      <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
+      <Drawer id="drawer-basics-1" side="inline-start" closedby="any">
         <DrawerHeader>
           <DrawerTitle>Inline Start</DrawerTitle>
         </DrawerHeader>
@@ -50,13 +50,13 @@ export default function Basics() {
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-inline-start" command="close">
+          <Button size="small" commandfor="drawer-basics-1" command="close">
             Close
           </Button>
         </DrawerFooter>
       </Drawer>
 
-      <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
+      <Drawer id="drawer-basics-2" side="inline-end" closedby="any">
         <DrawerHeader>
           <DrawerTitle>Inline End</DrawerTitle>
         </DrawerHeader>
@@ -81,13 +81,13 @@ export default function Basics() {
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-inline-end" command="close">
+          <Button size="small" commandfor="drawer-basics-2" command="close">
             Close
           </Button>
         </DrawerFooter>
       </Drawer>
 
-      <Drawer id="drawer-block-start" side="block-start" closedby="any">
+      <Drawer id="drawer-basics-3" side="block-start" closedby="any">
         <DrawerHeader>
           <DrawerTitle>Block Start</DrawerTitle>
         </DrawerHeader>
@@ -106,13 +106,13 @@ export default function Basics() {
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-block-start" command="close">
+          <Button size="small" commandfor="drawer-basics-3" command="close">
             Close
           </Button>
         </DrawerFooter>
       </Drawer>
 
-      <Drawer id="drawer-block-end" side="block-end" closedby="any">
+      <Drawer id="drawer-basics-4" side="block-end" closedby="any">
         <DrawerHeader>
           <DrawerTitle>Block End</DrawerTitle>
         </DrawerHeader>
@@ -131,7 +131,7 @@ export default function Basics() {
           </p>
         </DrawerContent>
         <DrawerFooter>
-          <Button size="small" commandfor="drawer-block-end" command="close">
+          <Button size="small" commandfor="drawer-basics-4" command="close">
             Close
           </Button>
         </DrawerFooter>

@@ -207,6 +207,12 @@ const serialize = (
   return lines
 }
 
+export const idsOf = (html: string) => {
+  const ids = new Map<string, string>()
+  collectIds(parseFragment(html).childNodes, ids)
+  return [...ids.keys()].filter((key) => !key.startsWith("name:"))
+}
+
 export const normalize = (html: string) => {
   const fragment = parseFragment(html)
   const ids = new Map<string, string>()

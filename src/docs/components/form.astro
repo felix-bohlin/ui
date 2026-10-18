@@ -89,7 +89,7 @@ const anatomyApi = {
   <Fragment slot="preamble">Spacing and grouping for form fields.</Fragment>
 
   <section>
-    <h2 id="usage">Usage</h2>
+    <h2 id="basics">Basics</h2>
     <Conditional>
       <Code slot="astro" lang="astro" code={ExampleBasicsAstroCode} />
       <Code slot="react" lang="tsx" code={ExampleBasicsReactCode} />
@@ -287,7 +287,7 @@ const anatomyApi = {
     document
       .querySelectorAll<HTMLElement>(".example-container")
       .forEach((container) => {
-        if (!container.querySelector("#kitchen-sink-example")) return
+        if (!container.querySelector("#form-kitchen-sink-1")) return
         if (container.dataset.kitchenSinkSetup) return
         container.dataset.kitchenSinkSetup = "true"
 
@@ -299,7 +299,7 @@ const anatomyApi = {
         )
 
         const updateFields = () => {
-          const example = container.querySelector("#kitchen-sink-example")
+          const example = container.querySelector("#form-kitchen-sink-1")
           if (!example) return
 
           if (spreadToggle) {

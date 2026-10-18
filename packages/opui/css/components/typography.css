@@ -162,7 +162,7 @@
   }
 
   :where(p:not(.ui-p), small, span).ui-small {
-    font-size: max(0.5em, var(--font-size-0, 0.75rem));
+    font-size: max(0.75em, var(--font-size-0, 0.75rem));
   }
 
   :where(.ui-cite) {
@@ -170,7 +170,7 @@
   }
 
   /* Code */
-  :where(.ui-kbd) {
+  :where(.ui-kbd, .ui-var) {
     background-color: var(--text-muted);
     border-color: var(--text-muted);
     border-radius: var(--radius-2);
@@ -223,18 +223,6 @@
 
     text-decoration: underline;
     text-underline-offset: 1px;
-  }
-
-  :where(.ui-var) {
-    background-color: var(--text-muted);
-    border-color: var(--text-muted);
-    border-radius: var(--radius-2);
-    border-width: var(--border-width);
-    color: var(--text-muted-contrast);
-    font-family: var(--font-mono);
-    overflow-wrap: anywhere;
-    padding-block: 0.1ex;
-    padding-inline: 0.3ex;
   }
 
   :where(.ui-samp) {
@@ -837,7 +825,7 @@
     }
 
     /* Code */
-    :where(code, kbd, samp, pre) {
+    :where(code, kbd, samp, pre, var) {
       font-family: var(--font-mono);
     }
 
@@ -876,7 +864,8 @@
     }
 
     :not(pre) > code,
-    kbd {
+    kbd,
+    var {
       overflow-wrap: anywhere;
     }
 

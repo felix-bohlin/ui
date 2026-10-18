@@ -90,6 +90,8 @@
     }
 
     .chat-messages {
+      --divider-space: 0;
+
       display: flex;
       flex-direction: column;
       gap: var(--size-3);
@@ -102,21 +104,6 @@
       }
     }
 
-    .chat-day {
-      align-items: center;
-      color: var(--text-muted);
-      display: flex;
-      font-size: var(--font-size-0);
-      gap: var(--size-3);
-
-      &::before,
-      &::after {
-        border-block-start: var(--border-width) solid var(--border-color);
-        content: "";
-        flex: 1;
-      }
-    }
-
     .chat-message {
       align-items: end;
       display: flex;
@@ -126,7 +113,7 @@
 
     .chat-bubble {
       background-color: var(--surface-tonal);
-      border-radius: var(--radius-3);
+      border-radius: var(--border-radius);
       display: grid;
       gap: var(--size-1);
       padding: var(--size-2) var(--size-3);
@@ -155,7 +142,7 @@
       align-items: center;
       background-color: var(--surface-default);
       border: var(--border-width) solid var(--border-color);
-      border-radius: var(--radius-2);
+      border-radius: var(--border-radius);
       display: flex;
       gap: var(--size-2);
       padding: var(--size-2);
@@ -171,8 +158,6 @@
     }
 
     .chat-typing {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
       margin: 0;
       padding: 0 var(--size-3) var(--size-2);
 
@@ -412,7 +397,7 @@
     </header>
 
     <ol aria-label="Messages with Saga Nyström" class="chat-messages">
-      <li class="chat-day">Today</li>
+      <li class="ui-divider">Today</li>
       <li class="chat-message">
         <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
         <div class="chat-bubble">
@@ -485,7 +470,7 @@
     </ol>
 
     <div>
-      <p aria-live="polite" class="chat-typing">Saga is typing…</p>
+      <p aria-live="polite" class="chat-typing ui-caption">Saga is typing…</p>
       <form action="#" class="chat-composer">
         <button
           aria-label="Attach a file"

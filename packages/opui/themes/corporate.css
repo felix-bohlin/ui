@@ -1,0 +1,11 @@
+@layer theme.brand {
+  :where(html) {
+    --border-radius: var(--size-1);
+    --gray-chroma: 0.02;
+    --gray-hue: 250;
+    --palette-chroma: 0.35;
+    --palette-hue: 255;
+    --shadow-overlay: var(--shadow-2);
+    --shadow-raised: var(--shadow-1);
+  }
+}

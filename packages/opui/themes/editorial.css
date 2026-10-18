@@ -1,0 +1,12 @@
+@layer theme.brand {
+  :where(html) {
+    --border-radius: 0;
+    --font-heading: var(--font-serif);
+    --gray-chroma: 0.015;
+    --gray-hue: 60;
+    --palette-chroma: 0.6;
+    --palette-hue: 30;
+    --shadow-raised: none;
+    --space-scale: 1.25;
+  }
+}

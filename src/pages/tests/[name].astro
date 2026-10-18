@@ -22,6 +22,15 @@ export function getStaticPaths() {
 
 const { name } = Astro.params
 const { source } = Astro.props
+const themes = Object.fromEntries(
+  Object.entries(
+    import.meta.glob<string>("../../../packages/opui/themes/*.css", {
+      eager: true,
+      import: "default",
+      query: "?raw",
+    }),
+  ).map(([path, css]) => [path.match(/themes\/([^/]+)\.css$/)![1], css]),
+)
 ---
 
 <!doctype html>
@@ -51,6 +60,15 @@ const { source } = Astro.props
       <h1>{name}</h1>
       <Fragment set:html={source} />
     </main>
+    <script is:inline define:vars={{ themes }}>
+      const theme = new URLSearchParams(location.search).get("theme")
+      if (theme && Object.hasOwn(themes, theme)) {
+        const style = document.createElement("style")
+        style.textContent = themes[theme]
+        document.head.append(style)
+        document.documentElement.dataset.theme = theme
+      }
+    </script>
   </body>
 </html>
 

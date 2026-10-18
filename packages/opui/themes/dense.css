@@ -1,0 +1,9 @@
+@layer theme.brand {
+  :where(html) {
+    --border-radius: var(--size-1);
+    --density: 0.875;
+    --palette-chroma: 0.45;
+    --palette-hue: 280;
+    --space-scale: 0.75;
+  }
+}

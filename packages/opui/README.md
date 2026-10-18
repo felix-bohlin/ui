@@ -186,6 +186,15 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/vue`                      | All Vue components                                                                                                     |
 | `opui-css/components/*`             | Individual Astro, Svelte and Vue component sources                                                                     |
 
+## Themes
+
+Put your own tokens in `@layer theme.brand`, which beats the defaults and loses to everything else. Three reference brands ship in `themes/`: `corporate`, `dense` and `editorial`.
+
+```css
+@import "opui-css/css/imports.css";
+@import "opui-css/themes/dense.css";
+```
+
 ## Design tokens
 
 `opui-css/tokens.json` lists every theme token in the [W3C design tokens](https://www.designtokens.org/) format: its CSS variable, default, dark mode value and description. Use it with Style Dictionary or a design tool. Values are CSS expressions, so they work as they are in CSS.

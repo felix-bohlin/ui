@@ -47,6 +47,7 @@ export const openFixture = async (
   page: Page,
   framework: Framework,
   component: string,
+  search = "",
 ) => {
   await page.route(
     (url) => url.hostname !== "localhost",
@@ -56,11 +57,11 @@ export const openFixture = async (
         : route.abort(),
   )
   await page.goto(
-    component.startsWith("blocks/")
+    (component.startsWith("blocks/")
       ? `/${component}/preview/`
       : component.startsWith("stress/")
         ? `/tests/${component.slice("stress/".length)}/`
-        : `/${framework}/test/${component}/`,
+        : `/${framework}/test/${component}/`) + search,
   )
   if (framework === "react") {
     await page.waitForFunction(() =>

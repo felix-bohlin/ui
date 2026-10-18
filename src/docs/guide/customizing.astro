@@ -42,6 +42,31 @@ import Example from "../../components/Example/index"
       > writes one for you, and <DocLink href="/guide/theming">Theming</DocLink> explains
       each token.
     </p>
+    <h3 id="reference-themes">Reference themes</h3>
+    <p>
+      Three brand files ship with the package, to use as they are or to start
+      from. Each one is a few tokens in <code>theme.brand</code>, and the tests
+      run every stress test page with each of them, in light and dark mode.
+    </p>
+    <ul>
+      <li>
+        <code>corporate</code>: muted blue, cool grays, small corners and soft
+        shadows.
+      </li>
+      <li>
+        <code>dense</code>: compact controls and tight spacing for data-heavy
+        apps.
+      </li>
+      <li>
+        <code>editorial</code>: serif headings, warm grays, square corners, no
+        raised shadows and roomy spacing.
+      </li>
+    </ul>
+    <Code
+      code={`@import "opui-css/css/imports.css";
+@import "opui-css/themes/dense.css";`}
+      lang="css"
+    />
   </section>
 
   <section>

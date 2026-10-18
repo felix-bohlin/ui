@@ -57,6 +57,8 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 }
 ```
 
+Reference brands ship in `opui-css/themes/` (`corporate.css`, `dense.css`, `editorial.css`), to import after the library or copy as a starting point.
+
 `references/tokens.json` lists every theme token with its CSS variable, default, dark mode value and description, in the W3C design tokens format.
 
 ## References

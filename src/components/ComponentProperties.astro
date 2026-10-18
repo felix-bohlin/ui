@@ -1,0 +1,97 @@
+---
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@opui/astro"
+import {
+  customPropertyRows,
+  pageStylesheets,
+} from "../component-api/custom-properties"
+import { formatInline } from "../utils/format-inline"
+import DocLink from "./DocLink.astro"
+
+type Props = {
+  slug: string
+}
+
+const { slug } = Astro.props
+const { link } = Astro.locals
+
+const stylesheets = pageStylesheets(slug)
+  .map((stylesheet) => ({ rows: customPropertyRows(stylesheet), stylesheet }))
+  .filter(({ rows }) => rows.length > 0)
+---
+
+{
+  stylesheets.length > 0 && (
+    <section>
+      <h2 id="component-properties">Component properties</h2>
+      <p>
+        Set these on the component itself, inline or in your own CSS. Inputs are
+        the knobs. Outputs are derived from the inputs and the current state, so
+        overriding one fixes it in every state. See{" "}
+        <DocLink href="/guide/customizing#component-properties">
+          Customizing
+        </DocLink>
+        .
+      </p>
+      {stylesheets.map(({ rows, stylesheet }) => (
+        <Fragment>
+          {stylesheets.length > 1 && <h3>{stylesheet}.css</h3>}
+          <div class="table-scroll wide">
+            <Table>
+              <TableColumnGroup>
+                <TableColumn width="min-width: 25%" />
+                <TableColumn width="min-width: 10%" />
+                <TableColumn width="min-width: 300px" />
+              </TableColumnGroup>
+              <TableHead>
+                <TableRow>
+                  <TableHeaderCell>Property</TableHeaderCell>
+                  <TableHeaderCell>Kind</TableHeaderCell>
+                  <TableHeaderCell>Description</TableHeaderCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow>
+                    <TableCell>
+                      <code>{row.name}</code>
+                    </TableCell>
+                    <TableCell>
+                      {row.kind === "input" ? "Input" : "Output"}
+                    </TableCell>
+                    <TableCell set:html={formatInline(row.description, link)} />
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </Fragment>
+      ))}
+    </section>
+  )
+}
+
+<style>
+  .table-scroll {
+    margin-block-end: var(--size-4);
+    overflow-x: auto;
+
+    > :global(table) {
+      inline-size: 100%;
+      margin: 0;
+      table-layout: fixed;
+    }
+
+    &.wide > :global(table) {
+      min-inline-size: 40rem;
+    }
+  }
+</style>

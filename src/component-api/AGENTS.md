@@ -107,6 +107,15 @@ import buttonGroupApi from "../../component-api/button-group/api"
 - `css`: the stylesheets under `packages/opui/css/components/` the component is styled by, without the extension. Defaults to the kebab-cased `source`. The CSS variables table lists every theme token those files read, with the default from `theme.css` and the description from `src/utils/theme-token-descriptions.ts`.
 - `model` and `notes`: the bound value and per-framework notes.
 
+## Component properties (`custom-properties/<stylesheet>.ts`)
+
+The `--_` custom properties a stylesheet declares are documented per stylesheet, not per `api.ts`, since several APIs share one stylesheet. `src/component-api/custom-properties/<stylesheet>.ts` default-exports a `CustomProperties` record ([types.ts](types.ts)) with a short `description` and a `kind` per property:
+
+- `input`: a knob to set on the component, such as `--_accent`, `--_min-height` or `--_motion`.
+- `output`: derived from the inputs, the variant or the state, such as `--_bg-color`. Overriding it freezes it in every state.
+
+Keys are sorted. `tests/unit/custom-properties.test.ts` fails when a stylesheet declares a `--_` property that isn't documented, documents one it doesn't declare, or isn't shown on any page. The Component layout renders the table for the page's stylesheet (`pageStylesheets` in [custom-properties.ts](custom-properties.ts) maps the pages whose stylesheets have other names, such as `toggle`).
+
 Prop names and types are read from each framework's types file, Astro and Vue slots from the component source, Svelte snippets from the `{@render}` tags in the component source, and React slot props from `types.react.ts`, so they are never written by hand. Framework syntax lives in [frameworks.ts](frameworks.ts). The build warns (`[component-api]`) when a prop or slot is missing from `api.ts` or documented but not in the source.
 
 Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`, or let `<Component slug="...">` pick it up without a title. `<Anatomy>` finds it from the page slug. `tests/e2e/anatomy.spec.ts` checks every page with `heroAnatomy` for overflow, spacing and axe violations.

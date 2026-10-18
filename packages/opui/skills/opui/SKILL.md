@@ -31,6 +31,6 @@ Pick the folder matching the project: `references/html/`, `references/astro/`, `
 1. Read `references/<framework>/getting-started.md` for setup and `references/<framework>/theming.md` for colors, scopes, density, motion and contrast.
 2. Find the component in `references/index.md`.
 3. Read `references/<framework>/<component>.md` before writing markup. Each reference has examples, the full class or prop API, and the CSS files it needs.
-4. For custom properties and exact selectors, read the component's CSS in `node_modules/opui-css/css/components/<component>.css`.
+4. The Component properties table in each reference lists the component's `--_` custom properties. Set inputs (like `--_accent`) on the component itself. Don't override outputs (like `--_bg-color`): states set them, so an override freezes them. For exact selectors, read `node_modules/opui-css/css/components/<component>.css`.
 
 Full docs: https://open-props-ui.netlify.app/llms.txt

@@ -37,6 +37,11 @@ export type ApiOption = {
 
 export type ApiModel = { description: string; prop: string; type: string }
 
+export type CustomProperties = Record<
+  string,
+  { description: string; kind: "input" | "output" }
+>
+
 export type ComponentApi = {
   component: string
   css?: string[]

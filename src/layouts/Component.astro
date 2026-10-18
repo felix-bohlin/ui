@@ -5,6 +5,7 @@ import FrameworkPicker from "../components/FrameworkPicker.astro"
 import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
 import ComponentAPI from "../components/ComponentAPI.astro"
+import ComponentProperties from "../components/ComponentProperties.astro"
 import HydrationChip from "../components/HydrationChip.astro"
 import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
@@ -225,6 +226,8 @@ const learnPost = currentSlug
   }
 
   {apis && <ComponentAPI apis={apis} />}
+
+  {currentSlug && <ComponentProperties slug={currentSlug} />}
 
   {
     Astro.slots.has("under-the-hood") && (

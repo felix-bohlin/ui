@@ -1,0 +1,70 @@
+import type { CustomProperties } from "../types"
+
+export default {
+  "--_anchor-tx": {
+    description:
+      "Horizontal shift of the indicator, from `--_sign-x`. `.ui-dot` and round avatars change it.",
+    kind: "output",
+  },
+  "--_anchor-ty": {
+    description:
+      "Vertical shift of the indicator, from `--_sign-y`. `.ui-dot` and round avatars change it.",
+    kind: "output",
+  },
+  "--_bg-color": {
+    description:
+      "Background of the indicator. Defaults to `--primary`, set by the color classes.",
+    kind: "input",
+  },
+  "--_border-color": {
+    description: "Border color of the indicator. Set by the color classes.",
+    kind: "input",
+  },
+  "--_dir": {
+    description:
+      "Direction flag that flips `--_anchor-tx`. `1`, or `-1` in right-to-left.",
+    kind: "output",
+  },
+  "--_dot-size": {
+    description: "Width and height of the indicator in `.ui-dot`.",
+    kind: "input",
+  },
+  "--_inset": {
+    description:
+      "Distance of the indicator from the opposite edges. `100%` places it on the corner, round avatars move it onto the circle.",
+    kind: "input",
+  },
+  "--_inset-block": {
+    description:
+      "Block inset of the indicator, from `--_inset` and the alignment classes.",
+    kind: "output",
+  },
+  "--_inset-inline": {
+    description:
+      "Inline inset of the indicator, from `--_inset` and the alignment classes.",
+    kind: "output",
+  },
+  "--_motion": {
+    description: "Motion multiplier for the transitions. `0` turns them off.",
+    kind: "input",
+  },
+  "--_sign-x": {
+    description:
+      "Horizontal side of the indicator, `-1` or `1`. Set by the alignment classes.",
+    kind: "output",
+  },
+  "--_sign-y": {
+    description:
+      "Vertical side of the indicator, `1` or `-1`. Set by the alignment classes.",
+    kind: "output",
+  },
+  "--_size": {
+    description: "Height and minimum width of the indicator.",
+    kind: "input",
+  },
+  "--_text-color": {
+    description:
+      "Text color of the indicator. Defaults to `--primary-contrast`, set by the color classes.",
+    kind: "input",
+  },
+} satisfies CustomProperties

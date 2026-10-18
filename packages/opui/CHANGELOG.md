@@ -130,6 +130,7 @@
 - `theme.css` has a spacing scale, `--space-1` to `--space-8`, multiplied by `--space-scale`. `Accordion`, `Callout`, `Card`, `Carousel`, `DescriptionList`, `Dialog`, `Divider`, `Drawer`, `Form`, `Menu`, `Table`, `Toast`, `Tooltip` and `Typography` read it for their padding, gaps and margins. Controls keep following `--density`.
 - `theme.css` has elevation tokens: `--shadow-raised` for elevated `Card` and `Accordion` (`--shadow-4` in dark mode), and `--shadow-overlay` for `Menu`, the `Select` picker, `Drawer` and `Toast`.
 - `layers.css` declares the `theme.palette`, `theme.base` and `theme.brand` sublayers. `theme.brand` is empty, for your own tokens: it beats the defaults in `theme.base` and loses to every component and utility.
+- Every component page lists its `--_` custom properties under Component properties, as inputs to set or outputs that states derive, and so does each agent skill reference.
 
 ### Changed
 

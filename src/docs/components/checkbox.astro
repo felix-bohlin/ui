@@ -88,7 +88,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
   <section>
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
         >, <code>small</code>, default and <code>large</code>.
@@ -100,21 +100,6 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
           >&lt;label class="ui-checkbox"&gt;</code
         >.
       </Fragment>
-      <Fragment slot="react">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
     </Conditional>
     <AutoExample name="Sizes" column centered spacious />
   </section>
@@ -122,7 +107,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
   <section>
     <h2 id="visible-label">Visible label</h2>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >The default slot is the label. Also, don't miss the info on label <a
           href="#accessibility"
           class="ui-link">accessibility</a
@@ -144,12 +129,6 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       <Fragment slot="svelte"
         >The <code>children</code> snippet is the label. Also, don't miss the info
         on label <a href="#accessibility" class="ui-link">accessibility</a
-        >.</Fragment
-      >
-      <Fragment slot="vue"
-        >The default slot is the label. Also, don't miss the info on label <a
-          href="#accessibility"
-          class="ui-link">accessibility</a
         >.</Fragment
       >
     </Conditional>
@@ -198,8 +177,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
           </UICallout>
         </div>
       </Fragment>
-
-      <Fragment slot="react">
+      <Fragment slot="components">
         <p>
           Set the <code>indeterminate</code> prop to render a partially-selected state.
           {" "}<code>indeterminate</code> is a JavaScript-only property on <code
@@ -208,25 +186,6 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
           the property at runtime.
         </p>
       </Fragment>
-      <Fragment slot="svelte">
-        <p>
-          Set the <code>indeterminate</code> prop to render a partially-selected state.
-          {" "}<code>indeterminate</code> is a JavaScript-only property on <code
-            >HTMLInputElement</code
-          >, so the component renders <code>data-indeterminate</code> and applies
-          the property at runtime.
-        </p>
-      </Fragment>
-      <Fragment slot="vue">
-        <p>
-          Set the <code>indeterminate</code> prop to render a partially-selected state.
-          {" "}<code>indeterminate</code> is a JavaScript-only property on <code
-            >HTMLInputElement</code
-          >, so the component renders <code>data-indeterminate</code> and applies
-          the property at runtime.
-        </p>
-      </Fragment>
-
       <div slot="html" class="ui-not-rich-text">
         <p>
           Add <code>data-indeterminate</code> to the <code
@@ -263,7 +222,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
   <section>
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>spread</code> prop to push the label to the left and the checkbox
         to the right. This is useful for full-width items like lists and menus.
       </Fragment>
@@ -273,18 +232,6 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         >
         {" "}to push the label to the left and the checkbox to the right. This
         is useful for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>spread</code> prop to push the label to the left and the checkbox
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>spread</code> prop to push the label to the left and the checkbox
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> prop to push the label to the left and the checkbox
-        to the right. This is useful for full-width items like lists and menus.
       </Fragment>
     </Conditional>
 
@@ -300,21 +247,12 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <h2 id="field-group">Field group</h2>
     <p>Use field groups to group related checkboxes.</p>
     <Conditional>
-      <p slot="astro">
+      <p slot="components">
         The <code>name</code> prop will get passed down to each checkbox in the group.
       </p>
       <p slot="html">
         Give every <code>&lt;input type="checkbox"&gt;</code> in the group the same
         {" "}<code>name</code> attribute so they're submitted together.
-      </p>
-      <p slot="react">
-        The <code>name</code> prop will get passed down to each checkbox in the group.
-      </p>
-      <p slot="svelte">
-        The <code>name</code> prop will get passed down to each checkbox in the group.
-      </p>
-      <p slot="vue">
-        The <code>name</code> prop will get passed down to each checkbox in the group.
       </p>
     </Conditional>
     <p>
@@ -334,7 +272,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
     <h3 id="field-group-disabled">Disabled</h3>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Set <code>disabled</code> on the <code>FieldSet</code> to disable every checkbox
         in it, or on a single <code>Checkbox</code>.
       </Fragment>
@@ -344,18 +282,6 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         > element to disable every checkbox in it, or to a single <code
           >&lt;input&gt;</code
         >.
-      </Fragment>
-      <Fragment slot="react">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every checkbox
-        in it, or on a single <code>Checkbox</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every checkbox
-        in it, or on a single <code>Checkbox</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every checkbox
-        in it, or on a single <code>Checkbox</code>.
       </Fragment>
     </Conditional>
     <p>
@@ -374,25 +300,13 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
     <h3 id="field-group-validation">Validation</h3>
     <Conditional>
+      <p slot="components">
+        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
+        text of the <code>FieldSet</code> turns red with them.
+      </p>
       <p slot="html">
         Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in
         the group. The end text of the <code>.ui-fieldset</code> turns red with them.
-      </p>
-      <p slot="astro">
-        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
-        text of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="react">
-        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
-        text of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="svelte">
-        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
-        text of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="vue">
-        Set <code>error</code> on each <code>Checkbox</code> in the group. The end
-        text of the <code>FieldSet</code> turns red with them.
       </p>
     </Conditional>
     <p>

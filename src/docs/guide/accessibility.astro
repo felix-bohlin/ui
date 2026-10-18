@@ -50,11 +50,8 @@ import DocLink from "../../components/DocLink.astro"
         Icon-only <DocLink href="/components/button#icon-only">Buttons</DocLink
         >:
         <Conditional>
-          <Fragment slot="astro">the <code>label</code> prop.</Fragment>
+          <Fragment slot="components">the <code>label</code> prop.</Fragment>
           <Fragment slot="html"><code>aria-label</code>.</Fragment>
-          <Fragment slot="react">the <code>label</code> prop.</Fragment>
-          <Fragment slot="svelte">the <code>label</code> prop.</Fragment>
-          <Fragment slot="vue">the <code>label</code> prop.</Fragment>
         </Conditional>
       </li>
       <li>
@@ -63,20 +60,11 @@ import DocLink from "../../components/DocLink.astro"
         > and <DocLink href="/components/switch">Switch</DocLink> without visible
         text:
         <Conditional>
-          <Fragment slot="astro"
+          <Fragment slot="components"
             >keep the text and set <code>hideLabel</code>.</Fragment
           >
           <Fragment slot="html"
             >put the text in a <code>.ui-sr-only</code> element.</Fragment
-          >
-          <Fragment slot="react"
-            >keep the text and set <code>hideLabel</code>.</Fragment
-          >
-          <Fragment slot="svelte"
-            >keep the text and set <code>hideLabel</code>.</Fragment
-          >
-          <Fragment slot="vue"
-            >keep the text and set <code>hideLabel</code>.</Fragment
           >
         </Conditional>
       </li>

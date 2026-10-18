@@ -149,7 +149,7 @@ export const description =
     </div>
 
     <Conditional>
-      <p slot="astro">
+      <p slot="components">
         Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
         <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
         it gets an <code>aria-labelledby</code> that points at the header. A dialog
@@ -161,24 +161,6 @@ export const description =
         > and the buttons in <code>.ui-actions</code>. Name the dialog by
         pointing <code>aria-labelledby</code> at its title.
       </p>
-      <p slot="react">
-        Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
-        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
-        it gets an <code>aria-labelledby</code> that points at the header. A dialog
-        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
-      </p>
-      <p slot="svelte">
-        Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
-        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
-        it gets an <code>aria-labelledby</code> that points at the header. A dialog
-        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
-      </p>
-      <p slot="vue">
-        Build it from <code>DialogHeader</code>, <code>DialogContent</code> and
-        <code>DialogActions</code>. The <code>DialogHeader</code> names the dialog:
-        it gets an <code>aria-labelledby</code> that points at the header. A dialog
-        without a <code>DialogHeader</code> needs an <code>aria-label</code>.
-      </p>
     </Conditional>
 
     <AutoExample name="Basics" row />
@@ -187,7 +169,7 @@ export const description =
   <section>
     <h2 id="actions">Actions</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Actions sit at the end. Set <code>align="start"</code> on <code
           >DialogActions</code
         > to move them to the start.
@@ -195,21 +177,6 @@ export const description =
       <Fragment slot="html">
         Actions sit at the end. Add <code>.ui-align-start</code> to <code
           >.ui-actions</code
-        > to move them to the start.
-      </Fragment>
-      <Fragment slot="react">
-        Actions sit at the end. Set <code>align="start"</code> on <code
-          >DialogActions</code
-        > to move them to the start.
-      </Fragment>
-      <Fragment slot="svelte">
-        Actions sit at the end. Set <code>align="start"</code> on <code
-          >DialogActions</code
-        > to move them to the start.
-      </Fragment>
-      <Fragment slot="vue">
-        Actions sit at the end. Set <code>align="start"</code> on <code
-          >DialogActions</code
         > to move them to the start.
       </Fragment>
     </Conditional>
@@ -244,7 +211,7 @@ export const description =
   <section>
     <h2 id="long-content">Long content</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         The dialog grows up to 85% of the viewport height. The header and
         actions stay put while the <code>DialogContent</code> scrolls, with a shadow
         on the scrolled edge. A modal dialog also locks page scroll.
@@ -253,21 +220,6 @@ export const description =
         The dialog grows up to 85% of the viewport height. The header and
         actions stay put while <code>.ui-content</code> scrolls, with a shadow on
         the scrolled edge. A modal dialog also locks page scroll.
-      </Fragment>
-      <Fragment slot="react">
-        The dialog grows up to 85% of the viewport height. The header and
-        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
-        on the scrolled edge. A modal dialog also locks page scroll.
-      </Fragment>
-      <Fragment slot="svelte">
-        The dialog grows up to 85% of the viewport height. The header and
-        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
-        on the scrolled edge. A modal dialog also locks page scroll.
-      </Fragment>
-      <Fragment slot="vue">
-        The dialog grows up to 85% of the viewport height. The header and
-        actions stay put while the <code>DialogContent</code> scrolls, with a shadow
-        on the scrolled edge. A modal dialog also locks page scroll.
       </Fragment>
     </Conditional>
 

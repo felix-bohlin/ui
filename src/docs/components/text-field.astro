@@ -60,25 +60,13 @@ export const description =
   <section>
     <h2 id="variants">Variants</h2>
     <Conditional>
-      <p slot="astro">
+      <p slot="components">
         Text fields are outlined by default. Set <code>variant="filled"</code> for
         a filled field.
       </p>
       <p slot="html">
         Text fields are outlined by default. Add <code>.ui-filled</code> for a filled
         field.
-      </p>
-      <p slot="react">
-        Text fields are outlined by default. Set <code>variant="filled"</code> for
-        a filled field.
-      </p>
-      <p slot="svelte">
-        Text fields are outlined by default. Set <code>variant="filled"</code> for
-        a filled field.
-      </p>
-      <p slot="vue">
-        Text fields are outlined by default. Set <code>variant="filled"</code> for
-        a filled field.
       </p>
     </Conditional>
     <AutoExample name="Variants" row />
@@ -87,7 +75,7 @@ export const description =
   <section>
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
         >, <code>small</code>, default and <code>large</code>.
@@ -97,21 +85,6 @@ export const description =
           >.ui-small</code
         >, default and <code>.ui-large</code>.
       </Fragment>
-      <Fragment slot="react">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
     </Conditional>
     <AutoExample name="Sizes" row />
   </section>
@@ -119,7 +92,7 @@ export const description =
   <section>
     <h2 id="start-text">Start text</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>startText</code> prop or <code>start-text</code> slot for text
         between the label and the input.
       </Fragment>
@@ -134,10 +107,6 @@ export const description =
         Use the <code>startText</code> prop or snippet for text between the label
         and the input.
       </Fragment>
-      <Fragment slot="vue">
-        Use the <code>startText</code> prop or <code>start-text</code> slot for text
-        between the label and the input.
-      </Fragment>
     </Conditional>
     <AutoExample name="StartText" row />
   </section>
@@ -150,25 +119,7 @@ export const description =
   <section>
     <h2 id="affix">Affix</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> slots to affix content inside the field's border.
-        Prefix and suffix sit beside the input, while header and footer span the field's
-        full width with a divider.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> props to affix content inside the field's border.
-        Prefix and suffix sit beside the input, while header and footer span the field's
-        full width with a divider.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> snippets to affix content inside the field's border.
-        Prefix and suffix sit beside the input, while header and footer span the field's
-        full width with a divider.
-      </Fragment>
-      <Fragment slot="vue">
+      <Fragment slot="components">
         Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
         and <code>footer</code> slots to affix content inside the field's border.
         Prefix and suffix sit beside the input, while header and footer span the field's
@@ -181,6 +132,18 @@ export const description =
         <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
         inside the field's border. Prefix and suffix sit beside the input, while header
         and footer span the field's full width with a divider.
+      </Fragment>
+      <Fragment slot="react">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> props to affix content inside the field's border.
+        Prefix and suffix sit beside the input, while header and footer span the field's
+        full width with a divider.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> snippets to affix content inside the field's border.
+        Prefix and suffix sit beside the input, while header and footer span the field's
+        full width with a divider.
       </Fragment>
     </Conditional>
 
@@ -205,28 +168,13 @@ export const description =
   <section>
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-spread</code> class to display the label and start text
-        on the left with the input on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>spread</code> boolean prop to display the label and start text
-        on the left with the input on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>spread</code> boolean prop to display the label and start text
-        on the left with the input on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>

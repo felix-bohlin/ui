@@ -87,7 +87,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   <section>
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
         >, <code>small</code>, default and <code>large</code>.
@@ -97,21 +97,6 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
           >.ui-small</code
         >, default and <code>.ui-large</code>.
       </Fragment>
-      <Fragment slot="react">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
     </Conditional>
     <AutoExample name="Sizes" row spacious />
   </section>
@@ -119,21 +104,12 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   <section>
     <h2 id="dense">Dense</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>dense</code> prop to pack the options tighter.
       </Fragment>
       <Fragment slot="html">
         Add <code>.ui-dense</code> to the <code>.ui-list</code> to pack the options
         tighter.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>dense</code> prop to pack the options tighter.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>dense</code> prop to pack the options tighter.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>dense</code> prop to pack the options tighter.
       </Fragment>
     </Conditional>
     <AutoExample name="Dense" row spacious />
@@ -151,7 +127,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   <section>
     <h2 id="affix">Affix</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>prefix</code> and <code>suffix</code> slots to affix icons or
         short text alongside the select inside the field's border.
       </Fragment>
@@ -167,10 +143,6 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
         Use the <code>prefix</code> and <code>suffix</code> snippets to affix icons
         or short text alongside the select inside the field's border.
       </Fragment>
-      <Fragment slot="vue">
-        Use the <code>prefix</code> and <code>suffix</code> slots to affix icons or
-        short text alongside the select inside the field's border.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Affix" row spacious />
@@ -179,7 +151,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   <section>
     <h2 id="header-and-footer">Header and footer</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>header</code> and <code>footer</code> slots for short text or
         a link above and below the select, inside the field's border and set off by
         a divider.
@@ -198,11 +170,6 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
         Use the <code>header</code> and <code>footer</code> snippets for short text
         or a link above and below the select, inside the field's border and set off
         by a divider.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>header</code> and <code>footer</code> slots for short text or
-        a link above and below the select, inside the field's border and set off by
-        a divider.
       </Fragment>
     </Conditional>
     <p>
@@ -260,28 +227,13 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   <section>
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the select on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-spread</code> class to display the label and start text
-        on the left with the select on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>spread</code> boolean prop to display the label and start text
-        on the left with the select on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>spread</code> boolean prop to display the label and start text
-        on the left with the select on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the select on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>

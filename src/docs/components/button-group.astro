@@ -58,15 +58,12 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   <Fragment slot="title">Button group</Fragment>
   <Fragment slot="preamble">
     <Conditional>
+      <Fragment slot="components">Groups related buttons.</Fragment>
       <Fragment slot="html">
         Groups related buttons by wrapping them with <code
           >class="ui-button-group"</code
         > and <code>role="group"</code>.
       </Fragment>
-      <Fragment slot="astro">Groups related buttons.</Fragment>
-      <Fragment slot="react">Groups related buttons.</Fragment>
-      <Fragment slot="svelte">Groups related buttons.</Fragment>
-      <Fragment slot="vue">Groups related buttons.</Fragment>
     </Conditional>
   </Fragment>
   <ul>
@@ -107,7 +104,7 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   <section>
     <h2 id="variants">Variants</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Change the appearance of the entire group with the <code>variant</code>
         {" "}prop.
       </Fragment>
@@ -116,18 +113,6 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
           >.ui-outlined</code
         >, <code>.ui-tonal</code>, and <code>.ui-filled</code> classes.
       </Fragment>
-      <Fragment slot="react">
-        Change the appearance of the entire group with the <code>variant</code>
-        {" "}prop.
-      </Fragment>
-      <Fragment slot="svelte">
-        Change the appearance of the entire group with the <code>variant</code>
-        {" "}prop.
-      </Fragment>
-      <Fragment slot="vue">
-        Change the appearance of the entire group with the <code>variant</code>
-        {" "}prop.
-      </Fragment>
     </Conditional>
     <AutoExample name="Variants" column centered />
   </section>
@@ -135,7 +120,7 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   <section>
     <h2 id="colors">Colors</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Set the <code>color</code> prop to <code>primary</code> or <code
           >critical</code
         > to recolor the entire group. The default is a neutral gray.
@@ -144,21 +129,6 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to recolor
         the entire group. The default is a neutral gray.
       </Fragment>
-      <Fragment slot="react">
-        Set the <code>color</code> prop to <code>primary</code> or <code
-          >critical</code
-        > to recolor the entire group. The default is a neutral gray.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set the <code>color</code> prop to <code>primary</code> or <code
-          >critical</code
-        > to recolor the entire group. The default is a neutral gray.
-      </Fragment>
-      <Fragment slot="vue">
-        Set the <code>color</code> prop to <code>primary</code> or <code
-          >critical</code
-        > to recolor the entire group. The default is a neutral gray.
-      </Fragment>
     </Conditional>
     <AutoExample name="Colors" column centered />
   </section>
@@ -166,7 +136,7 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   <section>
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Adjust the size of all buttons in the group using the <code>size</code>
         {" "}prop.
       </Fragment>
@@ -174,18 +144,6 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         Adjust the size of all buttons in the group using the <code
           >.ui-x-small</code
         >, <code>.ui-small</code> and <code>.ui-large</code> classes.
-      </Fragment>
-      <Fragment slot="react">
-        Adjust the size of all buttons in the group using the <code>size</code>
-        {" "}prop.
-      </Fragment>
-      <Fragment slot="svelte">
-        Adjust the size of all buttons in the group using the <code>size</code>
-        {" "}prop.
-      </Fragment>
-      <Fragment slot="vue">
-        Adjust the size of all buttons in the group using the <code>size</code>
-        {" "}prop.
       </Fragment>
     </Conditional>
     <AutoExample name="Sizes" column centered />
@@ -207,25 +165,13 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   <section>
     <h2 id="split-button">Split button</h2>
     <Conditional as="p">
+      <Fragment slot="components">
+        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
+        last button. <code>align="end"</code> lines it up with the group.
+      </Fragment>
       <Fragment slot="html">
         A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
         last button. <code>.ui-align-end</code> lines it up with the group.
-      </Fragment>
-      <Fragment slot="astro">
-        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
-        last button. <code>align="end"</code> lines it up with the group.
-      </Fragment>
-      <Fragment slot="react">
-        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
-        last button. <code>align="end"</code> lines it up with the group.
-      </Fragment>
-      <Fragment slot="svelte">
-        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
-        last button. <code>align="end"</code> lines it up with the group.
-      </Fragment>
-      <Fragment slot="vue">
-        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
-        last button. <code>align="end"</code> lines it up with the group.
       </Fragment>
     </Conditional>
     <AutoExample name="SplitButton" centered />
@@ -234,7 +180,7 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   <section>
     <h2 id="disabled">Disabled</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Disable individual buttons within a group by setting the <code
           >disabled</code
         >
@@ -246,24 +192,6 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         >
         {" "}attribute to each <code>&lt;button&gt;</code>.
       </Fragment>
-      <Fragment slot="react">
-        Disable individual buttons within a group by setting the <code
-          >disabled</code
-        >
-        {" "}prop on each <code>Button</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Disable individual buttons within a group by setting the <code
-          >disabled</code
-        >
-        {" "}prop on each <code>Button</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Disable individual buttons within a group by setting the <code
-          >disabled</code
-        >
-        {" "}prop on each <code>Button</code>.
-      </Fragment>
     </Conditional>
     <AutoExample name="Disabled" column centered />
   </section>
@@ -271,28 +199,13 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   <section>
     <h2 id="vertical-orientation">Vertical orientation</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Change the layout of the group with the <code
           >orientation="vertical"</code
         > prop.
       </Fragment>
       <Fragment slot="html">
         Change the layout of the group with the <code>.ui-vertical</code> class.
-      </Fragment>
-      <Fragment slot="react">
-        Change the layout of the group with the <code
-          >orientation="vertical"</code
-        > prop.
-      </Fragment>
-      <Fragment slot="svelte">
-        Change the layout of the group with the <code
-          >orientation="vertical"</code
-        > prop.
-      </Fragment>
-      <Fragment slot="vue">
-        Change the layout of the group with the <code
-          >orientation="vertical"</code
-        > prop.
       </Fragment>
     </Conditional>
 
@@ -302,7 +215,7 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   <section>
     <h2 id="overflow">Overflow</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Buttons wrap onto more rows when they don't fit. Use <code
           >scrollable</code
         > to keep them on one row and scroll them sideways, or <code
@@ -315,30 +228,6 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
           >.ui-scrollable</code
         > to keep them on one row and scroll them sideways, or <code
           >.ui-shrink</code
-        > to keep them on one row and truncate their labels. Icon-only items keep
-        their size.
-      </Fragment>
-      <Fragment slot="react">
-        Buttons wrap onto more rows when they don't fit. Use <code
-          >scrollable</code
-        > to keep them on one row and scroll them sideways, or <code
-          >shrink</code
-        > to keep them on one row and truncate their labels. Icon-only items keep
-        their size.
-      </Fragment>
-      <Fragment slot="svelte">
-        Buttons wrap onto more rows when they don't fit. Use <code
-          >scrollable</code
-        > to keep them on one row and scroll them sideways, or <code
-          >shrink</code
-        > to keep them on one row and truncate their labels. Icon-only items keep
-        their size.
-      </Fragment>
-      <Fragment slot="vue">
-        Buttons wrap onto more rows when they don't fit. Use <code
-          >scrollable</code
-        > to keep them on one row and scroll them sideways, or <code
-          >shrink</code
         > to keep them on one row and truncate their labels. Icon-only items keep
         their size.
       </Fragment>

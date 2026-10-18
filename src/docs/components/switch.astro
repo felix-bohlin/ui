@@ -89,7 +89,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   <section>
     <h2 id="basics">Basics</h2>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >All switches should have an accessible name. Put the label text inside
         the component, also when there's no visible label: set <code
           >hideLabel</code
@@ -101,24 +101,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           >.ui-sr-only</code
         > instead of <code>.ui-label</code>.</Fragment
       >
-      <Fragment slot="react"
-        >All switches should have an accessible name. Put the label text inside
-        the component, also when there's no visible label: set <code
-          >hideLabel</code
-        > to hide it visually.</Fragment
-      >
-      <Fragment slot="svelte"
-        >All switches should have an accessible name. Put the label text inside
-        the component, also when there's no visible label: set <code
-          >hideLabel</code
-        > to hide it visually.</Fragment
-      >
-      <Fragment slot="vue"
-        >All switches should have an accessible name. Put the label text inside
-        the component, also when there's no visible label: set <code
-          >hideLabel</code
-        > to hide it visually.</Fragment
-      >
     </Conditional>
 
     <AutoExample name="Basics" row />
@@ -127,7 +109,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   <section>
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
         >, <code>small</code>, default and <code>large</code>.
@@ -139,21 +121,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           >&lt;label class="ui-switch"&gt;</code
         >.
       </Fragment>
-      <Fragment slot="react">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Choose between four sizes with the <code>size</code> prop: <code
-          >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Sizes" column centered spacious />
@@ -162,7 +129,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   <section>
     <h2 id="visible-label">Visible label</h2>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >The default slot is the label. Also, don't miss the info on label <a
           href="#accessibility"
           class="ui-link">accessibility</a
@@ -186,34 +153,19 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
         on label <a href="#accessibility" class="ui-link">accessibility</a
         >.</Fragment
       >
-      <Fragment slot="vue"
-        >The default slot is the label. Also, don't miss the info on label <a
-          href="#accessibility"
-          class="ui-link">accessibility</a
-        >.</Fragment
-      >
     </Conditional>
 
     <AutoExample name="VisibleLabel" column centered />
 
     <h3 id="label-position">Label position</h3>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >Set <code>stack</code> to put the label under the switch.</Fragment
       >
       <Fragment slot="html"
         >Add <code>.ui-stack</code> to the <code
           >&lt;label class="ui-switch"&gt;</code
         > to put the label under the switch.</Fragment
-      >
-      <Fragment slot="react"
-        >Set <code>stack</code> to put the label under the switch.</Fragment
-      >
-      <Fragment slot="svelte"
-        >Set <code>stack</code> to put the label under the switch.</Fragment
-      >
-      <Fragment slot="vue"
-        >Set <code>stack</code> to put the label under the switch.</Fragment
       >
     </Conditional>
     <AutoExample name="LabelPosition" row spacious />
@@ -225,7 +177,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   <section>
     <h2 id="icons">Icons</h2>
     <Conditional as="p">
-      <Fragment slot="astro"
+      <Fragment slot="components"
         >Put an icon in the <code>icon-unchecked</code> and <code
           >icon-checked</code
         > slots to show it in the thumb. The component hides them from screen readers.</Fragment
@@ -247,11 +199,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           >iconChecked</code
         > snippets to show it in the thumb. The component hides them from screen readers.</Fragment
       >
-      <Fragment slot="vue"
-        >Put an icon in the <code>icon-unchecked</code> and <code
-          >icon-checked</code
-        > slots to show it in the thumb. The component hides them from screen readers.</Fragment
-      >
     </Conditional>
     <AutoExample name="Icons" column centered />
   </section>
@@ -266,7 +213,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   <section>
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Use the <code>spread</code> prop to push the label to the left and the switch
         to the right. This is useful for full-width items like lists and menus.
       </Fragment>
@@ -276,18 +223,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
         >
         {" "}to push the label to the left and the switch to the right. This is
         useful for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="react">
-        Use the <code>spread</code> prop to push the label to the left and the switch
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>spread</code> prop to push the label to the left and the switch
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> prop to push the label to the left and the switch
-        to the right. This is useful for full-width items like lists and menus.
       </Fragment>
     </Conditional>
 
@@ -303,7 +238,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     <h2 id="field-group">Field group</h2>
     <p>Use field groups to group related switches.</p>
     <Conditional>
-      <p slot="astro">
+      <p slot="components">
         The <code>name</code> prop will get passed down to each switch in the group.
       </p>
       <p slot="html">
@@ -311,15 +246,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           >name</code
         >
         {" "}attribute so they're submitted together.
-      </p>
-      <p slot="react">
-        The <code>name</code> prop will get passed down to each switch in the group.
-      </p>
-      <p slot="svelte">
-        The <code>name</code> prop will get passed down to each switch in the group.
-      </p>
-      <p slot="vue">
-        The <code>name</code> prop will get passed down to each switch in the group.
       </p>
     </Conditional>
     <p>
@@ -339,7 +265,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 
     <h3 id="field-group-disabled">Disabled</h3>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Set <code>disabled</code> on the <code>FieldSet</code> to disable every switch
         in it, or on a single <code>Switch</code>.
       </Fragment>
@@ -349,18 +275,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
         > element to disable every switch in it, or to a single <code
           >&lt;input&gt;</code
         >.
-      </Fragment>
-      <Fragment slot="react">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every switch
-        in it, or on a single <code>Switch</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every switch
-        in it, or on a single <code>Switch</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>disabled</code> on the <code>FieldSet</code> to disable every switch
-        in it, or on a single <code>Switch</code>.
       </Fragment>
     </Conditional>
     <p>
@@ -379,25 +293,13 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 
     <h3 id="field-group-validation">Validation</h3>
     <Conditional>
+      <p slot="components">
+        Set <code>error</code> on each <code>Switch</code> in the group. The end text
+        of the <code>FieldSet</code> turns red with them.
+      </p>
       <p slot="html">
         Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in
         the group. The end text of the <code>.ui-fieldset</code> turns red with them.
-      </p>
-      <p slot="astro">
-        Set <code>error</code> on each <code>Switch</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="react">
-        Set <code>error</code> on each <code>Switch</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="svelte">
-        Set <code>error</code> on each <code>Switch</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
-      </p>
-      <p slot="vue">
-        Set <code>error</code> on each <code>Switch</code> in the group. The end text
-        of the <code>FieldSet</code> turns red with them.
       </p>
     </Conditional>
     <p>
@@ -485,7 +387,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
           <TableCell>Provide a label inside the element</TableCell>
           <TableCell>
             <Conditional>
-              <Fragment slot="astro"
+              <Fragment slot="components"
                 >The default slot is the <a
                   href="#visible-label"
                   class="ui-link">visible label</a
@@ -508,13 +410,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
               >
               <Fragment slot="svelte"
                 >The <code>children</code> snippet is the <a
-                  href="#visible-label"
-                  class="ui-link">visible label</a
-                >. Set <code>hideLabel</code> to hide it visually while keeping it
-                accessible.</Fragment
-              >
-              <Fragment slot="vue"
-                >The default slot is the <a
                   href="#visible-label"
                   class="ui-link">visible label</a
                 >. Set <code>hideLabel</code> to hide it visually while keeping it

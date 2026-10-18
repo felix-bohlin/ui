@@ -110,7 +110,7 @@ const ThemeCSS = `/* ... */
   <section>
     <h2 id="variants">Variants</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Tonal (default) and outlined variants are available via the <code
           >variant</code
         > prop. Put the text in <code>CalloutContent</code>, with an optional
@@ -123,27 +123,6 @@ const ThemeCSS = `/* ... */
         >, with an optional heading such as an <code>&lt;h3&gt;</code> first. Every
         heading level gets the same title style.
       </Fragment>
-      <Fragment slot="react">
-        Tonal (default) and outlined variants are available via the <code
-          >variant</code
-        > prop. Put the text in <code>CalloutContent</code>, with an optional
-        heading such as an <code>&lt;h3&gt;</code> first. Every heading level gets
-        the same title style.
-      </Fragment>
-      <Fragment slot="svelte">
-        Tonal (default) and outlined variants are available via the <code
-          >variant</code
-        > prop. Put the text in <code>CalloutContent</code>, with an optional
-        heading such as an <code>&lt;h3&gt;</code> first. Every heading level gets
-        the same title style.
-      </Fragment>
-      <Fragment slot="vue">
-        Tonal (default) and outlined variants are available via the <code
-          >variant</code
-        > prop. Put the text in <code>CalloutContent</code>, with an optional
-        heading such as an <code>&lt;h3&gt;</code> first. Every heading level gets
-        the same title style.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Variants" column />
@@ -152,7 +131,7 @@ const ThemeCSS = `/* ... */
   <section>
     <h2 id="severities">Severities</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         The <code>severity</code> prop accepts <code>info</code>, <code
           >success</code
         >, <code>warning</code>, and <code>critical</code>, plus a non-severity
@@ -166,27 +145,6 @@ const ThemeCSS = `/* ... */
           >.ui-neutral</code
         >
         {" "}tone for brand-tinted attention. The default is a plain surface.
-      </Fragment>
-      <Fragment slot="react">
-        The <code>severity</code> prop accepts <code>info</code>, <code
-          >success</code
-        >, <code>warning</code>, and <code>critical</code>, plus a non-severity
-        {" "}<code>neutral</code> tone for brand-tinted attention. The default is
-        a plain surface.
-      </Fragment>
-      <Fragment slot="svelte">
-        The <code>severity</code> prop accepts <code>info</code>, <code
-          >success</code
-        >, <code>warning</code>, and <code>critical</code>, plus a non-severity
-        {" "}<code>neutral</code> tone for brand-tinted attention. The default is
-        a plain surface.
-      </Fragment>
-      <Fragment slot="vue">
-        The <code>severity</code> prop accepts <code>info</code>, <code
-          >success</code
-        >, <code>warning</code>, and <code>critical</code>, plus a non-severity
-        {" "}<code>neutral</code> tone for brand-tinted attention. The default is
-        a plain surface.
       </Fragment>
     </Conditional>
 
@@ -211,7 +169,7 @@ const ThemeCSS = `/* ... */
   <section>
     <h2 id="icon">Icon</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         <code>CalloutIcon</code> renders the default icon for <code>info</code>,
         <code>success</code>, <code>warning</code> and <code>critical</code>.
         For a custom icon, put your own <code
@@ -223,30 +181,6 @@ const ThemeCSS = `/* ... */
         There are no default icons in HTML: put an <code
           >&lt;svg aria-hidden="true"&gt;</code
         > before <code>.ui-content</code>.
-      </Fragment>
-      <Fragment slot="react">
-        <code>CalloutIcon</code> renders the default icon for <code>info</code>,
-        <code>success</code>, <code>warning</code> and <code>critical</code>.
-        For a custom icon, put your own <code
-          >&lt;svg aria-hidden="true"&gt;</code
-        > in the <code>Callout</code> instead, before <code>CalloutContent</code
-        >.
-      </Fragment>
-      <Fragment slot="svelte">
-        <code>CalloutIcon</code> renders the default icon for <code>info</code>,
-        <code>success</code>, <code>warning</code> and <code>critical</code>.
-        For a custom icon, put your own <code
-          >&lt;svg aria-hidden="true"&gt;</code
-        > in the <code>Callout</code> instead, before <code>CalloutContent</code
-        >.
-      </Fragment>
-      <Fragment slot="vue">
-        <code>CalloutIcon</code> renders the default icon for <code>info</code>,
-        <code>success</code>, <code>warning</code> and <code>critical</code>.
-        For a custom icon, put your own <code
-          >&lt;svg aria-hidden="true"&gt;</code
-        > in the <code>Callout</code> instead, before <code>CalloutContent</code
-        >.
       </Fragment>
     </Conditional>
 

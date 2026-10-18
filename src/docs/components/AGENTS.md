@@ -237,9 +237,24 @@ Place logic in a `<script>` tag.
 
 Use `<Conditional>` to display different text or HTML content for different frameworks. This is ideal for descriptions or instructions that only apply to a specific framework (e.g., explaining an `aria-label` attribute for HTML vs. a `label` prop for Astro).
 
-- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `react`, `svelte`, `vue`.
+- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `react`, `svelte`, `vue`. `components` holds the text Astro, React, Svelte and Vue share, and is never shown on HTML pages.
 - **Props**: `as` (optional). Defaults to `span` for inline content. Use `as="div"` or `as="p"` for block-level content.
-- **Resolution**: Server-rendered. The component reads `Astro.locals.framework` (driven by URL routing) and emits only the matching slot. Falls back to the default framework's slot if the active framework's slot is not authored.
+- **Resolution**: Server-rendered. The component reads `Astro.locals.framework` (driven by URL routing) and emits only one slot: the active framework's, then `components` on every framework except HTML, then the default framework's (`html`).
+- **One copy per wording**: Write the shared text once in `components` and the HTML text in `html`. Give a framework its own slot only where its text must differ, such as a `bind:group` note for Svelte, `v-model` for Vue, `className` or `children` for React, or a slot, prop or snippet that each framework names differently.
+
+```astro
+<Conditional as="p">
+  <Fragment slot="components">
+    Choose between four sizes with the <code>size</code> prop: <code
+      >x-small</code
+    >, <code>small</code>, default and <code>large</code>.
+  </Fragment>
+  <Fragment slot="html">
+    Choose between four sizes: <code>.ui-x-small</code>, <code>.ui-small</code>,
+    default and <code>.ui-large</code>.
+  </Fragment>
+</Conditional>
+```
 
 For a sentence that only differs by the prop and the class it names, use `<PropOrClass>` ([src/components/PropOrClass.astro](../../components/PropOrClass.astro)) inline instead, so the sentence is written once. It renders `prop` in a `<code>` on Astro, React, Svelte and Vue pages and `class` on HTML pages:
 

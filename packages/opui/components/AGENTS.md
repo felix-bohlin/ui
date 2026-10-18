@@ -7,6 +7,7 @@ This guide defines the standards for implementing reusable UI components in this
 ## 0. Implementation Checklist
 
 When implementing or updating a component, ensure:
+
 - [ ] **All Frameworks**: Every `.astro` file has a matching `.react.tsx`, `.svelte` and `.vue` file in the same folder (`pnpm check-components` fails otherwise).
 - [ ] **Title Export**: `export const title = "Component Name"` is present in `<Name>.astro`.
 - [ ] **Props Type**: Astro imports `Props` from `./types.astro`, React imports `Props` from `./types.react`, Svelte imports `Props` from `./types.svelte`, Vue imports `Props` and `Slots` from `./types.d.vue` (use `type`, never `interface`).
@@ -103,7 +104,10 @@ export default function MyComponent({
   ...rest
 }: Props) {
   return (
-    <div className={cx(["ui-my-component", size && `ui-${size}`, className])} {...rest}>
+    <div
+      className={cx(["ui-my-component", size && `ui-${size}`, className])}
+      {...rest}
+    >
       {children}
     </div>
   )
@@ -113,6 +117,7 @@ export default function MyComponent({
 Slots are props: the default slot is `children`, named slots are camelCased `ReactNode` props (`end-text` becomes `endText`), like Svelte snippets. There is no two-way binding: form controls pass the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` through, and a component that shows the current value (Range) follows it with `useState`. ToggleGroup has no native value, so it takes `value`, `defaultValue` and `onValueChange` and passes the selection to its buttons through context. Vue's `provide`/`inject` maps to a React context in each component's `context.react.ts`. Components that use context, state, effects or their own event handlers start with `"use client"`; the others stay server components, so they also render in React Server Components.
 
 ### Key Rules:
+
 - **Alphabetical Sorting**: Sort property definitions in `types.ts` and variables in the destructuring statement.
 - **REST Support**: Use `HTMLAttributes` in `types.astro.ts` and `...rest` in destructuring. Do not add `[key: string]: any` to `types.ts` - native attributes belong in the framework type files.
 - **Title Export**: This is mandatory for documentation generation.
@@ -122,23 +127,37 @@ Slots are props: the default slot is `children`, named slots are camelCased `Rea
 ## 2. Component Composition & Tags
 
 ### Dynamic Elements (Polymorphism)
+
 For components that can be different HTML elements (e.g., `Button` as `<a>` or `<button>`), use a dynamic `Tag` variable.
 
 ```astro
 ---
 const { as: Tag = Astro.props.href ? "a" : "button", ...rest } = Astro.props
 ---
+
 <Tag {...rest}><slot /></Tag>
 ```
+
 - **Inference**: Default to `"a"` if `href` is present.
 - **Override**: Allow manual override via the `as` prop.
 - **Button type**: A rendered `<button>` gets `type="button"` unless the user passes `type`, so it never submits a form by accident.
 
 ### Styling Inheritance
+
 Components should often inherit styles from others (e.g., `Accordion` and `Dialog` looking like a `Card`). Add the inherited base class next to the component's own, and the variant class it styles. All library classes are prefixed with `ui-`.
 
 ```astro
-<details class:list={["ui-accordion", "ui-card", variant && `ui-${variant}`, className]} {...rest}>
+<details
+  class:list={[
+    "ui-accordion",
+    "ui-card",
+    variant && `ui-${variant}`,
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</details>
 ```
 
 ---
@@ -148,6 +167,7 @@ Components should often inherit styles from others (e.g., `Accordion` and `Dialo
 Use `class:list` exclusively in Astro, `cx([...])` from `../cx` in React, a `class` array in Svelte, and a `:class` array in Vue. Every library-owned class is prefixed with `ui-`; the public prop API stays unprefixed (`<Button size="small" variant="outlined">`) and the component interpolates the prefix when rendering.
 
 Follow this order for readability:
+
 1.  **Component Base Class**: The primary CSS class, prefixed (e.g., `"ui-button"`).
 2.  **State Objects**: Boolean flags as quoted prefixed keys (e.g., `{ "ui-dot": dot }`).
 3.  **Variant Props**: Interpolate the prefix from the prop value (e.g., `size && \`ui-${size}\``).
@@ -167,6 +187,8 @@ Native states use native attributes, not classes: a disabled `<button>` gets `di
     className,
   ]}
 >
+  <slot />
+</div>
 ```
 
 ---
@@ -176,6 +198,7 @@ Native states use native attributes, not classes: a disabled `<button>` gets `di
 Containers compose, controls configure. Each component has one way to use it.
 
 ### Parts (containers)
+
 Containers with block regions (Card, Dialog, Drawer, Accordion, Callout, Anchor, Tooltip) expose a part per region, with flat names: `CardHeader`, `DialogActions`, `AccordionSummary`.
 
 - A part's name is its root's name plus the region, and it renders that region's element and class (`CardActions` renders `.ui-actions`).
@@ -195,16 +218,19 @@ Containers with block regions (Card, Dialog, Drawer, Accordion, Callout, Anchor,
 ```
 
 ### Props and slots (form controls and small components)
+
 Form controls (TextField, Textarea, Select, Range, Checkbox, Radio, Switch), ListItem, Chip, Badge and the like keep a prop and slot API. A text region takes a string prop as a shorthand and a named slot (Astro, Vue), snippet (Svelte) or `ReactNode` prop (React) for rich content.
 
 ```astro
 <div class="ui-component">
-  { (label || Astro.slots.has("default")) && (
-    <span class="ui-text">
-      {label}
-      <slot />
-    </span>
-  )}
+  {
+    (label || Astro.slots.has("default")) && (
+      <span class="ui-text">
+        {label}
+        <slot />
+      </span>
+    )
+  }
 </div>
 ```
 
@@ -215,10 +241,14 @@ Check that a named slot exists before rendering its wrapper.
 ## 5. Form & Input Patterns
 
 ### Label Wrapping
+
 Most inputs should be wrapped in a `<label>` to provide a larger hit area and built-in accessibility.
 
 ```astro
-<label class:list={["ui-text-field", size && `ui-${size}`, className]} style={style}>
+<label
+  class:list={["ui-text-field", size && `ui-${size}`, className]}
+  style={style}
+>
   <span class="ui-label">{label}</span>
   <span class="ui-field">
     <input {...rest} aria-invalid={error ? "true" : ariaInvalid} />
@@ -228,6 +258,7 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
 ```
 
 ### End Text & ARIA
+
 When providing `endText`, use `createId(Astro.locals)` (Astro), `useId()` (React and Vue) or `$props.id()` (Svelte) to link it to the input via `aria-describedby`, merged with the user's own `aria-describedby`. TextField and Textarea are the exception: the wrapping `<label>` names the control and already includes the end text, so they don't link it.
 
 ```astro
@@ -236,33 +267,36 @@ const { "aria-describedby": ariaDescribedBy, endText, ...rest } = Astro.props
 const $id = createId(Astro.locals)
 const endTextId = endText ? $id("end-text") : undefined
 ---
+
 <input
   {...rest}
-  aria-describedby={[endTextId, ariaDescribedBy]
-    .filter(Boolean)
-    .join(" ") || undefined}
+  aria-describedby={[endTextId, ariaDescribedBy].filter(Boolean).join(" ") ||
+    undefined}
 />
 {endText && <span id={endTextId}>{endText}</span>}
 ```
 
 ### Input Attribute Mapping
+
 Native input attributes (`disabled`, `name`, `value`, …) come from the framework type, such as `HTMLAttributes<"input">`, and reach the input through `...rest`, so don't destructure and re-pass them. Destructure only the attributes the component merges, spread `...rest` first, then set the merged values so they win.
 
 ```astro
 <input
   {...rest}
-  aria-describedby={[endTextId, ariaDescribedBy]
-    .filter(Boolean)
-    .join(" ") || undefined}
+  aria-describedby={[endTextId, ariaDescribedBy].filter(Boolean).join(" ") ||
+    undefined}
   aria-invalid={error ? "true" : ariaInvalid}
 />
 ```
 
 ### Sub-component Decomposition
+
 For complex inputs (like `Checkbox` with custom visuals), split the component into a wrapper (`Checkbox.astro`) and a raw input (`CheckboxInput.astro`) to keep the root element clean. The raw input is a public part too: it is exported from the barrels and documented in its own `api.ts` (`checkbox-input`), for layouts where the label sits elsewhere, such as the end of a list item.
 
 ### Form Structure: FieldSet, FieldLegend, FieldDescription, FieldGroup
+
 When building forms, follow this nesting order inside a `FieldSet`:
+
 1. `FieldLegend` - The heading/label for the fieldset
 2. `FieldDescription` - Optional helper text
 3. `FieldGroup` - Wrapper for the actual form controls
@@ -292,20 +326,25 @@ When building forms, follow this nesting order inside a `FieldSet`:
 ## 6. Identification & Accessibility
 
 ### Unique IDs
+
 Always use `createId(Astro.locals)` from `../id` for IDs in Astro. It falls back to random IDs when no middleware sets `Astro.locals.$id`. In React and Vue, use `useId()`, and in Svelte, `$props.id()`. This ensures stability across server and client rendering and prevents ID collisions when multiple instances of the same component are on a page. Only generate an id for elements the component links itself; don't generate an input `id` the user didn't pass.
 
 ```astro
+---
 const $id = createId(Astro.locals)
 const groupName = name || $id("tabs") // Prefer the passed value if available
+---
 ```
 
 ### Default Icons
+
 A part renders the default icon, so users can leave it out or put their own `svg` in its place. `CalloutIcon` reads the severity from context:
 
 ```astro
 ---
 const callout = calloutContext.get()
 ---
+
 {callout?.severity === "info" && <svg>...</svg>}
 ```
 
@@ -316,12 +355,15 @@ const callout = calloutContext.get()
 For repetitive structures (Menu, Select), prefer an `items` prop alongside standard slots.
 
 ```astro
+---
 type Item = { selected?: boolean; text: string; value: any }
 type Props = { items?: Item[] }
+---
 
 <select>
-  {items.map(item => <option value={item.value}>{item.text}</option>)}
-  <slot /> <!-- Still allow manual entries -->
+  {items.map((item) => <option value={item.value}>{item.text}</option>)}
+  <slot />
+  <!-- Still allow manual entries -->
 </select>
 ```
 
@@ -333,5 +375,3 @@ type Props = { items?: Item[] }
 2.  **Analyze the API**: Check `src/component-api/[name]/api.ts` for the documented props, slots and classes (see `src/component-api/AGENTS.md`). Every prop and slot the component exposes must be described there, or the docs build fails.
 3.  **Implement**: Follow the checklist in Section 0, for Astro, React, Svelte and Vue.
 4.  **Verify**: Run `npx vitest run tests/unit/parity.test.ts`: Astro output must match the HTML example, and React, Svelte and Vue output must match Astro. Then check the rendered pages at `/html/components/[name]`, `/astro/components/[name]`, `/react/components/[name]`, `/svelte/components/[name]` and `/vue/components/[name]`, and the fixture pages at `/[framework]/test/[name]`, which only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
-
-

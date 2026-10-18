@@ -53,15 +53,17 @@ const allExamples = [
   ...entries("vue", vueModules),
 ]
 
-const examplesFor = (framework: Framework, slug: string) =>
-  allExamples
+const examplesFor = (framework: Framework, slug: string) => {
+  const examples = allExamples.filter(
+    (example) => example.framework === framework && example.slug === slug,
+  )
+  const names = new Set(examples.map((example) => example.name))
+  return examples
     .filter(
-      (example) =>
-        example.framework === framework &&
-        example.slug === slug &&
-        !example.name.endsWith("Code"),
+      ({ name }) => !(name.endsWith("Code") && names.has(name.slice(0, -4))),
     )
     .toSorted((a, b) => a.name.localeCompare(b.name))
+}
 
 export function getStaticPaths() {
   if (!fixturePagesEnabled()) return []

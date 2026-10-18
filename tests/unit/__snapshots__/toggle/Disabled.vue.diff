@@ -1,0 +1,10 @@
+===================================================================
+--- astro
++++ vue
+@@ -1,5 +1,5 @@
+ <label class="ui-toggle-button">
+   <input disabled name="name-1" type="checkbox">
+-  ␣Disabled
++  Disabled
+ </label>
+ <label class="ui-toggle-button">

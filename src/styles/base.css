@@ -31,8 +31,8 @@
 }
 
 .anatomy {
-  --_anatomy-border-red: 2px dotted tomato;
   --_anatomy-border-gray: 2px dotted gray;
+  --_anatomy-border-red: 2px dotted tomato;
 
   pointer-events: none;
 

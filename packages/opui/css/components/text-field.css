@@ -351,8 +351,8 @@
     &:has([aria-invalid="true"], :user-invalid) {
       --_accent: var(--invalid-color);
       --_border-color: var(--invalid-color);
-      --_label-color: var(--invalid-text-color);
       --_end-text-color: var(--invalid-text-color);
+      --_label-color: var(--invalid-text-color);
 
       @container style(--contrast: more) {
         --_accent: var(--invalid-text-color);

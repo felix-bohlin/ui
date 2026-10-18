@@ -30,9 +30,9 @@
     --_dir: 1;
     --_enter-duration: calc(var(--duration-slow) * var(--_motion));
     --_exit-duration: calc(var(--duration-slow) * var(--_motion));
-    --_hold-duration: 5s;
     /* Firefox and Safari fallback */
     --_hold: var(--_hold-duration);
+    --_hold-duration: 5s;
     --focus-ring-color: currentColor;
 
     align-items: center;

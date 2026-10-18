@@ -15,12 +15,6 @@ export default {
   ],
   root: {
     code: "<summary>",
-    component: {
-      astro: "AccordionSummary",
-      react: "AccordionSummary",
-      svelte: "AccordionSummary",
-      vue: "AccordionSummary",
-    },
     description: "The always visible header.",
     selector: "summary",
   },

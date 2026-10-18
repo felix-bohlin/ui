@@ -9,7 +9,7 @@ import {
 export default function FieldGroupValidation() {
   return (
     <Form>
-      <FieldSet aria-describedby="checkbox-group-error">
+      <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup direction="row" name="checkbox-group-validation">
           <Checkbox defaultChecked error>
@@ -18,7 +18,10 @@ export default function FieldGroupValidation() {
           <Checkbox error>Checkbox 2</Checkbox>
           <Checkbox error>Checkbox 3</Checkbox>
         </FieldGroup>
-        <span className="ui-end-text" id="checkbox-group-error">
+        <span
+          className="ui-end-text"
+          id="checkbox-field-group-validation-1-error"
+        >
           Something went wrong!
         </span>
       </FieldSet>

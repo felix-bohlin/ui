@@ -17,19 +17,42 @@ const REFERENCES = path.resolve(
   "packages/opui/skills/opui/references",
 )
 
-const SUB_APIS = path.resolve(process.cwd(), "src/component-api")
+const COMPONENT_API = path.resolve(process.cwd(), "src/component-api")
+const BARREL = path.resolve(process.cwd(), "packages/opui/astro/index.ts")
 
-async function readSubApis(pages) {
+const kebab = (name) =>
+  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
+
+async function readParts(pages) {
   const apis = []
-  for (const entry of fs.readdirSync(SUB_APIS, { withFileTypes: true })) {
-    if (!entry.isDirectory()) continue
-    const file = path.join(SUB_APIS, entry.name, "api.ts")
-    if (!fs.existsSync(file)) continue
+  for (const entry of fs.readdirSync(COMPONENT_API, { withFileTypes: true })) {
+    const file = path.join(COMPONENT_API, entry.name, "api.ts")
+    if (!entry.isDirectory() || !fs.existsSync(file)) continue
     const { default: api } = await import(pathToFileURL(file).href)
-    if (!api.page || !api.component || !pages.has(api.page)) continue
-    apis.push({ component: api.component, page: api.page })
+    apis.push({ api, page: api.page ?? entry.name })
   }
-  return apis
+  const pageOf = new Map([
+    ...apis.flatMap(({ api, page }) =>
+      api.parts.flatMap((part) =>
+        part.component ? [[part.component, page]] : [],
+      ),
+    ),
+    ...apis.map(({ api, page }) => [api.component, page]),
+  ])
+  return [
+    ...fs
+      .readFileSync(BARREL, "utf-8")
+      .matchAll(
+        /^export \{ default as (\w+) \} from "\.\.\/components\/(\w+)\//gm,
+      ),
+  ]
+    .map(([, component, folder]) => ({
+      component,
+      page: pageOf.get(component) ?? kebab(folder),
+    }))
+    .filter(
+      ({ component, page }) => pages.has(page) && kebab(component) !== page,
+    )
 }
 
 function readComponents(llmsTxt) {
@@ -92,9 +115,9 @@ async function buildSkill() {
   const components = readComponents(path.join(DIST, "html/llms.txt")).sort(
     (a, b) => a.title.localeCompare(b.title),
   )
-  const subApis = (
-    await readSubApis(new Set(components.map((c) => c.slug)))
-  ).sort((a, b) => a.component.localeCompare(b.component))
+  const parts = (await readParts(new Set(components.map((c) => c.slug)))).sort(
+    (a, b) => a.component.localeCompare(b.component),
+  )
 
   const index = [
     "# Components",
@@ -116,7 +139,7 @@ async function buildSkill() {
     "",
     "| Component | File |",
     "| --- | --- |",
-    ...subApis.map((s) => `| ${s.component} | \`${s.page}.md\` |`),
+    ...parts.map((part) => `| ${part.component} | \`${part.page}.md\` |`),
     "",
   ].join("\n")
 

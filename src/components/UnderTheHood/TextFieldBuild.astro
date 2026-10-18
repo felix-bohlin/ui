@@ -6,9 +6,9 @@ const steps = [
     css: `
 .text-field {
   --accent: var(--primary);
+  --affix: var(--text-muted);
   --border: var(--field-border-color);
   --helper: var(--field-helper-color);
-  --label: var(--text-muted);
 
   display: grid;
 }
@@ -75,7 +75,7 @@ const steps = [
 .prefix,
 .suffix {
   align-items: center;
-  color: var(--label);
+  color: var(--affix);
   display: inline-flex;
   padding-inline: 0.5rem;
 }
@@ -113,7 +113,7 @@ const steps = [
 .text-field:has(:required) .label::after {
   color: var(--field-required-color);
   content: "*";
-  margin-inline-start: 0.25em;
+  margin-inline-start: 0.25ex;
 }`,
     notes: [
       "<code>:has(:required)</code> marks the label from the input's own attribute",
@@ -125,9 +125,9 @@ const steps = [
     css: `
 .text-field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--invalid-color);
+  --affix: var(--invalid-text-color);
   --border: var(--invalid-color);
   --helper: var(--invalid-text-color);
-  --label: var(--invalid-text-color);
 }`,
     features: ["user-pseudos"],
     notes: [

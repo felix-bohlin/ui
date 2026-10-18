@@ -2,11 +2,5 @@
 import { Switch } from "opui-css/astro"
 ---
 
-<Switch name="switch-supporting-text">
-  Default
-  <Fragment slot="end-text">Supporting text</Fragment>
-</Switch>
-<Switch name="switch-supporting-text" stack>
-  Stack
-  <Fragment slot="end-text">Supporting text</Fragment>
-</Switch>
+<Switch name="switch-end-text" endText="Supporting text"> Default </Switch>
+<Switch name="switch-end-text" stack endText="Supporting text"> Stack </Switch>

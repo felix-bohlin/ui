@@ -1,3 +1,4 @@
+import { components } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
@@ -18,25 +19,17 @@ export default {
     type: "string | number | boolean",
   },
   notes: {
+    ...components(
+      "The radio `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.",
+    ),
     astro:
       "The radio `<input>` without the label, for a custom layout such as the end of a list item. Other attributes go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.",
-    react:
-      "The radio `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.",
-    svelte:
-      "The radio `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.",
-    vue: "The radio `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.",
   },
   options: [],
   page: "radio",
   parts: [],
   root: {
     code: '<input type="radio">',
-    component: {
-      astro: "RadioInput",
-      react: "RadioInput",
-      svelte: "RadioInput",
-      vue: "RadioInput",
-    },
     description: "The radio input, without a label.",
     selector: 'input[type="radio"]',
   },

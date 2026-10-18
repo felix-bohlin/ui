@@ -14,6 +14,7 @@ export default function ToggleButton({
   onChange,
   pressed,
   size,
+  style,
   type,
   value,
   children,
@@ -24,14 +25,13 @@ export default function ToggleButton({
 
   const finalName = name || group?.groupName || field?.name
   const finalType =
-    group?.inputType === "radio"
-      ? "radio"
-      : type || group?.inputType || "checkbox"
+    group?.inputType === "radio" ? "radio" : (type ?? "checkbox")
   const checked = isSelected(group?.value, value || label)
 
   return (
     <label
       className={cx(["ui-toggle-button", size && `ui-${size}`, className])}
+      style={style}
     >
       <input
         checked={checked}

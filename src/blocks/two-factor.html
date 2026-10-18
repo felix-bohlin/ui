@@ -9,6 +9,8 @@
     }
 
     .ui-content {
+      --divider-space: 0;
+
       display: grid;
       gap: var(--size-4);
     }
@@ -32,7 +34,6 @@
 
     .two-factor-submit {
       inline-size: 100%;
-      justify-content: center;
     }
 
     .two-factor-resend {
@@ -42,21 +43,6 @@
       font-size: var(--font-size-1);
       gap: var(--size-1);
       justify-content: center;
-    }
-
-    .two-factor-divider {
-      align-items: center;
-      color: var(--text-muted);
-      display: flex;
-      font-size: var(--font-size-0);
-      gap: var(--size-3);
-
-      &::before,
-      &::after {
-        border-block-start: var(--border-width) solid var(--border-color);
-        content: "";
-        flex: 1;
-      }
     }
 
     .two-factor-footer {
@@ -142,7 +128,7 @@
         </button>
       </p>
 
-      <p class="two-factor-divider">or verify another way</p>
+      <p class="ui-divider">or verify another way</p>
 
       <ul class="ui-list ui-bordered ui-tonal">
         <li>

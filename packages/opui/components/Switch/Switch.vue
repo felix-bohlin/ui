@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import SwitchInput from "./SwitchInput.vue"
 import type { Slots, SwitchProps } from "./types.d.vue"
-import { useAttrs, useId } from "vue"
+import { type InputHTMLAttributes, useAttrs, useId } from "vue"
 import { warnUnnamed } from "../dev"
+import { idRefs } from "../id"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<SwitchProps>()
+const { endText, error, hideLabel, size, spread, stack } =
+  defineProps<SwitchProps>()
 const slots = defineSlots<Slots>()
-const attrs = useAttrs()
+const attrs = useAttrs() as InputHTMLAttributes
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
@@ -28,12 +30,12 @@ warnUnnamed(
   <label
     :class="[
       'ui-switch',
-      props.size && `ui-${props.size}`,
+      size && `ui-${size}`,
       {
-        'ui-stack': props.stack,
-        'ui-spread': props.spread,
+        'ui-stack': stack,
+        'ui-spread': spread,
       },
-      props.class,
+      $props.class,
     ]"
   >
     <span
@@ -56,22 +58,27 @@ warnUnnamed(
       v-bind="$attrs"
       v-model="modelValue"
       :aria-describedby="
-        [$slots['end-text'] ? endTextId : undefined, $attrs['aria-describedby']]
-          .filter(Boolean)
-          .join(' ') || undefined
+        idRefs(
+          (endText || $slots['end-text']) && endTextId,
+          attrs['aria-describedby'],
+        )
       "
-      :aria-invalid="props.error ? 'true' : $attrs['aria-invalid']"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
     />
 
     <span
       v-if="$slots.default"
-      :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
     >
       <slot></slot>
     </span>
 
-    <span v-if="$slots['end-text']" :id="endTextId" class="ui-end-text">
-      <slot name="end-text"></slot>
+    <span
+      v-if="endText || $slots['end-text']"
+      :id="endTextId"
+      class="ui-end-text"
+    >
+      <slot name="end-text">{{ endText }}</slot>
     </span>
   </label>
 </template>

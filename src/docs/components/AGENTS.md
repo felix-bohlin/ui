@@ -28,7 +28,7 @@ Before creating or refactoring a page, perform the following research:
     - Modern CSS features being used (to populate `browserSupport`).
     - Internal part classes (the `parts` in `api.ts`, which drive the `anatomy` diagram).
 3.  **Check for API Metadata**: Verify if `src/component-api/[name]/api.ts` exists.
-    - If not, create it from the props, parts and slots identified in steps 1 and 2, following [src/component-api/AGENTS.md](../../component-api/AGENTS.md). Props and slots are read from the component source, so the build warns when `api.ts` and the source disagree.
+    - If not, create it from the props, parts and slots identified in steps 1 and 2, following [src/component-api/AGENTS.md](../../component-api/AGENTS.md). Props and slots are read from the component source, so `pnpm test` and the build fail when `api.ts` and the source disagree.
     - Only `toast` still uses a hand-written table (`src/component-api/toast/HTML.astro`). Convert it to `api.ts` when touching it.
 4.  **Identify Dependencies**: Determine if the component relies on other components.
     - **Field-based components** (`TextField`, `Select`, `Textarea`): Usually depend on `text-field.css`.
@@ -45,7 +45,7 @@ Before creating or refactoring a page, perform the following research:
   - `Variants.astro`, `Variants.html`, `Variants.react.tsx`, `Variants.svelte`, `Variants.vue`, etc.
 - **Partials**: `src/docs/components/partials/[Name].astro` holds prose that several pages share, such as `ValidationNotes` and `LabelAlignment`. Give a partial props for the words that differ per page, and write it once with `<PropOrClass>` and `<Conditional>`.
 - **Naming**: Use PascalCase for example files (e.g., `Basics.astro`, `LargeSizing.astro`).
-  - If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), use a suffix like `Code.astro`.
+  - If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), add a file with a `Code` suffix for each framework that needs one, such as `SizesCode.astro` and `SizesCode.react.tsx`. `<AutoExample>` shows it in the code tab instead of the preview's source.
 
 ## 3. Implementation Pattern: Externalized Examples
 
@@ -96,10 +96,7 @@ CSS imports use the `@opui/css/...` package alias. UI-component imports use the 
 
 #### When to fall back to manual `<Example>`
 
-`<AutoExample>` covers the common case (file-per-framework with matching basenames), and forwards a `slot="controls"` child for interactive switches. Use the manual `<Example>` form when a section needs:
-
-- A `code-js` slot (JS-driven demos like Toast).
-- A `*Code.astro` source override that differs from the rendered preview (used to hide doc-only wrappers).
+`<AutoExample>` covers the common case (file-per-framework with matching basenames), shows a `<Name>Code.<ext>` file in the code tab when one exists, and forwards a `slot="controls"` child for interactive switches. Use the manual `<Example>` form when a section needs a `code-js` slot (JS-driven demos like Toast).
 
 The manual form remains supported and unchanged:
 

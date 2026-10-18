@@ -22,11 +22,26 @@ const folders = (await readdir(componentsDir, { withFileTypes: true }))
   .map((entry) => entry.name)
   .toSorted()
 
-const OBJECT_TYPE = /export type (\w+)(?:<\w+>)? = \{\n([\s\S]*?)\n\}/g
+const OBJECT_TYPE =
+  /^(?:export )?type (\w+)(?:<[^=\n]*>)? = (?:[^\n{]* & )?\{\n([\s\S]*?)\n\}/gm
 const KEY = /^ {2}(?:"([^"]+)"|(\w+))\??:/
 
-const CLASS_LIST = /class:list=\{\[/g
-const CX = /\bcx\(\[/g
+const CLASS_LISTS = [
+  [".astro", /class:list=\{\[/g, "class:list"],
+  [".react.tsx", /\bcx\(\[/g, "cx"],
+  [".svelte", /\bclass=\{\[/g, "class"],
+  [".vue", /:class="\[/g, ":class"],
+]
+
+const CLIENT =
+  /\buse(?:ActionState|Context|Effect|ImperativeHandle|InsertionEffect|LayoutEffect|Optimistic|Reducer|Ref|State|SyncExternalStore|Transition)\(|\buse\w+Context\(|\bcreateContext\(|<\w+Context\b|\bon[A-Z]\w*(?:=\{|: )/
+
+const CONTEXT_FILES = [
+  "context.astro.ts",
+  "context.react.ts",
+  "context.ts",
+  "context.vue.ts",
+]
 
 const TYPE_FILES = [
   "types.astro.ts",
@@ -40,6 +55,13 @@ const TYPE_FILES = [
 const BARRELS = Object.fromEntries(
   PACKAGE_FRAMEWORK_IDS.map((framework) => [framework, `.${framework}`]),
 )
+
+const BARREL_TYPES = {
+  astro: "types.astro",
+  react: "types.react",
+  svelte: "types.svelte",
+  vue: "types.d.vue",
+}
 
 const barrels = Object.fromEntries(
   await Promise.all(
@@ -56,6 +78,27 @@ const barrels = Object.fromEntries(
 const exportedNames = (source) =>
   [...source.matchAll(/^export \{ default as (\w+) \}/gm)]
     .map((match) => match[1])
+    .toSorted()
+
+const typeExports = (source) =>
+  [...source.matchAll(/^export type \{([^}]*)\} from "([^"]+)"/gm)].map(
+    ([, names, from]) => ({
+      from,
+      names: names
+        .split(",")
+        .map((name) =>
+          name
+            .trim()
+            .split(/\s+as\s+/)
+            .pop(),
+        )
+        .filter(Boolean),
+    }),
+  )
+
+const exportedTypes = (source) =>
+  typeExports(source)
+    .flatMap((entry) => entry.names)
     .toSorted()
 
 const splitTopLevel = (body) => {
@@ -83,8 +126,8 @@ const splitTopLevel = (body) => {
   return items
 }
 
-const checkClassOrder = (file, source, pattern, label) => {
-  for (const match of source.matchAll(pattern)) {
+const classLists = (source, pattern) =>
+  [...source.matchAll(pattern)].map((match) => {
     let depth = 1
     let end = match.index + match[0].length
     while (end < source.length && depth > 0) {
@@ -92,13 +135,45 @@ const checkClassOrder = (file, source, pattern, label) => {
       if (source[end] === "]") depth--
       end++
     }
-    const items = splitTopLevel(
-      source.slice(match.index + match[0].length, end - 1),
-    )
+    return splitTopLevel(source.slice(match.index + match[0].length, end - 1))
+  })
+
+const checkClassOrder = (file, lists, label) => {
+  for (const items of lists) {
     const index = items.indexOf("className")
     if (index !== -1 && index !== items.length - 1) {
       report(file, `className must be the last entry in ${label}`)
     }
+  }
+}
+
+const classTokens = (lists) =>
+  lists
+    .filter((items) => items.includes("className"))
+    .map((items) =>
+      [
+        ...items
+          .join(" ")
+          .matchAll(/ui-\$\{(?:props\.)?(\w+)|ui-[\w-]+|\bclassName\b/g),
+      ]
+        .map(([token, name]) => (name ? `ui-\${${name}}` : token))
+        .join(" "),
+    )
+    .join("\n")
+
+const checkClient = (file, source) => {
+  const client = source.startsWith('"use client"\n')
+  if (CLIENT.test(source) && !client) {
+    report(
+      file,
+      'uses context, state, effects or event handlers; start it with "use client"',
+    )
+  }
+  if (!CLIENT.test(source) && client) {
+    report(
+      file,
+      'starts with "use client" but uses no context, state, effects or event handlers',
+    )
   }
 }
 
@@ -171,6 +246,14 @@ for (const folder of folders) {
     }
   }
 
+  const context = CONTEXT_FILES.filter((name) => files.includes(name))
+  if (context.length > 0) {
+    for (const name of CONTEXT_FILES.filter((name) => !files.includes(name))) {
+      report(join(dir, name), "is missing")
+    }
+  }
+
+  const tokens = new Map()
   for (const file of files) {
     const path = join(dir, file)
     const source = await readFile(path, "utf-8")
@@ -178,14 +261,35 @@ for (const folder of folders) {
     if (/^\s*(export\s+)?interface\s/m.test(source)) {
       report(path, 'uses "interface"; use "type" instead')
     }
-    if (file === "types.ts") checkSortedKeys(path, source)
+    if (/^types.*\.ts$/.test(file)) checkSortedKeys(path, source)
     if (extname(file) === ".ts") checkIndexSignature(path, source)
-    if (extname(file) === ".astro") {
-      checkClassOrder(path, source, CLASS_LIST, "class:list")
+    for (const [extension, pattern, label] of CLASS_LISTS) {
+      if (!file.endsWith(extension)) continue
+      const lists = classLists(
+        extension === ".vue"
+          ? source.replace(/\$?props\.class\b/g, "className")
+          : source,
+        pattern,
+      )
+      checkClassOrder(path, lists, label)
+      tokens.set(file, classTokens(lists))
     }
-    if (file.endsWith(".react.tsx")) checkClassOrder(path, source, CX, "cx")
+    if (file.endsWith(".react.tsx") || file === "context.react.ts") {
+      checkClient(path, source)
+    }
     if (file === `${folder}.astro` && !/export const title = "/.test(source)) {
       report(path, 'is missing `export const title = "..."`')
+    }
+  }
+  for (const name of astro) {
+    for (const [extension] of CLASS_LISTS.slice(1)) {
+      const file = `${name}${extension}`
+      if (
+        tokens.has(file) &&
+        tokens.get(file) !== tokens.get(`${name}.astro`)
+      ) {
+        report(join(dir, file), `class order differs from ${name}.astro`)
+      }
     }
   }
 }
@@ -227,15 +331,37 @@ for (const slug of exampleFolders) {
 }
 
 const astroNames = exportedNames(barrels.astro)
+const astroTypes = exportedTypes(barrels.astro)
 for (const [framework, source] of Object.entries(barrels)) {
+  const barrel = join(root, "packages/opui", framework, "index.ts")
   const names = exportedNames(source)
   const missing = astroNames.filter((name) => !names.includes(name))
   const extra = names.filter((name) => !astroNames.includes(name))
   if (missing.length || extra.length) {
     report(
-      join(root, "packages/opui", framework, "index.ts"),
+      barrel,
       `exports differ from astro (missing: ${missing.join(", ") || "none"}, extra: ${extra.join(", ") || "none"})`,
     )
+  }
+  const types = exportedTypes(source)
+  const missingTypes = astroTypes.filter((name) => !types.includes(name))
+  const extraTypes = types.filter((name) => !astroTypes.includes(name))
+  if (missingTypes.length || extraTypes.length) {
+    report(
+      barrel,
+      `type exports differ from astro (missing: ${missingTypes.join(", ") || "none"}, extra: ${extraTypes.join(", ") || "none"})`,
+    )
+  }
+  for (const { from, names } of typeExports(source)) {
+    if (
+      names.some((name) => name.endsWith("Props")) &&
+      !from.endsWith(`/${BARREL_TYPES[framework]}`)
+    ) {
+      report(
+        barrel,
+        `exports Props types from "${from}", not from ${BARREL_TYPES[framework]}`,
+      )
+    }
   }
 }
 

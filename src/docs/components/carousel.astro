@@ -220,7 +220,7 @@ export const description =
       keep the buttons off the content.
     </p>
 
-    <AutoExample name="Actions" />
+    <AutoExample name="ButtonsOutside" />
   </section>
 
   <section>
@@ -452,24 +452,18 @@ export const description =
   }
 
   const componentSnippet = (state: State, label: string, framework: string) => {
-    const vue = framework === "vue"
-    const name = (prop: string) =>
-      vue
-        ? prop.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
-        : prop
     const expression = (prop: string, value: string) =>
-      vue ? `:${name(prop)}="${value}"` : `${prop}={${value}}`
+      framework === "vue" ? `:${prop}="${value}"` : `${prop}={${value}}`
     const props = [
       state.align && `align="center"`,
       `aria-label="${label}"`,
-      state.aspectRatio !== "16 / 9" &&
-        `${name("aspectRatio")}="${state.aspectRatio}"`,
+      state.aspectRatio !== "16 / 9" && `aspectRatio="${state.aspectRatio}"`,
       state.buttons === "outside" && `buttons="outside"`,
       state.buttons === "none" && expression("buttons", "false"),
       state.markers && "markers",
       state.orientation && `orientation="vertical"`,
       state.peek && "peek",
-      state.persistentButtons && name("persistentButtons"),
+      state.persistentButtons && "persistentButtons",
       state.perView > 1 && expression("perView", String(state.perView)),
       state.stretch && "stretch",
       state.orientation &&

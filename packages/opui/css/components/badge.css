@@ -5,6 +5,7 @@
     --_anchor-ty: calc(50% * var(--_sign-y));
     --_bg-color: var(--primary);
     --_border-color: var(--primary);
+    --_border-width: 2px;
     --_dir: 1;
     --_dot-size: var(--size-2);
     --_inset: 100%;
@@ -38,7 +39,7 @@
     & > .ui-anchor-floating > .ui-badge-indicator {
       background-color: var(--_bg-color);
       block-size: var(--_size);
-      border: 2px solid var(--_border-color);
+      border: var(--_border-width) solid var(--_border-color);
       border-radius: var(--radius-round);
       color: var(--_text-color);
       display: grid;
@@ -113,7 +114,9 @@
 
     /* Dot */
     &.ui-dot {
-      --_anchor-tx: calc((var(--_dot-size) - 2px) * var(--_sign-x));
+      --_anchor-tx: calc(
+        (var(--_dot-size) - var(--_border-width)) * var(--_sign-x)
+      );
       --_anchor-ty: calc(var(--_dot-size) * var(--_sign-y));
     }
 
@@ -131,7 +134,7 @@
     }
 
     :where(.ui-avatar-group) > & > .ui-anchor-floating > .ui-badge-indicator {
-      box-shadow: 0 0 0 2px var(--surface-default);
+      box-shadow: 0 0 0 var(--_outline-width) var(--_outline-color);
     }
 
     :where(.ui-avatar-group) > & {

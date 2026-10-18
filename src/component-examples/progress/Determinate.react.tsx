@@ -13,5 +13,5 @@ export default function Determinate() {
     return () => clearInterval(interval)
   }, [])
 
-  return <Progress id="determinate-progress" max="100" value={value} />
+  return <Progress id="progress-determinate-1" max="100" value={value} />
 }

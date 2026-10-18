@@ -12,8 +12,8 @@
     Range,
     Select,
     Switch,
-    TextField,
     Textarea,
+    TextField,
   } from "opui-css/svelte"
 
   const roleItems = [
@@ -21,11 +21,6 @@
     { text: "Designer", value: "design" },
     { text: "Manager", value: "manager" },
   ]
-
-  let emailNotifs = $state(true)
-  let smsNotifs = $state(false)
-  let theme = $state("light")
-  let experience = $state(5)
 </script>
 
 <Form id="kitchen-sink-example">
@@ -53,13 +48,9 @@
     <FieldDescription>
       Configure how you want to receive updates.
     </FieldDescription>
-    <FieldGroup name="notifications">
-      <Switch bind:checked={emailNotifs} name="email_notifs"
-        >Email Notifications</Switch
-      >
-      <Switch bind:checked={smsNotifs} name="sms_notifs"
-        >SMS Notifications</Switch
-      >
+    <FieldGroup>
+      <Switch name="email_notifs" checked>Email Notifications</Switch>
+      <Switch name="sms_notifs">SMS Notifications</Switch>
     </FieldGroup>
   </FieldSet>
 
@@ -69,9 +60,9 @@
     <FieldLegend>Theme Preference</FieldLegend>
     <FieldDescription>Select your preferred visual style.</FieldDescription>
     <FieldGroup name="theme">
-      <Radio bind:group={theme} value="light">Light Theme</Radio>
-      <Radio bind:group={theme} value="dark">Dark Theme</Radio>
-      <Radio bind:group={theme} value="system">System Default</Radio>
+      <Radio value="light" checked>Light Theme</Radio>
+      <Radio value="dark">Dark Theme</Radio>
+      <Radio value="system">System Default</Radio>
     </FieldGroup>
   </FieldSet>
 
@@ -88,7 +79,7 @@
         min="0"
         max="20"
         step="1"
-        bind:value={experience}
+        value="5"
         startText="Drag the slider to match your total tenure."
       />
     </FieldGroup>
@@ -99,9 +90,10 @@
   <FieldSet>
     <FieldLegend>Additional Info</FieldLegend>
     <FieldDescription>Anything else we should know?</FieldDescription>
-    <FieldGroup name="details">
+    <FieldGroup>
       <Textarea
         label="Biography"
+        name="biography"
         placeholder="Tell us about yourself..."
         rows={4}
       />
@@ -112,7 +104,7 @@
 
   <FieldSet>
     <FieldLegend>Legal</FieldLegend>
-    <FieldGroup name="legal">
+    <FieldGroup>
       <Checkbox name="terms" required>
         I agree to the terms and conditions
         {#snippet endText()}Support this text{/snippet}

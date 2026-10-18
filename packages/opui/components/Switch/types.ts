@@ -1,4 +1,5 @@
 export type SwitchProps = {
+  endText?: string
   error?: boolean
   hideLabel?: boolean
   size?: "x-small" | "small" | "large"
@@ -7,7 +8,6 @@ export type SwitchProps = {
 }
 
 export type SwitchSlots<S> = {
-  children?: S
   endText?: string | S
   iconChecked?: S
   iconUnchecked?: S

@@ -29,7 +29,7 @@
     @media (forced-colors: active) {
       --_accent: SelectedItem;
 
-      outline: 1px solid CanvasText;
+      outline: var(--border-width) solid CanvasText;
     }
 
     & > progress {

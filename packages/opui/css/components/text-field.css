@@ -6,6 +6,7 @@
   :where(.ui-text-field, .ui-textarea, .ui-select) {
     --_motion: var(--motion, 1);
     --_accent: var(--primary);
+    --_affix-color: var(--text-muted);
     --_arrow-inset: var(--size-3);
     --_arrow-space: calc(
       var(--_arrow-inset) + var(--_chevron-size) + var(--size-3)
@@ -14,7 +15,6 @@
     --_border-color: var(--field-border-color);
     --_chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414'/%3E%3C/svg%3E");
     --_chevron-size: 1rem;
-    --_end-text-color: var(--field-helper-color);
     --_field-padding-block: var(--size-2);
     --_field-padding-block-fit: min(
       var(--_field-padding-block),
@@ -22,7 +22,7 @@
     );
     --_field-padding-inline: var(--size-2);
     --_font-size: var(--font-size-1);
-    --_label-color: var(--text-muted);
+    --_helper-color: var(--field-helper-color);
     --_min-height: var(--field-size);
 
     align-content: start;
@@ -77,7 +77,7 @@
     .ui-prefix,
     .ui-suffix {
       align-items: center;
-      color: var(--_label-color);
+      color: var(--_affix-color);
       display: inline-flex;
       font-size: var(--_font-size);
       line-height: var(--font-lineheight-1);
@@ -103,7 +103,7 @@
     .ui-header,
     .ui-footer {
       align-items: center;
-      color: var(--_label-color);
+      color: var(--_affix-color);
       display: flex;
       font-size: var(--font-size-0);
       gap: var(--size-2);
@@ -144,8 +144,7 @@
       .ui-label:after {
         color: var(--field-required-color);
         content: "*";
-        margin-block: -0.25em auto;
-        margin-inline: 0.25em auto;
+        margin-inline-start: 0.25ex;
       }
     }
 
@@ -295,7 +294,7 @@
     }
 
     :where(.ui-start-text) {
-      color: var(--_end-text-color);
+      color: var(--_helper-color);
       font-size: var(--field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 2;
@@ -315,7 +314,7 @@
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--_end-text-color);
+      color: var(--_helper-color);
       font-size: var(--field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 3;
@@ -350,9 +349,9 @@
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       --_accent: var(--invalid-color);
+      --_affix-color: var(--invalid-text-color);
       --_border-color: var(--invalid-color);
-      --_end-text-color: var(--invalid-text-color);
-      --_label-color: var(--invalid-text-color);
+      --_helper-color: var(--invalid-text-color);
 
       @container style(--contrast: more) {
         --_accent: var(--invalid-text-color);
@@ -456,7 +455,7 @@
       }
 
       .ui-start-text {
-        color: var(--_end-text-color);
+        color: var(--_helper-color);
         font-size: var(--field-helper-font-size);
         grid-column: 1;
         grid-row: 2;
@@ -513,6 +512,42 @@
             grid-row: 4;
           }
         }
+      }
+    }
+  }
+
+  /* Autosuggest */
+  :where(.ui-text-field:has(input[list])) {
+    .ui-field {
+      position: relative;
+    }
+
+    /* Hide native arrow */
+    input[list]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+    }
+
+    input[list] {
+      padding-inline-end: var(--_arrow-space);
+    }
+
+    .ui-field::after {
+      background-color: var(--text-primary);
+      block-size: var(--_chevron-size);
+      content: "";
+      inline-size: var(--_chevron-size);
+      inset-block: 50% auto;
+      inset-inline: auto var(--_arrow-inset);
+      mask: var(--_chevron-icon) center / contain no-repeat;
+      pointer-events: none;
+      position: absolute;
+      translate: 0 -50%;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
       }
     }
   }

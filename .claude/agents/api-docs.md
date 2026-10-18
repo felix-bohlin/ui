@@ -19,7 +19,7 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 ## Already checked by tools
 
-The build warns with `[component-api]` when a prop or slot is missing from `api.ts` or documented but not in the source. Don't repeat those checks by hand. Run `pnpm build` only when a full audit needs it, and report its `[component-api]` lines.
+`tests/unit/component-api.test.ts` lists every `[component-api]` problem: a prop or slot missing from `api.ts`, a documented prop, part prop, snippet, slot or enum value that isn't in the source, and an exported component without an `api.ts`. Don't repeat those checks by hand. Run `pnpm exec vitest run tests/unit/component-api.test.ts` and report its problems.
 
 ## Check
 

@@ -161,8 +161,8 @@
 
   /* Accordion group  */
   :where(.ui-card[role="group"]:has(> details.ui-accordion)) {
+    --_divider-color: var(--border-color);
     --_group-radius: var(--border-radius);
-    --_gutter-color: var(--border-color);
     --_item-padding-inline: var(--size-3);
     --_item-summary-padding-inline: var(--_item-padding-inline);
 
@@ -183,7 +183,7 @@
 
       /* Border between accordion items */
       & + & {
-        border-block-start: var(--border-width) solid var(--_gutter-color);
+        border-block-start: var(--border-width) solid var(--_divider-color);
         border-radius: 0;
       }
 

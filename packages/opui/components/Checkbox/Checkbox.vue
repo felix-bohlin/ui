@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import CheckboxInput from "./CheckboxInput.vue"
 import type { CheckboxProps, Slots } from "./types.d.vue"
-import { useAttrs, useId } from "vue"
+import { type InputHTMLAttributes, useAttrs, useId } from "vue"
 import { warnUnnamed } from "../dev"
+import { idRefs } from "../id"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<CheckboxProps>()
+const { endText, error, hideLabel, indeterminate, size, spread, stack } =
+  defineProps<CheckboxProps>()
 const slots = defineSlots<Slots>()
-const attrs = useAttrs()
+const attrs = useAttrs() as InputHTMLAttributes
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
@@ -28,32 +30,35 @@ warnUnnamed(
   <label
     :class="[
       'ui-checkbox',
-      props.size && `ui-${props.size}`,
+      size && `ui-${size}`,
       {
-        'ui-stack': props.stack,
-        'ui-spread': props.spread,
+        'ui-stack': stack,
+        'ui-spread': spread,
       },
-      props.class,
+      $props.class,
     ]"
   >
     <CheckboxInput
       v-bind="$attrs"
       v-model="modelValue"
       :aria-describedby="
-        [$slots['end-text'] ? endTextId : undefined, $attrs['aria-describedby']]
-          .filter(Boolean)
-          .join(' ') || undefined
+        idRefs(
+          (endText || $slots['end-text']) && endTextId,
+          attrs['aria-describedby'],
+        )
       "
-      :aria-invalid="props.error ? 'true' : $attrs['aria-invalid']"
-      :indeterminate="props.indeterminate"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+      :indeterminate="indeterminate"
     />
-    <span
-      v-if="$slots.default"
-      :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
+    <span v-if="$slots.default" :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       ><slot></slot
     ></span>
-    <span :id="endTextId" class="ui-end-text" v-if="$slots['end-text']">
-      <slot name="end-text"></slot>
+    <span
+      v-if="endText || $slots['end-text']"
+      :id="endTextId"
+      class="ui-end-text"
+    >
+      <slot name="end-text">{{ endText }}</slot>
     </span>
   </label>
 </template>

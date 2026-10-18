@@ -1,7 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import {
   Callout as UICallout,
@@ -14,41 +13,9 @@ import Conditional from "../../components/Conditional.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 
-import Numeric from "../../component-examples/text-field/Numeric.astro"
-import NumericAstro from "../../component-examples/text-field/Numeric.astro?raw"
-import NumericReactRaw from "../../component-examples/text-field/Numeric.react.tsx?raw"
-import NumericSvelteRaw from "../../component-examples/text-field/Numeric.svelte?raw"
-import NumericVueRaw from "../../component-examples/text-field/Numeric.vue?raw"
-import NumericPreviewReact from "../../component-examples/text-field/Numeric.react.tsx"
-import NumericPreviewSvelte from "../../component-examples/text-field/Numeric.svelte"
-import NumericPreviewVue from "../../component-examples/text-field/Numeric.vue"
-import NumericHtml from "../../component-examples/text-field/Numeric.html?raw"
-
-import File from "../../component-examples/text-field/File.astro"
-import FileAstro from "../../component-examples/text-field/File.astro?raw"
-import FileReactRaw from "../../component-examples/text-field/File.react.tsx?raw"
-import FileSvelteRaw from "../../component-examples/text-field/File.svelte?raw"
-import FileVueRaw from "../../component-examples/text-field/File.vue?raw"
-import FilePreviewReact from "../../component-examples/text-field/File.react.tsx"
-import FilePreviewSvelte from "../../component-examples/text-field/File.svelte"
-import FilePreviewVue from "../../component-examples/text-field/File.vue"
-import FileHtml from "../../component-examples/text-field/File.html?raw"
-
-import Autosuggest from "../../component-examples/text-field/Autosuggest.astro"
-import AutosuggestAstro from "../../component-examples/text-field/Autosuggest.astro?raw"
-import AutosuggestReactRaw from "../../component-examples/text-field/Autosuggest.react.tsx?raw"
-import AutosuggestSvelteRaw from "../../component-examples/text-field/Autosuggest.svelte?raw"
-import AutosuggestVueRaw from "../../component-examples/text-field/Autosuggest.vue?raw"
-import AutosuggestPreviewReact from "../../component-examples/text-field/Autosuggest.react.tsx"
-import AutosuggestPreviewSvelte from "../../component-examples/text-field/Autosuggest.svelte"
-import AutosuggestPreviewVue from "../../component-examples/text-field/Autosuggest.vue"
-import AutosuggestHtml from "../../component-examples/text-field/Autosuggest.html?raw"
-
-import FieldCSS from "@opui/css/components/text-field.css?raw"
-import TextFieldCSS from "@opui/css/components/text-input.css?raw"
+import TextFieldCSS from "@opui/css/components/text-field.css?raw"
 
 import textFieldApi from "../../component-api/text-field/api"
-import textInputApi from "../../component-api/text-input/api"
 import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
 
 export const description =
@@ -70,12 +37,7 @@ export const description =
     "relative-color",
     "user-pseudos",
   ]}
-  apis={[
-    { title: "Text field API", api: textFieldApi },
-    ...(Astro.locals.framework === "html"
-      ? [{ title: "Text input API", api: textInputApi }]
-      : []),
-  ]}
+  apis={[{ title: "Text field API", api: textFieldApi }]}
   changelogPaths={[
     {
       path: "packages/opui/components/TextField/TextField.astro",
@@ -87,21 +49,10 @@ export const description =
       path: "packages/opui/css/components/text-field.css",
       type: "css",
     },
-    {
-      path: "packages/opui/css/components/text-input.css",
-      type: "css",
-    },
     { path: "src/component-api/text-field", type: "api" },
-    { path: "src/component-api/text-input", type: "api" },
   ]}
   installationTabs={[
-    { title: "text-field.css", code: FieldCSS, lang: "css" },
-    {
-      title: "text-input.css",
-      code: TextFieldCSS,
-      lang: "css",
-      isDependency: true,
-    },
+    { title: "text-field.css", code: TextFieldCSS, lang: "css" },
   ]}
 >
   <Fragment slot="title">Text field</Fragment>
@@ -323,18 +274,7 @@ export const description =
       Numeric vs <code>&lt;input type="number"&gt;</code>
     </h3>
 
-    <Example>
-      <Numeric slot="preview-astro" />
-      <Numeric slot="preview-html" />
-      <Example.Preview slot="preview-react" code={NumericPreviewReact} />
-      <NumericPreviewSvelte slot="preview-svelte" />
-      <NumericPreviewVue slot="preview-vue" />
-      <Example.Code slot="code-astro" code={NumericAstro} />
-      <Example.Code slot="code-react" code={NumericReactRaw} />
-      <Example.Code slot="code-svelte" code={NumericSvelteRaw} />
-      <Example.Code slot="code-vue" code={NumericVueRaw} />
-      <Example.Code slot="code-html" code={NumericHtml} />
-    </Example>
+    <AutoExample name="Numeric" />
 
     <div class="ui-not-rich-text">
       <UICallout severity="critical">
@@ -395,25 +335,15 @@ export const description =
       Well, it's what we've got.
     </p>
 
-    <Example row>
-      <File slot="preview-astro" />
-      <File slot="preview-html" />
-      <Example.Preview slot="preview-react" code={FilePreviewReact} />
-      <FilePreviewSvelte slot="preview-svelte" />
-      <FilePreviewVue slot="preview-vue" />
-      <Example.Code slot="code-astro" code={FileAstro} />
-      <Example.Code slot="code-react" code={FileReactRaw} />
-      <Example.Code slot="code-svelte" code={FileSvelteRaw} />
-      <Example.Code slot="code-vue" code={FileVueRaw} />
-      <Example.Code slot="code-html" code={FileHtml} />
-    </Example>
+    <AutoExample name="File" row />
   </section>
 
   <section>
     <h2 id="autosuggest">Autosuggest</h2>
     <p>
       Leverages the <code>&lt;input&gt;</code> + <code>&lt;datalist&gt;</code> element
-      combo.
+      combo. An input with a <code>list</code> shows the Select chevron in place of
+      the browser's arrow.
     </p>
 
     <ul>
@@ -421,18 +351,7 @@ export const description =
       <li><code>&lt;datalist id="DATALISTID"&gt;</code></li>
     </ul>
 
-    <Example row>
-      <Autosuggest slot="preview-astro" />
-      <Autosuggest slot="preview-html" />
-      <Example.Preview slot="preview-react" code={AutosuggestPreviewReact} />
-      <AutosuggestPreviewSvelte slot="preview-svelte" />
-      <AutosuggestPreviewVue slot="preview-vue" />
-      <Example.Code slot="code-astro" code={AutosuggestAstro} />
-      <Example.Code slot="code-react" code={AutosuggestReactRaw} />
-      <Example.Code slot="code-svelte" code={AutosuggestSvelteRaw} />
-      <Example.Code slot="code-vue" code={AutosuggestVueRaw} />
-      <Example.Code slot="code-html" code={AutosuggestHtml} />
-    </Example>
+    <AutoExample name="Autosuggest" row />
 
     <div class="ui-not-rich-text">
       <UICallout>

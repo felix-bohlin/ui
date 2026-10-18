@@ -1,10 +1,5 @@
 @layer components.root {
   :where(label.ui-checkbox) {
-    cursor: pointer;
-    line-height: var(--font-lineheight-3);
-    transform: translateZ(0);
-    user-select: none;
-
     /* Input */
     input[type="checkbox"] {
       appearance: none;
@@ -60,20 +55,14 @@
 
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
-      --primary: var(--invalid-color);
-
       input[type="checkbox"]:not(:checked, :indeterminate) {
         border-color: var(--invalid-color);
-      }
-
-      :where(.ui-end-text) {
-        color: var(--invalid-text-color);
       }
     }
 
     @media (forced-colors: active) {
       input[type="checkbox"] {
-        border: 1px solid CanvasText;
+        border-color: CanvasText;
 
         &:checked,
         &:indeterminate {

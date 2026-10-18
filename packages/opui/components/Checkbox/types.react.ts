@@ -5,7 +5,7 @@ type Slots = Base.CheckboxSlots<ReactNode>
 
 export type CheckboxProps = Omit<Base.CheckboxProps, keyof Slots> &
   Slots &
-  Omit<ComponentProps<"input">, "size">
+  Omit<ComponentProps<"input">, "size" | "type">
 
 export type CheckboxInputProps = Base.CheckboxInputProps &
-  ComponentProps<"input">
+  Omit<ComponentProps<"input">, "type">

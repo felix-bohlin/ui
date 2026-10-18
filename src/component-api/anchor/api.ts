@@ -17,9 +17,7 @@ export default {
     {
       description:
         'The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.',
-      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "id",
-      type: "string",
     },
     {
       default: '"always"',
@@ -38,12 +36,7 @@ export default {
       selector: ".ui-anchor > :first-child",
     },
     {
-      component: {
-        astro: "AnchorContent",
-        react: "AnchorContent",
-        svelte: "AnchorContent",
-        vue: "AnchorContent",
-      },
+      component: "AnchorContent",
       description: "The floating content.",
       selector: ".ui-anchor-floating",
     },

@@ -8,7 +8,7 @@ import {
 
 export default function FieldsetInvalid() {
   return (
-    <FieldSet aria-describedby="food-error">
+    <FieldSet aria-describedby="form-fieldset-invalid-1-error">
       <FieldLegend>Pet food</FieldLegend>
       <FieldDescription>Pick at least one.</FieldDescription>
       <FieldGroup name="food">
@@ -19,7 +19,7 @@ export default function FieldsetInvalid() {
           Wet food
         </Checkbox>
       </FieldGroup>
-      <span className="ui-end-text" id="food-error">
+      <span className="ui-end-text" id="form-fieldset-invalid-1-error">
         Your pet is hungry.
       </span>
     </FieldSet>

@@ -3,14 +3,9 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Drawer",
   notes: {
-    astro:
+    default:
       "Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`.",
     html: "Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.",
-    react:
-      "Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`.",
-    svelte:
-      "Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`.",
-    vue: "Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`.",
   },
   options: [
     {
@@ -56,44 +51,24 @@ export default {
   ],
   parts: [
     {
-      component: {
-        astro: "DrawerHeader",
-        react: "DrawerHeader",
-        svelte: "DrawerHeader",
-        vue: "DrawerHeader",
-      },
+      component: "DrawerHeader",
       description: "The header, with a close button.",
       selector: ".ui-header",
     },
     {
       code: "<h2>",
-      component: {
-        astro: "DrawerTitle",
-        react: "DrawerTitle",
-        svelte: "DrawerTitle",
-        vue: "DrawerTitle",
-      },
+      component: "DrawerTitle",
       description: "The title. Names the drawer through `aria-labelledby`.",
       selector: ".ui-header > h2",
     },
     {
       anchorName: "--ui-drawer-content",
-      component: {
-        astro: "DrawerContent",
-        react: "DrawerContent",
-        svelte: "DrawerContent",
-        vue: "DrawerContent",
-      },
+      component: "DrawerContent",
       description: "The scrollable content.",
       selector: ".ui-content",
     },
     {
-      component: {
-        astro: "DrawerFooter",
-        react: "DrawerFooter",
-        svelte: "DrawerFooter",
-        vue: "DrawerFooter",
-      },
+      component: "DrawerFooter",
       description: "The footer.",
       selector: ".ui-footer",
     },

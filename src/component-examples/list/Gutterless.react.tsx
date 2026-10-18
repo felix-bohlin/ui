@@ -1,4 +1,4 @@
-import { List, ListItem } from "opui-css/react"
+import { Button, List, ListItem } from "opui-css/react"
 
 export default function Gutterless() {
   return (
@@ -6,11 +6,7 @@ export default function Gutterless() {
       <ListItem
         headline="Gutterless list item"
         end={
-          <button
-            aria-label="Delete"
-            className="ui-button ui-round ui-small"
-            type="button"
-          >
+          <Button aria-label="Delete" iconOnly round size="small">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -22,7 +18,7 @@ export default function Gutterless() {
                 d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
               ></path>
             </svg>
-          </button>
+          </Button>
         }
       />
       <ListItem

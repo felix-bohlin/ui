@@ -8,6 +8,7 @@ import {
 } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
+import { idRefs } from "../id"
 
 defineOptions({
   inheritAttrs: false,
@@ -28,6 +29,9 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 const attrs = useAttrs() as SelectHTMLAttributes
+const inputAttrs = computed(() =>
+  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
+)
 const modelValue = defineModel<string | number | (string | number)[]>()
 
 const multiple = computed(
@@ -78,6 +82,7 @@ const fieldName = inject(FieldGroupKey, undefined)
       },
       $props.class,
     ]"
+    :style="$attrs.style"
   >
     <span v-if="label || $slots.label" class="ui-label" :id="labelId">
       <slot name="label">{{ label }}</slot>
@@ -93,17 +98,15 @@ const fieldName = inject(FieldGroupKey, undefined)
 
     <span class="ui-field">
       <select
-        v-bind="$attrs"
+        v-bind="inputAttrs"
         v-seed
         v-model="model"
         :aria-describedby="
-          [
-            startText || $slots['start-text'] ? startTextId : undefined,
-            endText || $slots['end-text'] ? endTextId : undefined,
+          idRefs(
+            (startText || $slots['start-text']) && startTextId,
+            (endText || $slots['end-text']) && endTextId,
             attrs['aria-describedby'],
-          ]
-            .filter(Boolean)
-            .join(' ') || undefined
+          )
         "
         :aria-invalid="error ? 'true' : attrs['aria-invalid']"
         :aria-labelledby="

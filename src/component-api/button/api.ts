@@ -6,9 +6,7 @@ export default {
     {
       description:
         "The accessible name. Required with `iconOnly`, for buttons without visible text.",
-      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "aria-label",
-      type: "string",
     },
     {
       default: '"button"',
@@ -25,7 +23,6 @@ export default {
       default: "false",
       description:
         'Disables the button. A link button drops its `href` and gets `aria-disabled="true"`.',
-      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "disabled",
     },
     {
@@ -44,9 +41,7 @@ export default {
       default: "false",
       description:
         "Marks the button as icon-only, so `aria-label` is required. Types only.",
-      frameworks: ["astro", "react", "svelte", "vue"],
       prop: "iconOnly",
-      type: "boolean",
     },
     {
       class: ".ui-round",

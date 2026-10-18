@@ -16,8 +16,8 @@ export default {
     {
       attribute: "[aria-label]",
       description: "Accessible name of the carousel.",
-      frameworks: ["astro", "html", "react", "svelte", "vue"],
       group: "Label",
+      inherited: true,
       prop: "aria-label",
       type: "string",
     },

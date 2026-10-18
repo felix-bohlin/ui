@@ -3,12 +3,12 @@
 </script>
 
 <List>
-  <ListItem type="switch" for="switch-example-1">
+  <ListItem type="switch">
     {#snippet text()}Switch 1{/snippet}
-    {#snippet end()}<SwitchInput id="switch-example-1" />{/snippet}
+    {#snippet end()}<SwitchInput />{/snippet}
   </ListItem>
-  <ListItem type="switch" for="switch-example-2">
+  <ListItem type="switch">
     {#snippet text()}Switch 2{/snippet}
-    {#snippet end()}<SwitchInput id="switch-example-2" />{/snippet}
+    {#snippet end()}<SwitchInput />{/snippet}
   </ListItem>
 </List>

@@ -127,7 +127,7 @@
         }
       }
 
-      &:where(:hover:active),
+      &:where(:active),
       &[aria-current="page"] {
         --_bg-color: var(--_default-active-bg-color);
       }

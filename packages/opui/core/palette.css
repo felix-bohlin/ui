@@ -34,7 +34,7 @@
     .ui-palette
   ) {
     --palette-source: oklch(
-      58% calc(0.21 * var(--palette-chroma, 1)) var(--palette-hue, 250)
+      58% calc(0.21 * var(--palette-chroma)) var(--palette-hue)
     );
 
     /* Colors */

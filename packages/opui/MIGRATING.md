@@ -537,7 +537,7 @@ Tooltips use `--surface-inverse` and `--text-inverse`, and tooltips with an arro
 
 `theme.css` is in the `theme.base` layer, and `layers.css` adds an empty `theme.brand` layer after it for your own tokens. Overrides in `@layer theme` keep working and now beat the defaults wherever they load. If you copied a complete `theme.css` from the Theme generator, replace it with a new `brand.css` from the generator: it only lists the tokens you changed, so it won't miss tokens added in later releases.
 
-`--button-border-radius` and `--field-border-radius` follow `--border-radius`. If you set `--border-radius` and want buttons and fields to keep their corners, set them back:
+`theme.css` no longer sets `--button-border-radius` and `--field-border-radius`, and buttons and fields follow `--border-radius` while they're unset, also where you set it on a part of the page. If your own styles read them, add the fallback: `var(--button-border-radius, var(--border-radius))`. If you set `--border-radius` and want buttons and fields to keep their corners, set them back:
 
 ```css
 @layer theme.brand {
@@ -550,7 +550,9 @@ Tooltips use `--surface-inverse` and `--text-inverse`, and tooltips with an arro
 
 `kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs and rounded `Avatar` never get rounder than `--border-radius`.
 
-The `Select` picker and `Drawer` use `--shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--shadow-raised` (`--shadow-4` in dark mode, was `--shadow-3`).
+Component padding, gaps and margins read `--space-1` to `--space-8` instead of the Open Props `--size-*` steps. The steps resolve on `html`, so overriding `--size-*` on a part of the page no longer changes the components in it. Set `--space-scale` on `html` to change the spacing everywhere, or a component's `--_` property to change one.
+
+The `Select` picker and `Drawer` use `--shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--shadow-raised` (`--shadow-raised-dark`, `--shadow-4`, in dark mode, was `--shadow-3`).
 
 `--primary` is `--color-9` in light mode and `--color-6` in dark mode, and `--primary-contrast` is derived from `--primary` with relative color. If you set your own `--primary`, its text color now follows it.
 
@@ -564,40 +566,41 @@ Links (`.ui-link` and rich text links) darken in light mode and lighten in dark 
 
 Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size` and `--_min-height` for sizes. Rename them where you set them:
 
-| Component                   | Old                                                                   | New                                                                |
-| --------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| Accordion                   | `--_transition`                                                       | `--_duration`                                                      |
-| Accordion                   | `--_svg-transition`                                                   | removed, the chevron uses `--_duration` and `--_ease`              |
-| Avatar                      | `--_color`                                                            | `--_text-color`                                                    |
-| Avatar                      | `--_width`                                                            | `--_size`                                                          |
-| Badge                       | `--_badge-inset-block`, `--_badge-inset-inline`                       | `--_inset-block`, `--_inset-inline`                                |
-| Button                      | `--_color`, `--_color-contrast`, `--_color-tonal`                     | `--_accent`, `--_accent-contrast`, `--_accent-tonal`               |
-| Callout                     | `--_color`                                                            | `--_text-color`                                                    |
-| Callout                     | `--_outlined-color`                                                   | `--_outlined-text-color`                                           |
-| Callout                     | `--_surface-bg`                                                       | `--_surface-bg-color`                                              |
-| Card                        | `--_card-bg-color`                                                    | `--_bg-color`                                                      |
-| Card                        | `--_card-border-color`                                                | `--_border-color`                                                  |
-| Card                        | `--_card-border-width`                                                | `--_border-width`                                                  |
-| Card                        | `--_card-shadow`                                                      | `--_shadow`                                                        |
-| Card                        | `--_border-color` (outlined border)                                   | `--_outlined-border-color`                                         |
-| Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`                      | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color` |
-| Chip                        | `--_color`                                                            | `--_text-color`                                                    |
-| Drawer                      | `--_color`                                                            | `--_text-color`                                                    |
-| Drawer                      | `--_transition-duration`, `--_transition-timing`                      | `--_duration`, `--_ease`                                           |
-| List, Menu                  | `--_bg-color-hover`                                                   | `--_hover-bg-color`                                                |
-| Menu                        | `--_transition-duration`                                              | `--_duration` (and `--_ease`)                                      |
-| Progress                    | `--_accent-color`                                                     | `--_accent`                                                        |
-| Range                       | `--_thumb-bg`                                                         | `--_thumb-bg-color`                                                |
-| Switch                      | `--_accent-color`                                                     | `--_accent`                                                        |
-| Switch                      | `--_transition-time`, `--_transition-tf`                              | `--_duration`, `--_ease`                                           |
-| Table                       | `--_table-border-radius`                                              | `--_border-radius`                                                 |
-| TextField, Textarea, Select | `--_accent-color`                                                     | `--_accent`                                                        |
-| TextField, Textarea, Select | `--_height`                                                           | `--_min-height`                                                    |
-| Toast                       | `--_anim-enter`, `--_anim-exit`                                       | `--_enter-duration`, `--_exit-duration`                            |
-| Toast                       | `--_duration` (hold time)                                             | `--_hold-duration`                                                 |
-| ToggleButton                | `--_button-bg-color`                                                  | `--_bg-color`                                                      |
-| Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`                                   | `--_bg-color`, `--_text-color`                                     |
-| Tooltip                     | `--_tooltip-min-inline-size`, `--_tooltip-offset`, `--_tooltip-shift` | `--_min-inline-size`, `--_offset`, `--_shift`                      |
+| Component                   | Old                                                                   | New                                                                                                  |
+| --------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Accordion                   | `--_transition`                                                       | `--_duration`                                                                                        |
+| Accordion                   | `--_svg-transition`                                                   | removed, the chevron uses `--_duration` and `--_ease`                                                |
+| Avatar                      | `--_color`                                                            | `--_text-color`                                                                                      |
+| Avatar                      | `--_width`                                                            | `--_size`                                                                                            |
+| Badge                       | `--_badge-inset-block`, `--_badge-inset-inline`                       | `--_inset-block`, `--_inset-inline`                                                                  |
+| Button                      | `--_color`, `--_color-contrast`, `--_color-tonal`                     | `--_accent`, `--_accent-contrast`, `--_accent-tonal`                                                 |
+| Callout                     | `--_color`                                                            | `--_text-color`                                                                                      |
+| Callout                     | `--_outlined-color`                                                   | `--_outlined-text-color`                                                                             |
+| Callout                     | `--_surface-bg`                                                       | `--_surface-bg-color`                                                                                |
+| Card                        | `--_card-bg-color`                                                    | `--_bg-color`                                                                                        |
+| Card                        | `--_card-border-color`                                                | `--_border-color`                                                                                    |
+| Card                        | `--_card-border-width`                                                | `--_border-width`                                                                                    |
+| Card                        | `--_card-shadow`                                                      | `--_shadow`                                                                                          |
+| Card                        | `--_border-color` (outlined border)                                   | `--_outlined-border-color`                                                                           |
+| Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`                      | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                   |
+| Card                        | `--_shadow-light`, `--_shadow-dark`                                   | removed, set `--shadow-raised-light` and `--shadow-raised-dark`, or `--_shadow-elevated` on the card |
+| Chip                        | `--_color`                                                            | `--_text-color`                                                                                      |
+| Drawer                      | `--_color`                                                            | `--_text-color`                                                                                      |
+| Drawer                      | `--_transition-duration`, `--_transition-timing`                      | `--_duration`, `--_ease`                                                                             |
+| List, Menu                  | `--_bg-color-hover`                                                   | `--_hover-bg-color`                                                                                  |
+| Menu                        | `--_transition-duration`                                              | `--_duration` (and `--_ease`)                                                                        |
+| Progress                    | `--_accent-color`                                                     | `--_accent`                                                                                          |
+| Range                       | `--_thumb-bg`                                                         | `--_thumb-bg-color`                                                                                  |
+| Switch                      | `--_accent-color`                                                     | `--_accent`                                                                                          |
+| Switch                      | `--_transition-time`, `--_transition-tf`                              | `--_duration`, `--_ease`                                                                             |
+| Table                       | `--_table-border-radius`                                              | `--_border-radius`                                                                                   |
+| TextField, Textarea, Select | `--_accent-color`                                                     | `--_accent`                                                                                          |
+| TextField, Textarea, Select | `--_height`                                                           | `--_min-height`                                                                                      |
+| Toast                       | `--_anim-enter`, `--_anim-exit`                                       | `--_enter-duration`, `--_exit-duration`                                                              |
+| Toast                       | `--_duration` (hold time)                                             | `--_hold-duration`                                                                                   |
+| ToggleButton                | `--_button-bg-color`                                                  | `--_bg-color`                                                                                        |
+| Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`                                   | `--_bg-color`, `--_text-color`                                                                       |
+| Tooltip                     | `--_tooltip-min-inline-size`, `--_tooltip-offset`, `--_tooltip-shift` | `--_min-inline-size`, `--_offset`, `--_shift`                                                        |
 
 `--info` and `--blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette, so info badges, toasts and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--blue` in your theme.
 

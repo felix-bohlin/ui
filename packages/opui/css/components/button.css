@@ -95,7 +95,7 @@
     --_font-size: var(--font-size-1);
     --_icon-size: 0.7lh;
     --_min-height: var(--button-size);
-    --_border-radius: var(--button-border-radius);
+    --_border-radius: var(--button-border-radius, var(--border-radius));
     --_padding-inline: 1.5ex;
     --_text-color: var(--_accent-text);
 

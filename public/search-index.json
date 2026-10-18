@@ -802,7 +802,7 @@
   {
     "id": "component-layout-html",
     "title": "Layout",
-    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on any element. Their gaps come from the --space-* scale, so they follow --space-scale.",
+    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component\n    they replace its own layout. Their gaps come from the --space-* scale, so they follow --space-scale.",
     "headings": "Flow Cluster Grid Gap Container",
     "category": "Component",
     "frameworkId": "html",
@@ -812,7 +812,7 @@
   {
     "id": "component-layout-astro",
     "title": "Layout",
-    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on any element. Their gaps come from the --space-* scale, so they follow --space-scale.",
+    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component\n    they replace its own layout. Their gaps come from the --space-* scale, so they follow --space-scale.",
     "headings": "Flow Cluster Grid Gap Container",
     "category": "Component",
     "frameworkId": "astro",
@@ -822,7 +822,7 @@
   {
     "id": "component-layout-react",
     "title": "Layout",
-    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on any element. Their gaps come from the --space-* scale, so they follow --space-scale.",
+    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component\n    they replace its own layout. Their gaps come from the --space-* scale, so they follow --space-scale.",
     "headings": "Flow Cluster Grid Gap Container",
     "category": "Component",
     "frameworkId": "react",
@@ -832,7 +832,7 @@
   {
     "id": "component-layout-svelte",
     "title": "Layout",
-    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on any element. Their gaps come from the --space-* scale, so they follow --space-scale.",
+    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component\n    they replace its own layout. Their gaps come from the --space-* scale, so they follow --space-scale.",
     "headings": "Flow Cluster Grid Gap Container",
     "category": "Component",
     "frameworkId": "svelte",
@@ -842,7 +842,7 @@
   {
     "id": "component-layout-vue",
     "title": "Layout",
-    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on any element. Their gaps come from the --space-* scale, so they follow --space-scale.",
+    "description": "Four classes for the space between components: .ui-flow,\n    .ui-cluster, .ui-grid and .ui-container. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component\n    they replace its own layout. Their gaps come from the --space-* scale, so they follow --space-scale.",
     "headings": "Flow Cluster Grid Gap Container",
     "category": "Component",
     "frameworkId": "vue",

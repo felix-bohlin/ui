@@ -19,7 +19,7 @@ A brand is a short list of [theme tokens](https://open-props-ui.netlify.app/astr
 }
 ```
 
-Load it after the library, or after `layers.css` when you import single files. The [Theme generator](https://open-props-ui.netlify.app/astro/guide/theme-generator.md) writes one for you, and [Theming](https://open-props-ui.netlify.app/astro/guide/theming.md) explains each token.
+Load it after the library, or after `layers.css` when you import single files. If it might load first, start it with the two `@layer` statements from `layers.css`, like the reference themes and the generated file do, so `theme.brand` still lands after the defaults. The [Theme generator](https://open-props-ui.netlify.app/astro/guide/theme-generator.md) writes one for you, and [Theming](https://open-props-ui.netlify.app/astro/guide/theming.md) explains each token.
 
 ### Reference themes
 

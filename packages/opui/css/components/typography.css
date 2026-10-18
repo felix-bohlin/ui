@@ -13,7 +13,7 @@
 
   :where(.ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
     color: var(--text-primary);
-    font-family: var(--font-heading);
+    font-family: var(--font-heading, var(--font-body));
     font-weight: var(--font-weight-bold);
     line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
     text-wrap: pretty;

@@ -23,7 +23,10 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
     Four classes for the space between components: <code>.ui-flow</code>,
     <code>.ui-cluster</code>, <code>.ui-grid</code> and <code
       >.ui-container</code
-    >. Put them on any element. Their gaps come from the <DocLink
+    >. Put them on wrapper elements, such as <code>div</code>, <code
+      >section</code
+    > or <code>ul</code>. They sit in the <code>utils</code> layer, so on a component
+    they replace its own layout. Their gaps come from the <DocLink
       href="/guide/theming#spacing"><code>--space-*</code> scale</DocLink
     >, so they follow <code>--space-scale</code>.
   </Fragment>

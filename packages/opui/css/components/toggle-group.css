@@ -2,7 +2,7 @@
   :where(.ui-toggle-group) {
     --_bg-color: var(--surface-default);
     --_border-color: var(--border-color);
-    --_border-radius: var(--button-border-radius);
+    --_border-radius: var(--button-border-radius, var(--border-radius));
 
     background-color: var(--_bg-color);
     border-radius: var(--_border-radius);

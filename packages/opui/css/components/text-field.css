@@ -30,7 +30,7 @@
     .ui-field {
       background-color: var(--_bg-color);
       border: var(--field-border-width) solid var(--_border-color);
-      border-radius: var(--field-border-radius);
+      border-radius: var(--field-border-radius, var(--border-radius));
       display: grid;
       grid-column: 1/-1;
       grid-row: 2;
@@ -164,7 +164,7 @@
           background-color: var(--surface-tonal);
           block-size: calc(100% - var(--size-2) * 2);
           border: none;
-          border-radius: var(--field-border-radius);
+          border-radius: var(--field-border-radius, var(--border-radius));
           cursor: pointer;
           margin-block-start: var(--size-2);
           margin-inline-end: 1ex;
@@ -178,7 +178,7 @@
           &::file-selector-button {
             background-color: var(--surface-default);
             block-size: calc(100% - var(--size-2) * 2);
-            border-radius: var(--field-border-radius);
+            border-radius: var(--field-border-radius, var(--border-radius));
             cursor: pointer;
             margin-block-start: var(--size-2);
           }

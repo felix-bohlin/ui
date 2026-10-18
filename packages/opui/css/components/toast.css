@@ -10,7 +10,7 @@
     inset-block: auto var(--space-4);
     inset-inline: auto var(--space-4);
     margin: 0;
-    max-inline-size: calc(100vi - var(--size-8));
+    max-inline-size: calc(100vi - 2 * var(--space-4));
     overflow: visible;
     padding: 0;
     pointer-events: none;

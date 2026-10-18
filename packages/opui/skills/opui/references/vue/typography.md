@@ -746,4 +746,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size.
 - [Links](#link) are documented, and get a thicker underline on hover.
 - [Rich text](#rich-text-showcase) tables scroll sideways in narrow columns instead of breaking words letter by letter.
-- Headings read [`--font-heading`](#api) and code, `kbd`, `samp` and `var` read `--font-code`. Rich text margins read the `--space-*` scale.
+- Headings read [`--font-heading`](#api), and code, `kbd`, `samp` and `.ui-var` read `--font-code`. Rich text margins read the `--space-*` scale.

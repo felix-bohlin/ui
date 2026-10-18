@@ -69,14 +69,14 @@
 
   :where(fieldset) {
     border: var(--field-border-width) solid var(--field-border-color);
-    border-radius: var(--field-border-radius);
+    border-radius: var(--field-border-radius, var(--border-radius));
     display: grid;
     gap: var(--space-3);
     padding: var(--space-3);
   }
 
   :where(h1, h2, h3, h4, h5, h6) {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading, var(--font-body));
   }
 
   :where(input, button, select, textarea),

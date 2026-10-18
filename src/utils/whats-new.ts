@@ -49,6 +49,7 @@ const whatsNew = {
       default: `<a href="#sizes">Sizes</a> with <code>size="x-small"</code>, <code>size="small"</code> and <code>size="large"</code>.`,
       html: `<a href="#sizes">Sizes</a> with <code>.ui-x-small</code>, <code>.ui-small</code> and <code>.ui-large</code>.`,
     },
+    `Rounded avatars never get rounder than <a href="#api"><code>--border-radius</code></a>, so <code>0</code> squares them.`,
   ],
   badge: [
     `Badges on round avatars sit on the avatar's edge (<a href="#alignment">Alignment</a>), and in an avatar group on the start side.`,
@@ -109,6 +110,7 @@ const whatsNew = {
       default: `Button links (<code>href</code>) get the group styles too, see <a href="#variants">Variants</a>.`,
       html: `<code>&lt;a class="ui-button"&gt;</code> links get the group styles too, see <a href="#variants">Variants</a>.`,
     },
+    `Corners follow <code>--border-radius</code> through <a href="#api"><code>--button-border-radius</code></a>, so one token squares or rounds every component.`,
   ],
   callout: [
     {
@@ -150,6 +152,7 @@ const whatsNew = {
     `<a href="#variants">Tonal and elevated</a> cards have a border in the page background color, so they stay visible on tonal surfaces.`,
     `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
     `Elevated cards use <a href="#api"><code>--shadow-raised</code></a>, and padding and gaps read the <code>--space-*</code> scale.`,
+    `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--shadow-raised-light</code> and <code>--shadow-raised-dark</code></a> in your theme, or <a href="#component-properties"><code>--_shadow-elevated</code></a> on the card.`,
   ],
   checkbox: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
@@ -167,6 +170,7 @@ const whatsNew = {
       svelte: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
       vue: `<code>size</code> takes <code>"x-small"</code>. <a href="#sizes">Sizes</a>`,
     },
+    `Corners never get rounder than <a href="#api"><code>--border-radius</code></a>, so <code>0</code> squares them.`,
   ],
   chip: [
     {
@@ -500,6 +504,7 @@ const whatsNew = {
       html: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>.ui-scrollable</code> or truncates with <code>.ui-shrink</code>.`,
     },
     `Breaking: no <code>.ui-disabled</code>. A <a href="#toggle-button">toggle</a> looks disabled when its input is <code>disabled</code>.`,
+    `Corners follow <code>--border-radius</code> through <a href="#api"><code>--button-border-radius</code></a>, so one token squares or rounds every component.`,
   ],
   tooltip: [
     {
@@ -515,6 +520,7 @@ const whatsNew = {
       vue: `Breaking: no <code>&lt;span interestfor&gt;</code> around the trigger. Put <code>interestfor</code> with the tooltip <code>id</code> on the <a href="#basics">trigger</a>.`,
     },
     `The <a href="#arrow">arrow</a> points at the trigger in every position, also after a flip.`,
+    `Corners never get rounder than <a href="#api"><code>--border-radius</code></a>, so <code>0</code> squares them.`,
   ],
   typography: [
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,
@@ -525,7 +531,7 @@ const whatsNew = {
     `<a href="#rich-text-showcase">Rich text</a> headings, <code>pre</code> and <code>small</code> scale with the surrounding font size.`,
     `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
     `<a href="#rich-text-showcase">Rich text</a> tables scroll sideways in narrow columns instead of breaking words letter by letter.`,
-    `Headings read <a href="#api"><code>--font-heading</code></a> and code, <code>kbd</code>, <code>samp</code> and <code>var</code> read <code>--font-code</code>. Rich text margins read the <code>--space-*</code> scale.`,
+    `Headings read <a href="#api"><code>--font-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--font-code</code>. Rich text margins read the <code>--space-*</code> scale.`,
   ],
 } satisfies Record<string, Note[]>
 

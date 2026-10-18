@@ -82,7 +82,7 @@ Like the control sizes, the steps resolve on `html`, so set `--space-scale` ther
 
 ## Corners
 
-`--border-radius` rounds every component. Cards, callouts, menus and dialogs read it directly, and `--button-border-radius` and `--field-border-radius` follow it. Small parts, such as `kbd`, tooltips and checkboxes, keep their smaller radius but never get rounder than `--border-radius`, so `0` squares everything.
+`--border-radius` rounds every component. Cards, callouts, menus and dialogs read it directly, and buttons and fields follow it until you set `--button-border-radius` or `--field-border-radius`. Small parts, such as `kbd`, tooltips and checkboxes, keep their smaller radius but never get rounder than `--border-radius`, so `0` squares everything. It works on a part of the page too.
 
 ```css
 :where(html) {
@@ -92,7 +92,7 @@ Like the control sizes, the steps resolve on `html`, so set `--space-scale` ther
 
 ## Fonts
 
-`--font-body` sets the text, fields and buttons, `--font-heading` the headings and the `.ui-h1` to `.ui-h6` classes, and `--font-code` `code`, `kbd`, `samp` and `var`. Headings follow the body font until you set their own.
+`--font-body` sets the text, fields and buttons, `--font-heading` the headings and the `.ui-h1` to `.ui-h6` classes, and `--font-code` code, `kbd` and `samp`. Headings follow the body font until you set their own, also where you set `--font-body` on a part of the page.
 
 ```css
 :where(html) {
@@ -104,12 +104,13 @@ Like the control sizes, the steps resolve on `html`, so set `--space-scale` ther
 
 ## Elevation
 
-Two shadows lift things off the page. `--shadow-raised` is for surfaces in the page, like elevated cards and accordions, and switches to a stronger shadow in dark mode. `--shadow-overlay` is for layers above it: menus, `select` pickers, drawers and toasts.
+Two shadows lift things off the page. `--shadow-raised` is for surfaces in the page, like elevated cards and accordions. It switches between `--shadow-raised-light` and `--shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page, so set those two. `--shadow-overlay` is for layers above the page: menus, `select` pickers, drawers and toasts.
 
 ```css
 :where(html) {
   --shadow-overlay: var(--shadow-4);
-  --shadow-raised: none;
+  --shadow-raised-dark: none;
+  --shadow-raised-light: none;
 }
 ```
 

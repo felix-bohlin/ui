@@ -42,7 +42,7 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 | Fonts                               | `--font-body`, `--font-heading`, `--font-code`                                                             |
 | Control height                      | `--density`                                                                                                |
 | Spacing in and between containers   | `--space-scale`                                                                                            |
-| Shadows                             | `--shadow-raised`, `--shadow-overlay`                                                                      |
+| Shadows                             | `--shadow-raised-light`, `--shadow-raised-dark`, `--shadow-overlay`                                        |
 | Space between components            | `.ui-flow`, `.ui-cluster`, `.ui-grid` and `.ui-container` (see `layout.md`), not your own flex or grid CSS |
 | Transitions                         | `--motion` (`0` turns them off), `--duration`, `--ease`                                                    |
 | One component's color               | `--_accent` on it, or `.ui-primary`/`.ui-critical`                                                         |
@@ -58,7 +58,7 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 }
 ```
 
-Reference brands ship in `opui-css/themes/` (`corporate.css`, `dense.css`, `editorial.css`), to import after the library or copy as a starting point.
+Reference brands ship in `opui-css/themes/` (`corporate.css`, `dense.css`, `editorial.css`), to import or copy as a starting point. They start with the layer order, so they work wherever they load. A brand file you write should load after the library, or start with the two `@layer` statements from `css/layers.css`.
 
 `references/tokens.json` lists every theme token with its CSS variable, default, dark mode value and description, in the W3C design tokens format.
 

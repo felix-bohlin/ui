@@ -26,7 +26,7 @@ for (const theme of THEMES) {
     test(`${component} works with the ${theme} theme`, async ({
       page,
     }, testInfo) => {
-      test.slow()
+      test.setTimeout(180_000)
       await openFixture(page, "html", component, `?theme=${theme}`)
       expect(
         await page.evaluate(() => document.documentElement.dataset.theme),

@@ -9,7 +9,7 @@
     background-color: var(--_bg-color);
     block-size: var(--_size);
     border: var(--border-width) solid var(--border-color);
-    border-radius: var(--button-border-radius);
+    border-radius: var(--button-border-radius, var(--border-radius));
     color: var(--text-primary);
     cursor: pointer;
     display: inline-flex;

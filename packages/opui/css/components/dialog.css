@@ -78,11 +78,13 @@
 
     .ui-actions {
       justify-content: end;
-      padding-inline: var(--space-3) var(--space-1);
+      padding-inline: var(--space-3)
+        max(0px, var(--space-3) - var(--size-3) + var(--size-1));
 
       &.ui-align-start {
         justify-content: start;
-        padding-inline: var(--space-1) var(--space-3);
+        padding-inline: max(0px, var(--space-3) - var(--size-3) + var(--size-1))
+          var(--space-3);
       }
     }
 

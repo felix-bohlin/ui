@@ -33,7 +33,7 @@
       /* Animation on-stage styles */
       background: transparent;
       border: 0;
-      border-radius: var(--field-border-radius);
+      border-radius: var(--field-border-radius, var(--border-radius));
       box-shadow: var(--shadow-overlay);
       opacity: 1;
       padding: 0;
@@ -76,7 +76,7 @@
     .ui-list {
       --_bg-color: var(--surface-filled);
       border: var(--field-border-width) solid var(--field-border-color);
-      border-radius: var(--field-border-radius);
+      border-radius: var(--field-border-radius, var(--border-radius));
 
       /* Groups */
       [role="group"] {

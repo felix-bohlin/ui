@@ -49,6 +49,8 @@
 - `Tooltip` in Astro and Vue takes `TooltipContent` instead of `label` and the `content` slot.
 - `Callout` in Astro and Vue takes parts instead of slots: `CalloutIcon` renders the severity icon, `CalloutContent` the content and `CalloutTitle` the title. The root no longer renders an icon or wraps its children in `.ui-content`, `headingLevel` is `level` on `CalloutTitle`, and a custom icon is an `svg` placed first in `Callout`.
 - `Drawer` in Astro and Vue takes parts instead of slots: `DrawerHeader`, `DrawerTitle`, `DrawerContent` and `DrawerFooter`. `DrawerTitle` replaces the `DrawerHeader` `heading` prop and names the drawer. The drawer no longer looks for a heading: without a `DrawerTitle`, pass `aria-label`. In Astro and Vue, `DrawerHeader` in a `Drawer` closes it with `command="close"` (Invoker Commands) instead of a click handler, so browsers without Invoker Commands need a polyfill.
+- `Card` no longer has `--_shadow-light` and `--_shadow-dark`. Set `--shadow-raised-light` and `--shadow-raised-dark` in your theme, or `--_shadow-elevated` on the card.
+- `theme.css` no longer sets `--button-border-radius` and `--field-border-radius`. Components fall back to `--border-radius` when they're unset. If your styles read them, add the fallback: `var(--button-border-radius, var(--border-radius))`.
 
 ### Removed
 
@@ -126,14 +128,14 @@
 - `DescriptionList` takes `inline` (`.ui-inline`), which keeps the term and the description side by side at any width.
 - `Chip` takes a `color` prop (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) that tints a tonal chip, and `dot` (`.ui-dot`) for a leading dot in that color. The dot is a diamond for critical, a triangle for warning and a ring for neutral, and stays visible in forced colors mode. On an outlined chip only the dot is colored.
 - `Divider` takes content in the middle of the line, text or any element, through the default slot (a `<div>` instead of the `<hr>`), or in HTML as a `<div class="ui-divider">` or `<p class="ui-divider">`. `align` (`.ui-align-start`, `.ui-align-end`) moves it to one side, and the lines follow the variant.
-- `theme.css` has font tokens: `--font-body` for text, fields and buttons, `--font-heading` for `h1`–`h6` and `.ui-h1`–`.ui-h6`, and `--font-code` for `code`, `kbd`, `samp` and `var`. `--font-heading` follows `--font-body`.
-- `theme.css` has a spacing scale, `--space-1` to `--space-8`, multiplied by `--space-scale`. `Accordion`, `Callout`, `Card`, `Carousel`, `DescriptionList`, `Dialog`, `Divider`, `Drawer`, `Form`, `Menu`, `Table`, `Toast`, `Tooltip` and `Typography` read it for their padding, gaps and margins. Controls keep following `--density`.
-- `theme.css` has elevation tokens: `--shadow-raised` for elevated `Card` and `Accordion` (`--shadow-4` in dark mode), and `--shadow-overlay` for `Menu`, the `Select` picker, `Drawer` and `Toast`.
+- `theme.css` has font tokens: `--font-body` for text, fields and buttons, `--font-heading` for `h1`–`h6` and `.ui-h1`–`.ui-h6`, and `--font-code` for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. `--font-heading` is unset and headings follow `--font-body` per element.
+- `theme.css` has a spacing scale, `--space-1` to `--space-8`, multiplied by `--space-scale`. `Accordion`, `Callout`, `Card`, `Carousel`, `DescriptionList`, `Dialog`, `Divider`, `Drawer`, `Form`, `Menu`, `Table`, `Toast`, `Tooltip` and `Typography` read it for their padding, gaps and margins, and so do native `fieldset`, `dt` and `figure` and `--divider-space`. Controls keep following `--density`.
+- `theme.css` has elevation tokens: `--shadow-raised` for elevated `Card` and `Accordion`, which switches between `--shadow-raised-light` (`--shadow-3`) and `--shadow-raised-dark` (`--shadow-4`) with the color scheme, and `--shadow-overlay` for `Menu`, the `Select` picker, `Drawer` and `Toast`.
 - `layers.css` declares the `theme.palette`, `theme.base` and `theme.brand` sublayers. `theme.brand` is empty, for your own tokens: it beats the defaults in `theme.base` and loses to every component and utility.
 - Every component page lists its `--_` custom properties under Component properties, as inputs to set or outputs that states derive, and so does each agent skill reference.
 - `tokens.json` lists every theme token in the W3C design tokens format, with its CSS variable, default, dark mode value and description. Import it from `opui-css/tokens.json`. The agent skill ships a copy and a table of which token to change for what.
-- `themes/corporate.css`, `themes/dense.css` and `themes/editorial.css` are reference brands in the `theme.brand` layer. Import one after the library, or copy it as a starting point.
-- `Layout` classes for the space between components: `.ui-flow` (a column), `.ui-cluster` (a wrapping row), `.ui-grid` (columns that fill the width without breakpoints) and `.ui-container` (a centered, capped width). Gaps come from the `--space-*` scale, with `.ui-x-small`, `.ui-small` and `.ui-large`. CSS only, in `css/components/layout.css`.
+- `themes/corporate.css`, `themes/dense.css` and `themes/editorial.css` are reference brands in the `theme.brand` layer. They start with the layer order, so they work wherever they load. Import one, or copy it as a starting point.
+- `Layout` classes for the space between components: `.ui-flow` (a column), `.ui-cluster` (a wrapping row), `.ui-grid` (columns that fill the width without breakpoints) and `.ui-container` (a centered, capped width). Gaps come from the `--space-*` scale, with `.ui-x-small`, `.ui-small` and `.ui-large`. CSS only, in `css/components/layout.css`, in the `utils` layer.
 
 ### Changed
 
@@ -204,13 +206,14 @@
 - `Toast` sits in the bottom inline-end corner and slides in from the inline end, so in right-to-left pages it shows at the bottom left.
 - `Accordion` actions line up with the content and the chevron, with the summary's block padding below them instead of a large gap above.
 - `Dialog` width is set with `--_max-inline-size` (`60ch` by default), and the dialog keeps its margin on small screens at any width.
-- `Button`, `ButtonGroup`, `ToggleButton`, `ToggleGroup` and the fields follow `--border-radius`: `--button-border-radius` and `--field-border-radius` default to it, so one token sets the corners of every component. Small radii (`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs and rounded `Avatar`) never get rounder than `--border-radius`.
+- `Button`, `ButtonGroup`, `ToggleButton`, `ToggleGroup` and the fields follow `--border-radius`, also where it's set on a part of the page, so one token sets the corners of every component. Small radii (`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs and rounded `Avatar`) never get rounder than `--border-radius`.
 - `Accordion` with `variant="elevated"` uses `--shadow-raised`, which is `--shadow-4` in dark mode like the elevated `Card` (was `--shadow-3`).
 - `Select` pickers and `Drawer` use `--shadow-overlay` (`--shadow-3`, was `--shadow-2`), like `Menu` and `Toast`.
 - `theme.css` is in the `theme.base` layer instead of `theme`, so overrides in `@layer theme` or `@layer theme.brand` beat the defaults wherever they load.
 
 ### Fixed
 
+- `Toast` keeps the same gutter on both sides of narrow screens.
 - `AccordionSummary` marks its default chevron `aria-hidden="true"`, so screen readers skip it.
 - `Checkbox`, `Radio`, `Switch` and `ToggleButton` style `aria-disabled="true"` on the input like `disabled`: dimmed, a `not-allowed` cursor and no hover tint on toggle buttons. The browser doesn't block the change, so a script has to.
 - `ToggleGroup` keeps its control size in forced colors instead of being one border width short, and the selected item no longer shows a gray divider there.

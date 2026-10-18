@@ -175,12 +175,12 @@ import Example from "../../components/Example/index"
     <h2 id="corners">Corners</h2>
     <p>
       <code>--border-radius</code> rounds every component. Cards, callouts, menus
-      and dialogs read it directly, and <code>--button-border-radius</code> and <code
-        >--field-border-radius</code
-      > follow it. Small parts, such as <code>kbd</code>, tooltips and
-      checkboxes, keep their smaller radius but never get rounder than <code
-        >--border-radius</code
-      >, so <code>0</code> squares everything.
+      and dialogs read it directly, and buttons and fields follow it until you set
+      <code>--button-border-radius</code> or <code>--field-border-radius</code>.
+      Small parts, such as <code>kbd</code>, tooltips and checkboxes, keep their
+      smaller radius but never get rounder than <code>--border-radius</code>, so <code
+        >0</code
+      > squares everything. It works on a part of the page too.
     </p>
     <Code
       code={`:where(html) {
@@ -196,9 +196,10 @@ import Example from "../../components/Example/index"
       <code>--font-body</code> sets the text, fields and buttons, <code
         >--font-heading</code
       > the headings and the <code>.ui-h1</code> to <code>.ui-h6</code> classes, and
-      <code>--font-code</code>
-      <code>code</code>, <code>kbd</code>, <code>samp</code> and <code>var</code
-      >. Headings follow the body font until you set their own.
+      <code>--font-code</code> code, <code>kbd</code> and <code>samp</code>.
+      Headings follow the body font until you set their own, also where you set <code
+        >--font-body</code
+      > on a part of the page.
     </p>
     <Code
       code={`:where(html) {
@@ -214,14 +215,20 @@ import Example from "../../components/Example/index"
     <h2 id="elevation">Elevation</h2>
     <p>
       Two shadows lift things off the page. <code>--shadow-raised</code> is for surfaces
-      in the page, like elevated cards and accordions, and switches to a stronger
-      shadow in dark mode. <code>--shadow-overlay</code> is for layers above it: menus,
-      <code>select</code> pickers, drawers and toasts.
+      in the page, like elevated cards and accordions. It switches between <code
+        >--shadow-raised-light</code
+      > and <code>--shadow-raised-dark</code> with the color scheme, also in <code
+        >.ui-light</code
+      > and <code>.ui-dark</code> parts of the page, so set those two. <code
+        >--shadow-overlay</code
+      > is for layers above the page: menus, <code>select</code> pickers, drawers
+      and toasts.
     </p>
     <Code
       code={`:where(html) {
   --shadow-overlay: var(--shadow-4);
-  --shadow-raised: none;
+  --shadow-raised-dark: none;
+  --shadow-raised-light: none;
 }`}
       lang="css"
     />

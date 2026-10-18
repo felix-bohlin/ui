@@ -1,6 +1,6 @@
 @layer components.extended {
   :where([role="group"].ui-button-group) {
-    --_border-radius: var(--button-border-radius);
+    --_border-radius: var(--button-border-radius, var(--border-radius));
     --_edge-color: transparent;
 
     border-radius: var(--_border-radius);

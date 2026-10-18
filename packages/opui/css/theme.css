@@ -2,14 +2,14 @@
   /* Color scheme */
   .ui-light {
     --color-scheme: light;
-    --shadow-raised: var(--shadow-3);
+    --shadow-raised: var(--shadow-raised-light);
 
     color-scheme: light;
   }
 
   .ui-dark {
     --color-scheme: dark;
-    --shadow-raised: var(--shadow-4);
+    --shadow-raised: var(--shadow-raised-dark);
 
     color-scheme: dark;
   }
@@ -127,7 +127,7 @@
     /* Typography */
     --font-body: var(--font-sans);
     --font-code: var(--font-mono);
-    --font-heading: var(--font-body);
+    /* --font-heading: var(--font-body); */
 
     --font-size-h1: var(--font-size-fluid-3);
     --font-size-h2: var(--font-size-fluid-2);
@@ -180,7 +180,7 @@
     --chip-size-large: var(--control-size);
 
     /* Field / input */
-    --field-border-radius: var(--border-radius);
+    /* --field-border-radius: var(--border-radius); */
     --field-border-width: 1px;
     --field-helper-color: var(--text-muted);
     --field-helper-font-size: var(--font-size-0);
@@ -191,10 +191,10 @@
     --field-required-color: var(--invalid-text-color);
 
     /* Button */
-    --button-border-radius: var(--border-radius);
+    /* --button-border-radius: var(--border-radius); */
 
     /* Divider */
-    --divider-space: var(--size-fluid-3);
+    --divider-space: calc(var(--size-fluid-3) * var(--space-scale));
 
     /* Motion */
     --duration-fast: 0.1s;
@@ -244,20 +244,18 @@
 
     /* Elevation */
     --shadow-overlay: var(--shadow-3);
-    --shadow-raised: var(--shadow-3);
+    --shadow-raised: var(--shadow-raised-light);
+    --shadow-raised-dark: var(--shadow-4);
+    --shadow-raised-light: var(--shadow-3);
 
     /* Overlays */
     --backdrop-blur: 1px;
     --backdrop-color: rgb(0 0 0 / 0.5);
   }
 
-  :where(html.ui-dark) {
-    --shadow-raised: var(--shadow-4);
-  }
-
   @media (prefers-color-scheme: dark) {
     :where(html:not(.ui-light)) {
-      --shadow-raised: var(--shadow-4);
+      --shadow-raised: var(--shadow-raised-dark);
     }
   }
 

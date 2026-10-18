@@ -1,3 +1,6 @@
+@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
+@layer theme.palette, theme.base, theme.brand;
+
 @layer theme.brand {
   :where(html) {
     --border-radius: var(--size-1);

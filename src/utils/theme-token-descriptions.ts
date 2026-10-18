@@ -6,10 +6,10 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--border-color":
     "Default border color for cards, lists, tables and dividers.",
   "--border-radius":
-    "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners.",
+    "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.",
   "--border-width": "Default border width for components that draw a border.",
   "--button-border-radius":
-    "Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. Follows `--border-radius`.",
+    "Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--border-radius`, also where it's set on a part of the page.",
   "--button-size": "Default `Button` height.",
   "--button-size-large": "`Button` height with `.ui-large`.",
   "--button-size-small": "`Button` height with `.ui-small`.",
@@ -39,7 +39,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Multiplier for the `--control-size*` scale. `0.875` is compact, `1.125` is comfortable. See [Density](/guide/theming#density).",
   "--disabled-opacity": "Opacity applied to disabled controls.",
   "--divider-space":
-    "Block margin around a `Divider`. Cards, callouts, dialogs and drawers set it to `--space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
+    "Block margin around a `Divider`, times `--space-scale`. Cards, callouts, dialogs and drawers set it to `--space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
   "--duration": "Default transition duration. Multiplied by `--motion`.",
   "--duration-fast": "Transition duration for hover and press feedback.",
   "--duration-slow":
@@ -50,7 +50,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--field-border-color":
     "Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.",
   "--field-border-radius":
-    "Corner radius for fields. Follows `--border-radius`.",
+    "Corner radius for fields. When unset, they follow `--border-radius`, also where it's set on a part of the page.",
   "--field-border-width":
     "Border width for fields, `Checkbox`, `Radio` and `Switch`.",
   "--field-helper-color": "Text color for helper and end text under a field.",
@@ -77,9 +77,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--font-body":
     "Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.",
   "--font-code":
-    "Font family for `code`, `kbd`, `samp` and `var`. Defaults to Open Props `--font-mono`.",
+    "Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.",
   "--font-heading":
-    "Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. Follows `--font-body`.",
+    "Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. When unset, headings follow `--font-body`.",
   "--font-size-05":
     "A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.",
   "--font-size-h1": "Font size for `h1` and `.ui-h1`.",
@@ -130,7 +130,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--shadow-overlay":
     "Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.",
   "--shadow-raised":
-    "Shadow of raised surfaces: elevated `Card` and `Accordion`. `--shadow-4` in dark mode.",
+    "Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--shadow-raised-light` and `--shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one.",
+  "--shadow-raised-dark": "`--shadow-raised` in dark mode.",
+  "--shadow-raised-light": "`--shadow-raised` in light mode.",
   "--space-1": "Spacing step 1: Open Props `--size-1` times `--space-scale`.",
   "--space-2": "Spacing step 2: Open Props `--size-2` times `--space-scale`.",
   "--space-3": "Spacing step 3: Open Props `--size-3` times `--space-scale`.",

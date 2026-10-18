@@ -1,6 +1,6 @@
 # Layout
 
-Four classes for the space between components: `.ui-flow`, `.ui-cluster`, `.ui-grid` and `.ui-container`. Put them on any element. Their gaps come from the [`--space-*` scale](https://open-props-ui.netlify.app/html/guide/theming.md#spacing), so they follow `--space-scale`.
+Four classes for the space between components: `.ui-flow`, `.ui-cluster`, `.ui-grid` and `.ui-container`. Put them on wrapper elements, such as `div`, `section` or `ul`. They sit in the `utils` layer, so on a component they replace its own layout. Their gaps come from the [`--space-*` scale](https://open-props-ui.netlify.app/html/guide/theming.md#spacing), so they follow `--space-scale`.
 
 ## Flow
 

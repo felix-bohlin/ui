@@ -52,16 +52,16 @@ import Code from "../../components/Code.astro"
 }
 
 .progress > progress[value]::-webkit-progress-value {
-  background-color: var(--primary);
+  background-color: var(--ui-primary);
 }
 
 .progress > progress::-moz-progress-bar {
-  background-color: var(--primary);
+  background-color: var(--ui-primary);
 }
 
 .progress:has(> progress:indeterminate)::after {
   animation: indeterminate 2s linear infinite;
-  background-color: var(--primary);
+  background-color: var(--ui-primary);
   content: "";
   inset-block: 0;
   position: absolute;

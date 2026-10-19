@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Fill and border of the checked input. From `--primary`, with its lightness capped in dark mode, and from `--invalid-color` when invalid.",
+      "Fill and border of the checked input. From `--ui-primary`, with its lightness capped in dark mode, and from `--ui-invalid-color` when invalid.",
     kind: "input",
   },
   "--_accent-contrast": {
@@ -11,16 +11,17 @@ export default {
     kind: "input",
   },
   "--_duration": {
-    description: "Duration of the transitions, `--duration` times `--_motion`.",
+    description:
+      "Duration of the transitions, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the transitions. Defaults to `--ease`.",
+    description: "Easing of the transitions. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_input-size": {
     description:
-      "Width and height of the checkbox and radio input, which the label centers on. Defaults to `--choice-size`, set by the size classes.",
+      "Width and height of the checkbox and radio input, which the label centers on. Defaults to `--ui-choice-size`, set by the size classes.",
     kind: "input",
   },
   "--_motion": {

@@ -22,29 +22,29 @@ import { themeTokens } from "./theme-tokens"
 export type Mode = "light" | "dark"
 
 export type Token =
-  | "--palette-hue"
-  | "--palette-chroma"
-  | "--palette-hue-rotate-by"
-  | "--gray-chroma"
-  | "--gray-hue"
-  | "--border-radius"
-  | "--field-border-radius"
-  | "--button-border-radius"
+  | "--ui-palette-hue"
+  | "--ui-palette-chroma"
+  | "--ui-palette-hue-rotate-by"
+  | "--ui-gray-chroma"
+  | "--ui-gray-hue"
+  | "--ui-border-radius"
+  | "--ui-field-border-radius"
+  | "--ui-button-border-radius"
 
 export const TOKENS = [
-  "--palette-hue",
-  "--palette-chroma",
-  "--palette-hue-rotate-by",
-  "--gray-chroma",
-  "--gray-hue",
-  "--border-radius",
-  "--field-border-radius",
-  "--button-border-radius",
+  "--ui-palette-hue",
+  "--ui-palette-chroma",
+  "--ui-palette-hue-rotate-by",
+  "--ui-gray-chroma",
+  "--ui-gray-hue",
+  "--ui-border-radius",
+  "--ui-field-border-radius",
+  "--ui-button-border-radius",
 ] as const satisfies readonly Token[]
 
 // Defaults must mirror what `packages/opui/css/theme.css` ships
 // so the configurators (drawer + generator) reflect the live site palette
-// before the user has tweaked anything. theme.css sets --palette-hue to
+// before the user has tweaked anything. theme.css sets --ui-palette-hue to
 // Open Props' --hue-green (145) in light mode and --hue-blue (240) in dark.
 const HUES = Object.fromEntries(
   [...huesSource.matchAll(/(--hue-[\w-]+):\s*([\d.]+)/g)].map(
@@ -91,9 +91,9 @@ export const RADIUS_OPTIONS = [
 ]
 
 export const radiusOptions = (token: Token) =>
-  token === "--border-radius"
+  token === "--ui-border-radius"
     ? RADIUS_OPTIONS
-    : [{ text: "Auto", value: "var(--border-radius)" }, ...RADIUS_OPTIONS]
+    : [{ text: "Auto", value: "var(--ui-border-radius)" }, ...RADIUS_OPTIONS]
 
 export type ModeConfig = Partial<Record<Token, string>> & {
   "enable-grays"?: "true" | "false"

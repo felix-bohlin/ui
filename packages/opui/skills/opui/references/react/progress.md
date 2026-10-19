@@ -73,17 +73,17 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 #### CSS variables
 
-| Variable           | Default                                      | Description                                                                                                                                                                                                                      |
-| ------------------ | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
-| `--border-radius`  | `var(--size-2)`                              | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--border-width`   | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--duration`       | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
-| `--ease-enter`     | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                                                                                                                         |
-| `--motion`         | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion).                        |
-| `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                                                     |
-| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
-| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                                                    |
+| Variable              | Default                                            | Description                                                                                                                                                                                                                      |
+| --------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`   | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
+| `--ui-border-radius`  | `var(--size-2)`                                    | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-border-width`   | `1px`                                              | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--ui-duration`       | `0.2s`                                             | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                        |
+| `--ui-ease-enter`     | `var(--ease-out-3)`                                | Easing for elements entering the screen.                                                                                                                                                                                         |
+| `--ui-motion`         | `1`                                                | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion).                        |
+| `--ui-primary`        | `light-dark(var(--ui-color-9), var(--ui-color-6))` | Brand color for primary actions and accents.                                                                                                                                                                                     |
+| `--ui-surface-filled` | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
+| `--ui-surface-tonal`  | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`  | Background of tonal variants.                                                                                                                                                                                                    |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
@@ -95,10 +95,10 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property      | Kind   | Description                                                                 |
 | ------------- | ------ | --------------------------------------------------------------------------- |
-| `--_accent`   | Input  | Color of the bar. Defaults to `--primary`.                                  |
+| `--_accent`   | Input  | Color of the bar. Defaults to `--ui-primary`.                               |
 | `--_bg-color` | Input  | Color of the track. Set by `.ui-filled` and `.ui-tonal`.                    |
-| `--_duration` | Output | Duration of the value transition, `--duration` times `--_motion`.           |
-| `--_ease`     | Input  | Easing of the value transition. Defaults to `--ease-enter`.                 |
+| `--_duration` | Output | Duration of the value transition, `--ui-duration` times `--_motion`.        |
+| `--_ease`     | Input  | Easing of the value transition. Defaults to `--ui-ease-enter`.              |
 | `--_motion`   | Input  | Motion multiplier for the value transition and the indeterminate animation. |
 
 ## Under the hood
@@ -132,10 +132,10 @@ Read the post: [Styling the native progress bar](https://open-props-ui.netlify.a
 
 5. Reduced motion
 
-   - `--motion` is `0` under reduced motion and with `.ui-motion-off`
+   - `--ui-motion` is `0` under reduced motion and with `.ui-motion-off`
    - A style query swaps the slide for an opacity pulse: still busy, nothing moves
-   - Scaling the slide by `--motion` alone would give `0s` and freeze the bar
-   - This step sets `--motion: 0` on the demo
+   - Scaling the slide by `--ui-motion` alone would give `0s` and freeze the bar
+   - This step sets `--ui-motion: 0` on the demo
 
 Step 1 of 5: Native
 
@@ -157,7 +157,7 @@ Step 2 of 5: Track
 
 ```css
 .progress {
-  background-color: var(--surface-tonal);
+  background-color: var(--ui-surface-tonal);
   block-size: 0.25rem;
   border-radius: var(--radius-2);
   display: inline-block;
@@ -184,12 +184,12 @@ Step 3 of 5: Value
 
 ```css
 .progress > progress[value]::-webkit-progress-value {
-  background-color: var(--primary);
-  transition: inline-size calc(0.2s * var(--motion, 1)) ease-out;
+  background-color: var(--ui-primary);
+  transition: inline-size calc(0.2s * var(--ui-motion, 1)) ease-out;
 }
 
 .progress > progress::-moz-progress-bar {
-  background-color: var(--primary);
+  background-color: var(--ui-primary);
 }
 ```
 
@@ -201,8 +201,8 @@ Step 4 of 5: Indeterminate
 
 ```css
 .progress:has(> progress:indeterminate)::after {
-  animation: build-progress-slide calc(2s * var(--motion, 1)) linear infinite;
-  background-color: var(--primary);
+  animation: build-progress-slide calc(2s * var(--ui-motion, 1)) linear infinite;
+  background-color: var(--ui-primary);
   content: "";
   inset-block: 0;
   position: absolute;
@@ -223,11 +223,11 @@ Step 5 of 5: Reduced motion
 
 ```css
 .stack {
-  --motion: 0;
+  --ui-motion: 0;
 }
 
 .progress:has(> progress:indeterminate) {
-  @container style(--motion: 0) {
+  @container style(--ui-motion: 0) {
     &::after {
       animation: build-progress-pulse 2s ease-in-out infinite;
       inset-inline: 0;

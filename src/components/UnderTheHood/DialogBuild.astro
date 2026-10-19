@@ -6,8 +6,8 @@ const steps = [
   {
     css: `
 .dialog {
-  background-color: var(--surface-elevated);
-  border: 1px solid var(--surface-default);
+  background-color: var(--ui-surface-elevated);
+  border: 1px solid var(--ui-surface-default);
   border-radius: var(--radius-3);
   box-shadow: var(--shadow-3);
   color: inherit;
@@ -127,8 +127,8 @@ const steps = [
   {
     css: `
 .dialog::backdrop {
-  backdrop-filter: blur(var(--backdrop-blur));
-  background-color: var(--backdrop-color);
+  backdrop-filter: blur(var(--ui-backdrop-blur));
+  background-color: var(--ui-backdrop-color);
 }
 
 html:has(.dialog:modal) {

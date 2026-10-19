@@ -1,20 +1,20 @@
 @layer components.root {
   :where(.ui-chip) {
-    --_bg-color: var(--surface-tonal);
-    --_border-color: var(--border-color);
+    --_bg-color: var(--ui-surface-tonal);
+    --_border-color: var(--ui-border-color);
     --_dot-color: currentColor;
     --_font-size: var(--font-size-0);
     --_icon-padding-inline: var(--size-1);
-    --_icon-size: var(--icon-size-small);
+    --_icon-size: var(--ui-icon-size-small);
     --_padding-inline: var(--size-2);
-    --_size: var(--chip-size);
-    --_text-color: var(--text-primary);
+    --_size: var(--ui-chip-size);
+    --_text-color: var(--ui-text-primary);
 
     align-items: center;
     background-color: var(--_bg-color);
     block-size: var(--_size);
-    border: var(--border-width) solid var(--_border-color);
-    border-radius: var(--border-radius);
+    border: var(--ui-border-width) solid var(--_border-color);
+    border-radius: var(--ui-border-radius);
     color: var(--_text-color);
     display: inline-flex;
     font-size: var(--_font-size);
@@ -32,21 +32,21 @@
 
     /* Variants */
     &.ui-tonal {
-      --_bg-color: var(--surface-tonal);
-      --_text-color: var(--text-primary);
+      --_bg-color: var(--ui-surface-tonal);
+      --_text-color: var(--ui-text-primary);
     }
 
     &.ui-outlined {
-      --_bg-color: var(--surface-default);
-      --_text-color: var(--text-primary);
+      --_bg-color: var(--ui-surface-default);
+      --_text-color: var(--ui-text-primary);
     }
 
     &:where(button, a):where(:not(:disabled, [aria-disabled="true"])) {
       @media (hover: hover) {
         &:hover {
           --_bg-color: light-dark(
-            oklch(from var(--surface-tonal) calc(l * 0.98) c h),
-            oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+            oklch(from var(--ui-surface-tonal) calc(l * 0.98) c h),
+            oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
           );
         }
       }
@@ -86,23 +86,23 @@
     }
 
     &.ui-critical {
-      --_accent: var(--critical);
+      --_accent: var(--ui-critical);
     }
 
     &.ui-info {
-      --_accent: var(--info);
+      --_accent: var(--ui-info);
     }
 
     &.ui-neutral {
-      --_accent: var(--neutral);
+      --_accent: var(--ui-neutral);
     }
 
     &.ui-success {
-      --_accent: var(--success);
+      --_accent: var(--ui-success);
     }
 
     &.ui-warning {
-      --_accent: var(--warning);
+      --_accent: var(--ui-warning);
     }
 
     &.ui-dot::before {
@@ -156,19 +156,19 @@
 
     /* Sizes */
     &.ui-x-small {
-      --_size: var(--chip-size-x-small);
+      --_size: var(--ui-chip-size-x-small);
     }
 
     &.ui-small {
-      --_size: var(--chip-size-small);
+      --_size: var(--ui-chip-size-small);
     }
 
     &.ui-large {
-      --_font-size: var(--font-size-05);
+      --_font-size: var(--ui-font-size-05);
       --_icon-padding-inline: var(--size-2);
-      --_icon-size: var(--icon-size);
+      --_icon-size: var(--ui-icon-size);
       --_padding-inline: var(--size-3);
-      --_size: var(--chip-size-large);
+      --_size: var(--ui-chip-size-large);
     }
 
     &.ui-multiline {
@@ -177,20 +177,20 @@
 
     /* Disabled */
     &:is([disabled], [aria-disabled="true"]) {
-      --_text-color: var(--text-disabled);
+      --_text-color: var(--ui-text-disabled);
 
       cursor: not-allowed;
-      opacity: var(--disabled-opacity);
+      opacity: var(--ui-disabled-opacity);
     }
 
     &.ui-disabled:not(a, button) {
-      --_text-color: var(--text-primary);
+      --_text-color: var(--ui-text-primary);
 
       cursor: auto;
-      opacity: var(--disabled-opacity);
+      opacity: var(--ui-disabled-opacity);
 
-      @container style(--contrast: more) {
-        --_text-color: var(--text-muted);
+      @container style(--ui-contrast: more) {
+        --_text-color: var(--ui-text-muted);
 
         opacity: 1;
       }

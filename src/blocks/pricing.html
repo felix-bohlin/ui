@@ -34,11 +34,11 @@
 
     .pricing-save {
       color: light-dark(
-        oklch(from var(--success) 0.45 c h),
-        oklch(from var(--success) 0.8 c h)
+        oklch(from var(--ui-success) 0.45 c h),
+        oklch(from var(--ui-success) 0.8 c h)
       );
       font-size: var(--font-size-1);
-      font-weight: var(--font-weight-medium);
+      font-weight: var(--ui-font-weight-medium);
     }
 
     .pricing-plans {
@@ -58,7 +58,7 @@
       block-size: 100%;
 
       &.pricing-featured {
-        outline: var(--border-size-2) solid var(--primary);
+        outline: var(--border-size-2) solid var(--ui-primary);
         outline-offset: calc(-1 * var(--border-size-2));
       }
 
@@ -83,12 +83,12 @@
     .pricing-amount {
       font-size: var(--font-size-6);
       font-variant-numeric: tabular-nums;
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--ui-font-weight-bold);
       line-height: 1;
     }
 
     .pricing-unit {
-      color: var(--text-muted);
+      color: var(--ui-text-muted);
       font-size: var(--font-size-1);
     }
 
@@ -115,8 +115,8 @@
     .pricing-check,
     .pricing-features li::before {
       background-color: light-dark(
-        oklch(from var(--success) 0.45 c h),
-        oklch(from var(--success) 0.8 c h)
+        oklch(from var(--ui-success) 0.45 c h),
+        oklch(from var(--ui-success) 0.8 c h)
       );
       block-size: var(--size-4);
       content: "";
@@ -128,7 +128,7 @@
     }
 
     .pricing-dash {
-      color: var(--text-muted);
+      color: var(--ui-text-muted);
     }
 
     .pricing-compare {

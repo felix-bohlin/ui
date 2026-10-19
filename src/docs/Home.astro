@@ -109,34 +109,38 @@ const FRAMEWORK_BRANDING: Record<
         const mode = themeStore.getActiveSiteMode()
         if (hex === "default") {
           const defaults = tokenDefaults(mode)
-          themeStore.setToken(mode, "--palette-hue", defaults["--palette-hue"])
           themeStore.setToken(
             mode,
-            "--palette-chroma",
-            defaults["--palette-chroma"],
+            "--ui-palette-hue",
+            defaults["--ui-palette-hue"],
+          )
+          themeStore.setToken(
+            mode,
+            "--ui-palette-chroma",
+            defaults["--ui-palette-chroma"],
           )
           return
         }
         const { H } = hexToOklch(hex)
         const hue = String(Math.round(H))
         const chroma = String(0.5)
-        themeStore.setToken(mode, "--palette-hue", hue)
-        themeStore.setToken(mode, "--palette-chroma", chroma)
+        themeStore.setToken(mode, "--ui-palette-hue", hue)
+        themeStore.setToken(mode, "--ui-palette-chroma", chroma)
       })
     })
 </script>
 
 <style is:global>
   html {
-    --surface-default: light-dark(var(--color-1), var(--color-14));
-    --surface-filled: light-dark(var(--color-3), var(--color-16));
-    --surface-tonal: light-dark(var(--color-3), var(--color-12));
-    --surface-elevated: light-dark(var(--color-1), var(--color-12));
-    --border-color: light-dark(var(--color-4), var(--color-12));
+    --ui-surface-default: light-dark(var(--ui-color-1), var(--ui-color-14));
+    --ui-surface-filled: light-dark(var(--ui-color-3), var(--ui-color-16));
+    --ui-surface-tonal: light-dark(var(--ui-color-3), var(--ui-color-12));
+    --ui-surface-elevated: light-dark(var(--ui-color-1), var(--ui-color-12));
+    --ui-border-color: light-dark(var(--ui-color-4), var(--ui-color-12));
 
     &:before {
       background-image: radial-gradient(
-        var(--text-muted) 1.4500000000000002px,
+        var(--ui-text-muted) 1.4500000000000002px,
         transparent 1.4500000000000002px
       );
       background-size: 20px 20px;
@@ -169,7 +173,7 @@ const FRAMEWORK_BRANDING: Record<
 
   .framework-support {
     align-items: center;
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     display: flex;
     flex-wrap: wrap;
     font-size: var(--font-size-0);
@@ -195,7 +199,7 @@ const FRAMEWORK_BRANDING: Record<
     &:before {
       background: radial-gradient(
         100% 100% at 50% 0%,
-        var(--primary),
+        var(--ui-primary),
         transparent
       );
       content: "";

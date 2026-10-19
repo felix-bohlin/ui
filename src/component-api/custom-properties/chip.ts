@@ -39,7 +39,7 @@ export default {
   },
   "--_size": {
     description:
-      "The height. Defaults to `--chip-size`, set by the size classes.",
+      "The height. Defaults to `--ui-chip-size`, set by the size classes.",
     kind: "input",
   },
   "--_text-color": {

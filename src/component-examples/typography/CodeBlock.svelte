@@ -1,6 +1,6 @@
 <script lang="ts">
   const code = `.ui-card {
-  background: var(--surface-elevated);
+  background: var(--ui-surface-elevated);
   border-radius: var(--radius-3);
   padding: var(--size-4);
 }`

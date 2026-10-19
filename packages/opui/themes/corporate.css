@@ -3,13 +3,13 @@
 
 @layer theme.custom {
   :where(html) {
-    --border-radius: var(--size-1);
-    --gray-chroma: 0.02;
-    --gray-hue: 250;
-    --palette-chroma: 0.35;
-    --palette-hue: 255;
-    --shadow-overlay: var(--shadow-2);
-    --shadow-raised-dark: var(--shadow-2);
-    --shadow-raised-light: var(--shadow-1);
+    --ui-border-radius: var(--size-1);
+    --ui-gray-chroma: 0.02;
+    --ui-gray-hue: 250;
+    --ui-palette-chroma: 0.35;
+    --ui-palette-hue: 255;
+    --ui-shadow-overlay: var(--shadow-2);
+    --ui-shadow-raised-dark: var(--shadow-2);
+    --ui-shadow-raised-light: var(--shadow-1);
   }
 }

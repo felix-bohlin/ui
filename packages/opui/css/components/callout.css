@@ -1,25 +1,26 @@
 @layer components.root {
   :where(.ui-callout) {
-    --_bg-color: var(--surface-tonal);
-    --_border-color: var(--surface-tonal);
-    --_border-radius: var(--border-radius);
-    --_content-gap: var(--space-2);
-    --_font-size: var(--font-size-05);
-    --_gap: var(--space-3);
+    --_bg-color: var(--ui-surface-tonal);
+    --_border-color: var(--ui-surface-tonal);
+    --_border-radius: var(--ui-border-radius);
+    --_content-gap: var(--ui-space-2);
+    --_font-size: var(--ui-font-size-05);
+    --_gap: var(--ui-space-3);
     --_icon-color: currentColor;
-    --_icon-size: var(--icon-size);
-    --_link-hover-color: var(--primary);
-    --_outlined-bg-color: var(--surface-default);
-    --_outlined-border-color: var(--border-color);
+    --_icon-size: var(--ui-icon-size);
+    --_link-hover-color: var(--ui-primary);
+    --_outlined-bg-color: var(--ui-surface-default);
+    --_outlined-border-color: var(--ui-border-color);
     --_outlined-icon-color: currentColor;
-    --_outlined-text-color: var(--text-primary);
-    --_padding: var(--space-3);
-    --_surface-bg-color: var(--surface-default);
-    --_text-color: var(--text-primary);
+    --_outlined-text-color: var(--ui-text-primary);
+    --_padding: var(--ui-space-3);
+    --_surface-bg-color: var(--ui-surface-default);
+    --_text-color: var(--ui-text-primary);
     --_title-font-size: var(--font-size-1);
 
     background-color: var(--_surface-bg-color);
-    border: var(--border-width) solid var(--_border-color, var(--border-color));
+    border: var(--ui-border-width) solid
+      var(--_border-color, var(--ui-border-color));
     border-radius: var(--_border-radius);
     color: var(--_text-color);
     isolation: isolate;
@@ -32,16 +33,16 @@
     &.ui-success,
     &.ui-warning {
       --_bg-color: light-dark(
-        oklch(from var(--color-2) l c h / 20%),
-        oklch(from var(--color-6) l c h / 5%)
+        oklch(from var(--ui-color-2) l c h / 20%),
+        oklch(from var(--ui-color-6) l c h / 5%)
       );
-      --_border-color: light-dark(var(--color-5), var(--color-11));
-      --_icon-color: var(--color-9);
-      --_outlined-bg-color: var(--surface-default);
-      --_outlined-border-color: var(--color-9);
-      --_outlined-icon-color: var(--color-9);
-      --_outlined-text-color: light-dark(var(--color-15), var(--color-1));
-      --_text-color: light-dark(var(--color-16), var(--color-1));
+      --_border-color: light-dark(var(--ui-color-5), var(--ui-color-11));
+      --_icon-color: var(--ui-color-9);
+      --_outlined-bg-color: var(--ui-surface-default);
+      --_outlined-border-color: var(--ui-color-9);
+      --_outlined-icon-color: var(--ui-color-9);
+      --_outlined-text-color: light-dark(var(--ui-color-15), var(--ui-color-1));
+      --_text-color: light-dark(var(--ui-color-16), var(--ui-color-1));
     }
 
     &.ui-outlined {
@@ -55,7 +56,7 @@
       background-color: var(--_bg-color);
       border-radius: max(
         0px,
-        calc(var(--_border-radius) - var(--border-width))
+        calc(var(--_border-radius) - var(--ui-border-width))
       );
       content: "";
       inset: 0;
@@ -80,7 +81,7 @@
       h6 {
         color: inherit;
         font-size: var(--_title-font-size);
-        font-weight: var(--font-weight-semibold);
+        font-weight: var(--ui-font-weight-semibold);
 
         * {
           font-size: inherit;

@@ -41,8 +41,8 @@
 
     .data-table-bulk {
       align-items: center;
-      border: var(--border-width) solid var(--border-color);
-      border-radius: var(--border-radius);
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-border-radius);
       display: flex;
       flex-wrap: wrap;
       gap: var(--size-2);
@@ -51,7 +51,7 @@
 
       p {
         font-size: var(--font-size-1);
-        font-weight: var(--font-weight-semibold);
+        font-weight: var(--ui-font-weight-semibold);
       }
 
       div {
@@ -75,7 +75,7 @@
     }
 
     tbody tr:has(:checked) > * {
-      background-color: oklch(from var(--primary) l c h / 8%);
+      background-color: oklch(from var(--ui-primary) l c h / 8%);
     }
 
     .data-table-customer {
@@ -90,7 +90,7 @@
     }
 
     .data-table-person {
-      font-weight: var(--font-weight-medium);
+      font-weight: var(--ui-font-weight-medium);
     }
 
     .data-table-number {
@@ -115,7 +115,7 @@
       justify-content: space-between;
 
       p {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         font-size: var(--font-size-1);
       }
     }

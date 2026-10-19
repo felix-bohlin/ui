@@ -15,7 +15,7 @@ export default function Anchor({
   const isHover = trigger === "hover"
   const id = isHover ? idProp : undefined
   const positionArea = alignment
-    ? { "--anchor-position-area": alignment }
+    ? { "--ui-anchor-position-area": alignment }
     : undefined
 
   return (

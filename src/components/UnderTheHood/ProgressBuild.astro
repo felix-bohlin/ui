@@ -23,7 +23,7 @@ const steps = [
   {
     css: `
 .progress {
-  background-color: var(--surface-tonal);
+  background-color: var(--ui-surface-tonal);
   block-size: 0.25rem;
   border-radius: var(--radius-2);
   display: inline-block;
@@ -55,12 +55,12 @@ const steps = [
   {
     css: `
 .progress > progress[value]::-webkit-progress-value {
-  background-color: var(--primary);
-  transition: inline-size calc(0.2s * var(--motion, 1)) ease-out;
+  background-color: var(--ui-primary);
+  transition: inline-size calc(0.2s * var(--ui-motion, 1)) ease-out;
 }
 
 .progress > progress::-moz-progress-bar {
-  background-color: var(--primary);
+  background-color: var(--ui-primary);
 }`,
     notes: [
       "Chromium and Safari: <code>::-webkit-progress-value</code>, Firefox: <code>::-moz-progress-bar</code>",
@@ -72,8 +72,8 @@ const steps = [
   {
     css: `
 .progress:has(> progress:indeterminate)::after {
-  animation: build-progress-slide calc(2s * var(--motion, 1)) linear infinite;
-  background-color: var(--primary);
+  animation: build-progress-slide calc(2s * var(--ui-motion, 1)) linear infinite;
+  background-color: var(--ui-primary);
   content: "";
   inset-block: 0;
   position: absolute;
@@ -97,11 +97,11 @@ const steps = [
   {
     css: `
 .stack {
-  --motion: 0;
+  --ui-motion: 0;
 }
 
 .progress:has(> progress:indeterminate) {
-  @container style(--motion: 0) {
+  @container style(--ui-motion: 0) {
     &::after {
       animation: build-progress-pulse 2s ease-in-out infinite;
       inset-inline: 0;
@@ -110,10 +110,10 @@ const steps = [
 }`,
     features: ["container-style-queries"],
     notes: [
-      "<code>--motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
+      "<code>--ui-motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
       "A style query swaps the slide for an opacity pulse: still busy, nothing moves",
-      "Scaling the slide by <code>--motion</code> alone would give <code>0s</code> and freeze the bar",
-      "This step sets <code>--motion: 0</code> on the demo",
+      "Scaling the slide by <code>--ui-motion</code> alone would give <code>0s</code> and freeze the bar",
+      "This step sets <code>--ui-motion: 0</code> on the demo",
     ],
     title: "Reduced motion",
   },

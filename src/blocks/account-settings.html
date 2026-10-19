@@ -4,7 +4,7 @@
 
     .acct-header {
       align-items: center;
-      border-block-end: var(--border-width) solid var(--border-color);
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       display: flex;
       gap: var(--size-3);
       padding: var(--size-3) var(--size-4);
@@ -16,15 +16,15 @@
 
     .acct-brand {
       align-items: center;
-      color: var(--text-primary);
+      color: var(--ui-text-primary);
       display: flex;
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--ui-font-weight-bold);
       gap: var(--size-2);
       text-decoration: none;
 
       svg {
         block-size: var(--size-5);
-        color: var(--primary);
+        color: var(--ui-primary);
         inline-size: var(--size-5);
       }
     }
@@ -78,8 +78,8 @@
 
     .acct-verified {
       color: light-dark(
-        oklch(from var(--success) 0.45 c h),
-        oklch(from var(--success) 0.8 c h)
+        oklch(from var(--ui-success) 0.45 c h),
+        oklch(from var(--ui-success) 0.8 c h)
       );
     }
 
@@ -89,8 +89,8 @@
 
     .acct-danger {
       border-color: light-dark(
-        oklch(from var(--critical) 0.6 c h),
-        oklch(from var(--critical) 0.5 c h)
+        oklch(from var(--ui-critical) 0.6 c h),
+        oklch(from var(--ui-critical) 0.5 c h)
       );
 
       .ui-content {

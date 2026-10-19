@@ -35,8 +35,8 @@ import Example from "../../components/Example/index"
           >theme.palette</code
         > is <code>palette.css</code>, <code>theme.base</code> is <code
           >theme.css</code
-        >, the colors and component tokens like <code>--primary</code> and <code
-          >--button-size</code
+        >, the colors and component tokens like <code>--ui-primary</code> and <code
+          >--ui-button-size</code
         >, and <code>theme.custom</code> is empty, for your own theme. See <DocLink
           href="/guide/customizing#your-theme">Your theme</DocLink
         >.
@@ -116,8 +116,8 @@ import Example from "../../components/Example/index"
     <h2 id="palette-scopes">Palette scopes</h2>
     <p>
       Every color in OPUI comes from one palette: 16 shades of one color, from
-      almost white (<code>--color-1</code>) to almost black (<code
-        >--color-16</code
+      almost white (<code>--ui-color-1</code>) to almost black (<code
+        >--ui-color-16</code
       >). Components pick their fills, borders and text from those shades.
     </p>
     <p>
@@ -125,7 +125,7 @@ import Example from "../../components/Example/index"
       {" "}<code>.ui-critical</code> turns it red, <code>.ui-info</code> blue,
       {" "}<code>.ui-success</code> green, <code>.ui-warning</code> orange and
       {" "}<code>.ui-neutral</code> gray. The shades follow, so one class gives a
-      Callout and a tonal Button the same red. <code>--primary</code> and the text
+      Callout and a tonal Button the same red. <code>--ui-primary</code> and the text
       colors stay as they are.
     </p>
     <Example centered>
@@ -139,9 +139,9 @@ import Example from "../../components/Example/index"
     <p>
       Want another brand color in one part of the page? Put <code
         >.ui-palette</code
-      > on it and set your own <code>--palette-hue</code>. It builds a new
-      palette there and recolors <code>--primary</code> and the intent colors too.
-      The grays keep <code>--gray-hue</code>. <DocLink
+      > on it and set your own <code>--ui-palette-hue</code>. It builds a new
+      palette there and recolors <code>--ui-primary</code> and the intent colors too.
+      The grays keep <code>--ui-gray-hue</code>. <DocLink
         href="/guide/theming#scopes">Theming</DocLink
       > has the details.
     </p>
@@ -326,7 +326,7 @@ import Example from "../../components/Example/index"
     gap: var(--size-3);
 
     > div {
-      border-radius: var(--border-radius);
+      border-radius: var(--ui-border-radius);
       padding: var(--size-4);
     }
   }

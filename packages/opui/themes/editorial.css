@@ -3,14 +3,14 @@
 
 @layer theme.custom {
   :where(html) {
-    --border-radius: 0;
-    --font-heading: var(--font-serif);
-    --gray-chroma: 0.015;
-    --gray-hue: 60;
-    --palette-chroma: 0.6;
-    --palette-hue: 30;
-    --shadow-raised-dark: none;
-    --shadow-raised-light: none;
-    --space-scale: 1.25;
+    --ui-border-radius: 0;
+    --ui-font-heading: var(--font-serif);
+    --ui-gray-chroma: 0.015;
+    --ui-gray-hue: 60;
+    --ui-palette-chroma: 0.6;
+    --ui-palette-hue: 30;
+    --ui-shadow-raised-dark: none;
+    --ui-shadow-raised-light: none;
+    --ui-space-scale: 1.25;
   }
 }

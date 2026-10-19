@@ -162,8 +162,8 @@ const tour = [
   }
 
   .layout {
-    --_anatomy-accent: var(--primary);
-    --_idle: color-mix(in oklch, var(--text-muted) 45%, transparent);
+    --_anatomy-accent: var(--ui-primary);
+    --_idle: color-mix(in oklch, var(--ui-text-muted) 45%, transparent);
     --_knee: var(--size-5);
     --_line: 1.5px;
     --_step: 2.4s;
@@ -183,7 +183,7 @@ const tour = [
 
     &:before {
       background-image: radial-gradient(
-        var(--text-muted) 1.45px,
+        var(--ui-text-muted) 1.45px,
         transparent 1.45px
       );
       background-size: 20px 20px;
@@ -209,7 +209,7 @@ const tour = [
 
   .layout :global(.legend) {
     align-content: center;
-    border-inline-start: var(--border-width) solid var(--border-color);
+    border-inline-start: var(--ui-border-width) solid var(--ui-border-color);
     display: grid;
     isolation: isolate;
     margin: 0;
@@ -400,7 +400,7 @@ const tour = [
     }
 
     .layout :global(.legend) {
-      border-block-start: var(--border-width) solid var(--border-color);
+      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
       border-inline-start: 0;
     }
 

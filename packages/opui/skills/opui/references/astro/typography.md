@@ -54,7 +54,7 @@ Use `.ui-link` for links outside `.ui-rich-text`. Inside rich text, links get th
 ```astro
 ---
 const code = `.ui-card {
-  background: var(--surface-elevated);
+  background: var(--ui-surface-elevated);
   border-radius: var(--radius-3);
   padding: var(--size-4);
 }`
@@ -614,33 +614,33 @@ cold-brew 1.0.0</samp></pre>
 
 #### CSS variables
 
-| Variable                | Default                                              | Description                                                                                                                                                                                                                      |
-| ----------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`        | `light-dark(var(--gray-4), var(--gray-12))`          | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
-| `--border-radius`       | `var(--size-2)`                                      | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--border-width`        | `1px`                                                | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--font-body`           | `var(--font-sans)`                                   | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                                             |
-| `--font-code`           | `var(--font-mono)`                                   | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                |
-| `--font-heading`        | Unset                                                | Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. When unset, headings follow `--font-body`.                                                                                                                          |
-| `--font-size-05`        | `0.875rem`                                           | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--font-size-h1`        | `var(--font-size-fluid-3)`                           | Font size for `h1` and `.ui-h1`.                                                                                                                                                                                                 |
-| `--font-size-h2`        | `var(--font-size-fluid-2)`                           | Font size for `h2` and `.ui-h2`.                                                                                                                                                                                                 |
-| `--font-size-h3`        | `clamp(var(--font-size-3), 4vi, var(--font-size-4))` | Font size for `h3` and `.ui-h3`.                                                                                                                                                                                                 |
-| `--font-size-h4`        | `clamp(var(--font-size-2), 3vi, var(--font-size-3))` | Font size for `h4` and `.ui-h4`.                                                                                                                                                                                                 |
-| `--font-size-h5`        | `var(--font-size-2)`                                 | Font size for `h5` and `.ui-h5`.                                                                                                                                                                                                 |
-| `--font-size-h6`        | `var(--font-size-1)`                                 | Font size for `h6` and `.ui-h6`.                                                                                                                                                                                                 |
-| `--font-weight-bold`    | `var(--font-weight-7)`                               | Font weight for headings, buttons and terms.                                                                                                                                                                                     |
-| `--font-weight-medium`  | `var(--font-weight-5)`                               | Font weight for badges, overlines and group labels.                                                                                                                                                                              |
-| `--primary`             | `light-dark(var(--color-9), var(--color-6))`         | Brand color for primary actions and accents.                                                                                                                                                                                     |
-| `--primary-dark`        | `oklch(from var(--primary) calc(l * 0.75) c h)`      | A darker `--primary`.                                                                                                                                                                                                            |
-| `--primary-light`       | `oklch(from var(--primary) calc(l * 1.25) c h)`      | A lighter `--primary`.                                                                                                                                                                                                           |
-| `--rhythm-step`         | `0.25rem`                                            | Vertical rhythm unit. Rich text margins and heading line heights round to it.                                                                                                                                                    |
-| `--space-2`             | `calc(var(--size-2) * var(--space-scale))`           | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                     |
-| `--space-3`             | `calc(var(--size-3) * var(--space-scale))`           | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                     |
-| `--space-4`             | `calc(var(--size-4) * var(--space-scale))`           | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                                                     |
-| `--text-muted`          | `light-dark(var(--gray-13), var(--gray-4))`          | Body text color.                                                                                                                                                                                                                 |
-| `--text-muted-contrast` | `light-dark(var(--gray-4), var(--gray-13))`          | Muted text color on an inverted surface.                                                                                                                                                                                         |
-| `--text-primary`        | `light-dark(var(--gray-15), var(--gray-1))`          | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
+| Variable                   | Default                                              | Description                                                                                                                                                                                                                      |
+| -------------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`        | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`    | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
+| `--ui-border-radius`       | `var(--size-2)`                                      | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-border-width`        | `1px`                                                | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--ui-font-body`           | `var(--font-sans)`                                   | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                                             |
+| `--ui-font-code`           | `var(--font-mono)`                                   | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                |
+| `--ui-font-heading`        | Unset                                                | Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. When unset, headings follow `--ui-font-body`.                                                                                                                       |
+| `--ui-font-size-05`        | `0.875rem`                                           | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--ui-font-size-h1`        | `var(--font-size-fluid-3)`                           | Font size for `h1` and `.ui-h1`.                                                                                                                                                                                                 |
+| `--ui-font-size-h2`        | `var(--font-size-fluid-2)`                           | Font size for `h2` and `.ui-h2`.                                                                                                                                                                                                 |
+| `--ui-font-size-h3`        | `clamp(var(--font-size-3), 4vi, var(--font-size-4))` | Font size for `h3` and `.ui-h3`.                                                                                                                                                                                                 |
+| `--ui-font-size-h4`        | `clamp(var(--font-size-2), 3vi, var(--font-size-3))` | Font size for `h4` and `.ui-h4`.                                                                                                                                                                                                 |
+| `--ui-font-size-h5`        | `var(--font-size-2)`                                 | Font size for `h5` and `.ui-h5`.                                                                                                                                                                                                 |
+| `--ui-font-size-h6`        | `var(--font-size-1)`                                 | Font size for `h6` and `.ui-h6`.                                                                                                                                                                                                 |
+| `--ui-font-weight-bold`    | `var(--font-weight-7)`                               | Font weight for headings, buttons and terms.                                                                                                                                                                                     |
+| `--ui-font-weight-medium`  | `var(--font-weight-5)`                               | Font weight for badges, overlines and group labels.                                                                                                                                                                              |
+| `--ui-primary`             | `light-dark(var(--ui-color-9), var(--ui-color-6))`   | Brand color for primary actions and accents.                                                                                                                                                                                     |
+| `--ui-primary-dark`        | `oklch(from var(--ui-primary) calc(l * 0.75) c h)`   | A darker `--ui-primary`.                                                                                                                                                                                                         |
+| `--ui-primary-light`       | `oklch(from var(--ui-primary) calc(l * 1.25) c h)`   | A lighter `--ui-primary`.                                                                                                                                                                                                        |
+| `--ui-rhythm-step`         | `0.25rem`                                            | Vertical rhythm unit. Rich text margins and heading line heights round to it.                                                                                                                                                    |
+| `--ui-space-2`             | `calc(var(--size-2) * var(--ui-space-scale))`        | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-space-3`             | `calc(var(--size-3) * var(--ui-space-scale))`        | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-space-4`             | `calc(var(--size-4) * var(--ui-space-scale))`        | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-text-muted`          | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`    | Body text color.                                                                                                                                                                                                                 |
+| `--ui-text-muted-contrast` | `light-dark(var(--ui-gray-4), var(--ui-gray-13))`    | Muted text color on an inverted surface.                                                                                                                                                                                         |
+| `--ui-text-primary`        | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`    | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
@@ -652,19 +652,19 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 ### link.css
 
-| Property        | Kind  | Description                                                                                                |
-| --------------- | ----- | ---------------------------------------------------------------------------------------------------------- |
-| `--_text-color` | Input | Text and underline color. `--primary`, darkened in light mode and lightened in dark mode to stay readable. |
+| Property        | Kind  | Description                                                                                                   |
+| --------------- | ----- | ------------------------------------------------------------------------------------------------------------- |
+| `--_text-color` | Input | Text and underline color. `--ui-primary`, darkened in light mode and lightened in dark mode to stay readable. |
 
 ### typography.css
 
-| Property          | Kind   | Description                                                                                                                |
-| ----------------- | ------ | -------------------------------------------------------------------------------------------------------------------------- |
-| `--_count-digits` | Output | Digits reserved for the numbers of an `ol`, from its number of items.                                                      |
-| `--_flow-space`   | Input  | Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it.                           |
-| `--_font-scale`   | Output | Ratio of `1em` to `1rem` that scales heading sizes with the surrounding font size.                                         |
-| `--_start-digits` | Output | Digits reserved for the numbers of an `ol`, from its `start` attribute.                                                    |
-| `--_text-color`   | Input  | Color and underline color of links without a `ui-` class in `.ui-rich-text`. From `--primary`, with its lightness clamped. |
+| Property          | Kind   | Description                                                                                                                   |
+| ----------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `--_count-digits` | Output | Digits reserved for the numbers of an `ol`, from its number of items.                                                         |
+| `--_flow-space`   | Input  | Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it.                              |
+| `--_font-scale`   | Output | Ratio of `1em` to `1rem` that scales heading sizes with the surrounding font size.                                            |
+| `--_start-digits` | Output | Digits reserved for the numbers of an `ol`, from its `start` attribute.                                                       |
+| `--_text-color`   | Input  | Color and underline color of links without a `ui-` class in `.ui-rich-text`. From `--ui-primary`, with its lightness clamped. |
 
 ## Under the hood
 
@@ -672,7 +672,7 @@ Read the post: [Vertical rhythm with round()](https://open-props-ui.netlify.app/
 
 1. Unsnapped
 
-   - Stripes mark each line box (`1lh`), dotted lines mark `--rhythm-step`
+   - Stripes mark each line box (`1lh`), dotted lines mark `--ui-rhythm-step`
    - A plain `line-height` lands between grid lines at most sizes
 
 2. Snap line height
@@ -708,7 +708,7 @@ Step 2 of 4: Snap line height
 
 ```css
 .prose :is(h1, h2, h3, h4, h5, h6) {
-  line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
+  line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
 }
 ```
 
@@ -718,7 +718,7 @@ Step 3 of 4: Snap font size
 
 ```css
 .prose h2 {
-  font-size: round(var(--size), var(--rhythm-step) / 2);
+  font-size: round(var(--size), var(--ui-rhythm-step) / 2);
 }
 ```
 
@@ -735,7 +735,7 @@ Step 4 of 4: Flow space
 }
 
 .prose {
-  --flow-space: round(1.25em, var(--rhythm-step));
+  --flow-space: round(1.25em, var(--ui-rhythm-step));
 }
 
 .prose > * {
@@ -744,7 +744,7 @@ Step 4 of 4: Flow space
 
 .prose h2 {
   margin-block: calc(var(--flow-space) * 3)
-    round(var(--flow-space) * 0.75, var(--rhythm-step));
+    round(var(--flow-space) * 0.75, var(--ui-rhythm-step));
 }
 ```
 
@@ -766,11 +766,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ### What's new
 
 - [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
-- Breaking: [heading sizes](#variants) changed. Sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
+- Breaking: [heading sizes](#variants) changed. Sizes and line heights snap to `--ui-rhythm-step`, and the heading scale no longer inverts on narrow screens.
 - Breaking: [rich text](#classless) only styles headings without a class, like lists. Add a `.ui-h1`–`.ui-h6` class to a heading that has another class.
 - [Rich text](#rich-text-showcase) styles tables, which scroll sideways in narrow columns, `hr` and task lists.
 - Breaking: [rich text](#classless) sits in the `components.prose` layer, below components, so components inside prose keep their own styles. If you declare the layer order yourself, add `components.prose` before `components.root`.
 - [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size, and so does [`.ui-small`](#inline-text-elements).
 - Rich text `var` is monospace, like [`.ui-var`](#inline-text-elements).
 - [Links](#link) are documented, and get a thicker underline on hover.
-- Headings read [`--font-heading`](#api), and code, `kbd`, `samp` and `.ui-var` read `--font-code`. Rich text margins read the `--space-*` scale.
+- Headings read [`--ui-font-heading`](#api), and code, `kbd`, `samp` and `.ui-var` read `--ui-font-code`. Rich text margins read the `--space-*` scale.

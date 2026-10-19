@@ -1,28 +1,28 @@
 @layer components.root {
   :where(.ui-divider) {
-    --_divider-color: var(--border-color);
+    --_divider-color: var(--ui-border-color);
 
     background-color: var(--_divider-color);
-    block-size: var(--border-width);
-    margin-block: var(--divider-space, var(--size-fluid-3));
+    block-size: var(--ui-border-width);
+    margin-block: var(--ui-divider-space, var(--size-fluid-3));
 
     /* Border color */
     &.ui-filled {
-      --_divider-color: var(--surface-filled);
+      --_divider-color: var(--ui-surface-filled);
     }
 
     &.ui-primary {
-      --_divider-color: var(--primary);
+      --_divider-color: var(--ui-primary);
     }
 
     &.ui-tonal {
-      --_divider-color: var(--surface-tonal);
+      --_divider-color: var(--ui-surface-tonal);
     }
 
-    @container style(--contrast: more) {
+    @container style(--ui-contrast: more) {
       &.ui-filled,
       &.ui-tonal {
-        --_divider-color: var(--border-color);
+        --_divider-color: var(--ui-border-color);
       }
     }
 
@@ -30,16 +30,16 @@
       align-items: center;
       background-color: transparent;
       block-size: auto;
-      color: var(--text-muted);
+      color: var(--ui-text-muted);
       display: flex;
       font-size: var(--font-size-0);
-      gap: var(--space-3);
+      gap: var(--ui-space-3);
       text-box: trim-both cap alphabetic;
 
       &::before,
       &::after {
         background-color: var(--_divider-color);
-        block-size: var(--border-width);
+        block-size: var(--ui-border-width);
         content: "";
         flex: 1;
         min-inline-size: var(--size-4);
@@ -53,7 +53,7 @@
 
     @media (forced-colors: active) {
       block-size: 0;
-      border-block-start: var(--border-width) solid CanvasText;
+      border-block-start: var(--ui-border-width) solid CanvasText;
 
       &:not(:empty) {
         border-block-start: 0;
@@ -61,7 +61,7 @@
         &::before,
         &::after {
           block-size: 0;
-          border-block-start: var(--border-width) solid CanvasText;
+          border-block-start: var(--ui-border-width) solid CanvasText;
         }
       }
     }

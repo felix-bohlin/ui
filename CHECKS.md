@@ -144,7 +144,7 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
 - [ ] Theming guide
   - [Theming](/html/guide/theming/): palette scopes such as `.ui-critical`, density and motion work as described.
 - [ ] Review the `feat/pixel-style` branch
-  - Pixel style switcher in the theme drawer: every component in light and dark, no flash on reload, Default unchanged against main, the logo font uses `--font-heading`.
+  - Pixel style switcher in the theme drawer: every component in light and dark, no flash on reload, Default unchanged against main, the logo font uses `--ui-font-heading`.
 
 ## Docs site
 

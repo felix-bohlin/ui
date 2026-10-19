@@ -7,7 +7,7 @@ export default {
   },
   "--_border-radius": {
     description:
-      "Corner radius of the group. Defaults to `--button-border-radius`.",
+      "Corner radius of the group. Defaults to `--ui-button-border-radius`.",
     kind: "input",
   },
   "--_divider-color": {

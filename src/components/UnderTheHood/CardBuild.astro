@@ -5,7 +5,7 @@ const steps = [
   {
     css: `
 .card {
-  --card-bg: var(--surface-default);
+  --card-bg: var(--ui-surface-default);
   --card-border: transparent;
   --card-border-width: 0;
   --card-shadow: none;
@@ -58,25 +58,25 @@ const steps = [
   {
     css: `
 .tonal {
-  --card-bg: var(--surface-tonal);
-  --card-border: var(--surface-default);
+  --card-bg: var(--ui-surface-tonal);
+  --card-border: var(--ui-surface-default);
   --card-border-width: 1px;
 }
 
 .elevated {
-  --card-bg: var(--surface-elevated);
-  --card-border: var(--surface-default);
+  --card-bg: var(--ui-surface-elevated);
+  --card-border: var(--ui-surface-default);
   --card-border-width: 1px;
   --card-shadow: var(--shadow-3);
 
-  @container style(--color-scheme: dark) {
+  @container style(--ui-color-scheme: dark) {
     --card-shadow: var(--shadow-4);
   }
 }`,
     features: ["container-style-queries", "custom-properties"],
     notes: [
       "Variants only swap custom properties, the rules stay the same",
-      "<code>@container style(--color-scheme: dark)</code> picks a heavier shadow",
+      "<code>@container style(--ui-color-scheme: dark)</code> picks a heavier shadow",
       "Shadows barely show on dark surfaces, switch the site to dark mode to compare",
     ],
     title: "Variants",
@@ -144,10 +144,10 @@ const steps = [
   }
 
   .card {
-    font-size: var(--font-size-05);
+    font-size: var(--ui-font-size-05);
 
     & hgroup > p {
-      color: var(--text-muted);
+      color: var(--ui-text-muted);
       font-size: var(--font-size-0);
     }
 

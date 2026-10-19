@@ -46,11 +46,11 @@ const steps = [
     css: `
 .carousel.with-buttons::scroll-button(inline-start),
 .carousel.with-buttons::scroll-button(inline-end) {
-  background-color: var(--text-primary);
+  background-color: var(--ui-text-primary);
   block-size: 2rem;
   border: 0;
   border-radius: 50%;
-  color: var(--surface-default);
+  color: var(--ui-surface-default);
   cursor: pointer;
   inline-size: 2rem;
   inset-block-start: anchor(center);
@@ -106,7 +106,7 @@ const steps = [
 }
 
 .carousel.with-markers > li::scroll-marker {
-  background-color: oklch(from var(--text-primary) l c h / 25%);
+  background-color: oklch(from var(--ui-text-primary) l c h / 25%);
   block-size: 0.5rem;
   border-radius: 50%;
   content: "" / "Slide " counter(slide);
@@ -115,7 +115,7 @@ const steps = [
 }
 
 .carousel.with-markers > li::scroll-marker:target-current {
-  background-color: var(--primary);
+  background-color: var(--ui-primary);
 }
 
 @supports selector(::scroll-button(*)) {
@@ -187,8 +187,8 @@ const slides = ["Kyoto", "Lima", "Lisbon", "Oslo", "Tbilisi"]
 
     & > li {
       align-content: center;
-      background-color: var(--surface-default);
-      border: var(--border-width, 1px) solid var(--border-color);
+      background-color: var(--ui-surface-default);
+      border: var(--ui-border-width, 1px) solid var(--ui-border-color);
       border-radius: var(--radius-2);
       display: grid;
       font-weight: 600;
@@ -198,7 +198,7 @@ const slides = ["Kyoto", "Lima", "Lisbon", "Oslo", "Tbilisi"]
   }
 
   .slide-index {
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     font-size: var(--font-size-0);
   }
 </style>

@@ -139,15 +139,15 @@ import DocLink from "../../components/DocLink.astro"
     </p>
     <Code
       code={`:where(html) {
-  --focus-ring-color: var(--primary);
-  --focus-ring-offset: 2px;
-  --focus-ring-style: solid;
-  --focus-ring-width: 2px;
+  --ui-focus-ring-color: var(--ui-primary);
+  --ui-focus-ring-offset: 2px;
+  --ui-focus-ring-style: solid;
+  --ui-focus-ring-width: 2px;
 }`}
       lang="css"
     />
     <p>
-      <code>--focus-ring-inset</code> is used where the ring is drawn inside, like
+      <code>--ui-focus-ring-inset</code> is used where the ring is drawn inside, like
       list items and button groups. With more contrast, the ring grows to 3px.
     </p>
   </section>
@@ -169,7 +169,8 @@ import DocLink from "../../components/DocLink.astro"
       </li>
       <li>
         <DocLink href="/guide/theming#motion">Motion</DocLink>:
-        <code>prefers-reduced-motion: reduce</code> sets <code>--motion: 0</code
+        <code>prefers-reduced-motion: reduce</code> sets <code
+          >--ui-motion: 0</code
         >. Override it with <code>.ui-motion-off</code> and <code
           >.ui-motion-on</code
         >.

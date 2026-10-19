@@ -16,20 +16,20 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the focus ring animation, `--duration` times `--_motion`.",
+      "Duration of the focus ring animation, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the focus ring animation. Defaults to `--ease`.",
+    description: "Easing of the focus ring animation. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_elevated-bg-color": {
     description:
-      "Background of `.ui-elevated`. Defaults to `--surface-elevated`.",
+      "Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.",
     kind: "input",
   },
   "--_elevated-shadow": {
-    description: "Shadow of `.ui-elevated`. Defaults to `--shadow-raised`.",
+    description: "Shadow of `.ui-elevated`. Defaults to `--ui-shadow-raised`.",
     kind: "input",
   },
   "--_motion": {
@@ -39,7 +39,7 @@ export default {
   },
   "--_outlined-border-color": {
     description:
-      "Border color of `.ui-outlined`. Defaults to `--border-color`.",
+      "Border color of `.ui-outlined`. Defaults to `--ui-border-color`.",
     kind: "input",
   },
   "--_shadow": {
@@ -49,11 +49,11 @@ export default {
   },
   "--_surface-bg-color": {
     description:
-      "Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated`. Defaults to `--surface-default`.",
+      "Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated`. Defaults to `--ui-surface-default`.",
     kind: "input",
   },
   "--_tonal-bg-color": {
-    description: "Background of `.ui-tonal`. Defaults to `--surface-tonal`.",
+    description: "Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.",
     kind: "input",
   },
 } satisfies CustomProperties

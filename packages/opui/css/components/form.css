@@ -2,7 +2,7 @@
   /* Form */
   :where(.ui-form) {
     display: grid;
-    gap: var(--space-8);
+    gap: var(--ui-space-8);
 
     hr {
       margin-block: 0;
@@ -15,7 +15,7 @@
     border: 0;
     border-radius: 0;
     display: grid;
-    gap: var(--space-1);
+    gap: var(--ui-space-1);
     margin: 0;
     min-inline-size: 0;
     padding: 0;
@@ -23,9 +23,9 @@
     /* Legend */
     :where(legend, .ui-legend) {
       all: unset;
-      color: var(--field-label-color);
-      font-weight: var(--field-label-font-weight);
-      margin-block-end: var(--space-3);
+      color: var(--ui-field-label-color);
+      font-weight: var(--ui-field-label-font-weight);
+      margin-block-end: var(--ui-space-3);
       padding: 0;
 
       &:has(+ :where(.ui-field-description)) {
@@ -35,26 +35,26 @@
 
     /* Field description / supporting text */
     :where(.ui-field-description) {
-      color: var(--text-muted);
-      font-size: var(--font-size-05);
+      color: var(--ui-text-muted);
+      font-size: var(--ui-font-size-05);
       line-height: var(--font-lineheight-3);
       margin: 0;
 
       &:has(+ *) {
-        margin-block-end: var(--space-3);
+        margin-block-end: var(--ui-space-3);
       }
     }
 
     /* End text */
     > :where(.ui-end-text) {
-      color: var(--field-helper-color);
-      font-size: var(--field-helper-font-size);
-      line-height: var(--field-helper-line-height);
+      color: var(--ui-field-helper-color);
+      font-size: var(--ui-field-helper-font-size);
+      line-height: var(--ui-field-helper-line-height);
     }
 
     /* Disabled */
     &[disabled] {
-      opacity: var(--disabled-opacity);
+      opacity: var(--ui-disabled-opacity);
       user-select: none;
 
       button,
@@ -67,13 +67,13 @@
 
     /* Error / validation */
     &:has([aria-invalid="true"], :user-invalid) > :where(.ui-end-text) {
-      color: var(--invalid-text-color);
+      color: var(--ui-invalid-text-color);
     }
 
     /* Required */
     &:has(:required) {
       :where(legend, .ui-legend)::after {
-        color: var(--field-required-color);
+        color: var(--ui-field-required-color);
         content: "*";
         margin-inline-start: 0.25ex;
       }
@@ -84,29 +84,29 @@
   :where(.ui-field-group) {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--ui-space-4);
 
     /* If it only has checkboxes, radios, or switches */
     &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)):not(
         :has(> :not(.ui-checkbox, .ui-radio, .ui-switch))
       ) {
-      gap: var(--space-2);
+      gap: var(--ui-space-2);
     }
 
     /* If it only has buttons */
     &:has(> .ui-button):not(.ui-column, :has(> :not(.ui-button))) {
       align-items: center;
       flex-direction: row;
-      gap: var(--space-2);
+      gap: var(--ui-space-2);
 
       /* If it's not preceded by an hr */
       &:not(hr + &) {
-        margin-block-start: var(--space-4);
+        margin-block-start: var(--ui-space-4);
       }
     }
 
     & + & {
-      margin-block-start: var(--space-5);
+      margin-block-start: var(--ui-space-5);
     }
 
     /* Directions */
@@ -119,7 +119,7 @@
       flex-wrap: wrap;
 
       &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)) {
-        gap: var(--space-4);
+        gap: var(--ui-space-4);
       }
     }
   }

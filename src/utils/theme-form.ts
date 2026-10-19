@@ -29,15 +29,15 @@ export const PALETTE_FIELDS = [
     min: 0,
     step: 1,
     suffix: "°",
-    token: "--palette-hue",
+    token: "--ui-palette-hue",
   },
-  { label: "Chroma", max: 1, min: 0, step: 0.01, token: "--palette-chroma" },
+  { label: "Chroma", max: 1, min: 0, step: 0.01, token: "--ui-palette-chroma" },
   {
     label: "Hue rotation",
     max: 10,
     min: -10,
     step: 1,
-    token: "--palette-hue-rotate-by",
+    token: "--ui-palette-hue-rotate-by",
   },
 ] satisfies RangeField[]
 
@@ -47,7 +47,7 @@ export const GRAY_FIELDS = [
     max: 0.1,
     min: 0,
     step: 0.001,
-    token: "--gray-chroma",
+    token: "--ui-gray-chroma",
   },
   {
     label: "Gray hue",
@@ -55,14 +55,14 @@ export const GRAY_FIELDS = [
     min: 0,
     step: 1,
     suffix: "°",
-    token: "--gray-hue",
+    token: "--ui-gray-hue",
   },
 ] satisfies RangeField[]
 
 export const RADIUS_FIELDS = [
-  { label: "Border radius", token: "--border-radius" },
-  { label: "Field border radius", token: "--field-border-radius" },
-  { label: "Button border radius", token: "--button-border-radius" },
+  { label: "Border radius", token: "--ui-border-radius" },
+  { label: "Field border radius", token: "--ui-field-border-radius" },
+  { label: "Button border radius", token: "--ui-button-border-radius" },
 ] satisfies { label: string; token: Token }[]
 
 const TOKEN_SET = new Set<string>(TOKENS)
@@ -74,9 +74,11 @@ export const sourceColor = (
   config: ModeConfig = {},
   defaults = tokenDefaults(mode),
 ) => {
-  const hue = parseFloat(config["--palette-hue"] ?? defaults["--palette-hue"])
+  const hue = parseFloat(
+    config["--ui-palette-hue"] ?? defaults["--ui-palette-hue"],
+  )
   const chroma = parseFloat(
-    config["--palette-chroma"] ?? defaults["--palette-chroma"],
+    config["--ui-palette-chroma"] ?? defaults["--ui-palette-chroma"],
   )
   return oklchToHex(SOURCE_LIGHTNESS, SOURCE_CHROMA * chroma, hue)
 }
@@ -84,8 +86,8 @@ export const sourceColor = (
 const paletteFromSource = (hex: string) => {
   const { C, H } = hexToOklch(hex)
   return [
-    ["--palette-hue", String(Math.round(H))],
-    ["--palette-chroma", String(+Math.min(1, C / SOURCE_CHROMA).toFixed(2))],
+    ["--ui-palette-hue", String(Math.round(H))],
+    ["--ui-palette-chroma", String(+Math.min(1, C / SOURCE_CHROMA).toFixed(2))],
   ] as const
 }
 

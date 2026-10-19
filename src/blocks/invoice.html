@@ -46,12 +46,12 @@
     .invoice-brand {
       align-items: center;
       display: flex;
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--ui-font-weight-bold);
       gap: var(--size-2);
 
       svg {
         block-size: var(--size-6);
-        color: var(--primary);
+        color: var(--ui-primary);
         inline-size: var(--size-6);
       }
     }
@@ -69,7 +69,7 @@
 
     .invoice-due {
       &::before {
-        background-color: var(--warning);
+        background-color: var(--ui-warning);
         block-size: var(--size-2);
         border-radius: var(--radius-round);
         content: "";
@@ -117,7 +117,7 @@
       max-inline-size: 22rem;
 
       dt {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         margin: 0;
       }
 
@@ -128,10 +128,10 @@
       }
 
       .invoice-total {
-        border-block-start: var(--border-width) solid var(--border-color);
-        color: var(--text-primary);
+        border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+        color: var(--ui-text-primary);
         font-size: var(--font-size-3);
-        font-weight: var(--font-weight-bold);
+        font-weight: var(--ui-font-weight-bold);
         padding-block-start: var(--size-3);
       }
     }

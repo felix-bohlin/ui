@@ -32,7 +32,7 @@ import Code from "../../components/Code.astro"
       </li>
       <li>Font sizes snap to half a step, so fluid sizes move in steps</li>
       <li>
-        Margins and flow space round to the same <code>--rhythm-step</code>
+        Margins and flow space round to the same <code>--ui-rhythm-step</code>
       </li>
       <li>
         <code>@property</code> makes the flow space a length, so <code
@@ -44,11 +44,11 @@ import Code from "../../components/Code.astro"
     <Code
       lang="css"
       code={`h1, h2, h3 {
-  line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
+  line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step, 0.25rem));
 }
 
 h2 {
-  font-size: round(var(--font-size-h2), var(--rhythm-step, 0.25rem) / 2);
+  font-size: round(var(--ui-font-size-h2), var(--ui-rhythm-step, 0.25rem) / 2);
 }
 
 @property --flow-space {
@@ -58,7 +58,7 @@ h2 {
 }
 
 .rich-text {
-  --flow-space: round(1.25em, var(--rhythm-step, 0.25rem));
+  --flow-space: round(1.25em, var(--ui-rhythm-step, 0.25rem));
 }`}
     />
   </section>

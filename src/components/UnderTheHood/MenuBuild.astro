@@ -6,8 +6,8 @@ const steps = [
   {
     css: `
 .menu {
-  background-color: var(--surface-elevated);
-  border: 1px solid var(--border-color);
+  background-color: var(--ui-surface-elevated);
+  border: 1px solid var(--ui-border-color);
   border-radius: var(--radius-2);
   box-shadow: var(--shadow-3);
   padding: 0.25rem 0;
@@ -104,10 +104,10 @@ const steps = [
   opacity: 0;
   scale: 0.96;
   transition:
-    display calc(0.15s * var(--motion, 1)) allow-discrete,
-    opacity calc(0.15s * var(--motion, 1)),
-    overlay calc(0.15s * var(--motion, 1)) allow-discrete,
-    scale calc(0.15s * var(--motion, 1));
+    display calc(0.15s * var(--ui-motion, 1)) allow-discrete,
+    opacity calc(0.15s * var(--ui-motion, 1)),
+    overlay calc(0.15s * var(--ui-motion, 1)) allow-discrete,
+    scale calc(0.15s * var(--ui-motion, 1));
 }
 
 .menu:popover-open {
@@ -128,7 +128,7 @@ const steps = [
     notes: [
       "<code>@starting-style</code> gives the entry transition a starting point",
       "<code>allow-discrete</code> keeps <code>display</code> and <code>overlay</code> alive during the exit",
-      "<code>--motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
+      "<code>--ui-motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
     ],
     title: "Animate",
   },
@@ -184,7 +184,7 @@ const steps = [
 
       @media (hover: hover) {
         &:hover {
-          background-color: oklch(from var(--primary) l c h / 15%);
+          background-color: oklch(from var(--ui-primary) l c h / 15%);
         }
       }
     }

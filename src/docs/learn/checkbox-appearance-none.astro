@@ -47,14 +47,14 @@ import Code from "../../components/Code.astro"
       lang="css"
       code={`input[type="checkbox"] {
   --accent: light-dark(
-    var(--primary),
-    oklch(from var(--primary) min(l, 0.62) c h)
+    var(--ui-primary),
+    oklch(from var(--ui-primary) min(l, 0.62) c h)
   );
-  --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
+  --accent-contrast: light-dark(var(--ui-primary-contrast), var(--ui-gray-1));
 
   appearance: none;
   aspect-ratio: 1;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--ui-border-color);
   inline-size: var(--size);
   position: relative;
 }

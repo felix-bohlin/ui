@@ -30,25 +30,25 @@ type Snapshot = Record<Token, string>
 type Ramp = { gray: [string, string]; color: [string, string] }
 
 const RAMPS = {
-  "--text-primary": { gray: ["15", "1"], color: ["15", "1"] },
-  "--text-inverse": { gray: ["1", "15"], color: ["1", "15"] },
-  "--text-muted": { gray: ["13", "4"], color: ["13", "4"] },
-  "--text-muted-contrast": { gray: ["4", "13"], color: ["4", "13"] },
-  "--surface-default": { gray: ["1", "13"], color: ["1", "14"] },
-  "--surface-filled": { gray: ["4", "15"], color: ["5", "16"] },
-  "--surface-tonal": { gray: ["3", "12"], color: ["4", "12"] },
-  "--surface-elevated": { gray: ["1", "12"], color: ["1", "12"] },
-  "--border-color": { gray: ["4", "12"], color: ["4", "12"] },
-  "--neutral": { gray: ["9", "9"], color: ["9", "9"] },
+  "--ui-text-primary": { gray: ["15", "1"], color: ["15", "1"] },
+  "--ui-text-inverse": { gray: ["1", "15"], color: ["1", "15"] },
+  "--ui-text-muted": { gray: ["13", "4"], color: ["13", "4"] },
+  "--ui-text-muted-contrast": { gray: ["4", "13"], color: ["4", "13"] },
+  "--ui-surface-default": { gray: ["1", "13"], color: ["1", "14"] },
+  "--ui-surface-filled": { gray: ["4", "15"], color: ["5", "16"] },
+  "--ui-surface-tonal": { gray: ["3", "12"], color: ["4", "12"] },
+  "--ui-surface-elevated": { gray: ["1", "12"], color: ["1", "12"] },
+  "--ui-border-color": { gray: ["4", "12"], color: ["4", "12"] },
+  "--ui-neutral": { gray: ["9", "9"], color: ["9", "9"] },
 } satisfies Record<string, Ramp>
 
 function rampValue(ramp: Ramp, grays: { light: boolean; dark: boolean }) {
   const light = grays.light
-    ? `--gray-${ramp.gray[0]}`
-    : `--color-${ramp.color[0]}`
+    ? `--ui-gray-${ramp.gray[0]}`
+    : `--ui-color-${ramp.color[0]}`
   const dark = grays.dark
-    ? `--gray-${ramp.gray[1]}`
-    : `--color-${ramp.color[1]}`
+    ? `--ui-gray-${ramp.gray[1]}`
+    : `--ui-color-${ramp.color[1]}`
   return light === dark
     ? `var(${light})`
     : `light-dark(var(${light}), var(${dark}))`

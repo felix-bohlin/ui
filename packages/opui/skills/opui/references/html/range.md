@@ -44,24 +44,24 @@ Label 50 Start text End text
 
 ## Variants
 
-Use the `.ui-filled` or `.ui-tonal` class to swap the track surface for better contrast on different backgrounds. Without a class, the track uses `--field-border-color`, like the border of a text field.
+Use the `.ui-filled` or `.ui-tonal` class to swap the track surface for better contrast on different backgrounds. Without a class, the track uses `--ui-field-border-color`, like the border of a text field.
 
 ```html
 <label class="ui-range">
   <span class="ui-label" id="range-surfaces-1-label"
-    >No variant = <code>var(--field-border-color)</code></span
+    >No variant = <code>var(--ui-field-border-color)</code></span
   >
   <input aria-labelledby="range-surfaces-1-label" type="range" />
 </label>
 <label class="ui-range ui-filled">
   <span class="ui-label" id="range-surfaces-2-label"
-    ><code>filled</code> = <code>var(--surface-filled)</code></span
+    ><code>filled</code> = <code>var(--ui-surface-filled)</code></span
   >
   <input aria-labelledby="range-surfaces-2-label" type="range" />
 </label>
 <label class="ui-range ui-tonal">
   <span class="ui-label" id="range-surfaces-3-label"
-    ><code>tonal</code> = <code>var(--surface-tonal)</code></span
+    ><code>tonal</code> = <code>var(--ui-surface-tonal)</code></span
   >
   <input aria-labelledby="range-surfaces-3-label" type="range" />
 </label>
@@ -264,28 +264,28 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 
 #### CSS variables
 
-| Variable                     | Default                                                                                 | Description                                                                                                                                                                                              |
-| ---------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                                                                    |
-| `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                                                                   |
-| `--duration-fast`            | `0.1s`                                                                                  | Transition duration for hover and press feedback.                                                                                                                                                        |
-| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                                                                                                          |
-| `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                 |
-| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                                                                        |
-| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                                                                         |
-| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                                                                       |
-| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                                                                             |
-| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                                                                              |
-| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                                                                     |
-| `--font-weight-semibold`     | `var(--font-weight-6)`                                                                  | Font weight for labels, table headers and titles.                                                                                                                                                        |
-| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                                                                     |
-| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                                                                                |
-| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
-| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                             |
-| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                                                                                |
-| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                                                                                                    |
-| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                                                                                                            |
-| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                   |
+| Variable                        | Default                                                                                       | Description                                                                                                                                                                                              |
+| ------------------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-disabled-opacity`         | `0.64`                                                                                        | Opacity applied to disabled controls.                                                                                                                                                                    |
+| `--ui-duration`                 | `0.2s`                                                                                        | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                |
+| `--ui-duration-fast`            | `0.1s`                                                                                        | Transition duration for hover and press feedback.                                                                                                                                                        |
+| `--ui-ease`                     | `ease`                                                                                        | Default easing for transitions.                                                                                                                                                                          |
+| `--ui-field-border-color`       | `var(--ui-border-color)`                                                                      | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                 |
+| `--ui-field-helper-color`       | `var(--ui-text-muted)`                                                                        | Text color for helper and end text under a field.                                                                                                                                                        |
+| `--ui-field-helper-font-size`   | `var(--font-size-0)`                                                                          | Font size for helper and end text under a field.                                                                                                                                                         |
+| `--ui-field-helper-line-height` | `var(--font-lineheight-3)`                                                                    | Line height for helper and end text under a field.                                                                                                                                                       |
+| `--ui-field-label-color`        | `var(--ui-text-primary)`                                                                      | Text color for field labels.                                                                                                                                                                             |
+| `--ui-field-label-font-size`    | `var(--ui-font-size-05)`                                                                      | Font size for field labels.                                                                                                                                                                              |
+| `--ui-field-label-font-weight`  | `var(--ui-font-weight-semibold)`                                                              | Font weight for emphasized field labels and legends.                                                                                                                                                     |
+| `--ui-font-weight-semibold`     | `var(--font-weight-6)`                                                                        | Font weight for labels, table headers and titles.                                                                                                                                                        |
+| `--ui-invalid-color`            | `var(--ui-critical)`                                                                          | Color for invalid field borders, fills and outlines.                                                                                                                                                     |
+| `--ui-invalid-text-color`       | `light-dark( var(--ui-invalid-color), oklch(from var(--ui-invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--ui-invalid-color` in dark mode so the text stays readable.                                                                             |
+| `--ui-motion`                   | `1`                                                                                           | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+| `--ui-primary`                  | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                             |
+| `--ui-surface-default`          | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                             | Page and card background.                                                                                                                                                                                |
+| `--ui-surface-filled`           | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                                                                                                    |
+| `--ui-surface-tonal`            | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                             | Background of tonal variants.                                                                                                                                                                            |
+| `--ui-text-primary`             | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -297,9 +297,9 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property                   | Kind   | Description                                                                                                     |
 | -------------------------- | ------ | --------------------------------------------------------------------------------------------------------------- |
-| `--_accent`                | Input  | Color of the thumb, its ring and the track fill. Defaults to `--primary`, set by the invalid state.             |
-| `--_duration`              | Output | Duration of the thumb ring transition, `--duration-fast` times `--_motion`.                                     |
-| `--_ease`                  | Input  | Easing of the thumb ring transition and focus ring. Defaults to `--ease`.                                       |
+| `--_accent`                | Input  | Color of the thumb, its ring and the track fill. Defaults to `--ui-primary`, set by the invalid state.          |
+| `--_duration`              | Output | Duration of the thumb ring transition, `--ui-duration-fast` times `--_motion`.                                  |
+| `--_ease`                  | Input  | Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.                                    |
 | `--_forced-fill-color`     | Output | Thumb and fill color in forced colors mode. `GrayText` when disabled.                                           |
 | `--_forced-track-color`    | Output | Track color in forced colors mode. `GrayText` when disabled.                                                    |
 | `--_inset`                 | Output | Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`. |
@@ -372,14 +372,14 @@ Step 1 of 5: Track
 
 .range::-webkit-slider-runnable-track {
   appearance: none;
-  background-color: var(--border-color);
+  background-color: var(--ui-border-color);
   block-size: 0.75ex;
   border-radius: 1e5px;
 }
 
 .range::-moz-range-track {
   appearance: none;
-  background-color: var(--border-color);
+  background-color: var(--ui-border-color);
   block-size: 0.75ex;
   border-radius: 1e5px;
 }
@@ -390,9 +390,9 @@ Step 2 of 5: Thumb
 ```css
 .range::-webkit-slider-thumb {
   appearance: none;
-  background: var(--primary);
+  background: var(--ui-primary);
   block-size: 3ex;
-  border: 3px solid var(--surface-default);
+  border: 3px solid var(--ui-surface-default);
   border-radius: 50%;
   cursor: ew-resize;
   inline-size: 3ex;
@@ -401,9 +401,9 @@ Step 2 of 5: Thumb
 
 .range::-moz-range-thumb {
   appearance: none;
-  background: var(--primary);
+  background: var(--ui-primary);
   block-size: 3ex;
-  border: 3px solid var(--surface-default);
+  border: 3px solid var(--ui-surface-default);
   border-radius: 50%;
   cursor: ew-resize;
   inline-size: 3ex;
@@ -462,7 +462,7 @@ Step 3 of 5: Fill
 }
 
 .range::-webkit-slider-runnable-track {
-  background-image: linear-gradient(var(--primary), var(--primary));
+  background-image: linear-gradient(var(--ui-primary), var(--ui-primary));
   background-repeat: no-repeat;
   background-size: var(--track-fill, 0%) 100%;
 }
@@ -472,7 +472,7 @@ Step 3 of 5: Fill
 }
 
 .range::-moz-range-progress {
-  background-color: var(--primary);
+  background-color: var(--ui-primary);
   block-size: 0.75ex;
   border-radius: 1e5px;
 }
@@ -496,13 +496,13 @@ Step 4 of 5: Halo
 }
 
 .range::-webkit-slider-thumb {
-  box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
-  transition: box-shadow calc(0.2s * var(--motion, 1)) var(--ease);
+  box-shadow: 0 0 0 var(--halo) oklch(from var(--ui-primary) 70% 100% h / 20%);
+  transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
 }
 
 .range::-moz-range-thumb {
-  box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
-  transition: box-shadow calc(0.2s * var(--motion, 1)) var(--ease);
+  box-shadow: 0 0 0 var(--halo) oklch(from var(--ui-primary) 70% 100% h / 20%);
+  transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
 }
 ```
 

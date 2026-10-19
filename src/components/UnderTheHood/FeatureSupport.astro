@@ -72,7 +72,7 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
 
     & li {
       align-items: center;
-      background-color: var(--surface-tonal);
+      background-color: var(--ui-surface-tonal);
       border-radius: var(--radius-2);
       display: flex;
       flex-wrap: wrap;
@@ -82,14 +82,14 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
     }
 
     & a {
-      color: var(--text-primary);
+      color: var(--ui-text-primary);
       font-weight: 600;
     }
   }
 
   .feature-support-status {
     align-items: center;
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     display: inline-flex;
     gap: var(--size-1);
     margin-inline-end: auto;
@@ -103,15 +103,15 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
     }
 
     [data-status="high"] > & {
-      --_status-color: var(--success);
+      --_status-color: var(--ui-success);
     }
 
     [data-status="low"] > & {
-      --_status-color: var(--info);
+      --_status-color: var(--ui-info);
     }
 
     [data-status="limited"] > & {
-      --_status-color: var(--warning);
+      --_status-color: var(--ui-warning);
     }
   }
 
@@ -138,7 +138,7 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
     }
 
     & dd {
-      color: var(--text-muted);
+      color: var(--ui-text-muted);
       font-variant-numeric: tabular-nums;
       margin: 0;
     }
@@ -150,7 +150,7 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
       }
 
       & dd {
-        color: var(--text-primary);
+        color: var(--ui-text-primary);
         font-weight: 700;
       }
     }

@@ -29,7 +29,7 @@ export default {
   },
   "--_border-radius": {
     description:
-      "The corner radius, also of the `summary` focus ring. Defaults to `--border-radius`.",
+      "The corner radius, also of the `summary` focus ring. Defaults to `--ui-border-radius`.",
     kind: "input",
   },
   "--_border-width": {
@@ -47,15 +47,16 @@ export default {
   },
   "--_divider-color": {
     description:
-      "Color of the border between items in a group. Defaults to `--border-color`.",
+      "Color of the border between items in a group. Defaults to `--ui-border-color`.",
     kind: "input",
   },
   "--_duration": {
-    description: "Duration of the transitions, `--duration` times `--_motion`.",
+    description:
+      "Duration of the transitions, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the transitions. Defaults to `--ease`.",
+    description: "Easing of the transitions. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_focus-ring-offset": {
@@ -65,7 +66,7 @@ export default {
   },
   "--_group-radius": {
     description:
-      "Corner radius of the first and last item in a group. Defaults to `--border-radius`.",
+      "Corner radius of the first and last item in a group. Defaults to `--ui-border-radius`.",
     kind: "input",
   },
   "--_item-padding-inline": {

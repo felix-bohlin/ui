@@ -32,8 +32,8 @@
       /* Animation on-stage styles */
       background: transparent;
       border: 0;
-      border-radius: var(--field-border-radius, var(--border-radius));
-      box-shadow: var(--shadow-overlay);
+      border-radius: var(--ui-field-border-radius, var(--ui-border-radius));
+      box-shadow: var(--ui-shadow-overlay);
       opacity: 1;
       padding: 0;
       scale: 1;
@@ -73,19 +73,19 @@
     }
 
     .ui-list {
-      --_bg-color: var(--surface-filled);
-      border: var(--field-border-width) solid var(--field-border-color);
-      border-radius: var(--field-border-radius, var(--border-radius));
+      --_bg-color: var(--ui-surface-filled);
+      border: var(--ui-field-border-width) solid var(--ui-field-border-color);
+      border-radius: var(--ui-field-border-radius, var(--ui-border-radius));
 
       /* Groups */
       [role="group"] {
         label {
-          background-color: light-dark(var(--gray-3), var(--gray-13));
+          background-color: light-dark(var(--ui-gray-3), var(--ui-gray-13));
           color: light-dark(
-            oklch(from var(--text-primary) calc(l * 0.75) c h),
-            oklch(from var(--text-primary) calc(l * 1.25) c h)
+            oklch(from var(--ui-text-primary) calc(l * 0.75) c h),
+            oklch(from var(--ui-text-primary) calc(l * 1.25) c h)
           );
-          font-weight: var(--font-weight-medium);
+          font-weight: var(--ui-font-weight-medium);
           overflow: hidden;
           padding-inline: var(--size-2);
           text-overflow: ellipsis;
@@ -107,7 +107,7 @@
         }
 
         &:focus-visible {
-          outline-offset: var(--focus-ring-inset);
+          outline-offset: var(--ui-focus-ring-inset);
         }
       }
     }
@@ -126,8 +126,8 @@
       }
 
       :where(option, optgroup) {
-        background-color: var(--surface-elevated);
-        color: var(--text-primary);
+        background-color: var(--ui-surface-elevated);
+        color: var(--ui-text-primary);
       }
 
       /* Arrow */

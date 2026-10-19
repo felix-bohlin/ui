@@ -42,11 +42,11 @@ test.describe("prefers-contrast", () => {
     await openFixture(page, "html", "stress/theming")
   })
 
-  test("sets --contrast to more", async ({ page }) => {
+  test("sets --ui-contrast to more", async ({ page }) => {
     const html = page.locator("html")
-    expect(await computed(html, "--contrast")).toBe("normal")
+    expect(await computed(html, "--ui-contrast")).toBe("normal")
     await setContrast(page, "more")
-    expect(await computed(html, "--contrast")).toBe("more")
+    expect(await computed(html, "--ui-contrast")).toBe("more")
   })
 
   test(".ui-contrast-normal on html ignores the preference", async ({
@@ -54,31 +54,33 @@ test.describe("prefers-contrast", () => {
   }) => {
     await setContrast(page, "more")
     const body = page.locator("body")
-    const raised = await resolveColor(body, "var(--border-color)")
+    const raised = await resolveColor(body, "var(--ui-border-color)")
     await page.evaluate(() =>
       document.documentElement.classList.add("ui-contrast-normal"),
     )
-    expect(await computed(page.locator("html"), "--contrast")).toBe("normal")
-    expect(await resolveColor(body, "var(--border-color)")).not.toBe(raised)
+    expect(await computed(page.locator("html"), "--ui-contrast")).toBe("normal")
+    expect(await resolveColor(body, "var(--ui-border-color)")).not.toBe(raised)
   })
 
   for (const scheme of ["light", "dark"] as const) {
     test(`raises token contrast in ${scheme} mode`, async ({ page }) => {
       await page.emulateMedia({ colorScheme: scheme, contrast: "more" })
       const main = page.locator("main")
-      const surface = "var(--surface-default)"
+      const surface = "var(--ui-surface-default)"
       expect(
-        await contrast(main, "var(--text-muted)", surface),
+        await contrast(main, "var(--ui-text-muted)", surface),
       ).toBeGreaterThan(7)
       expect(
-        await contrast(main, "var(--field-border-color)", surface),
+        await contrast(main, "var(--ui-field-border-color)", surface),
       ).toBeGreaterThan(4.5)
       expect(
-        await contrast(main, "var(--border-color)", surface),
+        await contrast(main, "var(--ui-border-color)", surface),
       ).toBeGreaterThan(3)
-      expect(await contrast(main, "var(--primary)", surface)).toBeGreaterThan(7)
       expect(
-        await contrast(main, "var(--primary-contrast)", "var(--primary)"),
+        await contrast(main, "var(--ui-primary)", surface),
+      ).toBeGreaterThan(7)
+      expect(
+        await contrast(main, "var(--ui-primary-contrast)", "var(--ui-primary)"),
       ).toBeGreaterThan(7)
     })
   }
@@ -87,10 +89,10 @@ test.describe("prefers-contrast", () => {
     const scope = page.locator('[data-example="Default"]')
     const child = scope.locator(".example-row")
     const outside = page.locator('[data-example="Palette"] .example-row')
-    const before = await resolveColor(child, "var(--border-color)")
+    const before = await resolveColor(child, "var(--ui-border-color)")
     await scope.evaluate((element) => element.classList.add("ui-contrast-more"))
-    expect(await resolveColor(child, "var(--border-color)")).not.toBe(before)
-    expect(await resolveColor(outside, "var(--border-color)")).toBe(before)
+    expect(await resolveColor(child, "var(--ui-border-color)")).not.toBe(before)
+    expect(await resolveColor(outside, "var(--ui-border-color)")).toBe(before)
   })
 })
 

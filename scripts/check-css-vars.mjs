@@ -7,7 +7,7 @@ const opuiDir = join(root, "packages/opui")
 const srcDir = join(root, "src")
 const openPropsEntry = join(opuiDir, "open-props.css")
 
-const CONSUMER_SET = ["--anchor-position-area"]
+const CONSUMER_SET = ["--ui-anchor-position-area"]
 
 const BASES = {
   "badge.css": ["avatar.css"],

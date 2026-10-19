@@ -160,7 +160,7 @@ const stepId = (index: number, part: string) =>
 
 <style is:global>
   .build-up {
-    --_accent: var(--primary);
+    --_accent: var(--ui-primary);
     --_marker: 1.75rem;
     --_pad: var(--size-2);
 
@@ -196,7 +196,7 @@ const stepId = (index: number, part: string) =>
   .build-up-stage {
     align-items: center;
     background-image: radial-gradient(
-      color-mix(in oklch, var(--text-muted) 5%, transparent) 1.45px,
+      color-mix(in oklch, var(--ui-text-muted) 5%, transparent) 1.45px,
       transparent 1.45px
     );
     background-size: 20px 20px;
@@ -212,7 +212,7 @@ const stepId = (index: number, part: string) =>
   }
 
   .build-up-knobs {
-    border-block-start: var(--border-width, 1px) solid var(--border-color);
+    border-block-start: var(--ui-border-width, 1px) solid var(--ui-border-color);
     display: grid;
     gap: var(--size-3) var(--size-5);
     grid-area: knobs;
@@ -225,7 +225,8 @@ const stepId = (index: number, part: string) =>
   }
 
   .build-up-steps {
-    border-inline-start: var(--border-width, 1px) solid var(--border-color);
+    border-inline-start: var(--ui-border-width, 1px) solid
+      var(--ui-border-color);
     grid-area: steps;
     padding: var(--size-3);
 
@@ -245,7 +246,7 @@ const stepId = (index: number, part: string) =>
       }
 
       &:not(:last-child):after {
-        border-inline-start: 2px solid var(--border-color);
+        border-inline-start: 2px solid var(--ui-border-color);
         content: "";
         inset-block: calc(var(--_pad) + var(--_marker) + 4px)
           calc(4px - var(--_pad));
@@ -266,8 +267,8 @@ const stepId = (index: number, part: string) =>
         padding: var(--_pad);
 
         &:has(:focus-visible) {
-          outline: var(--focus-ring-width, 2px) solid
-            var(--focus-ring-color, var(--primary));
+          outline: var(--ui-focus-ring-width, 2px) solid
+            var(--ui-focus-ring-color, var(--ui-primary));
           outline-offset: -2px;
         }
 
@@ -280,11 +281,11 @@ const stepId = (index: number, part: string) =>
 
   .build-up-marker {
     aspect-ratio: 1;
-    background-color: var(--surface-default);
-    border: 2px solid var(--border-color);
+    background-color: var(--ui-surface-default);
+    border: 2px solid var(--ui-border-color);
     border-radius: var(--radius-round);
     box-sizing: border-box;
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     display: grid;
     flex-shrink: 0;
     font-size: var(--font-size-0);
@@ -306,7 +307,7 @@ const stepId = (index: number, part: string) =>
     label:has(:checked) & {
       background-color: var(--_accent);
       border-color: var(--_accent);
-      color: var(--primary-contrast);
+      color: var(--ui-primary-contrast);
     }
 
     label:has(:checked) & {
@@ -315,7 +316,7 @@ const stepId = (index: number, part: string) =>
   }
 
   .build-up-step-name {
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     font-weight: 600;
     min-inline-size: 0;
     padding-block-start: calc((var(--_marker) - 1lh) / 2);
@@ -323,13 +324,13 @@ const stepId = (index: number, part: string) =>
 
     label:has(:checked) &,
     li:has(~ li :checked) & {
-      color: var(--text-primary);
+      color: var(--ui-text-primary);
     }
   }
 
   .build-up-notes {
     block-size: 0;
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     display: grid;
     font-size: var(--font-size-0);
     gap: var(--size-1);
@@ -363,7 +364,7 @@ const stepId = (index: number, part: string) =>
   }
 
   .build-up-detail {
-    border-block-start: var(--border-width, 1px) solid var(--border-color);
+    border-block-start: var(--ui-border-width, 1px) solid var(--ui-border-color);
     display: grid;
     gap: var(--size-3) var(--size-2);
     grid-area: detail;
@@ -391,7 +392,7 @@ const stepId = (index: number, part: string) =>
       font-weight: 700;
       grid-column: 1;
       margin: 0;
-      min-block-size: var(--button-size-small);
+      min-block-size: var(--ui-button-size-small);
     }
   }
 
@@ -418,7 +419,8 @@ const stepId = (index: number, part: string) =>
     }
 
     .build-up-steps {
-      border-block-start: var(--border-width, 1px) solid var(--border-color);
+      border-block-start: var(--ui-border-width, 1px) solid
+        var(--ui-border-color);
       border-inline-start: 0;
     }
 

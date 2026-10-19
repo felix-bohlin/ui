@@ -120,7 +120,7 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
 <style>
   :global {
     .repo-card {
-      font-size: var(--font-size-05);
+      font-size: var(--ui-font-size-05);
       inline-size: 280px;
       margin-block-start: var(--size-2);
     }
@@ -266,8 +266,8 @@ Step 1 of 4: Hint
 
 ```css
 .card {
-  background-color: var(--surface-elevated);
-  border: 1px solid var(--border-color);
+  background-color: var(--ui-surface-elevated);
+  border: 1px solid var(--ui-border-color);
   border-radius: var(--radius-3);
   box-shadow: var(--shadow-3);
   color: inherit;

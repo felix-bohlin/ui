@@ -35,8 +35,8 @@ const steps = [
 }
 
 .description {
-  color: var(--text-muted);
-  font-size: var(--font-size-05);
+  color: var(--ui-text-muted);
+  font-size: var(--ui-font-size-05);
   margin: 0;
 }
 
@@ -104,7 +104,7 @@ const steps = [
   {
     css: `
 .fieldset:has(:required) legend::after {
-  color: var(--field-required-color);
+  color: var(--ui-field-required-color);
   content: "*";
   margin-inline-start: 0.25ex;
 }`,
@@ -168,8 +168,8 @@ const channels = ["Email", "Push", "SMS"]
     gap: var(--size-1);
 
     & input {
-      background-color: var(--surface-default);
-      border: var(--border-width, 1px) solid var(--border-color);
+      background-color: var(--ui-surface-default);
+      border: var(--ui-border-width, 1px) solid var(--ui-border-color);
       border-radius: var(--radius-2);
       color: inherit;
       font: inherit;
@@ -184,8 +184,8 @@ const channels = ["Email", "Push", "SMS"]
   }
 
   .group button {
-    background-color: var(--surface-tonal);
-    border: var(--border-width, 1px) solid var(--border-color);
+    background-color: var(--ui-surface-tonal);
+    border: var(--ui-border-width, 1px) solid var(--ui-border-color);
     border-radius: var(--radius-2);
     color: inherit;
     cursor: pointer;

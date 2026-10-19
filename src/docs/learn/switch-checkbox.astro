@@ -55,10 +55,10 @@ import Code from "../../components/Code.astro"
   outline-offset: -1px;
   position: absolute;
   transition:
-    background-color 0.2s var(--ease),
-    inset-inline-start 0.2s var(--ease),
-    outline-color 0.2s var(--ease),
-    outline-width 0.2s var(--ease);
+    background-color 0.2s var(--ui-ease),
+    inset-inline-start 0.2s var(--ui-ease),
+    outline-color 0.2s var(--ui-ease),
+    outline-width 0.2s var(--ui-ease);
 }
 
 [role="switch"]:checked::after {
@@ -88,8 +88,8 @@ import Code from "../../components/Code.astro"
         colors
       </li>
       <li>
-        Under reduced motion <code>--motion</code> is <code>0</code> and the dot jumps
-        instead of sliding
+        Under reduced motion <code>--ui-motion</code> is <code>0</code> and the dot
+        jumps instead of sliding
       </li>
     </ul>
   </section>

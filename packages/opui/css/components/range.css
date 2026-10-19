@@ -12,10 +12,10 @@
 
 @layer components.root {
   :where(.ui-range) {
-    --_motion: var(--motion);
-    --_accent: var(--primary);
-    --_duration: calc(var(--duration-fast) * var(--_motion));
-    --_ease: var(--ease);
+    --_motion: var(--ui-motion);
+    --_accent: var(--ui-primary);
+    --_duration: calc(var(--ui-duration-fast) * var(--_motion));
+    --_ease: var(--ui-ease);
     --_thumb-size: 3ex;
 
     @media (hover: none) {
@@ -28,45 +28,45 @@
     position: relative;
 
     .ui-label {
-      color: var(--field-label-color);
-      font-size: var(--field-label-font-size);
-      font-weight: var(--field-label-font-weight);
+      color: var(--ui-field-label-color);
+      font-size: var(--ui-field-label-font-size);
+      font-weight: var(--ui-field-label-font-weight);
       grid-column: 1;
       grid-row: 1;
     }
 
     :where(.ui-value) {
-      color: var(--field-helper-color);
-      font-size: var(--field-helper-font-size);
+      color: var(--ui-field-helper-color);
+      font-size: var(--ui-field-helper-font-size);
       font-variant-numeric: tabular-nums;
-      font-weight: var(--font-weight-semibold);
+      font-weight: var(--ui-font-weight-semibold);
       grid-column: 2;
       grid-row: 1;
-      line-height: var(--field-helper-line-height);
+      line-height: var(--ui-field-helper-line-height);
       text-align: end;
     }
 
     .ui-start-text {
-      color: var(--field-helper-color);
-      font-size: var(--field-helper-font-size);
+      color: var(--ui-field-helper-color);
+      font-size: var(--ui-field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 2;
-      line-height: var(--field-helper-line-height);
+      line-height: var(--ui-field-helper-line-height);
     }
 
     :where(.ui-end-text) {
-      color: var(--field-helper-color);
-      font-size: var(--field-helper-font-size);
+      color: var(--ui-field-helper-color);
+      font-size: var(--ui-field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 5;
-      line-height: var(--field-helper-line-height);
+      line-height: var(--ui-field-helper-line-height);
     }
 
     /* Datalist (tick mark labels) */
     :where(datalist) {
-      color: var(--field-helper-color);
+      color: var(--ui-field-helper-color);
       display: flex;
-      font-size: var(--field-helper-font-size);
+      font-size: var(--ui-field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 4;
       justify-content: space-between;
@@ -85,7 +85,7 @@
     /* Disabled */
     &:has([disabled]) {
       cursor: not-allowed;
-      opacity: var(--disabled-opacity);
+      opacity: var(--ui-disabled-opacity);
       user-select: none;
 
       .ui-label,
@@ -98,11 +98,11 @@
 
     /* Color */
     &.ui-filled input[type="range"] {
-      --_track-color: var(--surface-filled);
+      --_track-color: var(--ui-surface-filled);
     }
 
     &.ui-tonal input[type="range"] {
-      --_track-color: var(--surface-tonal);
+      --_track-color: var(--ui-surface-tonal);
     }
 
     /* Orientation */
@@ -118,12 +118,12 @@
       }
 
       .ui-start-text {
-        color: var(--field-helper-color);
+        color: var(--ui-field-helper-color);
         display: block;
-        font-size: var(--field-helper-font-size);
+        font-size: var(--ui-field-helper-font-size);
         grid-column: 1;
         grid-row: 2;
-        line-height: var(--field-helper-line-height);
+        line-height: var(--ui-field-helper-line-height);
       }
 
       input[type="range"] {
@@ -202,12 +202,12 @@
 
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
-      --_accent: var(--invalid-color);
+      --_accent: var(--ui-invalid-color);
 
       .ui-start-text,
       .ui-end-text,
       .ui-value {
-        color: var(--invalid-text-color);
+        color: var(--ui-invalid-text-color);
       }
     }
 
@@ -221,7 +221,7 @@
       --_thumb-highlight-color: oklch(from var(--_accent) 70% 100% h / 20%);
       --_thumb-highlight-size: 0px;
       --_thumb-offset: calc((var(--_track-height) - var(--_thumb-size)) / 2);
-      --_track-color: var(--field-border-color);
+      --_track-color: var(--ui-field-border-color);
       --_track-fill: 0%;
       --_track-fill-color: var(--_accent);
       --_track-height: 0.75ex;
@@ -247,7 +247,7 @@
       timeline-scope: --ui-range-thumb;
 
       &:focus-visible {
-        animation-duration: auto, calc(var(--duration) * var(--_motion));
+        animation-duration: auto, calc(var(--ui-duration) * var(--_motion));
         animation-name: ui-range-fill, ui-focus-ring;
         animation-range: contain, normal;
         animation-timeline: --ui-range-thumb, auto;
@@ -295,7 +295,7 @@
         appearance: none;
         background: var(--_thumb-bg-color);
         block-size: var(--_thumb-size);
-        border: 3px solid var(--surface-default);
+        border: 3px solid var(--ui-surface-default);
         border-radius: 50%;
         box-shadow: 0 0 0 var(--_thumb-highlight-size)
           var(--_thumb-highlight-color);
@@ -312,7 +312,7 @@
         appearance: none;
         background: var(--_thumb-bg-color);
         block-size: var(--_thumb-size);
-        border: 3px solid var(--surface-default);
+        border: 3px solid var(--ui-surface-default);
         border-radius: 50%;
         box-shadow: 0 0 0 var(--_thumb-highlight-size)
           var(--_thumb-highlight-color);
@@ -334,15 +334,15 @@
         &:active {
           --_thumb-highlight-size: var(--size-2);
           --_track-color: light-dark(
-            oklch(from var(--field-border-color) calc(l * 0.9) c h),
-            oklch(from var(--field-border-color) calc(l * 1.1) c h)
+            oklch(from var(--ui-field-border-color) calc(l * 0.9) c h),
+            oklch(from var(--ui-field-border-color) calc(l * 1.1) c h)
           );
         }
       }
 
       &[disabled] {
-        --_thumb-bg-color: oklch(from var(--text-primary) l c h / 50%);
-        --_track-color: var(--field-border-color);
+        --_thumb-bg-color: oklch(from var(--ui-text-primary) l c h / 50%);
+        --_track-color: var(--ui-field-border-color);
 
         cursor: not-allowed;
 

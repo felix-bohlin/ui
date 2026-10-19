@@ -4,7 +4,7 @@
 
     .project-header {
       align-items: center;
-      border-block-end: var(--border-width) solid var(--border-color);
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       display: flex;
       gap: var(--size-3);
       padding: var(--size-3) var(--size-4);
@@ -16,15 +16,15 @@
 
     .project-brand {
       align-items: center;
-      color: var(--text-primary);
+      color: var(--ui-text-primary);
       display: flex;
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--ui-font-weight-bold);
       gap: var(--size-2);
       text-decoration: none;
 
       svg {
         block-size: var(--size-5);
-        color: var(--primary);
+        color: var(--ui-primary);
         inline-size: var(--size-5);
       }
     }
@@ -57,7 +57,7 @@
     }
 
     .project-status::before {
-      background-color: var(--success);
+      background-color: var(--ui-success);
       block-size: var(--size-2);
       border-radius: var(--radius-round);
       content: "";
@@ -117,7 +117,7 @@
         position: relative;
 
         &:not(:last-child)::before {
-          background-color: var(--border-color);
+          background-color: var(--ui-border-color);
           content: "";
           inline-size: 2px;
           inset-block: var(--size-5) 0;
@@ -157,21 +157,21 @@
     }
 
     .project-done svg {
-      color: var(--success);
+      color: var(--ui-success);
     }
 
     .project-current {
       svg {
-        color: var(--primary);
+        color: var(--ui-primary);
       }
 
       p:first-of-type {
-        font-weight: var(--font-weight-semibold);
+        font-weight: var(--ui-font-weight-semibold);
       }
     }
 
     .project-upcoming svg {
-      color: var(--text-muted);
+      color: var(--ui-text-muted);
     }
 
     .project-card-list {

@@ -21,20 +21,20 @@ const hasToast = componentHasFramework(Astro.locals.framework, "toast")
 
 const ThemeCSS = `/* ... */
 .ui-critical {
-  --palette-source: oklch(0.58 0.21 var(--hue-red));
-  --palette-hue-rotate-by: 1;
+  --ui-palette-source: oklch(0.58 0.21 var(--hue-red));
+  --ui-palette-hue-rotate-by: 1;
 }
 .ui-info {
-  --palette-source: oklch(0.58 0.21 var(--hue-blue));
-  --palette-hue-rotate-by: 1;
+  --ui-palette-source: oklch(0.58 0.21 var(--hue-blue));
+  --ui-palette-hue-rotate-by: 1;
 }
 .ui-success {
-  --palette-source: oklch(0.58 0.21 var(--hue-green));
-  --palette-hue-rotate-by: 1;
+  --ui-palette-source: oklch(0.58 0.21 var(--hue-green));
+  --ui-palette-hue-rotate-by: 1;
 }
 .ui-warning {
-  --palette-source: oklch(0.58 0.21 var(--hue-orange));
-  --palette-hue-rotate-by: 1;
+  --ui-palette-source: oklch(0.58 0.21 var(--hue-orange));
+  --ui-palette-hue-rotate-by: 1;
 }
 /* ... */`
 ---

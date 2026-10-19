@@ -1,27 +1,27 @@
 @layer components.root {
   :where(.ui-card) {
-    --_motion: var(--motion);
+    --_motion: var(--ui-motion);
     --_bg-color: var(--_surface-bg-color);
     --_border-color: transparent;
     --_border-width: 0;
-    --_duration: calc(var(--duration) * var(--_motion));
-    --_ease: var(--ease);
-    --_elevated-bg-color: var(--surface-elevated);
-    --_elevated-shadow: var(--shadow-raised);
-    --_outlined-border-color: var(--border-color);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
+    --_elevated-bg-color: var(--ui-surface-elevated);
+    --_elevated-shadow: var(--ui-shadow-raised);
+    --_outlined-border-color: var(--ui-border-color);
     --_shadow: none;
-    --_surface-bg-color: var(--surface-default);
-    --_tonal-bg-color: var(--surface-tonal);
+    --_surface-bg-color: var(--ui-surface-default);
+    --_tonal-bg-color: var(--ui-surface-tonal);
 
     background-color: var(--_bg-color);
     border-color: var(--_border-color);
-    border-radius: var(--border-radius);
+    border-radius: var(--ui-border-radius);
     border-style: solid;
     border-width: var(--_border-width);
     box-shadow: var(--_shadow);
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--ui-space-3);
     min-inline-size: 0;
     overflow: hidden;
     overflow-wrap: break-word;
@@ -39,34 +39,34 @@
     &.ui-tonal {
       --_bg-color: var(--_tonal-bg-color);
       --_border-color: var(--_surface-bg-color);
-      --_border-width: var(--border-width);
+      --_border-width: var(--ui-border-width);
     }
 
     &.ui-elevated {
       --_bg-color: var(--_elevated-bg-color);
       --_border-color: var(--_surface-bg-color);
-      --_border-width: var(--border-width);
+      --_border-width: var(--ui-border-width);
       --_shadow: var(--_elevated-shadow);
     }
 
     &.ui-outlined {
       --_bg-color: var(--_surface-bg-color);
       --_border-color: var(--_outlined-border-color);
-      --_border-width: var(--border-width);
+      --_border-width: var(--ui-border-width);
     }
 
     & > :where(hgroup, .ui-content) {
       margin-block: 0;
-      padding-inline: var(--space-3);
+      padding-inline: var(--ui-space-3);
 
       &:last-child {
-        padding-block-end: var(--space-3);
+        padding-block-end: var(--ui-space-3);
       }
     }
 
     /* Header */
     & > hgroup {
-      padding-block: var(--space-3) 0;
+      padding-block: var(--ui-space-3) 0;
 
       & > :where(h1, h2, h3, h4, h5, h6, p) {
         margin-block: 0;
@@ -90,21 +90,24 @@
 
     /* Content */
     & > .ui-content:where(:only-child, :first-child) {
-      padding-block: var(--space-3) var(--space-4);
+      padding-block: var(--ui-space-3) var(--ui-space-4);
     }
 
     /* Actions */
     & > .ui-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--space-2);
+      gap: var(--ui-space-2);
       margin-block-start: auto;
-      padding-block: var(--space-2);
-      padding-inline: var(--space-3);
+      padding-block: var(--ui-space-2);
+      padding-inline: var(--ui-space-3);
 
       &:has(> .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
-        padding-inline: max(0px, var(--space-3) - var(--size-3) + var(--size-1))
-          var(--space-3);
+        padding-inline: max(
+            0px,
+            var(--ui-space-3) - var(--size-3) + var(--size-1)
+          )
+          var(--ui-space-3);
       }
 
       /* Alignment */
@@ -114,20 +117,20 @@
         &:has(
           > .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)
         ) {
-          padding-inline: var(--space-3);
+          padding-inline: var(--ui-space-3);
         }
 
         &:has(
           > .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)
         ) {
-          padding-inline: var(--space-3)
-            max(0px, var(--space-3) - var(--size-3) + var(--size-1));
+          padding-inline: var(--ui-space-3)
+            max(0px, var(--ui-space-3) - var(--size-3) + var(--size-1));
         }
       }
     }
 
     &:has(.ui-card-link:hover):not(:has(.ui-card .ui-card-link:hover)) {
-      --_border-color: var(--text-muted);
+      --_border-color: var(--ui-text-muted);
 
       @media (forced-colors: active) {
         --_border-color: Highlight;
@@ -138,9 +141,9 @@
         :has(.ui-card .ui-card-link:focus-visible)
       ) {
       animation: ui-focus-ring var(--_duration) var(--_ease);
-      outline: var(--focus-ring-width) var(--focus-ring-style)
-        var(--focus-ring-color);
-      outline-offset: var(--focus-ring-offset);
+      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+        var(--ui-focus-ring-color);
+      outline-offset: var(--ui-focus-ring-offset);
     }
   }
 

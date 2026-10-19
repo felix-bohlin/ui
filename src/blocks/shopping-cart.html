@@ -26,7 +26,7 @@
       padding: 0;
 
       li + li {
-        border-block-start: var(--border-width) solid var(--border-color);
+        border-block-start: var(--ui-border-width) solid var(--ui-border-color);
       }
     }
 
@@ -48,7 +48,7 @@
 
     .cart-thumb {
       aspect-ratio: 1;
-      border-radius: var(--border-radius);
+      border-radius: var(--ui-border-radius);
       grid-area: thumb;
       inline-size: var(--size-10);
     }
@@ -56,24 +56,24 @@
     .cart-thumb-1 {
       background: linear-gradient(
         135deg,
-        var(--primary),
-        oklch(from var(--primary) l c calc(h + 60))
+        var(--ui-primary),
+        oklch(from var(--ui-primary) l c calc(h + 60))
       );
     }
 
     .cart-thumb-2 {
       background: linear-gradient(
         135deg,
-        oklch(from var(--primary) l c calc(h - 80)),
-        oklch(from var(--primary) l c calc(h - 30))
+        oklch(from var(--ui-primary) l c calc(h - 80)),
+        oklch(from var(--ui-primary) l c calc(h - 30))
       );
     }
 
     .cart-thumb-3 {
       background: linear-gradient(
         135deg,
-        oklch(from var(--primary) l c calc(h + 140)),
-        oklch(from var(--primary) l c calc(h + 190))
+        oklch(from var(--ui-primary) l c calc(h + 140)),
+        oklch(from var(--ui-primary) l c calc(h + 190))
       );
     }
 
@@ -89,7 +89,7 @@
       }
 
       p {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         font-size: var(--font-size-1);
       }
     }
@@ -109,11 +109,11 @@
     }
 
     .cart-in-stock {
-      --_dot: var(--success);
+      --_dot: var(--ui-success);
     }
 
     .cart-backorder {
-      --_dot: var(--warning);
+      --_dot: var(--ui-warning);
     }
 
     .cart-links {
@@ -153,7 +153,7 @@
 
     .cart-line-price {
       font-variant-numeric: tabular-nums;
-      font-weight: var(--font-weight-semibold);
+      font-weight: var(--ui-font-weight-semibold);
       margin: 0;
       text-align: end;
 
@@ -208,7 +208,7 @@
       }
 
       dt {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
       }
 
       dd {
@@ -217,15 +217,15 @@
       }
 
       .cart-total {
-        border-block-start: var(--border-width) solid var(--border-color);
+        border-block-start: var(--ui-border-width) solid var(--ui-border-color);
         font-size: var(--font-size-3);
-        font-weight: var(--font-weight-bold);
+        font-weight: var(--ui-font-weight-bold);
         margin-block-start: var(--size-2);
         padding-block-start: var(--size-3);
 
         dd,
         dt {
-          color: var(--text-primary);
+          color: var(--ui-text-primary);
         }
       }
     }

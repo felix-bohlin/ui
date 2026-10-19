@@ -21,7 +21,7 @@ One finding per item, in the `TODO.md` item format. `Component:` is the componen
   - Fix: what to change.
     ```css
     .ui-example {
-      color: var(--text-primary);
+      color: var(--ui-text-primary);
     }
     ```
 ````

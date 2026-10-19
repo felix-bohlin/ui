@@ -241,13 +241,13 @@ const count = sections.reduce(
   }
 
   .checks-progress {
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--ui-font-weight-semibold);
     margin: 0;
   }
 
   .checks-section-progress {
-    color: var(--text-muted);
-    font-size: var(--font-size-05);
+    color: var(--ui-text-muted);
+    font-size: var(--ui-font-size-05);
     margin-block: 0 var(--size-3);
   }
 
@@ -260,13 +260,13 @@ const count = sections.reduce(
   }
 
   .checks-item {
-    border-block-end: var(--border-width) solid var(--border-color);
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
     display: grid;
     gap: var(--size-2);
     padding-block-end: var(--size-4);
 
     &:has(.checks-done input:checked) :global(.checks-done .ui-label) {
-      color: var(--text-muted);
+      color: var(--ui-text-muted);
       text-decoration: line-through;
     }
   }
@@ -276,7 +276,7 @@ const count = sections.reduce(
   }
 
   .checks-item :global(.checks-notes) {
-    padding-inline-start: calc(var(--choice-size) + var(--size-2));
+    padding-inline-start: calc(var(--ui-choice-size) + var(--size-2));
   }
 
   .checks-actions {
@@ -292,7 +292,7 @@ const count = sections.reduce(
   }
 
   .checks-status {
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     margin: 0;
     min-block-size: 1lh;
   }

@@ -5,7 +5,7 @@ const steps = [
   {
     css: `
 .switch {
-  --dot-color: light-dark(var(--gray-11), var(--gray-14));
+  --dot-color: light-dark(var(--ui-gray-11), var(--ui-gray-14));
 
   appearance: none;
   block-size: 1.5rem;
@@ -16,7 +16,7 @@ const steps = [
 }
 
 .switch::before {
-  background-color: light-dark(var(--gray-3), var(--gray-8));
+  background-color: light-dark(var(--ui-gray-3), var(--ui-gray-8));
   border: 1px solid var(--dot-color);
   border-radius: 1e5px;
   content: "";
@@ -50,12 +50,12 @@ const steps = [
 }
 
 .switch:checked::before {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: var(--ui-primary);
+  border-color: var(--ui-primary);
 }
 
 .switch:checked::after {
-  --dot-color: var(--primary-contrast);
+  --dot-color: var(--ui-primary-contrast);
 
   inset-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
 }`,
@@ -81,10 +81,10 @@ const steps = [
   outline: var(--ring) solid var(--dot-color);
   outline-offset: -1px;
   transition:
-    background-color 0.2s var(--ease),
-    inset-inline-start 0.2s var(--ease),
-    outline-color 0.2s var(--ease),
-    outline-width 0.2s var(--ease);
+    background-color 0.2s var(--ui-ease),
+    inset-inline-start 0.2s var(--ui-ease),
+    outline-color 0.2s var(--ui-ease),
+    outline-width 0.2s var(--ui-ease);
 }
 
 .switch:checked::after {

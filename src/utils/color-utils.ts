@@ -3,7 +3,7 @@
  *
  * Used by the theme configurator / generator to let users pick a source
  * color from a native color picker and have it mapped back to the
- * `--palette-hue` / `--palette-chroma` sliders (and vice-versa).
+ * `--ui-palette-hue` / `--ui-palette-chroma` sliders (and vice-versa).
  *
  * Algorithm: hex → linear sRGB → OKLab → OKLCH  (Björn Ottosson, 2020)
  */

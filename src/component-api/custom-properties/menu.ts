@@ -2,7 +2,7 @@ import type { CustomProperties } from "../types"
 
 export default {
   "--_bg-color": {
-    description: "The background. Defaults to `--surface-elevated`.",
+    description: "The background. Defaults to `--ui-surface-elevated`.",
     kind: "input",
   },
   "--_border-color": {
@@ -10,7 +10,7 @@ export default {
     kind: "input",
   },
   "--_border-radius": {
-    description: "The corner radius. Defaults to `--border-radius`.",
+    description: "The corner radius. Defaults to `--ui-border-radius`.",
     kind: "input",
   },
   "--_border-width": {
@@ -22,15 +22,18 @@ export default {
     kind: "input",
   },
   "--_duration": {
-    description: "Duration of the transitions, `--duration` times `--_motion`.",
+    description:
+      "Duration of the transitions, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the open transition. Defaults to `--ease-enter`.",
+    description:
+      "Easing of the open transition. Defaults to `--ui-ease-enter`.",
     kind: "input",
   },
   "--_hover-bg-color": {
-    description: "Hover background of `.ui-critical` items, from `--critical`.",
+    description:
+      "Hover background of `.ui-critical` items, from `--ui-critical`.",
     kind: "output",
   },
   "--_margin-block": {
@@ -67,11 +70,11 @@ export default {
   },
   "--_position-area": {
     description:
-      "The `position-area` of a popover menu, from `--_side` and `--_span`. `--anchor-position-area` overrides it.",
+      "The `position-area` of a popover menu, from `--_side` and `--_span`. `--ui-anchor-position-area` overrides it.",
     kind: "output",
   },
   "--_shadow": {
-    description: "The shadow. Defaults to `--shadow-overlay`.",
+    description: "The shadow. Defaults to `--ui-shadow-overlay`.",
     kind: "input",
   },
   "--_side": {

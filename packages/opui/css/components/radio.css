@@ -3,19 +3,19 @@
     /* Input */
     input[type="radio"] {
       --_dot-radius: calc(
-        var(--_input-size) / 2 - var(--field-border-width) -
+        var(--_input-size) / 2 - var(--ui-field-border-width) -
           round(
             down,
-            (var(--_input-size) - 2 * var(--field-border-width)) / 4,
+            (var(--_input-size) - 2 * var(--ui-field-border-width)) / 4,
             1px
           )
       );
 
       appearance: none;
       aspect-ratio: 1;
-      background-color: var(--surface-default);
+      background-color: var(--ui-surface-default);
       block-size: var(--_input-size);
-      border: var(--field-border-width) solid var(--field-border-color);
+      border: var(--ui-field-border-width) solid var(--ui-field-border-color);
       border-radius: var(--radius-round);
       box-sizing: border-box;
       cursor: pointer;
@@ -40,7 +40,7 @@
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       input[type="radio"]:not(:checked) {
-        border-color: var(--invalid-color);
+        border-color: var(--ui-invalid-color);
       }
     }
 

@@ -18,7 +18,7 @@ export default {
   },
   "--_bg-color": {
     description:
-      "Background of the indicator. Defaults to `--primary`, set by the color classes.",
+      "Background of the indicator. Defaults to `--ui-primary`, set by the color classes.",
     kind: "input",
   },
   "--_border-color": {
@@ -40,11 +40,11 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the indicator fade, `--duration` times `--_motion`.",
+      "Duration of the indicator fade, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the indicator fade. Defaults to `--ease-enter`.",
+    description: "Easing of the indicator fade. Defaults to `--ui-ease-enter`.",
     kind: "input",
   },
   "--_inset": {
@@ -82,7 +82,7 @@ export default {
   },
   "--_text-color": {
     description:
-      "Text color of the indicator. Defaults to `--primary-contrast`, set by the color classes.",
+      "Text color of the indicator. Defaults to `--ui-primary-contrast`, set by the color classes.",
     kind: "input",
   },
 } satisfies CustomProperties

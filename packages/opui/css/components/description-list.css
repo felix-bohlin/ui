@@ -1,7 +1,7 @@
 @layer components.root {
   :where(.ui-description-list) {
     --_border-style: solid;
-    --_border-width: var(--border-width);
+    --_border-width: var(--ui-border-width);
 
     container-type: inline-size;
     display: grid;
@@ -21,7 +21,7 @@
     .ui-item {
       align-items: baseline;
       display: grid;
-      gap: var(--space-1);
+      gap: var(--ui-space-1);
       grid-template-columns: auto auto;
       justify-content: space-between;
       margin: 0;
@@ -29,18 +29,18 @@
       padding: 0;
 
       & + .ui-item {
-        margin-block-start: var(--space-1);
+        margin-block-start: var(--ui-space-1);
       }
 
       dt {
         display: block;
-        font-weight: var(--font-weight-bold);
+        font-weight: var(--ui-font-weight-bold);
         overflow: hidden;
         position: relative;
       }
 
       dd {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         margin: 0;
         padding: 0;
         text-align: end;
@@ -62,7 +62,7 @@
         background-color: transparent;
         block-size: 2px;
         border-block-end: var(--_border-width) var(--_border-style)
-          var(--border-color);
+          var(--ui-border-color);
         content: "";
         order: 1;
       }
@@ -76,7 +76,7 @@
         justify-content: normal;
 
         & + .ui-item {
-          margin-block-start: var(--space-3);
+          margin-block-start: var(--ui-space-3);
         }
 
         dd {

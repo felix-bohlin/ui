@@ -12,8 +12,8 @@ const steps = [
 }
 
 .select {
-  background-color: var(--surface-default);
-  border: 1px solid var(--border-color);
+  background-color: var(--ui-surface-default);
+  border: 1px solid var(--ui-border-color);
   border-radius: var(--radius-2);
   inline-size: 100%;
   padding: 0;
@@ -92,8 +92,8 @@ selectedcontent {
 }
 
 .list {
-  background-color: var(--surface-filled);
-  border: 1px solid var(--border-color);
+  background-color: var(--ui-surface-filled);
+  border: 1px solid var(--ui-border-color);
   border-radius: var(--radius-2);
   padding: 0.5rem 0;
 }
@@ -103,11 +103,11 @@ selectedcontent {
 }
 
 .list > option:hover {
-  background-color: oklch(from var(--primary) l c h / 15%);
+  background-color: oklch(from var(--ui-primary) l c h / 15%);
 }
 
 .list > option:checked {
-  background-color: oklch(from var(--primary) l c h / 30%);
+  background-color: oklch(from var(--ui-primary) l c h / 30%);
 }
 
 .list > option::checkmark {
@@ -192,7 +192,7 @@ const fruits = ["Apple", "Banana", "Cherry", "Mango", "Pear"]
 
   .select {
     align-items: center;
-    color: var(--text-primary);
+    color: var(--ui-text-primary);
     font: inherit;
   }
 </style>

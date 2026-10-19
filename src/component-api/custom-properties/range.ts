@@ -3,17 +3,17 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Color of the thumb, its ring and the track fill. Defaults to `--primary`, set by the invalid state.",
+      "Color of the thumb, its ring and the track fill. Defaults to `--ui-primary`, set by the invalid state.",
     kind: "input",
   },
   "--_duration": {
     description:
-      "Duration of the thumb ring transition, `--duration-fast` times `--_motion`.",
+      "Duration of the thumb ring transition, `--ui-duration-fast` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
     description:
-      "Easing of the thumb ring transition and focus ring. Defaults to `--ease`.",
+      "Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_forced-fill-color": {

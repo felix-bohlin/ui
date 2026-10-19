@@ -1,29 +1,29 @@
 @layer components.root {
   :where(.ui-tabs) {
-    --_motion: var(--motion);
+    --_motion: var(--ui-motion);
     --_active-bg-color: light-dark(
-      var(--surface-default),
-      oklch(100% 0 0 / var(--state-hover-alpha))
+      var(--ui-surface-default),
+      oklch(100% 0 0 / var(--ui-state-hover-alpha))
     );
     --_active-border-color: light-dark(
       transparent,
-      oklch(100% 0 0 / calc(var(--state-hover-alpha) * 0.8))
+      oklch(100% 0 0 / calc(var(--ui-state-hover-alpha) * 0.8))
     );
     --_active-shadow: var(--shadow-1);
-    --_active-text-color: var(--text-primary);
-    --_border-radius: var(--border-radius);
-    --_duration: calc(var(--duration-fast) * var(--_motion));
-    --_ease: var(--ease);
+    --_active-text-color: var(--ui-text-primary);
+    --_border-radius: var(--ui-border-radius);
+    --_duration: calc(var(--ui-duration-fast) * var(--_motion));
+    --_ease: var(--ui-ease);
     --_indicator-color: transparent;
     --_indicator-size: 2px;
     --_inset: calc(var(--size-1) - var(--_track-border-width));
-    --_text-color: color-mix(in oklch, var(--text-primary) 60%, transparent);
+    --_text-color: color-mix(in oklch, var(--ui-text-primary) 60%, transparent);
     --_track-border-color: transparent;
-    --_track-border-width: var(--border-width);
-    --_track-color: var(--surface-tonal);
+    --_track-border-width: var(--ui-border-width);
+    --_track-color: var(--ui-surface-tonal);
 
-    @container style(--contrast: more) {
-      --_text-color: var(--text-muted);
+    @container style(--ui-contrast: more) {
+      --_text-color: var(--ui-text-muted);
     }
 
     align-items: flex-start;
@@ -69,11 +69,11 @@
           z-index: 1;
 
           &::before {
-            animation: ui-focus-ring calc(var(--duration) * var(--_motion))
+            animation: ui-focus-ring calc(var(--ui-duration) * var(--_motion))
               var(--_ease);
-            outline: var(--focus-ring-width) var(--focus-ring-style)
-              var(--focus-ring-color);
-            outline-offset: var(--focus-ring-offset, 0);
+            outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+              var(--ui-focus-ring-color);
+            outline-offset: var(--ui-focus-ring-offset, 0);
           }
         }
       }
@@ -88,7 +88,7 @@
       cursor: pointer;
       display: inline-flex;
       font-size: var(--font-size-1);
-      font-weight: var(--font-weight-medium);
+      font-weight: var(--ui-font-weight-medium);
       gap: var(--size-2);
       isolation: isolate;
       justify-content: center;
@@ -104,7 +104,7 @@
       white-space: nowrap;
 
       &::before {
-        border: var(--border-width) solid transparent;
+        border: var(--ui-border-width) solid transparent;
         border-radius: calc(
           var(--_border-radius) - var(--_inset) - var(--_track-border-width)
         );
@@ -160,7 +160,7 @@
 
       @media (hover: hover) {
         &:hover {
-          color: var(--text-primary);
+          color: var(--ui-text-primary);
         }
       }
     }
@@ -174,16 +174,16 @@
     }
 
     &.ui-filled {
-      --_active-bg-color: var(--primary);
+      --_active-bg-color: var(--ui-primary);
       --_active-border-color: transparent;
-      --_active-text-color: var(--primary-contrast);
+      --_active-text-color: var(--ui-primary-contrast);
     }
 
     &.ui-line {
       --_active-bg-color: transparent;
       --_active-border-color: transparent;
       --_active-shadow: none;
-      --_indicator-color: var(--text-primary);
+      --_indicator-color: var(--ui-text-primary);
       --_inset: 0px;
       --_track-border-width: 0px;
       --_track-color: transparent;
@@ -192,10 +192,10 @@
     }
 
     &.ui-outlined {
-      --_active-bg-color: var(--surface-tonal);
+      --_active-bg-color: var(--ui-surface-tonal);
       --_active-border-color: transparent;
       --_active-shadow: none;
-      --_track-border-color: var(--border-color);
+      --_track-border-color: var(--ui-border-color);
       --_track-color: transparent;
     }
 
@@ -217,7 +217,7 @@
 
         &:focus-visible {
           & + .ui-tab-label::before {
-            outline-offset: calc(-1 * var(--focus-ring-width));
+            outline-offset: calc(-1 * var(--ui-focus-ring-width));
           }
         }
       }
@@ -255,7 +255,7 @@
         --_active-text-color: SelectedItemText;
         --_indicator-color: SelectedItem;
         --_track-color: Canvas;
-        --focus-ring-color: CanvasText;
+        --ui-focus-ring-color: CanvasText;
 
         border-color: CanvasText;
         forced-color-adjust: none;

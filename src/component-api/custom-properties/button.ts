@@ -34,7 +34,7 @@ export default {
   },
   "--_border-radius": {
     description:
-      "The corner radius. Defaults to `--button-border-radius`, `.ui-rounded` makes it round.",
+      "The corner radius. Defaults to `--ui-button-border-radius`, `.ui-rounded` makes it round.",
     kind: "input",
   },
   "--_border-width": {
@@ -51,11 +51,11 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the transitions, `--duration-fast` times `--_motion`.",
+      "Duration of the transitions, `--ui-duration-fast` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the transitions. Defaults to `--ease`.",
+    description: "Easing of the transitions. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_filled-active-bg-color": {

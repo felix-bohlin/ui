@@ -9,7 +9,7 @@
     }
 
     .chat-sidebar {
-      border-inline-end: var(--border-width) solid var(--border-color);
+      border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
       display: none;
 
       @container (inline-size >= 52rem) {
@@ -30,11 +30,11 @@
     }
 
     .chat-unread {
-      background-color: var(--primary);
+      background-color: var(--ui-primary);
       border-radius: var(--radius-round);
-      color: var(--primary-contrast);
+      color: var(--ui-primary-contrast);
       font-size: var(--font-size-0);
-      font-weight: var(--font-weight-semibold);
+      font-weight: var(--ui-font-weight-semibold);
       line-height: 1;
       min-inline-size: var(--size-5);
       padding: var(--size-1) var(--size-2);
@@ -49,7 +49,7 @@
 
     .chat-thread-header {
       align-items: center;
-      border-block-end: var(--border-width) solid var(--border-color);
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       display: flex;
       gap: var(--size-3);
       padding: var(--size-3);
@@ -76,7 +76,7 @@
       gap: var(--size-1);
 
       &::before {
-        background-color: var(--success);
+        background-color: var(--ui-success);
         block-size: var(--size-2);
         border-radius: var(--radius-round);
         content: "";
@@ -90,7 +90,7 @@
     }
 
     .chat-messages {
-      --divider-space: 0;
+      --ui-divider-space: 0;
 
       display: flex;
       flex-direction: column;
@@ -112,8 +112,8 @@
     }
 
     .chat-bubble {
-      background-color: var(--surface-tonal);
-      border-radius: var(--border-radius);
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-border-radius);
       display: grid;
       gap: var(--size-1);
       padding: var(--size-2) var(--size-3);
@@ -128,8 +128,8 @@
       flex-direction: row-reverse;
 
       .chat-bubble {
-        background-color: var(--primary);
-        color: var(--primary-contrast);
+        background-color: var(--ui-primary);
+        color: var(--ui-primary-contrast);
 
         .ui-caption {
           color: inherit;
@@ -140,20 +140,20 @@
 
     .chat-attachment {
       align-items: center;
-      background-color: var(--surface-default);
-      border: var(--border-width) solid var(--border-color);
-      border-radius: var(--border-radius);
+      background-color: var(--ui-surface-default);
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-border-radius);
       display: flex;
       gap: var(--size-2);
       padding: var(--size-2);
 
       svg {
-        color: var(--primary);
+        color: var(--ui-primary);
         flex-shrink: 0;
       }
 
       .ui-link {
-        font-weight: var(--font-weight-medium);
+        font-weight: var(--ui-font-weight-medium);
       }
     }
 
@@ -168,7 +168,7 @@
 
     .chat-composer {
       align-items: end;
-      border-block-start: var(--border-width) solid var(--border-color);
+      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
       display: flex;
       gap: var(--size-2);
       padding: var(--size-3);

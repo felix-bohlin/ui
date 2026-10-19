@@ -8,11 +8,11 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the focus ring animation, `--duration` times `--_motion`.",
+      "Duration of the focus ring animation, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the focus ring animation. Defaults to `--ease`.",
+    description: "Easing of the focus ring animation. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_font-size": {
@@ -20,7 +20,7 @@ export default {
     kind: "input",
   },
   "--_icon-size": {
-    description: "Size of a direct child `svg`. Defaults to `--icon-size`.",
+    description: "Size of a direct child `svg`. Defaults to `--ui-icon-size`.",
     kind: "input",
   },
   "--_min-height": {

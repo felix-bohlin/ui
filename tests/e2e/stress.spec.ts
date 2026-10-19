@@ -67,10 +67,13 @@ const DENSITIES = {
 }
 
 for (const [density, heights] of Object.entries(DENSITIES)) {
-  test(`form controls scale with --density: ${density}`, async ({ page }) => {
+  test(`form controls scale with --ui-density: ${density}`, async ({
+    page,
+  }) => {
     await openFixture(page, "html", "stress/forms")
     await page.evaluate(
-      (value) => document.documentElement.style.setProperty("--density", value),
+      (value) =>
+        document.documentElement.style.setProperty("--ui-density", value),
       density,
     )
 

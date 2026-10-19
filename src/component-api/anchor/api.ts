@@ -7,7 +7,7 @@ export default {
   },
   options: [
     {
-      cssVar: "--anchor-position-area",
+      cssVar: "--ui-anchor-position-area",
       default: '"start end"',
       description:
         "Any valid `position-area` value. Controls where the floating content is placed.",

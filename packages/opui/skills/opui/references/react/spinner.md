@@ -100,9 +100,9 @@ See [progress accessibility](https://open-props-ui.netlify.app/react/components/
 
 #### CSS variables
 
-| Variable   | Default | Description                                                                                                                                                                                               |
-| ---------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--motion` | `1`     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion). |
+| Variable      | Default | Description                                                                                                                                                                                               |
+| ------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-motion` | `1`     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion). |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
@@ -142,10 +142,10 @@ Read the post: [Spinners from aria-busy](https://open-props-ui.netlify.app/learn
 
 4. Reduced motion
 
-   - `--motion` is `0` under reduced motion and with `.ui-motion-off`
+   - `--ui-motion` is `0` under reduced motion and with `.ui-motion-off`
    - Slower, not stopped: a frozen spinner looks like a broken page
    - `max()` gives `0.7s` at `1`, `1.5s` at `0`, and never `0s`
-   - This step sets `--motion: 0` on the demo
+   - This step sets `--ui-motion: 0` on the demo
 
 Step 1 of 4: Ring
 
@@ -209,13 +209,13 @@ Step 4 of 4: Reduced motion
 
 ```css
 .demo {
-  --motion: 0;
+  --ui-motion: 0;
 }
 
 [aria-busy="true"]::before {
   animation-duration: max(
-    0.7s * var(--motion, 1),
-    1.5s - 0.8s * var(--motion, 1)
+    0.7s * var(--ui-motion, 1),
+    1.5s - 0.8s * var(--ui-motion, 1)
   );
 }
 ```

@@ -5,7 +5,7 @@ const steps = [
   {
     css: `
 .table {
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--ui-border-color);
   border-collapse: separate;
   border-radius: var(--radius);
   border-spacing: 0;
@@ -21,15 +21,15 @@ const steps = [
   {
     css: `
 .table :is(th, td) {
-  background-color: var(--surface-default);
-  border-block-end: 1px solid var(--border-color);
-  border-inline-end: 1px solid var(--border-color);
+  background-color: var(--ui-surface-default);
+  border-block-end: 1px solid var(--ui-border-color);
+  border-inline-end: 1px solid var(--ui-border-color);
   padding: 0.25rem 0.5rem;
   text-align: start;
 }
 
 .table th {
-  background-color: var(--surface-filled);
+  background-color: var(--ui-surface-filled);
 }
 
 .table :is(th, td):last-child {
@@ -41,7 +41,7 @@ const steps = [
 }
 
 .table tbody > tr:hover > :is(th, td) {
-  background-color: oklch(from var(--surface-filled) l c h / 75%);
+  background-color: oklch(from var(--ui-surface-filled) l c h / 75%);
 }`,
     features: ["logical-properties", "relative-color"],
     notes: [
@@ -80,8 +80,8 @@ const steps = [
   {
     css: `
 .table tfoot :is(th, td) {
-  background-color: var(--surface-filled);
-  border-block-start: 1px solid var(--border-color);
+  background-color: var(--ui-surface-filled);
+  border-block-start: 1px solid var(--ui-border-color);
   font-weight: 600;
 }
 
@@ -187,7 +187,7 @@ const total = rows.reduce((sum, row) => sum + row.size, 0)
 
 <style>
   .table {
-    font-size: var(--font-size-05);
+    font-size: var(--ui-font-size-05);
   }
 
   .table-scroll {

@@ -542,29 +542,29 @@ Just add the `dense` prop to the `List`!
 
 #### CSS variables
 
-| Variable                      | Default                                      | Description                                                                                                                                                                       |
-| ----------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                       |
-| `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                                                                                           |
-| `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                             |
-| `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                                                                                     |
-| `--disabled-opacity`          | `0.64`                                       | Opacity applied to disabled controls.                                                                                                                                             |
-| `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                 |
-| `--font-code`                 | `var(--font-mono)`                           | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`. |
-| `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                             |
-| `--font-weight-normal`        | `var(--font-weight-4)`                       | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                      |
-| `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                              |
-| `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                                                                                          |
-| `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                      |
-| `--state-active-alpha-accent` | `25%`                                        | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                 |
-| `--state-hover-alpha-accent`  | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                                                                                   |
-| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                             |
-| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                     |
-| `--switch-dot-size-small`     | `calc(0.75rem * var(--density))`             | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                  |
-| `--switch-track-height-small` | `calc(var(--size-4) * var(--density))`       | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                  |
-| `--switch-track-width-small`  | `calc(2.5rem * var(--density))`              | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                   |
-| `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                  |
-| `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                            |
+| Variable                         | Default                                            | Description                                                                                                                                                                       |
+| -------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`              | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                       |
+| `--ui-border-width`              | `1px`                                              | Default border width for components that draw a border.                                                                                                                           |
+| `--ui-choice-size-small`         | `calc(var(--size-3) * var(--ui-density))`          | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                             |
+| `--ui-control-size`              | `calc(40px * var(--ui-density))`                   | Shared default height for fields and buttons so they line up.                                                                                                                     |
+| `--ui-disabled-opacity`          | `0.64`                                             | Opacity applied to disabled controls.                                                                                                                                             |
+| `--ui-focus-ring-inset`          | `calc(-1 * var(--ui-focus-ring-width))`            | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                 |
+| `--ui-font-code`                 | `var(--font-mono)`                                 | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`. |
+| `--ui-font-size-05`              | `0.875rem`                                         | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                             |
+| `--ui-font-weight-normal`        | `var(--font-weight-4)`                             | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                      |
+| `--ui-icon-size`                 | `var(--size-4)`                                    | Default icon size inside components.                                                                                                                                              |
+| `--ui-icon-size-small`           | `var(--size-3)`                                    | Icon size inside `Chip`.                                                                                                                                                          |
+| `--ui-primary`                   | `light-dark(var(--ui-color-9), var(--ui-color-6))` | Brand color for primary actions and accents.                                                                                                                                      |
+| `--ui-state-active-alpha-accent` | `25%`                                              | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                 |
+| `--ui-state-hover-alpha-accent`  | `15%`                                              | Alpha of the hover state layer on primary and critical buttons.                                                                                                                   |
+| `--ui-surface-filled`            | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                             |
+| `--ui-surface-tonal`             | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`  | Background of tonal variants.                                                                                                                                                     |
+| `--ui-switch-dot-size-small`     | `calc(0.75rem * var(--ui-density))`                | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                  |
+| `--ui-switch-track-height-small` | `calc(var(--size-4) * var(--ui-density))`          | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                  |
+| `--ui-switch-track-width-small`  | `calc(2.5rem * var(--ui-density))`                 | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                   |
+| `--ui-text-muted`                | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`  | Body text color.                                                                                                                                                                  |
+| `--ui-text-primary`              | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                            |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -590,29 +590,29 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 #### CSS variables
 
-| Variable                      | Default                                      | Description                                                                                                                                                                       |
-| ----------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                       |
-| `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                                                                                           |
-| `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                             |
-| `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                                                                                     |
-| `--disabled-opacity`          | `0.64`                                       | Opacity applied to disabled controls.                                                                                                                                             |
-| `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                 |
-| `--font-code`                 | `var(--font-mono)`                           | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`. |
-| `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                             |
-| `--font-weight-normal`        | `var(--font-weight-4)`                       | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                      |
-| `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                              |
-| `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                                                                                          |
-| `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                      |
-| `--state-active-alpha-accent` | `25%`                                        | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                 |
-| `--state-hover-alpha-accent`  | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                                                                                   |
-| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                             |
-| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                     |
-| `--switch-dot-size-small`     | `calc(0.75rem * var(--density))`             | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                  |
-| `--switch-track-height-small` | `calc(var(--size-4) * var(--density))`       | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                  |
-| `--switch-track-width-small`  | `calc(2.5rem * var(--density))`              | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                   |
-| `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                  |
-| `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                            |
+| Variable                         | Default                                            | Description                                                                                                                                                                       |
+| -------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`              | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                       |
+| `--ui-border-width`              | `1px`                                              | Default border width for components that draw a border.                                                                                                                           |
+| `--ui-choice-size-small`         | `calc(var(--size-3) * var(--ui-density))`          | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                             |
+| `--ui-control-size`              | `calc(40px * var(--ui-density))`                   | Shared default height for fields and buttons so they line up.                                                                                                                     |
+| `--ui-disabled-opacity`          | `0.64`                                             | Opacity applied to disabled controls.                                                                                                                                             |
+| `--ui-focus-ring-inset`          | `calc(-1 * var(--ui-focus-ring-width))`            | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                 |
+| `--ui-font-code`                 | `var(--font-mono)`                                 | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`. |
+| `--ui-font-size-05`              | `0.875rem`                                         | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                             |
+| `--ui-font-weight-normal`        | `var(--font-weight-4)`                             | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                      |
+| `--ui-icon-size`                 | `var(--size-4)`                                    | Default icon size inside components.                                                                                                                                              |
+| `--ui-icon-size-small`           | `var(--size-3)`                                    | Icon size inside `Chip`.                                                                                                                                                          |
+| `--ui-primary`                   | `light-dark(var(--ui-color-9), var(--ui-color-6))` | Brand color for primary actions and accents.                                                                                                                                      |
+| `--ui-state-active-alpha-accent` | `25%`                                              | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                 |
+| `--ui-state-hover-alpha-accent`  | `15%`                                              | Alpha of the hover state layer on primary and critical buttons.                                                                                                                   |
+| `--ui-surface-filled`            | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                             |
+| `--ui-surface-tonal`             | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`  | Background of tonal variants.                                                                                                                                                     |
+| `--ui-switch-dot-size-small`     | `calc(0.75rem * var(--ui-density))`                | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                  |
+| `--ui-switch-track-height-small` | `calc(var(--size-4) * var(--ui-density))`          | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                  |
+| `--ui-switch-track-width-small`  | `calc(2.5rem * var(--ui-density))`                 | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                   |
+| `--ui-text-muted`                | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`  | Body text color.                                                                                                                                                                  |
+| `--ui-text-primary`              | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                            |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -620,14 +620,14 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
 
-| Property             | Kind  | Description                                                                                                                             |
-| -------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`        | Input | Background of the list and its items. Defaults to `--surface-filled`, `.ui-transparent` and `.ui-tonal` set it.                         |
-| `--_divider-color`   | Input | Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. `currentColor` at 18%, `--border-color` with more contrast. |
-| `--_hover-bg-color`  | Input | Background of hovered, selected and current items, from `--primary`.                                                                    |
-| `--_item-gap`        | Input | Gap between the content of an item. Smaller in `.ui-dense`.                                                                             |
-| `--_separator-space` | Input | Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.                                 |
-| `--_start-size`      | Input | Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.                                |
+| Property             | Kind  | Description                                                                                                                                |
+| -------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--_bg-color`        | Input | Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.                         |
+| `--_divider-color`   | Input | Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. `currentColor` at 18%, `--ui-border-color` with more contrast. |
+| `--_hover-bg-color`  | Input | Background of hovered, selected and current items, from `--ui-primary`.                                                                    |
+| `--_item-gap`        | Input | Gap between the content of an item. Smaller in `.ui-dense`.                                                                                |
+| `--_separator-space` | Input | Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.                                    |
+| `--_start-size`      | Input | Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.                                   |
 
 ## Under the hood
 
@@ -642,7 +642,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
    - `:has(> a, > button, > label)` moves the padding onto the button, link or label (checkbox, radio and switch rows)
    - The whole row is the hit target
-   - Hover tint derived from `--primary`
+   - Hover tint derived from `--ui-primary`
 
 3. Inset
 
@@ -673,7 +673,7 @@ Step 1 of 4: Row
 
 ```css
 .list {
-  background-color: var(--surface-filled);
+  background-color: var(--ui-surface-filled);
   list-style: none;
   padding: 0.5rem 0;
 }
@@ -699,7 +699,7 @@ Step 1 of 4: Row
 }
 
 .text > * + * {
-  color: var(--text-muted);
+  color: var(--ui-text-muted);
   font-size: var(--font-size-0);
 }
 ```
@@ -719,7 +719,7 @@ Step 2 of 4: Clickable
 }
 
 .list > li > button:hover {
-  background-color: oklch(from var(--primary) l c h / 15%);
+  background-color: oklch(from var(--ui-primary) l c h / 15%);
 }
 ```
 
@@ -739,7 +739,7 @@ Step 4 of 4: Bordered
 }
 
 .bordered > li + li::before {
-  border-block-start: 1px solid var(--border-color);
+  border-block-start: 1px solid var(--ui-border-color);
   content: "";
   inset: -0.5rem 0 auto 0;
   position: absolute;
@@ -773,5 +773,5 @@ Import the components from `opui-css/svelte`:
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
 - Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
 - Breaking: `--_bg-color-hover` is `--_hover-bg-color` ([Under the hood](#under-the-hood)).
-- A checked [option](#radio) uses `--state-active-alpha-accent`.
+- A checked [option](#radio) uses `--ui-state-active-alpha-accent`.
 - Breaking: [`type`](#checkbox) can't be combined with `as` or `href` (types).

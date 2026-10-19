@@ -3,16 +3,16 @@ import type { CustomProperties } from "../types"
 export default {
   "--_backdrop-bg-color": {
     description:
-      "The backdrop color. Defaults to `--backdrop-color`, `.ui-backdrop-transparent` clears it.",
+      "The backdrop color. Defaults to `--ui-backdrop-color`, `.ui-backdrop-transparent` clears it.",
     kind: "input",
   },
   "--_backdrop-blur": {
     description:
-      "The backdrop filter. Defaults to a `--backdrop-blur` blur, `.ui-backdrop-transparent` removes it.",
+      "The backdrop filter. Defaults to a `--ui-backdrop-blur` blur, `.ui-backdrop-transparent` removes it.",
     kind: "input",
   },
   "--_bg-color": {
-    description: "The background. Defaults to `--surface-default`.",
+    description: "The background. Defaults to `--ui-surface-default`.",
     kind: "input",
   },
   "--_block-size": {
@@ -38,12 +38,13 @@ export default {
     kind: "output",
   },
   "--_duration": {
-    description: "Duration of the transitions, `--duration` times `--_motion`.",
+    description:
+      "Duration of the transitions, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
     description:
-      "Easing of the slide and backdrop fade. Defaults to `--ease-enter`.",
+      "Easing of the slide and backdrop fade. Defaults to `--ui-ease-enter`.",
     kind: "input",
   },
   "--_footer-gap": {
@@ -76,11 +77,11 @@ export default {
     kind: "input",
   },
   "--_shadow": {
-    description: "The shadow. Defaults to `--shadow-overlay`.",
+    description: "The shadow. Defaults to `--ui-shadow-overlay`.",
     kind: "input",
   },
   "--_text-color": {
-    description: "The text color. Defaults to `--text-primary`.",
+    description: "The text color. Defaults to `--ui-text-primary`.",
     kind: "input",
   },
 } satisfies CustomProperties

@@ -13,14 +13,14 @@ const steps = [
 
 .range::-webkit-slider-runnable-track {
   appearance: none;
-  background-color: var(--border-color);
+  background-color: var(--ui-border-color);
   block-size: 0.75ex;
   border-radius: 1e5px;
 }
 
 .range::-moz-range-track {
   appearance: none;
-  background-color: var(--border-color);
+  background-color: var(--ui-border-color);
   block-size: 0.75ex;
   border-radius: 1e5px;
 }`,
@@ -36,9 +36,9 @@ const steps = [
     css: `
 .range::-webkit-slider-thumb {
   appearance: none;
-  background: var(--primary);
+  background: var(--ui-primary);
   block-size: 3ex;
-  border: 3px solid var(--surface-default);
+  border: 3px solid var(--ui-surface-default);
   border-radius: 50%;
   cursor: ew-resize;
   inline-size: 3ex;
@@ -47,9 +47,9 @@ const steps = [
 
 .range::-moz-range-thumb {
   appearance: none;
-  background: var(--primary);
+  background: var(--ui-primary);
   block-size: 3ex;
-  border: 3px solid var(--surface-default);
+  border: 3px solid var(--ui-surface-default);
   border-radius: 50%;
   cursor: ew-resize;
   inline-size: 3ex;
@@ -87,7 +87,7 @@ const steps = [
 }
 
 .range::-webkit-slider-runnable-track {
-  background-image: linear-gradient(var(--primary), var(--primary));
+  background-image: linear-gradient(var(--ui-primary), var(--ui-primary));
   background-repeat: no-repeat;
   background-size: var(--track-fill, 0%) 100%;
 }
@@ -97,7 +97,7 @@ const steps = [
 }
 
 .range::-moz-range-progress {
-  background-color: var(--primary);
+  background-color: var(--ui-primary);
   block-size: 0.75ex;
   border-radius: 1e5px;
 }`,
@@ -152,13 +152,13 @@ const steps = [
 }
 
 .range::-webkit-slider-thumb {
-  box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
-  transition: box-shadow calc(0.2s * var(--motion, 1)) var(--ease);
+  box-shadow: 0 0 0 var(--halo) oklch(from var(--ui-primary) 70% 100% h / 20%);
+  transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
 }
 
 .range::-moz-range-thumb {
-  box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
-  transition: box-shadow calc(0.2s * var(--motion, 1)) var(--ease);
+  box-shadow: 0 0 0 var(--halo) oklch(from var(--ui-primary) 70% 100% h / 20%);
+  transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
 }`,
     features: ["relative-color"],
     notes: [
@@ -248,7 +248,7 @@ const ticks = [0, 25, 50, 75, 100]
 
   .value {
     font-variant-numeric: tabular-nums;
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--ui-font-weight-semibold);
   }
 
   .range,
@@ -257,7 +257,7 @@ const ticks = [0, 25, 50, 75, 100]
   }
 
   .ticks {
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     font-size: var(--font-size-0);
   }
 </style>

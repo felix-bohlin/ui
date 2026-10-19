@@ -1,24 +1,24 @@
 @layer components.root {
   :where(.ui-switch) {
-    --_motion: var(--motion);
-    --_dot-bg-color: light-dark(var(--gray-11), var(--gray-14));
+    --_motion: var(--ui-motion);
+    --_dot-bg-color: light-dark(var(--ui-gray-11), var(--ui-gray-14));
     --_dot-inset: round(
       down,
       (var(--_track-height) - var(--_dot-size)) / 2,
       1px
     );
     --_dot-outline-size: 0;
-    --_dot-size: round(var(--switch-dot-size), 1px);
-    --_duration: calc(var(--duration) * var(--_motion));
-    --_ease: var(--ease);
+    --_dot-size: round(var(--ui-switch-dot-size), 1px);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
     --_icon-size: min(
       var(--_dot-size),
       max(0px, var(--_track-width) - var(--_dot-size) - var(--_dot-inset) * 3)
     );
     --_input-size: var(--_track-height);
-    --_track-bg-color: light-dark(var(--gray-3), var(--gray-8));
-    --_track-height: round(var(--switch-track-height), 1px);
-    --_track-width: round(var(--switch-track-width), 1px);
+    --_track-bg-color: light-dark(var(--ui-gray-3), var(--ui-gray-8));
+    --_track-height: round(var(--ui-switch-track-height), 1px);
+    --_track-width: round(var(--ui-switch-track-width), 1px);
 
     :where(input[type="checkbox"][role="switch"]) {
       appearance: none;
@@ -33,7 +33,7 @@
       &::before {
         background-color: var(--_track-bg-color);
         block-size: var(--_track-height);
-        border: var(--field-border-width) solid var(--_dot-bg-color);
+        border: var(--ui-field-border-width) solid var(--_dot-bg-color);
         border-radius: var(--radius-round);
         content: "";
         inline-size: var(--_track-width);
@@ -150,12 +150,12 @@
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       input {
-        box-shadow: 0 0 0 var(--focus-ring-width) var(--invalid-color);
+        box-shadow: 0 0 0 var(--ui-focus-ring-width) var(--ui-invalid-color);
       }
 
       input:focus-visible {
         outline-offset: calc(
-          var(--focus-ring-offset) + var(--focus-ring-width)
+          var(--ui-focus-ring-offset) + var(--ui-focus-ring-width)
         );
       }
     }

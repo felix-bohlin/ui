@@ -27,15 +27,15 @@
     }
 
     .checkout-delivery {
-      border: var(--border-width) solid var(--border-color);
-      border-radius: var(--border-radius);
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-border-radius);
       margin: 0;
       overflow: hidden;
     }
 
     .checkout-price {
       font-variant-numeric: tabular-nums;
-      font-weight: var(--font-weight-semibold);
+      font-weight: var(--ui-font-weight-semibold);
     }
 
     .checkout-payment .ui-tab-panel {
@@ -43,7 +43,7 @@
     }
 
     .checkout-alt-pay {
-      color: var(--text-muted);
+      color: var(--ui-text-muted);
       font-size: var(--font-size-1);
       margin: 0;
     }
@@ -79,31 +79,31 @@
 
     .checkout-thumb {
       aspect-ratio: 1;
-      border-radius: var(--border-radius);
+      border-radius: var(--ui-border-radius);
       inline-size: var(--size-8);
     }
 
     .checkout-thumb-1 {
       background: linear-gradient(
         135deg,
-        var(--primary),
-        oklch(from var(--primary) l c calc(h + 60))
+        var(--ui-primary),
+        oklch(from var(--ui-primary) l c calc(h + 60))
       );
     }
 
     .checkout-thumb-2 {
       background: linear-gradient(
         135deg,
-        oklch(from var(--primary) l c calc(h - 80)),
-        oklch(from var(--primary) l c calc(h - 30))
+        oklch(from var(--ui-primary) l c calc(h - 80)),
+        oklch(from var(--ui-primary) l c calc(h - 30))
       );
     }
 
     .checkout-thumb-3 {
       background: linear-gradient(
         135deg,
-        oklch(from var(--primary) l c calc(h + 140)),
-        oklch(from var(--primary) l c calc(h + 190))
+        oklch(from var(--ui-primary) l c calc(h + 140)),
+        oklch(from var(--ui-primary) l c calc(h + 190))
       );
     }
 
@@ -130,7 +130,7 @@
       }
 
       dt {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
       }
 
       dd {
@@ -139,15 +139,15 @@
       }
 
       .checkout-total {
-        border-block-start: var(--border-width) solid var(--border-color);
+        border-block-start: var(--ui-border-width) solid var(--ui-border-color);
         font-size: var(--font-size-3);
-        font-weight: var(--font-weight-bold);
+        font-weight: var(--ui-font-weight-bold);
         margin-block-start: var(--size-2);
         padding-block-start: var(--size-3);
 
         dd,
         dt {
-          color: var(--text-primary);
+          color: var(--ui-text-primary);
         }
       }
     }

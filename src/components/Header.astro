@@ -233,9 +233,9 @@ const { link } = Astro.locals
         animation-range: 0 150px;
         animation-timeline: scroll();
         animation-timing-function: linear;
-        background-color: oklch(from var(--surface-elevated) l c h / 0.8);
-        border-block-end: var(--border-width) solid
-          oklch(from var(--text-primary) l c h / 0.15);
+        background-color: oklch(from var(--ui-surface-elevated) l c h / 0.8);
+        border-block-end: var(--ui-border-width) solid
+          oklch(from var(--ui-text-primary) l c h / 0.15);
         box-shadow: var(--shadow-2);
         content: "";
         inset: 0;
@@ -261,8 +261,8 @@ const { link } = Astro.locals
     .ui-content {
       align-items: center;
       backdrop-filter: blur(3px);
-      border-block-end: var(--border-width) solid
-        oklch(from var(--text-primary) l c h / 0.15);
+      border-block-end: var(--ui-border-width) solid
+        oklch(from var(--ui-text-primary) l c h / 0.15);
       container-type: inline-size;
       display: flex;
       gap: var(--size-4);
@@ -278,8 +278,9 @@ const { link } = Astro.locals
         animation-range: 0 150px;
         animation-timeline: scroll();
         animation-timing-function: linear;
-        background-color: var(--surface-elevated);
-        border: var(--border-width) solid oklch(from var(--primary) l c h / 0.2);
+        background-color: var(--ui-surface-elevated);
+        border: var(--ui-border-width) solid
+          oklch(from var(--ui-primary) l c h / 0.2);
         border-radius: 0;
         box-shadow: var(--shadow-2);
         content: "";
@@ -322,9 +323,9 @@ const { link } = Astro.locals
     }
 
     .logo {
-      border: calc(var(--border-width) * 2) solid var(--primary);
-      border-radius: var(--border-radius);
-      color: var(--text-primary);
+      border: calc(var(--ui-border-width) * 2) solid var(--ui-primary);
+      border-radius: var(--ui-border-radius);
+      color: var(--ui-text-primary);
       display: inline-flex;
       font-size: var(--font-size-3);
       font-weight: 700;
@@ -342,7 +343,7 @@ const { link } = Astro.locals
         transition: transform 0.3s ease-out;
 
         & + span {
-          color: var(--primary);
+          color: var(--ui-primary);
         }
       }
 
@@ -400,12 +401,12 @@ const { link } = Astro.locals
         width: 100%;
 
         &[aria-current="page"] {
-          background-color: var(--surface-tonal);
-          color: var(--primary);
+          background-color: var(--ui-surface-tonal);
+          color: var(--ui-primary);
         }
 
         &:hover {
-          background-color: var(--surface-tonal);
+          background-color: var(--ui-surface-tonal);
         }
       }
     }

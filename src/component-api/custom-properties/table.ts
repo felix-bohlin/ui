@@ -3,17 +3,17 @@ import type { CustomProperties } from "../types"
 export default {
   "--_border-radius": {
     description:
-      "Corner radius of the table and its corner cells. Defaults to `--border-radius`.",
+      "Corner radius of the table and its corner cells. Defaults to `--ui-border-radius`.",
     kind: "input",
   },
   "--_duration": {
     description:
-      "Duration of the header shadow transition, `--duration` times `--_motion`.",
+      "Duration of the header shadow transition, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
     description:
-      "Easing of the header shadow transition. Defaults to `--ease`.",
+      "Easing of the header shadow transition. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_motion": {

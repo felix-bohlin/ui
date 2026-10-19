@@ -54,7 +54,7 @@
 <style>
   :global {
     .repo-card {
-      font-size: var(--font-size-05);
+      font-size: var(--ui-font-size-05);
       inline-size: 280px;
       margin-block-start: var(--size-2);
     }

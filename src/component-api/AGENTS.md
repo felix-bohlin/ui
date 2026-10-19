@@ -70,7 +70,7 @@ import buttonGroupApi from "../../component-api/button-group/api"
   - `part` is the selector of the part that gets the modifier, such as `input` for the Checkbox `error` option.
   - `htmlDefault` overrides the default in the HTML table, or hides it with `null`.
   - `htmlDescription` replaces the description in the HTML table, for an option whose HTML use differs, such as a `name` that Astro, Svelte and Vue generate.
-  - `cssVar` is the CSS property an option sets, such as `--anchor-position-area` or `font-size`. It can be combined with a class or `values`.
+  - `cssVar` is the CSS property an option sets, such as `--ui-anchor-position-area` or `font-size`. It can be combined with a class or `values`.
 - `slots`: slots that aren't parts, such as `default`.
 - `css`: the stylesheets under `packages/opui/css/components/` the component is styled by, without the extension. Defaults to the kebab-cased `source`. The CSS variables table lists every theme token those files read, with the default from `theme.css` and the description from `src/utils/theme-token-descriptions.ts`.
 - `model`: the bound value.

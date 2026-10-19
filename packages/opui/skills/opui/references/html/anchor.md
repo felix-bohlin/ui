@@ -20,10 +20,10 @@ Floating content
 
 ## Always visible
 
-Floating content that is always shown, like a coach mark beside a button. Set `--anchor-position-area` on `.ui-anchor` to any `position-area` value to place it.
+Floating content that is always shown, like a coach mark beside a button. Set `--ui-anchor-position-area` on `.ui-anchor` to any `position-area` value to place it.
 
 ```html
-<span class="ui-anchor" style="--anchor-position-area: inline-end">
+<span class="ui-anchor" style="--ui-anchor-position-area: inline-end">
   <button type="button" class="ui-button ui-outlined">Export</button>
   <span class="ui-anchor-floating">
     <div class="ui-card ui-tonal coach-mark">
@@ -56,7 +56,7 @@ Put a [Card](https://open-props-ui.netlify.app/html/components/card.md) in the f
   The source lives in
   <span
     class="ui-anchor"
-    style="--anchor-position-area: block-end span-inline-end"
+    style="--ui-anchor-position-area: block-end span-inline-end"
   >
     <a
       class="ui-link"
@@ -95,7 +95,7 @@ Put a [Card](https://open-props-ui.netlify.app/html/components/card.md) in the f
 
 <style>
   .repo-card {
-    font-size: var(--font-size-05);
+    font-size: var(--ui-font-size-05);
     inline-size: 280px;
     margin-block-start: var(--size-2);
   }
@@ -126,7 +126,7 @@ Preview where a link goes before following it.
   Learn more about
   <span
     class="ui-anchor"
-    style="--anchor-position-area: block-end span-inline-end"
+    style="--ui-anchor-position-area: block-end span-inline-end"
   >
     <a
       class="ui-link"
@@ -179,7 +179,7 @@ Preview where a link goes before following it.
 
 | Type     | Modifiers                                      | Default     | Description                                                                     |
 | -------- | ---------------------------------------------- | ----------- | ------------------------------------------------------------------------------- |
-| Position | `--anchor-position-area`                       | `start end` | Any valid `position-area` value. Controls where the floating content is placed. |
+| Position | `--ui-anchor-position-area`                    | `start end` | Any valid `position-area` value. Controls where the floating content is placed. |
 | Trigger  | default, `.ui-anchor-floating[popover="hint"]` | default     | Shows the floating content always, or on hover and focus with `popover="hint"`. |
 
 #### Parts
@@ -242,8 +242,8 @@ Step 1 of 4: Hint
 
 ```css
 .card {
-  background-color: var(--surface-elevated);
-  border: 1px solid var(--border-color);
+  background-color: var(--ui-surface-elevated);
+  border: 1px solid var(--ui-border-color);
   border-radius: var(--radius-3);
   box-shadow: var(--shadow-3);
   color: inherit;

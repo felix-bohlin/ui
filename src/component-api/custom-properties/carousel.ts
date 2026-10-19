@@ -7,7 +7,7 @@ export default {
   },
   "--_button-bg-color": {
     description:
-      "Background of the scroll buttons. Defaults to `--surface-inverse`.",
+      "Background of the scroll buttons. Defaults to `--ui-surface-inverse`.",
     kind: "input",
   },
   "--_button-border-color": {
@@ -66,7 +66,7 @@ export default {
   },
   "--_button-size": {
     description:
-      "Size of the scroll buttons. Defaults to `--button-size-small`.",
+      "Size of the scroll buttons. Defaults to `--ui-button-size-small`.",
     kind: "input",
   },
   "--_button-start-flip": {
@@ -76,11 +76,11 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the transitions and focus ring animation, `--duration` times `--_motion`.",
+      "Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the transitions. Defaults to `--ease`.",
+    description: "Easing of the transitions. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_gap": {
@@ -92,12 +92,13 @@ export default {
     kind: "output",
   },
   "--_marker-active-bg-color": {
-    description: "Background of the current marker. Defaults to `--primary`.",
+    description:
+      "Background of the current marker. Defaults to `--ui-primary`.",
     kind: "input",
   },
   "--_marker-bg-color": {
     description:
-      "Background of the markers. Defaults to `--text-primary` at 25% opacity.",
+      "Background of the markers. Defaults to `--ui-text-primary` at 25% opacity.",
     kind: "input",
   },
   "--_marker-gap": {
@@ -123,7 +124,7 @@ export default {
   },
   "--_media-border-radius": {
     description:
-      "Corner radius of `img`, `video` and `iframe` in items. Defaults to `--border-radius`.",
+      "Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-border-radius`.",
     kind: "input",
   },
   "--_motion": {

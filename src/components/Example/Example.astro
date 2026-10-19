@@ -279,8 +279,8 @@ const outputId = `${groupName}-output`
 
     .controls {
       align-items: center;
-      background-color: var(--surface-default);
-      border-block-end: var(--border-width) solid var(--border-color);
+      background-color: var(--ui-surface-default);
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       display: flex;
       gap: var(--size-3);
       justify-content: end;
@@ -346,7 +346,7 @@ const outputId = `${groupName}-output`
       }
 
       &:not(:last-child) {
-        border-block-end: var(--border-width) solid var(--border-color);
+        border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       }
 
       &.ui-spacious {
@@ -355,7 +355,7 @@ const outputId = `${groupName}-output`
 
       &:before {
         background-image: radial-gradient(
-          var(--text-muted) 1.4500000000000002px,
+          var(--ui-text-muted) 1.4500000000000002px,
           transparent 1.4500000000000002px
         );
         background-size: 20px 20px;

@@ -4,7 +4,7 @@
 
     .files-header {
       align-items: center;
-      border-block-end: var(--border-width) solid var(--border-color);
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       display: flex;
       gap: var(--size-3);
       padding: var(--size-2) var(--size-4);
@@ -18,15 +18,15 @@
 
     .files-brand {
       align-items: center;
-      color: var(--text-primary);
+      color: var(--ui-text-primary);
       display: flex;
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--ui-font-weight-bold);
       gap: var(--size-2);
       text-decoration: none;
 
       svg {
         block-size: var(--size-5);
-        color: var(--primary);
+        color: var(--ui-primary);
         inline-size: var(--size-5);
       }
     }
@@ -57,7 +57,7 @@
       padding: 0;
 
       li + li::before {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         content: "/";
         margin-inline-end: var(--size-1);
       }
@@ -109,7 +109,7 @@
       }
 
       li > span:last-child {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         font-variant-numeric: tabular-nums;
         margin-inline-start: auto;
       }
@@ -305,19 +305,22 @@
           </div>
           <ul class="files-breakdown">
             <li>
-              <span class="files-dot" style="--dot: var(--info)"></span>
+              <span class="files-dot" style="--dot: var(--ui-info)"></span>
               <span>Documents</span><span>7.2 GB</span>
             </li>
             <li>
-              <span class="files-dot" style="--dot: var(--success)"></span>
+              <span class="files-dot" style="--dot: var(--ui-success)"></span>
               <span>Images</span><span>6.1 GB</span>
             </li>
             <li>
-              <span class="files-dot" style="--dot: var(--warning)"></span>
+              <span class="files-dot" style="--dot: var(--ui-warning)"></span>
               <span>Videos</span><span>3.8 GB</span>
             </li>
             <li>
-              <span class="files-dot" style="--dot: var(--text-muted)"></span>
+              <span
+                class="files-dot"
+                style="--dot: var(--ui-text-muted)"
+              ></span>
               <span>Other</span><span>1.3 GB</span>
             </li>
           </ul>
@@ -341,7 +344,7 @@
                   width="32"
                   height="32"
                   viewBox="0 0 24 24"
-                  style="--folder: var(--info)"
+                  style="--folder: var(--ui-info)"
                 >
                   <path
                     fill="currentColor"
@@ -366,7 +369,7 @@
                   width="32"
                   height="32"
                   viewBox="0 0 24 24"
-                  style="--folder: var(--warning)"
+                  style="--folder: var(--ui-warning)"
                 >
                   <path
                     fill="currentColor"
@@ -391,7 +394,7 @@
                   width="32"
                   height="32"
                   viewBox="0 0 24 24"
-                  style="--folder: var(--critical)"
+                  style="--folder: var(--ui-critical)"
                 >
                   <path
                     fill="currentColor"
@@ -416,7 +419,7 @@
                   width="32"
                   height="32"
                   viewBox="0 0 24 24"
-                  style="--folder: var(--success)"
+                  style="--folder: var(--ui-success)"
                 >
                   <path
                     fill="currentColor"
@@ -494,7 +497,7 @@
                 </label>
               </td>
               <td>
-                <span class="files-name" style="--file: var(--critical)">
+                <span class="files-name" style="--file: var(--ui-critical)">
                   <svg
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
@@ -544,7 +547,7 @@
                 </label>
               </td>
               <td>
-                <span class="files-name" style="--file: var(--success)">
+                <span class="files-name" style="--file: var(--ui-success)">
                   <svg
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
@@ -594,7 +597,7 @@
                 </label>
               </td>
               <td>
-                <span class="files-name" style="--file: var(--info)">
+                <span class="files-name" style="--file: var(--ui-info)">
                   <svg
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
@@ -644,7 +647,7 @@
                 </label>
               </td>
               <td>
-                <span class="files-name" style="--file: var(--warning)">
+                <span class="files-name" style="--file: var(--ui-warning)">
                   <svg
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
@@ -694,7 +697,7 @@
                 </label>
               </td>
               <td>
-                <span class="files-name" style="--file: var(--info)">
+                <span class="files-name" style="--file: var(--ui-info)">
                   <svg
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"

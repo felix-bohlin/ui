@@ -76,7 +76,7 @@ With `trigger="hover"`, `id` is required and no longer generated. Pass the same 
 
 `Avatar` with `as="button"` renders `type="button"` by default in Astro and Vue, so it no longer submits a form. Pass `type="submit"` if it should.
 
-Text uses `--primary-contrast`, and sizes follow `--control-size` and `--button-size-*`.
+Text uses `--ui-primary-contrast`, and sizes follow `--ui-control-size` and `--button-size-*`.
 
 `isGroup` is removed. Wrap the avatars in `AvatarGroup`, which renders `.ui-avatar-group` with `role="group"`. It doesn't take `src`, `size` or `variant`.
 
@@ -90,7 +90,7 @@ Text uses `--primary-contrast`, and sizes follow `--control-size` and `--button-
 
 ## Badge
 
-Text uses `--primary-contrast`.
+Text uses `--ui-primary-contrast`.
 
 ## Button
 
@@ -149,7 +149,7 @@ Variants apply to the whole group. Move a variant from a button inside a group t
 +   <button class="ui-button">One</button>
 ```
 
-Groups wrap onto more rows when they don't fit, instead of overflowing. Use `scrollable` (`.ui-scrollable`) or `shrink` (`.ui-shrink`) to keep them on one row. Small buttons are `--button-size-small` (32px) instead of 30px.
+Groups wrap onto more rows when they don't fit, instead of overflowing. Use `scrollable` (`.ui-scrollable`) or `shrink` (`.ui-shrink`) to keep them on one row. Small buttons are `--ui-button-size-small` (32px) instead of 30px.
 
 ## Callout
 
@@ -218,7 +218,7 @@ The hover and press ripple is removed. Delete any `--ripple` overrides.
 
 `Chip` with `as="button"` renders `type="button"` by default in Astro and Vue. Pass `type="submit"` if it should submit a form.
 
-Chips use `--border-radius` (8px) instead of Open Props `--radius-2` (5px), small chips are `--chip-size-small` (28px) instead of 24px, and labels truncate with an ellipsis unless the chip is `multiline`.
+Chips use `--ui-border-radius` (8px) instead of Open Props `--radius-2` (5px), small chips are `--ui-chip-size-small` (28px) instead of 24px, and labels truncate with an ellipsis unless the chip is `multiline`.
 
 A button chip needs `as="button"` and a link chip needs `href` (types). `disabled` works on both: a link chip renders `aria-disabled="true"`. The same applies to `Avatar`, and `Button` takes link attributes only with `href`.
 
@@ -310,7 +310,7 @@ The variant classes drop the `border-` prefix. The `variant` prop is unchanged.
 
 ## Drawer
 
-The backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`. `.ui-backdrop-transparent` still removes it. Header headings take the free space, so several header actions line up at the end.
+The backdrop dims and blurs like `Dialog`, through `--ui-backdrop-color` and `--ui-backdrop-blur`. `.ui-backdrop-transparent` still removes it. Header headings take the free space, so several header actions line up at the end.
 
 In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces the `DrawerHeader` `heading` prop, and `aria-labelledby` points at it. The drawer no longer looks for your own heading, so a drawer without a `DrawerTitle` needs `aria-label`. `DrawerHeader` closes its drawer with `command="close"` (Invoker Commands) instead of a click handler, so older browsers need a polyfill.
 
@@ -372,7 +372,7 @@ Icons are smaller than before. Set `--_icon-size: var(--size-5)` to get the old 
 + <List bordered>
 ```
 
-Only direct `li`/`option` children (and options in a `[role="group"]`) are styled as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin. Dense rows keep the default inline padding, sizes follow `--control-size`, and rich text links in a list are `--primary-dark` in light mode.
+Only direct `li`/`option` children (and options in a `[role="group"]`) are styled as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin. Dense rows keep the default inline padding, sizes follow `--ui-control-size`, and rich text links in a list are `--ui-primary-dark` in light mode.
 
 `variant="default"` (`.ui-default`, the page surface) is gone. On the page, `transparent` looks the same. Without a variant a list is filled.
 
@@ -422,7 +422,7 @@ Internal variables are private. Rename any overrides:
 | `--highlight-size`   | `--_ripple-size`                 |
 | `--thumb-scale`      | `--_thumb-scale`                 |
 
-Radios are `--choice-size` (20px) like `Checkbox`, instead of 18px. The root selector is wrapped in `:where()`, the input lines up with the first line of the label, and the marker stays light on a darkened fill in dark mode.
+Radios are `--ui-choice-size` (20px) like `Checkbox`, instead of 18px. The root selector is wrapped in `:where()`, the input lines up with the first line of the label, and the marker stays light on a darkened fill in dark mode.
 
 Without a visible label the radio aligns to the middle. Give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML). Astro and Vue no longer render an empty `.ui-label` without a default slot.
 
@@ -436,7 +436,7 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 Astro and Vue no longer set `--_track-fill` from script. The track fill is a scroll-driven animation in CSS, so remove any script that sets it.
 
-With `spread`, the label and the range split the container into equal columns, and the fixed `25ch` minimum is gone. The invalid state uses `--invalid-color`.
+With `spread`, the label and the range split the container into equal columns, and the fixed `25ch` minimum is gone. The invalid state uses `--ui-invalid-color`.
 
 `variant="default"` (`.ui-default`, the page surface) is gone. Use no variant, `filled` or `tonal`.
 
@@ -491,7 +491,7 @@ The `items` type is `SelectItem`, exported from every framework barrel, and its 
 + <Switch size="small">Notifications</Switch>
 ```
 
-The switch lines up with the first line of its label, keeps a light marker in dark mode and uses `--invalid-color` for the invalid state. Without a visible label it aligns to the middle, so give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML).
+The switch lines up with the first line of its label, keeps a light marker in dark mode and uses `--ui-invalid-color` for the invalid state. Without a visible label it aligns to the middle, so give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML).
 
 `aria-invalid="true"` on the `<input role="switch">` replaces `data-invalid` on `.ui-switch`.
 
@@ -540,8 +540,8 @@ In Astro, import the parts by their flat names: `TabsItem`, `TabsTab` and `TabsP
 Tabs look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone: use `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`, or a `variant` (`filled`, `line`, `outlined`). The open panel has a `--size-2` top margin, so remove any spacing you added above it.
 
 ```diff
-- .ui-tabs { --_accent-color: var(--critical); }
-+ .ui-tabs { --_active-text-color: var(--critical); }
+- .ui-tabs { --_accent-color: var(--ui-critical); }
++ .ui-tabs { --_active-text-color: var(--ui-critical); }
 ```
 
 Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-controls` and `aria-labelledby` from HTML tabs, and `panelId` (and `tabId` on the panel) from Astro and Vue. Styles that target `[role="tab"]` or `[role="tabpanel"]` need `.ui-tab-label` and `.ui-tab-panel`.
@@ -579,7 +579,7 @@ In Astro, extra attributes go to the `<input>` instead of the `<label>`. `class`
 + <TextField label="Name" startText="Full name" endText="Required" />
 ```
 
-With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--invalid-color`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
+With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--ui-invalid-color`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
 
 The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is still `.ui-filled`.
 
@@ -626,13 +626,13 @@ Same as Text field: `aria-invalid="true"` on the `<textarea>` replaces `data-inv
 
 ## Toast
 
-Severity icons are masks filled with `--success`, `--info`, `--warning` and `--critical` instead of hardcoded hex colors. `Toast` is still HTML only, as in v5.5.
+Severity icons are masks filled with `--ui-success`, `--ui-info`, `--ui-warning` and `--ui-critical` instead of hardcoded hex colors. `Toast` is still HTML only, as in v5.5.
 
 The keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `toast.js` listens for `ui-toast-exit`. Rename them if your CSS or scripts reference `toast-enter`, `toast-hold` or `toast-exit`.
 
 ## Toggle button and toggle group
 
-Text shrinks with the size like `Button`: `--font-size-05` when small and `--font-size-0` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
+Text shrinks with the size like `Button`: `--ui-font-size-05` when small and `--font-size-0` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
 
 `ToggleButton` in Astro and Vue no longer generates an input `id`. Pass `id` when something outside the component references the input.
 
@@ -678,93 +678,100 @@ In Astro and Vue the text goes in `TooltipContent` instead of `label` or the `co
 
 `types.ts` no longer exports a `Slots` type.
 
-Tooltips use `--surface-inverse` and `--text-inverse`, and shift along the viewport edge instead of squeezing, with or without an arrow.
+Tooltips use `--ui-surface-inverse` and `--ui-text-inverse`, and shift along the viewport edge instead of squeezing, with or without an arrow.
 
 ## Theme and tokens
 
-`theme.css` sets `--focus-ring-color` to the inverted page background instead of `var(--primary)`, and the global focus ring and the component rings read it. To keep the old value, set it in your theme:
+Every theme token has a `--ui-` prefix, like the classes: `--primary` is `--ui-primary`, `--space-3` is `--ui-space-3`, `--color-1` is `--ui-color-1` and `--gray-1` is `--ui-gray-1`. Open Props tokens keep their names: `--size-*`, `--font-size-0` to `--font-size-8`, `--shadow-1` to `--shadow-6`, `--hue-*`, `--shadow-color` and `--shadow-strength`. Add `ui-` to every token you set or read. `tokens.json` lists them all with their new names.
+
+```diff
+- .sidebar { --primary: var(--green); }
++ .sidebar { --ui-primary: var(--ui-green); }
+```
+
+`theme.css` sets `--ui-focus-ring-color` to the inverted page background instead of `var(--ui-primary)`, and the global focus ring and the component rings read it. To keep the old value, set it in your theme:
 
 ```css
 @layer theme.custom {
   :where(html) {
-    --focus-ring-color: var(--primary);
+    --ui-focus-ring-color: var(--ui-primary);
   }
 }
 ```
 
 `theme.css` is in the `theme.base` layer, and `layers.css` adds an empty `theme.custom` layer after it for your own tokens. Overrides in `@layer theme` keep working and now beat the defaults wherever they load. If you copied a complete `theme.css` from the Theme generator, replace it with a new `custom-theme.css` from the generator: it only lists the tokens you changed, so it won't miss tokens added in later releases.
 
-`theme.css` no longer sets `--button-border-radius` and `--field-border-radius`, and buttons and fields follow `--border-radius` while they're unset, also where you set it on a part of the page. If your own styles read them, add the fallback: `var(--button-border-radius, var(--border-radius))`. If you set `--border-radius` and want buttons and fields to keep their corners, set them back:
+`theme.css` no longer sets `--ui-button-border-radius` and `--ui-field-border-radius`, and buttons and fields follow `--ui-border-radius` while they're unset, also where you set it on a part of the page. If your own styles read them, add the fallback: `var(--ui-button-border-radius, var(--ui-border-radius))`. If you set `--ui-border-radius` and want buttons and fields to keep their corners, set them back:
 
 ```css
 @layer theme.custom {
   :where(html) {
-    --button-border-radius: var(--size-2);
-    --field-border-radius: var(--size-2);
+    --ui-button-border-radius: var(--size-2);
+    --ui-field-border-radius: var(--size-2);
   }
 }
 ```
 
-`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs and rounded `Avatar` never get rounder than `--border-radius`.
+`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs and rounded `Avatar` never get rounder than `--ui-border-radius`.
 
-Component padding, gaps and margins read `--space-1` to `--space-8` instead of the Open Props `--size-*` steps. The steps resolve on `html`, so overriding `--size-*` on a part of the page no longer changes the components in it. Set `--space-scale` on `html` to change the spacing everywhere, or a component's `--_` property to change one.
+Component padding, gaps and margins read `--ui-space-1` to `--ui-space-8` instead of the Open Props `--size-*` steps. The steps resolve on `html`, so overriding `--size-*` on a part of the page no longer changes the components in it. Set `--ui-space-scale` on `html` to change the spacing everywhere, or a component's `--_` property to change one.
 
-The `Select` picker and `Drawer` use `--shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--shadow-raised` (`--shadow-raised-dark`, `--shadow-4`, in dark mode, was `--shadow-3`).
+The `Select` picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-raised` (`--ui-shadow-raised-dark`, `--shadow-4`, in dark mode, was `--shadow-3`).
 
-`--primary` is `--color-9` in light mode and `--color-6` in dark mode, and `--primary-contrast` is derived from `--primary` with relative color. If you set your own `--primary`, its text color now follows it.
+`--ui-primary` is `--ui-color-9` in light mode and `--ui-color-6` in dark mode, and `--ui-primary-contrast` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary`, its text color now follows it.
 
-`palette.css` no longer registers `--color-*`, `--gray-*`, `--palette-source` and `--palette-hue` with `@property`, so they can't be animated as colors anymore.
+`palette.css` no longer registers `--color-*`, `--gray-*`, `--ui-palette-source` and `--ui-palette-hue` with `@property`, so they can't be animated as colors anymore.
 
-`--motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `theme.css`, and the `.ui-motion-*` classes moved to `core/utils.css`. `theme.css` also declares `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma`. If you import single files, import `theme.css` and `utils.css` too.
+`--ui-motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `theme.css`, and the `.ui-motion-*` classes moved to `core/utils.css`. `theme.css` also declares `--ui-palette-hue-rotate-by`, `--ui-gray-hue` and `--ui-gray-chroma`. If you import single files, import `theme.css` and `utils.css` too.
 
-Component borders read `--border-width` (`Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`. If you set either token, check those components too.
+Component borders read `--ui-border-width` (`Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton`, `ToggleGroup`) and `--ui-field-border-width` (`Checkbox`, `Radio`, `Switch`, `TextField`) instead of a hardcoded `1px`. If you set either token, check those components too.
 
 Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick.
 
 Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size` and `--_min-height` for sizes. Rename them where you set them:
 
-| Component                   | Old                                               | New                                                                                                  |
-| --------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Accordion                   | `--_transition`                                   | `--_duration`                                                                                        |
-| Accordion                   | `--_svg-transition`                               | removed, the chevron uses `--_duration` and `--_ease`                                                |
-| Accordion                   | `--_gutter-color` (group)                         | `--_divider-color`                                                                                   |
-| Avatar                      | `--_color`                                        | `--_text-color`                                                                                      |
-| Avatar                      | `--_width`                                        | `--_size`                                                                                            |
-| Badge                       | `--_badge-inset`                                  | `--_inset-block`, `--_inset-inline`                                                                  |
-| Button                      | `--_color`, `--_color-contrast`, `--_color-tonal` | `--_accent`, `--_accent-contrast`, `--_accent-tonal`                                                 |
-| Callout                     | `--_color`                                        | `--_text-color`                                                                                      |
-| Callout                     | `--_outlined-color`                               | `--_outlined-text-color`                                                                             |
-| Callout                     | `--_surface-bg`                                   | `--_surface-bg-color`                                                                                |
-| Card                        | `--_card-bg-color`                                | `--_bg-color`                                                                                        |
-| Card                        | `--_card-border-color`                            | `--_border-color`                                                                                    |
-| Card                        | `--_card-border-width`                            | `--_border-width`                                                                                    |
-| Card                        | `--_card-shadow`                                  | `--_shadow`                                                                                          |
-| Card                        | `--_border-color` (outlined border)               | `--_outlined-border-color`                                                                           |
-| Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`  | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                   |
-| Card                        | `--_shadow-elevated`                              | `--_elevated-shadow`                                                                                 |
-| Card                        | `--_shadow-light`, `--_shadow-dark`               | removed, set `--shadow-raised-light` and `--shadow-raised-dark`, or `--_elevated-shadow` on the card |
-| Chip                        | `--_color`                                        | `--_text-color`                                                                                      |
-| Drawer                      | `--_color`                                        | `--_text-color`                                                                                      |
-| Drawer                      | `--_transition-duration`, `--_transition-timing`  | `--_duration`, `--_ease`                                                                             |
-| List                        | `--_bg-color-hover`                               | `--_hover-bg-color`                                                                                  |
-| normalize.css               | `--_page-bg-color`                                | removed, `html` reads `--surface-default`                                                            |
-| Progress                    | `--_accent-color`                                 | `--_accent`                                                                                          |
-| Range                       | `--_thumb-bg`                                     | `--_thumb-bg-color`                                                                                  |
-| Switch                      | `--_accent-color`                                 | `--_accent`                                                                                          |
-| Switch                      | `--_transition-time`, `--_transition-tf`          | `--_duration`, `--_ease`                                                                             |
-| Table                       | `--_table-border-radius`                          | `--_border-radius`                                                                                   |
-| TextField, Textarea, Select | `--_accent-color`                                 | `--_accent`                                                                                          |
-| TextField, Textarea, Select | `--_height`                                       | `--_min-height`                                                                                      |
-| TextField, Textarea, Select | `--_label-color`                                  | `--_affix-color`                                                                                     |
-| TextField, Textarea, Select | `--_end-text-color`                               | `--_helper-color`                                                                                    |
-| Toast                       | `--_anim-enter`, `--_anim-exit`                   | `--_enter-duration`, `--_exit-duration`                                                              |
-| ToggleButton                | `--_button-bg-color`                              | `--_bg-color`                                                                                        |
-| ToggleButton                | `--_size`                                         | `--_min-height` (a minimum height)                                                                   |
-| ToggleButton                | `--_svg-size`                                     | `--_icon-size` (direct child `svg`s only)                                                            |
-| Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`               | `--_bg-color`, `--_text-color`                                                                       |
-| Tooltip                     | `--_tooltip-offset`                               | `--_offset`                                                                                          |
+| Component                   | Old                                               | New                                                                                                        |
+| --------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Accordion                   | `--_transition`                                   | `--_duration`                                                                                              |
+| Accordion                   | `--_svg-transition`                               | removed, the chevron uses `--_duration` and `--_ease`                                                      |
+| Accordion                   | `--_gutter-color` (group)                         | `--_divider-color`                                                                                         |
+| Avatar                      | `--_color`                                        | `--_text-color`                                                                                            |
+| Avatar                      | `--_width`                                        | `--_size`                                                                                                  |
+| Badge                       | `--_badge-inset`                                  | `--_inset-block`, `--_inset-inline`                                                                        |
+| Button                      | `--_color`, `--_color-contrast`, `--_color-tonal` | `--_accent`, `--_accent-contrast`, `--_accent-tonal`                                                       |
+| Callout                     | `--_color`                                        | `--_text-color`                                                                                            |
+| Callout                     | `--_outlined-color`                               | `--_outlined-text-color`                                                                                   |
+| Callout                     | `--_surface-bg`                                   | `--_surface-bg-color`                                                                                      |
+| Card                        | `--_card-bg-color`                                | `--_bg-color`                                                                                              |
+| Card                        | `--_card-border-color`                            | `--_border-color`                                                                                          |
+| Card                        | `--_card-border-width`                            | `--_border-width`                                                                                          |
+| Card                        | `--_card-shadow`                                  | `--_shadow`                                                                                                |
+| Card                        | `--_border-color` (outlined border)               | `--_outlined-border-color`                                                                                 |
+| Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`  | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                         |
+| Card                        | `--_shadow-elevated`                              | `--_elevated-shadow`                                                                                       |
+| Card                        | `--_shadow-light`, `--_shadow-dark`               | removed, set `--ui-shadow-raised-light` and `--ui-shadow-raised-dark`, or `--_elevated-shadow` on the card |
+| Chip                        | `--_color`                                        | `--_text-color`                                                                                            |
+| Drawer                      | `--_color`                                        | `--_text-color`                                                                                            |
+| Drawer                      | `--_transition-duration`, `--_transition-timing`  | `--_duration`, `--_ease`                                                                                   |
+| List                        | `--_bg-color-hover`                               | `--_hover-bg-color`                                                                                        |
+| normalize.css               | `--_page-bg-color`                                | removed, `html` reads `--ui-surface-default`                                                               |
+| Progress                    | `--_accent-color`                                 | `--_accent`                                                                                                |
+| Range                       | `--_thumb-bg`                                     | `--_thumb-bg-color`                                                                                        |
+| Switch                      | `--_accent-color`                                 | `--_accent`                                                                                                |
+| Switch                      | `--_transition-time`, `--_transition-tf`          | `--_duration`, `--_ease`                                                                                   |
+| Table                       | `--_table-border-radius`                          | `--_border-radius`                                                                                         |
+| TextField, Textarea, Select | `--_accent-color`                                 | `--_accent`                                                                                                |
+| TextField, Textarea, Select | `--_height`                                       | `--_min-height`                                                                                            |
+| TextField, Textarea, Select | `--_label-color`                                  | `--_affix-color`                                                                                           |
+| TextField, Textarea, Select | `--_end-text-color`                               | `--_helper-color`                                                                                          |
+| Toast                       | `--_anim-enter`, `--_anim-exit`                   | `--_enter-duration`, `--_exit-duration`                                                                    |
+| ToggleButton                | `--_button-bg-color`                              | `--_bg-color`                                                                                              |
+| ToggleButton                | `--_size`                                         | `--_min-height` (a minimum height)                                                                         |
+| ToggleButton                | `--_svg-size`                                     | `--_icon-size` (direct child `svg`s only)                                                                  |
+| Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`               | `--_bg-color`, `--_text-color`                                                                             |
+| Tooltip                     | `--_tooltip-offset`                               | `--_offset`                                                                                                |
 
-`--info` and `--blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette, so info badges, toasts and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--blue` in your theme.
+`--ui-info` and `--ui-blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette, so info badges, toasts and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--ui-blue` in your theme.
 
 Dark mode shadows are darker: `theme.css` sets `--shadow-color: 220 40% 2%` and `--shadow-strength: 20%` under `.ui-dark` and the OS dark preference. Override both on `html` to change them. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
 
@@ -777,7 +784,7 @@ Rich text (`.ui-rich-text`) only styles headings without a class, like lists. Ad
 + <h2 class="intro ui-h2">Title</h2>
 ```
 
-`--font-size-h3` is fluid with a higher minimum (`--font-size-3`), `--font-size-h4` scales between `--font-size-2` and `--font-size-3` instead of a fixed `--font-size-3`, and `--font-size-h6` is `--font-size-1`, so check pages that rely on the old heading sizes.
+`--ui-font-size-h3` is fluid with a higher minimum (`--font-size-3`), `--ui-font-size-h4` scales between `--font-size-2` and `--font-size-3` instead of a fixed `--font-size-3`, and `--ui-font-size-h6` is `--font-size-1`, so check pages that rely on the old heading sizes.
 
 Rich text styles live in a new `components.prose` layer, below `components.root`, so component styles inside rich text win over prose styles. If you declare the layer order yourself, add it:
 
@@ -788,8 +795,8 @@ Rich text styles live in a new `components.prose` layer, below `components.root`
 
 Spacing changed, so rich text pages look a bit different:
 
-- Spacing derives from one flow space (`1.25em` of the body text) and snaps to `--rhythm-step`. Headings get more space above than below.
-- Headings share one line height, `1em + 0.5rem` rounded to `--rhythm-step`, in rich text and in the `.ui-h1`–`.ui-h6` classes. Heading group subtitles snap to `--rhythm-step` too.
+- Spacing derives from one flow space (`1.25em` of the body text) and snaps to `--ui-rhythm-step`. Headings get more space above than below.
+- Headings share one line height, `1em + 0.5rem` rounded to `--ui-rhythm-step`, in rich text and in the `.ui-h1`–`.ui-h6` classes. Heading group subtitles snap to `--ui-rhythm-step` too.
 - Headings, `pre` and `small` scale with the inherited font size.
 - List gutters are measured in `ch`, and bulleted and numbered list text starts at the same position.
 - `sup` and `sub` are `0.75em` and no longer change the line height.
@@ -820,7 +827,7 @@ Deep type imports from `opui-css/components/*` follow one naming scheme: the roo
 + import type { CheckboxProps, TableCellProps } from "opui-css/astro"
 ```
 
-`opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). `opui.css` still has them through `core/palette.css`. If you load `op.css` on its own and read those properties, also import `opui-css/core/palette.css`.
+`opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--ui-color-1` to `--ui-color-16`). `opui.css` still has them through `core/palette.css`. If you load `op.css` on its own and read those properties, also import `opui-css/core/palette.css`.
 
 # Migrating from v5.4 to v5.5
 
@@ -857,7 +864,7 @@ If you use raw HTML or write CSS that targets library classes, you must rename e
 
 The full list of renamed tokens is in [CHANGELOG.md](./CHANGELOG.md#500---2026-05-21). Run a project-wide find/replace per token, then visually smoke test.
 
-CSS custom properties (`--primary`, `--surface-default`, `--size-3`, …) are unchanged.
+CSS custom properties (`--ui-primary`, `--ui-surface-default`, `--size-3`, …) are unchanged.
 
 These changes in 5.0.0 and 5.0.1 need a code change too:
 

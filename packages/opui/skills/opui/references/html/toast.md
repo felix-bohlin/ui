@@ -213,8 +213,8 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property            | Kind   | Description                                                                                                                    |
 | ------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | `--_dir`            | Output | Direction of the enter slide, `-1` in right-to-left.                                                                           |
-| `--_enter-duration` | Output | Duration of the enter animation, `--duration-slow` times `--_motion`.                                                          |
-| `--_exit-duration`  | Output | Duration of the exit animation, `--duration-slow` times `--_motion`.                                                           |
+| `--_enter-duration` | Output | Duration of the enter animation, `--ui-duration-slow` times `--_motion`.                                                       |
+| `--_exit-duration`  | Output | Duration of the exit animation, `--ui-duration-slow` times `--_motion`.                                                        |
 | `--_hold`           | Output | How long the toast stays before it exits. `data-duration` in browsers with typed `attr()`, otherwise `--_hold-duration`.       |
 | `--_hold-duration`  | Input  | How long the toast stays before it exits, in browsers without typed `attr()`. Others read `data-duration`, defaulting to `5s`. |
 | `--_motion`         | Input  | Motion multiplier for the animations and transitions. `0` turns them off.                                                      |
@@ -277,10 +277,10 @@ Step 1 of 4: Stack
 
 .toast {
   align-items: center;
-  background-color: var(--surface-inverse);
+  background-color: var(--ui-surface-inverse);
   border-radius: var(--radius-2);
   box-shadow: var(--shadow-3);
-  color: var(--text-inverse);
+  color: var(--ui-text-inverse);
   display: flex;
   gap: 0.75rem;
   justify-content: space-between;
@@ -340,12 +340,12 @@ Step 4 of 4: Icons
 }
 
 .toast[data-severity="success"] .icon {
-  background-color: var(--success);
+  background-color: var(--ui-success);
   mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
 }
 
 .toast[data-severity="critical"] .icon {
-  background-color: var(--critical);
+  background-color: var(--ui-critical);
   mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
 }
 
@@ -373,4 +373,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: the keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and [`toast.js`](#javascript) listens for `ui-toast-exit`.
 - Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See [How it works](#how-it-works).
 - Breaking: `--_anim-enter` and `--_anim-exit` are `--_enter-duration` and `--_exit-duration` ([Under the hood](#under-the-hood)).
-- The toast shadow is [`--shadow-overlay`](#api), and padding and gaps read the `--space-*` scale.
+- The toast shadow is [`--ui-shadow-overlay`](#api), and padding and gaps read the `--space-*` scale.

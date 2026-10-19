@@ -455,7 +455,7 @@ const places = [
 
 <style>
 .carousel-custom-buttons {
-  --_button-bg-color: var(--primary);
+  --_button-bg-color: var(--ui-primary);
   --_button-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 12h14m-6-6 6 6-6 6'/%3E%3C/svg%3E");
 }
 </style>
@@ -514,7 +514,7 @@ Screen readers announce the position of each item. The buttons and markers have 
 
 The buttons and markers get the library's focus ring. In forced colors mode the markers get a border, and the current marker is filled with `SelectedItem`.
 
-The buttons and markers scroll smoothly unless motion is off: with reduced motion, `.ui-motion-off` on the carousel or a parent, or `--motion: 0` on a parent.
+The buttons and markers scroll smoothly unless motion is off: with reduced motion, `.ui-motion-off` on the carousel or a parent, or `--ui-motion: 0` on a parent.
 
 ## API
 
@@ -541,25 +541,25 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 
 #### CSS variables
 
-| Variable              | Default                                                                        | Description                                                                                                                                                                                                                      |
-| --------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-radius`     | `var(--size-2)`                                                                | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--border-width`      | `1px`                                                                          | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--button-size-small` | `var(--control-size-small)`                                                    | `Button` height with `.ui-small`.                                                                                                                                                                                                |
-| `--duration`          | `0.2s`                                                                         | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
-| `--duration-fast`     | `0.1s`                                                                         | Transition duration for hover and press feedback.                                                                                                                                                                                |
-| `--ease`              | `ease`                                                                         | Default easing for transitions.                                                                                                                                                                                                  |
-| `--focus-ring-color`  | `rgb( from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
-| `--focus-ring-offset` | `2px`                                                                          | Distance between a control and its focus ring.                                                                                                                                                                                   |
-| `--focus-ring-style`  | `solid`                                                                        | Outline style of the focus ring.                                                                                                                                                                                                 |
-| `--focus-ring-width`  | `2px`                                                                          | Width of the focus ring.                                                                                                                                                                                                         |
-| `--motion`            | `1`                                                                            | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).                          |
-| `--primary`           | `light-dark(var(--color-9), var(--color-6))`                                   | Brand color for primary actions and accents.                                                                                                                                                                                     |
-| `--space-2`           | `calc(var(--size-2) * var(--space-scale))`                                     | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                     |
-| `--space-3`           | `calc(var(--size-3) * var(--space-scale))`                                     | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                                     |
-| `--space-8`           | `calc(var(--size-8) * var(--space-scale))`                                     | Spacing step 8: Open Props `--size-8` times `--space-scale`.                                                                                                                                                                     |
-| `--surface-inverse`   | `light-dark(var(--gray-15), var(--gray-2))`                                    | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                                                  |
-| `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`                                    | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
+| Variable                 | Default                                                                           | Description                                                                                                                                                                                                                      |
+| ------------------------ | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-radius`     | `var(--size-2)`                                                                   | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-border-width`      | `1px`                                                                             | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--ui-button-size-small` | `var(--ui-control-size-small)`                                                    | `Button` height with `.ui-small`.                                                                                                                                                                                                |
+| `--ui-duration`          | `0.2s`                                                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                        |
+| `--ui-duration-fast`     | `0.1s`                                                                            | Transition duration for hover and press feedback.                                                                                                                                                                                |
+| `--ui-ease`              | `ease`                                                                            | Default easing for transitions.                                                                                                                                                                                                  |
+| `--ui-focus-ring-color`  | `rgb( from var(--ui-surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                 |
+| `--ui-focus-ring-offset` | `2px`                                                                             | Distance between a control and its focus ring.                                                                                                                                                                                   |
+| `--ui-focus-ring-style`  | `solid`                                                                           | Outline style of the focus ring.                                                                                                                                                                                                 |
+| `--ui-focus-ring-width`  | `2px`                                                                             | Width of the focus ring.                                                                                                                                                                                                         |
+| `--ui-motion`            | `1`                                                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).                          |
+| `--ui-primary`           | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                | Brand color for primary actions and accents.                                                                                                                                                                                     |
+| `--ui-space-2`           | `calc(var(--size-2) * var(--ui-space-scale))`                                     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-space-3`           | `calc(var(--size-3) * var(--ui-space-scale))`                                     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-space-8`           | `calc(var(--size-8) * var(--ui-space-scale))`                                     | Spacing step 8: Open Props `--size-8` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-surface-inverse`   | `light-dark(var(--ui-gray-15), var(--ui-gray-2))`                                 | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                                                  |
+| `--ui-text-primary`      | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                 | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
@@ -570,7 +570,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                          | Kind   | Description                                                                                 |
 | --------------------------------- | ------ | ------------------------------------------------------------------------------------------- |
 | `--_block-size`                   | Input  | The height of `.ui-vertical`.                                                               |
-| `--_button-bg-color`              | Input  | Background of the scroll buttons. Defaults to `--surface-inverse`.                          |
+| `--_button-bg-color`              | Input  | Background of the scroll buttons. Defaults to `--ui-surface-inverse`.                       |
 | `--_button-border-color`          | Output | Border color of the scroll buttons, from `--_button-bg-color`.                              |
 | `--_button-disabled-border-color` | Output | Border color of disabled scroll buttons, from `--_button-bg-color`.                         |
 | `--_button-disabled-opacity`      | Input  | Opacity of disabled scroll buttons. `0` hides them, `.ui-buttons-persistent` sets `1`.      |
@@ -583,20 +583,20 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_button-prev-label`            | Input  | Accessible label of the previous button.                                                    |
 | `--_button-scale`                 | Output | The current scale of a scroll button. `0.94` while pressed.                                 |
 | `--_button-shadow`                | Input  | Shadow of the scroll buttons. Defaults to `--shadow-2`.                                     |
-| `--_button-size`                  | Input  | Size of the scroll buttons. Defaults to `--button-size-small`.                              |
+| `--_button-size`                  | Input  | Size of the scroll buttons. Defaults to `--ui-button-size-small`.                           |
 | `--_button-start-flip`            | Output | Mirrors the inline-start button. `-1`, or `1` in right-to-left.                             |
-| `--_duration`                     | Output | Duration of the transitions and focus ring animation, `--duration` times `--_motion`.       |
-| `--_ease`                         | Input  | Easing of the transitions. Defaults to `--ease`.                                            |
+| `--_duration`                     | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.    |
+| `--_ease`                         | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                         |
 | `--_gap`                          | Input  | Space between items.                                                                        |
 | `--_item-size`                    | Output | The size of each item, from `--_per-view` and `--_gap`.                                     |
-| `--_marker-active-bg-color`       | Input  | Background of the current marker. Defaults to `--primary`.                                  |
-| `--_marker-bg-color`              | Input  | Background of the markers. Defaults to `--text-primary` at 25% opacity.                     |
+| `--_marker-active-bg-color`       | Input  | Background of the current marker. Defaults to `--ui-primary`.                               |
+| `--_marker-bg-color`              | Input  | Background of the markers. Defaults to `--ui-text-primary` at 25% opacity.                  |
 | `--_marker-gap`                   | Input  | Space between markers.                                                                      |
 | `--_marker-label`                 | Input  | Accessible label of each marker, followed by the item number.                               |
 | `--_marker-size`                  | Input  | Size of the markers.                                                                        |
 | `--_markers-gap`                  | Input  | Space between the items and the markers.                                                    |
 | `--_media-aspect-ratio`           | Input  | Aspect ratio of `img`, `video` and `iframe` in items.                                       |
-| `--_media-border-radius`          | Input  | Corner radius of `img`, `video` and `iframe` in items. Defaults to `--border-radius`.       |
+| `--_media-border-radius`          | Input  | Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-border-radius`.    |
 | `--_motion`                       | Input  | Motion multiplier for the button and marker transitions. `0` turns them off.                |
 | `--_padding-block`                | Input  | Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.          |
 | `--_padding-inline`               | Input  | The inline padding, showing the neighboring items. Set by `.ui-peek`.                       |
@@ -678,11 +678,11 @@ Step 3 of 4: Scroll buttons
 ```css
 .carousel.with-buttons::scroll-button(inline-start),
 .carousel.with-buttons::scroll-button(inline-end) {
-  background-color: var(--text-primary);
+  background-color: var(--ui-text-primary);
   block-size: 2rem;
   border: 0;
   border-radius: 50%;
-  color: var(--surface-default);
+  color: var(--ui-surface-default);
   cursor: pointer;
   inline-size: 2rem;
   inset-block-start: anchor(center);
@@ -735,7 +735,7 @@ Step 4 of 4: Scroll markers
 }
 
 .carousel.with-markers > li::scroll-marker {
-  background-color: oklch(from var(--text-primary) l c h / 25%);
+  background-color: oklch(from var(--ui-text-primary) l c h / 25%);
   block-size: 0.5rem;
   border-radius: 50%;
   content: "" / "Slide " counter(slide);
@@ -744,7 +744,7 @@ Step 4 of 4: Scroll markers
 }
 
 .carousel.with-markers > li::scroll-marker:target-current {
-  background-color: var(--primary);
+  background-color: var(--ui-primary);
 }
 
 @supports selector(::scroll-button(*)) {

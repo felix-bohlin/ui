@@ -23,12 +23,12 @@ import Code from "../../components/Code.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        The theme sets <code>--color-scheme: dark</code> wherever it switches to dark,
-        and custom properties inherit
+        The theme sets <code>--ui-color-scheme: dark</code> wherever it switches to
+        dark, and custom properties inherit
       </li>
       <li>
         Every element is a style container, so <code
-          >@container style(--color-scheme: dark)</code
+          >@container style(--ui-color-scheme: dark)</code
         > asks the card's parent which scheme it's in
       </li>
       <li>
@@ -39,7 +39,7 @@ import Code from "../../components/Code.astro"
     <Code
       lang="css"
       code={`.dark {
-  --color-scheme: dark;
+  --ui-color-scheme: dark;
   color-scheme: dark;
 }
 
@@ -47,7 +47,7 @@ import Code from "../../components/Code.astro"
   --shadow-elevated: var(--shadow-3);
   box-shadow: var(--card-shadow, none);
 
-  @container style(--color-scheme: dark) {
+  @container style(--ui-color-scheme: dark) {
     --shadow-elevated: var(--shadow-4);
   }
 }

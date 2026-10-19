@@ -31,7 +31,7 @@
 <span
   class={["ui-anchor", className]}
   id={isHover ? undefined : idProp}
-  style={mergeStyle({ "--anchor-position-area": alignment }, style)}
+  style={mergeStyle({ "--ui-anchor-position-area": alignment }, style)}
   {...rest}
 >
   {@render children?.()}

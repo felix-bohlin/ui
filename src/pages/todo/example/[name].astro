@@ -68,9 +68,9 @@ const source = todoExampleSource(name)
   .todo-current,
   .todo-fixed {
     align-content: start;
-    border: var(--border-width) solid var(--border-color);
+    border: var(--ui-border-width) solid var(--ui-border-color);
     border-block-start-width: var(--border-size-3);
-    border-radius: var(--border-radius);
+    border-radius: var(--ui-border-radius);
     display: grid;
     gap: var(--size-3);
     justify-items: start;
@@ -79,21 +79,21 @@ const source = todoExampleSource(name)
   }
 
   .todo-current {
-    border-block-start-color: var(--critical);
+    border-block-start-color: var(--ui-critical);
   }
 
   .todo-fixed {
-    border-block-start-color: var(--success);
+    border-block-start-color: var(--ui-success);
   }
 
   .todo-label {
-    color: var(--text-primary);
-    font-weight: var(--font-weight-semibold);
+    color: var(--ui-text-primary);
+    font-weight: var(--ui-font-weight-semibold);
   }
 
   .todo-note,
   .todo-measure {
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     font-size: var(--font-size-0);
   }
 

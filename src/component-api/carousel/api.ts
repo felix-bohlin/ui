@@ -43,7 +43,7 @@ export default {
     {
       class: ".ui-motion-off",
       default: "false",
-      description: "Turns off smooth scrolling, like `--motion: 0`.",
+      description: "Turns off smooth scrolling, like `--ui-motion: 0`.",
       frameworks: ["html"],
       group: "Motion",
       prop: "motionOff",

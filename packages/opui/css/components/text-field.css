@@ -4,28 +4,31 @@
 - Form related styles such as: label, supporting text, error handling
 */
   :where(.ui-text-field, .ui-textarea, .ui-select) {
-    --_motion: var(--motion);
-    --_accent: var(--primary);
-    --_affix-color: var(--text-muted);
+    --_motion: var(--ui-motion);
+    --_accent: var(--ui-primary);
+    --_affix-color: var(--ui-text-muted);
     --_arrow-inset: var(--size-3);
     --_arrow-space: calc(
       var(--_arrow-inset) + var(--_chevron-size) + var(--size-3)
     );
-    --_bg-color: var(--surface-default);
-    --_border-color: var(--field-border-color);
+    --_bg-color: var(--ui-surface-default);
+    --_border-color: var(--ui-field-border-color);
     --_chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414'/%3E%3C/svg%3E");
     --_chevron-size: 1rem;
-    --_duration: calc(var(--duration) * var(--_motion));
-    --_ease: var(--ease);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
     --_field-padding-block: var(--size-2);
     --_field-padding-block-fit: min(
       var(--_field-padding-block),
-      max(0px, (var(--_min-height) - 1lh - var(--field-border-width) * 2) / 2)
+      max(
+        0px,
+        (var(--_min-height) - 1lh - var(--ui-field-border-width) * 2) / 2
+      )
     );
     --_field-padding-inline: var(--size-2);
     --_font-size: var(--font-size-1);
-    --_helper-color: var(--field-helper-color);
-    --_min-height: var(--field-size);
+    --_helper-color: var(--ui-field-helper-color);
+    --_min-height: var(--ui-field-size);
 
     align-content: start;
     display: grid;
@@ -34,8 +37,8 @@
     /* Field - the actual input with a border around it */
     .ui-field {
       background-color: var(--_bg-color);
-      border: var(--field-border-width) solid var(--_border-color);
-      border-radius: var(--field-border-radius, var(--border-radius));
+      border: var(--ui-field-border-width) solid var(--_border-color);
+      border-radius: var(--ui-field-border-radius, var(--ui-border-radius));
       display: grid;
       grid-column: 1/-1;
       grid-row: 2;
@@ -52,8 +55,8 @@
     :where(.ui-field) :where(input, textarea, select) {
       background: transparent;
       border: 0;
-      color: var(--text-primary);
-      font-family: var(--font-body);
+      color: var(--ui-text-primary);
+      font-family: var(--ui-font-body);
       font-size: var(--_font-size);
       grid-area: input;
       inline-size: 100%;
@@ -89,7 +92,7 @@
         block-size: auto;
         flex-shrink: 0;
         inline-size: auto;
-        max-block-size: var(--icon-size);
+        max-block-size: var(--ui-icon-size);
       }
     }
 
@@ -113,12 +116,13 @@
     }
 
     .ui-header {
-      border-block-end: var(--field-border-width) solid var(--_border-color);
+      border-block-end: var(--ui-field-border-width) solid var(--_border-color);
       grid-area: header;
     }
 
     .ui-footer {
-      border-block-start: var(--field-border-width) solid var(--_border-color);
+      border-block-start: var(--ui-field-border-width) solid
+        var(--_border-color);
       grid-area: footer;
     }
 
@@ -143,7 +147,7 @@
     /* Required/Invalid */
     &:has(:required) {
       .ui-label:after {
-        color: var(--field-required-color);
+        color: var(--ui-field-required-color);
         content: "*";
         margin-inline-start: 0.25ex;
       }
@@ -155,19 +159,19 @@
 
       input {
         align-self: flex-start;
-        block-size: calc(var(--_min-height) - var(--field-border-width) * 2);
+        block-size: calc(var(--_min-height) - var(--ui-field-border-width) * 2);
         box-shadow: none;
-        color: var(--text-primary);
+        color: var(--ui-text-primary);
         cursor: inherit;
         max-inline-size: 100%;
         padding: 0;
         transition: font-size var(--_duration) var(--_ease);
 
         &::file-selector-button {
-          background-color: var(--surface-tonal);
+          background-color: var(--ui-surface-tonal);
           block-size: calc(100% - var(--size-2) * 2);
           border: none;
-          border-radius: var(--field-border-radius, var(--border-radius));
+          border-radius: var(--ui-field-border-radius, var(--ui-border-radius));
           cursor: pointer;
           margin-block-start: var(--size-2);
           margin-inline-end: 1ex;
@@ -179,9 +183,12 @@
       &.ui-filled {
         input {
           &::file-selector-button {
-            background-color: var(--surface-default);
+            background-color: var(--ui-surface-default);
             block-size: calc(100% - var(--size-2) * 2);
-            border-radius: var(--field-border-radius, var(--border-radius));
+            border-radius: var(
+              --ui-field-border-radius,
+              var(--ui-border-radius)
+            );
             cursor: pointer;
             margin-block-start: var(--size-2);
           }
@@ -192,7 +199,7 @@
       &.ui-small,
       &.ui-x-small {
         input {
-          font-size: var(--font-size-05);
+          font-size: var(--ui-font-size-05);
 
           &::file-selector-button {
             block-size: calc(100% - var(--size-2));
@@ -258,7 +265,7 @@
           :has([aria-invalid="true"], :user-invalid, :disabled)
         ) {
         .ui-field {
-          border-color: var(--text-primary);
+          border-color: var(--ui-text-primary);
         }
       }
     }
@@ -271,22 +278,22 @@
 
     .ui-field:has(:focus-visible) {
       animation: ui-focus-ring var(--_duration) var(--_ease);
-      outline: var(--focus-ring-width) var(--focus-ring-style)
-        var(--focus-ring-color);
-      outline-offset: var(--focus-ring-offset);
+      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+        var(--ui-focus-ring-color);
+      outline-offset: var(--ui-focus-ring-offset);
     }
 
     @media (forced-colors: active) {
       &:focus-within .ui-field {
-        outline: var(--focus-ring-width) solid Highlight;
+        outline: var(--ui-focus-ring-width) solid Highlight;
       }
     }
 
     /* Label */
     .ui-label {
-      color: var(--field-label-color);
-      font-size: var(--field-label-font-size);
-      font-weight: var(--field-label-font-weight);
+      color: var(--ui-field-label-color);
+      font-size: var(--ui-field-label-font-size);
+      font-weight: var(--ui-field-label-font-weight);
       grid-column: 1/-1;
       grid-row: 1;
       margin-block-end: var(--size-1);
@@ -295,10 +302,10 @@
 
     :where(.ui-start-text) {
       color: var(--_helper-color);
-      font-size: var(--field-helper-font-size);
+      font-size: var(--ui-field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 2;
-      line-height: var(--field-helper-line-height);
+      line-height: var(--ui-field-helper-line-height);
       margin-block-end: var(--size-1);
     }
 
@@ -315,10 +322,10 @@
     /* End text */
     :where(.ui-end-text) {
       color: var(--_helper-color);
-      font-size: var(--field-helper-font-size);
+      font-size: var(--ui-field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 3;
-      line-height: var(--field-helper-line-height);
+      line-height: var(--ui-field-helper-line-height);
       margin-block-start: var(--size-1);
     }
 
@@ -348,14 +355,14 @@
 
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
-      --_accent: var(--invalid-color);
-      --_affix-color: var(--invalid-text-color);
-      --_border-color: var(--invalid-color);
-      --_helper-color: var(--invalid-text-color);
+      --_accent: var(--ui-invalid-color);
+      --_affix-color: var(--ui-invalid-text-color);
+      --_border-color: var(--ui-invalid-color);
+      --_helper-color: var(--ui-invalid-text-color);
 
-      @container style(--contrast: more) {
-        --_accent: var(--invalid-text-color);
-        --_border-color: var(--invalid-text-color);
+      @container style(--ui-contrast: more) {
+        --_accent: var(--ui-invalid-text-color);
+        --_border-color: var(--ui-invalid-text-color);
       }
     }
 
@@ -363,15 +370,15 @@
   * Variant: Filled
   */
     &.ui-filled {
-      --_bg-color: var(--surface-tonal);
+      --_bg-color: var(--ui-surface-tonal);
 
       &:not(:has(:disabled, input[type="color"])) {
         /* Hover */
         @media (hover: hover) {
           &:hover {
             --_bg-color: light-dark(
-              oklch(from var(--surface-tonal) calc(l * 0.93) c h),
-              oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+              oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h),
+              oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
             );
           }
         }
@@ -381,7 +388,7 @@
     /* Disabled */
     &:where(:has([disabled])) {
       cursor: not-allowed;
-      opacity: var(--disabled-opacity);
+      opacity: var(--ui-disabled-opacity);
       user-select: none;
 
       .ui-field {
@@ -417,18 +424,18 @@
     /* Sizes */
     &.ui-x-small {
       --_field-padding-block: 0.1875rem;
-      --_min-height: var(--field-size-x-small);
+      --_min-height: var(--ui-field-size-x-small);
     }
 
     &.ui-small {
       --_field-padding-block: var(--size-1);
-      --_min-height: var(--field-size-small);
+      --_min-height: var(--ui-field-size-small);
     }
 
     &.ui-large {
       --_field-padding-block: 0.75rem;
       --_field-padding-inline: var(--size-3);
-      --_min-height: var(--field-size-large);
+      --_min-height: var(--ui-field-size-large);
     }
 
     &.ui-small,
@@ -449,17 +456,17 @@
       inline-size: 100%;
 
       .ui-label {
-        font-weight: var(--field-label-font-weight);
+        font-weight: var(--ui-field-label-font-weight);
         grid-column: 1;
         grid-row: 1;
       }
 
       .ui-start-text {
         color: var(--_helper-color);
-        font-size: var(--field-helper-font-size);
+        font-size: var(--ui-field-helper-font-size);
         grid-column: 1;
         grid-row: 2;
-        line-height: var(--field-helper-line-height);
+        line-height: var(--ui-field-helper-line-height);
       }
 
       .ui-field {
@@ -535,7 +542,7 @@
     }
 
     .ui-field::after {
-      background-color: var(--text-primary);
+      background-color: var(--ui-text-primary);
       block-size: var(--_chevron-size);
       content: "";
       inline-size: var(--_chevron-size);

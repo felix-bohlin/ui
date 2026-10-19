@@ -139,14 +139,14 @@ The term and the description stack when the list is `45ch` or narrower, and sit 
 
 #### CSS variables
 
-| Variable             | Default                                     | Description                                                  |
-| -------------------- | ------------------------------------------- | ------------------------------------------------------------ |
-| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.  |
-| `--border-width`     | `1px`                                       | Default border width for components that draw a border.      |
-| `--font-weight-bold` | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                 |
-| `--space-1`          | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`. |
-| `--space-3`          | `calc(var(--size-3) * var(--space-scale))`  | Spacing step 3: Open Props `--size-3` times `--space-scale`. |
-| `--text-muted`       | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                             |
+| Variable                | Default                                           | Description                                                     |
+| ----------------------- | ------------------------------------------------- | --------------------------------------------------------------- |
+| `--ui-border-color`     | `light-dark(var(--ui-gray-4), var(--ui-gray-12))` | Default border color for cards, lists, tables and dividers.     |
+| `--ui-border-width`     | `1px`                                             | Default border width for components that draw a border.         |
+| `--ui-font-weight-bold` | `var(--font-weight-7)`                            | Font weight for headings, buttons and terms.                    |
+| `--ui-space-1`          | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`. |
+| `--ui-space-3`          | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`. |
+| `--ui-text-muted`       | `light-dark(var(--ui-gray-13), var(--ui-gray-4))` | Body text color.                                                |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -243,7 +243,7 @@ Step 2 of 4: Container query
   }
 
   .item dd {
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     text-align: end;
   }
 }
@@ -260,7 +260,7 @@ Step 3 of 4: Leader line
   .bordered > .item::after {
     block-size: 2px;
     border-block-end: var(--line-width, 1px) var(--line-style, solid)
-      var(--border-color);
+      var(--ui-border-color);
     content: "";
     order: 1;
   }

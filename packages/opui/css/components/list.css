@@ -7,18 +7,18 @@ Lists meant to be used stand-alone or as part of Select elements
   - .ui-select > .ui-list > option
 */
   :where(.ui-list) {
-    --_bg-color: var(--surface-filled);
+    --_bg-color: var(--ui-surface-filled);
     --_divider-color: color-mix(in oklch, currentColor 18%, transparent);
     --_hover-bg-color: oklch(
-      from var(--primary) l c h / var(--state-hover-alpha-accent)
+      from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
     );
     --_item-gap: var(--size-3);
     --_separator-space: var(--size-3);
-    --_start-size: var(--icon-size);
+    --_start-size: var(--ui-icon-size);
 
     background-color: var(--_bg-color);
-    color: var(--text-primary);
-    font-weight: var(--font-weight-normal);
+    color: var(--ui-text-primary);
+    font-weight: var(--ui-font-weight-normal);
     list-style: none;
     padding-block: var(--size-2);
     padding-inline: 0;
@@ -30,8 +30,8 @@ Lists meant to be used stand-alone or as part of Select elements
       }
     }
 
-    @container style(--contrast: more) {
-      --_divider-color: var(--border-color);
+    @container style(--ui-contrast: more) {
+      --_divider-color: var(--ui-border-color);
     }
 
     /* Background color */
@@ -40,7 +40,7 @@ Lists meant to be used stand-alone or as part of Select elements
     }
 
     &.ui-tonal {
-      --_bg-color: var(--surface-tonal);
+      --_bg-color: var(--ui-surface-tonal);
     }
 
     /* Borders on all list items */
@@ -52,7 +52,7 @@ Lists meant to be used stand-alone or as part of Select elements
       margin-block-start: var(--_separator-space);
 
       &::before {
-        border-block-start: var(--border-width) solid var(--_divider-color);
+        border-block-start: var(--ui-border-width) solid var(--_divider-color);
         content: "";
         display: block;
         inset-block: calc(var(--_separator-space) / -2) auto;
@@ -67,7 +67,7 @@ Lists meant to be used stand-alone or as part of Select elements
     &.ui-dense {
       --_item-gap: var(--size-2);
       --_separator-space: var(--size-2);
-      --_start-size: var(--icon-size-small);
+      --_start-size: var(--ui-icon-size-small);
 
       & > :where(li, option),
       & > :where([role="group"]) > :where(label, option) {
@@ -94,7 +94,7 @@ Lists meant to be used stand-alone or as part of Select elements
           }
 
           &:where(.ui-checkbox, .ui-radio) {
-            --choice-size: var(--choice-size-small);
+            --ui-choice-size: var(--ui-choice-size-small);
           }
         }
 
@@ -112,7 +112,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
           .ui-checkbox,
           .ui-radio {
-            --choice-size: var(--choice-size-small);
+            --ui-choice-size: var(--ui-choice-size-small);
           }
         }
       }
@@ -136,10 +136,10 @@ Lists meant to be used stand-alone or as part of Select elements
       align-items: center;
       background-color: var(--_bg-color);
       display: flex;
-      font-size: var(--font-size-05);
+      font-size: var(--ui-font-size-05);
       gap: var(--_item-gap);
       isolation: isolate;
-      min-block-size: var(--control-size);
+      min-block-size: var(--ui-control-size);
       padding-block: var(--size-2);
       padding-inline: var(--size-3);
       position: relative;
@@ -177,7 +177,7 @@ Lists meant to be used stand-alone or as part of Select elements
         gap: var(--_item-gap);
         inline-size: 100%;
         margin: 0;
-        min-block-size: var(--control-size);
+        min-block-size: var(--ui-control-size);
         padding-block: var(--size-2);
         padding-inline: var(--size-3);
         text-align: start;
@@ -192,12 +192,12 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &[aria-selected="true"] {
           background-color: var(--_hover-bg-color);
-          color: var(--primary);
+          color: var(--ui-primary);
         }
 
         &:checked {
           background-color: oklch(
-            from var(--primary) l c h / var(--state-active-alpha-accent)
+            from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
           );
         }
       }
@@ -214,8 +214,8 @@ Lists meant to be used stand-alone or as part of Select elements
         gap: var(--_item-gap);
         inline-size: 100%;
         margin: 0;
-        min-block-size: var(--control-size);
-        outline-offset: var(--focus-ring-inset);
+        min-block-size: var(--ui-control-size);
+        outline-offset: var(--ui-focus-ring-inset);
         padding-block: var(--size-2);
         padding-inline: var(--size-3);
         text-align: start;
@@ -236,7 +236,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
       & > :where(a, button):is([disabled], [aria-disabled="true"]) {
         cursor: not-allowed;
-        opacity: var(--disabled-opacity);
+        opacity: var(--ui-disabled-opacity);
 
         @media (hover: hover) {
           &:hover {
@@ -261,9 +261,9 @@ Lists meant to be used stand-alone or as part of Select elements
 
         /* Switches look comically big in lists, so it's better to use a smaller variant  */
         &.ui-switch {
-          --switch-dot-size: var(--switch-dot-size-small);
-          --switch-track-height: var(--switch-track-height-small);
-          --switch-track-width: var(--switch-track-width-small);
+          --ui-switch-dot-size: var(--ui-switch-dot-size-small);
+          --ui-switch-track-height: var(--ui-switch-track-height-small);
+          --ui-switch-track-width: var(--ui-switch-track-width-small);
         }
       }
 
@@ -287,7 +287,7 @@ Lists meant to be used stand-alone or as part of Select elements
         }
 
         p + p {
-          color: var(--text-muted);
+          color: var(--ui-text-muted);
           font-size: var(--font-size-0);
         }
       }
@@ -336,11 +336,11 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: transparent;
           border: 0;
           color: inherit;
-          font-family: var(--font-code);
+          font-family: var(--ui-font-code);
           opacity: 0.7;
           padding: 0;
 
-          @container style(--contrast: more) {
+          @container style(--ui-contrast: more) {
             opacity: 1;
           }
         }

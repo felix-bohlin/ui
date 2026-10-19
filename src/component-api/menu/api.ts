@@ -22,7 +22,7 @@ export default {
       values: { end: ".ui-align-end", start: null },
     },
     {
-      cssVar: "--anchor-position-area",
+      cssVar: "--ui-anchor-position-area",
       default: '"block-end span-inline-end"',
       description:
         "Any valid `position-area` value. Overrides the placement and alignment classes.",

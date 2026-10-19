@@ -3,12 +3,12 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Border color of the focused `.ui-field`. From `--primary`, set by the invalid state.",
+      "Border color of the focused `.ui-field`. From `--ui-primary`, set by the invalid state.",
     kind: "output",
   },
   "--_affix-color": {
     description:
-      "The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--text-muted`, set by the invalid state.",
+      "The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.",
     kind: "output",
   },
   "--_arrow-inset": {
@@ -40,11 +40,11 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the transitions and focus ring animation, `--duration` times `--_motion`.",
+      "Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the transitions. Defaults to `--ease`.",
+    description: "Easing of the transitions. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_field-padding-block": {
@@ -68,12 +68,12 @@ export default {
   },
   "--_helper-color": {
     description:
-      "The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--field-helper-color`, set by the invalid state.",
+      "The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-color`, set by the invalid state.",
     kind: "output",
   },
   "--_min-height": {
     description:
-      "The minimum height of `.ui-field`. Defaults to `--field-size`, set by the size classes.",
+      "The minimum height of `.ui-field`. Defaults to `--ui-field-size`, set by the size classes.",
     kind: "input",
   },
   "--_motion": {

@@ -1,6 +1,6 @@
 @layer utils {
   :where(.ui-l-column) {
-    --_gap: var(--space-3);
+    --_gap: var(--ui-space-3);
 
     display: flex;
     flex-direction: column;
@@ -8,7 +8,7 @@
   }
 
   :where(.ui-l-row) {
-    --_gap: var(--space-3);
+    --_gap: var(--ui-space-3);
     --_justify-content: flex-start;
 
     align-items: center;
@@ -19,7 +19,7 @@
   }
 
   :where(.ui-l-grid) {
-    --_gap: var(--space-3);
+    --_gap: var(--ui-space-3);
     --_min-inline-size: 16rem;
 
     display: grid;
@@ -32,21 +32,21 @@
 
   :where(.ui-l-column, .ui-l-row, .ui-l-grid) {
     &.ui-x-small {
-      --_gap: var(--space-1);
+      --_gap: var(--ui-space-1);
     }
 
     &.ui-small {
-      --_gap: var(--space-2);
+      --_gap: var(--ui-space-2);
     }
 
     &.ui-large {
-      --_gap: var(--space-5);
+      --_gap: var(--ui-space-5);
     }
   }
 
   :where(.ui-l-container) {
     --_max-inline-size: 72rem;
-    --_padding-inline: var(--space-4);
+    --_padding-inline: var(--ui-space-4);
 
     inline-size: 100%;
     margin-inline: auto;

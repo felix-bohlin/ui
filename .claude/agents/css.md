@@ -28,7 +28,7 @@ Skip what `pnpm lint`, `pnpm sort-css:check` and `pnpm check-css-vars` catch: de
 - Private custom properties use `--_` and follow the scheme in the changelog: `--_accent`, `--_text-color`, `--_bg-color`, `--_duration`, `--_ease`, `--_size`, `--_min-height`.
 - No dead selectors: every class and part is used by a component, an example or the docs. Grep for it in `packages/opui/components` and `src/component-examples`.
 - No duplicated blocks that a shared rule or token could replace, and no specificity fights that need `!important` or repeated classes.
-- Hover styles sit in `@media (hover: hover)`. Focus styles use `:focus-visible`. Motion respects `--motion` and `prefers-reduced-motion`.
+- Hover styles sit in `@media (hover: hover)`. Focus styles use `:focus-visible`. Motion respects `--ui-motion` and `prefers-reduced-motion`.
 - States use native attributes and pseudo-classes (`:disabled`, `[aria-disabled="true"]`, `:checked`, `:user-invalid`, `[open]`), not state classes.
 - Light and dark both work: colors go through `light-dark()` or tokens that do.
 - RTL works: no direction-dependent transforms or gradients without a `:dir(rtl)` case.

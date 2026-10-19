@@ -227,8 +227,8 @@ const years = Object.keys(categorized)
     user-select: none;
 
     &[aria-pressed="true"] {
-      background-color: var(--surface-tonal);
-      border-color: var(--primary);
+      background-color: var(--ui-surface-tonal);
+      border-color: var(--ui-primary);
       box-shadow: var(--shadow-2);
     }
 
@@ -243,7 +243,7 @@ const years = Object.keys(categorized)
   }
 
   .filter-count {
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     margin: 0;
   }
 
@@ -255,7 +255,7 @@ const years = Object.keys(categorized)
     padding: var(--size-3);
 
     &:nth-child(even of :not([hidden])) {
-      background-color: var(--surface-tonal);
+      background-color: var(--ui-surface-tonal);
     }
 
     baseline-status {

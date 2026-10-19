@@ -4,7 +4,7 @@
 
     .kanban-header {
       align-items: center;
-      border-block-end: var(--border-width) solid var(--border-color);
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       display: flex;
       gap: var(--size-3);
       padding: var(--size-2) var(--size-4);
@@ -16,15 +16,15 @@
 
     .kanban-brand {
       align-items: center;
-      color: var(--text-primary);
+      color: var(--ui-text-primary);
       display: flex;
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--ui-font-weight-bold);
       gap: var(--size-2);
       text-decoration: none;
 
       svg {
         block-size: var(--size-5);
-        color: var(--primary);
+        color: var(--ui-primary);
         inline-size: var(--size-5);
       }
     }
@@ -63,8 +63,8 @@
 
     .kanban-column {
       align-content: start;
-      background-color: var(--surface-tonal);
-      border-radius: var(--border-radius);
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-border-radius);
       display: grid;
       gap: var(--size-2);
       padding: var(--size-2);
@@ -154,13 +154,13 @@
 
     .kanban-overdue {
       color: light-dark(
-        oklch(from var(--critical) 0.45 c h),
-        oklch(from var(--critical) 0.8 c h)
+        oklch(from var(--ui-critical) 0.45 c h),
+        oklch(from var(--ui-critical) 0.8 c h)
       );
     }
 
     .kanban-done h3 {
-      color: var(--text-muted);
+      color: var(--ui-text-muted);
       text-decoration: line-through;
     }
   }
@@ -234,7 +234,7 @@
       <section
         aria-labelledby="kanban-todo-heading"
         class="kanban-column"
-        style="--status: var(--text-muted)"
+        style="--status: var(--ui-text-muted)"
       >
         <div class="kanban-column-header">
           <h2 class="ui-h6" id="kanban-todo-heading">To do</h2>
@@ -264,7 +264,10 @@
               <div class="ui-content">
                 <div class="kanban-labels">
                   <span class="ui-chip ui-outlined ui-x-small">
-                    <span class="kanban-dot" style="--dot: var(--info)"></span>
+                    <span
+                      class="kanban-dot"
+                      style="--dot: var(--ui-info)"
+                    ></span>
                     <span class="ui-text">Content</span>
                   </span>
                 </div>
@@ -304,14 +307,14 @@
                   <span class="ui-chip ui-outlined ui-x-small">
                     <span
                       class="kanban-dot"
-                      style="--dot: var(--success)"
+                      style="--dot: var(--ui-success)"
                     ></span>
                     <span class="ui-text">Frontend</span>
                   </span>
                   <span class="ui-chip ui-outlined ui-x-small">
                     <span
                       class="kanban-dot"
-                      style="--dot: var(--warning)"
+                      style="--dot: var(--ui-warning)"
                     ></span>
                     <span class="ui-text">Legal</span>
                   </span>
@@ -352,7 +355,7 @@
                   <span class="ui-chip ui-outlined ui-x-small">
                     <span
                       class="kanban-dot"
-                      style="--dot: var(--critical)"
+                      style="--dot: var(--ui-critical)"
                     ></span>
                     <span class="ui-text">SEO</span>
                   </span>
@@ -403,7 +406,7 @@
       <section
         aria-labelledby="kanban-progress-heading"
         class="kanban-column"
-        style="--status: var(--info)"
+        style="--status: var(--ui-info)"
       >
         <div class="kanban-column-header">
           <h2 class="ui-h6" id="kanban-progress-heading">In progress</h2>
@@ -435,14 +438,14 @@
                   <span class="ui-chip ui-outlined ui-x-small">
                     <span
                       class="kanban-dot"
-                      style="--dot: var(--success)"
+                      style="--dot: var(--ui-success)"
                     ></span>
                     <span class="ui-text">Frontend</span>
                   </span>
                   <span class="ui-chip ui-outlined ui-x-small">
                     <span
                       class="kanban-dot"
-                      style="--dot: var(--primary)"
+                      style="--dot: var(--ui-primary)"
                     ></span>
                     <span class="ui-text">Design</span>
                   </span>
@@ -509,7 +512,10 @@
               <div class="ui-content">
                 <div class="kanban-labels">
                   <span class="ui-chip ui-outlined ui-x-small">
-                    <span class="kanban-dot" style="--dot: var(--info)"></span>
+                    <span
+                      class="kanban-dot"
+                      style="--dot: var(--ui-info)"
+                    ></span>
                     <span class="ui-text">Content</span>
                   </span>
                 </div>
@@ -548,7 +554,7 @@
       <section
         aria-labelledby="kanban-review-heading"
         class="kanban-column"
-        style="--status: var(--warning)"
+        style="--status: var(--ui-warning)"
       >
         <div class="kanban-column-header">
           <h2 class="ui-h6" id="kanban-review-heading">In review</h2>
@@ -580,7 +586,7 @@
                   <span class="ui-chip ui-outlined ui-x-small">
                     <span
                       class="kanban-dot"
-                      style="--dot: var(--success)"
+                      style="--dot: var(--ui-success)"
                     ></span>
                     <span class="ui-text">Frontend</span>
                   </span>
@@ -635,7 +641,7 @@
       <section
         aria-labelledby="kanban-done-heading"
         class="kanban-column"
-        style="--status: var(--success)"
+        style="--status: var(--ui-success)"
       >
         <div class="kanban-column-header">
           <h2 class="ui-h6" id="kanban-done-heading">Done</h2>
@@ -649,7 +655,7 @@
                   <span class="ui-chip ui-outlined ui-x-small">
                     <span
                       class="kanban-dot"
-                      style="--dot: var(--primary)"
+                      style="--dot: var(--ui-primary)"
                     ></span>
                     <span class="ui-text">Design</span>
                   </span>
@@ -677,7 +683,7 @@
                   <span class="ui-chip ui-outlined ui-x-small">
                     <span
                       class="kanban-dot"
-                      style="--dot: var(--text-muted)"
+                      style="--dot: var(--ui-text-muted)"
                     ></span>
                     <span class="ui-text">DevOps</span>
                   </span>

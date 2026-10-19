@@ -17,7 +17,7 @@ export default {
   },
   "--_active-text-color": {
     description:
-      "Text color of the selected tab. Defaults to `--text-primary`, `.ui-filled` sets it to `--primary-contrast`.",
+      "Text color of the selected tab. Defaults to `--ui-text-primary`, `.ui-filled` sets it to `--ui-primary-contrast`.",
     kind: "input",
   },
   "--_border-radius": {
@@ -27,12 +27,12 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the transitions, `--duration-fast` times `--_motion`.",
+      "Duration of the transitions, `--ui-duration-fast` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
     description:
-      "Easing of the transitions and focus ring. Defaults to `--ease`.",
+      "Easing of the transitions and focus ring. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_indicator-color": {
@@ -59,7 +59,7 @@ export default {
   },
   "--_track-border-color": {
     description:
-      "Border color of the track. `.ui-outlined` sets it to `--border-color`.",
+      "Border color of the track. `.ui-outlined` sets it to `--ui-border-color`.",
     kind: "input",
   },
   "--_track-border-width": {
@@ -68,7 +68,7 @@ export default {
   },
   "--_track-color": {
     description:
-      "Background of the track behind the tabs. Defaults to `--surface-tonal`.",
+      "Background of the track behind the tabs. Defaults to `--ui-surface-tonal`.",
     kind: "input",
   },
 } satisfies CustomProperties

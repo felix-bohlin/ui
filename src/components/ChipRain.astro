@@ -37,7 +37,7 @@ const features = Object.keys(featureToComponents).sort()
 
     drops.forEach((drop) => {
       drop.style.setProperty("--delay", `${Math.random() * 2.5}s`)
-      drop.style.setProperty("--duration", `${2.5 + Math.random() * 2}s`)
+      drop.style.setProperty("--ui-duration", `${2.5 + Math.random() * 2}s`)
       drop.style.setProperty("--rotate", `${Math.random() * 90 - 45}deg`)
       drop.style.setProperty("--spin", `${Math.random() * 360 - 180}deg`)
       drop.style.setProperty("--x", `${Math.random() * 95}vw`)
@@ -71,7 +71,7 @@ const features = Object.keys(featureToComponents).sort()
   }
 
   .raindrop {
-    animation: chip-fall var(--duration) var(--ease-in-2) var(--delay) both;
+    animation: chip-fall var(--ui-duration) var(--ease-in-2) var(--delay) both;
     box-shadow: var(--shadow-2);
     left: var(--x);
     position: absolute;

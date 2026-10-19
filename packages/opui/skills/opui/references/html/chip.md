@@ -286,29 +286,29 @@ Disable a button chip with the `disabled` attribute. On a link chip, remove the 
 
 #### CSS variables
 
-| Variable              | Default                                                                | Description                                                                                                                                                                                                                      |
-| --------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`      | `light-dark(var(--gray-4), var(--gray-12))`                            | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
-| `--border-radius`     | `var(--size-2)`                                                        | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--border-width`      | `1px`                                                                  | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--chip-size`         | `var(--control-size-small)`                                            | Default `Chip` height.                                                                                                                                                                                                           |
-| `--chip-size-large`   | `var(--control-size)`                                                  | `Chip` height with `.ui-large`.                                                                                                                                                                                                  |
-| `--chip-size-small`   | `var(--control-size-x-small)`                                          | `Chip` height with `.ui-small`.                                                                                                                                                                                                  |
-| `--chip-size-x-small` | `calc(24px * var(--density))`                                          | `Chip` height with `.ui-x-small`.                                                                                                                                                                                                |
-| `--critical`          | `var(--red)`                                                           | Severity color for errors and destructive actions.                                                                                                                                                                               |
-| `--disabled-opacity`  | `0.64`                                                                 | Opacity applied to disabled controls.                                                                                                                                                                                            |
-| `--font-size-05`      | `0.875rem`                                                             | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--icon-size`         | `var(--size-4)`                                                        | Default icon size inside components.                                                                                                                                                                                             |
-| `--icon-size-small`   | `var(--size-3)`                                                        | Icon size inside `Chip`.                                                                                                                                                                                                         |
-| `--info`              | `var(--blue)`                                                          | Severity color for informational messages.                                                                                                                                                                                       |
-| `--neutral`           | `var(--gray-9)`                                                        | Severity color for neutral messages.                                                                                                                                                                                             |
-| `--success`           | `var(--green)`                                                         | Severity color for success messages.                                                                                                                                                                                             |
-| `--surface-default`   | `light-dark(var(--gray-1), var(--gray-13))`                            | Page and card background.                                                                                                                                                                                                        |
-| `--surface-tonal`     | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                                                                                                                                                    |
-| `--text-disabled`     | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                                                                                                                                                        |
-| `--text-muted`        | `light-dark(var(--gray-13), var(--gray-4))`                            | Body text color.                                                                                                                                                                                                                 |
-| `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
-| `--warning`           | `var(--orange)`                                                        | Severity color for warnings.                                                                                                                                                                                                     |
+| Variable                 | Default                                                                      | Description                                                                                                                                                                                                                      |
+| ------------------------ | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`      | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                            | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
+| `--ui-border-radius`     | `var(--size-2)`                                                              | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-border-width`      | `1px`                                                                        | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--ui-chip-size`         | `var(--ui-control-size-small)`                                               | Default `Chip` height.                                                                                                                                                                                                           |
+| `--ui-chip-size-large`   | `var(--ui-control-size)`                                                     | `Chip` height with `.ui-large`.                                                                                                                                                                                                  |
+| `--ui-chip-size-small`   | `var(--ui-control-size-x-small)`                                             | `Chip` height with `.ui-small`.                                                                                                                                                                                                  |
+| `--ui-chip-size-x-small` | `calc(24px * var(--ui-density))`                                             | `Chip` height with `.ui-x-small`.                                                                                                                                                                                                |
+| `--ui-critical`          | `var(--ui-red)`                                                              | Severity color for errors and destructive actions.                                                                                                                                                                               |
+| `--ui-disabled-opacity`  | `0.64`                                                                       | Opacity applied to disabled controls.                                                                                                                                                                                            |
+| `--ui-font-size-05`      | `0.875rem`                                                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--ui-icon-size`         | `var(--size-4)`                                                              | Default icon size inside components.                                                                                                                                                                                             |
+| `--ui-icon-size-small`   | `var(--size-3)`                                                              | Icon size inside `Chip`.                                                                                                                                                                                                         |
+| `--ui-info`              | `var(--ui-blue)`                                                             | Severity color for informational messages.                                                                                                                                                                                       |
+| `--ui-neutral`           | `var(--ui-gray-9)`                                                           | Severity color for neutral messages.                                                                                                                                                                                             |
+| `--ui-success`           | `var(--ui-green)`                                                            | Severity color for success messages.                                                                                                                                                                                             |
+| `--ui-surface-default`   | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                            | Page and card background.                                                                                                                                                                                                        |
+| `--ui-surface-tonal`     | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                            | Background of tonal variants.                                                                                                                                                                                                    |
+| `--ui-text-disabled`     | `color-mix( in oklch, var(--ui-text-muted) 50%, var(--ui-surface-default) )` | Text color of disabled buttons and chips.                                                                                                                                                                                        |
+| `--ui-text-muted`        | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`                            | Body text color.                                                                                                                                                                                                                 |
+| `--ui-text-primary`      | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                            | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
+| `--ui-warning`           | `var(--ui-orange)`                                                           | Severity color for warnings.                                                                                                                                                                                                     |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -326,7 +326,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_icon-padding-inline` | Input  | Inline padding on the side of a leading or trailing `svg`. `.ui-large` sets it.                                                                     |
 | `--_icon-size`           | Input  | Width of an `svg`. `.ui-large` sets it.                                                                                                             |
 | `--_padding-inline`      | Input  | The inline padding. `.ui-large` sets it.                                                                                                            |
-| `--_size`                | Input  | The height. Defaults to `--chip-size`, set by the size classes.                                                                                     |
+| `--_size`                | Input  | The height. Defaults to `--ui-chip-size`, set by the size classes.                                                                                  |
 | `--_text-color`          | Output | The current text color. Set by the variant, color classes and disabled states.                                                                      |
 
 ## Under the hood
@@ -334,7 +334,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 1. Base
 
    - One class for a `<div>`, `<button>` or `<a>`: the element decides what it does
-   - Fixed `block-size` from `--chip-size`, width from the content
+   - Fixed `block-size` from `--ui-chip-size`, width from the content
 
 2. Icon
 
@@ -367,13 +367,13 @@ Step 1 of 4: Base
 
 ```css
 .chip {
-  --bg: var(--surface-tonal);
+  --bg: var(--ui-surface-tonal);
   align-items: center;
   background-color: var(--bg);
-  block-size: var(--chip-size);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  color: var(--text-primary);
+  block-size: var(--ui-chip-size);
+  border: 1px solid var(--ui-border-color);
+  border-radius: var(--ui-border-radius);
+  color: var(--ui-text-primary);
   display: inline-flex;
   font-size: var(--font-size-0);
   gap: var(--size-1);
@@ -397,7 +397,7 @@ Step 2 of 4: Icon
 
 .chip svg {
   flex-shrink: 0;
-  inline-size: var(--icon-size-small);
+  inline-size: var(--ui-icon-size-small);
 }
 ```
 
@@ -426,8 +426,8 @@ Step 4 of 4: Hover
 ```css
 .chip:where(button, a):hover {
   --bg: light-dark(
-    oklch(from var(--surface-tonal) calc(l * 0.98) c h),
-    oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+    oklch(from var(--ui-surface-tonal) calc(l * 0.98) c h),
+    oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
   );
 }
 ```

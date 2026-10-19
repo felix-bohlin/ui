@@ -1,8 +1,8 @@
 @layer components.root {
   :where(.ui-carousel) {
-    --_motion: var(--motion);
+    --_motion: var(--ui-motion);
     --_block-size: 24rem;
-    --_button-bg-color: var(--surface-inverse);
+    --_button-bg-color: var(--ui-surface-inverse);
     --_button-border-color: light-dark(
       oklch(from var(--_button-bg-color) calc(l + 0.3) c h),
       oklch(from var(--_button-bg-color) calc(l - 0.3) c h)
@@ -15,26 +15,26 @@
     --_button-end-flip: 1;
     --_button-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0'/%3E%3C/svg%3E");
     --_button-icon-size: 60%;
-    --_button-inset: var(--space-2);
+    --_button-inset: var(--ui-space-2);
     --_button-next-label: "Next";
     --_button-prev-label: "Previous";
     --_button-shadow: var(--shadow-2);
-    --_button-size: var(--button-size-small);
+    --_button-size: var(--ui-button-size-small);
     --_button-start-flip: -1;
-    --_duration: calc(var(--duration) * var(--_motion));
-    --_ease: var(--ease);
-    --_gap: var(--space-3);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
+    --_gap: var(--ui-space-3);
     --_item-size: calc(
       (100% - (var(--_per-view) - 1) * var(--_gap)) / var(--_per-view)
     );
-    --_marker-active-bg-color: var(--primary);
-    --_marker-bg-color: oklch(from var(--text-primary) l c h / 25%);
-    --_marker-gap: var(--space-2);
+    --_marker-active-bg-color: var(--ui-primary);
+    --_marker-bg-color: oklch(from var(--ui-text-primary) l c h / 25%);
+    --_marker-gap: var(--ui-space-2);
     --_marker-label: "Slide ";
     --_marker-size: var(--size-2);
-    --_markers-gap: var(--space-3);
+    --_markers-gap: var(--ui-space-3);
     --_media-aspect-ratio: 16 / 9;
-    --_media-border-radius: var(--border-radius);
+    --_media-border-radius: var(--ui-border-radius);
     --_padding-block: 0px;
     --_padding-inline: 0px;
     --_per-view: 1;
@@ -56,7 +56,7 @@
     scroll-padding-inline: var(--_padding-inline);
     scroll-snap-type: x mandatory;
 
-    @container style(--motion: 0) {
+    @container style(--ui-motion: 0) {
       scroll-behavior: auto;
     }
 
@@ -91,7 +91,7 @@
 
     /* Peek at the neighbouring items */
     &.ui-peek {
-      --_padding-inline: var(--space-8);
+      --_padding-inline: var(--ui-space-8);
     }
 
     /* Vertical */
@@ -110,7 +110,7 @@
       scroll-snap-type: y mandatory;
 
       &.ui-peek {
-        --_padding-block: var(--space-8);
+        --_padding-block: var(--ui-space-8);
       }
     }
 
@@ -129,7 +129,7 @@
         background-repeat: no-repeat;
         background-size: var(--_button-icon-size);
         block-size: var(--_button-size);
-        border: var(--border-width) solid var(--_button-border-color);
+        border: var(--ui-border-width) solid var(--_button-border-color);
         border-radius: var(--radius-round);
         box-shadow: var(--_button-shadow);
         cursor: pointer;
@@ -143,7 +143,7 @@
         transition:
           border-color var(--_duration) var(--_ease),
           opacity var(--_duration) var(--_ease),
-          scale calc(var(--duration-fast) * var(--_motion)) var(--_ease);
+          scale calc(var(--ui-duration-fast) * var(--_motion)) var(--_ease);
         translate: 0 -50%;
       }
 
@@ -239,9 +239,9 @@
 
       &::scroll-button(*):focus-visible {
         animation: ui-focus-ring var(--_duration) var(--_ease);
-        outline: var(--focus-ring-width) var(--focus-ring-style)
-          var(--focus-ring-color);
-        outline-offset: var(--focus-ring-offset);
+        outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+          var(--ui-focus-ring-color);
+        outline-offset: var(--ui-focus-ring-offset);
       }
 
       &.ui-buttons-persistent {
@@ -298,14 +298,14 @@
 
       & > *::scroll-marker:focus-visible {
         animation: ui-focus-ring var(--_duration) var(--_ease);
-        outline: var(--focus-ring-width) var(--focus-ring-style)
-          var(--focus-ring-color);
-        outline-offset: var(--focus-ring-offset);
+        outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+          var(--ui-focus-ring-color);
+        outline-offset: var(--ui-focus-ring-offset);
       }
 
       @media (forced-colors: active) {
         & > *::scroll-marker {
-          border: var(--border-width) solid ButtonText;
+          border: var(--ui-border-width) solid ButtonText;
         }
 
         & > *::scroll-marker:target-current {

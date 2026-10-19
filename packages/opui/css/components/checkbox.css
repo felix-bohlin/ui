@@ -4,10 +4,10 @@
     input[type="checkbox"] {
       appearance: none;
       aspect-ratio: 1;
-      background-color: var(--surface-default);
+      background-color: var(--ui-surface-default);
       block-size: var(--_input-size);
-      border: var(--field-border-width) solid var(--field-border-color);
-      border-radius: min(var(--radius-1), var(--border-radius));
+      border: var(--ui-field-border-width) solid var(--ui-field-border-color);
+      border-radius: min(var(--radius-1), var(--ui-border-radius));
       box-sizing: border-box;
       cursor: pointer;
       display: grid;
@@ -56,7 +56,7 @@
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       input[type="checkbox"]:not(:checked, :indeterminate) {
-        border-color: var(--invalid-color);
+        border-color: var(--ui-invalid-color);
       }
     }
 

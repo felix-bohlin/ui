@@ -2,7 +2,7 @@ import type { CustomProperties } from "../types"
 
 export default {
   "--_accent": {
-    description: "Color of the bar. Defaults to `--primary`.",
+    description: "Color of the bar. Defaults to `--ui-primary`.",
     kind: "input",
   },
   "--_bg-color": {
@@ -11,11 +11,12 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the value transition, `--duration` times `--_motion`.",
+      "Duration of the value transition, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the value transition. Defaults to `--ease-enter`.",
+    description:
+      "Easing of the value transition. Defaults to `--ui-ease-enter`.",
     kind: "input",
   },
   "--_motion": {

@@ -17,10 +17,10 @@ const steps = [
 
 .toast {
   align-items: center;
-  background-color: var(--surface-inverse);
+  background-color: var(--ui-surface-inverse);
   border-radius: var(--radius-2);
   box-shadow: var(--shadow-3);
-  color: var(--text-inverse);
+  color: var(--ui-text-inverse);
   display: flex;
   gap: 0.75rem;
   justify-content: space-between;
@@ -102,12 +102,12 @@ const steps = [
 }
 
 .toast[data-severity="success"] .icon {
-  background-color: var(--success);
+  background-color: var(--ui-success);
   mask-image: ${successIcon};
 }
 
 .toast[data-severity="critical"] .icon {
-  background-color: var(--critical);
+  background-color: var(--ui-critical);
   mask-image: ${criticalIcon};
 }
 
@@ -197,7 +197,7 @@ const triggers = [
   }
 
   .stack {
-    font-size: var(--font-size-05);
+    font-size: var(--ui-font-size-05);
     min-block-size: 9rem;
   }
 </style>

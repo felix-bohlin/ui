@@ -13,7 +13,7 @@ import { Card, CardContent, Divider } from "opui-css/vue"
     </CardContent>
   </Card>
 
-  <div style="--divider-space: var(--size-1)">
+  <div style="--ui-divider-space: var(--size-1)">
     A custom space on any wrapper
     <Divider />
     reaches every divider inside it.

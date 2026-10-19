@@ -12,7 +12,7 @@ export default {
     kind: "output",
   },
   "--_border-radius": {
-    description: "The corner radius. Defaults to `--border-radius`.",
+    description: "The corner radius. Defaults to `--ui-border-radius`.",
     kind: "input",
   },
   "--_content-gap": {
@@ -38,12 +38,12 @@ export default {
   },
   "--_link-hover-color": {
     description:
-      "Link color on hover and focus. Defaults to `--primary`, not used in `.ui-outlined`.",
+      "Link color on hover and focus. Defaults to `--ui-primary`, not used in `.ui-outlined`.",
     kind: "input",
   },
   "--_outlined-bg-color": {
     description:
-      "Background of `.ui-outlined`. Defaults to `--surface-default`.",
+      "Background of `.ui-outlined`. Defaults to `--ui-surface-default`.",
     kind: "input",
   },
   "--_outlined-border-color": {
@@ -64,7 +64,7 @@ export default {
   },
   "--_surface-bg-color": {
     description:
-      "The opaque background under the tint. Defaults to `--surface-default`.",
+      "The opaque background under the tint. Defaults to `--ui-surface-default`.",
     kind: "input",
   },
   "--_text-color": {

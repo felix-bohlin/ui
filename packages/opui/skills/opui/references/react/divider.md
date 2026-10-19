@@ -63,7 +63,7 @@ export default function Content() {
 
 ## Spacing
 
-The space above and below a divider is `--divider-space`. Cards, callouts, dialogs and drawers set a tighter value, and a divider that is a direct child of a card has no margin, since the card's gap already spaces it. Set `--divider-space` on any wrapper to change it for every divider inside.
+The space above and below a divider is `--ui-divider-space`. Cards, callouts, dialogs and drawers set a tighter value, and a divider that is a direct child of a card has no margin, since the card's gap already spaces it. Set `--ui-divider-space` on any wrapper to change it for every divider inside.
 
 ```tsx
 import { Card, CardContent, Divider } from "opui-css/react"
@@ -80,7 +80,7 @@ export default function Spacing() {
         </CardContent>
       </Card>
 
-      <div style={{ "--divider-space": "var(--size-1)" }}>
+      <div style={{ "--ui-divider-space": "var(--size-1)" }}>
         A custom space on any wrapper <Divider /> reaches every divider inside
         it.
       </div>
@@ -101,16 +101,16 @@ export default function Spacing() {
 
 #### CSS variables
 
-| Variable           | Default                                          | Description                                                                                                                                                                                                           |
-| ------------------ | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`      | Default border color for cards, lists, tables and dividers.                                                                                                                                                           |
-| `--border-width`   | `1px`                                            | Default border width for components that draw a border.                                                                                                                                                               |
-| `--divider-space`  | `calc(var(--size-fluid-3) * var(--space-scale))` | Block margin around a `Divider`, times `--space-scale`. Cards, callouts, dialogs and drawers set it to `--space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it. |
-| `--primary`        | `light-dark(var(--color-9), var(--color-6))`     | Brand color for primary actions and accents.                                                                                                                                                                          |
-| `--space-3`        | `calc(var(--size-3) * var(--space-scale))`       | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                                          |
-| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`      | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                 |
-| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`      | Background of tonal variants.                                                                                                                                                                                         |
-| `--text-muted`     | `light-dark(var(--gray-13), var(--gray-4))`      | Body text color.                                                                                                                                                                                                      |
+| Variable              | Default                                             | Description                                                                                                                                                                                                                 |
+| --------------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`   | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`   | Default border color for cards, lists, tables and dividers.                                                                                                                                                                 |
+| `--ui-border-width`   | `1px`                                               | Default border width for components that draw a border.                                                                                                                                                                     |
+| `--ui-divider-space`  | `calc(var(--size-fluid-3) * var(--ui-space-scale))` | Block margin around a `Divider`, times `--ui-space-scale`. Cards, callouts, dialogs and drawers set it to `--ui-space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it. |
+| `--ui-primary`        | `light-dark(var(--ui-color-9), var(--ui-color-6))`  | Brand color for primary actions and accents.                                                                                                                                                                                |
+| `--ui-space-3`        | `calc(var(--size-3) * var(--ui-space-scale))`       | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                             |
+| `--ui-surface-filled` | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`   | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                       |
+| `--ui-surface-tonal`  | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`   | Background of tonal variants.                                                                                                                                                                                               |
+| `--ui-text-muted`     | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`   | Body text color.                                                                                                                                                                                                            |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
@@ -118,9 +118,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
 
-| Property           | Kind  | Description                                                                                       |
-| ------------------ | ----- | ------------------------------------------------------------------------------------------------- |
-| `--_divider-color` | Input | The line color. Defaults to `--border-color`, `.ui-filled`, `.ui-primary` and `.ui-tonal` set it. |
+| Property           | Kind  | Description                                                                                          |
+| ------------------ | ----- | ---------------------------------------------------------------------------------------------------- |
+| `--_divider-color` | Input | The line color. Defaults to `--ui-border-color`, `.ui-filled`, `.ui-primary` and `.ui-tonal` set it. |
 
 ## Under the hood
 
@@ -176,7 +176,7 @@ Step 3 of 5: Paint
 
 ```css
 .divider {
-  background-color: var(--border-color);
+  background-color: var(--ui-border-color);
 }
 ```
 
@@ -211,5 +211,5 @@ Import the component from `opui-css/react`:
 
 ### What's new
 
-- [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
+- [Spacing](#spacing) comes from `--ui-divider-space`, which cards, callouts, dialogs and drawers make tighter.
 - [Content](#content) in the middle of the line as children, aligned with `align`.

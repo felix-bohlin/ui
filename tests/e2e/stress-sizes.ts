@@ -25,7 +25,7 @@ export const measure = (page: Page) =>
     const rows = elements.map((row) => {
       const size = row.getAttribute("data-size")!
       return {
-        controlHeight: probe(row, "--control-size", size),
+        controlHeight: probe(row, "--ui-control-size", size),
         example: row.closest("[data-example]")!.getAttribute("data-example"),
         row,
         size,
@@ -41,7 +41,7 @@ export const measure = (page: Page) =>
             return {
               chip: `${example} ${size} > ${chip.className} "${chip.textContent!.trim()}"`,
               controlHeight,
-              expected: probe(row, "--chip-size", chipSize),
+              expected: probe(row, "--ui-chip-size", chipSize),
               height: `${chip.getBoundingClientRect().height}px`,
               matchesControl:
                 SIZES.indexOf(chipSize) === SIZES.indexOf(size) + 1,

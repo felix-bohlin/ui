@@ -393,7 +393,7 @@ const count = sections.reduce(
   }
 
   .todo-item {
-    border-block-end: var(--border-width) solid var(--border-color);
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
     display: grid;
     gap: var(--size-2);
     padding-block-end: var(--size-4);
@@ -423,10 +423,10 @@ const count = sections.reduce(
     }
 
     iframe {
-      background-color: var(--surface-default);
+      background-color: var(--ui-surface-default);
       block-size: var(--size-13);
-      border: var(--border-width) solid var(--border-color);
-      border-radius: var(--border-radius);
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-border-radius);
       inline-size: 100%;
       max-block-size: 80dvb;
     }
@@ -445,7 +445,7 @@ const count = sections.reduce(
   }
 
   .todo-status {
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     margin: 0;
     min-block-size: 1lh;
   }

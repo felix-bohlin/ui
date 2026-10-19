@@ -200,7 +200,7 @@ const descText =
     &:before {
       background: radial-gradient(
         100% 100% at 50% 0%,
-        var(--primary),
+        var(--ui-primary),
         transparent
       );
       content: "";
@@ -265,7 +265,7 @@ const descText =
           font-weight: 500;
 
           h3 {
-            font-size: var(--font-size-05);
+            font-size: var(--ui-font-size-05);
             margin-block-end: 0.5em;
           }
 
@@ -274,14 +274,14 @@ const descText =
           }
 
           menu {
-            font-size: var(--font-size-05);
+            font-size: var(--ui-font-size-05);
             list-style-type: none;
             margin: 0;
             padding: 0;
 
             li {
               a {
-                color: var(--text-primary);
+                color: var(--ui-text-primary);
                 display: flex;
                 padding-block: var(--size-1);
                 text-decoration: none;
@@ -291,18 +291,18 @@ const descText =
                 }
 
                 &:hover {
-                  color: var(--primary);
+                  color: var(--ui-primary);
                 }
 
                 &[aria-current="page"] {
-                  color: var(--primary);
+                  color: var(--ui-primary);
                   font-weight: 700;
                 }
 
                 .new-dot {
                   align-self: center;
                   aspect-ratio: 1;
-                  background-color: var(--primary);
+                  background-color: var(--ui-primary);
                   border-radius: var(--radius-round);
                   inline-size: var(--size-2);
                   margin-inline-start: var(--size-2);
@@ -345,8 +345,8 @@ const descText =
           farthest-side at 50% 0%,
           color-mix(
             in oklch,
-            var(--primary) 30%,
-            oklch(from var(--text-primary) l c h / 0.2)
+            var(--ui-primary) 30%,
+            oklch(from var(--ui-text-primary) l c h / 0.2)
           ),
           transparent
         );
@@ -363,8 +363,8 @@ const descText =
           farthest-side at 50% 100%,
           color-mix(
             in oklch,
-            var(--primary) 30%,
-            oklch(from var(--text-primary) l c h / 0.2)
+            var(--ui-primary) 30%,
+            oklch(from var(--ui-text-primary) l c h / 0.2)
           ),
           transparent
         );
@@ -388,8 +388,8 @@ const descText =
 
     .sidebar {
       align-self: start;
-      background-color: var(--surface-filled);
-      border-radius: var(--border-radius);
+      background-color: var(--ui-surface-filled);
+      border-radius: var(--ui-border-radius);
       grid-column: 3;
       grid-row: 2;
       inset-block-start: calc(var(--size-10) + var(--site-gap));
@@ -442,7 +442,7 @@ const descText =
           gap: var(--size-2);
 
           .header-anchor {
-            color: var(--primary);
+            color: var(--ui-primary);
             display: flex;
             font-size: 0.8em;
             opacity: 0;

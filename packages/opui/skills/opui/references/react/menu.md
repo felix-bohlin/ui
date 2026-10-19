@@ -154,7 +154,7 @@ export default function Custom() {
 
 ## Placement
 
-`placement`, or any `--anchor-position-area`. `align="end"` to line up with the end edge.
+`placement`, or any `--ui-anchor-position-area`. `align="end"` to line up with the end edge.
 
 ```tsx
 import { Button, Menu } from "opui-css/react"
@@ -313,39 +313,39 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 #### CSS variables
 
-| Variable                      | Default                                      | Description                                                                                                                                                                                                                      |
-| ----------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
-| `--border-radius`             | `var(--size-2)`                              | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--choice-size-small`         | `calc(var(--size-3) * var(--density))`       | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                                                                            |
-| `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                                                                                                                                    |
-| `--critical`                  | `var(--red)`                                 | Severity color for errors and destructive actions.                                                                                                                                                                               |
-| `--disabled-opacity`          | `0.64`                                       | Opacity applied to disabled controls.                                                                                                                                                                                            |
-| `--duration`                  | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
-| `--ease-enter`                | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                                                                                                                         |
-| `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                |
-| `--font-code`                 | `var(--font-mono)`                           | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                |
-| `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--font-weight-bold`          | `var(--font-weight-7)`                       | Font weight for headings, buttons and terms.                                                                                                                                                                                     |
-| `--font-weight-normal`        | `var(--font-weight-4)`                       | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                                     |
-| `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                                                                                                                                             |
-| `--icon-size-small`           | `var(--size-3)`                              | Icon size inside `Chip`.                                                                                                                                                                                                         |
-| `--motion`                    | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion).                        |
-| `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                                                     |
-| `--shadow-overlay`            | `var(--shadow-3)`                            | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                                                      |
-| `--space-1`                   | `calc(var(--size-1) * var(--space-scale))`   | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                                                     |
-| `--space-2`                   | `calc(var(--size-2) * var(--space-scale))`   | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                     |
-| `--state-active-alpha-accent` | `25%`                                        | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                |
-| `--state-hover-alpha-accent`  | `15%`                                        | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                  |
-| `--surface-elevated`          | `light-dark(var(--gray-1), var(--gray-12))`  | Background of elevated cards and accordions.                                                                                                                                                                                     |
-| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
-| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                                                    |
-| `--switch-dot-size-small`     | `calc(0.75rem * var(--density))`             | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                                                 |
-| `--switch-track-height-small` | `calc(var(--size-4) * var(--density))`       | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                                                 |
-| `--switch-track-width-small`  | `calc(2.5rem * var(--density))`              | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                                                  |
-| `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                                                                                                                                 |
-| `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
+| Variable                         | Default                                            | Description                                                                                                                                                                                                                      |
+| -------------------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`              | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
+| `--ui-border-radius`             | `var(--size-2)`                                    | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-border-width`              | `1px`                                              | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--ui-choice-size-small`         | `calc(var(--size-3) * var(--ui-density))`          | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                                                                            |
+| `--ui-control-size`              | `calc(40px * var(--ui-density))`                   | Shared default height for fields and buttons so they line up.                                                                                                                                                                    |
+| `--ui-critical`                  | `var(--ui-red)`                                    | Severity color for errors and destructive actions.                                                                                                                                                                               |
+| `--ui-disabled-opacity`          | `0.64`                                             | Opacity applied to disabled controls.                                                                                                                                                                                            |
+| `--ui-duration`                  | `0.2s`                                             | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                        |
+| `--ui-ease-enter`                | `var(--ease-out-3)`                                | Easing for elements entering the screen.                                                                                                                                                                                         |
+| `--ui-focus-ring-inset`          | `calc(-1 * var(--ui-focus-ring-width))`            | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                |
+| `--ui-font-code`                 | `var(--font-mono)`                                 | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                |
+| `--ui-font-size-05`              | `0.875rem`                                         | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--ui-font-weight-bold`          | `var(--font-weight-7)`                             | Font weight for headings, buttons and terms.                                                                                                                                                                                     |
+| `--ui-font-weight-normal`        | `var(--font-weight-4)`                             | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                                     |
+| `--ui-icon-size`                 | `var(--size-4)`                                    | Default icon size inside components.                                                                                                                                                                                             |
+| `--ui-icon-size-small`           | `var(--size-3)`                                    | Icon size inside `Chip`.                                                                                                                                                                                                         |
+| `--ui-motion`                    | `1`                                                | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion).                        |
+| `--ui-primary`                   | `light-dark(var(--ui-color-9), var(--ui-color-6))` | Brand color for primary actions and accents.                                                                                                                                                                                     |
+| `--ui-shadow-overlay`            | `var(--shadow-3)`                                  | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                                                      |
+| `--ui-space-1`                   | `calc(var(--size-1) * var(--ui-space-scale))`      | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-space-2`                   | `calc(var(--size-2) * var(--ui-space-scale))`      | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-state-active-alpha-accent` | `25%`                                              | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                |
+| `--ui-state-hover-alpha-accent`  | `15%`                                              | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                  |
+| `--ui-surface-elevated`          | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`  | Background of elevated cards and accordions.                                                                                                                                                                                     |
+| `--ui-surface-filled`            | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
+| `--ui-surface-tonal`             | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`  | Background of tonal variants.                                                                                                                                                                                                    |
+| `--ui-switch-dot-size-small`     | `calc(0.75rem * var(--ui-density))`                | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                                                 |
+| `--ui-switch-track-height-small` | `calc(var(--size-4) * var(--ui-density))`          | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                                                 |
+| `--ui-switch-track-width-small`  | `calc(2.5rem * var(--ui-density))`                 | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                                                                                                  |
+| `--ui-text-muted`                | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`  | Body text color.                                                                                                                                                                                                                 |
+| `--ui-text-primary`              | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
@@ -355,27 +355,27 @@ Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
 
-| Property             | Kind   | Description                                                                                                 |
-| -------------------- | ------ | ----------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`        | Input  | The background. Defaults to `--surface-elevated`.                                                           |
-| `--_border-color`    | Input  | The border color. `--_divider-color` follows it.                                                            |
-| `--_border-radius`   | Input  | The corner radius. Defaults to `--border-radius`.                                                           |
-| `--_border-width`    | Input  | The border width.                                                                                           |
-| `--_divider-color`   | Input  | Color of the item separators. Defaults to `--_border-color`.                                                |
-| `--_duration`        | Output | Duration of the transitions, `--duration` times `--_motion`.                                                |
-| `--_ease`            | Input  | Easing of the open transition. Defaults to `--ease-enter`.                                                  |
-| `--_hover-bg-color`  | Output | Hover background of `.ui-critical` items, from `--critical`.                                                |
-| `--_margin-block`    | Output | Block margin of a popover menu, `--_offset` or `0` depending on the placement.                              |
-| `--_margin-inline`   | Output | Inline margin of a popover menu, `--_offset` for `.ui-inline-start` and `.ui-inline-end`.                   |
-| `--_max-block-size`  | Input  | Maximum height.                                                                                             |
-| `--_min-block-size`  | Input  | Height a popover menu keeps when space is tight, unless its content is shorter.                             |
-| `--_min-inline-size` | Input  | Minimum width. A popover menu is also at least as wide as its invoker.                                      |
-| `--_motion`          | Input  | Motion multiplier for the transitions. `0` turns them off.                                                  |
-| `--_offset`          | Input  | Gap between a popover menu and its invoker.                                                                 |
-| `--_position-area`   | Output | The `position-area` of a popover menu, from `--_side` and `--_span`. `--anchor-position-area` overrides it. |
-| `--_shadow`          | Input  | The shadow. Defaults to `--shadow-overlay`.                                                                 |
-| `--_side`            | Output | Side of the invoker the menu opens on. Set by `.ui-block-start`, `.ui-inline-start` and `.ui-inline-end`.   |
-| `--_span`            | Output | Direction the menu extends along the invoker. Set by the placement classes and `.ui-align-end`.             |
+| Property             | Kind   | Description                                                                                                    |
+| -------------------- | ------ | -------------------------------------------------------------------------------------------------------------- |
+| `--_bg-color`        | Input  | The background. Defaults to `--ui-surface-elevated`.                                                           |
+| `--_border-color`    | Input  | The border color. `--_divider-color` follows it.                                                               |
+| `--_border-radius`   | Input  | The corner radius. Defaults to `--ui-border-radius`.                                                           |
+| `--_border-width`    | Input  | The border width.                                                                                              |
+| `--_divider-color`   | Input  | Color of the item separators. Defaults to `--_border-color`.                                                   |
+| `--_duration`        | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                                |
+| `--_ease`            | Input  | Easing of the open transition. Defaults to `--ui-ease-enter`.                                                  |
+| `--_hover-bg-color`  | Output | Hover background of `.ui-critical` items, from `--ui-critical`.                                                |
+| `--_margin-block`    | Output | Block margin of a popover menu, `--_offset` or `0` depending on the placement.                                 |
+| `--_margin-inline`   | Output | Inline margin of a popover menu, `--_offset` for `.ui-inline-start` and `.ui-inline-end`.                      |
+| `--_max-block-size`  | Input  | Maximum height.                                                                                                |
+| `--_min-block-size`  | Input  | Height a popover menu keeps when space is tight, unless its content is shorter.                                |
+| `--_min-inline-size` | Input  | Minimum width. A popover menu is also at least as wide as its invoker.                                         |
+| `--_motion`          | Input  | Motion multiplier for the transitions. `0` turns them off.                                                     |
+| `--_offset`          | Input  | Gap between a popover menu and its invoker.                                                                    |
+| `--_position-area`   | Output | The `position-area` of a popover menu, from `--_side` and `--_span`. `--ui-anchor-position-area` overrides it. |
+| `--_shadow`          | Input  | The shadow. Defaults to `--ui-shadow-overlay`.                                                                 |
+| `--_side`            | Output | Side of the invoker the menu opens on. Set by `.ui-block-start`, `.ui-inline-start` and `.ui-inline-end`.      |
+| `--_span`            | Output | Direction the menu extends along the invoker. Set by the placement classes and `.ui-align-end`.                |
 
 ## Under the hood
 
@@ -411,7 +411,7 @@ Read the post: [Menus with popover and anchor positioning](https://open-props-ui
 
    - `@starting-style` gives the entry transition a starting point
    - `allow-discrete` keeps `display` and `overlay` alive during the exit
-   - `--motion` is `0` under reduced motion and with `.ui-motion-off`
+   - `--ui-motion` is `0` under reduced motion and with `.ui-motion-off`
 
 Step 1 of 5: Popover
 
@@ -434,8 +434,8 @@ Step 1 of 5: Popover
 
 ```css
 .menu {
-  background-color: var(--surface-elevated);
-  border: 1px solid var(--border-color);
+  background-color: var(--ui-surface-elevated);
+  border: 1px solid var(--ui-border-color);
   border-radius: var(--radius-2);
   box-shadow: var(--shadow-3);
   padding: 0.25rem 0;
@@ -510,10 +510,10 @@ Step 5 of 5: Animate
   opacity: 0;
   scale: 0.96;
   transition:
-    display calc(0.15s * var(--motion, 1)) allow-discrete,
-    opacity calc(0.15s * var(--motion, 1)),
-    overlay calc(0.15s * var(--motion, 1)) allow-discrete,
-    scale calc(0.15s * var(--motion, 1));
+    display calc(0.15s * var(--ui-motion, 1)) allow-discrete,
+    opacity calc(0.15s * var(--ui-motion, 1)),
+    overlay calc(0.15s * var(--ui-motion, 1)) allow-discrete,
+    scale calc(0.15s * var(--ui-motion, 1));
 }
 
 .menu:popover-open {
@@ -557,4 +557,4 @@ Import the component from `opui-css/react`:
 - Menus shrink to the space on their side and flip when it's less than `12rem` ([Placement](#placement)).
 - [Dividers between items](#bordered) with the `bordered` prop.
 - `critical` on a `ListItem` marks a destructive [custom item](#custom).
-- The menu shadow is [`--shadow-overlay`](#api), shared with drawers, select pickers and toasts.
+- The menu shadow is [`--ui-shadow-overlay`](#api), shared with drawers, select pickers and toasts.

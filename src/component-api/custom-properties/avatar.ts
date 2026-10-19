@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_bg-color": {
     description:
-      "The background. Defaults to `--primary`, transparent when the avatar holds an `img`.",
+      "The background. Defaults to `--ui-primary`, transparent when the avatar holds an `img`.",
     kind: "input",
   },
   "--_font-size": {
@@ -21,7 +21,7 @@ export default {
   },
   "--_outline-color": {
     description:
-      "The ring around each avatar in a `.ui-avatar-group`. Defaults to `--surface-default`. Set on the group.",
+      "The ring around each avatar in a `.ui-avatar-group`. Defaults to `--ui-surface-default`. Set on the group.",
     kind: "input",
   },
   "--_outline-width": {
@@ -31,11 +31,12 @@ export default {
   },
   "--_size": {
     description:
-      "The width and height. Defaults to `--control-size`, set by the size classes.",
+      "The width and height. Defaults to `--ui-control-size`, set by the size classes.",
     kind: "input",
   },
   "--_text-color": {
-    description: "The text and icon color. Defaults to `--primary-contrast`.",
+    description:
+      "The text and icon color. Defaults to `--ui-primary-contrast`.",
     kind: "input",
   },
 } satisfies CustomProperties

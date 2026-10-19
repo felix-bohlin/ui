@@ -1,260 +1,261 @@
 @layer theme.base {
   /* Color scheme */
   .ui-light {
-    --color-scheme: light;
-    --shadow-raised: var(--shadow-raised-light);
+    --ui-color-scheme: light;
+    --ui-shadow-raised: var(--ui-shadow-raised-light);
 
     color-scheme: light;
   }
 
   .ui-dark {
-    --color-scheme: dark;
-    --shadow-raised: var(--shadow-raised-dark);
+    --ui-color-scheme: dark;
+    --ui-shadow-raised: var(--ui-shadow-raised-dark);
 
     color-scheme: dark;
   }
 
   :where(.ui-light, .ui-dark):where(:not(html)) {
-    background-color: var(--surface-default);
-    color: var(--text-muted);
+    background-color: var(--ui-surface-default);
+    color: var(--ui-text-muted);
   }
 
   :where(html) {
-    color-scheme: var(--color-scheme, light dark);
+    color-scheme: var(--ui-color-scheme, light dark);
 
-    /* Palette - the knobs core/palette.css derives --color-1 to --color-16 from */
-    --palette-chroma: 0.5;
-    --palette-hue: var(--hue-green);
-    --palette-hue-rotate-by: 0;
-    /* --palette-source: oklch(0.58 calc(0.21 * 0.5) var(--hue-blue)); */
+    /* Palette - the knobs core/palette.css derives --ui-color-1 to --ui-color-16 from */
+    --ui-palette-chroma: 0.5;
+    --ui-palette-hue: var(--hue-green);
+    --ui-palette-hue-rotate-by: 0;
+    /* --ui-palette-source: oklch(0.58 calc(0.21 * 0.5) var(--hue-blue)); */
 
     /* Gray palette also lives in core/palette.css. */
-    --gray-chroma: 0.01;
-    --gray-hue: 255;
+    --ui-gray-chroma: 0.01;
+    --ui-gray-hue: 255;
 
     /* Borders */
-    --border-radius: var(--size-2);
-    --border-width: 1px;
+    --ui-border-radius: var(--size-2);
+    --ui-border-width: 1px;
 
     /* Focus ring */
-    --focus-ring-color: rgb(
-      from var(--surface-default) calc(255 - r) calc(255 - g) calc(255 - b)
+    --ui-focus-ring-color: rgb(
+      from var(--ui-surface-default) calc(255 - r) calc(255 - g) calc(255 - b)
     );
-    --focus-ring-inset: calc(-1 * var(--focus-ring-width));
-    --focus-ring-offset: 2px;
-    --focus-ring-style: solid;
-    --focus-ring-width: 2px;
+    --ui-focus-ring-inset: calc(-1 * var(--ui-focus-ring-width));
+    --ui-focus-ring-offset: 2px;
+    --ui-focus-ring-style: solid;
+    --ui-focus-ring-width: 2px;
 
     /* Typography */
-    --font-body: var(--font-sans);
-    --font-code: var(--font-mono);
-    /* --font-heading: var(--font-body); */
+    --ui-font-body: var(--font-sans);
+    --ui-font-code: var(--font-mono);
+    /* --ui-font-heading: var(--ui-font-body); */
 
-    --font-size-h1: var(--font-size-fluid-3);
-    --font-size-h2: var(--font-size-fluid-2);
-    --font-size-h3: clamp(var(--font-size-3), 4vi, var(--font-size-4));
-    --font-size-h4: clamp(var(--font-size-2), 3vi, var(--font-size-3));
-    --font-size-h5: var(--font-size-2);
-    --font-size-h6: var(--font-size-1);
+    --ui-font-size-h1: var(--font-size-fluid-3);
+    --ui-font-size-h2: var(--font-size-fluid-2);
+    --ui-font-size-h3: clamp(var(--font-size-3), 4vi, var(--font-size-4));
+    --ui-font-size-h4: clamp(var(--font-size-2), 3vi, var(--font-size-3));
+    --ui-font-size-h5: var(--font-size-2);
+    --ui-font-size-h6: var(--font-size-1);
 
     /* Sneaking in an extra font size I want but Open Props doesn't provide. You can do whatever you want with your own theme. It's just CSS. */
-    --font-size-05: 0.875rem;
+    --ui-font-size-05: 0.875rem;
 
-    --font-weight-normal: var(--font-weight-4);
-    --font-weight-medium: var(--font-weight-5);
-    --font-weight-semibold: var(--font-weight-6);
-    --font-weight-bold: var(--font-weight-7);
+    --ui-font-weight-normal: var(--font-weight-4);
+    --ui-font-weight-medium: var(--font-weight-5);
+    --ui-font-weight-semibold: var(--font-weight-6);
+    --ui-font-weight-bold: var(--font-weight-7);
 
-    --rhythm-step: 0.25rem;
+    --ui-rhythm-step: 0.25rem;
 
     /* Spacing - gaps, padding and margins inside and between components. */
-    --space-scale: 1;
-    --space-1: calc(var(--size-1) * var(--space-scale));
-    --space-2: calc(var(--size-2) * var(--space-scale));
-    --space-3: calc(var(--size-3) * var(--space-scale));
-    --space-4: calc(var(--size-4) * var(--space-scale));
-    --space-5: calc(var(--size-5) * var(--space-scale));
-    --space-6: calc(var(--size-6) * var(--space-scale));
-    --space-7: calc(var(--size-7) * var(--space-scale));
-    --space-8: calc(var(--size-8) * var(--space-scale));
+    --ui-space-scale: 1;
+    --ui-space-1: calc(var(--size-1) * var(--ui-space-scale));
+    --ui-space-2: calc(var(--size-2) * var(--ui-space-scale));
+    --ui-space-3: calc(var(--size-3) * var(--ui-space-scale));
+    --ui-space-4: calc(var(--size-4) * var(--ui-space-scale));
+    --ui-space-5: calc(var(--size-5) * var(--ui-space-scale));
+    --ui-space-6: calc(var(--size-6) * var(--ui-space-scale));
+    --ui-space-7: calc(var(--size-7) * var(--ui-space-scale));
+    --ui-space-8: calc(var(--size-8) * var(--ui-space-scale));
 
     /* Control sizes - shared scale for fields and buttons so they line up. */
-    --density: 1;
-    --control-size-x-small: calc(28px * var(--density));
-    --control-size-small: calc(32px * var(--density));
-    --control-size: calc(40px * var(--density));
-    --control-size-large: calc(46px * var(--density));
+    --ui-density: 1;
+    --ui-control-size-x-small: calc(28px * var(--ui-density));
+    --ui-control-size-small: calc(32px * var(--ui-density));
+    --ui-control-size: calc(40px * var(--ui-density));
+    --ui-control-size-large: calc(46px * var(--ui-density));
 
-    --field-size-x-small: var(--control-size-x-small);
-    --field-size-small: var(--control-size-small);
-    --field-size: var(--control-size);
-    --field-size-large: var(--control-size-large);
+    --ui-field-size-x-small: var(--ui-control-size-x-small);
+    --ui-field-size-small: var(--ui-control-size-small);
+    --ui-field-size: var(--ui-control-size);
+    --ui-field-size-large: var(--ui-control-size-large);
 
-    --button-size-x-small: var(--control-size-x-small);
-    --button-size-small: var(--control-size-small);
-    --button-size: var(--control-size);
-    --button-size-large: var(--control-size-large);
+    --ui-button-size-x-small: var(--ui-control-size-x-small);
+    --ui-button-size-small: var(--ui-control-size-small);
+    --ui-button-size: var(--ui-control-size);
+    --ui-button-size-large: var(--ui-control-size-large);
 
-    --chip-size-x-small: calc(24px * var(--density));
-    --chip-size-small: var(--control-size-x-small);
-    --chip-size: var(--control-size-small);
-    --chip-size-large: var(--control-size);
+    --ui-chip-size-x-small: calc(24px * var(--ui-density));
+    --ui-chip-size-small: var(--ui-control-size-x-small);
+    --ui-chip-size: var(--ui-control-size-small);
+    --ui-chip-size-large: var(--ui-control-size);
 
     /* Field / input */
-    /* --field-border-radius: var(--border-radius); */
-    --field-border-width: 1px;
-    --field-helper-color: var(--text-muted);
-    --field-helper-font-size: var(--font-size-0);
-    --field-helper-line-height: var(--font-lineheight-3);
-    --field-label-color: var(--text-primary);
-    --field-label-font-size: var(--font-size-05);
-    --field-label-font-weight: var(--font-weight-semibold);
-    --field-required-color: var(--invalid-text-color);
+    /* --ui-field-border-radius: var(--ui-border-radius); */
+    --ui-field-border-width: 1px;
+    --ui-field-helper-color: var(--ui-text-muted);
+    --ui-field-helper-font-size: var(--font-size-0);
+    --ui-field-helper-line-height: var(--font-lineheight-3);
+    --ui-field-label-color: var(--ui-text-primary);
+    --ui-field-label-font-size: var(--ui-font-size-05);
+    --ui-field-label-font-weight: var(--ui-font-weight-semibold);
+    --ui-field-required-color: var(--ui-invalid-text-color);
 
     /* Button */
-    /* --button-border-radius: var(--border-radius); */
+    /* --ui-button-border-radius: var(--ui-border-radius); */
 
     /* Divider */
-    --divider-space: calc(var(--size-fluid-3) * var(--space-scale));
+    --ui-divider-space: calc(var(--size-fluid-3) * var(--ui-space-scale));
 
     /* Motion */
-    --duration-fast: 0.1s;
-    --duration: 0.2s;
-    --duration-slow: 0.3s;
-    --ease: ease;
-    --ease-enter: var(--ease-out-3);
-    --ease-exit: var(--ease-in-3);
-    --motion: 1;
+    --ui-duration-fast: 0.1s;
+    --ui-duration: 0.2s;
+    --ui-duration-slow: 0.3s;
+    --ui-ease: ease;
+    --ui-ease-enter: var(--ease-out-3);
+    --ui-ease-exit: var(--ease-in-3);
+    --ui-motion: 1;
 
     /* Contrast */
-    --contrast: normal;
+    --ui-contrast: normal;
 
     /* State */
-    --disabled-opacity: 0.64;
-    --ripple-color: oklch(0.6 0 0 / 0.2);
-    --state-active-alpha: 20%;
-    --state-active-alpha-accent: 25%;
-    --state-active-alpha-dark: 30%;
-    --state-hover-alpha: 10%;
-    --state-hover-alpha-accent: 15%;
-    --state-hover-alpha-dark: 20%;
+    --ui-disabled-opacity: 0.64;
+    --ui-ripple-color: oklch(0.6 0 0 / 0.2);
+    --ui-state-active-alpha: 20%;
+    --ui-state-active-alpha-accent: 25%;
+    --ui-state-active-alpha-dark: 30%;
+    --ui-state-hover-alpha: 10%;
+    --ui-state-hover-alpha-accent: 15%;
+    --ui-state-hover-alpha-dark: 20%;
 
     /* Icons */
-    --icon-size-small: var(--size-3);
-    --icon-size: var(--size-4);
-    --icon-size-large: var(--size-5);
+    --ui-icon-size-small: var(--size-3);
+    --ui-icon-size: var(--size-4);
+    --ui-icon-size-large: var(--size-5);
 
     /* Choice controls */
-    --choice-label-offset: 0px;
-    --choice-size-x-small: calc(0.875rem * var(--density));
-    --choice-size-small: calc(var(--size-3) * var(--density));
-    --choice-size: calc(var(--size-4) * var(--density));
-    --choice-size-large: calc(var(--size-5) * var(--density));
-    --switch-dot-size-x-small: calc(0.625rem * var(--density));
-    --switch-dot-size-small: calc(0.75rem * var(--density));
-    --switch-dot-size: calc(var(--size-3) * var(--density));
-    --switch-dot-size-large: calc(var(--size-4) * var(--density));
-    --switch-track-height-x-small: calc(var(--size-3) * var(--density));
-    --switch-track-height-small: calc(var(--size-4) * var(--density));
-    --switch-track-height: calc(var(--size-5) * var(--density));
-    --switch-track-height-large: calc(var(--size-6) * var(--density));
-    --switch-track-width-x-small: calc(var(--size-7) * var(--density));
-    --switch-track-width-small: calc(2.5rem * var(--density));
-    --switch-track-width: calc(var(--size-8) * var(--density));
-    --switch-track-width-large: calc(3.5rem * var(--density));
+    --ui-choice-label-offset: 0px;
+    --ui-choice-size-x-small: calc(0.875rem * var(--ui-density));
+    --ui-choice-size-small: calc(var(--size-3) * var(--ui-density));
+    --ui-choice-size: calc(var(--size-4) * var(--ui-density));
+    --ui-choice-size-large: calc(var(--size-5) * var(--ui-density));
+    --ui-switch-dot-size-x-small: calc(0.625rem * var(--ui-density));
+    --ui-switch-dot-size-small: calc(0.75rem * var(--ui-density));
+    --ui-switch-dot-size: calc(var(--size-3) * var(--ui-density));
+    --ui-switch-dot-size-large: calc(var(--size-4) * var(--ui-density));
+    --ui-switch-track-height-x-small: calc(var(--size-3) * var(--ui-density));
+    --ui-switch-track-height-small: calc(var(--size-4) * var(--ui-density));
+    --ui-switch-track-height: calc(var(--size-5) * var(--ui-density));
+    --ui-switch-track-height-large: calc(var(--size-6) * var(--ui-density));
+    --ui-switch-track-width-x-small: calc(var(--size-7) * var(--ui-density));
+    --ui-switch-track-width-small: calc(2.5rem * var(--ui-density));
+    --ui-switch-track-width: calc(var(--size-8) * var(--ui-density));
+    --ui-switch-track-width-large: calc(3.5rem * var(--ui-density));
 
     /* Elevation */
-    --shadow-overlay: var(--shadow-3);
-    --shadow-raised: var(--shadow-raised-light);
-    --shadow-raised-dark: var(--shadow-4);
-    --shadow-raised-light: var(--shadow-3);
+    --ui-shadow-overlay: var(--shadow-3);
+    --ui-shadow-raised: var(--ui-shadow-raised-light);
+    --ui-shadow-raised-dark: var(--shadow-4);
+    --ui-shadow-raised-light: var(--shadow-3);
 
     /* Overlays */
-    --backdrop-blur: 1px;
-    --backdrop-color: rgb(0 0 0 / 0.5);
+    --ui-backdrop-blur: 1px;
+    --ui-backdrop-color: rgb(0 0 0 / 0.5);
   }
 
   :where(html.ui-dark) {
-    --palette-hue: var(--hue-blue);
+    --ui-palette-hue: var(--hue-blue);
     --shadow-color: 220 40% 2%;
     --shadow-strength: 20%;
   }
 
   @media (prefers-color-scheme: dark) {
     :where(html) {
-      --color-scheme: dark;
+      --ui-color-scheme: dark;
     }
 
     :where(html:not(.ui-light)) {
-      --palette-hue: var(--hue-blue);
+      --ui-palette-hue: var(--hue-blue);
       --shadow-color: 220 40% 2%;
-      --shadow-raised: var(--shadow-raised-dark);
+      --ui-shadow-raised: var(--ui-shadow-raised-dark);
       --shadow-strength: 20%;
     }
   }
 
   :where(html, .ui-palette) {
     /* Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */
-    --blue: oklch(from var(--color-9) l 0.2 var(--hue-blue));
-    --green: oklch(from var(--color-9) l 0.2 var(--hue-green));
-    --orange: oklch(from var(--color-7) l 0.2 var(--hue-orange));
-    --red: oklch(from var(--color-9) l 0.2 var(--hue-red));
+    --ui-blue: oklch(from var(--ui-color-9) l 0.2 var(--hue-blue));
+    --ui-green: oklch(from var(--ui-color-9) l 0.2 var(--hue-green));
+    --ui-orange: oklch(from var(--ui-color-7) l 0.2 var(--hue-orange));
+    --ui-red: oklch(from var(--ui-color-9) l 0.2 var(--hue-red));
 
     /* Intent tokens */
-    --critical: var(--red);
-    --info: var(--blue);
-    --invalid-color: var(--critical);
-    --invalid-text-color: light-dark(
-      var(--invalid-color),
-      oklch(from var(--invalid-color) max(l, 0.75) c h)
+    --ui-critical: var(--ui-red);
+    --ui-info: var(--ui-blue);
+    --ui-invalid-color: var(--ui-critical);
+    --ui-invalid-text-color: light-dark(
+      var(--ui-invalid-color),
+      oklch(from var(--ui-invalid-color) max(l, 0.75) c h)
     );
-    --neutral: var(--gray-9);
-    --success: var(--green);
-    --warning: var(--orange);
+    --ui-neutral: var(--ui-gray-9);
+    --ui-success: var(--ui-green);
+    --ui-warning: var(--ui-orange);
 
     /* Primary */
-    --primary: light-dark(var(--color-9), var(--color-6));
-    --primary-contrast: oklch(
-      from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h
+    --ui-primary: light-dark(var(--ui-color-9), var(--ui-color-6));
+    --ui-primary-contrast: oklch(
+      from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98)
+        calc(c * 0.15) h
     );
-    --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
-    --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
+    --ui-primary-dark: oklch(from var(--ui-primary) calc(l * 0.75) c h);
+    --ui-primary-light: oklch(from var(--ui-primary) calc(l * 1.25) c h);
 
     /* Text */
-    --text-disabled: color-mix(
+    --ui-text-disabled: color-mix(
       in oklch,
-      var(--text-muted) 50%,
-      var(--surface-default)
+      var(--ui-text-muted) 50%,
+      var(--ui-surface-default)
     );
-    --text-inverse: light-dark(var(--gray-1), var(--gray-15));
-    --text-muted: light-dark(var(--gray-13), var(--gray-4));
-    --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));
-    --text-primary: light-dark(var(--gray-15), var(--gray-1));
-    --text-primary-contrast: var(--text-inverse);
+    --ui-text-inverse: light-dark(var(--ui-gray-1), var(--ui-gray-15));
+    --ui-text-muted: light-dark(var(--ui-gray-13), var(--ui-gray-4));
+    --ui-text-muted-contrast: light-dark(var(--ui-gray-4), var(--ui-gray-13));
+    --ui-text-primary: light-dark(var(--ui-gray-15), var(--ui-gray-1));
+    --ui-text-primary-contrast: var(--ui-text-inverse);
 
     /* Surfaces */
-    --surface-default: light-dark(var(--gray-1), var(--gray-13));
-    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
-    --surface-filled: light-dark(var(--gray-4), var(--gray-15));
-    --surface-inverse: light-dark(var(--gray-15), var(--gray-2));
-    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
+    --ui-surface-default: light-dark(var(--ui-gray-1), var(--ui-gray-13));
+    --ui-surface-elevated: light-dark(var(--ui-gray-1), var(--ui-gray-12));
+    --ui-surface-filled: light-dark(var(--ui-gray-4), var(--ui-gray-15));
+    --ui-surface-inverse: light-dark(var(--ui-gray-15), var(--ui-gray-2));
+    --ui-surface-tonal: light-dark(var(--ui-gray-3), var(--ui-gray-12));
 
     /* Borders */
-    --border-color: light-dark(var(--gray-4), var(--gray-12));
+    --ui-border-color: light-dark(var(--ui-gray-4), var(--ui-gray-12));
 
     /* Field / input */
-    --field-border-color: var(--border-color);
+    --ui-field-border-color: var(--ui-border-color);
   }
 
   @media (prefers-reduced-motion: reduce) {
     :where(html) {
-      --motion: 0;
+      --ui-motion: 0;
     }
   }
 
   @media (prefers-contrast: more) {
     :where(html) {
-      --contrast: more;
+      --ui-contrast: more;
     }
   }
 
@@ -273,28 +274,28 @@
     ):has([aria-invalid="true"]),
     del
   ) {
-    --palette-source: oklch(0.58 0.21 var(--hue-red));
-    --palette-hue-rotate-by: 1;
+    --ui-palette-source: oklch(0.58 0.21 var(--hue-red));
+    --ui-palette-hue-rotate-by: 1;
   }
 
   :where(.ui-info, abbr, dfn, .ui-abbr, .ui-dfn) {
-    --palette-source: oklch(0.58 0.21 var(--hue-blue));
-    --palette-hue-rotate-by: 1;
+    --ui-palette-source: oklch(0.58 0.21 var(--hue-blue));
+    --ui-palette-hue-rotate-by: 1;
   }
 
   :where(.ui-success, .ui-ins, ins) {
-    --palette-source: oklch(0.58 0.21 var(--hue-green));
-    --palette-hue-rotate-by: 1;
+    --ui-palette-source: oklch(0.58 0.21 var(--hue-green));
+    --ui-palette-hue-rotate-by: 1;
   }
 
   :where(.ui-warning) {
-    --palette-source: oklch(0.58 0.21 var(--hue-orange));
-    --palette-hue-rotate-by: 1;
+    --ui-palette-source: oklch(0.58 0.21 var(--hue-orange));
+    --ui-palette-hue-rotate-by: 1;
   }
 
   :where(.ui-neutral) {
-    --palette-source: oklch(0.58 var(--gray-chroma) var(--gray-hue));
-    --palette-hue-rotate-by: 0;
+    --ui-palette-source: oklch(0.58 var(--ui-gray-chroma) var(--ui-gray-hue));
+    --ui-palette-hue-rotate-by: 0;
   }
 
   /* Raised surfaces */
@@ -310,22 +311,22 @@
     ),
     .ui-card:is(.ui-elevated, .ui-tonal)
   ) {
-    --border-color: light-dark(var(--gray-4), var(--surface-default));
-    --field-border-color: var(--border-color);
+    --ui-border-color: light-dark(var(--ui-gray-4), var(--ui-surface-default));
+    --ui-field-border-color: var(--ui-border-color);
   }
 
   /* Filled surfaces */
   :where(.ui-list:not(.ui-tonal, .ui-transparent), .ui-table th) {
-    --border-color: light-dark(var(--gray-6), var(--gray-12));
+    --ui-border-color: light-dark(var(--ui-gray-6), var(--ui-gray-12));
   }
 
   /* Compact surfaces */
   :where(.ui-callout, .ui-card, .ui-dialog, .ui-drawer) {
-    --divider-space: var(--space-3);
+    --ui-divider-space: var(--ui-space-3);
   }
 
   /* Higher contrast */
-  @container style(--contrast: more) {
+  @container style(--ui-contrast: more) {
     :where(
       body,
       .ui-contrast-more > *,
@@ -343,67 +344,67 @@
       .ui-list:not(.ui-tonal, .ui-transparent),
       .ui-table th
     ) {
-      --blue: light-dark(
-        oklch(from var(--color-11) l 0.2 var(--hue-blue)),
-        oklch(from var(--color-9) l 0.2 var(--hue-blue))
+      --ui-blue: light-dark(
+        oklch(from var(--ui-color-11) l 0.2 var(--hue-blue)),
+        oklch(from var(--ui-color-9) l 0.2 var(--hue-blue))
       );
-      --green: light-dark(
-        oklch(from var(--color-11) l 0.2 var(--hue-green)),
-        oklch(from var(--color-9) l 0.2 var(--hue-green))
+      --ui-green: light-dark(
+        oklch(from var(--ui-color-11) l 0.2 var(--hue-green)),
+        oklch(from var(--ui-color-9) l 0.2 var(--hue-green))
       );
-      --red: light-dark(
-        oklch(from var(--color-11) l 0.2 var(--hue-red)),
-        oklch(from var(--color-9) l 0.2 var(--hue-red))
-      );
-
-      --critical: var(--red);
-      --info: var(--blue);
-      --invalid-color: var(--critical);
-      --invalid-text-color: light-dark(
-        var(--invalid-color),
-        oklch(from var(--invalid-color) max(l, 0.85) min(c, 0.1) h)
-      );
-      --success: var(--green);
-
-      --primary: light-dark(var(--color-12), var(--color-3));
-      --primary-contrast: oklch(
-        from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15)
-          h
-      );
-      --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
-      --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
-
-      --text-disabled: color-mix(
-        in oklch,
-        var(--text-muted) 60%,
-        var(--surface-default)
-      );
-      --text-muted: color-mix(
-        in oklch,
-        var(--text-primary) 90%,
-        var(--surface-default)
+      --ui-red: light-dark(
+        oklch(from var(--ui-color-11) l 0.2 var(--hue-red)),
+        oklch(from var(--ui-color-9) l 0.2 var(--hue-red))
       );
 
-      --border-color: color-mix(
-        in oklch,
-        var(--text-primary) 55%,
-        var(--surface-default)
+      --ui-critical: var(--ui-red);
+      --ui-info: var(--ui-blue);
+      --ui-invalid-color: var(--ui-critical);
+      --ui-invalid-text-color: light-dark(
+        var(--ui-invalid-color),
+        oklch(from var(--ui-invalid-color) max(l, 0.85) min(c, 0.1) h)
       );
-      --field-border-color: color-mix(
-        in oklch,
-        var(--text-primary) 70%,
-        var(--surface-default)
+      --ui-success: var(--ui-green);
+
+      --ui-primary: light-dark(var(--ui-color-12), var(--ui-color-3));
+      --ui-primary-contrast: oklch(
+        from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98)
+          calc(c * 0.15) h
       );
-      --field-helper-color: var(--text-muted);
-      --field-required-color: var(--invalid-text-color);
-      --focus-ring-inset: calc(-1 * var(--focus-ring-width));
-      --focus-ring-width: 3px;
+      --ui-primary-dark: oklch(from var(--ui-primary) calc(l * 0.75) c h);
+      --ui-primary-light: oklch(from var(--ui-primary) calc(l * 1.25) c h);
+
+      --ui-text-disabled: color-mix(
+        in oklch,
+        var(--ui-text-muted) 60%,
+        var(--ui-surface-default)
+      );
+      --ui-text-muted: color-mix(
+        in oklch,
+        var(--ui-text-primary) 90%,
+        var(--ui-surface-default)
+      );
+
+      --ui-border-color: color-mix(
+        in oklch,
+        var(--ui-text-primary) 55%,
+        var(--ui-surface-default)
+      );
+      --ui-field-border-color: color-mix(
+        in oklch,
+        var(--ui-text-primary) 70%,
+        var(--ui-surface-default)
+      );
+      --ui-field-helper-color: var(--ui-text-muted);
+      --ui-field-required-color: var(--ui-invalid-text-color);
+      --ui-focus-ring-inset: calc(-1 * var(--ui-focus-ring-width));
+      --ui-focus-ring-width: 3px;
     }
 
     :where(body, .ui-contrast-more > *) {
-      accent-color: var(--primary);
-      caret-color: var(--primary);
-      color: var(--text-muted);
+      accent-color: var(--ui-primary);
+      caret-color: var(--ui-primary);
+      color: var(--ui-text-muted);
     }
   }
 }

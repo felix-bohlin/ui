@@ -9,12 +9,12 @@ A custom theme is a short list of [theme tokens](https://open-props-ui.netlify.a
 ```css
 @layer theme.custom {
   :where(html) {
-    --border-radius: 4px;
-    --density: 0.9;
-    --font-body: "Inter", var(--font-sans);
-    --font-heading: "Fraunces", var(--font-serif);
-    --palette-chroma: 0.35;
-    --palette-hue: 265;
+    --ui-border-radius: 4px;
+    --ui-density: 0.9;
+    --ui-font-body: "Inter", var(--font-sans);
+    --ui-font-heading: "Fraunces", var(--font-serif);
+    --ui-palette-chroma: 0.35;
+    --ui-palette-hue: 265;
   }
 }
 ```
@@ -36,7 +36,7 @@ Three reference themes ship with the package, to use as they are or to start fro
 
 ## Component properties
 
-There are two kinds of custom properties. [Theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md), like `--primary` or `--button-size`, are set on `html` and inherited by everything. Change one and every component that reads it follows.
+There are two kinds of custom properties. [Theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md), like `--ui-primary` or `--ui-button-size`, are set on `html` and inherited by everything. Change one and every component that reads it follows.
 
 Component properties start with `--_`, like `--_accent` or `--_icon-size`. Each component declares them on itself and builds its styles from them. They're the knobs for that one component, and the API for customizing it.
 
@@ -69,7 +69,7 @@ Theme tokens can be set on any parent, since they're inherited. `--_` properties
 
 /* Theme tokens are inherited, so a parent is fine */
 .toolbar {
-  --button-border-radius: var(--radius-round);
+  --ui-button-border-radius: var(--radius-round);
 }
 ```
 

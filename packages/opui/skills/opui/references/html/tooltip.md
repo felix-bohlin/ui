@@ -50,13 +50,13 @@ You can place any markup you want (famous last words) inside `.ui-anchor-floatin
 
 ## Alignment
 
-Set `--anchor-position-area` on the parent with your preferred `position-area` value.
+Set `--ui-anchor-position-area` on the parent with your preferred `position-area` value.
 
 ```html
 <div class="example-compass">
   <span
     class="ui-anchor ui-tooltip"
-    style="--anchor-position-area: block-start"
+    style="--ui-anchor-position-area: block-start"
   >
     <button
       type="button"
@@ -73,7 +73,7 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
   </span>
   <span
     class="ui-anchor ui-tooltip"
-    style="--anchor-position-area: inline-start"
+    style="--ui-anchor-position-area: inline-start"
   >
     <button
       type="button"
@@ -88,7 +88,10 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
       >Before</span
     >
   </span>
-  <span class="ui-anchor ui-tooltip" style="--anchor-position-area: inline-end">
+  <span
+    class="ui-anchor ui-tooltip"
+    style="--ui-anchor-position-area: inline-end"
+  >
     <button
       type="button"
       class="ui-button"
@@ -102,7 +105,10 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
       >After</span
     >
   </span>
-  <span class="ui-anchor ui-tooltip" style="--anchor-position-area: block-end">
+  <span
+    class="ui-anchor ui-tooltip"
+    style="--ui-anchor-position-area: block-end"
+  >
     <button
       type="button"
       class="ui-button"
@@ -144,10 +150,10 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
 
 ### Tooltip API
 
-| Type     | Modifiers                | Default       | Description                                                            |
-| -------- | ------------------------ | ------------- | ---------------------------------------------------------------------- |
-| Arrow    | `.ui-with-arrow`         | -             | Adds an arrow that points to the trigger.                              |
-| Position | `--anchor-position-area` | `block-start` | Any valid `position-area` value. Controls where the tooltip is placed. |
+| Type     | Modifiers                   | Default       | Description                                                            |
+| -------- | --------------------------- | ------------- | ---------------------------------------------------------------------- |
+| Arrow    | `.ui-with-arrow`            | -             | Adds an arrow that points to the trigger.                              |
+| Position | `--ui-anchor-position-area` | `block-start` | Any valid `position-area` value. Controls where the tooltip is placed. |
 
 #### Parts
 
@@ -159,18 +165,18 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
 
 #### CSS variables
 
-| Variable            | Default                                     | Description                                                                                                                                                                                                                      |
-| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--border-radius`   | `var(--size-2)`                             | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                                           |
-| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                                                                                                                         |
-| `--font-size-05`    | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
-| `--space-1`         | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                                                     |
-| `--space-2`         | `calc(var(--size-2) * var(--space-scale))`  | Spacing step 2: Open Props `--size-2` times `--space-scale`.                                                                                                                                                                     |
-| `--surface-inverse` | `light-dark(var(--gray-15), var(--gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                                                  |
-| `--text-inverse`    | `light-dark(var(--gray-1), var(--gray-15))` | Text color on `--surface-inverse`.                                                                                                                                                                                               |
+| Variable               | Default                                           | Description                                                                                                                                                                                                                      |
+| ---------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-radius`   | `var(--size-2)`                                   | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-border-width`    | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--ui-duration`        | `0.2s`                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                        |
+| `--ui-ease-enter`      | `var(--ease-out-3)`                               | Easing for elements entering the screen.                                                                                                                                                                                         |
+| `--ui-font-size-05`    | `0.875rem`                                        | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--ui-motion`          | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
+| `--ui-space-1`         | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-space-2`         | `calc(var(--size-2) * var(--ui-space-scale))`     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-surface-inverse` | `light-dark(var(--ui-gray-15), var(--ui-gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                                                  |
+| `--ui-text-inverse`    | `light-dark(var(--ui-gray-1), var(--ui-gray-15))` | Text color on `--ui-surface-inverse`.                                                                                                                                                                                            |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -183,14 +189,14 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property             | Kind   | Description                                                                   |
 | -------------------- | ------ | ----------------------------------------------------------------------------- |
 | `--_arrow-size`      | Input  | Size of the arrow in `.ui-with-arrow`.                                        |
-| `--_bg-color`        | Input  | Background of the tooltip and its arrow. Defaults to `--surface-inverse`.     |
-| `--_duration`        | Output | Duration of the fade, `--duration` times `--_motion`.                         |
-| `--_ease`            | Input  | Easing of the fade. Defaults to `--ease-enter`.                               |
+| `--_bg-color`        | Input  | Background of the tooltip and its arrow. Defaults to `--ui-surface-inverse`.  |
+| `--_duration`        | Output | Duration of the fade, `--ui-duration` times `--_motion`.                      |
+| `--_ease`            | Input  | Easing of the fade. Defaults to `--ui-ease-enter`.                            |
 | `--_min-inline-size` | Input  | The minimum width, unless the content is narrower.                            |
 | `--_motion`          | Input  | Motion multiplier for the fade. `0` turns it off.                             |
 | `--_offset`          | Input  | Distance from the trigger. `.ui-with-arrow` computes it from `--_arrow-size`. |
 | `--_shift`           | Input  | How far a shifted tooltip reaches past the center of the trigger.             |
-| `--_text-color`      | Input  | The text color. Defaults to `--text-inverse`.                                 |
+| `--_text-color`      | Input  | The text color. Defaults to `--ui-text-inverse`.                              |
 
 ## Under the hood
 
@@ -226,7 +232,7 @@ Read the post: [Tooltips with interestfor](https://open-props-ui.netlify.app/lea
 
    - `@starting-style` fades it in from `opacity: 0`
    - `allow-discrete` keeps `display` and `overlay` alive while it fades out
-   - `--motion` is `0` under reduced motion and with `.ui-motion-off`
+   - `--ui-motion` is `0` under reduced motion and with `.ui-motion-off`
 
 Step 1 of 5: Hint
 
@@ -250,11 +256,11 @@ Step 1 of 5: Hint
 
 ```css
 .tooltip {
-  background-color: var(--surface-inverse);
+  background-color: var(--ui-surface-inverse);
   border: 0;
   border-radius: var(--radius-2);
-  color: var(--text-inverse);
-  font-size: var(--font-size-05);
+  color: var(--ui-text-inverse);
+  font-size: var(--ui-font-size-05);
   inset: auto;
   line-height: 1.3;
   margin: 0.5rem;
@@ -347,9 +353,9 @@ Step 5 of 5: Fade
 .tooltip {
   opacity: 0;
   transition:
-    display calc(0.2s * var(--motion, 1)) allow-discrete,
-    opacity calc(0.2s * var(--motion, 1)),
-    overlay calc(0.2s * var(--motion, 1)) allow-discrete;
+    display calc(0.2s * var(--ui-motion, 1)) allow-discrete,
+    opacity calc(0.2s * var(--ui-motion, 1)),
+    overlay calc(0.2s * var(--ui-motion, 1)) allow-discrete;
 }
 
 .tooltip:popover-open {
@@ -385,4 +391,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - The [arrow](#arrow) points at the trigger in every position, also after a flip.
 - Breaking: `--_tooltip-bg` and `--_tooltip-color` are `--_bg-color` and `--_text-color`, and `--_tooltip-offset` is `--_offset` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
-- Corners never get rounder than [`--border-radius`](#api), so `0` squares them.
+- Corners never get rounder than [`--ui-border-radius`](#api), so `0` squares them.

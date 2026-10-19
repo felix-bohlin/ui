@@ -4,7 +4,7 @@
 
     .billing-header {
       align-items: center;
-      border-block-end: var(--border-width) solid var(--border-color);
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       display: flex;
       gap: var(--size-2);
       padding: var(--size-3) var(--size-4);
@@ -22,15 +22,15 @@
 
     .billing-brand {
       align-items: center;
-      color: var(--text-primary);
+      color: var(--ui-text-primary);
       display: flex;
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--ui-font-weight-bold);
       gap: var(--size-2);
       text-decoration: none;
 
       svg {
         block-size: var(--size-5);
-        color: var(--primary);
+        color: var(--ui-primary);
         inline-size: var(--size-5);
       }
     }
@@ -47,7 +47,7 @@
     }
 
     .billing-sidebar {
-      border-inline-end: var(--border-width) solid var(--border-color);
+      border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
       display: none;
       padding: var(--size-4) var(--size-2);
 
@@ -94,7 +94,7 @@
       }
 
       span {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
       }
     }
 
@@ -129,7 +129,7 @@
       justify-content: space-between;
 
       span:last-child {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         font-variant-numeric: tabular-nums;
       }
     }
@@ -144,7 +144,7 @@
       }
 
       p + p {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         font-size: var(--font-size-1);
       }
     }
@@ -153,16 +153,16 @@
       align-items: center;
       background: linear-gradient(
         135deg,
-        var(--primary),
-        oklch(from var(--primary) calc(l - 0.15) c calc(h + 40))
+        var(--ui-primary),
+        oklch(from var(--ui-primary) calc(l - 0.15) c calc(h + 40))
       );
       block-size: var(--size-7);
       border-radius: var(--radius-2);
-      color: var(--primary-contrast);
+      color: var(--ui-primary-contrast);
       display: flex;
       flex-shrink: 0;
       font-size: var(--font-size-0);
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--ui-font-weight-bold);
       inline-size: var(--size-9);
       justify-content: center;
     }

@@ -7,12 +7,12 @@ export default {
   },
   "--_enter-duration": {
     description:
-      "Duration of the enter animation, `--duration-slow` times `--_motion`.",
+      "Duration of the enter animation, `--ui-duration-slow` times `--_motion`.",
     kind: "output",
   },
   "--_exit-duration": {
     description:
-      "Duration of the exit animation, `--duration-slow` times `--_motion`.",
+      "Duration of the exit animation, `--ui-duration-slow` times `--_motion`.",
     kind: "output",
   },
   "--_hold": {

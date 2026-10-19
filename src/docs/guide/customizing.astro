@@ -25,12 +25,12 @@ import Example from "../../components/Example/index"
     <Code
       code={`@layer theme.custom {
   :where(html) {
-    --border-radius: 4px;
-    --density: 0.9;
-    --font-body: "Inter", var(--font-sans);
-    --font-heading: "Fraunces", var(--font-serif);
-    --palette-chroma: 0.35;
-    --palette-hue: 265;
+    --ui-border-radius: 4px;
+    --ui-density: 0.9;
+    --ui-font-body: "Inter", var(--font-sans);
+    --ui-font-heading: "Fraunces", var(--font-serif);
+    --ui-palette-chroma: 0.35;
+    --ui-palette-hue: 265;
   }
 }`}
       lang="css"
@@ -80,7 +80,8 @@ import Example from "../../components/Example/index"
     <p>
       There are two kinds of custom properties. <DocLink
         href="/guide/theme-tokens">Theme tokens</DocLink
-      >, like <code>--primary</code> or <code>--button-size</code>, are set on
+      >, like <code>--ui-primary</code> or <code>--ui-button-size</code>, are
+      set on
       <code>html</code> and inherited by everything. Change one and every component
       that reads it follows.
     </p>
@@ -146,7 +147,7 @@ import Example from "../../components/Example/index"
 
 /* Theme tokens are inherited, so a parent is fine */
 .toolbar {
-  --button-border-radius: var(--radius-round);
+  --ui-button-border-radius: var(--radius-round);
 }`}
       lang="css"
     />
@@ -156,14 +157,14 @@ import Example from "../../components/Example/index"
     <Example centered>
       <button
         class="ui-button ui-filled"
-        style="--_accent: var(--green)"
+        style="--_accent: var(--ui-green)"
         type="button"
       >
         Green filled
       </button>
       <button
         class="ui-button ui-outlined"
-        style="--_accent: var(--green)"
+        style="--_accent: var(--ui-green)"
         type="button"
       >
         Green outlined

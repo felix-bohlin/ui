@@ -3,7 +3,7 @@
     text-wrap: pretty;
 
     &.ui-small {
-      font-size: var(--font-size-05);
+      font-size: var(--ui-font-size-05);
     }
 
     &.ui-large {
@@ -12,54 +12,54 @@
   }
 
   :where(.ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
-    color: var(--text-primary);
-    font-family: var(--font-heading, var(--font-body));
-    font-weight: var(--font-weight-bold);
-    line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
+    color: var(--ui-text-primary);
+    font-family: var(--ui-font-heading, var(--ui-font-body));
+    font-weight: var(--ui-font-weight-bold);
+    line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
     text-wrap: pretty;
   }
 
   :where(.ui-h1) {
-    font-size: round(var(--font-size-h1), var(--rhythm-step) / 2);
+    font-size: round(var(--ui-font-size-h1), var(--ui-rhythm-step) / 2);
     letter-spacing: -0.02em;
   }
 
   :where(.ui-h2) {
-    font-size: round(var(--font-size-h2), var(--rhythm-step) / 2);
+    font-size: round(var(--ui-font-size-h2), var(--ui-rhythm-step) / 2);
     letter-spacing: -0.02em;
   }
 
   :where(.ui-h3) {
-    font-size: round(var(--font-size-h3), var(--rhythm-step) / 2);
+    font-size: round(var(--ui-font-size-h3), var(--ui-rhythm-step) / 2);
     letter-spacing: -0.01em;
   }
 
   :where(.ui-h4) {
-    font-size: round(var(--font-size-h4), var(--rhythm-step) / 2);
+    font-size: round(var(--ui-font-size-h4), var(--ui-rhythm-step) / 2);
     letter-spacing: -0.01em;
   }
 
   :where(.ui-h5) {
-    font-size: round(var(--font-size-h5), var(--rhythm-step) / 2);
+    font-size: round(var(--ui-font-size-h5), var(--ui-rhythm-step) / 2);
   }
 
   :where(.ui-h6) {
-    font-size: round(var(--font-size-h6), var(--rhythm-step) / 2);
+    font-size: round(var(--ui-font-size-h6), var(--ui-rhythm-step) / 2);
   }
 
   /** Overline */
   :where(.ui-overline) {
     color: light-dark(
-      oklch(from var(--text-muted) calc(l * 1.25) c h),
-      oklch(from var(--text-muted) calc(l * 0.9) c h)
+      oklch(from var(--ui-text-muted) calc(l * 1.25) c h),
+      oklch(from var(--ui-text-muted) calc(l * 0.9) c h)
     );
     font-size: var(--font-size-0);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--ui-font-weight-medium);
     letter-spacing: 0.06em;
     text-transform: uppercase;
 
-    @container style(--contrast: more) {
-      color: var(--text-muted);
+    @container style(--ui-contrast: more) {
+      color: var(--ui-text-muted);
     }
   }
 
@@ -69,22 +69,22 @@
     }
 
     & > :where(h1, h2, h3, h4, h5, h6) {
-      margin-block: 0 round(0.4em, var(--rhythm-step));
+      margin-block: 0 round(0.4em, var(--ui-rhythm-step));
     }
 
     /* First p element (overline) */
     & > p:first-of-type:first-child {
       color: light-dark(
-        oklch(from var(--text-muted) calc(l * 1.25) c h),
-        oklch(from var(--text-muted) calc(l * 0.9) c h)
+        oklch(from var(--ui-text-muted) calc(l * 1.25) c h),
+        oklch(from var(--ui-text-muted) calc(l * 0.9) c h)
       );
       font-size: var(--font-size-0);
-      font-weight: var(--font-weight-medium);
+      font-weight: var(--ui-font-weight-medium);
       letter-spacing: 0.06em;
       text-transform: uppercase;
 
-      @container style(--contrast: more) {
-        color: var(--text-muted);
+      @container style(--ui-contrast: more) {
+        color: var(--ui-text-muted);
       }
     }
 
@@ -92,22 +92,22 @@
     & > p:not(:first-of-type:first-child) {
       color: oklch(from currentColor l c h / 75%);
 
-      @container style(--contrast: more) {
+      @container style(--ui-contrast: more) {
         color: inherit;
       }
 
       font-size: var(--font-size-3);
-      line-height: round(up, 1.6em, var(--rhythm-step));
+      line-height: round(up, 1.6em, var(--ui-rhythm-step));
     }
 
     & > p + p {
-      margin-block-start: round(0.75em, var(--rhythm-step));
+      margin-block-start: round(0.75em, var(--ui-rhythm-step));
     }
   }
 
   /** Caption */
   :where(.ui-caption) {
-    color: var(--text-muted);
+    color: var(--ui-text-muted);
     font-size: var(--font-size-0);
     line-height: 1.6;
   }
@@ -124,7 +124,7 @@
 
   :where(.ui-abbr, .ui-dfn) {
     font-style: normal;
-    text-decoration: var(--color-9) underline dotted;
+    text-decoration: var(--ui-color-9) underline dotted;
 
     &[title] {
       cursor: help;
@@ -154,12 +154,12 @@
 
   /* Code */
   :where(.ui-kbd, .ui-var) {
-    background-color: var(--text-muted);
-    border-color: var(--text-muted);
-    border-radius: min(var(--radius-2), var(--border-radius));
-    border-width: var(--border-width);
-    color: var(--text-muted-contrast);
-    font-family: var(--font-code);
+    background-color: var(--ui-text-muted);
+    border-color: var(--ui-text-muted);
+    border-radius: min(var(--radius-2), var(--ui-border-radius));
+    border-width: var(--ui-border-width);
+    color: var(--ui-text-muted-contrast);
+    font-family: var(--ui-font-code);
     overflow-wrap: anywhere;
     padding-block: 0.1ex;
     padding-inline: 0.3ex;
@@ -167,7 +167,7 @@
 
   :where(.ui-mark) {
     background-color: Mark;
-    border-radius: min(var(--radius-2), var(--border-radius));
+    border-radius: min(var(--radius-2), var(--ui-border-radius));
     box-decoration-break: clone;
     color: MarkText;
     padding-block: 0.1ex;
@@ -188,20 +188,20 @@
   }
 
   :where(.ui-del) {
-    color: light-dark(var(--color-11), var(--color-6));
+    color: light-dark(var(--ui-color-11), var(--ui-color-6));
 
-    @container style(--contrast: more) {
-      color: light-dark(var(--color-12), var(--color-3));
+    @container style(--ui-contrast: more) {
+      color: light-dark(var(--ui-color-12), var(--ui-color-3));
     }
 
     text-decoration: line-through;
   }
 
   :where(.ui-ins) {
-    color: light-dark(var(--color-11), var(--color-6));
+    color: light-dark(var(--ui-color-11), var(--ui-color-6));
 
-    @container style(--contrast: more) {
-      color: light-dark(var(--color-12), var(--color-3));
+    @container style(--ui-contrast: more) {
+      color: light-dark(var(--ui-color-12), var(--ui-color-3));
     }
 
     text-decoration: underline;
@@ -209,14 +209,14 @@
   }
 
   :where(.ui-samp) {
-    font-family: var(--font-code);
+    font-family: var(--ui-font-code);
   }
 
   /* Blockquote */
   :where(.ui-blockquote) {
     border-inline-start: var(--border-size-3) solid currentColor;
-    padding-block: var(--space-3);
-    padding-inline: var(--space-4);
+    padding-block: var(--ui-space-3);
+    padding-inline: var(--ui-space-4);
 
     :first-child {
       margin-block-start: 0;
@@ -227,22 +227,22 @@
     }
 
     footer {
-      color: var(--text-muted);
-      margin-block-start: var(--space-3);
+      color: var(--ui-text-muted);
+      margin-block-start: var(--ui-space-3);
     }
   }
 
   /* Code block */
   :where(pre.ui-code-block) {
-    background-color: var(--color-15);
-    border-radius: var(--border-radius);
-    color: var(--color-1);
-    font-family: var(--font-code);
-    font-size: var(--font-size-05);
+    background-color: var(--ui-color-15);
+    border-radius: var(--ui-border-radius);
+    color: var(--ui-color-1);
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-05);
     max-inline-size: 100%;
     overflow-inline: auto;
-    padding-block: var(--space-3);
-    padding-inline: var(--space-4);
+    padding-block: var(--ui-space-3);
+    padding-inline: var(--ui-space-4);
     scrollbar-width: thin;
     white-space: pre;
 
@@ -268,7 +268,7 @@
 @layer components.prose {
   @scope (.ui-rich-text) to (.ui-not-rich-text) {
     :scope {
-      --_flow-space: round(1.25em, var(--rhythm-step));
+      --_flow-space: round(1.25em, var(--ui-rhythm-step));
       min-inline-size: 0;
       overflow-wrap: break-word;
     }
@@ -303,14 +303,14 @@
 
     a[href]:where(:not([class*="ui-"])) {
       --_text-color: light-dark(
-        oklch(from var(--primary) min(l, 0.47) c h),
-        oklch(from var(--primary) max(l, 0.78) c h)
+        oklch(from var(--ui-primary) min(l, 0.47) c h),
+        oklch(from var(--ui-primary) max(l, 0.78) c h)
       );
 
       color: var(--_text-color);
       cursor: pointer;
       font-size: inherit;
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--ui-font-weight-bold);
       line-height: inherit;
       text-decoration: underline;
       text-decoration-color: var(--_text-color);
@@ -318,14 +318,14 @@
 
       @media (hover: hover) {
         &:hover {
-          color: light-dark(var(--primary-dark), var(--primary-light));
+          color: light-dark(var(--ui-primary-dark), var(--ui-primary-light));
           text-decoration-color: currentColor;
           text-decoration-thickness: 3px;
         }
       }
 
       &:focus-visible {
-        color: light-dark(var(--primary-dark), var(--primary-light));
+        color: light-dark(var(--ui-primary-dark), var(--ui-primary-light));
         text-decoration-color: currentColor;
         text-decoration-thickness: 3px;
       }
@@ -333,7 +333,7 @@
 
     :where(.ui-list, :scope:where(.ui-list *))
       a[href]:where(:not([class*="ui-"])) {
-      color: light-dark(var(--primary-dark), var(--primary));
+      color: light-dark(var(--ui-primary-dark), var(--ui-primary));
       text-decoration-color: currentColor;
     }
 
@@ -351,8 +351,8 @@
       border-inline-start: var(--border-size-3) solid currentColor;
       font-size: inherit;
       line-height: inherit;
-      padding-block: var(--space-3);
-      padding-inline: var(--space-4);
+      padding-block: var(--ui-space-3);
+      padding-inline: var(--ui-space-4);
 
       :first-child {
         margin-block-start: 0;
@@ -363,23 +363,23 @@
       }
 
       footer {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         margin-block-start: var(--_flow-space);
       }
     }
 
     /* Code */
     pre {
-      background-color: var(--color-15);
-      border-radius: var(--border-radius);
-      color: var(--color-1);
+      background-color: var(--ui-color-15);
+      border-radius: var(--ui-border-radius);
+      color: var(--ui-color-1);
       font-size: 0.875em;
-      line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
-      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step));
+      line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
+      margin-block: round(var(--_flow-space) * 1.5, var(--ui-rhythm-step));
       max-inline-size: 100%;
       overflow-inline: auto;
-      padding-block: var(--space-3);
-      padding-inline: var(--space-4);
+      padding-block: var(--ui-space-3);
+      padding-inline: var(--ui-space-4);
       scrollbar-width: thin;
       white-space: pre;
 
@@ -404,8 +404,8 @@
     /* Figures */
     figure {
       display: grid;
-      gap: var(--space-2);
-      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step));
+      gap: var(--ui-space-2);
+      margin-block: round(var(--_flow-space) * 1.5, var(--ui-rhythm-step));
       place-items: center;
 
       & > * {
@@ -422,9 +422,9 @@
       }
 
       & figcaption {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         font-size: var(--font-size-0);
-        line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
+        line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
         text-wrap: pretty;
       }
     }
@@ -442,7 +442,7 @@
     /* Horizontal rules */
     hr {
       &:not([class]) {
-        border-block-start: var(--border-width) solid var(--border-color);
+        border-block-start: var(--ui-border-width) solid var(--ui-border-color);
         margin-block: calc(var(--_flow-space) * 2);
       }
 
@@ -463,16 +463,16 @@
         --_font-scale: calc(1em / 1rem);
       }
 
-      color: var(--text-primary);
-      font-weight: var(--font-weight-bold);
-      line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
+      color: var(--ui-text-primary);
+      font-weight: var(--ui-font-weight-bold);
+      line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
       text-wrap: pretty;
     }
 
     h1:where(:not([class])) {
       font-size: round(
-        calc(var(--font-size-h1) * var(--_font-scale, 1)),
-        var(--rhythm-step) / 2
+        calc(var(--ui-font-size-h1) * var(--_font-scale, 1)),
+        var(--ui-rhythm-step) / 2
       );
       letter-spacing: -0.02em;
       margin-block: calc(var(--_flow-space) * 3) var(--_flow-space);
@@ -480,65 +480,65 @@
 
     h2:where(:not([class])) {
       font-size: round(
-        calc(var(--font-size-h2) * var(--_font-scale, 1)),
-        var(--rhythm-step) / 2
+        calc(var(--ui-font-size-h2) * var(--_font-scale, 1)),
+        var(--ui-rhythm-step) / 2
       );
       letter-spacing: -0.02em;
       margin-block: calc(var(--_flow-space) * 3)
-        round(var(--_flow-space) * 0.75, var(--rhythm-step));
+        round(var(--_flow-space) * 0.75, var(--ui-rhythm-step));
     }
 
     h3:where(:not([class])) {
       font-size: round(
-        calc(var(--font-size-h3) * var(--_font-scale, 1)),
-        var(--rhythm-step) / 2
+        calc(var(--ui-font-size-h3) * var(--_font-scale, 1)),
+        var(--ui-rhythm-step) / 2
       );
       letter-spacing: -0.01em;
       margin-block: calc(var(--_flow-space) * 2)
-        round(var(--_flow-space) * 0.5, var(--rhythm-step));
+        round(var(--_flow-space) * 0.5, var(--ui-rhythm-step));
     }
 
     h4:where(:not([class])) {
       font-size: round(
-        calc(var(--font-size-h4) * var(--_font-scale, 1)),
-        var(--rhythm-step) / 2
+        calc(var(--ui-font-size-h4) * var(--_font-scale, 1)),
+        var(--ui-rhythm-step) / 2
       );
       letter-spacing: -0.01em;
-      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step))
-        round(var(--_flow-space) * 0.5, var(--rhythm-step));
+      margin-block: round(var(--_flow-space) * 1.5, var(--ui-rhythm-step))
+        round(var(--_flow-space) * 0.5, var(--ui-rhythm-step));
     }
 
     h5:where(:not([class])) {
       font-size: round(
-        calc(var(--font-size-h5) * var(--_font-scale, 1)),
-        var(--rhythm-step) / 2
+        calc(var(--ui-font-size-h5) * var(--_font-scale, 1)),
+        var(--ui-rhythm-step) / 2
       );
-      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step))
-        round(var(--_flow-space) * 0.5, var(--rhythm-step));
+      margin-block: round(var(--_flow-space) * 1.5, var(--ui-rhythm-step))
+        round(var(--_flow-space) * 0.5, var(--ui-rhythm-step));
     }
 
     h6:where(:not([class])) {
       font-size: round(
-        calc(var(--font-size-h6) * var(--_font-scale, 1)),
-        var(--rhythm-step) / 2
+        calc(var(--ui-font-size-h6) * var(--_font-scale, 1)),
+        var(--ui-rhythm-step) / 2
       );
-      margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step))
-        round(var(--_flow-space) * 0.5, var(--rhythm-step));
+      margin-block: round(var(--_flow-space) * 1.5, var(--ui-rhythm-step))
+        round(var(--_flow-space) * 0.5, var(--ui-rhythm-step));
     }
 
     /** Overline */
     :is(.ui-overline, hgroup p:first-of-type:first-child) {
       color: light-dark(
-        oklch(from var(--text-muted) calc(l * 1.25) c h),
-        oklch(from var(--text-muted) calc(l * 0.9) c h)
+        oklch(from var(--ui-text-muted) calc(l * 1.25) c h),
+        oklch(from var(--ui-text-muted) calc(l * 0.9) c h)
       );
       font-size: var(--font-size-0);
-      font-weight: var(--font-weight-medium);
+      font-weight: var(--ui-font-weight-medium);
       letter-spacing: 0.06em;
       text-transform: uppercase;
 
-      @container style(--contrast: more) {
-        color: var(--text-muted);
+      @container style(--ui-contrast: more) {
+        color: var(--ui-text-muted);
       }
     }
 
@@ -550,29 +550,32 @@
       }
 
       & > :where(h1, h2, h3, h4, h5, h6) {
-        margin-block: 0 round(var(--_flow-space) * 0.75, var(--rhythm-step));
+        margin-block: 0 round(var(--_flow-space) * 0.75, var(--ui-rhythm-step));
       }
 
       & + * {
-        margin-block-start: round(var(--_flow-space) * 2.5, var(--rhythm-step));
+        margin-block-start: round(
+          var(--_flow-space) * 2.5,
+          var(--ui-rhythm-step)
+        );
       }
 
       /* Body paragraphs after the heading */
       & > p:not(:first-of-type:first-child) {
         color: oklch(from currentColor l c h / 75%);
 
-        @container style(--contrast: more) {
+        @container style(--ui-contrast: more) {
           color: inherit;
         }
 
         font-size: var(--font-size-3);
-        line-height: round(up, 1.6em, var(--rhythm-step));
+        line-height: round(up, 1.6em, var(--ui-rhythm-step));
       }
 
       & > p + p {
         margin-block-start: round(
           var(--_flow-space) * 0.75,
-          var(--rhythm-step)
+          var(--ui-rhythm-step)
         );
       }
     }
@@ -668,7 +671,7 @@
       line-height: inherit;
 
       dt {
-        font-weight: var(--font-weight-bold);
+        font-weight: var(--ui-font-weight-bold);
         margin-block-start: 0;
       }
 
@@ -691,15 +694,15 @@
       overflow-inline: auto;
 
       caption {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         font-size: var(--font-size-0);
-        line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
-        padding-block-end: var(--space-2);
+        line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
+        padding-block-end: var(--ui-space-2);
         text-align: start;
       }
 
       :where(th, td) {
-        border-block-end: var(--border-width) solid var(--border-color);
+        border-block-end: var(--ui-border-width) solid var(--ui-border-color);
         overflow-wrap: break-word;
         padding-block: 0.5em;
         padding-inline: 0.75em;
@@ -722,7 +725,7 @@
 
       tfoot :where(th, td) {
         border-block-end: none;
-        border-block-start: var(--border-size-2) solid var(--border-color);
+        border-block-start: var(--border-size-2) solid var(--ui-border-color);
       }
     }
 
@@ -748,7 +751,7 @@
 
     :where(abbr, dfn) {
       font-style: normal;
-      text-decoration: var(--color-9) underline dotted;
+      text-decoration: var(--ui-color-9) underline dotted;
 
       &[title] {
         cursor: help;
@@ -769,10 +772,10 @@
     }
 
     :where(del, ins) {
-      color: light-dark(var(--color-11), var(--color-6));
+      color: light-dark(var(--ui-color-11), var(--ui-color-6));
 
-      @container style(--contrast: more) {
-        color: light-dark(var(--color-12), var(--color-3));
+      @container style(--ui-contrast: more) {
+        color: light-dark(var(--ui-color-12), var(--ui-color-3));
       }
     }
 
@@ -786,17 +789,17 @@
 
     /* Code */
     :where(code, kbd, samp, pre, var) {
-      font-family: var(--font-code);
+      font-family: var(--ui-font-code);
     }
 
     code {
       background-color: light-dark(oklch(0 0 0 / 12%), oklch(1 0 0 / 10%));
 
-      @container style(--contrast: more) {
+      @container style(--ui-contrast: more) {
         background-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 6%));
       }
 
-      border-radius: var(--border-radius, var(--radius-2));
+      border-radius: var(--ui-border-radius, var(--radius-2));
       font-size: 0.9em;
       padding: 0.5ex;
     }
@@ -804,7 +807,7 @@
     a[href] code {
       background-color: light-dark(transparent, oklch(0 0 0 / 24%));
 
-      @container style(--contrast: more) {
+      @container style(--ui-contrast: more) {
         background-color: transparent;
       }
     }
@@ -814,11 +817,11 @@
     }
 
     :where(kbd, var) {
-      background-color: var(--text-muted);
-      border-color: var(--text-muted);
-      border-radius: min(var(--radius-2), var(--border-radius));
-      border-width: var(--border-width);
-      color: var(--text-muted-contrast);
+      background-color: var(--ui-text-muted);
+      border-color: var(--ui-text-muted);
+      border-radius: min(var(--radius-2), var(--ui-border-radius));
+      border-width: var(--ui-border-width);
+      color: var(--ui-text-muted-contrast);
       padding-block: 0.1ex;
       padding-inline: 0.3ex;
     }
@@ -844,7 +847,7 @@
     }
 
     mark {
-      border-radius: min(var(--radius-2), var(--border-radius));
+      border-radius: min(var(--radius-2), var(--ui-border-radius));
       box-decoration-break: clone;
       padding-block: 0.1ex;
       padding-inline: 0.3ex;

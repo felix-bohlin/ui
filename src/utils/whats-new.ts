@@ -31,7 +31,7 @@ const whatsNew = {
     slots(
       `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone. Leave <code>variant</code> out for the default look.`,
     ),
-    `Elevated accordions use <a href="#api"><code>--shadow-raised</code></a>, the elevated card shadow, also in dark mode. Padding and gaps read the <code>--space-*</code> scale.`,
+    `Elevated accordions use <a href="#api"><code>--ui-shadow-raised</code></a>, the elevated card shadow, also in dark mode. Padding and gaps read the <code>--space-*</code> scale.`,
   ],
   anchor: [
     slots(
@@ -66,7 +66,7 @@ const whatsNew = {
     components(
       `Breaking: <a href="#grouped"><code>AvatarGroup</code></a> groups avatars and replaces the <code>isGroup</code> prop.`,
     ),
-    `Rounded avatars never get rounder than <a href="#api"><code>--border-radius</code></a>, so <code>0</code> squares them.`,
+    `Rounded avatars never get rounder than <a href="#api"><code>--ui-border-radius</code></a>, so <code>0</code> squares them.`,
   ],
   badge: [
     `Badges on round avatars sit on the avatar's edge (<a href="#alignment">Alignment</a>), and in an avatar group on the start side.`,
@@ -111,7 +111,7 @@ const whatsNew = {
     `Breaking: <code>--_color</code>, <code>--_color-contrast</code> and <code>--_color-tonal</code> are <code>--_accent</code>, <code>--_accent-contrast</code> and <code>--_accent-tonal</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--border-radius</code> through <a href="#api"><code>--button-border-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
   ],
   "button-group": [
     `Icon-only buttons use the same <a href="#icons">icon size</a> as buttons with a label.`,
@@ -136,7 +136,7 @@ const whatsNew = {
     components(
       `<a href="#vertical-orientation"><code>orientation</code></a> takes <code>"horizontal"</code>, the default, like <code>Carousel</code>.`,
     ),
-    `Corners follow <code>--border-radius</code> through <a href="#api"><code>--button-border-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
   ],
   callout: [
     slots(
@@ -156,8 +156,8 @@ const whatsNew = {
     `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
     `Breaking: <code>--_card-bg-color</code>, <code>--_card-border-color</code>, <code>--_card-border-width</code> and <code>--_card-shadow</code> drop the <code>card-</code> prefix, the outlined <code>--_border-color</code> is <code>--_outlined-border-color</code>, and <code>--_bg-surface</code>, <code>--_bg-tonal</code> and <code>--_bg-elevated</code> are <code>--_surface-bg-color</code>, <code>--_tonal-bg-color</code> and <code>--_elevated-bg-color</code>, and <code>--_elevated-shadow</code> is <code>--_elevated-shadow</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Elevated cards use <a href="#api"><code>--shadow-raised</code></a>, and padding and gaps read the <code>--space-*</code> scale.`,
-    `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--shadow-raised-light</code> and <code>--shadow-raised-dark</code></a> in your theme, or <a href="#component-properties"><code>--_elevated-shadow</code></a> on the card.`,
+    `Elevated cards use <a href="#api"><code>--ui-shadow-raised</code></a>, and padding and gaps read the <code>--space-*</code> scale.`,
+    `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--ui-shadow-raised-light</code> and <code>--ui-shadow-raised-dark</code></a> in your theme, or <a href="#component-properties"><code>--_elevated-shadow</code></a> on the card.`,
   ],
   carousel: [
     {
@@ -213,7 +213,7 @@ const whatsNew = {
       `Breaking: deep type imports from <code>components/Checkbox/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>CheckboxProps</code> and <code>CheckboxSlots</code>). Import <a href="#api"><code>CheckboxProps</code></a> from the framework entry instead.`,
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners never get rounder than <a href="#api"><code>--border-radius</code></a>, so <code>0</code> squares them.`,
+    `Corners never get rounder than <a href="#api"><code>--ui-border-radius</code></a>, so <code>0</code> squares them.`,
   ],
   chip: [
     {
@@ -283,7 +283,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   divider: [
-    `<a href="#spacing">Spacing</a> comes from <code>--divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,
+    `<a href="#spacing">Spacing</a> comes from <code>--ui-divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,
     {
       html: `Breaking: <a href="#variants"><code>.ui-filled</code>, <code>.ui-primary</code> and <code>.ui-tonal</code></a> replace the <code>.ui-border-*</code> classes.`,
     },
@@ -304,9 +304,9 @@ const whatsNew = {
       default: `Named by <a href="#accessibility"><code>DrawerTitle</code></a> through <code>aria-labelledby</code>.`,
       html: `Name it with <a href="#accessibility"><code>aria-labelledby</code></a> pointing at the header heading.`,
     },
-    `The <a href="#basics">backdrop</a> dims and blurs like <code>Dialog</code>, through <code>--backdrop-color</code> and <code>--backdrop-blur</code>.`,
+    `The <a href="#basics">backdrop</a> dims and blurs like <code>Dialog</code>, through <code>--ui-backdrop-color</code> and <code>--ui-backdrop-blur</code>.`,
     `Breaking: <code>--_color</code> is <code>--_text-color</code>, and <code>--_transition-duration</code> and <code>--_transition-timing</code> are <code>--_duration</code> and <code>--_ease</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    `The drawer shadow is <a href="#api"><code>--shadow-overlay</code></a>, shared with menus, select pickers and toasts. Padding reads the <code>--space-*</code> scale.`,
+    `The drawer shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus, select pickers and toasts. Padding reads the <code>--space-*</code> scale.`,
   ],
   form: [
     {
@@ -349,7 +349,7 @@ const whatsNew = {
       `Breaking: <a href="#list-item-api"><code>ListItem</code> <code>as</code></a> only accepts <code>"a"</code>, <code>"button"</code> or <code>"div"</code>.`,
     ),
     `Breaking: <code>--_bg-color-hover</code> is <code>--_hover-bg-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    `A checked <a href="#radio">option</a> uses <code>--state-active-alpha-accent</code>.`,
+    `A checked <a href="#radio">option</a> uses <code>--ui-state-active-alpha-accent</code>.`,
     components(
       `Breaking: <a href="#checkbox"><code>type</code></a> can't be combined with <code>as</code> or <code>href</code> (types).`,
     ),
@@ -373,7 +373,7 @@ const whatsNew = {
     components(
       `<code>critical</code> on a <code>ListItem</code> marks a destructive <a href="#custom">custom item</a>.`,
     ),
-    `The menu shadow is <a href="#api"><code>--shadow-overlay</code></a>, shared with drawers, select pickers and toasts.`,
+    `The menu shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with drawers, select pickers and toasts.`,
   ],
   progress: [
     {
@@ -390,7 +390,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   radio: [
-    `<a href="#sizes">Radios</a> are 20px, the same <code>--choice-size</code> as Checkbox.`,
+    `<a href="#sizes">Radios</a> are 20px, the same <code>--ui-choice-size</code> as Checkbox.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code> and <code>--thumb-scale</code> is <code>--_thumb-scale</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
     `Without a visible label, radios <a href="#label-alignment">center</a> in table cells and lines of text.`,
@@ -503,8 +503,8 @@ const whatsNew = {
     slots(
       `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;select&gt;</code> (<a href="#api">API</a>).`,
     ),
-    `Corners follow <code>--border-radius</code> through <a href="#api"><code>--field-border-radius</code></a>, so one token squares or rounds every component.`,
-    `The picker shadow is <a href="#api"><code>--shadow-overlay</code></a>, shared with menus, drawers and toasts.`,
+    `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-field-border-radius</code></a>, so one token squares or rounds every component.`,
+    `The picker shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus, drawers and toasts.`,
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
@@ -625,7 +625,7 @@ const whatsNew = {
     ),
     `Breaking: the <a href="#autosuggest">autosuggest</a> and other input styles are in <code>text-field.css</code>, and <code>text-input.css</code> is gone. Remove its import.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--border-radius</code> through <a href="#api"><code>--field-border-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-field-border-radius</code></a>, so one token squares or rounds every component.`,
   ],
   textarea: [
     {
@@ -658,13 +658,13 @@ const whatsNew = {
       `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--border-radius</code> through <a href="#api"><code>--field-border-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-field-border-radius</code></a>, so one token squares or rounds every component.`,
   ],
   toast: [
     `Breaking: the keyframes are <code>ui-toast-enter</code>, <code>ui-toast-hold</code> and <code>ui-toast-exit</code>, and <a href="#javascript"><code>toast.js</code></a> listens for <code>ui-toast-exit</code>.`,
     `Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See <a href="#how-it-works">How it works</a>.`,
     `Breaking: <code>--_anim-enter</code> and <code>--_anim-exit</code> are <code>--_enter-duration</code> and <code>--_exit-duration</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    `The toast shadow is <a href="#api"><code>--shadow-overlay</code></a>, and padding and gaps read the <code>--space-*</code> scale.`,
+    `The toast shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, and padding and gaps read the <code>--space-*</code> scale.`,
   ],
   toggle: [
     slots(
@@ -696,9 +696,9 @@ const whatsNew = {
     components(
       `<a href="#vertical-orientation"><code>orientation</code></a> on <code>ToggleGroup</code> takes <code>"horizontal"</code>, the default.`,
     ),
-    `A <a href="#toggle-button">toggle button</a> grows with its content from <code>--button-size</code> instead of having a fixed height.`,
+    `A <a href="#toggle-button">toggle button</a> grows with its content from <code>--ui-button-size</code> instead of having a fixed height.`,
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--border-radius</code> through <a href="#api"><code>--button-border-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
   ],
   tooltip: [
     slots(
@@ -711,18 +711,18 @@ const whatsNew = {
     `The <a href="#arrow">arrow</a> points at the trigger in every position, also after a flip.`,
     `Breaking: <code>--_tooltip-bg</code> and <code>--_tooltip-color</code> are <code>--_bg-color</code> and <code>--_text-color</code>, and <code>--_tooltip-offset</code> is <code>--_offset</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners never get rounder than <a href="#api"><code>--border-radius</code></a>, so <code>0</code> squares them.`,
+    `Corners never get rounder than <a href="#api"><code>--ui-border-radius</code></a>, so <code>0</code> squares them.`,
   ],
   typography: [
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,
-    `Breaking: <a href="#variants">heading sizes</a> changed. Sizes and line heights snap to <code>--rhythm-step</code>, and the heading scale no longer inverts on narrow screens.`,
+    `Breaking: <a href="#variants">heading sizes</a> changed. Sizes and line heights snap to <code>--ui-rhythm-step</code>, and the heading scale no longer inverts on narrow screens.`,
     `Breaking: <a href="#classless">rich text</a> only styles headings without a class, like lists. Add a <code>.ui-h1</code>–<code>.ui-h6</code> class to a heading that has another class.`,
     `<a href="#rich-text-showcase">Rich text</a> styles tables, which scroll sideways in narrow columns, <code>hr</code> and task lists.`,
     `Breaking: <a href="#classless">rich text</a> sits in the <code>components.prose</code> layer, below components, so components inside prose keep their own styles. If you declare the layer order yourself, add <code>components.prose</code> before <code>components.root</code>.`,
     `<a href="#rich-text-showcase">Rich text</a> headings, <code>pre</code> and <code>small</code> scale with the surrounding font size, and so does <a href="#inline-text-elements"><code>.ui-small</code></a>.`,
     `Rich text <code>var</code> is monospace, like <a href="#inline-text-elements"><code>.ui-var</code></a>.`,
     `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
-    `Headings read <a href="#api"><code>--font-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--font-code</code>. Rich text margins read the <code>--space-*</code> scale.`,
+    `Headings read <a href="#api"><code>--ui-font-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--ui-font-code</code>. Rich text margins read the <code>--space-*</code> scale.`,
   ],
 } satisfies Record<string, Note[]>
 

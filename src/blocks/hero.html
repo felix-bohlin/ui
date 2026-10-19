@@ -29,7 +29,7 @@
     }
 
     .hero-pitch {
-      color: var(--text-muted);
+      color: var(--ui-text-muted);
       font-size: var(--font-size-3);
       margin: 0;
       max-inline-size: 34rem;
@@ -51,7 +51,7 @@
     }
 
     .hero-stars {
-      color: var(--warning);
+      color: var(--ui-warning);
       display: flex;
 
       svg {
@@ -63,10 +63,10 @@
     .hero-preview {
       background-image: linear-gradient(
         135deg,
-        oklch(from var(--primary) l c h / 25%),
-        oklch(from var(--primary) l c calc(h + 60) / 15%)
+        oklch(from var(--ui-primary) l c h / 25%),
+        oklch(from var(--ui-primary) l c calc(h + 60) / 15%)
       );
-      border-radius: var(--border-radius);
+      border-radius: var(--ui-border-radius);
       padding: var(--size-4);
 
       @container (inline-size >= 40rem) {
@@ -80,13 +80,13 @@
 
     .hero-toolbar {
       align-items: center;
-      border-block-end: var(--border-width) solid var(--border-color);
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       display: flex;
       gap: var(--size-2);
       padding: var(--size-2) var(--size-3);
 
       .hero-dot {
-        background-color: var(--border-color);
+        background-color: var(--ui-border-color);
         block-size: var(--size-2);
         border-radius: var(--radius-round);
         inline-size: var(--size-2);

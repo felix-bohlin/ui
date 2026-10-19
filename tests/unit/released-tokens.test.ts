@@ -18,7 +18,11 @@ const breaking = [
 
 test("released tokens still exist or are logged as Breaking or Removed", () => {
   const current = new Set(themeTokens().map((token) => token.name))
-  const gone = released.tokens.filter((name) => !current.has(name))
+  const prefixed = breaking.includes("`--ui-`")
+  const gone = released.tokens.filter(
+    (name) =>
+      !current.has(name) && !(prefixed && current.has(`--ui-${name.slice(2)}`)),
+  )
   const unlogged = gone.filter((name) => !breaking.includes(`\`${name}\``))
   expect(unlogged, "removed without a Breaking or Removed entry").toEqual([])
 })

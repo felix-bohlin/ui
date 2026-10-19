@@ -6,15 +6,15 @@ const steps = [
     css: `
 .toggle {
   align-items: center;
-  block-size: var(--field-size);
-  border: 1px solid var(--border-color);
-  border-radius: var(--button-border-radius, var(--border-radius));
-  color: var(--text-primary);
+  block-size: var(--ui-field-size);
+  border: 1px solid var(--ui-border-color);
+  border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
+  color: var(--ui-text-primary);
   cursor: pointer;
   display: inline-flex;
   gap: var(--size-2);
   justify-content: center;
-  min-inline-size: var(--field-size);
+  min-inline-size: var(--ui-field-size);
   padding: 0 var(--size-2);
   position: relative;
   user-select: none;
@@ -42,12 +42,12 @@ const steps = [
 }
 
 .toggle:has(input:checked) {
-  --bg: oklch(from var(--primary) l c h / 25%);
+  --bg: oklch(from var(--ui-primary) l c h / 25%);
 }`,
     features: ["has", "light-dark", "relative-color"],
     notes: [
       "<code>:has(input:checked)</code>: the label styles itself from the checkbox state",
-      "Relative color turns <code>--primary</code> into a 25% tint",
+      "Relative color turns <code>--ui-primary</code> into a 25% tint",
       "<code>light-dark()</code> picks the hover tint per color scheme",
     ],
     title: "Pressed",
@@ -64,7 +64,7 @@ const steps = [
 }
 
 .toggle:has(input:focus-visible) {
-  outline: 2px solid var(--text-muted);
+  outline: 2px solid var(--ui-text-muted);
   outline-offset: -6px;
 }`,
     features: ["focus-visible"],
@@ -78,11 +78,11 @@ const steps = [
   {
     css: `
 .toggle-group {
-  background-color: var(--surface-default);
-  border-radius: var(--button-border-radius, var(--border-radius));
+  background-color: var(--ui-surface-default);
+  border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
   display: inline-flex;
   flex-wrap: wrap;
-  outline: 1px solid var(--border-color);
+  outline: 1px solid var(--ui-border-color);
   outline-offset: -1px;
   overflow: hidden;
 }
@@ -91,8 +91,8 @@ const steps = [
   border: 0;
   border-radius: 0;
   box-shadow:
-    -1px 0 0 0 var(--border-color),
-    0 -1px 0 0 var(--border-color);
+    -1px 0 0 0 var(--ui-border-color),
+    0 -1px 0 0 var(--ui-border-color);
   flex: auto;
 }`,
     html: `

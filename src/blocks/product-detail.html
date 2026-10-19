@@ -15,13 +15,13 @@
       padding: 0;
 
       li + li::before {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         content: "/";
         margin-inline-end: var(--size-2);
       }
 
       [aria-current="page"] {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
       }
     }
 
@@ -48,38 +48,38 @@
 
     .pd-image {
       aspect-ratio: 1;
-      border-radius: var(--border-radius);
+      border-radius: var(--ui-border-radius);
     }
 
     .pd-image-1 {
       background: linear-gradient(
         135deg,
-        var(--primary),
-        oklch(from var(--primary) l c calc(h + 60))
+        var(--ui-primary),
+        oklch(from var(--ui-primary) l c calc(h + 60))
       );
     }
 
     .pd-image-2 {
       background: linear-gradient(
         160deg,
-        oklch(from var(--primary) l c calc(h + 30)),
-        oklch(from var(--primary) calc(l - 0.15) c calc(h + 90))
+        oklch(from var(--ui-primary) l c calc(h + 30)),
+        oklch(from var(--ui-primary) calc(l - 0.15) c calc(h + 90))
       );
     }
 
     .pd-image-3 {
       background: radial-gradient(
         circle at 30% 30%,
-        oklch(from var(--primary) calc(l + 0.15) c h),
-        oklch(from var(--primary) l c calc(h + 60))
+        oklch(from var(--ui-primary) calc(l + 0.15) c h),
+        oklch(from var(--ui-primary) l c calc(h + 60))
       );
     }
 
     .pd-image-4 {
       background: linear-gradient(
         45deg,
-        oklch(from var(--primary) calc(l - 0.1) c calc(h + 60)),
-        var(--primary)
+        oklch(from var(--ui-primary) calc(l - 0.1) c calc(h + 60)),
+        var(--ui-primary)
       );
     }
 
@@ -99,8 +99,8 @@
 
     .pd-stars {
       color: light-dark(
-        oklch(from var(--warning) 0.6 c h),
-        oklch(from var(--warning) 0.8 c h)
+        oklch(from var(--ui-warning) 0.6 c h),
+        oklch(from var(--ui-warning) 0.8 c h)
       );
       display: flex;
 
@@ -123,32 +123,34 @@
       }
 
       s {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
       }
     }
 
     .pd-summary {
-      color: var(--text-muted);
+      color: var(--ui-text-muted);
       margin: 0;
     }
 
     .pd-swatch {
       aspect-ratio: 1;
-      border: var(--border-width) solid var(--border-color);
+      border: var(--ui-border-width) solid var(--ui-border-color);
       border-radius: var(--radius-round);
       inline-size: var(--size-3);
     }
 
     .pd-swatch-pine {
-      background-color: var(--primary);
+      background-color: var(--ui-primary);
     }
 
     .pd-swatch-fjord {
-      background-color: oklch(from var(--primary) l c calc(h + 60));
+      background-color: oklch(from var(--ui-primary) l c calc(h + 60));
     }
 
     .pd-swatch-sand {
-      background-color: oklch(from var(--primary) calc(l + 0.2) c calc(h - 80));
+      background-color: oklch(
+        from var(--ui-primary) calc(l + 0.2) c calc(h - 80)
+      );
     }
 
     .pd-option .ui-toggle-group {

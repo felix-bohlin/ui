@@ -9,7 +9,7 @@ const steps = [
   line-height: 1.2;
 }`,
     notes: [
-      "Stripes mark each line box (<code>1lh</code>), dotted lines mark <code>--rhythm-step</code>",
+      "Stripes mark each line box (<code>1lh</code>), dotted lines mark <code>--ui-rhythm-step</code>",
       "A plain <code>line-height</code> lands between grid lines at most sizes",
     ],
     title: "Unsnapped",
@@ -17,7 +17,7 @@ const steps = [
   {
     css: `
 .prose :is(h1, h2, h3, h4, h5, h6) {
-  line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
+  line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
 }`,
     features: ["round-mod-rem"],
     notes: [
@@ -30,7 +30,7 @@ const steps = [
   {
     css: `
 .prose h2 {
-  font-size: round(var(--size), var(--rhythm-step) / 2);
+  font-size: round(var(--size), var(--ui-rhythm-step) / 2);
 }`,
     features: ["round-mod-rem"],
     notes: [
@@ -48,7 +48,7 @@ const steps = [
 }
 
 .prose {
-  --flow-space: round(1.25em, var(--rhythm-step));
+  --flow-space: round(1.25em, var(--ui-rhythm-step));
 }
 
 .prose > * {
@@ -57,7 +57,7 @@ const steps = [
 
 .prose h2 {
   margin-block: calc(var(--flow-space) * 3)
-    round(var(--flow-space) * 0.75, var(--rhythm-step));
+    round(var(--flow-space) * 0.75, var(--ui-rhythm-step));
 }`,
     features: ["registered-custom-properties", "round-mod-rem"],
     notes: [
@@ -84,7 +84,7 @@ const knobs = [
     label: "Rhythm step",
     max: 12,
     min: 4,
-    property: "--rhythm-step",
+    property: "--ui-rhythm-step",
     step: 2,
     unit: "px",
     value: 8,
@@ -112,13 +112,13 @@ const knobs = [
   .prose {
     background-image: linear-gradient(
       to bottom,
-      oklch(from var(--primary) l c h / 35%) 1px,
+      oklch(from var(--ui-primary) l c h / 35%) 1px,
       transparent 1px
     );
     background-repeat: repeat;
-    background-size: 100% var(--rhythm-step);
+    background-size: 100% var(--ui-rhythm-step);
     inline-size: min(100%, 20rem);
-    line-height: round(up, 1.6em, var(--rhythm-step));
+    line-height: round(up, 1.6em, var(--ui-rhythm-step));
 
     & > * {
       margin: 0;
@@ -127,7 +127,7 @@ const knobs = [
     & h2 {
       background-image: repeating-linear-gradient(
         to bottom,
-        oklch(from var(--primary) l c h / 15%) 0 1lh,
+        oklch(from var(--ui-primary) l c h / 15%) 0 1lh,
         transparent 1lh 2lh
       );
       text-wrap: balance;

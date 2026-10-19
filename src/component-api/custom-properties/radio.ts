@@ -13,7 +13,7 @@ export default {
   },
   "--_dot-radius": {
     description:
-      "Radius of the checked dot, computed from `--_input-size` and `--field-border-width`.",
+      "Radius of the checked dot, computed from `--_input-size` and `--ui-field-border-width`.",
     kind: "output",
   },
 } satisfies CustomProperties

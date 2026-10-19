@@ -7,7 +7,7 @@ export default {
   },
   options: [
     {
-      cssVar: "--anchor-position-area",
+      cssVar: "--ui-anchor-position-area",
       default: '"block-start"',
       description:
         "Any valid `position-area` value. Controls where the tooltip is placed.",

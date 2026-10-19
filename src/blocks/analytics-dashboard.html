@@ -4,7 +4,7 @@
 
     .analytics-header {
       align-items: center;
-      border-block-end: var(--border-width) solid var(--border-color);
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       display: flex;
       gap: var(--size-3);
       padding: var(--size-3) var(--size-4);
@@ -16,15 +16,15 @@
 
     .analytics-brand {
       align-items: center;
-      color: var(--text-primary);
+      color: var(--ui-text-primary);
       display: flex;
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--ui-font-weight-bold);
       gap: var(--size-2);
       text-decoration: none;
 
       svg {
         block-size: var(--size-5);
-        color: var(--primary);
+        color: var(--ui-primary);
         inline-size: var(--size-5);
       }
     }
@@ -70,15 +70,15 @@
 
     .analytics-up {
       color: light-dark(
-        oklch(from var(--success) 0.45 c h),
-        oklch(from var(--success) 0.8 c h)
+        oklch(from var(--ui-success) 0.45 c h),
+        oklch(from var(--ui-success) 0.8 c h)
       );
     }
 
     .analytics-down {
       color: light-dark(
-        oklch(from var(--critical) 0.45 c h),
-        oklch(from var(--critical) 0.8 c h)
+        oklch(from var(--ui-critical) 0.45 c h),
+        oklch(from var(--ui-critical) 0.8 c h)
       );
     }
 
@@ -95,7 +95,7 @@
     .analytics-chart {
       align-items: end;
       block-size: 12rem;
-      border-block-end: var(--border-width) solid var(--border-color);
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       display: grid;
       gap: var(--size-2);
       grid-auto-columns: minmax(0, 1fr);
@@ -114,7 +114,7 @@
 
       .analytics-bar {
         align-self: end;
-        background-color: var(--primary);
+        background-color: var(--ui-primary);
         block-size: var(--value);
         border-start-end-radius: var(--radius-2);
         border-start-start-radius: var(--radius-2);

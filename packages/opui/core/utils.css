@@ -1,22 +1,22 @@
 @layer utils {
   .ui-motion-off {
-    --motion: 0;
+    --ui-motion: 0;
   }
 
   .ui-motion-on {
-    --motion: 1;
+    --ui-motion: 1;
   }
 
   .ui-motion-debug {
-    --motion: 10;
+    --ui-motion: 10;
   }
 
   .ui-contrast-more {
-    --contrast: more;
+    --ui-contrast: more;
   }
 
   .ui-contrast-normal {
-    --contrast: normal;
+    --ui-contrast: normal;
   }
 
   /*

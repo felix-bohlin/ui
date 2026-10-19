@@ -7,15 +7,15 @@ export default {
   },
   "--_bg-color": {
     description:
-      "Background of the tooltip and its arrow. Defaults to `--surface-inverse`.",
+      "Background of the tooltip and its arrow. Defaults to `--ui-surface-inverse`.",
     kind: "input",
   },
   "--_duration": {
-    description: "Duration of the fade, `--duration` times `--_motion`.",
+    description: "Duration of the fade, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the fade. Defaults to `--ease-enter`.",
+    description: "Easing of the fade. Defaults to `--ui-ease-enter`.",
     kind: "input",
   },
   "--_min-inline-size": {
@@ -37,7 +37,7 @@ export default {
     kind: "input",
   },
   "--_text-color": {
-    description: "The text color. Defaults to `--text-inverse`.",
+    description: "The text color. Defaults to `--ui-text-inverse`.",
     kind: "input",
   },
 } satisfies CustomProperties

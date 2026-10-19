@@ -1,14 +1,14 @@
 @layer components.root {
   :where(.ui-progress) {
-    --_motion: var(--motion);
-    --_accent: var(--primary);
-    --_bg-color: var(--surface-tonal);
-    --_duration: calc(var(--duration) * var(--_motion));
-    --_ease: var(--ease-enter);
+    --_motion: var(--ui-motion);
+    --_accent: var(--ui-primary);
+    --_bg-color: var(--ui-surface-tonal);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease-enter);
 
     background-color: var(--_bg-color);
     block-size: var(--size-1);
-    border-radius: var(--border-radius);
+    border-radius: var(--ui-border-radius);
     display: inline-block;
     inline-size: 100%;
     overflow: hidden;
@@ -17,21 +17,21 @@
 
     /* Color */
     &.ui-filled {
-      --_bg-color: var(--surface-filled);
+      --_bg-color: var(--ui-surface-filled);
     }
 
     &.ui-tonal {
-      --_bg-color: var(--surface-tonal);
+      --_bg-color: var(--ui-surface-tonal);
     }
 
-    @container style(--contrast: more) {
-      outline: var(--border-width) solid var(--border-color);
+    @container style(--ui-contrast: more) {
+      outline: var(--ui-border-width) solid var(--ui-border-color);
     }
 
     @media (forced-colors: active) {
       --_accent: SelectedItem;
 
-      outline: var(--border-width) solid CanvasText;
+      outline: var(--ui-border-width) solid CanvasText;
     }
 
     & > progress {
@@ -44,7 +44,7 @@
 
       &::-webkit-progress-bar {
         background: none;
-        border-radius: var(--border-radius);
+        border-radius: var(--ui-border-radius);
       }
 
       &[value]::-webkit-progress-value {

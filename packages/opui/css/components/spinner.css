@@ -7,7 +7,7 @@
     progress,
     [aria-describedby]:not(button, a)
   ) {
-    --_motion: var(--motion);
+    --_motion: var(--ui-motion);
 
     position: relative;
 

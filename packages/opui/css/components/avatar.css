@@ -1,10 +1,10 @@
 @layer components.root {
   :where(.ui-avatar) {
-    --_bg-color: var(--primary);
+    --_bg-color: var(--ui-primary);
     --_font-size: 1em;
-    --_icon-size: var(--icon-size-large);
-    --_size: var(--control-size);
-    --_text-color: var(--primary-contrast);
+    --_icon-size: var(--ui-icon-size-large);
+    --_size: var(--ui-control-size);
+    --_text-color: var(--ui-primary-contrast);
 
     align-items: center;
     aspect-ratio: 1;
@@ -39,19 +39,19 @@
 
     &.ui-x-small {
       --_font-size: var(--font-size-0);
-      --_icon-size: var(--icon-size-small);
-      --_size: var(--control-size-x-small);
+      --_icon-size: var(--ui-icon-size-small);
+      --_size: var(--ui-control-size-x-small);
     }
 
     &.ui-small {
-      --_font-size: var(--font-size-05);
-      --_icon-size: var(--icon-size);
-      --_size: var(--control-size-small);
+      --_font-size: var(--ui-font-size-05);
+      --_icon-size: var(--ui-icon-size);
+      --_size: var(--ui-control-size-small);
     }
 
     &.ui-large {
       --_font-size: var(--font-size-2);
-      --_size: var(--control-size-large);
+      --_size: var(--ui-control-size-large);
     }
 
     &.ui-squared {
@@ -59,7 +59,7 @@
     }
 
     &.ui-rounded {
-      border-radius: min(var(--radius-2), var(--border-radius));
+      border-radius: min(var(--radius-2), var(--ui-border-radius));
     }
 
     &.ui-squircle {
@@ -69,14 +69,14 @@
 
     @media (forced-colors: active) {
       &:not(:has(img)) {
-        border: var(--border-width) solid CanvasText;
+        border: var(--ui-border-width) solid CanvasText;
       }
     }
   }
 
   :where(.ui-avatar-group) {
     --_margin: var(--size-3);
-    --_outline-color: var(--surface-default);
+    --_outline-color: var(--ui-surface-default);
     --_outline-width: 2px;
 
     display: flex;

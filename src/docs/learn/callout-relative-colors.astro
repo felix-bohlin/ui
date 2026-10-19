@@ -23,7 +23,7 @@ import Code from "../../components/Code.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        Each severity class sets a single <code>--palette-source</code> color
+        Each severity class sets a single <code>--ui-palette-source</code> color
       </li>
       <li>
         The palette derives 16 shades from it with <code>oklch(from …)</code>: a
@@ -42,19 +42,19 @@ import Code from "../../components/Code.astro"
     <Code
       lang="css"
       code={`.info {
-  --palette-source: oklch(0.58 0.21 var(--hue-blue));
-  --color-2: oklch(from var(--palette-source) 97% calc(0.06 * c / 0.21) h);
-  --color-5: oklch(from var(--palette-source) 80% calc(0.16 * c / 0.21) h);
-  --color-9: oklch(from var(--palette-source) 53% calc(0.2 * c / 0.21) h);
+  --ui-palette-source: oklch(0.58 0.21 var(--hue-blue));
+  --ui-color-2: oklch(from var(--ui-palette-source) 97% calc(0.06 * c / 0.21) h);
+  --ui-color-5: oklch(from var(--ui-palette-source) 80% calc(0.16 * c / 0.21) h);
+  --ui-color-9: oklch(from var(--ui-palette-source) 53% calc(0.2 * c / 0.21) h);
 }
 
 .callout.info {
   --bg-color: light-dark(
-    oklch(from var(--color-2) l c h / 20%),
-    oklch(from var(--color-6) l c h / 5%)
+    oklch(from var(--ui-color-2) l c h / 20%),
+    oklch(from var(--ui-color-6) l c h / 5%)
   );
-  --border-color: light-dark(var(--color-5), var(--color-11));
-  --icon-color: var(--color-9);
+  --ui-border-color: light-dark(var(--ui-color-5), var(--ui-color-11));
+  --icon-color: var(--ui-color-9);
 }`}
     />
   </section>

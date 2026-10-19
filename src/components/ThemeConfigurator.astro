@@ -166,7 +166,7 @@ const { link } = Astro.locals
     if (!contrastSwitcher) return
     contrastSwitcher.checked =
       getComputedStyle(document.documentElement)
-        .getPropertyValue("--contrast")
+        .getPropertyValue("--ui-contrast")
         .trim() === "more"
   }
 
@@ -234,8 +234,8 @@ const { link } = Astro.locals
     gap: var(--size-4);
 
     p {
-      color: var(--text-muted);
-      font-size: var(--font-size-05);
+      color: var(--ui-text-muted);
+      font-size: var(--ui-font-size-05);
       margin: 0;
     }
 

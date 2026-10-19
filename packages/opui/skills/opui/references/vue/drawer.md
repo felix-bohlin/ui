@@ -228,21 +228,21 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 
 #### CSS variables
 
-| Variable            | Default                                     | Description                                                                                                                                                                                             |
-| ------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
-| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                      |
-| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
-| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                 |
-| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                  |
-| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                                                                                                |
-| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
-| `--shadow-overlay`  | `var(--shadow-3)`                           | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                             |
-| `--space-1`         | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                            |
-| `--space-3`         | `calc(var(--size-3) * var(--space-scale))`  | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                            |
-| `--space-4`         | `calc(var(--size-4) * var(--space-scale))`  | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                            |
-| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                               |
-| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                  |
+| Variable               | Default                                           | Description                                                                                                                                                                                             |
+| ---------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-backdrop-blur`   | `1px`                                             | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
+| `--ui-backdrop-color`  | `rgb(0 0 0 / 0.5)`                                | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                      |
+| `--ui-border-color`    | `light-dark(var(--ui-gray-4), var(--ui-gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
+| `--ui-border-width`    | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                 |
+| `--ui-duration`        | `0.2s`                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                               |
+| `--ui-ease-enter`      | `var(--ease-out-3)`                               | Easing for elements entering the screen.                                                                                                                                                                |
+| `--ui-motion`          | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
+| `--ui-shadow-overlay`  | `var(--shadow-3)`                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                             |
+| `--ui-space-1`         | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                         |
+| `--ui-space-3`         | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                         |
+| `--ui-space-4`         | `calc(var(--size-4) * var(--ui-space-scale))`     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                         |
+| `--ui-surface-default` | `light-dark(var(--ui-gray-1), var(--ui-gray-13))` | Page and card background.                                                                                                                                                                               |
+| `--ui-text-primary`    | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                  |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
@@ -263,21 +263,21 @@ Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria
 
 #### CSS variables
 
-| Variable            | Default                                     | Description                                                                                                                                                                                             |
-| ------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
-| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                      |
-| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
-| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                 |
-| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                  |
-| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                                                                                                |
-| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
-| `--shadow-overlay`  | `var(--shadow-3)`                           | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                             |
-| `--space-1`         | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                            |
-| `--space-3`         | `calc(var(--size-3) * var(--space-scale))`  | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                            |
-| `--space-4`         | `calc(var(--size-4) * var(--space-scale))`  | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                            |
-| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                               |
-| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                  |
+| Variable               | Default                                           | Description                                                                                                                                                                                             |
+| ---------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-backdrop-blur`   | `1px`                                             | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
+| `--ui-backdrop-color`  | `rgb(0 0 0 / 0.5)`                                | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                      |
+| `--ui-border-color`    | `light-dark(var(--ui-gray-4), var(--ui-gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
+| `--ui-border-width`    | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                 |
+| `--ui-duration`        | `0.2s`                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                               |
+| `--ui-ease-enter`      | `var(--ease-out-3)`                               | Easing for elements entering the screen.                                                                                                                                                                |
+| `--ui-motion`          | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
+| `--ui-shadow-overlay`  | `var(--shadow-3)`                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                             |
+| `--ui-space-1`         | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                         |
+| `--ui-space-3`         | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                         |
+| `--ui-space-4`         | `calc(var(--size-4) * var(--ui-space-scale))`     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                         |
+| `--ui-surface-default` | `light-dark(var(--ui-gray-1), var(--ui-gray-13))` | Page and card background.                                                                                                                                                                               |
+| `--ui-text-primary`    | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                  |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
@@ -291,21 +291,21 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 #### CSS variables
 
-| Variable            | Default                                     | Description                                                                                                                                                                                             |
-| ------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
-| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                      |
-| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
-| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                                                                                                 |
-| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                                                                                                  |
-| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                                                                                                |
-| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
-| `--shadow-overlay`  | `var(--shadow-3)`                           | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                             |
-| `--space-1`         | `calc(var(--size-1) * var(--space-scale))`  | Spacing step 1: Open Props `--size-1` times `--space-scale`.                                                                                                                                            |
-| `--space-3`         | `calc(var(--size-3) * var(--space-scale))`  | Spacing step 3: Open Props `--size-3` times `--space-scale`.                                                                                                                                            |
-| `--space-4`         | `calc(var(--size-4) * var(--space-scale))`  | Spacing step 4: Open Props `--size-4` times `--space-scale`.                                                                                                                                            |
-| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                                                                                               |
-| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                  |
+| Variable               | Default                                           | Description                                                                                                                                                                                             |
+| ---------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-backdrop-blur`   | `1px`                                             | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
+| `--ui-backdrop-color`  | `rgb(0 0 0 / 0.5)`                                | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                      |
+| `--ui-border-color`    | `light-dark(var(--ui-gray-4), var(--ui-gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                             |
+| `--ui-border-width`    | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                 |
+| `--ui-duration`        | `0.2s`                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                               |
+| `--ui-ease-enter`      | `var(--ease-out-3)`                               | Easing for elements entering the screen.                                                                                                                                                                |
+| `--ui-motion`          | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
+| `--ui-shadow-overlay`  | `var(--shadow-3)`                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                             |
+| `--ui-space-1`         | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                         |
+| `--ui-space-3`         | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                         |
+| `--ui-space-4`         | `calc(var(--size-4) * var(--ui-space-scale))`     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                         |
+| `--ui-surface-default` | `light-dark(var(--ui-gray-1), var(--ui-gray-13))` | Page and card background.                                                                                                                                                                               |
+| `--ui-text-primary`    | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                  |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
@@ -313,27 +313,27 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
 
-| Property               | Kind   | Description                                                                                       |
-| ---------------------- | ------ | ------------------------------------------------------------------------------------------------- |
-| `--_backdrop-bg-color` | Input  | The backdrop color. Defaults to `--backdrop-color`, `.ui-backdrop-transparent` clears it.         |
-| `--_backdrop-blur`     | Input  | The backdrop filter. Defaults to a `--backdrop-blur` blur, `.ui-backdrop-transparent` removes it. |
-| `--_bg-color`          | Input  | The background. Defaults to `--surface-default`.                                                  |
-| `--_block-size`        | Input  | Height of `.ui-block-start` and `.ui-block-end` drawers.                                          |
-| `--_border-color`      | Input  | Color of the inner edge border and the `.ui-header` and `.ui-footer` dividers.                    |
-| `--_border-width`      | Input  | Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.                    |
-| `--_content-padding`   | Input  | Padding of `.ui-content`.                                                                         |
-| `--_dir`               | Output | Direction of the inline slide, `-1` in right-to-left.                                             |
-| `--_duration`          | Output | Duration of the transitions, `--duration` times `--_motion`.                                      |
-| `--_ease`              | Input  | Easing of the slide and backdrop fade. Defaults to `--ease-enter`.                                |
-| `--_footer-gap`        | Input  | Gap between items in `.ui-footer`.                                                                |
-| `--_footer-padding`    | Input  | Padding of `.ui-footer`.                                                                          |
-| `--_header-font-size`  | Input  | Font size of headings in `.ui-header`.                                                            |
-| `--_header-padding`    | Input  | Padding of `.ui-header`.                                                                          |
-| `--_inline-size`       | Input  | Width of `.ui-inline-start` and `.ui-inline-end` drawers.                                         |
-| `--_motion`            | Input  | Motion multiplier for the transitions. `0` turns them off.                                        |
-| `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--shadow-4`.                   |
-| `--_shadow`            | Input  | The shadow. Defaults to `--shadow-overlay`.                                                       |
-| `--_text-color`        | Input  | The text color. Defaults to `--text-primary`.                                                     |
+| Property               | Kind   | Description                                                                                          |
+| ---------------------- | ------ | ---------------------------------------------------------------------------------------------------- |
+| `--_backdrop-bg-color` | Input  | The backdrop color. Defaults to `--ui-backdrop-color`, `.ui-backdrop-transparent` clears it.         |
+| `--_backdrop-blur`     | Input  | The backdrop filter. Defaults to a `--ui-backdrop-blur` blur, `.ui-backdrop-transparent` removes it. |
+| `--_bg-color`          | Input  | The background. Defaults to `--ui-surface-default`.                                                  |
+| `--_block-size`        | Input  | Height of `.ui-block-start` and `.ui-block-end` drawers.                                             |
+| `--_border-color`      | Input  | Color of the inner edge border and the `.ui-header` and `.ui-footer` dividers.                       |
+| `--_border-width`      | Input  | Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.                       |
+| `--_content-padding`   | Input  | Padding of `.ui-content`.                                                                            |
+| `--_dir`               | Output | Direction of the inline slide, `-1` in right-to-left.                                                |
+| `--_duration`          | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                      |
+| `--_ease`              | Input  | Easing of the slide and backdrop fade. Defaults to `--ui-ease-enter`.                                |
+| `--_footer-gap`        | Input  | Gap between items in `.ui-footer`.                                                                   |
+| `--_footer-padding`    | Input  | Padding of `.ui-footer`.                                                                             |
+| `--_header-font-size`  | Input  | Font size of headings in `.ui-header`.                                                               |
+| `--_header-padding`    | Input  | Padding of `.ui-header`.                                                                             |
+| `--_inline-size`       | Input  | Width of `.ui-inline-start` and `.ui-inline-end` drawers.                                            |
+| `--_motion`            | Input  | Motion multiplier for the transitions. `0` turns them off.                                           |
+| `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--shadow-4`.                      |
+| `--_shadow`            | Input  | The shadow. Defaults to `--ui-shadow-overlay`.                                                       |
+| `--_text-color`        | Input  | The text color. Defaults to `--ui-text-primary`.                                                     |
 
 ## Under the hood
 
@@ -399,10 +399,10 @@ Step 1 of 5: Modal
 
 ```css
 .drawer {
-  background-color: var(--surface-default);
+  background-color: var(--ui-surface-default);
   border: none;
   box-shadow: var(--shadow-2);
-  color: var(--text-primary);
+  color: var(--ui-text-primary);
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -433,7 +433,7 @@ Step 2 of 5: Edge
 
 .drawer.inline-start {
   block-size: 100dvb;
-  border-inline-end: 1px solid var(--border-color);
+  border-inline-end: 1px solid var(--ui-border-color);
   inline-size: min(375px, 100vi);
   inset-block: 0;
   inset-inline: 0 auto;
@@ -442,7 +442,7 @@ Step 2 of 5: Edge
 
 .drawer.block-end {
   block-size: min(80vb, 650px);
-  border-block-start: 1px solid var(--border-color);
+  border-block-start: 1px solid var(--ui-border-color);
   inline-size: 100dvi;
   inset-block: auto 0;
   inset-inline: 0;
@@ -548,8 +548,8 @@ Step 5 of 5: Backdrop
 
 ```css
 .drawer::backdrop {
-  backdrop-filter: blur(var(--backdrop-blur));
-  background-color: var(--backdrop-color);
+  backdrop-filter: blur(var(--ui-backdrop-blur));
+  background-color: var(--ui-backdrop-color);
   opacity: 0;
   transition:
     display 0.2s allow-discrete,
@@ -591,6 +591,6 @@ Import the components from `opui-css/vue`:
 - Breaking: [`DrawerTitle` and `DrawerContent`](#basics) replace the `heading` prop and the slots. `DrawerTitle` names the drawer; without it, pass `aria-label`. The `DrawerHeader` close button uses `command="close"`.
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Basics](#basics)).
 - Named by [`DrawerTitle`](#accessibility) through `aria-labelledby`.
-- The [backdrop](#basics) dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`.
+- The [backdrop](#basics) dims and blurs like `Dialog`, through `--ui-backdrop-color` and `--ui-backdrop-blur`.
 - Breaking: `--_color` is `--_text-color`, and `--_transition-duration` and `--_transition-timing` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
-- The drawer shadow is [`--shadow-overlay`](#api), shared with menus, select pickers and toasts. Padding reads the `--space-*` scale.
+- The drawer shadow is [`--ui-shadow-overlay`](#api), shared with menus, select pickers and toasts. Padding reads the `--space-*` scale.

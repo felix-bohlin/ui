@@ -14,7 +14,7 @@
       inline-size: max-content;
       position: absolute;
       position-anchor: --anchor;
-      position-area: var(--anchor-position-area, start end);
+      position-area: var(--ui-anchor-position-area, start end);
       translate: var(--_anchor-tx) var(--_anchor-ty);
     }
 
@@ -28,7 +28,7 @@
       overflow: visible;
       padding: 0;
       position: fixed;
-      position-area: var(--anchor-position-area, start end);
+      position-area: var(--ui-anchor-position-area, start end);
       position-try-fallbacks:
         flip-block,
         flip-inline,

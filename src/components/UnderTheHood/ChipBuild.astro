@@ -5,13 +5,13 @@ const steps = [
   {
     css: `
 .chip {
-  --bg: var(--surface-tonal);
+  --bg: var(--ui-surface-tonal);
   align-items: center;
   background-color: var(--bg);
-  block-size: var(--chip-size);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  color: var(--text-primary);
+  block-size: var(--ui-chip-size);
+  border: 1px solid var(--ui-border-color);
+  border-radius: var(--ui-border-radius);
+  color: var(--ui-text-primary);
   display: inline-flex;
   font-size: var(--font-size-0);
   gap: var(--size-1);
@@ -26,7 +26,7 @@ const steps = [
 <button class="chip" type="button">…</button>`,
     notes: [
       "One class for a <code>&lt;div&gt;</code>, <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>: the element decides what it does",
-      "Fixed <code>block-size</code> from <code>--chip-size</code>, width from the content",
+      "Fixed <code>block-size</code> from <code>--ui-chip-size</code>, width from the content",
     ],
     title: "Base",
   },
@@ -42,7 +42,7 @@ const steps = [
 
 .chip svg {
   flex-shrink: 0;
-  inline-size: var(--icon-size-small);
+  inline-size: var(--ui-icon-size-small);
 }`,
     features: ["has"],
     notes: [
@@ -76,8 +76,8 @@ const steps = [
     css: `
 .chip:where(button, a):hover {
   --bg: light-dark(
-    oklch(from var(--surface-tonal) calc(l * 0.98) c h),
-    oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+    oklch(from var(--ui-surface-tonal) calc(l * 0.98) c h),
+    oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
   );
 }`,
     features: ["light-dark", "relative-color"],

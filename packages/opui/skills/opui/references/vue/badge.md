@@ -297,19 +297,19 @@ import { Badge } from "opui-css/vue"
 
 #### CSS variables
 
-| Variable               | Default                                                                               | Description                                                                                                                                                                                                  |
-| ---------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--critical`           | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                                                                                                           |
-| `--duration`           | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                                                                                                       |
-| `--ease-enter`         | `var(--ease-out-3)`                                                                   | Easing for elements entering the screen.                                                                                                                                                                     |
-| `--font-weight-medium` | `var(--font-weight-5)`                                                                | Font weight for badges, overlines and group labels.                                                                                                                                                          |
-| `--info`               | `var(--blue)`                                                                         | Severity color for informational messages.                                                                                                                                                                   |
-| `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).      |
-| `--neutral`            | `var(--gray-9)`                                                                       | Severity color for neutral messages.                                                                                                                                                                         |
-| `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                                                                                                                 |
-| `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text. |
-| `--success`            | `var(--green)`                                                                        | Severity color for success messages.                                                                                                                                                                         |
-| `--warning`            | `var(--orange)`                                                                       | Severity color for warnings.                                                                                                                                                                                 |
+| Variable                  | Default                                                                                  | Description                                                                                                                                                                                                        |
+| ------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--ui-critical`           | `var(--ui-red)`                                                                          | Severity color for errors and destructive actions.                                                                                                                                                                 |
+| `--ui-duration`           | `0.2s`                                                                                   | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                          |
+| `--ui-ease-enter`         | `var(--ease-out-3)`                                                                      | Easing for elements entering the screen.                                                                                                                                                                           |
+| `--ui-font-weight-medium` | `var(--font-weight-5)`                                                                   | Font weight for badges, overlines and group labels.                                                                                                                                                                |
+| `--ui-info`               | `var(--ui-blue)`                                                                         | Severity color for informational messages.                                                                                                                                                                         |
+| `--ui-motion`             | `1`                                                                                      | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).            |
+| `--ui-neutral`            | `var(--ui-gray-9)`                                                                       | Severity color for neutral messages.                                                                                                                                                                               |
+| `--ui-primary`            | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                       |
+| `--ui-primary-contrast`   | `oklch( from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--ui-primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--ui-primary` gets readable text. |
+| `--ui-success`            | `var(--ui-green)`                                                                        | Severity color for success messages.                                                                                                                                                                               |
+| `--ui-warning`            | `var(--ui-orange)`                                                                       | Severity color for warnings.                                                                                                                                                                                       |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
@@ -322,13 +322,13 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_accent`       | Input  | The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info` and `.ui-success`.                  |
 | `--_anchor-tx`    | Output | Horizontal shift of the indicator, from `--_sign-x`. `.ui-dot` and round avatars change it.                               |
 | `--_anchor-ty`    | Output | Vertical shift of the indicator, from `--_sign-y`. `.ui-dot` and round avatars change it.                                 |
-| `--_bg-color`     | Input  | Background of the indicator. Defaults to `--primary`, set by the color classes.                                           |
+| `--_bg-color`     | Input  | Background of the indicator. Defaults to `--ui-primary`, set by the color classes.                                        |
 | `--_border-color` | Input  | Border color of the indicator. Set by the color classes.                                                                  |
 | `--_border-width` | Input  | Border width of the indicator.                                                                                            |
 | `--_dir`          | Output | Direction flag that flips `--_anchor-tx`. `1`, or `-1` in right-to-left.                                                  |
 | `--_dot-size`     | Input  | Width and height of the indicator in `.ui-dot`.                                                                           |
-| `--_duration`     | Output | Duration of the indicator fade, `--duration` times `--_motion`.                                                           |
-| `--_ease`         | Input  | Easing of the indicator fade. Defaults to `--ease-enter`.                                                                 |
+| `--_duration`     | Output | Duration of the indicator fade, `--ui-duration` times `--_motion`.                                                        |
+| `--_ease`         | Input  | Easing of the indicator fade. Defaults to `--ui-ease-enter`.                                                              |
 | `--_inset`        | Input  | Distance of the indicator from the opposite edges. `100%` places it on the corner, round avatars move it onto the circle. |
 | `--_inset-block`  | Output | Block inset of the indicator, from `--_inset` and the alignment classes.                                                  |
 | `--_inset-inline` | Output | Inline inset of the indicator, from `--_inset` and the alignment classes.                                                 |
@@ -336,7 +336,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_sign-x`       | Output | Horizontal side of the indicator, `-1` or `1`. Set by the alignment classes.                                              |
 | `--_sign-y`       | Output | Vertical side of the indicator, `1` or `-1`. Set by the alignment classes.                                                |
 | `--_size`         | Input  | Height and minimum width of the indicator.                                                                                |
-| `--_text-color`   | Input  | Text color of the indicator. Defaults to `--primary-contrast`, set by the color classes.                                  |
+| `--_text-color`   | Input  | Text color of the indicator. Defaults to `--ui-primary-contrast`, set by the color classes.                               |
 
 ## Under the hood
 
@@ -377,13 +377,13 @@ Step 1 of 4: Indicator
 
 ```css
 .indicator {
-  background-color: var(--primary);
+  background-color: var(--ui-primary);
   block-size: var(--size);
   border-radius: var(--radius-round);
-  color: var(--primary-contrast);
+  color: var(--ui-primary-contrast);
   display: grid;
   font-size: var(--font-size-0);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--ui-font-weight-medium);
   inline-size: max-content;
   min-inline-size: var(--size);
   padding-inline: 0.25rem;

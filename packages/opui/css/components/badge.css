@@ -1,22 +1,22 @@
 @layer components.extended {
   :where(.ui-badge) {
-    --_motion: var(--motion);
+    --_motion: var(--ui-motion);
     --_anchor-tx: calc(50% * var(--_sign-x));
     --_anchor-ty: calc(50% * var(--_sign-y));
-    --_bg-color: var(--primary);
-    --_border-color: var(--primary);
+    --_bg-color: var(--ui-primary);
+    --_border-color: var(--ui-primary);
     --_border-width: 2px;
     --_dir: 1;
     --_dot-size: var(--size-2);
-    --_duration: calc(var(--duration) * var(--_motion));
-    --_ease: var(--ease-enter);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease-enter);
     --_inset: 100%;
     --_inset-block: auto var(--_inset);
     --_inset-inline: var(--_inset) auto;
     --_sign-x: -1;
     --_sign-y: 1;
     --_size: var(--size-4);
-    --_text-color: var(--primary-contrast);
+    --_text-color: var(--ui-primary-contrast);
 
     display: inline-flex;
     flex-shrink: 0;
@@ -46,7 +46,7 @@
       color: var(--_text-color);
       display: grid;
       font-size: var(--font-size-0);
-      font-weight: var(--font-weight-medium);
+      font-weight: var(--ui-font-weight-medium);
       inline-size: max-content;
       line-height: normal;
       min-inline-size: var(--_size);
@@ -62,9 +62,9 @@
     &:is(.ui-critical, .ui-info, .ui-success) {
       --_bg-color: oklch(from var(--_accent) min(l, 0.48) c h);
       --_border-color: var(--_bg-color);
-      --_text-color: var(--gray-1);
+      --_text-color: var(--ui-gray-1);
 
-      @container style(--contrast: more) {
+      @container style(--ui-contrast: more) {
         --_bg-color: light-dark(
           oklch(from var(--_accent) min(l, 0.48) c h),
           oklch(from var(--_accent) min(l, 0.45) c h)
@@ -73,27 +73,27 @@
     }
 
     &.ui-critical {
-      --_accent: var(--critical);
+      --_accent: var(--ui-critical);
     }
 
     &.ui-info {
-      --_accent: var(--info);
+      --_accent: var(--ui-info);
     }
 
     &.ui-success {
-      --_accent: var(--success);
+      --_accent: var(--ui-success);
     }
 
     &.ui-warning {
-      --_bg-color: var(--warning);
-      --_border-color: var(--warning);
-      --_text-color: var(--gray-15);
+      --_bg-color: var(--ui-warning);
+      --_border-color: var(--ui-warning);
+      --_text-color: var(--ui-gray-15);
     }
 
     &.ui-neutral {
-      --_bg-color: var(--neutral);
-      --_border-color: var(--neutral);
-      --_text-color: var(--gray-1);
+      --_bg-color: var(--ui-neutral);
+      --_border-color: var(--ui-neutral);
+      --_text-color: var(--ui-gray-1);
     }
 
     /* Alignment */

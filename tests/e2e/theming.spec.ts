@@ -16,10 +16,10 @@ test("a .ui-dark subtree renders dark", async ({ page }) => {
 
   expect(await computed(scope, "color-scheme")).toBe("dark")
   expect(await computed(scope, "background-color")).toBe(
-    await resolveColor(scope, "var(--surface-default)", "dark"),
+    await resolveColor(scope, "var(--ui-surface-default)", "dark"),
   )
   expect(await computed(scope, "background-color")).not.toBe(
-    await resolveColor(scope, "var(--surface-default)", "light"),
+    await resolveColor(scope, "var(--ui-surface-default)", "light"),
   )
   expect(await computed(card, "background-color")).not.toBe(
     await computed(reference, "background-color"),
@@ -31,10 +31,10 @@ test("a .ui-light subtree renders light", async ({ page }) => {
 
   expect(await computed(scope, "color-scheme")).toBe("light")
   expect(await computed(scope, "background-color")).toBe(
-    await resolveColor(scope, "var(--surface-default)", "light"),
+    await resolveColor(scope, "var(--ui-surface-default)", "light"),
   )
   expect(await computed(scope, "background-color")).not.toBe(
-    await resolveColor(scope, "var(--surface-default)", "dark"),
+    await resolveColor(scope, "var(--ui-surface-default)", "dark"),
   )
 })
 
@@ -47,7 +47,7 @@ test("a .ui-palette subtree re-derives its colors", async ({ page }) => {
   expect(await computed(button, "background-color")).not.toBe(
     await computed(reference, "background-color"),
   )
-  expect(await resolveColor(scope, "var(--primary)")).toMatch(/ 120\)$/)
+  expect(await resolveColor(scope, "var(--ui-primary)")).toMatch(/ 120\)$/)
 })
 
 test(".ui-motion-off removes transitions", async ({ page }) => {
@@ -62,9 +62,9 @@ test(".ui-motion-off removes transitions", async ({ page }) => {
   }
 })
 
-test("prefers-reduced-motion sets --motion to 0", async ({ page }) => {
+test("prefers-reduced-motion sets --ui-motion to 0", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" })
-  expect(await computed(page.locator("html"), "--motion")).toBe("0")
+  expect(await computed(page.locator("html"), "--ui-motion")).toBe("0")
   await page.emulateMedia({ reducedMotion: "no-preference" })
-  expect(await computed(page.locator("html"), "--motion")).toBe("1")
+  expect(await computed(page.locator("html"), "--ui-motion")).toBe("1")
 })

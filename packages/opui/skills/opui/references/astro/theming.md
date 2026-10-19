@@ -4,31 +4,31 @@ Colors, density, spacing, corners, fonts, elevation, motion and contrast. Each i
 
 ## Palette
 
-The basic idea is to pick one hue and chroma, and derive a 16-step palette from them. `theme.css` sets `--palette-hue` and `--palette-chroma`, and `core/palette.css` turns them into a source color, `--palette-source`, and the `--color-1` to `--color-16` steps.
+The basic idea is to pick one hue and chroma, and derive a 16-step palette from them. `theme.css` sets `--ui-palette-hue` and `--ui-palette-chroma`, and `core/palette.css` turns them into a source color, `--ui-palette-source`, and the `--ui-color-1` to `--ui-color-16` steps.
 
 ```css
 :where(html) {
-  --palette-chroma: 0.5;
-  --palette-hue: var(--hue-green);
-  --palette-hue-rotate-by: 0;
+  --ui-palette-chroma: 0.5;
+  --ui-palette-hue: var(--hue-green);
+  --ui-palette-hue-rotate-by: 0;
 }
 
 :where(html.ui-dark) {
-  --palette-hue: var(--hue-blue);
+  --ui-palette-hue: var(--hue-blue);
 }
 ```
 
-- **`--palette-hue`** is a hue angle in degrees. Open Props' `--hue-*` tokens work here. The default is green in light mode and blue in dark mode.
-- **`--palette-chroma`** scales the saturation, from `0` (gray) to `1`.
-- **`--palette-hue-rotate-by`** shifts the hue a little more on each step, in degrees. Step 2 turns by the value once, step 3 twice, and so on, so `1` spreads 15° from `--color-1` to `--color-16`. The severity scopes use `1` for livelier tints, the brand palette `0`.
+- **`--ui-palette-hue`** is a hue angle in degrees. Open Props' `--hue-*` tokens work here. The default is green in light mode and blue in dark mode.
+- **`--ui-palette-chroma`** scales the saturation, from `0` (gray) to `1`.
+- **`--ui-palette-hue-rotate-by`** shifts the hue a little more on each step, in degrees. Step 2 turns by the value once, step 3 twice, and so on, so `1` spreads 15° from `--ui-color-1` to `--ui-color-16`. The severity scopes use `1` for livelier tints, the brand palette `0`.
 
-You can also set `--palette-source` directly. Any color works: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. Set it on `:root`, or on an element with `.ui-palette` to re-theme that part of the page. Anywhere else it has no effect: the palette is computed where `core/palette.css` declares it and only inherited from there. The same goes for `--palette-hue`, `--palette-chroma` and `--palette-hue-rotate-by`.
+You can also set `--ui-palette-source` directly. Any color works: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. Set it on `:root`, or on an element with `.ui-palette` to re-theme that part of the page. Anywhere else it has no effect: the palette is computed where `core/palette.css` declares it and only inherited from there. The same goes for `--ui-palette-hue`, `--ui-palette-chroma` and `--ui-palette-hue-rotate-by`.
 
 This is how the severity classes get their colors:
 
 ```css
 :where(.ui-warning) {
-  --palette-source: oklch(0.58 0.21 var(--hue-orange));
+  --ui-palette-source: oklch(0.58 0.21 var(--hue-orange));
 }
 ```
 
@@ -39,17 +39,17 @@ Every token with its default is listed on the [Theme tokens](https://open-props-
 A scope is a class that changes the theme for one element and everything inside it.
 
 - `.ui-light` and `.ui-dark` force a color scheme. Put them on `html` for the whole page, or on any element for just that part.
-- `.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning` and `.ui-neutral` swap the palette to red, blue, green, orange or gray. The `--color-1` to `--color-16` steps inside follow, while `--primary` and the text colors keep the page values.
+- `.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning` and `.ui-neutral` swap the palette to red, blue, green, orange or gray. The `--ui-color-1` to `--ui-color-16` steps inside follow, while `--ui-primary` and the text colors keep the page values.
 - `.ui-palette` re-derives the palette and every color token from the knobs set on that element, so one page can carry several brands.
 
 On an element, `.ui-dark` and `.ui-light` only switch between light and dark colors. The palette hue and the shadows still come from the page. So on a light page, a `.ui-dark` box stays green and keeps the light shadows, while a dark page is blue. Add `.ui-palette` with the dark hue to make the box match dark mode:
 
 ```html
-<aside class="ui-dark ui-palette" style="--palette-hue: var(--hue-blue)">
+<aside class="ui-dark ui-palette" style="--ui-palette-hue: var(--hue-blue)">
   Always dark
 </aside>
 
-<section class="ui-palette" style="--palette-hue: 30">
+<section class="ui-palette" style="--ui-palette-hue: 30">
   <button class="ui-button ui-primary ui-filled" type="button">
     Orange brand
   </button>
@@ -58,77 +58,77 @@ On an element, `.ui-dark` and `.ui-light` only switch between light and dark col
 
 ## Density
 
-`--density` scales the `--control-size*` tokens, so fields, buttons and list items grow or shrink together. Field and button padding shrinks to fit, down to the height of the text. The sizes resolve on `html`, so set `--density` there.
+`--ui-density` scales the `--ui-control-size*` tokens, so fields, buttons and list items grow or shrink together. Field and button padding shrinks to fit, down to the height of the text. The sizes resolve on `html`, so set `--ui-density` there.
 
 ```css
 :where(html) {
-  --density: 0.875;
+  --ui-density: 0.875;
 }
 ```
 
 ## Spacing
 
-Containers space their content with the `--space-1` to `--space-8` steps: the padding of cards, callouts, dialogs, drawers, toasts and table cells, the gaps in forms, and the margins in rich text. Each step is the Open Props size of the same number times `--space-scale`, so one value makes the whole page roomier or tighter. Controls keep following `--density`, so a form can be spacious while its fields stay compact.
+Containers space their content with the `--ui-space-1` to `--ui-space-8` steps: the padding of cards, callouts, dialogs, drawers, toasts and table cells, the gaps in forms, and the margins in rich text. Each step is the Open Props size of the same number times `--ui-space-scale`, so one value makes the whole page roomier or tighter. Controls keep following `--ui-density`, so a form can be spacious while its fields stay compact.
 
 ```css
 :where(html) {
-  --space-scale: 1.25;
+  --ui-space-scale: 1.25;
 }
 
 /* Or tie spacing to density */
 :where(html) {
-  --density: 0.875;
-  --space-scale: var(--density);
+  --ui-density: 0.875;
+  --ui-space-scale: var(--ui-density);
 }
 ```
 
-Like the control sizes, the steps resolve on `html`, so set `--space-scale` there.
+Like the control sizes, the steps resolve on `html`, so set `--ui-space-scale` there.
 
 ## Corners
 
-`--border-radius` rounds every component. Cards, callouts, menus and dialogs read it directly, and buttons and fields follow it until you set `--button-border-radius` or `--field-border-radius`. Small parts, such as `kbd`, tooltips and checkboxes, keep their smaller radius but never get rounder than `--border-radius`, so `0` squares everything. It works on a part of the page too.
+`--ui-border-radius` rounds every component. Cards, callouts, menus and dialogs read it directly, and buttons and fields follow it until you set `--ui-button-border-radius` or `--ui-field-border-radius`. Small parts, such as `kbd`, tooltips and checkboxes, keep their smaller radius but never get rounder than `--ui-border-radius`, so `0` squares everything. It works on a part of the page too.
 
 ```css
 :where(html) {
-  --border-radius: 0;
+  --ui-border-radius: 0;
 }
 ```
 
 ## Fonts
 
-`--font-body` sets the text, fields and buttons, `--font-heading` the headings and the `.ui-h1` to `.ui-h6` classes, and `--font-code` code, `kbd` and `samp`. Headings follow the body font until you set their own, also where you set `--font-body` on a part of the page.
+`--ui-font-body` sets the text, fields and buttons, `--ui-font-heading` the headings and the `.ui-h1` to `.ui-h6` classes, and `--ui-font-code` code, `kbd` and `samp`. Headings follow the body font until you set their own, also where you set `--ui-font-body` on a part of the page.
 
 ```css
 :where(html) {
-  --font-body: "Inter", var(--font-sans);
-  --font-code: "JetBrains Mono", var(--font-mono);
-  --font-heading: "Fraunces", var(--font-serif);
+  --ui-font-body: "Inter", var(--font-sans);
+  --ui-font-code: "JetBrains Mono", var(--font-mono);
+  --ui-font-heading: "Fraunces", var(--font-serif);
 }
 ```
 
 ## Elevation
 
-Two shadows lift things off the page. `--shadow-raised` is for surfaces in the page, like elevated cards and accordions. It switches between `--shadow-raised-light` and `--shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page, so set those two. `--shadow-overlay` is for layers above the page: menus, `select` pickers, drawers and toasts.
+Two shadows lift things off the page. `--ui-shadow-raised` is for surfaces in the page, like elevated cards and accordions. It switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page, so set those two. `--ui-shadow-overlay` is for layers above the page: menus, `select` pickers, drawers and toasts.
 
 ```css
 :where(html) {
-  --shadow-overlay: var(--shadow-4);
-  --shadow-raised-dark: none;
-  --shadow-raised-light: none;
+  --ui-shadow-overlay: var(--shadow-4);
+  --ui-shadow-raised-dark: none;
+  --ui-shadow-raised-light: none;
 }
 ```
 
 ## Motion
 
-Use the `--motion` variable to turn motion on or off. The default value is `1`. If a user has `prefers-reduced-motion: reduce` enabled, `--motion` will be set to `0` by default.
+Use the `--ui-motion` variable to turn motion on or off. The default value is `1`. If a user has `prefers-reduced-motion: reduce` enabled, `--ui-motion` will be set to `0` by default.
 
 ### Global classes
 
 Adding these utility classes to the `html` element will override the OS preference.
 
-- `.ui-motion-off`: sets `--motion: 0`.
-- `.ui-motion-on`: sets `--motion: 1`.
-- `.ui-motion-debug`: sets `--motion: 10` (slows down transitions 10x).
+- `.ui-motion-off`: sets `--ui-motion: 0`.
+- `.ui-motion-on`: sets `--ui-motion: 1`.
+- `.ui-motion-debug`: sets `--ui-motion: 10` (slows down transitions 10x).
 
 ```html
 <html lang="en" class="ui-motion-debug">
@@ -144,22 +144,22 @@ Components use a local `--_motion` variable that allows you to disable motion fo
 </button>
 ```
 
-Additionally, this is how you could include `--motion` in your CSS:
+Additionally, this is how you could include `--ui-motion` in your CSS:
 
 ```css
-transition: transform calc(var(--duration) * var(--motion)) var(--ease);
+transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease);
 ```
 
 ## Contrast
 
-The `--contrast` variable is `normal` by default. If a user has `prefers-contrast: more` enabled, it is set to `more`, and a style query raises the contrast of muted text, borders, field borders, the primary color, intent colors and the focus ring. Components with translucent text, such as Tabs, keyboard hints and inline code, follow along.
+The `--ui-contrast` variable is `normal` by default. If a user has `prefers-contrast: more` enabled, it is set to `more`, and a style query raises the contrast of muted text, borders, field borders, the primary color, intent colors and the focus ring. Components with translucent text, such as Tabs, keyboard hints and inline code, follow along.
 
 Try it with the **High contrast** switch in the theme config drawer.
 
 ### Classes
 
-- `.ui-contrast-more`: sets `--contrast: more`. Put it on `html` for the whole page, or on any element to raise the contrast of its children.
-- `.ui-contrast-normal`: sets `--contrast: normal`. Put it on `html` to ignore the OS preference. It doesn't lower the contrast inside a `.ui-contrast-more` ancestor, since the tokens are already resolved on the parent.
+- `.ui-contrast-more`: sets `--ui-contrast: more`. Put it on `html` for the whole page, or on any element to raise the contrast of its children.
+- `.ui-contrast-normal`: sets `--ui-contrast: normal`. Put it on `html` to ignore the OS preference. It doesn't lower the contrast inside a `.ui-contrast-more` ancestor, since the tokens are already resolved on the parent.
 
 ```html
 <html lang="en" class="ui-contrast-more">
@@ -170,7 +170,7 @@ Try it with the **High contrast** switch in the theme config drawer.
 Style queries match against the parent element, so the high-contrast values are set on `body` instead of `html`. They are set again on the children of `.ui-contrast-more` and on the surfaces that have their own border colors: `.ui-palette`, elevated and tonal accordions and cards, default callouts, filled lists and table headers. They replace any value you set on `html` for the same tokens. To tune them, write your own style query with the same selectors:
 
 ```css
-@container style(--contrast: more) {
+@container style(--ui-contrast: more) {
   :where(
     body,
     .ui-contrast-more > *,
@@ -188,13 +188,13 @@ Style queries match against the parent element, so the high-contrast values are 
     .ui-list:not(.ui-tonal, .ui-transparent),
     .ui-table th
   ) {
-    --border-color: var(--text-muted);
-    --field-border-color: var(--border-color);
+    --ui-border-color: var(--ui-text-muted);
+    --ui-field-border-color: var(--ui-border-color);
   }
 }
 ```
 
-Tokens that reference an overridden token, like `--field-border-color` above, have to be set again in the same rule.
+Tokens that reference an overridden token, like `--ui-field-border-color` above, have to be set again in the same rule.
 
 ### Forced colors
 

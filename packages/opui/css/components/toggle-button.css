@@ -1,18 +1,18 @@
 @layer components.root {
   :where(.ui-toggle-button) {
-    --_motion: var(--motion);
+    --_motion: var(--ui-motion);
     --_bg-color: transparent;
-    --_duration: calc(var(--duration) * var(--_motion));
-    --_ease: var(--ease);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
     --_font-size: var(--font-size-1);
-    --_icon-size: var(--icon-size);
-    --_min-height: var(--button-size);
+    --_icon-size: var(--ui-icon-size);
+    --_min-height: var(--ui-button-size);
 
     align-items: center;
     background-color: var(--_bg-color);
-    border: var(--border-width) solid var(--border-color);
-    border-radius: var(--button-border-radius, var(--border-radius));
-    color: var(--text-primary);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
+    color: var(--ui-text-primary);
     cursor: pointer;
     display: inline-flex;
     font-size: var(--_font-size);
@@ -42,25 +42,25 @@
     @media (hover: hover) {
       &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
         --_bg-color: light-dark(
-          oklch(0% 0 0 / var(--state-hover-alpha)),
-          oklch(100% 0 0 / var(--state-hover-alpha-dark))
+          oklch(0% 0 0 / var(--ui-state-hover-alpha)),
+          oklch(100% 0 0 / var(--ui-state-hover-alpha-dark))
         );
       }
     }
 
     &:has(input:focus-visible) {
-      --focus-ring-offset: -6px;
+      --ui-focus-ring-offset: -6px;
       animation: ui-focus-ring var(--_duration) var(--_ease);
-      outline: var(--focus-ring-width) var(--focus-ring-style)
-        var(--focus-ring-color);
-      outline-offset: var(--focus-ring-offset);
+      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+        var(--ui-focus-ring-color);
+      outline-offset: var(--ui-focus-ring-offset);
     }
 
     /* Disabled */
     &:has(input:is(:disabled, [aria-disabled="true"])) {
-      color: var(--text-disabled);
+      color: var(--ui-text-disabled);
       cursor: not-allowed;
-      opacity: var(--disabled-opacity);
+      opacity: var(--ui-disabled-opacity);
     }
 
     /* svgs */
@@ -73,25 +73,28 @@
     /* Selected */
     &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
       --_bg-color: oklch(
-        from var(--primary) l c h / var(--state-active-alpha-accent)
+        from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
       );
 
       @media (hover: hover) {
         &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
           --_bg-color: oklch(
-            from var(--primary) l c h /
-              calc(var(--state-active-alpha-accent) + var(--state-hover-alpha))
+            from var(--ui-primary) l c h /
+              calc(
+                var(--ui-state-active-alpha-accent) +
+                  var(--ui-state-hover-alpha)
+              )
           );
         }
       }
 
-      @container style(--contrast: more) {
-        --_bg-color: var(--primary);
-        color: var(--primary-contrast);
+      @container style(--ui-contrast: more) {
+        --_bg-color: var(--ui-primary);
+        color: var(--ui-primary-contrast);
 
         @media (hover: hover) {
           &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
-            --_bg-color: oklch(from var(--primary) calc(l * 0.9) c h);
+            --_bg-color: oklch(from var(--ui-primary) calc(l * 0.9) c h);
           }
         }
       }
@@ -101,24 +104,24 @@
     &.ui-x-small,
     :where(.ui-toggle-group.ui-x-small) > & {
       --_font-size: var(--font-size-0);
-      --_min-height: var(--button-size-x-small);
+      --_min-height: var(--ui-button-size-x-small);
     }
 
     &.ui-small,
     :where(.ui-toggle-group.ui-small) > & {
-      --_font-size: var(--font-size-05);
-      --_min-height: var(--button-size-small);
+      --_font-size: var(--ui-font-size-05);
+      --_min-height: var(--ui-button-size-small);
     }
 
     &.ui-large,
     :where(.ui-toggle-group.ui-large) > & {
-      --_min-height: var(--button-size-large);
+      --_min-height: var(--ui-button-size-large);
       padding-inline: var(--size-3);
     }
 
     @media (forced-colors: active) {
       &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
-        --focus-ring-color: SelectedItemText;
+        --ui-focus-ring-color: SelectedItemText;
 
         background-color: SelectedItem;
         border-color: SelectedItem;

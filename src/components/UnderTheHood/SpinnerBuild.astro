@@ -65,21 +65,21 @@ const steps = [
   {
     css: `
 .demo {
-  --motion: 0;
+  --ui-motion: 0;
 }
 
 [aria-busy="true"]::before {
   animation-duration: max(
-    0.7s * var(--motion, 1),
-    1.5s - 0.8s * var(--motion, 1)
+    0.7s * var(--ui-motion, 1),
+    1.5s - 0.8s * var(--ui-motion, 1)
   );
 }`,
     features: ["min-max-clamp"],
     notes: [
-      "<code>--motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
+      "<code>--ui-motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
       "Slower, not stopped: a frozen spinner looks like a broken page",
       "<code>max()</code> gives <code>0.7s</code> at <code>1</code>, <code>1.5s</code> at <code>0</code>, and never <code>0s</code>",
-      "This step sets <code>--motion: 0</code> on the demo",
+      "This step sets <code>--ui-motion: 0</code> on the demo",
     ],
     title: "Reduced motion",
   },
@@ -125,10 +125,10 @@ const knobs = [
   }
 
   .button {
-    background-color: var(--surface-tonal);
-    border: var(--border-width, 1px) solid var(--border-color);
+    background-color: var(--ui-surface-tonal);
+    border: var(--ui-border-width, 1px) solid var(--ui-border-color);
     border-radius: var(--radius-2);
-    color: var(--text-primary);
+    color: var(--ui-text-primary);
     font: inherit;
     padding: 0.25em 0.75em;
   }

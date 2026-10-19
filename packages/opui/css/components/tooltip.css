@@ -1,19 +1,19 @@
 @layer components.extended {
   :where(.ui-tooltip) {
-    --_motion: var(--motion);
-    --_bg-color: var(--surface-inverse);
-    --_duration: calc(var(--duration) * var(--_motion));
-    --_ease: var(--ease-enter);
+    --_motion: var(--ui-motion);
+    --_bg-color: var(--ui-surface-inverse);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease-enter);
     --_min-inline-size: 10rem;
     --_offset: var(--size-2);
     --_shift: var(--size-4);
-    --_text-color: var(--text-inverse);
+    --_text-color: var(--ui-text-inverse);
 
     & > .ui-anchor-floating {
       background-color: var(--_bg-color);
-      border-radius: min(var(--radius-2), var(--border-radius));
+      border-radius: min(var(--radius-2), var(--ui-border-radius));
       color: var(--_text-color);
-      font-size: var(--font-size-05);
+      font-size: var(--ui-font-size-05);
       line-height: 1.3;
       margin: var(--_offset);
       max-inline-size: 240px;
@@ -23,9 +23,9 @@
       );
       /* UA sets overflow: auto on [popover], which clips the arrow. */
       overflow: visible;
-      padding-block: var(--space-1);
-      padding-inline: var(--space-2);
-      position-area: var(--anchor-position-area, block-start);
+      padding-block: var(--ui-space-1);
+      padding-inline: var(--ui-space-2);
+      position-area: var(--ui-anchor-position-area, block-start);
       position-try-fallbacks:
         flip-inline,
         flip-block,
@@ -38,11 +38,11 @@
       text-wrap: pretty;
 
       @media (forced-colors: active) {
-        border: var(--border-width) solid CanvasText;
+        border: var(--ui-border-width) solid CanvasText;
       }
     }
 
-    @container style(--anchor-position-area: inline-start) or style(--anchor-position-area: inline-end) {
+    @container style(--ui-anchor-position-area: inline-start) or style(--ui-anchor-position-area: inline-end) {
       & > .ui-anchor-floating {
         position-try-fallbacks:
           flip-inline,

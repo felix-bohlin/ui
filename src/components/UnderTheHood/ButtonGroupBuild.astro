@@ -34,8 +34,8 @@ const steps = [
     css: `
 [role="group"].group > button {
   --divider: light-dark(
-    oklch(from var(--surface-tonal) calc(l - 0.1) c h),
-    oklch(from var(--surface-tonal) calc(l + 0.1) c h)
+    oklch(from var(--ui-surface-tonal) calc(l - 0.1) c h),
+    oklch(from var(--ui-surface-tonal) calc(l + 0.1) c h)
   );
   box-shadow:
     -1px 0 0 0 var(--divider),
@@ -60,7 +60,7 @@ const steps = [
 }
 
 [role="group"].group.outlined {
-  --edge: light-dark(var(--color-16), var(--color-1));
+  --edge: light-dark(var(--ui-color-16), var(--ui-color-1));
 }
 
 [role="group"].group.outlined > button {
@@ -115,10 +115,10 @@ const knobs = [
   }
 
   .group > button {
-    background-color: var(--surface-tonal);
+    background-color: var(--ui-surface-tonal);
     border: 0;
     border-radius: var(--radius-2);
-    color: var(--text-primary);
+    color: var(--ui-text-primary);
     cursor: pointer;
     font: inherit;
     padding: var(--size-2) var(--size-3);

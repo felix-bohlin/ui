@@ -70,9 +70,9 @@ const { label, next, prev } = Astro.props
     .pagination-link {
       align-items: center;
       border: 1px solid
-        color-mix(in oklch, var(--border-color), var(--text-primary) 20%);
+        color-mix(in oklch, var(--ui-border-color), var(--ui-text-primary) 20%);
       border-radius: var(--radius-3);
-      color: var(--text-primary);
+      color: var(--ui-text-primary);
       display: flex;
       gap: var(--size-4);
       padding: var(--size-4);
@@ -85,12 +85,12 @@ const { label, next, prev } = Astro.props
         } */
 
       &:hover {
-        background-color: var(--surface-tonal);
+        background-color: var(--ui-surface-tonal);
       }
 
       svg {
         align-items: center;
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         display: inline-flex;
         flex-shrink: 0;
         font-size: var(--font-size-5);

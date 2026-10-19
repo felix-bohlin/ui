@@ -5,12 +5,12 @@
     border: none;
     display: none;
     flex-direction: column-reverse;
-    gap: var(--space-3);
+    gap: var(--ui-space-3);
     inline-size: auto;
-    inset-block: auto var(--space-4);
-    inset-inline: auto var(--space-4);
+    inset-block: auto var(--ui-space-4);
+    inset-inline: auto var(--ui-space-4);
     margin: 0;
-    max-inline-size: calc(100vi - 2 * var(--space-4));
+    max-inline-size: calc(100vi - 2 * var(--ui-space-4));
     overflow: visible;
     padding: 0;
     pointer-events: none;
@@ -26,32 +26,32 @@
   }
 
   :where(.ui-toast) {
-    --_motion: var(--motion);
+    --_motion: var(--ui-motion);
     --_dir: 1;
-    --_enter-duration: calc(var(--duration-slow) * var(--_motion));
-    --_exit-duration: calc(var(--duration-slow) * var(--_motion));
+    --_enter-duration: calc(var(--ui-duration-slow) * var(--_motion));
+    --_exit-duration: calc(var(--ui-duration-slow) * var(--_motion));
     /* Firefox and Safari fallback */
     --_hold: var(--_hold-duration);
     --_hold-duration: 5s;
-    --focus-ring-color: currentColor;
+    --ui-focus-ring-color: currentColor;
 
     align-items: center;
     animation:
-      ui-toast-enter var(--_enter-duration) var(--ease-enter) both,
+      ui-toast-enter var(--_enter-duration) var(--ui-ease-enter) both,
       ui-toast-hold var(--_hold) linear both,
-      ui-toast-exit var(--_exit-duration) var(--ease-exit) both;
+      ui-toast-exit var(--_exit-duration) var(--ui-ease-exit) both;
     animation-delay:
       0s, var(--_enter-duration), calc(var(--_enter-duration) + var(--_hold));
-    background-color: var(--surface-inverse);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-overlay);
-    color: var(--text-inverse);
+    background-color: var(--ui-surface-inverse);
+    border-radius: var(--ui-border-radius);
+    box-shadow: var(--ui-shadow-overlay);
+    color: var(--ui-text-inverse);
     display: flex;
-    gap: var(--space-3);
+    gap: var(--ui-space-3);
     justify-content: space-between;
     min-inline-size: 30ch;
-    padding-block: var(--space-3);
-    padding-inline: var(--space-4);
+    padding-block: var(--ui-space-3);
+    padding-inline: var(--ui-space-4);
     pointer-events: auto;
 
     @supports (animation-duration: attr(data-duration type(<time>), 0s)) {
@@ -73,13 +73,14 @@
     }
 
     &.ui-exiting {
-      animation: ui-toast-exit var(--_exit-duration) var(--ease-exit) forwards;
+      animation: ui-toast-exit var(--_exit-duration) var(--ui-ease-exit)
+        forwards;
     }
 
     .ui-icon {
-      block-size: var(--icon-size);
+      block-size: var(--ui-icon-size);
       flex-shrink: 0;
-      inline-size: var(--icon-size);
+      inline-size: var(--ui-icon-size);
       mask: center / contain no-repeat;
     }
 
@@ -89,12 +90,12 @@
     }
 
     .ui-content {
-      font-size: var(--font-size-05);
+      font-size: var(--ui-font-size-05);
       overflow-wrap: anywhere;
     }
 
     .ui-title {
-      font-weight: var(--font-weight-semibold);
+      font-weight: var(--ui-font-weight-semibold);
     }
 
     .ui-description {
@@ -109,9 +110,9 @@
       cursor: pointer;
       display: grid;
       opacity: 0.7;
-      padding: var(--space-1);
+      padding: var(--ui-space-1);
       place-items: center;
-      transition: opacity calc(var(--duration) * var(--_motion));
+      transition: opacity calc(var(--ui-duration) * var(--_motion));
 
       @media (hover: hover) {
         &:hover {
@@ -121,27 +122,27 @@
     }
 
     &[data-severity="success"] .ui-icon {
-      background-color: var(--success);
+      background-color: var(--ui-success);
       mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
     }
 
     &[data-severity="info"] .ui-icon {
-      background-color: var(--info);
+      background-color: var(--ui-info);
       mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M12 16v-4'/><path d='M12 8h.01'/></svg>");
     }
 
     &[data-severity="warning"] .ui-icon {
-      background-color: var(--warning);
+      background-color: var(--ui-warning);
       mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/><path d='M12 9v4'/><path d='M12 17h.01'/></svg>");
     }
 
     &[data-severity="critical"] .ui-icon {
-      background-color: var(--critical);
+      background-color: var(--ui-critical);
       mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
     }
 
     @media (forced-colors: active) {
-      border: var(--border-width) solid CanvasText;
+      border: var(--ui-border-width) solid CanvasText;
 
       &[data-severity] .ui-icon {
         background-color: CanvasText;

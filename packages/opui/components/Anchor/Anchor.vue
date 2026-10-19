@@ -10,7 +10,7 @@ const isHover = computed(() => trigger === "hover")
 const id = computed(() => (isHover.value ? idProp : undefined))
 
 const positionArea = computed(() =>
-  alignment ? { "--anchor-position-area": alignment } : undefined,
+  alignment ? { "--ui-anchor-position-area": alignment } : undefined,
 )
 
 provide(

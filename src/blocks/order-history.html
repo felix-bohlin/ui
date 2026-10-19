@@ -35,7 +35,7 @@
 
     .orders-top {
       align-items: start;
-      border-block-end: var(--border-width) solid var(--border-color);
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       display: flex;
       flex-wrap: wrap;
       gap: var(--size-3);
@@ -56,7 +56,7 @@
 
       dd {
         font-variant-numeric: tabular-nums;
-        font-weight: var(--font-weight-semibold);
+        font-weight: var(--ui-font-weight-semibold);
         margin: 0;
       }
     }
@@ -95,39 +95,39 @@
 
     .orders-thumb {
       aspect-ratio: 1;
-      border-radius: var(--border-radius);
+      border-radius: var(--ui-border-radius);
       inline-size: var(--size-8);
     }
 
     .orders-thumb-1 {
       background: linear-gradient(
         135deg,
-        var(--primary),
-        oklch(from var(--primary) l c calc(h + 60))
+        var(--ui-primary),
+        oklch(from var(--ui-primary) l c calc(h + 60))
       );
     }
 
     .orders-thumb-2 {
       background: linear-gradient(
         135deg,
-        oklch(from var(--primary) l c calc(h - 80)),
-        oklch(from var(--primary) l c calc(h - 30))
+        oklch(from var(--ui-primary) l c calc(h - 80)),
+        oklch(from var(--ui-primary) l c calc(h - 30))
       );
     }
 
     .orders-thumb-3 {
       background: linear-gradient(
         135deg,
-        oklch(from var(--primary) l c calc(h + 140)),
-        oklch(from var(--primary) l c calc(h + 190))
+        oklch(from var(--ui-primary) l c calc(h + 140)),
+        oklch(from var(--ui-primary) l c calc(h + 190))
       );
     }
 
     .orders-thumb-4 {
       background: linear-gradient(
         135deg,
-        oklch(from var(--primary) l c calc(h + 200)),
-        oklch(from var(--primary) l c calc(h + 250))
+        oklch(from var(--ui-primary) l c calc(h + 200)),
+        oklch(from var(--ui-primary) l c calc(h + 250))
       );
     }
 
@@ -151,7 +151,7 @@
       justify-content: space-between;
 
       p {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         font-size: var(--font-size-1);
         margin: 0;
       }

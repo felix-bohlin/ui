@@ -36,7 +36,7 @@ const { class: className, notes } = Astro.props
 <style>
   .todo-notes {
     display: grid;
-    font-size: var(--font-size-05);
+    font-size: var(--ui-font-size-05);
     gap: var(--size-2);
   }
 
@@ -58,8 +58,8 @@ const { class: className, notes } = Astro.props
   }
 
   .todo-note-comment {
-    border-inline-start: var(--border-size-3) solid var(--border-color);
-    color: var(--text-muted);
+    border-inline-start: var(--border-size-3) solid var(--ui-border-color);
+    color: var(--ui-text-muted);
     font-style: italic;
     padding-inline-start: var(--size-3);
   }

@@ -2,20 +2,22 @@ import type { CustomProperties } from "../types"
 
 export default {
   "--_backdrop-bg-color": {
-    description: "The backdrop color. Defaults to `--backdrop-color`.",
+    description: "The backdrop color. Defaults to `--ui-backdrop-color`.",
     kind: "input",
   },
   "--_backdrop-blur": {
-    description: "The backdrop filter. Defaults to a `--backdrop-blur` blur.",
+    description:
+      "The backdrop filter. Defaults to a `--ui-backdrop-blur` blur.",
     kind: "input",
   },
   "--_duration": {
     description:
-      "Duration of the open transition and scroll shadows, `--duration` times `--_motion`.",
+      "Duration of the open transition and scroll shadows, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the open transition. Defaults to `--ease-enter`.",
+    description:
+      "Easing of the open transition. Defaults to `--ui-ease-enter`.",
     kind: "input",
   },
   "--_max-inline-size": {

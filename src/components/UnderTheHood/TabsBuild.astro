@@ -58,7 +58,7 @@ const steps = [
 }
 
 .tab-input:focus-visible + .tab-label {
-  outline: 2px solid var(--text-muted);
+  outline: 2px solid var(--ui-text-muted);
 }`,
     features: ["clip-path", "focus-visible"],
     notes: [
@@ -70,7 +70,7 @@ const steps = [
   {
     css: `
 .tab-label {
-  background-color: var(--surface-tonal);
+  background-color: var(--ui-surface-tonal);
   isolation: isolate;
   padding: calc(0.25rem + var(--inset)) 0.75rem;
   position: relative;
@@ -106,7 +106,7 @@ const steps = [
 }
 
 .tab-input:checked + .tab-label::before {
-  background-color: var(--surface-default);
+  background-color: var(--ui-surface-default);
   box-shadow: var(--shadow-1);
 }
 
@@ -115,7 +115,7 @@ const steps = [
 }
 
 .tab-input:focus-visible + .tab-label::before {
-  outline: 2px solid var(--text-muted);
+  outline: 2px solid var(--ui-text-muted);
 }`,
     features: ["isolation", "nth-child-of"],
     notes: [

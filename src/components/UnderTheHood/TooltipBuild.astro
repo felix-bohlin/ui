@@ -6,11 +6,11 @@ const steps = [
   {
     css: `
 .tooltip {
-  background-color: var(--surface-inverse);
+  background-color: var(--ui-surface-inverse);
   border: 0;
   border-radius: var(--radius-2);
-  color: var(--text-inverse);
-  font-size: var(--font-size-05);
+  color: var(--ui-text-inverse);
+  font-size: var(--ui-font-size-05);
   inset: auto;
   line-height: 1.3;
   margin: 0.5rem;
@@ -127,9 +127,9 @@ const steps = [
 .tooltip {
   opacity: 0;
   transition:
-    display calc(0.2s * var(--motion, 1)) allow-discrete,
-    opacity calc(0.2s * var(--motion, 1)),
-    overlay calc(0.2s * var(--motion, 1)) allow-discrete;
+    display calc(0.2s * var(--ui-motion, 1)) allow-discrete,
+    opacity calc(0.2s * var(--ui-motion, 1)),
+    overlay calc(0.2s * var(--ui-motion, 1)) allow-discrete;
 }
 
 .tooltip:popover-open {
@@ -148,7 +148,7 @@ const steps = [
     notes: [
       "<code>@starting-style</code> fades it in from <code>opacity: 0</code>",
       "<code>allow-discrete</code> keeps <code>display</code> and <code>overlay</code> alive while it fades out",
-      "<code>--motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
+      "<code>--ui-motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
     ],
     title: "Fade",
   },

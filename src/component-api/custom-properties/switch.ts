@@ -28,15 +28,16 @@ export default {
   },
   "--_dot-size": {
     description:
-      "Width and height of the dot. Defaults to `--switch-dot-size`, set by the size classes.",
+      "Width and height of the dot. Defaults to `--ui-switch-dot-size`, set by the size classes.",
     kind: "input",
   },
   "--_duration": {
-    description: "Duration of the transitions, `--duration` times `--_motion`.",
+    description:
+      "Duration of the transitions, `--ui-duration` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
-    description: "Easing of the transitions. Defaults to `--ease`.",
+    description: "Easing of the transitions. Defaults to `--ui-ease`.",
     kind: "input",
   },
   "--_icon-size": {
@@ -58,12 +59,12 @@ export default {
   },
   "--_track-height": {
     description:
-      "Height of the track. Defaults to `--switch-track-height`, set by the size classes.",
+      "Height of the track. Defaults to `--ui-switch-track-height`, set by the size classes.",
     kind: "input",
   },
   "--_track-width": {
     description:
-      "Width of the track. Defaults to `--switch-track-width`, set by the size classes.",
+      "Width of the track. Defaults to `--ui-switch-track-width`, set by the size classes.",
     kind: "input",
   },
 } satisfies CustomProperties

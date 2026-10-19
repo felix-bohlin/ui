@@ -32,7 +32,7 @@
     }
 
     .changelog-release {
-      border-inline-start: var(--border-width) solid var(--border-color);
+      border-inline-start: var(--ui-border-width) solid var(--ui-border-color);
       display: grid;
       gap: var(--size-2) var(--size-6);
       padding-block-end: var(--size-8);
@@ -40,20 +40,22 @@
       position: relative;
 
       &::before {
-        background-color: var(--surface-default);
+        background-color: var(--ui-surface-default);
         block-size: var(--size-3);
-        border: var(--border-size-2) solid var(--text-muted);
+        border: var(--border-size-2) solid var(--ui-text-muted);
         border-radius: var(--radius-round);
         content: "";
         inline-size: var(--size-3);
         inset-block-start: var(--size-1);
-        inset-inline-start: calc(var(--size-3) / -2 - var(--border-width) / 2);
+        inset-inline-start: calc(
+          var(--size-3) / -2 - var(--ui-border-width) / 2
+        );
         position: absolute;
       }
 
       &:first-child::before {
-        background-color: var(--primary);
-        border-color: var(--primary);
+        background-color: var(--ui-primary);
+        border-color: var(--ui-primary);
       }
 
       &:last-child {
@@ -72,7 +74,7 @@
       justify-items: start;
 
       time {
-        color: var(--text-muted);
+        color: var(--ui-text-muted);
         font-size: var(--font-size-1);
       }
     }
@@ -92,10 +94,10 @@
       aspect-ratio: 3 / 1;
       background-image: linear-gradient(
         135deg,
-        var(--primary),
-        oklch(from var(--primary) l c calc(h + 60))
+        var(--ui-primary),
+        oklch(from var(--ui-primary) l c calc(h + 60))
       );
-      border-radius: var(--border-radius);
+      border-radius: var(--ui-border-radius);
     }
 
     .changelog-group {
@@ -127,15 +129,15 @@
     }
 
     .changelog-added {
-      --changelog-dot: var(--success);
+      --changelog-dot: var(--ui-success);
     }
 
     .changelog-improved {
-      --changelog-dot: var(--info);
+      --changelog-dot: var(--ui-info);
     }
 
     .changelog-fixed {
-      --changelog-dot: var(--warning);
+      --changelog-dot: var(--ui-warning);
     }
 
     .changelog-more {

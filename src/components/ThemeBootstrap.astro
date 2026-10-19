@@ -16,8 +16,8 @@ const referenceThemes = Object.fromEntries(
           localStorage.getItem(`${THEME_KEYS.customTheme}-${theme}`) ?? "{}",
         )
         // Drop the legacy `--gray-hue-offset` key. The new core derives grays
-        // per-element using absolute `--gray-hue`, so the offset semantic no
-        // longer applies. Users will fall back to the default --gray-hue (255).
+        // per-element using absolute `--ui-gray-hue`, so the offset semantic no
+        // longer applies. Users will fall back to the default --ui-gray-hue (255).
         delete config["--gray-hue-offset"]
         for (const [name, value] of Object.entries(config)) {
           const radius = /^var\(--radius-(\d)\)$/.exec(value)

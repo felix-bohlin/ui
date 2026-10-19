@@ -1,24 +1,24 @@
 @layer components.extended {
   :where(details.ui-accordion) {
-    --_motion: var(--motion);
-    --_actions-gap: var(--space-1);
+    --_motion: var(--ui-motion);
+    --_actions-gap: var(--ui-space-1);
     --_actions-margin-block-start: 0;
     --_actions-padding-block-end: var(--_summary-padding-block);
     --_actions-padding-inline: var(--_content-padding-inline);
     --_bg-color: transparent;
     --_border-color: transparent;
-    --_border-radius: var(--border-radius);
+    --_border-radius: var(--ui-border-radius);
     --_border-width: 0;
-    --_content-padding-block: var(--space-2) var(--space-3);
+    --_content-padding-block: var(--ui-space-2) var(--ui-space-3);
     --_content-padding-inline: var(--_padding-inline);
-    --_duration: calc(var(--duration) * var(--_motion));
-    --_ease: var(--ease);
-    --_focus-ring-offset: var(--focus-ring-offset);
-    --_margin-inline: var(--space-1);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
+    --_focus-ring-offset: var(--ui-focus-ring-offset);
+    --_margin-inline: var(--ui-space-1);
     --_overflow: visible;
     --_padding-inline: 0;
     --_shadow: none;
-    --_summary-padding-block: var(--space-3);
+    --_summary-padding-block: var(--ui-space-3);
     --_summary-padding-inline: var(--_padding-inline);
 
     background-color: var(--_bg-color);
@@ -40,31 +40,31 @@
     interpolate-size: allow-keywords;
 
     &:is(.ui-elevated, .ui-outlined, .ui-tonal) {
-      --_focus-ring-offset: calc(-2 * var(--focus-ring-width));
+      --_focus-ring-offset: calc(-2 * var(--ui-focus-ring-width));
       --_margin-inline: 0;
       --_overflow: hidden;
-      --_padding-inline: var(--space-3);
+      --_padding-inline: var(--ui-space-3);
     }
 
     &.ui-elevated {
-      --_bg-color: var(--surface-elevated);
-      --_shadow: var(--shadow-raised);
+      --_bg-color: var(--ui-surface-elevated);
+      --_shadow: var(--ui-shadow-raised);
     }
 
     &.ui-outlined {
-      --_bg-color: var(--surface-default);
-      --_border-color: var(--border-color);
-      --_border-width: var(--border-width);
+      --_bg-color: var(--ui-surface-default);
+      --_border-color: var(--ui-border-color);
+      --_border-width: var(--ui-border-width);
     }
 
     &.ui-tonal {
-      --_bg-color: var(--surface-tonal);
+      --_bg-color: var(--ui-surface-tonal);
     }
 
     @media (forced-colors: active) {
       &.ui-elevated,
       &.ui-tonal {
-        --_border-width: var(--border-width);
+        --_border-width: var(--ui-border-width);
       }
     }
 
@@ -87,7 +87,7 @@
     & > summary {
       background-color: inherit;
       cursor: pointer;
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--ui-font-weight-bold);
       padding-block: var(--_summary-padding-block);
       padding-inline: var(--_summary-padding-inline);
       user-select: none;
@@ -100,7 +100,7 @@
       &:has(.ui-marker) {
         align-items: center;
         display: flex;
-        gap: var(--space-2);
+        gap: var(--ui-space-2);
         list-style: none;
 
         /* Safari fallback */
@@ -161,9 +161,9 @@
 
   /* Accordion group  */
   :where(.ui-card[role="group"]:has(> details.ui-accordion)) {
-    --_divider-color: var(--border-color);
-    --_group-radius: var(--border-radius);
-    --_item-padding-inline: var(--space-3);
+    --_divider-color: var(--ui-border-color);
+    --_group-radius: var(--ui-border-radius);
+    --_item-padding-inline: var(--ui-space-3);
     --_item-summary-padding-inline: var(--_item-padding-inline);
 
     display: block;
@@ -175,7 +175,7 @@
     & > details.ui-accordion {
       --_border-color: transparent;
       --_border-width: 0;
-      --_focus-ring-offset: calc(-2 * var(--focus-ring-width));
+      --_focus-ring-offset: calc(-2 * var(--ui-focus-ring-width));
       --_margin-inline: 0;
       --_padding-inline: var(--_item-padding-inline);
       --_shadow: none;
@@ -183,7 +183,7 @@
 
       /* Border between accordion items */
       & + & {
-        border-block-start: var(--border-width) solid var(--_divider-color);
+        border-block-start: var(--ui-border-width) solid var(--_divider-color);
         border-radius: 0;
       }
 

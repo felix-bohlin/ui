@@ -35,7 +35,7 @@ const selectorList = (selector: string) => {
 
 const paletteSourceScopes = (css: string) =>
   [...css.replaceAll(/\/\*[\s\S]*?\*\//g, "").matchAll(/([^{}]+)\{([^{}]*)\}/g)]
-    .filter(([, , body]) => /--palette-source\s*:/.test(body))
+    .filter(([, , body]) => /--ui-palette-source\s*:/.test(body))
     .map(([, selector, body]) => ({ body, selectors: selectorList(selector) }))
 
 describe("theme tokens", () => {
@@ -72,22 +72,22 @@ describe("theme tokens", () => {
   test("every token is declared once", () => {
     const names = tokens.map((token) => token.name)
     expect(new Set(names).size).toBe(names.length)
-    expect(find("--border-color")).toBeDefined()
-    expect(find("--border-radius")).toBeDefined()
+    expect(find("--ui-border-color")).toBeDefined()
+    expect(find("--ui-border-radius")).toBeDefined()
   })
 
   test("dark overrides are read from the dark rules", () => {
-    expect(find("--palette-hue")).toEqual({
+    expect(find("--ui-palette-hue")).toEqual({
       dark: "var(--hue-blue)",
-      name: "--palette-hue",
+      name: "--ui-palette-hue",
       value: "var(--hue-green)",
     })
-    expect(find("--motion")?.value).toBe("1")
-    expect(find("--motion")?.dark).toBeUndefined()
-    expect(find("--palette-hue-rotate-by")?.value).toBe("0")
-    expect(find("--palette-source")?.optional).toBe(true)
-    expect(find("--focus-ring-color")?.optional).toBeUndefined()
-    expect(find("--color-scheme")).toBeUndefined()
+    expect(find("--ui-motion")?.value).toBe("1")
+    expect(find("--ui-motion")?.dark).toBeUndefined()
+    expect(find("--ui-palette-hue-rotate-by")?.value).toBe("0")
+    expect(find("--ui-palette-source")?.optional).toBe(true)
+    expect(find("--ui-focus-ring-color")?.optional).toBeUndefined()
+    expect(find("--ui-color-scheme")).toBeUndefined()
   })
 
   test("every token has a description and no description is stale", () => {
@@ -105,14 +105,14 @@ describe("theme tokens", () => {
 
   test("every store token exists in theme.css", () => {
     for (const token of TOKENS) expect(find(token)).toBeDefined()
-    expect(tokenDefaults("light")["--palette-hue"]).toBe("145")
-    expect(tokenDefaults("dark")["--palette-hue"]).toBe("240")
-    expect(tokenDefaults("light")["--border-radius"]).toBe("var(--size-2)")
+    expect(tokenDefaults("light")["--ui-palette-hue"]).toBe("145")
+    expect(tokenDefaults("dark")["--ui-palette-hue"]).toBe("240")
+    expect(tokenDefaults("light")["--ui-border-radius"]).toBe("var(--size-2)")
   })
 
   test("contrast overrides also set the tokens derived from them", () => {
     const block = themeSource.slice(
-      themeSource.indexOf("@container style(--contrast: more)"),
+      themeSource.indexOf("@container style(--ui-contrast: more)"),
     )
     const overridden = new Set(
       [...block.matchAll(/^\s*(--[\w-]+):/gm)].map((match) => match[1]),
@@ -128,9 +128,9 @@ describe("theme tokens", () => {
     }
   })
 
-  test("every scope that sets --palette-source re-derives the palette", () => {
+  test("every scope that sets --ui-palette-source re-derives the palette", () => {
     const derived = paletteSourceScopes(paletteSource).find(({ body }) =>
-      /--color-1\s*:/.test(body),
+      /--ui-color-1\s*:/.test(body),
     )?.selectors
     const scopes = paletteSourceScopes(themeSource).flatMap(
       ({ selectors }) => selectors,
@@ -153,8 +153,14 @@ describe("theme tokens", () => {
 describe("generateCss", () => {
   test("lists only the changed tokens in the theme.custom layer", () => {
     const css = generateCss({
-      dark: { "--border-radius": "var(--radius-3)", "--palette-hue": "200" },
-      light: { "--border-radius": "var(--radius-3)", "--palette-hue": "30" },
+      dark: {
+        "--ui-border-radius": "var(--radius-3)",
+        "--ui-palette-hue": "200",
+      },
+      light: {
+        "--ui-border-radius": "var(--radius-3)",
+        "--ui-palette-hue": "30",
+      },
     })
     expect(css)
       .toBe(`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
@@ -162,17 +168,17 @@ describe("generateCss", () => {
 
 @layer theme.custom {
   :where(html) {
-    --palette-hue: 30;
-    --border-radius: var(--radius-3);
+    --ui-palette-hue: 30;
+    --ui-border-radius: var(--radius-3);
   }
 
   :where(html.ui-dark) {
-    --palette-hue: 200;
+    --ui-palette-hue: 200;
   }
 
   @media (prefers-color-scheme: dark) {
     :where(html:not(.ui-light)) {
-      --palette-hue: 200;
+      --ui-palette-hue: 200;
     }
   }
 }
@@ -181,39 +187,39 @@ describe("generateCss", () => {
 
   test("leaves out dark values that the light block and defaults already give", () => {
     const css = generateCss({
-      dark: { "--border-radius": "0", "--palette-hue": "240" },
-      light: { "--border-radius": "0" },
+      dark: { "--ui-border-radius": "0", "--ui-palette-hue": "240" },
+      light: { "--ui-border-radius": "0" },
     })
-    expect(css).toContain("--border-radius: 0;")
-    expect(css).not.toContain("--palette-hue")
+    expect(css).toContain("--ui-border-radius: 0;")
+    expect(css).not.toContain("--ui-palette-hue")
     expect(css).not.toContain("ui-dark")
   })
 
   test("starts from a reference theme and adds the changes on top", () => {
     const css = generateCss({
-      dark: { "--border-radius": "0", "--palette-hue": "200" },
-      light: { "--border-radius": "0", "--palette-hue": "280" },
+      dark: { "--ui-border-radius": "0", "--ui-palette-hue": "200" },
+      light: { "--ui-border-radius": "0", "--ui-palette-hue": "280" },
       reference: {
-        "--border-radius": "var(--size-1)",
-        "--density": "0.875",
-        "--palette-hue": "280",
+        "--ui-border-radius": "var(--size-1)",
+        "--ui-density": "0.875",
+        "--ui-palette-hue": "280",
       },
     })
     expect(css).toContain(`  :where(html) {
-    --border-radius: 0;
-    --density: 0.875;
-    --palette-hue: 280;
+    --ui-border-radius: 0;
+    --ui-density: 0.875;
+    --ui-palette-hue: 280;
   }`)
     expect(css).toMatch(
-      /:where\(html\.ui-dark\) \{\n {4}--palette-hue: 200;\n {2}\}/,
+      /:where\(html\.ui-dark\) \{\n {4}--ui-palette-hue: 200;\n {2}\}/,
     )
     expect(
       generateCss({
         dark: {},
         light: {},
-        reference: { "--density": "0.875" },
+        reference: { "--ui-density": "0.875" },
       }),
-    ).toContain("--density: 0.875;")
+    ).toContain("--ui-density: 0.875;")
   })
 
   test("returns the placeholder without changes", () => {
@@ -227,18 +233,18 @@ describe("generateCss", () => {
     })
     expect(css).toContain(":where(html, .ui-palette) {")
     expect(css).toContain(
-      "--surface-default: light-dark(var(--color-1), var(--color-14));",
+      "--ui-surface-default: light-dark(var(--ui-color-1), var(--ui-color-14));",
     )
-    expect(css).toContain("--neutral: var(--color-9);")
+    expect(css).toContain("--ui-neutral: var(--ui-color-9);")
   })
 
   test("mixes gray and palette steps when only one mode disables grays", () => {
     const css = generateCss({ dark: {}, light: { "enable-grays": "false" } })
     expect(css).toContain(
-      "--surface-default: light-dark(var(--color-1), var(--gray-13));",
+      "--ui-surface-default: light-dark(var(--ui-color-1), var(--ui-gray-13));",
     )
     expect(css).toContain(
-      "--neutral: light-dark(var(--color-9), var(--gray-9));",
+      "--ui-neutral: light-dark(var(--ui-color-9), var(--ui-gray-9));",
     )
   })
 })
@@ -262,9 +268,9 @@ describe("component css variables", () => {
   test("button reads its size and radius tokens", () => {
     const button = apis.find((api) => api.component === "Button")!
     const names = cssVarRows(button).map((row) => row.name)
-    expect(names).toContain("--button-border-radius")
-    expect(names).toContain("--button-size")
-    expect(names).toContain("--disabled-opacity")
+    expect(names).toContain("--ui-button-border-radius")
+    expect(names).toContain("--ui-button-size")
+    expect(names).toContain("--ui-disabled-opacity")
     expect(names).toEqual(names.toSorted())
   })
 })

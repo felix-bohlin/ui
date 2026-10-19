@@ -3,17 +3,17 @@ import type { CustomProperties } from "../types"
 export default {
   "--_bg-color": {
     description:
-      "Background of the list and its items. Defaults to `--surface-filled`, `.ui-transparent` and `.ui-tonal` set it.",
+      "Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.",
     kind: "input",
   },
   "--_divider-color": {
     description:
-      "Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. `currentColor` at 18%, `--border-color` with more contrast.",
+      "Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. `currentColor` at 18%, `--ui-border-color` with more contrast.",
     kind: "input",
   },
   "--_hover-bg-color": {
     description:
-      "Background of hovered, selected and current items, from `--primary`.",
+      "Background of hovered, selected and current items, from `--ui-primary`.",
     kind: "input",
   },
   "--_item-gap": {

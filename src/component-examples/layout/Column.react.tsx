@@ -1,8 +1,8 @@
 import { Card, CardContent } from "opui-css/react"
 
-export default function Flow() {
+export default function Column() {
   return (
-    <div className="ui-l-flow">
+    <div className="ui-l-column">
       <Card variant="outlined">
         <CardContent>First</CardContent>
       </Card>

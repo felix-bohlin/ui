@@ -3,7 +3,7 @@ import { Card, CardContent } from "opui-css/vue"
 </script>
 
 <template>
-  <div class="ui-l-flow">
+  <div class="ui-l-column">
     <Card variant="outlined">
       <CardContent>First</CardContent>
     </Card>

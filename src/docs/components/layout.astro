@@ -20,8 +20,8 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
 >
   <Fragment slot="title">Layout</Fragment>
   <Fragment slot="preamble">
-    Four classes for the space between components: <code>.ui-l-flow</code>,
-    <code>.ui-l-cluster</code>, <code>.ui-l-grid</code> and <code
+    Four classes for the space between components: <code>.ui-l-column</code>,
+    <code>.ui-l-row</code>, <code>.ui-l-grid</code> and <code
       >.ui-l-container</code
     >. The <code>l-</code> marks a layout class. Put them on wrapper elements, such
     as <code>div</code>, <code>section</code> or <code>ul</code>. They sit in
@@ -32,23 +32,22 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   </Fragment>
 
   <section>
-    <h2 id="flow">Flow</h2>
+    <h2 id="column">Column</h2>
     <p>
-      <code>.ui-l-flow</code> stacks its children in a column with even space between
+      <code>.ui-l-column</code> stacks its children in a column with even space between
       them.
     </p>
-    <AutoExample name="Flow" />
+    <AutoExample name="Column" />
   </section>
 
   <section>
-    <h2 id="cluster">Cluster</h2>
+    <h2 id="row">Row</h2>
     <p>
-      <code>.ui-l-cluster</code> puts its children in a row, centered on one line,
-      and wraps them when they run out of room. Set <code
-        >--_justify-content</code
-      > to push them to the end or spread them out.
+      <code>.ui-l-row</code> puts its children in a row, centered on one line, and
+      wraps them when they run out of room. Set <code>--_justify-content</code> to
+      push them to the end or spread them out.
     </p>
-    <AutoExample name="Cluster" />
+    <AutoExample name="Row" />
   </section>
 
   <section>
@@ -65,8 +64,8 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <section>
     <h2 id="gap">Gap</h2>
     <p>
-      The size classes set the gap of <code>.ui-l-flow</code>, <code
-        >.ui-l-cluster</code
+      The size classes set the gap of <code>.ui-l-column</code>, <code
+        >.ui-l-row</code
       > and <code>.ui-l-grid</code>: <code>.ui-x-small</code> is <code
         >--space-1</code
       >, <code>.ui-small</code>

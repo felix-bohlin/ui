@@ -1,8 +1,8 @@
----
-import { Card, CardContent } from "@opui/astro"
----
+<script lang="ts">
+  import { Card, CardContent } from "opui-css/svelte"
+</script>
 
-<div class="ui-l-flow">
+<div class="ui-l-column">
   <Card variant="outlined">
     <CardContent>First</CardContent>
   </Card>

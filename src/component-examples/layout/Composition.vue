@@ -4,8 +4,8 @@ import { Button, Card, CardContent } from "opui-css/vue"
 
 <template>
   <div class="ui-l-container" style="--_max-inline-size: 40rem">
-    <div class="ui-l-flow ui-large">
-      <div class="ui-l-flow ui-x-small">
+    <div class="ui-l-column ui-large">
+      <div class="ui-l-column ui-x-small">
         <h3 class="ui-h4">Team</h3>
         <p>Invite people to work on this project.</p>
       </div>
@@ -20,7 +20,7 @@ import { Button, Card, CardContent } from "opui-css/vue"
           <CardContent>Support</CardContent>
         </Card>
       </div>
-      <div class="ui-l-cluster" style="--_justify-content: flex-end">
+      <div class="ui-l-row" style="--_justify-content: flex-end">
         <Button>Cancel</Button>
         <Button color="primary" variant="filled">Invite</Button>
       </div>

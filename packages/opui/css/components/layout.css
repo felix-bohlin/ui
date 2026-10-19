@@ -1,5 +1,5 @@
 @layer utils {
-  :where(.ui-l-flow) {
+  :where(.ui-l-column) {
     --_gap: var(--space-3);
 
     display: flex;
@@ -7,7 +7,7 @@
     gap: var(--_gap);
   }
 
-  :where(.ui-l-cluster) {
+  :where(.ui-l-row) {
     --_gap: var(--space-3);
     --_justify-content: flex-start;
 
@@ -30,7 +30,7 @@
     );
   }
 
-  :where(.ui-l-flow, .ui-l-cluster, .ui-l-grid) {
+  :where(.ui-l-column, .ui-l-row, .ui-l-grid) {
     &.ui-x-small {
       --_gap: var(--space-1);
     }

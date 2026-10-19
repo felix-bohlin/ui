@@ -1,8 +1,8 @@
 import { Button } from "opui-css/react"
 
-export default function Cluster() {
+export default function Row() {
   return (
-    <div className="ui-l-cluster">
+    <div className="ui-l-row">
       <Button color="primary" variant="filled">
         Save
       </Button>

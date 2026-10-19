@@ -3,8 +3,8 @@ import { Button, Card, CardContent } from "opui-css/react"
 export default function Composition() {
   return (
     <div className="ui-l-container" style={{ "--_max-inline-size": "40rem" }}>
-      <div className="ui-l-flow ui-large">
-        <div className="ui-l-flow ui-x-small">
+      <div className="ui-l-column ui-large">
+        <div className="ui-l-column ui-x-small">
           <h3 className="ui-h4">Team</h3>
           <p>Invite people to work on this project.</p>
         </div>
@@ -19,10 +19,7 @@ export default function Composition() {
             <CardContent>Support</CardContent>
           </Card>
         </div>
-        <div
-          className="ui-l-cluster"
-          style={{ "--_justify-content": "flex-end" }}
-        >
+        <div className="ui-l-row" style={{ "--_justify-content": "flex-end" }}>
           <Button>Cancel</Button>
           <Button color="primary" variant="filled">
             Invite

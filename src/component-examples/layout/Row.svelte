@@ -1,8 +1,8 @@
----
-import { Button } from "@opui/astro"
----
+<script lang="ts">
+  import { Button } from "opui-css/svelte"
+</script>
 
-<div class="ui-l-cluster">
+<div class="ui-l-row">
   <Button color="primary" variant="filled">Save</Button>
   <Button variant="outlined">Preview</Button>
   <Button variant="outlined">Share</Button>

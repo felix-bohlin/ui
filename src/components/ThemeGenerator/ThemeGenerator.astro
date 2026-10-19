@@ -440,12 +440,8 @@ const previewStyle = Object.entries(tokenDefaults("light"))
 
 <script>
   import { highlightAll } from "microlighter"
-  import {
-    themeStore,
-    TOKENS,
-    tokenDefaults,
-    type Mode,
-  } from "../../utils/theme-store"
+  import { referenceTheme } from "../../utils/reference-themes"
+  import { themeStore, TOKENS, type Mode } from "../../utils/theme-store"
   import { generateCss } from "./generateCss"
   import { copyText } from "../../utils/storage"
   import { themeForm } from "../../utils/theme-form"
@@ -502,8 +498,8 @@ const previewStyle = Object.entries(tokenDefaults("light"))
         themeStore.isGraysEnabled("dark") ||
       TOKENS.some(
         (token) =>
-          (light[token] ?? tokenDefaults("light")[token]) !==
-          (dark[token] ?? tokenDefaults("dark")[token]),
+          (light[token] ?? themeStore.defaults("light")[token]) !==
+          (dark[token] ?? themeStore.defaults("dark")[token]),
       )
     )
   }
@@ -511,6 +507,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   const controls = themeForm(form, {
     setGrays: (enabled) =>
       targetModes().forEach((m) => themeStore.setEnableGrays(m, enabled)),
+    setReferenceTheme: (name) => themeStore.setReferenceTheme(name),
     setToken: (token, value) =>
       targetModes().forEach((m) => themeStore.setToken(m, token, value)),
   })
@@ -518,7 +515,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   function applyToPreview() {
     const mode = previewMode()
     const config = themeStore.get(mode)
-    const defaults = tokenDefaults(mode)
+    const defaults = themeStore.defaults(mode)
     preview.classList.toggle("ui-dark", mode === "dark")
     preview.classList.toggle("ui-light", mode === "light")
     preview.classList.toggle("no-grays", config["enable-grays"] === "false")
@@ -534,15 +531,21 @@ const previewStyle = Object.entries(tokenDefaults("light"))
 
   function rerenderCode() {
     generatedCss = generateCss({
-      light: themeStore.get("light"),
       dark: themeStore.get("dark"),
+      light: themeStore.get("light"),
+      reference: referenceTheme(themeStore.getReferenceTheme())?.tokens,
     })
     codeEl.textContent = generatedCss
     highlightAll()
   }
 
   function refreshAll() {
-    controls.sync(previewMode(), themeStore.get(previewMode()))
+    controls.sync(
+      previewMode(),
+      themeStore.get(previewMode()),
+      themeStore.defaults(previewMode()),
+      themeStore.getReferenceTheme(),
+    )
     applyToPreview()
     rerenderCode()
     if (divergedNote) {
@@ -582,7 +585,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
     if (await copyText(generatedCss)) {
       window.showToast?.({
         title: "Copied custom-theme.css",
-        description: "Paste it into a stylesheet that loads after opui-css.",
+        description: "Add it to your project's CSS.",
         duration: "3s",
       })
     } else {

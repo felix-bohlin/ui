@@ -1,9 +1,14 @@
 ---
 import "../styles/no-grays.css"
+import { REFERENCE_THEMES } from "../utils/reference-themes"
 import { THEME_KEYS, TOKENS } from "../utils/theme-store"
+
+const referenceThemes = Object.fromEntries(
+  REFERENCE_THEMES.map((theme) => [theme.name, theme.css]),
+)
 ---
 
-<script is:inline define:vars={{ THEME_KEYS, TOKENS }}>
+<script is:inline define:vars={{ referenceThemes, THEME_KEYS, TOKENS }}>
   window.themeUtils = {
     getCustomTheme(theme) {
       try {
@@ -27,6 +32,14 @@ import { THEME_KEYS, TOKENS } from "../utils/theme-store"
       return window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light"
+    },
+    getReferenceTheme() {
+      try {
+        const name = localStorage.getItem(THEME_KEYS.referenceTheme)
+        return name && Object.hasOwn(referenceThemes, name) ? name : null
+      } catch {
+        return null
+      }
     },
     getStoredContrast() {
       try {
@@ -54,6 +67,26 @@ import { THEME_KEYS, TOKENS } from "../utils/theme-store"
         if (contrast) localStorage.setItem(THEME_KEYS.contrast, contrast)
         else localStorage.removeItem(THEME_KEYS.contrast)
       } catch {}
+    },
+    applyReferenceTheme(name) {
+      let style = document.getElementById("opui-reference-theme")
+      if (!name) {
+        style?.remove()
+        return
+      }
+      if (!style) {
+        style = document.createElement("style")
+        style.id = "opui-reference-theme"
+        document.head.append(style)
+      }
+      style.textContent = referenceThemes[name]
+    },
+    setReferenceTheme(name) {
+      try {
+        if (name) localStorage.setItem(THEME_KEYS.referenceTheme, name)
+        else localStorage.removeItem(THEME_KEYS.referenceTheme)
+      } catch {}
+      window.themeUtils.applyReferenceTheme(name)
     },
     applyTheme(theme) {
       document.documentElement.classList.remove(
@@ -104,6 +137,7 @@ import { THEME_KEYS, TOKENS } from "../utils/theme-store"
       window.themeUtils.getSystemPreference(),
   )
   window.themeUtils.setContrast(window.themeUtils.getStoredContrast())
+  window.themeUtils.applyReferenceTheme(window.themeUtils.getReferenceTheme())
   window
     .matchMedia("(prefers-color-scheme: dark)")
     .addEventListener("change", () => {

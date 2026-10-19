@@ -1,17 +1,17 @@
 # Layout
 
-Four classes for the space between components: `.ui-flow`, `.ui-cluster`, `.ui-grid` and `.ui-container`. Put them on wrapper elements, such as `div`, `section` or `ul`. They sit in the `utils` layer, so on a component they replace its own layout. Their gaps come from the [`--space-*` scale](https://open-props-ui.netlify.app/react/guide/theming.md#spacing), so they follow `--space-scale`.
+Four classes for the space between components: `.ui-l-flow`, `.ui-l-cluster`, `.ui-l-grid` and `.ui-l-container`. The `l-` marks a layout class. Put them on wrapper elements, such as `div`, `section` or `ul`. They sit in the `utils` layer, so on a component they replace its own layout. Their gaps come from the [`--space-*` scale](https://open-props-ui.netlify.app/react/guide/theming.md#spacing), so they follow `--space-scale`.
 
 ## Flow
 
-`.ui-flow` stacks its children in a column with even space between them.
+`.ui-l-flow` stacks its children in a column with even space between them.
 
 ```tsx
 import { Card, CardContent } from "opui-css/react"
 
 export default function Flow() {
   return (
-    <div className="ui-flow">
+    <div className="ui-l-flow">
       <Card variant="outlined">
         <CardContent>First</CardContent>
       </Card>
@@ -28,14 +28,14 @@ export default function Flow() {
 
 ## Cluster
 
-`.ui-cluster` puts its children in a row, centered on one line, and wraps them when they run out of room. Set `--_justify-content` to push them to the end or spread them out.
+`.ui-l-cluster` puts its children in a row, centered on one line, and wraps them when they run out of room. Set `--_justify-content` to push them to the end or spread them out.
 
 ```tsx
 import { Button } from "opui-css/react"
 
 export default function Cluster() {
   return (
-    <div className="ui-cluster">
+    <div className="ui-l-cluster">
       <Button color="primary" variant="filled">
         Save
       </Button>
@@ -49,14 +49,14 @@ export default function Cluster() {
 
 ## Grid
 
-`.ui-grid` fills the width with as many columns as fit at `--_min-inline-size` (`16rem` by default), and wraps the rest. No breakpoints: it follows the space it has.
+`.ui-l-grid` fills the width with as many columns as fit at `--_min-inline-size` (`16rem` by default), and wraps the rest. No breakpoints: it follows the space it has.
 
 ```tsx
 import { Card, CardContent } from "opui-css/react"
 
 export default function Grid() {
   return (
-    <div className="ui-grid" style={{ "--_min-inline-size": "10rem" }}>
+    <div className="ui-l-grid" style={{ "--_min-inline-size": "10rem" }}>
       <Card variant="outlined">
         <CardContent>One</CardContent>
       </Card>
@@ -82,30 +82,30 @@ export default function Grid() {
 
 ## Gap
 
-The size classes set the gap of `.ui-flow`, `.ui-cluster` and `.ui-grid`: `.ui-x-small` is `--space-1`, `.ui-small` `--space-2`, the default `--space-3` and `.ui-large` `--space-5`. For anything else, set `--_gap`.
+The size classes set the gap of `.ui-l-flow`, `.ui-l-cluster` and `.ui-l-grid`: `.ui-x-small` is `--space-1`, `.ui-small` `--space-2`, the default `--space-3` and `.ui-large` `--space-5`. For anything else, set `--_gap`.
 
 ```tsx
 import { Button } from "opui-css/react"
 
 export default function Gap() {
   return (
-    <div className="ui-flow">
-      <div className="ui-cluster ui-x-small">
+    <div className="ui-l-flow">
+      <div className="ui-l-cluster ui-x-small">
         <Button variant="outlined">One</Button>
         <Button variant="outlined">Two</Button>
         <Button variant="outlined">Three</Button>
       </div>
-      <div className="ui-cluster ui-small">
+      <div className="ui-l-cluster ui-small">
         <Button variant="outlined">One</Button>
         <Button variant="outlined">Two</Button>
         <Button variant="outlined">Three</Button>
       </div>
-      <div className="ui-cluster">
+      <div className="ui-l-cluster">
         <Button variant="outlined">One</Button>
         <Button variant="outlined">Two</Button>
         <Button variant="outlined">Three</Button>
       </div>
-      <div className="ui-cluster ui-large">
+      <div className="ui-l-cluster ui-large">
         <Button variant="outlined">One</Button>
         <Button variant="outlined">Two</Button>
         <Button variant="outlined">Three</Button>
@@ -117,20 +117,20 @@ export default function Gap() {
 
 ## Container
 
-`.ui-container` centers its content, caps its width at `--_max-inline-size` (`72rem` by default) and keeps `--_padding-inline` from the edges. Combine the classes to lay out a whole section:
+`.ui-l-container` centers its content, caps its width at `--_max-inline-size` (`72rem` by default) and keeps `--_padding-inline` from the edges. Combine the classes to lay out a whole section:
 
 ```tsx
 import { Button, Card, CardContent } from "opui-css/react"
 
 export default function Composition() {
   return (
-    <div className="ui-container" style={{ "--_max-inline-size": "40rem" }}>
-      <div className="ui-flow ui-large">
-        <div className="ui-flow ui-x-small">
+    <div className="ui-l-container" style={{ "--_max-inline-size": "40rem" }}>
+      <div className="ui-l-flow ui-large">
+        <div className="ui-l-flow ui-x-small">
           <h3 className="ui-h4">Team</h3>
           <p>Invite people to work on this project.</p>
         </div>
-        <div className="ui-grid" style={{ "--_min-inline-size": "10rem" }}>
+        <div className="ui-l-grid" style={{ "--_min-inline-size": "10rem" }}>
           <Card variant="tonal">
             <CardContent>Design</CardContent>
           </Card>
@@ -142,7 +142,7 @@ export default function Composition() {
           </Card>
         </div>
         <div
-          className="ui-cluster"
+          className="ui-l-cluster"
           style={{ "--_justify-content": "flex-end" }}
         >
           <Button>Cancel</Button>
@@ -158,19 +158,19 @@ export default function Composition() {
 
 ## API
 
-| Type      | Modifiers                                        | Default   | Description                                                             |
-| --------- | ------------------------------------------------ | --------- | ----------------------------------------------------------------------- |
-| Cluster   | `.ui-cluster`                                    | -         | A wrapping row with its children centered on one line.                  |
-| Container | `.ui-container`                                  | -         | Centers its content and caps its width.                                 |
-| Flow      | `.ui-flow`                                       | -         | A column with even space between its children.                          |
-| Grid      | `.ui-grid`                                       | -         | Columns that fill the width and wrap.                                   |
-| Sizes     | default, `.ui-large`, `.ui-small`, `.ui-x-small` | `default` | The space between children of `.ui-flow`, `.ui-cluster` and `.ui-grid`. |
+| Type      | Modifiers                                        | Default   | Description                                                                   |
+| --------- | ------------------------------------------------ | --------- | ----------------------------------------------------------------------------- |
+| Cluster   | `.ui-l-cluster`                                  | -         | A wrapping row with its children centered on one line.                        |
+| Container | `.ui-l-container`                                | -         | Centers its content and caps its width.                                       |
+| Flow      | `.ui-l-flow`                                     | -         | A column with even space between its children.                                |
+| Grid      | `.ui-l-grid`                                     | -         | Columns that fill the width and wrap.                                         |
+| Sizes     | default, `.ui-large`, `.ui-small`, `.ui-x-small` | `default` | The space between children of `.ui-l-flow`, `.ui-l-cluster` and `.ui-l-grid`. |
 
 ### Parts
 
-| Part                                             | Description                                   |
-| ------------------------------------------------ | --------------------------------------------- |
-| `.ui-flow, .ui-cluster, .ui-grid, .ui-container` | Any element. The classes only set its layout. |
+| Part                                                     | Description                                   |
+| -------------------------------------------------------- | --------------------------------------------- |
+| `.ui-l-flow, .ui-l-cluster, .ui-l-grid, .ui-l-container` | Any element. The classes only set its layout. |
 
 ### CSS variables
 
@@ -190,13 +190,13 @@ Add the classes to elements in your markup. There is no React component. There i
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
 
-| Property             | Kind  | Description                                                                                                               |
-| -------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------- |
-| `--_gap`             | Input | Space between the children of `.ui-flow`, `.ui-cluster` and `.ui-grid`. Defaults to `--space-3`, set by the size classes. |
-| `--_justify-content` | Input | How `.ui-cluster` distributes its children along the row, such as `flex-end` or `space-between`.                          |
-| `--_max-inline-size` | Input | Maximum width of `.ui-container`.                                                                                         |
-| `--_min-inline-size` | Input | Narrowest column of `.ui-grid`. Columns are added while they fit at this width.                                           |
-| `--_padding-inline`  | Input | Inline padding of `.ui-container`. Defaults to `--space-4`.                                                               |
+| Property             | Kind  | Description                                                                                                                     |
+| -------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `--_gap`             | Input | Space between the children of `.ui-l-flow`, `.ui-l-cluster` and `.ui-l-grid`. Defaults to `--space-3`, set by the size classes. |
+| `--_justify-content` | Input | How `.ui-l-cluster` distributes its children along the row, such as `flex-end` or `space-between`.                              |
+| `--_max-inline-size` | Input | Maximum width of `.ui-l-container`.                                                                                             |
+| `--_min-inline-size` | Input | Narrowest column of `.ui-l-grid`. Columns are added while they fit at this width.                                               |
+| `--_padding-inline`  | Input | Inline padding of `.ui-l-container`. Defaults to `--space-4`.                                                                   |
 
 ## Installation
 
@@ -206,4 +206,4 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 ### What's new
 
-- New: [`.ui-flow`](#flow), [`.ui-cluster`](#cluster), [`.ui-grid`](#grid) and [`.ui-container`](#container) lay out the space between components.
+- New: [`.ui-l-flow`](#flow), [`.ui-l-cluster`](#cluster), [`.ui-l-grid`](#grid) and [`.ui-l-container`](#container) lay out the space between components.

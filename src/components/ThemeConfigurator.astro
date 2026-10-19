@@ -130,12 +130,18 @@ const { link } = Astro.locals
     themeForm(form, {
       setGrays: (enabled) =>
         themeStore.setEnableGrays(themeStore.getActiveSiteMode(), enabled),
+      setReferenceTheme: (name) => themeStore.setReferenceTheme(name),
       setToken: (token, value) =>
         themeStore.setToken(themeStore.getActiveSiteMode(), token, value),
     })
 
   function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
-    controls?.sync(mode, themeStore.get(mode))
+    controls?.sync(
+      mode,
+      themeStore.get(mode),
+      themeStore.defaults(mode),
+      themeStore.getReferenceTheme(),
+    )
   }
 
   themeStore.applyMode()

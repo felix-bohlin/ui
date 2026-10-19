@@ -44,14 +44,17 @@ interface Window {
   showToast?: (options?: import("@opui/css/js/toast.js").ToastOptions) => void
   themeUtils: {
     applyCustomTheme: (theme?: "dark" | "light") => void
+    applyReferenceTheme: (name: string | null) => void
     applyTheme: (theme: "dark" | "light") => void
     getCustomTheme: (
       theme: "dark" | "light",
     ) => import("./utils/theme-store").ModeConfig
+    getReferenceTheme: () => string | null
     getStoredContrast: () => string | null
     getStoredTheme: () => string | null
     getSystemPreference: () => "dark" | "light"
     setContrast: (contrast: "more" | "normal" | null) => void
+    setReferenceTheme: (name: string | null) => void
     setTheme: (theme: "dark" | "light") => void
   }
 }

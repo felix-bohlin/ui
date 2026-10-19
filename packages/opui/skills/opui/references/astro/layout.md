@@ -1,17 +1,17 @@
 # Layout
 
-Four classes for the space between components: `.ui-flow`, `.ui-cluster`, `.ui-grid` and `.ui-container`. Put them on wrapper elements, such as `div`, `section` or `ul`. They sit in the `utils` layer, so on a component they replace its own layout. Their gaps come from the [`--space-*` scale](https://open-props-ui.netlify.app/astro/guide/theming.md#spacing), so they follow `--space-scale`.
+Four classes for the space between components: `.ui-l-flow`, `.ui-l-cluster`, `.ui-l-grid` and `.ui-l-container`. The `l-` marks a layout class. Put them on wrapper elements, such as `div`, `section` or `ul`. They sit in the `utils` layer, so on a component they replace its own layout. Their gaps come from the [`--space-*` scale](https://open-props-ui.netlify.app/astro/guide/theming.md#spacing), so they follow `--space-scale`.
 
 ## Flow
 
-`.ui-flow` stacks its children in a column with even space between them.
+`.ui-l-flow` stacks its children in a column with even space between them.
 
 ```astro
 ---
 import { Card, CardContent } from "@opui/astro"
 ---
 
-<div class="ui-flow">
+<div class="ui-l-flow">
   <Card variant="outlined">
     <CardContent>First</CardContent>
   </Card>
@@ -26,14 +26,14 @@ import { Card, CardContent } from "@opui/astro"
 
 ## Cluster
 
-`.ui-cluster` puts its children in a row, centered on one line, and wraps them when they run out of room. Set `--_justify-content` to push them to the end or spread them out.
+`.ui-l-cluster` puts its children in a row, centered on one line, and wraps them when they run out of room. Set `--_justify-content` to push them to the end or spread them out.
 
 ```astro
 ---
 import { Button } from "@opui/astro"
 ---
 
-<div class="ui-cluster">
+<div class="ui-l-cluster">
   <Button color="primary" variant="filled">Save</Button>
   <Button variant="outlined">Preview</Button>
   <Button variant="outlined">Share</Button>
@@ -43,14 +43,14 @@ import { Button } from "@opui/astro"
 
 ## Grid
 
-`.ui-grid` fills the width with as many columns as fit at `--_min-inline-size` (`16rem` by default), and wraps the rest. No breakpoints: it follows the space it has.
+`.ui-l-grid` fills the width with as many columns as fit at `--_min-inline-size` (`16rem` by default), and wraps the rest. No breakpoints: it follows the space it has.
 
 ```astro
 ---
 import { Card, CardContent } from "@opui/astro"
 ---
 
-<div class="ui-grid" style="--_min-inline-size: 10rem">
+<div class="ui-l-grid" style="--_min-inline-size: 10rem">
   <Card variant="outlined">
     <CardContent>One</CardContent>
   </Card>
@@ -74,30 +74,30 @@ import { Card, CardContent } from "@opui/astro"
 
 ## Gap
 
-The size classes set the gap of `.ui-flow`, `.ui-cluster` and `.ui-grid`: `.ui-x-small` is `--space-1`, `.ui-small` `--space-2`, the default `--space-3` and `.ui-large` `--space-5`. For anything else, set `--_gap`.
+The size classes set the gap of `.ui-l-flow`, `.ui-l-cluster` and `.ui-l-grid`: `.ui-x-small` is `--space-1`, `.ui-small` `--space-2`, the default `--space-3` and `.ui-large` `--space-5`. For anything else, set `--_gap`.
 
 ```astro
 ---
 import { Button } from "@opui/astro"
 ---
 
-<div class="ui-flow">
-  <div class="ui-cluster ui-x-small">
+<div class="ui-l-flow">
+  <div class="ui-l-cluster ui-x-small">
     <Button variant="outlined">One</Button>
     <Button variant="outlined">Two</Button>
     <Button variant="outlined">Three</Button>
   </div>
-  <div class="ui-cluster ui-small">
+  <div class="ui-l-cluster ui-small">
     <Button variant="outlined">One</Button>
     <Button variant="outlined">Two</Button>
     <Button variant="outlined">Three</Button>
   </div>
-  <div class="ui-cluster">
+  <div class="ui-l-cluster">
     <Button variant="outlined">One</Button>
     <Button variant="outlined">Two</Button>
     <Button variant="outlined">Three</Button>
   </div>
-  <div class="ui-cluster ui-large">
+  <div class="ui-l-cluster ui-large">
     <Button variant="outlined">One</Button>
     <Button variant="outlined">Two</Button>
     <Button variant="outlined">Three</Button>
@@ -107,20 +107,20 @@ import { Button } from "@opui/astro"
 
 ## Container
 
-`.ui-container` centers its content, caps its width at `--_max-inline-size` (`72rem` by default) and keeps `--_padding-inline` from the edges. Combine the classes to lay out a whole section:
+`.ui-l-container` centers its content, caps its width at `--_max-inline-size` (`72rem` by default) and keeps `--_padding-inline` from the edges. Combine the classes to lay out a whole section:
 
 ```astro
 ---
 import { Button, Card, CardContent } from "@opui/astro"
 ---
 
-<div class="ui-container" style="--_max-inline-size: 40rem">
-  <div class="ui-flow ui-large">
-    <div class="ui-flow ui-x-small">
+<div class="ui-l-container" style="--_max-inline-size: 40rem">
+  <div class="ui-l-flow ui-large">
+    <div class="ui-l-flow ui-x-small">
       <h3 class="ui-h4">Team</h3>
       <p>Invite people to work on this project.</p>
     </div>
-    <div class="ui-grid" style="--_min-inline-size: 10rem">
+    <div class="ui-l-grid" style="--_min-inline-size: 10rem">
       <Card variant="tonal">
         <CardContent>Design</CardContent>
       </Card>
@@ -131,7 +131,7 @@ import { Button, Card, CardContent } from "@opui/astro"
         <CardContent>Support</CardContent>
       </Card>
     </div>
-    <div class="ui-cluster" style="--_justify-content: flex-end">
+    <div class="ui-l-cluster" style="--_justify-content: flex-end">
       <Button>Cancel</Button>
       <Button color="primary" variant="filled">Invite</Button>
     </div>
@@ -141,19 +141,19 @@ import { Button, Card, CardContent } from "@opui/astro"
 
 ## API
 
-| Type      | Modifiers                                        | Default   | Description                                                             |
-| --------- | ------------------------------------------------ | --------- | ----------------------------------------------------------------------- |
-| Cluster   | `.ui-cluster`                                    | -         | A wrapping row with its children centered on one line.                  |
-| Container | `.ui-container`                                  | -         | Centers its content and caps its width.                                 |
-| Flow      | `.ui-flow`                                       | -         | A column with even space between its children.                          |
-| Grid      | `.ui-grid`                                       | -         | Columns that fill the width and wrap.                                   |
-| Sizes     | default, `.ui-large`, `.ui-small`, `.ui-x-small` | `default` | The space between children of `.ui-flow`, `.ui-cluster` and `.ui-grid`. |
+| Type      | Modifiers                                        | Default   | Description                                                                   |
+| --------- | ------------------------------------------------ | --------- | ----------------------------------------------------------------------------- |
+| Cluster   | `.ui-l-cluster`                                  | -         | A wrapping row with its children centered on one line.                        |
+| Container | `.ui-l-container`                                | -         | Centers its content and caps its width.                                       |
+| Flow      | `.ui-l-flow`                                     | -         | A column with even space between its children.                                |
+| Grid      | `.ui-l-grid`                                     | -         | Columns that fill the width and wrap.                                         |
+| Sizes     | default, `.ui-large`, `.ui-small`, `.ui-x-small` | `default` | The space between children of `.ui-l-flow`, `.ui-l-cluster` and `.ui-l-grid`. |
 
 ### Parts
 
-| Part                                             | Description                                   |
-| ------------------------------------------------ | --------------------------------------------- |
-| `.ui-flow, .ui-cluster, .ui-grid, .ui-container` | Any element. The classes only set its layout. |
+| Part                                                     | Description                                   |
+| -------------------------------------------------------- | --------------------------------------------- |
+| `.ui-l-flow, .ui-l-cluster, .ui-l-grid, .ui-l-container` | Any element. The classes only set its layout. |
 
 ### CSS variables
 
@@ -173,13 +173,13 @@ Add the classes to elements in your templates. There is no Astro component. Ther
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
 
-| Property             | Kind  | Description                                                                                                               |
-| -------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------- |
-| `--_gap`             | Input | Space between the children of `.ui-flow`, `.ui-cluster` and `.ui-grid`. Defaults to `--space-3`, set by the size classes. |
-| `--_justify-content` | Input | How `.ui-cluster` distributes its children along the row, such as `flex-end` or `space-between`.                          |
-| `--_max-inline-size` | Input | Maximum width of `.ui-container`.                                                                                         |
-| `--_min-inline-size` | Input | Narrowest column of `.ui-grid`. Columns are added while they fit at this width.                                           |
-| `--_padding-inline`  | Input | Inline padding of `.ui-container`. Defaults to `--space-4`.                                                               |
+| Property             | Kind  | Description                                                                                                                     |
+| -------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `--_gap`             | Input | Space between the children of `.ui-l-flow`, `.ui-l-cluster` and `.ui-l-grid`. Defaults to `--space-3`, set by the size classes. |
+| `--_justify-content` | Input | How `.ui-l-cluster` distributes its children along the row, such as `flex-end` or `space-between`.                              |
+| `--_max-inline-size` | Input | Maximum width of `.ui-l-container`.                                                                                             |
+| `--_min-inline-size` | Input | Narrowest column of `.ui-l-grid`. Columns are added while they fit at this width.                                               |
+| `--_padding-inline`  | Input | Inline padding of `.ui-l-container`. Defaults to `--space-4`.                                                                   |
 
 ## Installation
 
@@ -189,4 +189,4 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 ### What's new
 
-- New: [`.ui-flow`](#flow), [`.ui-cluster`](#cluster), [`.ui-grid`](#grid) and [`.ui-container`](#container) lay out the space between components.
+- New: [`.ui-l-flow`](#flow), [`.ui-l-cluster`](#cluster), [`.ui-l-grid`](#grid) and [`.ui-l-container`](#container) lay out the space between components.

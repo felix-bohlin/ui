@@ -12,6 +12,8 @@
  *  - Dark values that differ from what the light block and the dark defaults
  *    already give go in `:where(html.ui-dark)` and the matching
  *    `prefers-color-scheme: dark` block.
+ *  - A reference theme's tokens come first, and the other tokens only when
+ *    they differ from it.
  *  - With grays disabled, the text, surface and border mappings go in
  *    `:where(html, .ui-palette)`, like in theme.css.
  */
@@ -19,7 +21,6 @@
 import {
   TOKENS,
   tokenDefaults,
-  type Mode,
   type ModeConfig,
   type Token,
 } from "../../utils/theme-store"
@@ -53,8 +54,11 @@ function rampValue(ramp: Ramp, grays: { light: boolean; dark: boolean }) {
     : `light-dark(var(${light}), var(${dark}))`
 }
 
-function snapshotFor(mode: Mode, config: ModeConfig): Snapshot {
-  const out = { ...tokenDefaults(mode) }
+function snapshotFor(
+  config: ModeConfig,
+  defaults: Record<Token, string>,
+): Snapshot {
+  const out = { ...defaults }
   for (const [key, value] of Object.entries(config)) {
     if (key in out && typeof value === "string") {
       out[key as Token] = value
@@ -62,6 +66,14 @@ function snapshotFor(mode: Mode, config: ModeConfig): Snapshot {
   }
   return out
 }
+
+const withReference = (
+  defaults: Record<Token, string>,
+  reference: Record<string, string>,
+) =>
+  Object.fromEntries(
+    TOKENS.map((token) => [token, reference[token] ?? defaults[token]]),
+  ) as Record<Token, string>
 
 function isGraysEnabled(config: ModeConfig): boolean {
   return config["enable-grays"] !== "false"
@@ -79,16 +91,18 @@ const rule = (
     : ""
 
 export function generateCss({
-  light,
   dark,
+  light,
+  reference = {},
 }: {
-  light: ModeConfig
   dark: ModeConfig
+  light: ModeConfig
+  reference?: Record<string, string>
 }): string {
-  const lightSnap = snapshotFor("light", light)
-  const darkSnap = snapshotFor("dark", dark)
-  const lightDefaults = tokenDefaults("light")
-  const darkDefaults = tokenDefaults("dark")
+  const lightDefaults = withReference(tokenDefaults("light"), reference)
+  const darkDefaults = withReference(tokenDefaults("dark"), reference)
+  const lightSnap = snapshotFor(light, lightDefaults)
+  const darkSnap = snapshotFor(dark, darkDefaults)
 
   const lightTokens = TOKENS.filter(
     (token) => lightSnap[token] !== lightDefaults[token],
@@ -98,6 +112,20 @@ export function generateCss({
       darkSnap[token] !==
       (lightTokens.includes(token) ? lightSnap[token] : darkDefaults[token]),
   )
+  const lightPairs = [
+    ...Object.entries(reference).map(
+      ([token, value]) =>
+        [
+          token,
+          lightTokens.includes(token as Token)
+            ? lightSnap[token as Token]
+            : value,
+        ] as const,
+    ),
+    ...lightTokens
+      .filter((token) => !(token in reference))
+      .map((token) => [token, lightSnap[token]] as const),
+  ]
 
   const grays = { light: isGraysEnabled(light), dark: isGraysEnabled(dark) }
   const rampTokens =
@@ -109,10 +137,7 @@ export function generateCss({
 
   const darkPairs = darkTokens.map((token) => [token, darkSnap[token]] as const)
   const rules = [
-    rule(
-      ":where(html)",
-      lightTokens.map((token) => [token, lightSnap[token]] as const),
-    ),
+    rule(":where(html)", lightPairs),
     rule(":where(html, .ui-palette)", rampTokens),
     rule(":where(html.ui-dark)", darkPairs),
     darkPairs.length > 0

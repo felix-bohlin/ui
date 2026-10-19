@@ -189,6 +189,33 @@ describe("generateCss", () => {
     expect(css).not.toContain("ui-dark")
   })
 
+  test("starts from a reference theme and adds the changes on top", () => {
+    const css = generateCss({
+      dark: { "--border-radius": "0", "--palette-hue": "200" },
+      light: { "--border-radius": "0", "--palette-hue": "280" },
+      reference: {
+        "--border-radius": "var(--size-1)",
+        "--density": "0.875",
+        "--palette-hue": "280",
+      },
+    })
+    expect(css).toContain(`  :where(html) {
+    --border-radius: 0;
+    --density: 0.875;
+    --palette-hue: 280;
+  }`)
+    expect(css).toMatch(
+      /:where\(html\.ui-dark\) \{\n {4}--palette-hue: 200;\n {2}\}/,
+    )
+    expect(
+      generateCss({
+        dark: {},
+        light: {},
+        reference: { "--density": "0.875" },
+      }),
+    ).toContain("--density: 0.875;")
+  })
+
   test("returns the placeholder without changes", () => {
     expect(generateCss({ dark: {}, light: {} })).toBe(PLACEHOLDER_CSS)
   })

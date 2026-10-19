@@ -11,6 +11,7 @@ const SOURCE_CHROMA = 0.21
 const SOURCE_LIGHTNESS = 0.58
 const SOURCE_NAME = "--palette-source-color"
 const GRAYS_NAME = "enable-grays"
+const REFERENCE_NAME = "reference-theme"
 
 type RangeField = {
   label: string
@@ -68,8 +69,11 @@ const TOKEN_SET = new Set<string>(TOKENS)
 
 const isToken = (name: string): name is Token => TOKEN_SET.has(name)
 
-export const sourceColor = (mode: Mode, config: ModeConfig = {}) => {
-  const defaults = tokenDefaults(mode)
+export const sourceColor = (
+  mode: Mode,
+  config: ModeConfig = {},
+  defaults = tokenDefaults(mode),
+) => {
   const hue = parseFloat(config["--palette-hue"] ?? defaults["--palette-hue"])
   const chroma = parseFloat(
     config["--palette-chroma"] ?? defaults["--palette-chroma"],
@@ -87,12 +91,13 @@ const paletteFromSource = (hex: string) => {
 
 type Handlers = {
   setGrays: (enabled: boolean) => void
+  setReferenceTheme: (name: string | null) => void
   setToken: (token: Token, value: string) => void
 }
 
 export const themeForm = (
   form: HTMLFormElement,
-  { setGrays, setToken }: Handlers,
+  { setGrays, setReferenceTheme, setToken }: Handlers,
 ) => {
   let picking = false
 
@@ -107,7 +112,10 @@ export const themeForm = (
     const target = event.target
     if (!(target instanceof HTMLInputElement)) return
 
-    if (target.name === GRAYS_NAME) {
+    if (target.name === REFERENCE_NAME) {
+      if (target.checked)
+        setReferenceTheme(target.value === "default" ? null : target.value)
+    } else if (target.name === GRAYS_NAME) {
       setGrays(target.checked)
       setGrayInputsDisabled(!target.checked)
     } else if (target.name === SOURCE_NAME) {
@@ -123,8 +131,17 @@ export const themeForm = (
     if ((event.target as HTMLInputElement).name === SOURCE_NAME) picking = false
   })
 
-  const sync = (mode: Mode, config: ModeConfig) => {
-    const defaults = tokenDefaults(mode)
+  const sync = (
+    mode: Mode,
+    config: ModeConfig,
+    defaults = tokenDefaults(mode),
+    reference: string | null = null,
+  ) => {
+    for (const field of form.querySelectorAll<HTMLInputElement>(
+      `[name="${REFERENCE_NAME}"]`,
+    )) {
+      field.checked = field.value === (reference ?? "default")
+    }
 
     for (const token of TOKENS) {
       const value = config[token] ?? defaults[token]
@@ -144,7 +161,7 @@ export const themeForm = (
     input(GRAYS_NAME).checked = graysEnabled
     setGrayInputsDisabled(!graysEnabled)
 
-    if (!picking) input(SOURCE_NAME).value = sourceColor(mode, config)
+    if (!picking) input(SOURCE_NAME).value = sourceColor(mode, config, defaults)
   }
 
   return { sync }

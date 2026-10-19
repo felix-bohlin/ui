@@ -15,6 +15,7 @@
  */
 
 import huesSource from "open-props/src/props.colors-oklch-hues.css?raw"
+import { referenceTheme } from "./reference-themes"
 import { removeStored, writeStored } from "./storage"
 import { themeTokens } from "./theme-tokens"
 
@@ -73,6 +74,7 @@ for (const token of TOKENS) {
 export const THEME_KEYS = {
   contrast: "contrast",
   customTheme: "opui-custom-theme",
+  referenceTheme: "opui-reference-theme",
   theme: "theme",
 }
 
@@ -97,7 +99,8 @@ export type ModeConfig = Partial<Record<Token, string>> & {
   "enable-grays"?: "true" | "false"
 }
 
-export type ChangeType = "set" | "reset" | "applyMode" | "enable-grays"
+export type ChangeType =
+  "set" | "reset" | "applyMode" | "enable-grays" | "reference-theme"
 
 export type ThemeChangeDetail = {
   mode: Mode
@@ -125,6 +128,21 @@ function emit(detail: ThemeChangeDetail): void {
   document.dispatchEvent(new CustomEvent(EVENT_NAME, { detail }))
 }
 
+function getReferenceTheme(): string | null {
+  if (!isBrowser) return null
+  return window.themeUtils.getReferenceTheme()
+}
+
+export const withReferenceTheme = (
+  defaults: Record<Token, string>,
+  name: string | null,
+) => {
+  const tokens = referenceTheme(name)?.tokens ?? {}
+  return Object.fromEntries(
+    TOKENS.map((token) => [token, tokens[token] ?? defaults[token]]),
+  ) as Record<Token, string>
+}
+
 function getActiveSiteMode(): Mode {
   if (!isBrowser) return "light"
   return document.documentElement.classList.contains("ui-dark")
@@ -139,9 +157,26 @@ export const themeStore = {
 
   getActiveSiteMode,
 
+  /** The defaults for `mode`, with the reference theme's values on top. */
+  defaults(mode: Mode): Record<Token, string> {
+    return withReferenceTheme(tokenDefaults(mode), getReferenceTheme())
+  },
+
   /** Resolve a token's effective value for `mode`, falling back to the default. */
   effective(mode: Mode, token: Token): string {
-    return readConfig(mode)[token] ?? tokenDefaults(mode)[token]
+    return readConfig(mode)[token] ?? themeStore.defaults(mode)[token]
+  },
+
+  getReferenceTheme,
+
+  setReferenceTheme(name: string | null): void {
+    if (!isBrowser) return
+    window.themeUtils.setReferenceTheme(name)
+    emit({
+      mode: getActiveSiteMode(),
+      type: "reference-theme",
+      value: name ?? undefined,
+    })
   },
 
   isGraysEnabled(mode: Mode): boolean {
@@ -188,6 +223,7 @@ export const themeStore = {
     removeStored(STORAGE_KEY("light"))
     removeStored(STORAGE_KEY("dark"))
     removeStored(THEME_KEYS.customTheme) // legacy
+    window.themeUtils.setReferenceTheme(null)
 
     window.themeUtils.applyCustomTheme()
 

@@ -2,12 +2,12 @@
 
 Theme tokens change the whole library. When you want to change one component, or one instance of it, reach for its `--_` custom properties.
 
-## Your brand
+## Your theme
 
-A brand is a short list of [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md). Put them in the `theme.brand` layer: it sits right after the defaults in `theme.base`, so it beats them, and every component and utility still beats it. Only list what you change, and new tokens in later releases keep their defaults.
+A custom theme is a short list of [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md). Put them in the `theme.custom` layer: it sits right after the defaults in `theme.base`, so it beats them, and every component and utility still beats it. Only list what you change, and new tokens in later releases keep their defaults.
 
 ```css
-@layer theme.brand {
+@layer theme.custom {
   :where(html) {
     --border-radius: 4px;
     --density: 0.9;
@@ -19,11 +19,11 @@ A brand is a short list of [theme tokens](https://open-props-ui.netlify.app/astr
 }
 ```
 
-Load it after the library, or after `layers.css` when you import single files. If it might load first, start it with the two `@layer` statements from `layers.css`, like the reference themes and the generated file do, so `theme.brand` still lands after the defaults. The [Theme generator](https://open-props-ui.netlify.app/astro/guide/theme-generator.md) writes one for you, and [Theming](https://open-props-ui.netlify.app/astro/guide/theming.md) explains each token.
+Load it after the library, or after `layers.css` when you import single files. If it might load first, start it with the two `@layer` statements from `layers.css`, like the reference themes and the generated file do, so `theme.custom` still lands after the defaults. The [Theme generator](https://open-props-ui.netlify.app/astro/guide/theme-generator.md) writes one for you, and [Theming](https://open-props-ui.netlify.app/astro/guide/theming.md) explains each token.
 
 ### Reference themes
 
-Three brand files ship with the package, to use as they are or to start from. Each one is a few tokens in `theme.brand`, and the tests run every stress test page with each of them, in light and dark mode.
+Three reference themes ship with the package, to use as they are or to start from. Each one is a few tokens in `theme.custom`, and the tests run every stress test page with each of them, in light and dark mode. Try them on this site in the theme drawer in the header, or in the [Theme generator](https://open-props-ui.netlify.app/astro/guide/theme-generator.md).
 
 - `corporate`: muted blue, cool grays, small corners and soft shadows.
 - `dense`: compact controls and tight spacing for data-heavy apps.
@@ -98,7 +98,7 @@ If you use layers yourself, add one after `utils`. It beats the library and stil
 
 ```css
 @layer openprops, theme, normalize, components.prose, components.root, components.extended, utils, overrides;
-@layer theme.palette, theme.base, theme.brand;
+@layer theme.palette, theme.base, theme.custom;
 
 @layer overrides {
   .ui-badge {

@@ -19,7 +19,7 @@
     --ui-shadow-overlay: 0 1rem 2.5rem oklch(0.55 0.18 25 / 0.35);
     --ui-shadow-raised-dark: 0 0.75rem 2rem oklch(0.2 0.1 25 / 0.6);
     --ui-shadow-raised-light: 0 0.75rem 2rem oklch(0.65 0.18 25 / 0.3);
-    --ui-space-scale: 1.15;
+    --ui-space-scale: 1.25;
     --ui-surface-default: light-dark(var(--ui-color-1), oklch(0.22 0.03 0));
     --ui-surface-filled: light-dark(var(--ui-color-4), var(--ui-color-15));
     --ui-surface-tonal: light-dark(var(--ui-color-3), var(--ui-color-14));

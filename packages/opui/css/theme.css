@@ -164,6 +164,7 @@
     --ui-switch-track-width-large: calc(3.5rem * var(--ui-density));
 
     /* Elevation */
+    --ui-shadow-control: none;
     --ui-shadow-overlay: var(--shadow-3);
     --ui-shadow-raised: var(--ui-shadow-raised-light);
     --ui-shadow-raised-dark: var(--shadow-4);

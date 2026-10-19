@@ -23,15 +23,16 @@ Load it after the library, or after `layers.css` when you import single files. I
 
 ### Reference themes
 
-Three reference themes ship with the package, to use as they are or to start from. Each one is a few tokens in `theme.custom`, and the tests run every stress test page with each of them, in light and dark mode. Try them on this site in the theme drawer in the header, or in the [Theme generator](https://open-props-ui.netlify.app/svelte/guide/theme-generator.md).
+Four reference themes ship with the package, as far apart as we could make them. None of them touches component CSS: each one is a list of tokens in `theme.custom`, and the tests run every stress test page with each of them, in light and dark mode. Try them on this site in the theme drawer in the header, or in the [Theme generator](https://open-props-ui.netlify.app/svelte/guide/theme-generator.md).
 
-- `corporate`: muted blue, cool grays, small corners and soft shadows.
-- `dense`: compact controls and tight spacing for data-heavy apps.
-- `editorial`: serif headings, warm grays, square corners, no raised shadows and roomy spacing.
+- `brutalist`: thick black borders, hard offset shadows on cards, buttons and fields, square corners, heavy type and a hot pink accent on yellow.
+- `classic`: a blue primary, small corners, a soft focus glow and familiar proportions.
+- `groovy`: pink drifting to coral across the palette, pill buttons, round corners, rounded and handwritten fonts, soft colored shadows and roomy spacing.
+- `minimal`: monochrome grays with a near-black primary, compact controls and a faint shadow.
 
 ```css
 @import "opui-css/css/imports.css";
-@import "opui-css/themes/dense.css";
+@import "opui-css/themes/brutalist.css";
 ```
 
 ## Component properties

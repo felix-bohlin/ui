@@ -44,6 +44,7 @@
     --_min-height: var(--ui-button-size);
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
     --_padding-inline: 1.5ex;
+    --_shadow: none;
     --_text-color: var(--_accent-text);
 
     -webkit-tap-highlight-color: transparent;
@@ -52,6 +53,7 @@
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_border-radius);
+    box-shadow: var(--_shadow);
     color: var(--_text-color);
     display: inline-flex;
     font-size: var(--_font-size);
@@ -230,6 +232,10 @@
           --_text-color: var(--_accent-contrast);
         }
       }
+    }
+
+    &:is(.ui-filled, .ui-outlined, .ui-tonal) {
+      --_shadow: var(--ui-shadow-control);
     }
 
     &.ui-tonal,

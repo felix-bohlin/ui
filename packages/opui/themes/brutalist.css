@@ -1,0 +1,27 @@
+@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
+@layer theme.palette, theme.base, theme.custom;
+
+@layer theme.custom {
+  :where(html) {
+    --ui-border-color: light-dark(oklch(0 0 0), oklch(1 0 0));
+    --ui-border-radius: 0;
+    --ui-border-width: 3px;
+    --ui-field-border-width: 3px;
+    --ui-focus-ring-width: 3px;
+    --ui-font-body: var(--font-neo-grotesque);
+    --ui-font-heading: var(--font-industrial);
+    --ui-font-weight-bold: var(--font-weight-9);
+    --ui-gray-chroma: 0.06;
+    --ui-gray-hue: 95;
+    --ui-palette-chroma: 1;
+    --ui-palette-hue: 330;
+    --ui-shadow-control: 3px 3px 0 var(--ui-text-primary);
+    --ui-shadow-overlay: 6px 6px 0 var(--ui-text-primary);
+    --ui-shadow-raised-dark: 6px 6px 0 var(--ui-text-primary);
+    --ui-shadow-raised-light: 6px 6px 0 var(--ui-text-primary);
+    --ui-surface-default: light-dark(oklch(0.96 0.07 95), oklch(0.18 0.02 95));
+    --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.24 0.02 95));
+    --ui-text-muted: light-dark(oklch(0.2 0 0), oklch(0.92 0 0));
+    --ui-text-primary: light-dark(oklch(0 0 0), oklch(1 0 0));
+  }
+}

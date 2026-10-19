@@ -133,6 +133,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
   "--ui-ripple-color":
     "Halo color for the `Checkbox` and `Radio` hover effect.",
+  "--ui-shadow-control":
+    "Shadow of buttons with a variant and of fields. `none` by default, for themes that lift controls off the page.",
   "--ui-shadow-overlay":
     "Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.",
   "--ui-shadow-raised":

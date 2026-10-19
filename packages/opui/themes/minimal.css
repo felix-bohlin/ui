@@ -1,0 +1,19 @@
+@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
+@layer theme.palette, theme.base, theme.custom;
+
+@layer theme.custom {
+  :where(html) {
+    --ui-border-radius: 0.75rem;
+    --ui-button-border-radius: 0.375rem;
+    --ui-density: 0.9;
+    --ui-field-border-radius: 0.375rem;
+    --ui-font-body: var(--font-neo-grotesque);
+    --ui-font-weight-bold: var(--font-weight-6);
+    --ui-gray-chroma: 0.004;
+    --ui-gray-hue: 286;
+    --ui-palette-chroma: 0;
+    --ui-primary: light-dark(var(--ui-gray-15), var(--ui-gray-2));
+    --ui-shadow-raised-dark: var(--shadow-1);
+    --ui-shadow-raised-light: var(--shadow-1);
+  }
+}

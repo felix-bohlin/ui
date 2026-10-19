@@ -47,30 +47,36 @@ import Example from "../../components/Example/index"
     </p>
     <h3 id="reference-themes">Reference themes</h3>
     <p>
-      Three reference themes ship with the package, to use as they are or to
-      start from. Each one is a few tokens in <code>theme.custom</code>, and the
-      tests run every stress test page with each of them, in light and dark
-      mode. Try them on this site in the theme drawer in the header, or in the <DocLink
-        href="/guide/theme-generator">Theme generator</DocLink
-      >.
+      Four reference themes ship with the package, as far apart as we could make
+      them. None of them touches component CSS: each one is a list of tokens in <code
+        >theme.custom</code
+      >, and the tests run every stress test page with each of them, in light
+      and dark mode. Try them on this site in the theme drawer in the header, or
+      in the <DocLink href="/guide/theme-generator">Theme generator</DocLink>.
     </p>
     <ul>
       <li>
-        <code>corporate</code>: muted blue, cool grays, small corners and soft
-        shadows.
+        <code>brutalist</code>: thick black borders, hard offset shadows on
+        cards, buttons and fields, square corners, heavy type and a hot pink
+        accent on yellow.
       </li>
       <li>
-        <code>dense</code>: compact controls and tight spacing for data-heavy
-        apps.
+        <code>classic</code>: a blue primary, small corners, a soft focus glow
+        and familiar proportions.
       </li>
       <li>
-        <code>editorial</code>: serif headings, warm grays, square corners, no
-        raised shadows and roomy spacing.
+        <code>groovy</code>: pink drifting to coral across the palette, pill
+        buttons, round corners, rounded and handwritten fonts, soft colored
+        shadows and roomy spacing.
+      </li>
+      <li>
+        <code>minimal</code>: monochrome grays with a near-black primary,
+        compact controls and a faint shadow.
       </li>
     </ul>
     <Code
       code={`@import "opui-css/css/imports.css";
-@import "opui-css/themes/dense.css";`}
+@import "opui-css/themes/brutalist.css";`}
       lang="css"
     />
   </section>

@@ -91,6 +91,11 @@ export default {
     description: "The inline padding. Set by the size classes.",
     kind: "input",
   },
+  "--_shadow": {
+    description:
+      "The shadow. `--ui-shadow-control` on `.ui-filled`, `.ui-outlined` and `.ui-tonal`, none on text buttons.",
+    kind: "input",
+  },
   "--_text-color": {
     description:
       "The current text color. Set by the variant, hover, active and disabled states.",

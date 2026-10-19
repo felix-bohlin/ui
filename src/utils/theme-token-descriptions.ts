@@ -9,8 +9,16 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.",
   "--ui-border-width":
     "Default border width for components that draw a border.",
+  "--ui-button-border-color":
+    "Border color of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal`, and of an outlined `ButtonGroup`. When unset, filled and tonal buttons have no visible border and outlined ones use their color.",
   "--ui-button-border-radius":
     "Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--ui-border-radius`, also where it's set on a part of the page.",
+  "--ui-button-font-weight":
+    "Font weight of `Button`. When unset, buttons follow `--ui-font-weight-bold`.",
+  "--ui-button-hover-shadow":
+    "Shadow of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover. When unset, it keeps `--ui-shadow-control`.",
+  "--ui-button-hover-translate":
+    "Moves `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover, as a `translate` value. Pair it with `--ui-button-hover-shadow` to press buttons into their shadow. `none` when unset.",
   "--ui-button-size": "Default `Button` height.",
   "--ui-button-size-large": "`Button` height with `.ui-large`.",
   "--ui-button-size-small": "`Button` height with `.ui-small`.",
@@ -85,6 +93,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. When unset, headings follow `--ui-font-body`.",
   "--ui-font-size-05":
     "A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.",
+  "--ui-font-size-control":
+    "Font size of the default `Button`, `TextField`, `Textarea` and `Select`. The size classes set their own.",
   "--ui-font-size-h1": "Font size for `h1` and `.ui-h1`.",
   "--ui-font-size-h2": "Font size for `h2` and `.ui-h2`.",
   "--ui-font-size-h3": "Font size for `h3` and `.ui-h3`.",
@@ -127,6 +137,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Text color on `--ui-primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--ui-primary` gets readable text.",
   "--ui-primary-dark": "A darker `--ui-primary`.",
   "--ui-primary-light": "A lighter `--ui-primary`.",
+  "--ui-primary-text":
+    "Primary as a text color: links, and `Button` with `.ui-primary` and no variant or `.ui-outlined`. When unset, each derives a readable shade from `--ui-primary`. Set it when the primary is too light or too dark for text.",
   "--ui-red":
     "A literal red, Open Props' `--hue-red` at the palette lightness. No severity meaning.",
   "--ui-rhythm-step":

@@ -39,7 +39,7 @@
       oklch(from var(--_accent) calc(l + 0.2) c h),
       oklch(from var(--_accent) calc(l - 0.1) c h)
     );
-    --_font-size: var(--font-size-1);
+    --_font-size: var(--ui-font-size-control);
     --_icon-size: 0.7lh;
     --_min-height: var(--ui-button-size);
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
@@ -57,7 +57,7 @@
     color: var(--_text-color);
     display: inline-flex;
     font-size: var(--_font-size);
-    font-weight: var(--ui-font-weight-bold);
+    font-weight: var(--ui-button-font-weight, var(--ui-font-weight-bold));
     gap: var(--size-2);
     justify-content: center;
     min-block-size: var(--_min-height);
@@ -70,8 +70,10 @@
     text-decoration: none;
     transition:
       background-color var(--_duration) var(--_ease),
+      border-color var(--_duration) var(--_ease),
+      box-shadow var(--_duration) var(--_ease),
       color var(--_duration) var(--_ease),
-      border-color var(--_duration) var(--_ease);
+      translate var(--_duration) var(--_ease);
     user-select: none;
 
     &.ui-critical,
@@ -121,6 +123,20 @@
     &.ui-primary,
     :where(.ui-button-group.ui-primary) > & {
       --_accent: var(--ui-primary);
+      --_accent-text: var(
+        --ui-primary-text,
+        light-dark(var(--_accent), oklch(from var(--_accent) max(l, 0.75) c h))
+      );
+
+      @container style(--ui-contrast: more) {
+        --_accent-text: var(
+          --ui-primary-text,
+          light-dark(
+            var(--_accent),
+            oklch(from var(--_accent) max(l, 0.85) min(c, 0.1) h)
+          )
+        );
+      }
     }
 
     /* Hover & Active */
@@ -210,25 +226,28 @@
     &.ui-outlined,
     :where(.ui-button-group.ui-outlined) > & {
       --_bg-color: transparent;
-      --_border-color: var(--_accent);
+      --_border-color: var(--ui-button-border-color, var(--_accent));
       --_text-color: var(--_accent-text);
 
       @container style(--ui-contrast: more) {
-        --_border-color: var(--_accent-text);
+        --_border-color: var(--ui-button-border-color, var(--_accent-text));
       }
 
       &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
-            --_border-color: var(--_accent);
+            --_border-color: var(--ui-button-border-color, var(--_accent));
             --_text-color: var(--_accent-contrast);
           }
         }
 
         &:where(:active) {
           --_bg-color: var(--_outlined-active-bg-color);
-          --_border-color: var(--_outlined-active-bg-color);
+          --_border-color: var(
+            --ui-button-border-color,
+            var(--_outlined-active-bg-color)
+          );
           --_text-color: var(--_accent-contrast);
         }
       }
@@ -236,6 +255,19 @@
 
     &:is(.ui-filled, .ui-outlined, .ui-tonal) {
       --_shadow: var(--ui-shadow-control);
+
+      &:where(:not(:disabled, [aria-disabled="true"])) {
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_shadow: var(--ui-button-hover-shadow, var(--ui-shadow-control));
+            translate: var(--ui-button-hover-translate, none);
+          }
+        }
+      }
+    }
+
+    &:is(.ui-filled, .ui-tonal) {
+      --_border-color: var(--ui-button-border-color, transparent);
     }
 
     &.ui-tonal,

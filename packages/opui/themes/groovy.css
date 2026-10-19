@@ -13,7 +13,7 @@
     --ui-font-heading: var(--font-handwritten);
     --ui-gray-chroma: 0.04;
     --ui-gray-hue: 20;
-    --ui-palette-chroma: 0.9;
+    --ui-palette-chroma: 0.7;
     --ui-palette-hue: 340;
     --ui-palette-hue-rotate-by: 5;
     --ui-shadow-overlay: 0 1rem 2.5rem oklch(0.55 0.18 25 / 0.35);

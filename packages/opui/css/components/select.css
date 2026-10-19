@@ -8,13 +8,13 @@
       block-size: var(--_chevron-size);
       content: "";
       inline-size: var(--_chevron-size);
-      inset-block: 50% auto;
+      inset-block: 0;
       inset-inline: auto var(--_arrow-inset);
+      margin-block: auto;
       mask: var(--_chevron-icon) center / contain no-repeat;
       pointer-events: none;
       position: absolute;
       transition: scale var(--_duration) var(--_ease);
-      translate: 0 -50%;
 
       @media (forced-colors: active) {
         background-color: ButtonText;

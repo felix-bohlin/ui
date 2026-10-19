@@ -1,8 +1,11 @@
 @layer components.root {
   :where(.ui-link) {
-    --_text-color: light-dark(
-      oklch(from var(--ui-primary) min(l, 0.47) c h),
-      oklch(from var(--ui-primary) max(l, 0.78) c h)
+    --_text-color: var(
+      --ui-primary-text,
+      light-dark(
+        oklch(from var(--ui-primary) min(l, 0.47) c h),
+        oklch(from var(--ui-primary) max(l, 0.78) c h)
+      )
     );
 
     color: var(--_text-color);

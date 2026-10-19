@@ -112,6 +112,8 @@ const whatsNew = {
     `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
+    `Themes set the border color, font weight, and hover shadow and offset with <a href="#api"><code>--ui-button-border-color</code>, <code>--ui-button-font-weight</code>, <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code></a>, and the font size with <code>--ui-font-size-control</code>.`,
+    `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   "button-group": [
     `Icon-only buttons use the same <a href="#icons">icon size</a> as buttons with a label.`,
@@ -137,6 +139,8 @@ const whatsNew = {
       `<a href="#vertical-orientation"><code>orientation</code></a> takes <code>"horizontal"</code>, the default, like <code>Carousel</code>.`,
     ),
     `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
+    `Themes set the border color, font weight, and hover shadow and offset with <a href="#api"><code>--ui-button-border-color</code>, <code>--ui-button-font-weight</code>, <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code></a>, and the font size with <code>--ui-font-size-control</code>.`,
+    `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   callout: [
     slots(
@@ -699,6 +703,8 @@ const whatsNew = {
     `A <a href="#toggle-button">toggle button</a> grows with its content from <code>--ui-button-size</code> instead of having a fixed height.`,
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
+    `Themes set the border color, font weight, and hover shadow and offset with <a href="#api"><code>--ui-button-border-color</code>, <code>--ui-button-font-weight</code>, <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code></a>, and the font size with <code>--ui-font-size-control</code>.`,
+    `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   tooltip: [
     slots(
@@ -723,6 +729,7 @@ const whatsNew = {
     `Rich text <code>var</code> is monospace, like <a href="#inline-text-elements"><code>.ui-var</code></a>.`,
     `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
     `Headings read <a href="#api"><code>--ui-font-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--ui-font-code</code>. Rich text margins read the <code>--space-*</code> scale.`,
+    `<a href="#link">Links</a> read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
 } satisfies Record<string, Note[]>
 

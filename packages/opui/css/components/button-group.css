@@ -14,12 +14,15 @@
 
     &.ui-outlined {
       --_edge-accent: light-dark(var(--ui-color-16), var(--ui-color-1));
-      --_edge-color: var(--_edge-accent);
+      --_edge-color: var(--ui-button-border-color, var(--_edge-accent));
 
       @container style(--ui-contrast: more) {
-        --_edge-color: light-dark(
-          var(--_edge-accent),
-          oklch(from var(--_edge-accent) max(l, 0.85) min(c, 0.1) h)
+        --_edge-color: var(
+          --ui-button-border-color,
+          light-dark(
+            var(--_edge-accent),
+            oklch(from var(--_edge-accent) max(l, 0.85) min(c, 0.1) h)
+          )
         );
       }
 

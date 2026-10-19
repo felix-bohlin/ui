@@ -165,10 +165,12 @@
 - `theme.css` has font tokens: `--ui-font-body` for text, fields and buttons, `--ui-font-heading` for `h1`–`h6` and `.ui-h1`–`.ui-h6`, and `--ui-font-code` for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. `--ui-font-heading` is unset and headings follow `--ui-font-body` per element.
 - `theme.css` has a spacing scale, `--ui-space-1` to `--ui-space-8`, multiplied by `--ui-space-scale`. `Accordion`, `Callout`, `Card`, `Carousel`, `DescriptionList`, `Dialog`, `Divider`, `Drawer`, `Form`, `Menu`, `Table`, `Toast`, `Tooltip` and `Typography` read it for their padding, gaps and margins, and so do native `fieldset`, `dt` and `figure` and `--ui-divider-space`. Controls keep following `--ui-density`.
 - `theme.css` has elevation tokens: `--ui-shadow-raised` for elevated `Card` and `Accordion`, which switches between `--ui-shadow-raised-light` (`--shadow-3`) and `--ui-shadow-raised-dark` (`--shadow-4`) with the color scheme, and `--ui-shadow-overlay` for `Menu`, the `Select` picker, `Drawer` and `Toast`. `--ui-shadow-control` is the shadow of buttons with a variant and of fields, `none` by default.
+- `Button` reads optional theme tokens: `--ui-button-border-color` for the border of filled, outlined and tonal buttons and outlined `ButtonGroup`, `--ui-button-font-weight`, and `--ui-button-hover-shadow` and `--ui-button-hover-translate` for the shadow and offset on hover. `--ui-font-size-control` sets the font size of the default `Button`, `TextField`, `Textarea` and `Select`.
+- `Button`, `.ui-link` and rich text links read the optional `--ui-primary-text` token for primary text, for themes whose primary is too light or too dark to read.
 - `layers.css` declares the `theme.palette`, `theme.base` and `theme.custom` sublayers. `theme.custom` is empty, for your own tokens: it beats the defaults in `theme.base` and loses to every component and utility.
 - Every component page lists its `--_` custom properties under Component properties, as inputs to set or outputs that states derive, and so does each agent skill reference.
 - `tokens.json` lists every theme token in the W3C design tokens format, with its CSS variable, default, dark mode value and description. Import it from `opui-css/tokens.json`. The agent skill ships a copy and a table of which token to change for what.
-- `themes/brutalist.css`, `themes/classic.css`, `themes/groovy.css` and `themes/minimal.css` are reference themes in the `theme.custom` layer, made only of tokens. They start with the layer order, so they work wherever they load. Import one, or copy it as a starting point.
+- `themes/brutalist.css` (a neobrutalism look), `themes/classic.css` (a Bootstrap 5 look), `themes/groovy.css` and `themes/minimal.css` (a shadcn/ui look) are reference themes in the `theme.custom` layer, made only of tokens. They start with the layer order, so they work wherever they load. Import one, or copy it as a starting point.
 - `Layout` classes for the space between components: `.ui-l-column` (a column), `.ui-l-row` (a row that wraps), `.ui-l-grid` (columns that fill the width without breakpoints) and `.ui-l-container` (a centered, capped width). Gaps come from the `--space-*` scale, with `.ui-x-small`, `.ui-small` and `.ui-large`. CSS only, in `css/components/layout.css`, in the `utils` layer.
 
 ### Changed
@@ -258,6 +260,7 @@
 
 ### Fixed
 
+- `Select` and `TextField` autosuggest chevrons center with `margin-block: auto` instead of a `translate`.
 - `Anchor` with `trigger="hover"` and `Tooltip` stay visible on a scrolled page in Chrome 141. `normalize.css` gives `html` `min-block-size: 100%` instead of `block-size: 100%`, and `body` `min-block-size: 100svb` instead of `100%`, because `position-visibility: anchors-visible` hid every popover whose trigger was below the first screen.
 - `Checkbox`, `Radio`, `Switch` and `ToggleButton` style `aria-disabled="true"` on the input like `disabled`: dimmed, a `not-allowed` cursor and no hover tint on toggle buttons. The browser doesn't block the change, so a script has to.
 - `ToggleGroup` keeps its control size in forced colors instead of being one border width short, and the selected item no longer shows a gray divider there.

@@ -26,7 +26,7 @@
       )
     );
     --_field-padding-inline: var(--size-2);
-    --_font-size: var(--font-size-1);
+    --_font-size: var(--ui-font-size-control);
     --_helper-color: var(--ui-field-helper-color);
     --_min-height: var(--ui-field-size);
 
@@ -547,12 +547,12 @@
       block-size: var(--_chevron-size);
       content: "";
       inline-size: var(--_chevron-size);
-      inset-block: 50% auto;
+      inset-block: 0;
       inset-inline: auto var(--_arrow-inset);
+      margin-block: auto;
       mask: var(--_chevron-icon) center / contain no-repeat;
       pointer-events: none;
       position: absolute;
-      translate: 0 -50%;
 
       @media (forced-colors: active) {
         background-color: ButtonText;

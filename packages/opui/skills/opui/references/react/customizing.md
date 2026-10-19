@@ -23,12 +23,12 @@ Load it after the library, or after `layers.css` when you import single files. I
 
 ### Reference themes
 
-Four reference themes ship with the package, as far apart as we could make them. None of them touches component CSS: each one is a list of tokens in `theme.custom`, and the tests run every stress test page with each of them, in light and dark mode. Try them on this site in the theme drawer in the header, or in the [Theme generator](https://open-props-ui.netlify.app/react/guide/theme-generator.md).
+Four reference themes ship with the package, as far apart as we could make them. Three of them are deliberate copies of looks you know, to show how far tokens go. None of them touches component CSS: each one is a list of tokens in `theme.custom`, and the tests run every stress test page with each of them, in light and dark mode. Try them on this site in the theme drawer in the header, or in the [Theme generator](https://open-props-ui.netlify.app/react/guide/theme-generator.md).
 
-- `brutalist`: thick black borders, hard offset shadows on cards, buttons and fields, square corners, heavy type and a hot pink accent on yellow.
-- `classic`: a blue primary, small corners, a soft focus glow and familiar proportions.
+- `brutalist`: neobrutalism. Black 2px borders, hard 4px shadows that buttons press into on hover, a bright blue on pale blue and heavy type.
+- `classic`: Bootstrap 5. Its `#0d6efd` blue, grays, 38px controls, regular weight buttons and labels, heading scale and the wide translucent focus ring.
 - `groovy`: pink drifting to coral across the palette, pill buttons, round corners, rounded and handwritten fonts, soft colored shadows and roomy spacing.
-- `minimal`: monochrome grays with a near-black primary, compact controls and a faint shadow.
+- `minimal`: shadcn/ui. Neutral grays, a near-black primary, 36px controls with 14px text, light borders with a faint shadow, a 3px gray focus ring and rounder cards than controls.
 
 ```css
 @import "opui-css/css/imports.css";

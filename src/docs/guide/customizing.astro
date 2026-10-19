@@ -48,21 +48,24 @@ import Example from "../../components/Example/index"
     <h3 id="reference-themes">Reference themes</h3>
     <p>
       Four reference themes ship with the package, as far apart as we could make
-      them. None of them touches component CSS: each one is a list of tokens in <code
-        >theme.custom</code
-      >, and the tests run every stress test page with each of them, in light
-      and dark mode. Try them on this site in the theme drawer in the header, or
-      in the <DocLink href="/guide/theme-generator">Theme generator</DocLink>.
+      them. Three of them are deliberate copies of looks you know, to show how
+      far tokens go. None of them touches component CSS: each one is a list of
+      tokens in <code>theme.custom</code>, and the tests run every stress test
+      page with each of them, in light and dark mode. Try them on this site in
+      the theme drawer in the header, or in the <DocLink
+        href="/guide/theme-generator">Theme generator</DocLink
+      >.
     </p>
     <ul>
       <li>
-        <code>brutalist</code>: thick black borders, hard offset shadows on
-        cards, buttons and fields, square corners, heavy type and a hot pink
-        accent on yellow.
+        <code>brutalist</code>: neobrutalism. Black 2px borders, hard 4px
+        shadows that buttons press into on hover, a bright blue on pale blue and
+        heavy type.
       </li>
       <li>
-        <code>classic</code>: a blue primary, small corners, a soft focus glow
-        and familiar proportions.
+        <code>classic</code>: Bootstrap 5. Its <code>#0d6efd</code> blue, grays, 38px
+        controls, regular weight buttons and labels, heading scale and the wide translucent
+        focus ring.
       </li>
       <li>
         <code>groovy</code>: pink drifting to coral across the palette, pill
@@ -70,8 +73,9 @@ import Example from "../../components/Example/index"
         shadows and roomy spacing.
       </li>
       <li>
-        <code>minimal</code>: monochrome grays with a near-black primary,
-        compact controls and a faint shadow.
+        <code>minimal</code>: shadcn/ui. Neutral grays, a near-black primary,
+        36px controls with 14px text, light borders with a faint shadow, a 3px
+        gray focus ring and rounder cards than controls.
       </li>
     </ul>
     <Code

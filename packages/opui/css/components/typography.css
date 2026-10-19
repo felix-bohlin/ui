@@ -302,9 +302,12 @@
     }
 
     a[href]:where(:not([class*="ui-"])) {
-      --_text-color: light-dark(
-        oklch(from var(--ui-primary) min(l, 0.47) c h),
-        oklch(from var(--ui-primary) max(l, 0.78) c h)
+      --_text-color: var(
+        --ui-primary-text,
+        light-dark(
+          oklch(from var(--ui-primary) min(l, 0.47) c h),
+          oklch(from var(--ui-primary) max(l, 0.78) c h)
+        )
       );
 
       color: var(--_text-color);
@@ -333,7 +336,10 @@
 
     :where(.ui-list, :scope:where(.ui-list *))
       a[href]:where(:not([class*="ui-"])) {
-      color: light-dark(var(--ui-primary-dark), var(--ui-primary));
+      color: var(
+        --ui-primary-text,
+        light-dark(var(--ui-primary-dark), var(--ui-primary))
+      );
       text-decoration-color: currentColor;
     }
 

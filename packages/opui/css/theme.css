@@ -59,6 +59,7 @@
 
     /* Sneaking in an extra font size I want but Open Props doesn't provide. You can do whatever you want with your own theme. It's just CSS. */
     --ui-font-size-05: 0.875rem;
+    --ui-font-size-control: var(--font-size-1);
 
     --ui-font-weight-normal: var(--font-weight-4);
     --ui-font-weight-medium: var(--font-weight-5);
@@ -112,7 +113,11 @@
     --ui-field-required-color: var(--ui-invalid-text-color);
 
     /* Button */
+    /* --ui-button-border-color: transparent; */
     /* --ui-button-border-radius: var(--ui-border-radius); */
+    /* --ui-button-font-weight: var(--ui-font-weight-bold); */
+    /* --ui-button-hover-shadow: var(--ui-shadow-control); */
+    /* --ui-button-hover-translate: none; */
 
     /* Divider */
     --ui-divider-space: calc(var(--size-fluid-3) * var(--ui-space-scale));
@@ -221,6 +226,7 @@
     );
     --ui-primary-dark: oklch(from var(--ui-primary) calc(l * 0.75) c h);
     --ui-primary-light: oklch(from var(--ui-primary) calc(l * 1.25) c h);
+    /* --ui-primary-text: var(--ui-primary); */
 
     /* Text */
     --ui-text-disabled: color-mix(

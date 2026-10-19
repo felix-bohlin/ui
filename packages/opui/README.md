@@ -195,7 +195,7 @@ Importing a React component from `opui-css/components/*` skips the type augmenta
 
 ## Themes
 
-Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Four reference themes ship in `themes/`: `brutalist`, `classic`, `groovy` and `minimal`.
+Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Four reference themes ship in `themes/`: `brutalist` (neobrutalism), `classic` (Bootstrap 5), `groovy` and `minimal` (shadcn/ui).
 
 ```css
 @import "opui-css/css/imports.css";

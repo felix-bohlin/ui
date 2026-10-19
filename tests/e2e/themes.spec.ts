@@ -76,6 +76,21 @@ for (const theme of THEMES) {
         await expectSizedRows(page)
       }
 
+      await page.evaluate(async () => {
+        const frame = () => new Promise(requestAnimationFrame)
+        for (
+          let y = 0;
+          y < document.documentElement.scrollHeight;
+          y += innerHeight
+        ) {
+          scrollTo({ behavior: "instant", top: y })
+          await frame()
+          await frame()
+        }
+        scrollTo({ behavior: "instant", top: 0 })
+        await frame()
+      })
+
       const examplesLocator = page.locator("[data-example]")
       for (let index = 0; index < (await examplesLocator.count()); index++) {
         const example = examplesLocator.nth(index)

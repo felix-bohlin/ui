@@ -835,6 +835,7 @@
     :not(pre) > code,
     kbd,
     var {
+      line-height: 1;
       overflow-wrap: anywhere;
     }
 

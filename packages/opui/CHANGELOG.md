@@ -260,6 +260,7 @@
 
 ### Fixed
 
+- `Typography` rich text inline `code`, `kbd` and `var` no longer make their line taller than the line height.
 - `Select` and `TextField` autosuggest chevrons center with `margin-block: auto` instead of a `translate`.
 - `Anchor` with `trigger="hover"` and `Tooltip` stay visible on a scrolled page in Chrome 141. `normalize.css` gives `html` `min-block-size: 100%` instead of `block-size: 100%`, and `body` `min-block-size: 100svb` instead of `100%`, because `position-visibility: anchors-visible` hid every popover whose trigger was below the first screen.
 - `Checkbox`, `Radio`, `Switch` and `ToggleButton` style `aria-disabled="true"` on the input like `disabled`: dimmed, a `not-allowed` cursor and no hover tint on toggle buttons. The browser doesn't block the change, so a script has to.

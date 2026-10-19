@@ -76,6 +76,8 @@ for (const theme of THEMES) {
         await expectSizedRows(page)
       }
 
+      await page.screenshot({ fullPage: true })
+
       const examplesLocator = page.locator("[data-example]")
       for (let index = 0; index < (await examplesLocator.count()); index++) {
         const example = examplesLocator.nth(index)

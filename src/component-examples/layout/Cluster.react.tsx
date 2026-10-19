@@ -2,7 +2,7 @@ import { Button } from "opui-css/react"
 
 export default function Cluster() {
   return (
-    <div className="ui-cluster">
+    <div className="ui-l-cluster">
       <Button color="primary" variant="filled">
         Save
       </Button>

@@ -1,7 +1,7 @@
 /**
  * Pure function that turns the saved per-mode configs into a copy-pasteable
- * `brand.css` snippet. It only holds the tokens that differ from what
- * `packages/opui/css/theme.css` ships, in the `theme.brand` layer, so it
+ * `custom-theme.css` snippet. It only holds the tokens that differ from what
+ * `packages/opui/css/theme.css` ships, in the `theme.custom` layer, so it
  * keeps working when a release adds or changes other tokens.
  *
  * It starts with the layer order, so it also works when it loads before the
@@ -121,16 +121,16 @@ export function generateCss({
   ].filter(Boolean)
 
   return rules.length > 0
-    ? `${LAYERS}@layer theme.brand {\n${rules.join("\n\n")}\n}\n`
+    ? `${LAYERS}@layer theme.custom {\n${rules.join("\n\n")}\n}\n`
     : PLACEHOLDER_CSS
 }
 
 const LAYERS = `@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
-@layer theme.palette, theme.base, theme.brand;
+@layer theme.palette, theme.base, theme.custom;
 
 `
 
-export const PLACEHOLDER_CSS = `${LAYERS}@layer theme.brand {
-  /* Tweak the controls to generate your brand.css */
+export const PLACEHOLDER_CSS = `${LAYERS}@layer theme.custom {
+  /* Tweak the controls to generate your custom-theme.css */
 }
 `

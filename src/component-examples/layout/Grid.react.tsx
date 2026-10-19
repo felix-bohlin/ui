@@ -2,7 +2,7 @@ import { Card, CardContent } from "opui-css/react"
 
 export default function Grid() {
   return (
-    <div className="ui-grid" style={{ "--_min-inline-size": "10rem" }}>
+    <div className="ui-l-grid" style={{ "--_min-inline-size": "10rem" }}>
       <Card variant="outlined">
         <CardContent>One</CardContent>
       </Card>

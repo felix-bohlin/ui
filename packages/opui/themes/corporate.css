@@ -1,7 +1,7 @@
 @layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
-@layer theme.palette, theme.base, theme.brand;
+@layer theme.palette, theme.base, theme.custom;
 
-@layer theme.brand {
+@layer theme.custom {
   :where(html) {
     --border-radius: var(--size-1);
     --gray-chroma: 0.02;

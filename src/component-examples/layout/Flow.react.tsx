@@ -2,7 +2,7 @@ import { Card, CardContent } from "opui-css/react"
 
 export default function Flow() {
   return (
-    <div className="ui-flow">
+    <div className="ui-l-flow">
       <Card variant="outlined">
         <CardContent>First</CardContent>
       </Card>

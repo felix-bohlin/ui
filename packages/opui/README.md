@@ -154,12 +154,12 @@ The library defines this layer order:
 
 ```css
 @layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
-@layer theme.palette, theme.base, theme.brand;
+@layer theme.palette, theme.base, theme.custom;
 ```
 
 Import `opui-css/css/layers.css` first to set this order when you import single files.
 
-Put your theme tokens in `@layer theme.brand`, which beats the defaults in `theme.base`. Wrap other overrides in a layer above `utils` (or unlayered).
+Put your theme tokens in `@layer theme.custom`, which beats the defaults in `theme.base`. Wrap other overrides in a layer above `utils` (or unlayered).
 
 ## Upgrading
 
@@ -195,7 +195,7 @@ Importing a React component from `opui-css/components/*` skips the type augmenta
 
 ## Themes
 
-Put your own tokens in `@layer theme.brand`, which beats the defaults and loses to everything else. Three reference brands ship in `themes/`: `corporate`, `dense` and `editorial`.
+Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Three reference themes ship in `themes/`: `corporate`, `dense` and `editorial`.
 
 ```css
 @import "opui-css/css/imports.css";

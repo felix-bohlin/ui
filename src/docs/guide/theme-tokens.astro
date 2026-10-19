@@ -41,10 +41,10 @@ const slug = (title: string) =>
       <code>html</code> for a whole site, or on an element to theme a part of the
       page. The <DocLink href="/guide/theme-generator">theme generator</DocLink
       >{" "}
-      writes a <code>brand.css</code> with the tokens you change.
+      writes a <code>custom-theme.css</code> with the tokens you change.
     </p>
     <Code
-      code={`@layer theme.brand {
+      code={`@layer theme.custom {
   :where(html) {
     --border-radius: var(--radius-3);
     --duration: 0.15s;
@@ -54,8 +54,8 @@ const slug = (title: string) =>
       lang="css"
     />
     <p>
-      <DocLink href="/guide/customizing#your-brand">Customizing</DocLink> explains
-      the <code>theme.brand</code> layer and where to put your other styles.
+      <DocLink href="/guide/customizing#your-theme">Customizing</DocLink> explains
+      the <code>theme.custom</code> layer and where to put your other styles.
     </p>
     <p>
       The same list ships as <code>opui-css/tokens.json</code>, in the <a

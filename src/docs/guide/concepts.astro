@@ -22,7 +22,7 @@ import Example from "../../components/Example/index"
     </p>
     <Code
       code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
-@layer theme.palette, theme.base, theme.brand;`}
+@layer theme.palette, theme.base, theme.custom;`}
       lang="css"
     />
     <ul>
@@ -37,8 +37,8 @@ import Example from "../../components/Example/index"
           >theme.css</code
         >, the colors and component tokens like <code>--primary</code> and <code
           >--button-size</code
-        >, and <code>theme.brand</code> is empty, for your own theme. See <DocLink
-          href="/guide/customizing#your-brand">Your brand</DocLink
+        >, and <code>theme.custom</code> is empty, for your own theme. See <DocLink
+          href="/guide/customizing#your-theme">Your theme</DocLink
         >.
       </li>
       <li><code>normalize</code>: the reset.</li>

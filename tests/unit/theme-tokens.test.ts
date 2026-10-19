@@ -151,16 +151,16 @@ describe("theme tokens", () => {
 })
 
 describe("generateCss", () => {
-  test("lists only the changed tokens in the theme.brand layer", () => {
+  test("lists only the changed tokens in the theme.custom layer", () => {
     const css = generateCss({
       dark: { "--border-radius": "var(--radius-3)", "--palette-hue": "200" },
       light: { "--border-radius": "var(--radius-3)", "--palette-hue": "30" },
     })
     expect(css)
       .toBe(`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
-@layer theme.palette, theme.base, theme.brand;
+@layer theme.palette, theme.base, theme.custom;
 
-@layer theme.brand {
+@layer theme.custom {
   :where(html) {
     --palette-hue: 30;
     --border-radius: var(--radius-3);

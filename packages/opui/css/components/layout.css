@@ -1,5 +1,5 @@
 @layer utils {
-  :where(.ui-flow) {
+  :where(.ui-l-flow) {
     --_gap: var(--space-3);
 
     display: flex;
@@ -7,7 +7,7 @@
     gap: var(--_gap);
   }
 
-  :where(.ui-cluster) {
+  :where(.ui-l-cluster) {
     --_gap: var(--space-3);
     --_justify-content: flex-start;
 
@@ -18,7 +18,7 @@
     justify-content: var(--_justify-content);
   }
 
-  :where(.ui-grid) {
+  :where(.ui-l-grid) {
     --_gap: var(--space-3);
     --_min-inline-size: 16rem;
 
@@ -30,7 +30,7 @@
     );
   }
 
-  :where(.ui-flow, .ui-cluster, .ui-grid) {
+  :where(.ui-l-flow, .ui-l-cluster, .ui-l-grid) {
     &.ui-x-small {
       --_gap: var(--space-1);
     }
@@ -44,7 +44,7 @@
     }
   }
 
-  :where(.ui-container) {
+  :where(.ui-l-container) {
     --_max-inline-size: 72rem;
     --_padding-inline: var(--space-4);
 

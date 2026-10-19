@@ -685,19 +685,19 @@ Tooltips use `--surface-inverse` and `--text-inverse`, and shift along the viewp
 `theme.css` sets `--focus-ring-color` to the inverted page background instead of `var(--primary)`, and the global focus ring and the component rings read it. To keep the old value, set it in your theme:
 
 ```css
-@layer theme.brand {
+@layer theme.custom {
   :where(html) {
     --focus-ring-color: var(--primary);
   }
 }
 ```
 
-`theme.css` is in the `theme.base` layer, and `layers.css` adds an empty `theme.brand` layer after it for your own tokens. Overrides in `@layer theme` keep working and now beat the defaults wherever they load. If you copied a complete `theme.css` from the Theme generator, replace it with a new `brand.css` from the generator: it only lists the tokens you changed, so it won't miss tokens added in later releases.
+`theme.css` is in the `theme.base` layer, and `layers.css` adds an empty `theme.custom` layer after it for your own tokens. Overrides in `@layer theme` keep working and now beat the defaults wherever they load. If you copied a complete `theme.css` from the Theme generator, replace it with a new `custom-theme.css` from the generator: it only lists the tokens you changed, so it won't miss tokens added in later releases.
 
 `theme.css` no longer sets `--button-border-radius` and `--field-border-radius`, and buttons and fields follow `--border-radius` while they're unset, also where you set it on a part of the page. If your own styles read them, add the fallback: `var(--button-border-radius, var(--border-radius))`. If you set `--border-radius` and want buttons and fields to keep their corners, set them back:
 
 ```css
-@layer theme.brand {
+@layer theme.custom {
   :where(html) {
     --button-border-radius: var(--size-2);
     --field-border-radius: var(--size-2);

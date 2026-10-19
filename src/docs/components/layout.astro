@@ -20,21 +20,21 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
 >
   <Fragment slot="title">Layout</Fragment>
   <Fragment slot="preamble">
-    Four classes for the space between components: <code>.ui-flow</code>,
-    <code>.ui-cluster</code>, <code>.ui-grid</code> and <code
-      >.ui-container</code
-    >. Put them on wrapper elements, such as <code>div</code>, <code
-      >section</code
-    > or <code>ul</code>. They sit in the <code>utils</code> layer, so on a component
-    they replace its own layout. Their gaps come from the <DocLink
-      href="/guide/theming#spacing"><code>--space-*</code> scale</DocLink
+    Four classes for the space between components: <code>.ui-l-flow</code>,
+    <code>.ui-l-cluster</code>, <code>.ui-l-grid</code> and <code
+      >.ui-l-container</code
+    >. The <code>l-</code> marks a layout class. Put them on wrapper elements, such
+    as <code>div</code>, <code>section</code> or <code>ul</code>. They sit in
+    the <code>utils</code> layer, so on a component they replace its own layout. Their
+    gaps come from the <DocLink href="/guide/theming#spacing"
+      ><code>--space-*</code> scale</DocLink
     >, so they follow <code>--space-scale</code>.
   </Fragment>
 
   <section>
     <h2 id="flow">Flow</h2>
     <p>
-      <code>.ui-flow</code> stacks its children in a column with even space between
+      <code>.ui-l-flow</code> stacks its children in a column with even space between
       them.
     </p>
     <AutoExample name="Flow" />
@@ -43,9 +43,10 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <section>
     <h2 id="cluster">Cluster</h2>
     <p>
-      <code>.ui-cluster</code> puts its children in a row, centered on one line, and
-      wraps them when they run out of room. Set <code>--_justify-content</code> to
-      push them to the end or spread them out.
+      <code>.ui-l-cluster</code> puts its children in a row, centered on one line,
+      and wraps them when they run out of room. Set <code
+        >--_justify-content</code
+      > to push them to the end or spread them out.
     </p>
     <AutoExample name="Cluster" />
   </section>
@@ -53,7 +54,7 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <section>
     <h2 id="grid">Grid</h2>
     <p>
-      <code>.ui-grid</code> fills the width with as many columns as fit at <code
+      <code>.ui-l-grid</code> fills the width with as many columns as fit at <code
         >--_min-inline-size</code
       > (<code>16rem</code> by default), and wraps the rest. No breakpoints: it follows
       the space it has.
@@ -64,9 +65,9 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <section>
     <h2 id="gap">Gap</h2>
     <p>
-      The size classes set the gap of <code>.ui-flow</code>, <code
-        >.ui-cluster</code
-      > and <code>.ui-grid</code>: <code>.ui-x-small</code> is <code
+      The size classes set the gap of <code>.ui-l-flow</code>, <code
+        >.ui-l-cluster</code
+      > and <code>.ui-l-grid</code>: <code>.ui-x-small</code> is <code
         >--space-1</code
       >, <code>.ui-small</code>
       <code>--space-2</code>, the default <code>--space-3</code> and <code
@@ -80,7 +81,7 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
   <section>
     <h2 id="container">Container</h2>
     <p>
-      <code>.ui-container</code> centers its content, caps its width at <code
+      <code>.ui-l-container</code> centers its content, caps its width at <code
         >--_max-inline-size</code
       > (<code>72rem</code> by default) and keeps <code>--_padding-inline</code> from
       the edges. Combine the classes to lay out a whole section:

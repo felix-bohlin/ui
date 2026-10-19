@@ -13,17 +13,17 @@ import Example from "../../components/Example/index"
   </Fragment>
 
   <section>
-    <h2 id="your-brand">Your brand</h2>
+    <h2 id="your-theme">Your theme</h2>
     <p>
-      A brand is a short list of <DocLink href="/guide/theme-tokens"
+      A custom theme is a short list of <DocLink href="/guide/theme-tokens"
         >theme tokens</DocLink
-      >. Put them in the <code>theme.brand</code> layer: it sits right after the defaults
-      in <code>theme.base</code>, so it beats them, and every component and
-      utility still beats it. Only list what you change, and new tokens in later
-      releases keep their defaults.
+      >. Put them in the <code>theme.custom</code> layer: it sits right after the
+      defaults in <code>theme.base</code>, so it beats them, and every component
+      and utility still beats it. Only list what you change, and new tokens in
+      later releases keep their defaults.
     </p>
     <Code
-      code={`@layer theme.brand {
+      code={`@layer theme.custom {
   :where(html) {
     --border-radius: 4px;
     --density: 0.9;
@@ -40,16 +40,17 @@ import Example from "../../components/Example/index"
       single files. If it might load first, start it with the two <code
         >@layer</code
       > statements from <code>layers.css</code>, like the reference themes and
-      the generated file do, so <code>theme.brand</code> still lands after the defaults.
+      the generated file do, so <code>theme.custom</code> still lands after the defaults.
       The <DocLink href="/guide/theme-generator">Theme generator</DocLink> writes
       one for you, and <DocLink href="/guide/theming">Theming</DocLink> explains each
       token.
     </p>
     <h3 id="reference-themes">Reference themes</h3>
     <p>
-      Three brand files ship with the package, to use as they are or to start
-      from. Each one is a few tokens in <code>theme.brand</code>, and the tests
-      run every stress test page with each of them, in light and dark mode.
+      Three reference themes ship with the package, to use as they are or to
+      start from. Each one is a few tokens in <code>theme.custom</code>, and the
+      tests run every stress test page with each of them, in light and dark
+      mode.
     </p>
     <ul>
       <li>
@@ -204,7 +205,7 @@ import Example from "../../components/Example/index"
     </p>
     <Code
       code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils, overrides;
-@layer theme.palette, theme.base, theme.brand;
+@layer theme.palette, theme.base, theme.custom;
 
 @layer overrides {
   .ui-badge {

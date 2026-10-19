@@ -164,11 +164,11 @@
 - `theme.css` has font tokens: `--font-body` for text, fields and buttons, `--font-heading` for `h1`–`h6` and `.ui-h1`–`.ui-h6`, and `--font-code` for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. `--font-heading` is unset and headings follow `--font-body` per element.
 - `theme.css` has a spacing scale, `--space-1` to `--space-8`, multiplied by `--space-scale`. `Accordion`, `Callout`, `Card`, `Carousel`, `DescriptionList`, `Dialog`, `Divider`, `Drawer`, `Form`, `Menu`, `Table`, `Toast`, `Tooltip` and `Typography` read it for their padding, gaps and margins, and so do native `fieldset`, `dt` and `figure` and `--divider-space`. Controls keep following `--density`.
 - `theme.css` has elevation tokens: `--shadow-raised` for elevated `Card` and `Accordion`, which switches between `--shadow-raised-light` (`--shadow-3`) and `--shadow-raised-dark` (`--shadow-4`) with the color scheme, and `--shadow-overlay` for `Menu`, the `Select` picker, `Drawer` and `Toast`.
-- `layers.css` declares the `theme.palette`, `theme.base` and `theme.brand` sublayers. `theme.brand` is empty, for your own tokens: it beats the defaults in `theme.base` and loses to every component and utility.
+- `layers.css` declares the `theme.palette`, `theme.base` and `theme.custom` sublayers. `theme.custom` is empty, for your own tokens: it beats the defaults in `theme.base` and loses to every component and utility.
 - Every component page lists its `--_` custom properties under Component properties, as inputs to set or outputs that states derive, and so does each agent skill reference.
 - `tokens.json` lists every theme token in the W3C design tokens format, with its CSS variable, default, dark mode value and description. Import it from `opui-css/tokens.json`. The agent skill ships a copy and a table of which token to change for what.
-- `themes/corporate.css`, `themes/dense.css` and `themes/editorial.css` are reference brands in the `theme.brand` layer. They start with the layer order, so they work wherever they load. Import one, or copy it as a starting point.
-- `Layout` classes for the space between components: `.ui-flow` (a column), `.ui-cluster` (a wrapping row), `.ui-grid` (columns that fill the width without breakpoints) and `.ui-container` (a centered, capped width). Gaps come from the `--space-*` scale, with `.ui-x-small`, `.ui-small` and `.ui-large`. CSS only, in `css/components/layout.css`, in the `utils` layer.
+- `themes/corporate.css`, `themes/dense.css` and `themes/editorial.css` are reference themes in the `theme.custom` layer. They start with the layer order, so they work wherever they load. Import one, or copy it as a starting point.
+- `Layout` classes for the space between components: `.ui-l-flow` (a column), `.ui-l-cluster` (a wrapping row), `.ui-l-grid` (columns that fill the width without breakpoints) and `.ui-l-container` (a centered, capped width). Gaps come from the `--space-*` scale, with `.ui-x-small`, `.ui-small` and `.ui-large`. CSS only, in `css/components/layout.css`, in the `utils` layer.
 
 ### Changed
 
@@ -253,7 +253,7 @@
 - `Button`, `ButtonGroup`, `ToggleButton`, `ToggleGroup` and the fields follow `--border-radius`, also where it's set on a part of the page, so one token sets the corners of every component. Small radii (`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs and rounded `Avatar`) never get rounder than `--border-radius`.
 - `Accordion` with `variant="elevated"` uses `--shadow-raised`, which is `--shadow-4` in dark mode like the elevated `Card` (was `--shadow-3`).
 - `Select` pickers and `Drawer` use `--shadow-overlay` (`--shadow-3`, was `--shadow-2`), like `Menu` and `Toast`.
-- `theme.css` is in the `theme.base` layer instead of `theme`, so overrides in `@layer theme` or `@layer theme.brand` beat the defaults wherever they load.
+- `theme.css` is in the `theme.base` layer instead of `theme`, so overrides in `@layer theme` or `@layer theme.custom` beat the defaults wherever they load.
 
 ### Fixed
 

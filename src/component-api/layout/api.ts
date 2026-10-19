@@ -14,32 +14,32 @@ export default {
   },
   options: [
     {
-      class: ".ui-cluster",
+      class: ".ui-l-cluster",
       description: "A wrapping row with its children centered on one line.",
       group: "Cluster",
       prop: "cluster",
     },
     {
-      class: ".ui-container",
+      class: ".ui-l-container",
       description: "Centers its content and caps its width.",
       group: "Container",
       prop: "container",
     },
     {
-      class: ".ui-flow",
+      class: ".ui-l-flow",
       description: "A column with even space between its children.",
       group: "Flow",
       prop: "flow",
     },
     {
-      class: ".ui-grid",
+      class: ".ui-l-grid",
       description: "Columns that fill the width and wrap.",
       group: "Grid",
       prop: "grid",
     },
     {
       description:
-        "The space between children of `.ui-flow`, `.ui-cluster` and `.ui-grid`.",
+        "The space between children of `.ui-l-flow`, `.ui-l-cluster` and `.ui-l-grid`.",
       group: "Sizes",
       htmlDefault: "default",
       prop: "size",
@@ -54,6 +54,6 @@ export default {
   parts: [],
   root: {
     description: "Any element. The classes only set its layout.",
-    selector: ".ui-flow, .ui-cluster, .ui-grid, .ui-container",
+    selector: ".ui-l-flow, .ui-l-cluster, .ui-l-grid, .ui-l-container",
   },
 } satisfies ComponentApi

@@ -327,7 +327,7 @@ const whatsNew = {
     },
   ],
   layout: [
-    `New: <a href="#flow"><code>.ui-flow</code></a>, <a href="#cluster"><code>.ui-cluster</code></a>, <a href="#grid"><code>.ui-grid</code></a> and <a href="#container"><code>.ui-container</code></a> lay out the space between components.`,
+    `New: <a href="#flow"><code>.ui-l-flow</code></a>, <a href="#cluster"><code>.ui-l-cluster</code></a>, <a href="#grid"><code>.ui-l-grid</code></a> and <a href="#container"><code>.ui-l-container</code></a> lay out the space between components.`,
   ],
   list: [
     `Smaller <a href="#icon">start</a> and end icons.`,

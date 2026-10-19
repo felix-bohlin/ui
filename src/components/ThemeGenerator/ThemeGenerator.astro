@@ -177,7 +177,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   >
     <CardHeader>
       <div class="card-header">
-        <h3>brand.css</h3>
+        <h3>custom-theme.css</h3>
         <div class="css-actions">
           <Button
             round
@@ -201,8 +201,8 @@ const previewStyle = Object.entries(tokenDefaults("light"))
             round
             id="theme-generator-download"
             size="x-small"
-            title="Download brand.css"
-            aria-label="Download brand.css"
+            title="Download custom-theme.css"
+            aria-label="Download custom-theme.css"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -581,7 +581,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   copyBtn?.addEventListener("click", async () => {
     if (await copyText(generatedCss)) {
       window.showToast?.({
-        title: "Copied brand.css",
+        title: "Copied custom-theme.css",
         description: "Paste it into a stylesheet that loads after opui-css.",
         duration: "3s",
       })
@@ -601,7 +601,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
     )
     const link = document.createElement("a")
     link.href = url
-    link.download = "brand.css"
+    link.download = "custom-theme.css"
     link.click()
     setTimeout(() => URL.revokeObjectURL(url))
   })

@@ -27,7 +27,7 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: rm -rf tests/e2e/__screenshots__ && pnpm test:e2e:update tests/e2e/visual.spec.ts
+      - run: rm -rf tests/e2e/__screenshots__ && pnpm test:e2e:update tests/e2e/visual.spec.ts tests/e2e/themes.spec.ts
         env:
           HOME: /root
       - name: Commit updated snapshots

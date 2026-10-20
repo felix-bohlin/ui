@@ -7,7 +7,7 @@
     --_ease: var(--ui-ease-enter);
 
     background-color: var(--_bg-color);
-    block-size: var(--size-1);
+    block-size: var(--ui-space-1);
     border-radius: var(--ui-border-radius);
     display: inline-block;
     inline-size: 100%;

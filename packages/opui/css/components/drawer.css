@@ -84,9 +84,9 @@
 
       &::before,
       &::after {
-        block-size: var(--size-2);
+        block-size: var(--ui-space-2);
         box-shadow: var(--_scroll-shadow);
-        clip-path: inset(100% 0 calc(-1 * var(--size-6)));
+        clip-path: inset(100% 0 calc(-1 * var(--ui-space-6)));
         content: "";
         inset-inline: anchor(--ui-drawer-content inside);
         opacity: 0;

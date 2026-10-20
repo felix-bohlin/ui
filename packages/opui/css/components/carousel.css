@@ -34,7 +34,7 @@
     --_marker-bg-color: oklch(from var(--ui-text-primary) l c h / 25%);
     --_marker-gap: var(--ui-space-2);
     --_marker-label: "Slide ";
-    --_marker-size: var(--size-2);
+    --_marker-size: var(--ui-space-2);
     --_markers-gap: var(--ui-space-3);
     --_media-aspect-ratio: 16 / 9;
     --_media-border-radius: var(--ui-border-radius);

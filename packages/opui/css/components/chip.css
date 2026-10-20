@@ -7,9 +7,9 @@
     );
     --_dot-color: currentColor;
     --_font-size: var(--ui-font-size-caption);
-    --_icon-padding-inline: var(--size-1);
+    --_icon-padding-inline: var(--ui-space-1);
     --_icon-size: var(--ui-icon-size-small);
-    --_padding-inline: var(--size-2);
+    --_padding-inline: var(--ui-space-2);
     --_size: var(--ui-chip-size);
     --_text-color: var(--ui-text-primary);
 
@@ -21,7 +21,7 @@
     color: var(--_text-color);
     display: inline-flex;
     font-size: var(--_font-size);
-    gap: var(--size-1);
+    gap: var(--ui-space-1);
     max-inline-size: 100%;
     padding-inline: var(--_padding-inline);
     text-decoration: none;
@@ -108,11 +108,11 @@
 
     &.ui-dot::before {
       background-color: var(--_dot-color);
-      block-size: var(--size-2);
+      block-size: var(--ui-space-2);
       border-radius: var(--ui-radius-round);
       content: "";
       flex-shrink: 0;
-      inline-size: var(--size-2);
+      inline-size: var(--ui-space-2);
 
       @media (forced-colors: active) {
         background-color: CanvasText;
@@ -166,9 +166,9 @@
 
     &.ui-large {
       --_font-size: var(--ui-font-size-small);
-      --_icon-padding-inline: var(--size-2);
+      --_icon-padding-inline: var(--ui-space-2);
       --_icon-size: var(--ui-icon-size);
-      --_padding-inline: var(--size-3);
+      --_padding-inline: var(--ui-space-3);
       --_size: var(--ui-chip-size-large);
     }
 

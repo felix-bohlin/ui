@@ -91,14 +91,14 @@
           );
           font-weight: var(--ui-font-weight-medium);
           overflow: hidden;
-          padding-inline: var(--size-2);
+          padding-inline: var(--ui-space-2);
           text-overflow: ellipsis;
           white-space: nowrap;
         }
 
         &:not(:first-child),
         option:first-of-type {
-          margin-block-start: var(--size-2);
+          margin-block-start: var(--ui-space-2);
         }
       }
 

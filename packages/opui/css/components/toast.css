@@ -153,7 +153,7 @@
   @keyframes ui-toast-enter {
     from {
       opacity: 0;
-      translate: calc(var(--size-4) * var(--_dir)) 0;
+      translate: calc(var(--ui-space-4) * var(--_dir)) 0;
     }
 
     to {
@@ -182,7 +182,7 @@
     to {
       opacity: 0;
       scale: 0.9;
-      translate: 0 var(--size-4);
+      translate: 0 var(--ui-space-4);
     }
   }
 }

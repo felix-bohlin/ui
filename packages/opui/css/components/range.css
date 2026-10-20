@@ -26,7 +26,7 @@
     --_track-radius: var(--ui-radius-round);
 
     display: grid;
-    gap: var(--size-1) 0;
+    gap: var(--ui-space-1) 0;
     grid-template-columns: 1fr auto;
     position: relative;
 
@@ -75,7 +75,7 @@
       grid-column: 1/-1;
       grid-row: 4;
       justify-content: space-between;
-      margin-block-start: calc(var(--size-1) * -1);
+      margin-block-start: calc(var(--ui-space-1) * -1);
       padding-inline: calc(var(--_thumb-size) / 2);
 
       & > option {
@@ -113,7 +113,7 @@
     /* Orientation */
     &.ui-spread {
       align-items: center;
-      column-gap: var(--size-4);
+      column-gap: var(--ui-space-4);
       container-type: inline-size;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 
@@ -216,8 +216,8 @@
     /* Range input */
     :where(& > input[type="range"]) {
       --_inset: max(
-        var(--size-2),
-        var(--_thumb-size) / 2 + var(--size-2) - var(--size-4) / 2
+        var(--ui-space-2),
+        var(--_thumb-size) / 2 + var(--ui-space-2) - var(--ui-space-4) / 2
       );
       --_thumb-bg-color: var(--_accent);
       --_thumb-border-width: 3px;
@@ -237,7 +237,7 @@
       animation-timing-function: linear;
       appearance: none;
       background: transparent;
-      block-size: var(--size-4);
+      block-size: var(--ui-space-4);
       box-sizing: content-box;
       display: block;
       grid-column: 1/-1;
@@ -339,12 +339,12 @@
       &:not(:disabled) {
         @media (hover: hover) {
           &:hover {
-            --_thumb-highlight-size: var(--size-1);
+            --_thumb-highlight-size: var(--ui-space-1);
           }
         }
 
         &:active {
-          --_thumb-highlight-size: var(--size-2);
+          --_thumb-highlight-size: var(--ui-space-2);
           --_track-color: light-dark(
             oklch(from var(--ui-field-border-color) calc(l * 0.9) c h),
             oklch(from var(--ui-field-border-color) calc(l * 1.1) c h)

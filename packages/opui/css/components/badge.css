@@ -7,7 +7,7 @@
     --_border-color: var(--ui-primary);
     --_border-width: 2px;
     --_dir: 1;
-    --_dot-size: var(--size-2);
+    --_dot-size: var(--ui-space-2);
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease-enter);
     --_inset: 100%;
@@ -15,7 +15,7 @@
     --_inset-inline: var(--_inset) auto;
     --_sign-x: -1;
     --_sign-y: 1;
-    --_size: var(--size-4);
+    --_size: var(--ui-space-4);
     --_text-color: var(--ui-primary-contrast);
 
     display: inline-flex;
@@ -50,7 +50,7 @@
       inline-size: max-content;
       line-height: normal;
       min-inline-size: var(--_size);
-      padding-inline: var(--size-1);
+      padding-inline: var(--ui-space-1);
       place-items: center;
       text-align: center;
       transition:

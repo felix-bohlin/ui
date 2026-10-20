@@ -111,7 +111,7 @@
       &:has(> .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
         padding-inline: max(
             var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
-            var(--ui-space-3) - var(--size-3) + var(--size-1)
+            var(--ui-space-3) - var(--ui-space-3) + var(--ui-space-1)
           )
           var(--ui-space-3);
       }
@@ -132,7 +132,7 @@
           padding-inline: var(--ui-space-3)
             max(
               var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
-              var(--ui-space-3) - var(--size-3) + var(--size-1)
+              var(--ui-space-3) - var(--ui-space-3) + var(--ui-space-1)
             );
         }
       }

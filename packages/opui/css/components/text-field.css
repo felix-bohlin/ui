@@ -7,9 +7,9 @@
     --_motion: var(--ui-motion);
     --_accent: var(--ui-primary);
     --_affix-color: var(--ui-text-muted);
-    --_arrow-inset: var(--size-3);
+    --_arrow-inset: var(--ui-space-3);
     --_arrow-space: calc(
-      var(--_arrow-inset) + var(--_chevron-size) + var(--size-3)
+      var(--_arrow-inset) + var(--_chevron-size) + var(--ui-space-3)
     );
     --_bg-color: var(--ui-surface-default);
     --_border-color: var(--ui-field-border-color);
@@ -17,7 +17,7 @@
     --_chevron-size: 1rem;
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
-    --_field-padding-block: var(--size-2);
+    --_field-padding-block: var(--ui-space-2);
     --_field-padding-block-fit: min(
       var(--_field-padding-block),
       max(
@@ -25,7 +25,7 @@
         (var(--_min-height) - 1lh - var(--ui-field-border-width) * 2) / 2
       )
     );
-    --_field-padding-inline: var(--size-2);
+    --_field-padding-inline: var(--ui-space-2);
     --_font-size: var(--ui-font-size-control);
     --_helper-color: var(--ui-field-helper-color);
     --_min-height: var(--ui-field-size);
@@ -111,8 +111,8 @@
       color: var(--_affix-color);
       display: flex;
       font-size: var(--ui-font-size-caption);
-      gap: var(--size-2);
-      padding-block: var(--size-1);
+      gap: var(--ui-space-2);
+      padding-block: var(--ui-space-1);
       padding-inline: var(--_field-padding-inline);
     }
 
@@ -174,13 +174,13 @@
 
         &::file-selector-button {
           background-color: var(--ui-surface-tonal);
-          block-size: calc(100% - var(--size-2) * 2);
+          block-size: calc(100% - var(--ui-space-2) * 2);
           border: none;
           border-radius: var(--ui-field-border-radius, var(--ui-border-radius));
           cursor: pointer;
-          margin-block-start: var(--size-2);
+          margin-block-start: var(--ui-space-2);
           margin-inline-end: 1ex;
-          margin-inline-start: var(--size-2);
+          margin-inline-start: var(--ui-space-2);
         }
       }
 
@@ -189,13 +189,13 @@
         input {
           &::file-selector-button {
             background-color: var(--ui-surface-default);
-            block-size: calc(100% - var(--size-2) * 2);
+            block-size: calc(100% - var(--ui-space-2) * 2);
             border-radius: var(
               --ui-field-border-radius,
               var(--ui-border-radius)
             );
             cursor: pointer;
-            margin-block-start: var(--size-2);
+            margin-block-start: var(--ui-space-2);
           }
         }
       }
@@ -207,8 +207,8 @@
           font-size: var(--ui-font-size-small);
 
           &::file-selector-button {
-            block-size: calc(100% - var(--size-2));
-            margin-block-start: var(--size-1);
+            block-size: calc(100% - var(--ui-space-2));
+            margin-block-start: var(--ui-space-1);
           }
         }
       }
@@ -305,7 +305,7 @@
       font-weight: var(--ui-field-label-font-weight);
       grid-column: 1/-1;
       grid-row: 1;
-      margin-block-end: var(--size-1);
+      margin-block-end: var(--ui-space-1);
       padding-inline: 0 1ex;
     }
 
@@ -315,7 +315,7 @@
       grid-column: 1/-1;
       grid-row: 2;
       line-height: var(--ui-field-helper-line-height);
-      margin-block-end: var(--size-1);
+      margin-block-end: var(--ui-space-1);
     }
 
     &:not(.ui-spread):has(> .ui-start-text) {
@@ -335,7 +335,7 @@
       grid-column: 1/-1;
       grid-row: 3;
       line-height: var(--ui-field-helper-line-height);
-      margin-block-start: var(--size-1);
+      margin-block-start: var(--ui-space-1);
     }
 
     :where(.ui-table) :where(td, th) > & {
@@ -437,13 +437,13 @@
     }
 
     &.ui-small {
-      --_field-padding-block: var(--size-1);
+      --_field-padding-block: var(--ui-space-1);
       --_min-height: var(--ui-field-size-small);
     }
 
     &.ui-large {
       --_field-padding-block: 0.75rem;
-      --_field-padding-inline: var(--size-3);
+      --_field-padding-inline: var(--ui-space-3);
       --_min-height: var(--ui-field-size-large);
     }
 
@@ -459,7 +459,7 @@
     /* Orientation */
     &.ui-spread {
       align-items: start;
-      column-gap: var(--size-4);
+      column-gap: var(--ui-space-4);
       container-type: inline-size;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       inline-size: 100%;

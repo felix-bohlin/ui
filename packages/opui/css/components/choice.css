@@ -19,7 +19,7 @@
     color: var(--ui-text-primary);
     cursor: pointer;
     display: inline-grid;
-    gap: 0 var(--size-2);
+    gap: 0 var(--ui-space-2);
     grid-auto-columns: auto;
     grid-auto-flow: column;
     inline-size: fit-content;
@@ -152,7 +152,7 @@
     /* Spread layout */
     &.ui-spread {
       align-items: start;
-      column-gap: var(--size-4);
+      column-gap: var(--ui-space-4);
       grid-auto-flow: unset;
       grid-template-columns: 1fr auto;
       inline-size: 100%;
@@ -183,7 +183,7 @@
       .ui-label {
         grid-column: 1/-1;
         grid-row: 2;
-        margin-block-start: var(--size-1);
+        margin-block-start: var(--ui-space-1);
         padding-inline: 1ex;
       }
 

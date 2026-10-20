@@ -21,14 +21,14 @@
     cursor: pointer;
     display: inline-flex;
     font-size: var(--_font-size);
-    gap: var(--size-2);
+    gap: var(--ui-space-2);
     inline-size: fit-content;
     justify-content: center;
     min-block-size: var(--_min-height);
     min-inline-size: var(--_min-height);
-    outline-offset: calc(-1 * var(--size-2));
+    outline-offset: calc(-1 * var(--ui-space-2));
     padding-block: 0;
-    padding-inline: var(--size-2);
+    padding-inline: var(--ui-space-2);
     position: relative;
     user-select: none;
 
@@ -109,7 +109,7 @@
     &.ui-large,
     :where(.ui-toggle-group.ui-large) > & {
       --_min-height: var(--ui-button-size-large);
-      padding-inline: var(--size-3);
+      padding-inline: var(--ui-space-3);
     }
 
     @media (forced-colors: active) {

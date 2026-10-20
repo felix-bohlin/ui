@@ -12,16 +12,16 @@ Lists meant to be used stand-alone or as part of Select elements
     --_hover-bg-color: oklch(
       from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
     );
-    --_item-gap: var(--size-3);
+    --_item-gap: var(--ui-space-3);
     --_selected-bg-color: var(--ui-selected, var(--_hover-bg-color));
-    --_separator-space: var(--size-3);
+    --_separator-space: var(--ui-space-3);
     --_start-size: var(--ui-icon-size);
 
     background-color: var(--_bg-color);
     color: var(--ui-text-primary);
     font-weight: var(--ui-font-weight-normal);
     list-style: none;
-    padding-block: var(--size-2);
+    padding-block: var(--ui-space-2);
     padding-inline: 0;
 
     @media (pointer: coarse) {
@@ -62,15 +62,15 @@ Lists meant to be used stand-alone or as part of Select elements
 
     /* Dense - less gaps and spacing */
     &.ui-dense {
-      --_item-gap: var(--size-2);
-      --_separator-space: var(--size-2);
+      --_item-gap: var(--ui-space-2);
+      --_separator-space: var(--ui-space-2);
       --_start-size: var(--ui-icon-size-small);
 
       & > :where(li, option),
       & > :where([role="group"]) > :where(label, option) {
-        min-block-size: var(--size-7);
-        padding-block: var(--size-1);
-        padding-inline: var(--size-3);
+        min-block-size: var(--ui-space-7);
+        padding-block: var(--ui-space-1);
+        padding-inline: var(--ui-space-3);
 
         /* Clickable list item */
         &:has(> a, > button, > label) {
@@ -79,9 +79,9 @@ Lists meant to be used stand-alone or as part of Select elements
         }
 
         & > :where(a, button, label) {
-          min-block-size: var(--size-7);
-          padding-block: var(--size-1);
-          padding-inline: var(--size-3);
+          min-block-size: var(--ui-space-7);
+          padding-block: var(--ui-space-1);
+          padding-inline: var(--ui-space-3);
         }
 
         /* Checkbox / Radio */
@@ -99,7 +99,7 @@ Lists meant to be used stand-alone or as part of Select elements
         .ui-start,
         .ui-end {
           .ui-avatar {
-            max-inline-size: var(--size-6);
+            max-inline-size: var(--ui-space-6);
           }
 
           .ui-button:has(> svg:only-child),
@@ -137,8 +137,8 @@ Lists meant to be used stand-alone or as part of Select elements
       gap: var(--_item-gap);
       isolation: isolate;
       min-block-size: var(--ui-control-size);
-      padding-block: var(--size-2);
-      padding-inline: var(--size-3);
+      padding-block: var(--ui-space-2);
+      padding-inline: var(--ui-space-3);
       position: relative;
 
       &::before {
@@ -176,8 +176,8 @@ Lists meant to be used stand-alone or as part of Select elements
         inline-size: 100%;
         margin: 0;
         min-block-size: var(--ui-control-size);
-        padding-block: var(--size-2);
-        padding-inline: var(--size-3);
+        padding-block: var(--ui-space-2);
+        padding-inline: var(--ui-space-3);
         text-align: start;
         text-decoration: none;
         z-index: 0;
@@ -218,8 +218,8 @@ Lists meant to be used stand-alone or as part of Select elements
         margin: 0;
         min-block-size: var(--ui-control-size);
         outline-offset: var(--ui-focus-ring-inset);
-        padding-block: var(--size-2);
-        padding-inline: var(--size-3);
+        padding-block: var(--ui-space-2);
+        padding-inline: var(--ui-space-3);
         text-align: start;
         text-decoration: none;
         z-index: 0;
@@ -255,7 +255,7 @@ Lists meant to be used stand-alone or as part of Select elements
         }
 
         .ui-end {
-          padding-inline-end: var(--size-1);
+          padding-inline-end: var(--ui-space-1);
         }
 
         &:where(.ui-checkbox, .ui-radio) {
@@ -273,7 +273,7 @@ Lists meant to be used stand-alone or as part of Select elements
       /* Video */
       &:has(video) {
         padding-block: 0.75rem;
-        padding-inline: 0 var(--size-3);
+        padding-inline: 0 var(--ui-space-3);
       }
 
       /* Text */

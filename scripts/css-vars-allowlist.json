@@ -1,27 +1,19 @@
 {
   "avatar.css": {
     "literals": ["--_outline-width: 2px"],
-    "primitives": ["--size-3"]
+    "primitives": []
   },
   "badge.css": {
     "literals": ["--_border-width: 2px"],
-    "primitives": [
-      "--size-1",
-      "--size-2",
-      "--size-4",
-      "--ui-gray-1",
-      "--ui-gray-15"
-    ]
+    "primitives": ["--ui-gray-1", "--ui-gray-15"]
   },
   "button-group.css": {
     "literals": [],
-    "primitives": ["--size-1", "--size-2", "--ui-color-1", "--ui-color-16"]
+    "primitives": ["--ui-color-1", "--ui-color-16"]
   },
   "button.css": {
     "literals": [],
     "primitives": [
-      "--size-2",
-      "--size-relative-6",
       "--ui-color-1",
       "--ui-color-11",
       "--ui-color-12",
@@ -46,37 +38,25 @@
       "--ui-color-9"
     ]
   },
-  "card.css": {
-    "literals": [],
-    "primitives": ["--size-1", "--size-3"]
-  },
   "carousel.css": {
     "literals": ["--_block-size: 24rem"],
-    "primitives": ["--size-2"]
+    "primitives": []
   },
   "chip.css": {
     "literals": ["border: 2px"],
-    "primitives": ["--size-1", "--size-2", "--size-3"]
+    "primitives": []
   },
   "choice.css": {
     "literals": [],
-    "primitives": ["--size-1", "--size-2", "--size-4", "--ui-gray-1"]
+    "primitives": ["--ui-gray-1"]
   },
   "description-list.css": {
     "literals": ["--_border-width: 2px", "block-size: 2px"],
     "primitives": []
   },
-  "dialog.css": {
-    "literals": [],
-    "primitives": ["--size-1", "--size-2", "--size-3", "--size-4", "--size-6"]
-  },
-  "divider.css": {
-    "literals": [],
-    "primitives": ["--size-4"]
-  },
   "drawer.css": {
     "literals": ["--_block-size: 650px", "--_inline-size: 375px"],
-    "primitives": ["--size-2", "--size-6"]
+    "primitives": []
   },
   "layout.css": {
     "literals": ["--_max-inline-size: 72rem", "--_min-inline-size: 16rem"],
@@ -97,15 +77,11 @@
       "padding-block: 0.75rem",
       "padding-inline-end: 0.125rem"
     ],
-    "primitives": ["--size-1", "--size-2", "--size-3", "--size-6", "--size-7"]
+    "primitives": []
   },
   "menu.css": {
     "literals": ["--_min-block-size: 12rem", "--_min-inline-size: 12rem"],
-    "primitives": ["--size-1"]
-  },
-  "progress.css": {
-    "literals": [],
-    "primitives": ["--size-1"]
+    "primitives": []
   },
   "radio.css": {
     "literals": ["--_dot-radius: 1px", "background-image: 0.25px"],
@@ -117,11 +93,7 @@
       "--_thumb-size: 30px",
       "initial-value: 24px"
     ],
-    "primitives": ["--size-1", "--size-2", "--size-4"]
-  },
-  "select.css": {
-    "literals": [],
-    "primitives": ["--size-2"]
+    "primitives": []
   },
   "spinner.css": {
     "literals": ["border-width: 3px"],
@@ -140,7 +112,7 @@
   },
   "table.css": {
     "literals": ["overflow-clip-margin: 6px"],
-    "primitives": ["--size-6"]
+    "primitives": []
   },
   "tabs.css": {
     "literals": [
@@ -148,7 +120,7 @@
       "block-size: 1px",
       "inline-size: 1px"
     ],
-    "primitives": ["--size-1", "--size-2", "--size-3"]
+    "primitives": []
   },
   "text-field.css": {
     "literals": [
@@ -156,19 +128,15 @@
       "--_field-padding-block: 0.1875rem",
       "--_field-padding-block: 0.75rem"
     ],
-    "primitives": ["--size-1", "--size-2", "--size-3", "--size-4"]
-  },
-  "toast.css": {
-    "literals": [],
-    "primitives": ["--size-4"]
+    "primitives": []
   },
   "toggle-button.css": {
     "literals": ["block-size: 1px", "inline-size: 1px"],
-    "primitives": ["--size-2", "--size-3"]
+    "primitives": []
   },
   "tooltip.css": {
     "literals": ["--_min-inline-size: 10rem", "max-inline-size: 240px"],
-    "primitives": ["--size-2", "--size-4"]
+    "primitives": []
   },
   "typography.css": {
     "literals": [

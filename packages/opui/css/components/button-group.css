@@ -82,7 +82,7 @@
       }
 
       &:focus-visible {
-        outline-offset: calc(-1.5 * var(--size-1));
+        outline-offset: calc(-1.5 * var(--ui-space-1));
       }
 
       :where(.ui-button-group.ui-outlined) & {
@@ -109,11 +109,11 @@
       flex-direction: column;
 
       & > .ui-button {
-        padding: var(--size-2);
+        padding: var(--ui-space-2);
 
         &:has(> svg:only-child) {
           aspect-ratio: 1;
-          padding: var(--size-1);
+          padding: var(--ui-space-1);
         }
       }
 

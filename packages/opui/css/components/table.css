@@ -153,7 +153,7 @@
       @container scroll-state(stuck: block-start) {
         & > thead th {
           box-shadow: var(--_scroll-shadow);
-          clip-path: inset(0 0 calc(-1 * var(--size-6)));
+          clip-path: inset(0 0 calc(-1 * var(--ui-space-6)));
         }
       }
     }

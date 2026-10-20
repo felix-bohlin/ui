@@ -199,6 +199,7 @@
 - Inline `code` in rich text is rounded with `--ui-radius-small` (5px by default) like `kbd` and `mark`, instead of the full `--ui-border-radius`.
 - The file input takes `--ui-shadow-field` like other fields instead of an inset Open Props shadow, so it's flat by default.
 - A standalone `ToggleButton` and an outlined `Chip` take `--ui-shadow-control` like buttons (none by default), and toggle corners are capped at half the control height so a round `--ui-button-border-radius` doesn't clip grouped toggles.
+- Every gap, padding, offset and small size in the components reads `--ui-space-1` to `--ui-space-8` instead of Open Props `--size-*`, so `--ui-space-scale` reaches all of them. Nothing moves at the default scale.
 - `Dialog` takes `--ui-shadow-overlay`, like `Drawer` and `Menu`, instead of the raised card shadow.
 - `Menu` draws its border and dividers with `--ui-border-color-raised`, like other elevated surfaces, instead of a fixed gray in dark mode.
 - `List` separators are `--ui-border-color` instead of 18% of the text color, so a theme's border color reaches them.

@@ -16,7 +16,7 @@
     --_ease: var(--ui-ease);
     --_indicator-color: transparent;
     --_indicator-size: 2px;
-    --_inset: calc(var(--size-1) - var(--_track-border-width));
+    --_inset: calc(var(--ui-space-1) - var(--_track-border-width));
     --_text-color: var(--ui-text-muted);
     --_track-border-color: transparent;
     --_track-border-width: var(--ui-border-width);
@@ -85,15 +85,15 @@
       display: inline-flex;
       font-size: var(--ui-font-size-control);
       font-weight: var(--ui-font-weight-medium);
-      gap: var(--size-2);
+      gap: var(--ui-space-2);
       isolation: isolate;
       justify-content: center;
       line-height: var(--ui-line-height-relaxed);
       order: 1;
       padding-block: calc(
-        var(--size-1) + var(--_inset) - var(--_track-border-width)
+        var(--ui-space-1) + var(--_inset) - var(--_track-border-width)
       );
-      padding-inline: var(--size-3);
+      padding-inline: var(--ui-space-3);
       position: relative;
       transition: color var(--_duration) var(--_ease);
       user-select: none;
@@ -132,7 +132,7 @@
           var(--_track-border-color);
         border-start-start-radius: var(--_border-radius);
         padding-inline-start: calc(
-          var(--size-3) + var(--_inset) - var(--_track-border-width)
+          var(--ui-space-3) + var(--_inset) - var(--_track-border-width)
         );
 
         &::before {
@@ -146,7 +146,7 @@
           var(--_track-border-color);
         border-start-end-radius: var(--_border-radius);
         padding-inline-end: calc(
-          var(--size-3) + var(--_inset) - var(--_track-border-width)
+          var(--ui-space-3) + var(--_inset) - var(--_track-border-width)
         );
 
         &::before {
@@ -165,7 +165,7 @@
     & > .ui-tab-panel {
       display: none;
       inline-size: 100%;
-      margin-block-start: var(--size-2);
+      margin-block-start: var(--ui-space-2);
       order: 2;
     }
 
@@ -184,7 +184,7 @@
       --_track-border-width: 0px;
       --_track-color: transparent;
 
-      column-gap: var(--size-1);
+      column-gap: var(--ui-space-1);
     }
 
     &.ui-outlined {
@@ -243,7 +243,7 @@
       &.ui-line {
         & > .ui-tab-label {
           &:not(:nth-last-child(1 of .ui-tab-label)) {
-            margin-inline-end: var(--size-1);
+            margin-inline-end: var(--ui-space-1);
           }
         }
       }

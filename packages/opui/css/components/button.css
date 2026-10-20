@@ -70,7 +70,7 @@
     display: inline-flex;
     font-size: var(--_font-size);
     font-weight: var(--ui-button-font-weight, var(--ui-font-weight-bold));
-    gap: var(--size-2);
+    gap: var(--ui-space-2);
     justify-content: center;
     min-block-size: var(--_min-height);
     padding-block: min(
@@ -360,6 +360,6 @@
 
   :where(input[type="file"])::file-selector-button {
     cursor: pointer;
-    margin-inline-end: var(--size-relative-6);
+    margin-inline-end: var(--ui-space-3);
   }
 }

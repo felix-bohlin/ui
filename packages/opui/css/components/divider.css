@@ -42,7 +42,7 @@
         block-size: var(--ui-border-width);
         content: "";
         flex: 1;
-        min-inline-size: var(--size-4);
+        min-inline-size: var(--ui-space-4);
       }
     }
 

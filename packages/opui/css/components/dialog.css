@@ -12,8 +12,8 @@
     inset: 0;
     margin: auto;
     margin-block-start: 15dvb;
-    max-block-size: calc(85dvb - var(--size-4));
-    max-inline-size: min(var(--_max-inline-size), 100% - var(--size-4));
+    max-block-size: calc(85dvb - var(--ui-space-4));
+    max-inline-size: min(var(--_max-inline-size), 100% - var(--ui-space-4));
 
     /* Animation */
     /* There's no close animation, intentionally */
@@ -45,9 +45,9 @@
 
       &::before,
       &::after {
-        block-size: var(--size-2);
+        block-size: var(--ui-space-2);
         box-shadow: var(--_scroll-shadow);
-        clip-path: inset(100% 0 calc(-1 * var(--size-6)));
+        clip-path: inset(100% 0 calc(-1 * var(--ui-space-6)));
         content: "";
         inset-inline: anchor(--ui-dialog-content inside);
         opacity: 0;
@@ -85,7 +85,7 @@
 
       &:has(> .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
         padding-inline: var(--ui-space-3)
-          max(0px, var(--ui-space-3) - var(--size-3) + var(--size-1));
+          max(0px, var(--ui-space-3) - var(--ui-space-3) + var(--ui-space-1));
       }
     }
 

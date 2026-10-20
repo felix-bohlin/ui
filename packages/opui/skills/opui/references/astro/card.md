@@ -336,8 +336,6 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 ## Under the hood
 
-Read the post: [Cards that know their color scheme](https://open-props-ui.netlify.app/learn/card-style-queries)
-
 1. Base
 
    - A flex column: header, content and actions share one `gap`
@@ -348,13 +346,13 @@ Read the post: [Cards that know their color scheme](https://open-props-ui.netlif
 2. Variants
 
    - Variants only swap custom properties, the rules stay the same
-   - `@container style(--ui-color-scheme: dark)` picks a heavier shadow
+   - `--ui-shadow-raised` is a theme token that switches to a heavier shadow in dark mode
    - Shadows barely show on dark surfaces, switch the site to dark mode to compare
 
 3. Actions
 
    - `margin-block-start: auto` pins the actions to the bottom of a stretched card
-   - `[class="ui-button"]` only matches a plain text button, no variant classes
+   - `:not(.ui-filled, .ui-outlined, .ui-tonal)` only matches a text button, with no variant class
    - A text button has no background, so the row shifts to line its label up with the text
 
 Step 1 of 3: Base
@@ -411,7 +409,6 @@ Step 1 of 3: Base
 
 Step 2 of 3: Variants
 
-- [Container style queries ](https://webstatus.dev/features/container-style-queries)(Newly available): Chrome 111+, Edge 111+, Firefox 151+, Safari 18+
 - [Custom properties ](https://webstatus.dev/features/custom-properties)(Widely available): Chrome 49+, Edge 15+, Firefox 31+, Safari 9.1+
 
 ```css
@@ -425,11 +422,7 @@ Step 2 of 3: Variants
   --card-bg: var(--ui-surface-elevated);
   --card-border: var(--ui-surface-default);
   --card-border-width: 1px;
-  --card-shadow: var(--shadow-3);
-
-  @container style(--ui-color-scheme: dark) {
-    --card-shadow: var(--shadow-4);
-  }
+  --card-shadow: var(--ui-shadow-raised);
 }
 ```
 
@@ -446,7 +439,7 @@ Step 3 of 3: Actions
   padding: 0.5rem 0.75rem;
 }
 
-.actions:has(.ui-button:first-child[class="ui-button"]) {
+.actions:has(> .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
   padding-inline: 0.25rem 0.75rem;
 }
 ```

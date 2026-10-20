@@ -87,17 +87,11 @@ export const references = {
   ],
   card: [
     { code: true, href: mdn("Web/CSS/:has"), label: ":has()" },
-    { code: true, href: mdn("Web/CSS/@container"), label: "@container" },
+    { code: true, href: mdn("Web/CSS/:not"), label: ":not()" },
     {
       code: false,
-      href: mdn("Web/CSS/Attribute_selectors"),
-      label: "Attribute selectors",
-    },
-    { code: true, href: mdn("Web/CSS/color-scheme"), label: "color-scheme" },
-    {
-      code: false,
-      href: mdn("Web/CSS/CSS_containment/Container_size_and_style_queries"),
-      label: "Container size and style queries",
+      href: mdn("Web/CSS/Using_CSS_custom_properties"),
+      label: "Using CSS custom properties",
     },
   ],
   carousel: [

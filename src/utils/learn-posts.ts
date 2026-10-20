@@ -74,19 +74,6 @@ export const posts = [
   },
   {
     category: "under-the-hood",
-    component: "card",
-    date: "2026-10-02",
-    description:
-      "A container style query gives elevated cards a heavier shadow on dark surfaces.",
-    features: ["container-style-queries"],
-    level: "intermediate",
-    slug: "card-style-queries",
-    technique: "@container style()",
-    title: "Cards that know their color scheme",
-    topics: ["color", "selectors"],
-  },
-  {
-    category: "under-the-hood",
     component: "carousel",
     date: "2026-10-02",
     description:

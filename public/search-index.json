@@ -2145,14 +2145,6 @@
     "url": "/learn/callout-relative-colors"
   },
   {
-    "id": "learn-card-style-queries",
-    "title": "Cards that know their color scheme",
-    "description": "A container style query gives elevated cards a heavier shadow on dark surfaces.",
-    "headings": "The problem The trick Try it Fallback Actions @container style() container-style-queries",
-    "category": "Learn",
-    "url": "/learn/card-style-queries"
-  },
-  {
     "id": "learn-carousel-css-only",
     "title": "A carousel made of CSS",
     "description": "Scroll snap, ::scroll-button() and ::scroll-marker: a carousel without JavaScript.",

@@ -67,16 +67,12 @@ const steps = [
   --card-bg: var(--ui-surface-elevated);
   --card-border: var(--ui-surface-default);
   --card-border-width: 1px;
-  --card-shadow: var(--shadow-3);
-
-  @container style(--ui-color-scheme: dark) {
-    --card-shadow: var(--shadow-4);
-  }
+  --card-shadow: var(--ui-shadow-raised);
 }`,
-    features: ["container-style-queries", "custom-properties"],
+    features: ["custom-properties"],
     notes: [
       "Variants only swap custom properties, the rules stay the same",
-      "<code>@container style(--ui-color-scheme: dark)</code> picks a heavier shadow",
+      "<code>--ui-shadow-raised</code> is a theme token that switches to a heavier shadow in dark mode",
       "Shadows barely show on dark surfaces, switch the site to dark mode to compare",
     ],
     title: "Variants",
@@ -91,13 +87,13 @@ const steps = [
   padding: 0.5rem 0.75rem;
 }
 
-.actions:has(.ui-button:first-child[class="ui-button"]) {
+.actions:has(> .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
   padding-inline: 0.25rem 0.75rem;
 }`,
     features: ["has"],
     notes: [
       "<code>margin-block-start: auto</code> pins the actions to the bottom of a stretched card",
-      "<code>[class=&quot;ui-button&quot;]</code> only matches a plain text button, no variant classes",
+      "<code>:not(.ui-filled, .ui-outlined, .ui-tonal)</code> only matches a text button, with no variant class",
       "A text button has no background, so the row shifts to line its label up with the text",
     ],
     title: "Actions",

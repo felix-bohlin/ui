@@ -114,6 +114,12 @@
         flex-shrink: 0;
       }
 
+      &:has(.ui-marker) > :not(.ui-anchor, .ui-badge, .ui-marker, img, svg) {
+        min-inline-size: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       .ui-marker {
         flex-shrink: 0;
         margin-inline-start: auto;

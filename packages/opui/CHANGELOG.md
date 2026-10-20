@@ -172,7 +172,7 @@
 - `layers.css` declares the `theme.palette`, `theme.base` and `theme.custom` sublayers. `theme.custom` is empty, for your own tokens: it beats the defaults in `theme.base` and loses to every component and utility.
 - Component pages list their `--_` custom properties under Component properties, as inputs to set or outputs that states derive, and so does each agent skill reference.
 - `tokens.json` lists every theme token in the W3C design tokens format, with its CSS variable, default, dark mode value and description. Import it from `opui-css/tokens.json`. The agent skill ships a copy and a table of which token to change for what.
-- `themes/bootstrap.css` (a Bootstrap 5 look), `themes/brutalist.css` (a neobrutalism look), `themes/m3.css` (a Material 3 look) and `themes/shadcn.css` (a shadcn/ui look) are example themes in the `theme.custom` layer, made only of tokens. They name their fonts but don't load them. They start with the layer order, so they work wherever they load. Import one, or copy it as a starting point.
+- `themes/bootstrap.css` (a Bootstrap 5 look), `themes/brutalist.css` (a neobrutalism look), `themes/m3.css` (a Material 3 look) and `themes/shadcn.css` (a shadcn/ui look) are example themes in the `theme.custom` layer, made only of tokens. They name their fonts but don't load them, and they copy their originals' contrast, also where it falls short of WCAG. They start with the layer order, so they work wherever they load. Import one, or copy it as a starting point.
 - `Layout` classes for the space between components: `.ui-l-column` (a column), `.ui-l-row` (a row that wraps), `.ui-l-grid` (columns that fill the width without breakpoints) and `.ui-l-container` (a centered, capped width). Gaps come from the `--ui-space-*` scale, with `.ui-x-small`, `.ui-small` and `.ui-large`. CSS only, in `css/components/layout.css`, in the `utils` layer.
 
 ### Changed
@@ -464,6 +464,7 @@
 - `Menu` border follows `--ui-border-color` with more contrast in dark mode too.
 - `Range` in a disabled `fieldset` gets the disabled thumb and no hover ring, like a disabled range.
 - `Range` disabled thumb is opaque, so the track no longer shows through it.
+- `Accordion` summaries with a marker let their items shrink and cut off with an ellipsis, so a badge, a chip or a long word no longer pushes the marker out.
 - `Range` value lines up with the label's baseline.
 - `Range` with a value readout points its root `<label>` at the input, so the label names the slider instead of the `<output>`.
 - `Range` declares `--_track-height` and `--_track-radius` on the root, so setting them on the component works.

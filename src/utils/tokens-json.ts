@@ -1,5 +1,6 @@
 import { themeTokenDescriptions } from "./theme-token-descriptions"
-import { parseThemeTokens } from "./theme-tokens"
+import { themeTokenPromises } from "./theme-token-promises"
+import { parseThemeTokens, tokenTier } from "./theme-tokens"
 
 const slug = (title: string) =>
   title
@@ -23,6 +24,10 @@ export const tokensJson = () =>
                   cssVar: token.name,
                   ...(token.dark && { dark: token.dark }),
                   ...(token.optional && { optional: true }),
+                  ...(themeTokenPromises[token.name] && {
+                    promise: themeTokenPromises[token.name],
+                  }),
+                  tier: tokenTier(token.name),
                 },
               },
               $value: token.value,

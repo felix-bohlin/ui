@@ -175,6 +175,23 @@ export const parseThemeTokens = (css = themeSource): ThemeSection[] => {
   )
 }
 
+const COMPONENT_PREFIXES = [
+  "--ui-backdrop-",
+  "--ui-button-",
+  "--ui-chip-",
+  "--ui-choice-",
+  "--ui-divider-",
+  "--ui-field-",
+  "--ui-switch-",
+]
+
+export type TokenTier = "component" | "role"
+
+export const tokenTier = (name: string): TokenTier =>
+  COMPONENT_PREFIXES.some((prefix) => name.startsWith(prefix))
+    ? "component"
+    : "role"
+
 const themeTokensIn = (sections: ThemeSection[]) =>
   sections.flatMap((section) => section.tokens)
 

@@ -10,6 +10,7 @@ import {
 } from "../../src/components/ThemeGenerator/generateCss"
 import { TOKENS, tokenDefaults } from "../../src/utils/theme-store"
 import { themeTokenDescriptions } from "../../src/utils/theme-token-descriptions"
+import { themeTokenPromises } from "../../src/utils/theme-token-promises"
 import {
   parseThemeTokens,
   setThemeToken,
@@ -100,6 +101,16 @@ describe("theme tokens", () => {
     }
     expect(Object.keys(themeTokenDescriptions)).toEqual(
       Object.keys(themeTokenDescriptions).toSorted(),
+    )
+  })
+
+  test("every promise names declared tokens and is sorted", () => {
+    for (const [name, promise] of Object.entries(themeTokenPromises)) {
+      expect(find(name), name).toBeDefined()
+      expect(find(promise.against), promise.against).toBeDefined()
+    }
+    expect(Object.keys(themeTokenPromises)).toEqual(
+      Object.keys(themeTokenPromises).toSorted(),
     )
   })
 

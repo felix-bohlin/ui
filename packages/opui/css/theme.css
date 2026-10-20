@@ -426,6 +426,20 @@
       --ui-field-required-color: var(--ui-invalid-text-color);
       --ui-focus-ring-inset: calc(-1 * var(--ui-focus-ring-width));
       --ui-focus-ring-width: 3px;
+
+      --ui-button-accent: initial;
+      --ui-button-accent-contrast: initial;
+      --ui-choice-accent: initial;
+      --ui-choice-accent-contrast: initial;
+      --ui-control-border-color: initial;
+      --ui-control-filled-border-color: initial;
+      --ui-primary-text: initial;
+      --ui-primary-tonal: initial;
+      --ui-primary-tonal-contrast: initial;
+      --ui-selected: initial;
+      --ui-selected-contrast: initial;
+      --ui-surface-border-color: initial;
+      --ui-track-color: initial;
     }
 
     :where(body, .ui-contrast-more > *) {

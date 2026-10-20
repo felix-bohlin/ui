@@ -315,6 +315,23 @@ import Example from "../../components/Example/index"
       follow along.
     </p>
     <p>
+      Optional theme tokens that carry contrast, such as <code
+        >--ui-control-border-color</code
+      >, <code>--ui-selected</code> and <code>--ui-primary-text</code>, are
+      reset under more contrast, so the library's values win over a theme's. A
+      theme that wants its own value there sets the token again inside its own{
+        " "
+      }
+      <code>@container style(--ui-contrast: more)</code> block, as the example themes
+      do for <code>--ui-button-accent</code>. Declared tokens, such as{" "}
+      <code>--ui-primary</code> and <code>--ui-border-color</code>, are
+      overridden the same way: the block in <code>theme.css</code> sets them on{
+        " "
+      }
+      <code>body</code>, so a theme's <code>html</code> value gives way until the
+      theme re-sets it there.
+    </p>
+    <p>
       Try it with the <strong>High contrast</strong> switch in the theme config drawer.
     </p>
 

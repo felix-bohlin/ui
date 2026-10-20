@@ -60,6 +60,7 @@
     :where(body, .ui-contrast-more > *) {
       --ui-button-accent: var(--ui-primary);
       --ui-button-accent-contrast: var(--ui-primary-contrast);
+      --ui-control-border-color: var(--ui-field-border-color);
     }
   }
 }

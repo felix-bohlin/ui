@@ -122,6 +122,13 @@ export const openFixture = async (
   for (let quiet = 0; quiet < 5; quiet = inflight.size ? 0 : quiet + 1) {
     await page.waitForTimeout(100)
   }
+  await page.evaluate(async () => {
+    const { style } = document.body
+    style.display = "none"
+    void document.body.offsetHeight
+    style.display = ""
+    await new Promise(requestAnimationFrame)
+  })
 }
 
 export const computed = (locator: Locator, property: string, pseudo?: string) =>

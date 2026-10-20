@@ -82,6 +82,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   button: [
+    `Primary tonal buttons read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-primary-tonal-contrast</code> when a theme sets them.`,
     {
       default: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>round</code> makes them round.`,
       html: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>.ui-round</code> makes them round.`,
@@ -120,6 +121,7 @@ const whatsNew = {
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   "button-group": [
+    `Primary tonal groups read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-primary-tonal-contrast</code> when a theme sets them.`,
     `Icon-only buttons use the same <a href="#icons">icon size</a> as buttons with a label.`,
     `The focus ring shows on every <a href="#variants">variant</a>, inside the button.`,
     `<a href="#split-button">Split button</a> with a <code>Menu</code>.`,
@@ -358,6 +360,7 @@ const whatsNew = {
     `New: <a href="#column"><code>.ui-l-column</code></a>, <a href="#row"><code>.ui-l-row</code></a>, <a href="#grid"><code>.ui-l-grid</code></a> and <a href="#container"><code>.ui-l-container</code></a> lay out the space between components.`,
   ],
   list: [
+    `Selected and current items read <a href="#api"><code>--ui-selected</code></a> and <code>--ui-selected-contrast</code> when a theme sets them.`,
     `Smaller <a href="#icon">start</a> and end icons.`,
     {
       ...slots(
@@ -505,6 +508,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   select: [
+    `The selected option reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-selected-contrast</code> when a theme sets them.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     `The chevron flips when the <a href="#variants">picker</a> opens.`,
     {
@@ -719,6 +723,7 @@ const whatsNew = {
     `The toast shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
   ],
   toggle: [
+    `A checked <code>ToggleButton</code> reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-selected-contrast</code> when a theme sets them.`,
     `A checked <code>ToggleButton</code> reads <code>--ui-control-filled-border-color</code> for its border, like filled buttons.`,
     `<code>ToggleButton</code> and <code>ToggleGroup</code> read <a href="#api"><code>--ui-control-border-color</code></a> for their border, like outlined buttons.`,
     slots(

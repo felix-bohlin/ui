@@ -138,6 +138,8 @@
     /* State */
     --ui-disabled-opacity: 0.64;
     --ui-ripple-color: oklch(0.6 0 0 / 0.2);
+    /* --ui-selected: oklch(from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)); */
+    /* --ui-selected-contrast: var(--ui-text-primary); */
     --ui-state-active-alpha: 20%;
     --ui-state-active-alpha-accent: 25%;
     --ui-state-active-alpha-dark: 30%;
@@ -234,6 +236,8 @@
     --ui-primary-dark: oklch(from var(--ui-primary) calc(l * 0.75) c h);
     --ui-primary-light: oklch(from var(--ui-primary) calc(l * 1.25) c h);
     /* --ui-primary-text: light-dark(#0a58ca, #6ea8fe); */
+    /* --ui-primary-tonal: light-dark(var(--ui-color-6), var(--ui-color-11)); */
+    /* --ui-primary-tonal-contrast: light-dark(var(--ui-gray-15), var(--ui-gray-1)); */
 
     /* Text */
     --ui-text-disabled: color-mix(

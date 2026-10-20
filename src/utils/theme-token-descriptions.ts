@@ -155,12 +155,20 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-primary-light": "A lighter `--ui-primary`.",
   "--ui-primary-text":
     "Primary as a text color: links, and `Button` with `.ui-primary` and no variant or `.ui-outlined`. When unset, each derives a readable shade from `--ui-primary`. Set it when the primary is too light or too dark for text.",
+  "--ui-primary-tonal":
+    "Background of `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal`. When unset, a light tint of the palette. Material's `primary-container` and shadcn's `secondary` go here.",
+  "--ui-primary-tonal-contrast":
+    "Text color on `--ui-primary-tonal`. Set it with `--ui-primary-tonal`.",
   "--ui-red":
     "A literal red, Open Props' `--hue-red` at the palette lightness. No severity meaning.",
   "--ui-rhythm-step":
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
   "--ui-ripple-color":
     "Halo color for the `Checkbox` and `Radio` hover effect.",
+  "--ui-selected":
+    "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` at `--ui-state-active-alpha-accent`. Pair it with `--ui-selected-contrast`.",
+  "--ui-selected-contrast":
+    "Text color on `--ui-selected`. When unset, the control keeps its text color, and a selected `Select` option uses `--ui-primary`.",
   "--ui-shadow-control":
     "Shadow of buttons with a variant and of fields. `none` by default, for themes that lift controls off the page.",
   "--ui-shadow-field":

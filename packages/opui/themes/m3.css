@@ -35,6 +35,10 @@
     --ui-primary: light-dark(#6750a4, #d0bcff);
     --ui-primary-contrast: light-dark(#fff, #381e72);
     --ui-primary-text: light-dark(#6750a4, #d0bcff);
+    --ui-primary-tonal: light-dark(#eaddff, #4f378b);
+    --ui-primary-tonal-contrast: light-dark(#21005d, #eaddff);
+    --ui-selected: var(--ui-surface-tonal);
+    --ui-selected-contrast: var(--ui-text-primary);
     --ui-shadow-overlay:
       0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
     --ui-shadow-raised-dark:

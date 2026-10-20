@@ -12,12 +12,16 @@ export default {
     kind: "input",
   },
   "--_hover-bg-color": {
-    description:
-      "Background of hovered, selected and current items, from `--ui-primary`.",
+    description: "Background of hovered items, from `--ui-primary`.",
     kind: "input",
   },
   "--_item-gap": {
     description: "Gap between the content of an item. Smaller in `.ui-dense`.",
+    kind: "input",
+  },
+  "--_selected-bg-color": {
+    description:
+      "Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--_hover-bg-color`.",
     kind: "input",
   },
   "--_separator-space": {

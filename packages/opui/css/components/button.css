@@ -139,6 +139,14 @@
         --ui-primary-text,
         light-dark(var(--_accent), oklch(from var(--_accent) max(l, 0.75) c h))
       );
+      --_accent-tonal: var(
+        --ui-primary-tonal,
+        light-dark(var(--ui-color-6), var(--ui-color-11))
+      );
+      --_accent-tonal-contrast: var(
+        --ui-primary-tonal-contrast,
+        light-dark(var(--ui-gray-15), var(--ui-gray-1))
+      );
 
       @container style(--ui-contrast: more) {
         --_accent-text: var(
@@ -147,6 +155,10 @@
             var(--_accent),
             oklch(from var(--_accent) max(l, 0.85) min(c, 0.1) h)
           )
+        );
+        --_accent-tonal: var(
+          --ui-primary-tonal,
+          light-dark(var(--ui-color-4), var(--ui-color-12))
         );
       }
     }

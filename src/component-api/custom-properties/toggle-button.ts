@@ -34,4 +34,9 @@ export default {
       "Motion multiplier for the focus ring animation. `0` turns it off.",
     kind: "input",
   },
+  "--_selected-bg-color": {
+    description:
+      "Background of the checked button. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`, and `--ui-primary` with more contrast.",
+    kind: "input",
+  },
 } satisfies CustomProperties

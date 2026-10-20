@@ -13,6 +13,7 @@ Lists meant to be used stand-alone or as part of Select elements
       from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
     );
     --_item-gap: var(--size-3);
+    --_selected-bg-color: var(--ui-selected, var(--_hover-bg-color));
     --_separator-space: var(--size-3);
     --_start-size: var(--ui-icon-size);
 
@@ -163,7 +164,8 @@ Lists meant to be used stand-alone or as part of Select elements
         &[aria-selected="true"] > :where(a, button, label),
         &[aria-selected="true"],
         &:has(> [aria-current="page"]) > :where(a, button, label) {
-          background-color: var(--_hover-bg-color);
+          background-color: var(--_selected-bg-color);
+          color: var(--ui-selected-contrast, currentColor);
         }
       }
 
@@ -191,14 +193,18 @@ Lists meant to be used stand-alone or as part of Select elements
         }
 
         &[aria-selected="true"] {
-          background-color: var(--_hover-bg-color);
-          color: var(--ui-primary);
+          background-color: var(--_selected-bg-color);
+          color: var(--ui-selected-contrast, var(--ui-primary));
         }
 
         &:checked {
-          background-color: oklch(
-            from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
+          background-color: var(
+            --ui-selected,
+            oklch(
+              from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
+            )
           );
+          color: var(--ui-selected-contrast, currentColor);
         }
       }
 
@@ -230,7 +236,8 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &[aria-selected="true"],
         &[aria-current="page"] {
-          background-color: var(--_hover-bg-color);
+          background-color: var(--_selected-bg-color);
+          color: var(--ui-selected-contrast, currentColor);
         }
       }
 

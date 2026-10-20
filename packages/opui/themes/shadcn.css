@@ -33,6 +33,10 @@
     --ui-palette-chroma: 0;
     --ui-primary: light-dark(oklch(0.205 0 0), oklch(0.922 0 0));
     --ui-primary-contrast: light-dark(oklch(0.985 0 0), oklch(0.205 0 0));
+    --ui-primary-tonal: var(--ui-surface-tonal);
+    --ui-primary-tonal-contrast: var(--ui-text-primary);
+    --ui-selected: var(--ui-surface-tonal);
+    --ui-selected-contrast: var(--ui-text-primary);
     --ui-shadow-control: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --ui-shadow-overlay:
       0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);

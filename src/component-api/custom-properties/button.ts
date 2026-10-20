@@ -17,7 +17,8 @@ export default {
     kind: "output",
   },
   "--_accent-tonal": {
-    description: "Background of `.ui-tonal`.",
+    description:
+      "Background of `.ui-tonal`. `--ui-surface-tonal`, and `--ui-primary-tonal` or a palette tint in `.ui-primary`.",
     kind: "input",
   },
   "--_accent-tonal-contrast": {

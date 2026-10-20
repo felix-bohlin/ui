@@ -20,6 +20,7 @@ const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
 const THEME_SCOPE = /\bhtml\b/
 const SECTION_ORDER = [
   "Palette",
+  "Palette roles",
   "Named colors (no severity meaning)",
   "Intent tokens",
   "Primary",
@@ -65,6 +66,7 @@ type Line =
 function* walk(lines: string[]): Generator<[number, Line]> {
   const scopes: string[] = []
   let inComment = false
+  let prelude = ""
   for (let index = 0; index < lines.length; index++) {
     const line = lines[index]
     if (inComment) {
@@ -95,17 +97,23 @@ function* walk(lines: string[]): Generator<[number, Line]> {
       continue
     }
     if (line.trimEnd().endsWith("{")) {
-      scopes.push(line)
+      scopes.push(`${prelude} ${line}`)
+      prelude = ""
       yield [index, { kind: "open" }]
       continue
     }
     if (line.trim() === "}") {
       scopes.pop()
+      prelude = ""
       yield [index, { kind: "close" }]
       continue
     }
     const declaration = line.match(DECLARATION)
     if (!declaration || !scopes.some((scope) => THEME_SCOPE.test(scope))) {
+      prelude =
+        !declaration && line.trim() !== "" && !line.trimEnd().endsWith(";")
+          ? `${prelude} ${line.trim()}`
+          : ""
       yield [index, { kind: "other" }]
       continue
     }
@@ -180,6 +188,7 @@ const COMPONENT_PREFIXES = [
   "--ui-button-",
   "--ui-chip-",
   "--ui-choice-",
+  "--ui-code-block-",
   "--ui-divider-",
   "--ui-field-",
   "--ui-switch-",

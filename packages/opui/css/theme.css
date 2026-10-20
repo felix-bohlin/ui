@@ -50,6 +50,8 @@
     --ui-focus-ring-width: 2px;
 
     /* Typography */
+    --ui-code-block-background: var(--ui-color-15);
+    --ui-code-block-color: var(--ui-color-1);
     --ui-font-body: var(--font-sans);
     --ui-font-code: var(--font-mono);
     /* --ui-font-heading: var(--ui-font-body); */
@@ -205,6 +207,8 @@
     --ui-switch-dot-size-small: calc(0.75rem * var(--ui-density));
     --ui-switch-dot-size: calc(var(--size-3) * var(--ui-density));
     --ui-switch-dot-size-large: calc(var(--size-4) * var(--ui-density));
+    --ui-switch-thumb-color: light-dark(var(--ui-gray-11), var(--ui-gray-14));
+    --ui-switch-track-color: light-dark(var(--ui-gray-3), var(--ui-gray-8));
     --ui-switch-track-height-x-small: calc(var(--size-3) * var(--ui-density));
     --ui-switch-track-height-small: calc(var(--size-4) * var(--ui-density));
     --ui-switch-track-height: calc(var(--size-5) * var(--ui-density));
@@ -289,6 +293,7 @@
     --ui-text-inverse: light-dark(var(--ui-gray-1), var(--ui-gray-15));
     --ui-text-muted: light-dark(var(--ui-gray-13), var(--ui-gray-4));
     --ui-text-muted-contrast: light-dark(var(--ui-gray-4), var(--ui-gray-13));
+    --ui-text-on-accent: var(--ui-gray-1);
     --ui-text-primary: light-dark(var(--ui-gray-15), var(--ui-gray-1));
     --ui-text-primary-contrast: var(--ui-text-inverse);
 
@@ -333,6 +338,42 @@
     :where(html) {
       --ui-contrast: more;
     }
+  }
+
+  :where(
+    html,
+    .ui-palette,
+    .ui-critical,
+    .ui-info,
+    .ui-neutral,
+    .ui-success,
+    .ui-warning,
+    .ui-del,
+    .ui-ins,
+    del,
+    ins,
+    abbr,
+    dfn,
+    .ui-abbr,
+    .ui-dfn
+  ) {
+    /* Palette roles - shades of the current palette, re-derived inside the severity scopes */
+    --ui-palette-accent: light-dark(var(--ui-color-9), var(--ui-color-7));
+    --ui-palette-border: light-dark(var(--ui-color-5), var(--ui-color-11));
+    --ui-palette-ink: light-dark(var(--ui-color-16), var(--ui-color-1));
+    --ui-palette-ink-contrast: light-dark(
+      var(--ui-color-1),
+      var(--ui-color-16)
+    );
+    --ui-palette-inverse: var(--ui-color-15);
+    --ui-palette-inverse-contrast: var(--ui-color-1);
+    --ui-palette-text: light-dark(var(--ui-color-11), var(--ui-color-6));
+    --ui-palette-tint: light-dark(var(--ui-color-6), var(--ui-color-11));
+    --ui-palette-tint-contrast: light-dark(var(--ui-gray-15), var(--ui-gray-1));
+    --ui-palette-tint-subtle: light-dark(
+      oklch(from var(--ui-color-3) l c h / 60%),
+      oklch(from var(--ui-color-6) l c h / 5%)
+    );
   }
 
   /* Severity scope classes */
@@ -489,6 +530,28 @@
       --ui-selected-contrast: initial;
       --ui-surface-border-color: initial;
       --ui-track-color: initial;
+    }
+
+    :where(
+      body,
+      .ui-contrast-more > *,
+      .ui-palette,
+      .ui-critical,
+      .ui-info,
+      .ui-neutral,
+      .ui-success,
+      .ui-warning,
+      .ui-del,
+      .ui-ins,
+      del,
+      ins,
+      abbr,
+      dfn,
+      .ui-abbr,
+      .ui-dfn
+    ) {
+      --ui-palette-text: light-dark(var(--ui-color-12), var(--ui-color-3));
+      --ui-palette-tint: light-dark(var(--ui-color-4), var(--ui-color-12));
     }
 
     :where(body, .ui-contrast-more > *) {

@@ -1,13 +1,10 @@
 @layer components.root {
   :where(.ui-button) {
     --_motion: var(--ui-motion);
-    --_accent: var(
-      --ui-button-accent,
-      light-dark(var(--ui-color-16), var(--ui-color-1))
-    );
+    --_accent: var(--ui-button-accent, var(--ui-palette-ink));
     --_accent-contrast: var(
       --ui-button-accent-contrast,
-      light-dark(var(--ui-color-1), var(--ui-color-16))
+      var(--ui-palette-ink-contrast)
     );
     --_accent-text: light-dark(
       var(--_accent),
@@ -93,12 +90,8 @@
     /* Color inherited from Button Group. */
     :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) > & {
       --_accent-contrast: var(--ui-primary-contrast);
-      --_accent-tonal: light-dark(var(--ui-color-6), var(--ui-color-11));
-      --_accent-tonal-contrast: light-dark(var(--ui-gray-15), var(--ui-gray-1));
-
-      @container style(--ui-contrast: more) {
-        --_accent-tonal: light-dark(var(--ui-color-4), var(--ui-color-12));
-      }
+      --_accent-tonal: var(--ui-palette-tint);
+      --_accent-tonal-contrast: var(--ui-palette-tint-contrast);
 
       --_default-active-bg-color: oklch(
         from var(--_accent) l c h / var(--ui-state-active-alpha-accent)
@@ -114,7 +107,7 @@
     &.ui-critical,
     :where(.ui-button-group.ui-critical) > & {
       --_accent: var(--ui-critical);
-      --_accent-contrast: var(--ui-gray-1);
+      --_accent-contrast: var(--ui-text-on-accent);
       --_accent-text: light-dark(
         var(--_accent),
         oklch(from var(--_accent) max(l, 0.8) c h)
@@ -139,13 +132,10 @@
         --ui-primary-text,
         light-dark(var(--_accent), oklch(from var(--_accent) max(l, 0.75) c h))
       );
-      --_accent-tonal: var(
-        --ui-primary-tonal,
-        light-dark(var(--ui-color-6), var(--ui-color-11))
-      );
+      --_accent-tonal: var(--ui-primary-tonal, var(--ui-palette-tint));
       --_accent-tonal-contrast: var(
         --ui-primary-tonal-contrast,
-        light-dark(var(--ui-gray-15), var(--ui-gray-1))
+        var(--ui-palette-tint-contrast)
       );
 
       @container style(--ui-contrast: more) {
@@ -155,10 +145,6 @@
             var(--_accent),
             oklch(from var(--_accent) max(l, 0.85) min(c, 0.1) h)
           )
-        );
-        --_accent-tonal: var(
-          --ui-primary-tonal,
-          light-dark(var(--ui-color-4), var(--ui-color-12))
         );
       }
     }

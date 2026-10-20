@@ -10,7 +10,7 @@
     );
     --_accent-contrast: var(
       --ui-choice-accent-contrast,
-      light-dark(var(--ui-primary-contrast), var(--ui-gray-1))
+      light-dark(var(--ui-primary-contrast), var(--ui-text-on-accent))
     );
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);

@@ -1,7 +1,7 @@
 @layer components.root {
   :where(.ui-switch) {
     --_motion: var(--ui-motion);
-    --_dot-bg-color: light-dark(var(--ui-gray-11), var(--ui-gray-14));
+    --_dot-bg-color: var(--ui-switch-thumb-color);
     --_dot-inset: round(
       down,
       (var(--_track-height) - var(--_dot-size)) / 2,
@@ -16,10 +16,7 @@
       max(0px, var(--_track-width) - var(--_dot-size) - var(--_dot-inset) * 3)
     );
     --_input-size: var(--_track-height);
-    --_track-bg-color: var(
-      --ui-track-color,
-      light-dark(var(--ui-gray-3), var(--ui-gray-8))
-    );
+    --_track-bg-color: var(--ui-track-color, var(--ui-switch-track-color));
     --_track-border-color: var(--ui-field-border-color);
     --_track-height: round(var(--ui-switch-track-height), 1px);
     --_track-width: round(var(--ui-switch-track-width), 1px);

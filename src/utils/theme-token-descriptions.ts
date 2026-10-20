@@ -49,6 +49,10 @@ export const themeTokenDescriptions: Record<string, string> = {
     "`Checkbox` and `Radio` input size with `.ui-small` and inside `List`.",
   "--ui-choice-size-x-small":
     "`Checkbox` and `Radio` input size with `.ui-x-small`.",
+  "--ui-code-block-background":
+    "Background of `pre.ui-code-block` and `pre` in rich text. A dark shade of the palette in both modes.",
+  "--ui-code-block-color":
+    "Text color of `pre.ui-code-block` and `pre` in rich text.",
   "--ui-contrast":
     "`more` raises text, border, primary and focus ring contrast through a style query. Set to `more` automatically under `prefers-contrast: more`. See [Contrast](/guide/theming#contrast).",
   "--ui-control-border-color":
@@ -185,14 +189,31 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-neutral": "Severity color for neutral messages.",
   "--ui-orange":
     "A literal orange, Open Props' `--hue-orange` at the palette lightness. No severity meaning.",
+  "--ui-palette-accent":
+    "The accent shade of the current palette: `Callout` icons and outlined borders, the `abbr` underline. Re-derived inside every severity scope, so `.ui-success` gets a green one.",
+  "--ui-palette-border":
+    "The border shade of the current palette: tonal `Callout` borders. Re-derived inside every severity scope.",
   "--ui-palette-chroma":
     "Chroma of the palette source color, as a multiplier of `0.21`.",
   "--ui-palette-hue":
     "Hue of the palette source color in degrees. Green in light mode and blue in dark mode by default.",
   "--ui-palette-hue-rotate-by":
     "Hue drift per palette step in degrees: each step rotates one more time than the last, so `1` spreads 15° across the ramp. The severity scopes use `1` for livelier tints, the brand palette `0`.",
+  "--ui-palette-ink":
+    "The darkest shade of the current palette in light mode and the lightest in dark mode: `Callout` text, the default `Button` fill when `--ui-button-accent` is unset, the text of a warning `Badge`. Re-derived inside every severity scope.",
+  "--ui-palette-ink-contrast": "Text color on `--ui-palette-ink`.",
+  "--ui-palette-inverse":
+    "A dark shade of the current palette in both modes, for inverted surfaces.",
+  "--ui-palette-inverse-contrast": "Text color on `--ui-palette-inverse`.",
   "--ui-palette-source":
     "The source color the palette is derived from. Set it to replace `--ui-palette-hue` and `--ui-palette-chroma`. Any color works: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. See [Palette](/guide/theming#palette).",
+  "--ui-palette-text":
+    "A readable text shade of the current palette: `del`, `ins`, `.ui-del` and `.ui-ins`. Darker in light mode and lighter in dark mode with more contrast. Re-derived inside every severity scope.",
+  "--ui-palette-tint":
+    "The tonal fill of the current palette: primary and critical tonal buttons when `--ui-primary-tonal` is unset. Stronger with more contrast. Re-derived inside every severity scope.",
+  "--ui-palette-tint-contrast": "Text color on `--ui-palette-tint`.",
+  "--ui-palette-tint-subtle":
+    "A faint fill of the current palette: tonal severity `Callout`s. Re-derived inside every severity scope.",
   "--ui-primary": "Brand color for primary actions and accents.",
   "--ui-primary-contrast":
     "Text color on `--ui-primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--ui-primary` gets readable text.",
@@ -283,6 +304,10 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Diameter of the `Switch` dot with `.ui-small` and inside `List`.",
   "--ui-switch-dot-size-x-small":
     "Diameter of the `Switch` dot with `.ui-x-small`.",
+  "--ui-switch-thumb-color":
+    "Color of the unchecked `Switch` thumb. The checked thumb uses `--ui-choice-accent-contrast`.",
+  "--ui-switch-track-color":
+    "Background of the unchecked `Switch` track when `--ui-track-color` is unset.",
   "--ui-switch-track-height": "Height of the `Switch` track.",
   "--ui-switch-track-height-large":
     "Height of the `Switch` track with `.ui-large`.",
@@ -301,6 +326,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-text-inverse": "Text color on `--ui-surface-inverse`.",
   "--ui-text-muted": "Body text color.",
   "--ui-text-muted-contrast": "Muted text color on an inverted surface.",
+  "--ui-text-on-accent":
+    "Near-white text on a saturated fill in both modes: critical buttons, severity `Badge`s and the checked choice mark in dark mode.",
   "--ui-text-primary": "Emphasized text color for headings, labels and values.",
   "--ui-text-primary-contrast":
     "Same as `--ui-text-inverse`. Kept for older themes, use `--ui-text-inverse` instead.",

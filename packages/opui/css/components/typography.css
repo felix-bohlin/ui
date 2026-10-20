@@ -124,7 +124,7 @@
 
   :where(.ui-abbr, .ui-dfn) {
     font-style: normal;
-    text-decoration: var(--ui-color-9) underline dotted;
+    text-decoration: var(--ui-palette-accent) underline dotted;
 
     &[title] {
       cursor: help;
@@ -188,21 +188,13 @@
   }
 
   :where(.ui-del) {
-    color: light-dark(var(--ui-color-11), var(--ui-color-6));
-
-    @container style(--ui-contrast: more) {
-      color: light-dark(var(--ui-color-12), var(--ui-color-3));
-    }
+    color: var(--ui-palette-text);
 
     text-decoration: line-through;
   }
 
   :where(.ui-ins) {
-    color: light-dark(var(--ui-color-11), var(--ui-color-6));
-
-    @container style(--ui-contrast: more) {
-      color: light-dark(var(--ui-color-12), var(--ui-color-3));
-    }
+    color: var(--ui-palette-text);
 
     text-decoration: underline;
     text-underline-offset: 1px;
@@ -235,9 +227,9 @@
 
   /* Code block */
   :where(pre.ui-code-block) {
-    background-color: var(--ui-color-15);
+    background-color: var(--ui-code-block-background);
     border-radius: var(--ui-border-radius);
-    color: var(--ui-color-1);
+    color: var(--ui-code-block-color);
     font-family: var(--ui-font-code);
     font-size: var(--ui-font-size-small);
     max-inline-size: 100%;
@@ -384,9 +376,9 @@
 
     /* Code */
     pre {
-      background-color: var(--ui-color-15);
+      background-color: var(--ui-code-block-background);
       border-radius: var(--ui-border-radius);
-      color: var(--ui-color-1);
+      color: var(--ui-code-block-color);
       font-size: 0.875em;
       line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
       margin-block: round(var(--_flow-space) * 1.5, var(--ui-rhythm-step));
@@ -766,7 +758,7 @@
 
     :where(abbr, dfn) {
       font-style: normal;
-      text-decoration: var(--ui-color-9) underline dotted;
+      text-decoration: var(--ui-palette-accent) underline dotted;
 
       &[title] {
         cursor: help;
@@ -787,11 +779,7 @@
     }
 
     :where(del, ins) {
-      color: light-dark(var(--ui-color-11), var(--ui-color-6));
-
-      @container style(--ui-contrast: more) {
-        color: light-dark(var(--ui-color-12), var(--ui-color-3));
-      }
+      color: var(--ui-palette-text);
     }
 
     small {

@@ -39,17 +39,14 @@
     &.ui-neutral,
     &.ui-success,
     &.ui-warning {
-      --_bg-color: light-dark(
-        oklch(from var(--ui-color-3) l c h / 60%),
-        oklch(from var(--ui-color-6) l c h / 5%)
-      );
-      --_border-color: light-dark(var(--ui-color-5), var(--ui-color-11));
-      --_icon-color: light-dark(var(--ui-color-9), var(--ui-color-7));
+      --_bg-color: var(--ui-palette-tint-subtle);
+      --_border-color: var(--ui-palette-border);
+      --_icon-color: var(--ui-palette-accent);
       --_outlined-bg-color: var(--ui-surface-default);
-      --_outlined-border-color: var(--ui-color-9);
-      --_outlined-icon-color: light-dark(var(--ui-color-9), var(--ui-color-7));
-      --_outlined-text-color: light-dark(var(--ui-color-15), var(--ui-color-1));
-      --_text-color: light-dark(var(--ui-color-16), var(--ui-color-1));
+      --_outlined-border-color: var(--ui-palette-accent);
+      --_outlined-icon-color: var(--ui-palette-accent);
+      --_outlined-text-color: var(--ui-palette-ink);
+      --_text-color: var(--ui-palette-ink);
     }
 
     &.ui-outlined {

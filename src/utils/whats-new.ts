@@ -71,6 +71,7 @@ const whatsNew = {
     `Rounded avatars never get rounder than <a href="#api"><code>--ui-border-radius</code></a>, so <code>0</code> squares them.`,
   ],
   badge: [
+    `Severity text reads <code>--ui-text-on-accent</code> and <code>--ui-palette-ink</code> instead of fixed grays.`,
     `Badges on round avatars sit on the avatar's edge (<a href="#alignment">Alignment</a>), and in an avatar group on the start side.`,
     {
       default: `<a href="#indicator">Indicator</a> context for screen readers with <code>srLabel</code>.`,
@@ -152,6 +153,7 @@ const whatsNew = {
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   callout: [
+    `Severity fills, borders, icons and text read the <a href="#api"><code>--ui-palette-*</code></a> roles, so a theme restyles every severity at once.`,
     `Tonal <a href="#severity">severity callouts</a> have a visible fill in light mode.`,
     slots(
       `Breaking: <a href="#icon"><code>CalloutIcon</code></a> and <a href="#variants"><code>CalloutContent</code></a> replace the automatic icon, the content wrapper and the slots. Write the title as a plain heading in <code>CalloutContent</code> instead of the <code>title</code> slot and <code>headingLevel</code>.`,
@@ -567,6 +569,7 @@ const whatsNew = {
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
   ],
   switch: [
+    `The unchecked thumb and track read <a href="#api"><code>--ui-switch-thumb-color</code></a> and <code>--ui-switch-track-color</code>.`,
     `The unchecked track border is <a href="#api"><code>--ui-field-border-color</code></a>, like the checkbox and radio borders.`,
     `The checked track reads <a href="#api"><code>--ui-choice-accent</code></a> and the unchecked track <code>--ui-track-color</code> when a theme sets them.`,
     slots(
@@ -800,6 +803,7 @@ const whatsNew = {
     `Corners never get rounder than <a href="#api"><code>--ui-border-radius</code></a>, so <code>0</code> squares them.`,
   ],
   typography: [
+    `Code blocks read <code>--ui-code-block-background</code> and <code>--ui-code-block-color</code>, and <code>del</code>, <code>ins</code> and <code>abbr</code> read the <code>--ui-palette-*</code> roles.`,
     `Inline <code>code</code>, <code>kbd</code>, <code>mark</code> and <code>var</code> are rounded with <code>--ui-radius-small</code>, and the blockquote bar and table rules follow <code>--ui-border-width-thick</code>.`,
     `Text sizes follow the type roles <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code>, <code>--ui-font-size-body</code> and <code>--ui-font-size-large</code> on the <code>--ui-font-size-100</code> to <code>900</code> scale, with <code>--ui-line-height-*</code> and <code>--ui-letter-spacing-*</code> roles for the rest, so a theme reshapes the type in a few lines.`,
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,

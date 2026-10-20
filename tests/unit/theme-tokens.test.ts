@@ -47,6 +47,7 @@ describe("theme tokens", () => {
         .map((section) => section.title),
     ).toEqual([
       "Palette",
+      "Palette roles",
       "Named colors (no severity meaning)",
       "Intent tokens",
       "Primary",

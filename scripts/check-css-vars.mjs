@@ -11,7 +11,7 @@ const allowlistFile = join(root, "scripts/css-vars-allowlist.json")
 const update = process.argv.includes("--update")
 
 const CONSUMER_SET = ["--ui-anchor-position-area"]
-const PALETTE_STEP = /^--ui-(?:color|gray)-\d+$/
+const PALETTE_STEP = /^--ui-(?:color|font-size|gray)-\d+$/
 const PRELUDE = /@(?:container|media)[^{]*/g
 const PROPERTY = /(^|[\s;{])(--[\w-]+|[a-z][\w-]*)\s*:\s*([^;{}]*)/g
 const LENGTH = /(?<![\w.-])(\d*\.?\d+)(px|rem)\b/g

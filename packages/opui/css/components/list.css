@@ -133,7 +133,7 @@ Lists meant to be used stand-alone or as part of Select elements
       align-items: center;
       background-color: var(--_bg-color);
       display: flex;
-      font-size: var(--ui-font-size-05);
+      font-size: var(--ui-font-size-small);
       gap: var(--_item-gap);
       isolation: isolate;
       min-block-size: var(--ui-control-size);
@@ -280,7 +280,7 @@ Lists meant to be used stand-alone or as part of Select elements
       & > .ui-text,
       & > :where(a, button, label) > .ui-text {
         flex: 1;
-        line-height: 1.6;
+        line-height: var(--ui-line-height-body);
         min-inline-size: 0;
 
         :where(h1, h2, h3, h4, h5, h6, p, span) {
@@ -291,7 +291,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         p + p {
           color: var(--ui-text-muted);
-          font-size: var(--font-size-0);
+          font-size: var(--ui-font-size-caption);
         }
       }
 
@@ -327,7 +327,7 @@ Lists meant to be used stand-alone or as part of Select elements
       .ui-end {
         align-items: center;
         display: flex;
-        font-size: var(--font-size-0);
+        font-size: var(--ui-font-size-caption);
         text-align: end;
         z-index: 1;
 

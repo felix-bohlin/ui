@@ -32,7 +32,7 @@
       block-size: auto;
       color: var(--ui-text-muted);
       display: flex;
-      font-size: var(--font-size-0);
+      font-size: var(--ui-font-size-caption);
       gap: var(--ui-space-3);
       text-box: trim-both cap alphabetic;
 

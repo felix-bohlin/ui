@@ -50,21 +50,58 @@
     --ui-font-code: var(--font-mono);
     /* --ui-font-heading: var(--ui-font-body); */
 
-    --ui-font-size-h1: var(--font-size-fluid-3);
-    --ui-font-size-h2: var(--font-size-fluid-2);
-    --ui-font-size-h3: clamp(var(--font-size-3), 4vi, var(--font-size-4));
-    --ui-font-size-h4: clamp(var(--font-size-2), 3vi, var(--font-size-3));
-    --ui-font-size-h5: var(--font-size-2);
-    --ui-font-size-h6: var(--font-size-1);
+    --ui-font-size-100: 0.75rem;
+    --ui-font-size-200: 0.875rem;
+    --ui-font-size-300: 1rem;
+    --ui-font-size-400: 1.1rem;
+    --ui-font-size-500: 1.25rem;
+    --ui-font-size-600: 1.5rem;
+    --ui-font-size-700: 2rem;
+    --ui-font-size-800: 2.5rem;
+    --ui-font-size-900: 3.5rem;
 
-    /* Sneaking in an extra font size I want but Open Props doesn't provide. You can do whatever you want with your own theme. It's just CSS. */
-    --ui-font-size-05: 0.875rem;
-    --ui-font-size-control: var(--font-size-1);
+    --ui-font-size-caption: var(--ui-font-size-100);
+    --ui-font-size-small: var(--ui-font-size-200);
+    --ui-font-size-body: var(--ui-font-size-300);
+    --ui-font-size-control: var(--ui-font-size-300);
+    --ui-font-size-large: var(--ui-font-size-500);
+
+    --ui-font-size-h1: clamp(
+      var(--ui-font-size-700),
+      9vi,
+      var(--ui-font-size-900)
+    );
+    --ui-font-size-h2: clamp(
+      var(--ui-font-size-600),
+      6vi,
+      var(--ui-font-size-800)
+    );
+    --ui-font-size-h3: clamp(
+      var(--ui-font-size-500),
+      4vi,
+      var(--ui-font-size-600)
+    );
+    --ui-font-size-h4: clamp(
+      var(--ui-font-size-400),
+      3vi,
+      var(--ui-font-size-500)
+    );
+    --ui-font-size-h5: var(--ui-font-size-400);
+    --ui-font-size-h6: var(--ui-font-size-300);
 
     --ui-font-weight-normal: var(--font-weight-4);
     --ui-font-weight-medium: var(--font-weight-5);
     --ui-font-weight-semibold: var(--font-weight-6);
     --ui-font-weight-bold: var(--font-weight-7);
+
+    --ui-letter-spacing-caps: 0.06em;
+    --ui-letter-spacing-display: -0.02em;
+    --ui-letter-spacing-heading: -0.01em;
+
+    --ui-line-height-tight: 1.25;
+    --ui-line-height: 1.5;
+    --ui-line-height-body: 1.6;
+    --ui-line-height-relaxed: 1.75;
 
     --ui-rhythm-step: 0.25rem;
 
@@ -108,7 +145,7 @@
     --ui-field-helper-font-size: var(--font-size-0);
     --ui-field-helper-line-height: var(--font-lineheight-3);
     --ui-field-label-color: var(--ui-text-primary);
-    --ui-field-label-font-size: var(--ui-font-size-05);
+    --ui-field-label-font-size: var(--ui-font-size-small);
     --ui-field-label-font-weight: var(--ui-font-weight-semibold);
     --ui-field-required-color: var(--ui-invalid-text-color);
 

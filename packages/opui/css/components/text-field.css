@@ -61,7 +61,7 @@
       font-size: var(--_font-size);
       grid-area: input;
       inline-size: 100%;
-      line-height: var(--font-lineheight-1);
+      line-height: var(--ui-line-height-tight);
       min-inline-size: 0;
       padding-block: var(--_field-padding-block-fit);
       padding-inline: var(--_field-padding-inline);
@@ -85,7 +85,7 @@
       color: var(--_affix-color);
       display: inline-flex;
       font-size: var(--_font-size);
-      line-height: var(--font-lineheight-1);
+      line-height: var(--ui-line-height-tight);
       padding-inline: var(--_field-padding-inline);
       white-space: nowrap;
 
@@ -110,7 +110,7 @@
       align-items: center;
       color: var(--_affix-color);
       display: flex;
-      font-size: var(--font-size-0);
+      font-size: var(--ui-font-size-caption);
       gap: var(--size-2);
       padding-block: var(--size-1);
       padding-inline: var(--_field-padding-inline);
@@ -204,13 +204,17 @@
       &.ui-small,
       &.ui-x-small {
         input {
-          font-size: var(--ui-font-size-05);
+          font-size: var(--ui-font-size-small);
 
           &::file-selector-button {
             block-size: calc(100% - var(--size-2));
             margin-block-start: var(--size-1);
           }
         }
+      }
+
+      &.ui-x-small input {
+        font-size: var(--ui-font-size-caption);
       }
     }
 
@@ -447,7 +451,7 @@
     &.ui-x-small {
       &:has(input[type="color"]) {
         .ui-label {
-          line-height: var(--font-lineheight-3);
+          line-height: var(--ui-line-height);
         }
       }
     }

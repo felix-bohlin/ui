@@ -37,13 +37,13 @@
     th {
       background-color: var(--ui-surface-filled);
       color: var(--ui-text-primary);
-      font-size: var(--ui-font-size-05);
+      font-size: var(--ui-font-size-small);
       font-weight: var(--ui-font-weight-semibold);
       text-align: start;
     }
 
     td {
-      font-size: var(--ui-font-size-05);
+      font-size: var(--ui-font-size-small);
     }
 
     :is(th, td):has(> .ui-checkbox:only-child) {
@@ -115,7 +115,7 @@
     caption {
       caption-side: bottom;
       color: var(--ui-text-muted);
-      font-size: var(--ui-font-size-05);
+      font-size: var(--ui-font-size-small);
       margin-inline-start: var(--ui-space-2);
       padding-block: var(--ui-space-2);
       padding-inline: 0;
@@ -176,7 +176,7 @@
     &.ui-dense {
       th,
       td {
-        line-height: var(--font-lineheight-1);
+        line-height: var(--ui-line-height-tight);
         padding-block: calc(var(--ui-space-1) / 2);
         padding-inline: var(--ui-space-1);
       }

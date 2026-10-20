@@ -70,6 +70,7 @@
 - `Card` no longer has `--_shadow-light` and `--_shadow-dark`. Set `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` in your theme, or `--_elevated-shadow` on the card.
 - `theme.css` no longer sets `--ui-button-border-radius` and `--ui-field-border-radius`. Components fall back to `--ui-border-radius` when they're unset. If your styles read them, add the fallback: `var(--ui-button-border-radius, var(--ui-border-radius))`.
 - `theme.css`, `palette.css` and the components name every theme token with a `--ui-` prefix, like the classes: `--primary` is `--ui-primary`, `--space-3` is `--ui-space-3` and `--color-1` is `--ui-color-1`. Open Props tokens such as `--size-3` and `--shadow-color` keep their names. Add `ui-` to the tokens you set or read.
+- `--font-size-05` (`--ui-font-size-05` during the 6.0 betas) is `--ui-font-size-small`.
 
 ### Removed
 
@@ -178,6 +179,7 @@
 - `Switch`, `Progress` and `Range` read the optional `--ui-track-color` for the empty part of their track. When unset, they keep their current colors. shadcn sets it to its field border.
 - A checked `ToggleButton`, the selected `ToggleGroup` item, and selected or current `List` items and `Select` options read the optional `--ui-selected` and `--ui-selected-contrast`. When unset, they keep the primary tint. m3 and shadcn set them to their tonal surface.
 - `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal` read the optional `--ui-primary-tonal` and `--ui-primary-tonal-contrast`. When unset, they keep the palette tint. m3 sets Material's `primary-container`, shadcn its `secondary`.
+- A type scale and type roles. `--ui-font-size-100` to `--ui-font-size-900` are the nine steps (12 to 56px); `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-size-body`, `--ui-font-size-control`, `--ui-font-size-large` and the heading sizes read them, and every component reads a role instead of an Open Props step. `--ui-line-height-tight`, `--ui-line-height`, `--ui-line-height-body` and `--ui-line-height-relaxed` replace the Open Props line heights and the literal ones, and `--ui-letter-spacing-display`, `--ui-letter-spacing-heading` and `--ui-letter-spacing-caps` the literal letter spacings. A theme pins one role, moves one step, or replaces the scale with its own.
 - `themes/bootstrap.css` (a Bootstrap 5 look), `themes/brutalist.css` (a neobrutalism look), `themes/m3.css` (a Material 3 look) and `themes/shadcn.css` (a shadcn/ui look) are example themes in the `theme.custom` layer, made only of tokens. They name their fonts but don't load them, and they copy their originals' contrast, also where it falls short of WCAG. They start with the layer order, so they work wherever they load. Import one, or copy it as a starting point.
 - `Layout` classes for the space between components: `.ui-l-column` (a column), `.ui-l-row` (a row that wraps), `.ui-l-grid` (columns that fill the width without breakpoints) and `.ui-l-container` (a centered, capped width). Gaps come from the `--ui-space-*` scale, with `.ui-x-small`, `.ui-small` and `.ui-large`. CSS only, in `css/components/layout.css`, in the `utils` layer.
 
@@ -191,6 +193,8 @@
 - `Tabs` outline the selected pill with `--ui-control-border-color`, or `--ui-field-border-color`, so it reaches 3:1 against the track without the shadow.
 - A checked `ToggleButton` is filled with `--ui-primary` (or `--ui-selected`) in every contrast mode, not only with more contrast.
 - Tonal severity `Callout`s have a visible fill in light mode, 60% of the third palette step instead of 20% of the second.
+- `TextField`, `Select` and `Textarea` with `.ui-x-small` set their text in `--ui-font-size-caption`, like x-small buttons, instead of the small size.
+- Large `Avatar` initials are `--ui-font-size-large` (20px) instead of 17.6px, and `Card` captions, `Tooltip` text and keyboard hints in buttons use `--ui-line-height-tight` (1.25) instead of 1.3 and 1.2.
 - `Dialog` takes `--ui-shadow-overlay`, like `Drawer` and `Menu`, instead of the raised card shadow.
 - `Menu` draws its border and dividers with `--ui-border-color-raised`, like other elevated surfaces, instead of a fixed gray in dark mode.
 - `List` separators are `--ui-border-color` instead of 18% of the text color, so a theme's border color reaches them.
@@ -222,8 +226,8 @@
 - `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup` borders read `--ui-border-width`, and `Checkbox`, `Radio`, `Switch` and `TextField` borders read `--ui-field-border-width`, instead of a hardcoded `1px`.
 - `Chip` uses `--ui-border-radius` (8px) instead of Open Props `--radius-2` (5px).
 - `Radio` is `--ui-choice-size` (20px) like `Checkbox`, instead of 18px.
-- `ButtonGroup` small buttons are `--ui-button-size-small` (32px) instead of 30px, with the same `--ui-font-size-05` text as a small `Button`.
-- `ToggleButton` and `ToggleGroup` text shrinks with the size like `Button`: `--ui-font-size-05` when small and `--font-size-0` when x-small.
+- `ButtonGroup` small buttons are `--ui-button-size-small` (32px) instead of 30px, with the same `--ui-font-size-small` text as a small `Button`.
+- `ToggleButton` and `ToggleGroup` text shrinks with the size like `Button`: `--ui-font-size-small` when small and `--ui-font-size-caption` when x-small.
 - `Checkbox`, `Radio` and `Switch` line up with the first line of their label and center on it.
 - `Chip` small is `--ui-chip-size-small` (28px, the x-small control size) instead of 24px.
 - `Textarea` minimum height is three lines plus padding at every size. Small was a fixed 64px.
@@ -389,7 +393,7 @@
 - `ButtonGroup` vertical only squares icon-only buttons.
 - `Callout` icons take the severity color with `color`, so fill icons no longer get a colored outline.
 - `Checkbox` and `Radio` required asterisks in stacked labels sit after the label in RTL.
-- `Typography` `.ui-p.ui-small` is `--ui-font-size-05` (14px) instead of 12px.
+- `Typography` `.ui-p.ui-small` is `--ui-font-size-small` (14px) instead of 12px.
 - `Typography` `.ui-abbr` and `.ui-dfn` underlines use the info color, like `abbr` and `dfn`.
 - `Typography` overline and heading group overline text, `code` in dark mode, `code` in `del`/`ins`, linked `code` in light mode and links in `mark` pass contrast.
 - `List` keyboard shortcuts in `.ui-end` pass contrast.

@@ -88,7 +88,7 @@
       gap: var(--size-2);
       isolation: isolate;
       justify-content: center;
-      line-height: var(--font-lineheight-4);
+      line-height: var(--ui-line-height-relaxed);
       order: 1;
       padding-block: calc(
         var(--size-1) + var(--_inset) - var(--_track-border-width)

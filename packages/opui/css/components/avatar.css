@@ -38,19 +38,19 @@
     }
 
     &.ui-x-small {
-      --_font-size: var(--font-size-0);
+      --_font-size: var(--ui-font-size-caption);
       --_icon-size: var(--ui-icon-size-small);
       --_size: var(--ui-control-size-x-small);
     }
 
     &.ui-small {
-      --_font-size: var(--ui-font-size-05);
+      --_font-size: var(--ui-font-size-small);
       --_icon-size: var(--ui-icon-size);
       --_size: var(--ui-control-size-small);
     }
 
     &.ui-large {
-      --_font-size: var(--font-size-2);
+      --_font-size: var(--ui-font-size-large);
       --_size: var(--ui-control-size-large);
     }
 

@@ -92,13 +92,13 @@
     /* Sizes */
     &.ui-x-small,
     :where(.ui-toggle-group.ui-x-small) > & {
-      --_font-size: var(--font-size-0);
+      --_font-size: var(--ui-font-size-caption);
       --_min-height: var(--ui-button-size-x-small);
     }
 
     &.ui-small,
     :where(.ui-toggle-group.ui-small) > & {
-      --_font-size: var(--ui-font-size-05);
+      --_font-size: var(--ui-font-size-small);
       --_min-height: var(--ui-button-size-small);
     }
 

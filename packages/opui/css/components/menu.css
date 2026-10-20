@@ -168,7 +168,7 @@
     /* Group label */
     :where(li.ui-label) {
       color: var(--ui-text-muted);
-      font-size: var(--font-size-0);
+      font-size: var(--ui-font-size-caption);
       font-weight: var(--ui-font-weight-bold);
       min-block-size: auto;
       padding-block: var(--ui-space-2) var(--ui-space-1);

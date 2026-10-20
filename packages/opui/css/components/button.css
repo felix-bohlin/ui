@@ -207,7 +207,7 @@
       font-family: var(--ui-font-code);
       font-size: 0.8em;
       font-weight: var(--ui-font-weight-normal);
-      line-height: 1.2;
+      line-height: var(--ui-line-height-tight);
       padding-block: 0.1ex;
       padding-inline: 0.3ex;
     }
@@ -215,7 +215,7 @@
     /* Sizes */
     &.ui-x-small,
     :where(.ui-button-group.ui-x-small) > & {
-      --_font-size: var(--font-size-0);
+      --_font-size: var(--ui-font-size-caption);
       --_min-height: var(--ui-button-size-x-small);
       --_padding-inline: 1ex;
       padding-block: 0;
@@ -223,7 +223,7 @@
 
     &.ui-small,
     :where(.ui-button-group.ui-small) > & {
-      --_font-size: var(--ui-font-size-05);
+      --_font-size: var(--ui-font-size-small);
       --_min-height: var(--ui-button-size-small);
       --_padding-inline: 1.25ex;
       padding-block: 0;

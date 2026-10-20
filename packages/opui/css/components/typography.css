@@ -3,11 +3,11 @@
     text-wrap: pretty;
 
     &.ui-small {
-      font-size: var(--ui-font-size-05);
+      font-size: var(--ui-font-size-small);
     }
 
     &.ui-large {
-      font-size: var(--font-size-3);
+      font-size: var(--ui-font-size-large);
     }
   }
 
@@ -21,22 +21,22 @@
 
   :where(.ui-h1) {
     font-size: round(var(--ui-font-size-h1), var(--ui-rhythm-step) / 2);
-    letter-spacing: -0.02em;
+    letter-spacing: var(--ui-letter-spacing-display);
   }
 
   :where(.ui-h2) {
     font-size: round(var(--ui-font-size-h2), var(--ui-rhythm-step) / 2);
-    letter-spacing: -0.02em;
+    letter-spacing: var(--ui-letter-spacing-display);
   }
 
   :where(.ui-h3) {
     font-size: round(var(--ui-font-size-h3), var(--ui-rhythm-step) / 2);
-    letter-spacing: -0.01em;
+    letter-spacing: var(--ui-letter-spacing-heading);
   }
 
   :where(.ui-h4) {
     font-size: round(var(--ui-font-size-h4), var(--ui-rhythm-step) / 2);
-    letter-spacing: -0.01em;
+    letter-spacing: var(--ui-letter-spacing-heading);
   }
 
   :where(.ui-h5) {
@@ -53,9 +53,9 @@
       oklch(from var(--ui-text-muted) calc(l * 1.25) c h),
       oklch(from var(--ui-text-muted) calc(l * 0.9) c h)
     );
-    font-size: var(--font-size-0);
+    font-size: var(--ui-font-size-caption);
     font-weight: var(--ui-font-weight-medium);
-    letter-spacing: 0.06em;
+    letter-spacing: var(--ui-letter-spacing-caps);
     text-transform: uppercase;
 
     @container style(--ui-contrast: more) {
@@ -78,9 +78,9 @@
         oklch(from var(--ui-text-muted) calc(l * 1.25) c h),
         oklch(from var(--ui-text-muted) calc(l * 0.9) c h)
       );
-      font-size: var(--font-size-0);
+      font-size: var(--ui-font-size-caption);
       font-weight: var(--ui-font-weight-medium);
-      letter-spacing: 0.06em;
+      letter-spacing: var(--ui-letter-spacing-caps);
       text-transform: uppercase;
 
       @container style(--ui-contrast: more) {
@@ -96,7 +96,7 @@
         color: inherit;
       }
 
-      font-size: var(--font-size-3);
+      font-size: var(--ui-font-size-large);
       line-height: round(up, 1.6em, var(--ui-rhythm-step));
     }
 
@@ -108,8 +108,8 @@
   /** Caption */
   :where(.ui-caption) {
     color: var(--ui-text-muted);
-    font-size: var(--font-size-0);
-    line-height: 1.6;
+    font-size: var(--ui-font-size-caption);
+    line-height: var(--ui-line-height-body);
   }
 
   /* Inline text elements - class utilities */
@@ -145,7 +145,7 @@
   }
 
   :where(p:not(.ui-p), small, span).ui-small {
-    font-size: max(0.75em, var(--font-size-0, 0.75rem));
+    font-size: max(0.75em, var(--ui-font-size-caption));
   }
 
   :where(.ui-cite) {
@@ -238,7 +238,7 @@
     border-radius: var(--ui-border-radius);
     color: var(--ui-color-1);
     font-family: var(--ui-font-code);
-    font-size: var(--ui-font-size-05);
+    font-size: var(--ui-font-size-small);
     max-inline-size: 100%;
     overflow-inline: auto;
     padding-block: var(--ui-space-3);
@@ -435,7 +435,7 @@
 
       & figcaption {
         color: var(--ui-text-muted);
-        font-size: var(--font-size-0);
+        font-size: var(--ui-font-size-caption);
         line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
         text-wrap: pretty;
       }
@@ -486,7 +486,7 @@
         calc(var(--ui-font-size-h1) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
-      letter-spacing: -0.02em;
+      letter-spacing: var(--ui-letter-spacing-display);
       margin-block: calc(var(--_flow-space) * 3) var(--_flow-space);
     }
 
@@ -495,7 +495,7 @@
         calc(var(--ui-font-size-h2) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
-      letter-spacing: -0.02em;
+      letter-spacing: var(--ui-letter-spacing-display);
       margin-block: calc(var(--_flow-space) * 3)
         round(var(--_flow-space) * 0.75, var(--ui-rhythm-step));
     }
@@ -505,7 +505,7 @@
         calc(var(--ui-font-size-h3) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
-      letter-spacing: -0.01em;
+      letter-spacing: var(--ui-letter-spacing-heading);
       margin-block: calc(var(--_flow-space) * 2)
         round(var(--_flow-space) * 0.5, var(--ui-rhythm-step));
     }
@@ -515,7 +515,7 @@
         calc(var(--ui-font-size-h4) * var(--_font-scale, 1)),
         var(--ui-rhythm-step) / 2
       );
-      letter-spacing: -0.01em;
+      letter-spacing: var(--ui-letter-spacing-heading);
       margin-block: round(var(--_flow-space) * 1.5, var(--ui-rhythm-step))
         round(var(--_flow-space) * 0.5, var(--ui-rhythm-step));
     }
@@ -544,9 +544,9 @@
         oklch(from var(--ui-text-muted) calc(l * 1.25) c h),
         oklch(from var(--ui-text-muted) calc(l * 0.9) c h)
       );
-      font-size: var(--font-size-0);
+      font-size: var(--ui-font-size-caption);
       font-weight: var(--ui-font-weight-medium);
-      letter-spacing: 0.06em;
+      letter-spacing: var(--ui-letter-spacing-caps);
       text-transform: uppercase;
 
       @container style(--ui-contrast: more) {
@@ -580,7 +580,7 @@
           color: inherit;
         }
 
-        font-size: var(--font-size-3);
+        font-size: var(--ui-font-size-large);
         line-height: round(up, 1.6em, var(--ui-rhythm-step));
       }
 
@@ -707,7 +707,7 @@
 
       caption {
         color: var(--ui-text-muted);
-        font-size: var(--font-size-0);
+        font-size: var(--ui-font-size-caption);
         line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
         padding-block-end: var(--ui-space-2);
         text-align: start;
@@ -792,7 +792,7 @@
     }
 
     small {
-      font-size: max(0.75em, var(--font-size-0, 0.75rem));
+      font-size: max(0.75em, var(--ui-font-size-caption));
     }
 
     cite {

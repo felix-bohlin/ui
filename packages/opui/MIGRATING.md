@@ -632,7 +632,7 @@ The keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `to
 
 ## Toggle button and toggle group
 
-Text shrinks with the size like `Button`: `--ui-font-size-05` when small and `--font-size-0` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
+Text shrinks with the size like `Button`: `--ui-font-size-small` when small and `--font-size-0` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
 
 `ToggleButton` in Astro and Vue no longer generates an input `id`. Pass `id` when something outside the component references the input.
 
@@ -687,6 +687,13 @@ Every theme token has a `--ui-` prefix, like the classes: `--primary` is `--ui-p
 ```diff
 - .sidebar { --primary: var(--green); }
 + .sidebar { --ui-primary: var(--ui-green); }
+```
+
+`--font-size-05` is `--ui-font-size-small`, one of the type roles that replace the Open Props steps in the components: `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-size-body`, `--ui-font-size-control` and `--ui-font-size-large`, which default to steps of the new `--ui-font-size-100` to `--ui-font-size-900` scale.
+
+```diff
+- .note { font-size: var(--font-size-05); }
++ .note { font-size: var(--ui-font-size-small); }
 ```
 
 `theme.css` sets `--ui-focus-ring-color` to the inverted page background instead of `var(--ui-primary)`, and the global focus ring and the component rings read it. To keep the old value, set it in your theme:

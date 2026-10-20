@@ -13,8 +13,8 @@
       background-color: var(--_bg-color);
       border-radius: min(var(--radius-2), var(--ui-border-radius));
       color: var(--_text-color);
-      font-size: var(--ui-font-size-05);
-      line-height: 1.3;
+      font-size: var(--ui-font-size-small);
+      line-height: var(--ui-line-height-tight);
       margin: var(--_offset);
       max-inline-size: 240px;
       min-inline-size: calc-size(

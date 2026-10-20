@@ -6,7 +6,7 @@
       var(--ui-border-color)
     );
     --_dot-color: currentColor;
-    --_font-size: var(--font-size-0);
+    --_font-size: var(--ui-font-size-caption);
     --_icon-padding-inline: var(--size-1);
     --_icon-size: var(--ui-icon-size-small);
     --_padding-inline: var(--size-2);
@@ -163,7 +163,7 @@
     }
 
     &.ui-large {
-      --_font-size: var(--ui-font-size-05);
+      --_font-size: var(--ui-font-size-small);
       --_icon-padding-inline: var(--size-2);
       --_icon-size: var(--ui-icon-size);
       --_padding-inline: var(--size-3);

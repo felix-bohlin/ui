@@ -4,7 +4,7 @@
     --_border-color: var(--ui-surface-border-color, var(--ui-surface-tonal));
     --_border-radius: var(--ui-border-radius);
     --_content-gap: var(--ui-space-2);
-    --_font-size: var(--ui-font-size-05);
+    --_font-size: var(--ui-font-size-small);
     --_gap: var(--ui-space-3);
     --_icon-color: currentColor;
     --_icon-size: var(--ui-icon-size);
@@ -23,7 +23,7 @@
     --_shadow: var(--ui-shadow-surface);
     --_surface-bg-color: var(--ui-surface-default);
     --_text-color: var(--ui-text-primary);
-    --_title-font-size: var(--font-size-1);
+    --_title-font-size: var(--ui-font-size-body);
 
     background-color: var(--_surface-bg-color);
     border: var(--ui-border-width) solid var(--_border-color);

@@ -107,16 +107,46 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.",
   "--ui-font-heading":
     "Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. When unset, headings follow `--ui-font-body`.",
-  "--ui-font-size-05":
-    "A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.",
+  "--ui-font-size-100":
+    "The smallest step of the type scale, 12px. `--ui-font-size-caption` reads it. Set the steps to reshape every size at once, or a role to move one.",
+  "--ui-font-size-200":
+    "Type scale step, 14px. `--ui-font-size-small` reads it.",
+  "--ui-font-size-300":
+    "Type scale step, 16px. `--ui-font-size-body`, `--ui-font-size-control` and `--ui-font-size-h6` read it.",
+  "--ui-font-size-400":
+    "Type scale step, 17.6px. `--ui-font-size-h5` reads it, and `--ui-font-size-h4` grows from it.",
+  "--ui-font-size-500":
+    "Type scale step, 20px. `--ui-font-size-large` reads it, `--ui-font-size-h3` grows from it and `--ui-font-size-h4` grows to it.",
+  "--ui-font-size-600":
+    "Type scale step, 24px. `--ui-font-size-h2` grows from it and `--ui-font-size-h3` grows to it.",
+  "--ui-font-size-700":
+    "Type scale step, 32px. `--ui-font-size-h1` grows from it.",
+  "--ui-font-size-800":
+    "Type scale step, 40px. `--ui-font-size-h2` grows to it.",
+  "--ui-font-size-900":
+    "The largest step of the type scale, 56px. `--ui-font-size-h1` grows to it.",
+  "--ui-font-size-body":
+    "Font size of body copy, `Card` text and the `Callout` title. Defaults to `--ui-font-size-300`.",
+  "--ui-font-size-caption":
+    "Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.",
   "--ui-font-size-control":
-    "Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.",
-  "--ui-font-size-h1": "Font size for `h1` and `.ui-h1`.",
-  "--ui-font-size-h2": "Font size for `h2` and `.ui-h2`.",
-  "--ui-font-size-h3": "Font size for `h3` and `.ui-h3`.",
-  "--ui-font-size-h4": "Font size for `h4` and `.ui-h4`.",
-  "--ui-font-size-h5": "Font size for `h5` and `.ui-h5`.",
-  "--ui-font-size-h6": "Font size for `h6` and `.ui-h6`.",
+    "Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. Small and x-small sizes read `--ui-font-size-small` and `--ui-font-size-caption`. Defaults to `--ui-font-size-300`.",
+  "--ui-font-size-h1":
+    "Font size for `h1` and `.ui-h1`. Fluid between `--ui-font-size-700` and `--ui-font-size-900`.",
+  "--ui-font-size-h2":
+    "Font size for `h2` and `.ui-h2`. Fluid between `--ui-font-size-600` and `--ui-font-size-800`.",
+  "--ui-font-size-h3":
+    "Font size for `h3` and `.ui-h3`. Fluid between `--ui-font-size-500` and `--ui-font-size-600`.",
+  "--ui-font-size-h4":
+    "Font size for `h4` and `.ui-h4`. Fluid between `--ui-font-size-400` and `--ui-font-size-500`.",
+  "--ui-font-size-h5":
+    "Font size for `h5` and `.ui-h5`. Defaults to `--ui-font-size-400`.",
+  "--ui-font-size-h6":
+    "Font size for `h6` and `.ui-h6`. Defaults to `--ui-font-size-300`.",
+  "--ui-font-size-large":
+    "Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.",
+  "--ui-font-size-small":
+    "Font size of helper text, `Callout`, `Table`, `Tooltip`, `Toast`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.",
   "--ui-font-weight-bold": "Font weight for headings, buttons and terms.",
   "--ui-font-weight-medium":
     "Font weight for badges, overlines and group labels.",
@@ -135,6 +165,19 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-invalid-color": "Color for invalid field borders, fills and outlines.",
   "--ui-invalid-text-color":
     "Color for validation messages and invalid labels. Lighter than `--ui-invalid-color` in dark mode so the text stays readable.",
+  "--ui-letter-spacing-caps":
+    "Letter spacing of uppercase text: overlines and the first paragraph of an `hgroup`.",
+  "--ui-letter-spacing-display":
+    "Letter spacing of `h1` and `h2`, tighter than the body.",
+  "--ui-letter-spacing-heading":
+    "Letter spacing of `h3` and `h4`, slightly tighter than the body.",
+  "--ui-line-height":
+    "Line height of interface text: labels, helpers, choice labels and field hints.",
+  "--ui-line-height-body":
+    "Line height of body copy: prose, captions and `List` text.",
+  "--ui-line-height-relaxed": "Line height of `Tabs` labels.",
+  "--ui-line-height-tight":
+    "Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.",
   "--ui-motion":
     "Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](/guide/theming#motion).",
   "--ui-neutral": "Severity color for neutral messages.",

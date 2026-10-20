@@ -36,8 +36,8 @@
     /* Field description / supporting text */
     :where(.ui-field-description) {
       color: var(--ui-text-muted);
-      font-size: var(--ui-font-size-05);
-      line-height: var(--font-lineheight-3);
+      font-size: var(--ui-font-size-small);
+      line-height: var(--ui-line-height);
       margin: 0;
 
       &:has(+ *) {

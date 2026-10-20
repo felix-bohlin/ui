@@ -13,7 +13,7 @@
     --_ease: var(--ui-ease-enter);
     --_footer-gap: var(--ui-space-3);
     --_footer-padding: var(--ui-space-3);
-    --_header-font-size: var(--font-size-3);
+    --_header-font-size: var(--ui-font-size-large);
     --_header-padding: var(--ui-space-3);
     --_inline-size: min(375px, 100vi);
     --_scroll-shadow: var(--ui-shadow-scroll);

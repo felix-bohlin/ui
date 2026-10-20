@@ -90,7 +90,7 @@
 
     .ui-content {
       flex: 1;
-      font-size: var(--ui-font-size-05);
+      font-size: var(--ui-font-size-small);
       overflow-wrap: anywhere;
     }
 
@@ -100,7 +100,7 @@
 
     .ui-description {
       color: oklch(from currentColor l c h / 75%);
-      font-size: var(--font-size-0);
+      font-size: var(--ui-font-size-caption);
     }
 
     .ui-close-button {

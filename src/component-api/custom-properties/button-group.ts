@@ -17,7 +17,7 @@ export default {
   },
   "--_edge-accent": {
     description:
-      "Outline color of `.ui-outlined`. `.ui-primary` and `.ui-critical` set it.",
+      "Outline color of `.ui-outlined`. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.",
     kind: "input",
   },
   "--_edge-color": {

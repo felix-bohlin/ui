@@ -113,11 +113,14 @@
     --ui-field-required-color: var(--ui-invalid-text-color);
 
     /* Button */
+    /* --ui-button-accent: light-dark(var(--ui-color-16), var(--ui-color-1)); */
+    /* --ui-button-accent-contrast: light-dark(var(--ui-color-1), var(--ui-color-16)); */
     /* --ui-button-border-color: transparent; */
     /* --ui-button-border-radius: var(--ui-border-radius); */
     /* --ui-button-font-weight: var(--ui-font-weight-bold); */
     /* --ui-button-hover-shadow: var(--ui-shadow-control); */
     /* --ui-button-hover-translate: none; */
+    /* --ui-button-outlined-border-color: var(--ui-button-border-color); */
 
     /* Divider */
     --ui-divider-space: calc(var(--size-fluid-3) * var(--ui-space-scale));

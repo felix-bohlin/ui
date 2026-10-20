@@ -5,10 +5,13 @@
   :where(html) {
     --ui-border-color: light-dark(#cac4d0, #49454f);
     --ui-border-radius: 0.75rem;
+    --ui-button-accent: var(--ui-primary);
+    --ui-button-accent-contrast: var(--ui-primary-contrast);
     --ui-button-border-radius: var(--radius-round);
     --ui-button-font-weight: var(--font-weight-5);
     --ui-button-hover-shadow:
       0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+    --ui-button-outlined-border-color: light-dark(#79747e, #938f99);
     --ui-field-border-color: light-dark(#79747e, #938f99);
     --ui-field-border-radius: 0.25rem;
     --ui-focus-ring-color: light-dark(#625b71, #ccc2dc);

@@ -9,6 +9,10 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.",
   "--ui-border-width":
     "Default border width for components that draw a border.",
+  "--ui-button-accent":
+    "Color of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, the darkest palette color in light mode and the lightest in dark mode.",
+  "--ui-button-accent-contrast":
+    "Text color on a filled `--ui-button-accent` button. Set it with `--ui-button-accent`.",
   "--ui-button-border-color":
     "Border color of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal`, and of the edge and dividers of a `ButtonGroup` with one of them. When unset, filled and tonal buttons have no visible border and outlined ones use their color.",
   "--ui-button-border-radius":
@@ -19,6 +23,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Shadow of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover. When unset, it keeps `--ui-shadow-control`.",
   "--ui-button-hover-translate":
     "Moves `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover, as a `translate` value. Pair it with `--ui-button-hover-shadow` to press buttons into their shadow. `none` when unset.",
+  "--ui-button-outlined-border-color":
+    "Border color of `Button` with `.ui-outlined`, and of the edge and dividers of an outlined `ButtonGroup`. Beats `--ui-button-border-color` there. When unset, they follow `--ui-button-border-color`, or their color.",
   "--ui-button-size": "Default `Button` height.",
   "--ui-button-size-large": "`Button` height with `.ui-large`.",
   "--ui-button-size-small": "`Button` height with `.ui-small`.",

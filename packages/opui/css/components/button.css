@@ -1,8 +1,14 @@
 @layer components.root {
   :where(.ui-button) {
     --_motion: var(--ui-motion);
-    --_accent: light-dark(var(--ui-color-16), var(--ui-color-1));
-    --_accent-contrast: light-dark(var(--ui-color-1), var(--ui-color-16));
+    --_accent: var(
+      --ui-button-accent,
+      light-dark(var(--ui-color-16), var(--ui-color-1))
+    );
+    --_accent-contrast: var(
+      --ui-button-accent-contrast,
+      light-dark(var(--ui-color-1), var(--ui-color-16))
+    );
     --_accent-text: light-dark(
       var(--_accent),
       oklch(from var(--_accent) max(l, 0.75) c h)
@@ -184,13 +190,8 @@
       font-size: 0.8em;
       font-weight: var(--ui-font-weight-normal);
       line-height: 1.2;
-      opacity: 0.8;
       padding-block: 0.1ex;
       padding-inline: 0.3ex;
-
-      @container style(--ui-contrast: more) {
-        opacity: 1;
-      }
     }
 
     /* Sizes */
@@ -226,18 +227,27 @@
     &.ui-outlined,
     :where(.ui-button-group.ui-outlined) > & {
       --_bg-color: transparent;
-      --_border-color: var(--ui-button-border-color, var(--_accent));
+      --_border-color: var(
+        --ui-button-outlined-border-color,
+        var(--ui-button-border-color, var(--_accent))
+      );
       --_text-color: var(--_accent-text);
 
       @container style(--ui-contrast: more) {
-        --_border-color: var(--ui-button-border-color, var(--_accent-text));
+        --_border-color: var(
+          --ui-button-outlined-border-color,
+          var(--ui-button-border-color, var(--_accent-text))
+        );
       }
 
       &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
-            --_border-color: var(--ui-button-border-color, var(--_accent));
+            --_border-color: var(
+              --ui-button-outlined-border-color,
+              var(--ui-button-border-color, var(--_accent))
+            );
             --_text-color: var(--_accent-contrast);
           }
         }
@@ -245,8 +255,8 @@
         &:where(:active) {
           --_bg-color: var(--_outlined-active-bg-color);
           --_border-color: var(
-            --ui-button-border-color,
-            var(--_outlined-active-bg-color)
+            --ui-button-outlined-border-color,
+            var(--ui-button-border-color, var(--_outlined-active-bg-color))
           );
           --_text-color: var(--_accent-contrast);
         }

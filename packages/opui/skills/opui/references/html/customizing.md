@@ -27,7 +27,7 @@ Four example themes ship with the package, each a deliberate copy of a look you 
 
 - `bootstrap`: Bootstrap 5. Its `#0d6efd` blue, grays, 38px controls, regular weight buttons and labels, heading scale and the wide translucent focus ring.
 - `brutalist`: neobrutalism. Black 2px borders, hard 4px shadows that buttons press into on hover, a bright blue on pale blue and heavy type.
-- `m3`: Material 3. The baseline purple scheme and its tinted surfaces, pill buttons that lift on hover, 12px cards, 4px outlined fields, Roboto, the type scale and the 3px focus ring.
+- `m3`: Material 3. The baseline purple scheme and its tinted surfaces, pill buttons in the primary purple that lift on hover, outlined ones in the outline gray, 12px cards, 4px outlined fields, Roboto, the type scale and the 3px focus ring.
 - `shadcn`: shadcn/ui. Neutral grays, a near-black primary, 36px controls with 14px text, light borders with a faint shadow, a 3px gray focus ring and rounder cards than controls.
 
 ```css

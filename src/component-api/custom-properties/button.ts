@@ -3,11 +3,12 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "The accent color. Fills, borders, text, hover and active states are derived from it. `.ui-primary` and `.ui-critical` set it.",
+      "The accent color. Fills, borders, text, hover and active states are derived from it. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.",
     kind: "input",
   },
   "--_accent-contrast": {
-    description: "Text color on a fill of `--_accent`.",
+    description:
+      "Text color on a fill of `--_accent`. Defaults to `--ui-button-accent-contrast` when a theme sets it.",
     kind: "input",
   },
   "--_accent-text": {

@@ -594,5 +594,3 @@ Import the components from `opui-css/astro`:
 - A [toggle button](#toggle-button) grows with its content from `--ui-button-size` instead of having a fixed height.
 - `--_duration` and `--_ease` set the focus ring animation's duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--ui-border-radius` through [`--ui-button-border-radius`](#api), so one token squares or rounds every component.
-- Themes set the border color, font weight, and hover shadow and offset with [`--ui-button-border-color`, `--ui-button-font-weight`, `--ui-button-hover-shadow` and `--ui-button-hover-translate`](#api), and the font size with `--ui-font-size-control`.
-- [Primary](#colors) outlined and text buttons read `--ui-primary-text` when a theme sets it.

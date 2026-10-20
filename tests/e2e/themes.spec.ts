@@ -18,6 +18,8 @@ const known: Record<string, string[]> = JSON.parse(
   ),
 )
 
+test.use({ viewport: { height: 4000, width: 1280 } })
+
 const isCarousel = (html: string) =>
   /^<[^>]*\bclass="[^"]*\bui-carousel\b/.test(html)
 
@@ -80,22 +82,9 @@ for (const theme of THEMES) {
       for (let index = 0; index < (await examplesLocator.count()); index++) {
         const example = examplesLocator.nth(index)
         const name = await example.getAttribute("data-example")
-        const clip = await example.evaluate((element) => {
-          const rect = element.getBoundingClientRect()
-          const x = Math.floor(rect.left + scrollX)
-          const y = Math.floor(rect.top + scrollY)
-          return {
-            height: Math.ceil(rect.bottom + scrollY) - y,
-            width: Math.ceil(rect.right + scrollX) - x,
-            x,
-            y,
-          }
-        })
         await expect
-          .soft(page)
+          .soft(example)
           .toHaveScreenshot(`themes/${theme}/${component}/${name}.png`, {
-            clip,
-            fullPage: true,
             mask: [example.locator("img"), example.locator("video")],
           })
       }

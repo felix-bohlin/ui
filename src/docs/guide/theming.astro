@@ -226,7 +226,7 @@ import Example from "../../components/Example/index"
   <section>
     <h2 id="elevation">Elevation</h2>
     <p>
-      Four shadows lift things off the page. <code>--ui-shadow-raised</code> is for
+      Five shadows lift things off the page. <code>--ui-shadow-raised</code> is for
       surfaces in the page, like elevated cards and accordions. It switches between
       <code>--ui-shadow-raised-light</code> and <code
         >--ui-shadow-raised-dark</code
@@ -235,9 +235,12 @@ import Example from "../../components/Example/index"
       > parts of the page, so set those two. <code>--ui-shadow-overlay</code> is for
       layers above the page: menus, <code>select</code> pickers, drawers and toasts.
       <code>--ui-shadow-control</code> is for buttons with a variant and fields, and
-      is <code>none</code> until a theme sets it, like a hard offset shadow. So is
-      <code>--ui-shadow-surface</code>, for tonal and outlined cards and
-      accordions, and callouts.
+      is <code>none</code> until a theme sets it, like a hard offset shadow. Set the
+      optional <code>--ui-shadow-field</code> to give fields their own.
+      <code>--ui-shadow-tab</code> is for the selected tab. <code
+        >--ui-shadow-surface</code
+      >
+      is <code>none</code> too, for tonal and outlined cards and accordions, and callouts.
     </p>
     <Code
       code={`:where(html) {

@@ -2,10 +2,8 @@
   :where([role="group"].ui-button-group) {
     --_border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
     --_edge-color: transparent;
-    --_shadow: none;
 
     border-radius: var(--_border-radius);
-    box-shadow: var(--_shadow);
     display: inline-flex;
     flex-wrap: wrap;
     inline-size: fit-content;
@@ -16,7 +14,6 @@
 
     &:is(.ui-filled, .ui-outlined, .ui-tonal) {
       --_edge-color: var(--ui-button-border-color, transparent);
-      --_shadow: var(--ui-shadow-control);
     }
 
     &.ui-outlined {

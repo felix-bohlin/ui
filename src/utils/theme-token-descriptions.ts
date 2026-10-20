@@ -152,7 +152,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-ripple-color":
     "Halo color for the `Checkbox` and `Radio` hover effect.",
   "--ui-shadow-control":
-    "Shadow of buttons and button groups with a variant, and of fields. `none` by default, for themes that lift controls off the page.",
+    "Shadow of buttons with a variant and of fields. `none` by default, for themes that lift controls off the page.",
+  "--ui-shadow-field":
+    "Shadow of `TextField`, `Textarea` and `Select` fields. When unset, they follow `--ui-shadow-control`. Set it to `none` to lift buttons but keep fields flat.",
   "--ui-shadow-overlay":
     "Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.",
   "--ui-shadow-raised":
@@ -161,6 +163,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-shadow-raised-light": "`--ui-shadow-raised` in light mode.",
   "--ui-shadow-surface":
     "Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.",
+  "--ui-shadow-tab":
+    "Shadow of the selected tab in default and `.ui-tonal` `Tabs`. Defaults to Open Props `--shadow-1`.",
   "--ui-space-1":
     "Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.",
   "--ui-space-2":

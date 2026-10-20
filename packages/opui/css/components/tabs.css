@@ -9,7 +9,7 @@
       transparent,
       oklch(100% 0 0 / calc(var(--ui-state-hover-alpha) * 0.8))
     );
-    --_active-shadow: var(--shadow-1);
+    --_active-shadow: var(--ui-shadow-tab);
     --_active-text-color: var(--ui-text-primary);
     --_border-radius: var(--ui-border-radius);
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));

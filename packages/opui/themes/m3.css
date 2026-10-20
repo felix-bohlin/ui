@@ -37,6 +37,7 @@
       0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
     --ui-shadow-raised-light:
       0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+    --ui-shadow-tab: none;
     --ui-state-active-alpha: 10%;
     --ui-state-hover-alpha: 8%;
     --ui-surface-default: light-dark(#fef7ff, #141218);

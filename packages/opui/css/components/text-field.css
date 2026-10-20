@@ -39,7 +39,7 @@
       background-color: var(--_bg-color);
       border: var(--ui-field-border-width) solid var(--_border-color);
       border-radius: var(--ui-field-border-radius, var(--ui-border-radius));
-      box-shadow: var(--ui-shadow-control);
+      box-shadow: var(--ui-shadow-field, var(--ui-shadow-control));
       display: grid;
       grid-column: 1/-1;
       grid-row: 2;

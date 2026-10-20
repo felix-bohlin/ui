@@ -37,6 +37,7 @@
     --ui-shadow-overlay: 0 0.5rem 1rem rgb(0 0 0 / 0.15);
     --ui-shadow-raised-dark: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
     --ui-shadow-raised-light: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
+    --ui-shadow-tab: none;
     --ui-success: #198754;
     --ui-surface-default: light-dark(#fff, #212529);
     --ui-surface-elevated: light-dark(#fff, #2b3035);

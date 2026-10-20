@@ -173,11 +173,13 @@
 
     /* Elevation */
     --ui-shadow-control: none;
+    /* --ui-shadow-field: var(--ui-shadow-control); */
     --ui-shadow-overlay: var(--shadow-3);
     --ui-shadow-raised: var(--ui-shadow-raised-light);
     --ui-shadow-raised-dark: var(--shadow-4);
     --ui-shadow-raised-light: var(--shadow-3);
     --ui-shadow-surface: none;
+    --ui-shadow-tab: var(--shadow-1);
 
     /* Overlays */
     --ui-backdrop-blur: 1px;

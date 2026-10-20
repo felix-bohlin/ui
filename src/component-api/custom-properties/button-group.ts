@@ -25,9 +25,4 @@ export default {
       "The current outline color around the group. `transparent`, or `--_edge-accent` in `.ui-outlined`. `--ui-button-border-color` replaces both in `.ui-filled`, `.ui-outlined` and `.ui-tonal` when a theme sets it.",
     kind: "output",
   },
-  "--_shadow": {
-    description:
-      "The shadow of the group. `--ui-shadow-control` in `.ui-filled`, `.ui-outlined` and `.ui-tonal`.",
-    kind: "output",
-  },
 } satisfies CustomProperties

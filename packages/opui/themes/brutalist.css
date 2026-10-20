@@ -23,10 +23,12 @@
     --ui-primary-contrast: oklch(0 0 0);
     --ui-primary-text: light-dark(oklch(0.45 0.2 264), hsl(217 100% 76%));
     --ui-shadow-control: 4px 4px 0 0 oklch(0 0 0);
-    --ui-shadow-overlay: 4px 4px 0 0 oklch(0 0 0);
+    --ui-shadow-field: none;
+    --ui-shadow-overlay: none;
     --ui-shadow-raised-dark: 4px 4px 0 0 oklch(0 0 0);
     --ui-shadow-raised-light: 4px 4px 0 0 oklch(0 0 0);
     --ui-shadow-surface: 4px 4px 0 0 oklch(0 0 0);
+    --ui-shadow-tab: none;
     --ui-surface-border-color: oklch(0 0 0);
     --ui-surface-default: light-dark(hsl(214 95% 93%), oklch(0.29 0.06 270));
     --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.24 0 0));

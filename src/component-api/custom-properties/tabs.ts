@@ -12,7 +12,7 @@ export default {
   },
   "--_active-shadow": {
     description:
-      "Shadow of the selected tab. `.ui-line` and `.ui-outlined` remove it.",
+      "Shadow of the selected tab. Defaults to `--ui-shadow-tab`. `.ui-line` and `.ui-outlined` remove it.",
     kind: "input",
   },
   "--_active-text-color": {

@@ -78,6 +78,13 @@ for (const theme of THEMES) {
         await expectSizedRows(page)
       }
 
+      await page.evaluate(async () => {
+        for (const carousel of document.querySelectorAll(".ui-carousel")) {
+          carousel.scrollTo({ behavior: "instant", left: 0, top: 0 })
+        }
+        await new Promise(requestAnimationFrame)
+      })
+
       const examplesLocator = page.locator("[data-example]")
       for (let index = 0; index < (await examplesLocator.count()); index++) {
         const example = examplesLocator.nth(index)

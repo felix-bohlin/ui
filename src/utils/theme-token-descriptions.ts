@@ -10,7 +10,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-border-width":
     "Default border width for components that draw a border.",
   "--ui-button-border-color":
-    "Border color of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal`, and of an outlined `ButtonGroup`. When unset, filled and tonal buttons have no visible border and outlined ones use their color.",
+    "Border color of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal`, and of the edge and dividers of a `ButtonGroup` with one of them. When unset, filled and tonal buttons have no visible border and outlined ones use their color.",
   "--ui-button-border-radius":
     "Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--ui-border-radius`, also where it's set on a part of the page.",
   "--ui-button-font-weight":
@@ -146,13 +146,15 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-ripple-color":
     "Halo color for the `Checkbox` and `Radio` hover effect.",
   "--ui-shadow-control":
-    "Shadow of buttons with a variant and of fields. `none` by default, for themes that lift controls off the page.",
+    "Shadow of buttons and button groups with a variant, and of fields. `none` by default, for themes that lift controls off the page.",
   "--ui-shadow-overlay":
     "Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.",
   "--ui-shadow-raised":
     "Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one.",
   "--ui-shadow-raised-dark": "`--ui-shadow-raised` in dark mode.",
   "--ui-shadow-raised-light": "`--ui-shadow-raised` in light mode.",
+  "--ui-shadow-surface":
+    "Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.",
   "--ui-space-1":
     "Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.",
   "--ui-space-2":
@@ -184,6 +186,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-state-hover-alpha-dark":
     "Alpha of the hover state layer on neutral buttons in dark mode.",
   "--ui-success": "Severity color for success messages.",
+  "--ui-surface-border-color":
+    "Border color of tonal and elevated `Card` and of `Callout` without a severity. When unset, cards use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.",
   "--ui-surface-default": "Page and card background.",
   "--ui-surface-elevated": "Background of elevated cards and accordions.",
   "--ui-surface-filled":

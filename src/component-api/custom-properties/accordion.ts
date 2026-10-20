@@ -98,7 +98,8 @@ export default {
     kind: "input",
   },
   "--_shadow": {
-    description: "The shadow. Set by `.ui-elevated`.",
+    description:
+      "The shadow. `.ui-elevated` sets `--ui-shadow-raised`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`.",
     kind: "input",
   },
   "--_summary-padding-block": {

@@ -256,8 +256,10 @@ There are no default icons in HTML: put an `<svg aria-hidden="true">` before `.u
 | `--ui-font-weight-semibold` | `var(--font-weight-6)`                             | Font weight for labels, table headers and titles.                                                                                                                                                                                |
 | `--ui-icon-size`            | `var(--size-4)`                                    | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-primary`              | `light-dark(var(--ui-color-9), var(--ui-color-6))` | Brand color for primary actions and accents.                                                                                                                                                                                     |
+| `--ui-shadow-surface`       | `none`                                             | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                   |
 | `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`      | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
 | `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`      | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-surface-border-color` | Unset                                              | Border color of tonal and elevated `Card` and of `Callout` without a severity. When unset, cards use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.                     |
 | `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`  | Page and card background.                                                                                                                                                                                                        |
 | `--ui-surface-tonal`        | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`  | Background of tonal variants.                                                                                                                                                                                                    |
 | `--ui-text-primary`         | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
@@ -268,25 +270,26 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property                   | Kind   | Description                                                                                      |
-| -------------------------- | ------ | ------------------------------------------------------------------------------------------------ |
-| `--_bg-color`              | Output | The current tint, drawn over `--_surface-bg-color`. Set by the color classes and `.ui-outlined`. |
-| `--_border-color`          | Output | The current border color. Set by the color classes and `.ui-outlined`.                           |
-| `--_border-radius`         | Input  | The corner radius. Defaults to `--ui-border-radius`.                                             |
-| `--_content-gap`           | Input  | Space between the children of `.ui-content`.                                                     |
-| `--_font-size`             | Input  | Font size of `.ui-content`.                                                                      |
-| `--_gap`                   | Input  | Gap between a direct child `svg` and `.ui-content`.                                              |
-| `--_icon-color`            | Output | The current color of a direct child `svg`. Set by the color classes and `.ui-outlined`.          |
-| `--_icon-size`             | Input  | Width of the icon column when there's a direct child `svg`.                                      |
-| `--_link-hover-color`      | Input  | Link color on hover and focus. Defaults to `--ui-primary`, not used in `.ui-outlined`.           |
-| `--_outlined-bg-color`     | Input  | Background of `.ui-outlined`. Defaults to `--ui-surface-default`.                                |
-| `--_outlined-border-color` | Input  | Border color of `.ui-outlined`. Set by the color classes.                                        |
-| `--_outlined-icon-color`   | Input  | Icon color of `.ui-outlined`. Set by the color classes.                                          |
-| `--_outlined-text-color`   | Input  | Text color of `.ui-outlined`. Set by the color classes.                                          |
-| `--_padding`               | Input  | The padding.                                                                                     |
-| `--_surface-bg-color`      | Input  | The opaque background under the tint. Defaults to `--ui-surface-default`.                        |
-| `--_text-color`            | Output | The current text color. Set by the color classes and `.ui-outlined`.                             |
-| `--_title-font-size`       | Input  | Font size of headings in `.ui-content`.                                                          |
+| Property                   | Kind   | Description                                                                                                                                              |
+| -------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_bg-color`              | Output | The current tint, drawn over `--_surface-bg-color`. Set by the color classes and `.ui-outlined`.                                                         |
+| `--_border-color`          | Output | The current border color. `--ui-surface-border-color` when a theme sets it, otherwise `--ui-surface-tonal`. Set by the color classes and `.ui-outlined`. |
+| `--_border-radius`         | Input  | The corner radius. Defaults to `--ui-border-radius`.                                                                                                     |
+| `--_content-gap`           | Input  | Space between the children of `.ui-content`.                                                                                                             |
+| `--_font-size`             | Input  | Font size of `.ui-content`.                                                                                                                              |
+| `--_gap`                   | Input  | Gap between a direct child `svg` and `.ui-content`.                                                                                                      |
+| `--_icon-color`            | Output | The current color of a direct child `svg`. Set by the color classes and `.ui-outlined`.                                                                  |
+| `--_icon-size`             | Input  | Width of the icon column when there's a direct child `svg`.                                                                                              |
+| `--_link-hover-color`      | Input  | Link color on hover and focus. Defaults to `--ui-primary`, not used in `.ui-outlined`.                                                                   |
+| `--_outlined-bg-color`     | Input  | Background of `.ui-outlined`. Defaults to `--ui-surface-default`.                                                                                        |
+| `--_outlined-border-color` | Input  | Border color of `.ui-outlined`. Set by the color classes.                                                                                                |
+| `--_outlined-icon-color`   | Input  | Icon color of `.ui-outlined`. Set by the color classes.                                                                                                  |
+| `--_outlined-text-color`   | Input  | Text color of `.ui-outlined`. Set by the color classes.                                                                                                  |
+| `--_padding`               | Input  | The padding.                                                                                                                                             |
+| `--_shadow`                | Input  | The shadow. Defaults to `--ui-shadow-surface`.                                                                                                           |
+| `--_surface-bg-color`      | Input  | The opaque background under the tint. Defaults to `--ui-surface-default`.                                                                                |
+| `--_text-color`            | Output | The current text color. Set by the color classes and `.ui-outlined`.                                                                                     |
+| `--_title-font-size`       | Input  | Font size of headings in `.ui-content`.                                                                                                                  |
 
 ## Under the hood
 
@@ -439,3 +442,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ### What's new
 
 - Breaking: `--_color` is `--_text-color`, `--_outlined-color` is `--_outlined-text-color` and `--_surface-bg` is `--_surface-bg-color` ([Under the hood](#under-the-hood)).
+- [Callouts](#variants) read [`--ui-shadow-surface`](#api), and callouts without a severity `--ui-surface-border-color`, when a theme sets them.

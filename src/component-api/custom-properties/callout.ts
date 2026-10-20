@@ -8,7 +8,7 @@ export default {
   },
   "--_border-color": {
     description:
-      "The current border color. Set by the color classes and `.ui-outlined`.",
+      "The current border color. `--ui-surface-border-color` when a theme sets it, otherwise `--ui-surface-tonal`. Set by the color classes and `.ui-outlined`.",
     kind: "output",
   },
   "--_border-radius": {
@@ -60,6 +60,10 @@ export default {
   },
   "--_padding": {
     description: "The padding.",
+    kind: "input",
+  },
+  "--_shadow": {
+    description: "The shadow. Defaults to `--ui-shadow-surface`.",
     kind: "input",
   },
   "--_surface-bg-color": {

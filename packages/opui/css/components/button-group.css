@@ -2,8 +2,10 @@
   :where([role="group"].ui-button-group) {
     --_border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
     --_edge-color: transparent;
+    --_shadow: none;
 
     border-radius: var(--_border-radius);
+    box-shadow: var(--_shadow);
     display: inline-flex;
     flex-wrap: wrap;
     inline-size: fit-content;
@@ -11,6 +13,11 @@
     outline: var(--ui-border-width) solid var(--_edge-color);
     outline-offset: calc(-1 * var(--ui-border-width));
     overflow: hidden;
+
+    &:is(.ui-filled, .ui-outlined, .ui-tonal) {
+      --_edge-color: var(--ui-button-border-color, transparent);
+      --_shadow: var(--ui-shadow-control);
+    }
 
     &.ui-outlined {
       --_edge-accent: light-dark(var(--ui-color-16), var(--ui-color-1));
@@ -52,9 +59,12 @@
       flex: auto;
 
       /* button.css > --_accent-tonal */
-      --_divider-color: light-dark(
-        oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
-        oklch(from var(--_accent-tonal) calc(l + 0.1) c h)
+      --_divider-color: var(
+        --ui-button-border-color,
+        light-dark(
+          oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
+          oklch(from var(--_accent-tonal) calc(l + 0.1) c h)
+        )
       );
 
       /* Siblings */
@@ -72,20 +82,23 @@
       }
 
       :where(.ui-button-group.ui-outlined) & {
-        --_divider-color: var(--_accent);
+        --_divider-color: var(--ui-button-border-color, var(--_accent));
 
         @container style(--ui-contrast: more) {
-          --_divider-color: var(--_accent-text);
+          --_divider-color: var(--ui-button-border-color, var(--_accent-text));
         }
       }
 
       :where(.ui-button-group.ui-filled) & {
-        --_divider-color: currentColor;
+        --_divider-color: var(--ui-button-border-color, currentColor);
 
         :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) & {
-          --_divider-color: light-dark(
-            oklch(from var(--_accent) calc(l - 0.1) c h),
-            oklch(from var(--_accent) calc(l + 0.1) c h)
+          --_divider-color: var(
+            --ui-button-border-color,
+            light-dark(
+              oklch(from var(--_accent) calc(l - 0.1) c h),
+              oklch(from var(--_accent) calc(l + 0.1) c h)
+            )
           );
         }
       }

@@ -12,7 +12,7 @@ export default {
   },
   "--_divider-color": {
     description:
-      "Color of the lines between buttons, from the button's `--_accent-tonal`, `--_accent` in `.ui-outlined` and `currentColor` in `.ui-filled`.",
+      "Color of the lines between buttons, from the button's `--_accent-tonal`, `--_accent` in `.ui-outlined` and `currentColor` in `.ui-filled`, or `--ui-button-border-color` when a theme sets it.",
     kind: "output",
   },
   "--_edge-accent": {
@@ -22,7 +22,12 @@ export default {
   },
   "--_edge-color": {
     description:
-      "The current outline color around the group. `transparent`, or `--_edge-accent` in `.ui-outlined`.",
+      "The current outline color around the group. `transparent`, or `--_edge-accent` in `.ui-outlined`. `--ui-button-border-color` replaces both in `.ui-filled`, `.ui-outlined` and `.ui-tonal` when a theme sets it.",
+    kind: "output",
+  },
+  "--_shadow": {
+    description:
+      "The shadow of the group. `--ui-shadow-control` in `.ui-filled`, `.ui-outlined` and `.ui-tonal`.",
     kind: "output",
   },
 } satisfies CustomProperties

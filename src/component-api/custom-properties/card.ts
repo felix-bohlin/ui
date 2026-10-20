@@ -44,7 +44,7 @@ export default {
   },
   "--_shadow": {
     description:
-      "The current shadow. `.ui-elevated` sets `--_elevated-shadow`.",
+      "The current shadow. `.ui-elevated` sets `--_elevated-shadow`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`.",
     kind: "output",
   },
   "--_surface-bg-color": {

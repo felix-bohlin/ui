@@ -32,6 +32,7 @@ const whatsNew = {
       `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone. Leave <code>variant</code> out for the default look.`,
     ),
     `Elevated accordions use <a href="#api"><code>--ui-shadow-raised</code></a>, the elevated card shadow, also in dark mode. Padding and gaps read the <code>--space-*</code> scale.`,
+    `<a href="#variants">Tonal and outlined</a> accordions read <a href="#api"><code>--ui-shadow-surface</code></a>, <code>none</code> unless a theme sets it.`,
   ],
   anchor: [
     slots(
@@ -139,7 +140,7 @@ const whatsNew = {
       `<a href="#vertical-orientation"><code>orientation</code></a> takes <code>"horizontal"</code>, the default, like <code>Carousel</code>.`,
     ),
     `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
-    `Themes set the border color, font weight, and hover shadow and offset with <a href="#api"><code>--ui-button-border-color</code>, <code>--ui-button-font-weight</code>, <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code></a>, and the font size with <code>--ui-font-size-control</code>.`,
+    `Themes set the edge and dividers of filled, outlined and tonal groups with <a href="#api"><code>--ui-button-border-color</code></a> and their shadow with <code>--ui-shadow-control</code>, and the font weight and size with <code>--ui-button-font-weight</code> and <code>--ui-font-size-control</code>, like buttons.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   callout: [
@@ -150,6 +151,7 @@ const whatsNew = {
       `<a href="#icon"><code>CalloutIcon</code></a> has a <code>success</code> icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
     ),
     `Breaking: <code>--_color</code> is <code>--_text-color</code>, <code>--_outlined-color</code> is <code>--_outlined-text-color</code> and <code>--_surface-bg</code> is <code>--_surface-bg-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `<a href="#variants">Callouts</a> read <a href="#api"><code>--ui-shadow-surface</code></a>, and callouts without a severity <code>--ui-surface-border-color</code>, when a theme sets them.`,
   ],
   card: [
     slots(
@@ -162,6 +164,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Elevated cards use <a href="#api"><code>--ui-shadow-raised</code></a>, and padding and gaps read the <code>--space-*</code> scale.`,
     `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--ui-shadow-raised-light</code> and <code>--ui-shadow-raised-dark</code></a> in your theme, or <a href="#component-properties"><code>--_elevated-shadow</code></a> on the card.`,
+    `<a href="#variants">Tonal and outlined</a> cards read <a href="#api"><code>--ui-shadow-surface</code></a>, and tonal and elevated cards <code>--ui-surface-border-color</code>, when a theme sets them.`,
   ],
   carousel: [
     {

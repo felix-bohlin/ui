@@ -55,10 +55,12 @@
       --_bg-color: var(--ui-surface-default);
       --_border-color: var(--ui-border-color);
       --_border-width: var(--ui-border-width);
+      --_shadow: var(--ui-shadow-surface);
     }
 
     &.ui-tonal {
       --_bg-color: var(--ui-surface-tonal);
+      --_shadow: var(--ui-shadow-surface);
     }
 
     @media (forced-colors: active) {

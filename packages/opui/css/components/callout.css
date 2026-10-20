@@ -1,7 +1,7 @@
 @layer components.root {
   :where(.ui-callout) {
     --_bg-color: var(--ui-surface-tonal);
-    --_border-color: var(--ui-surface-tonal);
+    --_border-color: var(--ui-surface-border-color, var(--ui-surface-tonal));
     --_border-radius: var(--ui-border-radius);
     --_content-gap: var(--ui-space-2);
     --_font-size: var(--ui-font-size-05);
@@ -14,6 +14,7 @@
     --_outlined-icon-color: currentColor;
     --_outlined-text-color: var(--ui-text-primary);
     --_padding: var(--ui-space-3);
+    --_shadow: var(--ui-shadow-surface);
     --_surface-bg-color: var(--ui-surface-default);
     --_text-color: var(--ui-text-primary);
     --_title-font-size: var(--font-size-1);
@@ -22,6 +23,7 @@
     border: var(--ui-border-width) solid
       var(--_border-color, var(--ui-border-color));
     border-radius: var(--_border-radius);
+    box-shadow: var(--_shadow);
     color: var(--_text-color);
     isolation: isolate;
     padding: var(--_padding);

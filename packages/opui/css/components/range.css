@@ -13,7 +13,7 @@
 @layer components.root {
   :where(.ui-range) {
     --_motion: var(--ui-motion);
-    --_accent: var(--ui-primary);
+    --_accent: var(--ui-choice-accent, var(--ui-primary));
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_ease: var(--ui-ease);
     --_thumb-size: 3ex;
@@ -107,7 +107,7 @@
     }
 
     &.ui-tonal input[type="range"] {
-      --_track-color: var(--ui-surface-tonal);
+      --_track-color: var(--ui-track-color, var(--ui-surface-tonal));
     }
 
     /* Orientation */
@@ -226,7 +226,7 @@
       );
       --_thumb-highlight-size: 0px;
       --_thumb-offset: calc((var(--_track-height) - var(--_thumb-size)) / 2);
-      --_track-color: var(--ui-field-border-color);
+      --_track-color: var(--ui-track-color, var(--ui-field-border-color));
       --_track-fill: 0%;
       --_track-fill-color: var(--_accent);
 

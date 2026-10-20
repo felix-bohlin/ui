@@ -77,6 +77,11 @@
         from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
       );
 
+      border-color: var(
+        --ui-control-filled-border-color,
+        var(--ui-control-border-color, var(--ui-border-color))
+      );
+
       @media (hover: hover) {
         &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
           --_bg-color: oklch(

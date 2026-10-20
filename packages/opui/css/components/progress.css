@@ -2,7 +2,7 @@
   :where(.ui-progress) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-primary);
-    --_bg-color: var(--ui-surface-tonal);
+    --_bg-color: var(--ui-track-color, var(--ui-surface-tonal));
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease-enter);
 
@@ -21,7 +21,7 @@
     }
 
     &.ui-tonal {
-      --_bg-color: var(--ui-surface-tonal);
+      --_bg-color: var(--ui-track-color, var(--ui-surface-tonal));
     }
 
     @container style(--ui-contrast: more) {

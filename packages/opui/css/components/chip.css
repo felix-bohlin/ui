@@ -1,7 +1,10 @@
 @layer components.root {
   :where(.ui-chip) {
     --_bg-color: var(--ui-surface-tonal);
-    --_border-color: var(--ui-border-color);
+    --_border-color: var(
+      --ui-control-filled-border-color,
+      var(--ui-border-color)
+    );
     --_dot-color: currentColor;
     --_font-size: var(--font-size-0);
     --_icon-padding-inline: var(--size-1);

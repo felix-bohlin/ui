@@ -10,6 +10,8 @@
     --ui-button-accent-contrast: var(--ui-primary-contrast);
     --ui-button-border-radius: 0.5rem;
     --ui-button-font-weight: var(--font-weight-5);
+    --ui-choice-accent: var(--ui-primary);
+    --ui-choice-accent-contrast: var(--ui-primary-contrast);
     --ui-control-border-color: var(--ui-field-border-color);
     --ui-density: 0.9;
     --ui-field-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 0.15));
@@ -44,6 +46,7 @@
     --ui-surface-tonal: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));
     --ui-text-muted: light-dark(oklch(0.269 0 0), oklch(0.922 0 0));
     --ui-text-primary: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
+    --ui-track-color: var(--ui-field-border-color);
   }
 
   @container style(--ui-contrast: more) {

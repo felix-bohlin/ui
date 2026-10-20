@@ -54,7 +54,8 @@ export default {
     kind: "input",
   },
   "--_track-bg-color": {
-    description: "Background of the unchecked track.",
+    description:
+      "Background of the unchecked track. `--ui-track-color` when the theme sets it, otherwise a fixed gray.",
     kind: "input",
   },
   "--_track-height": {

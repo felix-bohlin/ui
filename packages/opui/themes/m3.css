@@ -12,6 +12,8 @@
     --ui-button-font-weight: var(--font-weight-5);
     --ui-button-hover-shadow:
       0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+    --ui-choice-accent: var(--ui-primary);
+    --ui-choice-accent-contrast: var(--ui-primary-contrast);
     --ui-control-border-color: var(--ui-field-border-color);
     --ui-field-border-color: light-dark(#79747e, #938f99);
     --ui-field-border-color-raised: var(--ui-field-border-color);

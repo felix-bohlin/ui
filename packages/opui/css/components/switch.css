@@ -16,7 +16,10 @@
       max(0px, var(--_track-width) - var(--_dot-size) - var(--_dot-inset) * 3)
     );
     --_input-size: var(--_track-height);
-    --_track-bg-color: light-dark(var(--ui-gray-3), var(--ui-gray-8));
+    --_track-bg-color: var(
+      --ui-track-color,
+      light-dark(var(--ui-gray-3), var(--ui-gray-8))
+    );
     --_track-height: round(var(--ui-switch-track-height), 1px);
     --_track-width: round(var(--ui-switch-track-width), 1px);
 

@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Fill and border of the checked input. From `--ui-primary`, with its lightness capped in dark mode, and from `--ui-invalid-color` when invalid.",
+      "Fill and border of the checked input. `--ui-choice-accent` when the theme sets it, otherwise `--ui-primary` with its lightness capped in dark mode, and `--ui-invalid-color` when invalid.",
     kind: "input",
   },
   "--_accent-contrast": {

@@ -196,6 +196,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   checkbox: [
+    `The checked fill and mark read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-accent-contrast</code> when a theme sets them.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code> and <code>--thumb-scale</code> is <code>--_thumb-scale</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
     `Without a <a href="#visible-label">visible label</a>, checkboxes center in table cells and lines of text.`,
@@ -232,6 +233,7 @@ const whatsNew = {
     ),
   ],
   chip: [
+    `Chips without <code>.ui-outlined</code> read <code>--ui-control-filled-border-color</code> for their border, like filled buttons.`,
     `Outlined chips read <a href="#api"><code>--ui-control-border-color</code></a> for their border, like outlined buttons.`,
     {
       default: `<a href="#sizes">Large</a> size with <code>size="large"</code>, and small chips are 28px to match the control sizes.`,
@@ -402,6 +404,7 @@ const whatsNew = {
     `The menu shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with drawers, select pickers and toasts.`,
   ],
   progress: [
+    `The track reads <a href="#api"><code>--ui-track-color</code></a> when a theme sets it.`,
     {
       ...slots(
         `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
@@ -416,6 +419,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   radio: [
+    `The checked fill and dot read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-accent-contrast</code> when a theme sets them.`,
     `<a href="#sizes">Radios</a> are 20px, the same <code>--ui-choice-size</code> as Checkbox.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code> and <code>--thumb-scale</code> is <code>--_thumb-scale</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
@@ -456,6 +460,7 @@ const whatsNew = {
     ),
   ],
   range: [
+    `The thumb and fill read <a href="#api"><code>--ui-choice-accent</code></a> and the empty track <code>--ui-track-color</code> when a theme sets them.`,
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
     {
       ...slots(
@@ -542,6 +547,7 @@ const whatsNew = {
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
   ],
   switch: [
+    `The checked track reads <a href="#api"><code>--ui-choice-accent</code></a> and the unchecked track <code>--ui-track-color</code> when a theme sets them.`,
     slots(
       `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
     ),
@@ -713,6 +719,7 @@ const whatsNew = {
     `The toast shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
   ],
   toggle: [
+    `A checked <code>ToggleButton</code> reads <code>--ui-control-filled-border-color</code> for its border, like filled buttons.`,
     `<code>ToggleButton</code> and <code>ToggleGroup</code> read <a href="#api"><code>--ui-control-border-color</code></a> for their border, like outlined buttons.`,
     slots(
       `Breaking: <a href="#toggle-button"><code>ToggleButton</code></a> no longer generates an input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,

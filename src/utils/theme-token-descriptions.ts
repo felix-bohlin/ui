@@ -34,6 +34,10 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-chip-size-large": "`Chip` height with `.ui-large`.",
   "--ui-chip-size-small": "`Chip` height with `.ui-small`.",
   "--ui-chip-size-x-small": "`Chip` height with `.ui-x-small`.",
+  "--ui-choice-accent":
+    "Fill of a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of `Range`. When unset, `--ui-primary`, with its lightness capped in dark mode for the choice controls. Set it to `--ui-primary` for the plain primary, like Material and shadcn.",
+  "--ui-choice-accent-contrast":
+    "Color of the mark on a checked `Checkbox`, `Radio` and `Switch`. Set it with `--ui-choice-accent`. When unset, `--ui-primary-contrast` in light mode and near-white in dark mode.",
   "--ui-choice-label-offset":
     "Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.",
   "--ui-choice-size": "Default `Checkbox` and `Radio` input size.",
@@ -48,7 +52,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-control-border-color":
     "Border color of controls without a fill: `Button` with `.ui-outlined`, the edge and dividers of an outlined `ButtonGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined` and the `Carousel` buttons. When unset, outlined buttons use their color, the carousel buttons a shade of their fill and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`.",
   "--ui-control-filled-border-color":
-    "Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, and the edge and dividers of a `ButtonGroup` with one of them. When unset, they have no visible border. Set it with `--ui-control-border-color` to outline every control.",
+    "Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, the edge and dividers of a `ButtonGroup` with one of them, a checked `ToggleButton` and `Chip` without `.ui-outlined`. When unset, buttons have no visible border and the rest use `--ui-border-color`. Set it with `--ui-control-border-color` to outline every control.",
   "--ui-control-size":
     "Shared default height for fields and buttons so they line up.",
   "--ui-control-size-large": "Shared large height for fields and buttons.",
@@ -241,5 +245,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-text-primary": "Emphasized text color for headings, labels and values.",
   "--ui-text-primary-contrast":
     "Same as `--ui-text-inverse`. Kept for older themes, use `--ui-text-inverse` instead.",
+  "--ui-track-color":
+    "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch a fixed gray.",
   "--ui-warning": "Severity color for warnings.",
 }

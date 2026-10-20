@@ -151,6 +151,8 @@
     --ui-icon-size-large: var(--size-5);
 
     /* Choice controls */
+    /* --ui-choice-accent: var(--ui-primary); */
+    /* --ui-choice-accent-contrast: var(--ui-primary-contrast); */
     --ui-choice-label-offset: 0px;
     --ui-choice-size-x-small: calc(0.875rem * var(--ui-density));
     --ui-choice-size-small: calc(var(--size-3) * var(--ui-density));
@@ -251,6 +253,7 @@
     --ui-surface-filled: light-dark(var(--ui-gray-4), var(--ui-gray-15));
     --ui-surface-inverse: light-dark(var(--ui-gray-15), var(--ui-gray-2));
     --ui-surface-tonal: light-dark(var(--ui-gray-3), var(--ui-gray-12));
+    /* --ui-track-color: var(--ui-surface-tonal); */
 
     /* Borders */
     --ui-border-color: light-dark(var(--ui-gray-4), var(--ui-gray-12));

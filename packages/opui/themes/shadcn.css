@@ -4,17 +4,16 @@
 @layer theme.custom {
   :where(html) {
     --ui-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 0.1));
+    --ui-border-color-raised: var(--ui-border-color);
     --ui-border-radius: 0.875rem;
     --ui-button-accent: var(--ui-primary);
     --ui-button-accent-contrast: var(--ui-primary-contrast);
     --ui-button-border-radius: 0.5rem;
     --ui-button-font-weight: var(--font-weight-5);
-    --ui-button-outlined-border-color: light-dark(
-      oklch(0.922 0 0),
-      oklch(1 0 0 / 0.15)
-    );
+    --ui-button-outlined-border-color: var(--ui-field-border-color);
     --ui-density: 0.9;
     --ui-field-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 0.15));
+    --ui-field-border-color-raised: var(--ui-field-border-color);
     --ui-field-border-radius: 0.5rem;
     --ui-field-helper-color: light-dark(oklch(0.556 0 0), oklch(0.708 0 0));
     --ui-field-label-font-weight: var(--font-weight-5);
@@ -45,5 +44,12 @@
     --ui-surface-tonal: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));
     --ui-text-muted: light-dark(oklch(0.269 0 0), oklch(0.922 0 0));
     --ui-text-primary: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
+  }
+
+  @container style(--ui-contrast: more) {
+    :where(body, .ui-contrast-more > *) {
+      --ui-button-accent: var(--ui-primary);
+      --ui-button-accent-contrast: var(--ui-primary-contrast);
+    }
   }
 }

@@ -5,10 +5,12 @@
   import type { DrawerHeaderProps as Props } from "./types.svelte"
 
   let {
-    children,
     class: className,
     closeLabel = "Close",
     commandfor,
+
+    // Snippets
+    children,
     ...rest
   }: Props = $props()
 

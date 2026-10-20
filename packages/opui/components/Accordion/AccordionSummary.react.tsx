@@ -3,8 +3,8 @@ import { markerPath } from "./icons"
 import type { AccordionSummaryProps as Props } from "./types.react"
 
 export default function AccordionSummary({
-  children,
   className,
+  children,
   marker,
   ...rest
 }: Props) {

@@ -49,6 +49,12 @@ Label End text
   <input name="checkbox-basics" type="checkbox" checked disabled />
   <span class="ui-sr-only">Checked and disabled</span>
 </label>
+
+<script>
+  document
+    .querySelectorAll('input[type="checkbox"][data-indeterminate]')
+    .forEach((input) => (input.indeterminate = true))
+</script>
 ```
 
 ## Sizes
@@ -149,30 +155,22 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 ```html
 <label class="ui-checkbox">
-  <input
-    name="checkbox-end-text"
-    type="checkbox"
-    aria-describedby="checkbox-end-text-1"
-  />
+  <input name="checkbox-end-text" type="checkbox" />
   <span class="ui-label">Default</span>
-  <span class="ui-end-text" id="checkbox-end-text-1">Supporting text</span>
+  <span class="ui-end-text">Supporting text</span>
 </label>
 
 <label class="ui-checkbox ui-stack">
-  <input
-    name="checkbox-end-text"
-    type="checkbox"
-    aria-describedby="checkbox-end-text-2"
-  />
+  <input name="checkbox-end-text" type="checkbox" />
   <span class="ui-label">Stack</span>
-  <span class="ui-end-text" id="checkbox-end-text-2">Supporting text</span>
+  <span class="ui-end-text">Supporting text</span>
 </label>
 ```
 
 ### Validation
 
 - `[required]` toggles the required styles on the `<input>`.
-- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. Point `aria-describedby` at it.
+- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. Keep it inside the `<label>`, so it's part of the field's name.
 - Checkboxes also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
 
 ```html
@@ -195,25 +193,15 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
       name="checkbox-validation"
       type="checkbox"
       checked
-      aria-describedby="checkbox-validation-3-end-text"
     />
     <span class="ui-label">Default</span>
-    <span class="ui-end-text" id="checkbox-validation-3-end-text"
-      >Check yourself</span
-    >
+    <span class="ui-end-text">Check yourself</span>
   </label>
 
   <label class="ui-checkbox ui-stack">
-    <input
-      aria-invalid="true"
-      name="checkbox-validation"
-      type="checkbox"
-      aria-describedby="checkbox-validation-4-end-text"
-    />
+    <input aria-invalid="true" name="checkbox-validation" type="checkbox" />
     <span class="ui-label">Stack</span>
-    <span class="ui-end-text" id="checkbox-validation-4-end-text"
-      >Before you wreck yourself</span
-    >
+    <span class="ui-end-text">Before you wreck yourself</span>
   </label>
 </div>
 ```
@@ -283,54 +271,27 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the labe
 
 ```html
 <label class="ui-checkbox ui-spread">
-  <input
-    name="checkbox-spread"
-    type="checkbox"
-    aria-describedby="checkbox-spread-1-end-text"
-  />
+  <input name="checkbox-spread" type="checkbox" />
   <span class="ui-label">Accept Terms & Conditions</span>
-  <span class="ui-end-text" id="checkbox-spread-1-end-text"
-    >I have read and agree to the privacy policy.</span
-  >
+  <span class="ui-end-text">I have read and agree to the privacy policy.</span>
 </label>
 
 <label class="ui-checkbox ui-spread">
-  <input
-    name="checkbox-spread"
-    type="checkbox"
-    required
-    aria-describedby="checkbox-spread-2-end-text"
-  />
+  <input name="checkbox-spread" type="checkbox" required />
   <span class="ui-label">Required</span>
-  <span class="ui-end-text" id="checkbox-spread-2-end-text"
-    >You must accept this to continue.</span
-  >
+  <span class="ui-end-text">You must accept this to continue.</span>
 </label>
 
 <label class="ui-checkbox ui-spread">
-  <input
-    name="checkbox-spread"
-    type="checkbox"
-    disabled
-    aria-describedby="checkbox-spread-3-end-text"
-  />
+  <input name="checkbox-spread" type="checkbox" disabled />
   <span class="ui-label">Disabled</span>
-  <span class="ui-end-text" id="checkbox-spread-3-end-text"
-    >This checkbox is disabled.</span
-  >
+  <span class="ui-end-text">This checkbox is disabled.</span>
 </label>
 
 <label class="ui-checkbox ui-spread">
-  <input
-    aria-invalid="true"
-    name="checkbox-spread"
-    type="checkbox"
-    aria-describedby="checkbox-spread-4-end-text"
-  />
+  <input aria-invalid="true" name="checkbox-spread" type="checkbox" />
   <span class="ui-label">Invalid Checkbox</span>
-  <span class="ui-end-text" id="checkbox-spread-4-end-text"
-    >There is an error with this checkbox.</span
-  >
+  <span class="ui-end-text">There is an error with this checkbox.</span>
 </label>
 ```
 
@@ -630,6 +591,8 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 | Type       | Modifiers                               | Default | Description                                                                          |
 | ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------------------ |
+| Disabled   | `input[disabled]`                       | -       | Dims the checkbox and shows a not-allowed cursor.                                    |
+| Required   | `input[required]`                       | -       | Adds a required mark after the label.                                                |
 | Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                             |
 | Spread     | `.ui-spread`                            | -       | Pushes the label and the input to opposite ends.                                     |
 | Stack      | `.ui-stack`                             | -       | Stacks the label under the input.                                                    |
@@ -848,7 +811,7 @@ Step 1 of 5: Appearance
   aspect-ratio: 1;
   background-color: var(--ui-surface-default);
   block-size: var(--size);
-  border: 1px solid var(--ui-border-color);
+  border: var(--ui-field-border-width) solid var(--ui-field-border-color);
   border-radius: var(--radius-1);
   box-sizing: border-box;
   display: grid;

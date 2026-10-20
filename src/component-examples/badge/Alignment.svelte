@@ -2,7 +2,7 @@
   import { Badge } from "opui-css/svelte"
 </script>
 
-<Badge alignment="start-start" label="35">
+<Badge alignment="start-start" label="35" srLabel="unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@
     ></path>
   </svg>
 </Badge>
-<Badge label="99+">
+<Badge label="99+" srLabel="unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +30,7 @@
     ></path>
   </svg>
 </Badge>
-<Badge alignment="end-start" label="OK!">
+<Badge alignment="end-start" label="OK!" srLabel="inbox synced">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@
     ></path>
   </svg>
 </Badge>
-<Badge alignment="end-end" label="3K">
+<Badge alignment="end-end" label="3K" srLabel="unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"

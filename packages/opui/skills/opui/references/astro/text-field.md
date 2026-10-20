@@ -144,8 +144,8 @@ Use the header for inside-field captions (filenames, categories) and the footer 
 import { TextField } from "opui-css/astro"
 ---
 
-<TextField label="Username" placeholder="Enter your name">
-  <Fragment slot="header">Full Name</Fragment>
+<TextField label="Name" placeholder="Ada Lovelace">
+  <Fragment slot="header">Shown on your profile</Fragment>
 </TextField>
 
 <TextField label="Tagline" placeholder="A short description">
@@ -296,7 +296,7 @@ import { TextField } from "opui-css/astro"
 ---
 
 <div class="example-column">
-  <TextField label="Color" placeholder="Color" type="color" />
+  <TextField label="Color" type="color" />
   <TextField label="Email" placeholder="name@email.com" type="email" />
   <TextField label="Password" placeholder="Password" type="password" />
   <TextField label="Search" placeholder="Search" type="search" />
@@ -306,15 +306,11 @@ import { TextField } from "opui-css/astro"
 </div>
 
 <div class="example-column">
-  <TextField label="Date" placeholder="Date" type="date" />
-  <TextField
-    label="Datetime local"
-    placeholder="Datetime local"
-    type="datetime-local"
-  />
-  <TextField label="Month" placeholder="Month" type="month" />
-  <TextField label="Time" placeholder="Time" type="time" />
-  <TextField label="Week" placeholder="Week" type="week" />
+  <TextField label="Date" type="date" />
+  <TextField label="Datetime local" type="datetime-local" />
+  <TextField label="Month" type="month" />
+  <TextField label="Time" type="time" />
+  <TextField label="Week" type="week" />
 </div>
 ```
 
@@ -359,8 +355,8 @@ File is a weird one. Should it really be an `<input>` element? Well, it's what w
 import { TextField } from "opui-css/astro"
 ---
 
-<TextField type="file" placeholder="File" label="Label" />
-<TextField type="file" placeholder="File" label="Label" variant="filled" />
+<TextField type="file" label="Label" />
+<TextField type="file" label="Label" variant="filled" />
 ```
 
 ## Autosuggest
@@ -381,9 +377,9 @@ import { TextField } from "opui-css/astro"
   placeholder="Placeholder"
 >
   <datalist id="text-field-autosuggest-1-list">
-    <option value="Ray Manzarek"></option>
     <option value="Jonny Greenwood"></option>
     <option value="Marika Hackman"></option>
+    <option value="Ray Manzarek"></option>
   </datalist>
 </TextField>
 
@@ -395,9 +391,9 @@ import { TextField } from "opui-css/astro"
   type="email"
 >
   <datalist id="text-field-autosuggest-2-list">
-    <option value="ray.manzarek@the.doors"></option>
     <option value="jonny.greenwood@radio.head"></option>
     <option value="marika@hack.man"></option>
+    <option value="ray.manzarek@the.doors"></option>
   </datalist>
 </TextField>
 ```
@@ -482,7 +478,7 @@ import { TextField } from "opui-css/astro"
 | `--ui-focus-ring-width`         | `2px`                                                                                         | Width of the focus ring.                                                                                                                                                                                                         |
 | `--ui-font-body`                | `var(--font-sans)`                                                                            | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                                             |
 | `--ui-font-size-05`             | `0.875rem`                                                                                    | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--ui-font-size-control`        | `var(--font-size-1)`                                                                          | Font size of the default `Button`, `TextField`, `Textarea` and `Select`. The size classes set their own.                                                                                                                         |
+| `--ui-font-size-control`        | `var(--font-size-1)`                                                                          | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                 |
 | `--ui-icon-size`                | `var(--size-4)`                                                                               | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-invalid-color`            | `var(--ui-critical)`                                                                          | Color for invalid field borders, fills and outlines.                                                                                                                                                                             |
 | `--ui-invalid-text-color`       | `light-dark( var(--ui-invalid-color), oklch(from var(--ui-invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--ui-invalid-color` in dark mode so the text stays readable.                                                                                                     |
@@ -505,7 +501,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property                     | Kind   | Description                                                                                                                              |
 | ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`                  | Output | Border color of the focused `.ui-field`. From `--ui-primary`, set by the invalid state.                                                  |
+| `--_accent`                  | Input  | Border color of the focused `.ui-field`. Defaults to `--ui-primary`, `--ui-invalid-color` when invalid.                                  |
 | `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state. |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                        |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                |
@@ -702,6 +698,7 @@ Import the component from `opui-css/astro`:
 
 ### What's new
 
+- The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.
 - [x-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
 - Breaking: extra attributes such as `autocomplete` and `aria-*` go to the input. `class` and `style` stay on the label ([API](#api)).

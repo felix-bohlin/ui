@@ -50,6 +50,10 @@ import spinnerApi from "../../component-api/spinner/api"
     <p>
       Simply add <code>aria-busy="true"</code> to a <code>&lt;button&gt;</code>.
     </p>
+    <p>
+      <code>aria-busy</code> doesn't announce anything. Say what's happening in text,
+      like "Saving…" in the button or in a <code>role="status"</code> element.
+    </p>
     <AutoExample name="Buttons" column />
   </section>
 
@@ -81,11 +85,11 @@ import spinnerApi from "../../component-api/spinner/api"
 
     <h3 id="doesnt-make-sense">2. Because it doesn't make sense</h3>
     <ul>
+      <li><code>&lt;html&gt;</code></li>
       <li><code>&lt;input&gt;</code></li>
+      <li><code>&lt;progress&gt;</code></li>
       <li><code>&lt;select&gt;</code></li>
       <li><code>&lt;textarea&gt;</code></li>
-      <li><code>&lt;html&gt;</code></li>
-      <li><code>&lt;progress&gt;</code></li>
     </ul>
   </section>
 

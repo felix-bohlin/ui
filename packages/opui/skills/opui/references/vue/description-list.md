@@ -56,7 +56,7 @@ import {
 
 Set `bordered` on `DescriptionList` to add a separator between the term and description on all items. Use `bordered="dotted"` for a dotted style.
 
-Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border.
+Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border, unless they're inline (`inline`).
 
 ```vue
 <script setup lang="ts">
@@ -309,6 +309,7 @@ Import the components from `opui-css/vue`:
 
 ### What's new
 
+- Breaking: the part files are `DescriptionListDescription.*`, `DescriptionListItem.*` and `DescriptionListTerm.*`. Update deep `opui-css/components/*` imports ([API](#api)).
 - Breaking: `Description` is now [`DescriptionListDescription`](#api), like Astro.
 - [Inline](#inline) keeps terms and descriptions side by side at any width with `inline`.
 - Breaking: `DescriptionListTerm` and `DescriptionListDescription` no longer render `.ui-term` and `.ui-description`. Select `dt` and `dd` in your CSS ([Basics](#basics)).

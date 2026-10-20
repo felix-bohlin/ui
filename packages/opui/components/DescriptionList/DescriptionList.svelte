@@ -3,9 +3,11 @@
 
   let {
     bordered,
-    children,
     class: className,
     inline,
+
+    // Snippets
+    children,
     ...rest
   }: Props = $props()
 </script>

@@ -73,7 +73,7 @@ export default {
   },
   "--_scroll-shadow": {
     description:
-      "Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--shadow-4`.",
+      "Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.",
     kind: "input",
   },
   "--_shadow": {

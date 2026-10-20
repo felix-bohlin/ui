@@ -58,23 +58,23 @@ Change the appearance of the entire group with the `variant` prop.
 
 ## Colors
 
-Set the `color` prop to `primary` or `critical` to recolor the entire group. The default is a neutral gray.
+Set the `color` prop to `critical` or `primary` to recolor the entire group. The default is a neutral gray.
 
 ```svelte
 <script lang="ts">
   import { Button, ButtonGroup } from "opui-css/svelte"
 </script>
 
-<ButtonGroup color="primary" variant="filled">
-  <Button>Primary</Button>
-  <Button>Primary</Button>
-  <Button>Primary</Button>
-</ButtonGroup>
-
 <ButtonGroup color="critical" variant="filled">
   <Button>Critical</Button>
   <Button>Critical</Button>
   <Button>Critical</Button>
+</ButtonGroup>
+
+<ButtonGroup color="primary" variant="filled">
+  <Button>Primary</Button>
+  <Button>Primary</Button>
+  <Button>Primary</Button>
 </ButtonGroup>
 ```
 
@@ -356,26 +356,24 @@ Buttons wrap onto more rows when they don't fit. Use `scrollable` to keep them o
   import { Button, ButtonGroup } from "opui-css/svelte"
 </script>
 
-<div style="display: grid; gap: var(--size-3); max-inline-size: 18rem">
-  <ButtonGroup variant="outlined">
-    <Button>Archive</Button>
-    <Button>Move to folder</Button>
-    <Button>Mark as unread</Button>
-    <Button>Delete</Button>
-  </ButtonGroup>
-  <ButtonGroup variant="outlined" scrollable>
-    <Button>Archive</Button>
-    <Button>Move to folder</Button>
-    <Button>Mark as unread</Button>
-    <Button>Delete</Button>
-  </ButtonGroup>
-  <ButtonGroup variant="outlined" shrink>
-    <Button>Archive</Button>
-    <Button>Move to folder</Button>
-    <Button>Mark as unread</Button>
-    <Button>Delete</Button>
-  </ButtonGroup>
-</div>
+<ButtonGroup variant="outlined" style="max-inline-size: 18rem">
+  <Button>Archive</Button>
+  <Button>Move to folder</Button>
+  <Button>Mark as unread</Button>
+  <Button>Delete</Button>
+</ButtonGroup>
+<ButtonGroup variant="outlined" scrollable style="max-inline-size: 18rem">
+  <Button>Archive</Button>
+  <Button>Move to folder</Button>
+  <Button>Mark as unread</Button>
+  <Button>Delete</Button>
+</ButtonGroup>
+<ButtonGroup variant="outlined" shrink style="max-inline-size: 18rem">
+  <Button>Archive</Button>
+  <Button>Move to folder</Button>
+  <Button>Mark as unread</Button>
+  <Button>Delete</Button>
+</ButtonGroup>
 ```
 
 ## API
@@ -414,12 +412,13 @@ Buttons wrap onto more rows when they don't fit. Use `scrollable` to keep them o
 | `--ui-disabled-opacity`             | `0.64`                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                                         |
 | `--ui-duration-fast`                | `0.1s`                                                                                   | Transition duration for hover and press feedback.                                                                                                                                                                                             |
 | `--ui-ease`                         | `ease`                                                                                   | Default easing for transitions.                                                                                                                                                                                                               |
-| `--ui-focus-ring-inset`             | `calc(-1 * var(--ui-focus-ring-width))`                                                  | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                             |
+| `--ui-field-border-color`           | `var(--ui-border-color)`                                                                 | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                                                      |
+| `--ui-field-border-width`           | `1px`                                                                                    | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                                    |
 | `--ui-font-code`                    | `var(--font-mono)`                                                                       | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                             |
 | `--ui-font-size-05`                 | `0.875rem`                                                                               | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                                         |
-| `--ui-font-size-control`            | `var(--font-size-1)`                                                                     | Font size of the default `Button`, `TextField`, `Textarea` and `Select`. The size classes set their own.                                                                                                                                      |
+| `--ui-font-size-control`            | `var(--font-size-1)`                                                                     | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                              |
 | `--ui-font-weight-bold`             | `var(--font-weight-7)`                                                                   | Font weight for headings, buttons and terms.                                                                                                                                                                                                  |
-| `--ui-font-weight-normal`           | `var(--font-weight-4)`                                                                   | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                                                  |
+| `--ui-font-weight-normal`           | `var(--font-weight-4)`                                                                   | Font weight for body text, `List` text and `Button` keyboard shortcuts.                                                                                                                                                                       |
 | `--ui-motion`                       | `1`                                                                                      | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion).                                    |
 | `--ui-primary`                      | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                                                  |
 | `--ui-primary-contrast`             | `oklch( from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--ui-primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--ui-primary` gets readable text.                            |
@@ -431,10 +430,9 @@ Buttons wrap onto more rows when they don't fit. Use `scrollable` to keep them o
 | `--ui-state-hover-alpha`            | `10%`                                                                                    | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                                                              |
 | `--ui-state-hover-alpha-accent`     | `15%`                                                                                    | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                               |
 | `--ui-state-hover-alpha-dark`       | `20%`                                                                                    | Alpha of the hover state layer on neutral buttons in dark mode.                                                                                                                                                                               |
-| `--ui-surface-filled`               | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                        | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                         |
 | `--ui-surface-tonal`                | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                        | Background of tonal variants.                                                                                                                                                                                                                 |
 | `--ui-text-disabled`                | `color-mix( in oklch, var(--ui-text-muted) 50%, var(--ui-surface-default) )`             | Text color of disabled buttons and chips.                                                                                                                                                                                                     |
-| `--ui-text-muted-contrast`          | `light-dark(var(--ui-gray-4), var(--ui-gray-13))`                                        | Muted text color on an inverted surface.                                                                                                                                                                                                      |
+| `--ui-text-muted`                   | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`                                        | Body text color.                                                                                                                                                                                                                              |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -475,11 +473,13 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-disabled-opacity`             | `0.64`                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                                         |
 | `--ui-duration-fast`                | `0.1s`                                                                                   | Transition duration for hover and press feedback.                                                                                                                                                                                             |
 | `--ui-ease`                         | `ease`                                                                                   | Default easing for transitions.                                                                                                                                                                                                               |
+| `--ui-field-border-color`           | `var(--ui-border-color)`                                                                 | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                                                      |
+| `--ui-field-border-width`           | `1px`                                                                                    | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                                    |
 | `--ui-font-code`                    | `var(--font-mono)`                                                                       | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                             |
 | `--ui-font-size-05`                 | `0.875rem`                                                                               | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                                         |
-| `--ui-font-size-control`            | `var(--font-size-1)`                                                                     | Font size of the default `Button`, `TextField`, `Textarea` and `Select`. The size classes set their own.                                                                                                                                      |
+| `--ui-font-size-control`            | `var(--font-size-1)`                                                                     | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                              |
 | `--ui-font-weight-bold`             | `var(--font-weight-7)`                                                                   | Font weight for headings, buttons and terms.                                                                                                                                                                                                  |
-| `--ui-font-weight-normal`           | `var(--font-weight-4)`                                                                   | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                                                  |
+| `--ui-font-weight-normal`           | `var(--font-weight-4)`                                                                   | Font weight for body text, `List` text and `Button` keyboard shortcuts.                                                                                                                                                                       |
 | `--ui-motion`                       | `1`                                                                                      | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion).                                    |
 | `--ui-primary`                      | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                                                  |
 | `--ui-primary-contrast`             | `oklch( from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--ui-primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--ui-primary` gets readable text.                            |
@@ -491,10 +491,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-state-hover-alpha`            | `10%`                                                                                    | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                                                              |
 | `--ui-state-hover-alpha-accent`     | `15%`                                                                                    | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                               |
 | `--ui-state-hover-alpha-dark`       | `20%`                                                                                    | Alpha of the hover state layer on neutral buttons in dark mode.                                                                                                                                                                               |
-| `--ui-surface-filled`               | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                        | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                         |
 | `--ui-surface-tonal`                | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                        | Background of tonal variants.                                                                                                                                                                                                                 |
 | `--ui-text-disabled`                | `color-mix( in oklch, var(--ui-text-muted) 50%, var(--ui-surface-default) )`             | Text color of disabled buttons and chips.                                                                                                                                                                                                     |
-| `--ui-text-muted-contrast`          | `light-dark(var(--ui-gray-4), var(--ui-gray-13))`                                        | Muted text color on an inverted surface.                                                                                                                                                                                                      |
+| `--ui-text-muted`                   | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`                                        | Body text color.                                                                                                                                                                                                                              |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -502,13 +501,14 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
 
-| Property           | Kind   | Description                                                                                                                                                                                                      |
-| ------------------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_border-color`  | Output | Border color of each button, `transparent` in a group.                                                                                                                                                           |
-| `--_border-radius` | Input  | Corner radius of the group. Defaults to `--ui-button-border-radius`.                                                                                                                                             |
-| `--_divider-color` | Output | Color of the lines between buttons, from the button's `--_accent-tonal`, `--_accent` in `.ui-outlined` and `currentColor` in `.ui-filled`, or `--ui-button-border-color` when a theme sets it.                   |
-| `--_edge-accent`   | Input  | Outline color of `.ui-outlined`. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.                                                                                 |
-| `--_edge-color`    | Output | The current outline color around the group. `transparent`, or `--_edge-accent` in `.ui-outlined`. `--ui-button-border-color` replaces both in `.ui-filled`, `.ui-outlined` and `.ui-tonal` when a theme sets it. |
+| Property           | Kind   | Description                                                                                                                                                                                                                                                                                                                                               |
+| ------------------ | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_border-color`  | Output | Border color of each button, `transparent` in a group.                                                                                                                                                                                                                                                                                                    |
+| `--_border-radius` | Input  | Corner radius of the group. Defaults to `--ui-button-border-radius`.                                                                                                                                                                                                                                                                                      |
+| `--_divider-color` | Output | Color of the lines between buttons, from the button's `--_accent-tonal`, `--_accent` in `.ui-outlined`, `currentColor` in `.ui-filled`, and `--_accent` in a `.ui-primary` or `.ui-critical` `.ui-filled` group. `--ui-button-border-color` replaces it when a theme sets it, and `--ui-button-outlined-border-color` takes precedence in `.ui-outlined`. |
+| `--_edge-accent`   | Input  | Outline color of `.ui-outlined`. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.                                                                                                                                                                                                                          |
+| `--_edge-color`    | Output | The current outline color around the group. `transparent`, or `--_edge-accent` in `.ui-outlined` (`--_edge-text` with more contrast). `--ui-button-border-color` replaces both in `.ui-filled`, `.ui-outlined` and `.ui-tonal` when a theme sets it, and `--ui-button-outlined-border-color` takes precedence in `.ui-outlined`.                          |
+| `--_edge-text`     | Output | Outline color of `.ui-outlined` with more contrast, a readable shade of `--_edge-accent`. `--ui-primary-text` in `.ui-primary` when a theme sets it.                                                                                                                                                                                                      |
 
 ## Under the hood
 
@@ -602,9 +602,9 @@ Step 3 of 3: Outline
 
 ## Browser support
 
-- Chromium: Full support Supported since v125.
+- Chromium: Full support Supported since v135.
 - Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v18.
+- Safari: Full support Supported since v26.2.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/svelte/guide/browser-support/?components=Button+Group.md).
 

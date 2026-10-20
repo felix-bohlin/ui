@@ -19,15 +19,23 @@ export default {
   },
   notes: {
     astro:
-      "Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `value`. To hide the label, set `hideLabel` and keep the text in the slot.",
+      "Attributes that aren't props go to the `<input>`, like `checked`, `disabled`, `name` and `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in the slot.",
     html: "To hide the label, use `.ui-sr-only` instead of `.ui-label`.",
     react:
-      "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.",
     svelte:
-      "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`. To hide the label, set `hideLabel` and keep the text in `children`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`. To hide the label, set `hideLabel` and keep the text in the slot.",
+      "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in the slot.",
   },
   options: [
+    {
+      attribute: "[disabled]",
+      description: "Dims the radio and shows a not-allowed cursor.",
+      frameworks: ["html"],
+      group: "Disabled",
+      part: "input",
+      prop: "disabled",
+    },
     {
       attribute: '[aria-invalid="true"]',
       default: "false",
@@ -40,6 +48,14 @@ export default {
       default: "false",
       description: "Visually hides the label.",
       prop: "hideLabel",
+    },
+    {
+      attribute: "[required]",
+      description: "Adds a required mark after the label.",
+      frameworks: ["html"],
+      group: "Required",
+      part: "input",
+      prop: "required",
     },
     {
       description: "The size of the element.",

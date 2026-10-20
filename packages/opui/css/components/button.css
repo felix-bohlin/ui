@@ -38,11 +38,17 @@
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_ease: var(--ui-ease);
     --_filled-active-bg-color: light-dark(
-      oklch(from var(--_accent) calc(l + 0.3) c h),
+      oklch(
+        from var(--_accent)
+          calc(l + 0.075 + 0.225 * clamp(-1, (0.3 - l) * 1000, 1)) c h
+      ),
       oklch(from var(--_accent) calc(l - 0.15) c h)
     );
     --_filled-hover-bg-color: light-dark(
-      oklch(from var(--_accent) calc(l + 0.2) c h),
+      oklch(
+        from var(--_accent)
+          calc(l + 0.05 + 0.15 * clamp(-1, (0.3 - l) * 1000, 1)) c h
+      ),
       oklch(from var(--_accent) calc(l - 0.1) c h)
     );
     --_font-size: var(--ui-font-size-control);
@@ -340,10 +346,10 @@
   /* File input */
   :where(input[type="file"]) {
     align-self: flex-start;
-    border: var(--ui-border-width) solid var(--ui-surface-filled);
+    border: var(--ui-field-border-width) solid var(--ui-field-border-color);
     border-radius: min(var(--radius-2), var(--ui-border-radius));
     box-shadow: var(--inner-shadow-4);
-    color: var(--ui-text-muted-contrast);
+    color: var(--ui-text-muted);
     cursor: initial;
     max-inline-size: 100%;
     padding: 0;

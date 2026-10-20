@@ -163,7 +163,7 @@ export default function EndText() {
 ### Validation
 
 - `required` toggles the required styles on the `<input>`.
-- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The wrapping `<label>` makes it part of the field's name.
 - Checkboxes also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```tsx
@@ -659,7 +659,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.
+Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.
 
 ### Checkbox input API
 
@@ -709,7 +709,7 @@ Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To 
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-The checkbox `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+The checkbox `<input>` without the label, for a custom layout inside a `label.ui-checkbox`, such as the end of a `ListItem` with `type="checkbox"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
 
 ### Field group API
 
@@ -810,7 +810,7 @@ Step 1 of 5: Appearance
   aspect-ratio: 1;
   background-color: var(--ui-surface-default);
   block-size: var(--size);
-  border: 1px solid var(--ui-border-color);
+  border: var(--ui-field-border-width) solid var(--ui-field-border-color);
   border-radius: var(--radius-1);
   box-sizing: border-box;
   display: grid;

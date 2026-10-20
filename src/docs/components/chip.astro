@@ -6,6 +6,7 @@ import { Chip as UIChip } from "opui-css/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import ChipCSS from "@opui/css/components/chip.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import chipApi from "../../component-api/chip/api"
 import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
@@ -52,7 +53,8 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
         >.
       </Fragment>
       <Fragment slot="html">
-        The Chip has two variants: tonal (default) and <code>.ui-outlined</code
+        The Chip has two variants: <code>.ui-tonal</code> (default) and <code
+          >.ui-outlined</code
         >.
       </Fragment>
     </Conditional>
@@ -155,11 +157,19 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
 
   <section>
     <h2 id="button">Button</h2>
+    <p>
+      Use <PropOrClass prop='as="button"' class='<button class="ui-chip">' /> for
+      a chip that runs an action.
+    </p>
     <AutoExample name="Button" column centered />
   </section>
 
   <section>
     <h2 id="link">Link</h2>
+    <p>
+      Use <PropOrClass prop="href" class='<a class="ui-chip">' /> for a chip that
+      goes to another page.
+    </p>
     <AutoExample name="Link" row />
   </section>
 
@@ -202,6 +212,7 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
       <UIChip label="Chip">
         <svg
           slot="start"
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 32 32"
         >
@@ -210,7 +221,12 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
             d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
           ></path>
         </svg>
-        <svg slot="end" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <svg
+          slot="end"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 32 32"
+        >
           <path
             fill="currentColor"
             d="M6.293 6.293a1 1 0 0 1 1.414 0L16 14.586l8.293-8.293a1 1 0 1 1 1.414 1.414L17.414 16l8.293 8.293a1 1 0 0 1-1.414 1.414L16 17.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L14.586 16L6.293 7.707a1 1 0 0 1 0-1.414"

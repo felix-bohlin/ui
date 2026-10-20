@@ -39,20 +39,20 @@ import Code from "../../components/Code.astro"
     <Code
       lang="css"
       code={`.button {
-  --ui-icon-size: 0.7lh;
+  --icon: 0.7lh;
   --min-height: var(--ui-button-size);
   min-block-size: var(--min-height);
   padding-inline: 1.5ex;
 }
 
 .button:where(:has(> svg:only-child)) {
-  --ui-icon-size: calc(var(--min-height) * 0.6);
+  --icon: calc(var(--min-height) * 0.6);
   min-inline-size: var(--min-height);
   padding-inline: 0;
 }
 
 .button > svg {
-  max-block-size: var(--ui-icon-size);
+  max-block-size: var(--icon);
 }`}
     />
   </section>

@@ -4,7 +4,7 @@ export default {
   component: "Spinner",
   css: ["spinner"],
   notes: {
-    default: "Set `aria-busy` on any element to show a spinner.",
+    default: 'Set `aria-busy="true"` on any element to show a spinner.',
     html: "These never show a spinner: `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>`. Neither do elements with `aria-describedby`, except buttons and links.",
   },
   options: [

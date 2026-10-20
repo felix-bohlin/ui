@@ -74,13 +74,13 @@ export const description =
     <h2 id="colors">Colors</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Pass <code>color</code> to apply a brand or destructive color: <code
-          >primary</code
-        > or <code>critical</code>. The default is a neutral gray.
+        Pass <code>color</code> to apply a destructive or brand color: <code
+          >critical</code
+        > or <code>primary</code>. The default is a neutral gray.
       </Fragment>
       <Fragment slot="html">
-        Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to apply
-        a brand or destructive color. The default is a neutral gray.
+        Add a <code>.ui-critical</code> or <code>.ui-primary</code> class to apply
+        a destructive or brand color. The default is a neutral gray.
       </Fragment>
     </Conditional>
     <AutoExample name="Colors" column spacious />
@@ -193,6 +193,7 @@ export const description =
     <Anatomy zoom={1.5}>
       <UIButton variant="tonal">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"

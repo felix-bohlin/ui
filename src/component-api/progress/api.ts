@@ -8,7 +8,7 @@ export default {
       "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `style` goes to the root `<div>`.",
     ),
     astro:
-      "Other attributes go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.",
+      "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.",
     vue: "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.",
   },
   options: [
@@ -27,7 +27,7 @@ export default {
     {
       default: '"tonal"',
       description:
-        "The track surface. Without one, the track looks the same as `tonal`.",
+        "The variant to use. Without one, the track looks the same as `tonal`.",
       group: "Variants",
       htmlDefault: null,
       prop: "variant",

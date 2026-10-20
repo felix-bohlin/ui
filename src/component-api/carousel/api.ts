@@ -66,7 +66,7 @@ export default {
     {
       class: ".ui-peek",
       default: "false",
-      description: "Shows part of the neighbouring items.",
+      description: "Shows part of the neighboring items.",
       group: "Peek",
       prop: "peek",
     },

@@ -81,7 +81,7 @@
   {/snippet}
   {#snippet endText()}Cannot be changed after deploy{/snippet}
   <option value="">-</option>
+  <option>ap-southeast-1</option>
   <option>eu-north-1</option>
   <option>us-east-1</option>
-  <option>ap-southeast-1</option>
 </Select>

@@ -3,7 +3,7 @@
 </script>
 
 <div class="example-column">
-  <TextField label="Color" placeholder="Color" type="color" />
+  <TextField label="Color" type="color" />
   <TextField label="Email" placeholder="name@email.com" type="email" />
   <TextField label="Password" placeholder="Password" type="password" />
   <TextField label="Search" placeholder="Search" type="search" />
@@ -13,13 +13,9 @@
 </div>
 
 <div class="example-column">
-  <TextField label="Date" placeholder="Date" type="date" />
-  <TextField
-    label="Datetime local"
-    placeholder="Datetime local"
-    type="datetime-local"
-  />
-  <TextField label="Month" placeholder="Month" type="month" />
-  <TextField label="Time" placeholder="Time" type="time" />
-  <TextField label="Week" placeholder="Week" type="week" />
+  <TextField label="Date" type="date" />
+  <TextField label="Datetime local" type="datetime-local" />
+  <TextField label="Month" type="month" />
+  <TextField label="Time" type="time" />
+  <TextField label="Week" type="week" />
 </div>

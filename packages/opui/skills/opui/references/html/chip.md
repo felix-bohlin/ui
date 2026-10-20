@@ -24,7 +24,7 @@ Chip
 
 ## Variants
 
-The Chip has two variants: tonal (default) and `.ui-outlined`.
+The Chip has two variants: `.ui-tonal` (default) and `.ui-outlined`.
 
 ```html
 <div class="ui-chip ui-tonal">
@@ -83,11 +83,8 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`. 
   <span class="ui-text">Large</span>
 </div>
 
-<div class="ui-chip ui-tonal ui-multiline" style="max-width: 30ch">
-  <span class="ui-text"
-    >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-    sodales.</span
-  >
+<div class="ui-chip ui-tonal ui-multiline" style="max-inline-size: 30ch">
+  <span class="ui-text">Free returns within 30 days on every order</span>
 </div>
 ```
 
@@ -182,6 +179,8 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
 
 ## Button
 
+Use `<button class="ui-chip">` for a chip that runs an action.
+
 ```html
 <div class="example-row">
   <button type="button" class="ui-chip ui-tonal">
@@ -227,6 +226,8 @@ Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color
 
 ## Link
 
+Use `<a class="ui-chip">` for a chip that goes to another page.
+
 ```html
 <a href="#" class="ui-chip ui-tonal">
   <span class="ui-text">Tonal link</span>
@@ -260,20 +261,27 @@ Disable a button chip with the `disabled` attribute. On a link chip, remove the 
 <button type="button" class="ui-chip ui-outlined" disabled>
   <span class="ui-text">Outlined</span>
 </button>
+<a class="ui-chip ui-tonal" aria-disabled="true">
+  <span class="ui-text">Tonal link</span>
+</a>
+<div class="ui-chip ui-tonal ui-disabled">
+  <span class="ui-text">Archived</span>
+</div>
 ```
 
 ## API
 
 ### Chip API
 
-| Type     | Modifiers                                                               | Default     | Description                                                                                                     |
-| -------- | ----------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
-| Colors   | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -           | Optional colors.                                                                                                |
-| Dot      | `.ui-dot`                                                               | -           | Adds a leading dot in the chip's color. Its shape follows the color.                                            |
-| Layout   | `.ui-multiline`                                                         | -           | Lets the label wrap to multiple lines.                                                                          |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`                                 | -           | The size of the element.                                                                                        |
-| State    | `.ui-disabled`                                                          | -           | Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips. |
-| Variants | `.ui-outlined`, `.ui-tonal`                                             | `.ui-tonal` | The variant to use.                                                                                             |
+| Type     | Modifiers                                                               | Default     | Description                                                                                                                  |
+| -------- | ----------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Colors   | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -           | Optional colors.                                                                                                             |
+| Disabled | `a[aria-disabled="true"]`, `button[disabled]`                           | -           | Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |
+| Dot      | `.ui-dot`                                                               | -           | Adds a leading dot in the chip's color. Its shape follows the color.                                                         |
+| Layout   | `.ui-multiline`                                                         | -           | Lets the label wrap to multiple lines.                                                                                       |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`                                 | -           | The size of the element.                                                                                                     |
+| State    | `.ui-disabled`                                                          | -           | Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips.              |
+| Variants | `.ui-outlined`, `.ui-tonal`                                             | `.ui-tonal` | The variant to use.                                                                                                          |
 
 #### Parts
 

@@ -68,6 +68,8 @@ const uid = useId()
 const labelId = `select-label-${uid}`
 const startTextId = `start-text-${uid}`
 const endTextId = `end-text-${uid}`
+const headerId = `header-${uid}`
+const footerId = `footer-${uid}`
 const field = inject(FieldGroupKey, undefined)
 </script>
 
@@ -75,17 +77,17 @@ const field = inject(FieldGroupKey, undefined)
   <label
     :class="[
       'ui-select',
-      size && `ui-${size}`,
       {
         'ui-filled': variant === 'filled',
         'ui-spread': spread,
       },
+      size && `ui-${size}`,
       $props.class,
     ]"
     :style="$attrs.style"
   >
     <span v-if="label || $slots.label" class="ui-label" :id="labelId">
-      <slot name="label">{{ label }}</slot>
+      {{ label }}<slot name="label"></slot>
     </span>
 
     <span
@@ -93,7 +95,7 @@ const field = inject(FieldGroupKey, undefined)
       class="ui-start-text"
       :id="startTextId"
     >
-      <slot name="start-text">{{ startText }}</slot>
+      {{ startText }}<slot name="start-text"></slot>
     </span>
 
     <span class="ui-field">
@@ -103,8 +105,10 @@ const field = inject(FieldGroupKey, undefined)
         v-model="model"
         :aria-describedby="
           idRefs(
+            $slots.header && headerId,
             (startText || $slots['start-text']) && startTextId,
             (endText || $slots['end-text']) && endTextId,
+            $slots.footer && footerId,
             attrs['aria-describedby'],
           )
         "
@@ -136,10 +140,10 @@ const field = inject(FieldGroupKey, undefined)
       <span class="ui-suffix" v-if="$slots.suffix"
         ><slot name="suffix"></slot
       ></span>
-      <span class="ui-header" v-if="$slots.header"
+      <span class="ui-header" :id="headerId" v-if="$slots.header"
         ><slot name="header"></slot
       ></span>
-      <span class="ui-footer" v-if="$slots.footer"
+      <span class="ui-footer" :id="footerId" v-if="$slots.footer"
         ><slot name="footer"></slot
       ></span>
     </span>
@@ -149,7 +153,7 @@ const field = inject(FieldGroupKey, undefined)
       :id="endTextId"
       class="ui-end-text"
     >
-      <slot name="end-text">{{ endText }}</slot>
+      {{ endText }}<slot name="end-text"></slot>
     </span>
   </label>
 </template>

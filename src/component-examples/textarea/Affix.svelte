@@ -20,3 +20,7 @@
       ></path></svg
     >{/snippet}
 </Textarea>
+
+<Textarea label="Comment" placeholder="Write a comment...">
+  {#snippet suffix()}Markdown{/snippet}
+</Textarea>

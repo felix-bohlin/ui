@@ -62,10 +62,11 @@
 <label
   class={[
     "ui-range",
-    variant && `ui-${variant}`,
     { "ui-spread": spread },
+    variant && `ui-${variant}`,
     className,
   ]}
+  for={hasValue ? inputId : undefined}
   {style}
 >
   {#if hasLabel}

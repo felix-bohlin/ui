@@ -8,7 +8,7 @@ const steps = [
 .drawer {
   background-color: var(--ui-surface-default);
   border: none;
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--ui-shadow-overlay);
   color: var(--ui-text-primary);
   display: flex;
   flex-direction: column;
@@ -99,7 +99,7 @@ const steps = [
 .drawer > .content::before,
 .drawer > .content::after {
   block-size: 0.5rem;
-  box-shadow: var(--shadow-4);
+  box-shadow: var(--ui-shadow-scroll);
   clip-path: inset(100% 0 -2rem);
   content: "";
   inset-inline: anchor(--content inside);

@@ -2,8 +2,8 @@
   import { Chip } from "opui-css/svelte"
 </script>
 
-<Chip as="a" href="#" variant="tonal" label="Tonal link" />
-<Chip as="a" href="#" variant="outlined">
+<Chip href="#" variant="tonal" label="Tonal link" />
+<Chip href="#" variant="outlined">
   <span class="ui-text">Outlined link</span>
   {#snippet end()}<svg
       aria-hidden="true"

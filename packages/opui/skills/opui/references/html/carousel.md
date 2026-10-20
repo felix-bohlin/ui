@@ -216,7 +216,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
 
 ## Peek
 
-Use `.ui-peek` to show part of the neighbouring items, and `.ui-align-center` to snap items to the center.
+Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to snap items to the center.
 
 ```html
 <ul
@@ -758,7 +758,7 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 | Markers            | `.ui-with-markers`                        | -        | One marker per item, after the list.                                                                                  |
 | Motion             | `.ui-motion-off`                          | -        | Turns off smooth scrolling, like `--ui-motion: 0`.                                                                    |
 | Orientation        | default, `.ui-vertical`                   | default  | The orientation of the element. Vertical carousels need a block size, set with `--_block-size`.                       |
-| Peek               | `.ui-peek`                                | -        | Shows part of the neighbouring items.                                                                                 |
+| Peek               | `.ui-peek`                                | -        | Shows part of the neighboring items.                                                                                  |
 | Persistent buttons | `.ui-buttons-persistent`                  | -        | Keeps the buttons visible at the ends. A disabled button has a muted border.                                          |
 | Stretch            | `.ui-stretch`                             | -        | Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it. |
 

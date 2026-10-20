@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import RadioInput from "./RadioInput.vue"
 import type { Props, Slots } from "./types.d.vue"
-import { type InputHTMLAttributes, useAttrs, useId } from "vue"
+import { computed, type InputHTMLAttributes, useAttrs } from "vue"
 import { warnUnnamed } from "../dev"
-import { idRefs } from "../id"
 
 defineOptions({
   inheritAttrs: false,
@@ -12,12 +11,12 @@ defineOptions({
 const { endText, error, hideLabel, size, spread, stack } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
+const inputAttrs = computed(() =>
+  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
+)
 const modelValue = defineModel<string | number | boolean | undefined>({
   default: undefined,
 })
-
-const uid = useId()
-const endTextId = `end-text-${uid}`
 
 warnUnnamed(
   "Radio",
@@ -29,34 +28,25 @@ warnUnnamed(
   <label
     :class="[
       'ui-radio',
-      size && `ui-${size}`,
       {
-        'ui-stack': stack,
         'ui-spread': spread,
+        'ui-stack': stack,
       },
+      size && `ui-${size}`,
       $props.class,
     ]"
+    :style="$attrs.style"
   >
     <RadioInput
-      v-bind="$attrs"
+      v-bind="inputAttrs"
       v-model="modelValue"
-      :aria-describedby="
-        idRefs(
-          (endText || $slots['end-text']) && endTextId,
-          attrs['aria-describedby'],
-        )
-      "
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
     />
     <span v-if="$slots.default" :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
       ><slot></slot
     ></span>
-    <span
-      v-if="endText || $slots['end-text']"
-      :id="endTextId"
-      class="ui-end-text"
-    >
-      <slot name="end-text">{{ endText }}</slot>
+    <span v-if="endText || $slots['end-text']" class="ui-end-text">
+      {{ endText }}<slot name="end-text"></slot>
     </span>
   </label>
 </template>

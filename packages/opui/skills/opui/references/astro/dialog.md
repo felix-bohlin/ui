@@ -164,6 +164,39 @@ import {
 
 The dialog is up to `60ch` wide. Set `--_max-inline-size` on it for a wider or narrower dialog, for example `style="--_max-inline-size: 40rem"`. On small screens it keeps a `--size-2` margin on each side, whatever the width.
 
+```astro
+---
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+} from "opui-css/astro"
+---
+
+<Button commandfor="dialog-width-1" command="show-modal" variant="outlined">
+  Open wide dialog
+</Button>
+
+<Dialog id="dialog-width-1" style="--_max-inline-size: 40rem">
+  <DialogHeader>
+    <h2 class="ui-h4">Newsletter</h2>
+  </DialogHeader>
+  <DialogContent>
+    <p>
+      Get a short email when we ship something new. No more than once a month.
+    </p>
+  </DialogContent>
+  <DialogActions>
+    <Button commandfor="dialog-width-1" command="close"> Not now </Button>
+    <Button commandfor="dialog-width-1" command="close" variant="filled">
+      Subscribe
+    </Button>
+  </DialogActions>
+</Dialog>
+```
+
 ## Long content
 
 The dialog grows up to 85% of the viewport height. The header and actions stay put while the `DialogContent` scrolls, with a shadow on the scrolled edge. A modal dialog also locks page scroll.
@@ -373,35 +406,36 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 #### CSS variables
 
-| Variable                    | Default                                                                           | Description                                                                                                                                                                                                                                           |
-| --------------------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-backdrop-blur`        | `1px`                                                                             | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                                                                      |
-| `--ui-backdrop-color`       | `rgb(0 0 0 / 0.5)`                                                                | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                                                                    |
-| `--ui-border-color`         | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                                 | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                           |
-| `--ui-border-radius`        | `var(--size-2)`                                                                   | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                      |
-| `--ui-border-width`         | `1px`                                                                             | Default border width for components that draw a border.                                                                                                                                                                                               |
-| `--ui-duration`             | `0.2s`                                                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                             |
-| `--ui-ease`                 | `ease`                                                                            | Default easing for transitions.                                                                                                                                                                                                                       |
-| `--ui-ease-enter`           | `var(--ease-out-3)`                                                               | Easing for elements entering the screen.                                                                                                                                                                                                              |
-| `--ui-focus-ring-color`     | `rgb( from var(--ui-surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                                      |
-| `--ui-focus-ring-offset`    | `2px`                                                                             | Distance between a control and its focus ring.                                                                                                                                                                                                        |
-| `--ui-focus-ring-style`     | `solid`                                                                           | Outline style of the focus ring.                                                                                                                                                                                                                      |
-| `--ui-focus-ring-width`     | `2px`                                                                             | Width of the focus ring.                                                                                                                                                                                                                              |
-| `--ui-motion`               | `1`                                                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).                                             |
-| `--ui-shadow-raised`        | `var(--ui-shadow-raised-light)` `var(--ui-shadow-raised-dark)` in dark mode       | Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one. |
-| `--ui-shadow-surface`       | `none`                                                                            | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                                        |
-| `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`                                     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                       |
-| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                       |
-| `--ui-space-4`              | `calc(var(--size-4) * var(--ui-space-scale))`                                     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                                       |
-| `--ui-surface-border-color` | Unset                                                                             | Border color of tonal and elevated `Card` and of `Callout` without a severity. When unset, cards use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.                                          |
-| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                 | Page and card background.                                                                                                                                                                                                                             |
-| `--ui-surface-elevated`     | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                 | Background of elevated cards and accordions.                                                                                                                                                                                                          |
-| `--ui-surface-tonal`        | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                 | Background of tonal variants.                                                                                                                                                                                                                         |
-| `--ui-text-muted`           | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`                                 | Body text color.                                                                                                                                                                                                                                      |
+| Variable                    | Default                                                                           | Description                                                                                                                                                                                                                                                        |
+| --------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--ui-backdrop-blur`        | `1px`                                                                             | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                                                                                   |
+| `--ui-backdrop-color`       | `rgb(0 0 0 / 0.5)`                                                                | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                                                                                 |
+| `--ui-border-color`         | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                                 | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                                        |
+| `--ui-border-radius`        | `var(--size-2)`                                                                   | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                   |
+| `--ui-border-width`         | `1px`                                                                             | Default border width for components that draw a border.                                                                                                                                                                                                            |
+| `--ui-duration`             | `0.2s`                                                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                                          |
+| `--ui-ease`                 | `ease`                                                                            | Default easing for transitions.                                                                                                                                                                                                                                    |
+| `--ui-ease-enter`           | `var(--ease-out-3)`                                                               | Easing for elements entering the screen.                                                                                                                                                                                                                           |
+| `--ui-focus-ring-color`     | `rgb( from var(--ui-surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                                                   |
+| `--ui-focus-ring-offset`    | `2px`                                                                             | Distance between a control and its focus ring.                                                                                                                                                                                                                     |
+| `--ui-focus-ring-style`     | `solid`                                                                           | Outline style of the focus ring.                                                                                                                                                                                                                                   |
+| `--ui-focus-ring-width`     | `2px`                                                                             | Width of the focus ring.                                                                                                                                                                                                                                           |
+| `--ui-motion`               | `1`                                                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).                                                          |
+| `--ui-shadow-raised`        | `var(--ui-shadow-raised-light)` `var(--ui-shadow-raised-dark)` in dark mode       | Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one.              |
+| `--ui-shadow-scroll`        | `var(--shadow-4)`                                                                 | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                                                                           |
+| `--ui-shadow-surface`       | `none`                                                                            | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                                                     |
+| `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`                                     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                    |
+| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                    |
+| `--ui-space-4`              | `calc(var(--size-4) * var(--ui-space-scale))`                                     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                                                    |
+| `--ui-surface-border-color` | Unset                                                                             | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards use the page background color, so they stay visible on tonal surfaces, accordions have a transparent border, and callouts their tonal background. |
+| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                 | Page and card background.                                                                                                                                                                                                                                          |
+| `--ui-surface-elevated`     | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                 | Background of elevated cards and accordions.                                                                                                                                                                                                                       |
+| `--ui-surface-tonal`        | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                 | Background of tonal variants.                                                                                                                                                                                                                                      |
+| `--ui-text-muted`           | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`                                 | Body text color.                                                                                                                                                                                                                                                   |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.
+Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.
 
 ### Dialog actions API
 
@@ -424,6 +458,7 @@ Attributes go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labell
 | `--ui-duration`       | `0.2s`                                        | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                 |
 | `--ui-ease-enter`     | `var(--ease-out-3)`                           | Easing for elements entering the screen.                                                                                                                                                                  |
 | `--ui-motion`         | `1`                                           | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
+| `--ui-shadow-scroll`  | `var(--shadow-4)`                             | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                  |
 | `--ui-space-3`        | `calc(var(--size-3) * var(--ui-space-scale))` | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                           |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
@@ -432,15 +467,15 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
 
-| Property               | Kind   | Description                                                                            |
-| ---------------------- | ------ | -------------------------------------------------------------------------------------- |
-| `--_backdrop-bg-color` | Input  | The backdrop color. Defaults to `--ui-backdrop-color`.                                 |
-| `--_backdrop-blur`     | Input  | The backdrop filter. Defaults to a `--ui-backdrop-blur` blur.                          |
-| `--_duration`          | Output | Duration of the open transition and scroll shadows, `--ui-duration` times `--_motion`. |
-| `--_ease`              | Input  | Easing of the open transition. Defaults to `--ui-ease-enter`.                          |
-| `--_max-inline-size`   | Input  | Maximum width, capped to fit the viewport.                                             |
-| `--_motion`            | Input  | Motion multiplier for the transitions. `0` turns them off.                             |
-| `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--shadow-4`.        |
+| Property               | Kind   | Description                                                                             |
+| ---------------------- | ------ | --------------------------------------------------------------------------------------- |
+| `--_backdrop-bg-color` | Input  | The backdrop color. Defaults to `--ui-backdrop-color`.                                  |
+| `--_backdrop-blur`     | Input  | The backdrop filter. Defaults to a `--ui-backdrop-blur` blur.                           |
+| `--_duration`          | Output | Duration of the open transition and scroll shadows, `--ui-duration` times `--_motion`.  |
+| `--_ease`              | Input  | Easing of the open transition. Defaults to `--ui-ease-enter`.                           |
+| `--_max-inline-size`   | Input  | Maximum width, capped to fit the viewport.                                              |
+| `--_motion`            | Input  | Motion multiplier for the transitions. `0` turns them off.                              |
+| `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`. |
 
 ## Under the hood
 
@@ -641,8 +676,8 @@ Step 5 of 5: Fade
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Partial support Missing: container-scroll-state-queries, display-animation, overlay.
-- Safari: Partial support Missing: container-scroll-state-queries, dialog-closedby, overlay.
+- Firefox: Partial support Missing: container-scroll-state-queries.
+- Safari: Partial support Missing: container-scroll-state-queries, dialog-closedby.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Dialog.md).
 
@@ -667,3 +702,5 @@ Import the components from `opui-css/astro`:
 - [Width](#width) with `--_max-inline-size`, keeping the margin on small screens.
 - [`closedby`](#how-to-close) is typed in every framework.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
+- The [scroll shadow](#long-content) reads `--ui-shadow-scroll`, and borders inside the dialog read `--ui-border-color-raised` and `--ui-field-border-color-raised`.
+- [`DialogActions`](#actions) only adds a class for `align="start"`. The default end alignment renders no `.ui-align-end`.

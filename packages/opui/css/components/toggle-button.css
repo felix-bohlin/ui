@@ -4,7 +4,7 @@
     --_bg-color: transparent;
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
-    --_font-size: var(--font-size-1);
+    --_font-size: var(--ui-font-size-control);
     --_icon-size: var(--ui-icon-size);
     --_min-height: var(--ui-button-size);
 

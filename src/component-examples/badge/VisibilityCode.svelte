@@ -2,6 +2,6 @@
   import { Badge } from "opui-css/svelte"
 </script>
 
-<Badge label="5" invisible>
+<Badge invisible label="5" srLabel="unread messages">
   <!-- -->
 </Badge>

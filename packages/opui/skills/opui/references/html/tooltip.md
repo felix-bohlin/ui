@@ -2,7 +2,7 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md).
 
-Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Wire `interestfor` on the trigger to the `.ui-anchor-floating[popover="hint"]` element's ID.
+Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Give the `.ui-anchor-floating` element `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
 
 ## Basics
 
@@ -180,7 +180,7 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-Add `.ui-anchor` to the root too. Give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.
+Add `.ui-anchor` to the root too. Give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
 
 ## Component properties
 

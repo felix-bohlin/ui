@@ -24,4 +24,8 @@ import { Textarea } from "opui-css/vue"
         ></path></svg
     ></template>
   </Textarea>
+
+  <Textarea label="Comment" placeholder="Write a comment...">
+    <template #suffix>Markdown</template>
+  </Textarea>
 </template>

@@ -39,3 +39,12 @@
   Inline end
 </Button>
 <Menu id="menu-placement-4" {items} placement="inline-end" />
+
+<Button
+  commandfor="menu-placement-5"
+  command="toggle-popover"
+  variant="outlined"
+>
+  Align end
+</Button>
+<Menu align="end" id="menu-placement-5" {items} />

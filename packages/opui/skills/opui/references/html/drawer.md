@@ -309,6 +309,90 @@ Set `closedby` on the `<dialog>` to choose how the drawer can be closed.
 
 Without `closedby`, the browser picks: a modal drawer, opened with `command="show-modal"` or `showModal()`, acts like `closerequest`, and a non-modal one like `none`.
 
+```html
+<button
+  type="button"
+  commandfor="drawer-close-behaviors-1"
+  command="show-modal"
+  class="ui-button ui-outlined"
+>
+  Open drawer
+</button>
+
+<dialog
+  class="ui-drawer ui-scroll-lock ui-inline-start"
+  id="drawer-close-behaviors-1"
+  aria-labelledby="drawer-close-behaviors-1-heading"
+  closedby="any"
+>
+  <div class="ui-header">
+    <h2 id="drawer-close-behaviors-1-heading">How to close</h2>
+    <button
+      type="button"
+      class="ui-button ui-round ui-small"
+      aria-label="Close"
+      commandfor="drawer-close-behaviors-1"
+      command="close"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+        />
+      </svg>
+    </button>
+  </div>
+  <div class="ui-content">
+    <fieldset class="ui-fieldset">
+      <legend>Choose a closing behavior:</legend>
+      <div class="ui-field-group">
+        <label class="ui-radio">
+          <input type="radio" name="closedby-demo" value="any" checked />
+          <span class="ui-label">any</span>
+        </label>
+        <label class="ui-radio">
+          <input type="radio" name="closedby-demo" value="closerequest" />
+          <span class="ui-label">closerequest</span>
+        </label>
+        <label class="ui-radio">
+          <input type="radio" name="closedby-demo" value="none" />
+          <span class="ui-label">none</span>
+        </label>
+      </div>
+    </fieldset>
+  </div>
+  <div class="ui-footer">
+    <button
+      type="button"
+      class="ui-button ui-small"
+      commandfor="drawer-close-behaviors-1"
+      command="close"
+    >
+      Close manually
+    </button>
+  </div>
+</dialog>
+
+<script>
+  {
+    const drawer = document.getElementById("drawer-close-behaviors-1")
+    document
+      .querySelectorAll('input[name="closedby-demo"]')
+      .forEach((radio) => {
+        radio.addEventListener("change", () =>
+          drawer?.setAttribute("closedby", radio.value),
+        )
+      })
+  }
+</script>
+```
+
 ## Accessibility
 
 - Name the drawer with `aria-labelledby` pointing at the heading's `id`, not at `.ui-header`, which also holds the close button.
@@ -337,12 +421,12 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 
 ### Drawer API
 
-| Type           | Modifiers                                                                | Default            | Description                                                                                                                               |
-| -------------- | ------------------------------------------------------------------------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Backdrop       | default, `.ui-backdrop-transparent`                                      | default            | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
-| Close behavior | `[closedby]`                                                             | -                  | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
-| Scroll lock    | `.ui-scroll-lock`                                                        | -                  | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
-| Sides          | `.ui-block-end`, `.ui-block-start`, `.ui-inline-end`, `.ui-inline-start` | `.ui-inline-start` | The side it opens from.                                                                                                                   |
+| Type           | Modifiers                                                                | Default | Description                                                                                                                               |
+| -------------- | ------------------------------------------------------------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Backdrop       | default, `.ui-backdrop-transparent`                                      | default | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
+| Close behavior | `[closedby]`                                                             | -       | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
+| Scroll lock    | `.ui-scroll-lock`                                                        | -       | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
+| Sides          | `.ui-block-end`, `.ui-block-start`, `.ui-inline-end`, `.ui-inline-start` | -       | The side it opens from.                                                                                                                   |
 
 #### Parts
 
@@ -366,9 +450,9 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 | `--ui-ease-enter`      | `var(--ease-out-3)`                               | Easing for elements entering the screen.                                                                                                                                                                 |
 | `--ui-motion`          | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
 | `--ui-shadow-overlay`  | `var(--shadow-3)`                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                              |
+| `--ui-shadow-scroll`   | `var(--shadow-4)`                                 | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                 |
 | `--ui-space-1`         | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                          |
 | `--ui-space-3`         | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                          |
-| `--ui-space-4`         | `calc(var(--size-4) * var(--ui-space-scale))`     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                          |
 | `--ui-surface-default` | `light-dark(var(--ui-gray-1), var(--ui-gray-13))` | Page and card background.                                                                                                                                                                                |
 | `--ui-text-primary`    | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
@@ -397,9 +481,9 @@ Add `autofocus` to the element that gets focus on open. It can be the root or an
 | `--ui-ease-enter`      | `var(--ease-out-3)`                               | Easing for elements entering the screen.                                                                                                                                                                 |
 | `--ui-motion`          | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
 | `--ui-shadow-overlay`  | `var(--shadow-3)`                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                              |
+| `--ui-shadow-scroll`   | `var(--shadow-4)`                                 | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                 |
 | `--ui-space-1`         | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                          |
 | `--ui-space-3`         | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                          |
-| `--ui-space-4`         | `calc(var(--size-4) * var(--ui-space-scale))`     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                          |
 | `--ui-surface-default` | `light-dark(var(--ui-gray-1), var(--ui-gray-13))` | Page and card background.                                                                                                                                                                                |
 | `--ui-text-primary`    | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
@@ -425,9 +509,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-ease-enter`      | `var(--ease-out-3)`                               | Easing for elements entering the screen.                                                                                                                                                                 |
 | `--ui-motion`          | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
 | `--ui-shadow-overlay`  | `var(--shadow-3)`                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.                                                                                                              |
+| `--ui-shadow-scroll`   | `var(--shadow-4)`                                 | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                 |
 | `--ui-space-1`         | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                          |
 | `--ui-space-3`         | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                          |
-| `--ui-space-4`         | `calc(var(--size-4) * var(--ui-space-scale))`     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                          |
 | `--ui-surface-default` | `light-dark(var(--ui-gray-1), var(--ui-gray-13))` | Page and card background.                                                                                                                                                                                |
 | `--ui-text-primary`    | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                   |
 
@@ -455,7 +539,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_header-padding`    | Input  | Padding of `.ui-header`.                                                                             |
 | `--_inline-size`       | Input  | Width of `.ui-inline-start` and `.ui-inline-end` drawers.                                            |
 | `--_motion`            | Input  | Motion multiplier for the transitions. `0` turns them off.                                           |
-| `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--shadow-4`.                      |
+| `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.              |
 | `--_shadow`            | Input  | The shadow. Defaults to `--ui-shadow-overlay`.                                                       |
 | `--_text-color`        | Input  | The text color. Defaults to `--ui-text-primary`.                                                     |
 
@@ -525,7 +609,7 @@ Step 1 of 5: Modal
 .drawer {
   background-color: var(--ui-surface-default);
   border: none;
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--ui-shadow-overlay);
   color: var(--ui-text-primary);
   display: flex;
   flex-direction: column;
@@ -588,7 +672,7 @@ Step 3 of 5: Shadow
 .drawer > .content::before,
 .drawer > .content::after {
   block-size: 0.5rem;
-  box-shadow: var(--shadow-4);
+  box-shadow: var(--ui-shadow-scroll);
   clip-path: inset(100% 0 -2rem);
   content: "";
   inset-inline: anchor(--content inside);
@@ -714,4 +798,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Name it with [`aria-labelledby`](#accessibility) pointing at the header heading.
 - The [backdrop](#basics) dims and blurs like `Dialog`, through `--ui-backdrop-color` and `--ui-backdrop-blur`.
 - Breaking: `--_color` is `--_text-color`, and `--_transition-duration` and `--_transition-timing` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
-- The drawer shadow is [`--ui-shadow-overlay`](#api), shared with menus, select pickers and toasts. Padding reads the `--space-*` scale.
+- The drawer shadow is [`--ui-shadow-overlay`](#api), shared with menus, select pickers and toasts. Padding reads the `--ui-space-*` scale.
+- Content padding is `--ui-space-3`, like the header and footer ([Basics](#basics)).
+- The scroll shadow reads [`--ui-shadow-scroll`](#api).

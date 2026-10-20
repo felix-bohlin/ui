@@ -8,13 +8,23 @@
       <label class="ui-text-field">
         <span class="ui-label">Full Name</span>
         <span class="ui-field">
-          <input type="text" placeholder="Jane Doe" required />
+          <input
+            autocomplete="name"
+            type="text"
+            placeholder="Jane Doe"
+            required
+          />
         </span>
       </label>
       <label class="ui-text-field">
         <span class="ui-label">Email Address</span>
         <span class="ui-field">
-          <input type="email" placeholder="jane@example.com" required />
+          <input
+            autocomplete="email"
+            type="email"
+            placeholder="jane@example.com"
+            required
+          />
         </span>
       </label>
       <label class="ui-select">
@@ -25,8 +35,8 @@
               <selectedcontent></selectedcontent>
             </button>
             <div class="ui-list">
-              <option value="dev">Developer</option>
               <option value="design">Designer</option>
+              <option value="dev">Developer</option>
               <option value="manager">Manager</option>
             </div>
           </select>
@@ -128,16 +138,9 @@
     <legend>Legal</legend>
     <div class="ui-field-group">
       <label class="ui-checkbox">
-        <input
-          aria-describedby="form-kitchen-sink-4-end-text"
-          type="checkbox"
-          name="terms"
-          required
-        />
+        <input type="checkbox" name="terms" required />
         <span class="ui-label">I agree to the terms and conditions</span>
-        <span class="ui-end-text" id="form-kitchen-sink-4-end-text"
-          >Support this text</span
-        >
+        <span class="ui-end-text">Support this text</span>
       </label>
     </div>
   </fieldset>

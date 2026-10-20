@@ -2,7 +2,7 @@
   import { Badge } from "opui-css/svelte"
 </script>
 
-<Badge color="critical" label="5">
+<Badge color="critical" label="5" srLabel="unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -15,7 +15,7 @@
     ></path></svg
   >
 </Badge>
-<Badge color="info" label="5">
+<Badge color="info" label="5" srLabel="unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@
     ></path></svg
   >
 </Badge>
-<Badge color="neutral" label="5">
+<Badge color="neutral" label="5" srLabel="unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
     ></path></svg
   >
 </Badge>
-<Badge color="success" label="5">
+<Badge color="success" label="5" srLabel="unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@
     ></path></svg
   >
 </Badge>
-<Badge color="warning" label="5">
+<Badge color="warning" label="5" srLabel="unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"

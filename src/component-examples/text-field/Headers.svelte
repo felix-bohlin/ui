@@ -2,8 +2,8 @@
   import { TextField } from "opui-css/svelte"
 </script>
 
-<TextField label="Username" placeholder="Enter your name">
-  {#snippet header()}Full Name{/snippet}
+<TextField label="Name" placeholder="Ada Lovelace">
+  {#snippet header()}Shown on your profile{/snippet}
 </TextField>
 
 <TextField label="Tagline" placeholder="A short description">

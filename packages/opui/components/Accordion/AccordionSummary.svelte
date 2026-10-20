@@ -2,7 +2,14 @@
   import { markerPath } from "./icons"
   import type { AccordionSummaryProps as Props } from "./types.svelte"
 
-  let { children, class: className, marker, ...rest }: Props = $props()
+  let {
+    class: className,
+
+    // Snippets
+    children,
+    marker,
+    ...rest
+  }: Props = $props()
 </script>
 
 <summary class={[className]} {...rest}

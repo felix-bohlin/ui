@@ -13,5 +13,12 @@ export default function Determinate() {
     return () => clearInterval(interval)
   }, [])
 
-  return <Progress id="progress-determinate-1" max="100" value={value} />
+  return (
+    <Progress
+      aria-label="Uploading"
+      id="progress-determinate-1"
+      max="100"
+      value={value}
+    />
+  )
 }

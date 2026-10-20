@@ -6,11 +6,11 @@ import { TabsContext, useTabsContext } from "./context.react"
 import type { TabsItemProps as Props } from "./types.react"
 
 export default function TabsItem({
-  children,
   className,
   name,
   open,
   tabId,
+  children,
   ...rest
 }: Props) {
   const uid = useId()

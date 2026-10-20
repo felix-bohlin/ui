@@ -45,7 +45,7 @@
 
 Add `.ui-bordered` to the `<dl>` element. For a dotted style, also add `.ui-dotted`.
 
-Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border.
+Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border, unless they're inline (`.ui-inline`).
 
 ```html
 <dl class="ui-description-list ui-bordered">

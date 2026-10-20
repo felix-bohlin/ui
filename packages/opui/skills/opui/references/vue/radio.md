@@ -132,7 +132,7 @@ import { Radio } from "opui-css/vue"
 
 ### End text
 
-Use the `endText` prop for supporting text under a single radio's label, or the `end-text` slot for rich content. The component points `aria-describedby` at it.
+Use the `endText` prop for supporting text under a single radio's label, or the `end-text` slot for rich content. It sits inside the `<label>`, so screen readers read it with the label.
 
 ```vue
 <script setup lang="ts">
@@ -438,7 +438,7 @@ function reset() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`. To hide the label, set `hideLabel` and keep the text in the slot.
+Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in the slot.
 
 ### Radio input API
 
@@ -487,7 +487,7 @@ Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `va
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-The radio `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `type="radio"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
 
 ### Field group API
 
@@ -687,3 +687,4 @@ Import the component from `opui-css/vue`:
 - [`endText`](#end-text) takes a string, like the `end-text` slot.
 - Breaking: deep type imports from `components/Radio/types` are named `Props` and `Slots` (was `RadioProps` and `RadioSlots`). Import [`RadioProps`](#api) from the framework entry instead.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
+- Breaking: `style` goes to the root `<label>`, like `class`, so `--_` properties set through it apply ([API](#api)).

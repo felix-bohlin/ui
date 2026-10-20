@@ -40,8 +40,14 @@ export default {
       "The current thumb color. From `--_accent`, set by the disabled state.",
     kind: "output",
   },
+  "--_thumb-border-width": {
+    description:
+      "Width of the page-colored ring between the thumb and the track. Set on the `<input>`.",
+    kind: "input",
+  },
   "--_thumb-highlight-color": {
-    description: "Color of the ring around the thumb, from `--_accent`.",
+    description:
+      "Color of the ring around the thumb, from `--_accent` and `--ui-state-active-alpha`.",
     kind: "output",
   },
   "--_thumb-highlight-size": {

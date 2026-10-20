@@ -141,30 +141,19 @@ Add `.ui-stack` to the `<label class="ui-radio">` to put the label under the rad
 
 ### End text
 
-Add a `.ui-end-text` element after the label for supporting text under a single radio, and point the input's `aria-describedby` at its `id`.
+Add a `.ui-end-text` element after the label for supporting text under a single radio. It sits inside the `<label>`, so screen readers read it with the label.
 
 ```html
 <label class="ui-radio">
-  <input
-    name="radio-end-text"
-    type="radio"
-    value="default"
-    checked
-    aria-describedby="radio-end-text-1"
-  />
+  <input name="radio-end-text" type="radio" value="default" checked />
   <span class="ui-label">Default</span>
-  <span class="ui-end-text" id="radio-end-text-1">Supporting text</span>
+  <span class="ui-end-text">Supporting text</span>
 </label>
 
 <label class="ui-radio ui-stack">
-  <input
-    name="radio-end-text"
-    type="radio"
-    value="stack"
-    aria-describedby="radio-end-text-2"
-  />
+  <input name="radio-end-text" type="radio" value="stack" />
   <span class="ui-label">Stack</span>
-  <span class="ui-end-text" id="radio-end-text-2">Supporting text</span>
+  <span class="ui-end-text">Supporting text</span>
 </label>
 ```
 
@@ -178,42 +167,19 @@ Add the `.ui-spread` class to the `<label class="ui-radio">` to push the label t
     <legend>Delivery</legend>
     <div class="ui-field-group">
       <label class="ui-radio ui-spread">
-        <input
-          name="radio-spread"
-          type="radio"
-          value="standard"
-          checked
-          aria-describedby="radio-spread-1-end-text"
-        />
+        <input name="radio-spread" type="radio" value="standard" checked />
         <span class="ui-label">Standard</span>
-        <span class="ui-end-text" id="radio-spread-1-end-text"
-          >Arrives in 3 to 5 days.</span
-        >
+        <span class="ui-end-text">Arrives in 3 to 5 days.</span>
       </label>
       <label class="ui-radio ui-spread">
-        <input
-          name="radio-spread"
-          type="radio"
-          value="express"
-          aria-describedby="radio-spread-2-end-text"
-        />
+        <input name="radio-spread" type="radio" value="express" />
         <span class="ui-label">Express</span>
-        <span class="ui-end-text" id="radio-spread-2-end-text"
-          >Arrives tomorrow.</span
-        >
+        <span class="ui-end-text">Arrives tomorrow.</span>
       </label>
       <label class="ui-radio ui-spread">
-        <input
-          name="radio-spread"
-          type="radio"
-          value="pickup"
-          disabled
-          aria-describedby="radio-spread-3-end-text"
-        />
+        <input name="radio-spread" type="radio" value="pickup" disabled />
         <span class="ui-label">Pickup</span>
-        <span class="ui-end-text" id="radio-spread-3-end-text"
-          >Not available in your area.</span
-        >
+        <span class="ui-end-text">Not available in your area.</span>
       </label>
     </div>
   </fieldset>
@@ -482,6 +448,8 @@ The selected value lives in the inputs, which share a `name`. Submit them with a
 
 | Type       | Modifiers                               | Default | Description                                       |
 | ---------- | --------------------------------------- | ------- | ------------------------------------------------- |
+| Disabled   | `input[disabled]`                       | -       | Dims the radio and shows a not-allowed cursor.    |
+| Required   | `input[required]`                       | -       | Adds a required mark after the label.             |
 | Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                          |
 | Spread     | `.ui-spread`                            | -       | Pushes the label and the input to opposite ends.  |
 | Stack      | `.ui-stack`                             | -       | Stacks the label under the input.                 |

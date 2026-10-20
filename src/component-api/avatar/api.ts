@@ -5,15 +5,16 @@ export default {
   options: [
     {
       description:
-        "Alternative text for the image. Required with src; use an empty string when the name is shown next to it.",
+        "Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it.",
       prop: "alt",
     },
     {
-      description:
-        'The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.',
+      default: '"div"',
+      description: 'The element to render. Defaults to `"a"` with `href`.',
       prop: "as",
     },
     {
+      default: "false",
       description: 'Disables the avatar when `as` is `"button"`.',
       prop: "disabled",
     },

@@ -7,6 +7,7 @@ import { List, ListItem } from "opui-css/vue"
     <ListItem headline="Headline">
       <template #start
         ><svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -21,6 +22,7 @@ import { List, ListItem } from "opui-css/vue"
     <ListItem headline="Headline" description="Supporting text">
       <template #start
         ><svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"

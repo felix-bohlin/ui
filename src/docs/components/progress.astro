@@ -1,9 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
-import { Progress as UIProgress } from "opui-css/astro"
 
 import ProgressCSS from "@opui/css/components/progress.css?raw"
 import Conditional from "../../components/Conditional.astro"
@@ -71,6 +69,10 @@ import progressApi from "../../component-api/progress/api"
 
   <Fragment slot="accessibility">
     <p>
+      Name the bar with <code>aria-label</code>, or <code>aria-labelledby</code>
+      pointing at visible text.
+    </p>
+    <p>
       If the <code>&lt;progress&gt;</code> element is describing the loading progress
       of a section of a page:
     </p>
@@ -87,13 +89,6 @@ import progressApi from "../../component-api/progress/api"
         class="ui-link">MDN</a
       >
     </p>
-    <Example>
-      <Example.Preview slot="preview-astro">
-        <div aria-busy="true" aria-describedby="progress-bar">
-          Content here is loading.
-        </div>
-        <UIProgress id="progress-bar" aria-label="Content loading…" />
-      </Example.Preview>
-    </Example>
+    <AutoExample name="AriaBusy" />
   </Fragment>
 </Component>

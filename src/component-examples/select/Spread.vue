@@ -82,8 +82,8 @@ import { Select } from "opui-css/vue"
     </template>
     <template #end-text>Cannot be changed after deploy</template>
     <option value="">-</option>
+    <option>ap-southeast-1</option>
     <option>eu-north-1</option>
     <option>us-east-1</option>
-    <option>ap-southeast-1</option>
   </Select>
 </template>

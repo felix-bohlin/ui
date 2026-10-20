@@ -87,7 +87,7 @@ Use the `startText` prop for text between the label and the textarea.
 ```tsx
 import { Textarea } from "opui-css/react"
 
-export default function Description() {
+export default function StartText() {
   return <Textarea startText="Shown on your public profile" label="Bio" />
 }
 ```
@@ -121,26 +121,34 @@ import { Textarea } from "opui-css/react"
 
 export default function Affix() {
   return (
-    <Textarea
-      label="Notes"
-      placeholder="Add a note..."
-      prefix={
-        <svg
-          aria-hidden="true"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-        </svg>
-      }
-    />
+    <>
+      <Textarea
+        label="Notes"
+        placeholder="Add a note..."
+        prefix={
+          <svg
+            aria-hidden="true"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+        }
+      />
+
+      <Textarea
+        label="Comment"
+        placeholder="Write a comment..."
+        suffix="Markdown"
+      />
+    </>
   )
 }
 ```
@@ -195,12 +203,14 @@ export default function Validation() {
         <Textarea
           label="Label"
           placeholder="Default"
+          defaultValue="This isn't right"
           endText="Only double-negatives are allowed."
           error
         />
         <Textarea
           label="Label"
           placeholder="Filled"
+          defaultValue="Uh-oh"
           endText="Only letters from the first half of the alphabet are allowed."
           error
           variant="filled"
@@ -359,7 +369,7 @@ export default function AutoFit() {
 | `--ui-focus-ring-width`         | `2px`                                                                                         | Width of the focus ring.                                                                                                                                                                                                         |
 | `--ui-font-body`                | `var(--font-sans)`                                                                            | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                                             |
 | `--ui-font-size-05`             | `0.875rem`                                                                                    | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--ui-font-size-control`        | `var(--font-size-1)`                                                                          | Font size of the default `Button`, `TextField`, `Textarea` and `Select`. The size classes set their own.                                                                                                                         |
+| `--ui-font-size-control`        | `var(--font-size-1)`                                                                          | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                 |
 | `--ui-icon-size`                | `var(--size-4)`                                                                               | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-invalid-color`            | `var(--ui-critical)`                                                                          | Color for invalid field borders, fills and outlines.                                                                                                                                                                             |
 | `--ui-invalid-text-color`       | `light-dark( var(--ui-invalid-color), oklch(from var(--ui-invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--ui-invalid-color` in dark mode so the text stays readable.                                                                                                     |
@@ -374,11 +384,35 @@ export default function AutoFit() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `style` goes to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
+Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
 
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
+
+### text-field.css
+
+| Property                     | Kind   | Description                                                                                                                              |
+| ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                  | Input  | Border color of the focused `.ui-field`. Defaults to `--ui-primary`, `--ui-invalid-color` when invalid.                                  |
+| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state. |
+| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                        |
+| `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                |
+| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                          |
+| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                                                |
+| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                                                           |
+| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                    |
+| `--_duration`                | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                 |
+| `--_ease`                    | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                      |
+| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                                                     |
+| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                                                        |
+| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                                                      |
+| `--_font-size`               | Input  | The font size of the control and affixes.                                                                                                |
+| `--_helper-color`            | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-color`, set by the invalid state.               |
+| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--ui-field-size`, set by the size classes.                                               |
+| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                               |
+
+### textarea.css
 
 | Property            | Kind  | Description                                              |
 | ------------------- | ----- | -------------------------------------------------------- |
@@ -518,6 +552,7 @@ Import the component from `opui-css/react`:
 
 ### What's new
 
+- The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.
 - [x-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
 - The minimum height is three lines plus padding at every [size](#sizes).

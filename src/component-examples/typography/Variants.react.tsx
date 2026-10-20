@@ -9,6 +9,7 @@ export default function Variants() {
       <h6 className="ui-h6">Heading 6</h6>
       <p className="ui-p ui-large">Body Large</p>
       <p className="ui-p">Body</p>
+      <p className="ui-p ui-small">Body Small</p>
       <p className="ui-overline">Overline</p>
       <p className="ui-caption">Caption</p>
     </>

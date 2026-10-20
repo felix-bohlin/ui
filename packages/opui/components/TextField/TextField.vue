@@ -41,22 +41,22 @@ const field = inject(FieldGroupKey, undefined)
   <label
     :class="[
       'ui-text-field',
-      size && `ui-${size}`,
       {
         'ui-auto-fit': autoFit,
         'ui-filled': variant === 'filled',
         'ui-spread': spread,
       },
+      size && `ui-${size}`,
       $props.class,
     ]"
     :style="$attrs.style"
   >
     <span v-if="label || $slots.label" class="ui-label">
-      <slot name="label">{{ label }}</slot>
+      {{ label }}<slot name="label"></slot>
     </span>
 
     <span v-if="startText || $slots['start-text']" class="ui-start-text">
-      <slot name="start-text">{{ startText }}</slot>
+      {{ startText }}<slot name="start-text"></slot>
     </span>
 
     <span class="ui-field">
@@ -87,7 +87,7 @@ const field = inject(FieldGroupKey, undefined)
     </span>
 
     <span v-if="endText || $slots['end-text']" class="ui-end-text">
-      <slot name="end-text">{{ endText }}</slot>
+      {{ endText }}<slot name="end-text"></slot>
     </span>
 
     <slot></slot>

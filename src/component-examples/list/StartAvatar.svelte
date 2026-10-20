@@ -4,7 +4,7 @@
 
 <List>
   <ListItem headline="Headline">
-    {#snippet start()}<Avatar>AB</Avatar>{/snippet}
+    {#snippet start()}<Avatar aria-hidden="true">AB</Avatar>{/snippet}
   </ListItem>
   <ListItem headline="Headline" description="Supporting text">
     {#snippet start()}<Avatar>

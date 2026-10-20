@@ -3,8 +3,8 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Border color of the focused `.ui-field`. From `--ui-primary`, set by the invalid state.",
-    kind: "output",
+      "Border color of the focused `.ui-field`. Defaults to `--ui-primary`, `--ui-invalid-color` when invalid.",
+    kind: "input",
   },
   "--_affix-color": {
     description:

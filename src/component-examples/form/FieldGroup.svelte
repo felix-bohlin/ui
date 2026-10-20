@@ -26,10 +26,6 @@
     <FieldLegend>Which side projects do you follow?</FieldLegend>
     <FieldDescription>Some are better than others.</FieldDescription>
     <FieldGroup name="projects">
-      <Checkbox value="the-smile">
-        The Smile
-        {#snippet endText()}Thom Yorke, Jonny Greenwood, Tom Skinner{/snippet}
-      </Checkbox>
       <Checkbox value="atoms-for-peace">
         Atoms for Peace
         {#snippet endText()}Thom Yorke, Flea, Nigel Godrich{/snippet}
@@ -45,6 +41,10 @@
       <Checkbox value="selway-solo">
         Philip Selway
         {#snippet endText()}Philip Selway solo albums{/snippet}
+      </Checkbox>
+      <Checkbox value="the-smile">
+        The Smile
+        {#snippet endText()}Thom Yorke, Jonny Greenwood, Tom Skinner{/snippet}
       </Checkbox>
     </FieldGroup>
   </FieldSet>

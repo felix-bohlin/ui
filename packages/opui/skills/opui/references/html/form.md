@@ -8,7 +8,9 @@ Favorite pet
 
 Pick one.
 
-Dog Cat
+Cat Dog
+
+Supporting text
 
 - `.ui-form`
 
@@ -29,6 +31,10 @@ Dog Cat
 - `.ui-field-group`
 
   Lays out related fields.
+
+- `.ui-fieldset > .ui-end-text`
+
+  Supporting or error text for the whole group, after the fields.
 
 ## Basics
 
@@ -59,12 +65,12 @@ Groups related fields. Label it with `<legend>` and add an optional `.ui-field-d
   <p class="ui-field-description">Please select your favorite type of pet.</p>
   <div class="ui-field-group">
     <label class="ui-radio">
-      <input name="pet" type="radio" value="dog" />
-      <span class="ui-label">Dog</span>
-    </label>
-    <label class="ui-radio">
       <input name="pet" type="radio" value="cat" />
       <span class="ui-label">Cat</span>
+    </label>
+    <label class="ui-radio">
+      <input name="pet" type="radio" value="dog" />
+      <span class="ui-label">Dog</span>
     </label>
     <label class="ui-radio">
       <input name="pet" type="radio" value="hamster" />
@@ -108,63 +114,30 @@ Lays out related fields. Wrap it in a fieldset to group them for screen readers.
     <p class="ui-field-description">Some are better than others.</p>
     <div class="ui-field-group">
       <label class="ui-checkbox">
-        <input
-          aria-describedby="form-field-group-1-end-text"
-          type="checkbox"
-          name="projects"
-          value="the-smile"
-        />
-        <span class="ui-label">The Smile</span>
-        <span class="ui-end-text" id="form-field-group-1-end-text"
-          >Thom Yorke, Jonny Greenwood, Tom Skinner</span
-        >
-      </label>
-      <label class="ui-checkbox">
-        <input
-          aria-describedby="form-field-group-2-end-text"
-          type="checkbox"
-          name="projects"
-          value="atoms-for-peace"
-        />
+        <input type="checkbox" name="projects" value="atoms-for-peace" />
         <span class="ui-label">Atoms for Peace</span>
-        <span class="ui-end-text" id="form-field-group-2-end-text"
-          >Thom Yorke, Flea, Nigel Godrich</span
-        >
+        <span class="ui-end-text">Thom Yorke, Flea, Nigel Godrich</span>
       </label>
       <label class="ui-checkbox">
-        <input
-          aria-describedby="form-field-group-3-end-text"
-          type="checkbox"
-          name="projects"
-          value="eob"
-        />
+        <input type="checkbox" name="projects" value="eob" />
         <span class="ui-label">EOB</span>
-        <span class="ui-end-text" id="form-field-group-3-end-text"
-          >Ed O'Brien solo</span
-        >
+        <span class="ui-end-text">Ed O'Brien solo</span>
       </label>
       <label class="ui-checkbox">
-        <input
-          aria-describedby="form-field-group-4-end-text"
-          type="checkbox"
-          name="projects"
-          value="jonny-scores"
-        />
+        <input type="checkbox" name="projects" value="jonny-scores" />
         <span class="ui-label">Film Scores</span>
-        <span class="ui-end-text" id="form-field-group-4-end-text"
-          >Film compositions by Jonny Greenwood</span
-        >
+        <span class="ui-end-text">Film compositions by Jonny Greenwood</span>
       </label>
       <label class="ui-checkbox">
-        <input
-          aria-describedby="form-field-group-5-end-text"
-          type="checkbox"
-          name="projects"
-          value="selway-solo"
-        />
+        <input type="checkbox" name="projects" value="selway-solo" />
         <span class="ui-label">Philip Selway</span>
-        <span class="ui-end-text" id="form-field-group-5-end-text"
-          >Philip Selway solo albums</span
+        <span class="ui-end-text">Philip Selway solo albums</span>
+      </label>
+      <label class="ui-checkbox">
+        <input type="checkbox" name="projects" value="the-smile" />
+        <span class="ui-label">The Smile</span>
+        <span class="ui-end-text"
+          >Thom Yorke, Jonny Greenwood, Tom Skinner</span
         >
       </label>
     </div>
@@ -309,6 +282,13 @@ A field group with only buttons lines up in a row. Add `.ui-column` to stack the
 </form>
 ```
 
+```html
+<div class="ui-field-group ui-column">
+  <button type="button" class="ui-button ui-filled">Publish</button>
+  <button type="button" class="ui-button">Save draft</button>
+</div>
+```
+
 ## Without fieldset
 
 Can't use `<form>`, `<fieldset>` or `<legend>`? Use `.ui-form`, `.ui-fieldset` with `role="group"` and `.ui-legend` on other elements. A `div` doesn't pick up its name from the legend, so give the legend an `id` and point `aria-labelledby` on the field set at it.
@@ -341,13 +321,23 @@ Everything at once.
       <label class="ui-text-field">
         <span class="ui-label">Full Name</span>
         <span class="ui-field">
-          <input type="text" placeholder="Jane Doe" required />
+          <input
+            autocomplete="name"
+            type="text"
+            placeholder="Jane Doe"
+            required
+          />
         </span>
       </label>
       <label class="ui-text-field">
         <span class="ui-label">Email Address</span>
         <span class="ui-field">
-          <input type="email" placeholder="jane@example.com" required />
+          <input
+            autocomplete="email"
+            type="email"
+            placeholder="jane@example.com"
+            required
+          />
         </span>
       </label>
       <label class="ui-select">
@@ -358,8 +348,8 @@ Everything at once.
               <selectedcontent></selectedcontent>
             </button>
             <div class="ui-list">
-              <option value="dev">Developer</option>
               <option value="design">Designer</option>
+              <option value="dev">Developer</option>
               <option value="manager">Manager</option>
             </div>
           </select>
@@ -461,16 +451,9 @@ Everything at once.
     <legend>Legal</legend>
     <div class="ui-field-group">
       <label class="ui-checkbox">
-        <input
-          aria-describedby="form-kitchen-sink-4-end-text"
-          type="checkbox"
-          name="terms"
-          required
-        />
+        <input type="checkbox" name="terms" required />
         <span class="ui-label">I agree to the terms and conditions</span>
-        <span class="ui-end-text" id="form-kitchen-sink-4-end-text"
-          >Support this text</span
-        >
+        <span class="ui-end-text">Support this text</span>
       </label>
     </div>
   </fieldset>
@@ -519,18 +502,19 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field set API
 
-| Type       | Modifiers                     | Default | Description                                                        |
-| ---------- | ----------------------------- | ------- | ------------------------------------------------------------------ |
-| State      | `[disabled]`                  | -       | Disables every field inside.                                       |
-| Validation | `:has([aria-invalid="true"])` | -       | Colors the end text when a field inside has `aria-invalid="true"`. |
+| Type       | Modifiers                                    | Default | Description                                          |
+| ---------- | -------------------------------------------- | ------- | ---------------------------------------------------- |
+| State      | `[disabled]`                                 | -       | Disables every field inside. Only on a `<fieldset>`. |
+| Validation | `:has([aria-invalid="true"], :user-invalid)` | -       | Colors the end text when a field inside is invalid.  |
 
 #### Parts
 
-| Part                    | Description                                 |
-| ----------------------- | ------------------------------------------- |
-| `.ui-fieldset`          | Container element.                          |
-| `<legend>`              | The label of the fieldset.                  |
-| `.ui-field-description` | Supporting text displayed below the legend. |
+| Part                          | Description                                                     |
+| ----------------------------- | --------------------------------------------------------------- |
+| `.ui-fieldset`                | Container element.                                              |
+| `<legend>`                    | The label of the fieldset.                                      |
+| `.ui-field-description`       | Supporting text displayed below the legend.                     |
+| `.ui-fieldset > .ui-end-text` | Supporting or error text for the whole group, after the fields. |
 
 #### CSS variables
 
@@ -788,9 +772,9 @@ Step 4 of 4: Required
 
 ## Browser support
 
-- Chromium: Full support Supported since v105.
+- Chromium: Full support Supported since v119.
 - Firefox: Full support Supported since v121.
-- Safari: Full support Supported since v15.4.
+- Safari: Full support Supported since v16.5.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Form.md).
 

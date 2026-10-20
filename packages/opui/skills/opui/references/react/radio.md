@@ -164,7 +164,7 @@ export default function LabelPosition() {
 
 ### End text
 
-Use the `endText` prop for supporting text under a single radio's label. The component points `aria-describedby` at it.
+Use the `endText` prop for supporting text under a single radio's label. It sits inside the `<label>`, so screen readers read it with the label.
 
 ```tsx
 import { Radio } from "opui-css/react"
@@ -527,7 +527,7 @@ export default function FieldGroupBinding() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.
+Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.
 
 ### Radio input API
 
@@ -572,7 +572,7 @@ Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `va
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-The radio `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
+The radio `<input>` without the label, for a custom layout inside a `label.ui-radio`, such as the end of a `ListItem` with `type="radio"`. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.
 
 ### Field group API
 

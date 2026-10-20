@@ -12,7 +12,7 @@ export default {
   },
   "--_divider-color": {
     description:
-      "Color of the lines between buttons, from the button's `--_accent-tonal`, `--_accent` in `.ui-outlined` and `currentColor` in `.ui-filled`, or `--ui-button-border-color` when a theme sets it.",
+      "Color of the lines between buttons, from the button's `--_accent-tonal`, `--_accent` in `.ui-outlined`, `currentColor` in `.ui-filled`, and `--_accent` in a `.ui-primary` or `.ui-critical` `.ui-filled` group. `--ui-button-border-color` replaces it when a theme sets it, and `--ui-button-outlined-border-color` takes precedence in `.ui-outlined`.",
     kind: "output",
   },
   "--_edge-accent": {
@@ -22,7 +22,12 @@ export default {
   },
   "--_edge-color": {
     description:
-      "The current outline color around the group. `transparent`, or `--_edge-accent` in `.ui-outlined`. `--ui-button-border-color` replaces both in `.ui-filled`, `.ui-outlined` and `.ui-tonal` when a theme sets it.",
+      "The current outline color around the group. `transparent`, or `--_edge-accent` in `.ui-outlined` (`--_edge-text` with more contrast). `--ui-button-border-color` replaces both in `.ui-filled`, `.ui-outlined` and `.ui-tonal` when a theme sets it, and `--ui-button-outlined-border-color` takes precedence in `.ui-outlined`.",
+    kind: "output",
+  },
+  "--_edge-text": {
+    description:
+      "Outline color of `.ui-outlined` with more contrast, a readable shade of `--_edge-accent`. `--ui-primary-text` in `.ui-primary` when a theme sets it.",
     kind: "output",
   },
 } satisfies CustomProperties

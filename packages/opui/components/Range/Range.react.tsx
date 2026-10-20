@@ -79,10 +79,11 @@ export default function Range({
     <label
       className={cx([
         "ui-range",
-        variant && `ui-${variant}`,
         { "ui-spread": spread },
+        variant && `ui-${variant}`,
         className,
       ])}
+      htmlFor={hasValue ? inputId : undefined}
       style={style}
     >
       {hasLabel && (

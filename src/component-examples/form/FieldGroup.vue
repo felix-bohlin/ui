@@ -27,12 +27,6 @@ import {
       <FieldLegend>Which side projects do you follow?</FieldLegend>
       <FieldDescription>Some are better than others.</FieldDescription>
       <FieldGroup name="projects">
-        <Checkbox value="the-smile">
-          The Smile
-          <template #end-text
-            >Thom Yorke, Jonny Greenwood, Tom Skinner</template
-          >
-        </Checkbox>
         <Checkbox value="atoms-for-peace">
           Atoms for Peace
           <template #end-text>Thom Yorke, Flea, Nigel Godrich</template>
@@ -48,6 +42,12 @@ import {
         <Checkbox value="selway-solo">
           Philip Selway
           <template #end-text>Philip Selway solo albums</template>
+        </Checkbox>
+        <Checkbox value="the-smile">
+          The Smile
+          <template #end-text
+            >Thom Yorke, Jonny Greenwood, Tom Skinner</template
+          >
         </Checkbox>
       </FieldGroup>
     </FieldSet>

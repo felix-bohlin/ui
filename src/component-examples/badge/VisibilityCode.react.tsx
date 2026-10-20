@@ -2,7 +2,7 @@ import { Badge } from "opui-css/react"
 
 export default function VisibilityCode() {
   return (
-    <Badge label="5" invisible>
+    <Badge invisible label="5" srLabel="unread messages">
       {/* */}
     </Badge>
   )

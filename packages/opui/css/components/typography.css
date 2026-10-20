@@ -321,14 +321,20 @@
 
       @media (hover: hover) {
         &:hover {
-          color: light-dark(var(--ui-primary-dark), var(--ui-primary-light));
+          color: light-dark(
+            oklch(from var(--_text-color) calc(l * 0.8) c h),
+            oklch(from var(--_text-color) calc(l * 1.15) c h)
+          );
           text-decoration-color: currentColor;
           text-decoration-thickness: 3px;
         }
       }
 
       &:focus-visible {
-        color: light-dark(var(--ui-primary-dark), var(--ui-primary-light));
+        color: light-dark(
+          oklch(from var(--_text-color) calc(l * 0.8) c h),
+          oklch(from var(--_text-color) calc(l * 1.15) c h)
+        );
         text-decoration-color: currentColor;
         text-decoration-thickness: 3px;
       }
@@ -820,6 +826,7 @@
 
     :is(del, ins) code {
       background-color: transparent;
+      padding-inline: 0;
     }
 
     :where(kbd, var) {

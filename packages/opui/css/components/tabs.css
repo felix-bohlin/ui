@@ -87,7 +87,7 @@
       color: var(--_text-color);
       cursor: pointer;
       display: inline-flex;
-      font-size: var(--font-size-1);
+      font-size: var(--ui-font-size-control);
       font-weight: var(--ui-font-weight-medium);
       gap: var(--size-2);
       isolation: isolate;
@@ -197,6 +197,12 @@
       --_active-shadow: none;
       --_track-border-color: var(--ui-border-color);
       --_track-color: transparent;
+    }
+
+    :where(.ui-card) > & {
+      & > .ui-tab-input:focus-visible + .ui-tab-label::before {
+        outline-offset: calc(-1 * var(--ui-focus-ring-width));
+      }
     }
 
     &.ui-scrollable {

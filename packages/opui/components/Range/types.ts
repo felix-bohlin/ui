@@ -18,5 +18,4 @@ export type Slots<S> = {
   datalist?: S
   endText?: string | S
   startText?: string | S
-  valueSuffix?: string | S
 }

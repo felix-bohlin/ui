@@ -34,11 +34,11 @@
   {closedby}
   class={[
     "ui-drawer",
-    side && `ui-${side}`,
     {
       "ui-backdrop-transparent": backdrop === "transparent",
       "ui-scroll-lock": scrollLock,
     },
+    side && `ui-${side}`,
     className,
   ]}
   aria-labelledby={labelledBy}

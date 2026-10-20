@@ -13,8 +13,8 @@ Add it to an element with `aria-busy="true"`. Spinners are always indeterminate.
 The spinner's size is set to `1em`, which means it will adjust to its current font size.
 
 ```html
-<h2 aria-busy="true">h2</h2>
-<h3 aria-busy="true">h3</h3>
+<p class="ui-h2" aria-busy="true">Heading 2</p>
+<p class="ui-h3" aria-busy="true">Heading 3</p>
 <p aria-busy="true">Paragraph</p>
 <span aria-busy="true">Span</span>
 <a href="#sizes" aria-busy="true" class="ui-link">Link</a>
@@ -23,6 +23,8 @@ The spinner's size is set to `1em`, which means it will adjust to its current fo
 ## Buttons
 
 Simply add `aria-busy="true"` to a `<button>`.
+
+`aria-busy` doesn't announce anything. Say what's happening in text, like "Saving…" in the button or in a `role="status"` element.
 
 ```html
 <div class="example-row">
@@ -60,11 +62,11 @@ See [progress accessibility](https://open-props-ui.netlify.app/html/components/p
 
 ### 2. Because it doesn't make sense
 
+- `<html>`
 - `<input>`
+- `<progress>`
 - `<select>`
 - `<textarea>`
-- `<html>`
-- `<progress>`
 
 ## API
 

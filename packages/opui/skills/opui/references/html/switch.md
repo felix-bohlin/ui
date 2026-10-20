@@ -151,25 +151,15 @@ Add `.ui-stack` to the `<label class="ui-switch">` to put the label under the sw
 
 ```html
 <label class="ui-switch">
-  <input
-    name="switch-end-text"
-    type="checkbox"
-    role="switch"
-    aria-describedby="switch-end-text-1"
-  />
+  <input name="switch-end-text" type="checkbox" role="switch" />
   <span class="ui-label">Default</span>
-  <span class="ui-end-text" id="switch-end-text-1">Supporting text</span>
+  <span class="ui-end-text">Supporting text</span>
 </label>
 
 <label class="ui-switch ui-stack">
-  <input
-    name="switch-end-text"
-    type="checkbox"
-    role="switch"
-    aria-describedby="switch-end-text-2"
-  />
+  <input name="switch-end-text" type="checkbox" role="switch" />
   <span class="ui-label">Stack</span>
-  <span class="ui-end-text" id="switch-end-text-2">Supporting text</span>
+  <span class="ui-end-text">Supporting text</span>
 </label>
 ```
 
@@ -244,7 +234,7 @@ Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hi
 ## Validation
 
 - `[required]` toggles the required styles on the `<input>`.
-- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. Point `aria-describedby` at it.
+- `aria-invalid="true"` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. Keep it inside the `<label>`, so it's part of the field's name.
 - Switches also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `aria-invalid="true"` for server-side errors.
 
 ```html
@@ -267,12 +257,9 @@ Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hi
       name="switch-validation"
       type="checkbox"
       role="switch"
-      aria-describedby="switch-validation-3-end-text"
     />
     <span class="ui-label">Default</span>
-    <span class="ui-end-text" id="switch-validation-3-end-text"
-      >Supporting text</span
-    >
+    <span class="ui-end-text">Supporting text</span>
   </label>
 
   <label class="ui-switch ui-stack">
@@ -281,12 +268,9 @@ Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hi
       name="switch-validation"
       type="checkbox"
       role="switch"
-      aria-describedby="switch-validation-4-end-text"
     />
     <span class="ui-label">Stack</span>
-    <span class="ui-end-text" id="switch-validation-4-end-text"
-      >Supporting text</span
-    >
+    <span class="ui-end-text">Supporting text</span>
   </label>
 </div>
 ```
@@ -297,44 +281,21 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
 
 ```html
 <label class="ui-switch ui-spread">
-  <input
-    name="switch-spread"
-    type="checkbox"
-    role="switch"
-    aria-describedby="switch-spread-1-end-text"
-  />
+  <input name="switch-spread" type="checkbox" role="switch" />
   <span class="ui-label">Notifications</span>
-  <span class="ui-end-text" id="switch-spread-1-end-text"
-    >Receive alerts when someone mentions you.</span
-  >
+  <span class="ui-end-text">Receive alerts when someone mentions you.</span>
 </label>
 
 <label class="ui-switch ui-spread">
-  <input
-    name="switch-spread"
-    type="checkbox"
-    role="switch"
-    required
-    aria-describedby="switch-spread-2-end-text"
-  />
+  <input name="switch-spread" type="checkbox" role="switch" required />
   <span class="ui-label">Required</span>
-  <span class="ui-end-text" id="switch-spread-2-end-text"
-    >You must accept this to proceed.</span
-  >
+  <span class="ui-end-text">You must accept this to proceed.</span>
 </label>
 
 <label class="ui-switch ui-spread">
-  <input
-    name="switch-spread"
-    type="checkbox"
-    role="switch"
-    disabled
-    aria-describedby="switch-spread-3-end-text"
-  />
+  <input name="switch-spread" type="checkbox" role="switch" disabled />
   <span class="ui-label">Disabled</span>
-  <span class="ui-end-text" id="switch-spread-3-end-text"
-    >This switch is disabled.</span
-  >
+  <span class="ui-end-text">This switch is disabled.</span>
 </label>
 
 <label class="ui-switch ui-spread">
@@ -343,12 +304,9 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
     name="switch-spread"
     type="checkbox"
     role="switch"
-    aria-describedby="switch-spread-4-end-text"
   />
   <span class="ui-label">Invalid Switch</span>
-  <span class="ui-end-text" id="switch-spread-4-end-text"
-    >There is an error with this switch.</span
-  >
+  <span class="ui-end-text">There is an error with this switch.</span>
 </label>
 ```
 
@@ -361,6 +319,10 @@ The switch lines up with the first line of its label and centers on the label's 
   --ui-choice-label-offset: 0.05em;
 }
 ```
+
+## Switch input
+
+Use `<input type="checkbox" role="switch">` without the label for a custom layout, such as the end of a list item. See [List](https://open-props-ui.netlify.app/html/components/list.md#switch).
 
 ## Field group
 

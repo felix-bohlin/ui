@@ -31,12 +31,12 @@ export default function TextField({
     <label
       className={cx([
         "ui-text-field",
-        size && `ui-${size}`,
         {
           "ui-auto-fit": autoFit,
           "ui-filled": variant === "filled",
           "ui-spread": spread,
         },
+        size && `ui-${size}`,
         className,
       ])}
       style={style}

@@ -1,17 +1,18 @@
+import { components } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "Menu",
   css: ["list", "menu"],
   notes: {
-    astro:
-      "Other attributes go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`.",
+    ...components(
+      "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`.",
+    ),
     html: 'Items are built like `List` items: icons in `.ui-start`, the text in `.ui-text` and shortcuts in `.ui-end`. Open the menu with a button that has `commandfor` set to the menu id and `command="toggle-popover"`.',
     react:
       "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onClick`, `target` or `data-*`.",
     svelte:
       "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `onclick`, `target` or `data-*`.",
-    vue: "Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go to the item's `<a>` or `<button>`, like `target` or `data-*`.",
   },
   options: [
     {
@@ -46,7 +47,7 @@ export default {
     {
       attribute: '[command="hide-popover"]',
       description:
-        "Closes the menu when the item is clicked, with `commandfor` set to the root menu id, so an item in a submenu closes the whole menu (`closeOnClick` on an item, `true` by default). Button items only: a link item doesn't close the menu.",
+        "Closes the whole menu on click, also from a submenu. Button items only.",
       frameworks: ["html"],
       group: "Close on click",
       part: "li > button",
@@ -63,7 +64,7 @@ export default {
     {
       class: ".ui-dense",
       default: "false",
-      description: "Less spacing.",
+      description: "Packs the items tighter.",
       group: "Dense",
       prop: "dense",
     },
@@ -85,7 +86,7 @@ export default {
     },
     {
       description:
-        "The items, as `{ borderTop, closeOnClick, critical, disabled, href, shortcut, text }` objects. An item renders a `<button>`, or an `<a>` with `href`. Other keys go to that element. A button item closes the whole menu, also from a submenu, unless `closeOnClick` is `false`.",
+        "The items, as `{ borderTop, closeOnClick, critical, disabled, href, shortcut, text }` objects. Other keys go to the item's `<a>` or `<button>`.",
       prop: "items",
     },
     {
@@ -119,11 +120,15 @@ export default {
   ],
   parts: [
     {
+      code: "li.ui-label",
+      description: "A group label. HTML and CSS only.",
+      selector: ".ui-menu > li.ui-label",
+    },
+    {
       code: "<li>",
       description:
         "An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot.",
       selector: ".ui-menu > li",
-      slots: ["default"],
     },
     {
       code: ".ui-start",
@@ -141,16 +146,12 @@ export default {
         "Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item).",
       selector: ".ui-menu > li > :is(a, button) > .ui-end",
     },
-    {
-      code: "li.ui-label",
-      description: "A group label. HTML and CSS only.",
-      selector: ".ui-menu > li.ui-label",
-    },
   ],
   root: {
     anchorName: "--ui-menu-root",
     description: "The menu surface, a popover anchored to its trigger.",
     selector: "menu.ui-menu.ui-list[popover]",
   },
+  slots: [{ description: "The items, such as `ListItem`s.", name: "default" }],
   source: "Menu",
 } satisfies ComponentApi

@@ -184,10 +184,10 @@ Use the header for inside-field captions (filenames, categories) and the footer 
 
 ```html
 <label class="ui-text-field">
-  <span class="ui-label">Username</span>
+  <span class="ui-label">Name</span>
   <span class="ui-field">
-    <input type="text" placeholder="Enter your name" />
-    <span class="ui-header">Full Name</span>
+    <input type="text" placeholder="Ada Lovelace" />
+    <span class="ui-header">Shown on your profile</span>
   </span>
 </label>
 
@@ -376,7 +376,7 @@ Use `.ui-auto-fit` to let the field's width follow its content, from `25ch`.
 <div class="example-column">
   <label class="ui-text-field"
     ><span class="ui-label">Color</span
-    ><span class="ui-field"><input type="color" placeholder="Color" /></span
+    ><span class="ui-field"><input type="color" /></span
   ></label>
   <label class="ui-text-field"
     ><span class="ui-label">Email</span
@@ -411,24 +411,23 @@ Use `.ui-auto-fit` to let the field's width follow its content, from `25ch`.
 <div class="example-column">
   <label class="ui-text-field"
     ><span class="ui-label">Date</span
-    ><span class="ui-field"><input type="date" placeholder="Date" /></span
+    ><span class="ui-field"><input type="date" /></span
   ></label>
   <label class="ui-text-field"
     ><span class="ui-label">Datetime local</span
-    ><span class="ui-field"
-      ><input type="datetime-local" placeholder="Datetime local" /></span
+    ><span class="ui-field"><input type="datetime-local" /></span
   ></label>
   <label class="ui-text-field"
     ><span class="ui-label">Month</span
-    ><span class="ui-field"><input type="month" placeholder="Month" /></span
+    ><span class="ui-field"><input type="month" /></span
   ></label>
   <label class="ui-text-field"
     ><span class="ui-label">Time</span
-    ><span class="ui-field"><input type="time" placeholder="Time" /></span
+    ><span class="ui-field"><input type="time" /></span
   ></label>
   <label class="ui-text-field"
     ><span class="ui-label">Week</span
-    ><span class="ui-field"><input type="week" placeholder="Week" /></span
+    ><span class="ui-field"><input type="week" /></span
   ></label>
 </div>
 ```
@@ -479,14 +478,14 @@ File is a weird one. Should it really be an `<input>` element? Well, it's what w
 <label class="ui-text-field">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <input type="file" placeholder="File" />
+    <input type="file" />
   </span>
 </label>
 
 <label class="ui-text-field ui-filled">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <input type="file" placeholder="File" />
+    <input type="file" />
   </span>
 </label>
 ```
@@ -509,9 +508,9 @@ Leverages the `<input>` + `<datalist>` element combo. An input with a `list` sho
     />
   </span>
   <datalist id="text-field-autosuggest-1-list">
-    <option value="Ray Manzarek"></option>
     <option value="Jonny Greenwood"></option>
     <option value="Marika Hackman"></option>
+    <option value="Ray Manzarek"></option>
   </datalist>
 </label>
 
@@ -525,9 +524,9 @@ Leverages the `<input>` + `<datalist>` element combo. An input with a `list` sho
     />
   </span>
   <datalist id="text-field-autosuggest-2-list">
-    <option value="ray.manzarek@the.doors"></option>
     <option value="jonny.greenwood@radio.head"></option>
     <option value="marika@hack.man"></option>
+    <option value="ray.manzarek@the.doors"></option>
   </datalist>
 </label>
 ```
@@ -561,8 +560,8 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | Type       | Modifiers                               | Default | Description                                                             |
 | ---------- | --------------------------------------- | ------- | ----------------------------------------------------------------------- |
 | Auto-fit   | `.ui-auto-fit`                          | -       | Lets the width follow the content, from `25ch`.                         |
-| Layout     | `.ui-spread`                            | -       | Pushes the label and start text to one side and the input to the other. |
 | Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                |
+| Spread     | `.ui-spread`                            | -       | Pushes the label and start text to one side and the input to the other. |
 | Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles.                       |
 | Variants   | default, `.ui-filled`                   | default | The variant to use.                                                     |
 
@@ -609,7 +608,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `--ui-focus-ring-width`         | `2px`                                                                                         | Width of the focus ring.                                                                                                                                                                                                         |
 | `--ui-font-body`                | `var(--font-sans)`                                                                            | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                                             |
 | `--ui-font-size-05`             | `0.875rem`                                                                                    | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--ui-font-size-control`        | `var(--font-size-1)`                                                                          | Font size of the default `Button`, `TextField`, `Textarea` and `Select`. The size classes set their own.                                                                                                                         |
+| `--ui-font-size-control`        | `var(--font-size-1)`                                                                          | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                 |
 | `--ui-icon-size`                | `var(--size-4)`                                                                               | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-invalid-color`            | `var(--ui-critical)`                                                                          | Color for invalid field borders, fills and outlines.                                                                                                                                                                             |
 | `--ui-invalid-text-color`       | `light-dark( var(--ui-invalid-color), oklch(from var(--ui-invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--ui-invalid-color` in dark mode so the text stays readable.                                                                                                     |
@@ -624,7 +623,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-The control can also be a `<select>` or `<textarea>`. You can put a `<datalist>` inside the root.
+Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. You can put a `<datalist>` inside the root.
 
 ## Component properties
 
@@ -632,7 +631,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property                     | Kind   | Description                                                                                                                              |
 | ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`                  | Output | Border color of the focused `.ui-field`. From `--ui-primary`, set by the invalid state.                                                  |
+| `--_accent`                  | Input  | Border color of the focused `.ui-field`. Defaults to `--ui-primary`, `--ui-invalid-color` when invalid.                                  |
 | `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state. |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                        |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                |
@@ -827,6 +826,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
+- The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.
 - [x-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
 - The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.

@@ -21,11 +21,11 @@ export default {
   },
   "--_bg-color": {
     description: "The background. Set by the variants.",
-    kind: "input",
+    kind: "output",
   },
   "--_border-color": {
     description: "The border color. Set by `.ui-outlined`.",
-    kind: "input",
+    kind: "output",
   },
   "--_border-radius": {
     description:
@@ -34,7 +34,7 @@ export default {
   },
   "--_border-width": {
     description: "The border width. Set by `.ui-outlined`.",
-    kind: "input",
+    kind: "output",
   },
   "--_content-padding-block": {
     description: "Block padding of `.ui-content`.",
@@ -100,7 +100,7 @@ export default {
   "--_shadow": {
     description:
       "The shadow. `.ui-elevated` sets `--ui-shadow-raised`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`.",
-    kind: "input",
+    kind: "output",
   },
   "--_summary-padding-block": {
     description: "Block padding of `summary`.",

@@ -18,6 +18,7 @@ Utils that you can plop down wherever.
   <h6 class="ui-h6">Heading 6</h6>
   <p class="ui-p ui-large">Body Large</p>
   <p class="ui-p">Body</p>
+  <p class="ui-p ui-small">Body Small</p>
   <p class="ui-overline">Overline</p>
   <p class="ui-caption">Caption</p>
 </template>
@@ -77,23 +78,23 @@ const code = `.ui-card {
 
 | Result            | Element           | Class       |
 | ----------------- | ----------------- | ----------- |
-| Abbr.             | `<abbr>`          | `.ui-abbr`  |
-| Definition        | `<dfn>`           | `.ui-dfn`   |
-| **Bold**          | `<strong>`, `<b>` | None        |
-| *Italic*          | `<i>`, `<em>`     | None        |
-| Citation          | `<cite>`          | `.ui-cite`  |
-| `Ctrl + S`        | `<kbd>`           | `.ui-kbd`   |
 | [Link](#link)     | `<a href>`        | `.ui-link`  |
+| Abbr.             | `<abbr>`          | `.ui-abbr`  |
+| **Bold**          | `<b>`, `<strong>` | None        |
+| Citation          | `<cite>`          | `.ui-cite`  |
+| ~~Deleted~~       | `<del>`           | `.ui-del`   |
+| Definition        | `<dfn>`           | `.ui-dfn`   |
+| *Italic*          | `<em>`, `<i>`     | None        |
+| Inserted          | `<ins>`           | `.ui-ins`   |
+| `Ctrl + S`        | `<kbd>`           | `.ui-kbd`   |
 | *Highlight*       | `<mark>`          | `.ui-mark`  |
 | ~~Strikethrough~~ | `<s>`             | `.ui-s`     |
+| `sample output`   | `<samp>`          | `.ui-samp`  |
 | Small             | `<small>`         | `.ui-small` |
 | Text Sub          | `<sub>`           | `.ui-sub`   |
 | Text Sup          | `<sup>`           | `.ui-sup`   |
 | *Underline*       | `<u>`             | `.ui-u`     |
-| ~~Deleted~~       | `<del>`           | `.ui-del`   |
-| Inserted          | `<ins>`           | `.ui-ins`   |
 | `variable`        | `<var>`           | `.ui-var`   |
-| `sample output`   | `<samp>`          | `.ui-samp`  |
 
 ## Classless
 
@@ -614,6 +615,7 @@ cold-brew 1.0.0</samp></pre>
 | Link          | `.ui-link`                                                                                                                                                 | -       | Link styles outside `.ui-rich-text`. On hover and focus, the underline gets thicker. The color gets darker in light mode and lighter in dark mode. |
 | Overline      | `.ui-overline`                                                                                                                                             | -       | Small uppercase label text.                                                                                                                        |
 | Paragraph     | `.ui-p`                                                                                                                                                    | -       | Body paragraph styling.                                                                                                                            |
+| Rich text     | `.ui-not-rich-text`                                                                                                                                        | -       | Ends the `.ui-rich-text` styles inside it.                                                                                                         |
 | Sizes         | `.ui-large`, `.ui-small`                                                                                                                                   | -       | Size modifiers on `.ui-p`.                                                                                                                         |
 
 #### Parts
@@ -643,7 +645,6 @@ cold-brew 1.0.0</samp></pre>
 | `--ui-font-weight-medium`  | `var(--font-weight-5)`                               | Font weight for badges, overlines and group labels.                                                                                                                                                                              |
 | `--ui-primary`             | `light-dark(var(--ui-color-9), var(--ui-color-6))`   | Brand color for primary actions and accents.                                                                                                                                                                                     |
 | `--ui-primary-dark`        | `oklch(from var(--ui-primary) calc(l * 0.75) c h)`   | A darker `--ui-primary`.                                                                                                                                                                                                         |
-| `--ui-primary-light`       | `oklch(from var(--ui-primary) calc(l * 1.25) c h)`   | A lighter `--ui-primary`.                                                                                                                                                                                                        |
 | `--ui-primary-text`        | Unset                                                | Primary as a text color: links, and `Button` with `.ui-primary` and no variant or `.ui-outlined`. When unset, each derives a readable shade from `--ui-primary`. Set it when the primary is too light or too dark for text.      |
 | `--ui-rhythm-step`         | `0.25rem`                                            | Vertical rhythm unit. Rich text margins and heading line heights round to it.                                                                                                                                                    |
 | `--ui-space-2`             | `calc(var(--size-2) * var(--ui-space-scale))`        | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
@@ -763,7 +764,7 @@ Step 4 of 4: Flow space
 
 - Chromium: Full support Supported since v143.
 - Firefox: Partial support Missing: text-wrap-pretty.
-- Safari: Partial support Missing: box-decoration-break.
+- Safari: Partial support Missing: box-decoration-break, marker.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Typography.md).
 
@@ -784,5 +785,5 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size, and so does [`.ui-small`](#inline-text-elements).
 - Rich text `var` is monospace, like [`.ui-var`](#inline-text-elements).
 - [Links](#link) are documented, and get a thicker underline on hover.
-- Headings read [`--ui-font-heading`](#api), and code, `kbd`, `samp` and `.ui-var` read `--ui-font-code`. Rich text margins read the `--space-*` scale.
+- Headings read [`--ui-font-heading`](#api), and code, `kbd`, `samp` and `.ui-var` read `--ui-font-code`. Rich text margins read the `--ui-space-*` scale.
 - [Links](#link) read `--ui-primary-text` when a theme sets it.

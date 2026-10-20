@@ -7,10 +7,10 @@ import { closePath } from "./icons"
 import type { DrawerHeaderProps as Props } from "./types.react"
 
 export default function DrawerHeader({
-  children,
   className,
   closeLabel = "Close",
   commandfor,
+  children,
   ...rest
 }: Props) {
   const drawer = useDrawerContext()

@@ -9,17 +9,17 @@ export default function Image() {
   return (
     <>
       <Avatar
-        src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
         alt="Maya Lind"
       />
 
       <Avatar
-        src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
         alt="Omar Haddad"
       />
 
       <Avatar
-        src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?q=80&w=1885&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
         alt="Priya Nair"
       />
     </>
@@ -122,13 +122,13 @@ export default function Variants() {
 
       <Avatar
         variant="rounded"
-        src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?w=96&h=96&fit=crop&auto=format"
         alt="Jonas Berg"
       />
 
       <Avatar
         variant="squircle"
-        src="https://plus.unsplash.com/premium_photo-1770631651199-d92007477b6f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src="https://plus.unsplash.com/premium_photo-1770631651199-d92007477b6f?w=96&h=96&fit=crop&auto=format"
         alt="Sara Kim"
       />
     </>
@@ -208,16 +208,16 @@ A [Badge](https://open-props-ui.netlify.app/react/components/badge.md) on an ava
 
 ### Avatar API
 
-| Prop       | Type                                     | Default | Description                                                                                               |
-| ---------- | ---------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
-| `alt`      | `string`                                 | -       | Alternative text for the image. Required with src; use an empty string when the name is shown next to it. |
-| `as`       | `"a"` , `"button"` , `"div"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`.                                  |
-| `children` | `ReactNode`                              | -       | Letters or an icon, when there's no image.                                                                |
-| `disabled` | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                                                              |
-| `href`     | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                        |
-| `size`     | `"large"` , `"small"` , `"x-small"`      | -       | The size of the element.                                                                                  |
-| `src`      | `string`                                 | -       | The image source. Replaces the content.                                                                   |
-| `variant`  | `"rounded"` , `"squared"` , `"squircle"` | -       | The variant to use.                                                                                       |
+| Prop       | Type                                     | Default | Description                                                                                                 |
+| ---------- | ---------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
+| `alt`      | `string`                                 | -       | Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it. |
+| `as`       | `"a"` , `"button"` , `"div"`             | `"div"` | The element to render. Defaults to `"a"` with `href`.                                                       |
+| `children` | `ReactNode`                              | -       | Letters or an icon, when there's no image.                                                                  |
+| `disabled` | `boolean`                                | `false` | Disables the avatar when `as` is `"button"`.                                                                |
+| `href`     | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                          |
+| `size`     | `"large"` , `"small"` , `"x-small"`      | -       | The size of the element.                                                                                    |
+| `src`      | `string`                                 | -       | The image source. Replaces the content.                                                                     |
+| `variant`  | `"rounded"` , `"squared"` , `"squircle"` | -       | The variant to use.                                                                                         |
 
 #### CSS variables
 
@@ -229,6 +229,7 @@ A [Badge](https://open-props-ui.netlify.app/react/components/badge.md) on an ava
 | `--ui-control-size-large`   | `calc(46px * var(--ui-density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                                      |
 | `--ui-control-size-small`   | `calc(32px * var(--ui-density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                                      |
 | `--ui-control-size-x-small` | `calc(28px * var(--ui-density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                                    |
+| `--ui-disabled-opacity`     | `0.64`                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                            |
 | `--ui-font-size-05`         | `0.875rem`                                                                               | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
 | `--ui-icon-size`            | `var(--size-4)`                                                                          | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-icon-size-large`      | `var(--size-5)`                                                                          | Icon size inside `Avatar` and `List`.                                                                                                                                                                                            |
@@ -255,6 +256,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-control-size-large`   | `calc(46px * var(--ui-density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                                      |
 | `--ui-control-size-small`   | `calc(32px * var(--ui-density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                                      |
 | `--ui-control-size-x-small` | `calc(28px * var(--ui-density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                                    |
+| `--ui-disabled-opacity`     | `0.64`                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                            |
 | `--ui-font-size-05`         | `0.875rem`                                                                               | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
 | `--ui-icon-size`            | `var(--size-4)`                                                                          | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-icon-size-large`      | `var(--size-5)`                                                                          | Icon size inside `Avatar` and `List`.                                                                                                                                                                                            |
@@ -271,7 +273,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property           | Kind  | Description                                                                                                |
 | ------------------ | ----- | ---------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`      | Input | The background. Defaults to `--ui-primary`, transparent when the avatar holds an `img`.                    |
+| `--_bg-color`      | Input | The background. Defaults to `--ui-primary`. An avatar with an `img` is always transparent.                 |
 | `--_font-size`     | Input | The font size of initials. Set by the size classes.                                                        |
 | `--_icon-size`     | Input | The maximum width of an `svg`. Set by the size classes.                                                    |
 | `--_margin`        | Input | How much avatars in a `.ui-avatar-group` overlap. Set on the group.                                        |
@@ -377,8 +379,8 @@ Step 4 of 4: Group
 - [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 
 ```html
-<div class="avatar-group" role="group">
-  <div class="avatar">AB</div>
+<div class="avatar-group" role="group" aria-label="Team">
+  <div class="avatar" role="img" aria-label="Anna Berg">AB</div>
   …
 </div>
 ```
@@ -415,6 +417,6 @@ Import the components from `opui-css/react`:
 - A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover, with the same ring as the avatars.
 - [Sizes](#sizes) with `size="x-small"`, `size="small"` and `size="large"`.
 - Breaking: `--_color` is `--_text-color` and `--_width` is `--_size` ([Under the hood](#under-the-hood)).
-- Breaking: a button avatar needs `as="button"`, and `disabled` only goes with it (types).
+- Breaking: a button avatar needs `as="button"`, and `disabled` only goes with it ([types](#api)).
 - Breaking: [`AvatarGroup`](#grouped) groups avatars and replaces the `isGroup` prop.
 - Rounded avatars never get rounder than [`--ui-border-radius`](#api), so `0` squares them.

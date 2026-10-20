@@ -9,7 +9,7 @@ See also: [Spinner](https://open-props-ui.netlify.app/astro/components/spinner.m
 import { Progress } from "opui-css/astro"
 ---
 
-<Progress />
+<Progress aria-label="Loading" />
 ```
 
 ## Determinate
@@ -19,7 +19,12 @@ import { Progress } from "opui-css/astro"
 import { Progress } from "opui-css/astro"
 ---
 
-<Progress id="progress-determinate-1" max="100" value="10" />
+<Progress
+  aria-label="Uploading"
+  id="progress-determinate-1"
+  max="100"
+  value="10"
+/>
 
 <script>
   const progress = document.querySelector(
@@ -46,11 +51,13 @@ Use the `variant` prop to swap the progress bar track surface for better contras
 import { Progress } from "opui-css/astro"
 ---
 
-<Progress value="25" max="100" variant="filled" />
-<Progress value="75" max="100" variant="tonal" />
+<Progress aria-label="Storage used" value="25" max="100" variant="filled" />
+<Progress aria-label="Memory used" value="75" max="100" variant="tonal" />
 ```
 
 ## Accessibility
+
+Name the bar with `aria-label`, or `aria-labelledby` pointing at visible text.
 
 If the `<progress>` element is describing the loading progress of a section of a page:
 
@@ -59,15 +66,26 @@ If the `<progress>` element is describing the loading progress of a section of a
 
 Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#accessibility)
 
+```astro
+---
+import { Progress } from "opui-css/astro"
+---
+
+<div aria-busy="true" aria-describedby="progress-aria-busy-1">
+  Content here is loading.
+</div>
+<Progress aria-label="Content loading…" id="progress-aria-busy-1" />
+```
+
 ## API
 
 ### Progress API
 
-| Prop      | Type                   | Default   | Description                                                          |
-| --------- | ---------------------- | --------- | -------------------------------------------------------------------- |
-| `max`     | `number` , `string`    | -         | The maximum value.                                                   |
-| `value`   | `number` , `string`    | -         | The current value. Omit it for an indeterminate state.               |
-| `variant` | `"filled"` , `"tonal"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
+| Prop      | Type                   | Default   | Description                                                           |
+| --------- | ---------------------- | --------- | --------------------------------------------------------------------- |
+| `max`     | `number` , `string`    | -         | The maximum value.                                                    |
+| `value`   | `number` , `string`    | -         | The current value. Omit it for an indeterminate state.                |
+| `variant` | `"filled"` , `"tonal"` | `"tonal"` | The variant to use. Without one, the track looks the same as `tonal`. |
 
 #### Slots
 
@@ -91,7 +109,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Other attributes go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
+Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
 
 ## Component properties
 

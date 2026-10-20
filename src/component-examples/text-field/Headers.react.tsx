@@ -4,9 +4,9 @@ export default function Headers() {
   return (
     <>
       <TextField
-        label="Username"
-        placeholder="Enter your name"
-        header="Full Name"
+        label="Name"
+        placeholder="Ada Lovelace"
+        header="Shown on your profile"
       />
 
       <TextField

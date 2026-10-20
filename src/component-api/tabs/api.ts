@@ -19,7 +19,7 @@ export default {
       default: "false",
       description:
         "Keeps the tabs on one row and scrolls them sideways when they don't fit.",
-      group: "Overflow",
+      group: "Scroll",
       prop: "scrollable",
     },
     {

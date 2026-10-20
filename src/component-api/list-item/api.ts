@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ListItem",
-  css: ["list"],
+  css: ["list", "menu"],
   notes: {
     html: "To make the item interactive, wrap the content in an `<a>`, `<button>` or `<label>`.",
   },
@@ -53,6 +53,19 @@ export default {
     },
     {
       description:
+        "Highlights a selected or current item, or dims a disabled one. Set it on the `<a>`, `<button>` or `<label>`.",
+      frameworks: ["html"],
+      group: "State",
+      prop: "state",
+      values: {
+        current: '[aria-current="page"]',
+        disabled: "[disabled]",
+        disabledLink: '[aria-disabled="true"]',
+        selected: '[aria-selected="true"]',
+      },
+    },
+    {
+      description:
         "Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
       group: "Controls",
       prop: "type",
@@ -65,6 +78,12 @@ export default {
   ],
   page: "list",
   parts: [
+    {
+      code: "<a>, <button>, <label>",
+      description: "The clickable row, rendered by `as`, `href` or `type`.",
+      props: ["as", "href", "type"],
+      selector: ".ui-list > li > :is(a, button, label)",
+    },
     {
       description: "Optional content at the start, such as an icon or avatar.",
       selector: ".ui-start",

@@ -31,11 +31,6 @@
     }
 
     /* Variants */
-    &.ui-tonal {
-      --_bg-color: var(--ui-surface-tonal);
-      --_text-color: var(--ui-text-primary);
-    }
-
     &.ui-outlined {
       --_bg-color: var(--ui-surface-default);
       --_text-color: var(--ui-text-primary);

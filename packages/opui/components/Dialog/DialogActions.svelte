@@ -1,9 +1,19 @@
 <script lang="ts">
   import type { DialogActionsProps as Props } from "./types.svelte"
 
-  let { align, children, class: className, ...rest }: Props = $props()
+  let {
+    align,
+    class: className,
+
+    // Snippets
+    children,
+    ...rest
+  }: Props = $props()
 </script>
 
-<div class={["ui-actions", align && `ui-align-${align}`, className]} {...rest}>
+<div
+  class={["ui-actions", { "ui-align-start": align === "start" }, className]}
+  {...rest}
+>
   {@render children?.()}
 </div>

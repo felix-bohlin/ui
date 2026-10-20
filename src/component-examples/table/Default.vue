@@ -23,9 +23,9 @@ import {
     </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell>Radiohead</TableCell>
-        <TableCell>Ed O'Brien</TableCell>
-        <TableCell>Guitar/Vocals</TableCell>
+        <TableCell>Broken Bells</TableCell>
+        <TableCell>James Mercer</TableCell>
+        <TableCell>Vocals/Guitar</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>Korn</TableCell>
@@ -33,13 +33,13 @@ import {
         <TableCell>Vocals</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell>Broken Bells</TableCell>
-        <TableCell>James Mercer</TableCell>
-        <TableCell>Vocals/Guitar</TableCell>
-      </TableRow>
-      <TableRow>
         <TableCell>Pink Floyd</TableCell>
         <TableCell>David Gilmour</TableCell>
+        <TableCell>Guitar/Vocals</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell>Radiohead</TableCell>
+        <TableCell>Ed O'Brien</TableCell>
         <TableCell>Guitar/Vocals</TableCell>
       </TableRow>
     </TableBody>

@@ -38,7 +38,7 @@
     container-type: inline-size;
     font-size: 1rem;
     font-synthesis: style;
-    font-weight: 400;
+    font-weight: var(--ui-font-weight-normal);
     inline-size: 100%;
     margin: 0;
     min-block-size: 100svb;
@@ -71,6 +71,7 @@
 
   :where(h1, h2, h3, h4, h5, h6) {
     font-family: var(--ui-font-heading, var(--ui-font-body));
+    font-weight: var(--ui-font-weight-bold);
   }
 
   :where(input, button, select, textarea),

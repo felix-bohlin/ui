@@ -35,7 +35,15 @@ export default function Select({
   const labelId = `select-label-${uid}`
   const startTextId = startText ? `start-text-${uid}` : undefined
   const endTextId = endText ? `end-text-${uid}` : undefined
-  const describedBy = idRefs(startTextId, endTextId, rest["aria-describedby"])
+  const headerId = header ? `header-${uid}` : undefined
+  const footerId = footer ? `footer-${uid}` : undefined
+  const describedBy = idRefs(
+    headerId,
+    startTextId,
+    endTextId,
+    footerId,
+    rest["aria-describedby"],
+  )
 
   const selectedValues = items
     .filter((item) => item.selected)
@@ -52,11 +60,11 @@ export default function Select({
     <label
       className={cx([
         "ui-select",
-        size && `ui-${size}`,
         {
           "ui-filled": variant === "filled",
           "ui-spread": spread,
         },
+        size && `ui-${size}`,
         className,
       ])}
       style={style}
@@ -95,8 +103,16 @@ export default function Select({
         </select>
         {prefix && <span className="ui-prefix">{prefix}</span>}
         {suffix && <span className="ui-suffix">{suffix}</span>}
-        {header && <span className="ui-header">{header}</span>}
-        {footer && <span className="ui-footer">{footer}</span>}
+        {header && (
+          <span className="ui-header" id={headerId}>
+            {header}
+          </span>
+        )}
+        {footer && (
+          <span className="ui-footer" id={footerId}>
+            {footer}
+          </span>
+        )}
       </span>
       {endText && (
         <span className="ui-end-text" id={endTextId}>

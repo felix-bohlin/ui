@@ -27,8 +27,10 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
     "color-mix",
     "container-style-queries",
     "has",
+    "invoker-commands",
     "lh",
     "light-dark",
+    "popover",
     "relative-color",
     "scrollbar-width",
   ]}
@@ -121,12 +123,12 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
     <h2 id="colors">Colors</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set the <code>color</code> prop to <code>primary</code> or <code
-          >critical</code
+        Set the <code>color</code> prop to <code>critical</code> or <code
+          >primary</code
         > to recolor the entire group. The default is a neutral gray.
       </Fragment>
       <Fragment slot="html">
-        Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to recolor
+        Add a <code>.ui-critical</code> or <code>.ui-primary</code> class to recolor
         the entire group. The default is a neutral gray.
       </Fragment>
     </Conditional>
@@ -155,9 +157,19 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
       Yes of course, they're just <DocLink
         href="/components/button"
         class="ui-link">buttons.</DocLink
-      > Wrap the label in a <code>&lt;span class="ui-text"&gt;</code> when the button
-      has an icon. The CSS looks for the wrapper element, the class is a hook for
-      your own styles.
+      >
+      <Conditional>
+        <Fragment slot="html">
+          Wrap the label in a <code>&lt;span class="ui-text"&gt;</code> when the button
+          has an icon. The CSS looks for the wrapper element, the class is a hook
+          for your own styles.
+        </Fragment>
+        <Fragment slot="react">
+          Wrap the label in a <code>&lt;span className="ui-text"&gt;</code> when the
+          button has an icon. The CSS looks for the wrapper element, the class is
+          a hook for your own styles.
+        </Fragment>
+      </Conditional>
     </p>
     <AutoExample name="WithIcons" column centered />
   </section>
@@ -232,7 +244,7 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         their size.
       </Fragment>
     </Conditional>
-    <AutoExample name="Overflow" />
+    <AutoExample name="Overflow" column />
   </section>
 
   <ButtonGroupBuild slot="under-the-hood" />

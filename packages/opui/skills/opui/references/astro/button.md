@@ -16,6 +16,10 @@ Buttons do things, like saving a form or opening a dialog. For filters, tags and
 
   The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook.
 
+- `<kbd>`
+
+  An optional keyboard hint.
+
 ## Variants
 
 Change the button variant with the `variant` prop.
@@ -51,7 +55,7 @@ A default (text) button link with `aria-current="page"` keeps the pressed backgr
 
 ## Colors
 
-Pass `color` to apply a brand or destructive color: `primary` or `critical`. The default is a neutral gray.
+Pass `color` to apply a destructive or brand color: `critical` or `primary`. The default is a neutral gray.
 
 ```astro
 ---
@@ -59,16 +63,16 @@ import { Button } from "opui-css/astro"
 ---
 
 <div class="example-row">
-  <Button color="primary">Primary</Button>
-  <Button color="primary" variant="outlined">Outlined</Button>
-  <Button color="primary" variant="tonal">Tonal</Button>
-  <Button color="primary" variant="filled">Filled</Button>
-</div>
-<div class="example-row">
   <Button color="critical">Critical</Button>
   <Button color="critical" variant="outlined">Outlined</Button>
   <Button color="critical" variant="tonal">Tonal</Button>
   <Button color="critical" variant="filled">Filled</Button>
+</div>
+<div class="example-row">
+  <Button color="primary">Primary</Button>
+  <Button color="primary" variant="outlined">Outlined</Button>
+  <Button color="primary" variant="tonal">Tonal</Button>
+  <Button color="primary" variant="filled">Filled</Button>
 </div>
 ```
 
@@ -242,7 +246,7 @@ import { Button } from "opui-css/astro"
 ---
 
 <Button disabled>Text</Button>
-<Button disabled href="#">Link</Button>
+<Button disabled href="#">Text link</Button>
 ```
 
 ## File upload
@@ -293,11 +297,13 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--ui-disabled-opacity`             | `0.64`                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                                         |
 | `--ui-duration-fast`                | `0.1s`                                                                                   | Transition duration for hover and press feedback.                                                                                                                                                                                             |
 | `--ui-ease`                         | `ease`                                                                                   | Default easing for transitions.                                                                                                                                                                                                               |
+| `--ui-field-border-color`           | `var(--ui-border-color)`                                                                 | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                                                      |
+| `--ui-field-border-width`           | `1px`                                                                                    | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                                    |
 | `--ui-font-code`                    | `var(--font-mono)`                                                                       | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                             |
 | `--ui-font-size-05`                 | `0.875rem`                                                                               | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                                         |
-| `--ui-font-size-control`            | `var(--font-size-1)`                                                                     | Font size of the default `Button`, `TextField`, `Textarea` and `Select`. The size classes set their own.                                                                                                                                      |
+| `--ui-font-size-control`            | `var(--font-size-1)`                                                                     | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                              |
 | `--ui-font-weight-bold`             | `var(--font-weight-7)`                                                                   | Font weight for headings, buttons and terms.                                                                                                                                                                                                  |
-| `--ui-font-weight-normal`           | `var(--font-weight-4)`                                                                   | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                                                  |
+| `--ui-font-weight-normal`           | `var(--font-weight-4)`                                                                   | Font weight for body text, `List` text and `Button` keyboard shortcuts.                                                                                                                                                                       |
 | `--ui-motion`                       | `1`                                                                                      | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).                                     |
 | `--ui-primary`                      | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                                                  |
 | `--ui-primary-contrast`             | `oklch( from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--ui-primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--ui-primary` gets readable text.                            |
@@ -309,10 +315,9 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--ui-state-hover-alpha`            | `10%`                                                                                    | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                                                              |
 | `--ui-state-hover-alpha-accent`     | `15%`                                                                                    | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                               |
 | `--ui-state-hover-alpha-dark`       | `20%`                                                                                    | Alpha of the hover state layer on neutral buttons in dark mode.                                                                                                                                                                               |
-| `--ui-surface-filled`               | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                        | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                         |
 | `--ui-surface-tonal`                | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                        | Background of tonal variants.                                                                                                                                                                                                                 |
 | `--ui-text-disabled`                | `color-mix( in oklch, var(--ui-text-muted) 50%, var(--ui-surface-default) )`             | Text color of disabled buttons and chips.                                                                                                                                                                                                     |
-| `--ui-text-muted-contrast`          | `light-dark(var(--ui-gray-4), var(--ui-gray-13))`                                        | Muted text color on an inverted surface.                                                                                                                                                                                                      |
+| `--ui-text-muted`                   | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`                                        | Body text color.                                                                                                                                                                                                                              |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
@@ -327,9 +332,9 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_accent-text`              | Output | Text color of text and outlined buttons. `--_accent`, lightened in dark mode to stay readable.                                                                                       |
 | `--_accent-tonal`             | Input  | Background of `.ui-tonal`.                                                                                                                                                           |
 | `--_accent-tonal-contrast`    | Input  | Text color of `.ui-tonal`.                                                                                                                                                           |
-| `--_bg-color`                 | Output | The current background. Set by the variant, hover, active and disabled states.                                                                                                       |
+| `--_bg-color`                 | Output | The current background. Set by the variant, hover and active states.                                                                                                                 |
 | `--_border-color`             | Output | The current border color. Set by the variant and states.                                                                                                                             |
-| `--_border-radius`            | Input  | The corner radius. Defaults to `--ui-button-border-radius`, `.ui-rounded` makes it round.                                                                                            |
+| `--_border-radius`            | Input  | The corner radius. Defaults to `--ui-button-border-radius`, `.ui-round` makes it round.                                                                                              |
 | `--_border-width`             | Input  | The border width.                                                                                                                                                                    |
 | `--_default-active-bg-color`  | Output | Pressed background of text buttons, from `--_accent`.                                                                                                                                |
 | `--_default-hover-bg-color`   | Output | Hover background of text buttons, from `--_accent`.                                                                                                                                  |
@@ -387,7 +392,7 @@ Step 1 of 3: Base
   block-size: auto;
   flex-shrink: 0;
   inline-size: auto;
-  max-block-size: var(--ui-icon-size, 0.7lh);
+  max-block-size: var(--icon, 0.7lh);
 }
 ```
 
@@ -397,7 +402,7 @@ Step 2 of 3: Icon-only
 
 ```css
 .button:has(> svg:only-child) {
-  --ui-icon-size: calc(var(--size) * 0.6);
+  --icon: calc(var(--size) * 0.6);
   justify-content: center;
   min-inline-size: var(--size);
   padding-inline: 0;
@@ -453,9 +458,10 @@ Import the component from `opui-css/astro`:
 - [Primary and critical](#colors) colors pass contrast in light and dark mode.
 - Breaking: buttons render `type="button"` by default. Pass [`type="submit"`](#api) for submit buttons.
 - [`iconOnly`](#icon-only) makes `aria-label` required on icon-only buttons (types only).
+- Breaking: a button takes link attributes only with `href` ([types](#api)).
 - Breaking: `--_color`, `--_color-contrast` and `--_color-tonal` are `--_accent`, `--_accent-contrast` and `--_accent-tonal` ([Under the hood](#under-the-hood)).
 - Breaking: [disabled links](#disabled) have no `href`, so they can't be focused or followed.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--ui-border-radius` through [`--ui-button-border-radius`](#api), so one token squares or rounds every component.
-- Themes set the color of [default buttons](#colors) with [`--ui-button-accent`](#api) and `--ui-button-accent-contrast`, the border with `--ui-button-border-color` and `--ui-button-outlined-border-color`, the font weight with `--ui-button-font-weight`, the hover shadow and offset with `--ui-button-hover-shadow` and `--ui-button-hover-translate`, and the font size with `--ui-font-size-control`.
+- Themes set the color of [default buttons](#colors) with [`--ui-button-accent`](#api) and `--ui-button-accent-contrast`, the border with `--ui-button-border-color` and `--ui-button-outlined-border-color`, the font weight with `--ui-button-font-weight`, the shadow with `--ui-shadow-control`, the hover shadow and offset with `--ui-button-hover-shadow` and `--ui-button-hover-translate`, and the font size with `--ui-font-size-control`.
 - [Primary](#colors) outlined and text buttons read `--ui-primary-text` when a theme sets it.

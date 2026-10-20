@@ -5,6 +5,10 @@ export const themeTokenDescriptions: Record<string, string> = {
     "A literal blue, Open Props' `--hue-blue` at the palette lightness. No severity meaning.",
   "--ui-border-color":
     "Default border color for cards, lists, tables and dividers.",
+  "--ui-border-color-filled":
+    "Border color inside filled surfaces: lists without a variant and table headers.",
+  "--ui-border-color-raised":
+    "Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog` and `Callout` without a severity. Defaults to `--ui-border-color` in light mode and the page background in dark mode.",
   "--ui-border-radius":
     "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.",
   "--ui-border-width":
@@ -65,6 +69,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-ease-exit": "Easing for elements leaving the screen.",
   "--ui-field-border-color":
     "Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.",
+  "--ui-field-border-color-raised":
+    "Field border color inside raised surfaces. Defaults to `--ui-field-border-color` in light mode and the page background in dark mode.",
   "--ui-field-border-radius":
     "Corner radius for fields. When unset, they follow `--ui-border-radius`, also where it's set on a part of the page.",
   "--ui-field-border-width":
@@ -100,7 +106,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-font-size-05":
     "A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.",
   "--ui-font-size-control":
-    "Font size of the default `Button`, `TextField`, `Textarea` and `Select`. The size classes set their own.",
+    "Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.",
   "--ui-font-size-h1": "Font size for `h1` and `.ui-h1`.",
   "--ui-font-size-h2": "Font size for `h2` and `.ui-h2`.",
   "--ui-font-size-h3": "Font size for `h3` and `.ui-h3`.",
@@ -111,7 +117,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-font-weight-medium":
     "Font weight for badges, overlines and group labels.",
   "--ui-font-weight-normal":
-    "Font weight for `List` text and `Button` keyboard shortcuts.",
+    "Font weight for body text, `List` text and `Button` keyboard shortcuts.",
   "--ui-font-weight-semibold":
     "Font weight for labels, table headers and titles.",
   "--ui-gray-chroma": "Chroma of the gray ramp. Raise it for tinted grays.",
@@ -161,10 +167,12 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one.",
   "--ui-shadow-raised-dark": "`--ui-shadow-raised` in dark mode.",
   "--ui-shadow-raised-light": "`--ui-shadow-raised` in light mode.",
+  "--ui-shadow-scroll":
+    "Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.",
   "--ui-shadow-surface":
     "Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.",
   "--ui-shadow-tab":
-    "Shadow of the selected tab in default and `.ui-tonal` `Tabs`. Defaults to Open Props `--shadow-1`.",
+    "Shadow of the selected tab in default and `.ui-filled` `Tabs`. `.ui-line` and `.ui-outlined` have none. Defaults to Open Props `--shadow-1`.",
   "--ui-space-1":
     "Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.",
   "--ui-space-2":
@@ -197,7 +205,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Alpha of the hover state layer on neutral buttons in dark mode.",
   "--ui-success": "Severity color for success messages.",
   "--ui-surface-border-color":
-    "Border color of tonal and elevated `Card` and of `Callout` without a severity. When unset, cards use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.",
+    "Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards use the page background color, so they stay visible on tonal surfaces, accordions have a transparent border, and callouts their tonal background.",
   "--ui-surface-default": "Page and card background.",
   "--ui-surface-elevated": "Background of elevated cards and accordions.",
   "--ui-surface-filled":

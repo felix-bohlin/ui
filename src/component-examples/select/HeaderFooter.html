@@ -1,7 +1,10 @@
 <label class="ui-select">
   <span class="ui-label" id="select-header-footer-1-label">Car</span>
   <span class="ui-field">
-    <select aria-labelledby="select-header-footer-1-label">
+    <select
+      aria-describedby="select-header-footer-1-header select-header-footer-1-footer"
+      aria-labelledby="select-header-footer-1-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -12,7 +15,11 @@
         <option>Volvo EX30</option>
       </div>
     </select>
-    <span class="ui-header">Company cars only</span>
-    <span class="ui-footer"><a class="ui-link" href="#">Manage cars…</a></span>
+    <span class="ui-header" id="select-header-footer-1-header"
+      >Company cars only</span
+    >
+    <span class="ui-footer" id="select-header-footer-1-footer"
+      ><a class="ui-link" href="#">Manage cars…</a></span
+    >
   </span>
 </label>

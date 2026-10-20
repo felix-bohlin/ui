@@ -131,12 +131,12 @@ export default function Arrow() {
 
 ### Tooltip API
 
-| Prop        | Type        | Default         | Description                                                               |
-| ----------- | ----------- | --------------- | ------------------------------------------------------------------------- |
-| `alignment` | `string`    | `"block-start"` | Any valid `position-area` value. Controls where the tooltip is placed.    |
-| `arrow`     | `boolean`   | `false`         | Adds an arrow that points to the trigger.                                 |
-| `children`  | `ReactNode` | -               | The trigger, followed by `TooltipContent`.                                |
-| `id`        | `string`    | -               | The id of the tooltip. Add `interestfor` with the same id to the trigger. |
+| Prop        | Type        | Default         | Description                                                                                                                            |
+| ----------- | ----------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `alignment` | `string`    | `"block-start"` | Any valid `position-area` value. Controls where the tooltip is placed.                                                                 |
+| `arrow`     | `boolean`   | `false`         | Adds an arrow that points to the trigger.                                                                                              |
+| `children`  | `ReactNode` | -               | The trigger, followed by `TooltipContent`.                                                                                             |
+| `id`        | `string`    | -               | The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger. |
 
 #### CSS variables
 

@@ -17,8 +17,8 @@
   } from "opui-css/svelte"
 
   const roleItems = [
-    { text: "Developer", value: "dev" },
     { text: "Designer", value: "design" },
+    { text: "Developer", value: "dev" },
     { text: "Manager", value: "manager" },
   ]
 </script>
@@ -30,8 +30,14 @@
       Please provide your basic contact details.
     </FieldDescription>
     <FieldGroup>
-      <TextField label="Full Name" placeholder="Jane Doe" required />
       <TextField
+        autocomplete="name"
+        label="Full Name"
+        placeholder="Jane Doe"
+        required
+      />
+      <TextField
+        autocomplete="email"
         label="Email Address"
         type="email"
         placeholder="jane@example.com"

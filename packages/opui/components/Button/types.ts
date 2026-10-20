@@ -6,20 +6,20 @@ export type SharedProps = {
 } & (
   | {
       as?: "a"
-      href: string
       disabled?: boolean
+      href: string
     }
   | {
       as?: "button"
-      href?: never
       disabled?: boolean
+      href?: never
     }
 )
 
 export type IconOnlyProps =
   | {
-      iconOnly: true
       "aria-label": string
+      iconOnly: true
     }
   | {
       iconOnly?: false

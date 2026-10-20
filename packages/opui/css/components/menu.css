@@ -6,6 +6,11 @@
       var(--ui-border-color),
       oklch(from var(--ui-gray-6) l c h / 40%)
     );
+
+    @container style(--ui-contrast: more) {
+      --_border-color: var(--ui-border-color);
+    }
+
     --_border-radius: var(--ui-border-radius);
     --_border-width: var(--ui-border-width);
     --_divider-color: var(--_border-color);
@@ -14,7 +19,7 @@
     --_margin-block: var(--_offset);
     --_margin-inline: 0;
     --_max-block-size: 60dvb;
-    --_min-block-size: 12rem;
+    --_min-block-size: min(12rem, 40dvb);
     --_min-inline-size: 12rem;
     --_offset: var(--size-1);
     --_position-area: var(--_side) var(--_span);

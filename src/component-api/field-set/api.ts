@@ -11,9 +11,8 @@ export default {
       prop: "as",
     },
     {
-      attribute: ':has([aria-invalid="true"])',
-      description:
-        'Colors the end text when a field inside has `aria-invalid="true"`.',
+      attribute: ':has([aria-invalid="true"], :user-invalid)',
+      description: "Colors the end text when a field inside is invalid.",
       frameworks: ["html"],
       group: "Validation",
       prop: "aria-invalid",
@@ -21,7 +20,7 @@ export default {
     {
       attribute: "[disabled]",
       default: "false",
-      description: "Disables every field inside.",
+      description: "Disables every field inside. Only on a `<fieldset>`.",
       group: "State",
       inherited: true,
       prop: "disabled",
@@ -40,6 +39,11 @@ export default {
       component: "FieldDescription",
       description: "Supporting text displayed below the legend.",
       selector: ".ui-field-description",
+    },
+    {
+      description:
+        "Supporting or error text for the whole group, after the fields.",
+      selector: ".ui-fieldset > .ui-end-text",
     },
   ],
   root: {

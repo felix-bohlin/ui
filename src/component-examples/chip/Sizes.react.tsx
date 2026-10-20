@@ -9,8 +9,8 @@ export default function Sizes() {
       <Chip size="large" label="Large" />
       <Chip
         multiline
-        style={{ maxWidth: "30ch" }}
-        label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales."
+        style={{ maxInlineSize: "30ch" }}
+        label="Free returns within 30 days on every order"
       />
     </>
   )

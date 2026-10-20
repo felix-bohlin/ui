@@ -12,9 +12,9 @@ export default {
     astro:
       "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `class` and `style` go to the root `<label>`.",
     react:
-      "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `style` goes to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
+      "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
     svelte:
-      "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `style` goes to the root `<label>`.",
+      "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `class` and `style` go to the root `<label>`.",
     vue: "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
@@ -55,7 +55,7 @@ export default {
       default: "false",
       description:
         "Pushes the label and start text to one side and the textarea to the other.",
-      group: "Layout",
+      group: "Spread",
       prop: "spread",
     },
     {

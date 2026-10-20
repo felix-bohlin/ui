@@ -49,13 +49,23 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 
 ```svelte
 <script lang="ts">
-  import { ToggleButton } from "opui-css/svelte"
+  import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
 
 <ToggleButton size="x-small">x-small</ToggleButton>
 <ToggleButton size="small">small</ToggleButton>
 <ToggleButton>default</ToggleButton>
 <ToggleButton size="large">large</ToggleButton>
+<ToggleGroup
+  aria-label="View"
+  name="toggle-sizes"
+  selection="single"
+  size="small"
+>
+  <ToggleButton value="day">Day</ToggleButton>
+  <ToggleButton value="week">Week</ToggleButton>
+  <ToggleButton value="month">Month</ToggleButton>
+</ToggleGroup>
 ```
 
 ## Toggle group
@@ -254,32 +264,21 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Use `scrollab
   import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
 
-<div style="display: grid; gap: var(--size-4); max-inline-size: 14rem">
-  <div style="display: grid; gap: var(--size-1)">
-    <p>Wrap</p>
-    <ToggleGroup name="overflow-wrap">
-      <ToggleButton value="all">Everything</ToggleButton>
-      <ToggleButton value="mentions">Mentions</ToggleButton>
-      <ToggleButton value="none">Nothing at all</ToggleButton>
-    </ToggleGroup>
-  </div>
-  <div style="display: grid; gap: var(--size-1)">
-    <p>Scroll</p>
-    <ToggleGroup name="overflow-scrollable" scrollable>
-      <ToggleButton value="all">Everything</ToggleButton>
-      <ToggleButton value="mentions">Mentions</ToggleButton>
-      <ToggleButton value="none">Nothing at all</ToggleButton>
-    </ToggleGroup>
-  </div>
-  <div style="display: grid; gap: var(--size-1)">
-    <p>Shrink</p>
-    <ToggleGroup name="overflow-shrink" shrink>
-      <ToggleButton value="all">Everything</ToggleButton>
-      <ToggleButton value="mentions">Mentions</ToggleButton>
-      <ToggleButton value="none">Nothing at all</ToggleButton>
-    </ToggleGroup>
-  </div>
-</div>
+<ToggleGroup name="overflow-wrap">
+  <ToggleButton value="all">Everything</ToggleButton>
+  <ToggleButton value="mentions">Mentions</ToggleButton>
+  <ToggleButton value="none">Nothing at all</ToggleButton>
+</ToggleGroup>
+<ToggleGroup name="overflow-scrollable" scrollable>
+  <ToggleButton value="all">Everything</ToggleButton>
+  <ToggleButton value="mentions">Mentions</ToggleButton>
+  <ToggleButton value="none">Nothing at all</ToggleButton>
+</ToggleGroup>
+<ToggleGroup name="overflow-shrink" shrink>
+  <ToggleButton value="all">Everything</ToggleButton>
+  <ToggleButton value="mentions">Mentions</ToggleButton>
+  <ToggleButton value="none">Nothing at all</ToggleButton>
+</ToggleGroup>
 ```
 
 ### Disabled
@@ -332,6 +331,7 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Use `scrollab
 | `--ui-focus-ring-style`          | `solid`                                                                                  | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--ui-focus-ring-width`          | `2px`                                                                                    | Width of the focus ring.                                                                                                                                                                                                         |
 | `--ui-font-size-05`              | `0.875rem`                                                                               | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--ui-font-size-control`         | `var(--font-size-1)`                                                                     | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                 |
 | `--ui-icon-size`                 | `var(--size-4)`                                                                          | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-motion`                    | `1`                                                                                      | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion).                       |
 | `--ui-primary`                   | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                                     |
@@ -379,6 +379,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-focus-ring-style`          | `solid`                                                                                  | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--ui-focus-ring-width`          | `2px`                                                                                    | Width of the focus ring.                                                                                                                                                                                                         |
 | `--ui-font-size-05`              | `0.875rem`                                                                               | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--ui-font-size-control`         | `var(--font-size-1)`                                                                     | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                 |
 | `--ui-icon-size`                 | `var(--size-4)`                                                                          | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-motion`                    | `1`                                                                                      | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion).                       |
 | `--ui-primary`                   | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                                     |
@@ -391,7 +392,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `style` goes to the root `<label>`. In a `ToggleGroup` with `bind:value`, the group's value sets the state instead of `pressed`.
+Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. In a `ToggleGroup` with `bind:value`, the group's value sets the state instead of `pressed`.
 
 ## Component properties
 
@@ -399,15 +400,15 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 ### toggle-button.css
 
-| Property        | Kind   | Description                                                              |
-| --------------- | ------ | ------------------------------------------------------------------------ |
-| `--_bg-color`   | Output | The current background. Set by the hover and selected states.            |
-| `--_duration`   | Output | Duration of the focus ring animation, `--ui-duration` times `--_motion`. |
-| `--_ease`       | Input  | Easing of the focus ring animation. Defaults to `--ui-ease`.             |
-| `--_font-size`  | Input  | The font size. Set by the group's size classes.                          |
-| `--_icon-size`  | Input  | Size of a direct child `svg`. Defaults to `--ui-icon-size`.              |
-| `--_min-height` | Input  | Height and minimum width. Set by the group's size classes.               |
-| `--_motion`     | Input  | Motion multiplier for the focus ring animation. `0` turns it off.        |
+| Property        | Kind   | Description                                                                                              |
+| --------------- | ------ | -------------------------------------------------------------------------------------------------------- |
+| `--_bg-color`   | Output | The current background. Set by the hover and selected states.                                            |
+| `--_duration`   | Output | Duration of the focus ring animation, `--ui-duration` times `--_motion`.                                 |
+| `--_ease`       | Input  | Easing of the focus ring animation. Defaults to `--ui-ease`.                                             |
+| `--_font-size`  | Input  | The font size. Defaults to `--ui-font-size-control`. Set by the size classes on the button or its group. |
+| `--_icon-size`  | Input  | Size of a direct child `svg`. Defaults to `--ui-icon-size`.                                              |
+| `--_min-height` | Input  | Height and minimum width. Set by the size classes on the button or its group.                            |
+| `--_motion`     | Input  | Motion multiplier for the focus ring animation. `0` turns it off.                                        |
 
 ### toggle-group.css
 
@@ -573,3 +574,4 @@ Import the components from `opui-css/svelte`:
 - A [toggle button](#toggle-button) grows with its content from `--ui-button-size` instead of having a fixed height.
 - `--_duration` and `--_ease` set the focus ring animation's duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--ui-border-radius` through [`--ui-button-border-radius`](#api), so one token squares or rounds every component.
+- The default size reads [`--ui-font-size-control`](#sizes) for its font size, like buttons.

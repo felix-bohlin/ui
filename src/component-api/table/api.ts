@@ -24,12 +24,6 @@ export default {
   ],
   parts: [
     {
-      code: "<caption>",
-      component: "TableCaption",
-      description: "An optional title for the table.",
-      selector: "caption",
-    },
-    {
       code: "<thead>",
       component: "TableHead",
       description: "The header rows.",
@@ -64,6 +58,12 @@ export default {
       component: "TableFoot",
       description: "Optional footer rows, such as totals.",
       selector: "tfoot",
+    },
+    {
+      code: "<caption>",
+      component: "TableCaption",
+      description: "An optional title for the table.",
+      selector: "caption",
     },
   ],
   root: {

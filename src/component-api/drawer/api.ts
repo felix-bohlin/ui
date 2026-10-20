@@ -40,6 +40,7 @@ export default {
       default: '"inline-start"',
       description: "The side it opens from.",
       group: "Sides",
+      htmlDefault: null,
       prop: "side",
       values: {
         "block-end": ".ui-block-end",

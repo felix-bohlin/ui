@@ -7,7 +7,7 @@
     --_block-size: min(80vb, 650px);
     --_border-color: var(--ui-border-color);
     --_border-width: var(--ui-border-width);
-    --_content-padding: var(--ui-space-4);
+    --_content-padding: var(--ui-space-3);
     --_dir: 1;
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease-enter);
@@ -16,7 +16,7 @@
     --_header-font-size: var(--font-size-3);
     --_header-padding: var(--ui-space-3);
     --_inline-size: min(375px, 100vi);
-    --_scroll-shadow: var(--shadow-4);
+    --_scroll-shadow: var(--ui-shadow-scroll);
     --_shadow: var(--ui-shadow-overlay);
     --_text-color: var(--ui-text-primary);
 

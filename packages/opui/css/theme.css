@@ -115,7 +115,7 @@
     /* Button */
     /* --ui-button-accent: light-dark(var(--ui-color-16), var(--ui-color-1)); */
     /* --ui-button-accent-contrast: light-dark(var(--ui-color-1), var(--ui-color-16)); */
-    /* --ui-button-border-color: transparent; */
+    /* --ui-button-border-color: oklch(0 0 0); */
     /* --ui-button-border-radius: var(--ui-border-radius); */
     /* --ui-button-font-weight: var(--ui-font-weight-bold); */
     /* --ui-button-hover-shadow: var(--ui-shadow-control); */
@@ -178,6 +178,7 @@
     --ui-shadow-raised: var(--ui-shadow-raised-light);
     --ui-shadow-raised-dark: var(--shadow-4);
     --ui-shadow-raised-light: var(--shadow-3);
+    --ui-shadow-scroll: var(--shadow-4);
     --ui-shadow-surface: none;
     --ui-shadow-tab: var(--shadow-1);
 
@@ -232,7 +233,7 @@
     );
     --ui-primary-dark: oklch(from var(--ui-primary) calc(l * 0.75) c h);
     --ui-primary-light: oklch(from var(--ui-primary) calc(l * 1.25) c h);
-    /* --ui-primary-text: var(--ui-primary); */
+    /* --ui-primary-text: light-dark(#0a58ca, #6ea8fe); */
 
     /* Text */
     --ui-text-disabled: color-mix(
@@ -255,10 +256,19 @@
 
     /* Borders */
     --ui-border-color: light-dark(var(--ui-gray-4), var(--ui-gray-12));
-    /* --ui-surface-border-color: var(--ui-surface-default); */
+    --ui-border-color-filled: light-dark(var(--ui-gray-6), var(--ui-gray-12));
+    --ui-border-color-raised: light-dark(
+      var(--ui-border-color),
+      var(--ui-surface-default)
+    );
+    /* --ui-surface-border-color: var(--ui-border-color); */
 
     /* Field / input */
     --ui-field-border-color: var(--ui-border-color);
+    --ui-field-border-color-raised: light-dark(
+      var(--ui-field-border-color),
+      var(--ui-surface-default)
+    );
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -274,20 +284,7 @@
   }
 
   /* Severity scope classes */
-  :where(
-    .ui-critical,
-    .ui-del,
-    :is(
-      .ui-checkbox,
-      .ui-radio,
-      .ui-range,
-      .ui-select,
-      .ui-switch,
-      .ui-text-field,
-      .ui-textarea
-    ):has([aria-invalid="true"]),
-    del
-  ) {
+  :where(.ui-critical, .ui-del, del) {
     --ui-palette-source: oklch(0.58 0.21 var(--hue-red));
     --ui-palette-hue-rotate-by: 1;
   }
@@ -325,13 +322,14 @@
     ),
     .ui-card:is(.ui-elevated, .ui-tonal)
   ) {
-    --ui-border-color: light-dark(var(--ui-gray-4), var(--ui-surface-default));
-    --ui-field-border-color: var(--ui-border-color);
+    --ui-border-color: var(--ui-border-color-raised);
+    --ui-field-border-color: var(--ui-field-border-color-raised);
   }
 
   /* Filled surfaces */
   :where(.ui-list:not(.ui-tonal, .ui-transparent), .ui-table th) {
-    --ui-border-color: light-dark(var(--ui-gray-6), var(--ui-gray-12));
+    --ui-border-color: var(--ui-border-color-filled);
+    --ui-field-border-color: var(--ui-border-color);
   }
 
   /* Compact surfaces */
@@ -404,9 +402,17 @@
         var(--ui-text-primary) 55%,
         var(--ui-surface-default)
       );
+      --ui-border-color-raised: light-dark(
+        var(--ui-border-color),
+        var(--ui-surface-default)
+      );
       --ui-field-border-color: color-mix(
         in oklch,
         var(--ui-text-primary) 70%,
+        var(--ui-surface-default)
+      );
+      --ui-field-border-color-raised: light-dark(
+        var(--ui-field-border-color),
         var(--ui-surface-default)
       );
       --ui-field-helper-color: var(--ui-text-muted);

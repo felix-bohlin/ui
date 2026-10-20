@@ -4,7 +4,7 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 
 ## Basics
 
-`command="toggle-popover"` to open, and `command="hide-popover"` to close.
+`command="toggle-popover"` to open, and `command="hide-popover"` to close. A link item is an `<a>` with `href`.
 
 ```html
 <button
@@ -19,19 +19,24 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
   <li>
     <button type="button" commandfor="menu-basics-1" command="hide-popover">
       <div class="ui-text"><p>Edit</p></div>
-      <div class="ui-end"><kbd>E</kbd></div>
+      <div class="ui-end"><kbd>Ctrl+E</kbd></div>
     </button>
   </li>
   <li>
     <button type="button" commandfor="menu-basics-1" command="hide-popover">
       <div class="ui-text"><p>Duplicate</p></div>
-      <div class="ui-end"><kbd>D</kbd></div>
+      <div class="ui-end"><kbd>Ctrl+D</kbd></div>
     </button>
   </li>
   <li>
     <button type="button" disabled>
       <div class="ui-text"><p>Archive</p></div>
     </button>
+  </li>
+  <li>
+    <a href="#basics">
+      <div class="ui-text"><p>Help</p></div>
+    </a>
   </li>
   <li class="ui-border-top ui-critical">
     <button type="button" commandfor="menu-basics-1" command="hide-popover">
@@ -73,6 +78,38 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 </menu>
 ```
 
+## Dense
+
+`.ui-dense` packs the items tighter.
+
+```html
+<button
+  type="button"
+  class="ui-button ui-outlined"
+  commandfor="menu-dense-1"
+  command="toggle-popover"
+>
+  Options
+</button>
+<menu class="ui-menu ui-dense ui-list" id="menu-dense-1" popover>
+  <li>
+    <button type="button" commandfor="menu-dense-1" command="hide-popover">
+      <div class="ui-text"><p>Copy</p></div>
+    </button>
+  </li>
+  <li>
+    <button type="button" commandfor="menu-dense-1" command="hide-popover">
+      <div class="ui-text"><p>Cut</p></div>
+    </button>
+  </li>
+  <li>
+    <button type="button" commandfor="menu-dense-1" command="hide-popover">
+      <div class="ui-text"><p>Paste</p></div>
+    </button>
+  </li>
+</menu>
+```
+
 ## Custom items
 
 If you want to decide yourself what goes into your list.
@@ -85,7 +122,11 @@ If you want to decide yourself what goes into your list.
   commandfor="menu-custom-1"
   command="toggle-popover"
 >
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <svg
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+  >
     <path
       fill="currentColor"
       d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
@@ -97,7 +138,11 @@ If you want to decide yourself what goes into your list.
   <li>
     <button type="button" commandfor="menu-custom-1" command="hide-popover">
       <div class="ui-start">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
           <path
             fill="currentColor"
             d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
@@ -111,7 +156,11 @@ If you want to decide yourself what goes into your list.
   <li>
     <button type="button" commandfor="menu-custom-1" command="hide-popover">
       <div class="ui-start">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
           <path
             fill="currentColor"
             d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 16H8V7h11z"
@@ -119,13 +168,17 @@ If you want to decide yourself what goes into your list.
         </svg>
       </div>
       <div class="ui-text"><p>Copy</p></div>
-      <div class="ui-end"><kbd>Ctrl C</kbd></div>
+      <div class="ui-end"><kbd>Ctrl+C</kbd></div>
     </button>
   </li>
   <li>
     <a href="#menu">
       <div class="ui-start">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
           <path
             fill="currentColor"
             d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z"
@@ -138,7 +191,11 @@ If you want to decide yourself what goes into your list.
   <li class="ui-border-top ui-critical">
     <button type="button" commandfor="menu-custom-1" command="hide-popover">
       <div class="ui-start">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
           <path
             fill="currentColor"
             d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
@@ -259,11 +316,37 @@ If you want to decide yourself what goes into your list.
     </button>
   </li>
 </menu>
+
+<button
+  type="button"
+  class="ui-button ui-outlined"
+  commandfor="menu-placement-5"
+  command="toggle-popover"
+>
+  Align end
+</button>
+<menu class="ui-menu ui-list ui-align-end" id="menu-placement-5" popover>
+  <li>
+    <button type="button" command="hide-popover" commandfor="menu-placement-5">
+      <div class="ui-text"><p>First</p></div>
+    </button>
+  </li>
+  <li>
+    <button type="button" command="hide-popover" commandfor="menu-placement-5">
+      <div class="ui-text"><p>Second</p></div>
+    </button>
+  </li>
+  <li>
+    <button type="button" command="hide-popover" commandfor="menu-placement-5">
+      <div class="ui-text"><p>Third</p></div>
+    </button>
+  </li>
+</menu>
 ```
 
 ## Submenu
 
-Put a `menu` in the `li`, after its button. Mark the item with an icon from your icon library in `div.ui-end`. Point the `commandfor` of the submenu items at the root menu to close the whole menu.
+Put a `menu` in the `li`, after its button. Mark the item with an icon from your icon library, with `aria-hidden="true"`, in `div.ui-end`. Point the `commandfor` of the submenu items at the root menu to close the whole menu.
 
 ```html
 <button
@@ -290,6 +373,7 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
       <div class="ui-text"><p>Export</p></div>
       <div class="ui-end">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -351,12 +435,12 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
 <menu class="ui-menu ui-list" id="menu-manual-1" popover="manual">
   <li>
     <button type="button">
-      <div class="ui-text"><p>Show grid</p></div>
+      <div class="ui-text"><p>Zoom in</p></div>
     </button>
   </li>
   <li>
     <button type="button">
-      <div class="ui-text"><p>Show rulers</p></div>
+      <div class="ui-text"><p>Zoom out</p></div>
     </button>
   </li>
   <li class="ui-border-top">
@@ -387,29 +471,29 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 ### Menu API
 
-| Type           | Modifiers                                                        | Default                     | Description                                                                                                                                                                                                                               |
-| -------------- | ---------------------------------------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Alignment      | default, `.ui-align-end`                                         | default                     | Which edge of the trigger the menu lines up with.                                                                                                                                                                                         |
-| Behavior       | default, `[popover="manual"]`                                    | default                     | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                                                                                                                 |
-| Borders        | `.ui-bordered`, `li.ui-border-top`                               | -                           | A border between every item (`bordered`), or above one item (`borderTop` on an item).                                                                                                                                                     |
-| Close on click | `li > button[command="hide-popover"]`                            | -                           | Closes the menu when the item is clicked, with `commandfor` set to the root menu id, so an item in a submenu closes the whole menu (`closeOnClick` on an item, `true` by default). Button items only: a link item doesn't close the menu. |
-| Colors         | `li.ui-critical`                                                 | -                           | A destructive item (`critical` on an item).                                                                                                                                                                                               |
-| Dense          | `.ui-dense`                                                      | -                           | Less spacing.                                                                                                                                                                                                                             |
-| Placement      | default, `.ui-block-start`, `.ui-inline-end`, `.ui-inline-start` | default                     | Where the menu opens.                                                                                                                                                                                                                     |
-| Position       | `--ui-anchor-position-area`                                      | `block-end span-inline-end` | Any valid `position-area` value. Overrides the placement and alignment classes.                                                                                                                                                           |
-| State          | `li > a[aria-disabled="true"]`, `li > button[disabled]`          | -                           | Disables an item (`disabled` on an item). A disabled link has no `href`.                                                                                                                                                                  |
-| Trigger        | `button[commandfor][command="toggle-popover"]`                   | -                           | Opens the menu. `commandfor` is the menu id.                                                                                                                                                                                              |
+| Type           | Modifiers                                                        | Default                     | Description                                                                                                               |
+| -------------- | ---------------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Alignment      | default, `.ui-align-end`                                         | default                     | Which edge of the trigger the menu lines up with.                                                                         |
+| Behavior       | default, `[popover="manual"]`                                    | default                     | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either. |
+| Borders        | `.ui-bordered`, `li.ui-border-top`                               | -                           | A border between every item (`bordered`), or above one item (`borderTop` on an item).                                     |
+| Close on click | `li > button[command="hide-popover"]`                            | -                           | Closes the whole menu on click, also from a submenu. Button items only.                                                   |
+| Colors         | `li.ui-critical`                                                 | -                           | A destructive item (`critical` on an item).                                                                               |
+| Dense          | `.ui-dense`                                                      | -                           | Packs the items tighter.                                                                                                  |
+| Placement      | default, `.ui-block-start`, `.ui-inline-end`, `.ui-inline-start` | default                     | Where the menu opens.                                                                                                     |
+| Position       | `--ui-anchor-position-area`                                      | `block-end span-inline-end` | Any valid `position-area` value. Overrides the placement and alignment classes.                                           |
+| State          | `li > a[aria-disabled="true"]`, `li > button[disabled]`          | -                           | Disables an item (`disabled` on an item). A disabled link has no `href`.                                                  |
+| Trigger        | `button[commandfor][command="toggle-popover"]`                   | -                           | Opens the menu. `commandfor` is the menu id.                                                                              |
 
 #### Parts
 
 | Part                            | Description                                                                                                        |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | `menu.ui-menu.ui-list[popover]` | The menu surface, a popover anchored to its trigger.                                                               |
+| `li.ui-label`                   | A group label. HTML and CSS only.                                                                                  |
 | `<li>`                          | An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. |
 | `.ui-start`                     | Optional content at the start, such as an icon.                                                                    |
 | `.ui-text`                      | The text (`text` on an item).                                                                                      |
 | `.ui-end`                       | Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item).                              |
-| `li.ui-label`                   | A group label. HTML and CSS only.                                                                                  |
 
 #### CSS variables
 
@@ -428,7 +512,7 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 | `--ui-font-code`                 | `var(--font-mono)`                                 | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                |
 | `--ui-font-size-05`              | `0.875rem`                                         | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
 | `--ui-font-weight-bold`          | `var(--font-weight-7)`                             | Font weight for headings, buttons and terms.                                                                                                                                                                                     |
-| `--ui-font-weight-normal`        | `var(--font-weight-4)`                             | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                                     |
+| `--ui-font-weight-normal`        | `var(--font-weight-4)`                             | Font weight for body text, `List` text and `Button` keyboard shortcuts.                                                                                                                                                          |
 | `--ui-icon-size`                 | `var(--size-4)`                                    | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-icon-size-small`           | `var(--size-3)`                                    | Icon size inside `Chip`.                                                                                                                                                                                                         |
 | `--ui-motion`                    | `1`                                                | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |

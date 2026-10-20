@@ -76,7 +76,7 @@ With `trigger="hover"`, `id` is required and no longer generated. Pass the same 
 
 `Avatar` with `as="button"` renders `type="button"` by default in Astro and Vue, so it no longer submits a form. Pass `type="submit"` if it should.
 
-Text uses `--ui-primary-contrast`, and sizes follow `--ui-control-size` and `--button-size-*`.
+Text uses `--ui-primary-contrast`, and sizes follow `--ui-control-size` and `--ui-button-size-*`.
 
 `isGroup` is removed. Wrap the avatars in `AvatarGroup`, which renders `.ui-avatar-group` with `role="group"`. It doesn't take `src`, `size` or `variant`.
 
@@ -827,7 +827,7 @@ Deep type imports from `opui-css/components/*` follow one naming scheme: the roo
 + import type { CheckboxProps, TableCellProps } from "opui-css/astro"
 ```
 
-`opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--ui-color-1` to `--ui-color-16`). `opui.css` still has them through `core/palette.css`. If you load `op.css` on its own and read those properties, also import `opui-css/core/palette.css`.
+`opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). If you load `op.css` on its own and read those properties, import `opui-css/core/palette.css` and read the `--ui-` names (`--ui-palette-*` and `--ui-color-1` to `--ui-color-16`).
 
 # Migrating from v5.4 to v5.5
 

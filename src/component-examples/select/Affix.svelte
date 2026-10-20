@@ -33,3 +33,10 @@
   <option>Norway</option>
   <option>Sweden</option>
 </Select>
+
+<Select label="Delivery time">
+  {#snippet suffix()}days{/snippet}
+  <option>1</option>
+  <option>3</option>
+  <option>5</option>
+</Select>

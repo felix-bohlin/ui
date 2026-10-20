@@ -66,8 +66,8 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <Chip size="large" label="Large" />
 <Chip
   multiline
-  style="max-width: 30ch"
-  label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales."
+  style="max-inline-size: 30ch"
+  label="Free returns within 30 days on every order"
 />
 ```
 
@@ -146,6 +146,8 @@ Set `dot` to add a leading dot in the chip's color. The shape follows the color:
 
 ## Button
 
+Use `as="button"` for a chip that runs an action.
+
 ```svelte
 <script lang="ts">
   import { Chip } from "opui-css/svelte"
@@ -191,13 +193,15 @@ Set `dot` to add a leading dot in the chip's color. The shape follows the color:
 
 ## Link
 
+Use `href` for a chip that goes to another page.
+
 ```svelte
 <script lang="ts">
   import { Chip } from "opui-css/svelte"
 </script>
 
-<Chip as="a" href="#" variant="tonal" label="Tonal link" />
-<Chip as="a" href="#" variant="outlined">
+<Chip href="#" variant="tonal" label="Tonal link" />
+<Chip href="#" variant="outlined">
   <span class="ui-text">Outlined link</span>
   {#snippet end()}<svg
       aria-hidden="true"
@@ -225,6 +229,8 @@ Disable a button or link chip with the `disabled` prop. A link chip drops its `h
 
 <Chip as="button" variant="tonal" label="Tonal" disabled />
 <Chip as="button" variant="outlined" label="Outlined" disabled />
+<Chip disabled href="#" label="Tonal link" />
+<Chip class="ui-disabled" label="Archived" />
 ```
 
 ## API
@@ -420,5 +426,5 @@ Import the component from `opui-css/svelte`:
 - [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
 - Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
 - [`disabled`](#disabled) works on button and link chips. A link chip gets `aria-disabled="true"`.
-- Breaking: a button chip needs `as="button"`, and a link chip needs `href` (types).
+- Breaking: a button chip needs `as="button"`, and a link chip needs `href` ([types](#api)).
 - Breaking: [disabled link chips](#disabled) have no `href`, so they can't be focused or followed.

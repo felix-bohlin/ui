@@ -20,6 +20,7 @@ export default function Submenu() {
           command="toggle-popover"
           end={
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"

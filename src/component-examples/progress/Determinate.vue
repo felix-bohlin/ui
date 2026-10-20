@@ -15,5 +15,10 @@ onBeforeUnmount(() => clearInterval(interval))
 </script>
 
 <template>
-  <Progress id="progress-determinate-1" max="100" :value="value" />
+  <Progress
+    aria-label="Uploading"
+    id="progress-determinate-1"
+    max="100"
+    :value="value"
+  />
 </template>

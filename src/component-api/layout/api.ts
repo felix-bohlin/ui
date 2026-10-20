@@ -4,13 +4,10 @@ export default {
   component: "Layout",
   css: ["layout"],
   notes: {
-    astro:
-      "Add the classes to elements in your templates. There is no Astro component.",
-    react:
-      "Add the classes to elements in your markup. There is no React component.",
-    svelte:
-      "Add the classes to elements in your markup. There is no Svelte component.",
-    vue: "Add the classes to elements in your templates. There is no Vue component.",
+    astro: "Add the classes to elements in your templates.",
+    react: "Add the classes to elements in your markup.",
+    svelte: "Add the classes to elements in your markup.",
+    vue: "Add the classes to elements in your templates.",
   },
   options: [
     {
@@ -38,10 +35,10 @@ export default {
       prop: "row",
     },
     {
+      default: '"default"',
       description:
         "The space between children of `.ui-l-column`, `.ui-l-row` and `.ui-l-grid`.",
       group: "Sizes",
-      htmlDefault: "default",
       prop: "size",
       values: {
         default: null,

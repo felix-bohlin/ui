@@ -4,8 +4,6 @@
   let {
     class: className,
     markerAnimation = "rotate",
-    name,
-    open,
     variant,
 
     // Snippets
@@ -15,7 +13,6 @@
 </script>
 
 <details
-  {name}
   class={[
     "ui-accordion",
     "ui-card",
@@ -23,7 +20,6 @@
     variant && `ui-${variant}`,
     className,
   ]}
-  {open}
   {...rest}
 >
   {@render children?.()}

@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Tooltip",
   notes: {
-    html: 'Add `.ui-anchor` to the root too. Give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.',
+    html: 'Add `.ui-anchor` to the root too. Give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.',
   },
   options: [
     {
@@ -23,7 +23,7 @@ export default {
     },
     {
       description:
-        "The id of the tooltip. Add `interestfor` with the same id to the trigger.",
+        'The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger.',
       prop: "id",
     },
   ],
@@ -34,6 +34,7 @@ export default {
       selector: ".ui-tooltip > :first-child",
     },
     {
+      anchorName: "--ui-tooltip",
       component: "TooltipContent",
       description: 'The tooltip, a `popover="hint"`.',
       selector: ".ui-anchor-floating",

@@ -43,9 +43,9 @@ import Code from "../../components/Code.astro"
       lang="css"
       code={`.text-field {
   --accent: var(--ui-primary);
+  --affix: var(--ui-text-muted);
   --border: var(--ui-field-border-color);
   --helper: var(--ui-field-helper-color);
-  --label: var(--ui-text-muted);
 }
 
 .text-field:focus-within .field {
@@ -54,9 +54,9 @@ import Code from "../../components/Code.astro"
 
 .text-field:has([aria-invalid="true"], :user-invalid) {
   --accent: var(--ui-invalid-color);
+  --affix: var(--ui-invalid-text-color);
   --border: var(--ui-invalid-color);
   --helper: var(--ui-invalid-text-color);
-  --label: var(--ui-invalid-text-color);
 }`}
     />
   </section>

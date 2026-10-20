@@ -22,3 +22,9 @@
   <input name="checkbox-basics" type="checkbox" checked disabled />
   <span class="ui-sr-only">Checked and disabled</span>
 </label>
+
+<script>
+  document
+    .querySelectorAll('input[type="checkbox"][data-indeterminate]')
+    .forEach((input) => (input.indeterminate = true))
+</script>

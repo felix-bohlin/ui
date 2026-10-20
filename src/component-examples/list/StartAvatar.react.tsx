@@ -3,7 +3,10 @@ import { Avatar, List, ListItem } from "opui-css/react"
 export default function StartAvatar() {
   return (
     <List>
-      <ListItem headline="Headline" start={<Avatar>AB</Avatar>} />
+      <ListItem
+        headline="Headline"
+        start={<Avatar aria-hidden="true">AB</Avatar>}
+      />
       <ListItem
         headline="Headline"
         description="Supporting text"

@@ -43,7 +43,13 @@ const ThemeCSS = `/* ... */
   slug="callout"
   heroAnatomy
   apis={[{ title: "Callout API", api: calloutApi }]}
-  browserSupport={["has", "light-dark", "relative-color", "scope"]}
+  browserSupport={[
+    "container-style-queries",
+    "has",
+    "light-dark",
+    "relative-color",
+    "scope",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Callout/Callout.astro",
@@ -198,7 +204,8 @@ const ThemeCSS = `/* ... */
       <li>
         Use both color and icon to help distinguish between Callout <a
           href="#severities">severities</a
-        >.
+        >. The icon is hidden from screen readers, so say the severity in the
+        text, for example with a title like Warning.
       </li>
       <li>
         Don't interrupt the user with a Callout. In that case, use <DocLink

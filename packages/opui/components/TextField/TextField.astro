@@ -8,26 +8,18 @@ const {
   "aria-invalid": ariaInvalid,
   autoFit,
   class: className,
-  disabled,
   endText,
   error,
   id,
   inputmode,
   label,
-  list,
-  max,
-  min,
   name,
   pattern,
-  placeholder,
-  required,
   size,
   spread,
   startText,
-  step,
   style,
   type = "text",
-  value,
   variant,
   ...rest
 } = Astro.props
@@ -38,12 +30,12 @@ const field = fieldGroupContext.get()
 <label
   class:list={[
     "ui-text-field",
-    size && `ui-${size}`,
     {
       "ui-auto-fit": autoFit,
       "ui-filled": variant === "filled",
       "ui-spread": spread,
     },
+    size && `ui-${size}`,
     className,
   ]}
   style={style}
@@ -68,19 +60,11 @@ const field = fieldGroupContext.get()
     <input
       {...rest}
       aria-invalid={error ? "true" : ariaInvalid}
-      disabled={disabled}
       id={id}
       inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
-      list={list}
-      max={max}
-      min={min}
       name={name ?? field?.name}
       pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
-      placeholder={placeholder}
-      required={required}
-      step={step}
       type={type === "numeric" ? "text" : type}
-      value={value}
     />
     {
       Astro.slots.has("prefix") && (

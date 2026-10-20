@@ -83,8 +83,8 @@ const steps = [
   margin-inline-end: calc(-1 * var(--overlap));
 }`,
     html: `
-<div class="avatar-group" role="group">
-  <div class="avatar">AB</div>
+<div class="avatar-group" role="group" aria-label="Team">
+  <div class="avatar" role="img" aria-label="Anna Berg">AB</div>
   …
 </div>`,
     features: ["logical-properties"],
@@ -126,16 +126,18 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width=
 
 <BuildUp id="build-avatar" knobs={knobs} steps={steps}>
   <div class="row">
-    <div class="avatar"><img alt="Avatar" src={photo} /></div>
-    <div class="avatar">FB</div>
-    <div class="avatar rounded"><Fragment set:html={icon} /></div>
-    <div class="avatar squircle">OP</div>
+    <div class="avatar"><img alt="Maya Lind" src={photo} /></div>
+    <div class="avatar" role="img" aria-label="Felix Bohlin">FB</div>
+    <div class="avatar rounded" role="img" aria-label="Guest">
+      <Fragment set:html={icon} />
+    </div>
+    <div class="avatar squircle" role="img" aria-label="Olivia Park">OP</div>
   </div>
-  <div class="avatar-group" role="group">
-    <div class="avatar">AB</div>
-    <div class="avatar">CD</div>
-    <div class="avatar">EF</div>
-    <div class="avatar">GH</div>
+  <div class="avatar-group" role="group" aria-label="Team">
+    <div class="avatar" role="img" aria-label="Anna Berg">AB</div>
+    <div class="avatar" role="img" aria-label="Carl Dahl">CD</div>
+    <div class="avatar" role="img" aria-label="Eva Falk">EF</div>
+    <div class="avatar" role="img" aria-label="Gustav Holm">GH</div>
   </div>
 </BuildUp>
 

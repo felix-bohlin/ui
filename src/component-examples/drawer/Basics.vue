@@ -23,7 +23,7 @@ import {
     <Button commandfor="drawer-basics-4" command="show-modal">Block End</Button>
   </div>
 
-  <Drawer id="drawer-basics-1" side="inline-start" closedby="any">
+  <Drawer id="drawer-basics-1" side="inline-start">
     <DrawerHeader>
       <DrawerTitle>Inline Start</DrawerTitle>
     </DrawerHeader>
@@ -53,7 +53,7 @@ import {
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-basics-2" side="inline-end" closedby="any">
+  <Drawer id="drawer-basics-2" side="inline-end">
     <DrawerHeader>
       <DrawerTitle>Inline End</DrawerTitle>
     </DrawerHeader>
@@ -83,7 +83,7 @@ import {
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-basics-3" side="block-start" closedby="any">
+  <Drawer id="drawer-basics-3" side="block-start">
     <DrawerHeader>
       <DrawerTitle>Block Start</DrawerTitle>
     </DrawerHeader>
@@ -107,7 +107,7 @@ import {
     </DrawerFooter>
   </Drawer>
 
-  <Drawer id="drawer-basics-4" side="block-end" closedby="any">
+  <Drawer id="drawer-basics-4" side="block-end">
     <DrawerHeader>
       <DrawerTitle>Block End</DrawerTitle>
     </DrawerHeader>

@@ -88,16 +88,16 @@ const steps = [
 
 .callout:is(.info, .warning) {
   --bg: light-dark(
-    oklch(from var(--tone) 97% 0.06 h / 20%),
-    oklch(from var(--tone) 71% 0.19 h / 5%)
+    oklch(from var(--tone) 97% 0.06 calc(h + 1) / 20%),
+    oklch(from var(--tone) 71% 0.19 calc(h + 5) / 5%)
   );
   --border: light-dark(
-    oklch(from var(--tone) 80% 0.16 h),
-    oklch(from var(--tone) 42% 0.17 h)
+    oklch(from var(--tone) 80% 0.16 calc(h + 4)),
+    oklch(from var(--tone) 42% 0.17 calc(h + 10))
   );
-  --icon: oklch(from var(--tone) 53% 0.2 h);
+  --icon: oklch(from var(--tone) 53% 0.2 calc(h + 8));
   color: light-dark(
-    oklch(from var(--tone) 10% 0.05 h),
+    oklch(from var(--tone) 10% 0.05 calc(h + 15)),
     oklch(from var(--tone) 98% 0.03 h)
   );
 }

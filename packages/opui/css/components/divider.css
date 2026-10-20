@@ -4,7 +4,7 @@
 
     background-color: var(--_divider-color);
     block-size: var(--ui-border-width);
-    margin-block: var(--ui-divider-space, var(--size-fluid-3));
+    margin-block: var(--ui-divider-space);
 
     /* Border color */
     &.ui-filled {

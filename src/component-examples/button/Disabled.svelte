@@ -71,8 +71,8 @@
   </Button>
 </div>
 <div class="example-row">
-  <Button disabled href="#">Text</Button>
-  <Button variant="outlined" disabled href="#">Outlined</Button>
-  <Button variant="tonal" disabled href="#">Tonal</Button>
-  <Button variant="filled" disabled href="#">Filled</Button>
+  <Button disabled href="#">Text link</Button>
+  <Button variant="outlined" disabled href="#">Outlined link</Button>
+  <Button variant="tonal" disabled href="#">Tonal link</Button>
+  <Button variant="filled" disabled href="#">Filled link</Button>
 </div>

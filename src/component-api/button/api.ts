@@ -20,6 +20,14 @@ export default {
       values: { critical: ".ui-critical", primary: ".ui-primary" },
     },
     {
+      attribute: '[aria-current="page"]',
+      description:
+        "Keeps the pressed background on a default (text) button link, for the current page in navigation.",
+      frameworks: ["html"],
+      group: "Current",
+      prop: "current",
+    },
+    {
       default: "false",
       description:
         'Disables the button. A link button drops its `href` and gets `aria-disabled="true"`.',
@@ -82,6 +90,11 @@ export default {
       description:
         "The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook.",
       selector: ".ui-button > .ui-text",
+    },
+    {
+      code: "<kbd>",
+      description: "An optional keyboard hint.",
+      selector: ".ui-button kbd",
     },
   ],
   root: {

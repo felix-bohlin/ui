@@ -9,7 +9,9 @@
   ) {
     --_motion: var(--ui-motion);
 
-    position: relative;
+    &:not(dialog, [popover]) {
+      position: relative;
+    }
 
     &::before {
       animation: ui-spin

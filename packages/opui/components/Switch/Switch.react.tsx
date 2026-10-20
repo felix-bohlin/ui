@@ -1,7 +1,5 @@
-import { useId } from "react"
 import { cx } from "../cx"
 import { warnUnnamed } from "../dev"
-import { idRefs } from "../id"
 import SwitchInput from "./SwitchInput.react"
 import type { Props } from "./types.react"
 
@@ -12,16 +10,13 @@ export default function Switch({
   size,
   spread,
   stack,
+  style,
   children,
   endText,
   iconChecked,
   iconUnchecked,
   ...rest
 }: Props) {
-  const uid = useId()
-  const endTextId = endText ? `end-text-${uid}` : undefined
-  const describedBy = idRefs(endTextId, rest["aria-describedby"])
-
   warnUnnamed(
     "Switch",
     children || rest["aria-label"] || rest["aria-labelledby"],
@@ -31,13 +26,14 @@ export default function Switch({
     <label
       className={cx([
         "ui-switch",
-        size && `ui-${size}`,
         {
-          "ui-stack": stack,
           "ui-spread": spread,
+          "ui-stack": stack,
         },
+        size && `ui-${size}`,
         className,
       ])}
+      style={style}
     >
       {iconUnchecked && (
         <span className="ui-icon-unchecked" aria-hidden="true">
@@ -51,7 +47,6 @@ export default function Switch({
       )}
       <SwitchInput
         {...rest}
-        aria-describedby={describedBy}
         aria-invalid={error ? "true" : rest["aria-invalid"]}
       />
       {children && (
@@ -59,11 +54,7 @@ export default function Switch({
           {children}
         </span>
       )}
-      {endText && (
-        <span id={endTextId} className="ui-end-text">
-          {endText}
-        </span>
-      )}
+      {endText && <span className="ui-end-text">{endText}</span>}
     </label>
   )
 }

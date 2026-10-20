@@ -2,27 +2,29 @@ import { Button, ButtonGroup } from "opui-css/react"
 
 export default function Overflow() {
   return (
-    <div
-      style={{ display: "grid", gap: "var(--size-3)", maxInlineSize: "18rem" }}
-    >
-      <ButtonGroup variant="outlined">
+    <>
+      <ButtonGroup variant="outlined" style={{ maxInlineSize: "18rem" }}>
         <Button>Archive</Button>
         <Button>Move to folder</Button>
         <Button>Mark as unread</Button>
         <Button>Delete</Button>
       </ButtonGroup>
-      <ButtonGroup variant="outlined" scrollable>
+      <ButtonGroup
+        variant="outlined"
+        scrollable
+        style={{ maxInlineSize: "18rem" }}
+      >
         <Button>Archive</Button>
         <Button>Move to folder</Button>
         <Button>Mark as unread</Button>
         <Button>Delete</Button>
       </ButtonGroup>
-      <ButtonGroup variant="outlined" shrink>
+      <ButtonGroup variant="outlined" shrink style={{ maxInlineSize: "18rem" }}>
         <Button>Archive</Button>
         <Button>Move to folder</Button>
         <Button>Mark as unread</Button>
         <Button>Delete</Button>
       </ButtonGroup>
-    </div>
+    </>
   )
 }

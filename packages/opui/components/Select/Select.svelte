@@ -41,8 +41,16 @@
   const labelId = `select-label-${uid}`
   const startTextId = $derived(startText ? `start-text-${uid}` : undefined)
   const endTextId = $derived(endText ? `end-text-${uid}` : undefined)
+  const headerId = $derived(header ? `header-${uid}` : undefined)
+  const footerId = $derived(footer ? `footer-${uid}` : undefined)
   const describedBy = $derived(
-    idRefs(startTextId, endTextId, rest["aria-describedby"]),
+    idRefs(
+      headerId,
+      startTextId,
+      endTextId,
+      footerId,
+      rest["aria-describedby"],
+    ),
   )
 
   const isSelected = (item: SelectItem) =>
@@ -56,11 +64,11 @@
 <label
   class={[
     "ui-select",
-    size && `ui-${size}`,
     {
       "ui-filled": variant === "filled",
       "ui-spread": spread,
     },
+    size && `ui-${size}`,
     className,
   ]}
   {style}
@@ -104,10 +112,10 @@
       <span class="ui-suffix">{@render content(suffix)}</span>
     {/if}
     {#if header}
-      <span class="ui-header">{@render content(header)}</span>
+      <span class="ui-header" id={headerId}>{@render content(header)}</span>
     {/if}
     {#if footer}
-      <span class="ui-footer">{@render content(footer)}</span>
+      <span class="ui-footer" id={footerId}>{@render content(footer)}</span>
     {/if}
   </span>
   {#if endText}

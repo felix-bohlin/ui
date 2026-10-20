@@ -3,8 +3,8 @@ import { TextField } from "opui-css/vue"
 </script>
 
 <template>
-  <TextField label="Username" placeholder="Enter your name">
-    <template #header>Full Name</template>
+  <TextField label="Name" placeholder="Ada Lovelace">
+    <template #header>Shown on your profile</template>
   </TextField>
 
   <TextField label="Tagline" placeholder="A short description">

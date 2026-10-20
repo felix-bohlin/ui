@@ -109,6 +109,7 @@ export const description =
       type="button"
     >
       <svg
+        aria-hidden="true"
         fill="none"
         height="20"
         stroke="currentColor"
@@ -194,22 +195,32 @@ export const description =
   <ToastBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
-    <p>
-      1. Container (Manager)<br />
-      2. Individual Toast Body<br />
-      3. Content Area<br />
-      4. Close Button (Optional)
-    </p>
+    <ol>
+      <li>Container, <code>#toast-manager</code></li>
+      <li>Toast, <code>.ui-toast</code> with <code>data-severity</code></li>
+      <li>Icon, <code>.ui-icon</code></li>
+      <li>
+        Content, <code>.ui-content</code> with <code>.ui-title</code> and <code
+          >.ui-description</code
+        >
+      </li>
+      <li>Close button, <code>.ui-close-button</code></li>
+    </ol>
 
     <Example>
       <div
         class="anatomy-demo"
         style="position: relative; inset: auto; display: flex; z-index: 1;"
       >
-        <div class="ui-toast ui-info anatomy">
-          <div class="ui-content">Notification message content</div>
-          <button class="ui-close-button" aria-label="Close">
+        <div class="ui-toast anatomy" data-severity="info">
+          <span class="ui-icon"></span>
+          <div class="ui-content">
+            <div class="ui-title">Changes saved</div>
+            <div class="ui-description">Your profile is up to date.</div>
+          </div>
+          <button aria-label="Close" class="ui-close-button" type="button">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="20"
@@ -232,18 +243,22 @@ export const description =
         outline-offset: -2px;
 
         .ui-toast.anatomy {
+          animation: none;
           outline: var(--_anatomy-border-red);
           outline-offset: -4px;
         }
 
-        .ui-content {
+        .ui-icon,
+        .ui-content,
+        .ui-close-button {
           outline: var(--_anatomy-border-red);
           outline-offset: 2px;
         }
 
-        .ui-close-button {
-          outline: var(--_anatomy-border-red);
-          outline-offset: 2px;
+        .ui-title,
+        .ui-description {
+          outline: var(--_anatomy-border-gray);
+          outline-offset: 1px;
         }
       }
     </style>

@@ -25,17 +25,15 @@
         --ui-button-outlined-border-color,
         var(--ui-button-border-color, var(--_edge-accent))
       );
+      --_edge-text: light-dark(
+        var(--_edge-accent),
+        oklch(from var(--_edge-accent) max(l, 0.85) min(c, 0.1) h)
+      );
 
       @container style(--ui-contrast: more) {
         --_edge-color: var(
           --ui-button-outlined-border-color,
-          var(
-            --ui-button-border-color,
-            light-dark(
-              var(--_edge-accent),
-              oklch(from var(--_edge-accent) max(l, 0.85) min(c, 0.1) h)
-            )
-          )
+          var(--ui-button-border-color, var(--_edge-text))
         );
       }
 
@@ -52,6 +50,13 @@
 
       &.ui-primary {
         --_edge-accent: var(--ui-primary);
+        --_edge-text: var(
+          --ui-primary-text,
+          light-dark(
+            var(--_edge-accent),
+            oklch(from var(--_edge-accent) max(l, 0.85) min(c, 0.1) h)
+          )
+        );
       }
     }
 
@@ -84,7 +89,7 @@
 
       &:focus-visible {
         --ui-focus-ring-color: currentColor;
-        outline-offset: calc(var(--ui-focus-ring-inset) - var(--size-1));
+        outline-offset: calc(-1.5 * var(--size-1));
       }
 
       :where(.ui-button-group.ui-outlined) & {

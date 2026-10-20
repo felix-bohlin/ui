@@ -12,10 +12,6 @@
 
   Container element.
 
-- `<TableCaption>`
-
-  An optional title for the table.
-
 - `<TableHead>`
 
   The header rows.
@@ -39,6 +35,10 @@
 - `<TableFoot>`
 
   Optional footer rows, such as totals.
+
+- `<TableCaption>`
+
+  An optional title for the table.
 
 ## Variants
 
@@ -71,9 +71,9 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Radiohead</TableCell>
-      <TableCell>Ed O'Brien</TableCell>
-      <TableCell>Guitar/Vocals</TableCell>
+      <TableCell>Broken Bells</TableCell>
+      <TableCell>James Mercer</TableCell>
+      <TableCell>Vocals/Guitar</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Korn</TableCell>
@@ -81,13 +81,13 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
       <TableCell>Vocals</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>Broken Bells</TableCell>
-      <TableCell>James Mercer</TableCell>
-      <TableCell>Vocals/Guitar</TableCell>
-    </TableRow>
-    <TableRow>
       <TableCell>Pink Floyd</TableCell>
       <TableCell>David Gilmour</TableCell>
+      <TableCell>Guitar/Vocals</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Radiohead</TableCell>
+      <TableCell>Ed O'Brien</TableCell>
       <TableCell>Guitar/Vocals</TableCell>
     </TableRow>
   </TableBody>
@@ -125,14 +125,14 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Radiohead</TableCell>
-      <TableCell>Ed O'Brien</TableCell>
-      <TableCell>Guitar/Vocals</TableCell>
-    </TableRow>
-    <TableRow>
       <TableCell>Korn</TableCell>
       <TableCell>Jonathan Davis</TableCell>
       <TableCell>Vocals</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Radiohead</TableCell>
+      <TableCell>Ed O'Brien</TableCell>
+      <TableCell>Guitar/Vocals</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -164,14 +164,14 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Radiohead</TableCell>
-      <TableCell>Ed O'Brien</TableCell>
-      <TableCell>Guitar/Vocals</TableCell>
-    </TableRow>
-    <TableRow>
       <TableCell>Korn</TableCell>
       <TableCell>Jonathan Davis</TableCell>
       <TableCell>Vocals</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Radiohead</TableCell>
+      <TableCell>Ed O'Brien</TableCell>
+      <TableCell>Guitar/Vocals</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -290,9 +290,9 @@ The first cell of each row is a row header, `<th scope="row">`. Row headers keep
 <Table>
   <TableCaption>Nordic Countries Overview</TableCaption>
   <TableColumnGroup>
-    <TableColumn />
-    <TableColumn />
-    <TableColumn />
+    <TableColumn width="8rem" />
+    <TableColumn span={3} />
+    <TableColumn span={2} />
   </TableColumnGroup>
   <TableHead>
     <TableRow>
@@ -309,22 +309,6 @@ The first cell of each row is a row header, `<th scope="row">`. Row headers keep
     </TableRow>
   </TableHead>
   <TableBody>
-    <TableRow>
-      <TableHeaderCell scope="row">Norway</TableHeaderCell>
-      <TableCell>Oslo</TableCell>
-      <TableCell>Bergen</TableCell>
-      <TableCell>Trondheim</TableCell>
-      <TableCell>Elk</TableCell>
-      <TableCell>White-throated Dipper</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableHeaderCell scope="row">Sweden</TableHeaderCell>
-      <TableCell>Stockholm</TableCell>
-      <TableCell>Göteborg</TableCell>
-      <TableCell>Malmö</TableCell>
-      <TableCell>Elk</TableCell>
-      <TableCell>Common Blackbird</TableCell>
-    </TableRow>
     <TableRow>
       <TableHeaderCell scope="row">Denmark</TableHeaderCell>
       <TableCell>København</TableCell>
@@ -348,6 +332,22 @@ The first cell of each row is a row header, `<th scope="row">`. Row headers keep
       <TableCell>Hafnarfjörður</TableCell>
       <TableCell>Gyrfalcon</TableCell>
       <TableCell>Gyrfalcon</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableHeaderCell scope="row">Norway</TableHeaderCell>
+      <TableCell>Oslo</TableCell>
+      <TableCell>Bergen</TableCell>
+      <TableCell>Trondheim</TableCell>
+      <TableCell>Elk</TableCell>
+      <TableCell>White-throated Dipper</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableHeaderCell scope="row">Sweden</TableHeaderCell>
+      <TableCell>Stockholm</TableCell>
+      <TableCell>Göteborg</TableCell>
+      <TableCell>Malmö</TableCell>
+      <TableCell>Elk</TableCell>
+      <TableCell>Common Blackbird</TableCell>
     </TableRow>
   </TableBody>
   <TableFoot>
@@ -386,6 +386,7 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 | `--ui-font-size-05`         | `0.875rem`                                        | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
 | `--ui-font-weight-semibold` | `var(--font-weight-6)`                            | Font weight for labels, table headers and titles.                                                                                                                                                                                |
 | `--ui-motion`               | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion).                       |
+| `--ui-shadow-scroll`        | `var(--shadow-4)`                                 | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                                         |
 | `--ui-space-1`              | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                  |
 | `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
 | `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
@@ -416,6 +417,7 @@ Set column widths with `TableColumnGroup` and `TableColumn`.
 | `--ui-font-size-05`         | `0.875rem`                                        | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
 | `--ui-font-weight-semibold` | `var(--font-weight-6)`                            | Font weight for labels, table headers and titles.                                                                                                                                                                                |
 | `--ui-motion`               | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion).                       |
+| `--ui-shadow-scroll`        | `var(--shadow-4)`                                 | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                                         |
 | `--ui-space-1`              | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                  |
 | `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
 | `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
@@ -444,6 +446,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-font-size-05`         | `0.875rem`                                        | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
 | `--ui-font-weight-semibold` | `var(--font-weight-6)`                            | Font weight for labels, table headers and titles.                                                                                                                                                                                |
 | `--ui-motion`               | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion).                       |
+| `--ui-shadow-scroll`        | `var(--shadow-4)`                                 | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                                         |
 | `--ui-space-1`              | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                  |
 | `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
 | `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
@@ -464,7 +467,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_duration`      | Output | Duration of the header shadow transition, `--ui-duration` times `--_motion`.                  |
 | `--_ease`          | Input  | Easing of the header shadow transition. Defaults to `--ui-ease`.                              |
 | `--_motion`        | Input  | Motion multiplier for the header shadow transition in `.ui-sticky-header`. `0` turns it off.  |
-| `--_scroll-shadow` | Input  | Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--shadow-4`.                  |
+| `--_scroll-shadow` | Input  | Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--ui-shadow-scroll`.          |
 | `--_sticky-offset` | Input  | Distance from the top of the scroll container where the header of `.ui-sticky-header` sticks. |
 
 ## Under the hood
@@ -643,3 +646,4 @@ Import the components from `opui-css/svelte`:
 - [`TableCaption` and `TableFoot`](#default) render the caption and the footer rows.
 - [Every part](#api) has its own props type, such as `TableBodyProps` and `TableCellProps`, exported from every framework.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
+- The [sticky header](#sticky-header) shadow reads `--ui-shadow-scroll`.

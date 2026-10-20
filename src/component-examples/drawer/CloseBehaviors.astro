@@ -1,0 +1,54 @@
+---
+import {
+  Button,
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Radio,
+} from "opui-css/astro"
+---
+
+<Button
+  commandfor="drawer-close-behaviors-1"
+  command="show-modal"
+  variant="outlined"
+>
+  Open drawer
+</Button>
+
+<Drawer id="drawer-close-behaviors-1">
+  <DrawerHeader>
+    <DrawerTitle>How to close</DrawerTitle>
+  </DrawerHeader>
+  <DrawerContent>
+    <FieldSet>
+      <FieldLegend>Choose a closing behavior:</FieldLegend>
+      <FieldGroup name="closedby-demo">
+        <Radio value="any" checked>any</Radio>
+        <Radio value="closerequest">closerequest</Radio>
+        <Radio value="none">none</Radio>
+      </FieldGroup>
+    </FieldSet>
+  </DrawerContent>
+  <DrawerFooter>
+    <Button size="small" commandfor="drawer-close-behaviors-1" command="close">
+      Close manually
+    </Button>
+  </DrawerFooter>
+</Drawer>
+
+<script>
+  const drawer = document.getElementById("drawer-close-behaviors-1")
+  document
+    .querySelectorAll<HTMLInputElement>('input[name="closedby-demo"]')
+    .forEach((radio) => {
+      radio.addEventListener("change", () =>
+        drawer?.setAttribute("closedby", radio.value),
+      )
+    })
+</script>

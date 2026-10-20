@@ -85,14 +85,15 @@ const endTextId = `range-end-${uid}`
   <label
     :class="[
       'ui-range',
-      variant && `ui-${variant}`,
       { 'ui-spread': spread },
+      variant && `ui-${variant}`,
       $props.class,
     ]"
+    :for="hasValue ? inputId : undefined"
     :style="$attrs.style"
   >
     <span v-if="label || $slots.default" class="ui-label" :id="labelId">
-      <slot>{{ label }}</slot>
+      {{ label }}<slot></slot>
     </span>
     <output
       v-if="valueSuffix !== undefined || $slots.value"
@@ -109,7 +110,7 @@ const endTextId = `range-end-${uid}`
       class="ui-start-text"
       :id="startTextId"
     >
-      <slot name="start-text">{{ startText }}</slot>
+      {{ startText }}<slot name="start-text"></slot>
     </span>
 
     <input
@@ -151,7 +152,7 @@ const endTextId = `range-end-${uid}`
       class="ui-end-text"
       :id="endTextId"
     >
-      <slot name="end-text">{{ endText }}</slot>
+      {{ endText }}<slot name="end-text"></slot>
     </span>
   </label>
 </template>

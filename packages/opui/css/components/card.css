@@ -95,6 +95,10 @@
       padding-block: var(--ui-space-3) var(--ui-space-4);
     }
 
+    & > .ui-content:has(+ .ui-divider) {
+      padding-block-end: 0;
+    }
+
     /* Actions */
     & > .ui-actions {
       display: flex;
@@ -106,7 +110,7 @@
 
       &:has(> .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
         padding-inline: max(
-            0px,
+            var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
             var(--ui-space-3) - var(--size-3) + var(--size-1)
           )
           var(--ui-space-3);
@@ -126,16 +130,21 @@
           > .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)
         ) {
           padding-inline: var(--ui-space-3)
-            max(0px, var(--ui-space-3) - var(--size-3) + var(--size-1));
+            max(
+              var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
+              var(--ui-space-3) - var(--size-3) + var(--size-1)
+            );
         }
       }
     }
 
-    &:has(.ui-card-link:hover):not(:has(.ui-card .ui-card-link:hover)) {
-      --_border-color: var(--ui-text-muted);
+    @media (hover: hover) {
+      &:has(.ui-card-link:hover):not(:has(.ui-card .ui-card-link:hover)) {
+        --_border-color: var(--ui-text-muted);
 
-      @media (forced-colors: active) {
-        --_border-color: Highlight;
+        @media (forced-colors: active) {
+          --_border-color: Highlight;
+        }
       }
     }
 
@@ -180,8 +189,10 @@
       outline: none;
     }
 
-    &:hover {
-      text-decoration: underline;
+    @media (hover: hover) {
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }

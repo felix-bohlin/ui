@@ -67,6 +67,11 @@
       corner-shape: squircle;
     }
 
+    &:is(:disabled, [aria-disabled="true"]) {
+      cursor: not-allowed;
+      opacity: var(--ui-disabled-opacity);
+    }
+
     @media (forced-colors: active) {
       &:not(:has(img)) {
         border: var(--ui-border-width) solid CanvasText;
@@ -91,6 +96,10 @@
 
     & > .ui-badge > .ui-anchor-floating {
       z-index: 1;
+    }
+
+    & > :is(:focus-visible, :has(:focus-visible)) {
+      z-index: 2;
     }
   }
 }

@@ -259,7 +259,7 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
 
 ### End Text & ARIA
 
-When providing `endText`, use `createId(Astro.locals)` (Astro), `useId()` (React and Vue) or `$props.id()` (Svelte) to link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. TextField and Textarea are the exception: the wrapping `<label>` names the control and already includes the end text, so they don't link it.
+When providing `endText`, use `createId(Astro.locals)` (Astro), `useId()` (React and Vue) or `$props.id()` (Svelte) to link it to the input via `aria-describedby`, merged with the user's own `aria-describedby` by `idRefs` from `../id`. Checkbox, Radio, Switch, TextField and Textarea are the exception: the wrapping `<label>` names the control and already includes the end text, so they don't link it.
 
 ```astro
 ---

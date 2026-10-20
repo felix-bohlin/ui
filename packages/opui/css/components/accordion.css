@@ -46,6 +46,11 @@
       --_padding-inline: var(--ui-space-3);
     }
 
+    &:is(.ui-elevated, .ui-tonal) {
+      --_border-color: var(--ui-surface-border-color, transparent);
+      --_border-width: var(--ui-border-width);
+    }
+
     &.ui-elevated {
       --_bg-color: var(--ui-surface-elevated);
       --_shadow: var(--ui-shadow-raised);
@@ -61,13 +66,6 @@
     &.ui-tonal {
       --_bg-color: var(--ui-surface-tonal);
       --_shadow: var(--ui-shadow-surface);
-    }
-
-    @media (forced-colors: active) {
-      &.ui-elevated,
-      &.ui-tonal {
-        --_border-width: var(--ui-border-width);
-      }
     }
 
     &::details-content {

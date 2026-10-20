@@ -31,8 +31,8 @@ const whatsNew = {
     slots(
       `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone. Leave <code>variant</code> out for the default look.`,
     ),
-    `Elevated accordions use <a href="#api"><code>--ui-shadow-raised</code></a>, the elevated card shadow, also in dark mode. Padding and gaps read the <code>--space-*</code> scale.`,
-    `<a href="#variants">Tonal and outlined</a> accordions read <a href="#api"><code>--ui-shadow-surface</code></a>, <code>none</code> unless a theme sets it.`,
+    `Elevated accordions use <a href="#api"><code>--ui-shadow-raised</code></a>, the elevated card shadow, also in dark mode. Padding and gaps read the <code>--ui-space-*</code> scale.`,
+    `<a href="#variants">Tonal and outlined</a> accordions read <a href="#api"><code>--ui-shadow-surface</code></a>, <code>none</code> unless a theme sets it, and tonal and elevated accordions <code>--ui-surface-border-color</code>.`,
   ],
   anchor: [
     slots(
@@ -62,7 +62,7 @@ const whatsNew = {
       vue: `<code>command</code>, <code>commandfor</code> and <code>interestfor</code> pass through as attributes instead of props (<a href="#api">API</a>).`,
     },
     components(
-      `Breaking: a button avatar needs <code>as="button"</code>, and <code>disabled</code> only goes with it (types).`,
+      `Breaking: a button avatar needs <code>as="button"</code>, and <code>disabled</code> only goes with it (<a href="#api">types</a>).`,
     ),
     components(
       `Breaking: <a href="#grouped"><code>AvatarGroup</code></a> groups avatars and replaces the <code>isGroup</code> prop.`,
@@ -109,11 +109,14 @@ const whatsNew = {
     components(
       `<a href="#icon-only"><code>iconOnly</code></a> makes <code>aria-label</code> required on icon-only buttons (types only).`,
     ),
+    components(
+      `Breaking: a button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
+    ),
     `Breaking: <code>--_color</code>, <code>--_color-contrast</code> and <code>--_color-tonal</code> are <code>--_accent</code>, <code>--_accent-contrast</code> and <code>--_accent-tonal</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
-    `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-accent-contrast</code>, the border with <code>--ui-button-border-color</code> and <code>--ui-button-outlined-border-color</code>, the font weight with <code>--ui-button-font-weight</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>.`,
+    `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-accent-contrast</code>, the border with <code>--ui-button-border-color</code> and <code>--ui-button-outlined-border-color</code>, the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   "button-group": [
@@ -160,11 +163,12 @@ const whatsNew = {
     `Add <code>.ui-card-link</code> to a link to make the <a href="#clickable">whole card clickable</a>.`,
     `<a href="#variants">Tonal and elevated</a> cards have a border in the page background color, so they stay visible on tonal surfaces.`,
     `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
-    `Breaking: <code>--_card-bg-color</code>, <code>--_card-border-color</code>, <code>--_card-border-width</code> and <code>--_card-shadow</code> drop the <code>card-</code> prefix, the outlined <code>--_border-color</code> is <code>--_outlined-border-color</code>, and <code>--_bg-surface</code>, <code>--_bg-tonal</code> and <code>--_bg-elevated</code> are <code>--_surface-bg-color</code>, <code>--_tonal-bg-color</code> and <code>--_elevated-bg-color</code>, and <code>--_elevated-shadow</code> is <code>--_elevated-shadow</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_card-bg-color</code>, <code>--_card-border-color</code>, <code>--_card-border-width</code> and <code>--_card-shadow</code> drop the <code>card-</code> prefix, the outlined <code>--_border-color</code> is <code>--_outlined-border-color</code>, and <code>--_bg-surface</code>, <code>--_bg-tonal</code> and <code>--_bg-elevated</code> are <code>--_surface-bg-color</code>, <code>--_tonal-bg-color</code> and <code>--_elevated-bg-color</code>, and <code>--_shadow-elevated</code> is <code>--_elevated-shadow</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Elevated cards use <a href="#api"><code>--ui-shadow-raised</code></a>, and padding and gaps read the <code>--space-*</code> scale.`,
+    `Elevated cards use <a href="#api"><code>--ui-shadow-raised</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
     `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--ui-shadow-raised-light</code> and <code>--ui-shadow-raised-dark</code></a> in your theme, or <a href="#component-properties"><code>--_elevated-shadow</code></a> on the card.`,
     `<a href="#variants">Tonal and outlined</a> cards read <a href="#api"><code>--ui-shadow-surface</code></a>, and tonal and elevated cards <code>--ui-surface-border-color</code>, when a theme sets them.`,
+    `Borders inside <a href="#variants">tonal and elevated</a> cards read <code>--ui-border-color-raised</code> and <code>--ui-field-border-color-raised</code>, so a theme's borders reach inside.`,
   ],
   carousel: [
     {
@@ -205,6 +209,7 @@ const whatsNew = {
       html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
     },
     {
+      astro: `A checkbox without a <a href="#labels">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       html: `Breaking: <a href="#basics"><code>choice.css</code></a> holds the layout, label, end text, sizes and disabled styles shared with Radio and Switch.`,
       react: `A checkbox without a <a href="#labels">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       svelte: `A checkbox without a <a href="#labels">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
@@ -221,6 +226,9 @@ const whatsNew = {
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners never get rounder than <a href="#api"><code>--ui-border-radius</code></a>, so <code>0</code> squares them.`,
+    slots(
+      `Breaking: <code>style</code> goes to the root <code>&lt;label&gt;</code>, like <code>class</code>, so <code>--_</code> properties set through it apply (<a href="#api">API</a>).`,
+    ),
   ],
   chip: [
     {
@@ -249,7 +257,7 @@ const whatsNew = {
       `<a href="#disabled"><code>disabled</code></a> works on button and link chips. A link chip gets <code>aria-disabled="true"</code>.`,
     ),
     components(
-      `Breaking: a button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (types).`,
+      `Breaking: a button chip needs <code>as="button"</code>, and a link chip needs <code>href</code> (<a href="#api">types</a>).`,
     ),
     `Breaking: <a href="#disabled">disabled link chips</a> have no <code>href</code>, so they can't be focused or followed.`,
   ],
@@ -257,6 +265,9 @@ const whatsNew = {
     {
       astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>DescriptionListItem</code></a>. The <code>DescriptionList.Item</code> aliases are gone.`,
     },
+    slots(
+      `Breaking: the part files are <code>DescriptionListDescription.*</code>, <code>DescriptionListItem.*</code> and <code>DescriptionListTerm.*</code>. Update deep <code>opui-css/components/*</code> imports (<a href="#api">API</a>).`,
+    ),
     {
       vue: `Breaking: <code>Description</code> is now <a href="#api"><code>DescriptionListDescription</code></a>, like Astro.`,
     },
@@ -285,9 +296,13 @@ const whatsNew = {
       `<a href="#how-to-close"><code>closedby</code></a> is typed in every framework.`,
     ),
     {
-      html: `Breaking: the page scroll lock lives in <code>utils.css</code>. Import it too if you import single files.`,
+      html: `Breaking: the page scroll lock of <a href="#modal">modal dialogs</a> lives in <code>utils.css</code>. Import it too if you import single files.`,
     },
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
+    `The <a href="#long-content">scroll shadow</a> reads <code>--ui-shadow-scroll</code>, and borders inside the dialog read <code>--ui-border-color-raised</code> and <code>--ui-field-border-color-raised</code>.`,
+    components(
+      `<a href="#actions"><code>DialogActions</code></a> only adds a class for <code>align="start"</code>. The default end alignment renders no <code>.ui-align-end</code>.`,
+    ),
   ],
   divider: [
     `<a href="#spacing">Spacing</a> comes from <code>--ui-divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,
@@ -313,7 +328,9 @@ const whatsNew = {
     },
     `The <a href="#basics">backdrop</a> dims and blurs like <code>Dialog</code>, through <code>--ui-backdrop-color</code> and <code>--ui-backdrop-blur</code>.`,
     `Breaking: <code>--_color</code> is <code>--_text-color</code>, and <code>--_transition-duration</code> and <code>--_transition-timing</code> are <code>--_duration</code> and <code>--_ease</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    `The drawer shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus, select pickers and toasts. Padding reads the <code>--space-*</code> scale.`,
+    `The drawer shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus, select pickers and toasts. Padding reads the <code>--ui-space-*</code> scale.`,
+    `Content padding is <code>--ui-space-3</code>, like the header and footer (<a href="#basics">Basics</a>).`,
+    `The scroll shadow reads <a href="#api"><code>--ui-shadow-scroll</code></a>.`,
   ],
   form: [
     {
@@ -416,6 +433,7 @@ const whatsNew = {
       html: `Takes <code>.ui-x-small</code>. <a href="#sizes">Sizes</a>`,
     },
     {
+      astro: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       html: `Breaking: <a href="#basics"><code>choice.css</code></a> holds the layout, label, end text, sizes and disabled styles shared with Checkbox and Switch.`,
       react: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
       svelte: `A radio without a <a href="#visible-label">label</a>, <code>aria-label</code> or <code>aria-labelledby</code> warns in development.`,
@@ -431,6 +449,9 @@ const whatsNew = {
       `Breaking: deep type imports from <code>components/Radio/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>RadioProps</code> and <code>RadioSlots</code>). Import <a href="#api"><code>RadioProps</code></a> from the framework entry instead.`,
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
+    slots(
+      `Breaking: <code>style</code> goes to the root <code>&lt;label&gt;</code>, like <code>class</code>, so <code>--_</code> properties set through it apply (<a href="#api">API</a>).`,
+    ),
   ],
   range: [
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
@@ -477,6 +498,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   select: [
+    `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     `The chevron flips when the <a href="#variants">picker</a> opens.`,
     {
       default: `<a href="#sizes">x-small and large</a> sizes with the <code>size</code> prop.`,
@@ -487,7 +509,7 @@ const whatsNew = {
       default: `<a href="#preselected">Preselect</a> options with <code>value</code> or <code>selected</code> on an item.`,
       html: `<a href="#preselected">Preselect</a> options with <code>selected</code>.`,
     },
-    `The arrow is a chevron.`,
+    `The <a href="#variants">arrow</a> is a chevron.`,
     slots(
       `Breaking: no generated input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
     ),
@@ -550,11 +572,17 @@ const whatsNew = {
     slots(
       `Breaking: deep type imports from <code>components/Switch/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>SwitchProps</code> and <code>SwitchSlots</code>). Import <a href="#api"><code>SwitchProps</code></a> from the framework entry instead.`,
     ),
+    slots(
+      `Breaking: <code>style</code> goes to the root <code>&lt;label&gt;</code>, like <code>class</code>, so <code>--_</code> properties set through it apply (<a href="#api">API</a>).`,
+    ),
   ],
   table: [
     {
       astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>TableHead</code></a>. The <code>Table.Head</code> aliases are gone.`,
     },
+    slots(
+      `Breaking: the part files are <code>TableBody.*</code>, <code>TableCell.*</code>, <code>TableColumn.*</code>, <code>TableColumnGroup.*</code>, <code>TableHead.*</code>, <code>TableHeaderCell.*</code> and <code>TableRow.*</code>. Update deep <code>opui-css/components/*</code> imports (<a href="#api">API</a>).`,
+    ),
     `A checkbox alone in a cell is centered (<a href="#default">Default</a>).`,
     {
       default: `<a href="#variants">Dense</a> tables have less block padding.`,
@@ -579,6 +607,7 @@ const whatsNew = {
       `Breaking: deep type imports from <code>components/Table/types</code> have one type per part, such as <a href="#api"><code>TableCellProps</code></a>, instead of <code>SectionProps</code>, and <code>TableColumnProps</code> instead of <code>ColumnProps</code>.`,
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
+    `The <a href="#sticky-header">sticky header</a> shadow reads <code>--ui-shadow-scroll</code>.`,
   ],
   tabs: [
     {
@@ -601,8 +630,10 @@ const whatsNew = {
     },
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `The selected tab's shadow reads <a href="#api"><code>--ui-shadow-tab</code></a>, so themes can change or remove it.`,
+    `Labels read <a href="#api"><code>--ui-font-size-control</code></a> for their font size, like buttons.`,
   ],
   "text-field": [
+    `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     {
       ...slots(
         `<a href="#sizes">x-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
@@ -638,6 +669,7 @@ const whatsNew = {
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
   ],
   textarea: [
+    `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     {
       ...slots(
         `<a href="#sizes">x-small and large</a> sizes. Breaking: <code>size="small"</code> replaces <code>small</code>.`,
@@ -675,7 +707,7 @@ const whatsNew = {
     `Breaking: the keyframes are <code>ui-toast-enter</code>, <code>ui-toast-hold</code> and <code>ui-toast-exit</code>, and <a href="#javascript"><code>toast.js</code></a> listens for <code>ui-toast-exit</code>.`,
     `Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See <a href="#how-it-works">How it works</a>.`,
     `Breaking: <code>--_anim-enter</code> and <code>--_anim-exit</code> are <code>--_enter-duration</code> and <code>--_exit-duration</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    `The toast shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, and padding and gaps read the <code>--space-*</code> scale.`,
+    `The toast shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
   ],
   toggle: [
     slots(
@@ -710,6 +742,7 @@ const whatsNew = {
     `A <a href="#toggle-button">toggle button</a> grows with its content from <code>--ui-button-size</code> instead of having a fixed height.`,
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
+    `The default size reads <a href="#sizes"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
   ],
   tooltip: [
     slots(
@@ -733,7 +766,7 @@ const whatsNew = {
     `<a href="#rich-text-showcase">Rich text</a> headings, <code>pre</code> and <code>small</code> scale with the surrounding font size, and so does <a href="#inline-text-elements"><code>.ui-small</code></a>.`,
     `Rich text <code>var</code> is monospace, like <a href="#inline-text-elements"><code>.ui-var</code></a>.`,
     `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
-    `Headings read <a href="#api"><code>--ui-font-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--ui-font-code</code>. Rich text margins read the <code>--space-*</code> scale.`,
+    `Headings read <a href="#api"><code>--ui-font-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--ui-font-code</code>. Rich text margins read the <code>--ui-space-*</code> scale.`,
     `<a href="#link">Links</a> read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
 } satisfies Record<string, Note[]>

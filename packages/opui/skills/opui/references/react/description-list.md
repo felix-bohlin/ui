@@ -56,7 +56,7 @@ export default function Basics() {
 
 Set `bordered` on `DescriptionList` to add a separator between the term and description on all items. Use `bordered="dotted"` for a dotted style.
 
-Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border.
+Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border, unless they're inline (`inline`).
 
 ```tsx
 import {

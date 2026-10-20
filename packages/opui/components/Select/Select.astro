@@ -34,7 +34,15 @@ const startTextId =
   startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
 const endTextId =
   endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
-const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
+const headerId = Astro.slots.has("header") ? $id("header") : undefined
+const footerId = Astro.slots.has("footer") ? $id("footer") : undefined
+const describedBy = idRefs(
+  headerId,
+  startTextId,
+  endTextId,
+  footerId,
+  ariaDescribedBy,
+)
 const isSelected = (item: SelectItem) =>
   value === undefined
     ? item.selected
@@ -46,11 +54,11 @@ const isSelected = (item: SelectItem) =>
 <label
   class:list={[
     "ui-select",
-    size && `ui-${size}`,
     {
       "ui-filled": variant === "filled",
       "ui-spread": spread,
     },
+    size && `ui-${size}`,
     className,
   ]}
   style={style}
@@ -112,14 +120,14 @@ const isSelected = (item: SelectItem) =>
     }
     {
       Astro.slots.has("header") && (
-        <span class="ui-header">
+        <span class="ui-header" id={headerId}>
           <slot name="header" />
         </span>
       )
     }
     {
       Astro.slots.has("footer") && (
-        <span class="ui-footer">
+        <span class="ui-footer" id={footerId}>
           <slot name="footer" />
         </span>
       )

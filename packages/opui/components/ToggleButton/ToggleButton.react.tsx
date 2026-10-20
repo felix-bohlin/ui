@@ -8,7 +8,6 @@ import type { Props } from "./types.react"
 
 export default function ToggleButton({
   className,
-  disabled,
   label,
   name,
   onChange,
@@ -36,7 +35,6 @@ export default function ToggleButton({
       <input
         checked={checked}
         defaultChecked={checked === undefined ? pressed : undefined}
-        disabled={disabled}
         name={finalName}
         type={finalType}
         value={value || label}

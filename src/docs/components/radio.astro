@@ -28,7 +28,6 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
 <Component
   slug="radio"
   browserSupport={[
-    "dir-pseudo",
     "has",
     "lh",
     "light-dark",
@@ -152,23 +151,25 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
     <Conditional as="p">
       <Fragment slot="components"
         >Use the <code>endText</code> prop for supporting text under a single radio's
-        label, or the <code>end-text</code> slot for rich content. The component points
-        <code>aria-describedby</code> at it.</Fragment
+        label, or the <code>end-text</code> slot for rich content. It sits inside
+        the
+        <code>&lt;label&gt;</code>, so screen readers read it with the label.</Fragment
       >
       <Fragment slot="html"
         >Add a <code>.ui-end-text</code> element after the label for supporting text
-        under a single radio, and point the input's <code>aria-describedby</code
-        > at its <code>id</code>.</Fragment
+        under a single radio. It sits inside the <code>&lt;label&gt;</code>, so
+        screen readers read it with the label.</Fragment
       >
       <Fragment slot="react"
         >Use the <code>endText</code> prop for supporting text under a single radio's
-        label. The component points <code>aria-describedby</code> at it.</Fragment
+        label. It sits inside the <code>&lt;label&gt;</code>, so screen readers
+        read it with the label.</Fragment
       >
       <Fragment slot="svelte"
         >Use the <code>endText</code> prop for supporting text under a single radio's
-        label, or an <code>endText</code> snippet for rich content. The component
-        points
-        <code>aria-describedby</code> at it.</Fragment
+        label, or an <code>endText</code> snippet for rich content. It sits inside
+        the <code>&lt;label&gt;</code>, so screen readers read it with the
+        label.</Fragment
       >
     </Conditional>
     <AutoExample name="EndText" row spacious />

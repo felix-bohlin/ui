@@ -3,7 +3,14 @@
   import { setDialogContext } from "./context.svelte"
   import type { Props } from "./types.svelte"
 
-  let { children, class: className, closedby, ...rest }: Props = $props()
+  let {
+    class: className,
+    closedby,
+
+    // Snippets
+    children,
+    ...rest
+  }: Props = $props()
 
   const uid = $props.id()
   const headerId = `dialog-header-${uid}`

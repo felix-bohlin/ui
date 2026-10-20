@@ -12,3 +12,10 @@
     { value: 100, label: "100%" },
   ]}
 />
+<Range label="Quality" max="2">
+  {#snippet datalist()}
+    <option value="0" label="Low"></option>
+    <option value="1" label="Medium"></option>
+    <option value="2" label="High"></option>
+  {/snippet}
+</Range>

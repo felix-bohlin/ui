@@ -311,6 +311,12 @@ for (const slug of exampleFolders) {
   const names = [
     ...new Set(files.map((file) => file.replace(EXAMPLE_FILE, ""))),
   ].toSorted()
+  for (const file of files) {
+    const source = await readFile(join(dir, file), "utf8")
+    for (const [, from] of source.matchAll(/from\s+["'](@opui\/[^"']*)["']/g)) {
+      report(join(dir, file), `imports ${from}, use opui-css/<framework>`)
+    }
+  }
   for (const name of names) {
     if (FRAMEWORK_AGNOSTIC_EXAMPLES.includes(`${slug}/${name}`)) continue
     const code = name.endsWith("Code")

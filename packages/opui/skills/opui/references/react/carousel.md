@@ -146,7 +146,7 @@ export default function Stretch() {
 
 ## Peek
 
-Use `peek` to show part of the neighbouring items, and `align="center"` to snap items to the center.
+Use `peek` to show part of the neighboring items, and `align="center"` to snap items to the center.
 
 ```tsx
 import { Card, CardHeader, Carousel } from "opui-css/react"
@@ -559,7 +559,7 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 | `children`          | `ReactNode`                   | -              | An item.                                                                                                              |
 | `markers`           | `boolean`                     | `false`        | One marker per item, after the list.                                                                                  |
 | `orientation`       | `"horizontal"` , `"vertical"` | `"horizontal"` | The orientation of the element. Vertical carousels need a block size, set with `--_block-size`.                       |
-| `peek`              | `boolean`                     | `false`        | Shows part of the neighbouring items.                                                                                 |
+| `peek`              | `boolean`                     | `false`        | Shows part of the neighboring items.                                                                                  |
 | `persistentButtons` | `boolean`                     | `false`        | Keeps the buttons visible at the ends. A disabled button has a muted border.                                          |
 | `perView`           | `number`                      | `1`            | Number of visible items.                                                                                              |
 | `stretch`           | `boolean`                     | `false`        | Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it. |

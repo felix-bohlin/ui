@@ -35,4 +35,11 @@ import { Select } from "opui-css/vue"
     <option>Norway</option>
     <option>Sweden</option>
   </Select>
+
+  <Select label="Delivery time">
+    <template #suffix>days</template>
+    <option>1</option>
+    <option>3</option>
+    <option>5</option>
+  </Select>
 </template>

@@ -6,7 +6,7 @@
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease-enter);
     --_max-inline-size: 60ch;
-    --_scroll-shadow: var(--shadow-4);
+    --_scroll-shadow: var(--ui-shadow-scroll);
     inline-size: 100%;
     inset: 0;
     margin: auto;
@@ -91,10 +91,7 @@
     &[open] {
       opacity: 1;
       pointer-events: all;
-      transition:
-        display var(--_duration) allow-discrete,
-        overlay var(--_duration) allow-discrete,
-        opacity var(--_duration) var(--_ease);
+      transition: opacity var(--_duration) var(--_ease);
 
       @starting-style {
         opacity: 0;

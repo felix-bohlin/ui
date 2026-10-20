@@ -8,7 +8,7 @@ Four classes for the space between components: `.ui-l-column`, `.ui-l-row`, `.ui
 
 ```astro
 ---
-import { Card, CardContent } from "@opui/astro"
+import { Card, CardContent } from "opui-css/astro"
 ---
 
 <div class="ui-l-column">
@@ -30,7 +30,7 @@ import { Card, CardContent } from "@opui/astro"
 
 ```astro
 ---
-import { Button } from "@opui/astro"
+import { Button } from "opui-css/astro"
 ---
 
 <div class="ui-l-row">
@@ -47,7 +47,7 @@ import { Button } from "@opui/astro"
 
 ```astro
 ---
-import { Card, CardContent } from "@opui/astro"
+import { Card, CardContent } from "opui-css/astro"
 ---
 
 <div class="ui-l-grid" style="--_min-inline-size: 10rem">
@@ -78,7 +78,7 @@ The size classes set the gap of `.ui-l-column`, `.ui-l-row` and `.ui-l-grid`: `.
 
 ```astro
 ---
-import { Button } from "@opui/astro"
+import { Button } from "opui-css/astro"
 ---
 
 <div class="ui-l-column">
@@ -111,7 +111,7 @@ import { Button } from "@opui/astro"
 
 ```astro
 ---
-import { Button, Card, CardContent } from "@opui/astro"
+import { Button, Card, CardContent } from "opui-css/astro"
 ---
 
 <div class="ui-l-container" style="--_max-inline-size: 40rem">
@@ -141,13 +141,13 @@ import { Button, Card, CardContent } from "@opui/astro"
 
 ## API
 
-| Type      | Modifiers                                        | Default   | Description                                                                 |
-| --------- | ------------------------------------------------ | --------- | --------------------------------------------------------------------------- |
-| Column    | `.ui-l-column`                                   | -         | A column with even space between its children.                              |
-| Container | `.ui-l-container`                                | -         | Centers its content and caps its width.                                     |
-| Grid      | `.ui-l-grid`                                     | -         | Columns that fill the width and wrap.                                       |
-| Row       | `.ui-l-row`                                      | -         | A wrapping row with its children centered on one line.                      |
-| Sizes     | default, `.ui-large`, `.ui-small`, `.ui-x-small` | `default` | The space between children of `.ui-l-column`, `.ui-l-row` and `.ui-l-grid`. |
+| Type      | Modifiers                                        | Default | Description                                                                 |
+| --------- | ------------------------------------------------ | ------- | --------------------------------------------------------------------------- |
+| Column    | `.ui-l-column`                                   | -       | A column with even space between its children.                              |
+| Container | `.ui-l-container`                                | -       | Centers its content and caps its width.                                     |
+| Grid      | `.ui-l-grid`                                     | -       | Columns that fill the width and wrap.                                       |
+| Row       | `.ui-l-row`                                      | -       | A wrapping row with its children centered on one line.                      |
+| Sizes     | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The space between children of `.ui-l-column`, `.ui-l-row` and `.ui-l-grid`. |
 
 ### Parts
 
@@ -167,7 +167,7 @@ import { Button, Card, CardContent } from "@opui/astro"
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Add the classes to elements in your templates. There is no Astro component. There is no Astro component.
+Add the classes to elements in your templates. There is no Astro component.
 
 ## Component properties
 

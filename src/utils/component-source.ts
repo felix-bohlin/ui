@@ -66,15 +66,17 @@ export const splitUnion = (text: string) => {
   const parts: string[] = []
   let depth = 0
   let current = ""
+  let previous = ""
   for (const char of text) {
     if ("(<[{".includes(char)) depth++
-    if (")>]}".includes(char)) depth--
+    if (")]}".includes(char) || (char === ">" && previous !== "=")) depth--
     if (char === "|" && depth === 0) {
       parts.push(current.trim())
       current = ""
     } else {
       current += char
     }
+    previous = char
   }
   parts.push(current.trim())
   return parts

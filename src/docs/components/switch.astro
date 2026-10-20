@@ -205,7 +205,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 
   <section>
     <h2 id="validation">Validation</h2>
-    <ValidationNotes element="input" subject="Switches" />
+    <ValidationNotes element="input" named subject="Switches" />
 
     <AutoExample name="Validation" column centered spacious />
   </section>
@@ -232,6 +232,18 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   <section>
     <h2 id="label-alignment">Label alignment</h2>
     <LabelAlignment control="switch" />
+  </section>
+
+  <section>
+    <h2 id="switch-input">Switch input</h2>
+    <p>
+      Use <PropOrClass
+        prop="SwitchInput"
+        class='<input type="checkbox" role="switch">'
+      /> without the label for a custom layout, such as the end of a list item. See
+      {" "}<DocLink href="/components/list#switch" class="ui-link">List</DocLink
+      >.
+    </p>
   </section>
 
   <section>

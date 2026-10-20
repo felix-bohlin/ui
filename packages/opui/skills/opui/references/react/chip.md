@@ -75,8 +75,8 @@ export default function Sizes() {
       <Chip size="large" label="Large" />
       <Chip
         multiline
-        style={{ maxWidth: "30ch" }}
-        label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales."
+        style={{ maxInlineSize: "30ch" }}
+        label="Free returns within 30 days on every order"
       />
     </>
   )
@@ -198,6 +198,8 @@ export default function Dot() {
 
 ## Button
 
+Use `as="button"` for a chip that runs an action.
+
 ```tsx
 import { Chip } from "opui-css/react"
 
@@ -257,15 +259,16 @@ export default function Button() {
 
 ## Link
 
+Use `href` for a chip that goes to another page.
+
 ```tsx
 import { Chip } from "opui-css/react"
 
 export default function Link() {
   return (
     <>
-      <Chip as="a" href="#" variant="tonal" label="Tonal link" />
+      <Chip href="#" variant="tonal" label="Tonal link" />
       <Chip
-        as="a"
         href="#"
         variant="outlined"
         end={
@@ -302,6 +305,8 @@ export default function Disabled() {
     <>
       <Chip as="button" variant="tonal" label="Tonal" disabled />
       <Chip as="button" variant="outlined" label="Outlined" disabled />
+      <Chip disabled href="#" label="Tonal link" />
+      <Chip className="ui-disabled" label="Archived" />
     </>
   )
 }
@@ -500,5 +505,5 @@ Import the component from `opui-css/react`:
 - [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
 - Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
 - [`disabled`](#disabled) works on button and link chips. A link chip gets `aria-disabled="true"`.
-- Breaking: a button chip needs `as="button"`, and a link chip needs `href` (types).
+- Breaking: a button chip needs `as="button"`, and a link chip needs `href` ([types](#api)).
 - Breaking: [disabled link chips](#disabled) have no `href`, so they can't be focused or followed.

@@ -11,6 +11,34 @@ export default {
         prop: "valueSuffix",
       },
     ],
+    react: [
+      {
+        description:
+          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
+        fallback: "Update the `<output>` text on `input` yourself.",
+        prop: "valueSuffix",
+      },
+      {
+        description:
+          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
+        fallback: "Update the `<output>` text on `input` yourself.",
+        prop: "valueText",
+      },
+    ],
+    svelte: [
+      {
+        description:
+          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
+        fallback: "Update the `<output>` text on `input` yourself.",
+        prop: "valueSuffix",
+      },
+      {
+        description:
+          "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
+        fallback: "Update the `<output>` text on `input` yourself.",
+        prop: "valueText",
+      },
+    ],
   },
   model: {
     description: "The current value.",
@@ -19,7 +47,7 @@ export default {
   },
   notes: {
     astro:
-      "Input attributes go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`, and `class` and `style` go to the root `<label>`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`, and `class` and `style` go to the root `<label>`.",
     html: "Add a `<datalist>` after the input for tick marks.",
     react:
       "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `style` goes to the root `<label>`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
@@ -57,8 +85,8 @@ export default {
       class: ".ui-spread",
       default: "false",
       description:
-        "Pushes the label and description to one side and the input to the other.",
-      group: "Layout",
+        "Pushes the label and start text to one side and the input to the other.",
+      group: "Spread",
       prop: "spread",
     },
     {
@@ -73,7 +101,7 @@ export default {
     },
     {
       description:
-        "The track surface. Without one, the track uses the field border color.",
+        "The variant to use. Without one, the track uses the field border color.",
       group: "Variants",
       prop: "variant",
       values: {
@@ -110,6 +138,13 @@ export default {
       selector: 'input[type="range"]',
     },
     {
+      code: "<datalist>",
+      description: "Tick marks and their labels, under the input.",
+      props: ["list", "options"],
+      selector: "datalist",
+      slots: ["datalist"],
+    },
+    {
       description: "Supporting text displayed below the input.",
       props: ["endText"],
       selector: ".ui-end-text",
@@ -120,11 +155,5 @@ export default {
     description: "Container element.",
     selector: "label.ui-range",
   },
-  slots: [
-    {
-      description: "Extra `<option>` elements for the `<datalist>`.",
-      name: "datalist",
-    },
-  ],
   source: "Range",
 } satisfies ComponentApi

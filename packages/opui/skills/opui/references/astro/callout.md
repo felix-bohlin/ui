@@ -139,7 +139,7 @@ import { Callout, CalloutContent } from "opui-css/astro"
 ## Accessibility
 
 - The Callout is an `<article>`, so screen readers announce it as self-contained content.
-- Use both color and icon to help distinguish between Callout [severities](#severities).
+- Use both color and icon to help distinguish between Callout [severities](#severities). The icon is hidden from screen readers, so say the severity in the text, for example with a title like Warning.
 - Don't interrupt the user with a Callout. In that case, use [Dialog](https://open-props-ui.netlify.app/astro/components/dialog.md).
 
 ## API
@@ -159,22 +159,23 @@ import { Callout, CalloutContent } from "opui-css/astro"
 
 #### CSS variables
 
-| Variable                    | Default                                            | Description                                                                                                                                                                                                                      |
-| --------------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-color`         | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                                                      |
-| `--ui-border-radius`        | `var(--size-2)`                                    | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--ui-border-width`         | `1px`                                              | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--ui-font-size-05`         | `0.875rem`                                         | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--ui-font-weight-semibold` | `var(--font-weight-6)`                             | Font weight for labels, table headers and titles.                                                                                                                                                                                |
-| `--ui-icon-size`            | `var(--size-4)`                                    | Default icon size inside components.                                                                                                                                                                                             |
-| `--ui-primary`              | `light-dark(var(--ui-color-9), var(--ui-color-6))` | Brand color for primary actions and accents.                                                                                                                                                                                     |
-| `--ui-shadow-surface`       | `none`                                             | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                   |
-| `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`      | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`      | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-surface-border-color` | Unset                                              | Border color of tonal and elevated `Card` and of `Callout` without a severity. When unset, cards use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.                     |
-| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`  | Page and card background.                                                                                                                                                                                                        |
-| `--ui-surface-tonal`        | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`  | Background of tonal variants.                                                                                                                                                                                                    |
-| `--ui-text-primary`         | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                                           |
+| Variable                    | Default                                            | Description                                                                                                                                                                                                                                                        |
+| --------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--ui-border-color`         | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                                        |
+| `--ui-border-radius`        | `var(--size-2)`                                    | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                   |
+| `--ui-border-width`         | `1px`                                              | Default border width for components that draw a border.                                                                                                                                                                                                            |
+| `--ui-font-size-05`         | `0.875rem`                                         | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                                                              |
+| `--ui-font-weight-semibold` | `var(--font-weight-6)`                             | Font weight for labels, table headers and titles.                                                                                                                                                                                                                  |
+| `--ui-icon-size`            | `var(--size-4)`                                    | Default icon size inside components.                                                                                                                                                                                                                               |
+| `--ui-primary`              | `light-dark(var(--ui-color-9), var(--ui-color-6))` | Brand color for primary actions and accents.                                                                                                                                                                                                                       |
+| `--ui-primary-text`         | Unset                                              | Primary as a text color: links, and `Button` with `.ui-primary` and no variant or `.ui-outlined`. When unset, each derives a readable shade from `--ui-primary`. Set it when the primary is too light or too dark for text.                                        |
+| `--ui-shadow-surface`       | `none`                                             | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                                                     |
+| `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`      | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                    |
+| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`      | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                    |
+| `--ui-surface-border-color` | Unset                                              | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards use the page background color, so they stay visible on tonal surfaces, accordions have a transparent border, and callouts their tonal background. |
+| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`  | Page and card background.                                                                                                                                                                                                                                          |
+| `--ui-surface-tonal`        | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`  | Background of tonal variants.                                                                                                                                                                                                                                      |
+| `--ui-text-primary`         | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`  | Emphasized text color for headings, labels and values.                                                                                                                                                                                                             |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
@@ -194,7 +195,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_gap`                   | Input  | Gap between a direct child `svg` and `.ui-content`.                                                                                                      |
 | `--_icon-color`            | Output | The current color of a direct child `svg`. Set by the color classes and `.ui-outlined`.                                                                  |
 | `--_icon-size`             | Input  | Width of the icon column when there's a direct child `svg`.                                                                                              |
-| `--_link-hover-color`      | Input  | Link color on hover and focus. Defaults to `--ui-primary`, not used in `.ui-outlined`.                                                                   |
+| `--_link-hover-color`      | Input  | Link color on hover and focus. Defaults to `--ui-primary-text`, or a readable shade of `--ui-primary`, not used in `.ui-outlined`.                       |
 | `--_outlined-bg-color`     | Input  | Background of `.ui-outlined`. Defaults to `--ui-surface-default`.                                                                                        |
 | `--_outlined-border-color` | Input  | Border color of `.ui-outlined`. Set by the color classes.                                                                                                |
 | `--_outlined-icon-color`   | Input  | Icon color of `.ui-outlined`. Set by the color classes.                                                                                                  |
@@ -318,16 +319,16 @@ Step 4 of 4: Severity
 
 .callout:is(.info, .warning) {
   --bg: light-dark(
-    oklch(from var(--tone) 97% 0.06 h / 20%),
-    oklch(from var(--tone) 71% 0.19 h / 5%)
+    oklch(from var(--tone) 97% 0.06 calc(h + 1) / 20%),
+    oklch(from var(--tone) 71% 0.19 calc(h + 5) / 5%)
   );
   --border: light-dark(
-    oklch(from var(--tone) 80% 0.16 h),
-    oklch(from var(--tone) 42% 0.17 h)
+    oklch(from var(--tone) 80% 0.16 calc(h + 4)),
+    oklch(from var(--tone) 42% 0.17 calc(h + 10))
   );
-  --icon: oklch(from var(--tone) 53% 0.2 h);
+  --icon: oklch(from var(--tone) 53% 0.2 calc(h + 8));
   color: light-dark(
-    oklch(from var(--tone) 10% 0.05 h),
+    oklch(from var(--tone) 10% 0.05 calc(h + 15)),
     oklch(from var(--tone) 98% 0.03 h)
   );
 }
@@ -340,7 +341,7 @@ Step 4 of 4: Severity
 ## Browser support
 
 - Chromium: Full support Supported since v143.
-- Firefox: Full support Supported since v146.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v26.2.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Callout.md).

@@ -13,7 +13,7 @@ export default {
     {
       class: ".ui-dense",
       default: "false",
-      description: "Packs the list tighter.",
+      description: "Packs the items tighter.",
       group: "Dense",
       prop: "dense",
     },
@@ -26,7 +26,7 @@ export default {
     },
     {
       description:
-        "The background color variant. Without one, the list uses the filled surface.",
+        "The variant to use. Without one, the list uses the filled surface.",
       group: "Variants",
       prop: "variant",
       values: {

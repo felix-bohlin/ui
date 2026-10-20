@@ -16,8 +16,8 @@ import {
 } from "opui-css/react"
 
 const roleItems = [
-  { text: "Developer", value: "dev" },
   { text: "Designer", value: "design" },
+  { text: "Developer", value: "dev" },
   { text: "Manager", value: "manager" },
 ]
 
@@ -30,8 +30,14 @@ export default function KitchenSink() {
           Please provide your basic contact details.
         </FieldDescription>
         <FieldGroup>
-          <TextField label="Full Name" placeholder="Jane Doe" required />
           <TextField
+            autoComplete="name"
+            label="Full Name"
+            placeholder="Jane Doe"
+            required
+          />
+          <TextField
+            autoComplete="email"
             label="Email Address"
             type="email"
             placeholder="jane@example.com"

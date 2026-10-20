@@ -3,8 +3,10 @@
 
   let {
     as: Tag = "legend",
-    children,
     class: className,
+
+    // Snippets
+    children,
     ...rest
   }: Props = $props()
 </script>

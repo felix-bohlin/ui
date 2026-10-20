@@ -87,7 +87,7 @@ Use the `startText` prop for text between the label and the input.
 ```tsx
 import { TextField } from "opui-css/react"
 
-export default function Description() {
+export default function StartText() {
   return <TextField startText="As it appears on your ID" label="Name" />
 }
 ```
@@ -153,9 +153,9 @@ export default function Headers() {
   return (
     <>
       <TextField
-        label="Username"
-        placeholder="Enter your name"
-        header="Full Name"
+        label="Name"
+        placeholder="Ada Lovelace"
+        header="Shown on your profile"
       />
 
       <TextField
@@ -342,7 +342,7 @@ export default function InputTypes() {
   return (
     <>
       <div className="example-column">
-        <TextField label="Color" placeholder="Color" type="color" />
+        <TextField label="Color" type="color" />
         <TextField label="Email" placeholder="name@email.com" type="email" />
         <TextField label="Password" placeholder="Password" type="password" />
         <TextField label="Search" placeholder="Search" type="search" />
@@ -352,15 +352,11 @@ export default function InputTypes() {
       </div>
 
       <div className="example-column">
-        <TextField label="Date" placeholder="Date" type="date" />
-        <TextField
-          label="Datetime local"
-          placeholder="Datetime local"
-          type="datetime-local"
-        />
-        <TextField label="Month" placeholder="Month" type="month" />
-        <TextField label="Time" placeholder="Time" type="time" />
-        <TextField label="Week" placeholder="Week" type="week" />
+        <TextField label="Date" type="date" />
+        <TextField label="Datetime local" type="datetime-local" />
+        <TextField label="Month" type="month" />
+        <TextField label="Time" type="time" />
+        <TextField label="Week" type="week" />
       </div>
     </>
   )
@@ -409,13 +405,8 @@ import { TextField } from "opui-css/react"
 export default function File() {
   return (
     <>
-      <TextField type="file" placeholder="File" label="Label" />
-      <TextField
-        type="file"
-        placeholder="File"
-        label="Label"
-        variant="filled"
-      />
+      <TextField type="file" label="Label" />
+      <TextField type="file" label="Label" variant="filled" />
     </>
   )
 }
@@ -440,9 +431,9 @@ export default function Autosuggest() {
         placeholder="Placeholder"
       >
         <datalist id="text-field-autosuggest-1-list">
-          <option value="Ray Manzarek"></option>
           <option value="Jonny Greenwood"></option>
           <option value="Marika Hackman"></option>
+          <option value="Ray Manzarek"></option>
         </datalist>
       </TextField>
 
@@ -454,9 +445,9 @@ export default function Autosuggest() {
         type="email"
       >
         <datalist id="text-field-autosuggest-2-list">
-          <option value="ray.manzarek@the.doors"></option>
           <option value="jonny.greenwood@radio.head"></option>
           <option value="marika@hack.man"></option>
+          <option value="ray.manzarek@the.doors"></option>
         </datalist>
       </TextField>
     </>
@@ -536,7 +527,7 @@ export default function NoLabel() {
 | `--ui-focus-ring-width`         | `2px`                                                                                         | Width of the focus ring.                                                                                                                                                                                                         |
 | `--ui-font-body`                | `var(--font-sans)`                                                                            | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                                             |
 | `--ui-font-size-05`             | `0.875rem`                                                                                    | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--ui-font-size-control`        | `var(--font-size-1)`                                                                          | Font size of the default `Button`, `TextField`, `Textarea` and `Select`. The size classes set their own.                                                                                                                         |
+| `--ui-font-size-control`        | `var(--font-size-1)`                                                                          | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                 |
 | `--ui-icon-size`                | `var(--size-4)`                                                                               | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-invalid-color`            | `var(--ui-critical)`                                                                          | Color for invalid field borders, fills and outlines.                                                                                                                                                                             |
 | `--ui-invalid-text-color`       | `light-dark( var(--ui-invalid-color), oklch(from var(--ui-invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--ui-invalid-color` in dark mode so the text stays readable.                                                                                                     |
@@ -551,7 +542,7 @@ export default function NoLabel() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
+Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.
 
 ## Component properties
 
@@ -559,7 +550,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property                     | Kind   | Description                                                                                                                              |
 | ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`                  | Output | Border color of the focused `.ui-field`. From `--ui-primary`, set by the invalid state.                                                  |
+| `--_accent`                  | Input  | Border color of the focused `.ui-field`. Defaults to `--ui-primary`, `--ui-invalid-color` when invalid.                                  |
 | `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state. |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                        |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                |
@@ -756,6 +747,7 @@ Import the component from `opui-css/react`:
 
 ### What's new
 
+- The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.
 - [x-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
 - The [auto-suggest](#autosuggest) arrow is the Select chevron at every size.

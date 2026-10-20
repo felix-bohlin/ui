@@ -1,6 +1,6 @@
 import { existsSync, readdirSync } from "node:fs"
 import type AxeBuilder from "@axe-core/playwright"
-import { expect, type Locator, type Page } from "@playwright/test"
+import { expect, type Locator, type Page, type Request } from "@playwright/test"
 import {
   exampleExtension,
   FRAMEWORK_IDS,
@@ -72,6 +72,10 @@ export const openFixture = async (
   component: string,
   search = "",
 ) => {
+  const inflight = new Set<Request>()
+  page.on("request", (request) => inflight.add(request))
+  page.on("requestfailed", (request) => inflight.delete(request))
+  page.on("requestfinished", (request) => inflight.delete(request))
   await page.route(
     (url) => url.hostname !== "localhost",
     (route) =>
@@ -115,7 +119,9 @@ export const openFixture = async (
       }),
     ),
   )
-  await page.waitForLoadState("networkidle")
+  for (let quiet = 0; quiet < 5; quiet = inflight.size ? 0 : quiet + 1) {
+    await page.waitForTimeout(100)
+  }
 }
 
 export const computed = (locator: Locator, property: string, pseudo?: string) =>

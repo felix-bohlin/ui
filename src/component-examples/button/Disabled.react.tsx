@@ -79,16 +79,16 @@ export default function Disabled() {
       </div>
       <div className="example-row">
         <Button disabled href="#">
-          Text
+          Text link
         </Button>
         <Button variant="outlined" disabled href="#">
-          Outlined
+          Outlined link
         </Button>
         <Button variant="tonal" disabled href="#">
-          Tonal
+          Tonal link
         </Button>
         <Button variant="filled" disabled href="#">
-          Filled
+          Filled link
         </Button>
       </div>
     </>

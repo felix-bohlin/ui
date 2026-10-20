@@ -8,6 +8,7 @@ export default function Gutterless() {
         end={
           <Button aria-label="Delete" iconOnly round size="small">
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="32"
               height="32"
@@ -26,6 +27,7 @@ export default function Gutterless() {
         description="Supporting text"
         start={
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"

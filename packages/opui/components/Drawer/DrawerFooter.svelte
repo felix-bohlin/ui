@@ -1,7 +1,13 @@
 <script lang="ts">
   import type { DrawerFooterProps as Props } from "./types.svelte"
 
-  let { children, class: className, ...rest }: Props = $props()
+  let {
+    class: className,
+
+    // Snippets
+    children,
+    ...rest
+  }: Props = $props()
 </script>
 
 <div class={["ui-footer", className]} {...rest}>

@@ -3,4 +3,4 @@
 </script>
 
 <Button disabled>Text</Button>
-<Button disabled href="#">Link</Button>
+<Button disabled href="#">Text link</Button>

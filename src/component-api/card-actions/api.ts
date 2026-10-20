@@ -4,6 +4,7 @@ export default {
   component: "CardActions",
   options: [
     {
+      default: '"start"',
       description: "Alignment for the actions.",
       group: "Alignment",
       prop: "align",

@@ -9,9 +9,9 @@ export default function Autosuggest() {
         placeholder="Placeholder"
       >
         <datalist id="text-field-autosuggest-1-list">
-          <option value="Ray Manzarek"></option>
           <option value="Jonny Greenwood"></option>
           <option value="Marika Hackman"></option>
+          <option value="Ray Manzarek"></option>
         </datalist>
       </TextField>
 
@@ -23,9 +23,9 @@ export default function Autosuggest() {
         type="email"
       >
         <datalist id="text-field-autosuggest-2-list">
-          <option value="ray.manzarek@the.doors"></option>
           <option value="jonny.greenwood@radio.head"></option>
           <option value="marika@hack.man"></option>
+          <option value="ray.manzarek@the.doors"></option>
         </datalist>
       </TextField>
     </>

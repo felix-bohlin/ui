@@ -71,8 +71,8 @@ import { Chip } from "opui-css/vue"
   <Chip size="large" label="Large" />
   <Chip
     multiline
-    style="max-width: 30ch"
-    label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales."
+    style="max-inline-size: 30ch"
+    label="Free returns within 30 days on every order"
   />
 </template>
 ```
@@ -170,6 +170,8 @@ import { Chip } from "opui-css/vue"
 
 ## Button
 
+Use `as="button"` for a chip that runs an action.
+
 ```vue
 <script setup lang="ts">
 import { Chip } from "opui-css/vue"
@@ -219,14 +221,16 @@ import { Chip } from "opui-css/vue"
 
 ## Link
 
+Use `href` for a chip that goes to another page.
+
 ```vue
 <script setup lang="ts">
 import { Chip } from "opui-css/vue"
 </script>
 
 <template>
-  <Chip as="a" href="#" variant="tonal" label="Tonal link" />
-  <Chip as="a" href="#" variant="outlined">
+  <Chip href="#" variant="tonal" label="Tonal link" />
+  <Chip href="#" variant="outlined">
     <span class="ui-text">Outlined link</span>
     <template #end
       ><svg
@@ -257,6 +261,8 @@ import { Chip } from "opui-css/vue"
 <template>
   <Chip as="button" variant="tonal" label="Tonal" disabled />
   <Chip as="button" variant="outlined" label="Outlined" disabled />
+  <Chip disabled href="#" label="Tonal link" />
+  <Chip class="ui-disabled" label="Archived" />
 </template>
 ```
 
@@ -459,5 +465,5 @@ Import the component from `opui-css/vue`:
 - [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
 - Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
 - [`disabled`](#disabled) works on button and link chips. A link chip gets `aria-disabled="true"`.
-- Breaking: a button chip needs `as="button"`, and a link chip needs `href` (types).
+- Breaking: a button chip needs `as="button"`, and a link chip needs `href` ([types](#api)).
 - Breaking: [disabled link chips](#disabled) have no `href`, so they can't be focused or followed.

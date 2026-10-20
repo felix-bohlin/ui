@@ -1,5 +1,5 @@
 import { Progress } from "opui-css/react"
 
 export default function Indeterminate() {
-  return <Progress />
+  return <Progress aria-label="Loading" />
 }

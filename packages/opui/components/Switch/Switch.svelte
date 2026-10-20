@@ -2,7 +2,6 @@
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
   import { warnUnnamed } from "../dev"
-  import { idRefs } from "../id"
   import SwitchInput from "./SwitchInput.svelte"
   import type { Props } from "./types.svelte"
 
@@ -15,6 +14,7 @@
     size,
     spread,
     stack,
+    style,
 
     // Snippets
     children,
@@ -23,10 +23,6 @@
     iconUnchecked,
     ...rest
   }: Props = $props()
-
-  const id = $props.id()
-  const endTextId = $derived(endText ? `end-text-${id}` : undefined)
-  const describedBy = $derived(idRefs(endTextId, rest["aria-describedby"]))
 
   untrack(() =>
     warnUnnamed(
@@ -39,13 +35,14 @@
 <label
   class={[
     "ui-switch",
-    size && `ui-${size}`,
     {
-      "ui-stack": stack,
       "ui-spread": spread,
+      "ui-stack": stack,
     },
+    size && `ui-${size}`,
     className,
   ]}
+  {style}
 >
   {#if iconUnchecked}
     <span class="ui-icon-unchecked" aria-hidden="true">
@@ -59,7 +56,6 @@
   {/if}
   <SwitchInput
     {...rest}
-    aria-describedby={describedBy}
     aria-invalid={error ? "true" : rest["aria-invalid"]}
     bind:checked
     bind:group
@@ -70,7 +66,7 @@
     </span>
   {/if}
   {#if endText}
-    <span id={endTextId} class="ui-end-text">
+    <span class="ui-end-text">
       {@render content(endText)}
     </span>
   {/if}

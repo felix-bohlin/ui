@@ -3,11 +3,13 @@
   import type { Props } from "./types.svelte"
 
   let {
-    children,
     class: className,
     name,
     scrollable,
     variant,
+
+    // Snippets
+    children,
     ...rest
   }: Props = $props()
 

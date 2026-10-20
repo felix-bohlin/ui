@@ -6,7 +6,7 @@ export default {
     {
       default: '"start-end"',
       description: "Where the indicator is placed.",
-      group: "Alignment",
+      group: "Position",
       prop: "alignment",
       values: {
         "end-end": ".ui-end-end",

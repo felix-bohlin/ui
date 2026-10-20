@@ -16,6 +16,10 @@ Buttons do things, like saving a form or opening a dialog. For filters, tags and
 
   The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook.
 
+- `<kbd>`
+
+  An optional keyboard hint.
+
 ## Variants
 
 Change the button variant with the `.ui-outlined`, `.ui-tonal`, and `.ui-filled` classes.
@@ -47,17 +51,9 @@ A default (text) button link with `aria-current="page"` keeps the pressed backgr
 
 ## Colors
 
-Add a `.ui-primary` or `.ui-critical` class to apply a brand or destructive color. The default is a neutral gray.
+Add a `.ui-critical` or `.ui-primary` class to apply a destructive or brand color. The default is a neutral gray.
 
 ```html
-<div class="example-row">
-  <button type="button" class="ui-button ui-primary">Primary</button>
-  <button type="button" class="ui-button ui-primary ui-outlined">
-    Outlined
-  </button>
-  <button type="button" class="ui-button ui-primary ui-tonal">Tonal</button>
-  <button type="button" class="ui-button ui-primary ui-filled">Filled</button>
-</div>
 <div class="example-row">
   <button type="button" class="ui-button ui-critical">Critical</button>
   <button type="button" class="ui-button ui-critical ui-outlined">
@@ -66,6 +62,14 @@ Add a `.ui-primary` or `.ui-critical` class to apply a brand or destructive colo
   <button type="button" class="ui-button ui-critical ui-tonal">Tonal</button>
   <button type="button" class="ui-button ui-critical ui-filled">Filled</button>
 </div>
+<div class="example-row">
+  <button type="button" class="ui-button ui-primary">Primary</button>
+  <button type="button" class="ui-button ui-primary ui-outlined">
+    Outlined
+  </button>
+  <button type="button" class="ui-button ui-primary ui-tonal">Tonal</button>
+  <button type="button" class="ui-button ui-primary ui-filled">Filled</button>
+</div>
 ```
 
 ## Sizes
@@ -73,82 +77,32 @@ Add a `.ui-primary` or `.ui-critical` class to apply a brand or destructive colo
 Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
 
 ```html
-<div class="example-row">
-  <button type="button" class="ui-button ui-x-small">x-small</button>
-  <button type="button" class="ui-button ui-small">Small</button>
-  <button type="button" class="ui-button">Default</button>
-  <button type="button" class="ui-button ui-large">Large</button>
-</div>
+<button type="button" class="ui-button ui-x-small">x-small</button>
+<button type="button" class="ui-button ui-small">Small</button>
+<button type="button" class="ui-button">Default</button>
+<button type="button" class="ui-button ui-large">Large</button>
 
-<div class="example-row">
-  <button type="button" class="ui-button ui-filled ui-x-small">x-small</button>
-  <button type="button" class="ui-button ui-filled ui-small">Small</button>
-  <button type="button" class="ui-button ui-filled">Default</button>
-  <button type="button" class="ui-button ui-filled ui-large">Large</button>
-</div>
+<button type="button" class="ui-button ui-filled ui-x-small">x-small</button>
+<button type="button" class="ui-button ui-filled ui-small">Small</button>
+<button type="button" class="ui-button ui-filled">Default</button>
+<button type="button" class="ui-button ui-filled ui-large">Large</button>
 
-<div class="example-row">
-  <button type="button" class="ui-button ui-outlined ui-x-small">
-    <span class="ui-text">x-small</span>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-  <button type="button" class="ui-button ui-outlined ui-small">
-    <span class="ui-text">Small</span>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-  <button type="button" class="ui-button ui-outlined">
-    <span class="ui-text">Default</span>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-  <button type="button" class="ui-button ui-outlined ui-large">
-    <span class="ui-text">Large</span>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-</div>
+<button type="button" class="ui-button ui-outlined ui-x-small">
+  <span class="ui-text">x-small</span>
+  <svg aria-hidden="true"><!-- --></svg>
+</button>
+<button type="button" class="ui-button ui-outlined ui-small">
+  <span class="ui-text">Small</span>
+  <svg aria-hidden="true"><!-- --></svg>
+</button>
+<button type="button" class="ui-button ui-outlined">
+  <span class="ui-text">Default</span>
+  <svg aria-hidden="true"><!-- --></svg>
+</button>
+<button type="button" class="ui-button ui-outlined ui-large">
+  <span class="ui-text">Large</span>
+  <svg aria-hidden="true"><!-- --></svg>
+</button>
 ```
 
 ## Buttons with icon and label
@@ -156,135 +110,39 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
 Include an icon alongside text by nesting an SVG element within the button. Wrap the label in a `<span class="ui-text">`. The CSS looks for the wrapper element, the class is a hook for your own styles. The wrapper tightens the padding on the icon side, and a button whose only element is an `svg` is styled as icon-only, even with text next to it.
 
 ```html
-<div class="example-row">
-  <button type="button" class="ui-button">
-    <span class="ui-text">Text</span>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
+<button type="button" class="ui-button">
+  <span class="ui-text">Text</span>
+  <svg aria-hidden="true"><!-- --></svg>
+</button>
+<button type="button" class="ui-button ui-outlined">
+  <span class="ui-text">Outlined</span>
+  <svg aria-hidden="true"><!-- --></svg>
+</button>
+<button type="button" class="ui-button ui-tonal">
+  <span class="ui-text">Tonal</span>
+  <svg aria-hidden="true"><!-- --></svg>
+</button>
+<button type="button" class="ui-button ui-filled">
+  <span class="ui-text">Filled</span>
+  <svg aria-hidden="true"><!-- --></svg>
+</button>
 
-  <button type="button" class="ui-button ui-outlined">
-    <span class="ui-text">Outlined</span>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-
-  <button type="button" class="ui-button ui-tonal">
-    <span class="ui-text">Tonal</span>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-
-  <button type="button" class="ui-button ui-filled">
-    <span class="ui-text">Filled</span>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-</div>
-<div class="example-row">
-  <button type="button" class="ui-button">
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-    <span class="ui-text">Text</span>
-  </button>
-  <button type="button" class="ui-button ui-outlined">
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-    <span class="ui-text">Outlined</span>
-  </button>
-
-  <button type="button" class="ui-button ui-tonal">
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-    <span class="ui-text">Tonal</span>
-  </button>
-
-  <button type="button" class="ui-button ui-filled">
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-    <span class="ui-text">Filled</span>
-  </button>
-</div>
+<button type="button" class="ui-button">
+  <svg aria-hidden="true"><!-- --></svg>
+  <span class="ui-text">Text</span>
+</button>
+<button type="button" class="ui-button ui-outlined">
+  <svg aria-hidden="true"><!-- --></svg>
+  <span class="ui-text">Outlined</span>
+</button>
+<button type="button" class="ui-button ui-tonal">
+  <svg aria-hidden="true"><!-- --></svg>
+  <span class="ui-text">Tonal</span>
+</button>
+<button type="button" class="ui-button ui-filled">
+  <svg aria-hidden="true"><!-- --></svg>
+  <span class="ui-text">Filled</span>
+</button>
 ```
 
 ## Keyboard
@@ -505,91 +363,8 @@ Name a button whose only child is an `svg` with `aria-label`. Add `.ui-round` fo
 Disable the button with the `disabled` attribute. Links can't be disabled, so remove the `href` of an `<a>` and add `aria-disabled="true"`. The link can't be clicked or focused.
 
 ```html
-<div class="example-row">
-  <button type="button" class="ui-button" disabled>Text</button>
-
-  <button type="button" class="ui-button ui-outlined" disabled>Outlined</button>
-
-  <button type="button" class="ui-button ui-tonal" disabled>Tonal</button>
-
-  <button type="button" class="ui-button ui-filled" disabled>Filled</button>
-</div>
-
-<div class="example-row">
-  <button type="button" class="ui-button" disabled>
-    <span class="ui-text">Text</span>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-
-  <button type="button" class="ui-button ui-outlined" disabled>
-    <span class="ui-text">Outlined</span>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-
-  <button type="button" class="ui-button ui-tonal" disabled>
-    <span class="ui-text">Tonal</span>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-
-  <button type="button" class="ui-button ui-filled" disabled>
-    <span class="ui-text">Filled</span>
-    <svg
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-</div>
-
-<div class="example-row">
-  <a class="ui-button" aria-disabled="true">Text</a>
-
-  <a class="ui-button ui-outlined" aria-disabled="true">Outlined</a>
-
-  <a class="ui-button ui-tonal" aria-disabled="true">Tonal</a>
-
-  <a class="ui-button ui-filled" aria-disabled="true">Filled</a>
-</div>
+<button type="button" class="ui-button" disabled>Text</button>
+<a class="ui-button" aria-disabled="true">Text link</a>
 ```
 
 ## File upload
@@ -603,6 +378,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | Type     | Modifiers                                 | Default | Description                                                                                                                 |
 | -------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
 | Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                                                                            |
+| Current  | `[aria-current="page"]`                   | -       | Keeps the pressed background on a default (text) button link, for the current page in navigation.                           |
 | Shape    | `.ui-round`                               | -       | Fully rounded corners, a circle when icon-only.                                                                             |
 | Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                                                                                    |
 | State    | `[disabled]`, `a[aria-disabled="true"]`   | -       | Disables the button. A link button, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |
@@ -615,6 +391,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `.ui-button`             | Container element.                                                                                  |
 | `<svg>`                  | An optional icon.                                                                                   |
 | `<span class="ui-text">` | The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook. |
+| `<kbd>`                  | An optional keyboard hint.                                                                          |
 
 #### CSS variables
 
@@ -638,11 +415,13 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--ui-disabled-opacity`             | `0.64`                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                                         |
 | `--ui-duration-fast`                | `0.1s`                                                                                   | Transition duration for hover and press feedback.                                                                                                                                                                                             |
 | `--ui-ease`                         | `ease`                                                                                   | Default easing for transitions.                                                                                                                                                                                                               |
+| `--ui-field-border-color`           | `var(--ui-border-color)`                                                                 | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                                                                                                                      |
+| `--ui-field-border-width`           | `1px`                                                                                    | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                                    |
 | `--ui-font-code`                    | `var(--font-mono)`                                                                       | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                             |
 | `--ui-font-size-05`                 | `0.875rem`                                                                               | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                                         |
-| `--ui-font-size-control`            | `var(--font-size-1)`                                                                     | Font size of the default `Button`, `TextField`, `Textarea` and `Select`. The size classes set their own.                                                                                                                                      |
+| `--ui-font-size-control`            | `var(--font-size-1)`                                                                     | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                              |
 | `--ui-font-weight-bold`             | `var(--font-weight-7)`                                                                   | Font weight for headings, buttons and terms.                                                                                                                                                                                                  |
-| `--ui-font-weight-normal`           | `var(--font-weight-4)`                                                                   | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                                                  |
+| `--ui-font-weight-normal`           | `var(--font-weight-4)`                                                                   | Font weight for body text, `List` text and `Button` keyboard shortcuts.                                                                                                                                                                       |
 | `--ui-motion`                       | `1`                                                                                      | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                                      |
 | `--ui-primary`                      | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                                                  |
 | `--ui-primary-contrast`             | `oklch( from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--ui-primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--ui-primary` gets readable text.                            |
@@ -654,10 +433,9 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--ui-state-hover-alpha`            | `10%`                                                                                    | Alpha of the hover state layer on neutral buttons in light mode.                                                                                                                                                                              |
 | `--ui-state-hover-alpha-accent`     | `15%`                                                                                    | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                               |
 | `--ui-state-hover-alpha-dark`       | `20%`                                                                                    | Alpha of the hover state layer on neutral buttons in dark mode.                                                                                                                                                                               |
-| `--ui-surface-filled`               | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                        | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                         |
 | `--ui-surface-tonal`                | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                        | Background of tonal variants.                                                                                                                                                                                                                 |
 | `--ui-text-disabled`                | `color-mix( in oklch, var(--ui-text-muted) 50%, var(--ui-surface-default) )`             | Text color of disabled buttons and chips.                                                                                                                                                                                                     |
-| `--ui-text-muted-contrast`          | `light-dark(var(--ui-gray-4), var(--ui-gray-13))`                                        | Muted text color on an inverted surface.                                                                                                                                                                                                      |
+| `--ui-text-muted`                   | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`                                        | Body text color.                                                                                                                                                                                                                              |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -672,9 +450,9 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_accent-text`              | Output | Text color of text and outlined buttons. `--_accent`, lightened in dark mode to stay readable.                                                                                       |
 | `--_accent-tonal`             | Input  | Background of `.ui-tonal`.                                                                                                                                                           |
 | `--_accent-tonal-contrast`    | Input  | Text color of `.ui-tonal`.                                                                                                                                                           |
-| `--_bg-color`                 | Output | The current background. Set by the variant, hover, active and disabled states.                                                                                                       |
+| `--_bg-color`                 | Output | The current background. Set by the variant, hover and active states.                                                                                                                 |
 | `--_border-color`             | Output | The current border color. Set by the variant and states.                                                                                                                             |
-| `--_border-radius`            | Input  | The corner radius. Defaults to `--ui-button-border-radius`, `.ui-rounded` makes it round.                                                                                            |
+| `--_border-radius`            | Input  | The corner radius. Defaults to `--ui-button-border-radius`, `.ui-round` makes it round.                                                                                              |
 | `--_border-width`             | Input  | The border width.                                                                                                                                                                    |
 | `--_default-active-bg-color`  | Output | Pressed background of text buttons, from `--_accent`.                                                                                                                                |
 | `--_default-hover-bg-color`   | Output | Hover background of text buttons, from `--_accent`.                                                                                                                                  |
@@ -732,7 +510,7 @@ Step 1 of 3: Base
   block-size: auto;
   flex-shrink: 0;
   inline-size: auto;
-  max-block-size: var(--ui-icon-size, 0.7lh);
+  max-block-size: var(--icon, 0.7lh);
 }
 ```
 
@@ -742,7 +520,7 @@ Step 2 of 3: Icon-only
 
 ```css
 .button:has(> svg:only-child) {
-  --ui-icon-size: calc(var(--size) * 0.6);
+  --icon: calc(var(--size) * 0.6);
   justify-content: center;
   min-inline-size: var(--size);
   padding-inline: 0;
@@ -798,5 +576,5 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: [disabled links](#disabled) have no `href`, so they can't be focused or followed.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--ui-border-radius` through [`--ui-button-border-radius`](#api), so one token squares or rounds every component.
-- Themes set the color of [default buttons](#colors) with [`--ui-button-accent`](#api) and `--ui-button-accent-contrast`, the border with `--ui-button-border-color` and `--ui-button-outlined-border-color`, the font weight with `--ui-button-font-weight`, the hover shadow and offset with `--ui-button-hover-shadow` and `--ui-button-hover-translate`, and the font size with `--ui-font-size-control`.
+- Themes set the color of [default buttons](#colors) with [`--ui-button-accent`](#api) and `--ui-button-accent-contrast`, the border with `--ui-button-border-color` and `--ui-button-outlined-border-color`, the font weight with `--ui-button-font-weight`, the shadow with `--ui-shadow-control`, the hover shadow and offset with `--ui-button-hover-shadow` and `--ui-button-hover-translate`, and the font size with `--ui-font-size-control`.
 - [Primary](#colors) outlined and text buttons read `--ui-primary-text` when a theme sets it.

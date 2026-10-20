@@ -22,7 +22,7 @@ export default {
   },
   "--_hold-duration": {
     description:
-      "How long the toast stays before it exits, in browsers without typed `attr()`. Others read `data-duration`, defaulting to `5s`.",
+      "How long the toast stays before it exits when it has no `data-duration`. Defaults to `5s`.",
     kind: "input",
   },
   "--_motion": {

@@ -1,0 +1,54 @@
+===================================================================
+--- astro
++++ vue
+@@ -2,13 +2,13 @@
+   <label class="ui-toggle-button">
+     <input name="overflow-wrap" type="checkbox" value="all">
+-    ␣Everything
++    Everything
+   </label>
+   <label class="ui-toggle-button">
+     <input name="overflow-wrap" type="checkbox" value="mentions">
+-    ␣Mentions
++    Mentions
+   </label>
+   <label class="ui-toggle-button">
+     <input name="overflow-wrap" type="checkbox" value="none">
+-    ␣Nothing at all
++    Nothing at all
+   </label>
+ </div>
+@@ -16,13 +16,13 @@
+   <label class="ui-toggle-button">
+     <input name="overflow-scrollable" type="checkbox" value="all">
+-    ␣Everything
++    Everything
+   </label>
+   <label class="ui-toggle-button">
+     <input name="overflow-scrollable" type="checkbox" value="mentions">
+-    ␣Mentions
++    Mentions
+   </label>
+   <label class="ui-toggle-button">
+     <input name="overflow-scrollable" type="checkbox" value="none">
+-    ␣Nothing at all
++    Nothing at all
+   </label>
+ </div>
+@@ -30,13 +30,13 @@
+   <label class="ui-toggle-button">
+     <input name="overflow-shrink" type="checkbox" value="all">
+-    ␣Everything
++    Everything
+   </label>
+   <label class="ui-toggle-button">
+     <input name="overflow-shrink" type="checkbox" value="mentions">
+-    ␣Mentions
++    Mentions
+   </label>
+   <label class="ui-toggle-button">
+     <input name="overflow-shrink" type="checkbox" value="none">
+-    ␣Nothing at all
++    Nothing at all
+   </label>
+ </div>

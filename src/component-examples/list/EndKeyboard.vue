@@ -5,10 +5,10 @@ import { List, ListItem } from "opui-css/vue"
 <template>
   <List>
     <ListItem headline="Save all">
-      <template #end><kbd>CTRL+ALT+DEL</kbd></template>
+      <template #end><kbd>Ctrl+Shift+S</kbd></template>
     </ListItem>
     <ListItem headline="Save">
-      <template #end><kbd>CTRL+S</kbd></template>
+      <template #end><kbd>Ctrl+S</kbd></template>
     </ListItem>
   </List>
 </template>

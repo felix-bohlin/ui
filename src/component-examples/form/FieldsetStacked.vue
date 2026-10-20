@@ -15,8 +15,8 @@ import {
       >Please select your favorite type of pet.</FieldDescription
     >
     <FieldGroup name="pet">
-      <Radio value="dog">Dog</Radio>
       <Radio value="cat">Cat</Radio>
+      <Radio value="dog">Dog</Radio>
       <Radio value="hamster">Hamster</Radio>
     </FieldGroup>
   </FieldSet>

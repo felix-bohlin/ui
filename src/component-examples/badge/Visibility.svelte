@@ -2,7 +2,7 @@
   import { Badge } from "opui-css/svelte"
 </script>
 
-<Badge label="5" invisible>
+<Badge invisible label="5" srLabel="unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"

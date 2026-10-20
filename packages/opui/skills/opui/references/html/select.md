@@ -289,6 +289,23 @@ Add a `.ui-prefix` or `.ui-suffix` element inside `.ui-field` to affix content a
     </span>
   </span>
 </label>
+
+<label class="ui-select">
+  <span class="ui-label" id="select-affix-3-label">Delivery time</span>
+  <span class="ui-field">
+    <select aria-labelledby="select-affix-3-label">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option>1</option>
+        <option>3</option>
+        <option>5</option>
+      </div>
+    </select>
+    <span class="ui-suffix">days</span>
+  </span>
+</label>
 ```
 
 ## Header and footer
@@ -297,11 +314,16 @@ Add a `.ui-header` or `.ui-footer` element inside `.ui-field` for short text or 
 
 They sit outside the list of options, so they can't filter it. Keep form controls out of them, since the select's `<label>` wraps them.
 
+Give them an `id` and list them in the select's `aria-describedby`, so screen readers read them with the select.
+
 ```html
 <label class="ui-select">
   <span class="ui-label" id="select-header-footer-1-label">Car</span>
   <span class="ui-field">
-    <select aria-labelledby="select-header-footer-1-label">
+    <select
+      aria-describedby="select-header-footer-1-header select-header-footer-1-footer"
+      aria-labelledby="select-header-footer-1-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -312,8 +334,12 @@ They sit outside the list of options, so they can't filter it. Keep form control
         <option>Volvo EX30</option>
       </div>
     </select>
-    <span class="ui-header">Company cars only</span>
-    <span class="ui-footer"><a class="ui-link" href="#">Manage cars…</a></span>
+    <span class="ui-header" id="select-header-footer-1-header"
+      >Company cars only</span
+    >
+    <span class="ui-footer" id="select-header-footer-1-footer"
+      ><a class="ui-link" href="#">Manage cars…</a></span
+    >
   </span>
 </label>
 ```
@@ -646,9 +672,9 @@ Add the `.ui-spread` class to display the label and start text on the left with 
       </button>
       <div class="ui-list">
         <option value="">-</option>
+        <option>ap-southeast-1</option>
         <option>eu-north-1</option>
         <option>us-east-1</option>
-        <option>ap-southeast-1</option>
       </div>
     </select>
     <span class="ui-prefix">
@@ -697,9 +723,9 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 | Type       | Modifiers                               | Default | Description                                                              |
 | ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| Dense      | `.ui-list.ui-dense`                     | -       | Packs the options tighter.                                               |
-| Layout     | `.ui-spread`                            | -       | Pushes the label and start text to one side and the select to the other. |
+| Dense      | `.ui-list.ui-dense`                     | -       | Packs the items tighter.                                                 |
 | Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                 |
+| Spread     | `.ui-spread`                            | -       | Pushes the label and start text to one side and the select to the other. |
 | Validation | `select[aria-invalid="true"]`           | -       | Marks the control invalid and shows error styles.                        |
 | Variants   | default, `.ui-filled`                   | default | The variant to use.                                                      |
 
@@ -752,9 +778,9 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `--ui-font-body`                 | `var(--font-sans)`                                                                            | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                                             |
 | `--ui-font-code`                 | `var(--font-mono)`                                                                            | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                |
 | `--ui-font-size-05`              | `0.875rem`                                                                                    | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--ui-font-size-control`         | `var(--font-size-1)`                                                                          | Font size of the default `Button`, `TextField`, `Textarea` and `Select`. The size classes set their own.                                                                                                                         |
+| `--ui-font-size-control`         | `var(--font-size-1)`                                                                          | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                 |
 | `--ui-font-weight-medium`        | `var(--font-weight-5)`                                                                        | Font weight for badges, overlines and group labels.                                                                                                                                                                              |
-| `--ui-font-weight-normal`        | `var(--font-weight-4)`                                                                        | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                                     |
+| `--ui-font-weight-normal`        | `var(--font-weight-4)`                                                                        | Font weight for body text, `List` text and `Button` keyboard shortcuts.                                                                                                                                                          |
 | `--ui-icon-size`                 | `var(--size-4)`                                                                               | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-icon-size-small`           | `var(--size-3)`                                                                               | Icon size inside `Chip`.                                                                                                                                                                                                         |
 | `--ui-invalid-color`             | `var(--ui-critical)`                                                                          | Color for invalid field borders, fills and outlines.                                                                                                                                                                             |
@@ -784,9 +810,33 @@ The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedc
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property      | Kind  | Description                                                                    |
-| ------------- | ----- | ------------------------------------------------------------------------------ |
-| `--_bg-color` | Input | Background of the `.ui-list` in the picker. Defaults to `--ui-surface-filled`. |
+### select.css
+
+| Property      | Kind  | Description                                                                                                                                 |
+| ------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_bg-color` | Input | Background of the picker's `.ui-list`. Set it on the `.ui-list`; on the root it is the field background. Defaults to `--ui-surface-filled`. |
+
+### text-field.css
+
+| Property                     | Kind   | Description                                                                                                                              |
+| ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                  | Input  | Border color of the focused `.ui-field`. Defaults to `--ui-primary`, `--ui-invalid-color` when invalid.                                  |
+| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state. |
+| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                        |
+| `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                |
+| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                          |
+| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                                                |
+| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                                                           |
+| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                    |
+| `--_duration`                | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                 |
+| `--_ease`                    | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                      |
+| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                                                     |
+| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                                                        |
+| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                                                      |
+| `--_font-size`               | Input  | The font size of the control and affixes.                                                                                                |
+| `--_helper-color`            | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-color`, set by the invalid state.               |
+| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--ui-field-size`, set by the size classes.                                               |
+| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                               |
 
 ## Under the hood
 
@@ -902,7 +952,7 @@ Step 3 of 4: Picker
   background: transparent;
   border: 0;
   border-radius: var(--radius-2);
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--ui-shadow-overlay);
   padding: 0;
 }
 
@@ -985,11 +1035,12 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
+- The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.
 - The chevron flips when the [picker](#variants) opens.
 - [x-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
 - [Preselect](#preselected) options with `selected`.
-- The arrow is a chevron.
+- The [arrow](#variants) is a chevron.
 - Breaking: mark an invalid select with `aria-invalid="true"` on the `<select>` instead of `data-invalid` on the root ([Validation](#validation)).
 - Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-height`, `--_label-color` is `--_affix-color` and `--_end-text-color` is `--_helper-color` ([Under the hood](#under-the-hood)).
 - Corners follow `--ui-border-radius` through [`--ui-field-border-radius`](#api), so one token squares or rounds every component.

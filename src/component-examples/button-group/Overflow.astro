@@ -2,23 +2,21 @@
 import { Button, ButtonGroup } from "opui-css/astro"
 ---
 
-<div style="display: grid; gap: var(--size-3); max-inline-size: 18rem">
-  <ButtonGroup variant="outlined">
-    <Button>Archive</Button>
-    <Button>Move to folder</Button>
-    <Button>Mark as unread</Button>
-    <Button>Delete</Button>
-  </ButtonGroup>
-  <ButtonGroup variant="outlined" scrollable>
-    <Button>Archive</Button>
-    <Button>Move to folder</Button>
-    <Button>Mark as unread</Button>
-    <Button>Delete</Button>
-  </ButtonGroup>
-  <ButtonGroup variant="outlined" shrink>
-    <Button>Archive</Button>
-    <Button>Move to folder</Button>
-    <Button>Mark as unread</Button>
-    <Button>Delete</Button>
-  </ButtonGroup>
-</div>
+<ButtonGroup variant="outlined" style="max-inline-size: 18rem">
+  <Button>Archive</Button>
+  <Button>Move to folder</Button>
+  <Button>Mark as unread</Button>
+  <Button>Delete</Button>
+</ButtonGroup>
+<ButtonGroup variant="outlined" scrollable style="max-inline-size: 18rem">
+  <Button>Archive</Button>
+  <Button>Move to folder</Button>
+  <Button>Mark as unread</Button>
+  <Button>Delete</Button>
+</ButtonGroup>
+<ButtonGroup variant="outlined" shrink style="max-inline-size: 18rem">
+  <Button>Archive</Button>
+  <Button>Move to folder</Button>
+  <Button>Mark as unread</Button>
+  <Button>Delete</Button>
+</ButtonGroup>

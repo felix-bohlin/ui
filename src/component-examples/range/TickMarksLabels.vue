@@ -13,4 +13,11 @@ import { Range } from "opui-css/vue"
       { value: 100, label: '100%' },
     ]"
   />
+  <Range label="Quality" max="2">
+    <template #datalist>
+      <option value="0" label="Low" />
+      <option value="1" label="Medium" />
+      <option value="2" label="High" />
+    </template>
+  </Range>
 </template>

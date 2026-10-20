@@ -10,11 +10,11 @@ export type TabsItemProps = {
   tabId?: string
 }
 
+export type TabsPanelProps = {}
+
 export type TabsTabProps = {
   tabId?: string
 }
-
-export type TabsPanelProps = {}
 
 export type Context = {
   groupName?: string

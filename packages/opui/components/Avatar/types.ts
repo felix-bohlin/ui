@@ -4,18 +4,18 @@ export type Props = {
 } & (
   | {
       as?: "div"
-      href?: never
       disabled?: never
+      href?: never
     }
   | {
       as?: "a"
-      href: string
       disabled?: never
+      href: string
     }
   | {
       as: "button"
-      href?: never
       disabled?: boolean
+      href?: never
     }
 ) &
   (

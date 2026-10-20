@@ -27,12 +27,6 @@ export default function FieldGroupExample() {
         <FieldDescription>Some are better than others.</FieldDescription>
         <FieldGroup name="projects">
           <Checkbox
-            value="the-smile"
-            endText="Thom Yorke, Jonny Greenwood, Tom Skinner"
-          >
-            The Smile
-          </Checkbox>
-          <Checkbox
             value="atoms-for-peace"
             endText="Thom Yorke, Flea, Nigel Godrich"
           >
@@ -49,6 +43,12 @@ export default function FieldGroupExample() {
           </Checkbox>
           <Checkbox value="selway-solo" endText="Philip Selway solo albums">
             Philip Selway
+          </Checkbox>
+          <Checkbox
+            value="the-smile"
+            endText="Thom Yorke, Jonny Greenwood, Tom Skinner"
+          >
+            The Smile
           </Checkbox>
         </FieldGroup>
       </FieldSet>

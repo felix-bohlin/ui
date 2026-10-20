@@ -6,15 +6,12 @@ export const title = "Accordion"
 const {
   class: className,
   markerAnimation = "rotate",
-  name,
-  open,
   variant,
   ...rest
 } = Astro.props
 ---
 
 <details
-  name={name}
   class:list={[
     "ui-accordion",
     "ui-card",
@@ -22,7 +19,6 @@ const {
     variant && `ui-${variant}`,
     className,
   ]}
-  open={open}
   {...rest}
 >
   <slot />

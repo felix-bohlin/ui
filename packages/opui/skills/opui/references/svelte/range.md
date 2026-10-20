@@ -24,6 +24,10 @@ Label 50 Start text End text
 
   The range input.
 
+- `list / options / datalist`
+
+  Tick marks and their labels, under the input.
+
 - `endText`
 
   Supporting text displayed below the input.
@@ -78,9 +82,19 @@ Pass the `valueSuffix` prop to render a live readout of the slider's current val
 <Range label="Hue" min="0" max="360" value="250" valueSuffix="°" />
 ```
 
+```svelte
+<script lang="ts">
+  import { Range } from "opui-css/svelte"
+</script>
+
+<Range id="range-value-text-1" label="Temperature" max="30" min="10" value="21">
+  {#snippet valueText(value)}<b>{value}°</b>{/snippet}
+</Range>
+```
+
 ## Tick marks
 
-Pass an `options` array - `options=[{ value, label }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id.
+Pass an `options` array - `options=[{ value, label }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id, and put your own `<option>` elements in the `datalist` snippet.
 
 ```svelte
 <script lang="ts">
@@ -97,6 +111,13 @@ Pass an `options` array - `options=[{ value, label }]` - and the component rende
     { value: 100, label: "100%" },
   ]}
 />
+<Range label="Quality" max="2">
+  {#snippet datalist()}
+    <option value="0" label="Low"></option>
+    <option value="1" label="Medium"></option>
+    <option value="2" label="High"></option>
+  {/snippet}
+</Range>
 ```
 
 ## Disabled
@@ -166,14 +187,11 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 
 ## Accessibility
 
-- `Right Arrow`: Increase the value of the slider by one step.
-- `Up Arrow`: Increase the value of the slider by one step.
-- `Left Arrow`: Decrease the value of the slider by one step.
-- `Down Arrow`: Decrease the value of the slider by one step.
+- `Right Arrow` / `Left Arrow`: Increase / decrease the value by one step, mirrored in right-to-left.
+- `Up Arrow` / `Down Arrow`: Increase / decrease the value by one step.
 - `Home`: Set the slider to the first allowed value in its range.
 - `End`: Set the slider to the last allowed value in its range.
-- `Page Up` (Optional): Increase the slider value by an amount larger than the step change made by `Up Arrow`.
-- `Page Down` (Optional): Decrease the slider value by an amount larger than the step change made by `Down Arrow`.
+- `Page Up` / `Page Down`: Change the value by a larger step (10% of the range in Chromium).
 
 ## API
 
@@ -183,18 +201,18 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------- | --------------------------------------------------------------------------------------------- |
 | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                      | `number` , `string`    | -       | The current value.                                                                            |
 | `children`                                                                                                                                                                                          | `Snippet`              | -       | The label for the range.                                                                      |
-| `datalist`                                                                                                                                                                                          | `Snippet`              | -       | Extra `<option>` elements for the `<datalist>`.                                               |
+| `datalist`                                                                                                                                                                                          | `Snippet`              | -       | Tick marks and their labels, under the input.                                                 |
 | `endText`                                                                                                                                                                                           | `Snippet` , `string`   | -       | Supporting text displayed below the input.                                                    |
 | `error`                                                                                                                                                                                             | `boolean`              | `false` | Marks the control invalid and shows error styles.                                             |
 | `id`                                                                                                                                                                                                | `string`               | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
 | `label`                                                                                                                                                                                             | `string`               | -       | The label for the range.                                                                      |
 | `list`                                                                                                                                                                                              | `string`               | -       | The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.          |
 | `options`                                                                                                                                                                                           | `RangeOption[]`        | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
-| `spread`                                                                                                                                                                                            | `boolean`              | `false` | Pushes the label and description to one side and the input to the other.                      |
+| `spread`                                                                                                                                                                                            | `boolean`              | `false` | Pushes the label and start text to one side and the input to the other.                       |
 | `startText`                                                                                                                                                                                         | `Snippet` , `string`   | -       | Description text displayed above the input.                                                   |
 | `valueSuffix` **Needs hydration** The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Update the `<output>` text on `input` yourself. | `string`               | -       | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. |
-| `valueText`                                                                                                                                                                                         | `Snippet<[number]>`    | -       | Shows the current value, with an optional `valueSuffix`.                                      |
-| `variant`                                                                                                                                                                                           | `"filled"` , `"tonal"` | -       | The track surface. Without one, the track uses the field border color.                        |
+| `valueText` **Needs hydration** The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Update the `<output>` text on `input` yourself.   | `Snippet<[number]>`    | -       | Shows the current value, with an optional `valueSuffix`.                                      |
+| `variant`                                                                                                                                                                                           | `"filled"` , `"tonal"` | -       | The variant to use. Without one, the track uses the field border color.                       |
 
 #### CSS variables
 
@@ -216,6 +234,7 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 | `--ui-invalid-text-color`       | `light-dark( var(--ui-invalid-color), oklch(from var(--ui-invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--ui-invalid-color` in dark mode so the text stays readable.                                                                               |
 | `--ui-motion`                   | `1`                                                                                           | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
 | `--ui-primary`                  | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                               |
+| `--ui-state-active-alpha`       | `20%`                                                                                         | Alpha of the pressed state layer on neutral buttons in light mode.                                                                                                                                         |
 | `--ui-surface-default`          | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                             | Page and card background.                                                                                                                                                                                  |
 | `--ui-surface-filled`           | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                                                                                                      |
 | `--ui-surface-tonal`            | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                             | Background of tonal variants.                                                                                                                                                                              |
@@ -239,7 +258,8 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_inset`                 | Output | Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`. |
 | `--_motion`                | Input  | Motion multiplier for the thumb highlight and focus ring. `0` turns them off.                                   |
 | `--_thumb-bg-color`        | Output | The current thumb color. From `--_accent`, set by the disabled state.                                           |
-| `--_thumb-highlight-color` | Output | Color of the ring around the thumb, from `--_accent`.                                                           |
+| `--_thumb-border-width`    | Input  | Width of the page-colored ring between the thumb and the track. Set on the `<input>`.                           |
+| `--_thumb-highlight-color` | Output | Color of the ring around the thumb, from `--_accent` and `--ui-state-active-alpha`.                             |
 | `--_thumb-highlight-size`  | Output | Current width of the ring around the thumb. Set by the hover and active states.                                 |
 | `--_thumb-offset`          | Output | Vertical offset that centers the thumb on the track.                                                            |
 | `--_thumb-size`            | Input  | Width and height of the thumb. Larger on touch screens.                                                         |

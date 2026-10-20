@@ -64,8 +64,11 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-tooltip</code> class alongside <code>.ui-anchor</code> on
-        the wrapper. Wire <code>interestfor</code> on the trigger to the{" "}
-        <code>.ui-anchor-floating[popover="hint"]</code> element's ID.
+        the wrapper. Give the <code>.ui-anchor-floating</code> element <code
+          >popover="hint"</code
+        > and an id. Add <code>interestfor</code>, plus <code>commandfor</code> and
+        {" "}<code>command="toggle-popover"</code> for touch, with that id to the
+        trigger.
       </Fragment>
     </Conditional>
   </Fragment>

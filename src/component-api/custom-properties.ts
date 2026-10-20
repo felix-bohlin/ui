@@ -18,6 +18,8 @@ export const customProperties: Record<string, CustomProperties> =
 const PAGE_STYLESHEETS: Record<string, string[]> = {
   checkbox: ["checkbox", "choice"],
   radio: ["choice", "radio"],
+  select: ["select", "text-field"],
+  textarea: ["text-field", "textarea"],
   toggle: ["toggle-button", "toggle-group"],
   typography: ["link", "typography"],
 }

@@ -28,6 +28,7 @@ export const description =
     "has",
     "light-dark",
     "relative-color",
+    "trig-functions",
   ]}
   changelogPaths={[
     {
@@ -50,15 +51,11 @@ export const description =
   <Fragment slot="title">Badge</Fragment>
 
   <section>
-    <h2 id="variants">Variants</h2>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Default, and <code>dot</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Default, and <code>.ui-dot</code>.
-      </Fragment>
-    </Conditional>
+    <h2 id="dot">Dot</h2>
+    <p>
+      Use <PropOrClass prop="dot" class=".ui-dot" /> to show a dot instead of the
+      label.
+    </p>
 
     <AutoExample name="Variants" row />
   </section>
@@ -176,6 +173,7 @@ export const description =
     <Anatomy zoom={2}>
       <UIBadge label="5">
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"

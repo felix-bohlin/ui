@@ -158,7 +158,7 @@
 
       &.ui-spread::after {
         align-self: start;
-        grid-row: 1 / span 2;
+        grid-row: 1 / span 3;
         margin-block-start: calc(
           (var(--_min-height) - var(--_chevron-size)) / 2
         );

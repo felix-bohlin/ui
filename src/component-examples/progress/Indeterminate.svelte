@@ -2,4 +2,4 @@
   import { Progress } from "opui-css/svelte"
 </script>
 
-<Progress />
+<Progress aria-label="Loading" />

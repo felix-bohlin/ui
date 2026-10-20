@@ -20,7 +20,7 @@ const steps = [
   block-size: auto;
   flex-shrink: 0;
   inline-size: auto;
-  max-block-size: var(--ui-icon-size, 0.7lh);
+  max-block-size: var(--icon, 0.7lh);
 }`,
     notes: [
       "Shown tonal for visibility, the library default is a text button",
@@ -33,7 +33,7 @@ const steps = [
   {
     css: `
 .button:has(> svg:only-child) {
-  --ui-icon-size: calc(var(--size) * 0.6);
+  --icon: calc(var(--size) * 0.6);
   justify-content: center;
   min-inline-size: var(--size);
   padding-inline: 0;

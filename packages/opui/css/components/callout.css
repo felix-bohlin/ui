@@ -8,7 +8,13 @@
     --_gap: var(--ui-space-3);
     --_icon-color: currentColor;
     --_icon-size: var(--ui-icon-size);
-    --_link-hover-color: var(--ui-primary);
+    --_link-hover-color: var(
+      --ui-primary-text,
+      light-dark(
+        oklch(from var(--ui-primary) min(l, 0.47) c h),
+        oklch(from var(--ui-primary) max(l, 0.78) c h)
+      )
+    );
     --_outlined-bg-color: var(--ui-surface-default);
     --_outlined-border-color: var(--ui-border-color);
     --_outlined-icon-color: currentColor;
@@ -20,8 +26,7 @@
     --_title-font-size: var(--font-size-1);
 
     background-color: var(--_surface-bg-color);
-    border: var(--ui-border-width) solid
-      var(--_border-color, var(--ui-border-color));
+    border: var(--ui-border-width) solid var(--_border-color);
     border-radius: var(--_border-radius);
     box-shadow: var(--_shadow);
     color: var(--_text-color);
@@ -39,10 +44,10 @@
         oklch(from var(--ui-color-6) l c h / 5%)
       );
       --_border-color: light-dark(var(--ui-color-5), var(--ui-color-11));
-      --_icon-color: var(--ui-color-9);
+      --_icon-color: light-dark(var(--ui-color-9), var(--ui-color-7));
       --_outlined-bg-color: var(--ui-surface-default);
       --_outlined-border-color: var(--ui-color-9);
-      --_outlined-icon-color: var(--ui-color-9);
+      --_outlined-icon-color: light-dark(var(--ui-color-9), var(--ui-color-7));
       --_outlined-text-color: light-dark(var(--ui-color-15), var(--ui-color-1));
       --_text-color: light-dark(var(--ui-color-16), var(--ui-color-1));
     }

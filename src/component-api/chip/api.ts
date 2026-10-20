@@ -32,6 +32,14 @@ export default {
       prop: "disabled",
     },
     {
+      description:
+        'Disables a button chip. A link chip, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
+      frameworks: ["html"],
+      group: "Disabled",
+      prop: "disabledState",
+      values: { button: "button[disabled]", link: 'a[aria-disabled="true"]' },
+    },
+    {
       class: ".ui-dot",
       default: "false",
       description:

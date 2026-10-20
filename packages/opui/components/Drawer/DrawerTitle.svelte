@@ -2,7 +2,14 @@
   import { getDrawerContext } from "./context.svelte"
   import type { DrawerTitleProps as Props } from "./types.svelte"
 
-  let { children, class: className, id, ...rest }: Props = $props()
+  let {
+    class: className,
+    id,
+
+    // Snippets
+    children,
+    ...rest
+  }: Props = $props()
 
   const drawer = getDrawerContext()
 </script>

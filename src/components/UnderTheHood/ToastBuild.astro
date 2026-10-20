@@ -19,7 +19,7 @@ const steps = [
   align-items: center;
   background-color: var(--ui-surface-inverse);
   border-radius: var(--radius-2);
-  box-shadow: var(--shadow-3);
+  box-shadow: var(--ui-shadow-overlay);
   color: var(--ui-text-inverse);
   display: flex;
   gap: 0.75rem;
@@ -53,20 +53,28 @@ const steps = [
   {
     css: `
 .toast {
+  --hold: 5s;
   animation:
     build-toast-enter 0.3s both,
-    build-toast-hold attr(data-duration type(<time>), 5s) linear both,
+    build-toast-hold var(--hold) linear both,
     build-toast-exit 0.3s both;
   animation-delay:
     0s,
     0.3s,
-    calc(0.3s + attr(data-duration type(<time>), 5s));
+    calc(0.3s + var(--hold));
+}
+
+@supports (animation-duration: attr(data-duration type(<time>), 0s)) {
+  .toast {
+    --hold: attr(data-duration type(<time>), 5s);
+  }
 }`,
     features: ["animations-css", "attr"],
     notes: [
       "Three animations in a row: enter, hold, exit",
       "<code>hold</code> changes nothing, it only takes time",
       "<code>attr(data-duration type(&lt;time&gt;))</code> reads the lifetime from HTML",
+      "Behind <code>@supports</code>, so other browsers keep the <code>5s</code> in <code>--hold</code>",
       "JS removes the toast on <code>animationend</code>, no <code>setTimeout</code>",
     ],
     title: "Lifetime",

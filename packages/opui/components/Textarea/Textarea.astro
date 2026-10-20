@@ -8,18 +8,11 @@ const {
   "aria-invalid": ariaInvalid,
   autoFit,
   class: className,
-  cols,
-  disabled,
   endText,
   error,
   id,
   label,
-  maxlength,
-  minlength,
   name,
-  placeholder,
-  required,
-  rows,
   size,
   spread,
   startText,
@@ -35,12 +28,12 @@ const field = fieldGroupContext.get()
 <label
   class:list={[
     "ui-textarea",
-    size && `ui-${size}`,
     {
       "ui-auto-fit": autoFit,
       "ui-filled": variant === "filled",
       "ui-spread": spread,
     },
+    size && `ui-${size}`,
     className,
   ]}
   style={style}
@@ -66,15 +59,8 @@ const field = fieldGroupContext.get()
     <textarea
       {...rest}
       aria-invalid={error ? "true" : ariaInvalid}
-      cols={cols}
-      disabled={disabled}
       id={id}
-      maxlength={maxlength}
-      minlength={minlength}
-      name={name ?? field?.name}
-      placeholder={placeholder}
-      required={required}
-      rows={rows}>{value}</textarea
+      name={name ?? field?.name}>{value}</textarea
     >
     {
       Astro.slots.has("prefix") && (

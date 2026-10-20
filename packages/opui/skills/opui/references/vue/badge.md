@@ -16,9 +16,9 @@
 
   The indicator, inside `.ui-anchor-floating`.
 
-## Variants
+## Dot
 
-Default, and `dot`.
+Use `dot` to show a dot instead of the label.
 
 ```vue
 <script setup lang="ts">
@@ -26,7 +26,7 @@ import { Badge } from "opui-css/vue"
 </script>
 
 <template>
-  <Badge label="5">
+  <Badge label="5" srLabel="unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ import { Badge } from "opui-css/vue"
     </svg>
   </Badge>
 
-  <Badge dot>
+  <Badge dot srLabel="New messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@ import { Badge } from "opui-css/vue"
 </script>
 
 <template>
-  <Badge color="critical" label="5">
+  <Badge color="critical" label="5" srLabel="unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +82,7 @@ import { Badge } from "opui-css/vue"
       ></path>
     </svg>
   </Badge>
-  <Badge color="info" label="5">
+  <Badge color="info" label="5" srLabel="unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +96,7 @@ import { Badge } from "opui-css/vue"
       ></path>
     </svg>
   </Badge>
-  <Badge color="neutral" label="5">
+  <Badge color="neutral" label="5" srLabel="unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +110,7 @@ import { Badge } from "opui-css/vue"
       ></path>
     </svg>
   </Badge>
-  <Badge color="success" label="5">
+  <Badge color="success" label="5" srLabel="unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +124,7 @@ import { Badge } from "opui-css/vue"
       ></path>
     </svg>
   </Badge>
-  <Badge color="warning" label="5">
+  <Badge color="warning" label="5" srLabel="unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -194,7 +194,7 @@ import { Badge } from "opui-css/vue"
 </script>
 
 <template>
-  <Badge label="5" invisible>
+  <Badge invisible label="5" srLabel="unread messages">
     <!-- -->
   </Badge>
 </template>
@@ -212,7 +212,7 @@ import { Badge } from "opui-css/vue"
 </script>
 
 <template>
-  <Badge alignment="start-start" label="35">
+  <Badge alignment="start-start" label="35" srLabel="unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -226,7 +226,7 @@ import { Badge } from "opui-css/vue"
       ></path>
     </svg>
   </Badge>
-  <Badge label="99+">
+  <Badge label="99+" srLabel="unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -240,7 +240,7 @@ import { Badge } from "opui-css/vue"
       ></path>
     </svg>
   </Badge>
-  <Badge alignment="end-start" label="OK!">
+  <Badge alignment="end-start" label="OK!" srLabel="inbox synced">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -254,7 +254,7 @@ import { Badge } from "opui-css/vue"
       ></path>
     </svg>
   </Badge>
-  <Badge alignment="end-end" label="3K">
+  <Badge alignment="end-end" label="3K" srLabel="unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -322,8 +322,8 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_accent`       | Input  | The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info` and `.ui-success`.                  |
 | `--_anchor-tx`    | Output | Horizontal shift of the indicator, from `--_sign-x`. `.ui-dot` and round avatars change it.                               |
 | `--_anchor-ty`    | Output | Vertical shift of the indicator, from `--_sign-y`. `.ui-dot` and round avatars change it.                                 |
-| `--_bg-color`     | Input  | Background of the indicator. Defaults to `--ui-primary`, set by the color classes.                                        |
-| `--_border-color` | Input  | Border color of the indicator. Set by the color classes.                                                                  |
+| `--_bg-color`     | Output | Background of the indicator. Defaults to `--ui-primary`, set by the color classes.                                        |
+| `--_border-color` | Output | Border color of the indicator. Set by the color classes.                                                                  |
 | `--_border-width` | Input  | Border width of the indicator.                                                                                            |
 | `--_dir`          | Output | Direction flag that flips `--_anchor-tx`. `1`, or `-1` in right-to-left.                                                  |
 | `--_dot-size`     | Input  | Width and height of the indicator in `.ui-dot`.                                                                           |
@@ -336,7 +336,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_sign-x`       | Output | Horizontal side of the indicator, `-1` or `1`. Set by the alignment classes.                                              |
 | `--_sign-y`       | Output | Vertical side of the indicator, `1` or `-1`. Set by the alignment classes.                                                |
 | `--_size`         | Input  | Height and minimum width of the indicator.                                                                                |
-| `--_text-color`   | Input  | Text color of the indicator. Defaults to `--ui-primary-contrast`, set by the color classes.                               |
+| `--_text-color`   | Output | Text color of the indicator. Defaults to `--ui-primary-contrast`, set by the color classes.                               |
 
 ## Under the hood
 

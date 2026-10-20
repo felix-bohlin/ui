@@ -7,7 +7,6 @@ export const title = "Toggle Button"
 
 const {
   class: className,
-  disabled,
   label,
   name,
   pressed,
@@ -31,7 +30,6 @@ const finalType = group?.inputType === "radio" ? "radio" : (type ?? "checkbox")
 >
   <input
     checked={pressed}
-    disabled={disabled}
     name={finalName}
     type={finalType}
     value={value || label}

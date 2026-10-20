@@ -67,6 +67,21 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`. 
   <input type="checkbox" />
   large
 </label>
+
+<div role="radiogroup" class="ui-toggle-group ui-small" aria-label="View">
+  <label class="ui-toggle-button">
+    <input type="radio" name="toggle-sizes" value="day" />
+    Day
+  </label>
+  <label class="ui-toggle-button">
+    <input type="radio" name="toggle-sizes" value="week" />
+    Week
+  </label>
+  <label class="ui-toggle-button">
+    <input type="radio" name="toggle-sizes" value="month" />
+    Month
+  </label>
+</div>
 ```
 
 ## Toggle group
@@ -319,58 +334,47 @@ Change the layout of the group with the `.ui-vertical` class.
 Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep them on one row and scroll them sideways, or `.ui-shrink` to keep them on one row and truncate their labels. Icon-only items keep their size.
 
 ```html
-<div style="display: grid; gap: var(--size-4); max-inline-size: 14rem">
-  <div style="display: grid; gap: var(--size-1)">
-    <p>Wrap</p>
-    <div role="group" class="ui-toggle-group">
-      <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-wrap" value="all" />
-        Everything
-      </label>
-      <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-wrap" value="mentions" />
-        Mentions
-      </label>
-      <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-wrap" value="none" />
-        Nothing at all
-      </label>
-    </div>
-  </div>
-  <div style="display: grid; gap: var(--size-1)">
-    <p>Scroll</p>
-    <div role="group" class="ui-toggle-group ui-scrollable">
-      <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-scrollable" value="all" />
-        Everything
-      </label>
-      <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-scrollable" value="mentions" />
-        Mentions
-      </label>
-      <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-scrollable" value="none" />
-        Nothing at all
-      </label>
-    </div>
-  </div>
-  <div style="display: grid; gap: var(--size-1)">
-    <p>Shrink</p>
-    <div role="group" class="ui-toggle-group ui-shrink">
-      <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-shrink" value="all" />
-        Everything
-      </label>
-      <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-shrink" value="mentions" />
-        Mentions
-      </label>
-      <label class="ui-toggle-button">
-        <input type="checkbox" name="overflow-shrink" value="none" />
-        Nothing at all
-      </label>
-    </div>
-  </div>
+<div role="group" class="ui-toggle-group">
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="overflow-wrap" value="all" />
+    Everything
+  </label>
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="overflow-wrap" value="mentions" />
+    Mentions
+  </label>
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="overflow-wrap" value="none" />
+    Nothing at all
+  </label>
+</div>
+<div role="group" class="ui-toggle-group ui-scrollable">
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="overflow-scrollable" value="all" />
+    Everything
+  </label>
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="overflow-scrollable" value="mentions" />
+    Mentions
+  </label>
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="overflow-scrollable" value="none" />
+    Nothing at all
+  </label>
+</div>
+<div role="group" class="ui-toggle-group ui-shrink">
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="overflow-shrink" value="all" />
+    Everything
+  </label>
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="overflow-shrink" value="mentions" />
+    Mentions
+  </label>
+  <label class="ui-toggle-button">
+    <input type="checkbox" name="overflow-shrink" value="none" />
+    Nothing at all
+  </label>
 </div>
 ```
 
@@ -428,6 +432,7 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scro
 | `--ui-focus-ring-style`          | `solid`                                                                                  | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--ui-focus-ring-width`          | `2px`                                                                                    | Width of the focus ring.                                                                                                                                                                                                         |
 | `--ui-font-size-05`              | `0.875rem`                                                                               | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--ui-font-size-control`         | `var(--font-size-1)`                                                                     | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                 |
 | `--ui-icon-size`                 | `var(--size-4)`                                                                          | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-motion`                    | `1`                                                                                      | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
 | `--ui-primary`                   | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                                     |
@@ -477,6 +482,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-focus-ring-style`          | `solid`                                                                                  | Outline style of the focus ring.                                                                                                                                                                                                 |
 | `--ui-focus-ring-width`          | `2px`                                                                                    | Width of the focus ring.                                                                                                                                                                                                         |
 | `--ui-font-size-05`              | `0.875rem`                                                                               | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
+| `--ui-font-size-control`         | `var(--font-size-1)`                                                                     | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. The size classes set their own.                                                                                                 |
 | `--ui-icon-size`                 | `var(--size-4)`                                                                          | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-motion`                    | `1`                                                                                      | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
 | `--ui-primary`                   | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                                     |
@@ -495,15 +501,15 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 ### toggle-button.css
 
-| Property        | Kind   | Description                                                              |
-| --------------- | ------ | ------------------------------------------------------------------------ |
-| `--_bg-color`   | Output | The current background. Set by the hover and selected states.            |
-| `--_duration`   | Output | Duration of the focus ring animation, `--ui-duration` times `--_motion`. |
-| `--_ease`       | Input  | Easing of the focus ring animation. Defaults to `--ui-ease`.             |
-| `--_font-size`  | Input  | The font size. Set by the group's size classes.                          |
-| `--_icon-size`  | Input  | Size of a direct child `svg`. Defaults to `--ui-icon-size`.              |
-| `--_min-height` | Input  | Height and minimum width. Set by the group's size classes.               |
-| `--_motion`     | Input  | Motion multiplier for the focus ring animation. `0` turns it off.        |
+| Property        | Kind   | Description                                                                                              |
+| --------------- | ------ | -------------------------------------------------------------------------------------------------------- |
+| `--_bg-color`   | Output | The current background. Set by the hover and selected states.                                            |
+| `--_duration`   | Output | Duration of the focus ring animation, `--ui-duration` times `--_motion`.                                 |
+| `--_ease`       | Input  | Easing of the focus ring animation. Defaults to `--ui-ease`.                                             |
+| `--_font-size`  | Input  | The font size. Defaults to `--ui-font-size-control`. Set by the size classes on the button or its group. |
+| `--_icon-size`  | Input  | Size of a direct child `svg`. Defaults to `--ui-icon-size`.                                              |
+| `--_min-height` | Input  | Height and minimum width. Set by the size classes on the button or its group.                            |
+| `--_motion`     | Input  | Motion multiplier for the focus ring animation. `0` turns it off.                                        |
 
 ### toggle-group.css
 
@@ -665,3 +671,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - A [toggle button](#toggle-button) grows with its content from `--ui-button-size` instead of having a fixed height.
 - `--_duration` and `--_ease` set the focus ring animation's duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--ui-border-radius` through [`--ui-button-border-radius`](#api), so one token squares or rounds every component.
+- The default size reads [`--ui-font-size-control`](#sizes) for its font size, like buttons.

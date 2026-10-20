@@ -3,11 +3,13 @@
   import type { TabsItemProps as Props } from "./types.svelte"
 
   let {
-    children,
     class: className,
     name,
     open,
     tabId,
+
+    // Snippets
+    children,
     ...rest
   }: Props = $props()
 

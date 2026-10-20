@@ -29,11 +29,11 @@ provide(DrawerKey, reactive({ id: drawerId, titleId: labelledBy }))
     :aria-labelledby="labelledBy"
     :class="[
       'ui-drawer',
-      side && `ui-${side}`,
       {
         'ui-backdrop-transparent': backdrop === 'transparent',
         'ui-scroll-lock': scrollLock,
       },
+      side && `ui-${side}`,
       $props.class,
     ]"
     :closedby="closedby"

@@ -22,12 +22,16 @@
       --_thumb-size: 30px;
     }
 
+    --_track-height: 0.75ex;
+    --_track-radius: var(--radius-round);
+
     display: grid;
     gap: var(--size-1) 0;
     grid-template-columns: 1fr auto;
     position: relative;
 
     .ui-label {
+      align-self: baseline;
       color: var(--ui-field-label-color);
       font-size: var(--ui-field-label-font-size);
       font-weight: var(--ui-field-label-font-weight);
@@ -36,6 +40,7 @@
     }
 
     :where(.ui-value) {
+      align-self: baseline;
       color: var(--ui-field-helper-color);
       font-size: var(--ui-field-helper-font-size);
       font-variant-numeric: tabular-nums;
@@ -113,17 +118,11 @@
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 
       .ui-label {
-        grid-column: 1;
-        grid-row: 1;
+        align-self: center;
       }
 
       .ui-start-text {
-        color: var(--ui-field-helper-color);
-        display: block;
-        font-size: var(--ui-field-helper-font-size);
         grid-column: 1;
-        grid-row: 2;
-        line-height: var(--ui-field-helper-line-height);
       }
 
       input[type="range"] {
@@ -133,6 +132,7 @@
       }
 
       :where(.ui-value) {
+        align-self: center;
         grid-column: 2;
         grid-row: 2;
       }
@@ -166,11 +166,13 @@
         }
 
         .ui-label {
+          align-self: baseline;
           grid-column: 1/-1;
           grid-row: 1;
         }
 
         :where(.ui-value) {
+          align-self: baseline;
           grid-column: 1/-1;
           grid-row: 1;
           justify-self: end;
@@ -218,14 +220,15 @@
         var(--_thumb-size) / 2 + var(--size-2) - var(--size-4) / 2
       );
       --_thumb-bg-color: var(--_accent);
-      --_thumb-highlight-color: oklch(from var(--_accent) 70% 100% h / 20%);
+      --_thumb-border-width: 3px;
+      --_thumb-highlight-color: oklch(
+        from var(--_accent) 70% 100% h / var(--ui-state-active-alpha)
+      );
       --_thumb-highlight-size: 0px;
       --_thumb-offset: calc((var(--_track-height) - var(--_thumb-size)) / 2);
       --_track-color: var(--ui-field-border-color);
       --_track-fill: 0%;
       --_track-fill-color: var(--_accent);
-      --_track-height: 0.75ex;
-      --_track-radius: 1e5px;
 
       animation-fill-mode: both;
       animation-name: ui-range-fill;
@@ -295,7 +298,7 @@
         appearance: none;
         background: var(--_thumb-bg-color);
         block-size: var(--_thumb-size);
-        border: 3px solid var(--ui-surface-default);
+        border: var(--_thumb-border-width) solid var(--ui-surface-default);
         border-radius: 50%;
         box-shadow: 0 0 0 var(--_thumb-highlight-size)
           var(--_thumb-highlight-color);
@@ -312,7 +315,7 @@
         appearance: none;
         background: var(--_thumb-bg-color);
         block-size: var(--_thumb-size);
-        border: 3px solid var(--ui-surface-default);
+        border: var(--_thumb-border-width) solid var(--ui-surface-default);
         border-radius: 50%;
         box-shadow: 0 0 0 var(--_thumb-highlight-size)
           var(--_thumb-highlight-color);
@@ -324,7 +327,7 @@
       }
 
       /* Element state */
-      &:not([disabled]) {
+      &:not(:disabled) {
         @media (hover: hover) {
           &:hover {
             --_thumb-highlight-size: var(--size-1);
@@ -340,8 +343,12 @@
         }
       }
 
-      &[disabled] {
-        --_thumb-bg-color: oklch(from var(--ui-text-primary) l c h / 50%);
+      &:disabled {
+        --_thumb-bg-color: color-mix(
+          in oklch,
+          var(--ui-text-primary) 50%,
+          var(--ui-surface-default)
+        );
         --_track-color: var(--ui-field-border-color);
 
         cursor: not-allowed;
@@ -359,7 +366,7 @@
         --_forced-fill-color: SelectedItem;
         --_forced-track-color: CanvasText;
 
-        &[disabled] {
+        &:disabled {
           --_forced-fill-color: GrayText;
           --_forced-track-color: GrayText;
         }

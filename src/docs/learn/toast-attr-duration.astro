@@ -41,14 +41,21 @@ import Code from "../../components/Code.astro"
     <Code
       lang="css"
       code={`.toast {
+  --hold: 5s;
   animation:
     toast-enter var(--enter) both,
-    toast-hold attr(data-duration type(<time>), 5s) linear both,
+    toast-hold var(--hold) linear both,
     toast-exit var(--exit) both;
   animation-delay:
     0s,
     var(--enter),
-    calc(var(--enter) + attr(data-duration type(<time>), 5s));
+    calc(var(--enter) + var(--hold));
+}
+
+@supports (animation-duration: attr(data-duration type(<time>), 0s)) {
+  .toast {
+    --hold: attr(data-duration type(<time>), 5s);
+  }
 }
 
 .toast:hover,
@@ -67,16 +74,25 @@ import Code from "../../components/Code.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        <code>animation</code> and <code>animation-delay</code> are declared twice:
-        first with a fixed <code>5s</code>, then with <code>attr()</code>
+        <code>animation</code> and <code>animation-delay</code> read the hold time
+        from <code>--hold</code>, a fixed <code>5s</code>
       </li>
       <li>
-        Browsers without typed <code>attr()</code> drop the second declaration and
-        keep the first
+        Only browsers that pass the <code>@supports</code> test swap it for <code
+          >attr()</code
+        >
       </li>
       <li>
-        Every toast then lasts 5 seconds and ignores <code>data-duration</code>,
-        but it still pauses and still leaves
+        A declaration containing <code>var()</code> is never dropped while parsing,
+        so a second <code>animation</code> with <code>attr()</code> wouldn't fall
+        back to the first. It would turn invalid at computed-value time and leave
+        the toast with no animation, which is why the swap sits behind <code
+          >@supports</code
+        >
+      </li>
+      <li>
+        Without typed <code>attr()</code>, every toast lasts 5 seconds and
+        ignores <code>data-duration</code>, but it still pauses and still leaves
       </li>
     </ul>
   </section>

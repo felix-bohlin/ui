@@ -2,7 +2,14 @@
   import { getTabsContext } from "./context.svelte"
   import type { TabsTabProps as Props } from "./types.svelte"
 
-  let { children, class: className, tabId, ...rest }: Props = $props()
+  let {
+    class: className,
+    tabId,
+
+    // Snippets
+    children,
+    ...rest
+  }: Props = $props()
 
   const tabs = getTabsContext()
 </script>

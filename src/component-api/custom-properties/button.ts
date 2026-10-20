@@ -26,7 +26,7 @@ export default {
   },
   "--_bg-color": {
     description:
-      "The current background. Set by the variant, hover, active and disabled states.",
+      "The current background. Set by the variant, hover and active states.",
     kind: "output",
   },
   "--_border-color": {
@@ -35,7 +35,7 @@ export default {
   },
   "--_border-radius": {
     description:
-      "The corner radius. Defaults to `--ui-button-border-radius`, `.ui-rounded` makes it round.",
+      "The corner radius. Defaults to `--ui-button-border-radius`, `.ui-round` makes it round.",
     kind: "input",
   },
   "--_border-width": {

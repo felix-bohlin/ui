@@ -147,10 +147,14 @@
 
     /* Required/Invalid */
     &:has(:required) {
-      .ui-label:after {
+      .ui-label::after {
         color: var(--ui-field-required-color);
         content: "*";
         margin-inline-start: 0.25ex;
+
+        @supports (content: "*" / "") {
+          content: "*" / "";
+        }
       }
     }
 
@@ -473,10 +477,6 @@
       .ui-field {
         align-self: start;
         grid-column: 2;
-        grid-row: 1 / span 2;
-      }
-
-      .ui-field:has(textarea) {
         grid-row: 1 / span 3;
 
         + .ui-end-text {
@@ -498,25 +498,23 @@
           grid-column: 1 / -1;
         }
 
-        .ui-field,
-        .ui-field:has(textarea) {
+        .ui-field {
           grid-row: 2;
         }
 
         :where(.ui-end-text),
-        .ui-field:has(textarea) + .ui-end-text {
+        .ui-field + .ui-end-text {
           grid-row: 3;
           text-align: start;
         }
 
         &:has(> .ui-start-text) {
-          .ui-field,
-          .ui-field:has(textarea) {
+          .ui-field {
             grid-row: 3;
           }
 
           :where(.ui-end-text),
-          .ui-field:has(textarea) + .ui-end-text {
+          .ui-field + .ui-end-text {
             grid-row: 4;
           }
         }

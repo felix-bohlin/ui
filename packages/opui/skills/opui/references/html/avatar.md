@@ -5,21 +5,21 @@
 ```html
 <div class="ui-avatar">
   <img
-    src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?w=96&h=96&fit=crop&auto=format"
     alt="Maya Lind"
   />
 </div>
 
 <div class="ui-avatar">
   <img
-    src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?w=96&h=96&fit=crop&auto=format"
     alt="Omar Haddad"
   />
 </div>
 
 <div class="ui-avatar">
   <img
-    src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?q=80&w=1885&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?w=96&h=96&fit=crop&auto=format"
     alt="Priya Nair"
   />
 </div>
@@ -91,14 +91,14 @@ Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-sq
 
 <div class="ui-avatar ui-rounded">
   <img
-    src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?w=96&h=96&fit=crop&auto=format"
     alt="Jonas Berg"
   />
 </div>
 
 <div class="ui-avatar ui-squircle">
   <img
-    src="https://plus.unsplash.com/premium_photo-1770631651199-d92007477b6f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    src="https://plus.unsplash.com/premium_photo-1770631651199-d92007477b6f?w=96&h=96&fit=crop&auto=format"
     alt="Sara Kim"
   />
 </div>
@@ -164,6 +164,7 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 | `--ui-control-size-large`   | `calc(46px * var(--ui-density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                                      |
 | `--ui-control-size-small`   | `calc(32px * var(--ui-density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                                      |
 | `--ui-control-size-x-small` | `calc(28px * var(--ui-density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                                    |
+| `--ui-disabled-opacity`     | `0.64`                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                            |
 | `--ui-font-size-05`         | `0.875rem`                                                                               | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
 | `--ui-icon-size`            | `var(--size-4)`                                                                          | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-icon-size-large`      | `var(--size-5)`                                                                          | Icon size inside `Avatar` and `List`.                                                                                                                                                                                            |
@@ -192,6 +193,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-control-size-large`   | `calc(46px * var(--ui-density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                                      |
 | `--ui-control-size-small`   | `calc(32px * var(--ui-density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                                      |
 | `--ui-control-size-x-small` | `calc(28px * var(--ui-density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                                    |
+| `--ui-disabled-opacity`     | `0.64`                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                            |
 | `--ui-font-size-05`         | `0.875rem`                                                                               | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
 | `--ui-icon-size`            | `var(--size-4)`                                                                          | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-icon-size-large`      | `var(--size-5)`                                                                          | Icon size inside `Avatar` and `List`.                                                                                                                                                                                            |
@@ -210,7 +212,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property           | Kind  | Description                                                                                                |
 | ------------------ | ----- | ---------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`      | Input | The background. Defaults to `--ui-primary`, transparent when the avatar holds an `img`.                    |
+| `--_bg-color`      | Input | The background. Defaults to `--ui-primary`. An avatar with an `img` is always transparent.                 |
 | `--_font-size`     | Input | The font size of initials. Set by the size classes.                                                        |
 | `--_icon-size`     | Input | The maximum width of an `svg`. Set by the size classes.                                                    |
 | `--_margin`        | Input | How much avatars in a `.ui-avatar-group` overlap. Set on the group.                                        |
@@ -316,8 +318,8 @@ Step 4 of 4: Group
 - [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 
 ```html
-<div class="avatar-group" role="group">
-  <div class="avatar">AB</div>
+<div class="avatar-group" role="group" aria-label="Team">
+  <div class="avatar" role="img" aria-label="Anna Berg">AB</div>
   …
 </div>
 ```

@@ -1,7 +1,13 @@
 <script lang="ts">
   import type { DrawerContentProps as Props } from "./types.svelte"
 
-  let { children, class: className, ...rest }: Props = $props()
+  let {
+    class: className,
+
+    // Snippets
+    children,
+    ...rest
+  }: Props = $props()
 </script>
 
 <div class={["ui-content", className]} {...rest}>

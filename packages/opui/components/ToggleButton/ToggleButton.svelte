@@ -6,7 +6,6 @@
 
   let {
     class: className,
-    disabled,
     label,
     name,
     onchange,
@@ -34,7 +33,6 @@
 <label class={["ui-toggle-button", size && `ui-${size}`, className]} {style}>
   <input
     {checked}
-    {disabled}
     name={finalName}
     type={finalType}
     value={value || label}

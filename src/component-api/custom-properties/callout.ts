@@ -38,7 +38,7 @@ export default {
   },
   "--_link-hover-color": {
     description:
-      "Link color on hover and focus. Defaults to `--ui-primary`, not used in `.ui-outlined`.",
+      "Link color on hover and focus. Defaults to `--ui-primary-text`, or a readable shade of `--ui-primary`, not used in `.ui-outlined`.",
     kind: "input",
   },
   "--_outlined-bg-color": {

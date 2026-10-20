@@ -16,15 +16,6 @@
     .ui-neutral,
     .ui-del,
     .ui-ins,
-    :is(
-      .ui-checkbox,
-      .ui-radio,
-      .ui-range,
-      .ui-select,
-      .ui-switch,
-      .ui-text-field,
-      .ui-textarea
-    ):has([aria-invalid="true"]),
     del,
     ins,
     abbr,

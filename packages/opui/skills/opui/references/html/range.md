@@ -24,6 +24,10 @@ Label 50 Start text End text
 
   The range input.
 
+- `<datalist>`
+
+  Tick marks and their labels, under the input.
+
 - `.ui-end-text`
 
   Supporting text displayed below the input.
@@ -88,10 +92,10 @@ Use the `.ui-filled` or `.ui-tonal` class to swap the track surface for better c
 
 ## Value
 
-Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointing at the input's id. Optionally set `data-suffix` for a unit (e.g. `°`, `px`). Updating its text content is the consumer's responsibility. The example does it with an `input` listener.
+Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointing at the input's id, and set the same `for` on the `.ui-range` label, so it labels the input and not the output. Optionally set `data-suffix` for a unit (e.g. `°`, `px`). Updating its text content is the consumer's responsibility. The example does it with an `input` listener.
 
 ```html
-<label class="ui-range">
+<label class="ui-range" for="range-value-1">
   <span class="ui-label" id="range-value-1-label">Hue</span>
   <output class="ui-value" for="range-value-1" data-suffix="°">250°</output>
   <input
@@ -110,6 +114,31 @@ Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointin
     const output = document.querySelector('output[for="range-value-1"]')
     input.addEventListener("input", () => {
       output.textContent = `${input.value}${output.dataset.suffix ?? ""}`
+    })
+  }
+</script>
+```
+
+```html
+<label class="ui-range" for="range-value-text-1">
+  <span class="ui-label" id="range-value-text-1-label">Temperature</span>
+  <output class="ui-value" for="range-value-text-1"><b>21°</b></output>
+  <input
+    aria-labelledby="range-value-text-1-label"
+    type="range"
+    id="range-value-text-1"
+    min="10"
+    max="30"
+    value="21"
+  />
+</label>
+
+<script>
+  {
+    const input = document.getElementById("range-value-text-1")
+    const value = document.querySelector('output[for="range-value-text-1"] b')
+    input.addEventListener("input", () => {
+      value.textContent = `${input.value}°`
     })
   }
 </script>
@@ -135,6 +164,20 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
     <option value="50" label="50%"></option>
     <option value="75" label="75%"></option>
     <option value="100" label="100%"></option>
+  </datalist>
+</label>
+<label class="ui-range">
+  <span class="ui-label" id="range-tick-marks-labels-2-label">Quality</span>
+  <input
+    aria-labelledby="range-tick-marks-labels-2-label"
+    list="range-tick-marks-labels-2-list"
+    max="2"
+    type="range"
+  />
+  <datalist id="range-tick-marks-labels-2-list">
+    <option value="0" label="Low"></option>
+    <option value="1" label="Medium"></option>
+    <option value="2" label="High"></option>
   </datalist>
 </label>
 ```
@@ -232,24 +275,21 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 
 ## Accessibility
 
-- `Right Arrow`: Increase the value of the slider by one step.
-- `Up Arrow`: Increase the value of the slider by one step.
-- `Left Arrow`: Decrease the value of the slider by one step.
-- `Down Arrow`: Decrease the value of the slider by one step.
+- `Right Arrow` / `Left Arrow`: Increase / decrease the value by one step, mirrored in right-to-left.
+- `Up Arrow` / `Down Arrow`: Increase / decrease the value by one step.
 - `Home`: Set the slider to the first allowed value in its range.
 - `End`: Set the slider to the last allowed value in its range.
-- `Page Up` (Optional): Increase the slider value by an amount larger than the step change made by `Up Arrow`.
-- `Page Down` (Optional): Decrease the slider value by an amount larger than the step change made by `Down Arrow`.
+- `Page Up` / `Page Down`: Change the value by a larger step (10% of the range in Chromium).
 
 ## API
 
 ### Range API
 
-| Type       | Modifiers                    | Default | Description                                                              |
-| ---------- | ---------------------------- | ------- | ------------------------------------------------------------------------ |
-| Layout     | `.ui-spread`                 | -       | Pushes the label and description to one side and the input to the other. |
-| Validation | `input[aria-invalid="true"]` | -       | Marks the control invalid and shows error styles.                        |
-| Variants   | `.ui-filled`, `.ui-tonal`    | -       | The track surface. Without one, the track uses the field border color.   |
+| Type       | Modifiers                    | Default | Description                                                             |
+| ---------- | ---------------------------- | ------- | ----------------------------------------------------------------------- |
+| Spread     | `.ui-spread`                 | -       | Pushes the label and start text to one side and the input to the other. |
+| Validation | `input[aria-invalid="true"]` | -       | Marks the control invalid and shows error styles.                       |
+| Variants   | `.ui-filled`, `.ui-tonal`    | -       | The variant to use. Without one, the track uses the field border color. |
 
 #### Parts
 
@@ -260,6 +300,7 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 | `<output>`       | Shows the current value, with an optional `valueSuffix`. |
 | `.ui-start-text` | Description text displayed above the input.              |
 | `<input>`        | The range input.                                         |
+| `<datalist>`     | Tick marks and their labels, under the input.            |
 | `.ui-end-text`   | Supporting text displayed below the input.               |
 
 #### CSS variables
@@ -282,6 +323,7 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 | `--ui-invalid-text-color`       | `light-dark( var(--ui-invalid-color), oklch(from var(--ui-invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--ui-invalid-color` in dark mode so the text stays readable.                                                                             |
 | `--ui-motion`                   | `1`                                                                                           | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
 | `--ui-primary`                  | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                            | Brand color for primary actions and accents.                                                                                                                                                             |
+| `--ui-state-active-alpha`       | `20%`                                                                                         | Alpha of the pressed state layer on neutral buttons in light mode.                                                                                                                                       |
 | `--ui-surface-default`          | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                             | Page and card background.                                                                                                                                                                                |
 | `--ui-surface-filled`           | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                                                                                                    |
 | `--ui-surface-tonal`            | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                             | Background of tonal variants.                                                                                                                                                                            |
@@ -305,7 +347,8 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_inset`                 | Output | Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`. |
 | `--_motion`                | Input  | Motion multiplier for the thumb highlight and focus ring. `0` turns them off.                                   |
 | `--_thumb-bg-color`        | Output | The current thumb color. From `--_accent`, set by the disabled state.                                           |
-| `--_thumb-highlight-color` | Output | Color of the ring around the thumb, from `--_accent`.                                                           |
+| `--_thumb-border-width`    | Input  | Width of the page-colored ring between the thumb and the track. Set on the `<input>`.                           |
+| `--_thumb-highlight-color` | Output | Color of the ring around the thumb, from `--_accent` and `--ui-state-active-alpha`.                             |
 | `--_thumb-highlight-size`  | Output | Current width of the ring around the thumb. Set by the hover and active states.                                 |
 | `--_thumb-offset`          | Output | Vertical offset that centers the thumb on the track.                                                            |
 | `--_thumb-size`            | Input  | Width and height of the thumb. Larger on touch screens.                                                         |

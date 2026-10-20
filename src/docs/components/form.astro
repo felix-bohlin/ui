@@ -31,6 +31,8 @@ import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import Code from "../../components/Code.astro"
 
+const [legendPart, descriptionPart, endTextPart] = fieldSetApi.parts
+
 const anatomyApi = {
   ...formApi,
   parts: [
@@ -40,13 +42,15 @@ const anatomyApi = {
       description: "Groups related fields.",
       selector: ".ui-fieldset",
     },
-    ...fieldSetApi.parts,
+    legendPart,
+    descriptionPart,
     {
       code: ".ui-field-group",
       component: "FieldGroup",
       description: "Lays out related fields.",
       selector: ".ui-fieldset .ui-field-group",
     },
+    endTextPart,
   ],
 }
 ---
@@ -54,7 +58,7 @@ const anatomyApi = {
 <Component
   slug="form"
   heroAnatomy
-  browserSupport={["has"]}
+  browserSupport={["has", "user-pseudos"]}
   installationTabs={[{ title: "form.css", code: FormCSS, lang: "css" }]}
   seeAlsoLinks={[
     { name: "Button", href: "/components/button" },
@@ -204,6 +208,7 @@ const anatomyApi = {
       </Fragment>
     </Conditional>
     <AutoExample name="Divider" />
+    <AutoExample name="ActionsColumn" />
   </section>
 
   <section>
@@ -270,9 +275,10 @@ const anatomyApi = {
           <UIFieldLegend>Favorite pet</UIFieldLegend>
           <UIFieldDescription>Pick one.</UIFieldDescription>
           <UIFieldGroup name="form-anatomy">
-            <UIRadio value="dog" checked>Dog</UIRadio>
-            <UIRadio value="cat">Cat</UIRadio>
+            <UIRadio value="cat" checked>Cat</UIRadio>
+            <UIRadio value="dog">Dog</UIRadio>
           </UIFieldGroup>
+          <span class="ui-end-text">Supporting text</span>
         </UIFieldSet>
         <UIFieldGroup>
           <UIButton variant="filled">Save</UIButton>

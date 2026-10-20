@@ -2,12 +2,10 @@
 import SwitchInput from "./SwitchInput.astro"
 import type { Props } from "./types.astro"
 import { warnUnnamed } from "../dev"
-import { createId, idRefs } from "../id"
 
 export const title = "Switch"
 
 const {
-  "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
   class: className,
   endText,
@@ -16,13 +14,9 @@ const {
   size,
   spread,
   stack,
+  style,
   ...rest
 } = Astro.props
-
-const $id = createId(Astro.locals)
-const endTextId =
-  endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
-const describedBy = idRefs(endTextId, ariaDescribedBy)
 
 warnUnnamed(
   "Switch",
@@ -35,13 +29,14 @@ warnUnnamed(
 <label
   class:list={[
     "ui-switch",
-    size && `ui-${size}`,
     {
-      "ui-stack": stack,
       "ui-spread": spread,
+      "ui-stack": stack,
     },
+    size && `ui-${size}`,
     className,
   ]}
+  style={style}
 >
   {
     Astro.slots.has("icon-unchecked") && (
@@ -57,11 +52,7 @@ warnUnnamed(
       </span>
     )
   }
-  <SwitchInput
-    {...rest}
-    aria-describedby={describedBy}
-    aria-invalid={error ? "true" : ariaInvalid}
-  />
+  <SwitchInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
   {
     Astro.slots.has("default") && (
       <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
@@ -71,7 +62,7 @@ warnUnnamed(
   }
   {
     (endText || Astro.slots.has("end-text")) && (
-      <span id={endTextId} class="ui-end-text">
+      <span class="ui-end-text">
         {endText}
         <slot name="end-text" />
       </span>

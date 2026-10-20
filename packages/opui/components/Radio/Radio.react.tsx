@@ -1,7 +1,5 @@
-import { useId } from "react"
 import { cx } from "../cx"
 import { warnUnnamed } from "../dev"
-import { idRefs } from "../id"
 import RadioInput from "./RadioInput.react"
 import type { Props } from "./types.react"
 
@@ -12,14 +10,11 @@ export default function Radio({
   size,
   spread,
   stack,
+  style,
   children,
   endText,
   ...rest
 }: Props) {
-  const uid = useId()
-  const endTextId = endText ? `end-text-${uid}` : undefined
-  const describedBy = idRefs(endTextId, rest["aria-describedby"])
-
   warnUnnamed(
     "Radio",
     children || rest["aria-label"] || rest["aria-labelledby"],
@@ -29,17 +24,17 @@ export default function Radio({
     <label
       className={cx([
         "ui-radio",
-        size && `ui-${size}`,
         {
-          "ui-stack": stack,
           "ui-spread": spread,
+          "ui-stack": stack,
         },
+        size && `ui-${size}`,
         className,
       ])}
+      style={style}
     >
       <RadioInput
         {...rest}
-        aria-describedby={describedBy}
         aria-invalid={error ? "true" : rest["aria-invalid"]}
       />
       {children && (
@@ -47,11 +42,7 @@ export default function Radio({
           {children}
         </span>
       )}
-      {endText && (
-        <span id={endTextId} className="ui-end-text">
-          {endText}
-        </span>
-      )}
+      {endText && <span className="ui-end-text">{endText}</span>}
     </label>
   )
 }

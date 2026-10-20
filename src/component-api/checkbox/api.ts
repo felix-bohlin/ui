@@ -53,15 +53,23 @@ export default {
   },
   notes: {
     astro:
-      "Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `required`. To hide the label, set `hideLabel` and keep the text in the slot.",
+      "Other attributes go to the `<input>`, like `checked`, `disabled`, `name` and `required`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in the slot.",
     html: "To hide the label, use `.ui-sr-only` instead of `.ui-label`. `data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property.",
     react:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.",
     svelte:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in `children`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in the slot.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in the slot.",
   },
   options: [
+    {
+      attribute: "[disabled]",
+      description: "Dims the checkbox and shows a not-allowed cursor.",
+      frameworks: ["html"],
+      group: "Disabled",
+      part: "input",
+      prop: "disabled",
+    },
     {
       attribute: '[aria-invalid="true"]',
       default: "false",
@@ -83,6 +91,14 @@ export default {
       group: "State",
       part: "input",
       prop: "indeterminate",
+    },
+    {
+      attribute: "[required]",
+      description: "Adds a required mark after the label.",
+      frameworks: ["html"],
+      group: "Required",
+      part: "input",
+      prop: "required",
     },
     {
       description: "The size of the element.",

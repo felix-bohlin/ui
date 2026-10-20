@@ -10,6 +10,7 @@
     margin-block: var(--ui-space-3);
     margin-inline: 0;
     overflow: clip;
+    overflow-clip-margin: 6px;
     position: relative;
 
     /* Rows */
@@ -57,6 +58,8 @@
     }
 
     tbody :is(th[scope="row"], tr:has(> td) > th) {
+      --ui-border-color: inherit;
+
       background-color: var(--ui-surface-default);
     }
 
@@ -133,7 +136,7 @@
       --_motion: var(--ui-motion);
       --_duration: calc(var(--ui-duration) * var(--_motion));
       --_ease: var(--ui-ease);
-      --_scroll-shadow: var(--shadow-4);
+      --_scroll-shadow: var(--ui-shadow-scroll);
       --_sticky-offset: 0;
 
       & > thead {

@@ -60,7 +60,7 @@
 - `Avatar` no longer takes `isGroup`. Wrap avatars in `AvatarGroup`, which renders `div.ui-avatar-group` with `role="group"`.
 - `Button` and `Chip` links with `disabled` (`aria-disabled="true"`) no longer render `href`, so they can't be focused or followed. `button.css` and `chip.css` no longer set `pointer-events: none` on disabled links, so remove `href` from them in HTML.
 - `TextField`, `Textarea` and `Select` take `startText` (the `start-text` slot) instead of `description`, matching `endText`, `Range` and the `.ui-start-text` class.
-- `Select`, `Range`, `Progress` and `ToggleButton` in Astro and Vue put `style` on the root, like `class`, instead of the `<select>`, `<input>` or `<progress>`, so `--_` properties set through `style` apply.
+- `Checkbox`, `Progress`, `Radio`, `Range`, `Select`, `Switch` and `ToggleButton` in Astro and Vue put `style` on the root, like `class`, instead of the `<select>`, `<input>` or `<progress>`, so `--_` properties set through `style` apply.
 - `TextField` styles in `text-input.css` moved into `text-field.css`, and `text-input.css` is removed. Remove its import.
 - `Checkbox`, `Radio`, `Switch`, `Range`, `DescriptionList` and `Table` type files are named like the other components: `components/Checkbox/types*` export `Props` and `Slots` instead of `CheckboxProps` and `CheckboxSlots` (likewise `Radio`, `Switch` and `Range`), `DescriptionList` exports `DescriptionListTermProps`, `DescriptionListDescriptionProps` and `DescriptionListItemProps` instead of `TermProps`, `DescriptionProps` and `ItemProps`, and `Table` exports one type per part (`TableBodyProps`, `TableCellProps` and the rest) instead of `SectionProps`, and `TableColumnProps` instead of `ColumnProps`. Import the types from `opui-css/<framework>` instead.
 - `Checkbox`, `Radio`, `Switch`, `CheckboxInput` and `SwitchInput` in Astro no longer type a `type` prop, and `Radio` no longer types the native `size` (types).
@@ -76,7 +76,7 @@
 - `Accordion`, `Anchor`, `Callout`, `Card`, `Dialog`, `Drawer` and `Tooltip` no longer export a `Slots` type from `types.ts`, and the Vue `Drawer` types no longer export `DrawerHeadingIdKey`, `DrawerSlots`, `DrawerHeaderSlots` or `DrawerFooterSlots`.
 - `Chip` hover and press ripple. Remove any `--ripple` overrides.
 - `IconButton`. Use `Button`: an icon-only button is square by default, `round` (`.ui-round`) makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`. Icons are smaller (`--_icon-size: var(--size-5)` matches the old 24px), and the icon color is the button's accent instead of the inherited text color.
-- `palette.css` no longer registers the palette variables (`--color-*`, `--gray-*`, `--ui-palette-source` and `--ui-palette-hue`) with `@property`.
+- `palette.css` no longer registers the palette variables (`--color-*`, `--gray-*`, `--palette-source` and `--palette-hue`) with `@property`.
 - `ToggleGroup` no longer exports the unused `ToggleContext` type.
 - `TextField` and `Textarea` no longer take `supportingText` or the `supporting-text` slot. Use `endText` (`end-text`).
 - `Avatar` squircle no longer falls back to a rounded square. Without `corner-shape` it is a circle.
@@ -87,7 +87,7 @@
 - `normalize.css` no longer sets `text-rendering: optimizeLegibility` on `body`.
 - `Select` no longer hides `option::before`.
 - `ClassicSelect`. Use `Select`: it renders the same field, with the browser's own picker where customizable select isn't supported.
-- `open-props.css` no longer imports Open Props' `props.palette.css`, so `opui-css/open-props` (`dist/op.css`) no longer declares `--ui-palette-hue`, `--ui-palette-chroma`, `--ui-palette-hue-rotate-by` or `--ui-color-1` to `--ui-color-16`. `core/palette.css` declares them, so `dist/opui.css` is unaffected.
+- `open-props.css` no longer imports Open Props' `props.palette.css`, so `opui-css/open-props` (`dist/op.css`) no longer declares `--palette-hue`, `--palette-chroma`, `--palette-hue-rotate-by` or `--color-1` to `--color-16`. `core/palette.css` declares them as `--ui-palette-*` and `--ui-color-1` to `--ui-color-16`.
 - `DescriptionList` `.ui-term` and `.ui-description`. The list styles `dt` and `dd` by element, and `DescriptionListTerm` and `DescriptionListDescription` render a plain `dt` and `dd`.
 
 ### Added
@@ -124,7 +124,7 @@
 - `theme.css` adds overlay tokens, `--ui-backdrop-color` and `--ui-backdrop-blur`, read by `Dialog` and `Drawer`, and inverse surface tokens, `--ui-surface-inverse` and `--ui-text-inverse`.
 - `theme.css` adds state and text tokens: `--ui-disabled-opacity`, `--ui-state-hover-alpha`, `--ui-state-hover-alpha-dark`, `--ui-state-active-alpha`, `--ui-state-active-alpha-dark`, `--ui-state-hover-alpha-accent`, `--ui-state-active-alpha-accent`, `--ui-text-disabled`, `--ui-invalid-color`, `--ui-font-weight-normal`, `--ui-font-weight-medium`, `--ui-font-weight-semibold` and `--ui-font-weight-bold`.
 - `theme.css` adds field text tokens: `--ui-field-label-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-helper-color`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height` and `--ui-field-required-color`, read by `Checkbox`, `Form`, `Radio`, `Range`, `Switch` and `TextField`.
-- `theme.css` re-derives every color token (`--ui-primary`, `--surface-*`, `--text-*`, `--ui-border-color`, `--ui-field-border-color` and the named and intent colors) inside `.ui-palette` from its own palette. A subtree with `class="ui-palette" style="--ui-palette-hue: 30"` is a complete second theme.
+- `theme.css` re-derives every color token (`--ui-primary`, `--ui-surface-*`, `--ui-text-*`, `--ui-border-color`, `--ui-field-border-color` and the named and intent colors) inside `.ui-palette` from its own palette. A subtree with `class="ui-palette" style="--ui-palette-hue: 30"` is a complete second theme.
 - `theme.css` adds `--ui-density`, a multiplier for `--ui-control-size-x-small`, `--ui-control-size-small`, `--ui-control-size` and `--ui-control-size-large`. Defaults to `1`. `Button`, `Select`, `Textarea` and `TextField` padding shrinks to fit a smaller control size, down to the height of the text.
 - `Carousel` takes `orientation="vertical"` (`.ui-vertical`) to scroll on the block axis. Set its height with `--_block-size`. Markers sit in a column beside the items.
 - `Select` items take `selected`, and `value` preselects options in Astro, Svelte and Vue, and `defaultValue` or `value` in React (an array with `multiple`). Options render `selected` on the server.
@@ -141,7 +141,7 @@
 - `Radio` takes a `spread` prop (`.ui-spread`), like `Checkbox` and `Switch`.
 - `Card` takes `.ui-card-link` on a link to make the whole card clickable. Other links and buttons in the card stay clickable.
 - `Checkbox` and `Radio` take `size="x-small"` (`.ui-x-small`), 14px from the new `--ui-choice-size-x-small` token.
-- `Switch` takes `size="x-small"` and `size="large"` (`.ui-x-small`, `.ui-large`), from the new `--switch-dot-size-*`, `--switch-track-height-*` and `--switch-track-width-*` x-small and large tokens. The dot inset follows the track and dot size, so custom `--switch-*` values stay centered.
+- `Switch` takes `size="x-small"` and `size="large"` (`.ui-x-small`, `.ui-large`), from the new `--ui-switch-dot-size-*`, `--ui-switch-track-height-*` and `--ui-switch-track-width-*` x-small and large tokens. The dot inset follows the track and dot size, so custom `--switch-*` values stay centered.
 - `Chip` takes `size="x-small"` (`.ui-x-small`), 24px tall from the new `--ui-chip-size-x-small` token.
 - `Badge` `alignment` takes `"start-end"`, the default placement.
 - `Badge` takes `srLabel`, visually hidden text (`.ui-sr-only`) inside the indicator that describes it to assistive technology, such as "3 unread".
@@ -164,15 +164,16 @@
 - `Badge`, `Button`, `Card`, `Carousel`, `Checkbox`, `Dialog`, `Progress`, `Radio`, `Range`, `Table`, `Tabs`, `TextField`, `Textarea`, `ToggleButton` and `Tooltip` transitions read `--_duration` and `--_ease`, like `Accordion`, `Drawer`, `Menu`, `Select` and `Switch`.
 - `theme.css` has font tokens: `--ui-font-body` for text, fields and buttons, `--ui-font-heading` for `h1`–`h6` and `.ui-h1`–`.ui-h6`, and `--ui-font-code` for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. `--ui-font-heading` is unset and headings follow `--ui-font-body` per element.
 - `theme.css` has a spacing scale, `--ui-space-1` to `--ui-space-8`, multiplied by `--ui-space-scale`. `Accordion`, `Callout`, `Card`, `Carousel`, `DescriptionList`, `Dialog`, `Divider`, `Drawer`, `Form`, `Menu`, `Table`, `Toast`, `Tooltip` and `Typography` read it for their padding, gaps and margins, and so do native `fieldset`, `dt` and `figure` and `--ui-divider-space`. Controls keep following `--ui-density`.
-- `theme.css` has elevation tokens: `--ui-shadow-raised` for elevated `Card` and `Accordion`, which switches between `--ui-shadow-raised-light` (`--shadow-3`) and `--ui-shadow-raised-dark` (`--shadow-4`) with the color scheme, and `--ui-shadow-overlay` for `Menu`, the `Select` picker, `Drawer` and `Toast`. `--ui-shadow-control` is the shadow of buttons with a variant and of fields (the optional `--ui-shadow-field` overrides it for fields), and `--ui-shadow-surface` the shadow of tonal and outlined `Card` and `Accordion` and of `Callout`, both `none` by default. `--ui-shadow-tab` is the shadow of the selected tab (`--shadow-1`).
-- `Card` and `Callout` read the optional `--ui-surface-border-color` token for the border of tonal and elevated cards and of callouts without a severity.
-- `Button` reads optional theme tokens: `--ui-button-accent` and `--ui-button-accent-contrast` for the color of buttons and button groups without `.ui-primary` or `.ui-critical`, `--ui-button-border-color` for the border of filled, outlined and tonal buttons and the edge and dividers of `ButtonGroup` with those variants, `--ui-button-outlined-border-color` for outlined ones only, `--ui-button-font-weight`, and `--ui-button-hover-shadow` and `--ui-button-hover-translate` for the shadow and offset on hover. `--ui-font-size-control` sets the font size of the default `Button`, `TextField`, `Textarea` and `Select`.
+- `theme.css` has elevation tokens: `--ui-shadow-raised` for elevated `Card` and `Accordion`, which switches between `--ui-shadow-raised-light` (`--shadow-3`) and `--ui-shadow-raised-dark` (`--shadow-4`) with the color scheme, and `--ui-shadow-overlay` for `Menu`, the `Select` picker, `Drawer` and `Toast`. `--ui-shadow-control` is the shadow of buttons with a variant and of fields (the optional `--ui-shadow-field` overrides it for fields), and `--ui-shadow-surface` the shadow of tonal and outlined `Card` and `Accordion` and of `Callout`, both `none` by default. `--ui-shadow-tab` is the shadow of the selected tab (`--shadow-1`), and `--ui-shadow-scroll` the scroll shadow of `Dialog` and `Drawer` content and of a sticky `Table` header (`--shadow-4`).
+- `Card`, `Accordion` and `Callout` read the optional `--ui-surface-border-color` token for the border of tonal and elevated cards and accordions and of callouts without a severity.
+- `theme.css` has `--ui-border-color-raised` and `--ui-field-border-color-raised`, the borders inside tonal and elevated `Card` and `Accordion`, `Dialog` and `Callout` without a severity, and `--ui-border-color-filled`, the border inside lists without a variant and table headers. In light mode the raised ones default to the theme's `--ui-border-color` and `--ui-field-border-color`, so a theme's borders reach inside those surfaces. The example themes set them.
+- `Button` reads optional theme tokens: `--ui-button-accent` and `--ui-button-accent-contrast` for the color of buttons and button groups without `.ui-primary` or `.ui-critical`, `--ui-button-border-color` for the border of filled, outlined and tonal buttons the edge of `ButtonGroup` with those variants and the dividers of every `ButtonGroup`, `--ui-button-outlined-border-color` for outlined ones only, `--ui-button-font-weight`, and `--ui-button-hover-shadow` and `--ui-button-hover-translate` for the shadow and offset on hover. `--ui-font-size-control` sets the font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`.
 - `Button`, `.ui-link` and rich text links read the optional `--ui-primary-text` token for primary text, for themes whose primary is too light or too dark to read.
 - `layers.css` declares the `theme.palette`, `theme.base` and `theme.custom` sublayers. `theme.custom` is empty, for your own tokens: it beats the defaults in `theme.base` and loses to every component and utility.
-- Every component page lists its `--_` custom properties under Component properties, as inputs to set or outputs that states derive, and so does each agent skill reference.
+- Component pages list their `--_` custom properties under Component properties, as inputs to set or outputs that states derive, and so does each agent skill reference.
 - `tokens.json` lists every theme token in the W3C design tokens format, with its CSS variable, default, dark mode value and description. Import it from `opui-css/tokens.json`. The agent skill ships a copy and a table of which token to change for what.
 - `themes/bootstrap.css` (a Bootstrap 5 look), `themes/brutalist.css` (a neobrutalism look), `themes/m3.css` (a Material 3 look) and `themes/shadcn.css` (a shadcn/ui look) are example themes in the `theme.custom` layer, made only of tokens. They name their fonts but don't load them. They start with the layer order, so they work wherever they load. Import one, or copy it as a starting point.
-- `Layout` classes for the space between components: `.ui-l-column` (a column), `.ui-l-row` (a row that wraps), `.ui-l-grid` (columns that fill the width without breakpoints) and `.ui-l-container` (a centered, capped width). Gaps come from the `--space-*` scale, with `.ui-x-small`, `.ui-small` and `.ui-large`. CSS only, in `css/components/layout.css`, in the `utils` layer.
+- `Layout` classes for the space between components: `.ui-l-column` (a column), `.ui-l-row` (a row that wraps), `.ui-l-grid` (columns that fill the width without breakpoints) and `.ui-l-container` (a centered, capped width). Gaps come from the `--ui-space-*` scale, with `.ui-x-small`, `.ui-small` and `.ui-large`. CSS only, in `css/components/layout.css`, in the `utils` layer.
 
 ### Changed
 
@@ -207,7 +208,7 @@
 - `Tooltip` uses `--ui-surface-inverse` and `--ui-text-inverse`.
 - `Avatar` and `Badge` text uses `--ui-primary-contrast`.
 - `Drawer` backdrop dims and blurs like `Dialog`, through `--ui-backdrop-color` and `--ui-backdrop-blur`. `.ui-backdrop-transparent` still removes it.
-- `Avatar`, `List` and `ButtonGroup` sizes follow `--ui-control-size` and `--button-size-*`.
+- `Avatar`, `List` and `ButtonGroup` sizes follow `--ui-control-size` and `--ui-button-size-*`.
 - `theme.css` declares `--ui-palette-hue-rotate-by`, `--ui-gray-hue` and `--ui-gray-chroma` so every theme knob lives in one file.
 - `Card` tonal and elevated variants (and `Dialog`) have a border in the page background color, so they stay visible on tonal surfaces. In dark mode, borders and field borders inside them also use the page background.
 - `Dialog` has a maximum height. The header and actions stay in place and the content scrolls.
@@ -225,11 +226,14 @@
 - `Select` and `TextField` auto-suggest arrows are a chevron instead of a triangle.
 - `List` only styles direct `li`/`option` children (and options in a `[role="group"]`) as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin.
 - `Divider` that is a direct child of a card has no margin, since the card's gap spaces it.
+- `Drawer` content padding is `--ui-space-3`, like its header and footer and `Dialog`. It was `--ui-space-4`, so the title and the body text didn't line up.
+- `DialogActions` only renders a class for `align="start"` (`.ui-align-start`). `align="end"` is the default look and no longer adds `.ui-align-end`.
+- `Accordion` with `variant="tonal"` or `variant="elevated"` has a border, transparent unless a theme sets `--ui-surface-border-color`, like tonal and elevated cards.
 - `Drawer` header headings take the free space and the header has a gap, so several actions line up at the end. Without a heading, the first icon-only button is pushed to the end.
-- Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick. Rich text links in a `List` are `--ui-primary-dark` in light mode.
+- `Link` (`.ui-link`) and rich text links darken in light mode and lighten in dark mode on hover and focus, from their own color so they keep the contrast of `--ui-primary-text`, and their underline gets `3px` thick. Rich text links in a `List` are `--ui-primary-dark` in light mode.
 - `theme.css` named colors read Open Props' hue tokens instead of fixed angles: `--ui-blue`, `--ui-green`, `--ui-orange` and `--ui-red` follow `--hue-blue`, `--hue-green`, `--hue-orange` and `--hue-red`, like the severity scopes. `--ui-info` and `--ui-blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette. White text on an info `Badge` is 4.58:1.
 - `ToggleGroup` is in the `components.extended` layer, like `ButtonGroup`.
-- `Callout` links, `Chip`, `Link`, `List`, `Range`, `Table`, `TextField`, `Toast`, the `Checkbox` and `Radio` halo and rich text links only show hover styles on devices that can hover, so they no longer stick after a tap.
+- `Callout` links, `Card` links, `Chip`, `Link`, `List`, `Range`, `Table`, `TextField`, `Toast`, the `Checkbox` and `Radio` halo and rich text links only show hover styles on devices that can hover, so they no longer stick after a tap.
 - `Spinner` shows on busy buttons and links that have `aria-describedby`. Other elements with `aria-describedby` still opt out, for the progress bar pattern.
 - `ButtonGroup` item styles select `.ui-button` instead of `button`, so `Button` links (`<a class="ui-button">`) are styled like the buttons. A plain `<button>` without `.ui-button` no longer gets the group item styles.
 - `open-props.css` imports the Open Props files one by one instead of `open-props/src/index.css`, so `dist/op.css` and `dist/opui.css` no longer contain Open Props' `@custom-media` rules. Import `open-props/media` yourself if a PostCSS plugin reads them.
@@ -261,9 +265,8 @@
 
 ### Fixed
 
-- `Button` `kbd` keeps the button's text color instead of 80% opacity, so it passes contrast on colored buttons.
+- `Button` `kbd` uses the button's text color, also on hover, instead of 80% of it, so it passes contrast on colored buttons.
 - `Typography` rich text inline `code`, `kbd` and `var` no longer make their line taller than the line height.
-- `Select` and `TextField` autosuggest chevrons center with `margin-block: auto` instead of a `translate`.
 - `Anchor` with `trigger="hover"` and `Tooltip` stay visible on a scrolled page in Chrome 141. `normalize.css` gives `html` `min-block-size: 100%` instead of `block-size: 100%`, and `body` `min-block-size: 100svb` instead of `100%`, because `position-visibility: anchors-visible` hid every popover whose trigger was below the first screen.
 - `Checkbox`, `Radio`, `Switch` and `ToggleButton` style `aria-disabled="true"` on the input like `disabled`: dimmed, a `not-allowed` cursor and no hover tint on toggle buttons. The browser doesn't block the change, so a script has to.
 - `ToggleGroup` keeps its control size in forced colors instead of being one border width short, and the selected item no longer shows a gray divider there.
@@ -278,7 +281,7 @@
 - `Progress` pulses in place under reduced motion (`--ui-motion: 0`, or `--_motion: 0` on the bar) instead of freezing. Its indeterminate animation was scaled to `0s`.
 - `Spinner` slows down to 1.5s per turn under reduced motion (`--ui-motion: 0`) instead of ignoring it.
 - `Switch` icons shrink to fit beside the dot when the track is too narrow for both, instead of overlapping the dot.
-- Documented source imports with a `.css` extension (`opui-css/css/imports.css`, `opui-css/core/normalize.css`, `opui-css/css/components/button.css`, …) now resolve through `exports`. Previously they resolved to `*.css.css`.
+- `package.json` `exports` resolve documented source imports with a `.css` extension (`opui-css/css/imports.css`, `opui-css/core/normalize.css`, `opui-css/css/components/button.css`, …) Previously they resolved to `*.css.css`.
 - `Tooltip` transitions now respect `--ui-motion` (`prefers-reduced-motion`, `.ui-motion-off`).
 - `Dialog` backdrop is themeable via `--_backdrop-bg-color` and `--_backdrop-blur` (same as `Drawer`).
 - `Dialog` scroll-lock matches `.ui-scroll-lock` and no longer shifts the layout when the scrollbar disappears.
@@ -287,9 +290,9 @@
 - `Button` and `ButtonGroup` hover styles only apply on devices that support hover, so they no longer stick after a tap.
 - `ButtonGroup` dividers are no longer double thick.
 - `opui-css/open-props.css` resolves through `exports`.
-- The package no longer ships the internal `components/AGENTS.md`.
+- `components/AGENTS.md`, the internal guide, no longer ships in the package.
 - `dist` source maps no longer embed the sources (`sourcesContent`) or `node_modules/.pnpm` paths. Open Props sources point to `../../open-props/`, and `opui.components.css.map` accounts for the `@layer` order line.
-- Peer dependency ranges are `astro` `^7`, `svelte` `^5.29` and `vue` `^3.5` instead of the versions used for development, and `solid-js` `^1.9` is an optional peer dependency.
+- `package.json` peer dependency ranges are `astro` `^7`, `svelte` `^5.29` and `vue` `^3.5` instead of the versions used for development, and `solid-js` `^1.9` is an optional peer dependency.
 - `FieldGroup` `name` only applies to its own fields in Astro and Vue.
 - `Tabs` and `ToggleGroup` context only applies to their own children in Astro.
 - `Typography` rich text removes the top margin of the first child and the bottom margin of the last child in a component's `.ui-content`.
@@ -332,7 +335,6 @@
 - `Avatar` doesn't shrink in flex rows.
 - `Avatar` groups overlap from the start, so the group's box ends at its last avatar.
 - `Button` disabled text color applies to text and outlined buttons in every color. Filled and tonal buttons keep their own text color and dim with the disabled opacity, so the label stays readable on the fill.
-- `Button` `kbd` follows the button's text color on hover.
 - `Typography` `.ui-mark` has a background, `.ui-del`/`.ui-ins` use the critical/success palette, and `del`/`ins` text passes contrast in light and dark mode.
 - `Typography` rich text `pre` and inline `code` run left to right in RTL.
 - `Range` in Vue shows the default value without `value` or `v-model`, and `v-model` returns a number.
@@ -346,7 +348,7 @@
 - `Avatar` in Vue accepts arrays and objects for `class`, and the image always has an `alt` attribute.
 - `Anchor` and `Badge` render a user `id` on the root. With `trigger="hover"` it stays the floating element's id.
 - `Tooltip` arrow points at the trigger for every position, after flips and shifts.
-- Vue `Anchor`, `Badge`, `Divider`, `Drawer`, `TableColumn`, `Tabs`, `ToggleButton` and `ToggleGroup` update derived values when props change.
+- `Anchor`, `Badge`, `Divider`, `Drawer`, `TableColumn`, `Tabs`, `ToggleButton` and `ToggleGroup` in Vue update derived values when props change.
 - `Accordion`, `Avatar`, `Divider`, `List`, `Progress`, `Range`, `Select`, `Switch`, `Tabs`, `Textarea`, `TextField` and `ToggleButton` keep their state visible in forced colors mode: selected tabs, toggles and list items use `SelectedItem`, switches, ranges, progress bars and dividers are drawn with system colors, focused fields get a `Highlight` outline, and elevated and tonal accordions and letter avatars get an outline.
 - `Table` uses `overflow: clip` instead of `overflow: hidden`, so it is no longer a scroll container and sticky cells inside it stick.
 - `Range` fills the track in Chromium and Safari without JavaScript, also in plain HTML, with a scroll-driven animation. The hover ring is no longer clipped at min or max.
@@ -415,7 +417,6 @@
 - `TabsItem` in Vue follows `id` and `tabId` changes.
 - `Tabs`, `TabsItem`, `ToggleGroup`, `Select`, `Range`, `Checkbox`, `Radio` and `Switch` in Vue render the same generated id prefixes as the other frameworks.
 - `Tabs` in Astro names a `TabsItem` outside a `Tabs` and links its `TabsTab`, like React and Svelte.
-- `CalloutIcon` in Vue drops attributes passed to a neutral callout's icon instead of warning.
 - `Chip` in Astro only renders `href` when the chip is an `a`.
 - `DescriptionListDescription`, `DescriptionListItem` and `DescriptionListTerm` in Vue no longer accept the list's `bordered` prop.
 - `Card` actions keep the edge padding for a text button with extra classes.
@@ -439,7 +440,7 @@
 - `ListItem` with `as="button" disabled` (or `aria-disabled="true"` on a link) looks disabled in a plain `List` too: dimmed, `not-allowed` cursor, no hover tint.
 - `Radio` in Vue follows a passed `checked` without `v-model`.
 - `Range` (Astro) updates its value output after `<ClientRouter>` navigation, leaves `value` slot content and ranges it didn't render alone, and wires each output once.
-- `Select` adds its start text (`.ui-start-text`) to `aria-describedby`, before the end text.
+- `Select` adds its header, start text (`.ui-start-text`), end text and footer to `aria-describedby`, in that order.
 - `Select` `--_motion: 0` on the root also stops the picker and chevron animations.
 - `Select` and `Range` in Astro merge a passed `aria-labelledby` instead of rendering the attribute twice.
 - `TextField`, `Textarea` and `Select` (Vue) can be edited when given a `value` without `v-model`.
@@ -448,9 +449,9 @@
 - `Toast` keeps animating in browsers without typed `attr()`, with the hold time from `--_hold-duration`.
 - `Tooltip` aligned to a span switches inline sides before it jumps to the other block side.
 - `Typography` links in rich text use the same text-safe primary as `.ui-link`.
-- Package: `opui-css/env.d.ts` types `interestfor` on `<a>` and `<button>` for Astro.
-- Package: `opui-css/css/js/checkbox.js` and `toast.js` ship type declarations.
-- `TextField` and `Textarea` no longer point `aria-describedby` at the end text, so screen readers don't read it twice. The wrapping `<label>` already makes it part of the name.
+- `env.d.ts` types `interestfor` on `<a>` and `<button>` for Astro.
+- `checkbox.js` and `toast.js` ship type declarations.
+- `Checkbox`, `Radio`, `Switch`, `TextField` and `Textarea` no longer point `aria-describedby` at the end text, so screen readers don't read it twice. The wrapping `<label>` already makes it part of the name.
 - `Anchor` and `Tooltip` inside a `Badge` no longer shift their floating element by the badge's offset.
 - `TextField`, `Textarea` and `Select` required asterisks are spaced like the `Checkbox`, `Radio`, `Switch` and `FieldSet` ones (`0.25ex`).
 - `Switch` gets the pointer cursor, `--font-lineheight-3` line height and `user-select: none` of `Checkbox` and `Radio`.
@@ -458,6 +459,35 @@
 - `Button` without a variant shows its pressed background while held with the keyboard, like outlined, tonal and filled buttons.
 - `Checkbox` and `Radio` no longer set `--ui-primary` when invalid, so links and other content in their label keep the primary color.
 - `Toast` keeps the same gutter on both sides of narrow screens.
+- `Callout` links use `--ui-primary-text`, or a readable shade of `--ui-primary`, on hover and focus. They fell below 4.5:1 on the tonal background.
+- `button.css` gives file inputs outside a `TextField` readable text (`--ui-text-muted`) and the field border tokens. The text used the inverse surface color.
+- `Menu` border follows `--ui-border-color` with more contrast in dark mode too.
+- `Range` in a disabled `fieldset` gets the disabled thumb and no hover ring, like a disabled range.
+- `Range` disabled thumb is opaque, so the track no longer shows through it.
+- `Range` value lines up with the label's baseline.
+- `Range` with a value readout points its root `<label>` at the input, so the label names the slider instead of the `<output>`.
+- `Range` declares `--_track-height` and `--_track-radius` on the root, so setting them on the component works.
+- `normalize.css` body text reads `--ui-font-weight-normal` and headings `--ui-font-weight-bold`, so a theme's weights reach bare text and headings.
+- `Callout` severity icons use a lighter palette step in dark mode, so they reach 3:1 against the callout.
+- `Checkbox`, `Radio`, `Switch`, `TextField`, `Textarea`, `Select` and `FieldSet` required asterisks are left out of the accessible name, so screen readers don't read "star".
+- `Spinner` no longer sets `position: relative` on dialogs and popovers, so a busy `Drawer` stays in place.
+- `Table` no longer clips the focus ring of controls in its first and last rows.
+- `Tabs` directly in a `Card` draw the focus ring inside, so the card doesn't clip it.
+- `Card` actions keep room for the focus ring of a text button at their start or end.
+- `Card` content followed by a divider has no bottom padding, so the divider sits evenly between the two contents.
+- `Avatar` button and link avatars dim and show the not-allowed cursor when disabled.
+- `AvatarGroup` raises a focused avatar, so the next avatar doesn't cover its focus ring.
+- `ButtonGroup` focus rings stay off the label when a theme or more contrast widens the ring.
+- `List` without a variant sets the field border to its own border, so checkbox and radio rings show on the filled row.
+- `Menu` keeps at most 40% of the viewport height when space is tight, so short viewports don't push items out of reach.
+- `theme.css` raised and filled surfaces no longer replace a theme's border colors with palette grays in light mode.
+- `Toast` close icon in the default `toast.js` template is hidden from screen readers.
+- `Table` row headers keep the border color of the body cells next to them.
+- `TextField` and `Select` with `spread` keep the start text under the label when the field has a header or footer.
+- `Toast` content starts right after the severity icon, so toasts with and without one line up.
+- `Switch` checked icon uses the dot's contrast color, so it shows on the accent track.
+- `Typography` inline `code` in `del` and `ins` has no inline padding, so no gap shows before the next character.
+- `Checkbox`, `Radio`, `Range`, `Select`, `Switch`, `TextField` and `Textarea` in Vue render a text prop and its slot together, like Astro, instead of dropping the prop.
 
 ## 5.5.0 - 2026-09-28
 

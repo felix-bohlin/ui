@@ -10,7 +10,6 @@ const {
   "aria-invalid": ariaInvalid,
   "aria-labelledby": ariaLabelledBy,
   class: className,
-  disabled,
   endText,
   error,
   id,
@@ -62,10 +61,11 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
 <label
   class:list={[
     "ui-range",
-    variant && `ui-${variant}`,
     { "ui-spread": spread },
+    variant && `ui-${variant}`,
     className,
   ]}
+  for={hasValue ? inputId : undefined}
   style={style}
 >
   {
@@ -101,7 +101,6 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
     aria-describedby={describedBy}
     aria-invalid={error ? "true" : ariaInvalid}
     aria-labelledby={labelId ?? ariaLabelledBy}
-    disabled={disabled}
     id={inputId}
     list={listId}
     max={max}

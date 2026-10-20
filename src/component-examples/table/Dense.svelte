@@ -21,14 +21,14 @@
   </TableHead>
   <TableBody>
     <TableRow>
-      <TableCell>Radiohead</TableCell>
-      <TableCell>Ed O'Brien</TableCell>
-      <TableCell>Guitar/Vocals</TableCell>
-    </TableRow>
-    <TableRow>
       <TableCell>Korn</TableCell>
       <TableCell>Jonathan Davis</TableCell>
       <TableCell>Vocals</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Radiohead</TableCell>
+      <TableCell>Ed O'Brien</TableCell>
+      <TableCell>Guitar/Vocals</TableCell>
     </TableRow>
   </TableBody>
 </Table>

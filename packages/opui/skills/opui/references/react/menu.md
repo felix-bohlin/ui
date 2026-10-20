@@ -4,7 +4,7 @@ A popover [List](https://open-props-ui.netlify.app/react/components/list.md), an
 
 ## Basics
 
-`items` with `borderTop`, `critical`, `disabled` and `shortcut`.
+`items` with `borderTop`, `critical`, `disabled`, `href` and `shortcut`.
 
 ```tsx
 import { Button, Menu } from "opui-css/react"
@@ -22,9 +22,10 @@ export default function Basics() {
       <Menu
         id="menu-basics-1"
         items={[
-          { text: "Edit", shortcut: "E" },
-          { text: "Duplicate", shortcut: "D" },
+          { text: "Edit", shortcut: "Ctrl+E" },
+          { text: "Duplicate", shortcut: "Ctrl+D" },
           { text: "Archive", disabled: true },
+          { text: "Help", href: "#basics" },
           { text: "Delete", borderTop: true, critical: true },
         ]}
       />
@@ -60,6 +61,33 @@ export default function Bordered() {
 }
 ```
 
+## Dense
+
+`dense` packs the items tighter.
+
+```tsx
+import { Button, Menu } from "opui-css/react"
+
+export default function Dense() {
+  return (
+    <>
+      <Button
+        commandfor="menu-dense-1"
+        command="toggle-popover"
+        variant="outlined"
+      >
+        Options
+      </Button>
+      <Menu
+        dense
+        id="menu-dense-1"
+        items={[{ text: "Copy" }, { text: "Cut" }, { text: "Paste" }]}
+      />
+    </>
+  )
+}
+```
+
 ## Custom items
 
 If you want to decide yourself what goes into your list.
@@ -78,7 +106,11 @@ export default function Custom() {
         commandfor="menu-custom-1"
         command="toggle-popover"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
           <path
             fill="currentColor"
             d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
@@ -93,7 +125,11 @@ export default function Custom() {
           commandfor="menu-custom-1"
           command="hide-popover"
           start={
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
               <path
                 fill="currentColor"
                 d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
@@ -108,21 +144,29 @@ export default function Custom() {
           commandfor="menu-custom-1"
           command="hide-popover"
           start={
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
               <path
                 fill="currentColor"
                 d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 16H8V7h11z"
               ></path>
             </svg>
           }
-          end={<kbd>Ctrl C</kbd>}
+          end={<kbd>Ctrl+C</kbd>}
         />
         <ListItem
           as="a"
           headline="Open in new tab"
           href="#menu"
           start={
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
               <path
                 fill="currentColor"
                 d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z"
@@ -138,7 +182,11 @@ export default function Custom() {
           commandfor="menu-custom-1"
           command="hide-popover"
           start={
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
               <path
                 fill="currentColor"
                 d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
@@ -196,6 +244,14 @@ export default function Placement() {
         Inline end
       </Button>
       <Menu id="menu-placement-4" items={items} placement="inline-end" />
+      <Button
+        commandfor="menu-placement-5"
+        command="toggle-popover"
+        variant="outlined"
+      >
+        Align end
+      </Button>
+      <Menu align="end" id="menu-placement-5" items={items} />
     </>
   )
 }
@@ -203,7 +259,7 @@ export default function Placement() {
 
 ## Submenu
 
-Pass a `Menu` to the `submenu` prop of a `ListItem`. Mark the item with an icon from your icon library in the `end` prop. Submenu items close the whole menu.
+Pass a `Menu` to the `submenu` prop of a `ListItem`. Mark the item with an icon from your icon library, with `aria-hidden="true"`, in the `end` prop. Submenu items close the whole menu.
 
 ```tsx
 import { Button, ListItem, Menu } from "opui-css/react"
@@ -228,6 +284,7 @@ export default function Submenu() {
           command="toggle-popover"
           end={
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -270,8 +327,8 @@ export default function Manual() {
         id="menu-manual-1"
         popover="manual"
         items={[
-          { text: "Show grid", closeOnClick: false },
-          { text: "Show rulers", closeOnClick: false },
+          { text: "Zoom in", closeOnClick: false },
+          { text: "Zoom out", closeOnClick: false },
           { text: "Done", borderTop: true },
         ]}
       />
@@ -300,16 +357,16 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 ### Menu API
 
-| Prop        | Type                                                                | Default       | Description                                                                                                                                                                                                                                                                      |
-| ----------- | ------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `align`     | `"end"` , `"start"`                                                 | `"start"`     | Which edge of the trigger the menu lines up with.                                                                                                                                                                                                                                |
-| `bordered`  | `boolean`                                                           | `false`       | Adds a border between the items.                                                                                                                                                                                                                                                 |
-| `children`  | `ReactNode`                                                         | -             | An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot.                                                                                                                                                               |
-| `dense`     | `boolean`                                                           | `false`       | Less spacing.                                                                                                                                                                                                                                                                    |
-| `id`        | `string`                                                            | -             | The id of the menu, which the trigger's `commandfor` points at. Generated when omitted.                                                                                                                                                                                          |
-| `items`     | `MenuItem[]`                                                        | -             | The items, as `{ borderTop, closeOnClick, critical, disabled, href, shortcut, text }` objects. An item renders a `<button>`, or an `<a>` with `href`. Other keys go to that element. A button item closes the whole menu, also from a submenu, unless `closeOnClick` is `false`. |
-| `placement` | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"block-end"` | Where the menu opens.                                                                                                                                                                                                                                                            |
-| `popover`   | `"auto"` , `"manual"`                                               | `"auto"`      | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                                                                                                                                                        |
+| Prop        | Type                                                                | Default       | Description                                                                                                                                     |
+| ----------- | ------------------------------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `align`     | `"end"` , `"start"`                                                 | `"start"`     | Which edge of the trigger the menu lines up with.                                                                                               |
+| `bordered`  | `boolean`                                                           | `false`       | Adds a border between the items.                                                                                                                |
+| `children`  | `ReactNode`                                                         | -             | The items, such as `ListItem`s.                                                                                                                 |
+| `dense`     | `boolean`                                                           | `false`       | Packs the items tighter.                                                                                                                        |
+| `id`        | `string`                                                            | -             | The id of the menu, which the trigger's `commandfor` points at. Generated when omitted.                                                         |
+| `items`     | `MenuItem[]`                                                        | -             | The items, as `{ borderTop, closeOnClick, critical, disabled, href, shortcut, text }` objects. Other keys go to the item's `<a>` or `<button>`. |
+| `placement` | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"block-end"` | Where the menu opens.                                                                                                                           |
+| `popover`   | `"auto"` , `"manual"`                                               | `"auto"`      | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                       |
 
 #### CSS variables
 
@@ -328,7 +385,7 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 | `--ui-font-code`                 | `var(--font-mono)`                                 | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                |
 | `--ui-font-size-05`              | `0.875rem`                                         | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
 | `--ui-font-weight-bold`          | `var(--font-weight-7)`                             | Font weight for headings, buttons and terms.                                                                                                                                                                                     |
-| `--ui-font-weight-normal`        | `var(--font-weight-4)`                             | Font weight for `List` text and `Button` keyboard shortcuts.                                                                                                                                                                     |
+| `--ui-font-weight-normal`        | `var(--font-weight-4)`                             | Font weight for body text, `List` text and `Button` keyboard shortcuts.                                                                                                                                                          |
 | `--ui-icon-size`                 | `var(--size-4)`                                    | Default icon size inside components.                                                                                                                                                                                             |
 | `--ui-icon-size-small`           | `var(--size-3)`                                    | Icon size inside `Chip`.                                                                                                                                                                                                         |
 | `--ui-motion`                    | `1`                                                | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion).                        |

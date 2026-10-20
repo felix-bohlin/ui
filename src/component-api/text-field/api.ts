@@ -10,11 +10,11 @@ export default {
   notes: {
     astro:
       "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
-    html: "The control can also be a `<select>` or `<textarea>`. You can put a `<datalist>` inside the root.",
+    html: "Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. You can put a `<datalist>` inside the root.",
     react:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
     svelte:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `style` goes to the root `<label>`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
     vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
@@ -54,7 +54,7 @@ export default {
       default: "false",
       description:
         "Pushes the label and start text to one side and the input to the other.",
-      group: "Layout",
+      group: "Spread",
       prop: "spread",
     },
     {

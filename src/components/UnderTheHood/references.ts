@@ -65,13 +65,9 @@ export const references = {
   button: [
     { code: true, href: mdn("Web/CSS/:has"), label: ":has()" },
     { code: true, href: mdn("Web/CSS/:only-child"), label: ":only-child" },
-    { code: true, href: mdn("Web/CSS/clip-path"), label: "clip-path" },
+    { code: true, href: mdn("Web/CSS/:where"), label: ":where()" },
     { code: true, href: mdn("Web/CSS/length#ex"), label: "ex" },
-    {
-      code: true,
-      href: mdn("Web/CSS/transform-style"),
-      label: "transform-style",
-    },
+    { code: true, href: mdn("Web/CSS/length#lh"), label: "lh" },
   ],
   callout: [
     { code: true, href: mdn("Web/CSS/::before"), label: "::before" },
@@ -170,6 +166,12 @@ export const references = {
       code: true,
       href: mdn("Web/CSS/@media/forced-colors"),
       label: "forced-colors",
+    },
+    { code: true, href: mdn("Web/CSS/length#lh"), label: "lh" },
+    {
+      code: true,
+      href: mdn("Web/CSS/color_value/light-dark"),
+      label: "light-dark()",
     },
   ],
   "description-list": [
@@ -290,12 +292,14 @@ export const references = {
   ],
   menu: [
     { code: true, href: mdn("Web/CSS/:popover-open"), label: ":popover-open" },
+    { code: true, href: mdn("Web/CSS/@position-try"), label: "@position-try" },
     {
       code: true,
       href: mdn("Web/CSS/@starting-style"),
       label: "@starting-style",
     },
     { code: true, href: mdn("Web/CSS/anchor-size"), label: "anchor-size()" },
+    { code: true, href: mdn("Web/CSS/calc-size"), label: "calc-size()" },
     {
       code: false,
       href: mdn("Web/API/Invoker_Commands_API"),
@@ -412,13 +416,13 @@ export const references = {
     { code: true, href: mdn("Web/CSS/:open"), label: ":open" },
     {
       code: true,
-      href: mdn("Web/CSS/@starting-style"),
-      label: "@starting-style",
+      href: mdn("Web/HTML/Element/selectedcontent"),
+      label: "<selectedcontent>",
     },
     {
       code: true,
-      href: mdn("Web/HTML/Element/selectedcontent"),
-      label: "<selectedcontent>",
+      href: mdn("Web/CSS/@starting-style"),
+      label: "@starting-style",
     },
     { code: true, href: mdn("Web/CSS/appearance"), label: "appearance" },
     {

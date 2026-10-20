@@ -3,9 +3,8 @@ import { Chip } from "opui-css/react"
 export default function Link() {
   return (
     <>
-      <Chip as="a" href="#" variant="tonal" label="Tonal link" />
+      <Chip href="#" variant="tonal" label="Tonal link" />
       <Chip
-        as="a"
         href="#"
         variant="outlined"
         end={

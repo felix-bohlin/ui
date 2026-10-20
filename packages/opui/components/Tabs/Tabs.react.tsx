@@ -6,11 +6,11 @@ import { TabsContext } from "./context.react"
 import type { Props } from "./types.react"
 
 export default function Tabs({
-  children,
   className,
   name,
   scrollable,
   variant,
+  children,
   ...rest
 }: Props) {
   const uid = useId()

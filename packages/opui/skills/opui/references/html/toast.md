@@ -35,6 +35,7 @@ Add the manager and the default template once per page, and load `toast.js` to s
       type="button"
     >
       <svg
+        aria-hidden="true"
         fill="none"
         height="20"
         stroke="currentColor"
@@ -63,6 +64,7 @@ Use `commandfor="toast-manager"` and `command="--show-toast"` on a button. The `
 
 ```html
 <button
+  type="button"
   class="ui-button"
   commandfor="toast-manager"
   command="--show-toast"
@@ -107,26 +109,18 @@ Use the `data-severity` attribute to change the appearance of the toast.
 
 ```html
 <button
-  class="ui-button ui-filled"
-  commandfor="toast-manager"
-  command="--show-toast"
-  data-title="Success!"
-  data-severity="success"
->
-  Success
-</button>
-
-<button
+  type="button"
   class="ui-button ui-filled ui-critical"
   commandfor="toast-manager"
   command="--show-toast"
   data-title="Something went wrong"
   data-severity="critical"
 >
-  Error
+  Critical
 </button>
 
 <button
+  type="button"
   class="ui-button ui-filled"
   commandfor="toast-manager"
   command="--show-toast"
@@ -134,6 +128,28 @@ Use the `data-severity` attribute to change the appearance of the toast.
   data-severity="info"
 >
   Info
+</button>
+
+<button
+  type="button"
+  class="ui-button ui-filled"
+  commandfor="toast-manager"
+  command="--show-toast"
+  data-title="Saved"
+  data-severity="success"
+>
+  Success
+</button>
+
+<button
+  type="button"
+  class="ui-button ui-filled"
+  commandfor="toast-manager"
+  command="--show-toast"
+  data-title="Storage almost full"
+  data-severity="warning"
+>
+  Warning
 </button>
 ```
 
@@ -143,6 +159,7 @@ Use `data-title` for a single-line toast, or add `data-description` for a two-li
 
 ```html
 <button
+  type="button"
   class="ui-button"
   commandfor="toast-manager"
   command="--show-toast"
@@ -152,6 +169,7 @@ Use `data-title` for a single-line toast, or add `data-description` for a two-li
 </button>
 
 <button
+  type="button"
   class="ui-button"
   commandfor="toast-manager"
   command="--show-toast"
@@ -168,6 +186,7 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 
 ```html
 <button
+  type="button"
   class="ui-button"
   commandfor="toast-manager"
   command="--show-toast"
@@ -178,6 +197,7 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 </button>
 
 <button
+  type="button"
   class="ui-button"
   commandfor="toast-manager"
   command="--show-toast"
@@ -190,34 +210,48 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 
 ## Anatomy
 
-1\. Container (Manager)\
-2\. Individual Toast Body\
-3\. Content Area\
-4\. Close Button (Optional)
+1. Container, `#toast-manager`
+2. Toast, `.ui-toast` with `data-severity`
+3. Icon, `.ui-icon`
+4. Content, `.ui-content` with `.ui-title` and `.ui-description`
+5. Close button, `.ui-close-button`
 
 ## API
 
-| Type          | Modifiers        | Default  | Description                                                                                              |
-| ------------- | ---------------- | -------- | -------------------------------------------------------------------------------------------------------- |
-| **Command**   | `--show-toast`   | -        | Custom invoker command to trigger a toast notification.                                                  |
-| **Message**   | `data-title`     | -        | The toast title, set on the trigger. Without it, the trigger's text is used.                             |
-| **Severity**  | `data-severity`  | -        | The severity icon. Options: `critical`, `info`, `success`, `warning`. Without it, the toast has no icon. |
-| **Duration**  | `data-duration`  | `5000ms` | Determines how long the toast remains visible. Supports CSS time units (ms, s).                          |
-| **Container** | `#toast-manager` | -        | The global fixed container that manages the stack of toasts.                                             |
-| **Component** | `.ui-toast`      | -        | Individual notification element within the container.                                                    |
+| Type            | Modifiers          | Default          | Description                                                                                                        |
+| --------------- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **Command**     | `--show-toast`     | -                | Custom invoker command to trigger a toast notification.                                                            |
+| **Close label** | `data-close-label` | -                | The `aria-label` of the close button, set on the trigger. Without it, the template's label is kept.                |
+| **Description** | `data-description` | -                | A second line under the title, set on the trigger. Without it, the description is removed from the toast.          |
+| **Duration**    | `data-duration`    | `5000ms`         | Determines how long the toast remains visible. Supports CSS time units (`ms`, `s`).                                |
+| **Severity**    | `data-severity`    | -                | The severity icon. Options: `critical`, `info`, `success`, `warning`. Without it, the toast has no icon.           |
+| **Template**    | `data-template`    | `toast-template` | The id of the `<template>` to clone, set on the trigger. Without a matching template, the built-in markup is used. |
+| **Message**     | `data-title`       | -                | The toast title, set on the trigger. Without it, the trigger's text is used.                                       |
+
+### Parts
+
+| Part               | Description                                                                       |
+| ------------------ | --------------------------------------------------------------------------------- |
+| `#toast-manager`   | The global fixed container that manages the stack of toasts.                      |
+| `.ui-toast`        | Individual notification element within the container.                             |
+| `.ui-icon`         | The severity icon, `[data-toast-icon]`. Hidden without `data-severity`.           |
+| `.ui-content`      | Holds the title and description.                                                  |
+| `.ui-title`        | The title, `[data-toast-title]`. Filled from `data-title`.                        |
+| `.ui-description`  | The second line, `[data-toast-description]`. Filled from `data-description`.      |
+| `.ui-close-button` | Closes the toast, `[data-toast-close]`. `data-close-label` sets its `aria-label`. |
 
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property            | Kind   | Description                                                                                                                    |
-| ------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| `--_dir`            | Output | Direction of the enter slide, `-1` in right-to-left.                                                                           |
-| `--_enter-duration` | Output | Duration of the enter animation, `--ui-duration-slow` times `--_motion`.                                                       |
-| `--_exit-duration`  | Output | Duration of the exit animation, `--ui-duration-slow` times `--_motion`.                                                        |
-| `--_hold`           | Output | How long the toast stays before it exits. `data-duration` in browsers with typed `attr()`, otherwise `--_hold-duration`.       |
-| `--_hold-duration`  | Input  | How long the toast stays before it exits, in browsers without typed `attr()`. Others read `data-duration`, defaulting to `5s`. |
-| `--_motion`         | Input  | Motion multiplier for the animations and transitions. `0` turns them off.                                                      |
+| Property            | Kind   | Description                                                                                                              |
+| ------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `--_dir`            | Output | Direction of the enter slide, `-1` in right-to-left.                                                                     |
+| `--_enter-duration` | Output | Duration of the enter animation, `--ui-duration-slow` times `--_motion`.                                                 |
+| `--_exit-duration`  | Output | Duration of the exit animation, `--ui-duration-slow` times `--_motion`.                                                  |
+| `--_hold`           | Output | How long the toast stays before it exits. `data-duration` in browsers with typed `attr()`, otherwise `--_hold-duration`. |
+| `--_hold-duration`  | Input  | How long the toast stays before it exits when it has no `data-duration`. Defaults to `5s`.                               |
+| `--_motion`         | Input  | Motion multiplier for the animations and transitions. `0` turns them off.                                                |
 
 ## Under the hood
 
@@ -235,6 +269,7 @@ Read the post: [Toast timing with typed attr()](https://open-props-ui.netlify.ap
    - Three animations in a row: enter, hold, exit
    - `hold` changes nothing, it only takes time
    - `attr(data-duration type(<time>))` reads the lifetime from HTML
+   - Behind `@supports`, so other browsers keep the `5s` in `--hold`
    - JS removes the toast on `animationend`, no `setTimeout`
 
 3. Pause
@@ -279,7 +314,7 @@ Step 1 of 4: Stack
   align-items: center;
   background-color: var(--ui-surface-inverse);
   border-radius: var(--radius-2);
-  box-shadow: var(--shadow-3);
+  box-shadow: var(--ui-shadow-overlay);
   color: var(--ui-text-inverse);
   display: flex;
   gap: 0.75rem;
@@ -296,14 +331,21 @@ Step 2 of 4: Lifetime
 
 ```css
 .toast {
+  --hold: 5s;
   animation:
     build-toast-enter 0.3s both,
-    build-toast-hold attr(data-duration type(<time>), 5s) linear both,
+    build-toast-hold var(--hold) linear both,
     build-toast-exit 0.3s both;
   animation-delay:
     0s,
     0.3s,
-    calc(0.3s + attr(data-duration type(<time>), 5s));
+    calc(0.3s + var(--hold));
+}
+
+@supports (animation-duration: attr(data-duration type(<time>), 0s)) {
+  .toast {
+    --hold: attr(data-duration type(<time>), 5s);
+  }
 }
 ```
 
@@ -373,4 +415,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: the keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and [`toast.js`](#javascript) listens for `ui-toast-exit`.
 - Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See [How it works](#how-it-works).
 - Breaking: `--_anim-enter` and `--_anim-exit` are `--_enter-duration` and `--_exit-duration` ([Under the hood](#under-the-hood)).
-- The toast shadow is [`--ui-shadow-overlay`](#api), and padding and gaps read the `--space-*` scale.
+- The toast shadow is [`--ui-shadow-overlay`](#api), and padding and gaps read the `--ui-space-*` scale.

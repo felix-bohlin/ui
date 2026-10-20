@@ -11,16 +11,18 @@ export default {
   notes: {
     astro:
       "Other attributes go to the `<select>`, like `disabled`, `multiple`, `name` and `required`, and `class` and `style` go to the root `<label>`.",
-    default:
-      "Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `style` goes to the root `<label>`.",
     html: "The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.",
+    react:
+      "Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`.",
+    svelte:
+      "Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`.",
     vue: "Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
     {
       class: ".ui-dense",
       default: "false",
-      description: "Packs the options tighter.",
+      description: "Packs the items tighter.",
       group: "Dense",
       part: ".ui-list",
       prop: "dense",
@@ -59,7 +61,7 @@ export default {
       default: "false",
       description:
         "Pushes the label and start text to one side and the select to the other.",
-      group: "Layout",
+      group: "Spread",
       prop: "spread",
     },
     {

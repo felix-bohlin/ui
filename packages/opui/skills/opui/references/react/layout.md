@@ -155,13 +155,13 @@ export default function Composition() {
 
 ## API
 
-| Type      | Modifiers                                        | Default   | Description                                                                 |
-| --------- | ------------------------------------------------ | --------- | --------------------------------------------------------------------------- |
-| Column    | `.ui-l-column`                                   | -         | A column with even space between its children.                              |
-| Container | `.ui-l-container`                                | -         | Centers its content and caps its width.                                     |
-| Grid      | `.ui-l-grid`                                     | -         | Columns that fill the width and wrap.                                       |
-| Row       | `.ui-l-row`                                      | -         | A wrapping row with its children centered on one line.                      |
-| Sizes     | default, `.ui-large`, `.ui-small`, `.ui-x-small` | `default` | The space between children of `.ui-l-column`, `.ui-l-row` and `.ui-l-grid`. |
+| Type      | Modifiers                                        | Default | Description                                                                 |
+| --------- | ------------------------------------------------ | ------- | --------------------------------------------------------------------------- |
+| Column    | `.ui-l-column`                                   | -       | A column with even space between its children.                              |
+| Container | `.ui-l-container`                                | -       | Centers its content and caps its width.                                     |
+| Grid      | `.ui-l-grid`                                     | -       | Columns that fill the width and wrap.                                       |
+| Row       | `.ui-l-row`                                      | -       | A wrapping row with its children centered on one line.                      |
+| Sizes     | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The space between children of `.ui-l-column`, `.ui-l-row` and `.ui-l-grid`. |
 
 ### Parts
 
@@ -181,7 +181,7 @@ export default function Composition() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Add the classes to elements in your markup. There is no React component. There is no React component.
+Add the classes to elements in your markup. There is no React component.
 
 ## Component properties
 

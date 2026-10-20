@@ -5,7 +5,7 @@ export default function DisabledCode() {
     <>
       <Button disabled>Text</Button>
       <Button disabled href="#">
-        Link
+        Text link
       </Button>
     </>
   )

@@ -3,8 +3,10 @@
 
   let {
     as: Tag = "form",
-    children,
     class: className,
+
+    // Snippets
+    children,
     ...rest
   }: Props = $props()
 </script>

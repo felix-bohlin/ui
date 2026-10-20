@@ -8,7 +8,9 @@ Favorite pet
 
 Pick one.
 
-Dog Cat
+Cat Dog
+
+Supporting text
 
 - `<Form>`
 
@@ -29,6 +31,10 @@ Dog Cat
 - `<FieldGroup>`
 
   Lays out related fields.
+
+- `.ui-fieldset > .ui-end-text`
+
+  Supporting or error text for the whole group, after the fields.
 
 ## Basics
 
@@ -76,8 +82,8 @@ export default function FieldsetStacked() {
         Please select your favorite type of pet.
       </FieldDescription>
       <FieldGroup name="pet">
-        <Radio value="dog">Dog</Radio>
         <Radio value="cat">Cat</Radio>
+        <Radio value="dog">Dog</Radio>
         <Radio value="hamster">Hamster</Radio>
       </FieldGroup>
     </FieldSet>
@@ -119,12 +125,6 @@ export default function FieldGroupExample() {
         <FieldDescription>Some are better than others.</FieldDescription>
         <FieldGroup name="projects">
           <Checkbox
-            value="the-smile"
-            endText="Thom Yorke, Jonny Greenwood, Tom Skinner"
-          >
-            The Smile
-          </Checkbox>
-          <Checkbox
             value="atoms-for-peace"
             endText="Thom Yorke, Flea, Nigel Godrich"
           >
@@ -141,6 +141,12 @@ export default function FieldGroupExample() {
           </Checkbox>
           <Checkbox value="selway-solo" endText="Philip Selway solo albums">
             Philip Selway
+          </Checkbox>
+          <Checkbox
+            value="the-smile"
+            endText="Thom Yorke, Jonny Greenwood, Tom Skinner"
+          >
+            The Smile
           </Checkbox>
         </FieldGroup>
       </FieldSet>
@@ -311,6 +317,19 @@ export default function DividerExample() {
 }
 ```
 
+```tsx
+import { Button, FieldGroup } from "opui-css/react"
+
+export default function ActionsColumn() {
+  return (
+    <FieldGroup direction="column">
+      <Button variant="filled">Publish</Button>
+      <Button>Save draft</Button>
+    </FieldGroup>
+  )
+}
+```
+
 ## Without fieldset
 
 Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `FieldSet` and `FieldLegend`. A `div` doesn't pick up its name from the legend, so give the legend an `id` and point `aria-labelledby` on the field set at it.
@@ -355,8 +374,8 @@ import {
 } from "opui-css/react"
 
 const roleItems = [
-  { text: "Developer", value: "dev" },
   { text: "Designer", value: "design" },
+  { text: "Developer", value: "dev" },
   { text: "Manager", value: "manager" },
 ]
 
@@ -369,8 +388,14 @@ export default function KitchenSink() {
           Please provide your basic contact details.
         </FieldDescription>
         <FieldGroup>
-          <TextField label="Full Name" placeholder="Jane Doe" required />
           <TextField
+            autoComplete="name"
+            label="Full Name"
+            placeholder="Jane Doe"
+            required
+          />
+          <TextField
+            autoComplete="email"
             label="Email Address"
             type="email"
             placeholder="jane@example.com"
@@ -505,7 +530,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | ---------- | ---------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
 | `as`       | `"div"` , `"fieldset"` | `"fieldset"` | The element to render. Elements other than `fieldset` get `role="group"`. Point their `aria-labelledby` at the legend. |
 | `children` | `ReactNode`            | -            | The legend, description and fields.                                                                                    |
-| `disabled` | `boolean`              | `false`      | Disables every field inside.                                                                                           |
+| `disabled` | `boolean`              | `false`      | Disables every field inside. Only on a `<fieldset>`.                                                                   |
 
 #### CSS variables
 
@@ -754,9 +779,9 @@ Step 4 of 4: Required
 
 ## Browser support
 
-- Chromium: Full support Supported since v105.
+- Chromium: Full support Supported since v119.
 - Firefox: Full support Supported since v121.
-- Safari: Full support Supported since v15.4.
+- Safari: Full support Supported since v16.5.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/react/guide/browser-support/?components=Form.md).
 

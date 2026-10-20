@@ -88,6 +88,12 @@ export default {
       prop: "paragraph",
     },
     {
+      class: ".ui-not-rich-text",
+      description: "Ends the `.ui-rich-text` styles inside it.",
+      group: "Rich text",
+      prop: "notRichText",
+    },
+    {
       description: "Size modifiers on `.ui-p`.",
       group: "Sizes",
       prop: "size",

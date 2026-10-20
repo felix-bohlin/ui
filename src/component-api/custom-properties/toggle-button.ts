@@ -16,7 +16,8 @@ export default {
     kind: "input",
   },
   "--_font-size": {
-    description: "The font size. Set by the group's size classes.",
+    description:
+      "The font size. Defaults to `--ui-font-size-control`. Set by the size classes on the button or its group.",
     kind: "input",
   },
   "--_icon-size": {
@@ -24,7 +25,8 @@ export default {
     kind: "input",
   },
   "--_min-height": {
-    description: "Height and minimum width. Set by the group's size classes.",
+    description:
+      "Height and minimum width. Set by the size classes on the button or its group.",
     kind: "input",
   },
   "--_motion": {

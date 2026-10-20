@@ -76,6 +76,10 @@
         color: var(--ui-field-required-color);
         content: "*";
         margin-inline-start: 0.25ex;
+
+        @supports (content: "*" / "") {
+          content: "*" / "";
+        }
       }
     }
   }

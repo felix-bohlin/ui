@@ -6,7 +6,7 @@ See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md
 
 ```html
 <div class="ui-progress">
-  <progress></progress>
+  <progress aria-label="Loading"></progress>
 </div>
 ```
 
@@ -14,7 +14,12 @@ See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md
 
 ```html
 <div class="ui-progress">
-  <progress id="progress-determinate-1" value="10" max="100"></progress>
+  <progress
+    aria-label="Uploading"
+    id="progress-determinate-1"
+    value="10"
+    max="100"
+  ></progress>
 </div>
 
 <script>
@@ -39,14 +44,16 @@ Use the modifier classes `.ui-filled` or `.ui-tonal` on the wrapper `<div>` to s
 
 ```html
 <div class="ui-progress ui-filled">
-  <progress value="25" max="100"></progress>
+  <progress aria-label="Storage used" value="25" max="100"></progress>
 </div>
 <div class="ui-progress ui-tonal">
-  <progress value="75" max="100"></progress>
+  <progress aria-label="Memory used" value="75" max="100"></progress>
 </div>
 ```
 
 ## Accessibility
+
+Name the bar with `aria-label`, or `aria-labelledby` pointing at visible text.
 
 If the `<progress>` element is describing the loading progress of a section of a page:
 
@@ -56,11 +63,11 @@ If the `<progress>` element is describing the loading progress of a section of a
 Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#accessibility)
 
 ```html
-<div aria-busy="true" aria-describedby="progress-bar">
+<div aria-busy="true" aria-describedby="progress-aria-busy-1">
   Content here is loading.
 </div>
 <div class="ui-progress">
-  <progress id="progress-bar" aria-label="Content loading…"></progress>
+  <progress aria-label="Content loading…" id="progress-aria-busy-1"></progress>
 </div>
 ```
 
@@ -68,10 +75,10 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ### Progress API
 
-| Type     | Modifiers                 | Default | Description                                                          |
-| -------- | ------------------------- | ------- | -------------------------------------------------------------------- |
-| Value    | `progress[value]`         | -       | The current value. Omit it for an indeterminate state.               |
-| Variants | `.ui-filled`, `.ui-tonal` | -       | The track surface. Without one, the track looks the same as `tonal`. |
+| Type     | Modifiers                 | Default | Description                                                           |
+| -------- | ------------------------- | ------- | --------------------------------------------------------------------- |
+| Value    | `progress[value]`         | -       | The current value. Omit it for an indeterminate state.                |
+| Variants | `.ui-filled`, `.ui-tonal` | -       | The variant to use. Without one, the track looks the same as `tonal`. |
 
 #### Parts
 

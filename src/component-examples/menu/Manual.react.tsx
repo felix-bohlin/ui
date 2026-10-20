@@ -14,8 +14,8 @@ export default function Manual() {
         id="menu-manual-1"
         popover="manual"
         items={[
-          { text: "Show grid", closeOnClick: false },
-          { text: "Show rulers", closeOnClick: false },
+          { text: "Zoom in", closeOnClick: false },
+          { text: "Zoom out", closeOnClick: false },
           { text: "Done", borderTop: true },
         ]}
       />

@@ -19,11 +19,11 @@ export default {
   "--_bg-color": {
     description:
       "Background of the indicator. Defaults to `--ui-primary`, set by the color classes.",
-    kind: "input",
+    kind: "output",
   },
   "--_border-color": {
     description: "Border color of the indicator. Set by the color classes.",
-    kind: "input",
+    kind: "output",
   },
   "--_border-width": {
     description: "Border width of the indicator.",
@@ -83,6 +83,6 @@ export default {
   "--_text-color": {
     description:
       "Text color of the indicator. Defaults to `--ui-primary-contrast`, set by the color classes.",
-    kind: "input",
+    kind: "output",
   },
 } satisfies CustomProperties

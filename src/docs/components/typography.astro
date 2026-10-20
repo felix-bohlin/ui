@@ -4,6 +4,14 @@ import Code from "../../components/Code.astro"
 import Component from "../../layouts/Component.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
 
 import LinkCSS from "@opui/css/components/link.css?raw"
 import TypographyCSS from "@opui/css/components/typography.css?raw"
@@ -17,8 +25,10 @@ import typographyApi from "../../component-api/typography/api"
     "attr",
     "box-decoration-break",
     "container-style-queries",
+    "exp-functions",
     "has",
     "light-dark",
+    "marker",
     "registered-custom-properties",
     "relative-color",
     "round-mod-rem",
@@ -76,102 +86,111 @@ import typographyApi from "../../component-api/typography/api"
   <section>
     <h2 id="inline-text-elements">Inline text elements</h2>
     <div class="ui-not-rich-text">
-      <table class="ui-table">
-        <thead>
-          <tr>
-            <th>Result</th>
-            <th>Element</th>
-            <th>Class</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><abbr class="ui-abbr" title="Abbreviation">Abbr.</abbr></td>
-            <td><code>&lt;abbr&gt;</code></td>
-            <td><code>.ui-abbr</code></td>
-          </tr>
-          <tr>
-            <td><dfn class="ui-dfn" title="Title">Definition</dfn></td>
-            <td><code>&lt;dfn&gt;</code></td>
-            <td><code>.ui-dfn</code></td>
-          </tr>
-          <tr>
-            <td><strong>Bold</strong></td>
-            <td><code>&lt;strong&gt;</code>, <code>&lt;b&gt;</code></td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td><i>Italic</i></td>
-            <td><code>&lt;i&gt;</code>, <code>&lt;em&gt;</code></td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td><cite class="ui-cite">Citation</cite></td>
-            <td><code>&lt;cite&gt;</code></td>
-            <td><code>.ui-cite</code></td>
-          </tr>
-          <tr>
-            <td><kbd class="ui-kbd">Ctrl + S</kbd></td>
-            <td><code>&lt;kbd&gt;</code></td>
-            <td><code>.ui-kbd</code></td>
-          </tr>
-          <tr>
-            <td><a class="ui-link" href="#link">Link</a></td>
-            <td><code>&lt;a href&gt;</code></td>
-            <td><code>.ui-link</code></td>
-          </tr>
-          <tr>
-            <td><mark class="ui-mark">Highlight</mark></td>
-            <td><code>&lt;mark&gt;</code></td>
-            <td><code>.ui-mark</code></td>
-          </tr>
-          <tr>
-            <td><s class="ui-s">Strikethrough</s></td>
-            <td><code>&lt;s&gt;</code></td>
-            <td><code>.ui-s</code></td>
-          </tr>
-          <tr>
-            <td><small class="ui-small">Small</small></td>
-            <td><code>&lt;small&gt;</code></td>
-            <td><code>.ui-small</code></td>
-          </tr>
-          <tr>
-            <td>Text <sub class="ui-sub">Sub</sub></td>
-            <td><code>&lt;sub&gt;</code></td>
-            <td><code>.ui-sub</code></td>
-          </tr>
-          <tr>
-            <td>Text <sup class="ui-sup">Sup</sup></td>
-            <td><code>&lt;sup&gt;</code></td>
-            <td><code>.ui-sup</code></td>
-          </tr>
-          <tr>
-            <td><u class="ui-u">Underline</u></td>
-            <td><code>&lt;u&gt;</code></td>
-            <td><code>.ui-u</code></td>
-          </tr>
-          <tr>
-            <td><del class="ui-del">Deleted</del></td>
-            <td><code>&lt;del&gt;</code></td>
-            <td><code>.ui-del</code></td>
-          </tr>
-          <tr>
-            <td><ins class="ui-ins">Inserted</ins></td>
-            <td><code>&lt;ins&gt;</code></td>
-            <td><code>.ui-ins</code></td>
-          </tr>
-          <tr>
-            <td><var class="ui-var">variable</var></td>
-            <td><code>&lt;var&gt;</code></td>
-            <td><code>.ui-var</code></td>
-          </tr>
-          <tr>
-            <td><samp class="ui-samp">sample output</samp></td>
-            <td><code>&lt;samp&gt;</code></td>
-            <td><code>.ui-samp</code></td>
-          </tr>
-        </tbody>
-      </table>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Result</TableHeaderCell>
+            <TableHeaderCell>Element</TableHeaderCell>
+            <TableHeaderCell>Class</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell><a class="ui-link" href="#link">Link</a></TableCell>
+            <TableCell><code>&lt;a href&gt;</code></TableCell>
+            <TableCell><code>.ui-link</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell
+              ><abbr class="ui-abbr" title="Abbreviation">Abbr.</abbr
+              ></TableCell
+            >
+            <TableCell><code>&lt;abbr&gt;</code></TableCell>
+            <TableCell><code>.ui-abbr</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><strong>Bold</strong></TableCell>
+            <TableCell
+              ><code>&lt;b&gt;</code>, <code>&lt;strong&gt;</code></TableCell
+            >
+            <TableCell>None</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><cite class="ui-cite">Citation</cite></TableCell>
+            <TableCell><code>&lt;cite&gt;</code></TableCell>
+            <TableCell><code>.ui-cite</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><del class="ui-del">Deleted</del></TableCell>
+            <TableCell><code>&lt;del&gt;</code></TableCell>
+            <TableCell><code>.ui-del</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell
+              ><dfn class="ui-dfn" title="Title">Definition</dfn></TableCell
+            >
+            <TableCell><code>&lt;dfn&gt;</code></TableCell>
+            <TableCell><code>.ui-dfn</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><i>Italic</i></TableCell>
+            <TableCell
+              ><code>&lt;em&gt;</code>, <code>&lt;i&gt;</code></TableCell
+            >
+            <TableCell>None</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><ins class="ui-ins">Inserted</ins></TableCell>
+            <TableCell><code>&lt;ins&gt;</code></TableCell>
+            <TableCell><code>.ui-ins</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><kbd class="ui-kbd">Ctrl + S</kbd></TableCell>
+            <TableCell><code>&lt;kbd&gt;</code></TableCell>
+            <TableCell><code>.ui-kbd</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><mark class="ui-mark">Highlight</mark></TableCell>
+            <TableCell><code>&lt;mark&gt;</code></TableCell>
+            <TableCell><code>.ui-mark</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><s class="ui-s">Strikethrough</s></TableCell>
+            <TableCell><code>&lt;s&gt;</code></TableCell>
+            <TableCell><code>.ui-s</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><samp class="ui-samp">sample output</samp></TableCell>
+            <TableCell><code>&lt;samp&gt;</code></TableCell>
+            <TableCell><code>.ui-samp</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><small class="ui-small">Small</small></TableCell>
+            <TableCell><code>&lt;small&gt;</code></TableCell>
+            <TableCell><code>.ui-small</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Text <sub class="ui-sub">Sub</sub></TableCell>
+            <TableCell><code>&lt;sub&gt;</code></TableCell>
+            <TableCell><code>.ui-sub</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Text <sup class="ui-sup">Sup</sup></TableCell>
+            <TableCell><code>&lt;sup&gt;</code></TableCell>
+            <TableCell><code>.ui-sup</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><u class="ui-u">Underline</u></TableCell>
+            <TableCell><code>&lt;u&gt;</code></TableCell>
+            <TableCell><code>.ui-u</code></TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell><var class="ui-var">variable</var></TableCell>
+            <TableCell><code>&lt;var&gt;</code></TableCell>
+            <TableCell><code>.ui-var</code></TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   </section>
 

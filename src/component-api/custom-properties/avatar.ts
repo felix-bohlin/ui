@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_bg-color": {
     description:
-      "The background. Defaults to `--ui-primary`, transparent when the avatar holds an `img`.",
+      "The background. Defaults to `--ui-primary`. An avatar with an `img` is always transparent.",
     kind: "input",
   },
   "--_font-size": {

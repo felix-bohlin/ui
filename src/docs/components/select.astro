@@ -176,6 +176,17 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
       They sit outside the list of options, so they can't filter it. Keep form
       controls out of them, since the select's <code>&lt;label&gt;</code> wraps them.
     </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The select's <code>aria-describedby</code> points at them, so screen readers
+        read them with the select.
+      </Fragment>
+      <Fragment slot="html">
+        Give them an <code>id</code> and list them in the select's <code
+          >aria-describedby</code
+        >, so screen readers read them with the select.
+      </Fragment>
+    </Conditional>
     <AutoExample name="HeaderFooter" row spacious />
   </section>
 

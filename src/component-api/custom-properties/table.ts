@@ -23,7 +23,7 @@ export default {
   },
   "--_scroll-shadow": {
     description:
-      "Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--shadow-4`.",
+      "Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--ui-shadow-scroll`.",
     kind: "input",
   },
   "--_sticky-offset": {

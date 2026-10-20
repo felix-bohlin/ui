@@ -123,13 +123,13 @@ The size classes set the gap of `.ui-l-column`, `.ui-l-row` and `.ui-l-grid`: `.
 
 ## API
 
-| Type      | Modifiers                                        | Default   | Description                                                                 |
-| --------- | ------------------------------------------------ | --------- | --------------------------------------------------------------------------- |
-| Column    | `.ui-l-column`                                   | -         | A column with even space between its children.                              |
-| Container | `.ui-l-container`                                | -         | Centers its content and caps its width.                                     |
-| Grid      | `.ui-l-grid`                                     | -         | Columns that fill the width and wrap.                                       |
-| Row       | `.ui-l-row`                                      | -         | A wrapping row with its children centered on one line.                      |
-| Sizes     | default, `.ui-large`, `.ui-small`, `.ui-x-small` | `default` | The space between children of `.ui-l-column`, `.ui-l-row` and `.ui-l-grid`. |
+| Type      | Modifiers                                        | Default | Description                                                                 |
+| --------- | ------------------------------------------------ | ------- | --------------------------------------------------------------------------- |
+| Column    | `.ui-l-column`                                   | -       | A column with even space between its children.                              |
+| Container | `.ui-l-container`                                | -       | Centers its content and caps its width.                                     |
+| Grid      | `.ui-l-grid`                                     | -       | Columns that fill the width and wrap.                                       |
+| Row       | `.ui-l-row`                                      | -       | A wrapping row with its children centered on one line.                      |
+| Sizes     | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The space between children of `.ui-l-column`, `.ui-l-row` and `.ui-l-grid`. |
 
 ### Parts
 

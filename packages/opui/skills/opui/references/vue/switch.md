@@ -194,7 +194,7 @@ import { Switch } from "opui-css/vue"
 ## Validation
 
 - `required` toggles the required styles on the `<input>`.
-- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The component points `aria-describedby` at it.
+- `error` toggles the invalid styles, and screen readers announce the `<input>` as invalid. Say what's wrong in the end text. The wrapping `<label>` makes it part of the field's name.
 - Switches also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `error` for server-side errors.
 
 ```vue
@@ -262,6 +262,10 @@ The switch lines up with the first line of its label and centers on the label's 
   --ui-choice-label-offset: 0.05em;
 }
 ```
+
+## Switch input
+
+Use `SwitchInput` without the label for a custom layout, such as the end of a list item. See [List](https://open-props-ui.netlify.app/vue/components/list.md#switch).
 
 ## Field group
 
@@ -551,7 +555,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `name`. To hide the label, set `hideLabel` and keep the text in the slot.
+Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in the slot.
 
 ### Switch input API
 
@@ -867,3 +871,4 @@ Import the component from `opui-css/vue`:
 - [`endText`](#end-text) takes a string, like the `end-text` slot.
 - A checked invalid switch turns its track red, like Checkbox and Radio ([Validation](#validation)).
 - Breaking: deep type imports from `components/Switch/types` are named `Props` and `Slots` (was `SwitchProps` and `SwitchSlots`). Import [`SwitchProps`](#api) from the framework entry instead.
+- Breaking: `style` goes to the root `<label>`, like `class`, so `--_` properties set through it apply ([API](#api)).

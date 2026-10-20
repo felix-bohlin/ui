@@ -412,6 +412,7 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
+- The focus ring is `--ui-focus-ring-color` instead of the text color.
 - Breaking: the keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and [`toast.js`](#javascript) listens for `ui-toast-exit`.
 - Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See [How it works](#how-it-works).
 - Breaking: `--_anim-enter` and `--_anim-exit` are `--_enter-duration` and `--_exit-duration` ([Under the hood](#under-the-hood)).

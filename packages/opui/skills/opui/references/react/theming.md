@@ -106,6 +106,26 @@ Like the control sizes, the steps resolve on `html`, so set `--ui-space-scale` t
 }
 ```
 
+Sizes come in two tiers. `--ui-font-size-100` to `--ui-font-size-900` are the nine steps of the type scale, 12px to 56px. The roles read them: `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-size-body`, `--ui-font-size-control`, `--ui-font-size-large` and `--ui-font-size-h1` to `--ui-font-size-h6`, and every component reads a role. So you have three moves: pin one role, move one step and every role on it follows, or replace the scale with your own. `--ui-line-height-tight`, `--ui-line-height`, `--ui-line-height-body` and `--ui-line-height-relaxed` set the line heights, and `--ui-letter-spacing-display`, `--ui-letter-spacing-heading` and `--ui-letter-spacing-caps` the tracking of large headings, smaller headings and uppercase text.
+
+```css
+:where(html) {
+  /* Pin one role */
+  --ui-font-size-caption: 0.8125rem;
+
+  /* Or a modular scale: 1rem base, minor third */
+  --ui-font-size-100: calc(1rem * pow(1.2, -2));
+  --ui-font-size-200: calc(1rem * pow(1.2, -1));
+  --ui-font-size-300: 1rem;
+  --ui-font-size-400: calc(1rem * pow(1.2, 1));
+  --ui-font-size-500: calc(1rem * pow(1.2, 2));
+  --ui-font-size-600: calc(1rem * pow(1.2, 3));
+  --ui-font-size-700: calc(1rem * pow(1.2, 4));
+  --ui-font-size-800: calc(1rem * pow(1.2, 5));
+  --ui-font-size-900: calc(1rem * pow(1.2, 6));
+}
+```
+
 ## Elevation
 
 Five shadows lift things off the page. `--ui-shadow-raised` is for surfaces in the page, like elevated cards and accordions. It switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page, so set those two. `--ui-shadow-overlay` is for layers above the page: menus, `select` pickers, drawers and toasts. `--ui-shadow-control` is for buttons with a variant and fields, and is `none` until a theme sets it, like a hard offset shadow. Set the optional `--ui-shadow-field` to give fields their own. `--ui-shadow-tab` is for the selected tab. `--ui-shadow-surface` is `none` too, for tonal and outlined cards and accordions, and callouts.
@@ -153,6 +173,8 @@ transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease)
 ## Contrast
 
 The `--ui-contrast` variable is `normal` by default. If a user has `prefers-contrast: more` enabled, it is set to `more`, and a style query raises the contrast of muted text, borders, field borders, the primary color, intent colors and the focus ring. Components with translucent text, such as Tabs, keyboard hints and inline code, follow along.
+
+Optional theme tokens that carry contrast, such as `--ui-control-border-color`, `--ui-selected` and `--ui-primary-text`, are reset under more contrast, so the library's values win over a theme's. A theme that wants its own value there sets the token again inside its own `@container style(--ui-contrast: more)` block, as the example themes do for `--ui-button-accent`. Declared tokens, such as `--ui-primary` and `--ui-border-color`, are overridden the same way: the block in `theme.css` sets them on `body`, so a theme's `html` value gives way until the theme re-sets it there.
 
 Try it with the **High contrast** switch in the theme config drawer.
 

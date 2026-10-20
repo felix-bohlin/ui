@@ -35,6 +35,12 @@ Four example themes ship with the package, each a deliberate copy of a look you 
 @import "opui-css/themes/brutalist.css";
 ```
 
+## What a theme can change
+
+The tokens come in tiers, and a theme works in the top three. The **primitives** are the palette steps `--ui-gray-1` to `--ui-gray-16` and `--ui-color-1` to `--ui-color-16`, derived from the palette knobs, and the Open Props scales. Change them through the knobs, `--ui-palette-hue`, `--ui-gray-chroma` and the rest, not by name. The **roles** are the contract: `--ui-primary`, `--ui-control-border-color`, `--ui-font-size-caption`, `--ui-space-3`, `--ui-shadow-raised` and about 150 more, each with a description on the [tokens page](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) and, where it guarantees contrast, the ratio it promises against which token. Every component reads roles, so a role reaches every component with that job. **Component tokens** such as `--ui-button-accent` and `--ui-field-border-radius` exist for a job only one component has, and default to a role. The **private properties**, `--_accent` and friends, are each component's own wiring: documented on its page under [Component properties](#component-properties), meant for a single element, never for a theme.
+
+Component CSS never reads a primitive, and a check in `pnpm check` keeps it that way, so a theme that sets roles alone recreates Bootstrap, Material or shadcn. When a theme needs component CSS to reach something, that is a missing role, and worth an issue.
+
 ## Component properties
 
 There are two kinds of custom properties. [Theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md), like `--ui-primary` or `--ui-button-size`, are set on `html` and inherited by everything. Change one and every component that reads it follows.

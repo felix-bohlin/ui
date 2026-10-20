@@ -18,7 +18,7 @@ import {
   describePromise,
   themeTokenPromises,
 } from "../../utils/theme-token-promises"
-import { parseThemeTokens } from "../../utils/theme-tokens"
+import { parseThemeTokens, tokenTier } from "../../utils/theme-tokens"
 
 const describe = (name: string) =>
   [
@@ -43,7 +43,10 @@ const slug = (title: string) =>
   <Fragment slot="preamble">
     Every custom property that <code>theme.css</code> declares, with its default.
     Override any of them on <code>html</code>, or on a subtree, unlayered or in
-    a layer after <code>utils</code>.
+    a layer after <code>utils</code>. Most are roles that every component with
+    that job reads; the ones marked <em>component</em> belong to one component and
+    default to a role. A description that promises a contrast ratio is checked by
+    the tests in light and dark mode, with and without more contrast.
   </Fragment>
 
   <section>
@@ -109,6 +112,12 @@ const slug = (title: string) =>
                 <TableRow>
                   <TableCell>
                     <code>{token.name}</code>
+                    {tokenTier(token.name) === "component" && (
+                      <Fragment>
+                        {" "}
+                        <em>component</em>
+                      </Fragment>
+                    )}
                   </TableCell>
                   <TableCell>
                     {token.optional ? (

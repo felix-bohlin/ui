@@ -221,6 +221,42 @@ import Example from "../../components/Example/index"
 }`}
       lang="css"
     />
+    <p>
+      Sizes come in two tiers. <code>--ui-font-size-100</code> to <code
+        >--ui-font-size-900</code
+      > are the nine steps of the type scale, 12px to 56px. The roles read them:
+      <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code>, <code
+        >--ui-font-size-body</code
+      >, <code>--ui-font-size-control</code>, <code>--ui-font-size-large</code> and
+      <code>--ui-font-size-h1</code> to <code>--ui-font-size-h6</code>, and
+      every component reads a role. So you have three moves: pin one role, move
+      one step and every role on it follows, or replace the scale with your own. <code
+        >--ui-line-height-tight</code
+      >, <code>--ui-line-height</code>, <code>--ui-line-height-body</code> and <code
+        >--ui-line-height-relaxed</code
+      > set the line heights, and <code>--ui-letter-spacing-display</code>, <code
+        >--ui-letter-spacing-heading</code
+      > and <code>--ui-letter-spacing-caps</code> the tracking of large headings,
+      smaller headings and uppercase text.
+    </p>
+    <Code
+      code={`:where(html) {
+  /* Pin one role */
+  --ui-font-size-caption: 0.8125rem;
+
+  /* Or a modular scale: 1rem base, minor third */
+  --ui-font-size-100: calc(1rem * pow(1.2, -2));
+  --ui-font-size-200: calc(1rem * pow(1.2, -1));
+  --ui-font-size-300: 1rem;
+  --ui-font-size-400: calc(1rem * pow(1.2, 1));
+  --ui-font-size-500: calc(1rem * pow(1.2, 2));
+  --ui-font-size-600: calc(1rem * pow(1.2, 3));
+  --ui-font-size-700: calc(1rem * pow(1.2, 4));
+  --ui-font-size-800: calc(1rem * pow(1.2, 5));
+  --ui-font-size-900: calc(1rem * pow(1.2, 6));
+}`}
+      lang="css"
+    />
   </section>
 
   <section>

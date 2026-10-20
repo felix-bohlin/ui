@@ -91,6 +91,45 @@ import Example from "../../components/Example/index"
   </section>
 
   <section>
+    <h2 id="what-a-theme-can-change">What a theme can change</h2>
+    <p>
+      The tokens come in tiers, and a theme works in the top three. The
+      <strong>primitives</strong> are the palette steps <code>--ui-gray-1</code> to
+      <code>--ui-gray-16</code> and <code>--ui-color-1</code> to <code
+        >--ui-color-16</code
+      >, derived from the palette knobs, and the Open Props scales. Change them
+      through the knobs, <code>--ui-palette-hue</code>, <code
+        >--ui-gray-chroma</code
+      >
+      and the rest, not by name. The <strong>roles</strong> are the contract: <code
+        >--ui-primary</code
+      >, <code>--ui-control-border-color</code>, <code
+        >--ui-font-size-caption</code
+      >,
+      <code>--ui-space-3</code>, <code>--ui-shadow-raised</code> and about 150 more,
+      each with a description on the <DocLink href="/guide/theme-tokens"
+        >tokens page</DocLink
+      > and, where it guarantees contrast, the ratio it promises against which token.
+      Every component reads roles, so a role reaches every component with that job.
+      <strong>Component tokens</strong> such as <code>--ui-button-accent</code> and
+      <code>--ui-field-border-radius</code> exist for a job only one component has,
+      and default to a role. The <strong>private properties</strong>, <code
+        >--_accent</code
+      > and friends, are each component's own wiring: documented on its page under
+      <a href="#component-properties">Component properties</a>, meant for a
+      single element, never for a theme.
+    </p>
+    <p>
+      Component CSS never reads a primitive, and a check in <code
+        >pnpm check</code
+      >
+      keeps it that way, so a theme that sets roles alone recreates Bootstrap, Material
+      or shadcn. When a theme needs component CSS to reach something, that is a missing
+      role, and worth an issue.
+    </p>
+  </section>
+
+  <section>
     <h2 id="component-properties">Component properties</h2>
     <p>
       There are two kinds of custom properties. <DocLink

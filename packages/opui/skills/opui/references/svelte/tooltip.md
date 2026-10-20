@@ -123,18 +123,20 @@ Set the `arrow` prop. This would be cool to solve with `corner-shape` one day.
 
 #### CSS variables
 
-| Variable               | Default                                           | Description                                                                                                                                                                                                                      |
-| ---------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-radius`   | `var(--size-2)`                                   | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--ui-border-width`    | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--ui-duration`        | `0.2s`                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                        |
-| `--ui-ease-enter`      | `var(--ease-out-3)`                               | Easing for elements entering the screen.                                                                                                                                                                                         |
-| `--ui-font-size-05`    | `0.875rem`                                        | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                                                                                                                            |
-| `--ui-motion`          | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion).                       |
-| `--ui-space-1`         | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-2`         | `calc(var(--size-2) * var(--ui-space-scale))`     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-surface-inverse` | `light-dark(var(--ui-gray-15), var(--ui-gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                                                  |
-| `--ui-text-inverse`    | `light-dark(var(--ui-gray-1), var(--ui-gray-15))` | Text color on `--ui-surface-inverse`.                                                                                                                                                                                            |
+| Variable                 | Default                                           | Description                                                                                                                                                                                                |
+| ------------------------ | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-width`      | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                    |
+| `--ui-duration`          | `0.2s`                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                  |
+| `--ui-ease-enter`        | `var(--ease-out-3)`                               | Easing for elements entering the screen.                                                                                                                                                                   |
+| `--ui-font-size-small`   | `var(--ui-font-size-200)`                         | Font size of helper text, `Callout`, `Table`, `Tooltip`, `Toast`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                           |
+| `--ui-line-height-tight` | `1.25`                                            | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                               |
+| `--ui-motion`            | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
+| `--ui-radius-small`      | `min(var(--radius-2), var(--ui-border-radius))`   | Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-border-radius`, capped at 5px.                                             |
+| `--ui-space-1`           | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                            |
+| `--ui-space-2`           | `calc(var(--size-2) * var(--ui-space-scale))`     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                            |
+| `--ui-space-4`           | `calc(var(--size-4) * var(--ui-space-scale))`     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                            |
+| `--ui-surface-inverse`   | `light-dark(var(--ui-gray-15), var(--ui-gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                                                                                                            |
+| `--ui-text-inverse`      | `light-dark(var(--ui-gray-1), var(--ui-gray-15))` | Text color on `--ui-surface-inverse`.                                                                                                                                                                      |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -216,7 +218,7 @@ Step 1 of 5: Hint
   border: 0;
   border-radius: var(--radius-2);
   color: var(--ui-text-inverse);
-  font-size: var(--ui-font-size-05);
+  font-size: var(--ui-font-size-small);
   inset: auto;
   line-height: 1.3;
   margin: 0.5rem;

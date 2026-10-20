@@ -1793,7 +1793,7 @@
     "id": "guide-customizing-html",
     "title": "Customizing",
     "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Your theme Example themes Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "headings": "Your theme Example themes What a theme can change Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/customizing"
@@ -1802,7 +1802,7 @@
     "id": "guide-customizing-astro",
     "title": "Customizing",
     "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Your theme Example themes Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "headings": "Your theme Example themes What a theme can change Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/customizing"
@@ -1811,7 +1811,7 @@
     "id": "guide-customizing-react",
     "title": "Customizing",
     "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Your theme Example themes Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "headings": "Your theme Example themes What a theme can change Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
     "category": "Guide",
     "frameworkId": "react",
     "url": "/react/guide/customizing"
@@ -1820,7 +1820,7 @@
     "id": "guide-customizing-svelte",
     "title": "Customizing",
     "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Your theme Example themes Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "headings": "Your theme Example themes What a theme can change Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
     "category": "Guide",
     "frameworkId": "svelte",
     "url": "/svelte/guide/customizing"
@@ -1829,7 +1829,7 @@
     "id": "guide-customizing-vue",
     "title": "Customizing",
     "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Your theme Example themes Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "headings": "Your theme Example themes What a theme can change Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/customizing"
@@ -1927,7 +1927,7 @@
   {
     "id": "guide-theme-tokens-html",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils.",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role. A description that promises a contrast ratio is checked by\n    the tests in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens",
     "category": "Guide",
     "frameworkId": "html",
@@ -1936,7 +1936,7 @@
   {
     "id": "guide-theme-tokens-astro",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils.",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role. A description that promises a contrast ratio is checked by\n    the tests in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1945,7 +1945,7 @@
   {
     "id": "guide-theme-tokens-react",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils.",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role. A description that promises a contrast ratio is checked by\n    the tests in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens",
     "category": "Guide",
     "frameworkId": "react",
@@ -1954,7 +1954,7 @@
   {
     "id": "guide-theme-tokens-svelte",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils.",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role. A description that promises a contrast ratio is checked by\n    the tests in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -1963,7 +1963,7 @@
   {
     "id": "guide-theme-tokens-vue",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils.",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role. A description that promises a contrast ratio is checked by\n    the tests in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens",
     "category": "Guide",
     "frameworkId": "vue",

@@ -74,38 +74,17 @@
     /* Selected */
     &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
       --_bg-color: var(--_selected-bg-color);
-      --_selected-bg-color: var(
-        --ui-selected,
-        oklch(
-          from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
-        )
-      );
+      --_selected-bg-color: var(--ui-selected, var(--ui-primary));
 
       border-color: var(
         --ui-control-filled-border-color,
         var(--ui-control-border-color, var(--ui-border-color))
       );
-      color: var(--ui-selected-contrast, var(--ui-text-primary));
+      color: var(--ui-selected-contrast, var(--ui-primary-contrast));
 
       @media (hover: hover) {
         &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
-          --_bg-color: oklch(
-            from var(--_selected-bg-color) l c h /
-              calc(alpha * 100% + var(--ui-state-hover-alpha))
-          );
-        }
-      }
-
-      @container style(--ui-contrast: more) {
-        --_selected-bg-color: var(--ui-selected, var(--ui-primary));
-        color: var(--ui-selected-contrast, var(--ui-primary-contrast));
-
-        @media (hover: hover) {
-          &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {
-            --_bg-color: oklch(
-              from var(--_selected-bg-color) calc(l * 0.9) c h
-            );
-          }
+          --_bg-color: oklch(from var(--_selected-bg-color) calc(l * 0.9) c h);
         }
       }
     }

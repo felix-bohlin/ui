@@ -40,7 +40,7 @@
     &.ui-success,
     &.ui-warning {
       --_bg-color: light-dark(
-        oklch(from var(--ui-color-2) l c h / 20%),
+        oklch(from var(--ui-color-3) l c h / 60%),
         oklch(from var(--ui-color-6) l c h / 5%)
       );
       --_border-color: light-dark(var(--ui-color-5), var(--ui-color-11));

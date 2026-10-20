@@ -150,6 +150,7 @@ const whatsNew = {
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   callout: [
+    `Tonal <a href="#severity">severity callouts</a> have a visible fill in light mode.`,
     slots(
       `Breaking: <a href="#icon"><code>CalloutIcon</code></a> and <a href="#variants"><code>CalloutContent</code></a> replace the automatic icon, the content wrapper and the slots. Write the title as a plain heading in <code>CalloutContent</code> instead of the <code>title</code> slot and <code>headingLevel</code>.`,
     ),
@@ -200,6 +201,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   checkbox: [
+    `The unchecked border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
     `The checked fill and mark read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-accent-contrast</code> when a theme sets them.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code> and <code>--thumb-scale</code> is <code>--_thumb-scale</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
@@ -412,6 +414,7 @@ const whatsNew = {
     `The menu shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with drawers, select pickers and toasts.`,
   ],
   progress: [
+    `The track is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
     `The track reads <a href="#api"><code>--ui-track-color</code></a> when a theme sets it.`,
     {
       ...slots(
@@ -427,6 +430,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   radio: [
+    `The unchecked ring, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
     `The checked fill and dot read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-accent-contrast</code> when a theme sets them.`,
     `<a href="#sizes">Radios</a> are 20px, the same <code>--ui-choice-size</code> as Checkbox.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
@@ -468,6 +472,7 @@ const whatsNew = {
     ),
   ],
   range: [
+    `The empty track reaches 3:1 against the page by default, and with more contrast it takes the page color with an inset edge so the fill stands out.`,
     `The thumb and fill read <a href="#api"><code>--ui-choice-accent</code></a> and the empty track <code>--ui-track-color</code> when a theme sets them.`,
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
     {
@@ -513,6 +518,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   select: [
+    `The field border reaches 3:1 against the page by default, and the picker keeps the browser's checkmark on the selected option.`,
     `<a href="#groups">Group labels</a> take a shade of the picker's surface instead of fixed grays.`,
     `The selected option reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-selected-contrast</code> when a theme sets them.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
@@ -629,6 +635,7 @@ const whatsNew = {
     `The <a href="#sticky-header">sticky header</a> shadow reads <code>--ui-shadow-scroll</code>.`,
   ],
   tabs: [
+    `The selected pill has a border, <code>--ui-control-border-color</code> or the field border, so it reaches 3:1 against the track without the shadow.`,
     `Unselected labels are <a href="#api"><code>--ui-text-muted</code></a>, so they pass AA in every theme.`,
     `The outlined track reads <a href="#api"><code>--ui-control-border-color</code></a> for its border, like outlined buttons.`,
     {
@@ -654,6 +661,7 @@ const whatsNew = {
     `Labels read <a href="#api"><code>--ui-font-size-control</code></a> for their font size, like buttons.`,
   ],
   "text-field": [
+    `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     {
       ...slots(
@@ -690,6 +698,7 @@ const whatsNew = {
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
   ],
   textarea: [
+    `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     {
       ...slots(
@@ -732,6 +741,7 @@ const whatsNew = {
     `The toast shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
   ],
   toggle: [
+    `A checked <code>ToggleButton</code> is filled with <code>--ui-primary</code> in every contrast mode, not only a tint.`,
     `A checked <code>ToggleButton</code> reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-selected-contrast</code> when a theme sets them.`,
     `A checked <code>ToggleButton</code> reads <code>--ui-control-filled-border-color</code> for its border, like filled buttons.`,
     `<code>ToggleButton</code> and <code>ToggleGroup</code> read <a href="#api"><code>--ui-control-border-color</code></a> for their border, like outlined buttons.`,

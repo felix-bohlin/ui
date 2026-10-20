@@ -36,7 +36,7 @@ export default {
   },
   "--_selected-bg-color": {
     description:
-      "Background of the checked button. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`, and `--ui-primary` with more contrast.",
+      "Background of the checked button. `--ui-selected` when the theme sets it, otherwise `--ui-primary`.",
     kind: "input",
   },
 } satisfies CustomProperties

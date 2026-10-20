@@ -249,6 +249,15 @@
       padding: var(--_inset);
       timeline-scope: --ui-range-thumb;
 
+      @container style(--ui-contrast: more) {
+        --_track-color: var(--ui-surface-default);
+
+        &::-webkit-slider-runnable-track {
+          box-shadow: inset 0 0 0 var(--ui-border-width)
+            var(--ui-field-border-color);
+        }
+      }
+
       &:focus-visible {
         animation-duration: auto, calc(var(--ui-duration) * var(--_motion));
         animation-name: ui-range-fill, ui-focus-ring;

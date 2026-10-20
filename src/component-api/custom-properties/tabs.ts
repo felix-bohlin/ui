@@ -7,7 +7,7 @@ export default {
   },
   "--_active-border-color": {
     description:
-      "Border color of the selected tab. Set by the variant classes.",
+      "Border color of the selected tab. `--ui-control-border-color`, or `--ui-field-border-color` when the theme doesn't set it, so the pill reaches 3:1 against the track; the variant classes set it.",
     kind: "input",
   },
   "--_active-shadow": {

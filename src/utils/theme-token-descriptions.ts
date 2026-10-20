@@ -72,7 +72,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-ease-enter": "Easing for elements entering the screen.",
   "--ui-ease-exit": "Easing for elements leaving the screen.",
   "--ui-field-border-color":
-    "Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.",
+    "Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch`, the `Range` track and the `Progress` outline. A 50% mix of the text color into the page, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
   "--ui-field-border-color-raised":
     "Field border color inside raised surfaces. Defaults to `--ui-field-border-color` in light mode and the page background in dark mode.",
   "--ui-field-border-radius":
@@ -166,9 +166,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-ripple-color":
     "Halo color for the `Checkbox` and `Radio` hover effect.",
   "--ui-selected":
-    "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` at `--ui-state-active-alpha-accent`. Pair it with `--ui-selected-contrast`.",
+    "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` on toggles and `--ui-primary` at `--ui-state-active-alpha-accent` on list items and options. Pair it with `--ui-selected-contrast`.",
   "--ui-selected-contrast":
-    "Text color on `--ui-selected`. When unset, the control keeps its text color, and a selected `Select` option uses `--ui-primary`.",
+    "Text color on `--ui-selected`. When unset, `--ui-primary-contrast` on toggles, the item's own text color on list items and `--ui-primary` on a selected `Select` option.",
   "--ui-shadow-control":
     "Shadow of buttons with a variant and of fields. `none` by default, for themes that lift controls off the page.",
   "--ui-shadow-field":

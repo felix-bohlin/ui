@@ -184,6 +184,13 @@
 ### Changed
 
 - Under more contrast, the optional theme tokens that carry contrast (`--ui-button-accent`, `--ui-choice-accent`, `--ui-control-border-color`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-selected`, `--ui-surface-border-color`, `--ui-track-color` and their pairs) are reset, so the library's values win. A theme keeps its own by setting the token again in its own `@container style(--ui-contrast: more)` block.
+- `--ui-field-border-color` is a 50% mix of the text color into the page (3:1 or more) instead of `--ui-border-color`, so fields, checkboxes, radios, switches and the range track have a visible boundary without more contrast. Inside filled surfaces it mixes into `--ui-surface-filled` the same way. The example themes keep their own.
+- `Progress` always outlines its track with `--ui-field-border-color`, not only with more contrast, so the empty part is visible.
+- `Range` with more contrast draws its empty track in the page color with an inset `--ui-field-border-color` edge, so the fill stands out from it.
+- `Select` keeps the browser's checkmark at the end of the selected option instead of hiding it.
+- `Tabs` outline the selected pill with `--ui-control-border-color`, or `--ui-field-border-color`, so it reaches 3:1 against the track without the shadow.
+- A checked `ToggleButton` is filled with `--ui-primary` (or `--ui-selected`) in every contrast mode, not only with more contrast.
+- Tonal severity `Callout`s have a visible fill in light mode, 60% of the third palette step instead of 20% of the second.
 - `Dialog` takes `--ui-shadow-overlay`, like `Drawer` and `Menu`, instead of the raised card shadow.
 - `Menu` draws its border and dividers with `--ui-border-color-raised`, like other elevated surfaces, instead of a fixed gray in dark mode.
 - `List` separators are `--ui-border-color` instead of 18% of the text color, so a theme's border color reaches them.

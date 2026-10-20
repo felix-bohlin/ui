@@ -11,6 +11,7 @@
     border-radius: var(--ui-border-radius);
     display: inline-block;
     inline-size: 100%;
+    outline: var(--ui-border-width) solid var(--ui-field-border-color);
     overflow: hidden;
     position: relative;
     vertical-align: middle;
@@ -22,10 +23,6 @@
 
     &.ui-tonal {
       --_bg-color: var(--ui-track-color, var(--ui-surface-tonal));
-    }
-
-    @container style(--ui-contrast: more) {
-      outline: var(--ui-border-width) solid var(--ui-border-color);
     }
 
     @media (forced-colors: active) {

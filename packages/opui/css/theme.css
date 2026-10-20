@@ -138,8 +138,8 @@
     /* State */
     --ui-disabled-opacity: 0.64;
     --ui-ripple-color: oklch(0.6 0 0 / 0.2);
-    /* --ui-selected: oklch(from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)); */
-    /* --ui-selected-contrast: var(--ui-text-primary); */
+    /* --ui-selected: var(--ui-primary); */
+    /* --ui-selected-contrast: var(--ui-primary-contrast); */
     --ui-state-active-alpha: 20%;
     --ui-state-active-alpha-accent: 25%;
     --ui-state-active-alpha-dark: 30%;
@@ -271,7 +271,11 @@
     /* --ui-surface-border-color: var(--ui-border-color); */
 
     /* Field / input */
-    --ui-field-border-color: var(--ui-border-color);
+    --ui-field-border-color: color-mix(
+      in oklch,
+      var(--ui-text-primary) 50%,
+      var(--ui-surface-default)
+    );
     --ui-field-border-color-raised: light-dark(
       var(--ui-field-border-color),
       var(--ui-surface-default)
@@ -336,7 +340,11 @@
   /* Filled surfaces */
   :where(.ui-list:not(.ui-tonal, .ui-transparent), .ui-table th) {
     --ui-border-color: var(--ui-border-color-filled);
-    --ui-field-border-color: var(--ui-border-color);
+    --ui-field-border-color: color-mix(
+      in oklch,
+      var(--ui-text-primary) 50%,
+      var(--ui-surface-filled)
+    );
   }
 
   /* Compact surfaces */

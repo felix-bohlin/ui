@@ -5,9 +5,9 @@
       var(--ui-surface-default),
       oklch(100% 0 0 / var(--ui-state-hover-alpha))
     );
-    --_active-border-color: light-dark(
-      transparent,
-      oklch(100% 0 0 / calc(var(--ui-state-hover-alpha) * 0.8))
+    --_active-border-color: var(
+      --ui-control-border-color,
+      var(--ui-field-border-color)
     );
     --_active-shadow: var(--ui-shadow-tab);
     --_active-text-color: var(--ui-text-primary);

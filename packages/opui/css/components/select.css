@@ -107,7 +107,8 @@
         /* Checkmark */
         /* TODO - checkmark should be the final version of the checkmark API. Follow the development of this and remove redundant pseudo stuff. */
         &::checkmark {
-          display: none;
+          margin-inline-start: auto;
+          order: 1;
         }
 
         &:focus-visible {

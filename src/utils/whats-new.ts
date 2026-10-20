@@ -116,7 +116,7 @@ const whatsNew = {
     `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
-    `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-accent-contrast</code>, the border with <code>--ui-button-border-color</code> and <code>--ui-button-outlined-border-color</code>, the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>.`,
+    `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-accent-contrast</code>, the border with <code>--ui-control-border-color</code> (outlined) and <code>--ui-control-filled-border-color</code> (filled and tonal), the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   "button-group": [
@@ -143,7 +143,7 @@ const whatsNew = {
       `<a href="#vertical-orientation"><code>orientation</code></a> takes <code>"horizontal"</code>, the default, like <code>Carousel</code>.`,
     ),
     `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
-    `Themes set the color of groups without <code>.ui-primary</code> or <code>.ui-critical</code> with <a href="#api"><code>--ui-button-accent</code></a>, the edge and dividers of filled, outlined and tonal groups with <code>--ui-button-border-color</code> (outlined ones also with <code>--ui-button-outlined-border-color</code>), and the font weight and size with <code>--ui-button-font-weight</code> and <code>--ui-font-size-control</code>, like buttons.`,
+    `Themes set the color of groups without <code>.ui-primary</code> or <code>.ui-critical</code> with <a href="#api"><code>--ui-button-accent</code></a>, the edge and dividers of outlined groups with <code>--ui-control-border-color</code> and of filled and tonal groups with <code>--ui-control-filled-border-color</code>, and the font weight and size with <code>--ui-button-font-weight</code> and <code>--ui-font-size-control</code>, like buttons.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   callout: [

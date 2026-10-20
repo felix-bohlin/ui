@@ -233,27 +233,18 @@
     &.ui-outlined,
     :where(.ui-button-group.ui-outlined) > & {
       --_bg-color: transparent;
-      --_border-color: var(
-        --ui-button-outlined-border-color,
-        var(--ui-button-border-color, var(--_accent))
-      );
+      --_border-color: var(--ui-control-border-color, var(--_accent));
       --_text-color: var(--_accent-text);
 
       @container style(--ui-contrast: more) {
-        --_border-color: var(
-          --ui-button-outlined-border-color,
-          var(--ui-button-border-color, var(--_accent-text))
-        );
+        --_border-color: var(--ui-control-border-color, var(--_accent-text));
       }
 
       &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
-            --_border-color: var(
-              --ui-button-outlined-border-color,
-              var(--ui-button-border-color, var(--_accent))
-            );
+            --_border-color: var(--ui-control-border-color, var(--_accent));
             --_text-color: var(--_accent-contrast);
           }
         }
@@ -261,8 +252,8 @@
         &:where(:active) {
           --_bg-color: var(--_outlined-active-bg-color);
           --_border-color: var(
-            --ui-button-outlined-border-color,
-            var(--ui-button-border-color, var(--_outlined-active-bg-color))
+            --ui-control-border-color,
+            var(--_outlined-active-bg-color)
           );
           --_text-color: var(--_accent-contrast);
         }
@@ -283,7 +274,7 @@
     }
 
     &:is(.ui-filled, .ui-tonal) {
-      --_border-color: var(--ui-button-border-color, transparent);
+      --_border-color: var(--ui-control-filled-border-color, transparent);
     }
 
     &.ui-tonal,

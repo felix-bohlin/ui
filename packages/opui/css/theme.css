@@ -115,12 +115,10 @@
     /* Button */
     /* --ui-button-accent: light-dark(var(--ui-color-16), var(--ui-color-1)); */
     /* --ui-button-accent-contrast: light-dark(var(--ui-color-1), var(--ui-color-16)); */
-    /* --ui-button-border-color: oklch(0 0 0); */
     /* --ui-button-border-radius: var(--ui-border-radius); */
     /* --ui-button-font-weight: var(--ui-font-weight-bold); */
     /* --ui-button-hover-shadow: var(--ui-shadow-control); */
     /* --ui-button-hover-translate: none; */
-    /* --ui-button-outlined-border-color: var(--ui-button-border-color); */
 
     /* Divider */
     --ui-divider-space: calc(var(--size-fluid-3) * var(--ui-space-scale));
@@ -261,6 +259,8 @@
       var(--ui-border-color),
       var(--ui-surface-default)
     );
+    /* --ui-control-border-color: var(--ui-field-border-color); */
+    /* --ui-control-filled-border-color: oklch(0 0 0); */
     /* --ui-surface-border-color: var(--ui-border-color); */
 
     /* Field / input */

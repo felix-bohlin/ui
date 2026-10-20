@@ -10,7 +10,7 @@
     --ui-button-accent-contrast: var(--ui-primary-contrast);
     --ui-button-border-radius: 0.5rem;
     --ui-button-font-weight: var(--font-weight-5);
-    --ui-button-outlined-border-color: var(--ui-field-border-color);
+    --ui-control-border-color: var(--ui-field-border-color);
     --ui-density: 0.9;
     --ui-field-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 0.15));
     --ui-field-border-color-raised: var(--ui-field-border-color);

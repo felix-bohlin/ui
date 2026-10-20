@@ -9,7 +9,8 @@
     --ui-border-color-raised: var(--ui-border-color);
     --ui-border-radius: 5px;
     --ui-border-width: 2px;
-    --ui-button-border-color: var(--ui-border-color);
+    --ui-control-border-color: var(--ui-border-color);
+    --ui-control-filled-border-color: var(--ui-border-color);
     --ui-button-font-weight: var(--font-weight-6);
     --ui-button-hover-shadow: none;
     --ui-button-hover-translate: 4px 4px;

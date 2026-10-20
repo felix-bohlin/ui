@@ -13,7 +13,7 @@
     overflow: hidden;
 
     &:is(.ui-filled, .ui-outlined, .ui-tonal) {
-      --_edge-color: var(--ui-button-border-color, transparent);
+      --_edge-color: var(--ui-control-filled-border-color, transparent);
     }
 
     &.ui-outlined {
@@ -21,20 +21,14 @@
         --ui-button-accent,
         light-dark(var(--ui-color-16), var(--ui-color-1))
       );
-      --_edge-color: var(
-        --ui-button-outlined-border-color,
-        var(--ui-button-border-color, var(--_edge-accent))
-      );
+      --_edge-color: var(--ui-control-border-color, var(--_edge-accent));
       --_edge-text: light-dark(
         var(--_edge-accent),
         oklch(from var(--_edge-accent) max(l, 0.85) min(c, 0.1) h)
       );
 
       @container style(--ui-contrast: more) {
-        --_edge-color: var(
-          --ui-button-outlined-border-color,
-          var(--ui-button-border-color, var(--_edge-text))
-        );
+        --_edge-color: var(--ui-control-border-color, var(--_edge-text));
       }
 
       &.ui-critical {
@@ -71,7 +65,7 @@
 
       /* button.css > --_accent-tonal */
       --_divider-color: var(
-        --ui-button-border-color,
+        --ui-control-filled-border-color,
         light-dark(
           oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
           oklch(from var(--_accent-tonal) calc(l + 0.1) c h)
@@ -93,25 +87,19 @@
       }
 
       :where(.ui-button-group.ui-outlined) & {
-        --_divider-color: var(
-          --ui-button-outlined-border-color,
-          var(--ui-button-border-color, var(--_accent))
-        );
+        --_divider-color: var(--ui-control-border-color, var(--_accent));
 
         @container style(--ui-contrast: more) {
-          --_divider-color: var(
-            --ui-button-outlined-border-color,
-            var(--ui-button-border-color, var(--_accent-text))
-          );
+          --_divider-color: var(--ui-control-border-color, var(--_accent-text));
         }
       }
 
       :where(.ui-button-group.ui-filled) & {
-        --_divider-color: var(--ui-button-border-color, currentColor);
+        --_divider-color: var(--ui-control-filled-border-color, currentColor);
 
         :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) & {
           --_divider-color: var(
-            --ui-button-border-color,
+            --ui-control-filled-border-color,
             light-dark(
               oklch(from var(--_accent) calc(l - 0.1) c h),
               oklch(from var(--_accent) calc(l + 0.1) c h)

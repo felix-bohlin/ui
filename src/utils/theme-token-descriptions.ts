@@ -17,8 +17,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Color of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, the darkest palette color in light mode and the lightest in dark mode.",
   "--ui-button-accent-contrast":
     "Text color on a filled `--ui-button-accent` button. Set it with `--ui-button-accent`.",
-  "--ui-button-border-color":
-    "Border color of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal`, and of the edge and dividers of a `ButtonGroup` with one of them. When unset, filled and tonal buttons have no visible border and outlined ones use their color.",
   "--ui-button-border-radius":
     "Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--ui-border-radius`, also where it's set on a part of the page.",
   "--ui-button-font-weight":
@@ -27,8 +25,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Shadow of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover. When unset, it keeps `--ui-shadow-control`.",
   "--ui-button-hover-translate":
     "Moves `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover, as a `translate` value. Pair it with `--ui-button-hover-shadow` to press buttons into their shadow. `none` when unset.",
-  "--ui-button-outlined-border-color":
-    "Border color of `Button` with `.ui-outlined`, and of the edge and dividers of an outlined `ButtonGroup`. Beats `--ui-button-border-color` there. When unset, they follow `--ui-button-border-color`, or their color.",
   "--ui-button-size": "Default `Button` height.",
   "--ui-button-size-large": "`Button` height with `.ui-large`.",
   "--ui-button-size-small": "`Button` height with `.ui-small`.",
@@ -49,6 +45,10 @@ export const themeTokenDescriptions: Record<string, string> = {
     "`Checkbox` and `Radio` input size with `.ui-x-small`.",
   "--ui-contrast":
     "`more` raises text, border, primary and focus ring contrast through a style query. Set to `more` automatically under `prefers-contrast: more`. See [Contrast](/guide/theming#contrast).",
+  "--ui-control-border-color":
+    "Border color of controls without a fill: `Button` with `.ui-outlined`, and the edge and dividers of an outlined `ButtonGroup`. When unset, they use their color. Themes that outline buttons like fields set it to `--ui-field-border-color`.",
+  "--ui-control-filled-border-color":
+    "Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, and the edge and dividers of a `ButtonGroup` with one of them. When unset, they have no visible border. Set it with `--ui-control-border-color` to outline every control.",
   "--ui-control-size":
     "Shared default height for fields and buttons so they line up.",
   "--ui-control-size-large": "Shared large height for fields and buttons.",

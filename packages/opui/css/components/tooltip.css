@@ -11,7 +11,7 @@
 
     & > .ui-anchor-floating {
       background-color: var(--_bg-color);
-      border-radius: min(var(--radius-2), var(--ui-border-radius));
+      border-radius: var(--ui-radius-small);
       color: var(--_text-color);
       font-size: var(--ui-font-size-small);
       line-height: var(--ui-line-height-tight);

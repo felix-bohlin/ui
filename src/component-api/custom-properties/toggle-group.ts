@@ -12,7 +12,7 @@ export default {
   },
   "--_border-radius": {
     description:
-      "Corner radius of the group. Defaults to `--ui-button-border-radius`.",
+      "Corner radius of the group. Defaults to `--ui-button-border-radius`, capped at half a button height so a round radius doesn't clip the end items.",
     kind: "input",
   },
 } satisfies CustomProperties

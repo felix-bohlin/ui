@@ -35,6 +35,10 @@
     /* Borders */
     --ui-border-radius: var(--size-2);
     --ui-border-width: 1px;
+    --ui-border-width-thick: var(--border-size-2);
+    --ui-radius-round: var(--radius-round);
+    --ui-radius-small: min(var(--radius-2), var(--ui-border-radius));
+    --ui-radius-x-small: min(var(--radius-1), var(--ui-border-radius));
 
     /* Focus ring */
     --ui-focus-ring-color: rgb(

@@ -16,7 +16,7 @@
       background-color: var(--ui-surface-default);
       block-size: var(--_input-size);
       border: var(--ui-field-border-width) solid var(--ui-field-border-color);
-      border-radius: var(--radius-round);
+      border-radius: var(--ui-radius-round);
       box-sizing: border-box;
       cursor: pointer;
       inline-size: var(--_input-size);

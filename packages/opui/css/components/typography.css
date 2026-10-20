@@ -156,7 +156,7 @@
   :where(.ui-kbd, .ui-var) {
     background-color: var(--ui-text-muted);
     border-color: var(--ui-text-muted);
-    border-radius: min(var(--radius-2), var(--ui-border-radius));
+    border-radius: var(--ui-radius-small);
     border-width: var(--ui-border-width);
     color: var(--ui-text-muted-contrast);
     font-family: var(--ui-font-code);
@@ -167,7 +167,7 @@
 
   :where(.ui-mark) {
     background-color: Mark;
-    border-radius: min(var(--radius-2), var(--ui-border-radius));
+    border-radius: var(--ui-radius-small);
     box-decoration-break: clone;
     color: MarkText;
     padding-block: 0.1ex;
@@ -214,7 +214,8 @@
 
   /* Blockquote */
   :where(.ui-blockquote) {
-    border-inline-start: var(--border-size-3) solid currentColor;
+    border-inline-start: calc(var(--ui-border-width-thick) * 1.5) solid
+      currentColor;
     padding-block: var(--ui-space-3);
     padding-inline: var(--ui-space-4);
 
@@ -360,7 +361,8 @@
 
     /* Blockquote */
     blockquote {
-      border-inline-start: var(--border-size-3) solid currentColor;
+      border-inline-start: calc(var(--ui-border-width-thick) * 1.5) solid
+        currentColor;
       font-size: inherit;
       line-height: inherit;
       padding-block: var(--ui-space-3);
@@ -731,13 +733,14 @@
       }
 
       thead th {
-        border-block-end-width: var(--border-size-2);
+        border-block-end-width: var(--ui-border-width-thick);
         vertical-align: bottom;
       }
 
       tfoot :where(th, td) {
         border-block-end: none;
-        border-block-start: var(--border-size-2) solid var(--ui-border-color);
+        border-block-start: var(--ui-border-width-thick) solid
+          var(--ui-border-color);
       }
     }
 
@@ -811,7 +814,7 @@
         background-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 6%));
       }
 
-      border-radius: var(--ui-border-radius, var(--radius-2));
+      border-radius: var(--ui-radius-small);
       font-size: 0.9em;
       padding: 0.5ex;
     }
@@ -832,7 +835,7 @@
     :where(kbd, var) {
       background-color: var(--ui-text-muted);
       border-color: var(--ui-text-muted);
-      border-radius: min(var(--radius-2), var(--ui-border-radius));
+      border-radius: var(--ui-radius-small);
       border-width: var(--ui-border-width);
       color: var(--ui-text-muted-contrast);
       padding-block: 0.1ex;
@@ -861,7 +864,7 @@
     }
 
     mark {
-      border-radius: min(var(--radius-2), var(--ui-border-radius));
+      border-radius: var(--ui-radius-small);
       box-decoration-break: clone;
       padding-block: 0.1ex;
       padding-inline: 0.3ex;

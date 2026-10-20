@@ -12,7 +12,11 @@
     background-color: var(--_bg-color);
     border: var(--ui-border-width) solid
       var(--ui-control-border-color, var(--ui-border-color));
-    border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
+    border-radius: min(
+      var(--ui-button-border-radius, var(--ui-border-radius)),
+      var(--_min-height) / 2
+    );
+    box-shadow: var(--ui-shadow-control);
     color: var(--ui-text-primary);
     cursor: pointer;
     display: inline-flex;

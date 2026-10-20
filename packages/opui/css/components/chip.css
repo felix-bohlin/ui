@@ -38,6 +38,8 @@
       --_bg-color: var(--ui-surface-default);
       --_border-color: var(--ui-control-border-color, var(--ui-border-color));
       --_text-color: var(--ui-text-primary);
+
+      box-shadow: var(--ui-shadow-control);
     }
 
     &:where(button, a):where(:not(:disabled, [aria-disabled="true"])) {
@@ -107,7 +109,7 @@
     &.ui-dot::before {
       background-color: var(--_dot-color);
       block-size: var(--size-2);
-      border-radius: var(--radius-round);
+      border-radius: var(--ui-radius-round);
       content: "";
       flex-shrink: 0;
       inline-size: var(--size-2);

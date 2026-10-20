@@ -42,7 +42,7 @@
       background-color: var(--_bg-color);
       block-size: var(--_size);
       border: var(--_border-width) solid var(--_border-color);
-      border-radius: var(--radius-round);
+      border-radius: var(--ui-radius-round);
       color: var(--_text-color);
       display: grid;
       font-size: var(--ui-font-size-caption);

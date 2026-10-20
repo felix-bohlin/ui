@@ -202,7 +202,7 @@
     kbd {
       background-color: color-mix(in oklch, currentColor 12%, transparent);
       border: 0;
-      border-radius: min(var(--radius-2), var(--ui-border-radius));
+      border-radius: var(--ui-radius-small);
       color: inherit;
       font-family: var(--ui-font-code);
       font-size: 0.8em;
@@ -342,7 +342,7 @@
     }
 
     &.ui-round {
-      --_border-radius: var(--radius-round);
+      --_border-radius: var(--ui-radius-round);
     }
   }
 
@@ -350,8 +350,8 @@
   :where(input[type="file"]) {
     align-self: flex-start;
     border: var(--ui-field-border-width) solid var(--ui-field-border-color);
-    border-radius: min(var(--radius-2), var(--ui-border-radius));
-    box-shadow: var(--inner-shadow-4);
+    border-radius: var(--ui-radius-small);
+    box-shadow: var(--ui-shadow-field, var(--ui-shadow-control));
     color: var(--ui-text-muted);
     cursor: initial;
     max-inline-size: 100%;

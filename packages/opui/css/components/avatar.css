@@ -9,7 +9,7 @@
     align-items: center;
     aspect-ratio: 1;
     background-color: var(--_bg-color);
-    border-radius: var(--radius-round);
+    border-radius: var(--ui-radius-round);
     color: var(--_text-color);
     display: inline-flex;
     flex-shrink: 0;
@@ -59,11 +59,11 @@
     }
 
     &.ui-rounded {
-      border-radius: min(var(--radius-2), var(--ui-border-radius));
+      border-radius: var(--ui-radius-small);
     }
 
     &.ui-squircle {
-      border-radius: var(--radius-round);
+      border-radius: var(--ui-radius-round);
       corner-shape: squircle;
     }
 

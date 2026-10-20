@@ -1,12 +1,11 @@
 {
   "avatar.css": {
     "literals": ["--_outline-width: 2px"],
-    "primitives": ["--radius-2", "--radius-round", "--size-3"]
+    "primitives": ["--size-3"]
   },
   "badge.css": {
     "literals": ["--_border-width: 2px"],
     "primitives": [
-      "--radius-round",
       "--size-1",
       "--size-2",
       "--size-4",
@@ -21,9 +20,6 @@
   "button.css": {
     "literals": [],
     "primitives": [
-      "--inner-shadow-4",
-      "--radius-2",
-      "--radius-round",
       "--size-2",
       "--size-relative-6",
       "--ui-color-1",
@@ -56,15 +52,11 @@
   },
   "carousel.css": {
     "literals": ["--_block-size: 24rem"],
-    "primitives": ["--radius-round", "--size-2"]
-  },
-  "checkbox.css": {
-    "literals": [],
-    "primitives": ["--radius-1"]
+    "primitives": ["--size-2"]
   },
   "chip.css": {
     "literals": ["border: 2px"],
-    "primitives": ["--radius-round", "--size-1", "--size-2", "--size-3"]
+    "primitives": ["--size-1", "--size-2", "--size-3"]
   },
   "choice.css": {
     "literals": [],
@@ -117,7 +109,7 @@
   },
   "radio.css": {
     "literals": ["--_dot-radius: 1px", "background-image: 0.25px"],
-    "primitives": ["--radius-round"]
+    "primitives": []
   },
   "range.css": {
     "literals": [
@@ -125,7 +117,7 @@
       "--_thumb-size: 30px",
       "initial-value: 24px"
     ],
-    "primitives": ["--radius-round", "--size-1", "--size-2", "--size-4"]
+    "primitives": ["--size-1", "--size-2", "--size-4"]
   },
   "select.css": {
     "literals": [],
@@ -144,13 +136,7 @@
       "--_track-width: 1px",
       "margin-block-start: 1px"
     ],
-    "primitives": [
-      "--radius-round",
-      "--ui-gray-11",
-      "--ui-gray-14",
-      "--ui-gray-3",
-      "--ui-gray-8"
-    ]
+    "primitives": ["--ui-gray-11", "--ui-gray-14", "--ui-gray-3", "--ui-gray-8"]
   },
   "table.css": {
     "literals": ["overflow-clip-margin: 6px"],
@@ -182,7 +168,7 @@
   },
   "tooltip.css": {
     "literals": ["--_min-inline-size: 10rem", "max-inline-size: 240px"],
-    "primitives": ["--radius-2", "--size-2", "--size-4"]
+    "primitives": ["--size-2", "--size-4"]
   },
   "typography.css": {
     "literals": [
@@ -193,9 +179,6 @@
       "text-underline-offset: 2px"
     ],
     "primitives": [
-      "--border-size-2",
-      "--border-size-3",
-      "--radius-2",
       "--ui-color-1",
       "--ui-color-11",
       "--ui-color-12",

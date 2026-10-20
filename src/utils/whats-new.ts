@@ -83,6 +83,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   button: [
+    `The file input takes <code>--ui-shadow-field</code> and <code>--ui-radius-small</code> like other fields.`,
     `Primary tonal buttons read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-primary-tonal-contrast</code> when a theme sets them.`,
     {
       default: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>round</code> makes them round.`,
@@ -240,6 +241,7 @@ const whatsNew = {
     ),
   ],
   chip: [
+    `Outlined chips take <code>--ui-shadow-control</code> like outlined buttons.`,
     `Chips without <code>.ui-outlined</code> read <code>--ui-control-filled-border-color</code> for their border, like filled buttons.`,
     `Outlined chips read <a href="#api"><code>--ui-control-border-color</code></a> for their border, like outlined buttons.`,
     {
@@ -745,6 +747,7 @@ const whatsNew = {
     `The toast shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
   ],
   toggle: [
+    `A standalone toggle takes <code>--ui-shadow-control</code> like buttons, and corners are capped at half the height so a round radius doesn't clip groups.`,
     `A checked <code>ToggleButton</code> is filled with <code>--ui-primary</code> in every contrast mode, not only a tint.`,
     `A checked <code>ToggleButton</code> reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-selected-contrast</code> when a theme sets them.`,
     `A checked <code>ToggleButton</code> reads <code>--ui-control-filled-border-color</code> for its border, like filled buttons.`,
@@ -797,6 +800,7 @@ const whatsNew = {
     `Corners never get rounder than <a href="#api"><code>--ui-border-radius</code></a>, so <code>0</code> squares them.`,
   ],
   typography: [
+    `Inline <code>code</code>, <code>kbd</code>, <code>mark</code> and <code>var</code> are rounded with <code>--ui-radius-small</code>, and the blockquote bar and table rules follow <code>--ui-border-width-thick</code>.`,
     `Text sizes follow the type roles <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code>, <code>--ui-font-size-body</code> and <code>--ui-font-size-large</code> on the <code>--ui-font-size-100</code> to <code>900</code> scale, with <code>--ui-line-height-*</code> and <code>--ui-letter-spacing-*</code> roles for the rest, so a theme reshapes the type in a few lines.`,
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,
     `Breaking: <a href="#variants">heading sizes</a> changed. Sizes and line heights snap to <code>--ui-rhythm-step</code>, and the heading scale no longer inverts on narrow screens.`,

@@ -7,7 +7,7 @@
       background-color: var(--ui-surface-default);
       block-size: var(--_input-size);
       border: var(--ui-field-border-width) solid var(--ui-field-border-color);
-      border-radius: min(var(--radius-1), var(--ui-border-radius));
+      border-radius: var(--ui-radius-x-small);
       box-sizing: border-box;
       cursor: pointer;
       display: grid;

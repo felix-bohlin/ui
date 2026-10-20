@@ -23,7 +23,7 @@
     }
 
     --_track-height: 0.75ex;
-    --_track-radius: var(--radius-round);
+    --_track-radius: var(--ui-radius-round);
 
     display: grid;
     gap: var(--size-1) 0;

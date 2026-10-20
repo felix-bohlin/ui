@@ -13,6 +13,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.",
   "--ui-border-width":
     "Default border width for components that draw a border.",
+  "--ui-border-width-thick":
+    "Width of emphasized rules: the `Table` head and foot borders, and at one and a half times, the blockquote bar.",
   "--ui-button-accent":
     "Color of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, the darkest palette color in light mode and the lightest in dark mode.",
   "--ui-button-accent-contrast":
@@ -202,6 +204,12 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Background of `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal`. When unset, a light tint of the palette. Material's `primary-container` and shadcn's `secondary` go here.",
   "--ui-primary-tonal-contrast":
     "Text color on `--ui-primary-tonal`. Set it with `--ui-primary-tonal`.",
+  "--ui-radius-round":
+    "The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.",
+  "--ui-radius-small":
+    "Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-border-radius`, capped at 5px.",
+  "--ui-radius-x-small":
+    "Corner radius of the `Checkbox` box. `--ui-border-radius`, capped at 2px.",
   "--ui-red":
     "A literal red, Open Props' `--hue-red` at the palette lightness. No severity meaning.",
   "--ui-rhythm-step":

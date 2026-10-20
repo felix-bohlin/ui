@@ -201,6 +201,9 @@
 - The file input takes `--ui-shadow-field` like other fields instead of an inset Open Props shadow, so it's flat by default.
 - A standalone `ToggleButton` and an outlined `Chip` take `--ui-shadow-control` like buttons (none by default), and toggle corners are capped at half the control height so a round `--ui-button-border-radius` doesn't clip grouped toggles.
 - Every gap, padding, offset and small size in the components reads `--ui-space-1` to `--ui-space-8` instead of Open Props `--size-*`, so `--ui-space-scale` reaches all of them. Nothing moves at the default scale.
+- Every inset focus ring (`Accordion`, `ButtonGroup`, `List`, `Select`, `Tabs`, `ToggleButton`) sits at `--ui-focus-ring-inset`, instead of four different offsets, and the `Tabs` ring no longer carries a dead `0` fallback.
+- `Progress` times its indeterminate loop with a `--_loop-duration` property instead of a literal, and `Carousel` reads `--_motion` like the other components when it turns motion off.
+- Elevated and tonal `Accordion`s draw a `CanvasText` border and `ButtonGroup` buttons a `ButtonBorder` border under `forced-colors: active`, where their shadows disappear.
 - `Dialog` takes `--ui-shadow-overlay`, like `Drawer` and `Menu`, instead of the raised card shadow.
 - `Menu` draws its border and dividers with `--ui-border-color-raised`, like other elevated surfaces, instead of a fixed gray in dark mode.
 - `List` separators are `--ui-border-color` instead of 18% of the text color, so a theme's border color reaches them.

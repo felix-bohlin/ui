@@ -40,7 +40,7 @@
     interpolate-size: allow-keywords;
 
     &:is(.ui-elevated, .ui-outlined, .ui-tonal) {
-      --_focus-ring-offset: calc(-2 * var(--ui-focus-ring-width));
+      --_focus-ring-offset: var(--ui-focus-ring-inset);
       --_margin-inline: 0;
       --_overflow: hidden;
       --_padding-inline: var(--ui-space-3);
@@ -49,6 +49,10 @@
     &:is(.ui-elevated, .ui-tonal) {
       --_border-color: var(--ui-surface-border-color, transparent);
       --_border-width: var(--ui-border-width);
+
+      @media (forced-colors: active) {
+        --_border-color: CanvasText;
+      }
     }
 
     &.ui-elevated {
@@ -181,7 +185,7 @@
     & > details.ui-accordion {
       --_border-color: transparent;
       --_border-width: 0;
-      --_focus-ring-offset: calc(-2 * var(--ui-focus-ring-width));
+      --_focus-ring-offset: var(--ui-focus-ring-inset);
       --_margin-inline: 0;
       --_padding-inline: var(--_item-padding-inline);
       --_shadow: none;

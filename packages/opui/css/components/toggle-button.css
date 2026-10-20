@@ -26,7 +26,7 @@
     justify-content: center;
     min-block-size: var(--_min-height);
     min-inline-size: var(--_min-height);
-    outline-offset: calc(-1 * var(--ui-space-2));
+    outline-offset: var(--ui-focus-ring-inset);
     padding-block: 0;
     padding-inline: var(--ui-space-2);
     position: relative;

@@ -60,6 +60,10 @@
         0 calc(-1 * var(--ui-border-width)) 0 0 var(--_divider-color);
       flex: auto;
 
+      @media (forced-colors: active) {
+        --_border-color: ButtonBorder;
+      }
+
       /* button.css > --_accent-tonal */
       --_divider-color: var(
         --ui-control-filled-border-color,
@@ -79,7 +83,7 @@
       }
 
       &:focus-visible {
-        outline-offset: calc(-1.5 * var(--ui-space-1));
+        outline-offset: var(--ui-focus-ring-inset);
       }
 
       :where(.ui-button-group.ui-outlined) & {

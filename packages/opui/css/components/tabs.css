@@ -69,7 +69,7 @@
               var(--_ease);
             outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
               var(--ui-focus-ring-color);
-            outline-offset: var(--ui-focus-ring-offset, 0);
+            outline-offset: var(--ui-focus-ring-offset);
           }
         }
       }
@@ -200,7 +200,7 @@
 
     :where(.ui-card) > & {
       & > .ui-tab-input:focus-visible + .ui-tab-label::before {
-        outline-offset: calc(-1 * var(--ui-focus-ring-width));
+        outline-offset: var(--ui-focus-ring-inset);
       }
     }
 
@@ -222,7 +222,7 @@
 
         &:focus-visible {
           & + .ui-tab-label::before {
-            outline-offset: calc(-1 * var(--ui-focus-ring-width));
+            outline-offset: var(--ui-focus-ring-inset);
           }
         }
       }

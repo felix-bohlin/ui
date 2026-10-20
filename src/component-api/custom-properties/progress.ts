@@ -20,6 +20,11 @@ export default {
       "Easing of the value transition. Defaults to `--ui-ease-enter`.",
     kind: "input",
   },
+  "--_loop-duration": {
+    description:
+      "One cycle of the indeterminate animation, and of the pulse that replaces it when `--_motion` is `0`.",
+    kind: "input",
+  },
   "--_motion": {
     description:
       "Motion multiplier for the value transition and the indeterminate animation.",

@@ -13,6 +13,7 @@ const slots = (note: string) => ({ astro: note, vue: note })
 
 const whatsNew = {
   accordion: [
+    `The inset focus ring sits at <code>--ui-focus-ring-inset</code> like every other inset ring, and elevated and tonal accordions keep a border in forced colors.`,
     slots(
       `Breaking: <a href="#basics"><code>AccordionSummary</code>, <code>AccordionContent</code></a> and <a href="#actions"><code>AccordionActions</code></a> replace the slots, and the root no longer wraps its children in <code>.ui-content</code>.`,
     ),
@@ -124,6 +125,7 @@ const whatsNew = {
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   "button-group": [
+    `The inset focus ring sits at <code>--ui-focus-ring-inset</code>, and the dividers stay visible in forced colors.`,
     `Buttons in a group draw their focus ring with <code>--ui-focus-ring-color</code>, and filled groups keep <code>currentColor</code> dividers whatever the theme sets.`,
     `Primary tonal groups read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-primary-tonal-contrast</code> when a theme sets them.`,
     `Icon-only buttons use the same <a href="#icons">icon size</a> as buttons with a label.`,

@@ -24,7 +24,8 @@ Skip what `pnpm lint`, `pnpm sort-css:check` and `pnpm check-css-vars` catch: de
 ## Quality
 
 - Rules sit in the right layer (`components.root`, `components.extended`, `components.prose`, `utils`) and component roots use `:where(.ui-…)` like the other components.
-- Values come from theme tokens and Open Props (`--size-*`, `--font-size-*`, `--radius-*`), not hard-coded numbers or colors. Colors that derive from a token use relative color syntax.
+- Values come from `--ui-*` role tokens, never from palette steps (`--ui-color-N`, `--ui-gray-N`), Open Props primitives (`--size-*`, `--font-size-*`, `--radius-*`, `--shadow-*`) or literal `px` and `rem` lengths; `ex`, `em`, `lh` and `ch` are fine. `scripts/css-vars-allowlist.json` lists the remaining exceptions; report any entry that a role could replace, and any new read that only passes because it was allowlisted. Colors that derive from a token use relative color syntax.
+- A component with a job an existing role names reads that role (`--ui-control-border-color` for an unfilled control's border, `--ui-selected` for a selected state, `--ui-shadow-control` for a control's shadow) before anyone adds a token. A new token is named by its role, is optional with today's value as the fallback, and comes with a `-contrast` pair when it is a fill.
 - Private custom properties use `--_` and follow the scheme in the changelog: `--_accent`, `--_text-color`, `--_bg-color`, `--_duration`, `--_ease`, `--_size`, `--_min-height`.
 - No dead selectors: every class and part is used by a component, an example or the docs. Grep for it in `packages/opui/components` and `src/component-examples`.
 - No duplicated blocks that a shared rule or token could replace, and no specificity fights that need `!important` or repeated classes.

@@ -372,3 +372,28 @@ type Props = { items?: Item[] }
 2.  **Analyze the API**: Check `src/component-api/[name]/api.ts` for the documented props, slots and classes (see `src/component-api/AGENTS.md`). Every prop and slot the component exposes must be described there, or the docs build fails.
 3.  **Implement**: Follow the checklist in Section 0, for Astro, React, Svelte and Vue.
 4.  **Verify**: Run `npx vitest run tests/unit/parity.test.ts`: Astro output must match the HTML example, and React, Svelte and Vue output must match Astro. Then check the rendered pages at `/html/components/[name]`, `/astro/components/[name]`, `/react/components/[name]`, `/svelte/components/[name]` and `/vue/components/[name]`, and the fixture pages at `/[framework]/test/[name]`, which only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`).
+
+---
+
+## 9. Tokens, Forced Colors and More Contrast
+
+### Read roles, never primitives
+
+Component CSS reads `--ui-*` role tokens and its own `--_*` properties. It never reads a palette step (`--ui-color-N`, `--ui-gray-N`), an Open Props primitive (`--size-*`, `--font-size-*`, `--radius-*`, `--shadow-*`) or a literal `px` or `rem` length; `ex`, `em`, `lh` and `ch` values that scale with the type are fine. `pnpm check-css-vars` fails on each one that `scripts/css-vars-allowlist.json` doesn't list, and the list only shrinks. When a component has a job an existing role names, it reads that role: `--ui-control-border-color` for the border of an unfilled control, `--ui-control-filled-border-color` for a filled one, `--ui-selected` and `--ui-selected-contrast` for a selected state, `--ui-choice-accent` for a checked mark, `--ui-track-color` for an empty track, `--ui-shadow-control` for a control's shadow, `--ui-shadow-overlay` for a floating surface, `--ui-radius-small` for a small part, `--ui-font-size-caption` and `--ui-font-size-small` for small text, `--ui-space-N` for every gap and padding, and the `--ui-palette-*` roles for the shades of the current palette inside a severity scope. A new token is named by its role, not the component, is optional with today's value as the fallback at every read site, has a `-contrast` pair when it is a fill, and gets a description in `src/utils/theme-token-descriptions.ts`, a promise in `src/utils/theme-token-promises.ts` when it guarantees contrast, a CHANGELOG entry and a What's new note.
+
+### Forced colors
+
+Windows High Contrast (`forced-colors: active`) repaints everything with system colors and drops backgrounds and shadows. A component needs a `@media (forced-colors: active)` block only where a boundary or a state is carried by color alone: a shadow-only edge, a transparent border, a tinted selected state, a filled track. Borders in a real color are forced to `CanvasText` by the browser and need nothing. The components without a block, and why:
+
+- `Anchor`, `Form`, `Layout`, `DescriptionList`: layout only, no boundary or state of their own.
+- `Badge`, `Callout`, `Card` (outlined), `Dialog`, `Drawer`, `Menu`, `Table`, `Textarea`, `TextField`: every boundary is a real border, which the browser forces to `CanvasText`.
+- `Button`: the browser styles `button` with `ButtonFace`, `ButtonText` and `ButtonBorder`; the variants only change colors, which are forced anyway.
+- `Link`, `Typography`: text and underlines, forced to `LinkText` and `CanvasText`. Code blocks lose their fill and keep their text.
+- `Spinner`: a `currentColor` ring; the spin stays visible because the transparent segments are kept.
+- `Choice` (the shared checkbox, radio and switch root): the blocks live in `checkbox.css`, `radio.css` and `switch.css`.
+
+`Accordion` (the elevated and tonal variants have a shadow-only edge) and `ButtonGroup` (the dividers are box shadows) have blocks for that reason. When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
+
+### More contrast
+
+`theme.css` raises the roles under `@container style(--ui-contrast: more)` and resets the optional contrast-bearing tokens so the library's values win. A component only adds its own more-contrast block when the shape changes (an outline added, a translucent fill made solid) or when a private property computes a lightness from a role; a block that only swaps one role for a stronger one belongs in `theme.css`.

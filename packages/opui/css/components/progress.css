@@ -5,6 +5,7 @@
     --_bg-color: var(--ui-track-color, var(--ui-surface-tonal));
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease-enter);
+    --_loop-duration: 2s;
 
     background-color: var(--_bg-color);
     block-size: var(--ui-space-1);
@@ -57,7 +58,8 @@
 
   :where(.ui-progress):has(> progress:indeterminate) {
     &::after {
-      animation: ui-indeterminate calc(2s * var(--_motion)) linear infinite;
+      animation: ui-indeterminate calc(var(--_loop-duration) * var(--_motion))
+        linear infinite;
       background-color: var(--_accent);
       content: "";
       inset-block: 0;
@@ -67,7 +69,8 @@
 
     @container style(--_motion: 0) {
       &::after {
-        animation: ui-indeterminate-pulse 2s ease-in-out infinite;
+        animation: ui-indeterminate-pulse var(--_loop-duration) ease-in-out
+          infinite;
         inset-inline: 0;
       }
     }

@@ -59,7 +59,7 @@
     scroll-padding-inline: var(--_padding-inline);
     scroll-snap-type: x mandatory;
 
-    @container style(--ui-motion: 0) {
+    @container style(--_motion: 0) {
       scroll-behavior: auto;
     }
 

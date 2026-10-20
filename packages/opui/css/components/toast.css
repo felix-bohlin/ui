@@ -33,7 +33,6 @@
     /* Firefox and Safari fallback */
     --_hold: var(--_hold-duration);
     --_hold-duration: 5s;
-    --ui-focus-ring-color: currentColor;
 
     align-items: center;
     animation:

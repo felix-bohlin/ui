@@ -17,14 +17,10 @@
     --_indicator-color: transparent;
     --_indicator-size: 2px;
     --_inset: calc(var(--size-1) - var(--_track-border-width));
-    --_text-color: color-mix(in oklch, var(--ui-text-primary) 60%, transparent);
+    --_text-color: var(--ui-text-muted);
     --_track-border-color: transparent;
     --_track-border-width: var(--ui-border-width);
     --_track-color: var(--ui-surface-tonal);
-
-    @container style(--ui-contrast: more) {
-      --_text-color: var(--ui-text-muted);
-    }
 
     align-items: flex-start;
     display: flex;

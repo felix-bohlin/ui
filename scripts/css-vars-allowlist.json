@@ -65,7 +65,7 @@
   },
   "carousel.css": {
     "literals": ["--_block-size: 24rem"],
-    "primitives": ["--radius-round", "--shadow-2", "--size-2"]
+    "primitives": ["--radius-round", "--size-2"]
   },
   "checkbox.css": {
     "literals": [],
@@ -141,7 +141,7 @@
   },
   "menu.css": {
     "literals": ["--_min-block-size: 12rem", "--_min-inline-size: 12rem"],
-    "primitives": ["--font-size-0", "--size-1", "--ui-gray-6"]
+    "primitives": ["--font-size-0", "--size-1"]
   },
   "progress.css": {
     "literals": [],
@@ -161,7 +161,7 @@
   },
   "select.css": {
     "literals": [],
-    "primitives": ["--size-2", "--ui-gray-13", "--ui-gray-3"]
+    "primitives": ["--size-2"]
   },
   "spinner.css": {
     "literals": ["border-width: 3px"],

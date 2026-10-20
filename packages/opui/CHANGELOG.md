@@ -184,6 +184,16 @@
 ### Changed
 
 - Under more contrast, the optional theme tokens that carry contrast (`--ui-button-accent`, `--ui-choice-accent`, `--ui-control-border-color`, `--ui-primary-text`, `--ui-primary-tonal`, `--ui-selected`, `--ui-surface-border-color`, `--ui-track-color` and their pairs) are reset, so the library's values win. A theme keeps its own by setting the token again in its own `@container style(--ui-contrast: more)` block.
+- `Dialog` takes `--ui-shadow-overlay`, like `Drawer` and `Menu`, instead of the raised card shadow.
+- `Menu` draws its border and dividers with `--ui-border-color-raised`, like other elevated surfaces, instead of a fixed gray in dark mode.
+- `List` separators are `--ui-border-color` instead of 18% of the text color, so a theme's border color reaches them.
+- `ButtonGroup` with `.ui-filled` keeps `currentColor` dividers whatever the theme's `--ui-control-filled-border-color`, so they stay visible on the fill.
+- `Select` group labels take a shade of the picker's surface instead of fixed gray steps.
+- The severity scopes (`.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning`, `del`, `ins`, `abbr`, `dfn`) take their hue from the intent tokens, so a theme's `--ui-success` reaches every success surface.
+- `ButtonGroup` buttons and `Toast` draw their focus ring with `--ui-focus-ring-color` instead of `currentColor`.
+- The `Carousel` buttons take `--ui-shadow-overlay` instead of Open Props' `--shadow-2`.
+- Unselected `Tabs` labels are `--ui-text-muted` instead of a 60% mix of the text color, in every contrast mode.
+- The unchecked `Switch` track border is `--ui-field-border-color`, like the checkbox and radio borders, instead of the dot color.
 - `normalize.css` sets `box-shadow` instead of `-webkit-box-shadow` on autofilled fields, and font and color inheritance on `::file-selector-button`.
 - `ButtonGroup` focus ring sits inside the button with a gap and uses the button's text color, so it shows on every variant and isn't clipped by the group.
 - `List` start and end icons are smaller: `--ui-icon-size` by default and `--ui-icon-size-small` in dense lists (were `--ui-icon-size-large` and `--ui-icon-size`).

@@ -54,7 +54,8 @@ export default {
     kind: "input",
   },
   "--_text-color": {
-    description: "Text color of the unselected tabs.",
+    description:
+      "Text color of the unselected tabs. Defaults to `--ui-text-muted`.",
     kind: "input",
   },
   "--_track-border-color": {

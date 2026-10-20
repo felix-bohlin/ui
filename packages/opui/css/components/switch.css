@@ -20,6 +20,7 @@
       --ui-track-color,
       light-dark(var(--ui-gray-3), var(--ui-gray-8))
     );
+    --_track-border-color: var(--ui-field-border-color);
     --_track-height: round(var(--ui-switch-track-height), 1px);
     --_track-width: round(var(--ui-switch-track-width), 1px);
 
@@ -36,7 +37,7 @@
       &::before {
         background-color: var(--_track-bg-color);
         block-size: var(--_track-height);
-        border: var(--ui-field-border-width) solid var(--_dot-bg-color);
+        border: var(--ui-field-border-width) solid var(--_track-border-color);
         border-radius: var(--radius-round);
         content: "";
         inline-size: var(--_track-width);

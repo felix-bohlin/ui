@@ -121,6 +121,7 @@ const whatsNew = {
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   "button-group": [
+    `Buttons in a group draw their focus ring with <code>--ui-focus-ring-color</code>, and filled groups keep <code>currentColor</code> dividers whatever the theme sets.`,
     `Primary tonal groups read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-primary-tonal-contrast</code> when a theme sets them.`,
     `Icon-only buttons use the same <a href="#icons">icon size</a> as buttons with a label.`,
     `The focus ring shows on every <a href="#variants">variant</a>, inside the button.`,
@@ -173,6 +174,7 @@ const whatsNew = {
     `Borders inside <a href="#variants">tonal and elevated</a> cards read <code>--ui-border-color-raised</code> and <code>--ui-field-border-color-raised</code>, so a theme's borders reach inside.`,
   ],
   carousel: [
+    `The scroll buttons take <a href="#api"><code>--ui-shadow-overlay</code></a>, so a theme's shadows reach them.`,
     `The scroll buttons read <a href="#api"><code>--ui-control-border-color</code></a> for their border when a theme sets it.`,
     {
       ...components(
@@ -292,6 +294,7 @@ const whatsNew = {
     },
   ],
   dialog: [
+    `The dialog shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, like Drawer and Menu.`,
     slots(
       `Breaking: <a href="#api"><code>DialogHeader</code>, <code>DialogContent</code> and <code>DialogActions</code></a> replace the slots, and <code>align</code> on <code>DialogActions</code> replaces <code>actionsAlign</code>.`,
     ),
@@ -360,6 +363,7 @@ const whatsNew = {
     `New: <a href="#column"><code>.ui-l-column</code></a>, <a href="#row"><code>.ui-l-row</code></a>, <a href="#grid"><code>.ui-l-grid</code></a> and <a href="#container"><code>.ui-l-container</code></a> lay out the space between components.`,
   ],
   list: [
+    `Separators are <a href="#api"><code>--ui-border-color</code></a>, so a theme's border color reaches them.`,
     `Selected and current items read <a href="#api"><code>--ui-selected</code></a> and <code>--ui-selected-contrast</code> when a theme sets them.`,
     `Smaller <a href="#icon">start</a> and end icons.`,
     {
@@ -386,6 +390,7 @@ const whatsNew = {
     ),
   ],
   menu: [
+    `The border and dividers are <a href="#api"><code>--ui-border-color-raised</code></a>, like other elevated surfaces.`,
     `Items are built like <code>List</code> items, with start and end icons, text and shortcuts (<a href="#basics">Basics</a>).`,
     `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups and submenus. HTML and CSS only.`,
     {
@@ -508,6 +513,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
   ],
   select: [
+    `<a href="#groups">Group labels</a> take a shade of the picker's surface instead of fixed grays.`,
     `The selected option reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-selected-contrast</code> when a theme sets them.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     `The chevron flips when the <a href="#variants">picker</a> opens.`,
@@ -551,6 +557,7 @@ const whatsNew = {
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
   ],
   switch: [
+    `The unchecked track border is <a href="#api"><code>--ui-field-border-color</code></a>, like the checkbox and radio borders.`,
     `The checked track reads <a href="#api"><code>--ui-choice-accent</code></a> and the unchecked track <code>--ui-track-color</code> when a theme sets them.`,
     slots(
       `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
@@ -622,6 +629,7 @@ const whatsNew = {
     `The <a href="#sticky-header">sticky header</a> shadow reads <code>--ui-shadow-scroll</code>.`,
   ],
   tabs: [
+    `Unselected labels are <a href="#api"><code>--ui-text-muted</code></a>, so they pass AA in every theme.`,
     `The outlined track reads <a href="#api"><code>--ui-control-border-color</code></a> for its border, like outlined buttons.`,
     {
       astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>TabsItem</code></a>. The <code>Tabs.Item</code> aliases are gone.`,
@@ -717,6 +725,7 @@ const whatsNew = {
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
   ],
   toast: [
+    `The focus ring is <code>--ui-focus-ring-color</code> instead of the text color.`,
     `Breaking: the keyframes are <code>ui-toast-enter</code>, <code>ui-toast-hold</code> and <code>ui-toast-exit</code>, and <a href="#javascript"><code>toast.js</code></a> listens for <code>ui-toast-exit</code>.`,
     `Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See <a href="#how-it-works">How it works</a>.`,
     `Breaking: <code>--_anim-enter</code> and <code>--_anim-exit</code> are <code>--_enter-duration</code> and <code>--_exit-duration</code> (<a href="#under-the-hood">Under the hood</a>).`,

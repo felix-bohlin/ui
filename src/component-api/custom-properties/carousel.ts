@@ -61,7 +61,8 @@ export default {
     kind: "output",
   },
   "--_button-shadow": {
-    description: "Shadow of the scroll buttons. Defaults to `--shadow-2`.",
+    description:
+      "Shadow of the scroll buttons. Defaults to `--ui-shadow-overlay`.",
     kind: "input",
   },
   "--_button-size": {

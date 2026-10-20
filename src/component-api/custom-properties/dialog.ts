@@ -20,6 +20,11 @@ export default {
       "Easing of the open transition. Defaults to `--ui-ease-enter`.",
     kind: "input",
   },
+  "--_elevated-shadow": {
+    description:
+      "Shadow of the dialog, through its `.ui-card.ui-elevated`. Defaults to `--ui-shadow-overlay`, like `Drawer` and `Menu`.",
+    kind: "input",
+  },
   "--_max-inline-size": {
     description: "Maximum width, capped to fit the viewport.",
     kind: "input",

@@ -13,7 +13,7 @@ export default {
   },
   "--_dot-bg-color": {
     description:
-      "Color of the unchecked dot and the track border. The checked dot uses `--_accent-contrast`.",
+      "Color of the unchecked dot. The checked dot uses `--_accent-contrast`.",
     kind: "input",
   },
   "--_dot-inset": {
@@ -56,6 +56,11 @@ export default {
   "--_track-bg-color": {
     description:
       "Background of the unchecked track. `--ui-track-color` when the theme sets it, otherwise a fixed gray.",
+    kind: "input",
+  },
+  "--_track-border-color": {
+    description:
+      "Border of the unchecked track. Defaults to `--ui-field-border-color`, like the checkbox and radio borders. The checked track uses `--_accent`.",
     kind: "input",
   },
   "--_track-height": {

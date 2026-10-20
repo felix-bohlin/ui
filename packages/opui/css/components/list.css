@@ -8,7 +8,7 @@ Lists meant to be used stand-alone or as part of Select elements
 */
   :where(.ui-list) {
     --_bg-color: var(--ui-surface-filled);
-    --_divider-color: color-mix(in oklch, currentColor 18%, transparent);
+    --_divider-color: var(--ui-border-color);
     --_hover-bg-color: oklch(
       from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
     );
@@ -29,10 +29,6 @@ Lists meant to be used stand-alone or as part of Select elements
       * {
         user-select: none;
       }
-    }
-
-    @container style(--ui-contrast: more) {
-      --_divider-color: var(--ui-border-color);
     }
 
     /* Background color */

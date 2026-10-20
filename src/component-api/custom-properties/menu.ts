@@ -6,7 +6,8 @@ export default {
     kind: "input",
   },
   "--_border-color": {
-    description: "The border color. `--_divider-color` follows it.",
+    description:
+      "The border color. Defaults to `--ui-border-color-raised`, and `--_divider-color` follows it.",
     kind: "input",
   },
   "--_border-radius": {

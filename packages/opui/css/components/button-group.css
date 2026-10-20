@@ -82,7 +82,6 @@
       }
 
       &:focus-visible {
-        --ui-focus-ring-color: currentColor;
         outline-offset: calc(-1.5 * var(--size-1));
       }
 
@@ -95,15 +94,12 @@
       }
 
       :where(.ui-button-group.ui-filled) & {
-        --_divider-color: var(--ui-control-filled-border-color, currentColor);
+        --_divider-color: currentColor;
 
         :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) & {
-          --_divider-color: var(
-            --ui-control-filled-border-color,
-            light-dark(
-              oklch(from var(--_accent) calc(l - 0.1) c h),
-              oklch(from var(--_accent) calc(l + 0.1) c h)
-            )
+          --_divider-color: light-dark(
+            oklch(from var(--_accent) calc(l - 0.1) c h),
+            oklch(from var(--_accent) calc(l + 0.1) c h)
           );
         }
       }

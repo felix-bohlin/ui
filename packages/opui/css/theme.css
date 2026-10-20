@@ -292,22 +292,22 @@
 
   /* Severity scope classes */
   :where(.ui-critical, .ui-del, del) {
-    --ui-palette-source: oklch(0.58 0.21 var(--hue-red));
+    --ui-palette-source: oklch(from var(--ui-critical) 0.58 0.21 h);
     --ui-palette-hue-rotate-by: 1;
   }
 
   :where(.ui-info, abbr, dfn, .ui-abbr, .ui-dfn) {
-    --ui-palette-source: oklch(0.58 0.21 var(--hue-blue));
+    --ui-palette-source: oklch(from var(--ui-info) 0.58 0.21 h);
     --ui-palette-hue-rotate-by: 1;
   }
 
   :where(.ui-success, .ui-ins, ins) {
-    --ui-palette-source: oklch(0.58 0.21 var(--hue-green));
+    --ui-palette-source: oklch(from var(--ui-success) 0.58 0.21 h);
     --ui-palette-hue-rotate-by: 1;
   }
 
   :where(.ui-warning) {
-    --ui-palette-source: oklch(0.58 0.21 var(--hue-orange));
+    --ui-palette-source: oklch(from var(--ui-warning) 0.58 0.21 h);
     --ui-palette-hue-rotate-by: 1;
   }
 

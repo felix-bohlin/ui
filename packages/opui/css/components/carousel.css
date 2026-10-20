@@ -21,7 +21,7 @@
     --_button-inset: var(--ui-space-2);
     --_button-next-label: "Next";
     --_button-prev-label: "Previous";
-    --_button-shadow: var(--shadow-2);
+    --_button-shadow: var(--ui-shadow-overlay);
     --_button-size: var(--ui-button-size-small);
     --_button-start-flip: -1;
     --_duration: calc(var(--ui-duration) * var(--_motion));

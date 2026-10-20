@@ -80,7 +80,11 @@
       /* Groups */
       [role="group"] {
         label {
-          background-color: light-dark(var(--ui-gray-3), var(--ui-gray-13));
+          background-color: color-mix(
+            in oklch,
+            var(--_bg-color) 94%,
+            var(--ui-text-primary)
+          );
           color: light-dark(
             oklch(from var(--ui-text-primary) calc(l * 0.75) c h),
             oklch(from var(--ui-text-primary) calc(l * 1.25) c h)

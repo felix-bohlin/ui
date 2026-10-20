@@ -2,15 +2,7 @@
   :where(.ui-menu) {
     --_motion: var(--ui-motion);
     --_bg-color: var(--ui-surface-elevated);
-    --_border-color: light-dark(
-      var(--ui-border-color),
-      oklch(from var(--ui-gray-6) l c h / 40%)
-    );
-
-    @container style(--ui-contrast: more) {
-      --_border-color: var(--ui-border-color);
-    }
-
+    --_border-color: var(--ui-border-color-raised);
     --_border-radius: var(--ui-border-radius);
     --_border-width: var(--ui-border-width);
     --_divider-color: var(--_border-color);

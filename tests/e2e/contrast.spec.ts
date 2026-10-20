@@ -1,6 +1,7 @@
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
+import { themeTokenPromises } from "../../src/utils/theme-token-promises"
 import { COMPONENTS, computed, openFixture, resolveColor } from "./fixtures"
 
 const contrast = async (
@@ -94,6 +95,30 @@ test.describe("prefers-contrast", () => {
     expect(await resolveColor(child, "var(--ui-border-color)")).not.toBe(before)
     expect(await resolveColor(outside, "var(--ui-border-color)")).toBe(before)
   })
+})
+
+test.describe("token promises", () => {
+  for (const colorScheme of ["light", "dark"] as const) {
+    for (const preference of ["no-preference", "more"] as const) {
+      test(`hold in ${colorScheme} mode with contrast ${preference}`, async ({
+        page,
+      }) => {
+        await openFixture(page, "html", "stress/theming")
+        await page.emulateMedia({ colorScheme, contrast: preference })
+        const main = page.locator("main")
+        for (const [name, { against, ratio }] of Object.entries(
+          themeTokenPromises,
+        )) {
+          expect
+            .soft(
+              await contrast(main, `var(${name})`, `var(${against})`),
+              `${name} against ${against}`,
+            )
+            .toBeGreaterThanOrEqual(ratio)
+        }
+      })
+    }
+  }
 })
 
 test.describe("forced-colors", () => {

@@ -12,7 +12,7 @@
  *  - Dark values that differ from what the light block and the dark defaults
  *    already give go in `:where(html.ui-dark)` and the matching
  *    `prefers-color-scheme: dark` block.
- *  - A reference theme's tokens come first, and the other tokens only when
+ *  - An example theme's tokens come first, and the other tokens only when
  *    they differ from it.
  *  - With grays disabled, the text, surface and border mappings go in
  *    `:where(html, .ui-palette)`, like in theme.css.
@@ -67,12 +67,12 @@ function snapshotFor(
   return out
 }
 
-const withReference = (
+const withExample = (
   defaults: Record<Token, string>,
-  reference: Record<string, string>,
+  example: Record<string, string>,
 ) =>
   Object.fromEntries(
-    TOKENS.map((token) => [token, reference[token] ?? defaults[token]]),
+    TOKENS.map((token) => [token, example[token] ?? defaults[token]]),
   ) as Record<Token, string>
 
 function isGraysEnabled(config: ModeConfig): boolean {
@@ -93,14 +93,14 @@ const rule = (
 export function generateCss({
   dark,
   light,
-  reference = {},
+  example = {},
 }: {
   dark: ModeConfig
   light: ModeConfig
-  reference?: Record<string, string>
+  example?: Record<string, string>
 }): string {
-  const lightDefaults = withReference(tokenDefaults("light"), reference)
-  const darkDefaults = withReference(tokenDefaults("dark"), reference)
+  const lightDefaults = withExample(tokenDefaults("light"), example)
+  const darkDefaults = withExample(tokenDefaults("dark"), example)
   const lightSnap = snapshotFor(light, lightDefaults)
   const darkSnap = snapshotFor(dark, darkDefaults)
 
@@ -113,7 +113,7 @@ export function generateCss({
       (lightTokens.includes(token) ? lightSnap[token] : darkDefaults[token]),
   )
   const lightPairs = [
-    ...Object.entries(reference).map(
+    ...Object.entries(example).map(
       ([token, value]) =>
         [
           token,
@@ -123,7 +123,7 @@ export function generateCss({
         ] as const,
     ),
     ...lightTokens
-      .filter((token) => !(token in reference))
+      .filter((token) => !(token in example))
       .map((token) => [token, lightSnap[token]] as const),
   ]
 

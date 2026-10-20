@@ -10,7 +10,7 @@ import {
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
-import { REFERENCE_THEMES } from "../utils/reference-themes"
+import { EXAMPLE_THEMES } from "../utils/example-themes"
 import {
   GRAY_FIELDS,
   PALETTE_FIELDS,
@@ -23,17 +23,17 @@ const defaults = tokenDefaults("light")
 ---
 
 <FieldSet>
-  <FieldLegend>Reference theme</FieldLegend>
+  <FieldLegend>Example theme</FieldLegend>
   <FieldGroup>
     <ToggleGroup
-      aria-label="Reference theme"
-      name="reference-theme"
+      aria-label="Example theme"
+      name="example-theme"
       selection="single"
       size="small"
     >
       <ToggleButton pressed value="default">Default</ToggleButton>
       {
-        REFERENCE_THEMES.map((theme) => (
+        EXAMPLE_THEMES.map((theme) => (
           <ToggleButton value={theme.name}>{theme.label}</ToggleButton>
         ))
       }

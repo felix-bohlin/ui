@@ -195,11 +195,11 @@ describe("generateCss", () => {
     expect(css).not.toContain("ui-dark")
   })
 
-  test("starts from a reference theme and adds the changes on top", () => {
+  test("starts from an example theme and adds the changes on top", () => {
     const css = generateCss({
       dark: { "--ui-border-radius": "0", "--ui-palette-hue": "200" },
       light: { "--ui-border-radius": "0", "--ui-palette-hue": "280" },
-      reference: {
+      example: {
         "--ui-border-radius": "var(--size-1)",
         "--ui-density": "0.875",
         "--ui-palette-hue": "280",
@@ -217,7 +217,7 @@ describe("generateCss", () => {
       generateCss({
         dark: {},
         light: {},
-        reference: { "--ui-density": "0.875" },
+        example: { "--ui-density": "0.875" },
       }),
     ).toContain("--ui-density: 0.875;")
   })

@@ -39,41 +39,40 @@ import Example from "../../components/Example/index"
       Load it after the library, or after <code>layers.css</code> when you import
       single files. If it might load first, start it with the two <code
         >@layer</code
-      > statements from <code>layers.css</code>, like the reference themes and
-      the generated file do, so <code>theme.custom</code> still lands after the defaults.
+      > statements from <code>layers.css</code>, like the example themes and the
+      generated file do, so <code>theme.custom</code> still lands after the defaults.
       The <DocLink href="/guide/theme-generator">Theme generator</DocLink> writes
       one for you, and <DocLink href="/guide/theming">Theming</DocLink> explains each
       token.
     </p>
-    <h3 id="reference-themes">Reference themes</h3>
+    <h3 id="example-themes">Example themes</h3>
     <p>
-      Four reference themes ship with the package, as far apart as we could make
-      them. Three of them are deliberate copies of looks you know, to show how
-      far tokens go. None of them touches component CSS: each one is a list of
-      tokens in <code>theme.custom</code>, and the tests run every stress test
-      page with each of them, in light and dark mode. Try them on this site in
-      the theme drawer in the header, or in the <DocLink
+      Four example themes ship with the package, each a deliberate copy of a
+      look you know, to show how far tokens go. None of them touches component
+      CSS: each one is a list of tokens in <code>theme.custom</code>, and the
+      tests run every stress test page with each of them, in light and dark
+      mode. Try them on this site in the theme drawer in the header, or in the <DocLink
         href="/guide/theme-generator">Theme generator</DocLink
       >.
     </p>
     <ul>
+      <li>
+        <code>bootstrap</code>: Bootstrap 5. Its <code>#0d6efd</code> blue, grays,
+        38px controls, regular weight buttons and labels, heading scale and the wide
+        translucent focus ring.
+      </li>
       <li>
         <code>brutalist</code>: neobrutalism. Black 2px borders, hard 4px
         shadows that buttons press into on hover, a bright blue on pale blue and
         heavy type.
       </li>
       <li>
-        <code>classic</code>: Bootstrap 5. Its <code>#0d6efd</code> blue, grays, 38px
-        controls, regular weight buttons and labels, heading scale and the wide translucent
-        focus ring.
+        <code>m3</code>: Material 3. The baseline purple scheme and its tinted
+        surfaces, pill buttons that lift on hover, 12px cards, 4px outlined
+        fields, Roboto, the type scale and the 3px focus ring.
       </li>
       <li>
-        <code>groovy</code>: pink drifting to coral across the palette, pill
-        buttons, round corners, rounded and handwritten fonts, soft colored
-        shadows and roomy spacing.
-      </li>
-      <li>
-        <code>minimal</code>: shadcn/ui. Neutral grays, a near-black primary,
+        <code>shadcn</code>: shadcn/ui. Neutral grays, a near-black primary,
         36px controls with 14px text, light borders with a faint shadow, a 3px
         gray focus ring and rounder cards than controls.
       </li>

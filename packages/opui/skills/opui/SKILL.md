@@ -58,7 +58,7 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 }
 ```
 
-Reference themes ship in `opui-css/themes/` (`brutalist.css`, a neobrutalism look, `classic.css`, a Bootstrap 5 look, `groovy.css`, and `minimal.css`, a shadcn/ui look), to import or copy as a starting point. They start with the layer order, so they work wherever they load. A theme file you write should load after the library, or start with the two `@layer` statements from `css/layers.css`.
+Example themes ship in `opui-css/themes/` (`bootstrap.css`, a Bootstrap 5 look, `brutalist.css`, a neobrutalism look, `m3.css`, a Material 3 look, and `shadcn.css`, a shadcn/ui look), to import or copy as a starting point. They start with the layer order, so they work wherever they load. A theme file you write should load after the library, or start with the two `@layer` statements from `css/layers.css`.
 
 `references/tokens.json` lists every theme token with its CSS variable, default, dark mode value and description, in the W3C design tokens format.
 

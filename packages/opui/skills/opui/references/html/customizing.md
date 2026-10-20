@@ -19,16 +19,16 @@ A custom theme is a short list of [theme tokens](https://open-props-ui.netlify.a
 }
 ```
 
-Load it after the library, or after `layers.css` when you import single files. If it might load first, start it with the two `@layer` statements from `layers.css`, like the reference themes and the generated file do, so `theme.custom` still lands after the defaults. The [Theme generator](https://open-props-ui.netlify.app/html/guide/theme-generator.md) writes one for you, and [Theming](https://open-props-ui.netlify.app/html/guide/theming.md) explains each token.
+Load it after the library, or after `layers.css` when you import single files. If it might load first, start it with the two `@layer` statements from `layers.css`, like the example themes and the generated file do, so `theme.custom` still lands after the defaults. The [Theme generator](https://open-props-ui.netlify.app/html/guide/theme-generator.md) writes one for you, and [Theming](https://open-props-ui.netlify.app/html/guide/theming.md) explains each token.
 
-### Reference themes
+### Example themes
 
-Four reference themes ship with the package, as far apart as we could make them. Three of them are deliberate copies of looks you know, to show how far tokens go. None of them touches component CSS: each one is a list of tokens in `theme.custom`, and the tests run every stress test page with each of them, in light and dark mode. Try them on this site in the theme drawer in the header, or in the [Theme generator](https://open-props-ui.netlify.app/html/guide/theme-generator.md).
+Four example themes ship with the package, each a deliberate copy of a look you know, to show how far tokens go. None of them touches component CSS: each one is a list of tokens in `theme.custom`, and the tests run every stress test page with each of them, in light and dark mode. Try them on this site in the theme drawer in the header, or in the [Theme generator](https://open-props-ui.netlify.app/html/guide/theme-generator.md).
 
+- `bootstrap`: Bootstrap 5. Its `#0d6efd` blue, grays, 38px controls, regular weight buttons and labels, heading scale and the wide translucent focus ring.
 - `brutalist`: neobrutalism. Black 2px borders, hard 4px shadows that buttons press into on hover, a bright blue on pale blue and heavy type.
-- `classic`: Bootstrap 5. Its `#0d6efd` blue, grays, 38px controls, regular weight buttons and labels, heading scale and the wide translucent focus ring.
-- `groovy`: pink drifting to coral across the palette, pill buttons, round corners, rounded and handwritten fonts, soft colored shadows and roomy spacing.
-- `minimal`: shadcn/ui. Neutral grays, a near-black primary, 36px controls with 14px text, light borders with a faint shadow, a 3px gray focus ring and rounder cards than controls.
+- `m3`: Material 3. The baseline purple scheme and its tinted surfaces, pill buttons that lift on hover, 12px cards, 4px outlined fields, Roboto, the type scale and the 3px focus ring.
+- `shadcn`: shadcn/ui. Neutral grays, a near-black primary, 36px controls with 14px text, light borders with a faint shadow, a 3px gray focus ring and rounder cards than controls.
 
 ```css
 @import "opui-css/css/imports.css";

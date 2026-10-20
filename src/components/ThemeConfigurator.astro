@@ -130,7 +130,7 @@ const { link } = Astro.locals
     themeForm(form, {
       setGrays: (enabled) =>
         themeStore.setEnableGrays(themeStore.getActiveSiteMode(), enabled),
-      setReferenceTheme: (name) => themeStore.setReferenceTheme(name),
+      setExampleTheme: (name) => themeStore.setExampleTheme(name),
       setToken: (token, value) =>
         themeStore.setToken(themeStore.getActiveSiteMode(), token, value),
     })
@@ -140,7 +140,7 @@ const { link } = Astro.locals
       mode,
       themeStore.get(mode),
       themeStore.defaults(mode),
-      themeStore.getReferenceTheme(),
+      themeStore.getExampleTheme(),
     )
   }
 

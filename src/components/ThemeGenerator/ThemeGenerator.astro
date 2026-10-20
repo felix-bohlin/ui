@@ -440,7 +440,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
 
 <script>
   import { highlightAll } from "microlighter"
-  import { referenceTheme } from "../../utils/reference-themes"
+  import { exampleTheme } from "../../utils/example-themes"
   import { themeStore, TOKENS, type Mode } from "../../utils/theme-store"
   import { generateCss } from "./generateCss"
   import { copyText } from "../../utils/storage"
@@ -507,7 +507,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   const controls = themeForm(form, {
     setGrays: (enabled) =>
       targetModes().forEach((m) => themeStore.setEnableGrays(m, enabled)),
-    setReferenceTheme: (name) => themeStore.setReferenceTheme(name),
+    setExampleTheme: (name) => themeStore.setExampleTheme(name),
     setToken: (token, value) =>
       targetModes().forEach((m) => themeStore.setToken(m, token, value)),
   })
@@ -533,7 +533,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
     generatedCss = generateCss({
       dark: themeStore.get("dark"),
       light: themeStore.get("light"),
-      reference: referenceTheme(themeStore.getReferenceTheme())?.tokens,
+      example: exampleTheme(themeStore.getExampleTheme())?.tokens,
     })
     codeEl.textContent = generatedCss
     highlightAll()
@@ -544,7 +544,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
       previewMode(),
       themeStore.get(previewMode()),
       themeStore.defaults(previewMode()),
-      themeStore.getReferenceTheme(),
+      themeStore.getExampleTheme(),
     )
     applyToPreview()
     rerenderCode()

@@ -1,0 +1,46 @@
+@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
+@layer theme.palette, theme.base, theme.custom;
+
+@layer theme.custom {
+  :where(html) {
+    --ui-border-color: light-dark(#cac4d0, #49454f);
+    --ui-border-radius: 0.75rem;
+    --ui-button-border-radius: var(--radius-round);
+    --ui-button-font-weight: var(--font-weight-5);
+    --ui-button-hover-shadow:
+      0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+    --ui-field-border-color: light-dark(#79747e, #938f99);
+    --ui-field-border-radius: 0.25rem;
+    --ui-focus-ring-color: light-dark(#625b71, #ccc2dc);
+    --ui-focus-ring-width: 3px;
+    --ui-font-body: Roboto, var(--font-neo-grotesque);
+    --ui-font-size-control: 0.875rem;
+    --ui-font-size-h1: 2.8125rem;
+    --ui-font-size-h2: 2.25rem;
+    --ui-font-size-h3: 2rem;
+    --ui-font-size-h4: 1.75rem;
+    --ui-font-size-h5: 1.5rem;
+    --ui-font-size-h6: 1.375rem;
+    --ui-font-weight-bold: var(--font-weight-5);
+    --ui-gray-chroma: 0.012;
+    --ui-gray-hue: 300;
+    --ui-palette-source: #6750a4;
+    --ui-primary: light-dark(#6750a4, #d0bcff);
+    --ui-primary-contrast: light-dark(#fff, #381e72);
+    --ui-primary-text: light-dark(#6750a4, #d0bcff);
+    --ui-shadow-overlay:
+      0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+    --ui-shadow-raised-dark:
+      0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+    --ui-shadow-raised-light:
+      0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+    --ui-state-active-alpha: 10%;
+    --ui-state-hover-alpha: 8%;
+    --ui-surface-default: light-dark(#fef7ff, #141218);
+    --ui-surface-elevated: light-dark(#f7f2fa, #1d1b20);
+    --ui-surface-filled: light-dark(#e6e0e9, #36343b);
+    --ui-surface-tonal: light-dark(#e8def8, #4a4458);
+    --ui-text-muted: light-dark(#49454f, #cac4d0);
+    --ui-text-primary: light-dark(#1d1b20, #e6e0e9);
+  }
+}

@@ -15,7 +15,7 @@
  */
 
 import huesSource from "open-props/src/props.colors-oklch-hues.css?raw"
-import { referenceTheme } from "./reference-themes"
+import { exampleTheme } from "./example-themes"
 import { removeStored, writeStored } from "./storage"
 import { themeTokens } from "./theme-tokens"
 
@@ -74,7 +74,7 @@ for (const token of TOKENS) {
 export const THEME_KEYS = {
   contrast: "contrast",
   customTheme: "opui-custom-theme",
-  referenceTheme: "opui-reference-theme",
+  exampleTheme: "opui-example-theme",
   theme: "theme",
 }
 
@@ -100,7 +100,7 @@ export type ModeConfig = Partial<Record<Token, string>> & {
 }
 
 export type ChangeType =
-  "set" | "reset" | "applyMode" | "enable-grays" | "reference-theme"
+  "set" | "reset" | "applyMode" | "enable-grays" | "example-theme"
 
 export type ThemeChangeDetail = {
   mode: Mode
@@ -128,16 +128,16 @@ function emit(detail: ThemeChangeDetail): void {
   document.dispatchEvent(new CustomEvent(EVENT_NAME, { detail }))
 }
 
-function getReferenceTheme(): string | null {
+function getExampleTheme(): string | null {
   if (!isBrowser) return null
-  return window.themeUtils.getReferenceTheme()
+  return window.themeUtils.getExampleTheme()
 }
 
-export const withReferenceTheme = (
+export const withExampleTheme = (
   defaults: Record<Token, string>,
   name: string | null,
 ) => {
-  const tokens = referenceTheme(name)?.tokens ?? {}
+  const tokens = exampleTheme(name)?.tokens ?? {}
   return Object.fromEntries(
     TOKENS.map((token) => [token, tokens[token] ?? defaults[token]]),
   ) as Record<Token, string>
@@ -157,9 +157,9 @@ export const themeStore = {
 
   getActiveSiteMode,
 
-  /** The defaults for `mode`, with the reference theme's values on top. */
+  /** The defaults for `mode`, with the example theme's values on top. */
   defaults(mode: Mode): Record<Token, string> {
-    return withReferenceTheme(tokenDefaults(mode), getReferenceTheme())
+    return withExampleTheme(tokenDefaults(mode), getExampleTheme())
   },
 
   /** Resolve a token's effective value for `mode`, falling back to the default. */
@@ -167,14 +167,14 @@ export const themeStore = {
     return readConfig(mode)[token] ?? themeStore.defaults(mode)[token]
   },
 
-  getReferenceTheme,
+  getExampleTheme,
 
-  setReferenceTheme(name: string | null): void {
+  setExampleTheme(name: string | null): void {
     if (!isBrowser) return
-    window.themeUtils.setReferenceTheme(name)
+    window.themeUtils.setExampleTheme(name)
     emit({
       mode: getActiveSiteMode(),
-      type: "reference-theme",
+      type: "example-theme",
       value: name ?? undefined,
     })
   },
@@ -223,7 +223,7 @@ export const themeStore = {
     removeStored(STORAGE_KEY("light"))
     removeStored(STORAGE_KEY("dark"))
     removeStored(THEME_KEYS.customTheme) // legacy
-    window.themeUtils.setReferenceTheme(null)
+    window.themeUtils.setExampleTheme(null)
 
     window.themeUtils.applyCustomTheme()
 

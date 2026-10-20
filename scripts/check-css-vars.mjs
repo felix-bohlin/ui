@@ -1,4 +1,4 @@
-import { readdir, readFile } from "node:fs/promises"
+import { readdir, readFile, writeFile } from "node:fs/promises"
 import { basename, dirname, extname, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 
@@ -6,8 +6,15 @@ const root = fileURLToPath(new URL("..", import.meta.url))
 const opuiDir = join(root, "packages/opui")
 const srcDir = join(root, "src")
 const openPropsEntry = join(opuiDir, "open-props.css")
+const componentsDir = join(opuiDir, "css/components")
+const allowlistFile = join(root, "scripts/css-vars-allowlist.json")
+const update = process.argv.includes("--update")
 
 const CONSUMER_SET = ["--ui-anchor-position-area"]
+const PALETTE_STEP = /^--ui-(?:color|gray)-\d+$/
+const PRELUDE = /@(?:container|media)[^{]*/g
+const PROPERTY = /(^|[\s;{])(--[\w-]+|[a-z][\w-]*)\s*:\s*([^;{}]*)/g
+const LENGTH = /(?<![\w.-])(\d*\.?\d+)(px|rem)\b/g
 
 const BASES = {
   "badge.css": ["avatar.css"],
@@ -139,6 +146,71 @@ for (const { file, read } of srcFiles) {
   }
 }
 
+const openPropsNames = new Set(openProps.flat())
+const literals = (source) =>
+  [...source.replaceAll(PRELUDE, "").matchAll(PROPERTY)].flatMap(
+    ([, , property, value]) =>
+      [...value.matchAll(LENGTH)]
+        .filter(([, number]) => Number(number) !== 0)
+        .map(([, number, unit]) => `${property}: ${number}${unit}`),
+  )
+
+const found = Object.fromEntries(
+  await Promise.all(
+    packageFiles
+      .filter(({ file }) => file.startsWith(componentsDir))
+      .map(async ({ file, read }) => [
+        relative(componentsDir, file),
+        {
+          literals: [
+            ...new Set(literals(await readFile(file, "utf8"))),
+          ].toSorted(),
+          primitives: [...read]
+            .filter(
+              (name) => openPropsNames.has(name) || PALETTE_STEP.test(name),
+            )
+            .toSorted(),
+        },
+      ]),
+  ),
+)
+
+const allowed = JSON.parse(await readFile(allowlistFile, "utf8"))
+const tierErrors = []
+for (const file of new Set([...Object.keys(found), ...Object.keys(allowed)])) {
+  for (const kind of ["literals", "primitives"]) {
+    const actual = new Set(found[file]?.[kind] ?? [])
+    const listed = new Set(allowed[file]?.[kind] ?? [])
+    for (const entry of actual) {
+      if (!listed.has(entry)) {
+        tierErrors.push(
+          kind === "primitives"
+            ? `${entry} is read in css/components/${file}: components read --ui-* roles, not palette steps or Open Props`
+            : `${entry} in css/components/${file} is a literal length: use a --ui-* role or an em, ex, lh or ch value`,
+        )
+      }
+    }
+    for (const entry of listed) {
+      if (!actual.has(entry)) {
+        tierErrors.push(
+          `${entry} is listed for ${file} in scripts/css-vars-allowlist.json but no longer there: remove the entry`,
+        )
+      }
+    }
+  }
+}
+
+if (update) {
+  const next = Object.fromEntries(
+    Object.entries(found)
+      .filter(
+        ([, lists]) => lists.literals.length + lists.primitives.length > 0,
+      )
+      .toSorted(([a], [b]) => a.localeCompare(b)),
+  )
+  await writeFile(allowlistFile, `${JSON.stringify(next, null, 2)}\n`)
+}
+
 const errors = [
   ...[...undefinedReads]
     .toSorted(([a], [b]) => a.localeCompare(b))
@@ -147,6 +219,7 @@ const errors = [
         `${name} is read but never defined (${[...files].toSorted().join(", ")})`,
     ),
   ...privateErrors.toSorted(),
+  ...(update ? [] : tierErrors.toSorted()),
 ]
 
 if (errors.length > 0) {

@@ -52,6 +52,7 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 ## Testing
 
 - ALWAYS run `pnpm check` before finishing a change. It runs formatting, linting, CSS declaration order, component checks, custom property references, type checks, unit tests and the build. `pnpm check:fast` runs everything except the build while iterating.
+- Component CSS in `packages/opui/css/components/` reads `--ui-*` roles and its own `--_*` properties, never palette steps (`--ui-gray-N`, `--ui-color-N`), Open Props primitives or literal `px`/`rem` lengths. `pnpm check-css-vars` fails on each one unless `scripts/css-vars-allowlist.json` lists it, and on allowlist entries that are no longer in the code. The list only shrinks: fix the read, then run `node scripts/check-css-vars.mjs --update` to drop its entry. Never add an entry for new code.
 - The build regenerates `public/search-index.json`, the agent skill references in `packages/opui/skills/opui/references` and `packages/opui/tokens.json`. Commit them; CI fails when they're stale.
 - `tests/unit/released-tokens.json` lists the theme tokens of the last published version. A token from it that disappears from `theme.css` fails the tests until a `Breaking` or `Removed` entry in the CHANGELOG names it. Update the file after a release.
 - CSS declarations are sorted alphabetically, in `.css` files and in `<style>` blocks (HTML files included). Private `--_*` properties are sorted too, with `--_motion` first. Run `pnpm sort-css` to fix order.

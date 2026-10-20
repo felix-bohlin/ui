@@ -1,7 +1,7 @@
 @layer components.extended {
   :where(.ui-toggle-group) {
     --_bg-color: var(--ui-surface-default);
-    --_border-color: var(--ui-border-color);
+    --_border-color: var(--ui-control-border-color, var(--ui-border-color));
     --_border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
 
     background-color: var(--_bg-color);

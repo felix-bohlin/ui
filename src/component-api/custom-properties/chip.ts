@@ -12,7 +12,8 @@ export default {
     kind: "output",
   },
   "--_border-color": {
-    description: "The current border color. Set by the color classes.",
+    description:
+      "The current border color. Set by the color classes. `.ui-outlined` reads `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it.",
     kind: "output",
   },
   "--_dot-color": {

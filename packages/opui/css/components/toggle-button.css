@@ -10,7 +10,8 @@
 
     align-items: center;
     background-color: var(--_bg-color);
-    border: var(--ui-border-width) solid var(--ui-border-color);
+    border: var(--ui-border-width) solid
+      var(--ui-control-border-color, var(--ui-border-color));
     border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
     color: var(--ui-text-primary);
     cursor: pointer;

@@ -195,7 +195,10 @@
       --_active-bg-color: var(--ui-surface-tonal);
       --_active-border-color: transparent;
       --_active-shadow: none;
-      --_track-border-color: var(--ui-border-color);
+      --_track-border-color: var(
+        --ui-control-border-color,
+        var(--ui-border-color)
+      );
       --_track-color: transparent;
     }
 

@@ -171,6 +171,7 @@ const whatsNew = {
     `Borders inside <a href="#variants">tonal and elevated</a> cards read <code>--ui-border-color-raised</code> and <code>--ui-field-border-color-raised</code>, so a theme's borders reach inside.`,
   ],
   carousel: [
+    `The scroll buttons read <a href="#api"><code>--ui-control-border-color</code></a> for their border when a theme sets it.`,
     {
       ...components(
         `<a href="#images">Images</a> are cropped with the <code>aspectRatio</code> prop.`,
@@ -231,6 +232,7 @@ const whatsNew = {
     ),
   ],
   chip: [
+    `Outlined chips read <a href="#api"><code>--ui-control-border-color</code></a> for their border, like outlined buttons.`,
     {
       default: `<a href="#sizes">Large</a> size with <code>size="large"</code>, and small chips are 28px to match the control sizes.`,
       html: `<a href="#sizes">Large</a> size with <code>.ui-large</code>, and small chips are 28px to match the control sizes.`,
@@ -610,6 +612,7 @@ const whatsNew = {
     `The <a href="#sticky-header">sticky header</a> shadow reads <code>--ui-shadow-scroll</code>.`,
   ],
   tabs: [
+    `The outlined track reads <a href="#api"><code>--ui-control-border-color</code></a> for its border, like outlined buttons.`,
     {
       astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>TabsItem</code></a>. The <code>Tabs.Item</code> aliases are gone.`,
     },
@@ -710,6 +713,7 @@ const whatsNew = {
     `The toast shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
   ],
   toggle: [
+    `<code>ToggleButton</code> and <code>ToggleGroup</code> read <a href="#api"><code>--ui-control-border-color</code></a> for their border, like outlined buttons.`,
     slots(
       `Breaking: <a href="#toggle-button"><code>ToggleButton</code></a> no longer generates an input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
     ),

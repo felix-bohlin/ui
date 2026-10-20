@@ -33,6 +33,7 @@
     /* Variants */
     &.ui-outlined {
       --_bg-color: var(--ui-surface-default);
+      --_border-color: var(--ui-control-border-color, var(--ui-border-color));
       --_text-color: var(--ui-text-primary);
     }
 

@@ -3,9 +3,12 @@
     --_motion: var(--ui-motion);
     --_block-size: 24rem;
     --_button-bg-color: var(--ui-surface-inverse);
-    --_button-border-color: light-dark(
-      oklch(from var(--_button-bg-color) calc(l + 0.3) c h),
-      oklch(from var(--_button-bg-color) calc(l - 0.3) c h)
+    --_button-border-color: var(
+      --ui-control-border-color,
+      light-dark(
+        oklch(from var(--_button-bg-color) calc(l + 0.3) c h),
+        oklch(from var(--_button-bg-color) calc(l - 0.3) c h)
+      )
     );
     --_button-disabled-border-color: light-dark(
       oklch(from var(--_button-bg-color) calc(l + 0.12) c h),

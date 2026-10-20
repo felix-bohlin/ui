@@ -46,7 +46,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-contrast":
     "`more` raises text, border, primary and focus ring contrast through a style query. Set to `more` automatically under `prefers-contrast: more`. See [Contrast](/guide/theming#contrast).",
   "--ui-control-border-color":
-    "Border color of controls without a fill: `Button` with `.ui-outlined`, and the edge and dividers of an outlined `ButtonGroup`. When unset, they use their color. Themes that outline buttons like fields set it to `--ui-field-border-color`.",
+    "Border color of controls without a fill: `Button` with `.ui-outlined`, the edge and dividers of an outlined `ButtonGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined` and the `Carousel` buttons. When unset, outlined buttons use their color, the carousel buttons a shade of their fill and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`.",
   "--ui-control-filled-border-color":
     "Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, and the edge and dividers of a `ButtonGroup` with one of them. When unset, they have no visible border. Set it with `--ui-control-border-color` to outline every control.",
   "--ui-control-size":

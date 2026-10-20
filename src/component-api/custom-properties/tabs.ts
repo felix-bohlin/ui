@@ -59,7 +59,7 @@ export default {
   },
   "--_track-border-color": {
     description:
-      "Border color of the track. `.ui-outlined` sets it to `--ui-border-color`.",
+      "Border color of the track. `.ui-outlined` sets it to `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it.",
     kind: "input",
   },
   "--_track-border-width": {

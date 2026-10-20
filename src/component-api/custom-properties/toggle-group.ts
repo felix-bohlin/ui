@@ -7,7 +7,7 @@ export default {
   },
   "--_border-color": {
     description:
-      "Color of the outline around the group and the lines between buttons. Defaults to `--ui-border-color`.",
+      "Color of the outline around the group and the lines between buttons. Defaults to `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it.",
     kind: "input",
   },
   "--_border-radius": {

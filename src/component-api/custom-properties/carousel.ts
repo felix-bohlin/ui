@@ -12,7 +12,7 @@ export default {
   },
   "--_button-border-color": {
     description:
-      "Border color of the scroll buttons, from `--_button-bg-color`.",
+      "Border color of the scroll buttons. `--ui-control-border-color` when the theme sets it, otherwise a shade of `--_button-bg-color`.",
     kind: "output",
   },
   "--_button-disabled-border-color": {

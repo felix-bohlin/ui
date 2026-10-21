@@ -2,8 +2,8 @@
   :where(.ui-menu) {
     --_motion: var(--ui-motion);
     --_bg-color: var(--ui-surface-elevated);
-    --_border-color: var(--ui-border-color-raised);
-    --_border-radius: var(--ui-border-radius);
+    --_border-color: var(--ui-border-color-on-raised);
+    --_border-radius: var(--ui-radius);
     --_border-width: var(--ui-border-width);
     --_divider-color: var(--_border-color);
     --_duration: calc(var(--ui-duration) * var(--_motion));

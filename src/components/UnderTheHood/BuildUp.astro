@@ -164,7 +164,7 @@ const stepId = (index: number, part: string) =>
     --_marker: 1.75rem;
     --_pad: var(--ui-space-2);
 
-    box-shadow: var(--ui-shadow-raised);
+    box-shadow: var(--ui-shadow-elevated);
     container-type: inline-size;
     display: grid;
     gap: 0;
@@ -237,7 +237,7 @@ const stepId = (index: number, part: string) =>
     }
 
     & .ui-list > li {
-      border-radius: var(--ui-border-radius);
+      border-radius: var(--ui-radius);
       counter-increment: build-up-step;
       transition: background-color 0.3s;
 
@@ -263,7 +263,7 @@ const stepId = (index: number, part: string) =>
 
       & > label {
         align-items: start;
-        border-radius: var(--ui-border-radius);
+        border-radius: var(--ui-radius);
         padding: var(--_pad);
 
         &:has(:focus-visible) {
@@ -307,7 +307,7 @@ const stepId = (index: number, part: string) =>
     label:has(:checked) & {
       background-color: var(--_accent);
       border-color: var(--_accent);
-      color: var(--ui-primary-contrast);
+      color: var(--ui-on-primary);
     }
 
     label:has(:checked) & {
@@ -324,7 +324,7 @@ const stepId = (index: number, part: string) =>
 
     label:has(:checked) &,
     li:has(~ li :checked) & {
-      color: var(--ui-text-primary);
+      color: var(--ui-text-strong);
     }
   }
 

@@ -539,7 +539,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
   :where(.command[open]) {
     background-color: var(--ui-surface-default);
     block-size: 100dvb;
-    color: var(--ui-text-primary);
+    color: var(--ui-text-strong);
     display: flex;
     flex-direction: column;
     inline-size: 100%;
@@ -552,7 +552,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     @media (width >= 640px) {
       block-size: fit-content;
       border: var(--ui-border-width) solid var(--ui-border-color);
-      border-radius: var(--ui-border-radius);
+      border-radius: var(--ui-radius);
       box-shadow: var(--shadow-6);
       inline-size: auto;
       margin-block-start: 10vh;
@@ -587,7 +587,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       input {
         background: transparent;
         border: none;
-        color: var(--ui-text-primary);
+        color: var(--ui-text-strong);
         flex: 1;
         font-family: inherit;
         font-size: var(--font-size-2);
@@ -633,7 +633,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
 
         &.active {
           background-color: var(--ui-surface-tonal);
-          color: var(--ui-text-primary);
+          color: var(--ui-text-strong);
         }
       }
     }
@@ -711,7 +711,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
           border: 1px solid var(--ui-surface-tonal);
           border-radius: var(--radius-1);
           box-shadow: 0 1px 0 0 var(--ui-surface-tonal);
-          color: var(--ui-text-primary);
+          color: var(--ui-text-strong);
           display: flex;
           font-family: var(--font-mono);
           font-size: 10px;

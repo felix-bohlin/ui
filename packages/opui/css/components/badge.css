@@ -16,7 +16,7 @@
     --_sign-x: -1;
     --_sign-y: 1;
     --_size: var(--ui-space-4);
-    --_text-color: var(--ui-primary-contrast);
+    --_text-color: var(--ui-on-primary);
 
     display: inline-flex;
     flex-shrink: 0;
@@ -62,7 +62,7 @@
     &:is(.ui-critical, .ui-info, .ui-success) {
       --_bg-color: oklch(from var(--_accent) min(l, 0.48) c h);
       --_border-color: var(--_bg-color);
-      --_text-color: var(--ui-text-on-accent);
+      --_text-color: var(--ui-on-accent);
 
       @container style(--ui-contrast: more) {
         --_bg-color: light-dark(
@@ -88,15 +88,15 @@
       --_bg-color: var(--ui-warning);
       --_border-color: var(--ui-warning);
       --_text-color: light-dark(
-        var(--ui-palette-ink),
-        var(--ui-palette-ink-contrast)
+        var(--ui-palette-strong),
+        var(--ui-palette-on-strong)
       );
     }
 
     &.ui-neutral {
       --_bg-color: var(--ui-neutral);
       --_border-color: var(--ui-neutral);
-      --_text-color: var(--ui-text-on-accent);
+      --_text-color: var(--ui-on-accent);
     }
 
     /* Alignment */

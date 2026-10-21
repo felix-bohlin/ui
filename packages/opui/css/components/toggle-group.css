@@ -3,7 +3,7 @@
     --_bg-color: var(--ui-surface-default);
     --_border-color: var(--ui-control-border-color, var(--ui-border-color));
     --_border-radius: min(
-      var(--ui-button-border-radius, var(--ui-border-radius)),
+      var(--ui-button-radius, var(--ui-radius)),
       var(--ui-button-size) / 2
     );
 

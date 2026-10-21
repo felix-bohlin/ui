@@ -7,11 +7,11 @@ export default {
   },
   "--_border-color": {
     description:
-      "The border color. Defaults to `--ui-border-color-raised`, and `--_divider-color` follows it.",
+      "The border color. Defaults to `--ui-border-color-on-raised`, and `--_divider-color` follows it.",
     kind: "input",
   },
   "--_border-radius": {
-    description: "The corner radius. Defaults to `--ui-border-radius`.",
+    description: "The corner radius. Defaults to `--ui-radius`.",
     kind: "input",
   },
   "--_border-width": {

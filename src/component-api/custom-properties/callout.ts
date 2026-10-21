@@ -12,7 +12,7 @@ export default {
     kind: "output",
   },
   "--_border-radius": {
-    description: "The corner radius. Defaults to `--ui-border-radius`.",
+    description: "The corner radius. Defaults to `--ui-radius`.",
     kind: "input",
   },
   "--_content-gap": {

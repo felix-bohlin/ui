@@ -6,31 +6,6 @@ export default {
       "Fill and border of the checked track. In forced colors `SelectedItem`, `GrayText` when disabled.",
     kind: "input",
   },
-  "--_accent-contrast": {
-    description:
-      "Color of the checked dot on `--_accent`. `SelectedItemText` in forced colors.",
-    kind: "input",
-  },
-  "--_dot-bg-color": {
-    description:
-      "Color of the unchecked dot. Defaults to `--ui-switch-thumb-color`. The checked dot uses `--_accent-contrast`.",
-    kind: "input",
-  },
-  "--_dot-inset": {
-    description:
-      "Gap between the dot and the track edge, computed from `--_track-height` and `--_dot-size`.",
-    kind: "output",
-  },
-  "--_dot-outline-size": {
-    description:
-      "Current outline width that grows the dot. Set by the checked and active states.",
-    kind: "output",
-  },
-  "--_dot-size": {
-    description:
-      "Width and height of the dot. Defaults to `--ui-switch-dot-size`, set by the size classes.",
-    kind: "input",
-  },
   "--_duration": {
     description:
       "Duration of the transitions, `--ui-duration` times `--_motion`.",
@@ -42,7 +17,7 @@ export default {
   },
   "--_icon-size": {
     description:
-      "Size of the `.ui-icon-checked` and `.ui-icon-unchecked` icons, computed to fit beside the dot.",
+      "Size of the `.ui-icon-checked` and `.ui-icon-unchecked` icons, computed to fit beside the thumb.",
     kind: "output",
   },
   "--_input-size": {
@@ -51,6 +26,31 @@ export default {
   },
   "--_motion": {
     description: "Motion multiplier for the transitions. `0` turns them off.",
+    kind: "input",
+  },
+  "--_on-accent": {
+    description:
+      "Color of the checked thumb on `--_accent`. `SelectedItemText` in forced colors.",
+    kind: "input",
+  },
+  "--_thumb-bg-color": {
+    description:
+      "Color of the unchecked thumb. Defaults to `--ui-switch-thumb-color`. The checked thumb uses `--_on-accent`.",
+    kind: "input",
+  },
+  "--_thumb-inset": {
+    description:
+      "Gap between the thumb and the track edge, computed from `--_track-height` and `--_thumb-size`.",
+    kind: "output",
+  },
+  "--_thumb-outline-size": {
+    description:
+      "Current outline width that grows the thumb. Set by the checked and active states.",
+    kind: "output",
+  },
+  "--_thumb-size": {
+    description:
+      "Width and height of the thumb. Defaults to `--ui-switch-thumb-size`, set by the size classes.",
     kind: "input",
   },
   "--_track-bg-color": {

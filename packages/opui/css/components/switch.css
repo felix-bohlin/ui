@@ -1,21 +1,24 @@
 @layer components.root {
   :where(.ui-switch) {
     --_motion: var(--ui-motion);
-    --_dot-bg-color: var(--ui-switch-thumb-color);
-    --_dot-inset: round(
-      down,
-      (var(--_track-height) - var(--_dot-size)) / 2,
-      1px
-    );
-    --_dot-outline-size: 0;
-    --_dot-size: round(var(--ui-switch-dot-size), 1px);
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
     --_icon-size: min(
-      var(--_dot-size),
-      max(0px, var(--_track-width) - var(--_dot-size) - var(--_dot-inset) * 3)
+      var(--_thumb-size),
+      max(
+        0px,
+        var(--_track-width) - var(--_thumb-size) - var(--_thumb-inset) * 3
+      )
     );
     --_input-size: var(--_track-height);
+    --_thumb-bg-color: var(--ui-switch-thumb-color);
+    --_thumb-inset: round(
+      down,
+      (var(--_track-height) - var(--_thumb-size)) / 2,
+      1px
+    );
+    --_thumb-outline-size: 0;
+    --_thumb-size: round(var(--ui-switch-thumb-size), 1px);
     --_track-bg-color: var(--ui-track-color, var(--ui-switch-track-color));
     --_track-border-color: var(--ui-field-border-color);
     --_track-height: round(var(--ui-switch-track-height), 1px);
@@ -47,14 +50,14 @@
 
       /* Dot */
       &::after {
-        background-color: var(--_dot-bg-color);
-        block-size: var(--_dot-size);
+        background-color: var(--_thumb-bg-color);
+        block-size: var(--_thumb-size);
         border-radius: var(--ui-radius-round);
         content: "";
-        inline-size: var(--_dot-size);
-        inset-block-start: var(--_dot-inset);
-        inset-inline-start: var(--_dot-inset);
-        outline: var(--_dot-outline-size) solid var(--_dot-bg-color);
+        inline-size: var(--_thumb-size);
+        inset-block-start: var(--_thumb-inset);
+        inset-inline-start: var(--_thumb-inset);
+        outline: var(--_thumb-outline-size) solid var(--_thumb-bg-color);
         outline-offset: -1px;
         position: absolute;
         transition:
@@ -73,17 +76,17 @@
 
         /* Dot */
         &::after {
-          --_dot-bg-color: var(--_accent-contrast);
-          --_dot-outline-size: calc(var(--_dot-inset) - 1px);
+          --_thumb-bg-color: var(--_on-accent);
+          --_thumb-outline-size: calc(var(--_thumb-inset) - 1px);
 
           inset-inline-start: calc(
-            var(--_track-width) - var(--_dot-size) - var(--_dot-inset)
+            var(--_track-width) - var(--_thumb-size) - var(--_thumb-inset)
           );
         }
       }
 
       &:active::after {
-        --_dot-outline-size: calc(var(--_dot-inset) + 1px);
+        --_thumb-outline-size: calc(var(--_thumb-inset) + 1px);
       }
     }
 
@@ -105,9 +108,9 @@
       }
 
       .ui-icon-checked {
-        color: var(--_accent-contrast);
+        color: var(--_on-accent);
         display: none;
-        margin-inline-start: var(--_dot-inset);
+        margin-inline-start: var(--_thumb-inset);
       }
 
       .ui-icon-unchecked,
@@ -131,7 +134,7 @@
 
       .ui-icon-unchecked {
         margin-inline-start: calc(
-          var(--_track-width) - var(--_icon-size) - var(--_dot-inset)
+          var(--_track-width) - var(--_icon-size) - var(--_thumb-inset)
         );
       }
     }
@@ -153,7 +156,7 @@
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       input {
-        box-shadow: 0 0 0 var(--ui-focus-ring-width) var(--ui-invalid-color);
+        box-shadow: 0 0 0 var(--ui-focus-ring-width) var(--ui-invalid);
       }
 
       input:focus-visible {
@@ -164,16 +167,16 @@
     }
 
     @media (forced-colors: active) {
-      --_dot-bg-color: CanvasText;
+      --_thumb-bg-color: CanvasText;
       --_track-bg-color: Canvas;
 
       &:has([disabled], input[aria-disabled="true"]) {
-        --_dot-bg-color: GrayText;
+        --_thumb-bg-color: GrayText;
       }
 
       :where(input[type="checkbox"][role="switch"]) {
         --_accent: SelectedItem;
-        --_accent-contrast: SelectedItemText;
+        --_on-accent: SelectedItemText;
 
         &:is(:disabled, [aria-disabled="true"]) {
           --_accent: GrayText;

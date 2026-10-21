@@ -27,7 +27,7 @@
 
       /* Checkmark */
       &::after {
-        background-color: var(--_accent-contrast);
+        background-color: var(--_on-accent);
         clip-path: polygon(
           15% 52%,
           40% 77%,
@@ -56,7 +56,7 @@
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       input[type="checkbox"]:not(:checked, :indeterminate) {
-        border-color: var(--ui-invalid-color);
+        border-color: var(--ui-invalid);
       }
     }
 

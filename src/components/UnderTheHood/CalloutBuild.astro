@@ -8,8 +8,8 @@ const steps = [
   --border: var(--ui-surface-tonal);
   background-color: var(--ui-surface-default);
   border: 1px solid var(--border);
-  border-radius: var(--ui-border-radius);
-  color: var(--ui-text-primary);
+  border-radius: var(--ui-radius);
+  color: var(--ui-text-strong);
   padding: 0.75rem;
 }
 
@@ -42,7 +42,7 @@ const steps = [
 
 .callout::before {
   background-color: var(--bg);
-  border-radius: calc(var(--ui-border-radius) - 1px);
+  border-radius: calc(var(--ui-radius) - 1px);
   content: "";
   inset: 0;
   pointer-events: none;

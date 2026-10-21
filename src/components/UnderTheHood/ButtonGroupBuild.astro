@@ -5,7 +5,7 @@ const steps = [
   {
     css: `
 [role="group"].group {
-  border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
+  border-radius: var(--ui-button-radius, var(--ui-radius));
   display: inline-flex;
   flex-wrap: wrap;
   inline-size: fit-content;
@@ -60,7 +60,7 @@ const steps = [
 }
 
 [role="group"].group.outlined {
-  --edge: var(--ui-palette-ink);
+  --edge: var(--ui-palette-strong);
 }
 
 [role="group"].group.outlined > button {
@@ -116,8 +116,8 @@ const knobs = [
   .group > button {
     background-color: var(--ui-surface-tonal);
     border: 0;
-    border-radius: var(--ui-border-radius);
-    color: var(--ui-text-primary);
+    border-radius: var(--ui-radius);
+    color: var(--ui-text-strong);
     cursor: pointer;
     font: inherit;
     padding: var(--ui-space-2) var(--ui-space-3);

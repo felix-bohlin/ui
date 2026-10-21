@@ -8,7 +8,7 @@ export default {
   },
   "--_divider-color": {
     description:
-      "Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-primary` in `.ui-tonal`.",
+      "Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-strong` in `.ui-tonal`.",
     kind: "input",
   },
   "--_hover-bg-color": {

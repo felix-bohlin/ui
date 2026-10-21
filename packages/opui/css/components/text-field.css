@@ -38,7 +38,7 @@
     .ui-field {
       background-color: var(--_bg-color);
       border: var(--ui-field-border-width) solid var(--_border-color);
-      border-radius: var(--ui-field-border-radius, var(--ui-border-radius));
+      border-radius: var(--ui-field-radius, var(--ui-radius));
       box-shadow: var(--ui-shadow-field, var(--ui-shadow-control));
       display: grid;
       grid-column: 1/-1;
@@ -56,7 +56,7 @@
     :where(.ui-field) :where(input, textarea, select) {
       background: transparent;
       border: 0;
-      color: var(--ui-text-primary);
+      color: var(--ui-text-strong);
       font-family: var(--ui-font-body);
       font-size: var(--_font-size);
       grid-area: input;
@@ -166,7 +166,7 @@
         align-self: flex-start;
         block-size: calc(var(--_min-height) - var(--ui-field-border-width) * 2);
         box-shadow: none;
-        color: var(--ui-text-primary);
+        color: var(--ui-text-strong);
         cursor: inherit;
         max-inline-size: 100%;
         padding: 0;
@@ -176,7 +176,7 @@
           background-color: var(--ui-surface-tonal);
           block-size: calc(100% - var(--ui-space-2) * 2);
           border: none;
-          border-radius: var(--ui-field-border-radius, var(--ui-border-radius));
+          border-radius: var(--ui-field-radius, var(--ui-radius));
           cursor: pointer;
           margin-block-start: var(--ui-space-2);
           margin-inline-end: 1ex;
@@ -260,7 +260,7 @@
           )
         ) {
         .ui-field {
-          border-color: var(--ui-text-primary);
+          border-color: var(--ui-text-strong);
         }
       }
     }
@@ -354,14 +354,14 @@
 
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
-      --_accent: var(--ui-invalid-color);
-      --_affix-color: var(--ui-invalid-text-color);
-      --_border-color: var(--ui-invalid-color);
-      --_helper-color: var(--ui-invalid-text-color);
+      --_accent: var(--ui-invalid);
+      --_affix-color: var(--ui-invalid-text);
+      --_border-color: var(--ui-invalid);
+      --_helper-color: var(--ui-invalid-text);
 
       @container style(--ui-contrast: more) {
-        --_accent: var(--ui-invalid-text-color);
-        --_border-color: var(--ui-invalid-text-color);
+        --_accent: var(--ui-invalid-text);
+        --_border-color: var(--ui-invalid-text);
       }
     }
 
@@ -540,7 +540,7 @@
     }
 
     .ui-field::after {
-      background-color: var(--ui-text-primary);
+      background-color: var(--ui-text-strong);
       block-size: var(--_chevron-size);
       content: "";
       inline-size: var(--_chevron-size);

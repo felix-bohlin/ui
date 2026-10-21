@@ -209,12 +209,12 @@
 
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
-      --_accent: var(--ui-invalid-color);
+      --_accent: var(--ui-invalid);
 
       .ui-start-text,
       .ui-end-text,
       .ui-value {
-        color: var(--ui-invalid-text-color);
+        color: var(--ui-invalid-text);
       }
     }
 
@@ -358,7 +358,7 @@
       &:disabled {
         --_thumb-bg-color: color-mix(
           in oklch,
-          var(--ui-text-primary) 50%,
+          var(--ui-text-strong) 50%,
           var(--ui-surface-default)
         );
         --_track-color: var(--ui-field-border-color);

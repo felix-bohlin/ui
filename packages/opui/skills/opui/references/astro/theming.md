@@ -86,11 +86,11 @@ Like the control sizes, the steps resolve on `html`, so set `--ui-space-scale` t
 
 ## Corners
 
-`--ui-border-radius` rounds every component. Cards, callouts, menus and dialogs read it directly, and buttons and fields follow it until you set `--ui-button-border-radius` or `--ui-field-border-radius`. Small parts, such as `kbd`, tooltips and checkboxes, keep their smaller radius but never get rounder than `--ui-border-radius`, so `0` squares everything. It works on a part of the page too.
+`--ui-radius` rounds every component. Cards, callouts, menus and dialogs read it directly, and buttons and fields follow it until you set `--ui-button-radius` or `--ui-field-radius`. Small parts, such as `kbd`, tooltips and checkboxes, keep their smaller radius but never get rounder than `--ui-radius`, so `0` squares everything. It works on a part of the page too.
 
 ```css
 :where(html) {
-  --ui-border-radius: 0;
+  --ui-radius: 0;
 }
 ```
 
@@ -128,13 +128,13 @@ Sizes come in two tiers. `--ui-font-size-100` to `--ui-font-size-900` are the ni
 
 ## Elevation
 
-The shadow tokens lift things off the page. `--ui-shadow-raised` is for surfaces in the page, like elevated cards and accordions. It switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page, so set those two. `--ui-shadow-overlay` is for layers above the page: menus, `select` pickers and drawers. `--ui-shadow-control` is for buttons with a variant and fields, and is `none` until a theme sets it, like a hard offset shadow. Set the optional `--ui-shadow-field` to give fields their own. `--ui-shadow-tab` is for the selected tab. `--ui-shadow-surface` is `none` too, for tonal and outlined cards and accordions, and callouts. `--ui-shadow-scroll` shows under the header and above the footer of scrolled dialogs and drawers, and under a sticky table header.
+The shadow tokens lift things off the page. `--ui-shadow-elevated` is for surfaces in the page, like elevated cards and accordions. It switches between `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page, so set those two. `--ui-shadow-overlay` is for layers above the page: menus, `select` pickers and drawers. `--ui-shadow-control` is for buttons with a variant and fields, and is `none` until a theme sets it, like a hard offset shadow. Set the optional `--ui-shadow-field` to give fields their own. `--ui-shadow-tab` is for the selected tab. `--ui-shadow-surface` is `none` too, for tonal and outlined cards and accordions, and callouts. `--ui-shadow-scroll` shows under the header and above the footer of scrolled dialogs and drawers, and under a sticky table header.
 
 ```css
 :where(html) {
   --ui-shadow-overlay: var(--shadow-4);
-  --ui-shadow-raised-dark: none;
-  --ui-shadow-raised-light: none;
+  --ui-shadow-elevated-dark: none;
+  --ui-shadow-elevated-light: none;
 }
 ```
 

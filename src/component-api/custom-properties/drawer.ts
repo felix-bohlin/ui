@@ -81,7 +81,7 @@ export default {
     kind: "input",
   },
   "--_text-color": {
-    description: "The text color. Defaults to `--ui-text-primary`.",
+    description: "The text color. Defaults to `--ui-text-strong`.",
     kind: "input",
   },
 } satisfies CustomProperties

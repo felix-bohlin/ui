@@ -30,10 +30,10 @@ type Snapshot = Record<Token, string>
 type Ramp = { gray: [string, string]; color: [string, string] }
 
 const RAMPS = {
-  "--ui-text-primary": { gray: ["15", "1"], color: ["15", "1"] },
-  "--ui-text-inverse": { gray: ["1", "15"], color: ["1", "15"] },
+  "--ui-text-strong": { gray: ["15", "1"], color: ["15", "1"] },
+  "--ui-on-inverse": { gray: ["1", "15"], color: ["1", "15"] },
   "--ui-text-muted": { gray: ["13", "4"], color: ["13", "4"] },
-  "--ui-text-muted-contrast": { gray: ["4", "13"], color: ["4", "13"] },
+  "--ui-on-inverse-muted": { gray: ["4", "13"], color: ["4", "13"] },
   "--ui-surface-default": { gray: ["1", "13"], color: ["1", "14"] },
   "--ui-surface-filled": { gray: ["4", "15"], color: ["5", "16"] },
   "--ui-surface-tonal": { gray: ["3", "12"], color: ["4", "12"] },

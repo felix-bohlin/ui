@@ -30,7 +30,7 @@
         background-color: var(--_accent);
         background-image: radial-gradient(
           circle,
-          var(--_accent-contrast) calc(var(--_dot-radius) - 0.25px),
+          var(--_on-accent) calc(var(--_dot-radius) - 0.25px),
           var(--_accent) calc(var(--_dot-radius) + 0.25px)
         );
         border-color: var(--_accent);
@@ -40,7 +40,7 @@
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       input[type="radio"]:not(:checked) {
-        border-color: var(--ui-invalid-color);
+        border-color: var(--ui-invalid);
       }
     }
 
@@ -50,7 +50,7 @@
 
         &:checked {
           --_accent: SelectedItem;
-          --_accent-contrast: SelectedItemText;
+          --_on-accent: SelectedItemText;
 
           forced-color-adjust: none;
         }

@@ -10,7 +10,7 @@
     );
     --_bg-color: transparent;
     --_border-color: transparent;
-    --_border-radius: var(--ui-border-radius);
+    --_border-radius: var(--ui-radius);
     --_border-width: 0;
     --_content-padding-block: var(--ui-space-2) var(--ui-space-3);
     --_content-padding-inline: var(--_padding-inline);
@@ -63,7 +63,7 @@
 
     &.ui-elevated {
       --_bg-color: var(--ui-surface-elevated);
-      --_shadow: var(--ui-shadow-raised);
+      --_shadow: var(--ui-shadow-elevated);
     }
 
     &.ui-outlined {
@@ -178,7 +178,7 @@
   /* Accordion group  */
   :where(.ui-card[role="group"]:has(> details.ui-accordion)) {
     --_divider-color: var(--ui-border-color);
-    --_group-radius: var(--ui-border-radius);
+    --_group-radius: var(--ui-radius);
     --_item-padding-inline: var(--ui-space-3);
     --_item-summary-padding-inline: var(--_item-padding-inline);
 

@@ -131,12 +131,12 @@ Set the `arrow` prop. This would be cool to solve with `corner-shape` one day.
 | `--ui-font-size-small`   | `var(--ui-font-size-200)`                         | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                    |
 | `--ui-line-height-tight` | `1.25`                                            | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                               |
 | `--ui-motion`            | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
-| `--ui-radius-small`      | `min(var(--radius-2), var(--ui-border-radius))`   | Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-border-radius`, capped at 5px.                                             |
+| `--ui-on-inverse`        | `light-dark(var(--ui-gray-1), var(--ui-gray-15))` | Text color on `--ui-surface-inverse`.                                                                                                                                                                      |
+| `--ui-radius-small`      | `min(var(--radius-2), var(--ui-radius))`          | Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-radius`, capped at 5px.                                                    |
 | `--ui-space-1`           | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                            |
 | `--ui-space-2`           | `calc(var(--size-2) * var(--ui-space-scale))`     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                            |
 | `--ui-space-4`           | `calc(var(--size-4) * var(--ui-space-scale))`     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                            |
 | `--ui-surface-inverse`   | `light-dark(var(--ui-gray-15), var(--ui-gray-2))` | Background of `Tooltip`, inverted against the page.                                                                                                                                                        |
-| `--ui-text-inverse`      | `light-dark(var(--ui-gray-1), var(--ui-gray-15))` | Text color on `--ui-surface-inverse`.                                                                                                                                                                      |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -154,7 +154,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_motion`          | Input  | Motion multiplier for the fade. `0` turns it off.                             |
 | `--_offset`          | Input  | Distance from the trigger. `.ui-with-arrow` computes it from `--_arrow-size`. |
 | `--_shift`           | Input  | How far a shifted tooltip reaches past the center of the trigger.             |
-| `--_text-color`      | Input  | The text color. Defaults to `--ui-text-inverse`.                              |
+| `--_text-color`      | Input  | The text color. Defaults to `--ui-on-inverse`.                                |
 
 ## Under the hood
 
@@ -217,7 +217,7 @@ Step 1 of 5: Hint
   background-color: var(--ui-surface-inverse);
   border: 0;
   border-radius: var(--ui-radius-small);
-  color: var(--ui-text-inverse);
+  color: var(--ui-on-inverse);
   font-size: var(--ui-font-size-small);
   inset: auto;
   line-height: var(--ui-line-height-tight);
@@ -351,4 +351,4 @@ Import the component from `opui-css/svelte`:
 - The [arrow](#arrow) points at the trigger in every position, also after a flip.
 - Breaking: `--_tooltip-bg` and `--_tooltip-color` are `--_bg-color` and `--_text-color`, and `--_tooltip-offset` is `--_offset` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
-- Corners never get rounder than [`--ui-border-radius`](#api), so `0` squares them.
+- Corners never get rounder than [`--ui-radius`](#api), so `0` squares them.

@@ -33,7 +33,7 @@ const whatsNew = {
     slots(
       `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone. Leave <code>variant</code> out for the default look.`,
     ),
-    `Elevated accordions use <a href="#api"><code>--ui-shadow-raised</code></a>, the elevated card shadow, also in dark mode. Padding and gaps read the <code>--ui-space-*</code> scale.`,
+    `Elevated accordions use <a href="#api"><code>--ui-shadow-elevated</code></a>, the elevated card shadow, also in dark mode. Padding and gaps read the <code>--ui-space-*</code> scale.`,
     `<a href="#variants">Tonal and outlined</a> accordions read <a href="#api"><code>--ui-shadow-surface</code></a>, <code>none</code> unless a theme sets it, and tonal and elevated accordions <code>--ui-surface-border-color</code>.`,
   ],
   anchor: [
@@ -67,11 +67,11 @@ const whatsNew = {
     components(
       `Breaking: <a href="#grouped"><code>AvatarGroup</code></a> groups avatars and replaces the <code>isGroup</code> prop.`,
     ),
-    `Rounded avatars never get rounder than <a href="#api"><code>--ui-border-radius</code></a>, so <code>0</code> squares them.`,
+    `Rounded avatars never get rounder than <a href="#api"><code>--ui-radius</code></a>, so <code>0</code> squares them.`,
     `The ring around <a href="#grouped">grouped</a> avatars reads <code>--ui-border-width-thick</code>.`,
   ],
   badge: [
-    `Severity text reads <code>--ui-text-on-accent</code> and <code>--ui-palette-ink</code> instead of fixed grays.`,
+    `Severity text reads <code>--ui-on-accent</code> and <code>--ui-palette-strong</code> instead of fixed grays.`,
     `Badges on round avatars sit on the avatar's edge (<a href="#alignment">Alignment</a>), and in an avatar group on the start side.`,
     {
       default: `<a href="#indicator">Indicator</a> context for screen readers with <code>srLabel</code>.`,
@@ -86,7 +86,7 @@ const whatsNew = {
   ],
   button: [
     `The file input takes <code>--ui-shadow-field</code> and <code>--ui-radius-small</code> like other fields.`,
-    `Primary tonal buttons read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-primary-tonal-contrast</code> when a theme sets them.`,
+    `Primary tonal buttons read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-on-primary-tonal</code> when a theme sets them.`,
     {
       default: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>round</code> makes them round.`,
       html: `<a href="#icon-only">Icon-only</a> buttons need no extra class, and <code>.ui-round</code> makes them round.`,
@@ -115,17 +115,17 @@ const whatsNew = {
     components(
       `Breaking: a button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
     ),
-    `Breaking: <code>--_color</code>, <code>--_color-contrast</code> and <code>--_color-tonal</code> are <code>--_accent</code>, <code>--_accent-contrast</code> and <code>--_accent-tonal</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_color</code>, <code>--_color-contrast</code> and <code>--_color-tonal</code> are <code>--_accent</code>, <code>--_on-accent</code> and <code>--_accent-tonal</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
-    `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-accent-contrast</code>, the border with <code>--ui-control-border-color</code> (outlined) and <code>--ui-control-filled-border-color</code> (filled and tonal), the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>.`,
+    `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-button-radius</code></a>, so one token squares or rounds every component.`,
+    `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-on-accent</code>, the border with <code>--ui-control-border-color</code> (outlined) and <code>--ui-control-border-color-filled</code> (filled and tonal), the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   "button-group": [
     `The inset focus ring sits at <code>--ui-focus-ring-inset</code>, and the dividers stay visible in forced colors.`,
     `Buttons in a group draw their focus ring with <code>--ui-focus-ring-color</code>, and filled groups keep <code>currentColor</code> dividers whatever the theme sets.`,
-    `Primary tonal groups read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-primary-tonal-contrast</code> when a theme sets them.`,
+    `Primary tonal groups read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-on-primary-tonal</code> when a theme sets them.`,
     `<a href="#icons">Icon-only buttons</a> stay square and use the same icon size as buttons with a label.`,
     `The focus ring shows on every <a href="#variants">variant</a>, inside the button.`,
     `<a href="#split-button">Split button</a> with a <code>Menu</code>.`,
@@ -146,8 +146,8 @@ const whatsNew = {
     components(
       `<a href="#vertical-orientation"><code>orientation</code></a> takes <code>"horizontal"</code>, the default, like <code>Carousel</code>.`,
     ),
-    `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
-    `Themes set the color of groups without <code>.ui-primary</code> or <code>.ui-critical</code> with <a href="#api"><code>--ui-button-accent</code></a>, the edge and dividers of outlined groups with <code>--ui-control-border-color</code> and of filled and tonal groups with <code>--ui-control-filled-border-color</code>, and the font weight and size with <code>--ui-button-font-weight</code> and <code>--ui-font-size-control</code>, like buttons.`,
+    `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-button-radius</code></a>, so one token squares or rounds every component.`,
+    `Themes set the color of groups without <code>.ui-primary</code> or <code>.ui-critical</code> with <a href="#api"><code>--ui-button-accent</code></a>, the edge and dividers of outlined groups with <code>--ui-control-border-color</code> and of filled and tonal groups with <code>--ui-control-border-color-filled</code>, and the font weight and size with <code>--ui-button-font-weight</code> and <code>--ui-font-size-control</code>, like buttons.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code> when a theme sets it.`,
   ],
   callout: [
@@ -171,14 +171,14 @@ const whatsNew = {
     `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
     `Breaking: <code>--_card-bg-color</code>, <code>--_card-border-color</code>, <code>--_card-border-width</code> and <code>--_card-shadow</code> drop the <code>card-</code> prefix, the outlined <code>--_border-color</code> is <code>--_outlined-border-color</code>, and <code>--_bg-surface</code>, <code>--_bg-tonal</code> and <code>--_bg-elevated</code> are <code>--_surface-bg-color</code>, <code>--_tonal-bg-color</code> and <code>--_elevated-bg-color</code>, and <code>--_shadow-elevated</code> is <code>--_elevated-shadow</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Elevated cards use <a href="#api"><code>--ui-shadow-raised</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
-    `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--ui-shadow-raised-light</code> and <code>--ui-shadow-raised-dark</code></a> in your theme, or <a href="#component-properties"><code>--_elevated-shadow</code></a> on the card.`,
+    `Elevated cards use <a href="#api"><code>--ui-shadow-elevated</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
+    `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--ui-shadow-elevated-light</code> and <code>--ui-shadow-elevated-dark</code></a> in your theme, or <a href="#component-properties"><code>--_elevated-shadow</code></a> on the card.`,
     `<a href="#variants">Tonal and outlined</a> cards read <a href="#api"><code>--ui-shadow-surface</code></a>, and tonal and elevated cards <code>--ui-surface-border-color</code>, when a theme sets them.`,
-    `Borders inside <a href="#variants">tonal and elevated</a> cards read <code>--ui-border-color-raised</code> and <code>--ui-field-border-color-raised</code>, so a theme's borders reach inside.`,
+    `Borders inside <a href="#variants">tonal and elevated</a> cards read <code>--ui-border-color-on-raised</code> and <code>--ui-field-border-color-on-raised</code>, so a theme's borders reach inside.`,
   ],
   carousel: [
     `The scroll buttons take <a href="#api"><code>--ui-shadow-overlay</code></a>, so a theme's shadows reach them.`,
-    `The scroll buttons read <a href="#api"><code>--ui-control-filled-border-color</code></a> for their border when a theme sets it.`,
+    `The scroll buttons read <a href="#api"><code>--ui-control-border-color-filled</code></a> for their border when a theme sets it.`,
     {
       ...components(
         `<a href="#images">Images</a> are cropped with the <code>aspectRatio</code> prop.`,
@@ -207,7 +207,7 @@ const whatsNew = {
       html: `Call <code>syncIndeterminate(input)</code> from <code>checkbox.js</code> after you change <code>data-indeterminate</code> (<a href="#indeterminate">Indeterminate</a>).`,
     },
     `The unchecked border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
-    `The checked fill and mark read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-accent-contrast</code> when a theme sets them.`,
+    `The checked fill and mark read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code> when a theme sets them.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code> and <code>--thumb-scale</code> is <code>--_thumb-scale</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
     `Without a <a href="#visible-label">visible label</a>, checkboxes center in table cells and lines of text, and stay a 24px click target at every size.`,
@@ -238,14 +238,14 @@ const whatsNew = {
       `Breaking: deep type imports from <code>components/Checkbox/types</code> are named <code>Props</code> and <code>Slots</code> (was <code>CheckboxProps</code> and <code>CheckboxSlots</code>). Import <a href="#api"><code>CheckboxProps</code></a> from the framework entry instead.`,
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners never get rounder than <a href="#api"><code>--ui-border-radius</code></a>, so <code>0</code> squares them.`,
+    `Corners never get rounder than <a href="#api"><code>--ui-radius</code></a>, so <code>0</code> squares them.`,
     slots(
       `Breaking: <code>style</code> goes to the root <code>&lt;label&gt;</code>, like <code>class</code>, so <code>--_</code> properties set through it apply (<a href="#api">API</a>).`,
     ),
   ],
   chip: [
     `Outlined chips take <code>--ui-shadow-control</code> like outlined buttons.`,
-    `Chips without <code>.ui-outlined</code> read <code>--ui-control-filled-border-color</code> for their border, like filled buttons.`,
+    `Chips without <code>.ui-outlined</code> read <code>--ui-control-border-color-filled</code> for their border, like filled buttons.`,
     `Outlined chips read <a href="#api"><code>--ui-control-border-color</code></a> for their border, like outlined buttons.`,
     {
       default: `<a href="#sizes">Large</a> size with <code>size="large"</code>, and small chips are 28px to match the control sizes.`,
@@ -316,7 +316,7 @@ const whatsNew = {
       html: `Breaking: the page scroll lock of <a href="#modal">modal dialogs</a> lives in <code>utils.css</code>. Import it too if you import single files.`,
     },
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `The <a href="#long-content">scroll shadow</a> reads <code>--ui-shadow-scroll</code>, and borders inside the dialog read <code>--ui-border-color-raised</code> and <code>--ui-field-border-color-raised</code>.`,
+    `The <a href="#long-content">scroll shadow</a> reads <code>--ui-shadow-scroll</code>, and borders inside the dialog read <code>--ui-border-color-on-raised</code> and <code>--ui-field-border-color-on-raised</code>.`,
     components(
       `<a href="#actions"><code>DialogActions</code></a> only adds a class for <code>align="start"</code>. The default end alignment renders no <code>.ui-align-end</code>.`,
     ),
@@ -379,7 +379,7 @@ const whatsNew = {
     `New: <a href="#column"><code>.ui-l-column</code></a>, <a href="#row"><code>.ui-l-row</code></a>, <a href="#grid"><code>.ui-l-grid</code></a> and <a href="#container"><code>.ui-l-container</code></a> lay out the space between components.`,
   ],
   list: [
-    `Selected and current items read <a href="#api"><code>--ui-selected</code></a> and <code>--ui-selected-contrast</code> when a theme sets them.`,
+    `Selected and current items read <a href="#api"><code>--ui-selected</code></a> and <code>--ui-on-selected</code> when a theme sets them.`,
     `Smaller <a href="#icon">start</a> and end icons.`,
     {
       ...slots(
@@ -406,7 +406,7 @@ const whatsNew = {
     `Breaking: rows no longer style <code>aria-selected="true"</code> on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with <a href="#selected"><code>aria-current="page"</code></a>.`,
   ],
   menu: [
-    `The border and dividers are <a href="#api"><code>--ui-border-color-raised</code></a>, like other elevated surfaces.`,
+    `The border and dividers are <a href="#api"><code>--ui-border-color-on-raised</code></a>, like other elevated surfaces.`,
     `Items are built like <code>List</code> items, with start and end icons, text and shortcuts (<a href="#basics">Basics</a>).`,
     {
       html: `New component. A <a href="#basics">popover menu</a> that anchors to its trigger, with groups and submenus. No JavaScript.`,
@@ -449,7 +449,7 @@ const whatsNew = {
   ],
   radio: [
     `The unchecked ring, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
-    `The checked fill and dot read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-accent-contrast</code> when a theme sets them.`,
+    `The checked fill and dot read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code> when a theme sets them.`,
     `<a href="#sizes">Radios</a> are 20px, the same <code>--ui-choice-size</code> as Checkbox.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code> and <code>--thumb-scale</code> is <code>--_thumb-scale</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
@@ -540,7 +540,7 @@ const whatsNew = {
     `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons.`,
     `The field border reaches 3:1 against the page by default, and the picker keeps the browser's checkmark on the selected option.`,
     `<a href="#option-groups">Group labels</a> take a shade of the picker's surface and <code>--ui-text-muted</code> instead of fixed grays.`,
-    `The selected option reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-selected-contrast</code> when a theme sets them.`,
+    `The selected option reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-on-selected</code> when a theme sets them.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     `The chevron flips when the <a href="#variants">picker</a> opens.`,
     {
@@ -575,7 +575,7 @@ const whatsNew = {
     slots(
       `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;select&gt;</code> (<a href="#api">API</a>).`,
     ),
-    `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-field-border-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-field-radius</code></a>, so one token squares or rounds every component.`,
     `The picker shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and drawers.`,
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
   ],
@@ -717,7 +717,7 @@ const whatsNew = {
     ),
     `Breaking: the <a href="#autosuggest">autosuggest</a> and other input styles are in <code>text-field.css</code>, and <code>text-input.css</code> is gone. Remove its import.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-field-border-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-field-radius</code></a>, so one token squares or rounds every component.`,
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
   ],
   textarea: [
@@ -754,14 +754,14 @@ const whatsNew = {
       `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-field-border-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-field-radius</code></a>, so one token squares or rounds every component.`,
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
   ],
   toggle: [
     `A standalone toggle takes <code>--ui-shadow-control</code> like buttons, and corners are capped at half the height so a round radius doesn't clip groups.`,
     `A checked <code>ToggleButton</code> is filled with <code>--ui-primary</code> in every contrast mode, not only a tint.`,
-    `A checked <code>ToggleButton</code> reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-selected-contrast</code> when a theme sets them.`,
-    `A checked <code>ToggleButton</code> reads <code>--ui-control-filled-border-color</code> for its border, like filled buttons.`,
+    `A checked <code>ToggleButton</code> reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-on-selected</code> when a theme sets them.`,
+    `A checked <code>ToggleButton</code> reads <code>--ui-control-border-color-filled</code> for its border, like filled buttons.`,
     `<code>ToggleButton</code> and <code>ToggleGroup</code> read <a href="#api"><code>--ui-control-border-color</code></a> for their border, like outlined buttons.`,
     slots(
       `Breaking: <a href="#toggle-button"><code>ToggleButton</code></a> no longer generates an input <code>id</code>. Pass <a href="#api"><code>id</code></a> when something outside the component references the input.`,
@@ -794,7 +794,7 @@ const whatsNew = {
     ),
     `A <a href="#toggle-button">toggle button</a> grows with its content from <code>--ui-button-size</code> instead of having a fixed height.`,
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-button-border-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-button-radius</code></a>, so one token squares or rounds every component.`,
     `The default size reads <a href="#sizes"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
   ],
   tooltip: [
@@ -808,10 +808,10 @@ const whatsNew = {
     `The <a href="#arrow">arrow</a> points at the trigger in every position, also after a flip.`,
     `Breaking: <code>--_tooltip-bg</code> and <code>--_tooltip-color</code> are <code>--_bg-color</code> and <code>--_text-color</code>, and <code>--_tooltip-offset</code> is <code>--_offset</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners never get rounder than <a href="#api"><code>--ui-border-radius</code></a>, so <code>0</code> squares them.`,
+    `Corners never get rounder than <a href="#api"><code>--ui-radius</code></a>, so <code>0</code> squares them.`,
   ],
   typography: [
-    `Code blocks read <code>--ui-code-block-background</code> and <code>--ui-code-block-color</code>, and <code>del</code>, <code>ins</code> and <code>abbr</code> read the <code>--ui-palette-*</code> roles.`,
+    `Code blocks read <code>--ui-code-block-bg-color</code> and <code>--ui-code-block-text-color</code>, and <code>del</code>, <code>ins</code> and <code>abbr</code> read the <code>--ui-palette-*</code> roles.`,
     `Inline <code>code</code>, <code>kbd</code>, <code>mark</code> and <code>var</code> are rounded with <code>--ui-radius-small</code>, and the blockquote bar and table rules follow <code>--ui-border-width-thick</code>.`,
     `Text sizes follow the type roles <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code>, <code>--ui-font-size-body</code> and <code>--ui-font-size-large</code> on the <code>--ui-font-size-100</code> to <code>900</code> scale, with <code>--ui-line-height-*</code> and <code>--ui-letter-spacing-*</code> roles for the rest, so a theme reshapes the type in a few lines.`,
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,

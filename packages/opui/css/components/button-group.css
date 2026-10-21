@@ -1,6 +1,6 @@
 @layer components.extended {
   :where([role="group"].ui-button-group) {
-    --_border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
+    --_border-radius: var(--ui-button-radius, var(--ui-radius));
     --_edge-color: transparent;
 
     border-radius: var(--_border-radius);
@@ -13,11 +13,11 @@
     overflow: hidden;
 
     &:is(.ui-filled, .ui-outlined, .ui-tonal) {
-      --_edge-color: var(--ui-control-filled-border-color, transparent);
+      --_edge-color: var(--ui-control-border-color-filled, transparent);
     }
 
     &.ui-outlined {
-      --_edge-accent: var(--ui-button-accent, var(--ui-palette-ink));
+      --_edge-accent: var(--ui-button-accent, var(--ui-palette-strong));
       --_edge-color: var(--ui-control-border-color, var(--_edge-accent));
       --_edge-text: light-dark(
         var(--_edge-accent),
@@ -66,7 +66,7 @@
 
       /* button.css > --_accent-tonal */
       --_divider-color: var(
-        --ui-control-filled-border-color,
+        --ui-control-border-color-filled,
         light-dark(
           oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
           oklch(from var(--_accent-tonal) calc(l + 0.1) c h)

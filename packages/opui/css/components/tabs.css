@@ -10,8 +10,8 @@
       var(--ui-field-border-color)
     );
     --_active-shadow: var(--ui-shadow-tab);
-    --_active-text-color: var(--ui-text-primary);
-    --_border-radius: var(--ui-border-radius);
+    --_active-text-color: var(--ui-text-strong);
+    --_border-radius: var(--ui-radius);
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_ease: var(--ui-ease);
     --_indicator-color: transparent;
@@ -156,7 +156,7 @@
 
       @media (hover: hover) {
         &:hover {
-          color: var(--ui-text-primary);
+          color: var(--ui-text-strong);
         }
       }
     }
@@ -172,14 +172,14 @@
     &.ui-filled {
       --_active-bg-color: var(--ui-primary);
       --_active-border-color: transparent;
-      --_active-text-color: var(--ui-primary-contrast);
+      --_active-text-color: var(--ui-on-primary);
     }
 
     &.ui-line {
       --_active-bg-color: transparent;
       --_active-border-color: transparent;
       --_active-shadow: none;
-      --_indicator-color: var(--ui-text-primary);
+      --_indicator-color: var(--ui-text-strong);
       --_inset: 0px;
       --_track-border-width: 0px;
       --_track-color: transparent;

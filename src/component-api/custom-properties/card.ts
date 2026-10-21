@@ -29,7 +29,8 @@ export default {
     kind: "input",
   },
   "--_elevated-shadow": {
-    description: "Shadow of `.ui-elevated`. Defaults to `--ui-shadow-raised`.",
+    description:
+      "Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.",
     kind: "input",
   },
   "--_motion": {

@@ -4,19 +4,19 @@
 @layer theme.custom {
   :where(html) {
     --ui-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 0.1));
-    --ui-border-color-raised: var(--ui-border-color);
-    --ui-border-radius: 0.875rem;
+    --ui-border-color-on-raised: var(--ui-border-color);
+    --ui-radius: 0.875rem;
     --ui-button-accent: var(--ui-primary);
-    --ui-button-accent-contrast: var(--ui-primary-contrast);
-    --ui-button-border-radius: 0.5rem;
+    --ui-button-on-accent: var(--ui-on-primary);
+    --ui-button-radius: 0.5rem;
     --ui-button-font-weight: var(--font-weight-5);
     --ui-choice-accent: var(--ui-primary);
-    --ui-choice-accent-contrast: var(--ui-primary-contrast);
+    --ui-choice-on-accent: var(--ui-on-primary);
     --ui-control-border-color: var(--ui-field-border-color);
     --ui-density: 0.9;
     --ui-field-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 0.15));
-    --ui-field-border-color-raised: var(--ui-field-border-color);
-    --ui-field-border-radius: 0.5rem;
+    --ui-field-border-color-on-raised: var(--ui-field-border-color);
+    --ui-field-radius: 0.5rem;
     --ui-field-helper-color: light-dark(oklch(0.556 0 0), oklch(0.708 0 0));
     --ui-field-label-font-weight: var(--font-weight-5);
     --ui-focus-ring-color: light-dark(
@@ -32,31 +32,31 @@
     --ui-gray-hue: 0;
     --ui-palette-chroma: 0;
     --ui-primary: light-dark(oklch(0.205 0 0), oklch(0.922 0 0));
-    --ui-primary-contrast: light-dark(oklch(0.985 0 0), oklch(0.205 0 0));
+    --ui-on-primary: light-dark(oklch(0.985 0 0), oklch(0.205 0 0));
     --ui-primary-tonal: var(--ui-surface-tonal);
-    --ui-primary-tonal-contrast: var(--ui-text-primary);
+    --ui-on-primary-tonal: var(--ui-text-strong);
     --ui-selected: var(--ui-surface-tonal);
-    --ui-selected-contrast: var(--ui-text-primary);
+    --ui-on-selected: var(--ui-text-strong);
     --ui-shadow-control: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --ui-shadow-overlay:
       0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --ui-shadow-raised-dark:
+    --ui-shadow-elevated-dark:
       0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --ui-shadow-raised-light:
+    --ui-shadow-elevated-light:
       0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     --ui-surface-default: light-dark(oklch(1 0 0), oklch(0.145 0 0));
     --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.205 0 0));
     --ui-surface-filled: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));
     --ui-surface-tonal: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));
     --ui-text-muted: light-dark(oklch(0.269 0 0), oklch(0.922 0 0));
-    --ui-text-primary: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
+    --ui-text-strong: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
     --ui-track-color: var(--ui-field-border-color);
   }
 
   @container style(--ui-contrast: more) {
     :where(body, .ui-contrast-more > *) {
       --ui-button-accent: var(--ui-primary);
-      --ui-button-accent-contrast: var(--ui-primary-contrast);
+      --ui-button-on-accent: var(--ui-on-primary);
       --ui-control-border-color: var(--ui-field-border-color);
     }
   }

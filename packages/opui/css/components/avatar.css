@@ -4,7 +4,7 @@
     --_font-size: 1em;
     --_icon-size: var(--ui-icon-size-large);
     --_size: var(--ui-control-size);
-    --_text-color: var(--ui-primary-contrast);
+    --_text-color: var(--ui-on-primary);
 
     align-items: center;
     aspect-ratio: 1;

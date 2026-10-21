@@ -62,7 +62,7 @@
 
     /* Error / validation */
     &:has([aria-invalid="true"], :user-invalid) > :where(.ui-end-text) {
-      color: var(--ui-invalid-text-color);
+      color: var(--ui-invalid-text);
     }
 
     /* Required */

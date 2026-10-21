@@ -61,7 +61,7 @@ const slug = (title: string) =>
     <Code
       code={`@layer theme.custom {
   :where(html) {
-    --ui-border-radius: var(--radius-3);
+    --ui-radius: var(--radius-3);
     --ui-duration: 0.15s;
     --ui-palette-hue: 30;
   }
@@ -84,6 +84,45 @@ const slug = (title: string) =>
       spacing, corners, fonts, elevation, motion and contrast, and the classes that
       change them for one part of the page.
     </p>
+  </section>
+
+  <section>
+    <h2 id="naming">How tokens are named</h2>
+    <p>
+      Every name is <code>--ui-</code>, then a family or role, then its variant
+      and context, and each word means one thing:
+    </p>
+    <ul>
+      <li>
+        <code>--ui-on-*</code> is the text and icon color on a fill: <code
+          >--ui-on-primary</code
+        > on <code>--ui-primary</code>, <code>--ui-on-inverse</code> on <code
+          >--ui-surface-inverse</code
+        >.
+      </li>
+      <li>
+        <code>-text</code> after a color is that color tuned for reading, such as
+        <code>--ui-primary-text</code> and <code>--ui-invalid-text</code>.
+      </li>
+      <li>
+        <code>-on-</code> before a surface names what is drawn on it, such as <code
+          >--ui-border-color-on-raised</code
+        >.
+      </li>
+      <li>
+        <code>light</code> and <code>dark</code> only name a color scheme, <code
+          >inverse</code
+        > only the opposite of it, and <code>contrast</code> only the contrast mode.
+      </li>
+      <li>
+        Component tokens start with the component and end in <code
+          >-bg-color</code
+        >, <code>-text-color</code>, <code>-border-color</code>, <code
+          >-size</code
+        >
+        or <code>-radius</code>, like the <code>--_*</code> properties.
+      </li>
+    </ul>
   </section>
 
   {

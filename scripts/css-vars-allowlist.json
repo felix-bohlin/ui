@@ -50,9 +50,9 @@
   },
   "switch.css": {
     "literals": [
-      "--_dot-inset: 1px",
-      "--_dot-outline-size: 1px",
-      "--_dot-size: 1px",
+      "--_thumb-inset: 1px",
+      "--_thumb-outline-size: 1px",
+      "--_thumb-size: 1px",
       "--_track-height: 1px",
       "--_track-width: 1px",
       "margin-block-start: 1px"

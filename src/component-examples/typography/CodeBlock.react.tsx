@@ -1,6 +1,6 @@
 const code = `.ui-card {
   background: var(--ui-surface-elevated);
-  border-radius: var(--ui-border-radius);
+  border-radius: var(--ui-radius);
   padding: var(--ui-space-4);
 }`
 

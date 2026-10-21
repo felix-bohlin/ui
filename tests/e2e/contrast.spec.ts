@@ -81,7 +81,7 @@ test.describe("prefers-contrast", () => {
         await contrast(main, "var(--ui-primary)", surface),
       ).toBeGreaterThan(7)
       expect(
-        await contrast(main, "var(--ui-primary-contrast)", "var(--ui-primary)"),
+        await contrast(main, "var(--ui-on-primary)", "var(--ui-primary)"),
       ).toBeGreaterThan(7)
     })
   }

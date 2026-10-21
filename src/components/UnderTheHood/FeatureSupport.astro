@@ -73,7 +73,7 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
     & li {
       align-items: center;
       background-color: var(--ui-surface-tonal);
-      border-radius: var(--ui-border-radius);
+      border-radius: var(--ui-radius);
       display: flex;
       flex-wrap: wrap;
       font-size: var(--ui-font-size-caption);
@@ -82,7 +82,7 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
     }
 
     & a {
-      color: var(--ui-text-primary);
+      color: var(--ui-text-strong);
       font-weight: 600;
     }
   }
@@ -150,7 +150,7 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
       }
 
       & dd {
-        color: var(--ui-text-primary);
+        color: var(--ui-text-strong);
         font-weight: 700;
       }
     }

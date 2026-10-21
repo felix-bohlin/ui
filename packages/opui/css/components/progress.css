@@ -9,7 +9,7 @@
 
     background-color: var(--_bg-color);
     block-size: var(--ui-space-1);
-    border-radius: var(--ui-border-radius);
+    border-radius: var(--ui-radius);
     display: inline-block;
     inline-size: 100%;
     outline: var(--ui-border-width) solid var(--ui-field-border-color);
@@ -42,7 +42,7 @@
 
       &::-webkit-progress-bar {
         background: none;
-        border-radius: var(--ui-border-radius);
+        border-radius: var(--ui-radius);
       }
 
       &[value]::-webkit-progress-value {

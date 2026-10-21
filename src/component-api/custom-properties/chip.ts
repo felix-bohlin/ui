@@ -13,7 +13,7 @@ export default {
   },
   "--_border-color": {
     description:
-      "The current border color. Defaults to `--ui-control-filled-border-color`, and `.ui-outlined` to `--ui-control-border-color`, both falling back to `--ui-border-color`. The color classes set it.",
+      "The current border color. Defaults to `--ui-control-border-color-filled`, and `.ui-outlined` to `--ui-control-border-color`, both falling back to `--ui-border-color`. The color classes set it.",
     kind: "output",
   },
   "--_dot-color": {

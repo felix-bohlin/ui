@@ -6,11 +6,6 @@ export default {
       "The accent color. Fills, borders, text, hover and active states are derived from it. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.",
     kind: "input",
   },
-  "--_accent-contrast": {
-    description:
-      "Text color on a fill of `--_accent`. Defaults to `--ui-button-accent-contrast` when a theme sets it. `.ui-primary` sets `--ui-primary-contrast`, `.ui-critical` `--ui-text-on-accent`.",
-    kind: "input",
-  },
   "--_accent-text": {
     description:
       "Text color of text and outlined buttons. `--_accent`, lightened in dark mode to stay readable. `--ui-primary-text` in `.ui-primary` when a theme sets it.",
@@ -19,10 +14,6 @@ export default {
   "--_accent-tonal": {
     description:
       "Background of `.ui-tonal`. `--ui-surface-tonal`, a palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`.",
-    kind: "input",
-  },
-  "--_accent-tonal-contrast": {
-    description: "Text color of `.ui-tonal`.",
     kind: "input",
   },
   "--_bg-color": {
@@ -36,7 +27,7 @@ export default {
   },
   "--_border-radius": {
     description:
-      "The corner radius. Defaults to `--ui-button-border-radius`, `.ui-round` makes it round.",
+      "The corner radius. Defaults to `--ui-button-radius`, `.ui-round` makes it round.",
     kind: "input",
   },
   "--_border-width": {
@@ -84,6 +75,15 @@ export default {
   },
   "--_motion": {
     description: "Motion multiplier for the transitions. `0` turns them off.",
+    kind: "input",
+  },
+  "--_on-accent": {
+    description:
+      "Text color on a fill of `--_accent`. Defaults to `--ui-button-on-accent` when a theme sets it. `.ui-primary` sets `--ui-on-primary`, `.ui-critical` `--ui-on-accent`.",
+    kind: "input",
+  },
+  "--_on-accent-tonal": {
+    description: "Text color of `.ui-tonal`.",
     kind: "input",
   },
   "--_outlined-active-bg-color": {

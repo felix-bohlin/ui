@@ -60,9 +60,9 @@ export const GRAY_FIELDS = [
 ] satisfies RangeField[]
 
 export const RADIUS_FIELDS = [
-  { label: "Border radius", token: "--ui-border-radius" },
-  { label: "Field border radius", token: "--ui-field-border-radius" },
-  { label: "Button border radius", token: "--ui-button-border-radius" },
+  { label: "Border radius", token: "--ui-radius" },
+  { label: "Field border radius", token: "--ui-field-radius" },
+  { label: "Button border radius", token: "--ui-button-radius" },
 ] satisfies { label: string; token: Token }[]
 
 const TOKEN_SET = new Set<string>(TOKENS)

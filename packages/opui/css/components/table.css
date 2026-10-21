@@ -1,6 +1,6 @@
 @layer components.root {
   :where(.ui-table) {
-    --_border-radius: var(--ui-border-radius);
+    --_border-radius: var(--ui-radius);
 
     border: var(--ui-border-width) solid var(--ui-border-color);
     border-collapse: separate;
@@ -37,7 +37,7 @@
 
     th {
       background-color: var(--ui-surface-filled);
-      color: var(--ui-text-primary);
+      color: var(--ui-text-strong);
       font-weight: var(--ui-font-weight-semibold);
       text-align: start;
     }
@@ -102,7 +102,7 @@
     tfoot :where(th, td) {
       background-color: var(--ui-surface-filled);
       border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-      color: var(--ui-text-primary);
+      color: var(--ui-text-strong);
       font-weight: var(--ui-font-weight-semibold);
       padding-block: var(--ui-space-2);
     }

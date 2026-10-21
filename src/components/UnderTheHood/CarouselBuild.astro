@@ -51,7 +51,7 @@ const steps = [
   border: 0;
   border-radius: var(--ui-radius-round);
   box-shadow: var(--ui-shadow-overlay);
-  color: var(--ui-text-inverse);
+  color: var(--ui-on-inverse);
   cursor: pointer;
   inline-size: 2rem;
   inset-block-start: anchor(center);
@@ -107,7 +107,7 @@ const steps = [
 }
 
 .carousel.with-markers > li::scroll-marker {
-  background-color: oklch(from var(--ui-text-primary) l c h / 25%);
+  background-color: oklch(from var(--ui-text-strong) l c h / 25%);
   block-size: 0.5rem;
   border-radius: 50%;
   content: "" / "Slide " counter(slide);
@@ -190,7 +190,7 @@ const slides = ["Kyoto", "Lima", "Lisbon", "Oslo", "Tbilisi"]
       align-content: center;
       background-color: var(--ui-surface-default);
       border: var(--ui-border-width, 1px) solid var(--ui-border-color);
-      border-radius: var(--ui-border-radius);
+      border-radius: var(--ui-radius);
       display: grid;
       font-weight: 600;
       min-block-size: 7rem;

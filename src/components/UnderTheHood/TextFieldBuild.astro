@@ -22,7 +22,7 @@ const steps = [
 .field {
   background-color: var(--ui-surface-default);
   border: 1px solid var(--border);
-  border-radius: var(--ui-border-radius);
+  border-radius: var(--ui-radius);
   display: grid;
   min-block-size: var(--ui-field-size);
 }
@@ -30,7 +30,7 @@ const steps = [
 .field input {
   background: transparent;
   border: 0;
-  color: var(--ui-text-primary);
+  color: var(--ui-text-strong);
   font: inherit;
   min-inline-size: 0;
   outline: 0;
@@ -131,10 +131,10 @@ const steps = [
   {
     css: `
 .text-field:has([aria-invalid="true"], :user-invalid) {
-  --accent: var(--ui-invalid-color);
-  --affix: var(--ui-invalid-text-color);
-  --border: var(--ui-invalid-color);
-  --helper: var(--ui-invalid-text-color);
+  --accent: var(--ui-invalid);
+  --affix: var(--ui-invalid-text);
+  --border: var(--ui-invalid);
+  --helper: var(--ui-invalid-text);
 }`,
     features: ["user-pseudos"],
     notes: [

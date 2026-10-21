@@ -18,7 +18,7 @@ export default {
   },
   "--_active-text-color": {
     description:
-      "Text color of the selected tab. Defaults to `--ui-text-primary`, `.ui-filled` sets it to `--ui-primary-contrast`.",
+      "Text color of the selected tab. Defaults to `--ui-text-strong`, `.ui-filled` sets it to `--ui-on-primary`.",
     kind: "input",
   },
   "--_border-radius": {

@@ -7,7 +7,7 @@
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
     --_elevated-bg-color: var(--ui-surface-elevated);
-    --_elevated-shadow: var(--ui-shadow-raised);
+    --_elevated-shadow: var(--ui-shadow-elevated);
     --_outlined-border-color: var(--ui-border-color);
     --_shadow: none;
     --_surface-bg-color: var(--ui-surface-default);
@@ -15,7 +15,7 @@
 
     background-color: var(--_bg-color);
     border-color: var(--_border-color);
-    border-radius: var(--ui-border-radius);
+    border-radius: var(--ui-radius);
     border-style: solid;
     border-width: var(--_border-width);
     box-shadow: var(--_shadow);

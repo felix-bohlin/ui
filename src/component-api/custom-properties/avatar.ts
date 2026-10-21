@@ -36,8 +36,7 @@ export default {
     kind: "input",
   },
   "--_text-color": {
-    description:
-      "The text and icon color. Defaults to `--ui-primary-contrast`.",
+    description: "The text and icon color. Defaults to `--ui-on-primary`.",
     kind: "input",
   },
 } satisfies CustomProperties

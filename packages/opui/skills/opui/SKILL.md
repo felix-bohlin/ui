@@ -38,11 +38,11 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | Main color                         | `--ui-palette-hue` and `--ui-palette-chroma`, or `--ui-palette-source` with any color                            |
 | Main color in one part of the page | `.ui-palette` and `--ui-palette-hue` on that element                                                             |
-| Corners                            | `--ui-border-radius` (buttons and fields follow it)                                                              |
+| Corners                            | `--ui-radius` (buttons and fields follow it)                                                                     |
 | Fonts                              | `--ui-font-body`, `--ui-font-heading`, `--ui-font-code`                                                          |
 | Control height                     | `--ui-density`                                                                                                   |
 | Spacing in and between containers  | `--ui-space-scale`                                                                                               |
-| Shadows                            | `--ui-shadow-raised-light`, `--ui-shadow-raised-dark`, `--ui-shadow-overlay`                                     |
+| Shadows                            | `--ui-shadow-elevated-light`, `--ui-shadow-elevated-dark`, `--ui-shadow-overlay`                                 |
 | Space between components           | `.ui-l-column`, `.ui-l-row`, `.ui-l-grid` and `.ui-l-container` (see `layout.md`), not your own flex or grid CSS |
 | Transitions                        | `--ui-motion` (`0` turns them off), `--ui-duration`, `--ui-ease`                                                 |
 | One component's color              | `--_accent` on it, or `.ui-primary`/`.ui-critical`                                                               |
@@ -51,7 +51,7 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 ```css
 @layer theme.custom {
   :where(html) {
-    --ui-border-radius: 4px;
+    --ui-radius: 4px;
     --ui-font-body: "Inter", var(--font-sans);
     --ui-palette-hue: 265;
   }

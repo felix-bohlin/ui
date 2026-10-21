@@ -12,7 +12,7 @@
   }
 
   :where(.ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
-    color: var(--ui-text-primary);
+    color: var(--ui-text-strong);
     font-family: var(--ui-font-heading, var(--ui-font-body));
     font-weight: var(--ui-font-weight-bold);
     line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
@@ -143,7 +143,7 @@
     border-color: var(--ui-text-muted);
     border-radius: var(--ui-radius-small);
     border-width: var(--ui-border-width);
-    color: var(--ui-text-muted-contrast);
+    color: var(--ui-on-inverse-muted);
     font-family: var(--ui-font-code);
     overflow-wrap: anywhere;
     padding-block: 0.1ex;
@@ -212,9 +212,9 @@
 
   /* Code block */
   :where(pre.ui-code-block) {
-    background-color: var(--ui-code-block-background);
-    border-radius: var(--ui-border-radius);
-    color: var(--ui-code-block-color);
+    background-color: var(--ui-code-block-bg-color);
+    border-radius: var(--ui-radius);
+    color: var(--ui-code-block-text-color);
     font-family: var(--ui-font-code);
     font-size: var(--ui-font-size-small);
     max-inline-size: 100%;
@@ -322,7 +322,10 @@
       a[href]:where(:not([class*="ui-"])) {
       color: var(
         --ui-primary-text,
-        light-dark(var(--ui-primary-dark), var(--ui-primary))
+        light-dark(
+          oklch(from var(--ui-primary) calc(l * 0.75) c h),
+          var(--ui-primary)
+        )
       );
       text-decoration-color: currentColor;
     }
@@ -361,9 +364,9 @@
 
     /* Code */
     pre {
-      background-color: var(--ui-code-block-background);
-      border-radius: var(--ui-border-radius);
-      color: var(--ui-code-block-color);
+      background-color: var(--ui-code-block-bg-color);
+      border-radius: var(--ui-radius);
+      color: var(--ui-code-block-text-color);
       font-size: 0.875em;
       line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
       margin-block: round(var(--_flow-space) * 1.5, var(--ui-rhythm-step));
@@ -454,7 +457,7 @@
         --_font-scale: calc(1em / 1rem);
       }
 
-      color: var(--ui-text-primary);
+      color: var(--ui-text-strong);
       font-weight: var(--ui-font-weight-bold);
       line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
       text-wrap: pretty;
@@ -814,7 +817,7 @@
       border-color: var(--ui-text-muted);
       border-radius: var(--ui-radius-small);
       border-width: var(--ui-border-width);
-      color: var(--ui-text-muted-contrast);
+      color: var(--ui-on-inverse-muted);
       padding-block: 0.1ex;
       padding-inline: 0.3ex;
     }

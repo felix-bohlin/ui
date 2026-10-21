@@ -13,11 +13,11 @@
     border: var(--ui-border-width) solid
       var(--ui-control-border-color, var(--ui-border-color));
     border-radius: min(
-      var(--ui-button-border-radius, var(--ui-border-radius)),
+      var(--ui-button-radius, var(--ui-radius)),
       var(--_min-height) / 2
     );
     box-shadow: var(--ui-shadow-control);
-    color: var(--ui-text-primary);
+    color: var(--ui-text-strong);
     cursor: pointer;
     display: inline-flex;
     font-size: var(--_font-size);
@@ -82,10 +82,10 @@
       --_selected-bg-color: var(--ui-selected, var(--ui-primary));
 
       border-color: var(
-        --ui-control-filled-border-color,
+        --ui-control-border-color-filled,
         var(--ui-control-border-color, var(--ui-border-color))
       );
-      color: var(--ui-selected-contrast, var(--ui-primary-contrast));
+      color: var(--ui-on-selected, var(--ui-on-primary));
 
       @media (hover: hover) {
         &:hover:not(:has(input:is(:disabled, [aria-disabled="true"]))) {

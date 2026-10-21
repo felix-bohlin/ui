@@ -82,7 +82,7 @@ export default {
   },
   "--_text-color": {
     description:
-      "Text color of the indicator. Defaults to `--ui-primary-contrast`, set by the color classes.",
+      "Text color of the indicator. Defaults to `--ui-on-primary`, set by the color classes.",
     kind: "output",
   },
 } satisfies CustomProperties

@@ -185,18 +185,17 @@ import Example from "../../components/Example/index"
   <section>
     <h2 id="corners">Corners</h2>
     <p>
-      <code>--ui-border-radius</code> rounds every component. Cards, callouts, menus
-      and dialogs read it directly, and buttons and fields follow it until you set
-      <code>--ui-button-border-radius</code> or <code
-        >--ui-field-border-radius</code
-      >. Small parts, such as <code>kbd</code>, tooltips and checkboxes, keep
-      their smaller radius but never get rounder than <code
-        >--ui-border-radius</code
-      >, so <code>0</code> squares everything. It works on a part of the page too.
+      <code>--ui-radius</code> rounds every component. Cards, callouts, menus and
+      dialogs read it directly, and buttons and fields follow it until you set
+      <code>--ui-button-radius</code> or <code>--ui-field-radius</code>. Small
+      parts, such as <code>kbd</code>, tooltips and checkboxes, keep their
+      smaller radius but never get rounder than <code>--ui-radius</code>, so <code
+        >0</code
+      > squares everything. It works on a part of the page too.
     </p>
     <Code
       code={`:where(html) {
-  --ui-border-radius: 0;
+  --ui-radius: 0;
 }`}
       lang="css"
     />
@@ -262,11 +261,12 @@ import Example from "../../components/Example/index"
   <section>
     <h2 id="elevation">Elevation</h2>
     <p>
-      The shadow tokens lift things off the page. <code>--ui-shadow-raised</code
+      The shadow tokens lift things off the page. <code
+        >--ui-shadow-elevated</code
       > is for surfaces in the page, like elevated cards and accordions. It switches
       between
-      <code>--ui-shadow-raised-light</code> and <code
-        >--ui-shadow-raised-dark</code
+      <code>--ui-shadow-elevated-light</code> and <code
+        >--ui-shadow-elevated-dark</code
       > with the color scheme, also in <code>.ui-light</code> and <code
         >.ui-dark</code
       > parts of the page, so set those two. <code>--ui-shadow-overlay</code> is for
@@ -284,8 +284,8 @@ import Example from "../../components/Example/index"
     <Code
       code={`:where(html) {
   --ui-shadow-overlay: var(--shadow-4);
-  --ui-shadow-raised-dark: none;
-  --ui-shadow-raised-light: none;
+  --ui-shadow-elevated-dark: none;
+  --ui-shadow-elevated-light: none;
 }`}
       lang="css"
     />

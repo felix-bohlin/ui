@@ -75,7 +75,7 @@ describe("theme tokens", () => {
     const names = tokens.map((token) => token.name)
     expect(new Set(names).size).toBe(names.length)
     expect(find("--ui-border-color")).toBeDefined()
-    expect(find("--ui-border-radius")).toBeDefined()
+    expect(find("--ui-radius")).toBeDefined()
   })
 
   test("dark overrides are read from the dark rules", () => {
@@ -119,7 +119,7 @@ describe("theme tokens", () => {
     for (const token of TOKENS) expect(find(token)).toBeDefined()
     expect(tokenDefaults("light")["--ui-palette-hue"]).toBe("145")
     expect(tokenDefaults("dark")["--ui-palette-hue"]).toBe("240")
-    expect(tokenDefaults("light")["--ui-border-radius"]).toBe("var(--size-2)")
+    expect(tokenDefaults("light")["--ui-radius"]).toBe("var(--size-2)")
   })
 
   test("contrast overrides also set the tokens derived from them", () => {
@@ -166,11 +166,11 @@ describe("generateCss", () => {
   test("lists only the changed tokens in the theme.custom layer", () => {
     const css = generateCss({
       dark: {
-        "--ui-border-radius": "var(--radius-3)",
+        "--ui-radius": "var(--radius-3)",
         "--ui-palette-hue": "200",
       },
       light: {
-        "--ui-border-radius": "var(--radius-3)",
+        "--ui-radius": "var(--radius-3)",
         "--ui-palette-hue": "30",
       },
     })
@@ -181,7 +181,7 @@ describe("generateCss", () => {
 @layer theme.custom {
   :where(html) {
     --ui-palette-hue: 30;
-    --ui-border-radius: var(--radius-3);
+    --ui-radius: var(--radius-3);
   }
 
   :where(html.ui-dark) {
@@ -199,26 +199,26 @@ describe("generateCss", () => {
 
   test("leaves out dark values that the light block and defaults already give", () => {
     const css = generateCss({
-      dark: { "--ui-border-radius": "0", "--ui-palette-hue": "240" },
-      light: { "--ui-border-radius": "0" },
+      dark: { "--ui-radius": "0", "--ui-palette-hue": "240" },
+      light: { "--ui-radius": "0" },
     })
-    expect(css).toContain("--ui-border-radius: 0;")
+    expect(css).toContain("--ui-radius: 0;")
     expect(css).not.toContain("--ui-palette-hue")
     expect(css).not.toContain("ui-dark")
   })
 
   test("starts from an example theme and adds the changes on top", () => {
     const css = generateCss({
-      dark: { "--ui-border-radius": "0", "--ui-palette-hue": "200" },
-      light: { "--ui-border-radius": "0", "--ui-palette-hue": "280" },
+      dark: { "--ui-radius": "0", "--ui-palette-hue": "200" },
+      light: { "--ui-radius": "0", "--ui-palette-hue": "280" },
       example: {
-        "--ui-border-radius": "var(--size-1)",
+        "--ui-radius": "var(--size-1)",
         "--ui-density": "0.875",
         "--ui-palette-hue": "280",
       },
     })
     expect(css).toContain(`  :where(html) {
-    --ui-border-radius: 0;
+    --ui-radius: 0;
     --ui-density: 0.875;
     --ui-palette-hue: 280;
   }`)
@@ -280,7 +280,7 @@ describe("component css variables", () => {
   test("button reads its size and radius tokens", () => {
     const button = apis.find((api) => api.component === "Button")!
     const names = cssVarRows(button).map((row) => row.name)
-    expect(names).toContain("--ui-button-border-radius")
+    expect(names).toContain("--ui-button-radius")
     expect(names).toContain("--ui-button-size")
     expect(names).toContain("--ui-disabled-opacity")
     expect(names).toEqual(names.toSorted())

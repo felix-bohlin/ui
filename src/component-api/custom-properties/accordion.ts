@@ -30,7 +30,7 @@ export default {
   },
   "--_border-radius": {
     description:
-      "The corner radius, also of the `summary` focus ring. Defaults to `--ui-border-radius`.",
+      "The corner radius, also of the `summary` focus ring. Defaults to `--ui-radius`.",
     kind: "input",
   },
   "--_border-width": {
@@ -67,7 +67,7 @@ export default {
   },
   "--_group-radius": {
     description:
-      "Corner radius of the first and last item in a group. Defaults to `--ui-border-radius`.",
+      "Corner radius of the first and last item in a group. Defaults to `--ui-radius`.",
     kind: "input",
   },
   "--_item-padding-inline": {
@@ -100,7 +100,7 @@ export default {
   },
   "--_shadow": {
     description:
-      "The shadow. `.ui-elevated` sets `--ui-shadow-raised`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`.",
+      "The shadow. `.ui-elevated` sets `--ui-shadow-elevated`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`.",
     kind: "output",
   },
   "--_summary-padding-block": {

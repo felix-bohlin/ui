@@ -32,7 +32,7 @@
       /* Animation on-stage styles */
       background: transparent;
       border: 0;
-      border-radius: var(--ui-field-border-radius, var(--ui-border-radius));
+      border-radius: var(--ui-field-radius, var(--ui-radius));
       box-shadow: var(--ui-shadow-overlay);
       opacity: 1;
       padding: 0;
@@ -75,7 +75,7 @@
     .ui-list {
       --_bg-color: var(--ui-surface-filled);
       border: var(--ui-field-border-width) solid var(--ui-field-border-color);
-      border-radius: var(--ui-field-border-radius, var(--ui-border-radius));
+      border-radius: var(--ui-field-radius, var(--ui-radius));
 
       /* Groups */
       [role="group"] {
@@ -83,7 +83,7 @@
           background-color: color-mix(
             in oklch,
             var(--_bg-color) 94%,
-            var(--ui-text-primary)
+            var(--ui-text-strong)
           );
           color: var(--ui-text-muted);
           font-weight: var(--ui-font-weight-medium);
@@ -129,7 +129,7 @@
 
       :where(option, optgroup) {
         background-color: var(--ui-surface-elevated);
-        color: var(--ui-text-primary);
+        color: var(--ui-text-strong);
       }
 
       /* Arrow */

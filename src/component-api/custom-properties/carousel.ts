@@ -12,7 +12,7 @@ export default {
   },
   "--_button-border-color": {
     description:
-      "Border color of the scroll buttons. `--ui-control-filled-border-color` when the theme sets it, otherwise a shade of `--_button-bg-color`.",
+      "Border color of the scroll buttons. `--ui-control-border-color-filled` when the theme sets it, otherwise a shade of `--_button-bg-color`.",
     kind: "output",
   },
   "--_button-disabled-border-color": {
@@ -99,7 +99,7 @@ export default {
   },
   "--_marker-bg-color": {
     description:
-      "Background of the markers. Defaults to `--ui-text-primary` at 25% opacity.",
+      "Background of the markers. Defaults to `--ui-text-strong` at 25% opacity.",
     kind: "input",
   },
   "--_marker-gap": {
@@ -126,7 +126,7 @@ export default {
   },
   "--_media-border-radius": {
     description:
-      "Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-border-radius`.",
+      "Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.",
     kind: "input",
   },
   "--_motion": {

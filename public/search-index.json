@@ -1918,7 +1918,7 @@
     "id": "guide-theme-tokens-html",
     "title": "Theme tokens",
     "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role or a fixed size. A description that promises a contrast ratio\n    is checked by the tests in light and dark mode, with and without more contrast.",
-    "headings": "Overriding tokens",
+    "headings": "Overriding tokens How tokens are named",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/theme-tokens"
@@ -1927,7 +1927,7 @@
     "id": "guide-theme-tokens-astro",
     "title": "Theme tokens",
     "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role or a fixed size. A description that promises a contrast ratio\n    is checked by the tests in light and dark mode, with and without more contrast.",
-    "headings": "Overriding tokens",
+    "headings": "Overriding tokens How tokens are named",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/theme-tokens"
@@ -1936,7 +1936,7 @@
     "id": "guide-theme-tokens-react",
     "title": "Theme tokens",
     "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role or a fixed size. A description that promises a contrast ratio\n    is checked by the tests in light and dark mode, with and without more contrast.",
-    "headings": "Overriding tokens",
+    "headings": "Overriding tokens How tokens are named",
     "category": "Guide",
     "frameworkId": "react",
     "url": "/react/guide/theme-tokens"
@@ -1945,7 +1945,7 @@
     "id": "guide-theme-tokens-svelte",
     "title": "Theme tokens",
     "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role or a fixed size. A description that promises a contrast ratio\n    is checked by the tests in light and dark mode, with and without more contrast.",
-    "headings": "Overriding tokens",
+    "headings": "Overriding tokens How tokens are named",
     "category": "Guide",
     "frameworkId": "svelte",
     "url": "/svelte/guide/theme-tokens"
@@ -1954,7 +1954,7 @@
     "id": "guide-theme-tokens-vue",
     "title": "Theme tokens",
     "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role or a fixed size. A description that promises a contrast ratio\n    is checked by the tests in light and dark mode, with and without more contrast.",
-    "headings": "Overriding tokens",
+    "headings": "Overriding tokens How tokens are named",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/theme-tokens"

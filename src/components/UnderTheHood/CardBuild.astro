@@ -11,7 +11,7 @@ const steps = [
   --card-shadow: none;
   background-color: var(--card-bg);
   border: var(--card-border-width) solid var(--card-border);
-  border-radius: var(--ui-border-radius);
+  border-radius: var(--ui-radius);
   box-shadow: var(--card-shadow);
   display: flex;
   flex-direction: column;
@@ -67,12 +67,12 @@ const steps = [
   --card-bg: var(--ui-surface-elevated);
   --card-border: var(--ui-surface-default);
   --card-border-width: 1px;
-  --card-shadow: var(--ui-shadow-raised);
+  --card-shadow: var(--ui-shadow-elevated);
 }`,
     features: ["custom-properties"],
     notes: [
       "Variants only swap custom properties, the rules stay the same",
-      "<code>--ui-shadow-raised</code> is a theme token that switches to a heavier shadow in dark mode",
+      "<code>--ui-shadow-elevated</code> is a theme token that switches to a heavier shadow in dark mode",
       "Shadows barely show on dark surfaces, switch the site to dark mode to compare",
     ],
     title: "Variants",

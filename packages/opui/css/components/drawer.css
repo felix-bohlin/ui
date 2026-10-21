@@ -18,7 +18,7 @@
     --_inline-size: min(375px, 100vi);
     --_scroll-shadow: var(--ui-shadow-scroll);
     --_shadow: var(--ui-shadow-overlay);
-    --_text-color: var(--ui-text-primary);
+    --_text-color: var(--ui-text-strong);
 
     background-color: var(--_bg-color);
     border: none;

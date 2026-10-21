@@ -7,7 +7,7 @@
     --_min-inline-size: 10rem;
     --_offset: var(--ui-space-2);
     --_shift: var(--ui-space-4);
-    --_text-color: var(--ui-text-inverse);
+    --_text-color: var(--ui-on-inverse);
 
     & > .ui-anchor-floating {
       background-color: var(--_bg-color);

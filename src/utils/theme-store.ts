@@ -27,9 +27,9 @@ export type Token =
   | "--ui-palette-hue-rotate-by"
   | "--ui-gray-chroma"
   | "--ui-gray-hue"
-  | "--ui-border-radius"
-  | "--ui-field-border-radius"
-  | "--ui-button-border-radius"
+  | "--ui-radius"
+  | "--ui-field-radius"
+  | "--ui-button-radius"
 
 export const TOKENS = [
   "--ui-palette-hue",
@@ -37,9 +37,9 @@ export const TOKENS = [
   "--ui-palette-hue-rotate-by",
   "--ui-gray-chroma",
   "--ui-gray-hue",
-  "--ui-border-radius",
-  "--ui-field-border-radius",
-  "--ui-button-border-radius",
+  "--ui-radius",
+  "--ui-field-radius",
+  "--ui-button-radius",
 ] as const satisfies readonly Token[]
 
 // Defaults must mirror what `packages/opui/css/theme.css` ships
@@ -91,9 +91,9 @@ export const RADIUS_OPTIONS = [
 ]
 
 export const radiusOptions = (token: Token) =>
-  token === "--ui-border-radius"
+  token === "--ui-radius"
     ? RADIUS_OPTIONS
-    : [{ text: "Auto", value: "var(--ui-border-radius)" }, ...RADIUS_OPTIONS]
+    : [{ text: "Auto", value: "var(--ui-radius)" }, ...RADIUS_OPTIONS]
 
 export type ModeConfig = Partial<Record<Token, string>> & {
   "enable-grays"?: "true" | "false"

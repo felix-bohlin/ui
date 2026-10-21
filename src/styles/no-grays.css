@@ -6,8 +6,8 @@
   --ui-surface-elevated: light-dark(var(--ui-color-1), var(--ui-color-12));
   --ui-surface-filled: light-dark(var(--ui-color-5), var(--ui-color-16));
   --ui-surface-tonal: light-dark(var(--ui-color-4), var(--ui-color-12));
-  --ui-text-inverse: light-dark(var(--ui-color-1), var(--ui-color-15));
+  --ui-on-inverse: light-dark(var(--ui-color-1), var(--ui-color-15));
   --ui-text-muted: light-dark(var(--ui-color-13), var(--ui-color-4));
-  --ui-text-muted-contrast: light-dark(var(--ui-color-4), var(--ui-color-13));
-  --ui-text-primary: light-dark(var(--ui-color-15), var(--ui-color-1));
+  --ui-on-inverse-muted: light-dark(var(--ui-color-4), var(--ui-color-13));
+  --ui-text-strong: light-dark(var(--ui-color-15), var(--ui-color-1));
 }

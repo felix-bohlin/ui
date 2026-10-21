@@ -3,12 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Fill and border of the checked input. `--ui-choice-accent` when the theme sets it, otherwise `--ui-primary` with its lightness capped in dark mode, and `--ui-invalid-color` when invalid.",
-    kind: "input",
-  },
-  "--_accent-contrast": {
-    description:
-      "Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-accent-contrast` when the theme sets it, otherwise `--ui-primary-contrast`, or `--ui-text-on-accent` in dark mode. `--ui-text-on-accent` when invalid.",
+      "Fill and border of the checked input. `--ui-choice-accent` when the theme sets it, otherwise `--ui-primary` with its lightness capped in dark mode, and `--ui-invalid` when invalid.",
     kind: "input",
   },
   "--_duration": {
@@ -27,6 +22,11 @@ export default {
   },
   "--_motion": {
     description: "Motion multiplier for the transitions. `0` turns them off.",
+    kind: "input",
+  },
+  "--_on-accent": {
+    description:
+      "Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, otherwise `--ui-on-primary`, or `--ui-on-accent` in dark mode. `--ui-on-accent` when invalid.",
     kind: "input",
   },
   "--_ripple-size": {

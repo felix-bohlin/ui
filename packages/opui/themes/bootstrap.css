@@ -4,11 +4,11 @@
 @layer theme.custom {
   :where(html) {
     --ui-border-color: light-dark(#dee2e6, #495057);
-    --ui-border-color-raised: var(--ui-border-color);
-    --ui-border-radius: 0.375rem;
+    --ui-border-color-on-raised: var(--ui-border-color);
+    --ui-radius: 0.375rem;
     --ui-button-font-weight: var(--font-weight-4);
     --ui-density: 0.95;
-    --ui-field-border-color-raised: var(--ui-field-border-color);
+    --ui-field-border-color-on-raised: var(--ui-field-border-color);
     --ui-field-helper-color: light-dark(
       rgb(33 37 41 / 0.75),
       rgb(222 226 230 / 0.75)
@@ -33,11 +33,11 @@
     --ui-gray-hue: 250;
     --ui-palette-source: #0d6efd;
     --ui-primary: #0d6efd;
-    --ui-primary-contrast: #fff;
+    --ui-on-primary: #fff;
     --ui-primary-text: light-dark(#0a58ca, #6ea8fe);
     --ui-shadow-overlay: 0 0.5rem 1rem rgb(0 0 0 / 0.15);
-    --ui-shadow-raised-dark: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
-    --ui-shadow-raised-light: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
+    --ui-shadow-elevated-dark: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
+    --ui-shadow-elevated-light: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
     --ui-shadow-scroll: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
     --ui-shadow-tab: none;
     --ui-success: #198754;
@@ -46,6 +46,6 @@
     --ui-surface-filled: light-dark(#e9ecef, #343a40);
     --ui-surface-tonal: light-dark(#f8f9fa, #2b3035);
     --ui-text-muted: light-dark(#212529, #dee2e6);
-    --ui-text-primary: light-dark(#212529, #fff);
+    --ui-text-strong: light-dark(#212529, #fff);
   }
 }

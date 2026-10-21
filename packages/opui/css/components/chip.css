@@ -2,7 +2,7 @@
   :where(.ui-chip) {
     --_bg-color: var(--ui-surface-tonal);
     --_border-color: var(
-      --ui-control-filled-border-color,
+      --ui-control-border-color-filled,
       var(--ui-border-color)
     );
     --_dot-color: currentColor;
@@ -11,13 +11,13 @@
     --_icon-size: var(--ui-icon-size-small);
     --_padding-inline: var(--ui-space-2);
     --_size: var(--ui-chip-size);
-    --_text-color: var(--ui-text-primary);
+    --_text-color: var(--ui-text-strong);
 
     align-items: center;
     background-color: var(--_bg-color);
     block-size: var(--_size);
     border: var(--ui-border-width) solid var(--_border-color);
-    border-radius: var(--ui-border-radius);
+    border-radius: var(--ui-radius);
     color: var(--_text-color);
     display: inline-flex;
     font-size: var(--_font-size);
@@ -37,7 +37,7 @@
     &.ui-outlined {
       --_bg-color: var(--ui-surface-default);
       --_border-color: var(--ui-control-border-color, var(--ui-border-color));
-      --_text-color: var(--ui-text-primary);
+      --_text-color: var(--ui-text-strong);
 
       box-shadow: var(--ui-shadow-control);
     }
@@ -59,7 +59,7 @@
       &:where(:not(.ui-outlined)) {
         --_bg-color: var(--ui-palette-tint-subtle);
         --_border-color: var(--ui-palette-border);
-        --_text-color: var(--ui-palette-ink);
+        --_text-color: var(--ui-palette-strong);
 
         &:where(button, a):where(:not(:disabled, [aria-disabled="true"])) {
           @media (hover: hover) {
@@ -173,7 +173,7 @@
     }
 
     &.ui-disabled:not(a, button) {
-      --_text-color: var(--ui-text-primary);
+      --_text-color: var(--ui-text-strong);
 
       cursor: auto;
       opacity: var(--ui-disabled-opacity);

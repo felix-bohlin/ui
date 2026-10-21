@@ -281,7 +281,7 @@ const descText =
 
             li {
               a {
-                color: var(--ui-text-primary);
+                color: var(--ui-text-strong);
                 display: flex;
                 padding-block: var(--size-1);
                 text-decoration: none;
@@ -346,7 +346,7 @@ const descText =
           color-mix(
             in oklch,
             var(--ui-primary) 30%,
-            oklch(from var(--ui-text-primary) l c h / 0.2)
+            oklch(from var(--ui-text-strong) l c h / 0.2)
           ),
           transparent
         );
@@ -364,7 +364,7 @@ const descText =
           color-mix(
             in oklch,
             var(--ui-primary) 30%,
-            oklch(from var(--ui-text-primary) l c h / 0.2)
+            oklch(from var(--ui-text-strong) l c h / 0.2)
           ),
           transparent
         );
@@ -389,7 +389,7 @@ const descText =
     .sidebar {
       align-self: start;
       background-color: var(--ui-surface-filled);
-      border-radius: var(--ui-border-radius);
+      border-radius: var(--ui-radius);
       grid-column: 3;
       grid-row: 2;
       inset-block-start: calc(var(--size-10) + var(--site-gap));

@@ -8,8 +8,8 @@ const steps = [
   align-items: center;
   block-size: var(--ui-button-size);
   border: 1px solid var(--ui-border-color);
-  border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
-  color: var(--ui-text-primary);
+  border-radius: var(--ui-button-radius, var(--ui-radius));
+  color: var(--ui-text-strong);
   cursor: pointer;
   display: inline-flex;
   gap: var(--ui-space-2);
@@ -46,7 +46,7 @@ const steps = [
 
 .toggle:has(input:checked) {
   --bg: var(--ui-selected, var(--ui-primary));
-  color: var(--ui-selected-contrast, var(--ui-primary-contrast));
+  color: var(--ui-on-selected, var(--ui-on-primary));
 }`,
     features: ["has", "light-dark"],
     notes: [
@@ -84,7 +84,7 @@ const steps = [
     css: `
 .toggle-group {
   background-color: var(--ui-surface-default);
-  border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
+  border-radius: var(--ui-button-radius, var(--ui-radius));
   display: inline-flex;
   flex-wrap: wrap;
   outline: 1px solid var(--ui-border-color);

@@ -25,7 +25,7 @@ import Example from "../../components/Example/index"
     <Code
       code={`@layer theme.custom {
   :where(html) {
-    --ui-border-radius: 4px;
+    --ui-radius: 4px;
     --ui-density: 0.9;
     --ui-font-body: "Inter", var(--font-sans);
     --ui-font-heading: "Fraunces", var(--font-serif);
@@ -106,17 +106,16 @@ import Example from "../../components/Example/index"
       >, <code>--ui-control-border-color</code>, <code
         >--ui-font-size-caption</code
       >,
-      <code>--ui-space-3</code>, <code>--ui-shadow-raised</code> and about 150 more,
+      <code>--ui-space-3</code>, <code>--ui-shadow-elevated</code> and about 150 more,
       each with a description on the <DocLink href="/guide/theme-tokens"
         >tokens page</DocLink
       > and, where it guarantees contrast, the ratio it promises against which token.
       Every component reads roles, so a role reaches every component with that job.
       <strong>Component tokens</strong> such as <code>--ui-button-accent</code> and
-      <code>--ui-field-border-radius</code> exist for a job only one component has,
-      and default to a role or a fixed size. The <strong
-        >private properties</strong
-      >, <code>--_accent</code> and friends, are each component's own wiring: documented
-      on its page under
+      <code>--ui-field-radius</code> exist for a job only one component has, and default
+      to a role or a fixed size. The <strong>private properties</strong>, <code
+        >--_accent</code
+      > and friends, are each component's own wiring: documented on its page under
       <a href="#component-properties">Component properties</a>, meant for a
       single element, never for a theme.
     </p>
@@ -202,7 +201,7 @@ import Example from "../../components/Example/index"
 
 /* Theme tokens are inherited, so a parent is fine */
 .toolbar {
-  --ui-button-border-radius: var(--radius-round);
+  --ui-button-radius: var(--radius-round);
 }`}
       lang="css"
     />

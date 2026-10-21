@@ -9,7 +9,7 @@ const steps = [
   background-color: var(--ui-surface-elevated);
   border: none;
   box-shadow: var(--ui-shadow-overlay);
-  color: var(--ui-text-primary);
+  color: var(--ui-text-strong);
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -66,7 +66,7 @@ const steps = [
 
 .drawer.inline-start {
   block-size: 100dvb;
-  border-inline-end: 1px solid var(--ui-border-color-raised);
+  border-inline-end: 1px solid var(--ui-border-color-on-raised);
   inline-size: min(375px, 100vi);
   inset-block: 0;
   inset-inline: 0 auto;
@@ -75,7 +75,7 @@ const steps = [
 
 .drawer.block-end {
   block-size: min(80vb, 650px);
-  border-block-start: 1px solid var(--ui-border-color-raised);
+  border-block-start: 1px solid var(--ui-border-color-on-raised);
   inline-size: 100dvi;
   inset-block: auto 0;
   inset-inline: 0;
@@ -308,7 +308,7 @@ const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width=
     & .header {
       align-items: center;
       border-block-end: var(--ui-border-width, 1px) solid
-        var(--ui-border-color-raised);
+        var(--ui-border-color-on-raised);
       display: flex;
       justify-content: space-between;
       padding: var(--ui-space-3);
@@ -345,7 +345,7 @@ const close = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width=
 
     & .footer {
       border-block-start: var(--ui-border-width, 1px) solid
-        var(--ui-border-color-raised);
+        var(--ui-border-color-on-raised);
       display: flex;
       gap: var(--ui-space-3);
       justify-content: end;

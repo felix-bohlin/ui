@@ -63,7 +63,7 @@
 
   :where(fieldset) {
     border: var(--ui-field-border-width) solid var(--ui-field-border-color);
-    border-radius: var(--ui-field-border-radius, var(--ui-border-radius));
+    border-radius: var(--ui-field-radius, var(--ui-radius));
     display: grid;
     gap: var(--ui-space-3);
     padding: var(--ui-space-3);

@@ -300,7 +300,7 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 | `--ui-space-3`          | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                         |
 | `--ui-space-6`          | `calc(var(--size-6) * var(--ui-space-scale))`     | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                         |
 | `--ui-surface-elevated` | `light-dark(var(--ui-gray-1), var(--ui-gray-12))` | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                       |
-| `--ui-text-primary`     | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                  |
+| `--ui-text-strong`      | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Strongest text color, for headings, labels and values. Body text is `--ui-text-muted`.                                                                                                                  |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
@@ -338,7 +338,7 @@ Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria
 | `--ui-space-3`          | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                         |
 | `--ui-space-6`          | `calc(var(--size-6) * var(--ui-space-scale))`     | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                         |
 | `--ui-surface-elevated` | `light-dark(var(--ui-gray-1), var(--ui-gray-12))` | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                       |
-| `--ui-text-primary`     | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                  |
+| `--ui-text-strong`      | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Strongest text color, for headings, labels and values. Body text is `--ui-text-muted`.                                                                                                                  |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
@@ -369,7 +369,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-space-3`          | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                         |
 | `--ui-space-6`          | `calc(var(--size-6) * var(--ui-space-scale))`     | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                         |
 | `--ui-surface-elevated` | `light-dark(var(--ui-gray-1), var(--ui-gray-12))` | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                       |
-| `--ui-text-primary`     | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Emphasized text color for headings, labels and values.                                                                                                                                                  |
+| `--ui-text-strong`      | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Strongest text color, for headings, labels and values. Body text is `--ui-text-muted`.                                                                                                                  |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
@@ -397,7 +397,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_motion`            | Input  | Motion multiplier for the transitions. `0` turns them off.                                           |
 | `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.              |
 | `--_shadow`            | Input  | The shadow. Defaults to `--ui-shadow-overlay`.                                                       |
-| `--_text-color`        | Input  | The text color. Defaults to `--ui-text-primary`.                                                     |
+| `--_text-color`        | Input  | The text color. Defaults to `--ui-text-strong`.                                                      |
 
 ## Under the hood
 
@@ -466,7 +466,7 @@ Step 1 of 5: Modal
   background-color: var(--ui-surface-elevated);
   border: none;
   box-shadow: var(--ui-shadow-overlay);
-  color: var(--ui-text-primary);
+  color: var(--ui-text-strong);
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -497,7 +497,7 @@ Step 2 of 5: Edge
 
 .drawer.inline-start {
   block-size: 100dvb;
-  border-inline-end: 1px solid var(--ui-border-color-raised);
+  border-inline-end: 1px solid var(--ui-border-color-on-raised);
   inline-size: min(375px, 100vi);
   inset-block: 0;
   inset-inline: 0 auto;
@@ -506,7 +506,7 @@ Step 2 of 5: Edge
 
 .drawer.block-end {
   block-size: min(80vb, 650px);
-  border-block-start: 1px solid var(--ui-border-color-raised);
+  border-block-start: 1px solid var(--ui-border-color-on-raised);
   inline-size: 100dvi;
   inset-block: auto 0;
   inset-inline: 0;

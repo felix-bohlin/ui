@@ -4,20 +4,20 @@
 @layer theme.custom {
   :where(html) {
     --ui-border-color: light-dark(#cac4d0, #49454f);
-    --ui-border-color-raised: var(--ui-border-color);
-    --ui-border-radius: 0.75rem;
+    --ui-border-color-on-raised: var(--ui-border-color);
+    --ui-radius: 0.75rem;
     --ui-button-accent: var(--ui-primary);
-    --ui-button-accent-contrast: var(--ui-primary-contrast);
-    --ui-button-border-radius: var(--radius-round);
+    --ui-button-on-accent: var(--ui-on-primary);
+    --ui-button-radius: var(--radius-round);
     --ui-button-font-weight: var(--font-weight-5);
     --ui-button-hover-shadow:
       0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
     --ui-choice-accent: var(--ui-primary);
-    --ui-choice-accent-contrast: var(--ui-primary-contrast);
+    --ui-choice-on-accent: var(--ui-on-primary);
     --ui-control-border-color: var(--ui-field-border-color);
     --ui-field-border-color: light-dark(#79747e, #938f99);
-    --ui-field-border-color-raised: var(--ui-field-border-color);
-    --ui-field-border-radius: 0.25rem;
+    --ui-field-border-color-on-raised: var(--ui-field-border-color);
+    --ui-field-radius: 0.25rem;
     --ui-focus-ring-color: light-dark(#625b71, #ccc2dc);
     --ui-focus-ring-width: 3px;
     --ui-font-body: Roboto, var(--font-neo-grotesque);
@@ -33,17 +33,17 @@
     --ui-gray-hue: 300;
     --ui-palette-source: #6750a4;
     --ui-primary: light-dark(#6750a4, #d0bcff);
-    --ui-primary-contrast: light-dark(#fff, #381e72);
+    --ui-on-primary: light-dark(#fff, #381e72);
     --ui-primary-text: light-dark(#6750a4, #d0bcff);
     --ui-primary-tonal: light-dark(#eaddff, #4f378b);
-    --ui-primary-tonal-contrast: light-dark(#21005d, #eaddff);
+    --ui-on-primary-tonal: light-dark(#21005d, #eaddff);
     --ui-selected: var(--ui-surface-tonal);
-    --ui-selected-contrast: var(--ui-text-primary);
+    --ui-on-selected: var(--ui-text-strong);
     --ui-shadow-overlay:
       0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
-    --ui-shadow-raised-dark:
+    --ui-shadow-elevated-dark:
       0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
-    --ui-shadow-raised-light:
+    --ui-shadow-elevated-light:
       0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
     --ui-shadow-tab: none;
     --ui-state-active-alpha: 10%;
@@ -53,13 +53,13 @@
     --ui-surface-filled: light-dark(#e6e0e9, #36343b);
     --ui-surface-tonal: light-dark(#e8def8, #4a4458);
     --ui-text-muted: light-dark(#49454f, #cac4d0);
-    --ui-text-primary: light-dark(#1d1b20, #e6e0e9);
+    --ui-text-strong: light-dark(#1d1b20, #e6e0e9);
   }
 
   @container style(--ui-contrast: more) {
     :where(body, .ui-contrast-more > *) {
       --ui-button-accent: var(--ui-primary);
-      --ui-button-accent-contrast: var(--ui-primary-contrast);
+      --ui-button-on-accent: var(--ui-on-primary);
       --ui-control-border-color: var(--ui-field-border-color);
     }
   }

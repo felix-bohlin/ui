@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_border-radius": {
     description:
-      "Corner radius of the table and its corner cells. Defaults to `--ui-border-radius`.",
+      "Corner radius of the table and its corner cells. Defaults to `--ui-radius`.",
     kind: "input",
   },
   "--_duration": {

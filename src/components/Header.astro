@@ -235,7 +235,7 @@ const { link } = Astro.locals
         animation-timing-function: linear;
         background-color: oklch(from var(--ui-surface-elevated) l c h / 0.8);
         border-block-end: var(--ui-border-width) solid
-          oklch(from var(--ui-text-primary) l c h / 0.15);
+          oklch(from var(--ui-text-strong) l c h / 0.15);
         box-shadow: var(--shadow-2);
         content: "";
         inset: 0;
@@ -262,7 +262,7 @@ const { link } = Astro.locals
       align-items: center;
       backdrop-filter: blur(3px);
       border-block-end: var(--ui-border-width) solid
-        oklch(from var(--ui-text-primary) l c h / 0.15);
+        oklch(from var(--ui-text-strong) l c h / 0.15);
       container-type: inline-size;
       display: flex;
       gap: var(--size-4);
@@ -324,8 +324,8 @@ const { link } = Astro.locals
 
     .logo {
       border: calc(var(--ui-border-width) * 2) solid var(--ui-primary);
-      border-radius: var(--ui-border-radius);
-      color: var(--ui-text-primary);
+      border-radius: var(--ui-radius);
+      color: var(--ui-text-strong);
       display: inline-flex;
       font-size: var(--font-size-3);
       font-weight: 700;

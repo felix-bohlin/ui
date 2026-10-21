@@ -18,7 +18,7 @@ Lists meant to be used stand-alone or as part of Select elements
     --_start-size: var(--ui-icon-size);
 
     background-color: var(--_bg-color);
-    color: var(--ui-text-primary);
+    color: var(--ui-text-strong);
     font-weight: var(--ui-font-weight-normal);
     list-style: none;
     padding-block: var(--ui-space-2);
@@ -41,7 +41,7 @@ Lists meant to be used stand-alone or as part of Select elements
       --_divider-color: color-mix(
         in oklch,
         var(--ui-border-color),
-        var(--ui-text-primary) 20%
+        var(--ui-text-strong) 20%
       );
     }
 
@@ -163,7 +163,7 @@ Lists meant to be used stand-alone or as part of Select elements
         &:where([role="option"])[aria-selected="true"],
         &:has(> [aria-current="page"]) > :where(a, button, label) {
           background-color: var(--_selected-bg-color);
-          color: var(--ui-selected-contrast, currentColor);
+          color: var(--ui-on-selected, currentColor);
         }
       }
 
@@ -192,7 +192,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &[aria-selected="true"] {
           background-color: var(--_selected-bg-color);
-          color: var(--ui-selected-contrast, var(--ui-primary));
+          color: var(--ui-on-selected, var(--ui-primary));
         }
 
         &:checked {
@@ -202,7 +202,7 @@ Lists meant to be used stand-alone or as part of Select elements
               from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
             )
           );
-          color: var(--ui-selected-contrast, currentColor);
+          color: var(--ui-on-selected, currentColor);
         }
       }
 
@@ -234,7 +234,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &[aria-current="page"] {
           background-color: var(--_selected-bg-color);
-          color: var(--ui-selected-contrast, currentColor);
+          color: var(--ui-on-selected, currentColor);
         }
       }
 
@@ -265,7 +265,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         /* Switches look comically big in lists, so it's better to use a smaller variant  */
         &.ui-switch {
-          --ui-switch-dot-size: var(--ui-switch-dot-size-small);
+          --ui-switch-thumb-size: var(--ui-switch-thumb-size-small);
           --ui-switch-track-height: var(--ui-switch-track-height-small);
           --ui-switch-track-width: var(--ui-switch-track-width-small);
         }

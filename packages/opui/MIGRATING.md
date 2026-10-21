@@ -76,7 +76,7 @@ With `trigger="hover"`, `id` is required and no longer generated. Pass the same 
 
 `Avatar` with `as="button"` renders `type="button"` by default in Astro and Vue, so it no longer submits a form. Pass `type="submit"` if it should.
 
-Text uses `--ui-primary-contrast`, and sizes follow `--ui-control-size` and `--ui-button-size-*`.
+Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-button-size-*`.
 
 `isGroup` is removed. Wrap the avatars in `AvatarGroup`, which renders `.ui-avatar-group` with `role="group"`. It doesn't take `src`, `size` or `variant`.
 
@@ -90,7 +90,7 @@ Text uses `--ui-primary-contrast`, and sizes follow `--ui-control-size` and `--u
 
 ## Badge
 
-Text uses `--ui-primary-contrast`.
+Text uses `--ui-on-primary`.
 
 ## Button
 
@@ -220,7 +220,7 @@ The hover and press ripple is removed. Delete any `--ripple` overrides.
 
 `Chip` with `as="button"` renders `type="button"` by default in Astro and Vue. Pass `type="submit"` if it should submit a form.
 
-Chips use `--ui-border-radius` (8px) instead of Open Props `--radius-2` (5px), small chips are `--ui-chip-size-small` (28px) instead of 24px, and labels truncate with an ellipsis unless the chip is `multiline`.
+Chips use `--ui-radius` (8px) instead of Open Props `--radius-2` (5px), small chips are `--ui-chip-size-small` (28px) instead of 24px, and labels truncate with an ellipsis unless the chip is `multiline`.
 
 A button chip needs `as="button"` and a link chip needs `href` (types). `disabled` works on both: a link chip renders `aria-disabled="true"`. The same applies to `Avatar`, and `Button` takes link attributes only with `href`.
 
@@ -447,7 +447,7 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 Astro and Vue no longer set `--_track-fill` from script. The track fill is a scroll-driven animation in CSS, so remove any script that sets it.
 
-With `spread`, the label and the range split the container into equal columns, and the fixed `25ch` minimum is gone. The invalid state uses `--ui-invalid-color`.
+With `spread`, the label and the range split the container into equal columns, and the fixed `25ch` minimum is gone. The invalid state uses `--ui-invalid`.
 
 `variant="default"` (`.ui-default`, the page surface) is gone. Use no variant, `filled` or `tonal`.
 
@@ -502,7 +502,7 @@ The `items` type is `SelectItem`, exported from every framework barrel, and its 
 + <Switch size="small">Notifications</Switch>
 ```
 
-The switch lines up with the first line of its label, keeps a light marker in dark mode and uses `--ui-invalid-color` for the invalid state. Without a visible label it aligns to the middle, so give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML).
+The switch lines up with the first line of its label, keeps a light marker in dark mode and uses `--ui-invalid` for the invalid state. Without a visible label it aligns to the middle, so give it a hidden label (`hideLabel`, or `.ui-sr-only` in HTML).
 
 `aria-invalid="true"` on the `<input role="switch">` replaces `data-invalid` on `.ui-switch`.
 
@@ -592,7 +592,7 @@ In Astro, extra attributes go to the `<input>` instead of the `<label>`. `class`
 + <TextField label="Name" startText="Full name" endText="Required" />
 ```
 
-With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--ui-invalid-color`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
+With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--ui-invalid`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
 
 The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is still `.ui-filled`.
 
@@ -689,7 +689,7 @@ In Astro and Vue the text goes in `TooltipContent` instead of `label` or the `co
 
 `types.ts` no longer exports a `Slots` type.
 
-Tooltips use `--ui-surface-inverse` and `--ui-text-inverse`, and shift along the viewport edge instead of squeezing, with or without an arrow.
+Tooltips use `--ui-surface-inverse` and `--ui-on-inverse`, and shift along the viewport edge instead of squeezing, with or without an arrow.
 
 ## Theme and tokens
 
@@ -698,6 +698,25 @@ Every theme token has a `--ui-` prefix, like the classes: `--primary` is `--ui-p
 ```diff
 - .sidebar { --primary: var(--green); }
 + .sidebar { --ui-primary: var(--ui-green); }
+```
+
+These tokens also have a new name, so adding the prefix isn't enough:
+
+| v5                        | v6                      |
+| ------------------------- | ----------------------- |
+| `--border-radius`         | `--ui-radius`           |
+| `--button-border-radius`  | `--ui-button-radius`    |
+| `--field-border-radius`   | `--ui-field-radius`     |
+| `--primary-contrast`      | `--ui-on-primary`       |
+| `--text-muted-contrast`   | `--ui-on-inverse-muted` |
+| `--text-primary`          | `--ui-text-strong`      |
+| `--text-primary-contrast` | `--ui-on-inverse`       |
+
+`--ui-on-*` is the text and icon color on a fill, so `--ui-on-primary` goes on `--ui-primary` and `--ui-on-inverse` on `--ui-surface-inverse`. `--primary-dark` and `--primary-light` are gone. Derive a shade from the primary instead, such as `oklch(from var(--ui-primary) calc(l * 0.75) c h)`.
+
+```diff
+- .note { color: var(--text-primary); border-radius: var(--border-radius); }
++ .note { color: var(--ui-text-strong); border-radius: var(--ui-radius); }
 ```
 
 `--font-size-05` is `--ui-font-size-small`, one of the type roles that replace the Open Props steps in the components: `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-size-body`, `--ui-font-size-control` and `--ui-font-size-large`, which default to steps of the new `--ui-font-size-100` to `--ui-font-size-900` scale.
@@ -719,24 +738,24 @@ Every theme token has a `--ui-` prefix, like the classes: `--primary` is `--ui-p
 
 `theme.css` is in the `theme.base` layer, and `layers.css` adds an empty `theme.custom` layer after it for your own tokens. Overrides in `@layer theme` keep working and now beat the defaults wherever they load. If you copied a complete `theme.css` from the Theme generator, replace it with a new `custom-theme.css` from the generator: it only lists the tokens you changed, so it won't miss tokens added in later releases.
 
-`theme.css` no longer sets `--ui-button-border-radius` and `--ui-field-border-radius`, and buttons and fields follow `--ui-border-radius` while they're unset, also where you set it on a part of the page. If your own styles read them, add the fallback: `var(--ui-button-border-radius, var(--ui-border-radius))`. If you set `--ui-border-radius` and want buttons and fields to keep their corners, set them back:
+`theme.css` no longer sets `--ui-button-radius` and `--ui-field-radius`, and buttons and fields follow `--ui-radius` while they're unset, also where you set it on a part of the page. If your own styles read them, add the fallback: `var(--ui-button-radius, var(--ui-radius))`. If you set `--ui-radius` and want buttons and fields to keep their corners, set them back:
 
 ```css
 @layer theme.custom {
   :where(html) {
-    --ui-button-border-radius: var(--size-2);
-    --ui-field-border-radius: var(--size-2);
+    --ui-button-radius: var(--size-2);
+    --ui-field-radius: var(--size-2);
   }
 }
 ```
 
-`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs and rounded `Avatar` never get rounder than `--ui-border-radius`.
+`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs and rounded `Avatar` never get rounder than `--ui-radius`.
 
 Component padding, gaps and margins read `--ui-space-1` to `--ui-space-8` instead of the Open Props `--size-*` steps. The steps resolve on `html`, so overriding `--size-*` on a part of the page no longer changes the components in it. Set `--ui-space-scale` on `html` to change the spacing everywhere, or a component's `--_` property to change one.
 
-The `Select` picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-raised` (`--ui-shadow-raised-dark`, `--shadow-4`, in dark mode, was `--shadow-3`).
+The `Select` picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-elevated` (`--ui-shadow-elevated-dark`, `--shadow-4`, in dark mode, was `--shadow-3`).
 
-`--ui-primary` is `--ui-color-9` in light mode and `--ui-color-6` in dark mode, and `--ui-primary-contrast` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary`, its text color now follows it.
+`--ui-primary` is `--ui-color-9` in light mode and `--ui-color-6` in dark mode, and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary`, its text color now follows it.
 
 `palette.css` no longer registers `--color-*`, `--gray-*`, `--palette-source` and `--palette-hue` with `@property`, so they can't be animated as colors anymore.
 
@@ -748,45 +767,45 @@ Links (`.ui-link` and rich text links) darken in light mode and lighten in dark 
 
 Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size` and `--_min-height` for sizes. Rename them where you set them:
 
-| Component                   | Old                                               | New                                                                                                        |
-| --------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Accordion                   | `--_transition`                                   | `--_duration`                                                                                              |
-| Accordion                   | `--_svg-transition`                               | removed, the chevron uses `--_duration` and `--_ease`                                                      |
-| Accordion                   | `--_gutter-color` (group)                         | `--_divider-color`                                                                                         |
-| Avatar                      | `--_color`                                        | `--_text-color`                                                                                            |
-| Avatar                      | `--_width`                                        | `--_size`                                                                                                  |
-| Badge                       | `--_badge-inset`                                  | `--_inset-block`, `--_inset-inline`                                                                        |
-| Button                      | `--_color`, `--_color-contrast`, `--_color-tonal` | `--_accent`, `--_accent-contrast`, `--_accent-tonal`                                                       |
-| Callout                     | `--_color`                                        | `--_text-color`                                                                                            |
-| Callout                     | `--_outlined-color`                               | `--_outlined-text-color`                                                                                   |
-| Callout                     | `--_surface-bg`                                   | `--_surface-bg-color`                                                                                      |
-| Card                        | `--_card-bg-color`                                | `--_bg-color`                                                                                              |
-| Card                        | `--_card-border-color`                            | `--_border-color`                                                                                          |
-| Card                        | `--_card-border-width`                            | `--_border-width`                                                                                          |
-| Card                        | `--_card-shadow`                                  | `--_shadow`                                                                                                |
-| Card                        | `--_border-color` (outlined border)               | `--_outlined-border-color`                                                                                 |
-| Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`  | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                         |
-| Card                        | `--_shadow-elevated`                              | `--_elevated-shadow`                                                                                       |
-| Card                        | `--_shadow-light`, `--_shadow-dark`               | removed, set `--ui-shadow-raised-light` and `--ui-shadow-raised-dark`, or `--_elevated-shadow` on the card |
-| Chip                        | `--_color`                                        | `--_text-color`                                                                                            |
-| Drawer                      | `--_color`                                        | `--_text-color`                                                                                            |
-| Drawer                      | `--_transition-duration`, `--_transition-timing`  | `--_duration`, `--_ease`                                                                                   |
-| List                        | `--_bg-color-hover`                               | `--_hover-bg-color`                                                                                        |
-| normalize.css               | `--_page-bg-color`                                | removed, `html` reads `--ui-surface-default`                                                               |
-| Progress                    | `--_accent-color`                                 | `--_accent`                                                                                                |
-| Range                       | `--_thumb-bg`                                     | `--_thumb-bg-color`                                                                                        |
-| Switch                      | `--_accent-color`                                 | `--_accent`                                                                                                |
-| Switch                      | `--_transition-time`, `--_transition-tf`          | `--_duration`, `--_ease`                                                                                   |
-| Table                       | `--_table-border-radius`                          | `--_border-radius`                                                                                         |
-| TextField, Textarea, Select | `--_accent-color`                                 | `--_accent`                                                                                                |
-| TextField, Textarea, Select | `--_height`                                       | `--_min-height`                                                                                            |
-| TextField, Textarea, Select | `--_label-color`                                  | `--_affix-color`                                                                                           |
-| TextField, Textarea, Select | `--_end-text-color`                               | `--_helper-color`                                                                                          |
-| ToggleButton                | `--_button-bg-color`                              | `--_bg-color`                                                                                              |
-| ToggleButton                | `--_size`                                         | `--_min-height` (a minimum height)                                                                         |
-| ToggleButton                | `--_svg-size`                                     | `--_icon-size` (direct child `svg`s only)                                                                  |
-| Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`               | `--_bg-color`, `--_text-color`                                                                             |
-| Tooltip                     | `--_tooltip-offset`                               | `--_offset`                                                                                                |
+| Component                   | Old                                               | New                                                                                                            |
+| --------------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Accordion                   | `--_transition`                                   | `--_duration`                                                                                                  |
+| Accordion                   | `--_svg-transition`                               | removed, the chevron uses `--_duration` and `--_ease`                                                          |
+| Accordion                   | `--_gutter-color` (group)                         | `--_divider-color`                                                                                             |
+| Avatar                      | `--_color`                                        | `--_text-color`                                                                                                |
+| Avatar                      | `--_width`                                        | `--_size`                                                                                                      |
+| Badge                       | `--_badge-inset`                                  | `--_inset-block`, `--_inset-inline`                                                                            |
+| Button                      | `--_color`, `--_color-contrast`, `--_color-tonal` | `--_accent`, `--_on-accent`, `--_accent-tonal`                                                                 |
+| Callout                     | `--_color`                                        | `--_text-color`                                                                                                |
+| Callout                     | `--_outlined-color`                               | `--_outlined-text-color`                                                                                       |
+| Callout                     | `--_surface-bg`                                   | `--_surface-bg-color`                                                                                          |
+| Card                        | `--_card-bg-color`                                | `--_bg-color`                                                                                                  |
+| Card                        | `--_card-border-color`                            | `--_border-color`                                                                                              |
+| Card                        | `--_card-border-width`                            | `--_border-width`                                                                                              |
+| Card                        | `--_card-shadow`                                  | `--_shadow`                                                                                                    |
+| Card                        | `--_border-color` (outlined border)               | `--_outlined-border-color`                                                                                     |
+| Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`  | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                             |
+| Card                        | `--_shadow-elevated`                              | `--_elevated-shadow`                                                                                           |
+| Card                        | `--_shadow-light`, `--_shadow-dark`               | removed, set `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark`, or `--_elevated-shadow` on the card |
+| Chip                        | `--_color`                                        | `--_text-color`                                                                                                |
+| Drawer                      | `--_color`                                        | `--_text-color`                                                                                                |
+| Drawer                      | `--_transition-duration`, `--_transition-timing`  | `--_duration`, `--_ease`                                                                                       |
+| List                        | `--_bg-color-hover`                               | `--_hover-bg-color`                                                                                            |
+| normalize.css               | `--_page-bg-color`                                | removed, `html` reads `--ui-surface-default`                                                                   |
+| Progress                    | `--_accent-color`                                 | `--_accent`                                                                                                    |
+| Range                       | `--_thumb-bg`                                     | `--_thumb-bg-color`                                                                                            |
+| Switch                      | `--_accent-color`                                 | `--_accent`                                                                                                    |
+| Switch                      | `--_transition-time`, `--_transition-tf`          | `--_duration`, `--_ease`                                                                                       |
+| Table                       | `--_table-border-radius`                          | `--_border-radius`                                                                                             |
+| TextField, Textarea, Select | `--_accent-color`                                 | `--_accent`                                                                                                    |
+| TextField, Textarea, Select | `--_height`                                       | `--_min-height`                                                                                                |
+| TextField, Textarea, Select | `--_label-color`                                  | `--_affix-color`                                                                                               |
+| TextField, Textarea, Select | `--_end-text-color`                               | `--_helper-color`                                                                                              |
+| ToggleButton                | `--_button-bg-color`                              | `--_bg-color`                                                                                                  |
+| ToggleButton                | `--_size`                                         | `--_min-height` (a minimum height)                                                                             |
+| ToggleButton                | `--_svg-size`                                     | `--_icon-size` (direct child `svg`s only)                                                                      |
+| Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`               | `--_bg-color`, `--_text-color`                                                                                 |
+| Tooltip                     | `--_tooltip-offset`                               | `--_offset`                                                                                                    |
 
 `--ui-info` and `--ui-blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette, so info badges and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--ui-blue` in your theme.
 

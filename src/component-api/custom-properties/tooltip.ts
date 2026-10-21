@@ -37,7 +37,7 @@ export default {
     kind: "input",
   },
   "--_text-color": {
-    description: "The text color. Defaults to `--ui-text-inverse`.",
+    description: "The text color. Defaults to `--ui-on-inverse`.",
     kind: "input",
   },
 } satisfies CustomProperties

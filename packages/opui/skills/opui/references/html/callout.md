@@ -57,7 +57,7 @@ Tonal (default) and `.ui-outlined` variants. Put the text in `.ui-content`, with
 
 Severity modifiers - `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical` - plus the non-severity `.ui-neutral` tone for brand-tinted attention. The default is a plain surface.
 
-**Icons and accessibility**
+### Icons and accessibility
 
 Omitting an icon is possible. However, it helps having one if you need to convey a specific kind of severity in your Callout message. For instance, colorblind users might be left confused if there's not enough visual guidance.
 
@@ -246,28 +246,28 @@ There are no default icons in HTML: put an `<svg aria-hidden="true">` before `.u
 
 #### CSS variables
 
-| Variable                    | Default                                                                                             | Description                                                                                                                                                                                                                                                        |
-| --------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--ui-border-color`         | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                                                   | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                                        |
-| `--ui-border-radius`        | `var(--size-2)`                                                                                     | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                   |
-| `--ui-border-width`         | `1px`                                                                                               | Default border width for components that draw a border.                                                                                                                                                                                                            |
-| `--ui-font-size-body`       | `var(--ui-font-size-300)`                                                                           | Font size of body copy, `Card` text and the `Callout` title. Defaults to `--ui-font-size-300`.                                                                                                                                                                     |
-| `--ui-font-size-small`      | `var(--ui-font-size-200)`                                                                           | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                                                            |
-| `--ui-font-weight-semibold` | `var(--font-weight-6)`                                                                              | Font weight for labels, table headers and titles.                                                                                                                                                                                                                  |
-| `--ui-icon-size`            | `var(--size-4)`                                                                                     | Default icon size inside components.                                                                                                                                                                                                                               |
-| `--ui-palette-accent`       | `light-dark(var(--ui-color-9), var(--ui-color-7))`                                                  | The accent shade of the current palette: `Callout` icons and outlined borders, the `abbr` underline. Re-derived inside every severity scope, so `.ui-success` gets a green one.                                                                                    |
-| `--ui-palette-border`       | `light-dark(var(--ui-color-5), var(--ui-color-11))`                                                 | The border shade of the current palette: tonal `Callout` borders. Re-derived inside every severity scope.                                                                                                                                                          |
-| `--ui-palette-ink`          | `light-dark(var(--ui-color-16), var(--ui-color-1))`                                                 | The darkest shade of the current palette in light mode and the lightest in dark mode: `Callout` text, the default `Button` fill when `--ui-button-accent` is unset, the text of a warning `Badge`. Re-derived inside every severity scope.                         |
-| `--ui-palette-tint-subtle`  | `light-dark( oklch(from var(--ui-color-3) l c h / 60%), oklch(from var(--ui-color-6) l c h / 5%) )` | A faint fill of the current palette: tonal severity `Callout`s. Re-derived inside every severity scope.                                                                                                                                                            |
-| `--ui-primary`              | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                                  | Brand color for primary actions and accents.                                                                                                                                                                                                                       |
-| `--ui-primary-text`         | Unset                                                                                               | Primary as a text color: links, and `Button` with `.ui-primary` and no variant or `.ui-outlined`. When unset, each derives a readable shade from `--ui-primary`. Set it when the primary is too light or too dark for text.                                        |
-| `--ui-shadow-surface`       | `none`                                                                                              | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                                                     |
-| `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`                                                       | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                    |
-| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                                       | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                    |
-| `--ui-surface-border-color` | Unset                                                                                               | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards use the page background color, so they stay visible on tonal surfaces, accordions have a transparent border, and callouts their tonal background. |
-| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                   | Page and card background.                                                                                                                                                                                                                                          |
-| `--ui-surface-tonal`        | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                   | Background of tonal variants.                                                                                                                                                                                                                                      |
-| `--ui-text-primary`         | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                   | Emphasized text color for headings, labels and values.                                                                                                                                                                                                             |
+| Variable                    | Default                                                                                             | Description                                                                                                                                                                                                                                 |
+| --------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`         | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                                                   | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                 |
+| `--ui-border-radius`        | `var(--size-2)`                                                                                     | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.            |
+| `--ui-border-width`         | `1px`                                                                                               | Default border width for components that draw a border.                                                                                                                                                                                     |
+| `--ui-font-size-body`       | `var(--ui-font-size-300)`                                                                           | Font size of body copy, `Card` text and the `Callout` title. Defaults to `--ui-font-size-300`.                                                                                                                                              |
+| `--ui-font-size-small`      | `var(--ui-font-size-200)`                                                                           | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                                     |
+| `--ui-font-weight-semibold` | `var(--font-weight-6)`                                                                              | Font weight for labels, table headers and titles.                                                                                                                                                                                           |
+| `--ui-icon-size`            | `var(--size-4)`                                                                                     | Default icon size inside components.                                                                                                                                                                                                        |
+| `--ui-palette-accent`       | `light-dark(var(--ui-color-9), var(--ui-color-7))`                                                  | The accent shade of the current palette: `Callout` icons and outlined borders, the `abbr` underline. Stronger with more contrast. Re-derived inside every severity scope, so `.ui-success` gets a green one.                                |
+| `--ui-palette-border`       | `light-dark(var(--ui-color-5), var(--ui-color-11))`                                                 | The border shade of the current palette: tonal `Callout` borders. Stronger with more contrast. Re-derived inside every severity scope.                                                                                                      |
+| `--ui-palette-ink`          | `light-dark(var(--ui-color-16), var(--ui-color-1))`                                                 | The darkest shade of the current palette in light mode and the lightest in dark mode: `Callout` text, the default `Button` fill when `--ui-button-accent` is unset, the text of a warning `Badge`. Re-derived inside every severity scope.  |
+| `--ui-palette-tint-subtle`  | `light-dark( oklch(from var(--ui-color-3) l c h / 60%), oklch(from var(--ui-color-6) l c h / 5%) )` | A faint fill of the current palette: tonal severity `Callout`s. Re-derived inside every severity scope.                                                                                                                                     |
+| `--ui-primary`              | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                                  | Brand color for primary actions and accents.                                                                                                                                                                                                |
+| `--ui-primary-text`         | Unset                                                                                               | Primary as a text color: links, and `Button` with `.ui-primary` and no variant or `.ui-outlined`. When unset, each derives a readable shade from `--ui-primary`. Set it when the primary is too light or too dark for text.                 |
+| `--ui-shadow-surface`       | `none`                                                                                              | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                              |
+| `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`                                                       | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                                       | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-surface-border-color` | Unset                                                                                               | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background. |
+| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                   | Page and card background.                                                                                                                                                                                                                   |
+| `--ui-surface-tonal`        | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                   | Background of tonal variants.                                                                                                                                                                                                               |
+| `--ui-text-primary`         | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                   | Emphasized text color for headings, labels and values.                                                                                                                                                                                      |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -287,7 +287,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_icon-size`             | Input  | Width of the icon column when there's a direct child `svg`.                                                                                              |
 | `--_link-hover-color`      | Input  | Link color on hover and focus. Defaults to `--ui-primary-text`, or a readable shade of `--ui-primary`, not used in `.ui-outlined`.                       |
 | `--_outlined-bg-color`     | Input  | Background of `.ui-outlined`. Defaults to `--ui-surface-default`.                                                                                        |
-| `--_outlined-border-color` | Input  | Border color of `.ui-outlined`. Set by the color classes.                                                                                                |
+| `--_outlined-border-color` | Input  | Border color of `.ui-outlined`. Defaults to `--ui-border-color`, set by the color classes.                                                               |
 | `--_outlined-icon-color`   | Input  | Icon color of `.ui-outlined`. Set by the color classes.                                                                                                  |
 | `--_outlined-text-color`   | Input  | Text color of `.ui-outlined`. Set by the color classes.                                                                                                  |
 | `--_padding`               | Input  | The padding.                                                                                                                                             |
@@ -321,8 +321,8 @@ Read the post: [Severity colors from one source color](https://open-props-ui.net
 
    - One source color per severity, every shade derived with `oklch(from …)`
    - `light-dark()` picks the shade for each color scheme, no media query
-   - A 20% tint in light, 5% in dark: the opaque surface underneath does the rest
-   - The real palette derives 16 shades from `--ui-palette-source`, here seven are inlined
+   - A 60% tint in light, 5% in dark: the opaque surface underneath does the rest
+   - The real palette derives 16 shades from `--ui-palette-source`, and the theme picks them for roles like `--ui-palette-tint-subtle`. Here eight are inlined
    - The icon draws with `currentColor`, so `color` tints fill and stroke icons alike
 
 Step 1 of 4: Surface
@@ -341,7 +341,7 @@ Step 1 of 4: Surface
   --border: var(--ui-surface-tonal);
   background-color: var(--ui-surface-default);
   border: 1px solid var(--border);
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-border-radius);
   color: var(--ui-text-primary);
   padding: 0.75rem;
 }
@@ -367,7 +367,7 @@ Step 2 of 4: Tint layer
 
 .callout::before {
   background-color: var(--bg);
-  border-radius: calc(var(--radius-2) - 1px);
+  border-radius: calc(var(--ui-border-radius) - 1px);
   content: "";
   inset: 0;
   pointer-events: none;
@@ -409,14 +409,17 @@ Step 4 of 4: Severity
 
 .callout:is(.info, .warning) {
   --bg: light-dark(
-    oklch(from var(--tone) 97% 0.06 calc(h + 1) / 20%),
+    oklch(from var(--tone) 93% 0.1 calc(h + 2) / 60%),
     oklch(from var(--tone) 71% 0.19 calc(h + 5) / 5%)
   );
   --border: light-dark(
     oklch(from var(--tone) 80% 0.16 calc(h + 4)),
     oklch(from var(--tone) 42% 0.17 calc(h + 10))
   );
-  --icon: oklch(from var(--tone) 53% 0.2 calc(h + 8));
+  --icon: light-dark(
+    oklch(from var(--tone) 53% 0.2 calc(h + 8)),
+    oklch(from var(--tone) 66% 0.2 calc(h + 6))
+  );
   color: light-dark(
     oklch(from var(--tone) 10% 0.05 calc(h + 15)),
     oklch(from var(--tone) 98% 0.03 h)
@@ -447,6 +450,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ### What's new
 
 - Severity fills, borders, icons and text read the [`--ui-palette-*`](#api) roles, so a theme restyles every severity at once.
-- Tonal [severity callouts](#severity) have a visible fill in light mode.
+- Tonal [severity callouts](#severities) have a visible fill in light mode.
 - Breaking: `--_color` is `--_text-color`, `--_outlined-color` is `--_outlined-text-color` and `--_surface-bg` is `--_surface-bg-color` ([Under the hood](#under-the-hood)).
 - [Callouts](#variants) read [`--ui-shadow-surface`](#api), and callouts without a severity `--ui-surface-border-color`, when a theme sets them.

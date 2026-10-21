@@ -47,7 +47,8 @@ export default {
     kind: "input",
   },
   "--_outlined-border-color": {
-    description: "Border color of `.ui-outlined`. Set by the color classes.",
+    description:
+      "Border color of `.ui-outlined`. Defaults to `--ui-border-color`, set by the color classes.",
     kind: "input",
   },
   "--_outlined-icon-color": {

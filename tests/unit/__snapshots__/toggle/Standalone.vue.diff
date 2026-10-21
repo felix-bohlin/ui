@@ -3,7 +3,7 @@
 +++ vue
 @@ -1,5 +1,5 @@
  <label class="ui-toggle-button">
-   <input name="name-1" type="checkbox">
+   <input name="name-1" type="checkbox" value="Toggle me">
 -  ␣Toggle me
 +  Toggle me
  </label>

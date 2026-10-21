@@ -7,6 +7,7 @@ import { Button } from "opui-css/vue"
     <Button>Text</Button>
     <Button disabled>Disabled</Button>
     <Button href="#">Link</Button>
+    <Button href="#" aria-current="page">Current</Button>
   </div>
   <div class="example-row">
     <Button variant="outlined">Outlined</Button>

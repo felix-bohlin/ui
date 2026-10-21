@@ -3,6 +3,10 @@ import { Card, CardContent } from "opui-css/vue"
 </script>
 
 <template>
+  <Card>
+    <CardContent>Default</CardContent>
+  </Card>
+
   <Card variant="text">
     <CardContent>Text</CardContent>
   </Card>

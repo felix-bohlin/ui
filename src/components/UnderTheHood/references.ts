@@ -361,6 +361,11 @@ export const references = {
     },
     {
       code: true,
+      href: mdn("Web/CSS/::-moz-range-track"),
+      label: "::-moz-range-track",
+    },
+    {
+      code: true,
       href: mdn("Web/CSS/::-webkit-slider-runnable-track"),
       label: "::-webkit-slider-runnable-track",
     },
@@ -405,6 +410,7 @@ export const references = {
     { code: true, href: mdn("Web/CSS/round"), label: "round()" },
   ],
   select: [
+    { code: true, href: mdn("Web/CSS/::checkmark"), label: "::checkmark" },
     { code: true, href: mdn("Web/CSS/::picker"), label: "::picker()" },
     { code: true, href: mdn("Web/CSS/::picker-icon"), label: "::picker-icon" },
     { code: true, href: mdn("Web/CSS/:open"), label: ":open" },
@@ -532,6 +538,7 @@ export const references = {
     { code: true, href: mdn("Web/CSS/@position-try"), label: "@position-try" },
     { code: true, href: mdn("Web/CSS/anchor"), label: "anchor()" },
     { code: true, href: mdn("Web/CSS/anchor-scope"), label: "anchor-scope" },
+    { code: true, href: mdn("Web/CSS/anchor-size"), label: "anchor-size()" },
     { code: true, href: mdn("Web/CSS/calc-size"), label: "calc-size()" },
     {
       code: true,
@@ -549,6 +556,11 @@ export const references = {
       code: true,
       href: mdn("Web/CSS/position-try-fallbacks"),
       label: "position-try-fallbacks",
+    },
+    {
+      code: true,
+      href: mdn("Web/CSS/position-visibility"),
+      label: "position-visibility",
     },
   ],
 }

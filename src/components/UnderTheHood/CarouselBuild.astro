@@ -46,11 +46,12 @@ const steps = [
     css: `
 .carousel.with-buttons::scroll-button(inline-start),
 .carousel.with-buttons::scroll-button(inline-end) {
-  background-color: var(--ui-text-primary);
+  background-color: var(--ui-surface-inverse);
   block-size: 2rem;
   border: 0;
-  border-radius: 50%;
-  color: var(--ui-surface-default);
+  border-radius: var(--ui-radius-round);
+  box-shadow: var(--ui-shadow-overlay);
+  color: var(--ui-text-inverse);
   cursor: pointer;
   inline-size: 2rem;
   inset-block-start: anchor(center);
@@ -61,12 +62,12 @@ const steps = [
 
 .carousel.with-buttons::scroll-button(inline-start) {
   content: "❮" / "Previous";
-  inset-inline-start: calc(anchor(self-start) + 0.5rem);
+  inset-inline-start: calc(anchor(self-start) + var(--ui-space-2));
 }
 
 .carousel.with-buttons::scroll-button(inline-end) {
   content: "❯" / "Next";
-  inset-inline-end: calc(anchor(self-end) + 0.5rem);
+  inset-inline-end: calc(anchor(self-end) + var(--ui-space-2));
 }
 
 .carousel.with-buttons::scroll-button(inline-start):disabled,
@@ -189,7 +190,7 @@ const slides = ["Kyoto", "Lima", "Lisbon", "Oslo", "Tbilisi"]
       align-content: center;
       background-color: var(--ui-surface-default);
       border: var(--ui-border-width, 1px) solid var(--ui-border-color);
-      border-radius: var(--radius-2);
+      border-radius: var(--ui-border-radius);
       display: grid;
       font-weight: 600;
       min-block-size: 7rem;
@@ -199,6 +200,6 @@ const slides = ["Kyoto", "Lima", "Lisbon", "Oslo", "Tbilisi"]
 
   .slide-index {
     color: var(--ui-text-muted);
-    font-size: var(--font-size-0);
+    font-size: var(--ui-font-size-caption);
   }
 </style>

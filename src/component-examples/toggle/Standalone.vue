@@ -3,7 +3,7 @@ import { ToggleButton } from "opui-css/vue"
 </script>
 
 <template>
-  <ToggleButton name="standalone-demo-1">Toggle me</ToggleButton>
+  <ToggleButton label="Toggle me" name="standalone-demo-1" />
   <ToggleButton name="standalone-demo-2">
     <svg
       aria-hidden="true"

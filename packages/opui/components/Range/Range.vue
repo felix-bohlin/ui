@@ -134,7 +134,7 @@ const endTextId = `range-end-${uid}`
       type="range"
     />
 
-    <datalist v-if="options || $slots.datalist" :id="listId">
+    <datalist v-if="options || $slots.datalist" aria-hidden="true" :id="listId">
       <template
         v-for="option in options"
         :key="typeof option === 'object' ? option.value : option"

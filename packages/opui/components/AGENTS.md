@@ -383,16 +383,16 @@ Component CSS reads `--ui-*` role tokens and its own `--_*` properties. It never
 
 ### Forced colors
 
-Windows High Contrast (`forced-colors: active`) repaints everything with system colors and drops backgrounds and shadows. A component needs a `@media (forced-colors: active)` block only where a boundary or a state is carried by color alone: a shadow-only edge, a transparent border, a tinted selected state, a filled track. Borders in a real color are forced to `CanvasText` by the browser and need nothing. The components without a block, and why:
+Windows High Contrast (`forced-colors: active`) repaints everything with system colors and drops backgrounds and shadows. A component needs a `@media (forced-colors: active)` block only where a boundary or a state is carried by color alone: a shadow-only edge, a tinted selected state, a filled track. Borders are forced to `CanvasText` by the browser and need nothing, and Chromium forces a `transparent` border color like any other. The components without a block, and why:
 
 - `Anchor`, `Form`, `Layout`, `DescriptionList`: layout only, no boundary or state of their own.
-- `Badge`, `Callout`, `Card` (outlined), `Dialog`, `Drawer`, `Menu`, `Table`, `Textarea`, `TextField`: every boundary is a real border, which the browser forces to `CanvasText`.
+- `Badge`, `Callout`, `Card` (outlined), `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Button`: the browser styles `button` with `ButtonFace`, `ButtonText` and `ButtonBorder`; the variants only change colors, which are forced anyway.
 - `Link`, `Typography`: text and underlines, forced to `LinkText` and `CanvasText`. Code blocks lose their fill and keep their text.
 - `Spinner`: a `currentColor` ring; the spin stays visible because the transparent segments are kept.
 - `Choice` (the shared checkbox, radio and switch root): the blocks live in `checkbox.css`, `radio.css` and `switch.css`.
 
-`Accordion` (the elevated and tonal variants have a shadow-only edge) and `ButtonGroup` (the dividers are box shadows) have blocks for that reason. When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
+`Accordion` (the elevated and tonal variants have a shadow-only edge) and `ButtonGroup` (the dividers are box shadows) have blocks for that reason. `TextField` and `Textarea`, which shares `text-field.css`, have blocks too, although the field border is real: they only recolor the focus outline and the autosuggest mask chevron. When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
 
 ### More contrast
 

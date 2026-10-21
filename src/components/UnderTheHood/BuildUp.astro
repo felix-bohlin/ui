@@ -162,9 +162,9 @@ const stepId = (index: number, part: string) =>
   .build-up {
     --_accent: var(--ui-primary);
     --_marker: 1.75rem;
-    --_pad: var(--size-2);
+    --_pad: var(--ui-space-2);
 
-    box-shadow: var(--shadow-2);
+    box-shadow: var(--ui-shadow-raised);
     container-type: inline-size;
     display: grid;
     gap: 0;
@@ -174,7 +174,7 @@ const stepId = (index: number, part: string) =>
       "detail detail";
     grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
     grid-template-rows: 1fr auto auto;
-    margin-block: var(--size-6);
+    margin-block: var(--ui-space-6);
     margin-inline: 0;
     min-inline-size: 0;
     padding: 0;
@@ -202,25 +202,25 @@ const stepId = (index: number, part: string) =>
     background-size: 20px 20px;
     display: flex;
     flex-direction: column;
-    gap: var(--size-3);
+    gap: var(--ui-space-3);
     grid-area: stage;
     justify-content: center;
     min-block-size: 12rem;
     min-inline-size: 0;
-    padding: var(--size-5) var(--size-4);
+    padding: var(--ui-space-5) var(--ui-space-4);
     position: relative;
   }
 
   .build-up-knobs {
     border-block-start: var(--ui-border-width, 1px) solid var(--ui-border-color);
     display: grid;
-    gap: var(--size-3) var(--size-5);
+    gap: var(--ui-space-3) var(--ui-space-5);
     grid-area: knobs;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
-    padding: var(--size-3) var(--size-4);
+    padding: var(--ui-space-3) var(--ui-space-4);
 
     & code {
-      font-size: var(--font-size-0);
+      font-size: var(--ui-font-size-caption);
     }
   }
 
@@ -228,7 +228,7 @@ const stepId = (index: number, part: string) =>
     border-inline-start: var(--ui-border-width, 1px) solid
       var(--ui-border-color);
     grid-area: steps;
-    padding: var(--size-3);
+    padding: var(--ui-space-3);
 
     & .ui-list {
       counter-reset: build-up-step;
@@ -237,7 +237,7 @@ const stepId = (index: number, part: string) =>
     }
 
     & .ui-list > li {
-      border-radius: var(--radius-2);
+      border-radius: var(--ui-border-radius);
       counter-increment: build-up-step;
       transition: background-color 0.3s;
 
@@ -263,7 +263,7 @@ const stepId = (index: number, part: string) =>
 
       & > label {
         align-items: start;
-        border-radius: var(--radius-2);
+        border-radius: var(--ui-border-radius);
         padding: var(--_pad);
 
         &:has(:focus-visible) {
@@ -283,12 +283,12 @@ const stepId = (index: number, part: string) =>
     aspect-ratio: 1;
     background-color: var(--ui-surface-default);
     border: 2px solid var(--ui-border-color);
-    border-radius: var(--radius-round);
+    border-radius: var(--ui-radius-round);
     box-sizing: border-box;
     color: var(--ui-text-muted);
     display: grid;
     flex-shrink: 0;
-    font-size: var(--font-size-0);
+    font-size: var(--ui-font-size-caption);
     font-variant-numeric: tabular-nums;
     font-weight: 700;
     inline-size: var(--_marker);
@@ -332,14 +332,14 @@ const stepId = (index: number, part: string) =>
     block-size: 0;
     color: var(--ui-text-muted);
     display: grid;
-    font-size: var(--font-size-0);
-    gap: var(--size-1);
+    font-size: var(--ui-font-size-caption);
+    gap: var(--ui-space-1);
     interpolate-size: allow-keywords;
     list-style: disc;
     margin: 0;
-    margin-inline-start: calc(var(--_pad) + var(--_marker) + var(--size-2));
+    margin-inline-start: calc(var(--_pad) + var(--_marker) + var(--ui-space-2));
     overflow: hidden;
-    padding: 0 var(--_pad) 0 var(--size-3);
+    padding: 0 var(--_pad) 0 var(--ui-space-3);
     transition:
       block-size 0.3s ease,
       visibility 0.3s;
@@ -353,7 +353,7 @@ const stepId = (index: number, part: string) =>
     & li {
       background: none;
       display: list-item;
-      line-height: var(--font-lineheight-3);
+      line-height: var(--ui-line-height);
       min-block-size: 0;
       padding: 0;
 
@@ -366,16 +366,16 @@ const stepId = (index: number, part: string) =>
   .build-up-detail {
     border-block-start: var(--ui-border-width, 1px) solid var(--ui-border-color);
     display: grid;
-    gap: var(--size-3) var(--size-2);
+    gap: var(--ui-space-3) var(--ui-space-2);
     grid-area: detail;
     grid-template-columns: minmax(0, 1fr) auto;
     min-inline-size: 0;
-    padding: var(--size-3) var(--size-4) var(--size-4);
+    padding: var(--ui-space-3) var(--ui-space-4) var(--ui-space-4);
   }
 
   .build-up-step {
     display: none;
-    gap: var(--size-3) var(--size-2);
+    gap: var(--ui-space-3) var(--ui-space-2);
     grid-column: 1 / -1;
     grid-row: 1;
     grid-template-columns: subgrid;
@@ -388,7 +388,7 @@ const stepId = (index: number, part: string) =>
     & .build-up-step-title {
       align-items: center;
       display: flex;
-      font-size: var(--font-size-1);
+      font-size: var(--ui-font-size-body);
       font-weight: 700;
       grid-column: 1;
       margin: 0;
@@ -425,7 +425,7 @@ const stepId = (index: number, part: string) =>
     }
 
     .build-up-detail {
-      padding-inline: var(--size-3);
+      padding-inline: var(--ui-space-3);
     }
 
     .build-up-nav span {

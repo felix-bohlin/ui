@@ -3,7 +3,7 @@ export type Props = {
 }
 
 export type DialogActionsProps = {
-  align?: "start" | "end"
+  align?: "end" | "start"
 }
 
 export type DialogContentProps = {}

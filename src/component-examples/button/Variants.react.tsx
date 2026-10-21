@@ -7,6 +7,9 @@ export default function Variants() {
         <Button>Text</Button>
         <Button disabled>Disabled</Button>
         <Button href="#">Link</Button>
+        <Button href="#" aria-current="page">
+          Current
+        </Button>
       </div>
       <div className="example-row">
         <Button variant="outlined">Outlined</Button>

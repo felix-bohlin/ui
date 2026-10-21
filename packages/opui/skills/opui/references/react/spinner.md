@@ -4,9 +4,11 @@ Add it to an element with `aria-busy="true"`. Spinners are always indeterminate.
 
 ## Basics
 
+`aria-busy` doesn't announce anything. Say what's happening in text, like "Loading…" in the busy element or in a `role="status"` element.
+
 ```tsx
 export default function Basics() {
-  return <div aria-busy="true"></div>
+  return <div aria-busy="true">Loading…</div>
 }
 ```
 
@@ -18,17 +20,17 @@ The spinner's size is set to `1em`, which means it will adjust to its current fo
 export default function Sizes() {
   return (
     <>
-      <p className="ui-h2" aria-busy="true">
-        Heading 2
-      </p>
-      <p className="ui-h3" aria-busy="true">
-        Heading 3
-      </p>
-      <p aria-busy="true">Paragraph</p>
       <span aria-busy="true">Span</span>
       <a href="#sizes" aria-busy="true" className="ui-link">
         Link
       </a>
+      <p aria-busy="true">Paragraph</p>
+      <p className="ui-h3" aria-busy="true">
+        Heading 3
+      </p>
+      <p className="ui-h2" aria-busy="true">
+        Heading 2
+      </p>
     </>
   )
 }
@@ -38,8 +40,6 @@ export default function Sizes() {
 
 Simply add `aria-busy="true"` to a `<button>`.
 
-`aria-busy` doesn't announce anything. Say what's happening in text, like "Saving…" in the button or in a `role="status"` element.
-
 ```tsx
 import { Button } from "opui-css/react"
 
@@ -47,24 +47,24 @@ export default function Buttons() {
   return (
     <>
       <div className="example-row">
-        <Button aria-busy="true">Text</Button>
-        <Button aria-busy="true" disabled variant="outlined">
-          Outlined
-        </Button>
         <Button aria-busy="true" variant="filled">
           Filled
         </Button>
+        <Button aria-busy="true" disabled variant="outlined">
+          Outlined
+        </Button>
+        <Button aria-busy="true">Text</Button>
       </div>
 
       <div className="example-row">
-        <Button aria-busy="true">
-          <span className="ui-sr-only">Text</span>
+        <Button aria-busy="true" variant="filled">
+          <span className="ui-sr-only">Filled</span>
         </Button>
         <Button aria-busy="true" disabled variant="outlined">
           <span className="ui-sr-only">Outlined</span>
         </Button>
-        <Button aria-busy="true" variant="filled">
-          <span className="ui-sr-only">Filled</span>
+        <Button aria-busy="true">
+          <span className="ui-sr-only">Text</span>
         </Button>
       </div>
     </>
@@ -235,3 +235,5 @@ Step 4 of 4: Reduced motion
 ### What's new
 
 - Busy buttons and links with `aria-describedby` [get a spinner](#blocked-by-another-use-case) now.
+- With more contrast the [ring](#buttons) is opaque, so it stands out on filled buttons and links.
+- The spinner styles have no specificity (`:where()`), so your own `::before` rules override them ([API](#api)).

@@ -15,14 +15,14 @@ This text is placed under
 Use `.ui-filled`, `.ui-primary`, or `.ui-tonal` to change the line color.
 
 ```html
-Tonal
-<hr class="ui-divider ui-tonal" />
-
 Filled
 <hr class="ui-divider ui-filled" />
 
 Primary
 <hr class="ui-divider ui-primary" />
+
+Tonal
+<hr class="ui-divider ui-tonal" />
 ```
 
 ## Content
@@ -58,7 +58,7 @@ The space above and below a divider is `--ui-divider-space`. Cards, callouts, di
   </div>
 </div>
 
-<div style="--ui-divider-space: var(--size-1)">
+<div style="--ui-divider-space: var(--ui-space-1)">
   A custom space on any wrapper
   <hr class="ui-divider" />
   reaches every divider inside it.
@@ -170,7 +170,7 @@ Step 4 of 5: Breathe
 
 ```css
 .divider {
-  margin-block: var(--size-fluid-3);
+  margin-block: var(--ui-divider-space);
 }
 ```
 

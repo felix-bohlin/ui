@@ -13,9 +13,9 @@ const steps = [
   border-radius: var(--ui-border-radius);
   color: var(--ui-text-primary);
   display: inline-flex;
-  font-size: var(--font-size-0);
-  gap: var(--size-1);
-  padding-inline: var(--size-2);
+  font-size: var(--ui-font-size-caption);
+  gap: var(--ui-space-1);
+  padding-inline: var(--ui-space-2);
   text-decoration: none;
 }`,
     html: `
@@ -33,11 +33,11 @@ const steps = [
   {
     css: `
 .chip:has(> svg:first-child) {
-  padding-inline-start: var(--size-1);
+  padding-inline-start: var(--ui-space-1);
 }
 
 .chip:has(> svg:last-child) {
-  padding-inline-end: var(--size-1);
+  padding-inline-end: var(--ui-space-1);
 }
 
 .chip svg {
@@ -118,7 +118,7 @@ const close = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--size-2);
+    gap: var(--ui-space-2);
     inline-size: min(100%, 18rem);
     justify-content: center;
   }

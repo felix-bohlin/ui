@@ -23,14 +23,14 @@ Use the `variant` prop to change the line color.
   import { Divider } from "opui-css/svelte"
 </script>
 
-Tonal
-<Divider variant="tonal" />
-
 Filled
 <Divider variant="filled" />
 
 Primary
 <Divider variant="primary" />
+
+Tonal
+<Divider variant="tonal" />
 ```
 
 ## Content
@@ -72,7 +72,7 @@ The space above and below a divider is `--ui-divider-space`. Cards, callouts, di
   </CardContent>
 </Card>
 
-<div style="--ui-divider-space: var(--size-1)">
+<div style="--ui-divider-space: var(--ui-space-1)">
   A custom space on any wrapper
   <Divider />
   reaches every divider inside it.
@@ -179,7 +179,7 @@ Step 4 of 5: Breathe
 
 ```css
 .divider {
-  margin-block: var(--size-fluid-3);
+  margin-block: var(--ui-divider-space);
 }
 ```
 

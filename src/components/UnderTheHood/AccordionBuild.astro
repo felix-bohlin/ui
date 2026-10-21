@@ -49,45 +49,48 @@ const steps = [
   },
   {
     css: `
-.accordion > summary:has(svg) {
+.accordion > summary:has(.marker) {
   align-items: center;
   display: flex;
-  justify-content: space-between;
+  gap: var(--ui-space-2);
   list-style: none;
 }
 
-.accordion > summary:has(svg)::-webkit-details-marker {
+.accordion > summary:has(.marker)::-webkit-details-marker {
   display: none;
 }
 
-.accordion > summary svg {
+.accordion > summary .marker {
+  margin-inline-start: auto;
   transition:
     rotate 0.2s,
     scale 0.2s;
 }
 
-.marker-flip[open] > summary svg {
+.marker-flip[open] > summary .marker {
   scale: 1 -1;
 }
 
-.marker-rotate[open] > summary svg {
+.marker-rotate[open] > summary .marker {
   rotate: 180deg;
 }
 
-.marker-turn[open] > summary svg {
+.marker-turn[open] > summary .marker {
   rotate: 90deg;
 }
 
-.marker-turn:dir(rtl) > summary svg {
+.marker-turn:dir(rtl) > summary .marker {
   scale: -1 1;
 }
 
-.marker-turn[open]:dir(rtl) > summary svg {
+.marker-turn[open]:dir(rtl) > summary .marker {
   rotate: -90deg;
 }`,
     features: ["dir-pseudo", "has", "individual-transforms"],
     notes: [
-      "<code>list-style: none</code> removes the native marker, but only when there's an <code>&lt;svg&gt;</code> to replace it",
+      "<code>list-style: none</code> removes the native marker, but only when there's a <code>.marker</code> to replace it",
+      "Only the <code>.marker</code> animates, so any other icon in the summary stays put",
+      "<code>margin-inline-start: auto</code> pushes the marker to the end of the row",
       "Three marker animations: <code>flip</code>, <code>rotate</code>, <code>turn</code>",
       "Individual transform properties (<code>rotate</code>, <code>scale</code>) transition independently",
       "In right-to-left, <code>turn</code> mirrors the chevron to point at the end, then turns the other way",
@@ -120,6 +123,7 @@ const markers = [
             {marker.icon && (
               <svg
                 aria-hidden="true"
+                class="marker"
                 height="20"
                 viewBox="0 0 24 24"
                 width="20"
@@ -149,18 +153,18 @@ const markers = [
 <style>
   .stack {
     display: grid;
-    gap: var(--size-2);
+    gap: var(--ui-space-2);
     inline-size: min(100%, 24rem);
   }
 
   .accordion {
     background-color: var(--ui-surface-default);
     border: var(--ui-border-width, 1px) solid var(--ui-border-color);
-    border-radius: var(--radius-2);
-    padding: var(--size-2) var(--size-3);
+    border-radius: var(--ui-border-radius);
+    padding: var(--ui-space-2) var(--ui-space-3);
 
     & p {
-      margin: var(--size-2) 0 0;
+      margin: var(--ui-space-2) 0 0;
     }
   }
 </style>

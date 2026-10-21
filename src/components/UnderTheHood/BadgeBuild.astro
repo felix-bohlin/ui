@@ -7,14 +7,14 @@ const steps = [
 .indicator {
   background-color: var(--ui-primary);
   block-size: var(--size);
-  border-radius: var(--radius-round);
+  border-radius: var(--ui-radius-round);
   color: var(--ui-primary-contrast);
   display: grid;
-  font-size: var(--font-size-0);
+  font-size: var(--ui-font-size-caption);
   font-weight: var(--ui-font-weight-medium);
   inline-size: max-content;
   min-inline-size: var(--size);
-  padding-inline: 0.25rem;
+  padding-inline: var(--ui-space-1);
   place-items: center;
 }`,
     html: `
@@ -81,7 +81,7 @@ const steps = [
   {
     css: `
 .badge.dot {
-  --dot: 0.5rem;
+  --dot: var(--ui-space-2);
   --tx: calc((var(--dot) - 2px) * var(--sign-x));
   --ty: calc(var(--dot) * var(--sign-y));
 }
@@ -144,7 +144,7 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width=
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--size-8);
+    gap: var(--ui-space-8);
     justify-content: center;
   }
 </style>

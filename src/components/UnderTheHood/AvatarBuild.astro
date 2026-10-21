@@ -8,7 +8,7 @@ const steps = [
   align-items: center;
   aspect-ratio: 1;
   background-color: var(--ui-primary);
-  border-radius: var(--radius-round);
+  border-radius: var(--ui-radius-round);
   color: var(--ui-primary-contrast);
   display: inline-flex;
   flex-shrink: 0;
@@ -57,11 +57,11 @@ const steps = [
   {
     css: `
 .avatar.rounded {
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-radius-small);
 }
 
 .avatar.squircle {
-  border-radius: var(--radius-round);
+  border-radius: var(--ui-radius-round);
   corner-shape: squircle;
 }`,
     features: ["corner-shape"],
@@ -80,7 +80,10 @@ const steps = [
 
 .avatar-group .avatar {
   box-shadow: 0 0 0 2px var(--ui-surface-default);
-  margin-inline-end: calc(-1 * var(--overlap));
+}
+
+.avatar-group > * + * {
+  margin-inline-start: calc(-1 * var(--overlap));
 }`,
     html: `
 <div class="avatar-group" role="group" aria-label="Team">
@@ -89,7 +92,7 @@ const steps = [
 </div>`,
     features: ["logical-properties"],
     notes: [
-      "A negative <code>margin-inline-end</code> stacks each avatar under the next",
+      "A negative start margin on each avatar after the first stacks it over the one before",
       "A <code>box-shadow</code> ring in the surface color fakes a cutout",
       "Logical margin, so the stack flips in right-to-left",
     ],
@@ -146,7 +149,7 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width=
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--size-3);
+    gap: var(--ui-space-3);
     justify-content: center;
   }
 

@@ -65,7 +65,7 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
 <style>
   .feature-support {
     display: grid;
-    gap: var(--size-2);
+    gap: var(--ui-space-2);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -73,12 +73,12 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
     & li {
       align-items: center;
       background-color: var(--ui-surface-tonal);
-      border-radius: var(--radius-2);
+      border-radius: var(--ui-border-radius);
       display: flex;
       flex-wrap: wrap;
-      font-size: var(--font-size-0);
-      gap: var(--size-1) var(--size-3);
-      padding: var(--size-2) var(--size-3);
+      font-size: var(--ui-font-size-caption);
+      gap: var(--ui-space-1) var(--ui-space-3);
+      padding: var(--ui-space-2) var(--ui-space-3);
     }
 
     & a {
@@ -91,13 +91,13 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
     align-items: center;
     color: var(--ui-text-muted);
     display: inline-flex;
-    gap: var(--size-1);
+    gap: var(--ui-space-1);
     margin-inline-end: auto;
 
     &:before {
       background-color: var(--_status-color);
       block-size: 0.5rem;
-      border-radius: var(--radius-round);
+      border-radius: var(--ui-radius-round);
       content: "";
       inline-size: 0.5rem;
     }
@@ -118,13 +118,13 @@ const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
   dl {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--size-1) var(--size-3);
+    gap: var(--ui-space-1) var(--ui-space-3);
     margin: 0;
 
     & div {
       align-items: center;
       display: flex;
-      gap: var(--size-1);
+      gap: var(--ui-space-1);
       inline-size: 3.75rem;
     }
 

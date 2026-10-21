@@ -5,7 +5,7 @@ const steps = [
   {
     css: `
 [role="group"].group {
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
   display: inline-flex;
   flex-wrap: wrap;
   inline-size: fit-content;
@@ -60,13 +60,12 @@ const steps = [
 }
 
 [role="group"].group.outlined {
-  --edge: light-dark(var(--ui-color-16), var(--ui-color-1));
+  --edge: var(--ui-palette-ink);
 }
 
 [role="group"].group.outlined > button {
   --divider: var(--edge);
 }`,
-    features: ["light-dark"],
     html: `
 <div class="group outlined" role="group">…</div>`,
     notes: [
@@ -109,7 +108,7 @@ const knobs = [
 <style>
   .frame {
     display: grid;
-    gap: var(--size-4);
+    gap: var(--ui-space-4);
     inline-size: min(100%, var(--width));
     justify-items: center;
   }
@@ -117,11 +116,11 @@ const knobs = [
   .group > button {
     background-color: var(--ui-surface-tonal);
     border: 0;
-    border-radius: var(--radius-2);
+    border-radius: var(--ui-border-radius);
     color: var(--ui-text-primary);
     cursor: pointer;
     font: inherit;
-    padding: var(--size-2) var(--size-3);
+    padding: var(--ui-space-2) var(--ui-space-3);
   }
 
   .outlined > button {

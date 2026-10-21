@@ -149,7 +149,10 @@ export const description =
     <p>
       An advanced table showcasing the use of <code>colgroup</code>, <code
         >rowspan</code
-      >, and <code>colspan</code>.
+      >, and <code>colspan</code>. The headers that span columns have <code
+        >scope="colgroup"</code
+      > and the other column headers <code>scope="col"</code>, so screen readers
+      read "Capital" together with "Major Cities".
     </p>
     <p>
       The first cell of each row is a row header, <code

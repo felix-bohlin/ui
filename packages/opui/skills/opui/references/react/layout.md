@@ -1,6 +1,6 @@
 # Layout
 
-Four classes for the space between components: `.ui-l-column`, `.ui-l-row`, `.ui-l-grid` and `.ui-l-container`. The `l-` marks a layout class. Put them on wrapper elements, such as `div`, `section` or `ul`. They sit in the `utils` layer, so on a component they replace its own layout. Their gaps come from the [`--space-*` scale](https://open-props-ui.netlify.app/react/guide/theming.md#spacing), so they follow `--ui-space-scale`.
+Four classes for the space between components: `.ui-l-column`, `.ui-l-row`, `.ui-l-grid` and `.ui-l-container`. The `l-` marks a layout class. Put them on wrapper elements, such as `div`, `section` or `ul`. They sit in the `utils` layer, so on a component they replace its own layout. Their gaps come from the [`--ui-space-*` scale](https://open-props-ui.netlify.app/react/guide/theming.md#spacing), so they follow `--ui-space-scale`.
 
 ## Column
 

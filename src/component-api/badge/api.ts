@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Badge",
+  css: ["anchor", "badge"],
   options: [
     {
       default: '"start-end"',

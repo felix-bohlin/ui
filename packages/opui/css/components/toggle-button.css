@@ -54,18 +54,19 @@
     }
 
     &:has(input:focus-visible) {
-      --ui-focus-ring-offset: -6px;
       animation: ui-focus-ring var(--_duration) var(--_ease);
       outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
         var(--ui-focus-ring-color);
-      outline-offset: var(--ui-focus-ring-offset);
     }
 
     /* Disabled */
     &:has(input:is(:disabled, [aria-disabled="true"])) {
-      color: var(--ui-text-disabled);
       cursor: not-allowed;
       opacity: var(--ui-disabled-opacity);
+
+      &:not(:has(input:checked)) {
+        color: var(--ui-text-disabled);
+      }
     }
 
     /* svgs */

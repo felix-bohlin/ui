@@ -85,10 +85,7 @@
             var(--_bg-color) 94%,
             var(--ui-text-primary)
           );
-          color: light-dark(
-            oklch(from var(--ui-text-primary) calc(l * 0.75) c h),
-            oklch(from var(--ui-text-primary) calc(l * 1.25) c h)
-          );
+          color: var(--ui-text-muted);
           font-weight: var(--ui-font-weight-medium);
           overflow: hidden;
           padding-inline: var(--ui-space-2);
@@ -169,7 +166,7 @@
         );
       }
 
-      @container (width < 400px) {
+      @container (inline-size < 400px) {
         &.ui-spread::after {
           align-self: center;
           grid-row: 2;

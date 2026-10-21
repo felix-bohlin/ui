@@ -112,6 +112,7 @@
 
       .ui-icon-unchecked,
       .ui-icon-checked {
+        align-self: start;
         grid-column: 1;
         grid-row: 1;
         margin-block-start: round(

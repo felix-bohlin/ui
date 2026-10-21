@@ -1,11 +1,13 @@
 @layer components.root {
-  [aria-busy="true"]:not(
-    input,
-    select,
-    textarea,
-    html,
-    progress,
-    [aria-describedby]:not(button, a)
+  :where(
+    [aria-busy="true"]:not(
+      input,
+      select,
+      textarea,
+      html,
+      progress,
+      [aria-describedby]:not(button, a)
+    )
   ) {
     --_motion: var(--ui-motion);
 
@@ -27,6 +29,10 @@
       inline-size: 1em;
       opacity: 0.5;
       vertical-align: -0.14em;
+
+      @container style(--ui-contrast: more) {
+        opacity: 1;
+      }
     }
 
     &:not(button.ui-button):not(:empty) {

@@ -48,7 +48,9 @@
   }
 
   /** Overline */
-  :where(.ui-overline) {
+  :where(.ui-overline),
+  /* First p element (overline) */
+  :where(.ui-hgroup) > p:first-of-type:first-child {
     color: light-dark(
       oklch(from var(--ui-text-muted) calc(l * 1.25) c h),
       oklch(from var(--ui-text-muted) calc(l * 0.9) c h)
@@ -70,22 +72,6 @@
 
     & > :where(h1, h2, h3, h4, h5, h6) {
       margin-block: 0 round(0.4em, var(--ui-rhythm-step));
-    }
-
-    /* First p element (overline) */
-    & > p:first-of-type:first-child {
-      color: light-dark(
-        oklch(from var(--ui-text-muted) calc(l * 1.25) c h),
-        oklch(from var(--ui-text-muted) calc(l * 0.9) c h)
-      );
-      font-size: var(--ui-font-size-caption);
-      font-weight: var(--ui-font-weight-medium);
-      letter-spacing: var(--ui-letter-spacing-caps);
-      text-transform: uppercase;
-
-      @container style(--ui-contrast: more) {
-        color: var(--ui-text-muted);
-      }
     }
 
     /* Body paragraphs after the heading */
@@ -128,7 +114,6 @@
 
     &[title] {
       cursor: help;
-      text-underline-offset: 1px;
     }
 
     @supports (-moz-appearance: none) {
@@ -762,7 +747,6 @@
 
       &[title] {
         cursor: help;
-        text-underline-offset: 1px;
       }
 
       @supports (-moz-appearance: none) {
@@ -810,8 +794,13 @@
     a[href] code {
       background-color: light-dark(transparent, oklch(0 0 0 / 24%));
 
+      @container not style(--ui-color-scheme: dark) {
+        padding-inline: 0;
+      }
+
       @container style(--ui-contrast: more) {
         background-color: transparent;
+        padding-inline: 0;
       }
     }
 

@@ -8,13 +8,13 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-border-color-filled":
     "Border color inside filled surfaces: lists without a variant and table headers.",
   "--ui-border-color-raised":
-    "Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog` and `Callout` without a severity. Defaults to `--ui-border-color` in light mode and the page background in dark mode.",
+    "Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. Defaults to `--ui-border-color` in light mode and the page background in dark mode.",
   "--ui-border-radius":
     "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.",
   "--ui-border-width":
     "Default border width for components that draw a border.",
   "--ui-border-width-thick":
-    "Width of emphasized rules: the `Table` head and foot borders, and at one and a half times, the blockquote bar.",
+    "Width of emphasized rules: the `Table` head and foot borders, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, and at one and a half times, the blockquote bar.",
   "--ui-button-accent":
     "Color of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, the darkest palette color in light mode and the lightest in dark mode.",
   "--ui-button-accent-contrast":
@@ -56,9 +56,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-contrast":
     "`more` raises text, border, primary and focus ring contrast through a style query. Set to `more` automatically under `prefers-contrast: more`. See [Contrast](/guide/theming#contrast).",
   "--ui-control-border-color":
-    "Border color of controls without a fill: `Button` with `.ui-outlined`, the edge and dividers of an outlined `ButtonGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined` and the `Carousel` buttons. When unset, outlined buttons use their color, the carousel buttons a shade of their fill and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`.",
+    "Border color of controls without a fill: `Button` with `.ui-outlined`, the edge and dividers of an outlined `ButtonGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined`, and the selected `Tabs` pill. When unset, outlined buttons use their color, the selected `Tabs` pill `--ui-field-border-color` and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`.",
   "--ui-control-filled-border-color":
-    "Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, the edge and dividers of a `ButtonGroup` with one of them, a checked `ToggleButton` and `Chip` without `.ui-outlined`. When unset, buttons have no visible border and the rest use `--ui-border-color`. Set it with `--ui-control-border-color` to outline every control.",
+    "Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, the edge and dividers of a `ButtonGroup` with one of them, a checked `ToggleButton`, `Chip` without `.ui-outlined` and the `Carousel` buttons. When unset, buttons have no visible border, the carousel buttons use a shade of their fill and the rest use `--ui-border-color`. Set it with `--ui-control-border-color` to outline every control.",
   "--ui-control-size":
     "Shared default height for fields and buttons so they line up.",
   "--ui-control-size-large": "Shared large height for fields and buttons.",
@@ -166,7 +166,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "A literal green, Open Props' `--hue-green` at the palette lightness. No severity meaning.",
   "--ui-icon-size": "Default icon size inside components.",
   "--ui-icon-size-large": "Icon size inside `Avatar` and `List`.",
-  "--ui-icon-size-small": "Icon size inside `Chip`.",
+  "--ui-icon-size-small":
+    "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.",
   "--ui-info": "Severity color for informational messages.",
   "--ui-invalid-color": "Color for invalid field borders, fills and outlines.",
   "--ui-invalid-text-color":
@@ -190,9 +191,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-orange":
     "A literal orange, Open Props' `--hue-orange` at the palette lightness. No severity meaning.",
   "--ui-palette-accent":
-    "The accent shade of the current palette: `Callout` icons and outlined borders, the `abbr` underline. Re-derived inside every severity scope, so `.ui-success` gets a green one.",
+    "The accent shade of the current palette: `Callout` icons and outlined borders, the `abbr` underline. Stronger with more contrast. Re-derived inside every severity scope, so `.ui-success` gets a green one.",
   "--ui-palette-border":
-    "The border shade of the current palette: tonal `Callout` borders. Re-derived inside every severity scope.",
+    "The border shade of the current palette: tonal `Callout` borders. Stronger with more contrast. Re-derived inside every severity scope.",
   "--ui-palette-chroma":
     "Chroma of the palette source color, as a multiplier of `0.21`.",
   "--ui-palette-hue":
@@ -289,9 +290,10 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Alpha of the hover state layer on neutral buttons in dark mode.",
   "--ui-success": "Severity color for success messages.",
   "--ui-surface-border-color":
-    "Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards use the page background color, so they stay visible on tonal surfaces, accordions have a transparent border, and callouts their tonal background.",
+    "Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.",
   "--ui-surface-default": "Page and card background.",
-  "--ui-surface-elevated": "Background of elevated cards and accordions.",
+  "--ui-surface-elevated":
+    "Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.",
   "--ui-surface-filled":
     "Background of filled areas such as progress tracks and table stripes.",
   "--ui-surface-inverse": "Background of `Tooltip`, inverted against the page.",

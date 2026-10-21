@@ -4,7 +4,7 @@
     --_block-size: 24rem;
     --_button-bg-color: var(--ui-surface-inverse);
     --_button-border-color: var(
-      --ui-control-border-color,
+      --ui-control-filled-border-color,
       light-dark(
         oklch(from var(--_button-bg-color) calc(l + 0.3) c h),
         oklch(from var(--_button-bg-color) calc(l - 0.3) c h)
@@ -32,9 +32,9 @@
     );
     --_marker-active-bg-color: var(--ui-primary);
     --_marker-bg-color: oklch(from var(--ui-text-primary) l c h / 25%);
-    --_marker-gap: var(--ui-space-2);
+    --_marker-gap: 0px;
     --_marker-label: "Slide ";
-    --_marker-size: var(--ui-space-2);
+    --_marker-size: var(--ui-space-5);
     --_markers-gap: var(--ui-space-3);
     --_media-aspect-ratio: 16 / 9;
     --_media-border-radius: var(--ui-border-radius);
@@ -59,7 +59,7 @@
     scroll-padding-inline: var(--_padding-inline);
     scroll-snap-type: x mandatory;
 
-    @container style(--_motion: 0) {
+    @container style(--ui-motion: 0) {
       scroll-behavior: auto;
     }
 
@@ -285,6 +285,7 @@
       }
 
       & > *::scroll-marker {
+        background-clip: content-box;
         background-color: var(--_marker-bg-color);
         block-size: var(--_marker-size);
         border-radius: var(--ui-radius-round);
@@ -292,6 +293,7 @@
         content: "" / var(--_marker-label) counter(ui-carousel-item);
         cursor: pointer;
         inline-size: var(--_marker-size);
+        padding: var(--ui-space-2);
         transition: background-color var(--_duration) var(--_ease);
       }
 
@@ -308,12 +310,15 @@
 
       @media (forced-colors: active) {
         & > *::scroll-marker {
-          border: var(--ui-border-width) solid ButtonText;
+          outline: var(--ui-border-width) solid ButtonText;
+          outline-offset: calc(
+            -1 * (var(--ui-space-2) + var(--ui-border-width))
+          );
         }
 
         & > *::scroll-marker:target-current {
           background-color: SelectedItem;
-          border-color: SelectedItem;
+          outline-color: SelectedItem;
         }
       }
     }

@@ -5,7 +5,7 @@
     --_anchor-ty: calc(50% * var(--_sign-y));
     --_bg-color: var(--ui-primary);
     --_border-color: var(--ui-primary);
-    --_border-width: 2px;
+    --_border-width: var(--ui-border-width-thick);
     --_dir: 1;
     --_dot-size: var(--ui-space-2);
     --_duration: calc(var(--ui-duration) * var(--_motion));

@@ -194,9 +194,19 @@ const COMPONENT_PREFIXES = [
   "--ui-switch-",
 ]
 
+const ROLE_EXCEPTIONS = new Set([
+  "--ui-button-border-radius",
+  "--ui-choice-accent",
+  "--ui-choice-accent-contrast",
+  "--ui-field-border-color",
+  "--ui-field-border-color-raised",
+  "--ui-field-border-width",
+])
+
 export type TokenTier = "component" | "role"
 
 export const tokenTier = (name: string): TokenTier =>
+  !ROLE_EXCEPTIONS.has(name) &&
   COMPONENT_PREFIXES.some((prefix) => name.startsWith(prefix))
     ? "component"
     : "role"

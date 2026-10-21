@@ -52,7 +52,7 @@ provide(MenuKey, reactive({ rootId }))
         index
       ) in items"
       :key="index"
-      :class="{ 'ui-border-top': borderTop, 'ui-critical': critical }"
+      :class="[{ 'ui-border-top': borderTop, 'ui-critical': critical }]"
     >
       <component
         :is="href ? 'a' : 'button'"

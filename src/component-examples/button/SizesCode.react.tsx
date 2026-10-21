@@ -3,13 +3,13 @@ import { Button } from "opui-css/react"
 export default function SizesCode() {
   return (
     <>
-      <Button size="x-small">x-small</Button>
+      <Button size="x-small">X-small</Button>
       <Button size="small">Small</Button>
       <Button>Default</Button>
       <Button size="large">Large</Button>
 
       <Button variant="filled" size="x-small">
-        x-small
+        X-small
       </Button>
       <Button variant="filled" size="small">
         Small
@@ -20,7 +20,7 @@ export default function SizesCode() {
       </Button>
 
       <Button size="x-small" variant="outlined">
-        <span className="ui-text">x-small</span>
+        <span className="ui-text">X-small</span>
         <svg aria-hidden="true">{/* */}</svg>
       </Button>
       <Button size="small" variant="outlined">

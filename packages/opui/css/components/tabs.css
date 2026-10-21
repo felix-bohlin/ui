@@ -15,7 +15,7 @@
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_ease: var(--ui-ease);
     --_indicator-color: transparent;
-    --_indicator-size: 2px;
+    --_indicator-size: var(--ui-border-width-thick);
     --_inset: calc(var(--ui-space-1) - var(--_track-border-width));
     --_text-color: var(--ui-text-muted);
     --_track-border-color: transparent;

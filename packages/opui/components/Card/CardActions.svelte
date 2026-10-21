@@ -11,6 +11,13 @@
   }: Props = $props()
 </script>
 
-<div class={["ui-actions", align && `ui-align-${align}`, className]} {...rest}>
+<div
+  class={[
+    "ui-actions",
+    align && align !== "start" && `ui-align-${align}`,
+    className,
+  ]}
+  {...rest}
+>
   {@render children?.()}
 </div>

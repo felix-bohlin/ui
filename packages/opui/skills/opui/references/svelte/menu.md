@@ -138,7 +138,7 @@ If you want to decide yourself what goes into your list.
     {/snippet}
     {#snippet end()}<kbd>Ctrl+C</kbd>{/snippet}
   </ListItem>
-  <ListItem as="a" headline="Open in new tab" href="#menu">
+  <ListItem headline="Open in new tab" href="#menu">
     {#snippet start()}
       <svg
         aria-hidden="true"
@@ -334,7 +334,7 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 | Variable                         | Default                                                           | Description                                                                                                                                                                                                                                                                                                            |
 | -------------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--ui-border-color`              | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                 | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                                                                                            |
-| `--ui-border-color-raised`       | `light-dark( var(--ui-border-color), var(--ui-surface-default) )` | Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog` and `Callout` without a severity. Defaults to `--ui-border-color` in light mode and the page background in dark mode.                                                                                                         |
+| `--ui-border-color-raised`       | `light-dark( var(--ui-border-color), var(--ui-surface-default) )` | Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. Defaults to `--ui-border-color` in light mode and the page background in dark mode.                                                                                       |
 | `--ui-border-radius`             | `var(--size-2)`                                                   | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                                                                       |
 | `--ui-border-width`              | `1px`                                                             | Default border width for components that draw a border.                                                                                                                                                                                                                                                                |
 | `--ui-choice-size-small`         | `calc(var(--size-3) * var(--ui-density))`                         | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                                                                                                                                                                  |
@@ -350,7 +350,7 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 | `--ui-font-weight-bold`          | `var(--font-weight-7)`                                            | Font weight for headings, buttons and terms.                                                                                                                                                                                                                                                                           |
 | `--ui-font-weight-normal`        | `var(--font-weight-4)`                                            | Font weight for body text, `List` text and `Button` keyboard shortcuts.                                                                                                                                                                                                                                                |
 | `--ui-icon-size`                 | `var(--size-4)`                                                   | Default icon size inside components.                                                                                                                                                                                                                                                                                   |
-| `--ui-icon-size-small`           | `var(--size-3)`                                                   | Icon size inside `Chip`.                                                                                                                                                                                                                                                                                               |
+| `--ui-icon-size-small`           | `var(--size-3)`                                                   | Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.                                                                                                                                                                                                             |
 | `--ui-line-height-body`          | `1.6`                                                             | Line height of body copy: prose, captions and `List` text.                                                                                                                                                                                                                                                             |
 | `--ui-motion`                    | `1`                                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion).                                                                                                             |
 | `--ui-primary`                   | `light-dark(var(--ui-color-9), var(--ui-color-6))`                | Brand color for primary actions and accents.                                                                                                                                                                                                                                                                           |
@@ -364,7 +364,7 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 | `--ui-space-7`                   | `calc(var(--size-7) * var(--ui-space-scale))`                     | Spacing step 7: Open Props `--size-7` times `--ui-space-scale`.                                                                                                                                                                                                                                                        |
 | `--ui-state-active-alpha-accent` | `25%`                                                             | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                                                                                                      |
 | `--ui-state-hover-alpha-accent`  | `15%`                                                             | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                                                                                                        |
-| `--ui-surface-elevated`          | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                 | Background of elevated cards and accordions.                                                                                                                                                                                                                                                                           |
+| `--ui-surface-elevated`          | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                 | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                                                      |
 | `--ui-surface-filled`            | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                 | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                                                                                                  |
 | `--ui-surface-tonal`             | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                 | Background of tonal variants.                                                                                                                                                                                                                                                                                          |
 | `--ui-switch-dot-size-small`     | `calc(0.75rem * var(--ui-density))`                               | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                                                                                                                                       |
@@ -386,7 +386,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_bg-color`        | Input  | The background. Defaults to `--ui-surface-elevated`.                                                           |
 | `--_border-color`    | Input  | The border color. Defaults to `--ui-border-color-raised`, and `--_divider-color` follows it.                   |
 | `--_border-radius`   | Input  | The corner radius. Defaults to `--ui-border-radius`.                                                           |
-| `--_border-width`    | Input  | The border width.                                                                                              |
+| `--_border-width`    | Input  | The border width. Defaults to `--ui-border-width`.                                                             |
 | `--_divider-color`   | Input  | Color of the item separators. Defaults to `--_border-color`.                                                   |
 | `--_duration`        | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                                |
 | `--_ease`            | Input  | Easing of the open transition. Defaults to `--ui-ease-enter`.                                                  |
@@ -423,7 +423,7 @@ Read the post: [Menus with popover and anchor positioning](https://open-props-ui
 
    - Scroll the trigger towards the bottom of the window and open it again
    - `100%` is the space below the trigger, minus the `0.25rem` margin on each side, so the menu shrinks to fit and scrolls
-   - But never below `12rem`, or its content if that's shorter. Then it overflows, and that's what makes it flip
+   - But never below `12rem`, or 40% of a short viewport, unless its content is shorter. Then it overflows, and that's what makes it flip
    - Without `calc-size()` it stays at `60dvb` and just flips
 
 4. Flip
@@ -461,9 +461,9 @@ Step 1 of 5: Popover
 ```css
 .menu {
   background-color: var(--ui-surface-elevated);
-  border: 1px solid var(--ui-border-color);
-  border-radius: var(--radius-2);
-  box-shadow: var(--shadow-3);
+  border: 1px solid var(--ui-border-color-raised);
+  border-radius: var(--ui-border-radius);
+  box-shadow: var(--ui-shadow-overlay);
   padding: 0.25rem 0;
 }
 ```
@@ -494,7 +494,7 @@ Step 3 of 5: Fit
 
   @supports (min-block-size: calc-size(fit-content, size)) {
     max-block-size: min(60dvb, 100% - 0.5rem);
-    min-block-size: calc-size(fit-content, min(size, 12rem));
+    min-block-size: calc-size(fit-content, min(size, min(12rem, 40dvb)));
   }
 }
 ```
@@ -536,10 +536,10 @@ Step 5 of 5: Animate
   opacity: 0;
   scale: 0.96;
   transition:
-    display calc(0.15s * var(--ui-motion, 1)) allow-discrete,
-    opacity calc(0.15s * var(--ui-motion, 1)),
-    overlay calc(0.15s * var(--ui-motion, 1)) allow-discrete,
-    scale calc(0.15s * var(--ui-motion, 1));
+    display calc(var(--ui-duration) * var(--ui-motion, 1)) allow-discrete,
+    opacity calc(var(--ui-duration) * var(--ui-motion, 1)) var(--ui-ease-enter),
+    overlay calc(var(--ui-duration) * var(--ui-motion, 1)) allow-discrete,
+    scale calc(var(--ui-duration) * var(--ui-motion, 1)) var(--ui-ease-enter);
 }
 
 .menu:popover-open {
@@ -569,8 +569,8 @@ Import the component from `opui-css/svelte`:
 
 - [List](https://open-props-ui.netlify.app/svelte/components/list.md)
 
-* `opui-css/css/components/menu.css`
 * `opui-css/css/components/list.css`
+* `opui-css/css/components/menu.css`
 
 ## Changelog
 
@@ -578,9 +578,8 @@ Import the component from `opui-css/svelte`:
 
 - The border and dividers are [`--ui-border-color-raised`](#api), like other elevated surfaces.
 - Items are built like `List` items, with start and end icons, text and shortcuts ([Basics](#basics)).
-- New component. A [popover menu](#basics) that anchors to its trigger, with groups and submenus. HTML and CSS only.
+- New component. A [popover menu](#basics) that anchors to its trigger, with groups and submenus, built on `Menu` and `ListItem`. No JavaScript.
 - [Submenus](#submenu) with the `submenu` snippet on `ListItem`.
-- A subtle light gray border in dark mode, so [menus](#basics) stand out on dialogs and other raised surfaces.
 - Menus shrink to the space on their side and flip when it's less than `12rem` ([Placement](#placement)).
 - [Dividers between items](#bordered) with the `bordered` prop.
 - `critical` on a `ListItem` marks a destructive [custom item](#custom).

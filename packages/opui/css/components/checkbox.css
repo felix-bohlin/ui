@@ -73,6 +73,16 @@
             background-color: SelectedItemText;
           }
         }
+
+        &:is(:disabled, [aria-disabled="true"]) {
+          border-color: GrayText;
+
+          &:checked,
+          &:indeterminate {
+            background-color: GrayText;
+            border-color: GrayText;
+          }
+        }
       }
     }
   }

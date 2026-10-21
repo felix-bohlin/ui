@@ -233,7 +233,11 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         > to keep them on one row and scroll them sideways, or <code
           >shrink</code
         > to keep them on one row and truncate their labels. Icon-only items keep
-        their size.
+        their size. <code>shrink</code> hides label text, so use it only when the
+        labels can be inferred or are icon-only, and prefer <code
+          >scrollable</code
+        >
+        when the text matters.
       </Fragment>
       <Fragment slot="html">
         Buttons wrap onto more rows when they don't fit. Add <code
@@ -241,7 +245,10 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         > to keep them on one row and scroll them sideways, or <code
           >.ui-shrink</code
         > to keep them on one row and truncate their labels. Icon-only items keep
-        their size.
+        their size. <code>.ui-shrink</code> hides label text, so use it only when
+        the labels can be inferred or are icon-only, and prefer <code
+          >.ui-scrollable</code
+        > when the text matters.
       </Fragment>
     </Conditional>
     <AutoExample name="Overflow" column />

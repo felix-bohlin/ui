@@ -8,17 +8,17 @@ export default {
   },
   "--_accent-contrast": {
     description:
-      "Text color on a fill of `--_accent`. Defaults to `--ui-button-accent-contrast` when a theme sets it.",
+      "Text color on a fill of `--_accent`. Defaults to `--ui-button-accent-contrast` when a theme sets it. `.ui-primary` sets `--ui-primary-contrast`, `.ui-critical` `--ui-text-on-accent`.",
     kind: "input",
   },
   "--_accent-text": {
     description:
-      "Text color of text and outlined buttons. `--_accent`, lightened in dark mode to stay readable.",
+      "Text color of text and outlined buttons. `--_accent`, lightened in dark mode to stay readable. `--ui-primary-text` in `.ui-primary` when a theme sets it.",
     kind: "output",
   },
   "--_accent-tonal": {
     description:
-      "Background of `.ui-tonal`. `--ui-surface-tonal`, and `--ui-primary-tonal` or a palette tint in `.ui-primary`.",
+      "Background of `.ui-tonal`. `--ui-surface-tonal`, a palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`.",
     kind: "input",
   },
   "--_accent-tonal-contrast": {
@@ -69,7 +69,7 @@ export default {
     kind: "output",
   },
   "--_font-size": {
-    description: "The font size. Set by the size classes.",
+    description: "The font size. Set by `.ui-x-small` and `.ui-small`.",
     kind: "input",
   },
   "--_icon-size": {
@@ -86,7 +86,8 @@ export default {
     kind: "input",
   },
   "--_outlined-active-bg-color": {
-    description: "Pressed background of outlined buttons, from `--_accent`.",
+    description:
+      "Pressed background of outlined and tonal buttons, from `--_accent`.",
     kind: "output",
   },
   "--_padding-inline": {
@@ -95,8 +96,8 @@ export default {
   },
   "--_shadow": {
     description:
-      "The shadow. `--ui-shadow-control` on `.ui-filled`, `.ui-outlined` and `.ui-tonal`, none on text buttons.",
-    kind: "input",
+      "The shadow. `--ui-shadow-control` on `.ui-filled`, `.ui-outlined` and `.ui-tonal`, `--ui-button-hover-shadow` on hover when a theme sets it, none on text buttons.",
+    kind: "output",
   },
   "--_text-color": {
     description:

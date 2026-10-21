@@ -85,7 +85,10 @@
 
       &:has(> .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
         padding-inline: var(--ui-space-3)
-          max(0px, var(--ui-space-3) - var(--ui-space-3) + var(--ui-space-1));
+          max(
+            var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
+            var(--ui-space-1)
+          );
       }
     }
 
@@ -94,8 +97,16 @@
       pointer-events: all;
       transition: opacity var(--_duration) var(--_ease);
 
+      &::backdrop {
+        transition: opacity var(--_duration) var(--_ease);
+      }
+
       @starting-style {
         opacity: 0;
+
+        &::backdrop {
+          opacity: 0;
+        }
       }
     }
   }

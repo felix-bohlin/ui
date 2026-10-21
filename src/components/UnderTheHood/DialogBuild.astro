@@ -8,8 +8,8 @@ const steps = [
 .dialog {
   background-color: var(--ui-surface-elevated);
   border: 1px solid var(--ui-surface-default);
-  border-radius: var(--radius-3);
-  box-shadow: var(--shadow-3);
+  border-radius: var(--ui-border-radius);
+  box-shadow: var(--ui-shadow-overlay);
   color: inherit;
   display: flex;
   flex-direction: column;
@@ -84,9 +84,9 @@ const steps = [
 
 .dialog > .content::before,
 .dialog > .content::after {
-  block-size: 0.5rem;
-  box-shadow: var(--shadow-4);
-  clip-path: inset(100% 0 -2rem);
+  block-size: var(--ui-space-2);
+  box-shadow: var(--ui-shadow-scroll);
+  clip-path: inset(100% 0 calc(-1 * var(--ui-space-6)));
   content: "";
   inset-inline: anchor(--content inside);
   opacity: 0;
@@ -244,18 +244,18 @@ const shortcuts = [
 
   .dialog {
     & h3 {
-      font-size: var(--font-size-3);
+      font-size: var(--ui-font-size-large);
       margin: 0;
-      padding: var(--size-3) var(--size-3) 0;
+      padding: var(--ui-space-3) var(--ui-space-3) 0;
     }
 
     & .content {
-      padding-inline: var(--size-3);
+      padding-inline: var(--ui-space-3);
     }
 
     & dl {
       display: grid;
-      gap: var(--size-2);
+      gap: var(--ui-space-2);
       margin: 0;
     }
 
@@ -271,7 +271,7 @@ const shortcuts = [
     & .actions {
       display: flex;
       justify-content: end;
-      padding: 0 var(--size-1) var(--size-2);
+      padding: 0 var(--ui-space-1) var(--ui-space-2);
     }
   }
 </style>

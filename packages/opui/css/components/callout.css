@@ -42,7 +42,6 @@
       --_bg-color: var(--ui-palette-tint-subtle);
       --_border-color: var(--ui-palette-border);
       --_icon-color: var(--ui-palette-accent);
-      --_outlined-bg-color: var(--ui-surface-default);
       --_outlined-border-color: var(--ui-palette-accent);
       --_outlined-icon-color: var(--ui-palette-accent);
       --_outlined-text-color: var(--ui-palette-ink);
@@ -121,7 +120,7 @@
 
       & > svg {
         color: var(--_icon-color);
-        margin-block-start: 0.15rem;
+        margin-block-start: 0.15em;
       }
     }
   }

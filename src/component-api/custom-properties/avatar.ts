@@ -11,7 +11,8 @@ export default {
     kind: "input",
   },
   "--_icon-size": {
-    description: "The maximum width of an `svg`. Set by the size classes.",
+    description:
+      "The maximum width of an `svg`. Set by `.ui-x-small` and `.ui-small`.",
     kind: "input",
   },
   "--_margin": {

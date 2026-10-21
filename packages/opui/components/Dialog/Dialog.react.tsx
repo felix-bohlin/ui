@@ -14,7 +14,7 @@ export default function Dialog({ className, closedby, ...rest }: Props) {
     <DialogContext value={{ headerId: labelledBy }}>
       <dialog
         aria-labelledby={labelledBy}
-        className={cx(["ui-dialog ui-card ui-elevated", className])}
+        className={cx(["ui-dialog", "ui-card", "ui-elevated", className])}
         closedby={closedby}
         {...rest}
       />

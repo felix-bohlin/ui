@@ -22,6 +22,7 @@ import radioApi from "../../component-api/radio/api"
 import radioInputApi from "../../component-api/radio-input/api"
 
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
 ---
 
@@ -197,6 +198,16 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   <section>
     <h2 id="label-alignment">Label alignment</h2>
     <LabelAlignment control="radio" />
+  </section>
+
+  <section>
+    <h2 id="radio-input">Radio input</h2>
+    <p>
+      Use <PropOrClass prop="RadioInput" class='<input type="radio">' /> without the
+      label for a custom layout, such as the end of a list item. See
+      {" "}<DocLink href="/components/list#radio" class="ui-link">List</DocLink
+      >.
+    </p>
   </section>
 
   <section>

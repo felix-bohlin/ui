@@ -63,9 +63,14 @@ export default {
     description: "Width and height of the thumb. Larger on touch screens.",
     kind: "input",
   },
+  "--_track-base-color": {
+    description:
+      "Color of the empty track at rest. `--ui-track-color` when the theme sets it, otherwise the field border, and `--ui-surface-default` under more contrast; set by `.ui-filled` and `.ui-tonal`.",
+    kind: "input",
+  },
   "--_track-color": {
     description:
-      "The current track color. `--ui-track-color` when the theme sets it, otherwise the field border; set by `.ui-filled`, `.ui-tonal` and the active and disabled states.",
+      "The current track color, from `--_track-base-color`; set by the active and disabled states.",
     kind: "output",
   },
   "--_track-fill": {

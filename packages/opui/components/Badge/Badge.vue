@@ -26,7 +26,9 @@ defineSlots<Slots>()
       <span class="ui-badge-indicator">
         {{ dot ? "" : label }}
         <slot v-if="!dot" name="indicator"></slot>
-        <span v-if="srLabel" class="ui-sr-only">{{ srLabel }}</span>
+        <template v-if="srLabel">
+          {{ " " }}<span class="ui-sr-only">{{ srLabel }}</span>
+        </template>
       </span>
     </AnchorContent>
   </Anchor>

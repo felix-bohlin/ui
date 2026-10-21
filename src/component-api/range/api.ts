@@ -48,11 +48,11 @@ export default {
   notes: {
     astro:
       "Attributes that aren't props go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`, and `class` and `style` go to the root `<label>`.",
-    html: "Add a `<datalist>` after the input for tick marks.",
+    html: 'Add a `<datalist aria-hidden="true">` after the input for tick marks.',
     react:
-      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `style` goes to the root `<label>`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
+      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `className` and `style` go to the root `<label>`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
     svelte:
-      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `style` goes to the root `<label>`.",
+      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `class` and `style` go to the root `<label>`.",
     vue: "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
@@ -101,7 +101,7 @@ export default {
     },
     {
       description:
-        "The variant to use. Without one, the track uses the field border color.",
+        "The variant to use. Without one, the track uses `--ui-track-color`, or the field border color when the theme doesn't set it.",
       group: "Variants",
       prop: "variant",
       values: {

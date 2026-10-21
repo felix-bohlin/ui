@@ -5,7 +5,7 @@ export default function Clickable() {
     <List>
       <ListItem as="button" headline="Button list item" />
       <ListItem as="button" disabled headline="Archived" />
-      <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
+      <ListItem href="#clickable-list-item" headline="Link list item" />
       <ListItem
         type="checkbox"
         headline="Checkbox list item"

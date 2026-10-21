@@ -1,26 +1,6 @@
 {
-  "avatar.css": {
-    "literals": ["--_outline-width: 2px"],
-    "primitives": []
-  },
-  "badge.css": {
-    "literals": ["--_border-width: 2px"],
-    "primitives": []
-  },
-  "callout.css": {
-    "literals": ["margin-block-start: 0.15rem"],
-    "primitives": []
-  },
   "carousel.css": {
     "literals": ["--_block-size: 24rem"],
-    "primitives": []
-  },
-  "chip.css": {
-    "literals": ["border: 2px"],
-    "primitives": []
-  },
-  "description-list.css": {
-    "literals": ["--_border-width: 2px", "block-size: 2px"],
     "primitives": []
   },
   "drawer.css": {
@@ -84,16 +64,11 @@
     "primitives": []
   },
   "tabs.css": {
-    "literals": [
-      "--_indicator-size: 2px",
-      "block-size: 1px",
-      "inline-size: 1px"
-    ],
+    "literals": ["block-size: 1px", "inline-size: 1px"],
     "primitives": []
   },
   "text-field.css": {
     "literals": [
-      "--_chevron-size: 1rem",
       "--_field-padding-block: 0.1875rem",
       "--_field-padding-block: 0.75rem"
     ],

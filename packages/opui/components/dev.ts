@@ -1,3 +1,20 @@
+export const warnReplacedId = (
+  component: string,
+  root: string,
+  id: unknown,
+  generatedId: unknown,
+) => {
+  if (
+    (import.meta as { env?: { DEV?: boolean } }).env?.DEV &&
+    id &&
+    generatedId
+  ) {
+    console.warn(
+      `[OPUI ${component}] \`id\` is replaced by the ${root.toLowerCase()}'s generated id; pass \`aria-labelledby\` on the ${root} to keep it.`,
+    )
+  }
+}
+
 export const warnUnnamed = (component: string, named: unknown) => {
   if ((import.meta as { env?: { DEV?: boolean } }).env?.DEV && !named) {
     console.warn(

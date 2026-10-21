@@ -58,7 +58,9 @@ const steps = [
 }
 
 .tab-input:focus-visible + .tab-label {
-  outline: 2px solid var(--ui-text-muted);
+  outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+    var(--ui-focus-ring-color);
+  outline-offset: var(--ui-focus-ring-offset);
 }`,
     features: ["clip-path", "focus-visible"],
     notes: [
@@ -77,6 +79,7 @@ const steps = [
 }
 
 .tab-label::before {
+  border: 1px solid transparent;
   border-radius: calc(var(--radius) - var(--inset));
   content: "";
   inset: var(--inset) 0;
@@ -107,15 +110,19 @@ const steps = [
 
 .tab-input:checked + .tab-label::before {
   background-color: var(--ui-surface-default);
-  box-shadow: var(--shadow-1);
+  border-color: var(--ui-field-border-color);
+  box-shadow: var(--ui-shadow-tab);
 }
 
 .tab-input:focus-visible + .tab-label {
   outline: none;
+  z-index: 1;
 }
 
 .tab-input:focus-visible + .tab-label::before {
-  outline: 2px solid var(--ui-text-muted);
+  outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+    var(--ui-focus-ring-color);
+  outline-offset: var(--ui-focus-ring-offset);
 }`,
     features: ["isolation", "nth-child-of"],
     notes: [
@@ -123,8 +130,9 @@ const steps = [
       "The pill is a <code>::before</code> inset from the track",
       "<code>:nth-child(1 of .tab-label)</code> finds the first label among the radios and panels",
       "Inner radius = outer radius − inset",
+      "Every pill has a transparent border, the checked one colors it with the field border, so it stands out from the track",
       "Logical radii round the ends in right-to-left too",
-      "The focus ring moves onto the pill",
+      "The focus ring moves onto the pill, and <code>z-index</code> lifts it over the next label",
     ],
     title: "Segmented",
   },
@@ -186,11 +194,11 @@ const tabs = [
 
   .tab-label {
     cursor: pointer;
-    font-size: var(--font-size-1);
+    font-size: var(--ui-font-size-control);
     font-weight: 500;
   }
 
   .tab-panel {
-    margin-block-start: var(--size-2);
+    margin-block-start: var(--ui-space-2);
   }
 </style>

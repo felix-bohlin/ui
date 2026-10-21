@@ -13,6 +13,8 @@ import {
   Card as UICard,
   CardHeader as UICardHeader,
   Carousel as UICarousel,
+  Select as UISelect,
+  Switch as UISwitch,
 } from "opui-css/astro"
 
 import CarouselCSS from "@opui/css/components/carousel.css?raw"
@@ -240,47 +242,40 @@ export const description =
 
     <Example showCode={false}>
       <div class="carousel-playground-controls" slot="controls">
-        <label class="ui-select ui-small">
-          <span class="ui-label">Content</span>
-          <span class="ui-field">
-            <select data-control="content">
-              <option value="images">Images</option>
-              <option value="cards">Cards</option>
-            </select>
-          </span>
-        </label>
-        <label class="ui-select ui-small">
-          <span class="ui-label">Buttons</span>
-          <span class="ui-field">
-            <select data-control="buttons">
-              <option value="inside">Inside</option>
-              <option value="outside">Outside</option>
-              <option value="none">None</option>
-            </select>
-          </span>
-        </label>
-        <label class="ui-select ui-small">
-          <span class="ui-label">Items per view</span>
-          <span class="ui-field">
-            <select data-control="per-view">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>
-          </span>
-        </label>
-        <label class="ui-select ui-small">
-          <span class="ui-label">Aspect ratio</span>
-          <span class="ui-field">
-            <select data-control="aspect-ratio">
-              <option>16 / 9</option>
-              <option>4 / 3</option>
-              <option>1</option>
-              <option>3 / 4</option>
-            </select>
-          </span>
-        </label>
+        <UISelect
+          data-control="content"
+          items={[
+            { text: "Images", value: "images" },
+            { text: "Cards", value: "cards" },
+          ]}
+          label="Content"
+          size="small"
+        />
+        <UISelect
+          data-control="buttons"
+          items={[
+            { text: "Inside", value: "inside" },
+            { text: "Outside", value: "outside" },
+            { text: "None", value: "none" },
+          ]}
+          label="Buttons"
+          size="small"
+        />
+        <UISelect
+          data-control="per-view"
+          items={["1", "2", "3", "4"].map((value) => ({ text: value, value }))}
+          label="Items per view"
+          size="small"
+        />
+        <UISelect
+          data-control="aspect-ratio"
+          items={["16 / 9", "4 / 3", "1", "3 / 4"].map((value) => ({
+            text: value,
+            value,
+          }))}
+          label="Aspect ratio"
+          size="small"
+        />
         {
           [
             ["persistent", "Persistent buttons"],
@@ -290,10 +285,9 @@ export const description =
             ["vertical", "Vertical"],
             ["center", "Center"],
           ].map(([control, label]) => (
-            <label class="ui-switch ui-small">
-              <input data-control={control} role="switch" type="checkbox" />
-              <span class="ui-label">{label}</span>
-            </label>
+            <UISwitch data-control={control} size="small">
+              {label}
+            </UISwitch>
           ))
         }
       </div>
@@ -379,7 +373,7 @@ export const description =
     </p>
     <p>
       The buttons and markers get the library's focus ring. In forced colors
-      mode the markers get a border, and the current marker is filled with <code
+      mode the markers get an outline, and the current marker is filled with <code
         >SelectedItem</code
       >.
     </p>

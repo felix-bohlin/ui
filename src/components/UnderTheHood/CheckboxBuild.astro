@@ -9,14 +9,14 @@ const steps = [
     var(--ui-primary),
     oklch(from var(--ui-primary) min(l, 0.62) c h)
   );
-  --accent-contrast: light-dark(var(--ui-primary-contrast), var(--ui-gray-1));
+  --accent-contrast: light-dark(var(--ui-primary-contrast), var(--ui-text-on-accent));
 
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--ui-surface-default);
   block-size: var(--size);
   border: var(--ui-field-border-width) solid var(--ui-field-border-color);
-  border-radius: var(--radius-1);
+  border-radius: var(--ui-radius-x-small);
   box-sizing: border-box;
   display: grid;
   inline-size: var(--size);
@@ -180,14 +180,14 @@ const items = [
 <style>
   .stack {
     display: grid;
-    gap: var(--size-3);
+    gap: var(--ui-space-3);
     justify-items: start;
   }
 
   .label {
     align-items: start;
     display: flex;
-    gap: var(--size-2);
+    gap: var(--ui-space-2);
   }
 </style>
 

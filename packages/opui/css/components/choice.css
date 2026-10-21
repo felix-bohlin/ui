@@ -27,6 +27,10 @@
     user-select: none;
 
     &:not(:has(.ui-label, .ui-text)) {
+      align-items: center;
+      min-block-size: var(--ui-space-5);
+      min-inline-size: var(--ui-space-5);
+      place-content: center;
       vertical-align: middle;
     }
 
@@ -121,6 +125,7 @@
         var(--ui-invalid-color),
         oklch(from var(--ui-invalid-color) min(l, 0.62) c h)
       );
+      --_accent-contrast: var(--ui-text-on-accent);
 
       :where(.ui-end-text) {
         color: var(--ui-invalid-text-color);

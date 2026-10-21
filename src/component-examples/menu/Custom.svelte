@@ -63,7 +63,7 @@
     {/snippet}
     {#snippet end()}<kbd>Ctrl+C</kbd>{/snippet}
   </ListItem>
-  <ListItem as="a" headline="Open in new tab" href="#menu">
+  <ListItem headline="Open in new tab" href="#menu">
     {#snippet start()}
       <svg
         aria-hidden="true"

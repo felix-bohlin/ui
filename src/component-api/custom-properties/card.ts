@@ -7,7 +7,7 @@ export default {
   },
   "--_border-color": {
     description:
-      "The current border color. Set by the variants and by hovering `.ui-card-link`.",
+      "The current border color. Set by the variants (`--ui-surface-border-color` in `.ui-tonal` and `.ui-elevated` when a theme sets it) and by hovering `.ui-card-link`.",
     kind: "output",
   },
   "--_border-width": {
@@ -49,7 +49,7 @@ export default {
   },
   "--_surface-bg-color": {
     description:
-      "Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated`. Defaults to `--ui-surface-default`.",
+      "Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-surface-border-color`. Defaults to `--ui-surface-default`.",
     kind: "input",
   },
   "--_tonal-bg-color": {

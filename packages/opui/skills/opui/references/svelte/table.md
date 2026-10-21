@@ -267,7 +267,7 @@ The scroll box has `role="region"`, an `aria-label` and `tabindex="0"`. A table 
 
 ## Advanced
 
-An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
+An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`. The headers that span columns have `scope="colgroup"` and the other column headers `scope="col"`, so screen readers read "Capital" together with "Major Cities".
 
 The first cell of each row is a row header, `<th scope="row">`. Row headers keep the body background, so only the column headers are filled.
 
@@ -296,16 +296,18 @@ The first cell of each row is a row header, `<th scope="row">`. Row headers keep
   </TableColumnGroup>
   <TableHead>
     <TableRow>
-      <TableHeaderCell rowspan={2}>Country</TableHeaderCell>
-      <TableHeaderCell colspan={3}>Major Cities</TableHeaderCell>
-      <TableHeaderCell colspan={2}>Nature</TableHeaderCell>
+      <TableHeaderCell rowspan={2} scope="col">Country</TableHeaderCell>
+      <TableHeaderCell colspan={3} scope="colgroup"
+        >Major Cities</TableHeaderCell
+      >
+      <TableHeaderCell colspan={2} scope="colgroup">Nature</TableHeaderCell>
     </TableRow>
     <TableRow>
-      <TableHeaderCell>Capital</TableHeaderCell>
-      <TableHeaderCell>2nd Largest</TableHeaderCell>
-      <TableHeaderCell>3rd Largest</TableHeaderCell>
-      <TableHeaderCell>National Animal</TableHeaderCell>
-      <TableHeaderCell>National Bird</TableHeaderCell>
+      <TableHeaderCell scope="col">Capital</TableHeaderCell>
+      <TableHeaderCell scope="col">2nd Largest</TableHeaderCell>
+      <TableHeaderCell scope="col">3rd Largest</TableHeaderCell>
+      <TableHeaderCell scope="col">National Animal</TableHeaderCell>
+      <TableHeaderCell scope="col">National Bird</TableHeaderCell>
     </TableRow>
   </TableHead>
   <TableBody>
@@ -620,8 +622,8 @@ Step 5 of 5: Sticky header
 
 @container scroll-state(stuck: block-start) {
   .table > thead th {
-    box-shadow: var(--shadow-4);
-    clip-path: inset(0 0 -2rem);
+    box-shadow: var(--ui-shadow-scroll);
+    clip-path: inset(0 0 calc(-1 * var(--ui-space-6)));
   }
 }
 ```

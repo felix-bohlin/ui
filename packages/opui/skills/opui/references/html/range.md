@@ -48,7 +48,7 @@ Label 50 Start text End text
 
 ## Variants
 
-Use the `.ui-filled` or `.ui-tonal` class to swap the track surface for better contrast on different backgrounds. Without a class, the track uses `--ui-field-border-color`, like the border of a text field.
+Use the `.ui-filled` or `.ui-tonal` class to swap the track surface for better contrast on different backgrounds. Without one, the track uses `--ui-track-color`, or the field border color when the theme doesn't set it.
 
 ```html
 <label class="ui-range">
@@ -146,7 +146,7 @@ Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointin
 
 ## Tick marks
 
-Use the `list` attribute on the `<input>` and follow it with a `<datalist>` element containing `<option>` elements with `value` and `label` attributes.
+Use the `list` attribute on the `<input>` and follow it with a `<datalist aria-hidden="true">` element containing `<option>` elements with `value` and `label` attributes.
 
 ```html
 <label class="ui-range">
@@ -158,7 +158,7 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
     list="range-tick-marks-labels-1-list"
     type="range"
   />
-  <datalist id="range-tick-marks-labels-1-list">
+  <datalist aria-hidden="true" id="range-tick-marks-labels-1-list">
     <option value="0" label="0%"></option>
     <option value="25" label="25%"></option>
     <option value="50" label="50%"></option>
@@ -174,7 +174,7 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
     max="2"
     type="range"
   />
-  <datalist id="range-tick-marks-labels-2-list">
+  <datalist aria-hidden="true" id="range-tick-marks-labels-2-list">
     <option value="0" label="Low"></option>
     <option value="1" label="Medium"></option>
     <option value="2" label="High"></option>
@@ -263,7 +263,7 @@ Add the `.ui-spread` class to display the label and start text on the left with 
     list="range-spread-4-list"
     type="range"
   />
-  <datalist id="range-spread-4-list">
+  <datalist aria-hidden="true" id="range-spread-4-list">
     <option value="0" label="0%"></option>
     <option value="25" label="25%"></option>
     <option value="50" label="50%"></option>
@@ -285,11 +285,11 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 
 ### Range API
 
-| Type       | Modifiers                    | Default | Description                                                             |
-| ---------- | ---------------------------- | ------- | ----------------------------------------------------------------------- |
-| Spread     | `.ui-spread`                 | -       | Pushes the label and start text to one side and the input to the other. |
-| Validation | `input[aria-invalid="true"]` | -       | Marks the control invalid and shows error styles.                       |
-| Variants   | `.ui-filled`, `.ui-tonal`    | -       | The variant to use. Without one, the track uses the field border color. |
+| Type       | Modifiers                    | Default | Description                                                                                                                  |
+| ---------- | ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Spread     | `.ui-spread`                 | -       | Pushes the label and start text to one side and the input to the other.                                                      |
+| Validation | `input[aria-invalid="true"]` | -       | Marks the control invalid and shows error styles.                                                                            |
+| Variants   | `.ui-filled`, `.ui-tonal`    | -       | The variant to use. Without one, the track uses `--ui-track-color`, or the field border color when the theme doesn't set it. |
 
 #### Parts
 
@@ -315,8 +315,8 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 | `--ui-ease`                     | `ease`                                                                                        | Default easing for transitions.                                                                                                                                                                                                                                                                                          |
 | `--ui-field-border-color`       | `color-mix( in oklch, var(--ui-text-primary) 50%, var(--ui-surface-default) )`                | Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch`, the `Range` track and the `Progress` outline. A 50% mix of the text color into the page, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make. |
 | `--ui-field-helper-color`       | `var(--ui-text-muted)`                                                                        | Text color for helper and end text under a field.                                                                                                                                                                                                                                                                        |
-| `--ui-field-helper-font-size`   | `var(--font-size-0)`                                                                          | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                         |
-| `--ui-field-helper-line-height` | `var(--font-lineheight-3)`                                                                    | Line height for helper and end text under a field.                                                                                                                                                                                                                                                                       |
+| `--ui-field-helper-font-size`   | `var(--ui-font-size-caption)`                                                                 | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                         |
+| `--ui-field-helper-line-height` | `var(--ui-line-height)`                                                                       | Line height for helper and end text under a field.                                                                                                                                                                                                                                                                       |
 | `--ui-field-label-color`        | `var(--ui-text-primary)`                                                                      | Text color for field labels.                                                                                                                                                                                                                                                                                             |
 | `--ui-field-label-font-size`    | `var(--ui-font-size-small)`                                                                   | Font size for field labels.                                                                                                                                                                                                                                                                                              |
 | `--ui-field-label-font-weight`  | `var(--ui-font-weight-semibold)`                                                              | Font weight for emphasized field labels and legends.                                                                                                                                                                                                                                                                     |
@@ -338,32 +338,33 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-Add a `<datalist>` after the input for tick marks.
+Add a `<datalist aria-hidden="true">` after the input for tick marks.
 
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property                   | Kind   | Description                                                                                                                                                          |
-| -------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`                | Input  | Color of the thumb, its ring and the track fill. Defaults to `--ui-choice-accent`, or `--ui-primary` when the theme doesn't set it, and is set by the invalid state. |
-| `--_duration`              | Output | Duration of the thumb ring transition, `--ui-duration-fast` times `--_motion`.                                                                                       |
-| `--_ease`                  | Input  | Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.                                                                                         |
-| `--_forced-fill-color`     | Output | Thumb and fill color in forced colors mode. `GrayText` when disabled.                                                                                                |
-| `--_forced-track-color`    | Output | Track color in forced colors mode. `GrayText` when disabled.                                                                                                         |
-| `--_inset`                 | Output | Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`.                                                      |
-| `--_motion`                | Input  | Motion multiplier for the thumb highlight and focus ring. `0` turns them off.                                                                                        |
-| `--_thumb-bg-color`        | Output | The current thumb color. From `--_accent`, set by the disabled state.                                                                                                |
-| `--_thumb-border-width`    | Input  | Width of the page-colored ring between the thumb and the track. Set on the `<input>`.                                                                                |
-| `--_thumb-highlight-color` | Output | Color of the ring around the thumb, from `--_accent` and `--ui-state-active-alpha`.                                                                                  |
-| `--_thumb-highlight-size`  | Output | Current width of the ring around the thumb. Set by the hover and active states.                                                                                      |
-| `--_thumb-offset`          | Output | Vertical offset that centers the thumb on the track.                                                                                                                 |
-| `--_thumb-size`            | Input  | Width and height of the thumb. Larger on touch screens.                                                                                                              |
-| `--_track-color`           | Output | The current track color. `--ui-track-color` when the theme sets it, otherwise the field border; set by `.ui-filled`, `.ui-tonal` and the active and disabled states. |
-| `--_track-fill`            | Output | How much of the track is filled, animated from the thumb position.                                                                                                   |
-| `--_track-fill-color`      | Output | Color of the filled part of the track, from `--_accent`.                                                                                                             |
-| `--_track-height`          | Input  | Height of the track.                                                                                                                                                 |
-| `--_track-radius`          | Input  | Corner radius of the track.                                                                                                                                          |
+| Property                   | Kind   | Description                                                                                                                                                                                   |
+| -------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                | Input  | Color of the thumb, its ring and the track fill. Defaults to `--ui-choice-accent`, or `--ui-primary` when the theme doesn't set it, and is set by the invalid state.                          |
+| `--_duration`              | Output | Duration of the thumb ring transition, `--ui-duration-fast` times `--_motion`.                                                                                                                |
+| `--_ease`                  | Input  | Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.                                                                                                                  |
+| `--_forced-fill-color`     | Output | Thumb and fill color in forced colors mode. `GrayText` when disabled.                                                                                                                         |
+| `--_forced-track-color`    | Output | Track color in forced colors mode. `GrayText` when disabled.                                                                                                                                  |
+| `--_inset`                 | Output | Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`.                                                                               |
+| `--_motion`                | Input  | Motion multiplier for the thumb highlight and focus ring. `0` turns them off.                                                                                                                 |
+| `--_thumb-bg-color`        | Output | The current thumb color. From `--_accent`, set by the disabled state.                                                                                                                         |
+| `--_thumb-border-width`    | Input  | Width of the page-colored ring between the thumb and the track. Set on the `<input>`.                                                                                                         |
+| `--_thumb-highlight-color` | Output | Color of the ring around the thumb, from `--_accent` and `--ui-state-active-alpha`.                                                                                                           |
+| `--_thumb-highlight-size`  | Output | Current width of the ring around the thumb. Set by the hover and active states.                                                                                                               |
+| `--_thumb-offset`          | Output | Vertical offset that centers the thumb on the track.                                                                                                                                          |
+| `--_thumb-size`            | Input  | Width and height of the thumb. Larger on touch screens.                                                                                                                                       |
+| `--_track-base-color`      | Input  | Color of the empty track at rest. `--ui-track-color` when the theme sets it, otherwise the field border, and `--ui-surface-default` under more contrast; set by `.ui-filled` and `.ui-tonal`. |
+| `--_track-color`           | Output | The current track color, from `--_track-base-color`; set by the active and disabled states.                                                                                                   |
+| `--_track-fill`            | Output | How much of the track is filled, animated from the thumb position.                                                                                                                            |
+| `--_track-fill-color`      | Output | Color of the filled part of the track, from `--_accent`.                                                                                                                                      |
+| `--_track-height`          | Input  | Height of the track.                                                                                                                                                                          |
+| `--_track-radius`          | Input  | Corner radius of the track.                                                                                                                                                                   |
 
 ## Under the hood
 
@@ -391,11 +392,12 @@ Read the post: [Range sliders with datalist ticks](https://open-props-ui.netlify
    - In right-to-left the animation runs in reverse and the gradient moves to the right edge
    - Without scroll-driven animations there's no fill, the slider still works
    - Padding with an equal negative margin leaves room for the thumb and halo, `view-timeline-inset` and `outline-offset` take it back out
+   - `--inset` is half a thumb, and at least `0.5rem` for the halo, so it follows `--thumb-size`
 
 4. Halo
 
    - A `box-shadow` spread draws the ring, no extra element
-   - Relative color: the primary hue at a fixed lightness and 20% alpha
+   - Relative color: the primary hue at a fixed lightness, with the theme's `--ui-state-active-alpha`
    - The pseudo-elements inherit `--halo` from the input's `:hover` and `:active`
    - `:not([disabled])`: no halo on a disabled slider
    - Hover and drag the thumb
@@ -422,14 +424,14 @@ Step 1 of 5: Track
 
 .range::-webkit-slider-runnable-track {
   appearance: none;
-  background-color: var(--ui-border-color);
+  background-color: var(--ui-track-color, var(--ui-field-border-color));
   block-size: 0.75ex;
   border-radius: 1e5px;
 }
 
 .range::-moz-range-track {
   appearance: none;
-  background-color: var(--ui-border-color);
+  background-color: var(--ui-track-color, var(--ui-field-border-color));
   block-size: 0.75ex;
   border-radius: 1e5px;
 }
@@ -489,16 +491,17 @@ Step 3 of 5: Fill
 
 ```css
 .range {
+  --inset: max(0.5rem, var(--thumb-size) / 2);
   animation-fill-mode: both;
   animation-name: build-range-fill;
   animation-range: contain;
   animation-timeline: --thumb;
   animation-timing-function: linear;
   box-sizing: content-box;
-  margin: -0.75rem;
-  outline-offset: -0.75rem;
+  margin: calc(-1 * var(--inset));
+  outline-offset: calc(1ex - var(--inset));
   overflow: hidden;
-  padding: 0.75rem;
+  padding: var(--inset);
   timeline-scope: --thumb;
 }
 
@@ -508,7 +511,7 @@ Step 3 of 5: Fill
 
 .range::-webkit-slider-thumb {
   view-timeline: --thumb inline;
-  view-timeline-inset: 0.75rem;
+  view-timeline-inset: var(--inset);
 }
 
 .range::-webkit-slider-runnable-track {
@@ -546,12 +549,14 @@ Step 4 of 5: Halo
 }
 
 .range::-webkit-slider-thumb {
-  box-shadow: 0 0 0 var(--halo) oklch(from var(--ui-primary) 70% 100% h / 20%);
+  box-shadow: 0 0 0 var(--halo)
+    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha));
   transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
 }
 
 .range::-moz-range-thumb {
-  box-shadow: 0 0 0 var(--halo) oklch(from var(--ui-primary) 70% 100% h / 20%);
+  box-shadow: 0 0 0 var(--halo)
+    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha));
   transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
 }
 ```
@@ -623,3 +628,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
 - The thumb, its halo and the track fill follow `--_accent` on `.ui-range` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
+- [`--_track-base-color`](#component-properties) sets the empty track at rest, so filled and tonal tracks darken on press and take the disabled color.

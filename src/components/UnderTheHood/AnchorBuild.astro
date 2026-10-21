@@ -7,9 +7,9 @@ const steps = [
     css: `
 .card {
   background-color: var(--ui-surface-elevated);
-  border: 1px solid var(--ui-border-color);
-  border-radius: var(--radius-3);
-  box-shadow: var(--shadow-3);
+  border: 1px solid var(--ui-surface-default);
+  border-radius: var(--ui-border-radius);
+  box-shadow: var(--ui-shadow-raised);
   color: inherit;
   inline-size: 18rem;
   padding: 1rem;
@@ -102,7 +102,7 @@ const steps = [
     font-size: var(--ui-font-size-small);
 
     & p {
-      margin-block: var(--size-2) 0;
+      margin-block: var(--ui-space-2) 0;
     }
   }
 </style>

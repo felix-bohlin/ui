@@ -69,7 +69,7 @@ export default function Sizes() {
     <>
       <div className="example-row">
         <Switch name="switch-sizes" size="x-small" defaultChecked hideLabel>
-          x-small
+          X-small
         </Switch>
         <Switch name="switch-sizes" size="small" defaultChecked hideLabel>
           Small
@@ -83,7 +83,7 @@ export default function Sizes() {
       </div>
       <div className="example-row">
         <Switch name="switch-sizes" size="x-small" defaultChecked>
-          x-small
+          X-small
         </Switch>
         <Switch name="switch-sizes" size="small" defaultChecked>
           Small
@@ -266,7 +266,12 @@ export default function Validation() {
       </div>
 
       <div className="example-row ui-spacious">
-        <Switch name="switch-validation" error endText="Supporting text">
+        <Switch
+          name="switch-validation"
+          error
+          defaultChecked
+          endText="Supporting text"
+        >
           Default
         </Switch>
         <Switch name="switch-validation" error stack endText="Supporting text">
@@ -635,8 +640,8 @@ Accessible switches should have a label. The first two approaches are equally ok
 | `--ui-field-border-color`          | `color-mix( in oklch, var(--ui-text-primary) 50%, var(--ui-surface-default) )`                | Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch`, the `Range` track and the `Progress` outline. A 50% mix of the text color into the page, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make. |
 | `--ui-field-border-width`          | `1px`                                                                                         | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                                                                                                               |
 | `--ui-field-helper-color`          | `var(--ui-text-muted)`                                                                        | Text color for helper and end text under a field.                                                                                                                                                                                                                                                                        |
-| `--ui-field-helper-font-size`      | `var(--font-size-0)`                                                                          | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                         |
-| `--ui-field-helper-line-height`    | `var(--font-lineheight-3)`                                                                    | Line height for helper and end text under a field.                                                                                                                                                                                                                                                                       |
+| `--ui-field-helper-font-size`      | `var(--ui-font-size-caption)`                                                                 | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                         |
+| `--ui-field-helper-line-height`    | `var(--ui-line-height)`                                                                       | Line height for helper and end text under a field.                                                                                                                                                                                                                                                                       |
 | `--ui-field-label-color`           | `var(--ui-text-primary)`                                                                      | Text color for field labels.                                                                                                                                                                                                                                                                                             |
 | `--ui-field-label-font-size`       | `var(--ui-font-size-small)`                                                                   | Font size for field labels.                                                                                                                                                                                                                                                                                              |
 | `--ui-field-label-font-weight`     | `var(--ui-font-weight-semibold)`                                                              | Font weight for emphasized field labels and legends.                                                                                                                                                                                                                                                                     |
@@ -654,6 +659,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 | `--ui-space-1`                     | `calc(var(--size-1) * var(--ui-space-scale))`                                                 | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                                                                          |
 | `--ui-space-2`                     | `calc(var(--size-2) * var(--ui-space-scale))`                                                 | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                                                                          |
 | `--ui-space-4`                     | `calc(var(--size-4) * var(--ui-space-scale))`                                                 | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                                                                                                          |
+| `--ui-space-5`                     | `calc(var(--size-5) * var(--ui-space-scale))`                                                 | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`.                                                                                                                                                                                                                                                          |
 | `--ui-switch-dot-size`             | `calc(var(--size-3) * var(--ui-density))`                                                     | Diameter of the `Switch` dot.                                                                                                                                                                                                                                                                                            |
 | `--ui-switch-dot-size-large`       | `calc(var(--size-4) * var(--ui-density))`                                                     | Diameter of the `Switch` dot with `.ui-large`.                                                                                                                                                                                                                                                                           |
 | `--ui-switch-dot-size-small`       | `calc(0.75rem * var(--ui-density))`                                                           | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                                                                                                                                         |
@@ -695,8 +701,8 @@ Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and
 | `--ui-field-border-color`          | `color-mix( in oklch, var(--ui-text-primary) 50%, var(--ui-surface-default) )`                | Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch`, the `Range` track and the `Progress` outline. A 50% mix of the text color into the page, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make. |
 | `--ui-field-border-width`          | `1px`                                                                                         | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                                                                                                               |
 | `--ui-field-helper-color`          | `var(--ui-text-muted)`                                                                        | Text color for helper and end text under a field.                                                                                                                                                                                                                                                                        |
-| `--ui-field-helper-font-size`      | `var(--font-size-0)`                                                                          | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                         |
-| `--ui-field-helper-line-height`    | `var(--font-lineheight-3)`                                                                    | Line height for helper and end text under a field.                                                                                                                                                                                                                                                                       |
+| `--ui-field-helper-font-size`      | `var(--ui-font-size-caption)`                                                                 | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                         |
+| `--ui-field-helper-line-height`    | `var(--ui-line-height)`                                                                       | Line height for helper and end text under a field.                                                                                                                                                                                                                                                                       |
 | `--ui-field-label-color`           | `var(--ui-text-primary)`                                                                      | Text color for field labels.                                                                                                                                                                                                                                                                                             |
 | `--ui-field-label-font-size`       | `var(--ui-font-size-small)`                                                                   | Font size for field labels.                                                                                                                                                                                                                                                                                              |
 | `--ui-field-label-font-weight`     | `var(--ui-font-weight-semibold)`                                                              | Font weight for emphasized field labels and legends.                                                                                                                                                                                                                                                                     |
@@ -714,6 +720,7 @@ Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and
 | `--ui-space-1`                     | `calc(var(--size-1) * var(--ui-space-scale))`                                                 | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                                                                          |
 | `--ui-space-2`                     | `calc(var(--size-2) * var(--ui-space-scale))`                                                 | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                                                                          |
 | `--ui-space-4`                     | `calc(var(--size-4) * var(--ui-space-scale))`                                                 | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                                                                                                          |
+| `--ui-space-5`                     | `calc(var(--size-5) * var(--ui-space-scale))`                                                 | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`.                                                                                                                                                                                                                                                          |
 | `--ui-switch-dot-size`             | `calc(var(--size-3) * var(--ui-density))`                                                     | Diameter of the `Switch` dot.                                                                                                                                                                                                                                                                                            |
 | `--ui-switch-dot-size-large`       | `calc(var(--size-4) * var(--ui-density))`                                                     | Diameter of the `Switch` dot with `.ui-large`.                                                                                                                                                                                                                                                                           |
 | `--ui-switch-dot-size-small`       | `calc(0.75rem * var(--ui-density))`                                                           | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                                                                                                                                         |
@@ -750,8 +757,8 @@ The switch `<input>` without the label, for a custom layout such as the end of a
 | ------------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--ui-disabled-opacity`         | `0.64`                                                                                        | Opacity applied to disabled controls.                                                                                                                                   |
 | `--ui-field-helper-color`       | `var(--ui-text-muted)`                                                                        | Text color for helper and end text under a field.                                                                                                                       |
-| `--ui-field-helper-font-size`   | `var(--font-size-0)`                                                                          | Font size for helper and end text under a field.                                                                                                                        |
-| `--ui-field-helper-line-height` | `var(--font-lineheight-3)`                                                                    | Line height for helper and end text under a field.                                                                                                                      |
+| `--ui-field-helper-font-size`   | `var(--ui-font-size-caption)`                                                                 | Font size for helper and end text under a field.                                                                                                                        |
+| `--ui-field-helper-line-height` | `var(--ui-line-height)`                                                                       | Line height for helper and end text under a field.                                                                                                                      |
 | `--ui-field-label-color`        | `var(--ui-text-primary)`                                                                      | Text color for field labels.                                                                                                                                            |
 | `--ui-field-label-font-weight`  | `var(--ui-font-weight-semibold)`                                                              | Font weight for emphasized field labels and legends.                                                                                                                    |
 | `--ui-field-required-color`     | `var(--ui-invalid-text-color)`                                                                | Color of the required asterisk.                                                                                                                                         |
@@ -774,9 +781,9 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property                | Kind   | Description                                                                                                                                    |
 | ----------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`             | Input  | Fill and border of the checked track. `SelectedItem` in forced colors, `GrayText` when disabled.                                               |
+| `--_accent`             | Input  | Fill and border of the checked track. In forced colors `SelectedItem`, `GrayText` when disabled.                                               |
 | `--_accent-contrast`    | Input  | Color of the checked dot on `--_accent`. `SelectedItemText` in forced colors.                                                                  |
-| `--_dot-bg-color`       | Input  | Color of the unchecked dot. The checked dot uses `--_accent-contrast`.                                                                         |
+| `--_dot-bg-color`       | Input  | Color of the unchecked dot. Defaults to `--ui-switch-thumb-color`. The checked dot uses `--_accent-contrast`.                                  |
 | `--_dot-inset`          | Output | Gap between the dot and the track edge, computed from `--_track-height` and `--_dot-size`.                                                     |
 | `--_dot-outline-size`   | Output | Current outline width that grows the dot. Set by the checked and active states.                                                                |
 | `--_dot-size`           | Input  | Width and height of the dot. Defaults to `--ui-switch-dot-size`, set by the size classes.                                                      |
@@ -785,7 +792,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_icon-size`          | Output | Size of the `.ui-icon-checked` and `.ui-icon-unchecked` icons, computed to fit beside the dot.                                                 |
 | `--_input-size`         | Output | Height the label centers on, `--_track-height`.                                                                                                |
 | `--_motion`             | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                                     |
-| `--_track-bg-color`     | Input  | Background of the unchecked track. `--ui-track-color` when the theme sets it, otherwise a fixed gray.                                          |
+| `--_track-bg-color`     | Input  | Background of the unchecked track. `--ui-track-color` when the theme sets it, otherwise `--ui-switch-track-color`.                             |
 | `--_track-border-color` | Input  | Border of the unchecked track. Defaults to `--ui-field-border-color`, like the checkbox and radio borders. The checked track uses `--_accent`. |
 | `--_track-height`       | Input  | Height of the track. Defaults to `--ui-switch-track-height`, set by the size classes.                                                          |
 | `--_track-width`        | Input  | Width of the track. Defaults to `--ui-switch-track-width`, set by the size classes.                                                            |
@@ -798,12 +805,14 @@ Read the post: [A switch from a checkbox](https://open-props-ui.netlify.app/lear
 
    - A checkbox with `role="switch"`: announced as on/off, same form value
    - `appearance: none` frees both pseudo-elements, `::before` is the track
-   - `light-dark()` picks the colors per color scheme
+   - The theme's `--ui-switch-thumb-color` and `--ui-switch-track-color` pick the colors per color scheme
+   - The track border is the field border, so the track reaches 3:1
 
 2. Dot
 
    - `::after` is the dot
    - `:checked` moves it to the end: track − dot − gap
+   - Checked, it takes the checkbox's `--accent` and `--accent-contrast`, so the dot keeps 3:1 in dark mode
    - Logical insets, so it slides the other way in RTL
 
 3. Motion
@@ -823,7 +832,6 @@ Read the post: [A switch from a checkbox](https://open-props-ui.netlify.app/lear
 Step 1 of 4: Track
 
 - [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
-- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
 
 ```html
 <label class="label">
@@ -834,7 +842,7 @@ Step 1 of 4: Track
 
 ```css
 .switch {
-  --dot-color: light-dark(var(--ui-gray-11), var(--ui-gray-14));
+  --dot-color: var(--ui-switch-thumb-color);
 
   appearance: none;
   block-size: 1.5rem;
@@ -845,8 +853,8 @@ Step 1 of 4: Track
 }
 
 .switch::before {
-  background-color: light-dark(var(--ui-gray-3), var(--ui-gray-8));
-  border: 1px solid var(--dot-color);
+  background-color: var(--ui-track-color, var(--ui-switch-track-color));
+  border: var(--ui-field-border-width) solid var(--ui-field-border-color);
   border-radius: 1e5px;
   content: "";
   inset: 0;
@@ -856,9 +864,19 @@ Step 1 of 4: Track
 
 Step 2 of 4: Dot
 
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
 - [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
+.switch {
+  --accent: light-dark(
+    var(--ui-primary),
+    oklch(from var(--ui-primary) min(l, 0.62) c h)
+  );
+  --accent-contrast: light-dark(var(--ui-primary-contrast), var(--ui-text-on-accent));
+}
+
 .switch::after {
   background-color: var(--dot-color);
   block-size: 1rem;
@@ -871,12 +889,12 @@ Step 2 of 4: Dot
 }
 
 .switch:checked::before {
-  background-color: var(--ui-primary);
-  border-color: var(--ui-primary);
+  background-color: var(--accent);
+  border-color: var(--accent);
 }
 
 .switch:checked::after {
-  --dot-color: var(--ui-primary-contrast);
+  --dot-color: var(--accent-contrast);
 
   inset-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
 }
@@ -989,7 +1007,7 @@ Import the component from `opui-css/react`:
 - The unchecked track border is [`--ui-field-border-color`](#api), like the checkbox and radio borders.
 - The checked track reads [`--ui-choice-accent`](#api) and the unchecked track `--ui-track-color` when a theme sets them.
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
-- Without a [visible label](#visible-label), switches center in table cells and lines of text.
+- Without a [visible label](#visible-label), switches center in table cells and lines of text, and stay a 24px click target at every size.
 - `size` takes `"x-small"` and `"large"`. [Sizes](#sizes)
 - Breaking: `--_accent-color` is `--_accent`, and `--_transition-time` and `--_transition-tf` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
 - A switch without a [label](#labels), `aria-label` or `aria-labelledby` warns in development.

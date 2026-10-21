@@ -13,14 +13,14 @@ const steps = [
 
 .range::-webkit-slider-runnable-track {
   appearance: none;
-  background-color: var(--ui-border-color);
+  background-color: var(--ui-track-color, var(--ui-field-border-color));
   block-size: 0.75ex;
   border-radius: 1e5px;
 }
 
 .range::-moz-range-track {
   appearance: none;
-  background-color: var(--ui-border-color);
+  background-color: var(--ui-track-color, var(--ui-field-border-color));
   block-size: 0.75ex;
   border-radius: 1e5px;
 }`,
@@ -64,16 +64,17 @@ const steps = [
   {
     css: `
 .range {
+  --inset: max(0.5rem, var(--thumb-size) / 2);
   animation-fill-mode: both;
   animation-name: build-range-fill;
   animation-range: contain;
   animation-timeline: --thumb;
   animation-timing-function: linear;
   box-sizing: content-box;
-  margin: -0.75rem;
-  outline-offset: -0.75rem;
+  margin: calc(-1 * var(--inset));
+  outline-offset: calc(1ex - var(--inset));
   overflow: hidden;
-  padding: 0.75rem;
+  padding: var(--inset);
   timeline-scope: --thumb;
 }
 
@@ -83,7 +84,7 @@ const steps = [
 
 .range::-webkit-slider-thumb {
   view-timeline: --thumb inline;
-  view-timeline-inset: 0.75rem;
+  view-timeline-inset: var(--inset);
 }
 
 .range::-webkit-slider-runnable-track {
@@ -134,6 +135,7 @@ const steps = [
       "In right-to-left the animation runs in reverse and the gradient moves to the right edge",
       "Without scroll-driven animations there's no fill, the slider still works",
       "Padding with an equal negative margin leaves room for the thumb and halo, <code>view-timeline-inset</code> and <code>outline-offset</code> take it back out",
+      "<code>--inset</code> is half a thumb, and at least <code>0.5rem</code> for the halo, so it follows <code>--thumb-size</code>",
     ],
     title: "Fill",
   },
@@ -152,18 +154,20 @@ const steps = [
 }
 
 .range::-webkit-slider-thumb {
-  box-shadow: 0 0 0 var(--halo) oklch(from var(--ui-primary) 70% 100% h / 20%);
+  box-shadow: 0 0 0 var(--halo)
+    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha));
   transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
 }
 
 .range::-moz-range-thumb {
-  box-shadow: 0 0 0 var(--halo) oklch(from var(--ui-primary) 70% 100% h / 20%);
+  box-shadow: 0 0 0 var(--halo)
+    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha));
   transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
 }`,
     features: ["relative-color"],
     notes: [
       "A <code>box-shadow</code> spread draws the ring, no extra element",
-      "Relative color: the primary hue at a fixed lightness and 20% alpha",
+      "Relative color: the primary hue at a fixed lightness, with the theme's <code>--ui-state-active-alpha</code>",
       "The pseudo-elements inherit <code>--halo</code> from the input's <code>:hover</code> and <code>:active</code>",
       "<code>:not([disabled])</code>: no halo on a disabled slider",
       "Hover and drag the thumb",
@@ -241,7 +245,7 @@ const ticks = [0, 25, 50, 75, 100]
 <style>
   .field {
     display: grid;
-    gap: var(--size-1) 0;
+    gap: var(--ui-space-1) 0;
     grid-template-columns: 1fr auto;
     inline-size: min(100%, 20rem);
   }
@@ -258,7 +262,7 @@ const ticks = [0, 25, 50, 75, 100]
 
   .ticks {
     color: var(--ui-text-muted);
-    font-size: var(--font-size-0);
+    font-size: var(--ui-font-size-caption);
   }
 </style>
 

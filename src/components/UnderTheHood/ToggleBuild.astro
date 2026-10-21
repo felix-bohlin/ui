@@ -6,16 +6,16 @@ const steps = [
     css: `
 .toggle {
   align-items: center;
-  block-size: var(--ui-field-size);
+  block-size: var(--ui-button-size);
   border: 1px solid var(--ui-border-color);
   border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
   color: var(--ui-text-primary);
   cursor: pointer;
   display: inline-flex;
-  gap: var(--size-2);
+  gap: var(--ui-space-2);
   justify-content: center;
-  min-inline-size: var(--ui-field-size);
-  padding: 0 var(--size-2);
+  min-inline-size: var(--ui-button-size);
+  padding: 0 var(--ui-space-2);
   position: relative;
   user-select: none;
 }`,
@@ -38,16 +38,20 @@ const steps = [
 }
 
 .toggle:hover {
-  --bg: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
+  --bg: light-dark(
+    oklch(0% 0 0 / var(--ui-state-hover-alpha)),
+    oklch(100% 0 0 / var(--ui-state-hover-alpha-dark))
+  );
 }
 
 .toggle:has(input:checked) {
-  --bg: oklch(from var(--ui-primary) l c h / 25%);
+  --bg: var(--ui-selected, var(--ui-primary));
+  color: var(--ui-selected-contrast, var(--ui-primary-contrast));
 }`,
-    features: ["has", "light-dark", "relative-color"],
+    features: ["has", "light-dark"],
     notes: [
       "<code>:has(input:checked)</code>: the label styles itself from the checkbox state",
-      "Relative color turns <code>--ui-primary</code> into a 25% tint",
+      "A checked toggle is filled, so it reads as on without relying on a faint tint",
       "<code>light-dark()</code> picks the hover tint per color scheme",
     ],
     title: "Pressed",
@@ -64,8 +68,9 @@ const steps = [
 }
 
 .toggle:has(input:focus-visible) {
-  outline: 2px solid var(--ui-text-muted);
-  outline-offset: -6px;
+  outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+    var(--ui-focus-ring-color);
+  outline-offset: var(--ui-focus-ring-inset);
 }`,
     features: ["focus-visible"],
     notes: [

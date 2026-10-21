@@ -75,12 +75,12 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ### Progress API
 
-| Prop       | Type                   | Default   | Description                                                           |
-| ---------- | ---------------------- | --------- | --------------------------------------------------------------------- |
-| `children` | `Snippet`              | -         | Fallback content inside the `<progress>`.                             |
-| `max`      | `number` , `string`    | -         | The maximum value.                                                    |
-| `value`    | `number` , `string`    | -         | The current value. Omit it for an indeterminate state.                |
-| `variant`  | `"filled"` , `"tonal"` | `"tonal"` | The variant to use. Without one, the track looks the same as `tonal`. |
+| Prop       | Type                   | Default | Description                                                           |
+| ---------- | ---------------------- | ------- | --------------------------------------------------------------------- |
+| `children` | `Snippet`              | -       | Fallback content inside the `<progress>`.                             |
+| `max`      | `number` , `string`    | -       | The maximum value.                                                    |
+| `value`    | `number` , `string`    | -       | The current value. Omit it for an indeterminate state.                |
+| `variant`  | `"filled"` , `"tonal"` | -       | The variant to use. Without one, the track looks the same as `tonal`. |
 
 #### CSS variables
 
@@ -100,7 +100,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `style` goes to the root `<div>`.
+Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.
 
 ## Component properties
 
@@ -112,7 +112,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_bg-color`      | Input  | Color of the track. `--ui-track-color` when the theme sets it, otherwise `--ui-surface-tonal`; `.ui-filled` sets it to `--ui-surface-filled`. |
 | `--_duration`      | Output | Duration of the value transition, `--ui-duration` times `--_motion`.                                                                          |
 | `--_ease`          | Input  | Easing of the value transition. Defaults to `--ui-ease-enter`.                                                                                |
-| `--_loop-duration` | Input  | One cycle of the indeterminate animation, and of the pulse that replaces it when `--_motion` is `0`.                                          |
+| `--_loop-duration` | Input  | One cycle of the indeterminate animation, `--_loop-duration` times `--_motion`, and of the pulse that replaces it when `--_motion` is `0`.    |
 | `--_motion`        | Input  | Motion multiplier for the value transition and the indeterminate animation.                                                                   |
 
 ## Under the hood
@@ -130,6 +130,7 @@ Read the post: [Styling the native progress bar](https://open-props-ui.netlify.a
 
    - `appearance: none` drops the native look
    - The wrapper draws the track, so it can round and clip
+   - An `outline` in the field border color gives the track 3:1. It sits outside the box, so `overflow: hidden` doesn't clip it
    - The bar is left with the browser's default fill
 
 3. Value
@@ -171,11 +172,12 @@ Step 2 of 5: Track
 
 ```css
 .progress {
-  background-color: var(--ui-surface-tonal);
+  background-color: var(--ui-track-color, var(--ui-surface-tonal));
   block-size: 0.25rem;
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-border-radius);
   display: inline-block;
   inline-size: 100%;
+  outline: var(--ui-border-width) solid var(--ui-field-border-color);
   overflow: hidden;
   position: relative;
 }

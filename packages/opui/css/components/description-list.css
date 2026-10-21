@@ -11,7 +11,7 @@
 
     &.ui-dotted {
       --_border-style: dotted;
-      --_border-width: 2px;
+      --_border-width: var(--ui-border-width-thick);
     }
 
     & & {
@@ -35,8 +35,6 @@
       dt {
         display: block;
         font-weight: var(--ui-font-weight-bold);
-        overflow: hidden;
-        position: relative;
       }
 
       dd {
@@ -60,7 +58,7 @@
 
       &::after {
         background-color: transparent;
-        block-size: 2px;
+        block-size: var(--ui-border-width-thick);
         border-block-end: var(--_border-width) var(--_border-style)
           var(--ui-border-color);
         content: "";
@@ -68,7 +66,7 @@
       }
     }
 
-    @container (width <= 45ch) {
+    @container (inline-size <= 45ch) {
       &:not(.ui-inline) > .ui-item {
         align-items: normal;
         gap: 0;

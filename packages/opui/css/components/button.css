@@ -89,7 +89,6 @@
     &.ui-primary,
     /* Color inherited from Button Group. */
     :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) > & {
-      --_accent-contrast: var(--ui-primary-contrast);
       --_accent-tonal: var(--ui-palette-tint);
       --_accent-tonal-contrast: var(--ui-palette-tint-contrast);
 
@@ -128,6 +127,7 @@
     &.ui-primary,
     :where(.ui-button-group.ui-primary) > & {
       --_accent: var(--ui-primary);
+      --_accent-contrast: var(--ui-primary-contrast);
       --_accent-text: var(
         --ui-primary-text,
         light-dark(var(--_accent), oklch(from var(--_accent) max(l, 0.75) c h))

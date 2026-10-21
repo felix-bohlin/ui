@@ -27,8 +27,6 @@ export default {
     ...components(
       "The switch `<input>` without the label, for a custom layout such as the end of a list item. Attributes that aren't props go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.",
     ),
-    astro:
-      "The switch `<input>` without the label, for a custom layout such as the end of a list item. Other attributes go to the `<input>`. Inside a `FieldGroup`, it takes the group's `name`.",
   },
   options: [],
   page: "switch",

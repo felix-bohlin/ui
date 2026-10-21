@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "Fill and border of the checked track. `SelectedItem` in forced colors, `GrayText` when disabled.",
+      "Fill and border of the checked track. In forced colors `SelectedItem`, `GrayText` when disabled.",
     kind: "input",
   },
   "--_accent-contrast": {
@@ -13,7 +13,7 @@ export default {
   },
   "--_dot-bg-color": {
     description:
-      "Color of the unchecked dot. The checked dot uses `--_accent-contrast`.",
+      "Color of the unchecked dot. Defaults to `--ui-switch-thumb-color`. The checked dot uses `--_accent-contrast`.",
     kind: "input",
   },
   "--_dot-inset": {
@@ -55,7 +55,7 @@ export default {
   },
   "--_track-bg-color": {
     description:
-      "Background of the unchecked track. `--ui-track-color` when the theme sets it, otherwise a fixed gray.",
+      "Background of the unchecked track. `--ui-track-color` when the theme sets it, otherwise `--ui-switch-track-color`.",
     kind: "input",
   },
   "--_track-border-color": {

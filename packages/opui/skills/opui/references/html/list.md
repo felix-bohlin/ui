@@ -721,7 +721,7 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 | `--ui-font-size-small`           | `var(--ui-font-size-200)`                          | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                                                                                                                |
 | `--ui-font-weight-normal`        | `var(--font-weight-4)`                             | Font weight for body text, `List` text and `Button` keyboard shortcuts.                                                                                                                                                                                                                                                |
 | `--ui-icon-size`                 | `var(--size-4)`                                    | Default icon size inside components.                                                                                                                                                                                                                                                                                   |
-| `--ui-icon-size-small`           | `var(--size-3)`                                    | Icon size inside `Chip`.                                                                                                                                                                                                                                                                                               |
+| `--ui-icon-size-small`           | `var(--size-3)`                                    | Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.                                                                                                                                                                                                             |
 | `--ui-line-height-body`          | `1.6`                                              | Line height of body copy: prose, captions and `List` text.                                                                                                                                                                                                                                                             |
 | `--ui-primary`                   | `light-dark(var(--ui-color-9), var(--ui-color-6))` | Brand color for primary actions and accents.                                                                                                                                                                                                                                                                           |
 | `--ui-selected`                  | Unset                                              | Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` on toggles and `--ui-primary` at `--ui-state-active-alpha-accent` on list items and options. Pair it with `--ui-selected-contrast`. |
@@ -745,13 +745,13 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### List item API
 
-| Type       | Modifiers                                                                                 | Default | Description                                                                                                  |
-| ---------- | ----------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-| Border top | `.ui-border-top`                                                                          | -       | Adds a border above the item.                                                                                |
-| Colors     | `.ui-critical`                                                                            | -       | A destructive item in a [Menu](https://open-props-ui.netlify.app/html/components/menu.md).                   |
-| Controls   | `label.ui-checkbox`, `label.ui-radio`, `label.ui-switch`                                  | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.     |
-| Inset      | `.ui-inset`                                                                               | -       | Aligns the text with items that have start content.                                                          |
-| State      | `[aria-current="page"]`, `[aria-disabled="true"]`, `[aria-selected="true"]`, `[disabled]` | -       | Highlights a selected or current item, or dims a disabled one. Set it on the `<a>`, `<button>` or `<label>`. |
+| Type       | Modifiers                                                       | Default | Description                                                                                              |
+| ---------- | --------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| Border top | `.ui-border-top`                                                | -       | Adds a border above the item.                                                                            |
+| Colors     | `.ui-critical`                                                  | -       | A destructive item in a [Menu](https://open-props-ui.netlify.app/html/components/menu.md).               |
+| Controls   | `label.ui-checkbox`, `label.ui-radio`, `label.ui-switch`        | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`. |
+| Inset      | `.ui-inset`                                                     | -       | Aligns the text with items that have start content.                                                      |
+| State      | `[aria-current="page"]`, `[aria-disabled="true"]`, `[disabled]` | -       | Highlights the current item, or dims a disabled one. Set it on the `<a>`, `<button>` or `<label>`.       |
 
 #### Parts
 
@@ -770,7 +770,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | Variable                         | Default                                                           | Description                                                                                                                                                                                                                                                                                                            |
 | -------------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--ui-border-color`              | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                 | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                                                                                            |
-| `--ui-border-color-raised`       | `light-dark( var(--ui-border-color), var(--ui-surface-default) )` | Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog` and `Callout` without a severity. Defaults to `--ui-border-color` in light mode and the page background in dark mode.                                                                                                         |
+| `--ui-border-color-raised`       | `light-dark( var(--ui-border-color), var(--ui-surface-default) )` | Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. Defaults to `--ui-border-color` in light mode and the page background in dark mode.                                                                                       |
 | `--ui-border-radius`             | `var(--size-2)`                                                   | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                                                                       |
 | `--ui-border-width`              | `1px`                                                             | Default border width for components that draw a border.                                                                                                                                                                                                                                                                |
 | `--ui-choice-size-small`         | `calc(var(--size-3) * var(--ui-density))`                         | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                                                                                                                                                                                  |
@@ -786,7 +786,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-font-weight-bold`          | `var(--font-weight-7)`                                            | Font weight for headings, buttons and terms.                                                                                                                                                                                                                                                                           |
 | `--ui-font-weight-normal`        | `var(--font-weight-4)`                                            | Font weight for body text, `List` text and `Button` keyboard shortcuts.                                                                                                                                                                                                                                                |
 | `--ui-icon-size`                 | `var(--size-4)`                                                   | Default icon size inside components.                                                                                                                                                                                                                                                                                   |
-| `--ui-icon-size-small`           | `var(--size-3)`                                                   | Icon size inside `Chip`.                                                                                                                                                                                                                                                                                               |
+| `--ui-icon-size-small`           | `var(--size-3)`                                                   | Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.                                                                                                                                                                                                             |
 | `--ui-line-height-body`          | `1.6`                                                             | Line height of body copy: prose, captions and `List` text.                                                                                                                                                                                                                                                             |
 | `--ui-motion`                    | `1`                                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                                                                                                               |
 | `--ui-primary`                   | `light-dark(var(--ui-color-9), var(--ui-color-6))`                | Brand color for primary actions and accents.                                                                                                                                                                                                                                                                           |
@@ -800,7 +800,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-space-7`                   | `calc(var(--size-7) * var(--ui-space-scale))`                     | Spacing step 7: Open Props `--size-7` times `--ui-space-scale`.                                                                                                                                                                                                                                                        |
 | `--ui-state-active-alpha-accent` | `25%`                                                             | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                                                                                                      |
 | `--ui-state-hover-alpha-accent`  | `15%`                                                             | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                                                                                                        |
-| `--ui-surface-elevated`          | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                 | Background of elevated cards and accordions.                                                                                                                                                                                                                                                                           |
+| `--ui-surface-elevated`          | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                 | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                                                      |
 | `--ui-surface-filled`            | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                 | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                                                                                                  |
 | `--ui-surface-tonal`             | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                 | Background of tonal variants.                                                                                                                                                                                                                                                                                          |
 | `--ui-switch-dot-size-small`     | `calc(0.75rem * var(--ui-density))`                               | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                                                                                                                                       |
@@ -817,15 +817,15 @@ To make the item interactive, wrap the content in an `<a>`, `<button>` or `<labe
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property               | Kind  | Description                                                                                                                  |
-| ---------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`          | Input | Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.           |
-| `--_divider-color`     | Input | Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`.                 |
-| `--_hover-bg-color`    | Input | Background of hovered items, from `--ui-primary`.                                                                            |
-| `--_item-gap`          | Input | Gap between the content of an item. Smaller in `.ui-dense`.                                                                  |
-| `--_selected-bg-color` | Input | Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--_hover-bg-color`. |
-| `--_separator-space`   | Input | Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.                      |
-| `--_start-size`        | Input | Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.                     |
+| Property               | Kind  | Description                                                                                                                                                     |
+| ---------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_bg-color`          | Input | Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.                                              |
+| `--_divider-color`     | Input | Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-primary` in `.ui-tonal`. |
+| `--_hover-bg-color`    | Input | Background of hovered items, from `--ui-primary`.                                                                                                               |
+| `--_item-gap`          | Input | Gap between the content of an item. Smaller in `.ui-dense`.                                                                                                     |
+| `--_selected-bg-color` | Input | Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--_hover-bg-color`.                                    |
+| `--_separator-space`   | Input | Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.                                                         |
+| `--_start-size`        | Input | Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.                                                        |
 
 ## Under the hood
 
@@ -881,7 +881,7 @@ Step 1 of 4: Row
   align-items: center;
   display: flex;
   gap: var(--gap);
-  min-block-size: 2.5rem;
+  min-block-size: var(--ui-control-size);
   padding: 0.5rem 0.75rem;
   position: relative;
 }
@@ -898,7 +898,7 @@ Step 1 of 4: Row
 
 .text > * + * {
   color: var(--ui-text-muted);
-  font-size: var(--font-size-0);
+  font-size: var(--ui-font-size-caption);
 }
 ```
 
@@ -965,7 +965,6 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 ### What's new
 
-- Separators are [`--ui-border-color`](#api), so a theme's border color reaches them.
 - Selected and current items read [`--ui-selected`](#api) and `--ui-selected-contrast` when a theme sets them.
 - Smaller [start](#icon) and end icons.
 - Breaking: `.ui-divided` is removed. Use [`.ui-bordered`](#on-every-item).
@@ -974,3 +973,4 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
 - Breaking: `--_bg-color-hover` is `--_hover-bg-color` ([Under the hood](#under-the-hood)).
 - A checked [option](#radio) uses `--ui-state-active-alpha-accent`.
+- Breaking: rows no longer style `aria-selected="true"` on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with [`aria-current="page"`](#selected).

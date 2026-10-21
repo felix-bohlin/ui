@@ -390,6 +390,13 @@ Only direct `li`/`option` children (and options in a `[role="group"]`) are style
 
 `.ui-end` only sizes an `svg` that is its direct child. An icon wrapped in another element inside `.ui-end` keeps its own size.
 
+Rows are no longer styled by `aria-selected="true"` on a `li`, `a`, `button` or `label`, where ARIA doesn't allow it. Mark the current row with `aria-current="page"`. Options (`option` and `[role="option"]`) keep the selected style.
+
+```diff
+- <a aria-selected="true" href="/inbox">
++ <a aria-current="page" href="/inbox">
+```
+
 ## List item
 
 `as` only accepts `"a"`, `"button"` or `"div"` (types).

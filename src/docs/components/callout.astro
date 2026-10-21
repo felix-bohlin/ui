@@ -17,21 +17,29 @@ import Conditional from "../../components/Conditional.astro"
 import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
 
 const ThemeCSS = `/* ... */
-.ui-critical {
-  --ui-palette-source: oklch(0.58 0.21 var(--hue-red));
+:where(.ui-critical, .ui-del, del) {
+  --ui-palette-source: oklch(from var(--ui-critical) 0.58 0.21 h);
   --ui-palette-hue-rotate-by: 1;
 }
-.ui-info {
-  --ui-palette-source: oklch(0.58 0.21 var(--hue-blue));
+
+:where(.ui-info, abbr, dfn, .ui-abbr, .ui-dfn) {
+  --ui-palette-source: oklch(from var(--ui-info) 0.58 0.21 h);
   --ui-palette-hue-rotate-by: 1;
 }
-.ui-success {
-  --ui-palette-source: oklch(0.58 0.21 var(--hue-green));
+
+:where(.ui-success, .ui-ins, ins) {
+  --ui-palette-source: oklch(from var(--ui-success) 0.58 0.21 h);
   --ui-palette-hue-rotate-by: 1;
 }
-.ui-warning {
-  --ui-palette-source: oklch(0.58 0.21 var(--hue-orange));
+
+:where(.ui-warning) {
+  --ui-palette-source: oklch(from var(--ui-warning) 0.58 0.21 h);
   --ui-palette-hue-rotate-by: 1;
+}
+
+:where(.ui-neutral) {
+  --ui-palette-source: oklch(0.58 var(--ui-gray-chroma) var(--ui-gray-hue));
+  --ui-palette-hue-rotate-by: 0;
 }
 /* ... */`
 ---
@@ -143,7 +151,7 @@ const ThemeCSS = `/* ... */
       <UICallout severity="info">
         <UICalloutIcon />
         <UICalloutContent>
-          <strong>Icons and accessibility</strong>
+          <h3>Icons and accessibility</h3>
           <p>
             Omitting an icon is possible. However, it helps having one if you
             need to convey a specific kind of severity in your Callout message.

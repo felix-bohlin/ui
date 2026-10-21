@@ -1,1 +1,1 @@
-<div aria-busy="true"></div>
+<div aria-busy="true">Loading…</div>

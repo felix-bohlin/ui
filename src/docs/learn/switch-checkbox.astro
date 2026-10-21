@@ -42,15 +42,17 @@ import Code from "../../components/Code.astro"
     <Code
       lang="css"
       code={`[role="switch"] {
+  --dot-inset: calc((var(--track-height) - var(--dot-size)) / 2);
+
   appearance: none;
   position: relative;
 }
 
 [role="switch"]::after {
   background-color: var(--dot-color);
-  border-radius: var(--radius-round);
+  border-radius: var(--ui-radius-round);
   content: "";
-  inset-inline-start: var(--size-1);
+  inset-inline-start: var(--dot-inset);
   outline: var(--dot-outline-size) solid var(--dot-color);
   outline-offset: -1px;
   position: absolute;
@@ -62,9 +64,9 @@ import Code from "../../components/Code.astro"
 }
 
 [role="switch"]:checked::after {
-  --dot-outline-size: calc(var(--size-1) - 1px);
+  --dot-outline-size: calc(var(--dot-inset) - 1px);
 
-  inset-inline-start: calc(var(--track-width) - var(--dot-size) - var(--size-1));
+  inset-inline-start: calc(var(--track-width) - var(--dot-size) - var(--dot-inset));
 }`}
     />
   </section>

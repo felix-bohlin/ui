@@ -5,7 +5,7 @@ export default {
   css: ["card", "dialog"],
   notes: {
     default:
-      "Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`.",
+      "Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`. An `id` on `DialogHeader` only applies when the dialog has `aria-label` or `aria-labelledby`.",
     html: "Add `.ui-card` and `.ui-elevated` to the root for card styles.",
   },
   options: [

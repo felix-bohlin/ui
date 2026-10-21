@@ -15,7 +15,7 @@ const steps = [
   align-items: center;
   display: flex;
   gap: var(--gap);
-  min-block-size: 2.5rem;
+  min-block-size: var(--ui-control-size);
   padding: 0.5rem 0.75rem;
   position: relative;
 }
@@ -32,7 +32,7 @@ const steps = [
 
 .text > * + * {
   color: var(--ui-text-muted);
-  font-size: var(--font-size-0);
+  font-size: var(--ui-font-size-caption);
 }`,
     html: `
 <ul class="list">
@@ -183,7 +183,7 @@ const items = [
 <style>
   .list {
     border: var(--ui-border-width, 1px) solid var(--ui-border-color);
-    border-radius: var(--radius-2);
+    border-radius: var(--ui-border-radius);
     inline-size: min(100%, 22rem);
     margin: 0;
 
@@ -204,11 +204,11 @@ const items = [
 
   .end {
     color: var(--ui-text-muted);
-    font-size: var(--font-size-0);
+    font-size: var(--ui-font-size-caption);
 
     & kbd {
       color: inherit;
-      font-family: var(--font-mono);
+      font-family: var(--ui-font-code);
     }
   }
 </style>

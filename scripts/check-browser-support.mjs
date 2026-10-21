@@ -11,6 +11,10 @@ const componentsDir = fileURLToPath(
 const cssDir = fileURLToPath(
   new URL("../packages/opui/css/components", import.meta.url),
 )
+const coreDir = fileURLToPath(new URL("../packages/opui/core", import.meta.url))
+const themeFile = fileURLToPath(
+  new URL("../packages/opui/css/theme.css", import.meta.url),
+)
 
 const patterns = [
   { id: "anchor-positioning", pattern: /\b(anchor-name|position-anchor):/ },
@@ -19,14 +23,23 @@ const patterns = [
   { id: "container-style-queries", pattern: /@container style\(/ },
   { id: "corner-shape", pattern: /corner-shape:/ },
   { id: "dir-pseudo", pattern: /:dir\(/ },
+  {
+    id: "display-animation",
+    pattern: /\b(?:content-visibility|display)\s[^,;]*allow-discrete/,
+  },
   { id: "field-sizing", pattern: /field-sizing:/ },
   { id: "has", pattern: /:has\(/ },
   { id: "light-dark", pattern: /light-dark\(/ },
-  { id: "relative-color", pattern: /\(from / },
+  { id: "relative-color", pattern: /\(\s*from\s/ },
+  { id: "scrollbar-gutter", pattern: /scrollbar-gutter:/ },
+  { id: "user-pseudos", pattern: /:user-(?:in)?valid\b/ },
 ]
+
+const STYLESHEET = /@opui\/css\/components\/([\w-]+\.css)\?raw/g
 
 const files = await readdir(componentsDir)
 const components = {}
+const stylesheets = {}
 
 for (const file of files.sort()) {
   if (!file.endsWith(".astro")) continue
@@ -35,25 +48,54 @@ for (const file of files.sort()) {
   const match = content.match(/browserSupport=\{\[([\s\S]*?)\]\}/)
   if (!match) continue
   const ids = [...match[1].matchAll(/["']([^"']+)["']/g)].map((m) => m[1])
-  if (ids.length > 0) components[name] = ids
+  if (ids.length === 0) continue
+  components[name] = ids
+  stylesheets[name] = [
+    ...new Set([...content.matchAll(STYLESHEET)].map((m) => m[1])),
+  ].sort()
 }
 
+const readCss = (files) =>
+  Promise.all(
+    files.map((file) =>
+      access(file).then(
+        () => readFile(file, "utf-8"),
+        () => "",
+      ),
+    ),
+  ).then((sources) => sources.join("\n"))
+
+const shared = await readCss([
+  themeFile,
+  ...(await readdir(coreDir))
+    .filter((file) => file.endsWith(".css"))
+    .sort()
+    .map((file) => join(coreDir, file)),
+])
+
 const missing = []
+const unused = []
 
 for (const [comp, ids] of Object.entries(components)) {
-  const cssFile = join(cssDir, `${comp}.css`)
-  const css = await access(cssFile).then(
-    () => readFile(cssFile, "utf-8"),
-    () => "",
-  )
+  const css = await readCss(stylesheets[comp].map((file) => join(cssDir, file)))
   for (const { id, pattern } of patterns) {
     if (pattern.test(css) && !ids.includes(id)) missing.push(`${comp}: "${id}"`)
+    if (ids.includes(id) && !pattern.test(css) && !pattern.test(shared)) {
+      unused.push(`${comp}: "${id}"`)
+    }
   }
 }
 
 if (missing.length > 0) {
-  console.warn("browserSupport is missing ids that the page's own CSS uses:")
+  console.warn("browserSupport is missing ids that the page's stylesheets use:")
   for (const entry of missing) console.warn(`  ${entry}`)
+}
+
+if (unused.length > 0) {
+  console.warn(
+    "browserSupport lists ids that no stylesheet the page installs uses:",
+  )
+  for (const entry of unused) console.warn(`  ${entry}`)
 }
 
 const unknown = Object.entries(components).flatMap(([comp, ids]) =>

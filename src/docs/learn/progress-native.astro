@@ -28,6 +28,10 @@ import Code from "../../components/Code.astro"
         and clips the bar to its radius
       </li>
       <li>
+        An <code>outline</code> in the field border color gives the track 3:1. It
+        sits outside the box, so <code>overflow: hidden</code> doesn't clip it
+      </li>
+      <li>
         The value is a vendor pseudo-element: <code
           >::-webkit-progress-value</code
         > in Chromium and Safari, <code>::-moz-progress-bar</code> in Firefox

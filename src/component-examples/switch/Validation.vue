@@ -9,7 +9,7 @@ import { Switch } from "opui-css/vue"
   </div>
 
   <div class="example-row ui-spacious">
-    <Switch name="switch-validation" error>
+    <Switch name="switch-validation" error checked>
       Default
       <template #end-text>Supporting text</template>
     </Switch>

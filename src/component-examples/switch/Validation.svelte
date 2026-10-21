@@ -8,7 +8,7 @@
 </div>
 
 <div class="example-row ui-spacious">
-  <Switch name="switch-validation" error>
+  <Switch name="switch-validation" error checked>
     Default
     {#snippet endText()}Supporting text{/snippet}
   </Switch>

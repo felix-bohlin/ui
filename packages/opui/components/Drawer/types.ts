@@ -1,9 +1,9 @@
 export type Props = {
-  backdrop?: "transparent" | "blurred"
+  backdrop?: "blurred" | "transparent"
   closedby?: "any" | "closerequest" | "none"
   id?: string
   scrollLock?: boolean
-  side?: "inline-start" | "inline-end" | "block-start" | "block-end"
+  side?: "block-end" | "block-start" | "inline-end" | "inline-start"
 }
 
 export type DrawerContentProps = {}

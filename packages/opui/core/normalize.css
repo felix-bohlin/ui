@@ -36,7 +36,7 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     container-type: inline-size;
-    font-size: 1rem;
+    font-size: var(--ui-font-size-body);
     font-synthesis: style;
     font-weight: var(--ui-font-weight-normal);
     inline-size: 100%;

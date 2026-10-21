@@ -4,7 +4,7 @@ export default function Variants() {
   return (
     <>
       <Accordion>
-        <AccordionSummary>Text</AccordionSummary>
+        <AccordionSummary>Default</AccordionSummary>
         <AccordionContent>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus

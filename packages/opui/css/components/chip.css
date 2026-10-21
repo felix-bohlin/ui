@@ -54,24 +54,12 @@
     }
 
     &:is(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
-      --_dot-color: light-dark(
-        oklch(from var(--_accent) min(l, 0.6) c h),
-        oklch(from var(--_accent) max(l, 0.72) c h)
-      );
+      --_dot-color: var(--ui-palette-accent);
 
       &:where(:not(.ui-outlined)) {
-        --_bg-color: light-dark(
-          oklch(from var(--_accent) 0.96 calc(c * 0.25) h),
-          oklch(from var(--_accent) 0.3 calc(c * 0.35) h)
-        );
-        --_border-color: light-dark(
-          oklch(from var(--_accent) 0.86 calc(c * 0.5) h),
-          oklch(from var(--_accent) 0.42 calc(c * 0.5) h)
-        );
-        --_text-color: light-dark(
-          oklch(from var(--_accent) 0.4 c h),
-          oklch(from var(--_accent) 0.92 calc(c * 0.5) h)
-        );
+        --_bg-color: var(--ui-palette-tint-subtle);
+        --_border-color: var(--ui-palette-border);
+        --_text-color: var(--ui-palette-ink);
 
         &:where(button, a):where(:not(:disabled, [aria-disabled="true"])) {
           @media (hover: hover) {
@@ -128,7 +116,7 @@
 
     &.ui-dot.ui-neutral::before {
       background-color: transparent;
-      border: 2px solid var(--_dot-color);
+      border: var(--ui-border-width-thick) solid var(--_dot-color);
 
       @media (forced-colors: active) {
         border-color: CanvasText;

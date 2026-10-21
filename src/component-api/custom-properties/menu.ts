@@ -15,7 +15,7 @@ export default {
     kind: "input",
   },
   "--_border-width": {
-    description: "The border width.",
+    description: "The border width. Defaults to `--ui-border-width`.",
     kind: "input",
   },
   "--_divider-color": {

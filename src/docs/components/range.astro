@@ -23,6 +23,7 @@ export const description =
   browserSupport={[
     "color-mix",
     "container-queries",
+    "container-style-queries",
     "datalist",
     "dir-pseudo",
     "has",
@@ -59,16 +60,15 @@ export const description =
     <Conditional>
       <p slot="components">
         Use the <code>variant</code> prop to swap the track surface for better contrast
-        on different backgrounds. Without a variant, the track uses <code
-          >--ui-field-border-color</code
-        >, like the border of a text field.
+        on different backgrounds. Without one, the track uses <code
+          >--ui-track-color</code
+        >, or the field border color when the theme doesn't set it.
       </p>
       <p slot="html">
         Use the <code>.ui-filled</code> or <code>.ui-tonal</code>
         {" "}class to swap the track surface for better contrast on different
-        backgrounds. Without a class, the track uses <code
-          >--ui-field-border-color</code
-        >, like the border of a text field.
+        backgrounds. Without one, the track uses <code>--ui-track-color</code>,
+        or the field border color when the theme doesn't set it.
       </p>
     </Conditional>
     <AutoExample name="Surfaces" column spacious />
@@ -160,7 +160,8 @@ export const description =
       </p>
       <p slot="html">
         Use the <code>list</code> attribute on the <code>&lt;input&gt;</code> and
-        follow it with a <code>&lt;datalist&gt;</code> element containing{" "}
+        follow it with a <code>&lt;datalist aria-hidden="true"&gt;</code> element
+        containing{" "}
         <code>&lt;option&gt;</code> elements with <code>value</code> and{" "}
         <code>label</code> attributes.
       </p>

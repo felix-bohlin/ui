@@ -260,13 +260,13 @@ Step 1 of 5: Hint
 .tooltip {
   background-color: var(--ui-surface-inverse);
   border: 0;
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-radius-small);
   color: var(--ui-text-inverse);
   font-size: var(--ui-font-size-small);
   inset: auto;
-  line-height: 1.3;
-  margin: 0.5rem;
-  padding: 0.25rem 0.5rem;
+  line-height: var(--ui-line-height-tight);
+  margin: var(--ui-space-2);
+  padding: var(--ui-space-1) var(--ui-space-2);
   position-area: block-start;
 }
 ```

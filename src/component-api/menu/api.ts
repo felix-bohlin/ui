@@ -54,12 +54,14 @@ export default {
       prop: "closeOnClick",
     },
     {
-      class: ".ui-critical",
       description: "A destructive item (`critical` on an item).",
       frameworks: ["html"],
       group: "Colors",
-      part: "li",
       prop: "critical",
+      values: {
+        control: "li > :is(a, button).ui-critical",
+        item: "li.ui-critical",
+      },
     },
     {
       class: ".ui-dense",

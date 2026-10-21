@@ -8,7 +8,7 @@ const steps = [
   --border: var(--ui-surface-tonal);
   background-color: var(--ui-surface-default);
   border: 1px solid var(--border);
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-border-radius);
   color: var(--ui-text-primary);
   padding: 0.75rem;
 }
@@ -42,7 +42,7 @@ const steps = [
 
 .callout::before {
   background-color: var(--bg);
-  border-radius: calc(var(--radius-2) - 1px);
+  border-radius: calc(var(--ui-border-radius) - 1px);
   content: "";
   inset: 0;
   pointer-events: none;
@@ -88,14 +88,17 @@ const steps = [
 
 .callout:is(.info, .warning) {
   --bg: light-dark(
-    oklch(from var(--tone) 97% 0.06 calc(h + 1) / 20%),
+    oklch(from var(--tone) 93% 0.1 calc(h + 2) / 60%),
     oklch(from var(--tone) 71% 0.19 calc(h + 5) / 5%)
   );
   --border: light-dark(
     oklch(from var(--tone) 80% 0.16 calc(h + 4)),
     oklch(from var(--tone) 42% 0.17 calc(h + 10))
   );
-  --icon: oklch(from var(--tone) 53% 0.2 calc(h + 8));
+  --icon: light-dark(
+    oklch(from var(--tone) 53% 0.2 calc(h + 8)),
+    oklch(from var(--tone) 66% 0.2 calc(h + 6))
+  );
   color: light-dark(
     oklch(from var(--tone) 10% 0.05 calc(h + 15)),
     oklch(from var(--tone) 98% 0.03 h)
@@ -109,8 +112,8 @@ const steps = [
     notes: [
       "One source color per severity, every shade derived with <code>oklch(from …)</code>",
       "<code>light-dark()</code> picks the shade for each color scheme, no media query",
-      "A 20% tint in light, 5% in dark: the opaque surface underneath does the rest",
-      "The real palette derives 16 shades from <code>--ui-palette-source</code>, here seven are inlined",
+      "A 60% tint in light, 5% in dark: the opaque surface underneath does the rest",
+      "The real palette derives 16 shades from <code>--ui-palette-source</code>, and the theme picks them for roles like <code>--ui-palette-tint-subtle</code>. Here eight are inlined",
       "The icon draws with <code>currentColor</code>, so <code>color</code> tints fill and stroke icons alike",
     ],
     title: "Severity",
@@ -172,7 +175,7 @@ const callouts = [
 <style>
   .stack {
     display: grid;
-    gap: var(--size-2);
+    gap: var(--ui-space-2);
     inline-size: min(100%, 24rem);
   }
 
@@ -183,7 +186,7 @@ const callouts = [
 
     & h3 {
       color: inherit;
-      font-size: var(--font-size-1);
+      font-size: var(--ui-font-size-body);
       font-weight: var(--ui-font-weight-semibold);
     }
   }

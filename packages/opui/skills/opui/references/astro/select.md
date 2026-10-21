@@ -79,8 +79,8 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 import { Select } from "opui-css/astro"
 ---
 
-<Select label="x-small" size="x-small">
-  <option value="">x-small</option>
+<Select label="X-small" size="x-small">
+  <option value="">X-small</option>
   <option>Option Two</option>
   <option>Option Three</option>
 </Select>
@@ -466,8 +466,8 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `--ui-field-border-radius`       | Unset                                                                                         | Corner radius for fields. When unset, they follow `--ui-border-radius`, also where it's set on a part of the page.                                                                                                                                                                                                       |
 | `--ui-field-border-width`        | `1px`                                                                                         | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                                                                                                               |
 | `--ui-field-helper-color`        | `var(--ui-text-muted)`                                                                        | Text color for helper and end text under a field.                                                                                                                                                                                                                                                                        |
-| `--ui-field-helper-font-size`    | `var(--font-size-0)`                                                                          | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                         |
-| `--ui-field-helper-line-height`  | `var(--font-lineheight-3)`                                                                    | Line height for helper and end text under a field.                                                                                                                                                                                                                                                                       |
+| `--ui-field-helper-font-size`    | `var(--ui-font-size-caption)`                                                                 | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                         |
+| `--ui-field-helper-line-height`  | `var(--ui-line-height)`                                                                       | Line height for helper and end text under a field.                                                                                                                                                                                                                                                                       |
 | `--ui-field-label-color`         | `var(--ui-text-primary)`                                                                      | Text color for field labels.                                                                                                                                                                                                                                                                                             |
 | `--ui-field-label-font-size`     | `var(--ui-font-size-small)`                                                                   | Font size for field labels.                                                                                                                                                                                                                                                                                              |
 | `--ui-field-label-font-weight`   | `var(--ui-font-weight-semibold)`                                                              | Font weight for emphasized field labels and legends.                                                                                                                                                                                                                                                                     |
@@ -489,7 +489,7 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `--ui-font-weight-medium`        | `var(--font-weight-5)`                                                                        | Font weight for badges, overlines and group labels.                                                                                                                                                                                                                                                                      |
 | `--ui-font-weight-normal`        | `var(--font-weight-4)`                                                                        | Font weight for body text, `List` text and `Button` keyboard shortcuts.                                                                                                                                                                                                                                                  |
 | `--ui-icon-size`                 | `var(--size-4)`                                                                               | Default icon size inside components.                                                                                                                                                                                                                                                                                     |
-| `--ui-icon-size-small`           | `var(--size-3)`                                                                               | Icon size inside `Chip`.                                                                                                                                                                                                                                                                                                 |
+| `--ui-icon-size-small`           | `var(--size-3)`                                                                               | Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.                                                                                                                                                                                                               |
 | `--ui-invalid-color`             | `var(--ui-critical)`                                                                          | Color for invalid field borders, fills and outlines.                                                                                                                                                                                                                                                                     |
 | `--ui-invalid-text-color`        | `light-dark( var(--ui-invalid-color), oklch(from var(--ui-invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--ui-invalid-color` in dark mode so the text stays readable.                                                                                                                                                                                             |
 | `--ui-line-height`               | `1.5`                                                                                         | Line height of interface text: labels, helpers, choice labels and field hints.                                                                                                                                                                                                                                           |
@@ -511,7 +511,7 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `--ui-state-active-alpha-accent` | `25%`                                                                                         | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                                                                                                        |
 | `--ui-state-hover-alpha-accent`  | `15%`                                                                                         | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                                                                                                          |
 | `--ui-surface-default`           | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                             | Page and card background.                                                                                                                                                                                                                                                                                                |
-| `--ui-surface-elevated`          | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                             | Background of elevated cards and accordions.                                                                                                                                                                                                                                                                             |
+| `--ui-surface-elevated`          | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                             | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                                                        |
 | `--ui-surface-filled`            | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                                                                                                    |
 | `--ui-surface-tonal`             | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                             | Background of tonal variants.                                                                                                                                                                                                                                                                                            |
 | `--ui-switch-dot-size-small`     | `calc(0.75rem * var(--ui-density))`                                                           | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                                                                                                                                                                                         |
@@ -522,7 +522,7 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Other attributes go to the `<select>`, like `disabled`, `multiple`, `name` and `required`, and `class` and `style` go to the root `<label>`.
+Attributes that aren't props go to the `<select>`, like `disabled`, `multiple`, `name` and `required`, and `class` and `style` go to the root `<label>`.
 
 ## Component properties
 
@@ -536,25 +536,25 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 ### text-field.css
 
-| Property                     | Kind   | Description                                                                                                                              |
-| ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`                  | Input  | Border color of the focused `.ui-field`. Defaults to `--ui-primary`, `--ui-invalid-color` when invalid.                                  |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state. |
-| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                        |
-| `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                |
-| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                          |
-| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                                                |
-| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                                                           |
-| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                    |
-| `--_duration`                | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                 |
-| `--_ease`                    | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                      |
-| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                                                     |
-| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                                                        |
-| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                                                      |
-| `--_font-size`               | Input  | The font size of the control and affixes.                                                                                                |
-| `--_helper-color`            | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-color`, set by the invalid state.               |
-| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--ui-field-size`, set by the size classes.                                               |
-| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                               |
+| Property                     | Kind   | Description                                                                                                                                                          |
+| ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid-color` when invalid. |
+| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                             |
+| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                                    |
+| `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                            |
+| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                      |
+| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                                                                            |
+| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                                                                                       |
+| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                                                |
+| `--_duration`                | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                                             |
+| `--_ease`                    | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                                                  |
+| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                                                                                 |
+| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                                                                                    |
+| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                                                                                  |
+| `--_font-size`               | Input  | The font size of the control and affixes.                                                                                                                            |
+| `--_helper-color`            | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-color`, set by the invalid state.                                           |
+| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--ui-field-size`, set by the size classes.                                                                           |
+| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                                                           |
 
 ## Under the hood
 
@@ -578,7 +578,7 @@ Read the post: [A select you can style](https://open-props-ui.netlify.app/learn/
    - `::picker(select)` is the dropdown, a popover anchored to the select
    - The picker is see-through and rounded like the list, so no square corners show behind it
    - Options are ordinary boxes now: padding, `:hover`, `:checked`
-   - `::checkmark` hidden, the checked background marks the choice
+   - The browser's checkmark marks the choice, the tint only backs it up
    - Open the select
 
 4. Animate
@@ -614,8 +614,8 @@ Step 1 of 4: Base select
 
 .select {
   background-color: var(--ui-surface-default);
-  border: 1px solid var(--ui-border-color);
-  border-radius: var(--radius-2);
+  border: var(--ui-field-border-width) solid var(--ui-field-border-color);
+  border-radius: var(--ui-border-radius);
   inline-size: 100%;
   padding: 0;
 }
@@ -657,7 +657,7 @@ Step 2 of 4: Arrow
 }
 
 .select:open::picker-icon {
-  rotate: 180deg;
+  scale: 1 -1;
 }
 ```
 
@@ -669,15 +669,15 @@ Step 3 of 4: Picker
 .select::picker(select) {
   background: transparent;
   border: 0;
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-border-radius);
   box-shadow: var(--ui-shadow-overlay);
   padding: 0;
 }
 
 .list {
   background-color: var(--ui-surface-filled);
-  border: 1px solid var(--ui-border-color);
-  border-radius: var(--radius-2);
+  border: var(--ui-field-border-width) solid var(--ui-field-border-color);
+  border-radius: var(--ui-border-radius);
   padding: 0.5rem 0;
 }
 
@@ -689,12 +689,18 @@ Step 3 of 4: Picker
   background-color: oklch(from var(--ui-primary) l c h / 15%);
 }
 
-.list > option:checked {
-  background-color: oklch(from var(--ui-primary) l c h / 30%);
+.list > option::checkmark {
+  margin-inline-start: auto;
+  order: 1;
 }
 
-.list > option::checkmark {
-  display: none;
+.list > option:checked {
+  background-color: var(
+    --ui-selected,
+    oklch(
+      from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
+    )
+  );
 }
 ```
 
@@ -757,7 +763,7 @@ Import the component from `opui-css/astro`:
 
 - Small and x-small fields set their text in `--ui-font-size-small` and `--ui-font-size-caption`, like buttons.
 - The field border reaches 3:1 against the page by default, and the picker keeps the browser's checkmark on the selected option.
-- [Group labels](#groups) take a shade of the picker's surface instead of fixed grays.
+- [Group labels](#option-groups) take a shade of the picker's surface and `--ui-text-muted` instead of fixed grays.
 - The selected option reads [`--ui-selected`](#api) and `--ui-selected-contrast` when a theme sets them.
 - The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.
 - The chevron flips when the [picker](#variants) opens.

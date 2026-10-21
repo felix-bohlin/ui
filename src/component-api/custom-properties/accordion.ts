@@ -16,7 +16,7 @@ export default {
   },
   "--_actions-padding-inline": {
     description:
-      "Inline padding of `.ui-actions`. Defaults to `--_content-padding-inline`.",
+      "Inline padding of `.ui-actions`. Defaults to `--_content-padding-inline`, and at least the focus ring's space.",
     kind: "input",
   },
   "--_bg-color": {
@@ -24,7 +24,8 @@ export default {
     kind: "output",
   },
   "--_border-color": {
-    description: "The border color. Set by `.ui-outlined`.",
+    description:
+      "The border color. In `.ui-elevated` and `.ui-tonal`, `--ui-surface-border-color` when a theme sets it, otherwise `--ui-surface-default`. `--ui-border-color` in `.ui-outlined`.",
     kind: "output",
   },
   "--_border-radius": {
@@ -33,7 +34,7 @@ export default {
     kind: "input",
   },
   "--_border-width": {
-    description: "The border width. Set by `.ui-outlined`.",
+    description: "The border width. Set by the variants.",
     kind: "output",
   },
   "--_content-padding-block": {

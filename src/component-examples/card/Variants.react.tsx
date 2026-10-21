@@ -3,6 +3,10 @@ import { Card, CardContent } from "opui-css/react"
 export default function Variants() {
   return (
     <>
+      <Card>
+        <CardContent>Default</CardContent>
+      </Card>
+
       <Card variant="text">
         <CardContent>Text</CardContent>
       </Card>

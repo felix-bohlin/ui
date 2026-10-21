@@ -268,9 +268,9 @@ Step 1 of 4: Hint
 ```css
 .card {
   background-color: var(--ui-surface-elevated);
-  border: 1px solid var(--ui-border-color);
-  border-radius: var(--radius-3);
-  box-shadow: var(--shadow-3);
+  border: 1px solid var(--ui-surface-default);
+  border-radius: var(--ui-border-radius);
+  box-shadow: var(--ui-shadow-raised);
   color: inherit;
   inline-size: 18rem;
   padding: 1rem;
@@ -341,4 +341,3 @@ Import the components from `opui-css/vue`:
 
 - Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.
 - Breaking: [hover anchors](#hover-trigger) no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and put `interestfor` on the trigger.
-- Breaking: [hover anchors](#hover-trigger) require an `id`, which you pass to `interestfor` on the trigger.

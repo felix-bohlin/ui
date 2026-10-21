@@ -23,7 +23,6 @@
     border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--_border-radius);
     box-shadow: var(--_shadow);
-    color: var(--ui-text-primary);
     margin: 0;
     max-block-size: var(--_max-block-size);
     min-inline-size: var(--_min-inline-size);

@@ -12,7 +12,7 @@ export default {
   },
   "--_button-border-color": {
     description:
-      "Border color of the scroll buttons. `--ui-control-border-color` when the theme sets it, otherwise a shade of `--_button-bg-color`.",
+      "Border color of the scroll buttons. `--ui-control-filled-border-color` when the theme sets it, otherwise a shade of `--_button-bg-color`.",
     kind: "output",
   },
   "--_button-disabled-border-color": {
@@ -112,7 +112,8 @@ export default {
     kind: "input",
   },
   "--_marker-size": {
-    description: "Size of the markers.",
+    description:
+      "Size of the markers. The dot sits inside, inset by `--ui-space-2`.",
     kind: "input",
   },
   "--_markers-gap": {

@@ -26,14 +26,14 @@ import { Divider } from "opui-css/vue"
 </script>
 
 <template>
-  Tonal
-  <Divider variant="tonal" />
-
   Filled
   <Divider variant="filled" />
 
   Primary
   <Divider variant="primary" />
+
+  Tonal
+  <Divider variant="tonal" />
 </template>
 ```
 
@@ -79,7 +79,7 @@ import { Card, CardContent, Divider } from "opui-css/vue"
     </CardContent>
   </Card>
 
-  <div style="--ui-divider-space: var(--size-1)">
+  <div style="--ui-divider-space: var(--ui-space-1)">
     A custom space on any wrapper
     <Divider />
     reaches every divider inside it.
@@ -192,7 +192,7 @@ Step 4 of 5: Breathe
 
 ```css
 .divider {
-  margin-block: var(--size-fluid-3);
+  margin-block: var(--ui-divider-space);
 }
 ```
 

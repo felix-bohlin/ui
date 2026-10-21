@@ -4,7 +4,10 @@ export default {
   component: "TabsTab",
   options: [
     {
+      attribute: "[for]",
       description: "The id of the input it labels. Set by the item.",
+      group: "For",
+      htmlDescription: "The id of the input it labels.",
       prop: "tabId",
     },
   ],

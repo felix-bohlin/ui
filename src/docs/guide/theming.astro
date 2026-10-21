@@ -262,8 +262,9 @@ import Example from "../../components/Example/index"
   <section>
     <h2 id="elevation">Elevation</h2>
     <p>
-      Five shadows lift things off the page. <code>--ui-shadow-raised</code> is for
-      surfaces in the page, like elevated cards and accordions. It switches between
+      The shadow tokens lift things off the page. <code>--ui-shadow-raised</code
+      > is for surfaces in the page, like elevated cards and accordions. It switches
+      between
       <code>--ui-shadow-raised-light</code> and <code
         >--ui-shadow-raised-dark</code
       > with the color scheme, also in <code>.ui-light</code> and <code
@@ -277,6 +278,8 @@ import Example from "../../components/Example/index"
         >--ui-shadow-surface</code
       >
       is <code>none</code> too, for tonal and outlined cards and accordions, and callouts.
+      <code>--ui-shadow-scroll</code> shows under the header and above the footer
+      of scrolled dialogs and drawers, and under a sticky table header.
     </p>
     <Code
       code={`:where(html) {
@@ -347,8 +350,8 @@ import Example from "../../components/Example/index"
         >more</code
       >, and a style query raises the contrast of muted text, borders, field
       borders, the primary color, intent colors and the focus ring. Components
-      with translucent text, such as Tabs, keyboard hints and inline code,
-      follow along.
+      with their own tints, such as overlines, keyboard hints and inline code,
+      have a style query of their own and follow along.
     </p>
     <p>
       Optional theme tokens that carry contrast, such as <code
@@ -478,7 +481,7 @@ import Example from "../../components/Example/index"
 <style>
   .contrast-demo {
     display: grid;
-    gap: var(--size-4);
+    gap: var(--ui-space-4);
     grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
     inline-size: 100%;
 
@@ -486,7 +489,7 @@ import Example from "../../components/Example/index"
       align-items: start;
       display: flex;
       flex-direction: column;
-      gap: var(--size-3);
+      gap: var(--ui-space-3);
     }
 
     .ui-text-field {

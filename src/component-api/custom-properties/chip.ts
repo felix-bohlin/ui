@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "The color the background, border, text and dot are derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`.",
+      "The color the hover background of a colored button or link chip is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`.",
     kind: "input",
   },
   "--_bg-color": {
@@ -13,12 +13,12 @@ export default {
   },
   "--_border-color": {
     description:
-      "The current border color. Set by the color classes. `.ui-outlined` reads `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it.",
+      "The current border color. Defaults to `--ui-control-filled-border-color`, and `.ui-outlined` to `--ui-control-border-color`, both falling back to `--ui-border-color`. The color classes set it.",
     kind: "output",
   },
   "--_dot-color": {
     description:
-      "The color of the `.ui-dot` marker. `currentColor`, or derived from `--_accent`.",
+      "The color of the `.ui-dot` marker. `currentColor`, or `--ui-palette-accent` with a color class.",
     kind: "output",
   },
   "--_font-size": {

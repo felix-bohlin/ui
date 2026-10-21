@@ -23,11 +23,12 @@ const steps = [
   {
     css: `
 .progress {
-  background-color: var(--ui-surface-tonal);
+  background-color: var(--ui-track-color, var(--ui-surface-tonal));
   block-size: 0.25rem;
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-border-radius);
   display: inline-block;
   inline-size: 100%;
+  outline: var(--ui-border-width) solid var(--ui-field-border-color);
   overflow: hidden;
   position: relative;
 }
@@ -48,6 +49,7 @@ const steps = [
     notes: [
       "<code>appearance: none</code> drops the native look",
       "The wrapper draws the track, so it can round and clip",
+      "An <code>outline</code> in the field border color gives the track 3:1. It sits outside the box, so <code>overflow: hidden</code> doesn't clip it",
       "The bar is left with the browser's default fill",
     ],
     title: "Track",
@@ -134,7 +136,7 @@ const steps = [
 <style>
   .stack {
     display: grid;
-    gap: var(--size-5);
+    gap: var(--ui-space-5);
     inline-size: min(100%, 20rem);
   }
 </style>

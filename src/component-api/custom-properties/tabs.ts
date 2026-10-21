@@ -2,12 +2,13 @@ import type { CustomProperties } from "../types"
 
 export default {
   "--_active-bg-color": {
-    description: "Background of the selected tab. Set by the variant classes.",
+    description:
+      "Background of the selected tab. Defaults to `--ui-surface-default`, a translucent white in dark mode; the variant classes set it.",
     kind: "input",
   },
   "--_active-border-color": {
     description:
-      "Border color of the selected tab. `--ui-control-border-color`, or `--ui-field-border-color` when the theme doesn't set it, so the pill reaches 3:1 against the track; the variant classes set it.",
+      "Border color of the selected tab. `--ui-control-border-color`, or `--ui-field-border-color` when the theme doesn't set it, so the pill reaches 3:1 against the track; the variant classes set it to `transparent`.",
     kind: "input",
   },
   "--_active-shadow": {
@@ -22,7 +23,7 @@ export default {
   },
   "--_border-radius": {
     description:
-      "Corner radius of the track. The selected tab's radius is reduced by `--_inset`.",
+      "Corner radius of the track. The selected tab's radius is reduced by `--_inset` and `--_track-border-width`.",
     kind: "input",
   },
   "--_duration": {

@@ -128,7 +128,7 @@ Sizes come in two tiers. `--ui-font-size-100` to `--ui-font-size-900` are the ni
 
 ## Elevation
 
-Five shadows lift things off the page. `--ui-shadow-raised` is for surfaces in the page, like elevated cards and accordions. It switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page, so set those two. `--ui-shadow-overlay` is for layers above the page: menus, `select` pickers and drawers. `--ui-shadow-control` is for buttons with a variant and fields, and is `none` until a theme sets it, like a hard offset shadow. Set the optional `--ui-shadow-field` to give fields their own. `--ui-shadow-tab` is for the selected tab. `--ui-shadow-surface` is `none` too, for tonal and outlined cards and accordions, and callouts.
+The shadow tokens lift things off the page. `--ui-shadow-raised` is for surfaces in the page, like elevated cards and accordions. It switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page, so set those two. `--ui-shadow-overlay` is for layers above the page: menus, `select` pickers and drawers. `--ui-shadow-control` is for buttons with a variant and fields, and is `none` until a theme sets it, like a hard offset shadow. Set the optional `--ui-shadow-field` to give fields their own. `--ui-shadow-tab` is for the selected tab. `--ui-shadow-surface` is `none` too, for tonal and outlined cards and accordions, and callouts. `--ui-shadow-scroll` shows under the header and above the footer of scrolled dialogs and drawers, and under a sticky table header.
 
 ```css
 :where(html) {
@@ -172,7 +172,7 @@ transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease)
 
 ## Contrast
 
-The `--ui-contrast` variable is `normal` by default. If a user has `prefers-contrast: more` enabled, it is set to `more`, and a style query raises the contrast of muted text, borders, field borders, the primary color, intent colors and the focus ring. Components with translucent text, such as Tabs, keyboard hints and inline code, follow along.
+The `--ui-contrast` variable is `normal` by default. If a user has `prefers-contrast: more` enabled, it is set to `more`, and a style query raises the contrast of muted text, borders, field borders, the primary color, intent colors and the focus ring. Components with their own tints, such as overlines, keyboard hints and inline code, have a style query of their own and follow along.
 
 Optional theme tokens that carry contrast, such as `--ui-control-border-color`, `--ui-selected` and `--ui-primary-text`, are reset under more contrast, so the library's values win over a theme's. A theme that wants its own value there sets the token again inside its own `@container style(--ui-contrast: more)` block, as the example themes do for `--ui-button-accent`. Declared tokens, such as `--ui-primary` and `--ui-border-color`, are overridden the same way: the block in `theme.css` sets them on `body`, so a theme's `html` value gives way until the theme re-sets it there.
 

@@ -5,7 +5,7 @@ const steps = [
   {
     css: `
 .switch {
-  --dot-color: light-dark(var(--ui-gray-11), var(--ui-gray-14));
+  --dot-color: var(--ui-switch-thumb-color);
 
   appearance: none;
   block-size: 1.5rem;
@@ -16,14 +16,14 @@ const steps = [
 }
 
 .switch::before {
-  background-color: light-dark(var(--ui-gray-3), var(--ui-gray-8));
-  border: 1px solid var(--dot-color);
+  background-color: var(--ui-track-color, var(--ui-switch-track-color));
+  border: var(--ui-field-border-width) solid var(--ui-field-border-color);
   border-radius: 1e5px;
   content: "";
   inset: 0;
   position: absolute;
 }`,
-    features: ["appearance", "light-dark"],
+    features: ["appearance"],
     html: `
 <label class="label">
   <input class="switch" type="checkbox" role="switch" />
@@ -32,12 +32,21 @@ const steps = [
     notes: [
       "A checkbox with <code>role=&quot;switch&quot;</code>: announced as on/off, same form value",
       "<code>appearance: none</code> frees both pseudo-elements, <code>::before</code> is the track",
-      "<code>light-dark()</code> picks the colors per color scheme",
+      "The theme's <code>--ui-switch-thumb-color</code> and <code>--ui-switch-track-color</code> pick the colors per color scheme",
+      "The track border is the field border, so the track reaches 3:1",
     ],
     title: "Track",
   },
   {
     css: `
+.switch {
+  --accent: light-dark(
+    var(--ui-primary),
+    oklch(from var(--ui-primary) min(l, 0.62) c h)
+  );
+  --accent-contrast: light-dark(var(--ui-primary-contrast), var(--ui-text-on-accent));
+}
+
 .switch::after {
   background-color: var(--dot-color);
   block-size: 1rem;
@@ -50,19 +59,20 @@ const steps = [
 }
 
 .switch:checked::before {
-  background-color: var(--ui-primary);
-  border-color: var(--ui-primary);
+  background-color: var(--accent);
+  border-color: var(--accent);
 }
 
 .switch:checked::after {
-  --dot-color: var(--ui-primary-contrast);
+  --dot-color: var(--accent-contrast);
 
   inset-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
 }`,
-    features: ["logical-properties"],
+    features: ["light-dark", "logical-properties", "relative-color"],
     notes: [
       "<code>::after</code> is the dot",
       "<code>:checked</code> moves it to the end: track − dot − gap",
+      "Checked, it takes the checkbox's <code>--accent</code> and <code>--accent-contrast</code>, so the dot keeps 3:1 in dark mode",
       "Logical insets, so it slides the other way in RTL",
     ],
     title: "Dot",
@@ -193,14 +203,14 @@ const sun = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hi
 <style>
   .stack {
     display: grid;
-    gap: var(--size-3);
+    gap: var(--ui-space-3);
     justify-items: start;
   }
 
   .label {
     align-items: start;
     display: inline-grid;
-    gap: 0 var(--size-2);
+    gap: 0 var(--ui-space-2);
     grid-auto-flow: column;
   }
 

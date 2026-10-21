@@ -225,7 +225,7 @@ The scroll box has `role="region"`, an `aria-label` and `tabindex="0"`. A table 
 
 ## Advanced
 
-An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
+An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`. The headers that span columns have `scope="colgroup"` and the other column headers `scope="col"`, so screen readers read "Capital" together with "Major Cities".
 
 The first cell of each row is a row header, `<th scope="row">`. Row headers keep the body background, so only the column headers are filled.
 
@@ -241,16 +241,16 @@ The first cell of each row is a row header, `<th scope="row">`. Row headers keep
   </colgroup>
   <thead>
     <tr>
-      <th rowspan="2">Country</th>
-      <th colspan="3">Major Cities</th>
-      <th colspan="2">Nature</th>
+      <th rowspan="2" scope="col">Country</th>
+      <th colspan="3" scope="colgroup">Major Cities</th>
+      <th colspan="2" scope="colgroup">Nature</th>
     </tr>
     <tr>
-      <th>Capital</th>
-      <th>2nd Largest</th>
-      <th>3rd Largest</th>
-      <th>National Animal</th>
-      <th>National Bird</th>
+      <th scope="col">Capital</th>
+      <th scope="col">2nd Largest</th>
+      <th scope="col">3rd Largest</th>
+      <th scope="col">National Animal</th>
+      <th scope="col">National Bird</th>
     </tr>
   </thead>
   <tbody>
@@ -583,8 +583,8 @@ Step 5 of 5: Sticky header
 
 @container scroll-state(stuck: block-start) {
   .table > thead th {
-    box-shadow: var(--shadow-4);
-    clip-path: inset(0 0 -2rem);
+    box-shadow: var(--ui-shadow-scroll);
+    clip-path: inset(0 0 calc(-1 * var(--ui-space-6)));
   }
 }
 ```

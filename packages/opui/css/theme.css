@@ -50,8 +50,6 @@
     --ui-focus-ring-width: 2px;
 
     /* Typography */
-    --ui-code-block-background: var(--ui-color-15);
-    --ui-code-block-color: var(--ui-color-1);
     --ui-font-body: var(--font-sans);
     --ui-font-code: var(--font-mono);
     /* --ui-font-heading: var(--ui-font-body); */
@@ -148,8 +146,8 @@
     /* --ui-field-border-radius: var(--ui-border-radius); */
     --ui-field-border-width: 1px;
     --ui-field-helper-color: var(--ui-text-muted);
-    --ui-field-helper-font-size: var(--font-size-0);
-    --ui-field-helper-line-height: var(--font-lineheight-3);
+    --ui-field-helper-font-size: var(--ui-font-size-caption);
+    --ui-field-helper-line-height: var(--ui-line-height);
     --ui-field-label-color: var(--ui-text-primary);
     --ui-field-label-font-size: var(--ui-font-size-small);
     --ui-field-label-font-weight: var(--ui-font-weight-semibold);
@@ -207,8 +205,6 @@
     --ui-switch-dot-size-small: calc(0.75rem * var(--ui-density));
     --ui-switch-dot-size: calc(var(--size-3) * var(--ui-density));
     --ui-switch-dot-size-large: calc(var(--size-4) * var(--ui-density));
-    --ui-switch-thumb-color: light-dark(var(--ui-gray-11), var(--ui-gray-14));
-    --ui-switch-track-color: light-dark(var(--ui-gray-3), var(--ui-gray-8));
     --ui-switch-track-height-x-small: calc(var(--size-3) * var(--ui-density));
     --ui-switch-track-height-small: calc(var(--size-4) * var(--ui-density));
     --ui-switch-track-height: calc(var(--size-5) * var(--ui-density));
@@ -326,6 +322,14 @@
       var(--ui-field-border-color),
       var(--ui-surface-default)
     );
+
+    /* Typography */
+    --ui-code-block-background: var(--ui-color-15);
+    --ui-code-block-color: var(--ui-color-1);
+
+    /* Choice controls */
+    --ui-switch-thumb-color: light-dark(var(--ui-gray-11), var(--ui-gray-14));
+    --ui-switch-track-color: light-dark(var(--ui-gray-3), var(--ui-gray-8));
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -369,7 +373,7 @@
     --ui-palette-inverse-contrast: var(--ui-color-1);
     --ui-palette-text: light-dark(var(--ui-color-11), var(--ui-color-6));
     --ui-palette-tint: light-dark(var(--ui-color-6), var(--ui-color-11));
-    --ui-palette-tint-contrast: light-dark(var(--ui-gray-15), var(--ui-gray-1));
+    --ui-palette-tint-contrast: var(--ui-text-primary);
     --ui-palette-tint-subtle: light-dark(
       oklch(from var(--ui-color-3) l c h / 60%),
       oklch(from var(--ui-color-6) l c h / 5%)
@@ -413,7 +417,8 @@
       .ui-success,
       .ui-warning
     ),
-    .ui-card:is(.ui-elevated, .ui-tonal)
+    .ui-card:is(.ui-elevated, .ui-tonal),
+    dialog.ui-drawer
   ) {
     --ui-border-color: var(--ui-border-color-raised);
     --ui-field-border-color: var(--ui-field-border-color-raised);
@@ -473,6 +478,7 @@
         var(--ui-invalid-color),
         oklch(from var(--ui-invalid-color) max(l, 0.85) min(c, 0.1) h)
       );
+      --ui-neutral: light-dark(var(--ui-gray-11), var(--ui-gray-9));
       --ui-success: var(--ui-green);
 
       --ui-primary: light-dark(var(--ui-color-12), var(--ui-color-3));
@@ -550,6 +556,8 @@
       .ui-abbr,
       .ui-dfn
     ) {
+      --ui-palette-accent: light-dark(var(--ui-color-11), var(--ui-color-6));
+      --ui-palette-border: light-dark(var(--ui-color-9), var(--ui-color-7));
       --ui-palette-text: light-dark(var(--ui-color-12), var(--ui-color-3));
       --ui-palette-tint: light-dark(var(--ui-color-4), var(--ui-color-12));
     }

@@ -15,7 +15,10 @@ export default {
       prop: "open",
     },
     {
+      attribute: "[id]",
       description: "The id of the input. Generated when omitted.",
+      group: "Id",
+      htmlDescription: "The id of the input.",
       prop: "tabId",
     },
   ],

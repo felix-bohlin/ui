@@ -129,7 +129,7 @@ export default function Range({
         value={value}
       />
       {hasDatalist && (
-        <datalist id={listId}>
+        <datalist aria-hidden="true" id={listId}>
           {options?.map((option) =>
             typeof option === "object" ? (
               <option

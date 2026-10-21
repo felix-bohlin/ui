@@ -139,14 +139,15 @@ The term and the description stack when the list is `45ch` or narrower, and sit 
 
 #### CSS variables
 
-| Variable                | Default                                           | Description                                                     |
-| ----------------------- | ------------------------------------------------- | --------------------------------------------------------------- |
-| `--ui-border-color`     | `light-dark(var(--ui-gray-4), var(--ui-gray-12))` | Default border color for cards, lists, tables and dividers.     |
-| `--ui-border-width`     | `1px`                                             | Default border width for components that draw a border.         |
-| `--ui-font-weight-bold` | `var(--font-weight-7)`                            | Font weight for headings, buttons and terms.                    |
-| `--ui-space-1`          | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`. |
-| `--ui-space-3`          | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`. |
-| `--ui-text-muted`       | `light-dark(var(--ui-gray-13), var(--ui-gray-4))` | Body text color.                                                |
+| Variable                  | Default                                           | Description                                                                                                                                                                                                                                 |
+| ------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`       | `light-dark(var(--ui-gray-4), var(--ui-gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                 |
+| `--ui-border-width`       | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                                                     |
+| `--ui-border-width-thick` | `var(--border-size-2)`                            | Width of emphasized rules: the `Table` head and foot borders, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, and at one and a half times, the blockquote bar. |
+| `--ui-font-weight-bold`   | `var(--font-weight-7)`                            | Font weight for headings, buttons and terms.                                                                                                                                                                                                |
+| `--ui-space-1`            | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-space-3`            | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-text-muted`         | `light-dark(var(--ui-gray-13), var(--ui-gray-4))` | Body text color.                                                                                                                                                                                                                            |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -163,30 +164,31 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 Read the post: [Leader lines with grid](https://open-props-ui.netlify.app/learn/description-list-leader-lines)
 
-1. Stacked
+1. Row
 
    - A `<div>` around each `<dt>` and `<dd>` pair is valid HTML
    - One box per pair: easy to lay out, easy to space
-   - Stacked by default, so it works in any width
+   - Term and description share a row by default
 
-2. Container query
-
-   - The list measures itself, not the viewport
-   - Wider than `45ch`: term and description share a row
-   - Drag **Width** below the breakpoint and it stacks again
-
-3. Leader line
+2. Leader line
 
    - `::after` is a grid item too
    - `order` slots it between term and description
    - The `1fr` middle column stretches the line to fill the gap
 
-4. Dotted
+3. Dotted
 
    - The variant only sets two custom properties
    - The leader line rule stays the same
 
-Step 1 of 4: Stacked
+4. Container query
+
+   - The list measures itself, not the viewport
+   - `45ch` or narrower: the term stacks above the description, and the line goes
+   - Drag **Width** below the breakpoint to stack it
+   - `.inline` keeps the row at any width
+
+Step 1 of 4: Row
 
 ```html
 <dl class="dl">
@@ -205,11 +207,15 @@ Step 1 of 4: Stacked
 }
 
 .item {
+  align-items: baseline;
   display: grid;
+  gap: 0.25rem;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
 }
 
 .item + .item {
-  margin-block-start: 0.75rem;
+  margin-block-start: 0.25rem;
 }
 
 .item dt {
@@ -217,11 +223,42 @@ Step 1 of 4: Stacked
 }
 
 .item dd {
+  color: var(--ui-text-muted);
   margin: 0;
+  text-align: end;
 }
 ```
 
-Step 2 of 4: Container query
+Step 2 of 4: Leader line
+
+```css
+.bordered > .item {
+  grid-template-columns: auto 1fr auto;
+}
+
+.bordered > .item::after {
+  block-size: 2px;
+  border-block-end: var(--line-width, 1px) var(--line-style, solid)
+    var(--ui-border-color);
+  content: "";
+  order: 1;
+}
+
+.bordered > .item dd {
+  order: 2;
+}
+```
+
+Step 3 of 4: Dotted
+
+```css
+.dotted {
+  --line-style: dotted;
+  --line-width: 2px;
+}
+```
+
+Step 4 of 4: Container query
 
 - [Container queries ](https://webstatus.dev/features/container-queries)(Widely available): Chrome 105+, Edge 105+, Firefox 110+, Safari 16+
 
@@ -230,53 +267,26 @@ Step 2 of 4: Container query
   container-type: inline-size;
 }
 
-@container (width > 45ch) {
-  .item {
-    align-items: baseline;
-    gap: 0.25rem;
-    grid-template-columns: auto auto;
-    justify-content: space-between;
+@container (inline-size <= 45ch) {
+  .dl:not(.inline) > .item {
+    align-items: normal;
+    gap: 0;
+    grid-template-columns: none;
+    justify-content: normal;
   }
 
-  .item + .item {
-    margin-block-start: 0.25rem;
+  .dl:not(.inline) > .item + .item {
+    margin-block-start: 0.75rem;
   }
 
-  .item dd {
-    color: var(--ui-text-muted);
-    text-align: end;
-  }
-}
-```
-
-Step 3 of 4: Leader line
-
-```css
-@container (width > 45ch) {
-  .bordered > .item {
-    grid-template-columns: auto 1fr auto;
+  .dl:not(.inline) > .item dd {
+    color: inherit;
+    text-align: start;
   }
 
-  .bordered > .item::after {
-    block-size: 2px;
-    border-block-end: var(--line-width, 1px) var(--line-style, solid)
-      var(--ui-border-color);
-    content: "";
-    order: 1;
+  .dl:not(.inline) > .item::after {
+    content: none;
   }
-
-  .bordered > .item dd {
-    order: 2;
-  }
-}
-```
-
-Step 4 of 4: Dotted
-
-```css
-.dotted {
-  --line-style: dotted;
-  --line-width: 2px;
 }
 ```
 

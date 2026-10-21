@@ -14,7 +14,7 @@ const html = await calloutContext.provide({ severity }, () =>
 <article
   class:list={[
     "ui-callout",
-    variant && `ui-${variant}`,
+    variant && variant !== "tonal" && `ui-${variant}`,
     severity && `ui-${severity}`,
     className,
   ]}

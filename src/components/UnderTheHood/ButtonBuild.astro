@@ -8,7 +8,7 @@ const steps = [
   align-items: center;
   background-color: var(--ui-surface-tonal);
   border: 1px solid var(--ui-border-color);
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-button-border-radius, var(--ui-border-radius));
   color: var(--ui-text-primary);
   display: inline-flex;
   gap: 1ex;
@@ -109,7 +109,7 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width=
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--size-3);
+    gap: var(--ui-space-3);
     justify-content: center;
   }
 

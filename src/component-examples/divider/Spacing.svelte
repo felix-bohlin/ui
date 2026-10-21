@@ -12,7 +12,7 @@
   </CardContent>
 </Card>
 
-<div style="--ui-divider-space: var(--size-1)">
+<div style="--ui-divider-space: var(--ui-space-1)">
   A custom space on any wrapper
   <Divider />
   reaches every divider inside it.

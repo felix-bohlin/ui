@@ -9,15 +9,15 @@ const steps = [
 }
 
 .label {
-  font-size: var(--ui-font-size-small);
+  font-size: var(--ui-field-label-font-size);
   font-weight: 600;
-  margin-block-end: 0.25rem;
+  margin-block-end: var(--ui-space-1);
 }
 
 .field {
   background-color: var(--ui-surface-default);
   border: 1px solid var(--ui-field-border-color);
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-border-radius);
   display: grid;
 }
 
@@ -29,13 +29,19 @@ const steps = [
   inline-size: 100%;
   line-height: 1.5;
   outline: 0;
-  padding: 0.5rem;
+  padding: var(--ui-space-2);
 }
 
 .textarea:focus-within .field {
   border-color: var(--ui-primary);
+}
+
+.field:has(:focus-visible) {
+  outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+    var(--ui-focus-ring-color);
+  outline-offset: var(--ui-focus-ring-offset);
 }`,
-    features: ["textarea"],
+    features: ["focus-visible", "textarea"],
     html: `
 <label class="textarea">
   <span class="label">Notes</span>
@@ -46,6 +52,7 @@ const steps = [
     notes: [
       "Same wrapper and field box as the text field",
       "<code>rows</code> fixes the height, the content scrolls",
+      "A 1px border color change alone is too weak a focus cue, so <code>:has(:focus-visible)</code> also draws the focus ring around the box",
     ],
     title: "Field",
   },
@@ -67,7 +74,7 @@ const steps = [
     css: `
 .field textarea {
   max-block-size: var(--_max-block-size, 20lh);
-  min-block-size: calc(0.5rem * 2 + 3lh);
+  min-block-size: calc(var(--ui-space-2) * 2 + 3lh);
   resize: block;
 }`,
     features: ["lh"],
@@ -141,7 +148,7 @@ const notes = [
 <style>
   .stack {
     display: grid;
-    gap: var(--size-4);
+    gap: var(--ui-space-4);
     inline-size: min(100%, 22rem);
   }
 </style>

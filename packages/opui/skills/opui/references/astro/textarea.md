@@ -307,8 +307,8 @@ import { Textarea } from "opui-css/astro"
 | `--ui-field-border-radius`      | Unset                                                                                         | Corner radius for fields. When unset, they follow `--ui-border-radius`, also where it's set on a part of the page.                                                                                                                                                                                                       |
 | `--ui-field-border-width`       | `1px`                                                                                         | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                                                                                                               |
 | `--ui-field-helper-color`       | `var(--ui-text-muted)`                                                                        | Text color for helper and end text under a field.                                                                                                                                                                                                                                                                        |
-| `--ui-field-helper-font-size`   | `var(--font-size-0)`                                                                          | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                         |
-| `--ui-field-helper-line-height` | `var(--font-lineheight-3)`                                                                    | Line height for helper and end text under a field.                                                                                                                                                                                                                                                                       |
+| `--ui-field-helper-font-size`   | `var(--ui-font-size-caption)`                                                                 | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                         |
+| `--ui-field-helper-line-height` | `var(--ui-line-height)`                                                                       | Line height for helper and end text under a field.                                                                                                                                                                                                                                                                       |
 | `--ui-field-label-color`        | `var(--ui-text-primary)`                                                                      | Text color for field labels.                                                                                                                                                                                                                                                                                             |
 | `--ui-field-label-font-size`    | `var(--ui-font-size-small)`                                                                   | Font size for field labels.                                                                                                                                                                                                                                                                                              |
 | `--ui-field-label-font-weight`  | `var(--ui-font-weight-semibold)`                                                              | Font weight for emphasized field labels and legends.                                                                                                                                                                                                                                                                     |
@@ -326,6 +326,7 @@ import { Textarea } from "opui-css/astro"
 | `--ui-font-size-control`        | `var(--ui-font-size-300)`                                                                     | Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. Small and x-small sizes read `--ui-font-size-small` and `--ui-font-size-caption`. Defaults to `--ui-font-size-300`.                                                                                                     |
 | `--ui-font-size-small`          | `var(--ui-font-size-200)`                                                                     | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                                                                                                                  |
 | `--ui-icon-size`                | `var(--size-4)`                                                                               | Default icon size inside components.                                                                                                                                                                                                                                                                                     |
+| `--ui-icon-size-small`          | `var(--size-3)`                                                                               | Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.                                                                                                                                                                                                               |
 | `--ui-invalid-color`            | `var(--ui-critical)`                                                                          | Color for invalid field borders, fills and outlines.                                                                                                                                                                                                                                                                     |
 | `--ui-invalid-text-color`       | `light-dark( var(--ui-invalid-color), oklch(from var(--ui-invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--ui-invalid-color` in dark mode so the text stays readable.                                                                                                                                                                                             |
 | `--ui-line-height`              | `1.5`                                                                                         | Line height of interface text: labels, helpers, choice labels and field hints.                                                                                                                                                                                                                                           |
@@ -353,25 +354,25 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 ### text-field.css
 
-| Property                     | Kind   | Description                                                                                                                              |
-| ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`                  | Input  | Border color of the focused `.ui-field`. Defaults to `--ui-primary`, `--ui-invalid-color` when invalid.                                  |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state. |
-| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                        |
-| `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                |
-| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                          |
-| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                                                |
-| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                                                           |
-| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                    |
-| `--_duration`                | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                 |
-| `--_ease`                    | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                      |
-| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                                                     |
-| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                                                        |
-| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                                                      |
-| `--_font-size`               | Input  | The font size of the control and affixes.                                                                                                |
-| `--_helper-color`            | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-color`, set by the invalid state.               |
-| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--ui-field-size`, set by the size classes.                                               |
-| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                               |
+| Property                     | Kind   | Description                                                                                                                                                          |
+| ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid-color` when invalid. |
+| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                             |
+| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                                    |
+| `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                            |
+| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                      |
+| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                                                                            |
+| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                                                                                       |
+| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                                                |
+| `--_duration`                | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                                             |
+| `--_ease`                    | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                                                  |
+| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                                                                                 |
+| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                                                                                    |
+| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                                                                                  |
+| `--_font-size`               | Input  | The font size of the control and affixes.                                                                                                                            |
+| `--_helper-color`            | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-color`, set by the invalid state.                                           |
+| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--ui-field-size`, set by the size classes.                                                                           |
+| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                                                           |
 
 ### textarea.css
 
@@ -387,6 +388,7 @@ Read the post: [Textareas that grow with field-sizing](https://open-props-ui.net
 
    - Same wrapper and field box as the text field
    - `rows` fixes the height, the content scrolls
+   - A 1px border color change alone is too weak a focus cue, so `:has(:focus-visible)` also draws the focus ring around the box
 
 2. Grow
 
@@ -408,6 +410,7 @@ Read the post: [Textareas that grow with field-sizing](https://open-props-ui.net
 
 Step 1 of 4: Field
 
+- [`:focus-visible` ](https://webstatus.dev/features/focus-visible)(Widely available): Chrome 86+, Edge 86+, Firefox 85+, Safari 15.4+
 - [\<textarea> ](https://webstatus.dev/features/textarea)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
 
 ```html
@@ -425,15 +428,15 @@ Step 1 of 4: Field
 }
 
 .label {
-  font-size: var(--ui-font-size-small);
+  font-size: var(--ui-field-label-font-size);
   font-weight: 600;
-  margin-block-end: 0.25rem;
+  margin-block-end: var(--ui-space-1);
 }
 
 .field {
   background-color: var(--ui-surface-default);
   border: 1px solid var(--ui-field-border-color);
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-border-radius);
   display: grid;
 }
 
@@ -445,11 +448,17 @@ Step 1 of 4: Field
   inline-size: 100%;
   line-height: 1.5;
   outline: 0;
-  padding: 0.5rem;
+  padding: var(--ui-space-2);
 }
 
 .textarea:focus-within .field {
   border-color: var(--ui-primary);
+}
+
+.field:has(:focus-visible) {
+  outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+    var(--ui-focus-ring-color);
+  outline-offset: var(--ui-focus-ring-offset);
 }
 ```
 
@@ -471,7 +480,7 @@ Step 3 of 4: Limits
 ```css
 .field textarea {
   max-block-size: var(--_max-block-size, 20lh);
-  min-block-size: calc(0.5rem * 2 + 3lh);
+  min-block-size: calc(var(--ui-space-2) * 2 + 3lh);
   resize: block;
 }
 ```

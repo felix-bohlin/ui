@@ -31,8 +31,8 @@ import Code from "../../components/Code.astro"
         a degree per step
       </li>
       <li>
-        The callout picks shades with <code>light-dark()</code>, so dark mode
-        needs no media query
+        The theme picks the shades for each role with <code>light-dark()</code>,
+        so dark mode needs no media query. The callout only reads the roles
       </li>
       <li>
         The tint sits on a translucent <code>::before</code> layer over the opaque
@@ -43,18 +43,19 @@ import Code from "../../components/Code.astro"
       lang="css"
       code={`.info {
   --ui-palette-source: oklch(0.58 0.21 var(--hue-blue));
-  --ui-color-2: oklch(from var(--ui-palette-source) 97% calc(0.06 * c / 0.21) calc(h + 1));
-  --ui-color-5: oklch(from var(--ui-palette-source) 80% calc(0.16 * c / 0.21) calc(h + 4));
-  --ui-color-9: oklch(from var(--ui-palette-source) 53% calc(0.2 * c / 0.21) calc(h + 8));
+  --ui-color-3: oklch(from var(--ui-palette-source) 93% calc(0.1 * c / 0.21) calc(h + 2));
+  --ui-color-6: oklch(from var(--ui-palette-source) 71% calc(0.19 * c / 0.21) calc(h + 5));
+  --ui-palette-tint-subtle: light-dark(
+    oklch(from var(--ui-color-3) l c h / 60%),
+    oklch(from var(--ui-color-6) l c h / 5%)
+  );
 }
 
 .callout.info {
-  --bg-color: light-dark(
-    oklch(from var(--ui-color-2) l c h / 20%),
-    oklch(from var(--ui-color-6) l c h / 5%)
-  );
-  --border-color: light-dark(var(--ui-color-5), var(--ui-color-11));
-  --icon-color: var(--ui-color-9);
+  --bg-color: var(--ui-palette-tint-subtle);
+  --border-color: var(--ui-palette-border);
+  --icon-color: var(--ui-palette-accent);
+  color: var(--ui-palette-ink);
 }`}
     />
   </section>

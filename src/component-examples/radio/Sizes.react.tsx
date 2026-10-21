@@ -42,7 +42,7 @@ export default function Sizes() {
       </div>
       <div className="example-row">
         <Radio name="radio-sizes-x-small" size="x-small" value="other">
-          x-small
+          X-small
         </Radio>
         <Radio name="radio-sizes-small" size="small" value="other">
           Small

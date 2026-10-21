@@ -5,11 +5,10 @@ export default {
   component: "Progress",
   notes: {
     ...components(
-      "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `style` goes to the root `<div>`.",
-    ),
-    astro:
       "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.",
-    vue: "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.",
+    ),
+    react:
+      "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `className` and `style` go to the root `<div>`.",
   },
   options: [
     {
@@ -25,11 +24,9 @@ export default {
       type: "number | string",
     },
     {
-      default: '"tonal"',
       description:
         "The variant to use. Without one, the track looks the same as `tonal`.",
       group: "Variants",
-      htmlDefault: null,
       prop: "variant",
       values: {
         filled: ".ui-filled",

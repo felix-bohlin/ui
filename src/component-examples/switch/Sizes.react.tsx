@@ -5,7 +5,7 @@ export default function Sizes() {
     <>
       <div className="example-row">
         <Switch name="switch-sizes" size="x-small" defaultChecked hideLabel>
-          x-small
+          X-small
         </Switch>
         <Switch name="switch-sizes" size="small" defaultChecked hideLabel>
           Small
@@ -19,7 +19,7 @@ export default function Sizes() {
       </div>
       <div className="example-row">
         <Switch name="switch-sizes" size="x-small" defaultChecked>
-          x-small
+          X-small
         </Switch>
         <Switch name="switch-sizes" size="small" defaultChecked>
           Small

@@ -48,8 +48,10 @@ import Code from "../../components/Code.astro"
       </li>
       <li>
         Padding and an equal negative margin leave room for the thumb and its
-        halo without moving anything. <code>view-timeline-inset</code> takes it back
-        out of the timeline, <code>outline-offset</code> out of the focus ring
+        halo without moving anything. The inset is half a thumb, and at least
+        {" "}<code>0.5rem</code> for the halo. <code>view-timeline-inset</code> takes
+        it back out of the timeline, <code>outline-offset</code> out of the focus
+        ring
       </li>
       <li>
         <code>display: flex</code> brings the datalist back, and <code
@@ -80,16 +82,17 @@ import Code from "../../components/Code.astro"
 }
 
 input[type="range"] {
+  --inset: max(0.5rem, 3ex / 2);
   animation-fill-mode: both;
   animation-name: range-fill;
   animation-range: contain;
   animation-timeline: --thumb;
   animation-timing-function: linear;
   box-sizing: content-box;
-  margin: -0.75rem;
-  outline-offset: -0.75rem;
+  margin: calc(-1 * var(--inset));
+  outline-offset: calc(1ex - var(--inset));
   overflow: hidden;
-  padding: 0.75rem;
+  padding: var(--inset);
   timeline-scope: --thumb;
 }
 
@@ -99,7 +102,7 @@ input[type="range"]:dir(rtl) {
 
 input[type="range"]::-webkit-slider-thumb {
   view-timeline: --thumb inline;
-  view-timeline-inset: 0.75rem;
+  view-timeline-inset: var(--inset);
 }
 
 input[type="range"]::-webkit-slider-runnable-track {

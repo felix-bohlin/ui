@@ -4,7 +4,10 @@
     --_actions-gap: var(--ui-space-1);
     --_actions-margin-block-start: 0;
     --_actions-padding-block-end: var(--_summary-padding-block);
-    --_actions-padding-inline: var(--_content-padding-inline);
+    --_actions-padding-inline: max(
+      var(--_content-padding-inline),
+      var(--ui-focus-ring-offset) + var(--ui-focus-ring-width)
+    );
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-radius: var(--ui-border-radius);
@@ -16,7 +19,7 @@
     --_focus-ring-offset: var(--ui-focus-ring-offset);
     --_margin-inline: var(--ui-space-1);
     --_overflow: visible;
-    --_padding-inline: 0;
+    --_padding-inline: 0em;
     --_shadow: none;
     --_summary-padding-block: var(--ui-space-3);
     --_summary-padding-inline: var(--_padding-inline);
@@ -47,7 +50,10 @@
     }
 
     &:is(.ui-elevated, .ui-tonal) {
-      --_border-color: var(--ui-surface-border-color, transparent);
+      --_border-color: var(
+        --ui-surface-border-color,
+        var(--ui-surface-default)
+      );
       --_border-width: var(--ui-border-width);
 
       @media (forced-colors: active) {
@@ -179,7 +185,7 @@
     display: block;
 
     &:not(.ui-elevated, .ui-outlined, .ui-tonal) {
-      --_item-padding-inline: 0;
+      --_item-padding-inline: 0em;
     }
 
     & > details.ui-accordion {

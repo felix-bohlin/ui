@@ -13,7 +13,7 @@ provide(CalloutKey, reactive({ severity: computed(() => severity) }))
   <article
     :class="[
       'ui-callout',
-      variant && `ui-${variant}`,
+      variant && variant !== 'tonal' && `ui-${variant}`,
       severity && `ui-${severity}`,
       $props.class,
     ]"

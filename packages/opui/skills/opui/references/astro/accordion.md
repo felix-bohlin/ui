@@ -59,7 +59,7 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 ---
 
 <Accordion>
-  <AccordionSummary>Text</AccordionSummary>
+  <AccordionSummary>Default</AccordionSummary>
   <AccordionContent>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
@@ -335,34 +335,34 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 
 #### CSS variables
 
-| Variable                    | Default                                                                           | Description                                                                                                                                                                                                                                                        |
-| --------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--ui-border-color`         | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                                 | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                                        |
-| `--ui-border-radius`        | `var(--size-2)`                                                                   | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                   |
-| `--ui-border-width`         | `1px`                                                                             | Default border width for components that draw a border.                                                                                                                                                                                                            |
-| `--ui-duration`             | `0.2s`                                                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                                          |
-| `--ui-ease`                 | `ease`                                                                            | Default easing for transitions.                                                                                                                                                                                                                                    |
-| `--ui-focus-ring-color`     | `rgb( from var(--ui-surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                                                   |
-| `--ui-focus-ring-inset`     | `calc(-1 * var(--ui-focus-ring-width))`                                           | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                                                  |
-| `--ui-focus-ring-offset`    | `2px`                                                                             | Distance between a control and its focus ring.                                                                                                                                                                                                                     |
-| `--ui-focus-ring-style`     | `solid`                                                                           | Outline style of the focus ring.                                                                                                                                                                                                                                   |
-| `--ui-focus-ring-width`     | `2px`                                                                             | Width of the focus ring.                                                                                                                                                                                                                                           |
-| `--ui-font-size-body`       | `var(--ui-font-size-300)`                                                         | Font size of body copy, `Card` text and the `Callout` title. Defaults to `--ui-font-size-300`.                                                                                                                                                                     |
-| `--ui-font-size-caption`    | `var(--ui-font-size-100)`                                                         | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.                                                     |
-| `--ui-font-weight-bold`     | `var(--font-weight-7)`                                                            | Font weight for headings, buttons and terms.                                                                                                                                                                                                                       |
-| `--ui-line-height-tight`    | `1.25`                                                                            | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                                                                                       |
-| `--ui-motion`               | `1`                                                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).                                                          |
-| `--ui-shadow-raised`        | `var(--ui-shadow-raised-light)` `var(--ui-shadow-raised-dark)` in dark mode       | Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one.              |
-| `--ui-shadow-surface`       | `none`                                                                            | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                                                     |
-| `--ui-space-1`              | `calc(var(--size-1) * var(--ui-space-scale))`                                     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                    |
-| `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`                                     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                    |
-| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                    |
-| `--ui-space-4`              | `calc(var(--size-4) * var(--ui-space-scale))`                                     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                                                    |
-| `--ui-surface-border-color` | Unset                                                                             | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards use the page background color, so they stay visible on tonal surfaces, accordions have a transparent border, and callouts their tonal background. |
-| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                 | Page and card background.                                                                                                                                                                                                                                          |
-| `--ui-surface-elevated`     | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                 | Background of elevated cards and accordions.                                                                                                                                                                                                                       |
-| `--ui-surface-tonal`        | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                 | Background of tonal variants.                                                                                                                                                                                                                                      |
-| `--ui-text-muted`           | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`                                 | Body text color.                                                                                                                                                                                                                                                   |
+| Variable                    | Default                                                                           | Description                                                                                                                                                                                                                                           |
+| --------------------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`         | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                                 | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                           |
+| `--ui-border-radius`        | `var(--size-2)`                                                                   | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                      |
+| `--ui-border-width`         | `1px`                                                                             | Default border width for components that draw a border.                                                                                                                                                                                               |
+| `--ui-duration`             | `0.2s`                                                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                             |
+| `--ui-ease`                 | `ease`                                                                            | Default easing for transitions.                                                                                                                                                                                                                       |
+| `--ui-focus-ring-color`     | `rgb( from var(--ui-surface-default) calc(255 - r) calc(255 - g) calc(255 - b) )` | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                                      |
+| `--ui-focus-ring-inset`     | `calc(-1 * var(--ui-focus-ring-width))`                                           | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                                     |
+| `--ui-focus-ring-offset`    | `2px`                                                                             | Distance between a control and its focus ring.                                                                                                                                                                                                        |
+| `--ui-focus-ring-style`     | `solid`                                                                           | Outline style of the focus ring.                                                                                                                                                                                                                      |
+| `--ui-focus-ring-width`     | `2px`                                                                             | Width of the focus ring.                                                                                                                                                                                                                              |
+| `--ui-font-size-body`       | `var(--ui-font-size-300)`                                                         | Font size of body copy, `Card` text and the `Callout` title. Defaults to `--ui-font-size-300`.                                                                                                                                                        |
+| `--ui-font-size-caption`    | `var(--ui-font-size-100)`                                                         | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.                                        |
+| `--ui-font-weight-bold`     | `var(--font-weight-7)`                                                            | Font weight for headings, buttons and terms.                                                                                                                                                                                                          |
+| `--ui-line-height-tight`    | `1.25`                                                                            | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                                                                          |
+| `--ui-motion`               | `1`                                                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).                                             |
+| `--ui-shadow-raised`        | `var(--ui-shadow-raised-light)` `var(--ui-shadow-raised-dark)` in dark mode       | Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one. |
+| `--ui-shadow-surface`       | `none`                                                                            | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                                        |
+| `--ui-space-1`              | `calc(var(--size-1) * var(--ui-space-scale))`                                     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                       |
+| `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`                                     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                       |
+| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                       |
+| `--ui-space-4`              | `calc(var(--size-4) * var(--ui-space-scale))`                                     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                                       |
+| `--ui-surface-border-color` | Unset                                                                             | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.           |
+| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                 | Page and card background.                                                                                                                                                                                                                             |
+| `--ui-surface-elevated`     | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                 | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                     |
+| `--ui-surface-tonal`        | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                 | Background of tonal variants.                                                                                                                                                                                                                         |
+| `--ui-text-muted`           | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`                                 | Body text color.                                                                                                                                                                                                                                      |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
@@ -379,26 +379,27 @@ Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To 
 
 #### CSS variables
 
-| Variable                    | Default                                                                     | Description                                                                                                                                                                                                                                                        |
-| --------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--ui-border-color`         | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                                        |
-| `--ui-border-radius`        | `var(--size-2)`                                                             | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                   |
-| `--ui-border-width`         | `1px`                                                                       | Default border width for components that draw a border.                                                                                                                                                                                                            |
-| `--ui-duration`             | `0.2s`                                                                      | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                                          |
-| `--ui-ease`                 | `ease`                                                                      | Default easing for transitions.                                                                                                                                                                                                                                    |
-| `--ui-focus-ring-inset`     | `calc(-1 * var(--ui-focus-ring-width))`                                     | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                                                  |
-| `--ui-focus-ring-offset`    | `2px`                                                                       | Distance between a control and its focus ring.                                                                                                                                                                                                                     |
-| `--ui-font-weight-bold`     | `var(--font-weight-7)`                                                      | Font weight for headings, buttons and terms.                                                                                                                                                                                                                       |
-| `--ui-motion`               | `1`                                                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).                                                          |
-| `--ui-shadow-raised`        | `var(--ui-shadow-raised-light)` `var(--ui-shadow-raised-dark)` in dark mode | Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one.              |
-| `--ui-shadow-surface`       | `none`                                                                      | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                                                     |
-| `--ui-space-1`              | `calc(var(--size-1) * var(--ui-space-scale))`                               | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                    |
-| `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`                               | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                    |
-| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                               | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                    |
-| `--ui-surface-border-color` | Unset                                                                       | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards use the page background color, so they stay visible on tonal surfaces, accordions have a transparent border, and callouts their tonal background. |
-| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                           | Page and card background.                                                                                                                                                                                                                                          |
-| `--ui-surface-elevated`     | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                           | Background of elevated cards and accordions.                                                                                                                                                                                                                       |
-| `--ui-surface-tonal`        | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                           | Background of tonal variants.                                                                                                                                                                                                                                      |
+| Variable                    | Default                                                                     | Description                                                                                                                                                                                                                                           |
+| --------------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`         | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                           | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                           |
+| `--ui-border-radius`        | `var(--size-2)`                                                             | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                      |
+| `--ui-border-width`         | `1px`                                                                       | Default border width for components that draw a border.                                                                                                                                                                                               |
+| `--ui-duration`             | `0.2s`                                                                      | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                             |
+| `--ui-ease`                 | `ease`                                                                      | Default easing for transitions.                                                                                                                                                                                                                       |
+| `--ui-focus-ring-inset`     | `calc(-1 * var(--ui-focus-ring-width))`                                     | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                                     |
+| `--ui-focus-ring-offset`    | `2px`                                                                       | Distance between a control and its focus ring.                                                                                                                                                                                                        |
+| `--ui-focus-ring-width`     | `2px`                                                                       | Width of the focus ring.                                                                                                                                                                                                                              |
+| `--ui-font-weight-bold`     | `var(--font-weight-7)`                                                      | Font weight for headings, buttons and terms.                                                                                                                                                                                                          |
+| `--ui-motion`               | `1`                                                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).                                             |
+| `--ui-shadow-raised`        | `var(--ui-shadow-raised-light)` `var(--ui-shadow-raised-dark)` in dark mode | Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one. |
+| `--ui-shadow-surface`       | `none`                                                                      | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                                        |
+| `--ui-space-1`              | `calc(var(--size-1) * var(--ui-space-scale))`                               | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                       |
+| `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`                               | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                       |
+| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                               | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                       |
+| `--ui-surface-border-color` | Unset                                                                       | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.           |
+| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                           | Page and card background.                                                                                                                                                                                                                             |
+| `--ui-surface-elevated`     | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                           | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                     |
+| `--ui-surface-tonal`        | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                           | Background of tonal variants.                                                                                                                                                                                                                         |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
@@ -406,32 +407,32 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
 
-| Property                         | Kind   | Description                                                                                                     |
-| -------------------------------- | ------ | --------------------------------------------------------------------------------------------------------------- |
-| `--_actions-gap`                 | Input  | Space between the buttons in `.ui-actions`.                                                                     |
-| `--_actions-margin-block-start`  | Input  | Space above `.ui-actions`.                                                                                      |
-| `--_actions-padding-block-end`   | Input  | Bottom padding of `.ui-actions`. Defaults to `--_summary-padding-block`.                                        |
-| `--_actions-padding-inline`      | Input  | Inline padding of `.ui-actions`. Defaults to `--_content-padding-inline`.                                       |
-| `--_bg-color`                    | Output | The background. Set by the variants.                                                                            |
-| `--_border-color`                | Output | The border color. Set by `.ui-outlined`.                                                                        |
-| `--_border-radius`               | Input  | The corner radius, also of the `summary` focus ring. Defaults to `--ui-border-radius`.                          |
-| `--_border-width`                | Output | The border width. Set by `.ui-outlined`.                                                                        |
-| `--_content-padding-block`       | Input  | Block padding of `.ui-content`.                                                                                 |
-| `--_content-padding-inline`      | Input  | Inline padding of `.ui-content`. Defaults to `--_padding-inline`.                                               |
-| `--_divider-color`               | Input  | Color of the border between items in a group. Defaults to `--ui-border-color`.                                  |
-| `--_duration`                    | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                                 |
-| `--_ease`                        | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                             |
-| `--_focus-ring-offset`           | Input  | Offset of the `summary` focus ring. The variants and groups move it inside.                                     |
-| `--_group-radius`                | Input  | Corner radius of the first and last item in a group. Defaults to `--ui-border-radius`.                          |
-| `--_item-padding-inline`         | Input  | Inline padding of the items in a group. `0` when the card has no variant.                                       |
-| `--_item-summary-padding-inline` | Input  | Inline padding of the item `summary` in a group. Defaults to `--_item-padding-inline`.                          |
-| `--_margin-inline`               | Input  | The inline margin. `0` in the variants and groups.                                                              |
-| `--_motion`                      | Input  | Motion multiplier for `--_duration`. `0` turns the transitions off.                                             |
-| `--_overflow`                    | Output | The overflow. Set to `hidden` by the variants.                                                                  |
-| `--_padding-inline`              | Input  | Inline padding of `summary`, `.ui-content` and `.ui-actions`. Set by the variants.                              |
-| `--_shadow`                      | Output | The shadow. `.ui-elevated` sets `--ui-shadow-raised`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`. |
-| `--_summary-padding-block`       | Input  | Block padding of `summary`.                                                                                     |
-| `--_summary-padding-inline`      | Input  | Inline padding of `summary`. Defaults to `--_padding-inline`.                                                   |
+| Property                         | Kind   | Description                                                                                                                                                                     |
+| -------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_actions-gap`                 | Input  | Space between the buttons in `.ui-actions`.                                                                                                                                     |
+| `--_actions-margin-block-start`  | Input  | Space above `.ui-actions`.                                                                                                                                                      |
+| `--_actions-padding-block-end`   | Input  | Bottom padding of `.ui-actions`. Defaults to `--_summary-padding-block`.                                                                                                        |
+| `--_actions-padding-inline`      | Input  | Inline padding of `.ui-actions`. Defaults to `--_content-padding-inline`, and at least the focus ring's space.                                                                  |
+| `--_bg-color`                    | Output | The background. Set by the variants.                                                                                                                                            |
+| `--_border-color`                | Output | The border color. In `.ui-elevated` and `.ui-tonal`, `--ui-surface-border-color` when a theme sets it, otherwise `--ui-surface-default`. `--ui-border-color` in `.ui-outlined`. |
+| `--_border-radius`               | Input  | The corner radius, also of the `summary` focus ring. Defaults to `--ui-border-radius`.                                                                                          |
+| `--_border-width`                | Output | The border width. Set by the variants.                                                                                                                                          |
+| `--_content-padding-block`       | Input  | Block padding of `.ui-content`.                                                                                                                                                 |
+| `--_content-padding-inline`      | Input  | Inline padding of `.ui-content`. Defaults to `--_padding-inline`.                                                                                                               |
+| `--_divider-color`               | Input  | Color of the border between items in a group. Defaults to `--ui-border-color`.                                                                                                  |
+| `--_duration`                    | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                                                                                                 |
+| `--_ease`                        | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                                                             |
+| `--_focus-ring-offset`           | Input  | Offset of the `summary` focus ring. The variants and groups move it inside.                                                                                                     |
+| `--_group-radius`                | Input  | Corner radius of the first and last item in a group. Defaults to `--ui-border-radius`.                                                                                          |
+| `--_item-padding-inline`         | Input  | Inline padding of the items in a group. `0` when the card has no variant.                                                                                                       |
+| `--_item-summary-padding-inline` | Input  | Inline padding of the item `summary` in a group. Defaults to `--_item-padding-inline`.                                                                                          |
+| `--_margin-inline`               | Input  | The inline margin. `0` in the variants and groups.                                                                                                                              |
+| `--_motion`                      | Input  | Motion multiplier for `--_duration`. `0` turns the transitions off.                                                                                                             |
+| `--_overflow`                    | Output | The overflow. Set to `hidden` by the variants.                                                                                                                                  |
+| `--_padding-inline`              | Input  | Inline padding of `summary`, `.ui-content` and `.ui-actions`. Set by the variants.                                                                                              |
+| `--_shadow`                      | Output | The shadow. `.ui-elevated` sets `--ui-shadow-raised`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`.                                                                 |
+| `--_summary-padding-block`       | Input  | Block padding of `summary`.                                                                                                                                                     |
+| `--_summary-padding-inline`      | Input  | Inline padding of `summary`. Defaults to `--_padding-inline`.                                                                                                                   |
 
 ## Under the hood
 
@@ -450,7 +451,9 @@ Read the post: [An accordion that animates to auto](https://open-props-ui.netlif
 
 3. Marker
 
-   - `list-style: none` removes the native marker, but only when there's an `<svg>` to replace it
+   - `list-style: none` removes the native marker, but only when there's a `.marker` to replace it
+   - Only the `.marker` animates, so any other icon in the summary stays put
+   - `margin-inline-start: auto` pushes the marker to the end of the row
    - Three marker animations: `flip`, `rotate`, `turn`
    - Individual transform properties (`rotate`, `scale`) transition independently
    - In right-to-left, `turn` mirrors the chevron to point at the end, then turns the other way
@@ -499,40 +502,41 @@ Step 3 of 3: Marker
 - [Individual transform properties ](https://webstatus.dev/features/individual-transforms)(Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
 
 ```css
-.accordion > summary:has(svg) {
+.accordion > summary:has(.marker) {
   align-items: center;
   display: flex;
-  justify-content: space-between;
+  gap: var(--ui-space-2);
   list-style: none;
 }
 
-.accordion > summary:has(svg)::-webkit-details-marker {
+.accordion > summary:has(.marker)::-webkit-details-marker {
   display: none;
 }
 
-.accordion > summary svg {
+.accordion > summary .marker {
+  margin-inline-start: auto;
   transition:
     rotate 0.2s,
     scale 0.2s;
 }
 
-.marker-flip[open] > summary svg {
+.marker-flip[open] > summary .marker {
   scale: 1 -1;
 }
 
-.marker-rotate[open] > summary svg {
+.marker-rotate[open] > summary .marker {
   rotate: 180deg;
 }
 
-.marker-turn[open] > summary svg {
+.marker-turn[open] > summary .marker {
   rotate: 90deg;
 }
 
-.marker-turn:dir(rtl) > summary svg {
+.marker-turn:dir(rtl) > summary .marker {
   scale: -1 1;
 }
 
-.marker-turn[open]:dir(rtl) > summary svg {
+.marker-turn[open]:dir(rtl) > summary .marker {
   rotate: -90deg;
 }
 ```
@@ -560,6 +564,7 @@ Import the components from `opui-css/astro`:
 
 ### What's new
 
+- Tonal and elevated [accordions](#variants) have a border in the page background color, like cards, so they stay visible on tonal surfaces.
 - The inset focus ring sits at `--ui-focus-ring-inset` like every other inset ring, and elevated and tonal accordions keep a border in forced colors.
 - Breaking: [`AccordionSummary`, `AccordionContent`](#basics) and [`AccordionActions`](#actions) replace the slots, and the root no longer wraps its children in `.ui-content`.
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.

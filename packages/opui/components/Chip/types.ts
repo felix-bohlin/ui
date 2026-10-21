@@ -4,7 +4,7 @@ export type Props = {
   label?: string
   multiline?: boolean
   size?: "x-small" | "small" | "large"
-  variant?: "tonal" | "outlined"
+  variant?: "outlined" | "tonal"
 } & (
   | {
       as?: "div"

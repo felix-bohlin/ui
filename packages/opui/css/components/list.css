@@ -38,6 +38,11 @@ Lists meant to be used stand-alone or as part of Select elements
 
     &.ui-tonal {
       --_bg-color: var(--ui-surface-tonal);
+      --_divider-color: color-mix(
+        in oklch,
+        var(--ui-border-color),
+        var(--ui-text-primary) 20%
+      );
     }
 
     /* Borders on all list items */
@@ -146,10 +151,6 @@ Lists meant to be used stand-alone or as part of Select elements
         /* removing checkmark from option */
       }
 
-      * {
-        font-size: inherit;
-      }
-
       /* Clickable list item */
       &:has(> a, > button, > label) {
         background: transparent;
@@ -157,8 +158,9 @@ Lists meant to be used stand-alone or as part of Select elements
         min-block-size: auto;
         padding: 0;
 
-        &[aria-selected="true"] > :where(a, button, label),
-        &[aria-selected="true"],
+        &:where([role="option"])[aria-selected="true"]
+          > :where(a, button, label),
+        &:where([role="option"])[aria-selected="true"],
         &:has(> [aria-current="page"]) > :where(a, button, label) {
           background-color: var(--_selected-bg-color);
           color: var(--ui-selected-contrast, currentColor);
@@ -230,7 +232,6 @@ Lists meant to be used stand-alone or as part of Select elements
           }
         }
 
-        &[aria-selected="true"],
         &[aria-current="page"] {
           background-color: var(--_selected-bg-color);
           color: var(--ui-selected-contrast, currentColor);
@@ -280,11 +281,13 @@ Lists meant to be used stand-alone or as part of Select elements
       & > .ui-text,
       & > :where(a, button, label) > .ui-text {
         flex: 1;
+        font-size: inherit;
         line-height: var(--ui-line-height-body);
         min-inline-size: 0;
 
         :where(h1, h2, h3, h4, h5, h6, p, span) {
           color: inherit;
+          font-size: inherit;
           font-weight: inherit;
           margin: 0;
         }
@@ -331,7 +334,9 @@ Lists meant to be used stand-alone or as part of Select elements
         text-align: end;
         z-index: 1;
 
-        &:not(:has(a, button, input)) {
+        &:not(
+          :has(a, button, input, label, select, summary, textarea, [tabindex])
+        ) {
           pointer-events: none;
         }
 
@@ -369,14 +374,10 @@ Lists meant to be used stand-alone or as part of Select elements
       }
 
       @media (forced-colors: active) {
-        &[aria-selected="true"],
-        &[aria-selected="true"] > :is(a, button, label),
+        &:where(option, [role="option"])[aria-selected="true"],
+        &:where([role="option"])[aria-selected="true"] > :is(a, button, label),
         &:checked,
-        &
-          > :is(a, button, label):is(
-            [aria-current="page"],
-            [aria-selected="true"]
-          ) {
+        & > :is(a, button, label)[aria-current="page"] {
           background-color: SelectedItem;
           color: SelectedItemText;
           forced-color-adjust: none;

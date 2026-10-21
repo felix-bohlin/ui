@@ -25,6 +25,7 @@ import fieldGroupApi from "../../component-api/field-group/api"
 
 import Conditional from "../../components/Conditional.astro"
 import ValidationNotes from "./partials/ValidationNotes.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 ---
 
@@ -129,9 +130,37 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <AutoExample name="VisibleLabel" column centered />
 
     <h3 id="label-position">Label position</h3>
+    <p>
+      Use <PropOrClass prop="stack" class=".ui-stack" /> to put the label under the
+      checkbox.
+    </p>
     <AutoExample name="LabelPosition" row spacious />
 
     <h3 id="end-text">End text</h3>
+    <Conditional as="p">
+      <Fragment slot="components"
+        >Use the <code>endText</code> prop or the <code>end-text</code> slot for supporting
+        text under the label. It sits inside the <code>&lt;label&gt;</code>, so
+        screen readers read it with the label.</Fragment
+      >
+      <Fragment slot="html"
+        >Add a <code>&lt;span class="ui-end-text"&gt;</code> after the <code
+          >.ui-label</code
+        > for supporting text under the label. It sits inside the <code
+          >&lt;label&gt;</code
+        >, so screen readers read it with the label.</Fragment
+      >
+      <Fragment slot="react"
+        >Use the <code>endText</code> prop for supporting text under the label. It
+        sits inside the <code>&lt;label&gt;</code>, so screen readers read it
+        with the label.</Fragment
+      >
+      <Fragment slot="svelte"
+        >Use the <code>endText</code> prop for supporting text under the label. It
+        sits inside the <code>&lt;label&gt;</code>, so screen readers read it
+        with the label.</Fragment
+      >
+    </Conditional>
     <AutoExample name="EndText" row spacious />
 
     <h3 id="validation">Validation</h3>

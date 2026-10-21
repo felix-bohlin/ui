@@ -13,8 +13,8 @@ const steps = [
 
 .select {
   background-color: var(--ui-surface-default);
-  border: 1px solid var(--ui-border-color);
-  border-radius: var(--radius-2);
+  border: var(--ui-field-border-width) solid var(--ui-field-border-color);
+  border-radius: var(--ui-border-radius);
   inline-size: 100%;
   padding: 0;
 }
@@ -71,7 +71,7 @@ selectedcontent {
 }
 
 .select:open::picker-icon {
-  rotate: 180deg;
+  scale: 1 -1;
 }`,
     features: ["individual-transforms", "masks", "open-pseudo"],
     notes: [
@@ -86,15 +86,15 @@ selectedcontent {
 .select::picker(select) {
   background: transparent;
   border: 0;
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-border-radius);
   box-shadow: var(--ui-shadow-overlay);
   padding: 0;
 }
 
 .list {
   background-color: var(--ui-surface-filled);
-  border: 1px solid var(--ui-border-color);
-  border-radius: var(--radius-2);
+  border: var(--ui-field-border-width) solid var(--ui-field-border-color);
+  border-radius: var(--ui-border-radius);
   padding: 0.5rem 0;
 }
 
@@ -106,19 +106,25 @@ selectedcontent {
   background-color: oklch(from var(--ui-primary) l c h / 15%);
 }
 
-.list > option:checked {
-  background-color: oklch(from var(--ui-primary) l c h / 30%);
+.list > option::checkmark {
+  margin-inline-start: auto;
+  order: 1;
 }
 
-.list > option::checkmark {
-  display: none;
+.list > option:checked {
+  background-color: var(
+    --ui-selected,
+    oklch(
+      from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
+    )
+  );
 }`,
     features: ["relative-color"],
     notes: [
       "<code>::picker(select)</code> is the dropdown, a popover anchored to the select",
       "The picker is see-through and rounded like the list, so no square corners show behind it",
       "Options are ordinary boxes now: padding, <code>:hover</code>, <code>:checked</code>",
-      "<code>::checkmark</code> hidden, the checked background marks the choice",
+      "The browser's checkmark marks the choice, the tint only backs it up",
       "Open the select",
     ],
     title: "Picker",
@@ -186,7 +192,7 @@ const fruits = ["Apple", "Banana", "Cherry", "Mango", "Pear"]
 <style>
   .field {
     display: grid;
-    gap: var(--size-1);
+    gap: var(--ui-space-1);
     inline-size: min(100%, 16rem);
   }
 

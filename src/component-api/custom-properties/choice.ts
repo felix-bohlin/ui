@@ -7,7 +7,8 @@ export default {
     kind: "input",
   },
   "--_accent-contrast": {
-    description: "Color of the checkmark, dash and dots on `--_accent`.",
+    description:
+      "Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-accent-contrast` when the theme sets it, otherwise `--ui-primary-contrast`, or `--ui-text-on-accent` in dark mode. `--ui-text-on-accent` when invalid.",
     kind: "input",
   },
   "--_duration": {

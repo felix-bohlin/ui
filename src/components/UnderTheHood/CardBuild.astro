@@ -11,7 +11,7 @@ const steps = [
   --card-shadow: none;
   background-color: var(--card-bg);
   border: var(--card-border-width) solid var(--card-border);
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-border-radius);
   box-shadow: var(--card-shadow);
   display: flex;
   flex-direction: column;
@@ -134,7 +134,7 @@ const steps = [
 <style>
   .grid {
     display: grid;
-    gap: var(--size-3);
+    gap: var(--ui-space-3);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
     inline-size: min(100%, 26rem);
   }
@@ -144,11 +144,11 @@ const steps = [
 
     & hgroup > p {
       color: var(--ui-text-muted);
-      font-size: var(--font-size-0);
+      font-size: var(--ui-font-size-caption);
     }
 
     & h3 {
-      font-size: var(--font-size-2);
+      font-size: var(--ui-font-size-body);
     }
   }
 </style>

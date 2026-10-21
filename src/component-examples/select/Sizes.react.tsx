@@ -3,8 +3,8 @@ import { Select } from "opui-css/react"
 export default function Sizes() {
   return (
     <>
-      <Select label="x-small" size="x-small">
-        <option value="">x-small</option>
+      <Select label="X-small" size="x-small">
+        <option value="">X-small</option>
         <option>Option Two</option>
         <option>Option Three</option>
       </Select>

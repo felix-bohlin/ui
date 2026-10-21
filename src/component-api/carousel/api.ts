@@ -43,7 +43,8 @@ export default {
     {
       class: ".ui-motion-off",
       default: "false",
-      description: "Turns off smooth scrolling, like `--ui-motion: 0`.",
+      description:
+        "Turns off smooth scrolling and the transitions, like reduced motion or `--ui-motion: 0` on a parent.",
       frameworks: ["html"],
       group: "Motion",
       prop: "motionOff",
@@ -58,7 +59,7 @@ export default {
     {
       default: '"horizontal"',
       description:
-        "The orientation of the element. Vertical carousels need a block size, set with `--_block-size`.",
+        "The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default.",
       group: "Orientation",
       prop: "orientation",
       values: { horizontal: null, vertical: ".ui-vertical" },

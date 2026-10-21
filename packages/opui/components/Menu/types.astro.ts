@@ -9,4 +9,4 @@ export type MenuItem = Base.MenuItem &
 
 export type Props = Omit<Base.Props, "items"> & {
   items?: MenuItem[]
-} & HTMLAttributes<"menu">
+} & Omit<HTMLAttributes<"menu">, "id" | "popover">

@@ -10,11 +10,15 @@ const steps = [
 }
 
 .item {
+  align-items: baseline;
   display: grid;
+  gap: 0.25rem;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
 }
 
 .item + .item {
-  margin-block-start: 0.75rem;
+  margin-block-start: 0.25rem;
 }
 
 .item dt {
@@ -22,7 +26,9 @@ const steps = [
 }
 
 .item dd {
+  color: var(--ui-text-muted);
   margin: 0;
+  text-align: end;
 }`,
     html: `
 <dl class="dl">
@@ -35,59 +41,26 @@ const steps = [
     notes: [
       "A <code>&lt;div&gt;</code> around each <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> pair is valid HTML",
       "One box per pair: easy to lay out, easy to space",
-      "Stacked by default, so it works in any width",
+      "Term and description share a row by default",
     ],
-    title: "Stacked",
+    title: "Row",
   },
   {
     css: `
-.dl {
-  container-type: inline-size;
+.bordered > .item {
+  grid-template-columns: auto 1fr auto;
 }
 
-@container (width > 45ch) {
-  .item {
-    align-items: baseline;
-    gap: 0.25rem;
-    grid-template-columns: auto auto;
-    justify-content: space-between;
-  }
+.bordered > .item::after {
+  block-size: 2px;
+  border-block-end: var(--line-width, 1px) var(--line-style, solid)
+    var(--ui-border-color);
+  content: "";
+  order: 1;
+}
 
-  .item + .item {
-    margin-block-start: 0.25rem;
-  }
-
-  .item dd {
-    color: var(--ui-text-muted);
-    text-align: end;
-  }
-}`,
-    features: ["container-queries"],
-    notes: [
-      "The list measures itself, not the viewport",
-      "Wider than <code>45ch</code>: term and description share a row",
-      "Drag <strong>Width</strong> below the breakpoint and it stacks again",
-    ],
-    title: "Container query",
-  },
-  {
-    css: `
-@container (width > 45ch) {
-  .bordered > .item {
-    grid-template-columns: auto 1fr auto;
-  }
-
-  .bordered > .item::after {
-    block-size: 2px;
-    border-block-end: var(--line-width, 1px) var(--line-style, solid)
-      var(--ui-border-color);
-    content: "";
-    order: 1;
-  }
-
-  .bordered > .item dd {
-    order: 2;
-  }
+.bordered > .item dd {
+  order: 2;
 }`,
     notes: [
       "<code>::after</code> is a grid item too",
@@ -107,6 +80,42 @@ const steps = [
       "The leader line rule stays the same",
     ],
     title: "Dotted",
+  },
+  {
+    css: `
+.dl {
+  container-type: inline-size;
+}
+
+@container (inline-size <= 45ch) {
+  .dl:not(.inline) > .item {
+    align-items: normal;
+    gap: 0;
+    grid-template-columns: none;
+    justify-content: normal;
+  }
+
+  .dl:not(.inline) > .item + .item {
+    margin-block-start: 0.75rem;
+  }
+
+  .dl:not(.inline) > .item dd {
+    color: inherit;
+    text-align: start;
+  }
+
+  .dl:not(.inline) > .item::after {
+    content: none;
+  }
+}`,
+    features: ["container-queries"],
+    notes: [
+      "The list measures itself, not the viewport",
+      "<code>45ch</code> or narrower: the term stacks above the description, and the line goes",
+      "Drag <strong>Width</strong> below the breakpoint to stack it",
+      "<code>.inline</code> keeps the row at any width",
+    ],
+    title: "Container query",
   },
 ]
 

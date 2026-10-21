@@ -53,7 +53,7 @@ export default {
     },
     {
       description:
-        "Highlights a selected or current item, or dims a disabled one. Set it on the `<a>`, `<button>` or `<label>`.",
+        "Highlights the current item, or dims a disabled one. Set it on the `<a>`, `<button>` or `<label>`.",
       frameworks: ["html"],
       group: "State",
       prop: "state",
@@ -61,7 +61,6 @@ export default {
         current: '[aria-current="page"]',
         disabled: "[disabled]",
         disabledLink: '[aria-disabled="true"]',
-        selected: '[aria-selected="true"]',
       },
     },
     {

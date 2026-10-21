@@ -26,8 +26,8 @@ import { Divider } from "opui-css/react"
 export default function Variants() {
   return (
     <>
-      Tonal <Divider variant="tonal" /> Filled <Divider variant="filled" />{" "}
-      Primary <Divider variant="primary" />
+      Filled <Divider variant="filled" /> Primary <Divider variant="primary" />{" "}
+      Tonal <Divider variant="tonal" />
     </>
   )
 }
@@ -80,7 +80,7 @@ export default function Spacing() {
         </CardContent>
       </Card>
 
-      <div style={{ "--ui-divider-space": "var(--size-1)" }}>
+      <div style={{ "--ui-divider-space": "var(--ui-space-1)" }}>
         A custom space on any wrapper <Divider /> reaches every divider inside
         it.
       </div>
@@ -189,7 +189,7 @@ Step 4 of 5: Breathe
 
 ```css
 .divider {
-  margin-block: var(--size-fluid-3);
+  margin-block: var(--ui-divider-space);
 }
 ```
 

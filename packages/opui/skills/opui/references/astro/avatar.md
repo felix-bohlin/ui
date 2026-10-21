@@ -94,13 +94,13 @@ Change the shape of the avatar with the `variant` prop.
 import { Avatar } from "opui-css/astro"
 ---
 
-<Avatar aria-label="Sam Quist" role="img" variant="squared">SQ</Avatar>
-
 <Avatar
   variant="rounded"
   src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?w=96&h=96&fit=crop&auto=format"
   alt="Jonas Berg"
 />
+
+<Avatar aria-label="Sam Quist" role="img" variant="squared">SQ</Avatar>
 
 <Avatar
   variant="squircle"
@@ -173,26 +173,27 @@ A [Badge](https://open-props-ui.netlify.app/astro/components/badge.md) on an ava
 
 #### CSS variables
 
-| Variable                    | Default                                                                                  | Description                                                                                                                                                                                                        |
-| --------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--ui-border-width`         | `1px`                                                                                    | Default border width for components that draw a border.                                                                                                                                                            |
-| `--ui-control-size`         | `calc(40px * var(--ui-density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                      |
-| `--ui-control-size-large`   | `calc(46px * var(--ui-density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                        |
-| `--ui-control-size-small`   | `calc(32px * var(--ui-density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                        |
-| `--ui-control-size-x-small` | `calc(28px * var(--ui-density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                      |
-| `--ui-disabled-opacity`     | `0.64`                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                              |
-| `--ui-font-size-caption`    | `var(--ui-font-size-100)`                                                                | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.     |
-| `--ui-font-size-large`      | `var(--ui-font-size-500)`                                                                | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.                                                                                  |
-| `--ui-font-size-small`      | `var(--ui-font-size-200)`                                                                | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                            |
-| `--ui-icon-size`            | `var(--size-4)`                                                                          | Default icon size inside components.                                                                                                                                                                               |
-| `--ui-icon-size-large`      | `var(--size-5)`                                                                          | Icon size inside `Avatar` and `List`.                                                                                                                                                                              |
-| `--ui-icon-size-small`      | `var(--size-3)`                                                                          | Icon size inside `Chip`.                                                                                                                                                                                           |
-| `--ui-primary`              | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                       |
-| `--ui-primary-contrast`     | `oklch( from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--ui-primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--ui-primary` gets readable text. |
-| `--ui-radius-round`         | `var(--radius-round)`                                                                    | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.                                                                                 |
-| `--ui-radius-small`         | `min(var(--radius-2), var(--ui-border-radius))`                                          | Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-border-radius`, capped at 5px.                                                     |
-| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                            | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                    |
-| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                        | Page and card background.                                                                                                                                                                                          |
+| Variable                    | Default                                                                                  | Description                                                                                                                                                                                                                                 |
+| --------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-width`         | `1px`                                                                                    | Default border width for components that draw a border.                                                                                                                                                                                     |
+| `--ui-border-width-thick`   | `var(--border-size-2)`                                                                   | Width of emphasized rules: the `Table` head and foot borders, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, and at one and a half times, the blockquote bar. |
+| `--ui-control-size`         | `calc(40px * var(--ui-density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                                               |
+| `--ui-control-size-large`   | `calc(46px * var(--ui-density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                                                 |
+| `--ui-control-size-small`   | `calc(32px * var(--ui-density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                                                 |
+| `--ui-control-size-x-small` | `calc(28px * var(--ui-density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                                               |
+| `--ui-disabled-opacity`     | `0.64`                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                                       |
+| `--ui-font-size-caption`    | `var(--ui-font-size-100)`                                                                | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.                              |
+| `--ui-font-size-large`      | `var(--ui-font-size-500)`                                                                | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.                                                                                                           |
+| `--ui-font-size-small`      | `var(--ui-font-size-200)`                                                                | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                                     |
+| `--ui-icon-size`            | `var(--size-4)`                                                                          | Default icon size inside components.                                                                                                                                                                                                        |
+| `--ui-icon-size-large`      | `var(--size-5)`                                                                          | Icon size inside `Avatar` and `List`.                                                                                                                                                                                                       |
+| `--ui-icon-size-small`      | `var(--size-3)`                                                                          | Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.                                                                                                                                  |
+| `--ui-primary`              | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                                                |
+| `--ui-primary-contrast`     | `oklch( from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--ui-primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--ui-primary` gets readable text.                          |
+| `--ui-radius-round`         | `var(--radius-round)`                                                                    | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.                                                                                                          |
+| `--ui-radius-small`         | `min(var(--radius-2), var(--ui-border-radius))`                                          | Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-border-radius`, capped at 5px.                                                                              |
+| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                            | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                        | Page and card background.                                                                                                                                                                                                                   |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
@@ -206,26 +207,27 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 #### CSS variables
 
-| Variable                    | Default                                                                                  | Description                                                                                                                                                                                                        |
-| --------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--ui-border-width`         | `1px`                                                                                    | Default border width for components that draw a border.                                                                                                                                                            |
-| `--ui-control-size`         | `calc(40px * var(--ui-density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                      |
-| `--ui-control-size-large`   | `calc(46px * var(--ui-density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                        |
-| `--ui-control-size-small`   | `calc(32px * var(--ui-density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                        |
-| `--ui-control-size-x-small` | `calc(28px * var(--ui-density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                      |
-| `--ui-disabled-opacity`     | `0.64`                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                              |
-| `--ui-font-size-caption`    | `var(--ui-font-size-100)`                                                                | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.     |
-| `--ui-font-size-large`      | `var(--ui-font-size-500)`                                                                | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.                                                                                  |
-| `--ui-font-size-small`      | `var(--ui-font-size-200)`                                                                | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                            |
-| `--ui-icon-size`            | `var(--size-4)`                                                                          | Default icon size inside components.                                                                                                                                                                               |
-| `--ui-icon-size-large`      | `var(--size-5)`                                                                          | Icon size inside `Avatar` and `List`.                                                                                                                                                                              |
-| `--ui-icon-size-small`      | `var(--size-3)`                                                                          | Icon size inside `Chip`.                                                                                                                                                                                           |
-| `--ui-primary`              | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                       |
-| `--ui-primary-contrast`     | `oklch( from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--ui-primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--ui-primary` gets readable text. |
-| `--ui-radius-round`         | `var(--radius-round)`                                                                    | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.                                                                                 |
-| `--ui-radius-small`         | `min(var(--radius-2), var(--ui-border-radius))`                                          | Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-border-radius`, capped at 5px.                                                     |
-| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                            | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                    |
-| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                        | Page and card background.                                                                                                                                                                                          |
+| Variable                    | Default                                                                                  | Description                                                                                                                                                                                                                                 |
+| --------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-width`         | `1px`                                                                                    | Default border width for components that draw a border.                                                                                                                                                                                     |
+| `--ui-border-width-thick`   | `var(--border-size-2)`                                                                   | Width of emphasized rules: the `Table` head and foot borders, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, and at one and a half times, the blockquote bar. |
+| `--ui-control-size`         | `calc(40px * var(--ui-density))`                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                                               |
+| `--ui-control-size-large`   | `calc(46px * var(--ui-density))`                                                         | Shared large height for fields and buttons.                                                                                                                                                                                                 |
+| `--ui-control-size-small`   | `calc(32px * var(--ui-density))`                                                         | Shared small height for fields and buttons.                                                                                                                                                                                                 |
+| `--ui-control-size-x-small` | `calc(28px * var(--ui-density))`                                                         | Shared x-small height for fields and buttons.                                                                                                                                                                                               |
+| `--ui-disabled-opacity`     | `0.64`                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                                       |
+| `--ui-font-size-caption`    | `var(--ui-font-size-100)`                                                                | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.                              |
+| `--ui-font-size-large`      | `var(--ui-font-size-500)`                                                                | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.                                                                                                           |
+| `--ui-font-size-small`      | `var(--ui-font-size-200)`                                                                | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                                     |
+| `--ui-icon-size`            | `var(--size-4)`                                                                          | Default icon size inside components.                                                                                                                                                                                                        |
+| `--ui-icon-size-large`      | `var(--size-5)`                                                                          | Icon size inside `Avatar` and `List`.                                                                                                                                                                                                       |
+| `--ui-icon-size-small`      | `var(--size-3)`                                                                          | Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.                                                                                                                                  |
+| `--ui-primary`              | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                       | Brand color for primary actions and accents.                                                                                                                                                                                                |
+| `--ui-primary-contrast`     | `oklch( from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on `--ui-primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--ui-primary` gets readable text.                          |
+| `--ui-radius-round`         | `var(--radius-round)`                                                                    | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.                                                                                                          |
+| `--ui-radius-small`         | `min(var(--radius-2), var(--ui-border-radius))`                                          | Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-border-radius`, capped at 5px.                                                                              |
+| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                            | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                        | Page and card background.                                                                                                                                                                                                                   |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
@@ -237,7 +239,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | ------------------ | ----- | ---------------------------------------------------------------------------------------------------------- |
 | `--_bg-color`      | Input | The background. Defaults to `--ui-primary`. An avatar with an `img` is always transparent.                 |
 | `--_font-size`     | Input | The font size of initials. Set by the size classes.                                                        |
-| `--_icon-size`     | Input | The maximum width of an `svg`. Set by the size classes.                                                    |
+| `--_icon-size`     | Input | The maximum width of an `svg`. Set by `.ui-x-small` and `.ui-small`.                                       |
 | `--_margin`        | Input | How much avatars in a `.ui-avatar-group` overlap. Set on the group.                                        |
 | `--_outline-color` | Input | The ring around each avatar in a `.ui-avatar-group`. Defaults to `--ui-surface-default`. Set on the group. |
 | `--_outline-width` | Input | Width of the ring around each avatar in a `.ui-avatar-group`. Set on the group.                            |
@@ -268,7 +270,7 @@ Read the post: [Squircle avatars with corner-shape](https://open-props-ui.netlif
 
 4. Group
 
-   - A negative `margin-inline-end` stacks each avatar under the next
+   - A negative start margin on each avatar after the first stacks it over the one before
    - A `box-shadow` ring in the surface color fakes a cutout
    - Logical margin, so the stack flips in right-to-left
 
@@ -281,7 +283,7 @@ Step 1 of 4: Circle
   align-items: center;
   aspect-ratio: 1;
   background-color: var(--ui-primary);
-  border-radius: var(--radius-round);
+  border-radius: var(--ui-radius-round);
   color: var(--ui-primary-contrast);
   display: inline-flex;
   flex-shrink: 0;
@@ -327,11 +329,11 @@ Step 3 of 4: Shapes
 
 ```css
 .avatar.rounded {
-  border-radius: var(--radius-2);
+  border-radius: var(--ui-radius-small);
 }
 
 .avatar.squircle {
-  border-radius: var(--radius-round);
+  border-radius: var(--ui-radius-round);
   corner-shape: squircle;
 }
 ```
@@ -354,7 +356,10 @@ Step 4 of 4: Group
 
 .avatar-group .avatar {
   box-shadow: 0 0 0 2px var(--ui-surface-default);
-  margin-inline-end: calc(-1 * var(--overlap));
+}
+
+.avatar-group > * + * {
+  margin-inline-start: calc(-1 * var(--overlap));
 }
 ```
 
@@ -385,3 +390,4 @@ Import the components from `opui-css/astro`:
 - Breaking: a button avatar needs `as="button"`, and `disabled` only goes with it ([types](#api)).
 - Breaking: [`AvatarGroup`](#grouped) groups avatars and replaces the `isGroup` prop.
 - Rounded avatars never get rounder than [`--ui-border-radius`](#api), so `0` squares them.
+- The ring around [grouped](#grouped) avatars reads `--ui-border-width-thick`.

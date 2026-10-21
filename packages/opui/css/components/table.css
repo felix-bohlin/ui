@@ -1,8 +1,8 @@
 @layer components.root {
   :where(.ui-table) {
     --_border-radius: var(--ui-border-radius);
-    border: var(--ui-border-width) solid var(--ui-border-color);
 
+    border: var(--ui-border-width) solid var(--ui-border-color);
     border-collapse: separate;
     border-radius: var(--_border-radius);
     border-spacing: 0;
@@ -26,6 +26,7 @@
       background-color: var(--ui-surface-default);
       border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
+      font-size: var(--ui-font-size-small);
       padding-block: var(--ui-space-1);
       padding-inline: var(--ui-space-2);
 
@@ -37,13 +38,8 @@
     th {
       background-color: var(--ui-surface-filled);
       color: var(--ui-text-primary);
-      font-size: var(--ui-font-size-small);
       font-weight: var(--ui-font-weight-semibold);
       text-align: start;
-    }
-
-    td {
-      font-size: var(--ui-font-size-small);
     }
 
     :is(th, td):has(> .ui-checkbox:only-child) {
@@ -76,11 +72,11 @@
 
     /* Logic for tables without thead */
     & > tbody:first-of-type:not(thead ~ tbody) tr:first-child {
-      td:first-child {
+      :where(th, td):first-child {
         border-start-start-radius: var(--_border-radius);
       }
 
-      td:last-child {
+      :where(th, td):last-child {
         border-start-end-radius: var(--_border-radius);
       }
     }
@@ -167,8 +163,6 @@
 
       caption {
         margin-inline-start: var(--ui-space-3);
-        padding-block: var(--ui-space-2);
-        padding-inline: 0;
       }
     }
 
@@ -184,7 +178,6 @@
       caption {
         margin-inline-start: var(--ui-space-1);
         padding-block: var(--ui-space-1);
-        padding-inline: 0;
       }
     }
   }

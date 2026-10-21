@@ -4,7 +4,7 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/vue"
 
 <template>
   <Accordion>
-    <AccordionSummary>Text</AccordionSummary>
+    <AccordionSummary>Default</AccordionSummary>
     <AccordionContent>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus

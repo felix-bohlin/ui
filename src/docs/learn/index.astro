@@ -166,7 +166,7 @@ const entries = posts
 <style>
   .learn-posts {
     display: grid;
-    gap: var(--size-4);
+    gap: var(--ui-space-4);
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
     list-style: none;
     margin: 0;
@@ -182,7 +182,7 @@ const entries = posts
     display: grid;
 
     & .ui-card {
-      gap: var(--size-3);
+      gap: var(--ui-space-3);
       position: relative;
       transition: border-color 0.2s;
 
@@ -199,7 +199,7 @@ const entries = posts
 
     & hgroup {
       display: grid;
-      gap: var(--size-1);
+      gap: var(--ui-space-1);
 
       & > * {
         margin: 0;
@@ -216,7 +216,7 @@ const entries = posts
 
       & > p:first-child {
         color: var(--ui-text-muted);
-        font-size: var(--font-size-0);
+        font-size: var(--ui-font-size-caption);
         line-height: 1.3;
       }
 
@@ -238,7 +238,7 @@ const entries = posts
 
     & .ui-content {
       display: grid;
-      gap: var(--size-3);
+      gap: var(--ui-space-3);
     }
 
     & h2 a {
@@ -272,7 +272,7 @@ const entries = posts
   .learn-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--size-1);
+    gap: var(--ui-space-1);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -285,15 +285,15 @@ const entries = posts
   .learn-meta {
     display: flex;
     flex-wrap: wrap;
-    font-size: var(--font-size-0);
-    gap: var(--size-1) var(--size-4);
+    font-size: var(--ui-font-size-caption);
+    gap: var(--ui-space-1) var(--ui-space-4);
     line-height: 1.3;
     margin: 0;
 
     & div {
       align-items: center;
       display: flex;
-      gap: var(--size-1);
+      gap: var(--ui-space-1);
     }
 
     & dt {

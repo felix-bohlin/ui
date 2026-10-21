@@ -267,9 +267,9 @@ Step 1 of 4: Hint
 ```css
 .card {
   background-color: var(--ui-surface-elevated);
-  border: 1px solid var(--ui-border-color);
-  border-radius: var(--radius-3);
-  box-shadow: var(--shadow-3);
+  border: 1px solid var(--ui-surface-default);
+  border-radius: var(--ui-border-radius);
+  box-shadow: var(--ui-shadow-raised);
   color: inherit;
   inline-size: 18rem;
   padding: 1rem;

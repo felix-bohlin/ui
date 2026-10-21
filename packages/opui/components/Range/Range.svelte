@@ -108,7 +108,7 @@
     }}
   />
   {#if hasDatalist}
-    <datalist id={listId}>
+    <datalist aria-hidden="true" id={listId}>
       {#each options ?? [] as option (typeof option === "object" ? option.value : option)}
         {#if typeof option === "object"}
           <option value={option.value} label={option.label}></option>

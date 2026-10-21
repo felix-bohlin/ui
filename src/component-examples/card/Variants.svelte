@@ -2,6 +2,10 @@
   import { Card, CardContent } from "opui-css/svelte"
 </script>
 
+<Card>
+  <CardContent>Default</CardContent>
+</Card>
+
 <Card variant="text">
   <CardContent>Text</CardContent>
 </Card>

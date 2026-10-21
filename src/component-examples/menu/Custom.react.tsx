@@ -63,7 +63,6 @@ export default function Custom() {
           end={<kbd>Ctrl+C</kbd>}
         />
         <ListItem
-          as="a"
           headline="Open in new tab"
           href="#menu"
           start={

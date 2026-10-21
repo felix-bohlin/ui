@@ -26,6 +26,14 @@ export default {
       prop: "disabled",
       type: "boolean",
     },
+    {
+      attribute: ":has(:required)",
+      description:
+        "Adds a required mark after the legend when a field inside is required.",
+      frameworks: ["html"],
+      group: "Required",
+      prop: "required",
+    },
   ],
   page: "form",
   parts: [

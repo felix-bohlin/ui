@@ -60,8 +60,8 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
 
 @container scroll-state(stuck: block-start) {
   .table.sticky-header > thead th {
-    box-shadow: var(--shadow-4);
-    clip-path: inset(0 0 calc(-1 * var(--size-6)));
+    box-shadow: var(--ui-shadow-scroll);
+    clip-path: inset(0 0 calc(-1 * var(--ui-space-6)));
   }
 }`}
     />
@@ -109,9 +109,9 @@ import StickyHeader from "../../component-examples/table/StickyHeader.astro"
 
 .content::before,
 .content::after {
-  block-size: var(--size-2);
-  box-shadow: var(--shadow-4);
-  clip-path: inset(100% 0 calc(-1 * var(--size-6)));
+  block-size: var(--ui-space-2);
+  box-shadow: var(--ui-shadow-scroll);
+  clip-path: inset(100% 0 calc(-1 * var(--ui-space-6)));
   content: "";
   inset-inline: anchor(--content inside);
   opacity: 0;

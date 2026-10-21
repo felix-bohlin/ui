@@ -12,7 +12,7 @@ export default {
     kind: "input",
   },
   "--_bg-color": {
-    description: "The background. Defaults to `--ui-surface-default`.",
+    description: "The background. Defaults to `--ui-surface-elevated`.",
     kind: "input",
   },
   "--_block-size": {

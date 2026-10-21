@@ -4,9 +4,9 @@ export default function Sizes() {
   return (
     <>
       <ButtonGroup size="x-small" variant="outlined">
-        <Button>x-small</Button>
-        <Button>x-small</Button>
-        <Button>x-small</Button>
+        <Button>X-small</Button>
+        <Button>X-small</Button>
+        <Button>X-small</Button>
       </ButtonGroup>
 
       <ButtonGroup size="small" variant="outlined">

@@ -540,7 +540,7 @@
 - `Spinner` keeps the gap in its ring in forced colors, so the spin stays visible.
 - `Range` keeps the edge of its empty track in Firefox with more contrast.
 - `core/palette.css` no longer declares palette and gray knobs of its own, which disagreed with `theme.css` and never applied. `theme.css` is the one place they are set.
-- `normalize.css` hides the outline of a closed `dialog` without `!important`, so a later layer can override it.
+- `Dialog` and `Drawer` open without a focus ring around them. Safari focuses the `dialog` itself when nothing inside it is in the Tab order, and `normalize.css` drew its focus ring there. The ring stays on the controls inside, and the rule no longer needs `!important`.
 
 ## 5.5.0 - 2026-09-28
 

@@ -50,10 +50,6 @@
     margin: 0;
   }
 
-  :where(dialog:not([open])) {
-    outline: none;
-  }
-
   :where(:not(fieldset, progress, meter)) {
     background-origin: border-box;
     background-repeat: no-repeat;
@@ -105,6 +101,10 @@
     outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
       var(--ui-focus-ring-color);
     outline-offset: var(--ui-focus-ring-offset);
+  }
+
+  :where(dialog):focus-visible {
+    outline: none;
   }
 
   @keyframes ui-focus-ring {

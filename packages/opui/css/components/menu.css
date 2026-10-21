@@ -65,6 +65,14 @@
         );
       }
 
+      @supports not (min-block-size: calc-size(fit-content, size)) {
+        max-block-size: min(
+          var(--_max-block-size),
+          calc(100% - 2 * var(--_offset))
+        );
+        position-try-order: most-block-size;
+      }
+
       &:popover-open {
         opacity: 1;
         scale: 1;

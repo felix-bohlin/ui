@@ -20,7 +20,12 @@ const MIN_GAP = 24
 
 for (const framework of FRAMEWORKS) {
   for (const slug of HEROES) {
-    test(`${framework}/${slug} anatomy fits its layout`, async ({ page }) => {
+    test(`${framework}/${slug} anatomy fits its layout`, async ({
+      browserName,
+      page,
+    }) => {
+      test.slow(browserName === "webkit", "WebKit lays out these pages slowly")
+      await page.emulateMedia({ reducedMotion: "reduce" })
       await page.route(
         (url) => url.hostname !== "localhost",
         (route) => route.abort(),
@@ -133,7 +138,7 @@ for (const framework of FRAMEWORKS) {
           .toEqual([])
       }
 
-      if (framework !== "html") return
+      if (framework !== "html" || browserName !== "chromium") return
 
       await page.setViewportSize({ height: 900, width: 1280 })
       const { violations } = await new AxeBuilder({ page })

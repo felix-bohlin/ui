@@ -2,12 +2,20 @@ import { expect, test } from "@playwright/test"
 import { openFixture } from "./fixtures"
 import { SCENARIOS, id, isOpen, problems, run } from "./stress-overlays"
 
-for (const { failing, name, steps, stillOpen = [], top } of SCENARIOS) {
+for (const {
+  failing,
+  failingIn,
+  name,
+  steps,
+  stillOpen = [],
+  top,
+} of SCENARIOS) {
   test(`${name} is on top and inside the viewport`, async ({
     browserName,
     page,
   }) => {
-    test.fail(!!failing, failing)
+    const engineBug = failingIn?.[browserName as "firefox" | "webkit"]
+    test.fail(!!(failing ?? engineBug), failing ?? engineBug)
     test.skip(
       browserName !== "chromium" && steps.some((step) => "container" in step),
       "needs scrollIntoView({ container })",

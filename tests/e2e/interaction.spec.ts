@@ -216,8 +216,9 @@ interaction(
   "select picks an option with the keyboard",
   async ({ page, root }) => {
     test.skip(
-      !(await page.evaluate(() => CSS.supports("appearance", "base-select"))),
-      "needs customizable select",
+      test.info().project.name === "firefox" &&
+        !(await page.evaluate(() => CSS.supports("appearance", "base-select"))),
+      "Firefox's native select picker ignores synthesized keys",
     )
     const select = root.locator("select").first()
 

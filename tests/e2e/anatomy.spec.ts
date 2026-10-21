@@ -78,6 +78,19 @@ for (const framework of FRAMEWORKS) {
           const own = anchorNames()
           sheet.disabled = false
           const names = new Set(named.flat())
+          const unsupported = new Set(
+            [
+              ...(diagram.querySelector("style")!.textContent ?? "").matchAll(
+                /([^{}\n]+::[^{}\n]+)\{\s*anchor-name:\s*([^;}]+)/g,
+              ),
+            ]
+              .filter(
+                ([, selector]) => !CSS.supports(`selector(${selector.trim()})`),
+              )
+              .flatMap(([, , value]) =>
+                value.split(/,\s*/).map((name) => name.trim()),
+              ),
+          )
           for (const rule of sheet.cssRules) {
             if (!(rule instanceof CSSStyleRule)) continue
             const [originating, pseudo] = rule.selectorText.split("::")
@@ -101,10 +114,10 @@ for (const framework of FRAMEWORKS) {
             unmatched: [
               ...diagram.querySelectorAll<HTMLElement>(".legend .part"),
             ]
-              .filter(
-                (part) =>
-                  !names.has(part.style.getPropertyValue("--part").trim()),
-              )
+              .filter((part) => {
+                const name = part.style.getPropertyValue("--part").trim()
+                return !names.has(name) && !unsupported.has(name)
+              })
               .map((part) => part.querySelector("code")!.textContent),
           }
         }),

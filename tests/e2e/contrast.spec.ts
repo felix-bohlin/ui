@@ -35,8 +35,30 @@ const contrast = async (
   }, colors)
 }
 
+const QUERIES = {
+  colorScheme: "prefers-color-scheme",
+  contrast: "prefers-contrast",
+  forcedColors: "forced-colors",
+  reducedMotion: "prefers-reduced-motion",
+}
+
+const emulate = async (
+  page: Page,
+  media: NonNullable<Parameters<Page["emulateMedia"]>[0]>,
+) => {
+  await page.emulateMedia(media)
+  await page.waitForFunction(
+    (queries) => queries.every((query) => matchMedia(query).matches),
+    Object.entries(media).flatMap(([key, value]) =>
+      key in QUERIES && value
+        ? [`(${QUERIES[key as keyof typeof QUERIES]}: ${value})`]
+        : [],
+    ),
+  )
+}
+
 const setContrast = (page: Page, value: "more" | "no-preference") =>
-  page.emulateMedia({ contrast: value })
+  emulate(page, { contrast: value })
 
 test.describe("prefers-contrast", () => {
   test.beforeEach(async ({ page }) => {
@@ -65,7 +87,7 @@ test.describe("prefers-contrast", () => {
 
   for (const scheme of ["light", "dark"] as const) {
     test(`raises token contrast in ${scheme} mode`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme: scheme, contrast: "more" })
+      await emulate(page, { colorScheme: scheme, contrast: "more" })
       const main = page.locator("main")
       const surface = "var(--ui-surface-default)"
       expect(
@@ -104,7 +126,7 @@ test.describe("token promises", () => {
         page,
       }) => {
         await openFixture(page, "html", "stress/theming")
-        await page.emulateMedia({ colorScheme, contrast: preference })
+        await emulate(page, { colorScheme, contrast: preference })
         const main = page.locator("main")
         for (const [name, { against, ratio }] of Object.entries(
           themeTokenPromises,
@@ -123,7 +145,7 @@ test.describe("token promises", () => {
 
 test.describe("forced-colors", () => {
   test.beforeEach(async ({ page }) => {
-    await page.emulateMedia({ forcedColors: "active" })
+    await emulate(page, { forcedColors: "active" })
   })
 
   test("the selected tab uses SelectedItem", async ({ page }) => {
@@ -184,7 +206,7 @@ test.describe("forced-colors", () => {
 const enhancedContrastViolations = async (page: Page, selector: string) => {
   const violations = []
   for (const colorScheme of ["light", "dark"] as const) {
-    await page.emulateMedia({ colorScheme, reducedMotion: "reduce" })
+    await emulate(page, { colorScheme, reducedMotion: "reduce" })
     const result = await new AxeBuilder({ page })
       .include(selector)
       .withRules(["color-contrast-enhanced"])
@@ -233,7 +255,7 @@ for (const component of COMPONENTS) {
   }) => {
     await openFixture(page, "html", component)
     for (const colorScheme of ["light", "dark"] as const) {
-      await page.emulateMedia({
+      await emulate(page, {
         colorScheme,
         contrast: "more",
         reducedMotion: "reduce",

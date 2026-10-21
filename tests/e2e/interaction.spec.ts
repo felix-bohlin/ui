@@ -215,6 +215,10 @@ interaction(
   "Variants",
   "select picks an option with the keyboard",
   async ({ page, root }) => {
+    test.skip(
+      !(await page.evaluate(() => CSS.supports("appearance", "base-select"))),
+      "needs customizable select",
+    )
     const select = root.locator("select").first()
 
     await select.focus()

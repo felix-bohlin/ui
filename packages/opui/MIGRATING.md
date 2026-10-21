@@ -210,6 +210,8 @@ Without a visible label the checkbox aligns to the middle, so it centers in tabl
 
 In Astro, `type` is no longer a typed prop. Remove it, the component sets it.
 
+In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
+
 Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Chip
@@ -430,6 +432,8 @@ Without a visible label the radio aligns to the middle. Give it a hidden label (
 
 In Astro, `type` and the native `size` are no longer typed props. Remove `type`, the component sets it.
 
+In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
+
 Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Range
@@ -497,6 +501,8 @@ The switch lines up with the first line of its label, keeps a light marker in da
 
 In Astro, `type` is no longer a typed prop. Remove it, the component sets it.
 
+In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
+
 Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Table
@@ -537,7 +543,7 @@ In Astro, import the parts by their flat names: `TabsItem`, `TabsTab` and `TabsP
 + <TabsItem>
 ```
 
-Tabs look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone: use `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`, or a `variant` (`filled`, `line`, `outlined`). The open panel has a `--size-2` top margin, so remove any spacing you added above it.
+Tabs look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone: use `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`, or a `variant` (`filled`, `line`, `outlined`). The open panel has a `--ui-space-2` top margin, so remove any spacing you added above it.
 
 ```diff
 - .ui-tabs { --_accent-color: var(--ui-critical); }
@@ -630,7 +636,7 @@ Same as Text field: `aria-invalid="true"` on the `<textarea>` replaces `data-inv
 
 ## Toggle button and toggle group
 
-Text shrinks with the size like `Button`: `--ui-font-size-small` when small and `--font-size-0` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
+Text shrinks with the size like `Button`: `--ui-font-size-small` when small and `--ui-font-size-caption` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
 
 `ToggleButton` in Astro and Vue no longer generates an input `id`. Pass `id` when something outside the component references the input.
 
@@ -725,7 +731,7 @@ The `Select` picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `-
 
 `--ui-primary` is `--ui-color-9` in light mode and `--ui-color-6` in dark mode, and `--ui-primary-contrast` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary`, its text color now follows it.
 
-`palette.css` no longer registers `--color-*`, `--gray-*`, `--ui-palette-source` and `--ui-palette-hue` with `@property`, so they can't be animated as colors anymore.
+`palette.css` no longer registers `--color-*`, `--gray-*`, `--palette-source` and `--palette-hue` with `@property`, so they can't be animated as colors anymore.
 
 `--ui-motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `theme.css`, and the `.ui-motion-*` classes moved to `core/utils.css`. `theme.css` also declares `--ui-palette-hue-rotate-by`, `--ui-gray-hue` and `--ui-gray-chroma`. If you import single files, import `theme.css` and `utils.css` too.
 
@@ -788,7 +794,7 @@ Rich text (`.ui-rich-text`) only styles headings without a class, like lists. Ad
 + <h2 class="intro ui-h2">Title</h2>
 ```
 
-`--ui-font-size-h3` is fluid with a higher minimum (`--font-size-3`), `--ui-font-size-h4` scales between `--font-size-2` and `--font-size-3` instead of a fixed `--font-size-3`, and `--ui-font-size-h6` is `--font-size-1`, so check pages that rely on the old heading sizes.
+`--ui-font-size-h3` is fluid with a higher minimum (`--ui-font-size-500`), `--ui-font-size-h4` scales between `--ui-font-size-400` and `--ui-font-size-500` instead of a fixed size, and `--ui-font-size-h6` is `--ui-font-size-300`, so check pages that rely on the old heading sizes.
 
 Rich text styles live in a new `components.prose` layer, below `components.root`, so component styles inside rich text win over prose styles. If you declare the layer order yourself, add it:
 

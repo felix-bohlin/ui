@@ -1,0 +1,255 @@
+---
+const tiers = [
+  {
+    name: "Knob",
+    note: "Set by a theme",
+    tokens: ["--ui-palette-hue", "--ui-density", ""],
+  },
+  {
+    name: "Primitive",
+    note: "Derived from the knobs, never read by components",
+    tokens: ["--ui-color-16", "", "--ui-font-size-300"],
+  },
+  {
+    name: "Role",
+    note: "Set by a theme, read by every component with that job",
+    tokens: [
+      "--ui-palette-strong",
+      "--ui-control-size",
+      "--ui-font-size-control",
+    ],
+  },
+  {
+    name: "Component token",
+    note: "Set by a theme, read by one component",
+    optional: ["--ui-button-accent"],
+    tokens: ["--ui-button-accent", "--ui-button-size", ""],
+  },
+  {
+    name: "Private property",
+    note: "Declared by the component, set on one element",
+    tokens: ["--_accent", "--_min-height", "--_font-size"],
+  },
+  {
+    name: "CSS property",
+    tokens: ["background-color", "min-block-size", "font-size"],
+  },
+]
+
+const traces = ["Accent", "Height", "Font size"]
+
+const span = traces.map((_, column) => {
+  const filled = tiers.flatMap((tier, row) =>
+    tier.tokens[column] ? [row] : [],
+  )
+  return { first: filled[0], last: filled[filled.length - 1] }
+})
+
+const link = (row: number, column: number) => {
+  const { first, last } = span[column]
+  if (row < first || row > last) return undefined
+  if (row === first) return "start"
+  if (row === last) return "end"
+  return "through"
+}
+---
+
+<figure class="token-tiers ui-not-rich-text">
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Tier</th>
+          {traces.map((trace) => <th scope="col">{trace}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {
+          tiers.map((tier, row) => (
+            <tr data-tier={tier.name.toLowerCase().replace(/\s+/g, "-")}>
+              <th scope="row">
+                <span class="tier">
+                  <span class="name">{tier.name}</span>
+                  {tier.note && <span class="note">{tier.note}</span>}
+                </span>
+              </th>
+              {tier.tokens.map((token, column) => (
+                <td data-link={link(row, column)}>
+                  {token && (
+                    <code
+                      data-optional={
+                        tier.optional?.includes(token) ? "" : undefined
+                      }
+                    >
+                      {token}
+                    </code>
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <figcaption>
+    A filled Button, traced from the theme to its CSS. Component CSS reads from
+    the line down. An empty cell skips a tier, and a dashed token is unset by
+    default and falls back to the role.
+  </figcaption>
+</figure>
+
+<style>
+  .token-tiers {
+    --_line: color-mix(in oklch, var(--ui-primary) 60%, transparent);
+
+    display: grid;
+    gap: var(--size-3);
+    margin-block: var(--size-5);
+    place-items: stretch;
+  }
+
+  .scroll {
+    background-color: var(--ui-surface-default);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    overflow-x: auto;
+    padding: var(--size-3) var(--size-2);
+  }
+
+  table {
+    border-collapse: collapse;
+    inline-size: 100%;
+    min-inline-size: 36rem;
+  }
+
+  th,
+  td {
+    padding: var(--size-2) var(--size-3);
+    vertical-align: middle;
+  }
+
+  thead th {
+    color: var(--ui-text-muted);
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-medium);
+    letter-spacing: var(--ui-letter-spacing-caps);
+    padding-block-end: var(--size-3);
+    text-align: center;
+    text-transform: uppercase;
+
+    &:first-child {
+      text-align: start;
+    }
+  }
+
+  tbody th {
+    background-color: var(--ui-surface-default);
+    inline-size: 12rem;
+    inset-inline-start: 0;
+    min-inline-size: 9rem;
+    position: sticky;
+    text-align: start;
+    z-index: 1;
+  }
+
+  .tier {
+    display: grid;
+    gap: var(--size-1);
+  }
+
+  .name {
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .note {
+    color: var(--ui-text-muted);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-normal);
+    line-height: var(--ui-line-height-tight);
+  }
+
+  td {
+    position: relative;
+    text-align: center;
+
+    &[data-link]::before {
+      background-color: var(--_line);
+      content: "";
+      inline-size: 2px;
+      inset-block: 0;
+      inset-inline-start: calc(50% - 1px);
+      position: absolute;
+    }
+
+    &[data-link="start"]::before {
+      inset-block-start: 50%;
+    }
+
+    &[data-link="end"]::before {
+      inset-block-end: 50%;
+    }
+  }
+
+  code {
+    background-color: var(--ui-surface-default);
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-small);
+    display: inline-block;
+    font-size: var(--ui-font-size-caption);
+    padding: var(--size-1) var(--size-2);
+    position: relative;
+    white-space: nowrap;
+
+    &[data-optional] {
+      border-style: dashed;
+    }
+  }
+
+  td:not([data-link="start"]) code::before {
+    border-block-start: 6px solid var(--_line);
+    border-inline: 5px solid transparent;
+    content: "";
+    inset-block-end: calc(100% + 1px);
+    inset-inline-start: calc(50% - 5px);
+    position: absolute;
+  }
+
+  [data-tier="knob"] code {
+    background-color: var(--ui-palette-tint-subtle);
+    border-color: var(--ui-palette-accent);
+  }
+
+  [data-tier="primitive"] {
+    code {
+      border-style: dotted;
+      color: var(--ui-text-muted);
+    }
+  }
+
+  [data-tier="role"] {
+    > * {
+      border-block-start: var(--ui-border-width-thick) solid var(--ui-primary);
+    }
+
+    code {
+      border-color: var(--ui-primary);
+    }
+  }
+
+  [data-tier="css-property"] code {
+    background-color: var(--ui-surface-inverse);
+    border-color: var(--ui-surface-inverse);
+    color: var(--ui-on-inverse);
+  }
+
+  tbody tr + tr > * {
+    padding-block-start: var(--size-4);
+  }
+
+  figcaption {
+    color: var(--ui-text-muted);
+    font-size: var(--ui-font-size-small);
+    text-align: start;
+  }
+</style>

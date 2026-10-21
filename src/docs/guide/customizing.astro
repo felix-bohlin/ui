@@ -8,19 +8,17 @@ import Example from "../../components/Example/index"
 <Guide overline="Guide">
   <Fragment slot="title">Customizing</Fragment>
   <Fragment slot="preamble">
-    Theme tokens change the whole library. When you want to change one
-    component, or one instance of it, reach for its <code>--_</code> custom properties.
+    Theme tokens change the whole library. To change one component, or one
+    instance of it, set its <code>--_*</code> properties.
   </Fragment>
 
   <section>
     <h2 id="your-theme">Your theme</h2>
     <p>
-      A custom theme is a short list of <DocLink href="/guide/theme-tokens"
-        >theme tokens</DocLink
-      >. Put them in the <code>theme.custom</code> layer: it sits right after the
-      defaults in <code>theme.base</code>, so it beats them, and every component
-      and utility still beats it. Only list what you change, and new tokens in
-      later releases keep their defaults.
+      A theme is the <DocLink href="/guide/concepts#token-tiers"
+        >knobs, roles and component tokens</DocLink
+      > you change, in the <code>theme.custom</code> layer, right after the defaults.
+      Tokens you leave out keep their defaults, also new ones in later releases.
     </p>
     <Code
       code={`@layer theme.custom {
@@ -36,29 +34,21 @@ import Example from "../../components/Example/index"
       lang="css"
     />
     <p>
-      Load it after the library, or after <code>layers.css</code> when you import
-      single files. If it might load first, start it with the two <code
+      If it might load before <code>layers.css</code>, start it with the two <code
         >@layer</code
-      > statements from <code>layers.css</code>, like the example themes and the
-      generated file do, so <code>theme.custom</code> still lands after the defaults.
-      The <DocLink href="/guide/theme-generator">Theme generator</DocLink> writes
-      one for you, and <DocLink href="/guide/theming">Theming</DocLink> explains each
-      token.
+      > statements from there, like the example themes do. The <DocLink
+        href="/guide/theme-generator">Theme generator</DocLink
+      > writes one for you.
     </p>
     <h3 id="example-themes">Example themes</h3>
     <p>
-      Four example themes ship with the package, each a deliberate copy of a
-      look you know, to show how far tokens go. They copy their originals
-      faithfully, also where those fall short of WCAG contrast, like the
-      translucent focus rings of Bootstrap and shadcn and the bright blue of
-      brutalist, so check contrast before you ship one. None of them touches
-      component CSS: each one is a list of tokens in <code>theme.custom</code>,
-      and the tests run every stress test page with each of them, in light and
-      dark mode. Try them on this site in the theme drawer in the header, or in
-      the <DocLink href="/guide/theme-generator">Theme generator</DocLink>. They
-      name their fonts, Geist, Roboto and DM Sans, but don't load them: host
-      them with your site, from the Fontsource packages on npm like this site
-      does, or load them from Bunny Fonts. Bootstrap uses the system font stack.
+      Four themes ship with the package to show how far tokens go. Each is only
+      tokens in <code>theme.custom</code>, no component CSS, and every stress
+      test page runs with each of them in light and dark mode. They copy their
+      originals faithfully, also where those fall short of WCAG contrast (the
+      translucent focus rings of Bootstrap and shadcn, the bright blue of
+      brutalist). They name their fonts (Geist, Roboto, DM Sans) but don't load
+      them. Try them in the theme drawer in the header.
     </p>
     <ul>
       <li>
@@ -91,62 +81,14 @@ import Example from "../../components/Example/index"
   </section>
 
   <section>
-    <h2 id="what-a-theme-can-change">What a theme can change</h2>
-    <p>
-      The tokens come in tiers, and a theme works in the top three. The
-      <strong>primitives</strong> are the palette steps <code>--ui-gray-1</code> to
-      <code>--ui-gray-16</code> and <code>--ui-color-1</code> to <code
-        >--ui-color-16</code
-      >, derived from the palette knobs, and the Open Props scales. Change them
-      through the knobs, <code>--ui-palette-hue</code>, <code
-        >--ui-gray-chroma</code
-      >
-      and the rest, not by name. The <strong>roles</strong> are the contract: <code
-        >--ui-primary</code
-      >, <code>--ui-control-border-color</code>, <code
-        >--ui-font-size-caption</code
-      >,
-      <code>--ui-space-3</code>, <code>--ui-shadow-elevated</code> and about 150 more,
-      each with a description on the <DocLink href="/guide/theme-tokens"
-        >tokens page</DocLink
-      > and, where it guarantees contrast, the ratio it promises against which token.
-      Every component reads roles, so a role reaches every component with that job.
-      <strong>Component tokens</strong> such as <code>--ui-button-accent</code> and
-      <code>--ui-field-radius</code> exist for a job only one component has, and default
-      to a role or a fixed size. The <strong>private properties</strong>, <code
-        >--_accent</code
-      > and friends, are each component's own wiring: documented on its page under
-      <a href="#component-properties">Component properties</a>, meant for a
-      single element, never for a theme.
-    </p>
-    <p>
-      Component CSS never reads a primitive, and a check in <code
-        >pnpm check</code
-      >
-      keeps it that way, so a theme that sets roles alone recreates Bootstrap, Material
-      or shadcn. When a theme needs component CSS to reach something, that is a missing
-      role, and worth an issue.
-    </p>
-  </section>
-
-  <section>
     <h2 id="component-properties">Component properties</h2>
     <p>
-      There are two kinds of custom properties. <DocLink
-        href="/guide/theme-tokens">Theme tokens</DocLink
-      >, like <code>--ui-primary</code> or <code>--ui-button-size</code>, are
-      set on
-      <code>html</code> and inherited by everything. Change one and every component
-      that reads it follows.
+      The <code>--_*</code> private properties are each component's wiring, the last
+      <DocLink href="/guide/concepts#token-tiers">tier</DocLink> before its CSS. Every
+      component page lists its own under Component properties, marked as inputs or
+      outputs, and components share names where they mean the same thing. Button reads
+      these:
     </p>
-    <p>
-      Component properties start with <code>--_</code>, like <code
-        >--_accent</code
-      > or <code>--_icon-size</code>. Each component declares them on itself and
-      builds its styles from them. They're the knobs for that one component, and
-      the API for customizing it.
-    </p>
-    <p>For example, Button reads these:</p>
     <ul>
       <li>
         <code>--_accent</code>: the accent color. Fills, borders, text, hover
@@ -174,22 +116,11 @@ import Example from "../../components/Example/index"
       </li>
     </ul>
     <p>
-      Other components use the same names where they mean the same thing, like
-      <code>--_size</code> for the height of a Badge. Every component page lists its
-      properties under Component properties, marked as inputs or outputs.
-    </p>
-  </section>
-
-  <section>
-    <h2 id="set-them-on-the-component">Set them on the component</h2>
-    <p>
-      Theme tokens can be set on any parent, since they're inherited. <code
-        >--_</code
-      > properties can't: the component declares its own value, and a declared value
-      always beats an inherited one. So set them on the component itself.
+      The component declares them on itself, so set them on the component, not
+      on a parent. Theme tokens are the ones to set on a parent:
     </p>
     <Code
-      code={`/* Does nothing: every .ui-button sets its own --_icon-size */
+      code={`/* Does nothing: every .ui-button declares its own --_icon-size */
 .toolbar {
   --_icon-size: 1.25em;
 }
@@ -199,15 +130,12 @@ import Example from "../../components/Example/index"
   --_icon-size: 1.25em;
 }
 
-/* Theme tokens are inherited, so a parent is fine */
+/* Theme tokens inherit, so a parent is fine */
 .toolbar {
   --ui-button-radius: var(--radius-round);
 }`}
       lang="css"
     />
-    <p>
-      An inline <code>style</code> works too, for a one-off:
-    </p>
     <Example centered>
       <button
         class="ui-button ui-filled"
@@ -225,40 +153,22 @@ import Example from "../../components/Example/index"
       </button>
     </Example>
     <p>
-      Prefer the inputs, like <code>--_accent</code>, over the outputs, like <code
+      Prefer inputs like <code>--_accent</code> over outputs like <code
         >--_bg-color</code
-      >. Hover, active and disabled states set the outputs too, so overriding <code
-        >--_bg-color</code
-      > freezes the background in every state, while a new <code>--_accent</code
-      > flows through all of them.
+      >. The states set the outputs, so a new <code>--_bg-color</code> freezes the
+      background in every state, while a new <code>--_accent</code> flows through
+      all of them.
     </p>
   </section>
 
   <section>
     <h2 id="unlayered-or-your-own-layer">Unlayered or your own layer</h2>
     <p>
-      All OPUI styles live in <DocLink href="/guide/concepts#cascade-layers"
-        >cascade layers</DocLink
-      >. Where you put your overrides decides how they compete with the library,
-      and with each other.
-    </p>
-    <h3 id="unlayered">Unlayered</h3>
-    <p>
-      CSS outside any layer beats every layer, whatever the specificity. Simple,
-      and fine for most apps:
-    </p>
-    <Code
-      code={`.ui-button.compact {
-  --_min-height: var(--size-7);
-  --_padding-inline: 1ex;
-}`}
-      lang="css"
-    />
-    <h3 id="your-own-layer">Your own layer</h3>
-    <p>
-      If you use layers yourself, add one after <code>utils</code>. It beats the
-      library and still loses to your unlayered CSS, so one-off fixes keep
-      working:
+      Unlayered CSS beats every <DocLink href="/guide/concepts#cascade-layers"
+        >layer</DocLink
+      >, which is fine for most apps. If you use layers yourself, add one after <code
+        >utils</code
+      >: it beats the library and still loses to your unlayered one-off fixes.
     </p>
     <Code
       code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils, overrides;
@@ -271,36 +181,5 @@ import Example from "../../components/Example/index"
 }`}
       lang="css"
     />
-    <p>
-      Layers are ordered by where they're first mentioned, so a layer you first
-      use after the OPUI imports already lands after <code>utils</code>.
-      Spelling out the full order is just nicer to read.
-    </p>
-  </section>
-
-  <section>
-    <h2 id="more-examples">More examples</h2>
-    <p>Bigger icons in a toolbar, without touching the buttons elsewhere:</p>
-    <Code
-      code={`.toolbar .ui-button {
-  --_icon-size: var(--size-5);
-}`}
-      lang="css"
-    />
-    <p>A critical button that skips its color transitions:</p>
-    <Code
-      code={`<button class="ui-button ui-filled ui-critical" style="--_motion: 0" type="button">
-  Delete
-</button>`}
-      lang="html"
-    />
-    <p>
-      Need to change it everywhere instead? Then it's a theme token, see <DocLink
-        href="/guide/theme-tokens">Theme tokens</DocLink
-      > or try the <DocLink href="/guide/theme-generator"
-        >Theme generator</DocLink
-      >. <DocLink href="/guide/theming">Theming</DocLink> covers the palette, density,
-      spacing, corners, fonts, elevation, motion and contrast.
-    </p>
   </section>
 </Guide>

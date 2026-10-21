@@ -41,22 +41,18 @@ const slug = (title: string) =>
 <Guide overline="Guide">
   <Fragment slot="title">Theme tokens</Fragment>
   <Fragment slot="preamble">
-    Every custom property that <code>theme.css</code> declares, with its default.
-    Override any of them on <code>html</code>, or on a subtree, unlayered or in
-    a layer after <code>utils</code>. Most are roles that every component with
-    that job reads; the ones marked <em>component</em> belong to one component and
-    default to a role or a fixed size. A description that promises a contrast ratio
-    is checked by the tests in light and dark mode, with and without more contrast.
+    Every token <code>theme.css</code> declares, with its default. Most are <DocLink
+      href="/guide/concepts#token-tiers">roles</DocLink
+    >, the ones marked <em>component</em> belong to one component. The tests check
+    every promised contrast ratio in light and dark mode, with and without more contrast.
   </Fragment>
 
   <section>
     <h2 id="overriding">Overriding tokens</h2>
     <p>
-      Tokens cascade like any custom property. Set them once on{" "}
-      <code>html</code> for a whole site, or on an element to theme a part of the
-      page. The <DocLink href="/guide/theme-generator">theme generator</DocLink
-      >{" "}
-      writes a <code>custom-theme.css</code> with the tokens you change.
+      Set them on <code>html</code>, or on an element to theme a subtree. The <DocLink
+        href="/guide/theme-generator">Theme generator</DocLink
+      > writes the ones you change to a <code>custom-theme.css</code>.
     </p>
     <Code
       code={`@layer theme.custom {
@@ -69,28 +65,22 @@ const slug = (title: string) =>
       lang="css"
     />
     <p>
-      <DocLink href="/guide/customizing#your-theme">Customizing</DocLink> explains
-      the <code>theme.custom</code> layer and where to put your other styles.
-    </p>
-    <p>
-      The same list ships as <code>opui-css/tokens.json</code>, in the <a
-        href="https://www.designtokens.org/"
-        class="ui-link">W3C design tokens</a
-      > format, for Style Dictionary, design tools and AI assistants. It's also at
-      <a href="/tokens.json" class="ui-link">/tokens.json</a>. Values are CSS,
-      and each token carries its CSS variable and dark mode value under <code
+      The same list ships as <code>opui-css/tokens.json</code> (also at <a
+        href="/tokens.json"
+        class="ui-link">/tokens.json</a
+      >) in the <a href="https://www.designtokens.org/" class="ui-link"
+        >W3C design tokens</a
+      > format, with CSS values and each token's variable and dark value under <code
         >$extensions.opui</code
-      >. <DocLink href="/guide/theming">Theming</DocLink> explains the palette, density,
-      spacing, corners, fonts, elevation, motion and contrast, and the classes that
-      change them for one part of the page.
+      >.
     </p>
   </section>
 
   <section>
     <h2 id="naming">How tokens are named</h2>
     <p>
-      Every name is <code>--ui-</code>, then a family or role, then its variant
-      and context, and each word means one thing:
+      <code>--ui-</code>, then a family or role, then variant and context. Each
+      word means one thing:
     </p>
     <ul>
       <li>

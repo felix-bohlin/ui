@@ -1737,8 +1737,8 @@
   {
     "id": "guide-concepts-html",
     "title": "Concepts",
-    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    palette scopes, how props map to classes, rich text, and when you need\n    JavaScript.",
-    "headings": "Cascade layers Light and dark Palette scopes Props and classes Rich text JavaScript",
+    "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    rich text, and where JavaScript is still needed.",
+    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Rich text JavaScript",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/concepts"
@@ -1746,8 +1746,8 @@
   {
     "id": "guide-concepts-astro",
     "title": "Concepts",
-    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    palette scopes, how props map to classes, rich text, and when you need\n    JavaScript.",
-    "headings": "Cascade layers Light and dark Palette scopes Props and classes Rich text JavaScript",
+    "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    rich text, and where JavaScript is still needed.",
+    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Rich text JavaScript",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/concepts"
@@ -1755,8 +1755,8 @@
   {
     "id": "guide-concepts-react",
     "title": "Concepts",
-    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    palette scopes, how props map to classes, rich text, and when you need\n    JavaScript.",
-    "headings": "Cascade layers Light and dark Palette scopes Props and classes Rich text JavaScript",
+    "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    rich text, and where JavaScript is still needed.",
+    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Rich text JavaScript",
     "category": "Guide",
     "frameworkId": "react",
     "url": "/react/guide/concepts"
@@ -1764,8 +1764,8 @@
   {
     "id": "guide-concepts-svelte",
     "title": "Concepts",
-    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    palette scopes, how props map to classes, rich text, and when you need\n    JavaScript.",
-    "headings": "Cascade layers Light and dark Palette scopes Props and classes Rich text JavaScript",
+    "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    rich text, and where JavaScript is still needed.",
+    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Rich text JavaScript",
     "category": "Guide",
     "frameworkId": "svelte",
     "url": "/svelte/guide/concepts"
@@ -1773,8 +1773,8 @@
   {
     "id": "guide-concepts-vue",
     "title": "Concepts",
-    "description": "The few ideas the whole library is built on: cascade layers, light and dark,\n    palette scopes, how props map to classes, rich text, and when you need\n    JavaScript.",
-    "headings": "Cascade layers Light and dark Palette scopes Props and classes Rich text JavaScript",
+    "description": "The architecture: cascade layers, token tiers, scopes, props and classes,\n    rich text, and where JavaScript is still needed.",
+    "headings": "Cascade layers Token tiers Light and dark Palette scopes Props and classes Rich text JavaScript",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/concepts"
@@ -1782,8 +1782,8 @@
   {
     "id": "guide-customizing-html",
     "title": "Customizing",
-    "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Your theme Example themes What a theme can change Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "description": "Theme tokens change the whole library. To change one component, or one\n    instance of it, set its --_* properties.",
+    "headings": "Your theme Example themes Component properties Unlayered or your own layer",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/customizing"
@@ -1791,8 +1791,8 @@
   {
     "id": "guide-customizing-astro",
     "title": "Customizing",
-    "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Your theme Example themes What a theme can change Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "description": "Theme tokens change the whole library. To change one component, or one\n    instance of it, set its --_* properties.",
+    "headings": "Your theme Example themes Component properties Unlayered or your own layer",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/customizing"
@@ -1800,8 +1800,8 @@
   {
     "id": "guide-customizing-react",
     "title": "Customizing",
-    "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Your theme Example themes What a theme can change Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "description": "Theme tokens change the whole library. To change one component, or one\n    instance of it, set its --_* properties.",
+    "headings": "Your theme Example themes Component properties Unlayered or your own layer",
     "category": "Guide",
     "frameworkId": "react",
     "url": "/react/guide/customizing"
@@ -1809,8 +1809,8 @@
   {
     "id": "guide-customizing-svelte",
     "title": "Customizing",
-    "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Your theme Example themes What a theme can change Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "description": "Theme tokens change the whole library. To change one component, or one\n    instance of it, set its --_* properties.",
+    "headings": "Your theme Example themes Component properties Unlayered or your own layer",
     "category": "Guide",
     "frameworkId": "svelte",
     "url": "/svelte/guide/customizing"
@@ -1818,8 +1818,8 @@
   {
     "id": "guide-customizing-vue",
     "title": "Customizing",
-    "description": "Theme tokens change the whole library. When you want to change one\n    component, or one instance of it, reach for its --_ custom properties.",
-    "headings": "Your theme Example themes What a theme can change Component properties Set them on the component Unlayered or your own layer Unlayered Your own layer More examples",
+    "description": "Theme tokens change the whole library. To change one component, or one\n    instance of it, set its --_* properties.",
+    "headings": "Your theme Example themes Component properties Unlayered or your own layer",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/customizing"
@@ -1917,7 +1917,7 @@
   {
     "id": "guide-theme-tokens-html",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role or a fixed size. A description that promises a contrast ratio\n    is checked by the tests in light and dark mode, with and without more contrast.",
+    "description": "Every token theme.css declares, with its default. Most are roles, the ones marked component belong to one component. The tests check\n    every promised contrast ratio in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens How tokens are named",
     "category": "Guide",
     "frameworkId": "html",
@@ -1926,7 +1926,7 @@
   {
     "id": "guide-theme-tokens-astro",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role or a fixed size. A description that promises a contrast ratio\n    is checked by the tests in light and dark mode, with and without more contrast.",
+    "description": "Every token theme.css declares, with its default. Most are roles, the ones marked component belong to one component. The tests check\n    every promised contrast ratio in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens How tokens are named",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1935,7 +1935,7 @@
   {
     "id": "guide-theme-tokens-react",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role or a fixed size. A description that promises a contrast ratio\n    is checked by the tests in light and dark mode, with and without more contrast.",
+    "description": "Every token theme.css declares, with its default. Most are roles, the ones marked component belong to one component. The tests check\n    every promised contrast ratio in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens How tokens are named",
     "category": "Guide",
     "frameworkId": "react",
@@ -1944,7 +1944,7 @@
   {
     "id": "guide-theme-tokens-svelte",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role or a fixed size. A description that promises a contrast ratio\n    is checked by the tests in light and dark mode, with and without more contrast.",
+    "description": "Every token theme.css declares, with its default. Most are roles, the ones marked component belong to one component. The tests check\n    every promised contrast ratio in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens How tokens are named",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -1953,7 +1953,7 @@
   {
     "id": "guide-theme-tokens-vue",
     "title": "Theme tokens",
-    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, unlayered or in\n    a layer after utils. Most are roles that every component with\n    that job reads; the ones marked component belong to one component and\n    default to a role or a fixed size. A description that promises a contrast ratio\n    is checked by the tests in light and dark mode, with and without more contrast.",
+    "description": "Every token theme.css declares, with its default. Most are roles, the ones marked component belong to one component. The tests check\n    every promised contrast ratio in light and dark mode, with and without more contrast.",
     "headings": "Overriding tokens How tokens are named",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1962,7 +1962,7 @@
   {
     "id": "guide-theming-html",
     "title": "Theming",
-    "description": "Colors, density, spacing, corners, fonts, elevation, motion and contrast.\n    Each is a few custom properties on html, and a few classes\n    change them for one part of the page.",
+    "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
     "headings": "Palette Scopes Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "html",
@@ -1971,7 +1971,7 @@
   {
     "id": "guide-theming-astro",
     "title": "Theming",
-    "description": "Colors, density, spacing, corners, fonts, elevation, motion and contrast.\n    Each is a few custom properties on html, and a few classes\n    change them for one part of the page.",
+    "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
     "headings": "Palette Scopes Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1980,7 +1980,7 @@
   {
     "id": "guide-theming-react",
     "title": "Theming",
-    "description": "Colors, density, spacing, corners, fonts, elevation, motion and contrast.\n    Each is a few custom properties on html, and a few classes\n    change them for one part of the page.",
+    "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
     "headings": "Palette Scopes Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "react",
@@ -1989,7 +1989,7 @@
   {
     "id": "guide-theming-svelte",
     "title": "Theming",
-    "description": "Colors, density, spacing, corners, fonts, elevation, motion and contrast.\n    Each is a few custom properties on html, and a few classes\n    change them for one part of the page.",
+    "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
     "headings": "Palette Scopes Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "svelte",
@@ -1998,7 +1998,7 @@
   {
     "id": "guide-theming-vue",
     "title": "Theming",
-    "description": "Colors, density, spacing, corners, fonts, elevation, motion and contrast.\n    Each is a few custom properties on html, and a few classes\n    change them for one part of the page.",
+    "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
     "headings": "Palette Scopes Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "vue",

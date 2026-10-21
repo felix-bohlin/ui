@@ -4,92 +4,99 @@ import Code from "../../components/Code.astro"
 import CodeGroup from "../../components/CodeGroup.astro"
 import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example/index"
+import LayerStack from "../../components/LayerStack.astro"
+import TokenTiers from "../../components/TokenTiers.astro"
 ---
 
 <Guide overline="Guide">
   <Fragment slot="title">Concepts</Fragment>
   <Fragment slot="preamble">
-    The few ideas the whole library is built on: cascade layers, light and dark,
-    palette scopes, how props map to classes, rich text, and when you need
-    JavaScript.
+    The architecture: cascade layers, token tiers, scopes, props and classes,
+    rich text, and where JavaScript is still needed.
   </Fragment>
 
   <section>
     <h2 id="cascade-layers">Cascade layers</h2>
     <p>
-      Every rule in OPUI lives in a cascade layer. <code>layers.css</code> declares
-      the order once, and everything after it slots into place:
+      Every rule lives in a layer, ordered once in <code>layers.css</code>:
     </p>
     <Code
       code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
 @layer theme.palette, theme.base, theme.custom;`}
       lang="css"
     />
+    <LayerStack />
+    <p>
+      Your theme goes in <code>theme.custom</code>, your overrides unlayered or
+      in a layer after <code>utils</code>, so they win without <code
+        >!important</code
+      > or heavier selectors. <code>components.prose</code> is the lowest component
+      layer, so a component inside rich text keeps its own styles. Import <code
+        >layers.css</code
+      > first when you import single files. More in <DocLink
+        href="/guide/customizing">Customizing</DocLink
+      >.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="token-tiers">Token tiers</h2>
+    <p>
+      Each tier reads from the ones before it. A theme sets knobs, roles and
+      component tokens, and component CSS starts reading at the roles:
+    </p>
+    <TokenTiers />
     <ul>
       <li>
-        <code>openprops</code>: the Open Props tokens (<code>--size-3</code>,
-        <code>--font-size-1</code>, …).
+        <strong>Knobs</strong> like <code>--ui-palette-hue</code>, <code
+          >--ui-density</code
+        > and <code>--ui-space-scale</code> are the inputs. Change the primitives
+        through them, not by name.
       </li>
       <li>
-        <code>theme</code>: the tokens, in three sublayers. <code
-          >theme.palette</code
-        > is <code>palette.css</code>, <code>theme.base</code> is <code
-          >theme.css</code
-        >, the colors and component tokens like <code>--ui-primary</code> and <code
-          >--ui-button-size</code
-        >, and <code>theme.custom</code> is empty, for your own theme. See <DocLink
-          href="/guide/customizing#your-theme">Your theme</DocLink
+        <strong>Primitives</strong> are the palette steps <code
+          >--ui-color-1</code
+        > to <code>--ui-color-16</code> and <code>--ui-gray-1</code> to <code
+          >--ui-gray-16</code
+        >, the type scale <code>--ui-font-size-100</code> to <code
+          >--ui-font-size-900</code
+        > and the Open Props scales. Component CSS never reads them, and a check in
+        the repo keeps it that way.
+      </li>
+      <li>
+        <strong>Roles</strong> are the contract: about 150 tokens such as <code
+          >--ui-primary</code
+        >, <code>--ui-space-3</code> and <code>--ui-shadow-elevated</code>, each
+        described on <DocLink href="/guide/theme-tokens">Theme tokens</DocLink>
+        with the contrast it promises. Roles alone recreate Bootstrap, Material and
+        shadcn in the <DocLink href="/guide/customizing#example-themes"
+          >example themes</DocLink
+        >. A theme that has to reach into component CSS points at a missing
+        role, and that is worth an issue.
+      </li>
+      <li>
+        <strong>Component tokens</strong> like <code>--ui-button-size</code> cover
+        a job only one component has, and default to a role or a fixed size.
+      </li>
+      <li>
+        <strong>Private properties</strong> like <code>--_accent</code> are each component's
+        wiring, for one element, never for a theme. See <DocLink
+          href="/guide/customizing#component-properties"
+          >Component properties</DocLink
         >.
       </li>
-      <li><code>normalize</code>: the reset.</li>
-      <li>
-        <code>components.prose</code>: rich text, lowest of the components so a
-        component inside rich text keeps its own styles.
-      </li>
-      <li>
-        <code>components.root</code>: components that stand on their own, like
-        Button and Checkbox.
-      </li>
-      <li>
-        <code>components.extended</code>: components built on top of others,
-        like Badge, Dialog and Select.
-      </li>
-      <li>
-        <code>utils</code>: utility classes such as <code>.ui-sr-only</code>.
-      </li>
     </ul>
-    <p>
-      A later layer always beats an earlier one, no matter the specificity. And
-      anything you write outside a layer beats all of them. So you never have to
-      fight the library with <code>!important</code> or long selectors:
-    </p>
-    <Code
-      code={`/* Unlayered, so it wins over every OPUI layer */
-.ui-card {
-  border-radius: 0;
-}`}
-      lang="css"
-    />
-    <p>
-      Import <code>layers.css</code> first when you import single files, so the order
-      is set before anything lands in a layer. <DocLink
-        href="/guide/customizing">Customizing</DocLink
-      > has more on where to put your own styles.
-    </p>
   </section>
 
   <section>
     <h2 id="light-and-dark">Light and dark</h2>
     <p>
-      OPUI follows the OS setting out of the box: <code>theme.css</code> sets <code
+      The color tokens use <code>light-dark()</code> under <code
         >color-scheme: light dark</code
-      > and the color tokens use <code>light-dark()</code>, so there is no dark
-      mode class to toggle. By default the palette is green in light mode and
-      blue in dark mode.
-    </p>
-    <p>
-      <code>.ui-light</code> and <code>.ui-dark</code> force a scheme. Put them on
-      <code>html</code> for the whole page, or on any element to force just that part.
+      >, so the OS setting drives them and there is no class to toggle. <code
+        >.ui-light</code
+      > and <code>.ui-dark</code> force a scheme on <code>html</code> or any element.
+      The default palette is green in light mode and blue in dark mode.
     </p>
     <Example>
       <div class="concepts-schemes">
@@ -105,29 +112,41 @@ import Example from "../../components/Example/index"
         </div>
       </div>
     </Example>
-    <p>
-      More on scopes and the palette in <DocLink href="/guide/theming#scopes"
-        >Theming</DocLink
-      >.
-    </p>
   </section>
 
   <section>
     <h2 id="palette-scopes">Palette scopes</h2>
     <p>
-      Every color in OPUI comes from one palette: 16 shades of one color, from
-      almost white (<code>--ui-color-1</code>) to almost black (<code
-        >--ui-color-16</code
-      >). Components pick their fills, borders and text from those shades.
+      Every color comes from one 16-step palette. A scope class re-derives it
+      for an element and everything inside, so one class gives a Callout and a
+      tonal Button the same red. <code>--ui-primary</code> and the text colors keep
+      the page values.
     </p>
-    <p>
-      A few classes swap that palette for an element and everything inside it:
-      {" "}<code>.ui-critical</code> turns it red, <code>.ui-info</code> blue,
-      {" "}<code>.ui-success</code> green, <code>.ui-warning</code> orange and
-      {" "}<code>.ui-neutral</code> gray. The shades follow, so one class gives a
-      Callout and a tonal Button the same red. <code>--ui-primary</code> and the text
-      colors stay as they are.
-    </p>
+    <figure class="concepts-palettes ui-not-rich-text">
+      {
+        [
+          "",
+          "ui-critical",
+          "ui-info",
+          "ui-neutral",
+          "ui-success",
+          "ui-warning",
+        ].map((scope) => (
+          <div class={scope || undefined}>
+            <code>{scope ? `.${scope}` : "Page"}</code>
+            <span class="swatches" aria-hidden="true">
+              {Array.from({ length: 16 }, (_, i) => (
+                <span style={`background-color: var(--ui-color-${i + 1})`} />
+              ))}
+            </span>
+          </div>
+        ))
+      }
+      <figcaption>
+        <code>--ui-color-1</code> to <code>--ui-color-16</code> on the page and in
+        each scope, live with the current theme.
+      </figcaption>
+    </figure>
     <Example centered>
       <article class="ui-callout ui-critical">
         <div class="ui-content">Your card was declined.</div>
@@ -137,24 +156,20 @@ import Example from "../../components/Example/index"
       </button>
     </Example>
     <p>
-      Want another brand color in one part of the page? Put <code
-        >.ui-palette</code
-      > on it and set your own <code>--ui-palette-hue</code>. It builds a new
-      palette there and recolors <code>--ui-primary</code> and the intent colors too.
-      The grays keep <code>--ui-gray-hue</code>. <DocLink
+      <code>.ui-palette</code> with your own <code>--ui-palette-hue</code> builds
+      a new palette for a subtree and recolors <code>--ui-primary</code> and the intent
+      colors too, so one page can carry several brands. See <DocLink
         href="/guide/theming#scopes">Theming</DocLink
-      > has the details.
+      >.
     </p>
   </section>
 
   <section>
     <h2 id="props-and-classes">Props and classes</h2>
     <p>
-      Every class the library owns starts with <code>ui-</code>, so it never
-      clashes with yours. A component is one class on the right element, and its
-      options are modifier classes next to it. The Astro, React, Svelte and Vue
-      components take the same options as props and render those exact classes,
-      so the HTML and the props map one to one:
+      A component is one <code>ui-</code> class on a native element, with modifier
+      classes for its options. The Astro, React, Svelte and Vue components render
+      those exact classes from props, one to one:
     </p>
     <CodeGroup
       tabs={[
@@ -190,28 +205,19 @@ import Example from "../../components/Example/index"
       ]}
     />
     <p>
-      Boolean props turn into a class of the same name (<code>round</code> is <code
+      Boolean props become a class of the same name (<code>round</code> is <code
         >.ui-round</code
-      >), and native states stay native: a disabled button is <code
-        >disabled</code
-      >, not a class. Every component's API table lists the prop and the class
-      side by side, so switching between frameworks (or dropping down to plain
-      HTML) is mostly copy and paste.
+      >), and native states stay native attributes, like <code>disabled</code>.
+      The API tables list prop and class side by side.
     </p>
   </section>
 
   <section>
     <h2 id="rich-text">Rich text</h2>
     <p>
-      Content you don't control, like Markdown or CMS output, has no classes.
-      Wrap it in <code>.ui-rich-text</code> and the plain elements inside get styled:
-      headings, paragraphs, lists, links, tables, quotes and code. Only elements without
-      a class are touched, so components inside rich text look the same as anywhere
-      else.
-    </p>
-    <p>
-      <code>.ui-not-rich-text</code> stops it for a subtree, handy for a demo or a
-      widget in the middle of an article.
+      <code>.ui-rich-text</code> styles the classless elements inside it, for Markdown
+      or CMS output. Elements with a class are left alone, so components keep their
+      styles, and <code>.ui-not-rich-text</code> opts a subtree out.
     </p>
     <Example>
       <article class="ui-rich-text">
@@ -229,19 +235,14 @@ import Example from "../../components/Example/index"
       </article>
     </Example>
     <p>
-      Need a heading style outside rich text, or on a heading that has a class?
-      Use <code>.ui-h1</code>–<code>.ui-h6</code>. More on the <DocLink
-        href="/components/typography">Typography</DocLink
-      > page.
+      <code>.ui-h1</code> to <code>.ui-h6</code> give the heading styles anywhere
+      else. See <DocLink href="/components/typography">Typography</DocLink>.
     </p>
   </section>
 
   <section>
     <h2 id="javascript">JavaScript</h2>
-    <p>
-      OPUI is CSS first, and the HTML platform does a lot these days. These work
-      without a single line of JavaScript:
-    </p>
+    <p>These work without JavaScript:</p>
     <ul>
       <li>
         Accordion is a <code>details</code> element, Tabs are a radio group, and ToggleButton
@@ -261,11 +262,10 @@ import Example from "../../components/Example/index"
       </li>
     </ul>
     <p>
-      Some of these are fresh off the press, so check <DocLink
-        href="/guide/browser-support">browser support</DocLink
-      > for what falls back and where.
+      Some are fresh off the press, see <DocLink href="/guide/browser-support"
+        >Browser support</DocLink
+      > for the fallbacks. Two things need script in plain HTML:
     </p>
-    <p>A few things do need script in plain HTML:</p>
     <ul>
       <li>
         <strong>Indeterminate checkboxes</strong>: <code>indeterminate</code> is a
@@ -276,15 +276,11 @@ import Example from "../../components/Example/index"
         >.
       </li>
       <li>
-        <strong>Range value</strong>: the <code>output</code> that shows the current
-        value has to be updated on <code>input</code>. The Astro component ships
-        a tiny script for it, and React, Svelte and Vue do it reactively.
+        <strong>Range value</strong>: the <code>output</code> has to be updated on
+        <code>input</code>. The Astro component ships a tiny script, and React,
+        Svelte and Vue do it reactively.
       </li>
     </ul>
-    <p>
-      Import them from the CDN in a plain page, or by package name when a
-      bundler resolves your scripts:
-    </p>
     <CodeGroup
       tabs={[
         {
@@ -311,6 +307,42 @@ import Example from "../../components/Example/index"
 </Guide>
 
 <style>
+  .concepts-palettes {
+    display: grid;
+    gap: var(--size-2);
+    margin-block: var(--size-5);
+    place-items: stretch;
+
+    > div {
+      align-items: center;
+      display: grid;
+      gap: var(--size-3);
+      grid-template-columns: 7rem 1fr;
+    }
+
+    code {
+      font-size: var(--ui-font-size-small);
+    }
+
+    figcaption {
+      color: var(--ui-text-muted);
+      font-size: var(--ui-font-size-small);
+      margin-block-start: var(--size-1);
+      text-align: start;
+    }
+  }
+
+  .swatches {
+    border-radius: var(--ui-radius-small);
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    overflow: hidden;
+
+    > span {
+      block-size: var(--size-6);
+    }
+  }
+
   .concepts-schemes {
     display: flex;
     flex-wrap: wrap;

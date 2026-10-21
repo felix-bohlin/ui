@@ -78,7 +78,8 @@
       }
     }
 
-    :where(.ui-field) :where(input) {
+    :where(.ui-field)
+      :where(input, select:not([multiple], [size], :has(button))) {
       align-self: center;
       block-size: calc(1lh + var(--_field-padding-block-fit) * 2);
     }

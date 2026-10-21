@@ -47,6 +47,12 @@ const emulate = async (
   media: NonNullable<Parameters<Page["emulateMedia"]>[0]>,
 ) => {
   await page.emulateMedia(media)
+  if (
+    "contrast" in media &&
+    page.context().browser()?.browserType().name() === "firefox"
+  ) {
+    await page.reload()
+  }
   await page.waitForFunction(
     (queries) => queries.every((query) => matchMedia(query).matches),
     Object.entries(media).flatMap(([key, value]) =>

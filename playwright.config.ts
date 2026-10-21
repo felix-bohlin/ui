@@ -35,12 +35,20 @@ export default defineConfig({
     {
       name: "firefox",
       testMatch: crossBrowser,
-      use: { ...devices["Desktop Firefox"], colorScheme: "light" },
+      use: {
+        ...devices["Desktop Firefox"],
+        actionTimeout: 10_000,
+        colorScheme: "light",
+      },
     },
     {
       name: "webkit",
       testMatch: crossBrowser,
-      use: { ...devices["Desktop Safari"], colorScheme: "light" },
+      use: {
+        ...devices["Desktop Safari"],
+        actionTimeout: 10_000,
+        colorScheme: "light",
+      },
     },
   ],
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",

@@ -541,7 +541,7 @@
 - `Range` keeps the edge of its empty track in Firefox with more contrast.
 - `core/palette.css` no longer declares palette and gray knobs of its own, which disagreed with `theme.css` and never applied. `theme.css` is the one place they are set.
 - `Dialog` and `Drawer` open without a focus ring around them. Safari focuses the `dialog` itself when nothing inside it is in the Tab order, and `normalize.css` drew its focus ring there. The ring stays on the controls inside, and the rule no longer needs `!important`.
-- `TextField` keeps the control height of buttons and selects in Firefox and Safari. Single-line inputs get a definite height, `1lh` plus their padding, so the engine's own input height no longer makes the field 1 to 2px taller.
+- `TextField` and `Select` keep the control height of buttons in Firefox and Safari. Single-line inputs and selects get a definite height, `1lh` plus their padding, so the engine's own input height and padding rounding no longer make the field up to 2px taller.
 
 ## 5.5.0 - 2026-09-28
 

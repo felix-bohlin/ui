@@ -15,6 +15,7 @@ export type Scenario = {
   steps: Step[]
   stillOpen?: string[]
   top: string
+  unreachableIn?: Partial<Record<"firefox" | "webkit", string>>
 }
 
 const FIREFOX_RTL_SPAN =
@@ -240,6 +241,7 @@ export const SCENARIOS: Scenario[] = [
     name: "second level submenu",
     steps: [open("sub-file"), open("sub-file-export"), open("sub-file-image")],
     top: id("sub-file-image"),
+    unreachableIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
   },
   {
     failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
@@ -256,6 +258,7 @@ export const SCENARIOS: Scenario[] = [
       open("sub-edit-rotate"),
     ],
     top: id("sub-edit-rotate"),
+    unreachableIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
   },
   {
     name: "long form dialog",

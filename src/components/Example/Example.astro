@@ -92,7 +92,7 @@ const previewSlot = await renderFirstSlot([
 ])
 
 // Code slot: prefer the active framework, then default. `code-js` is used by
-// JS-driven demos (e.g. Toast) where the source is JavaScript regardless of the
+// JS-driven demos where the source is JavaScript regardless of the
 // active framework, so it acts as a final fallback.
 const codeSlot = await renderFirstSlot([
   `code-${activeFramework}`,

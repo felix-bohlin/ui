@@ -73,7 +73,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-duration": "Default transition duration. Multiplied by `--ui-motion`.",
   "--ui-duration-fast": "Transition duration for hover and press feedback.",
   "--ui-duration-slow":
-    "Transition duration for entering and leaving overlays and toasts.",
+    "Transition duration for entering and leaving overlays.",
   "--ui-ease": "Default easing for transitions.",
   "--ui-ease-enter": "Easing for elements entering the screen.",
   "--ui-ease-exit": "Easing for elements leaving the screen.",
@@ -152,7 +152,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-font-size-large":
     "Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.",
   "--ui-font-size-small":
-    "Font size of helper text, `Callout`, `Table`, `Tooltip`, `Toast`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.",
+    "Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.",
   "--ui-font-weight-bold": "Font weight for headings, buttons and terms.",
   "--ui-font-weight-medium":
     "Font weight for badges, overlines and group labels.",
@@ -246,7 +246,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-shadow-field":
     "Shadow of `TextField`, `Textarea` and `Select` fields. When unset, they follow `--ui-shadow-control`. Set it to `none` to lift buttons but keep fields flat.",
   "--ui-shadow-overlay":
-    "Shadow of layers that float above the page: `Menu`, `Select` pickers, `Drawer` and `Toast`.",
+    "Shadow of layers that float above the page: `Menu`, `Select` pickers and `Drawer`.",
   "--ui-shadow-raised":
     "Shadow of raised surfaces: elevated `Card` and `Accordion`. Switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one.",
   "--ui-shadow-raised-dark": "`--ui-shadow-raised` in dark mode.",
@@ -294,8 +294,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-surface-elevated": "Background of elevated cards and accordions.",
   "--ui-surface-filled":
     "Background of filled areas such as progress tracks and table stripes.",
-  "--ui-surface-inverse":
-    "Background of `Toast` and `Tooltip`, inverted against the page.",
+  "--ui-surface-inverse": "Background of `Tooltip`, inverted against the page.",
   "--ui-surface-tonal": "Background of tonal variants.",
   "--ui-switch-dot-size": "Diameter of the `Switch` dot.",
   "--ui-switch-dot-size-large":

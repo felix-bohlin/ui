@@ -22,13 +22,11 @@ When creating or updating a component API, ensure:
 
 ## Framework-specific APIs
 
-API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout uses `src/component-api/<slug>/api.ts` when it exists. Otherwise it globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS` ([src/utils/framework.js](../utils/framework.js)), which only `toast` still uses:
+API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout uses `src/component-api/<slug>/api.ts` when it exists. Otherwise it globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS` ([src/utils/framework.js](../utils/framework.js)), a fallback no page uses anymore:
 
 ```
 src/component-api/button/
   api.ts
-src/component-api/toast/
-  HTML.astro
 ```
 
 The doc page is just:
@@ -90,9 +88,5 @@ Prop names and types are read from each framework's types file (from every membe
 `checkApi` and `checkExports` in [component-source.ts](../utils/component-source.ts) return every `[component-api]` problem: a prop or slot missing from `api.ts`, a documented prop, part prop, snippet or slot that isn't in the source, a `source` and `component` that match no component file, and a component exported from a barrel in `packages/opui/<framework>/index.ts` that is neither an `api.ts`'s `component` nor a part's `component`. `tests/unit/component-api.test.ts` runs them over every `api.ts` in `pnpm test`, and the docs build throws them all at once.
 
 Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`, or let `<Component slug="...">` pick it up without a title. `<Anatomy>` finds it from the page slug. `tests/e2e/anatomy.spec.ts` checks every page with `heroAnatomy` for overflow and spacing, and for axe violations on the HTML pages.
-
-## Toast
-
-Only `toast` still uses a hand-written table, `src/component-api/toast/HTML.astro`, built from the `Table` parts in `opui-css/astro`. It uses the HTML columns (`Type`, `Modifiers`, `Default`, `Description`), `<code>` tags for classes and attributes, and `style="min-width: …"` on each `TableColumn`. Convert it to `api.ts` when touching it.
 
 Refer to [card/api.ts](card/api.ts) and [text-field/api.ts](text-field/api.ts) for the preferred implementations of multi-framework APIs.

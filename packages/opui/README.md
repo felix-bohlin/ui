@@ -183,7 +183,6 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/core/normalize.css`       | CSS reset                                                                                                              |
 | `opui-css/core/palette.css`         | OKLCH palette (required by the components)                                                                             |
 | `opui-css/core/utils.css`           | Utility classes                                                                                                        |
-| `opui-css/css/js/toast.js`          | `initToastManager()` and `showToast()` for the HTML Toast                                                              |
 | `opui-css/css/js/checkbox.js`       | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework |
 | `opui-css/astro`                    | All Astro components                                                                                                   |
 | `opui-css/react`                    | All React components                                                                                                   |

@@ -41,7 +41,6 @@ declare namespace App {
 }
 
 interface Window {
-  showToast?: (options?: import("@opui/css/js/toast.js").ToastOptions) => void
   themeUtils: {
     applyCustomTheme: (theme?: "dark" | "light") => void
     applyExampleTheme: (name: string | null) => void

@@ -280,21 +280,6 @@ interaction(
 )
 
 interaction(
-  "toast",
-  "HTML",
-  "toast shows and can be dismissed",
-  async ({ page, root }) => {
-    await root.getByRole("button", { name: "Show Default Toast" }).click()
-    const toast = page.locator("#toast-manager .ui-toast")
-    await expect(toast).toHaveCount(1)
-    await expect(toast).toContainText("Default Notification")
-
-    await toast.getByRole("button", { name: "Close" }).click()
-    await expect(toast).toHaveCount(0)
-  },
-)
-
-interaction(
   "toggle",
   "Interactive",
   "toggle group selects one option at a time",

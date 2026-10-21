@@ -268,11 +268,6 @@ import Example from "../../components/Example/index"
     <p>A few things do need script in plain HTML:</p>
     <ul>
       <li>
-        <strong>Toast</strong>: <code>css/js/toast.js</code> has <code
-          >initToastManager()</code
-        > and <code>showToast()</code>.
-      </li>
-      <li>
         <strong>Indeterminate checkboxes</strong>: <code>indeterminate</code> is a
         property, not an attribute. Mark the input with <code
           >data-indeterminate</code
@@ -296,10 +291,8 @@ import Example from "../../components/Example/index"
           title: "CDN",
           code: `<script type="module">
   import { activateIndeterminate } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
-  import { initToastManager } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/toast.js"
 
   activateIndeterminate()
-  initToastManager()
 </script>`,
           lang: "html",
         },
@@ -307,10 +300,8 @@ import Example from "../../components/Example/index"
           title: "Bundler",
           code: `<script type="module">
   import { activateIndeterminate } from "opui-css/css/js/checkbox.js"
-  import { initToastManager } from "opui-css/css/js/toast.js"
 
   activateIndeterminate()
-  initToastManager()
 </script>`,
           lang: "html",
         },

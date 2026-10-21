@@ -279,19 +279,6 @@ export const posts = [
   },
   {
     category: "under-the-hood",
-    component: "toast",
-    date: "2026-10-02",
-    description:
-      "attr() with a type() reads the toast duration straight from HTML.",
-    features: ["attr", "invoker-commands", "template"],
-    level: "advanced",
-    slug: "toast-attr-duration",
-    technique: "attr()",
-    title: "Toast timing with typed attr()",
-    topics: ["motion", "popups"],
-  },
-  {
-    category: "under-the-hood",
     component: "tooltip",
     date: "2026-10-02",
     description:

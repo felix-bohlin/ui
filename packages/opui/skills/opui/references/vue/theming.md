@@ -68,7 +68,7 @@ On an element, `.ui-dark` and `.ui-light` only switch between light and dark col
 
 ## Spacing
 
-Containers space their content with the `--ui-space-1` to `--ui-space-8` steps: the padding of cards, callouts, dialogs, drawers, toasts and table cells, the gaps in forms, and the margins in rich text. Each step is the Open Props size of the same number times `--ui-space-scale`, so one value makes the whole page roomier or tighter. Controls keep following `--ui-density`, so a form can be spacious while its fields stay compact.
+Containers space their content with the `--ui-space-1` to `--ui-space-8` steps: the padding of cards, callouts, dialogs, drawers and table cells, the gaps in forms, and the margins in rich text. Each step is the Open Props size of the same number times `--ui-space-scale`, so one value makes the whole page roomier or tighter. Controls keep following `--ui-density`, so a form can be spacious while its fields stay compact.
 
 ```css
 :where(html) {
@@ -128,7 +128,7 @@ Sizes come in two tiers. `--ui-font-size-100` to `--ui-font-size-900` are the ni
 
 ## Elevation
 
-Five shadows lift things off the page. `--ui-shadow-raised` is for surfaces in the page, like elevated cards and accordions. It switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page, so set those two. `--ui-shadow-overlay` is for layers above the page: menus, `select` pickers, drawers and toasts. `--ui-shadow-control` is for buttons with a variant and fields, and is `none` until a theme sets it, like a hard offset shadow. Set the optional `--ui-shadow-field` to give fields their own. `--ui-shadow-tab` is for the selected tab. `--ui-shadow-surface` is `none` too, for tonal and outlined cards and accordions, and callouts.
+Five shadows lift things off the page. `--ui-shadow-raised` is for surfaces in the page, like elevated cards and accordions. It switches between `--ui-shadow-raised-light` and `--ui-shadow-raised-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page, so set those two. `--ui-shadow-overlay` is for layers above the page: menus, `select` pickers and drawers. `--ui-shadow-control` is for buttons with a variant and fields, and is `none` until a theme sets it, like a hard offset shadow. Set the optional `--ui-shadow-field` to give fields their own. `--ui-shadow-tab` is for the selected tab. `--ui-shadow-surface` is `none` too, for tonal and outlined cards and accordions, and callouts.
 
 ```css
 :where(html) {

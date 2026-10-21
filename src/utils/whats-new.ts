@@ -346,7 +346,7 @@ const whatsNew = {
     },
     `The <a href="#basics">backdrop</a> dims and blurs like <code>Dialog</code>, through <code>--ui-backdrop-color</code> and <code>--ui-backdrop-blur</code>.`,
     `Breaking: <code>--_color</code> is <code>--_text-color</code>, and <code>--_transition-duration</code> and <code>--_transition-timing</code> are <code>--_duration</code> and <code>--_ease</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    `The drawer shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus, select pickers and toasts. Padding reads the <code>--ui-space-*</code> scale.`,
+    `The drawer shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and select pickers. Padding reads the <code>--ui-space-*</code> scale.`,
     `Content padding is <code>--ui-space-3</code>, like the header and footer (<a href="#basics">Basics</a>).`,
     `The scroll shadow reads <a href="#api"><code>--ui-shadow-scroll</code></a>.`,
   ],
@@ -418,7 +418,7 @@ const whatsNew = {
     components(
       `<code>critical</code> on a <code>ListItem</code> marks a destructive <a href="#custom">custom item</a>.`,
     ),
-    `The menu shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with drawers, select pickers and toasts.`,
+    `The menu shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with drawers and select pickers.`,
   ],
   progress: [
     `The track is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
@@ -564,7 +564,7 @@ const whatsNew = {
       `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;select&gt;</code> (<a href="#api">API</a>).`,
     ),
     `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-field-border-radius</code></a>, so one token squares or rounds every component.`,
-    `The picker shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus, drawers and toasts.`,
+    `The picker shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and drawers.`,
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
   ],
   spinner: [
@@ -743,13 +743,6 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-border-radius</code> through <a href="#api"><code>--ui-field-border-radius</code></a>, so one token squares or rounds every component.`,
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
-  ],
-  toast: [
-    `The focus ring is <code>--ui-focus-ring-color</code> instead of the text color.`,
-    `Breaking: the keyframes are <code>ui-toast-enter</code>, <code>ui-toast-hold</code> and <code>ui-toast-exit</code>, and <a href="#javascript"><code>toast.js</code></a> listens for <code>ui-toast-exit</code>.`,
-    `Toasts sit in the bottom inline-end corner, so they show at the bottom left in right-to-left pages. See <a href="#how-it-works">How it works</a>.`,
-    `Breaking: <code>--_anim-enter</code> and <code>--_anim-exit</code> are <code>--_enter-duration</code> and <code>--_exit-duration</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    `The toast shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
   ],
   toggle: [
     `A standalone toggle takes <code>--ui-shadow-control</code> like buttons, and corners are capped at half the height so a round radius doesn't clip groups.`,

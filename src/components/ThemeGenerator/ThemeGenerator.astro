@@ -581,22 +581,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
     refreshAll()
   })
 
-  copyBtn?.addEventListener("click", async () => {
-    if (await copyText(generatedCss)) {
-      window.showToast?.({
-        title: "Copied custom-theme.css",
-        description: "Add it to your project's CSS.",
-        duration: "3s",
-      })
-    } else {
-      window.showToast?.({
-        title: "Copy failed",
-        description: "Your browser blocked clipboard access.",
-        severity: "critical",
-        duration: "4s",
-      })
-    }
-  })
+  copyBtn?.addEventListener("click", () => copyText(generatedCss))
 
   downloadBtn?.addEventListener("click", () => {
     const url = URL.createObjectURL(

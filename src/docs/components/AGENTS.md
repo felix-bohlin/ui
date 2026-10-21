@@ -29,7 +29,6 @@ Before creating or refactoring a page, perform the following research:
     - Internal part classes (the `parts` in `api.ts`, which drive the `anatomy` diagram).
 3.  **Check for API Metadata**: Verify if `src/component-api/[name]/api.ts` exists.
     - If not, create it from the props, parts and slots identified in steps 1 and 2, following [src/component-api/AGENTS.md](../../component-api/AGENTS.md). Props and slots are read from the component source, so `pnpm test` and the build fail when `api.ts` and the source disagree.
-    - Only `toast` still uses a hand-written table (`src/component-api/toast/HTML.astro`). Convert it to `api.ts` when touching it.
 4.  **Identify Dependencies**: Determine if the component relies on other components.
     - **Field-based components** (`TextField`, `Select`, `Textarea`): Usually depend on `text-field.css`.
     - **Field groups** (`Checkbox`, `Radio`, `Switch` inside `FieldSet`/`FieldGroup`): Depend on `form.css`.
@@ -89,14 +88,14 @@ import ComponentCSS from "@opui/css/components/component.css?raw"
 What the conventions handle automatically:
 
 - **`<AutoExample name="Basics">`** globs `src/component-examples/<slug>/Basics.{astro,html,react.tsx,svelte,vue}` for every framework registered in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Drop a file in the right folder and the section picks it up. A page that ships for a framework fails to build when an example has no file for it, unless the example is listed in `FRAMEWORK_AGNOSTIC_EXAMPLES` (same file): those have only the `.html` file, and every framework page shows it. Typography's `Default` is one, since rich text from a CMS arrives as an HTML string.
-- **API tables** come from `src/component-api/<slug>/api.ts`, passed as `apis={[{ title: "Button API", api: buttonApi }]}`. Toast, the one page with a hand-written `src/component-api/toast/HTML.astro` table, gets it auto-resolved without an `apis` prop.
+- **API tables** come from `src/component-api/<slug>/api.ts`, passed as `apis={[{ title: "Button API", api: buttonApi }]}`.
 - The layout sets `Astro.locals.componentSlug = slug`, which `<AutoExample>` reads - so each example only repeats `name`, never the slug.
 
 CSS imports use the `@opui/css/...` package alias. UI-component imports use the package, as readers do (e.g. `import { Button } from "opui-css/astro"`). Avoid hand-rolled relative paths into the package.
 
 #### When to fall back to manual `<Example>`
 
-`<AutoExample>` covers the common case (file-per-framework with matching basenames), shows a `<Name>Code.<ext>` file in the code tab when one exists, and forwards a `slot="controls"` child for interactive switches. Use the manual `<Example>` form when a section needs a `code-js` slot (JS-driven demos like Toast).
+`<AutoExample>` covers the common case (file-per-framework with matching basenames), shows a `<Name>Code.<ext>` file in the code tab when one exists, and forwards a `slot="controls"` child for interactive switches. Use the manual `<Example>` form when a section needs a `code-js` slot (JS-driven demos).
 
 The manual form remains supported and unchanged:
 
@@ -147,7 +146,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 
 ### 4.1 Props
 
-- `apis`: (Optional) An array of `{ title, api }` objects, where `api` is the default export of a `src/component-api/<slug>/api.ts`. Use several entries when a page documents more than one component (e.g. Tabs and its `TabsItem`). Hand-written `.astro` tables can still be passed as a framework-keyed object, such as `{ html: ToastTable }`.
+- `apis`: (Optional) An array of `{ title, api }` objects, where `api` is the default export of a `src/component-api/<slug>/api.ts`. Use several entries when a page documents more than one component (e.g. Tabs and its `TabsItem`). Hand-written `.astro` tables can still be passed as a framework-keyed object, such as `{ html: HtmlTable }`.
 - `browserSupport`: (Optional) Array of feature IDs (e.g., `["has", "light-dark"]`).
 - `changelogPaths`: (Optional) Array of `{ path, type }` entries used to render the per-component changelog.
 - `heroAnatomy`: (Optional) Renders the `anatomy` slot at the top of the page, above the content, instead of in its own section.
@@ -175,7 +174,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 - **Layout**: Use `row` or `column`. Use `centered` to center items, `spacious` for more padding.
 - **No outer layout wrapper in example files**: Files in `src/component-examples/` must not wrap _all_ of their content in a single outer `<div class="example-row">` or `<div class="example-column">`. `<Example row>` / `<Example column>` already applies that class to the surrounding `.example-preview` in [src/components/Example/Example.astro](../../components/Example/Example.astro), so the wrapper is redundant. Inner `example-row` / `example-column` groupings are still allowed when a single example legitimately needs to be split into multiple sibling rows/columns (e.g., one row per variant).
 - **Preview**: Use `Example.Preview` with `slot="preview-html"` or `slot="preview-astro"`.
-- **Code**: Use `Example.Code` with `slot="code-html"` or `slot="code-astro"`. The HTML route falls back to the prettified preview HTML when `code-html` isn't authored, so an explicit `code-html` is only needed when the snippet must differ from the rendered preview (e.g., to hide doc-only wrappers - see the `*Code.astro` pattern in §2). Use `slot="code-js"` for JS-driven demos where the source is JavaScript regardless of the active framework (e.g., Toast).
+- **Code**: Use `Example.Code` with `slot="code-html"` or `slot="code-astro"`. The HTML route falls back to the prettified preview HTML when `code-html` isn't authored, so an explicit `code-html` is only needed when the snippet must differ from the rendered preview (e.g., to hide doc-only wrappers - see the `*Code.astro` pattern in §2). Use `slot="code-js"` for JS-driven demos where the source is JavaScript regardless of the active framework.
 - **Controls**: Use `slot="controls"` for interactive elements (like `UISwitch`) that control the preview state.
 
 ### 5.2 API Documentation
@@ -192,7 +191,6 @@ import buttonApi from "../../component-api/button/api"
 
 - One `api.ts` renders the props, slots and parts tables for every framework, the HTML modifiers table, and the `<Anatomy>` diagram.
 - Keep descriptions short. Use backticks for classes, props and selectors; they are formatted by `formatInline`.
-- Toast, the one page with a hand-written `src/component-api/toast/HTML.astro` table, gets it auto-resolved from the `slug` without an `apis` prop. Convert it to `api.ts` when touching it.
 
 ### 5.3 `<UICallout>` (Alerts & Info)
 

@@ -280,24 +280,6 @@ export const SCENARIOS: Scenario[] = [
     steps: [open("launch-menu"), open("launch-drawer")],
     top: id("launch-drawer"),
   },
-  {
-    name: "dialog over toasts",
-    steps: [
-      { click: '[commandfor="toast-manager"][command="toggle-popover"]' },
-      open("toast-dialog"),
-    ],
-    top: id("toast-dialog"),
-  },
-  {
-    failing:
-      "the toast manager sits outside the modal dialog, so its toasts are inert while the dialog is open",
-    name: "toasts shown from a dialog",
-    steps: [
-      open("toast-dialog"),
-      { click: '[commandfor="toast-manager"][command="show-popover"]' },
-    ],
-    top: "#toast-manager .ui-toast",
-  },
   ...["filled", "outlined"].flatMap((variant) =>
     SIZES.map((size) => ({
       name: `${variant} ${size} split button menu`,

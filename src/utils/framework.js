@@ -65,9 +65,7 @@ export function frameworkPaths() {
 }
 
 /** @type {Record<string, FrameworkId[]>} */
-export const COMPONENT_FRAMEWORKS = {
-  toast: ["html"],
-}
+export const COMPONENT_FRAMEWORKS = {}
 
 export const FRAMEWORK_AGNOSTIC_EXAMPLES = ["typography/Default"]
 

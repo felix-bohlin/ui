@@ -15,9 +15,6 @@ import calloutApi from "../../component-api/callout/api"
 
 import Conditional from "../../components/Conditional.astro"
 import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
-import { componentHasFramework } from "../../utils/framework"
-
-const hasToast = componentHasFramework(Astro.locals.framework, "toast")
 
 const ThemeCSS = `/* ... */
 .ui-critical {
@@ -96,18 +93,6 @@ const ThemeCSS = `/* ... */
             <DocLink href="/components/dialog" class="ui-link">Dialog</DocLink>:
             takes over completely
           </li>
-          {
-            hasToast && (
-              <li>
-                <DocLink
-                  href="/components/toast"
-                  class="ui-link"
-                  set:text="Toast"
-                />
-                : informative but non-interruptive
-              </li>
-            )
-          }
         </ul>
       </UICalloutContent>
     </UICallout>
@@ -210,14 +195,7 @@ const ThemeCSS = `/* ... */
       <li>
         Don't interrupt the user with a Callout. In that case, use <DocLink
           href="/components/dialog">Dialog</DocLink
-        >{
-          hasToast && (
-            <>
-              {" "}
-              or <DocLink href="/components/toast">Toast</DocLink>
-            </>
-          )
-        }.
+        >.
       </li>
     </ul>
   </Fragment>

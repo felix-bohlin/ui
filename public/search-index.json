@@ -603,7 +603,7 @@
     "id": "component-dialog-html",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal Actions Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Modal Actions Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -613,7 +613,7 @@
     "id": "component-dialog-astro",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal Actions Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Modal Actions Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
@@ -623,7 +623,7 @@
     "id": "component-dialog-react",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal Actions Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Modal Actions Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "react",
     "type": "React",
@@ -633,7 +633,7 @@
     "id": "component-dialog-svelte",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal Actions Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Modal Actions Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "svelte",
     "type": "Svelte",
@@ -643,7 +643,7 @@
     "id": "component-dialog-vue",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal Actions Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Modal Actions Alert dialog Width Long content How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1448,16 +1448,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/components/textarea"
-  },
-  {
-    "id": "component-toast-html",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works Setup HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/components/toast"
   },
   {
     "id": "component-toggle-html",
@@ -2271,14 +2261,6 @@
     "headings": "The problem The trick Try it Fallback field-sizing field-sizing lh",
     "category": "Learn",
     "url": "/learn/textarea-field-sizing"
-  },
-  {
-    "id": "learn-toast-attr-duration",
-    "title": "Toast timing with typed attr()",
-    "description": "attr() with a type() reads the toast duration straight from HTML.",
-    "headings": "The problem The trick Try it Fallback attr() attr invoker-commands template",
-    "category": "Learn",
-    "url": "/learn/toast-attr-duration"
   },
   {
     "id": "learn-tooltip-interest-invokers",
@@ -4991,16 +4973,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#textarea"
-  },
-  {
-    "id": "api-toast-html",
-    "title": "Toast API",
-    "description": "Reference for Toast HTML component.",
-    "headings": "Command --show-toast - Custom invoker command to trigger a toast notification. Close label data-close-label - The aria-label of the close button, set on the trigger. Without it, the template's label is kept. Description data-description - A second line under the title, set on the trigger. Without it, the description is removed from the toast. Duration data-duration 5000ms Determines how long the toast remains visible. Supports CSS time units (ms, s). Severity data-severity - The severity icon. Options: critical, info, success, warning. Without it, the toast has no icon. Template data-template toast-template The id of the &lt;template&gt; to clone, set on the trigger. Without a matching template, the built-in markup is used. Message data-title - The toast title, set on the trigger. Without it, the trigger's text is used. #toast-manager The global fixed container that manages the stack of toasts. .ui-toast Individual notification element within the container. .ui-icon The severity icon, [data-toast-icon]. Hidden without data-severity. .ui-content Holds the title and description. .ui-title The title, [data-toast-title]. Filled from data-title. .ui-description The second line, [data-toast-description]. Filled from data-description. .ui-close-button Closes the toast, [data-toast-close]. data-close-label sets its aria-label.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#toast"
   },
   {
     "id": "api-toggle-button-astro",

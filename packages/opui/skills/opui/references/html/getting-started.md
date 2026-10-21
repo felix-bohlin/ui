@@ -69,8 +69,7 @@ opui
 │  │  ├─ accordion.css
 │  │  └─ ...
 │  ├─ js
-│  │  ├─ checkbox.js
-│  │  └─ toast.js
+│  │  └─ checkbox.js
 │  ├─ components.css
 │  ├─ layers.css
 │  └─ theme.css
@@ -96,4 +95,4 @@ Put it all together something like this in your main CSS. If you have your files
 
 With the CSS on the page, a component is a class on the right element. The modifiers are classes too.
 
-A few components need a bit of JavaScript in plain HTML: the Toast manager in `css/js/toast.js` and indeterminate checkboxes in `css/js/checkbox.js`. Import them in a `<script type="module">`, from `https://cdn.jsdelivr.net/npm/opui-css@6/css/js/` without a bundler. [Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md#javascript) shows the imports and explains the class names, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/html/components.md). [Theming](https://open-props-ui.netlify.app/html/guide/theming.md) covers colors, density, motion and contrast.
+A few components need a bit of JavaScript in plain HTML, such as indeterminate checkboxes in `css/js/checkbox.js`. Import them in a `<script type="module">`, from `https://cdn.jsdelivr.net/npm/opui-css@6/css/js/` without a bundler. [Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md#javascript) shows the imports and explains the class names, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/html/components.md). [Theming](https://open-props-ui.netlify.app/html/guide/theming.md) covers colors, density, motion and contrast.

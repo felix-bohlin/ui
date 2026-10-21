@@ -626,9 +626,7 @@ Same as Text field: `aria-invalid="true"` on the `<textarea>` replaces `data-inv
 
 ## Toast
 
-Severity icons are masks filled with `--ui-success`, `--ui-info`, `--ui-warning` and `--ui-critical` instead of hardcoded hex colors. `Toast` is still HTML only, as in v5.5.
-
-The keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `toast.js` listens for `ui-toast-exit`. Rename them if your CSS or scripts reference `toast-enter`, `toast-hold` or `toast-exit`.
+`Toast` is removed. `toast.css`, `css/js/toast.js` and its types are gone, so drop their imports and the `initToastManager()` and `showToast()` calls.
 
 ## Toggle button and toggle group
 
@@ -771,14 +769,13 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | TextField, Textarea, Select | `--_height`                                       | `--_min-height`                                                                                            |
 | TextField, Textarea, Select | `--_label-color`                                  | `--_affix-color`                                                                                           |
 | TextField, Textarea, Select | `--_end-text-color`                               | `--_helper-color`                                                                                          |
-| Toast                       | `--_anim-enter`, `--_anim-exit`                   | `--_enter-duration`, `--_exit-duration`                                                                    |
 | ToggleButton                | `--_button-bg-color`                              | `--_bg-color`                                                                                              |
 | ToggleButton                | `--_size`                                         | `--_min-height` (a minimum height)                                                                         |
 | ToggleButton                | `--_svg-size`                                     | `--_icon-size` (direct child `svg`s only)                                                                  |
 | Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`               | `--_bg-color`, `--_text-color`                                                                             |
 | Tooltip                     | `--_tooltip-offset`                               | `--_offset`                                                                                                |
 
-`--ui-info` and `--ui-blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette, so info badges, toasts and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--ui-blue` in your theme.
+`--ui-info` and `--ui-blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette, so info badges and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--ui-blue` in your theme.
 
 Dark mode shadows are darker: `theme.css` sets `--shadow-color: 220 40% 2%` and `--shadow-strength: 20%` under `.ui-dark` and the OS dark preference. Override both on `html` to change them. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
 

@@ -107,8 +107,6 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
   - [Text field](/html/components/text-field/): every size and variant, prefix and suffix, auto-fit width, the autosuggest chevron is centered at every size, invalid after interaction.
 - [ ] Textarea
   - [Textarea](/html/components/textarea/): auto-fit grows with the content where `field-sizing` is supported and keeps its rows elsewhere.
-- [ ] Toast
-  - [Toast](/html/components/toast/): toasts show, stack and dismiss.
 - [ ] Toggle
   - [Toggle](/html/components/toggle/): a selected button keeps its tint on hover, also with more contrast, single and multi select, vertical, overflow.
 - [ ] Tooltip
@@ -129,7 +127,7 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
 - [ ] Increased contrast
   - macOS Increase contrast or `prefers-contrast: more` in devtools: borders get stronger, text stays readable, selected Toggle hover is readable.
 - [ ] Reduced motion
-  - Dialog, Drawer, Accordion, Menu, Tooltip, Carousel and Toast don't animate.
+  - Dialog, Drawer, Accordion, Menu, Tooltip and Carousel don't animate.
 - [ ] Right to left
   - Set `dir="rtl"` on `html` in devtools on each component page. Overlays, markers, chevrons, badges and scroll buttons mirror.
 

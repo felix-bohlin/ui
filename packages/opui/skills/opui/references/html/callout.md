@@ -25,7 +25,6 @@ Supporting text that explains the callout in more detail.
 You might want to check out:
 
 - [Dialog](https://open-props-ui.netlify.app/html/components/dialog.md): takes over completely
-- [Toast](https://open-props-ui.netlify.app/html/components/toast.md) : informative but non-interruptive
 
 ## Variants
 
@@ -226,7 +225,7 @@ There are no default icons in HTML: put an `<svg aria-hidden="true">` before `.u
 
 - The Callout is an `<article>`, so screen readers announce it as self-contained content.
 - Use both color and icon to help distinguish between Callout [severities](#severities). The icon is hidden from screen readers, so say the severity in the text, for example with a title like Warning.
-- Don't interrupt the user with a Callout. In that case, use [Dialog](https://open-props-ui.netlify.app/html/components/dialog.md) or [Toast](https://open-props-ui.netlify.app/html/components/toast.md) .
+- Don't interrupt the user with a Callout. In that case, use [Dialog](https://open-props-ui.netlify.app/html/components/dialog.md).
 
 ## API
 
@@ -253,7 +252,7 @@ There are no default icons in HTML: put an `<svg aria-hidden="true">` before `.u
 | `--ui-border-radius`        | `var(--size-2)`                                                                                     | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                   |
 | `--ui-border-width`         | `1px`                                                                                               | Default border width for components that draw a border.                                                                                                                                                                                                            |
 | `--ui-font-size-body`       | `var(--ui-font-size-300)`                                                                           | Font size of body copy, `Card` text and the `Callout` title. Defaults to `--ui-font-size-300`.                                                                                                                                                                     |
-| `--ui-font-size-small`      | `var(--ui-font-size-200)`                                                                           | Font size of helper text, `Callout`, `Table`, `Tooltip`, `Toast`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                                                   |
+| `--ui-font-size-small`      | `var(--ui-font-size-200)`                                                                           | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                                                            |
 | `--ui-font-weight-semibold` | `var(--font-weight-6)`                                                                              | Font weight for labels, table headers and titles.                                                                                                                                                                                                                  |
 | `--ui-icon-size`            | `var(--size-4)`                                                                                     | Default icon size inside components.                                                                                                                                                                                                                               |
 | `--ui-palette-accent`       | `light-dark(var(--ui-color-9), var(--ui-color-7))`                                                  | The accent shade of the current palette: `Callout` icons and outlined borders, the `abbr` underline. Re-derived inside every severity scope, so `.ui-success` gets a green one.                                                                                    |

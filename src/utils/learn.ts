@@ -27,7 +27,6 @@ export const series = [
       "menu-popover-anchor",
       "anchor-hover-cards",
       "tooltip-interest-invokers",
-      "toast-attr-duration",
     ],
   },
   {

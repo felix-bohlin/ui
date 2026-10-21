@@ -528,25 +528,6 @@ export const references = {
     },
     { code: true, href: mdn("Web/CSS/resize"), label: "resize" },
   ],
-  toast: [
-    { code: true, href: mdn("Web/HTML/Element/template"), label: "<template>" },
-    {
-      code: true,
-      href: mdn("Web/CSS/animation-delay"),
-      label: "animation-delay",
-    },
-    {
-      code: true,
-      href: mdn("Web/CSS/animation-play-state"),
-      label: "animation-play-state",
-    },
-    {
-      code: true,
-      href: mdn("Web/API/Element/animationend_event"),
-      label: "animationend",
-    },
-    { code: true, href: mdn("Web/CSS/attr"), label: "attr()" },
-  ],
   tooltip: [
     { code: true, href: mdn("Web/CSS/@position-try"), label: "@position-try" },
     { code: true, href: mdn("Web/CSS/anchor"), label: "anchor()" },

@@ -33,7 +33,6 @@ Each component has one reference per listed framework: `html/<file>`, `astro/<fi
 | Tabs | `tabs.md` | html, astro, react, svelte, vue | The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' :checked state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a Toggle group. |
 | Text field | `text-field.md` | html, astro, react, svelte, vue | An input for single-line text data. Basic text fields with labels, field descriptions, and validation states. |
 | Textarea | `textarea.md` | html, astro, react, svelte, vue | An input for multi-line text data. Basic textareas with labels, supporting text, and validation states. |
-| Toast | `toast.md` | html | Non-interruptive and stackable notifications. They pop up like... toast. |
 | Toggle | `toggle.md` | html, astro, react, svelte, vue | Toggle buttons and toggle groups switch options on and off, alone or as a set. |
 | Tooltip | `tooltip.md` | html, astro, react, svelte, vue | Built on top of Anchor. |
 | Typography | `typography.md` | html, astro, react, svelte, vue | Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text. |

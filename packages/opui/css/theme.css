@@ -109,6 +109,10 @@
 
     --ui-rhythm-step: 0.25rem;
 
+    --ui-underline-offset: 2px;
+    --ui-underline-offset-small: 1px;
+    --ui-underline-thickness-hover: 3px;
+
     /* Spacing - gaps, padding and margins inside and between components. */
     --ui-space-scale: 1;
     --ui-space-1: calc(var(--size-1) * var(--ui-space-scale));
@@ -258,6 +262,10 @@
 
     /* Intent tokens */
     --ui-critical: var(--ui-red);
+    --ui-critical-text: light-dark(
+      oklch(from var(--ui-critical) min(l, 0.48) c h),
+      oklch(from var(--ui-critical) max(l, 0.8) c h)
+    );
     --ui-info: var(--ui-blue);
     --ui-invalid: var(--ui-critical);
     --ui-invalid-text: light-dark(
@@ -267,6 +275,10 @@
     --ui-neutral: var(--ui-gray-9);
     --ui-success: var(--ui-green);
     --ui-warning: var(--ui-orange);
+    --ui-on-warning: oklch(
+      from var(--ui-warning) clamp(0.15, (0.565 - l) * 1000, 0.98)
+        calc(c * 0.15) h
+    );
 
     /* Primary */
     --ui-primary: light-dark(var(--ui-color-9), var(--ui-color-6));
@@ -274,9 +286,14 @@
       from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98)
         calc(c * 0.15) h
     );
-    /* --ui-primary-text: light-dark(#0a58ca, #6ea8fe); */
+    --ui-primary-text: light-dark(
+      oklch(from var(--ui-primary) min(l, 0.47) c h),
+      oklch(from var(--ui-primary) max(l, 0.78) c h)
+    );
     /* --ui-primary-tonal: light-dark(var(--ui-color-6), var(--ui-color-11)); */
     /* --ui-on-primary-tonal: light-dark(var(--ui-gray-15), var(--ui-gray-1)); */
+    --ui-selected-strong: var(--ui-primary);
+    --ui-on-selected-strong: var(--ui-on-primary);
 
     /* Text */
     --ui-text-disabled: color-mix(
@@ -467,8 +484,15 @@
       );
 
       --ui-critical: var(--ui-red);
+      --ui-critical-text: light-dark(
+        oklch(from var(--ui-critical) min(l, 0.36) c h),
+        oklch(from var(--ui-critical) max(l, 0.9) min(c, 0.1) h)
+      );
       --ui-info: var(--ui-blue);
-      --ui-invalid: var(--ui-critical);
+      --ui-invalid: light-dark(
+        var(--ui-critical),
+        oklch(from var(--ui-critical) max(l, 0.85) min(c, 0.1) h)
+      );
       --ui-invalid-text: light-dark(
         var(--ui-invalid),
         oklch(from var(--ui-invalid) max(l, 0.85) min(c, 0.1) h)
@@ -481,6 +505,12 @@
         from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98)
           calc(c * 0.15) h
       );
+      --ui-primary-text: light-dark(
+        oklch(from var(--ui-primary) min(l, 0.47) c h),
+        oklch(from var(--ui-primary) max(l, 0.78) c h)
+      );
+      --ui-selected-strong: var(--ui-primary);
+      --ui-on-selected-strong: var(--ui-on-primary);
 
       --ui-text-disabled: color-mix(
         in oklch,
@@ -522,7 +552,6 @@
       --ui-choice-on-accent: initial;
       --ui-control-border-color: initial;
       --ui-control-border-color-filled: initial;
-      --ui-primary-text: initial;
       --ui-primary-tonal: initial;
       --ui-on-primary-tonal: initial;
       --ui-selected: initial;

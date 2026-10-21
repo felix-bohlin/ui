@@ -207,9 +207,6 @@ catalogs:
     react-dom:
       specifier: ^19.3.0
       version: 19.3.0
-    solid-js:
-      specifier: ^1.9.13
-      version: 1.9.14
     svelte:
       specifier: ^5.56.4
       version: 5.56.4
@@ -330,9 +327,6 @@ importers:
       remark-stringify:
         specifier: ^11.0.0
         version: 11.0.0
-      solid-js:
-        specifier: 'catalog:'
-        version: 1.9.14
       stylelint:
         specifier: ^17.15.0
         version: 17.15.0(supports-color@10.2.2)(typescript@6.0.3)
@@ -366,9 +360,6 @@ importers:
       react-dom:
         specifier: ^19
         version: 19.3.0(react@19.3.0)
-      solid-js:
-        specifier: ^1.9
-        version: 1.9.14
       svelte:
         specifier: ^5.29
         version: 5.56.4
@@ -3292,16 +3283,6 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  seroval-plugins@1.5.4:
-    resolution: {integrity: sha512-S0xQPhUTefAhNvNWFg0c1J8qJArHt5KdtJ/cFAofo06KD1MVSeFWyl4iiu+ApDIuw0WhjpOfCdgConOfAnLgkw==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      seroval: ^1.0
-
-  seroval@1.5.4:
-    resolution: {integrity: sha512-46uFvgrXTVxZcUorgSSRZ4y+ieqLLQRMlG4bnCZKW3qI6BZm7Rg4ntMW4p1mILEEBZWrFlcpp0AyIIlM6jD9iw==}
-    engines: {node: '>=10'}
-
   sharp@0.35.5:
     resolution: {integrity: sha512-Ywn4OnzGukp7CDMrp08RQ50YKmuwG47brZgIVPTvBaaAfQlRlygrRqSrxdCiL9M+LlzLBiJ68IR1QqvzHyjC7g==}
     engines: {node: '>=20.9.0'}
@@ -3346,9 +3327,6 @@ packages:
   smol-toml@1.9.0:
     resolution: {integrity: sha512-hpd+HLON7HdZXqYchMM/+LaTTbdK0AU3NngIJ4KVyWbY9bfQqdL9cD+4yf6dUoU2Ap4VsU0JkQi6FxAI1B2mXQ==}
     engines: {node: '>= 18'}
-
-  solid-js@1.9.14:
-    resolution: {integrity: sha512-sAEXC0Kk0S1EDg+8ysEWJDbYhA3RRoEjwuySUGlKIemeo0I5YZfOyumNjNs9Sv3y2nmhD+0rW66ag2HsMuQiGQ==}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -6997,12 +6975,6 @@ snapshots:
 
   semver@7.8.5: {}
 
-  seroval-plugins@1.5.4(seroval@1.5.4):
-    dependencies:
-      seroval: 1.5.4
-
-  seroval@1.5.4: {}
-
   sharp@0.35.5(@types/node@24.13.2):
     dependencies:
       '@img/colour': 1.1.0
@@ -7085,12 +7057,6 @@ snapshots:
       is-fullwidth-code-point: 3.0.0
 
   smol-toml@1.9.0: {}
-
-  solid-js@1.9.14:
-    dependencies:
-      csstype: 3.2.3
-      seroval: 1.5.4
-      seroval-plugins: 1.5.4(seroval@1.5.4)
 
   source-map-js@1.2.1: {}
 

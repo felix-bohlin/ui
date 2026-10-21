@@ -16,6 +16,11 @@ export default {
       "Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.",
     kind: "input",
   },
+  "--_focus-ring-duration": {
+    description:
+      "Duration of the focus ring animation, `--ui-duration` times `--_motion`, slower than the `--_duration` of the transitions.",
+    kind: "output",
+  },
   "--_forced-fill-color": {
     description:
       "Thumb and fill color in forced colors mode. `GrayText` when disabled.",

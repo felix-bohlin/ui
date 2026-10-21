@@ -8,7 +8,7 @@ export default {
   },
   "--_accent-text": {
     description:
-      "Text color of text and outlined buttons. `--_accent`, lightened in dark mode to stay readable. `--ui-primary-text` in `.ui-primary` when a theme sets it.",
+      "Text color of text and outlined buttons. `--_accent`, lightened in dark mode to stay readable. `--ui-primary-text` in `.ui-primary`.",
     kind: "output",
   },
   "--_accent-tonal": {

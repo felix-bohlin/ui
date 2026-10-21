@@ -3,9 +3,22 @@ import { openFixture } from "./fixtures"
 import { SCENARIOS, id, isOpen, problems, run } from "./stress-overlays"
 
 for (const { failing, name, steps, stillOpen = [], top } of SCENARIOS) {
-  test(`${name} is on top and inside the viewport`, async ({ page }) => {
+  test(`${name} is on top and inside the viewport`, async ({
+    browserName,
+    page,
+  }) => {
     test.fail(!!failing, failing)
+    test.skip(
+      browserName !== "chromium" && steps.some((step) => "container" in step),
+      "needs scrollIntoView({ container })",
+    )
     await openFixture(page, "html", "stress/overlays")
+    if (steps.some((step) => "select" in step)) {
+      test.skip(
+        !(await page.evaluate(() => CSS.supports("appearance", "base-select"))),
+        "needs customizable select",
+      )
+    }
     for (const step of steps) await run(page, step)
     await expect.poll(() => problems(page, top), name).toEqual([])
     for (const overlay of stillOpen)

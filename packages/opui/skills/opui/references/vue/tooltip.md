@@ -170,6 +170,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_bg-color`        | Input  | Background of the tooltip and its arrow. Defaults to `--ui-surface-inverse`.  |
 | `--_duration`        | Output | Duration of the fade, `--ui-duration` times `--_motion`.                      |
 | `--_ease`            | Input  | Easing of the fade. Defaults to `--ui-ease-enter`.                            |
+| `--_max-inline-size` | Input  | The maximum width. Longer content wraps.                                      |
 | `--_min-inline-size` | Input  | The minimum width, unless the content is narrower.                            |
 | `--_motion`          | Input  | Motion multiplier for the fade. `0` turns it off.                             |
 | `--_offset`          | Input  | Distance from the trigger. `.ui-with-arrow` computes it from `--_arrow-size`. |
@@ -375,3 +376,4 @@ Import the component from `opui-css/vue`:
 - Breaking: `--_tooltip-bg` and `--_tooltip-color` are `--_bg-color` and `--_text-color`, and `--_tooltip-offset` is `--_offset` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners never get rounder than [`--ui-radius`](#api), so `0` squares them.
+- [`--_max-inline-size`](#api) sets the maximum width.

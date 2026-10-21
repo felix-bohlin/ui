@@ -87,10 +87,7 @@
     &.ui-warning {
       --_bg-color: var(--ui-warning);
       --_border-color: var(--ui-warning);
-      --_text-color: light-dark(
-        var(--ui-palette-strong),
-        var(--ui-palette-on-strong)
-      );
+      --_text-color: var(--ui-on-warning);
     }
 
     &.ui-neutral {

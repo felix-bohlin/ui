@@ -30,8 +30,10 @@
     --_item-size: calc(
       (100% - (var(--_per-view) - 1) * var(--_gap)) / var(--_per-view)
     );
-    --_marker-active-bg-color: var(--ui-primary);
-    --_marker-bg-color: oklch(from var(--ui-text-strong) l c h / 25%);
+    --_marker-active-bg-color: var(--ui-selected-strong);
+    --_marker-active-padding: var(--ui-space-1);
+    --_marker-bg-color: transparent;
+    --_marker-border-color: var(--ui-field-border-color);
     --_marker-gap: 0px;
     --_marker-label: "Slide ";
     --_marker-size: var(--ui-space-5);
@@ -41,6 +43,7 @@
     --_padding-block: 0px;
     --_padding-inline: 0px;
     --_per-view: 1;
+    --_scale-duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_snap-align: start;
 
     counter-reset: ui-carousel-item;
@@ -146,7 +149,7 @@
         transition:
           border-color var(--_duration) var(--_ease),
           opacity var(--_duration) var(--_ease),
-          scale calc(var(--ui-duration-fast) * var(--_motion)) var(--_ease);
+          scale var(--_scale-duration) var(--_ease);
         translate: 0 -50%;
       }
 
@@ -293,12 +296,22 @@
         content: "" / var(--_marker-label) counter(ui-carousel-item);
         cursor: pointer;
         inline-size: var(--_marker-size);
+        outline: var(--ui-border-width) solid var(--_marker-border-color);
+        outline-offset: calc(-1 * (var(--ui-space-2) + var(--ui-border-width)));
         padding: var(--ui-space-2);
-        transition: background-color var(--_duration) var(--_ease);
+        transition:
+          background-color var(--_duration) var(--_ease),
+          outline-offset var(--_duration) var(--_ease),
+          padding var(--_duration) var(--_ease);
       }
 
       & > *::scroll-marker:target-current {
         background-color: var(--_marker-active-bg-color);
+        outline-color: var(--_marker-active-bg-color);
+        outline-offset: calc(
+          -1 * (var(--_marker-active-padding) + var(--ui-border-width))
+        );
+        padding: var(--_marker-active-padding);
       }
 
       & > *::scroll-marker:focus-visible {

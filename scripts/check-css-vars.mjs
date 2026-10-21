@@ -7,14 +7,19 @@ const opuiDir = join(root, "packages/opui")
 const srcDir = join(root, "src")
 const openPropsEntry = join(opuiDir, "open-props.css")
 const componentsDir = join(opuiDir, "css/components")
+const coreDir = join(opuiDir, "core")
+const docsDir = join(srcDir, "component-api/custom-properties")
 const allowlistFile = join(root, "scripts/css-vars-allowlist.json")
 const update = process.argv.includes("--update")
 
 const CONSUMER_SET = ["--ui-anchor-position-area"]
 const PALETTE_STEP = /^--ui-(?:color|font-size|gray)-\d+$/
 const PRELUDE = /@(?:container|media)[^{]*/g
+const AT_PROPERTY = /@property\s+[\w-]+\s*\{[^}]*\}/g
 const PROPERTY = /(^|[\s;{])(--[\w-]+|[a-z][\w-]*)\s*:\s*([^;{}]*)/g
-const LENGTH = /(?<![\w.-])(\d*\.?\d+)(px|rem)\b/g
+const LENGTH = /(?<![\w.-]|\/\s*)(-?\d*\.?\d+)(px|rem)\b/g
+const INPUT = /"(--_[\w-]+)":\s*\{[^}]*kind:\s*"input"/g
+const PIXEL_STEP = /^\s*\d*\.?\d+px\s*$/
 
 const BASES = {
   "badge.css": ["avatar.css"],
@@ -147,23 +152,70 @@ for (const { file, read } of srcFiles) {
 }
 
 const openPropsNames = new Set(openProps.flat())
-const literals = (source) =>
-  [...source.replaceAll(PRELUDE, "").matchAll(PROPERTY)].flatMap(
-    ([, , property, value]) =>
-      [...value.matchAll(LENGTH)]
-        .filter(([, number]) => Number(number) !== 0)
-        .map(([, number, unit]) => `${property}: ${number}${unit}`),
+const documentedInputs = async (file) => {
+  const docs = [basename(file), ...(BASES[basename(file)] ?? [])].map((name) =>
+    join(docsDir, `${basename(name, ".css")}.ts`),
+  )
+  const sources = await Promise.all(
+    docs.map((doc) => readFile(doc, "utf8").catch(() => "")),
+  )
+  return new Set(
+    sources.flatMap((source) =>
+      [...source.matchAll(INPUT)].map(([, name]) => name),
+    ),
+  )
+}
+const withoutRoundSteps = (value) => {
+  let result = value
+  let start = result.indexOf("round(")
+  while (start !== -1) {
+    let depth = 0
+    let lastComma = -1
+    let end = start + "round".length
+    for (; end < result.length; end++) {
+      if (result[end] === "(") depth++
+      if (result[end] === "," && depth === 1) lastComma = end
+      if (result[end] === ")" && --depth === 0) break
+    }
+    if (lastComma !== -1 && PIXEL_STEP.test(result.slice(lastComma + 1, end))) {
+      result = result.slice(0, lastComma) + result.slice(end)
+    }
+    start = result.indexOf("round(", start + 1)
+  }
+  return result
+}
+const literals = (source, inputs) =>
+  [
+    ...source
+      .replaceAll(AT_PROPERTY, "")
+      .replaceAll(PRELUDE, "")
+      .matchAll(PROPERTY),
+  ].flatMap(([, , property, value]) =>
+    inputs.has(property)
+      ? []
+      : [...withoutRoundSteps(value).matchAll(LENGTH)]
+          .filter(([, number]) => Number(number) !== 0)
+          .map(([, number, unit]) => `${property}: ${number}${unit}`),
   )
 
 const found = Object.fromEntries(
   await Promise.all(
     packageFiles
-      .filter(({ file }) => file.startsWith(componentsDir))
+      .filter(
+        ({ file }) =>
+          file.startsWith(componentsDir) ||
+          file === join(coreDir, "normalize.css"),
+      )
       .map(async ({ file, read }) => [
-        relative(componentsDir, file),
+        relative(opuiDir, file),
         {
           literals: [
-            ...new Set(literals(await readFile(file, "utf8"))),
+            ...new Set(
+              literals(
+                await readFile(file, "utf8"),
+                await documentedInputs(file),
+              ),
+            ),
           ].toSorted(),
           primitives: [...read]
             .filter(
@@ -185,8 +237,8 @@ for (const file of new Set([...Object.keys(found), ...Object.keys(allowed)])) {
       if (!listed.has(entry)) {
         tierErrors.push(
           kind === "primitives"
-            ? `${entry} is read in css/components/${file}: components read --ui-* roles, not palette steps or Open Props`
-            : `${entry} in css/components/${file} is a literal length: use a --ui-* role or an em, ex, lh or ch value`,
+            ? `${entry} is read in ${file}: components read --ui-* roles, not palette steps or Open Props`
+            : `${entry} in ${file} is a literal length: use a --ui-* role, an em, ex, lh or ch value, or a documented --_* input`,
         )
       }
     }

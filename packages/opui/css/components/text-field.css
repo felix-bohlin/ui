@@ -358,11 +358,6 @@
       --_affix-color: var(--ui-invalid-text);
       --_border-color: var(--ui-invalid);
       --_helper-color: var(--ui-invalid-text);
-
-      @container style(--ui-contrast: more) {
-        --_accent: var(--ui-invalid-text);
-        --_border-color: var(--ui-invalid-text);
-      }
     }
 
     /*

@@ -16,6 +16,7 @@
     --_accent: var(--ui-choice-accent, var(--ui-primary));
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_ease: var(--ui-ease);
+    --_focus-ring-duration: calc(var(--ui-duration) * var(--_motion));
     --_thumb-size: 3ex;
 
     @media (hover: none) {
@@ -259,10 +260,15 @@
           box-shadow: inset 0 0 0 var(--ui-border-width)
             var(--ui-field-border-color);
         }
+
+        &::-moz-range-track {
+          box-shadow: inset 0 0 0 var(--ui-border-width)
+            var(--ui-field-border-color);
+        }
       }
 
       &:focus-visible {
-        animation-duration: auto, calc(var(--ui-duration) * var(--_motion));
+        animation-duration: auto, var(--_focus-ring-duration);
         animation-name: ui-range-fill, ui-focus-ring;
         animation-range: contain, normal;
         animation-timeline: --ui-range-thumb, auto;

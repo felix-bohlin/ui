@@ -147,17 +147,7 @@
       --_hover-bg-color: oklch(
         from var(--ui-critical) l c h / var(--ui-state-hover-alpha-accent)
       );
-      color: light-dark(
-        oklch(from var(--ui-critical) min(l, 0.48) c h),
-        oklch(from var(--ui-critical) max(l, 0.8) c h)
-      );
-
-      @container style(--ui-contrast: more) {
-        color: light-dark(
-          oklch(from var(--ui-critical) min(l, 0.36) c h),
-          oklch(from var(--ui-critical) max(l, 0.9) min(c, 0.1) h)
-        );
-      }
+      color: var(--ui-critical-text);
     }
 
     :where(li) > :where(a, button) > .ui-end {

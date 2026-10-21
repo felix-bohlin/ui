@@ -2,6 +2,14 @@ import { defineConfig, devices } from "@playwright/test"
 
 const executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE
 
+const chromium = {
+  ...devices["Desktop Chrome"],
+  launchOptions: executablePath ? { executablePath } : {},
+}
+
+const crossBrowser =
+  /(anatomy|contrast|interaction|stress|stress-data-display|stress-overlays|stress-overlays-a11y|theming)\.spec\.ts/
+
 export default defineConfig({
   expect: {
     toHaveScreenshot: {
@@ -17,12 +25,22 @@ export default defineConfig({
   projects: [
     {
       name: "light",
-      use: { ...devices["Desktop Chrome"], colorScheme: "light" },
+      use: { ...chromium, colorScheme: "light" },
     },
     {
       name: "dark",
       testMatch: /(a11y|themes|visual)\.spec\.ts/,
-      use: { ...devices["Desktop Chrome"], colorScheme: "dark" },
+      use: { ...chromium, colorScheme: "dark" },
+    },
+    {
+      name: "firefox",
+      testMatch: crossBrowser,
+      use: { ...devices["Desktop Firefox"], colorScheme: "light" },
+    },
+    {
+      name: "webkit",
+      testMatch: crossBrowser,
+      use: { ...devices["Desktop Safari"], colorScheme: "light" },
     },
   ],
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
@@ -31,7 +49,6 @@ export default defineConfig({
   testDir: "tests/e2e",
   use: {
     baseURL: "http://localhost:4322",
-    launchOptions: executablePath ? { executablePath } : {},
     trace: "retain-on-failure",
   },
   webServer: {

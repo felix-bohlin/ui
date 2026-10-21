@@ -18,7 +18,7 @@
     color: var(--ui-text-muted);
     font-family: var(--ui-font-body);
     interpolate-size: allow-keywords;
-    line-height: var(--font-lineheight-4);
+    line-height: var(--ui-line-height-relaxed);
     min-block-size: 100%;
 
     /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
@@ -51,7 +51,7 @@
   }
 
   :where(dialog:not([open])) {
-    outline: none !important;
+    outline: none;
   }
 
   :where(:not(fieldset, progress, meter)) {
@@ -161,7 +161,7 @@
   }
 
   :where(svg:not([width])) {
-    inline-size: var(--size-7);
+    inline-size: var(--ui-icon-size-large);
   }
 
   :where(dt:not(:first-of-type)) {
@@ -175,6 +175,6 @@
   }
 
   :target {
-    scroll-margin-block-start: 2rem;
+    scroll-margin-block-start: var(--ui-space-7);
   }
 }

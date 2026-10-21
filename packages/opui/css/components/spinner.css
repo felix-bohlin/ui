@@ -23,7 +23,7 @@
       border-inline-color: currentColor;
       border-radius: 50%;
       border-style: solid;
-      border-width: 3px;
+      border-width: max(var(--ui-border-width-thick), 0.1875em);
       content: "";
       display: inline-block;
       inline-size: 1em;
@@ -31,6 +31,13 @@
       vertical-align: -0.14em;
 
       @container style(--ui-contrast: more) {
+        opacity: 1;
+      }
+
+      @media (forced-colors: active) {
+        border-block-color: transparent CanvasText;
+        border-inline-color: CanvasText;
+        forced-color-adjust: none;
         opacity: 1;
       }
     }

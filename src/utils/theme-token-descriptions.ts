@@ -65,6 +65,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-control-size-small": "Shared small height for fields and buttons.",
   "--ui-control-size-x-small": "Shared x-small height for fields and buttons.",
   "--ui-critical": "Severity color for errors and destructive actions.",
+  "--ui-critical-text":
+    "Critical as a text color: the `.ui-critical` items of a `Menu`. `--ui-critical` with its lightness clamped, at most 0.48 in light mode and at least 0.8 in dark mode, and further with more contrast.",
   "--ui-density":
     "Multiplier for the `--ui-control-size*` scale. `0.875` is compact, `1.125` is comfortable. See [Density](/guide/theming#density).",
   "--ui-disabled-opacity": "Opacity applied to disabled controls.",
@@ -169,7 +171,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-icon-size-small":
     "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.",
   "--ui-info": "Severity color for informational messages.",
-  "--ui-invalid": "Color for invalid field borders, fills and outlines.",
+  "--ui-invalid":
+    "Color for invalid field borders, fills and outlines. Lighter in dark mode with more contrast, so invalid borders stand out from the page.",
   "--ui-invalid-text":
     "Color for validation messages and invalid labels. Lighter than `--ui-invalid` in dark mode so the text stays readable.",
   "--ui-letter-spacing-caps":
@@ -198,6 +201,10 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Text color on `--ui-primary-tonal`. Set it with `--ui-primary-tonal`.",
   "--ui-on-selected":
     "Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and `--ui-primary` on a selected `Select` option.",
+  "--ui-on-selected-strong":
+    "Text color on `--ui-selected-strong`: the selected tab of filled `Tabs`. Defaults to `--ui-on-primary`.",
+  "--ui-on-warning":
+    "Text color on a `--ui-warning` fill: the warning `Badge`. Near black on a light warning and near white on a dark one.",
   "--ui-orange":
     "A literal orange, Open Props' `--hue-orange` at the palette lightness. No severity meaning.",
   "--ui-palette-accent":
@@ -215,7 +222,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-palette-source":
     "The source color the palette is derived from. Set it to replace `--ui-palette-hue` and `--ui-palette-chroma`. Any color works: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. See [Palette](/guide/theming#palette).",
   "--ui-palette-strong":
-    "The strongest shade of the current palette, the darkest in light mode and the lightest in dark mode, with the most contrast against the page: `Callout` text, the default `Button` fill when `--ui-button-accent` is unset, the text of a warning `Badge`. Re-derived inside every severity scope.",
+    "The strongest shade of the current palette, the darkest in light mode and the lightest in dark mode, with the most contrast against the page: `Callout` text, the default `Button` fill when `--ui-button-accent` is unset. Re-derived inside every severity scope.",
   "--ui-palette-text":
     "A readable text shade of the current palette: `del`, `ins`, `.ui-del` and `.ui-ins`. Darker in light mode and lighter in dark mode with more contrast. Re-derived inside every severity scope.",
   "--ui-palette-tint":
@@ -224,7 +231,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "A faint fill of the current palette: tonal severity `Callout`s. Re-derived inside every severity scope.",
   "--ui-primary": "Brand color for primary actions and accents.",
   "--ui-primary-text":
-    "Primary as a text color: links, and `Button` with `.ui-primary` and no variant or `.ui-outlined`. When unset, each derives a readable shade from `--ui-primary`. Set it when the primary is too light or too dark for text.",
+    "Primary as a text color: links, rich text links, `Callout` link hover, and `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`. Defaults to `--ui-primary` with its lightness clamped, at most 0.47 in light mode and at least 0.78 in dark mode, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
   "--ui-primary-tonal":
     "Background of `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal`. When unset, a light tint of the palette. Material's `primary-container` and shadcn's `secondary` go here.",
   "--ui-radius":
@@ -241,6 +248,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
   "--ui-selected":
     "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` on toggles and `--ui-primary` at `--ui-state-active-alpha-accent` on list items and options. Pair it with `--ui-on-selected`.",
+  "--ui-selected-strong":
+    "Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row and the selected tab of filled `Tabs`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.",
   "--ui-shadow-control":
     "Shadow of buttons with a variant and of fields. `none` by default, for themes that lift controls off the page.",
   "--ui-shadow-elevated":
@@ -328,5 +337,11 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Strongest text color, for headings, labels and values. Body text is `--ui-text-muted`.",
   "--ui-track-color":
     "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch a fixed gray.",
+  "--ui-underline-offset":
+    "Gap between text and its underline: `Link` and rich text links, and in Firefox `abbr`, `dfn`, `ins` and `u`.",
+  "--ui-underline-offset-small":
+    "Gap between text and the underline of `abbr`, `dfn`, `ins` and `u` and their classes. Firefox uses `--ui-underline-offset`.",
+  "--ui-underline-thickness-hover":
+    "Underline thickness of `Link` and rich text links on hover and keyboard focus. At rest they keep the font's own thickness.",
   "--ui-warning": "Severity color for warnings.",
 }

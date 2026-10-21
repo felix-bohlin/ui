@@ -2969,7 +2969,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }).observe(main)
     ```
   - Fixed: the example page moves its padding from `body` to `main`, and the Todo page sizes each frame from `main`'s height. After adding and removing a 600px block, the frame goes 336, 720, 336px (was 335, 720, 676px).
-- [ ] (1) Card: text buttons at the start of `.ui-actions` are meant to line up with the text above, but they're about 2px off (280.1 against 278px in the default theme). The compensation `var(--ui-space-3) - var(--size-3) + var(--size-1)` assumes 12px of button padding and no border, while the button has `1.5ex` plus `--_border-width` (2px in brutalist). Accordion actions have no compensation at all ("Agree" ends 14px inside the content edge) (`packages/opui/css/components/card.css:103-137`, `packages/opui/css/components/accordion.css:152-158`, `packages/opui/css/components/button.css:29,58`)
+- [ ] (1) Card: text buttons at the start of `.ui-actions` are meant to line up with the text above, but they're about 2px off (280.1 against 278px in the default theme). The actions padding `max(var(--ui-focus-ring-offset) + var(--ui-focus-ring-width), var(--ui-space-1))` keeps room for the focus ring and doesn't account for the button's `1.5ex` padding plus `--_border-width` (2px in brutalist). Accordion actions have no compensation at all ("Agree" ends 14px inside the content edge) (`packages/opui/css/components/card.css:103-139`, `packages/opui/css/components/accordion.css:168-175`, `packages/opui/css/components/button.css:22,60`)
   - Fix: compensate on the button, `margin-inline-start: calc(-1 * (var(--_padding-inline) + var(--_border-width)))` on a first text button (and `margin-inline-end` on the last one with `.ui-align-end` and in Accordion). That moves the button's edge 2px from the card's, so a 2px ring with a 2px offset would be clipped by the card's `overflow: hidden`. The actions padding now keeps room for the ring, which is why the text is off: alignment or ring room, pick one.
   > Fix
 - [x] (1) Button: the shared critical/primary rule sets `--_accent-contrast: var(--ui-primary-contrast)`, which the critical rule overrides in the next block with `--ui-text-on-accent`, so the first value only ever applies to primary (`packages/opui/css/components/button.css:88-92,107-110`)
@@ -3629,7 +3629,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     {/key}
     ```
   - Fixed: `Progress.svelte` wraps `<progress>` in `{#key value == null}`, and parity is unchanged. In Chromium after switching to indeterminate there's no `value` attribute and the position is -1 (was `value="0"` and 0).
-- [ ] (3) ListItem: `as="div"` renders `li > div > .ui-start/.ui-text/.ui-end`, but `list.css` only lays out those parts when they sit directly in the `li` or in an `a`/`button`/`label`. The `div` is a plain block, so start, text and end stack vertically in a shrink-wrapped box, and `.ui-text` loses `flex: 1` and its line-height. Measured in Chromium: with `as="a"` the three parts sit in one 45px row, with `as="div"` they stack at y=0/26/58 in a 51px-wide box. No example uses `as="div"` (`packages/opui/components/ListItem/types.ts:19-23`, `packages/opui/components/ListItem/types.astro.ts:9`, `packages/opui/components/ListItem/types.react.ts:15`, `packages/opui/components/ListItem/types.svelte.ts:13`, `packages/opui/components/ListItem/types.solid.ts:11`, `packages/opui/css/components/list.css:165,213-215,290-291`, `src/component-api/list-item/api.ts:12`, `packages/opui/CHANGELOG.md:31`, `src/utils/whats-new.ts:286`)
+- [ ] (3) ListItem: `as="div"` renders `li > div > .ui-start/.ui-text/.ui-end`, but `list.css` only lays out those parts when they sit directly in the `li` or in an `a`/`button`/`label`. The `div` is a plain block, so start, text and end stack vertically in a shrink-wrapped box, and `.ui-text` loses `flex: 1` and its line-height. Measured in Chromium: with `as="a"` the three parts sit in one 45px row, with `as="div"` they stack at y=0/26/58 in a 51px-wide box. No example uses `as="div"` (`packages/opui/components/ListItem/types.ts:21-26`, `packages/opui/components/ListItem/types.astro.ts:9`, `packages/opui/components/ListItem/types.react.ts:15`, `packages/opui/components/ListItem/types.svelte.ts:13`, `packages/opui/css/components/list.css:174,226-228,299-300`, `src/component-api/list-item/api.ts:12`, `packages/opui/CHANGELOG.md:31`, `src/utils/whats-new.ts:401`)
   - Today:
     ```
     &:has(> a, > button, > label) { … }
@@ -3639,7 +3639,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     & > .ui-text,
     & > :where(a, button, label) > .ui-text { flex: 1; … }
     ```
-  - Fix: drop `"div"` from the `as` union in the five type files, the `as` description, the CHANGELOG line and the What's new note. A ListItem without `as` already renders its content straight in the `li`. If a non-interactive wrapper is wanted, add `div` to the three selectors instead.
+  - Fix: drop `"div"` from the `as` union in the four type files, the `as` description, the CHANGELOG line and the What's new note. A ListItem without `as` already renders its content straight in the `li`. If a non-interactive wrapper is wanted, add `div` to the three selectors instead.
     ```
     // ListItem/types.ts: delete this member (and `| ({ as: "div" } & …)` in the framework type files)
     | {
@@ -5492,9 +5492,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) Checkbox: the Label position section has no description of `stack` / `.ui-stack`, the modifier it demonstrates (`src/docs/components/checkbox.astro:131-132`, `src/component-examples/checkbox/LabelPosition.astro:6`)
   - Fix: one `<PropOrClass prop="stack" class=".ui-stack" />` sentence above the example.
   - Fixed: label position says "Use `stack` (`.ui-stack`) to put the label under the checkbox."
-- [ ] (1) Checkbox: the What's new note "Without a visible label, checkboxes center in table cells and lines of text" links to `#visible-label`, but that section only shows checkboxes with visible labels, and no example on the page puts a hidden-label checkbox in a table cell or a line of text (`src/utils/whats-new.ts:214`, `src/docs/components/checkbox.astro:100-129`, `src/component-examples/checkbox/VisibleLabel.astro:5-14`)
+- [ ] (2) Checkbox, Radio: the What's new notes "Without a visible label, checkboxes center in table cells and lines of text" and the same for radios link to `#visible-label` (Checkbox) and `#label-alignment` (Radio), but no example on either page puts a hidden-label checkbox or radio in a table cell or a line of text. `#visible-label` only shows visible labels, and `#label-alignment` is prose from the `LabelAlignment` partial with no example; the Switch note links `#visible-label` too (`src/utils/whats-new.ts:215,460,600`, `src/docs/components/checkbox.astro:100-129`, `src/docs/components/radio.astro:197-200`, `src/docs/components/partials/LabelAlignment.astro:11-18`, `src/component-examples/checkbox/VisibleLabel.astro:5-14`)
   - Fix: link the note to `#basics` (hidden labels), or add a small table-cell example to the Visible label section.
   > Fix
+  - Merged: the Radio item about `#label-alignment`, which needs the same fix.
 - [x] (1) Checkbox, Radio, Switch: `--_accent-contrast` in the shared choice properties says only "Color of the checkmark, dash and dots on `--_accent`", while the CSS reads the optional `--ui-choice-accent-contrast` first and falls back to `light-dark(--ui-primary-contrast, --ui-text-on-accent)`. The sibling `--_accent` row does name its `--ui-choice-accent` token (`src/component-api/custom-properties/choice.ts:9-12`, `packages/opui/css/components/choice.css:11-14`, `packages/opui/css/theme.css:200`)
   - Fix: "Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-accent-contrast` when the theme sets it, otherwise `--ui-primary-contrast`, or `--ui-text-on-accent` in dark mode."
   - Fixed: the description uses the item's wording, plus "`--ui-text-on-accent` when invalid".
@@ -6259,9 +6260,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
     </section>
     ```
   - Fixed: the Radio page has a "Radio input" section before the field group sections.
-- [ ] (2) Radio: the What's new note "Without a visible label, radios center in table cells and lines of text" links `#label-alignment`, which is prose from the `LabelAlignment` partial with no example and nothing about table cells; the Checkbox and Switch notes for the same change link `#visible-label` (`src/utils/whats-new.ts:214,445,581`, `src/docs/components/radio.astro:197-200`, `src/docs/components/partials/LabelAlignment.astro:11-18`)
-  - Fix: link `#visible-label` like Checkbox and Switch, and show a `hideLabel` radio inline or in a cell there.
-  > Fix
 - [x] (2) Spinner: the Basics example is `<div aria-busy="true"></div>`, a spinner with no text, so assistive technology gets nothing while sighted users see a loading state. The Buttons section says to "say what's happening in text", but the first example people copy doesn't, in any of the five formats (`src/component-examples/spinner/Basics.html:1`, `src/component-examples/spinner/Basics.astro:1`, `src/docs/components/spinner.astro:34-37,53-56`)
   - Fix: give the example text, and move the "say what's happening in text" sentence up to Basics.
     ```html
@@ -6667,13 +6665,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: the package README notes, next to "Ids in Astro", that the Astro components use `AsyncLocalStorage` (`node:async_hooks`), run on Node, Deno and Bun, and need `nodejs_compat` on Cloudflare. The Astro getting started guide has no matching section, and the Cloudflare SSR build wasn't run because `@astrojs/cloudflare` isn't installed here.
-- [ ] (2) List, Checkbox, Radio, Switch: List writes the public size tokens on its rows from `components.extended`, which beats the size classes in `choice.css` in `components.root`. A `.ui-large` or `.ui-x-small` switch in any list row renders small, and so do sized checkboxes and radios in a dense list; the `size` prop is ignored without a warning (`packages/opui/css/components/list.css:104-106,121-124,260-264`, `packages/opui/css/components/choice.css:109-128`)
+- [ ] (2) List, Checkbox, Radio, Switch: List writes the public size tokens on its rows from `components.extended`, which beats the size classes in `choice.css` in `components.root`. A `.ui-large` or `.ui-x-small` switch in any list row renders small, and so do sized checkboxes and radios in a dense list; the `size` prop is ignored without a warning (`packages/opui/css/components/list.css:117-119,134-137,285-289`, `packages/opui/css/components/choice.css:135-155`)
   - Today:
     ```css
     &.ui-switch {
-      --switch-dot-size: var(--switch-dot-size-small);
-      --switch-track-height: var(--switch-track-height-small);
-      --switch-track-width: var(--switch-track-width-small);
+      --ui-switch-thumb-size: var(--ui-switch-thumb-size-small);
+      --ui-switch-track-height: var(--ui-switch-track-height-small);
+      --ui-switch-track-width: var(--ui-switch-track-width-small);
     }
     ```
   - Fix: only shrink controls that have no size class of their own.
@@ -6869,6 +6867,12 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Yes
 - [ ] (1) Badge, Chip, Callout, Button: the same five values (`critical`, `info`, `neutral`, `success`, `warning`) are `color` on Badge and Chip and `severity` on Callout, and Button uses `color` for `critical` and `primary`. ListItem and MenuItem set the same `.ui-critical` with a `critical` boolean, and Divider puts `primary` in `variant` next to `filled` and `tonal` (`src/component-api/badge/api.ts:18-29`, `src/component-api/callout/api.ts:10-22`, `packages/opui/components/ListItem/types.ts:3`, `packages/opui/components/Divider/types.ts:3`)
   - Fix: Keep them (`severity` for messages, `color` for decoration, a boolean for destructive items), or settle on `color` everywhere?
+  - Also: TabsItem, ToggleButton, Switch: the starting checked state is `open` on TabsItem, `pressed` on ToggleButton and the native `checked` on Switch, and the same `variant` prop means density on Table (`"dense" | "spacious"`), while Select, List and Menu use a `dense` boolean. `"outlined"` is the classless baseline on Select, TextField and Textarea but a `.ui-outlined` modifier on Tabs (`packages/opui/components/Tabs/types.ts`, `packages/opui/components/ToggleButton/types.ts:3`, `packages/opui/components/Table/types.ts:3`)
+    - Fix: Keep them, and say in the Table and Tabs descriptions what no variant looks like? Or one name for the checked state and a `density` prop on Table?
+  - Also: Menu, Drawer: the same four logical values are `placement` on Menu and `side` on Drawer, and Anchor and Tooltip call their position `alignment` (`packages/opui/components/Menu/types.ts:17`, `packages/opui/components/Drawer/types.ts:6`)
+    - Fix: pick one name for the side it opens on, with the other as a deprecated alias for a release.
+  - Also: FieldGroup: its layout prop is `direction` with `"row" | "column"`, while ButtonGroup, ToggleGroup and Carousel use `orientation` with `"horizontal" | "vertical"` for the same choice (`packages/opui/components/FieldGroup/types.ts:2`, `src/component-api/field-group/api.ts:10-16`)
+    - Fix: `orientation?: "horizontal" | "vertical"` on FieldGroup, `direction` as a deprecated alias for a release, and a CHANGELOG entry.
   > Deep dive on the nomenclature in the library to find errors like this and let’s try to find a better naming model. Make a plan.
 - [x] (1) Button: `.ui-primary.ui-tonal` is always palette step 6. With shadcn's `--ui-palette-chroma: 0` that's a flat mid gray with black text that reads as disabled next to the black filled primary, and in m3 a saturated purple instead of M3's light secondary container. No token reaches it (`packages/opui/css/components/button.css:90-96`, `packages/opui/themes/shadcn.css`)
   - Fix: Add a `--ui-button-accent-tonal` token, or accept it?
@@ -6882,35 +6886,36 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: Should overlays share one token (`--_elevated-shadow: var(--ui-shadow-overlay)` on `.ui-dialog`)? Brutalist would then lose the offset shadow on dialogs.
   > Yes, overlays share one token.
   - Fixed: `.ui-dialog` sets `--_elevated-shadow: var(--ui-shadow-overlay)`, so Dialog, Drawer and Menu read the same shadow role.
-- [ ] (1) Dialog, Drawer: the two overlays split their regions differently. `DialogHeader` (an `hgroup`) names the Dialog, a `DrawerTitle` `h2` inside `DrawerHeader` names the Drawer. Dialog ends in `DialogActions` (`.ui-actions`, with `align`), Drawer in `DrawerFooter` (`.ui-footer`, no `align`). The drawer title is Open Props `--font-size-3`, while the Dialog title (`.ui-h4`) follows `--ui-font-size-h4`, so in m3 they're 28px and 20px. Neither spaces the paragraphs in `.ui-content`, which touch in LongContent and the drawer Basics (`src/component-api/dialog/api.ts:20-39`, `src/component-api/drawer/api.ts:52-75`, `packages/opui/css/components/drawer.css:16,66,121-127`, `packages/opui/css/components/callout.css:75-81`)
+- [ ] (1) Dialog, Drawer: the two overlays split their regions differently. `DialogHeader` (an `hgroup`) names the Dialog, a `DrawerTitle` `h2` inside `DrawerHeader` names the Drawer. Dialog ends in `DialogActions` (`.ui-actions`, with `align`), Drawer in `DrawerFooter` (`.ui-footer`, no `align`). The drawer title is `--ui-font-size-large` (through `--_header-font-size`), while the Dialog title (`.ui-h4`) follows `--ui-font-size-h4`, so in m3 they're 20px and 28px. Neither spaces the paragraphs in `.ui-content`, which touch in LongContent and the drawer Basics (`src/component-api/dialog/api.ts:20-39`, `src/component-api/drawer/api.ts:52-75`, `packages/opui/css/components/drawer.css:16,66,121-127`, `packages/opui/css/components/callout.css:65-71`)
   - Fix: Should they share part names, `align` and a heading token? And should `.ui-content` space its children like Callout's, or should the examples wrap their text in `.ui-rich-text`?
   > I honestly think the library should have less opinions about what to put where. XHeader, XContent and XFooter is ideal imo. They can have similar Api otherwise, that should make sense. My point is just that sometimes you don’t want actions there. Or ONLY actions but something custom. There should be a way to merge these ideas.
-- [ ] (1) Docs site: the Component properties table only shows the page's own stylesheet. Menu is also a `.ui-list`, so `list.css`'s `--_item-gap`, `--_separator-space` and `--_start-size` work on it, and Dialog is a `.ui-card.ui-elevated`, so `card.css`'s `--_elevated-bg-color` and `--_elevated-shadow` style it. Select and Textarea now list `text-field.css` (`src/component-api/custom-properties.ts`)
+- [ ] (1) Docs site: the Component properties table only shows the page's own stylesheet. Menu is also a `.ui-list`, so `list.css`'s `--_item-gap`, `--_separator-space` and `--_start-size` work on it, and Dialog is a `.ui-card.ui-elevated`, so `card.css`'s `--_elevated-bg-color` styles it. Select and Textarea now list `text-field.css` (`src/component-api/custom-properties.ts`)
   - Fix: Should `PAGE_STYLESHEETS` also get `dialog: ["card", "dialog"]` and `menu: ["list", "menu"]`?
   > Fix
   > Yes, although we should be any to show what’s a dependency and what’s not maybe?
-- [ ] (1) Examples: many examples use placeholder or joke content: Lorem ipsum in Accordion, Drawer Basics and Chip Sizes; "Legend", "Checkbox 1/2/3", "Radio 1/2/3", "Switch 1", "These are required!" and "Something went wrong!" in the Checkbox, Radio and Switch field group examples; "Headline" and "Supporting text" as List content; meta labels in Range ("Label", "Invalid Range", "No variant = var(--ui-field-border-color)"); "Pick me!", "No me!!" and "Uh-oh" in the Select and TextField Validation examples; three identical labels per Button group. Spread, Binding and FieldGroupBinding already use real content. The done item at TODO.md:3880 keeps the informal voice in prose (`src/component-examples/{accordion,button-group,checkbox,drawer,form,list,radio,range,select,switch,text-field,textarea}/`)
+  - Partly fixed: `dialog.css` declares `--_elevated-shadow: var(--ui-shadow-overlay)` itself and `custom-properties/dialog.ts` documents it, so the Dialog table lists it.
+- [ ] (1) Examples: many examples use placeholder or joke content: Lorem ipsum in Accordion and Drawer Basics; "Legend", "Checkbox 1/2/3", "Radio 1/2/3", "Switch 1", "These are required!" and "Something went wrong!" in the Checkbox, Radio and Switch field group examples; "Headline" and "Supporting text" as List content; meta labels in Range ("Label", "Invalid Range", "No variant = var(--ui-field-border-color)"); "Pick me!", "No me!!" and "Uh-oh" in the Select and TextField Validation examples; three identical labels per Button group. Spread, Binding and FieldGroupBinding already use real content. The done item at TODO.md:3880 keeps the informal voice in prose (`src/component-examples/{accordion,button-group,checkbox,drawer,form,list,radio,range,select,switch,text-field,textarea}/`)
   - Fix: Replace them with short realistic content (an FAQ, "Notifications" with Email, Push and SMS, "Volume"), or keep the playful ones as the site's voice? Either way the error texts should say how to fix the problem.
   > Fix
   > Keep it playful
+  - Partly fixed: Chip Sizes has real content ("Free returns within 30 days on every order"). Also: the Checkbox, Radio and Switch VisibleLabel examples use hipster and bacon ipsum.
 - [x] (1) Inline `code` in rich text uses the full `--ui-border-radius` (8px by default, 14px in shadcn, 12px in m3, almost a pill on a 24px line), while `kbd`, `var`, `mark` and `.ui-kbd` cap it at `min(var(--radius-2), var(--ui-border-radius))` (`packages/opui/css/components/typography.css:814`, `packages/opui/css/components/typography.css:159,170,834,863`)
   - Fix: Cap it like the others? The default changes from 8px to 5px.
   > Cap it like the others.
   - Fixed: inline `code`, `kbd`, `mark`, `var` and `.ui-kbd` all read the new `--ui-radius-small` role, `--ui-border-radius` capped at 5px.
-- [ ] (1) List: lists have no `border-radius`, so in m3 (12px) and shadcn (14px) a filled or tonal list is the only square surface next to rounded cards and menus. Their separators are 18% of `currentColor` by design, so a theme can't recolor them (brutalist gets gray 2px lines next to black borders). Dense rows use a fixed `min-block-size: var(--size-7)`, so they ignore `--ui-density` (`packages/opui/css/components/list.css:9-24,55,74,85,143`)
+- [ ] (1) List: lists have no `border-radius`, so in m3 (12px) and shadcn (14px) a filled or tonal list is the only square surface next to rounded cards and menus. Dense rows use a fixed `min-block-size: var(--ui-space-7)`, so they ignore `--ui-density` (`packages/opui/css/components/list.css:9-38,95,106`)
   - Fix: Round non-transparent lists (square when they're a card's direct child)? Add an optional `--ui-list-divider-color`? Give dense rows `--ui-control-size-small` (32px becomes 40px by default)?
   > Fix
   > Fix all
+  - Partly fixed: separators read `--_divider-color` (`--ui-border-color`, mixed with 20% `--ui-text-strong` in tonal lists), so themes recolor them and brutalist gets black lines.
 - [ ] (1) Range: it's the only form control without `size`, so the Form kitchen sink's `size="small"` switch adds a class that does nothing to `.ui-range`. Its focus ring's `outline-offset: calc(1ex - var(--_inset))` ignores `--ui-focus-ring-offset` and sits about 8.7px outside the track box, also in bootstrap and shadcn, which set the offset to 0 (`packages/opui/components/Range/types.ts`, `packages/opui/css/components/range.css:244`, `src/docs/components/form.astro:241`)
-  - Fix: Add sizes to Range, or drop it from the toggle? Move the ring in to `calc(max(0px, (var(--_thumb-size) - var(--size-4)) / 2) + var(--ui-focus-ring-offset) - var(--_inset))`? That changes the default look.
+  - Fix: Add sizes to Range, or drop it from the toggle? Move the ring in to `calc(max(0px, (var(--_thumb-size) - var(--ui-space-4)) / 2) + var(--ui-focus-ring-offset) - var(--_inset))`? That changes the default look.
   > Fix
   > Add sizes if it makes sense. What are other libraries doing?
 - [ ] (1) Select: the shared `&.ui-auto-fit` rule in `text-field.css` also matches `.ui-select`, but Select has no `autoFit` prop and its API doesn't list the class (`packages/opui/css/components/text-field.css:6,337-355`, `packages/opui/components/Select/types.ts`)
   - Fix: A: add `autoFit` to Select. B: document it as HTML-only. C: change the selector so it doesn't match `.ui-select`.
   > Fix
   > If selects can use this css feature they should be able to
-- [ ] (1) TabsItem, ToggleButton, Switch: the starting checked state is `open` on TabsItem, `pressed` on ToggleButton and the native `checked` on Switch, and the same `variant` prop means density on Table (`"dense" | "spacious"`), while Select, List and Menu use a `dense` boolean. `"outlined"` is the classless baseline on Select, TextField and Textarea but a `.ui-outlined` modifier on Tabs (`packages/opui/components/Tabs/types.ts`, `packages/opui/components/ToggleButton/types.ts:3`, `packages/opui/components/Table/types.ts:3`)
-  - Fix: Keep them, and say in the Table and Tabs descriptions what no variant looks like? Or one name for the checked state and a `density` prop on Table?
 - [x] (1) ToggleButton, ToggleGroup: they follow `--ui-button-border-radius` but draw their border with `--ui-border-color`, not `--ui-button-outlined-border-color`, so in m3 a toggle group (M3's segmented button) gets the light `#cac4d0` outline while outlined buttons get `#79747e` (`packages/opui/css/components/toggle-button.css:13`, `packages/opui/css/components/toggle-group.css:4`)
   - Fix: Should they read `var(--ui-button-outlined-border-color, var(--ui-border-color))`?
   > Yes, read the control border.
@@ -6945,8 +6950,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) CSS: `--ui-primary-light` is defined (and re-set under more contrast), but no stylesheet, theme or doc reads it; `--ui-primary-dark` has one reader in `typography.css:340` (`packages/opui/css/theme.css:282,484`)
   - Fix: Should it stay a public token? If not, a `Removed` CHANGELOG entry and a `tests/unit/released-tokens.json` check.
   - Fixed: the token naming model removes `--ui-primary-dark` and `--ui-primary-light`. The one reader, rich text links in a `List`, derives the darker shade from `--ui-primary` itself.
-- [ ] (1) Menu: a critical item colors its text with hand-tuned lightness clamps on `--ui-critical` and repeats them in a more-contrast block, although `li.ui-critical` and `.ui-critical` on the item are palette scopes where `theme.css` re-derives `--ui-palette-text` (and raises it under more contrast). Typography reads `--ui-palette-text` for the same job (`packages/opui/css/components/menu.css:146-162`, `packages/opui/css/theme.css:343-383`, `packages/opui/css/components/typography.css:191`)
+- [x] (1) Menu: a critical item colors its text with hand-tuned lightness clamps on `--ui-critical` and repeats them in a more-contrast block, although `li.ui-critical` and `.ui-critical` on the item are palette scopes where `theme.css` re-derives `--ui-palette-text` (and raises it under more contrast). Typography reads `--ui-palette-text` for the same job (`packages/opui/css/components/menu.css:146-162`, `packages/opui/css/theme.css:343-383`, `packages/opui/css/components/typography.css:191`)
   - Fix: Is the clamp kept because `--ui-palette-text` (`--ui-color-6` in dark, l 0.71) misses 4.5:1 on the elevated menu surface? If not, the role replaces both blocks.
+  - Fixed: `menu.css` colors critical items with `--ui-critical-text`, a role in `theme.css` that holds the lightness clamps and a stronger value under more contrast, so Menu has no clamps of its own.
 - [x] (1) TextField: the invalid rule has its own `@container style(--ui-contrast: more)` block that only swaps `--ui-invalid-color` for `--ui-invalid-text-color`. Section 9 of the components guide says a block that only swaps one role for a stronger one belongs in `theme.css` (`packages/opui/css/components/text-field.css:366-376`, `packages/opui/components/AGENTS.md:399`)
   - Fix: Should `--ui-invalid-color` itself be lifted in dark more-contrast mode, so Checkbox, Radio and Range borders follow too? If so, move the lift into the more-contrast block of `theme.css` and delete the component block.
   - Fixed: `theme.css` makes `--ui-invalid` the lighter `max(l, 0.85) min(c, 0.1)` shade in dark mode with more contrast, and the TextField block is gone, so Checkbox, Radio, Range and Switch share it. Choice still caps its fill at `l` 0.62 for the white mark.
@@ -9355,7 +9361,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: InlineText styles its `<code>`, and the Todo, Checks and TodoNotes copies, the dead `pre code` rule and the unused exports are gone. Computed styles unchanged.
-- [ ] (1) Blocks: 31 rules in 21 blocks set `color: var(--text-muted); font-size: var(--font-size-0)`, which is what `.ui-caption` does, and 12 rules in 10 blocks repeat Button's own `justify-content: center`. Cross-block shared CSS isn't the answer, because each block's CSS tab has to stand alone, but library classes are (`src/blocks/testimonials.html:99-102`, `src/blocks/data-table.html:96-99`, `src/blocks/sign-in.html:27-29`, `src/blocks/sign-in.html:44-47`, `src/blocks/checkout.html:51-54`, `packages/opui/css/components/typography.css:126-130`, `packages/opui/css/components/button.css:58`)
+- [ ] (1) Blocks: 31 rules in 21 blocks set `color: var(--ui-text-muted); font-size: var(--font-size-0)`, which is what `.ui-caption` does, and 12 rules in 10 blocks repeat Button's own `justify-content: center`. Cross-block shared CSS isn't the answer, because each block's CSS tab has to stand alone, but library classes are (`src/blocks/testimonials.html:99-102`, `src/blocks/data-table.html:96-99`, `src/blocks/sign-in.html:27-29`, `src/blocks/sign-in.html:44-47`, `src/blocks/checkout.html:51-54`, `packages/opui/css/components/typography.css:99-103`, `packages/opui/css/components/button.css:76`)
   - Today:
     ```css
     .testimonials-role {
@@ -9378,10 +9384,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Still open: two rules stay: the inbox list `time` and the notification-settings `.notif-group` header, where `.ui-caption` loses to List's `* { font-size: inherit }` and the table header styles. Options: keep the two block rules, or make `.ui-caption` win inside list items and table headers.
   > Fix
   > Do what’s best and smart
+  - Measured: List no longer resets `font-size` on every child, so `inbox.html`'s `time` with `.ui-caption` and no block rule renders 12px, muted, with a 19.2px line height, and that rule can go. `notification-settings.html`'s `th.notif-group` with `.ui-caption` still renders 14px in the strong text color, because the table header styles win, so the block rule stays there.
 - [ ] (1) AccordionActions: it has no `align` prop. Its actions are end-aligned, while CardActions (start by default) and DialogActions (end by default) take `align` with `.ui-align-*`, so accordion actions can't be start-aligned (`packages/opui/css/components/accordion.css:154-161`, `packages/opui/components/Accordion/types.ts:6`)
   - Fix: give `AccordionActions` DialogActions' API: `align?: "start" | "end"`, default `"end"`, `.ui-align-start`, and an `accordion-actions/api.ts`.
-- [ ] (1) Avatar: avatars in a group overlap by a fixed `--size-3` (16px) whatever their size, so only 56 to 60% of each shows and the second initial is cut off (default and shadcn) (`packages/opui/css/components/avatar.css:78,88-90`)
-  - Fix: `--_margin: var(--size-2)` keeps the initials whole at the default size. The amount is the choice.
+- [ ] (1) Avatar: avatars in a group overlap by a fixed `--ui-space-3` (16px) whatever their size, so only 56 to 60% of each shows and the second initial is cut off (default and shadcn) (`packages/opui/css/components/avatar.css:83,93-95`)
+  - Fix: `--_margin: var(--ui-space-2)` keeps the initials whole at the default size. The amount is the choice.
 - [x] (1) Carousel: the scroll buttons read Open Props `--shadow-2` and a border derived from `--ui-surface-inverse`, both redeclared on `.ui-carousel`, so no theme can restyle them (brutalist keeps a soft shadow next to hard-shadowed cards) (`packages/opui/css/components/carousel.css:5-9,21,132-134`)
   - Fix: read theme tokens, for example `--_button-shadow: var(--ui-shadow-overlay)` (changes the default from `--shadow-2` to `--shadow-3`) and `--_button-border-color: var(--ui-button-border-color, …)`, or a dedicated `--ui-carousel-button-shadow`.
   > Read the theme tokens.
@@ -9393,8 +9400,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) Docs: `check-browser-support.mjs` reads only `css/components/<slug>.css`, so it never checks `choice.css`, `text-field.css` (Select, Textarea), `card.css` (Accordion, Dialog) or `list.css` (Menu, Select), skips Toggle, has no pattern for `:user-invalid`, and never reports listed ids that no stylesheet uses (`scripts/check-browser-support.mjs:11-13,15-26,44,49-50`)
   - Fix: read the stylesheets from each page's `@opui/css/components/<name>.css?raw` imports, add patterns for `user-pseudos`, `scrollbar-gutter` and `display-animation`, and warn when a listed id matches no installed stylesheet.
   - Fixed: the script reads each page's stylesheet imports, has patterns for `user-pseudos`, `scrollbar-gutter` and `display-animation`, and warns when a listed id matches nothing in the page's stylesheets, `theme.css` or `core/*.css`.
-- [ ] (1) Menu, Drawer: the same four logical values are `placement` on Menu and `side` on Drawer, and Anchor and Tooltip call their position `alignment` (`packages/opui/components/Menu/types.ts:17`, `packages/opui/components/Drawer/types.ts:6`)
-  - Fix: pick one name for the side it opens on, with the other as a deprecated alias for a release.
 - [x] (1) Switch: the unchecked track and thumb are fixed palette steps (`--ui-gray-3/8`, `--ui-gray-11/14`) that no token reaches, so in brutalist the switch border is gray next to black checkbox and radio borders (`packages/opui/css/components/switch.css:4,19,36`)
   - Fix: optional `--ui-switch-thumb-color` and `--ui-switch-track-color` with today's values as fallbacks.
   > A track token, the border follows the field border.
@@ -9413,7 +9418,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: drop the inline padding when the link code background is transparent (light mode and more contrast), which needs a color-scheme query since `light-dark()` only takes colors.
   - Fixed: rich text `a[href] code` has no inline padding where its background is transparent, in light mode and with more contrast.
 - [ ] (1) Avatar, Carousel: `types.ts` declares a `Slots<S> = { children?: S }` type for the default slot only, which React's `ComponentProps` and Svelte's `SvelteHTMLElements` already provide and no other component in this group declares. The Vue files use `DefaultSlots` in both cases, so the extra type only adds a second way to spell the same slot (`packages/opui/components/Avatar/types.ts:35-37`, `packages/opui/components/Carousel/types.ts:13-15`, `packages/opui/components/Avatar/types.react.ts:5`, `packages/opui/components/Carousel/types.react.ts:4`)
-  - Fix: drop `Slots<S>` from the two `types.ts` files and the `Base.Slots<…>` intersections in their React, Svelte and Solid type files, so the default slot comes from the element type like in the other components. Or, if a declared default slot is the convention, add it to the others; either way section 1 of the components guide should say which.
+  - Fix: drop `Slots<S>` from the two `types.ts` files and the `Base.Slots<…>` intersections in their React and Svelte type files, so the default slot comes from the element type like in the other components. Or, if a declared default slot is the convention, add it to the others; either way section 1 of the components guide should say which.
+  - Also: `ToggleButton/types.ts` and `ToggleGroup/types.ts` declare a `Slots<S>` with only `children` too.
 - [x] (1) Badge: the warning text `light-dark(var(--ui-palette-ink), var(--ui-palette-ink-contrast))` expands to the same color step twice, a constant dark ink, and the double `light-dark()` hides that (`packages/opui/css/components/badge.css:90-93`)
   - Fix: read one scheme-independent value, for example `var(--ui-palette-inverse)` if that role is kept (see the CSS question), or a short private `--_ink` set from `--ui-palette-ink`.
   - Fixed: warning badges read the new `--ui-on-warning`, the `--ui-on-primary` formula applied to `--ui-warning`, dark on the light warning fill in both modes.
@@ -9438,8 +9444,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) CSS: `normalize.css` sizes bare `svg` with `var(--size-7)` and `:target` with a literal `2rem`, the Open Props and literal reads the component rule bans (`packages/opui/core/normalize.css:163-165,177-179`)
   - Fix: `inline-size: var(--ui-space-7)` and `scroll-margin-block-start: var(--ui-space-6)`, or drop the `svg` rule, since every component sizes its own icons.
   - Fixed: `svg:not([width])` reads `--ui-icon-size-large` and `:target` `--ui-space-7`, and `check-css-vars` checks `core/normalize.css` like the components.
-- [ ] (1) Customizing: "documented on its page under Component properties" says "its page" (the component's) but links to the Customizing page's own `#component-properties` (`src/docs/guide/customizing.astro:118-120`)
+- [x] (1) Customizing: "documented on its page under Component properties" says "its page" (the component's) but links to the Customizing page's own `#component-properties` (`src/docs/guide/customizing.astro:118-120`)
   - Fix: "documented on each component page under Component properties" without the link, or link one component page's section as an example.
+  - Fixed: `customizing.astro` now says "Every component page lists its own under Component properties", with no link back to the page's own `#component-properties`.
 - [x] (1) DescriptionList, Range, Select, TextField: the container queries use the physical `width` feature while every declaration in the files is logical (`packages/opui/css/components/description-list.css:71`, `packages/opui/css/components/range.css:163`, `packages/opui/css/components/select.css:172`, `packages/opui/css/components/text-field.css:497`)
   - Fix:
     ```css
@@ -10753,8 +10760,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: take the hue from the intent token, `--ui-palette-source: oklch(from var(--ui-success) 0.58 0.21 h)`. The default doesn't change. Check first that no element has both a scope class and `.ui-palette` or a contrast-block surface class, which would make a cycle.
   > Take the hue from the intent token.
   - Fixed: each severity scope sets `--ui-palette-source: oklch(from var(--ui-<intent>) 0.58 0.21 h)`, so a theme's `--ui-success` reaches the success Toast, Callout and Chip. The default is unchanged.
-- [ ] (2) FieldGroup: its layout prop is `direction` with `"row" | "column"`, while ButtonGroup, ToggleGroup and Carousel use `orientation` with `"horizontal" | "vertical"` for the same choice (`packages/opui/components/FieldGroup/types.ts:2`, `src/component-api/field-group/api.ts:10-16`)
-  - Fix: `orientation?: "horizontal" | "vertical"` on FieldGroup, `direction` as a deprecated alias for a release, and a CHANGELOG entry.
 - [x] (2) Avatar, Badge, Chip, DescriptionList, Tabs: six allowlisted `2px` literals are the thick border that `--ui-border-width-thick` (2px) names: `--_outline-width` in Avatar, `--_border-width` in Badge and DescriptionList (twice), `border: 2px` on the Chip dot and `--_indicator-size` in Tabs, so a theme with heavier borders wouldn't thicken them (`packages/opui/css/components/avatar.css:85`, `packages/opui/css/components/badge.css:8`, `packages/opui/css/components/chip.css:131`, `packages/opui/css/components/description-list.css:14,63`, `packages/opui/css/components/tabs.css:18`, `packages/opui/css/theme.css:38`, `scripts/css-vars-allowlist.json`)
   - Fix: read the role, then `node scripts/check-css-vars.mjs --update`.
     ```css
@@ -10828,9 +10833,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   - Partly fixed: `body` reads `--ui-font-size-body`. Still open: `html` keeps `--font-lineheight-4` (1.75), since `--ui-line-height` is 1.5 and would tighten every page; `--ui-line-height-relaxed` (1.75) keeps the look.
   - Fixed: `html` reads `--ui-line-height-relaxed` (1.75), so the look is the same and a theme can change it.
-- [ ] (2) Dialog, Drawer: the e2e axe run never sees a dialog or drawer from the component fixtures: they're closed (`:not([open]) { display: none }`), so axe skips them. The only open one is the non-modal dialog on the contrast stress page, so the Drawer close button, the alert dialog's `aria-describedby` and the `DialogHeader` name are unchecked (`tests/e2e/a11y.spec.ts:43-49`, `packages/opui/css/components/dialog.css:31-33`, `packages/opui/css/components/drawer.css:177-179`, `src/stress-tests/contrast.html:1873-1875`)
+- [ ] (2) Dialog, Drawer: the e2e axe run never sees a dialog or drawer from the component fixtures: they're closed (`:not([open]) { display: none }`), so axe skips them. The overlays stress page opens its own dialogs and drawers for axe, but none has `aria-describedby`, so the AlertDialog example's description reference stays unchecked (`tests/e2e/a11y.spec.ts:45-48`, `packages/opui/css/components/dialog.css:31-33`, `packages/opui/css/components/drawer.css:177-179`, `src/component-examples/dialog/AlertDialog.html:15`, `src/stress-tests/overlays.html:273-280`)
   - Fix: add an open non-modal drawer (`open`, `scrollLock={false}`, `position: static` like the anatomy diagram) next to the open dialog on the stress page, or open one dialog and one drawer in the fixture before `analyze()`.
   > Fix
+  - Partly fixed: `tests/e2e/stress-overlays-a11y.spec.ts` opens the dialogs, an alert dialog and the drawers on `/tests/overlays/` and runs axe on each, so the Drawer close button and the `hgroup` dialog name are checked.
 - [x] (2) Select: the option group label color is `light-dark(oklch(from var(--ui-text-primary) calc(l * 0.75) c h), oklch(from var(--ui-text-primary) calc(l * 1.25) c h))`. `--ui-text-primary` is l 0.16 in light and l 0.98 in dark, so the label is l 0.12 in light and clips to 1.0 in dark: slightly stronger than primary text, not the secondary shade a group heading wants, and no role controls it (`packages/opui/css/components/select.css:88-91`, `packages/opui/core/palette.css:32-33,88-89`)
   - Fix:
     ```css
@@ -11009,8 +11015,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 ## To check
 
-- [ ] (1) Accordion: with VoiceOver in Safari on `/html/components/accordion/`, check whether the summary announces the unnamed chevron `svg` (for example as "image") before the `aria-hidden` item in Accessibility is fixed, and that it's silent after.
-
 - [x] (2) Select: `::picker(select)` keeps the UA `background-color: Field` and square corners while the `.ui-list` inside is rounded with `var(--field-border-radius)`, so the picker's square corners and its `box-shadow` show outside the rounded list (`select.css:27-46,69-72`)
   - Confirmed in Chromium 141 with the Grouped example, light and dark.
   - Fix:
@@ -11122,7 +11126,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed: `html` takes `min-block-size: 100%`, and `body` takes `min-block-size: 100svb` (a percentage no longer resolves against an auto-height `html`), so `body` still fills the screen. 9 of the 10 scenarios pass in the sandbox.
   - Still failing in the sandbox: "row tooltip at the clipped end of a scrolled table" (103px from its trigger). Chromium 141 places the tooltip where the trigger would be with the table at `scrollLeft: 0`, so it doesn't compensate for the scroll of the trigger's scroll container. Reproduced without the library too. Nothing to fix in CSS.
   - CI's Chromium (Playwright 1.63 container) never had either problem: every overlay scenario passes there, and the only CI failures are the 33 stale visual baselines. The sandbox only has Chromium 141 (`/opt/pw-browsers/chromium-1194`), older than the one the pinned Playwright expects (`chromium_headless_shell-1243`).
-- [ ] (1) Docs site: every API table sets its column widths with `min-width` on `<col>`, as the guide says to. CSS leaves `min-width` on table columns undefined, and Chromium and Firefox are believed to ignore it; with `table-layout: fixed` and no `width`, the columns would then split evenly (25% each, so the description column is 160px at the 40rem minimum) (`src/components/ApiTables.astro:62-65,110-113,167-168,199-201`, `src/component-api/AGENTS.md:13`)
+- [ ] (1) Docs site: every API table sets its column widths with `min-width` on `<col>`. CSS leaves `min-width` on table columns undefined, and Chromium and Firefox are believed to ignore it; with `table-layout: fixed` and no `width`, the columns would then split evenly (25% each, so the description column is 160px at the 40rem minimum) (`src/components/ApiTables.astro:78-81,126-129,183-184,215-217,266`)
   - Today:
     ```astro
     <TableColumn style="min-width: 20%" />

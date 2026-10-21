@@ -44,7 +44,8 @@ export default {
     kind: "input",
   },
   "--_default-active-bg-color": {
-    description: "Pressed background of text buttons, from `--_accent`.",
+    description:
+      "Pressed and current-page background of text buttons, from `--_accent`. As light as the hover background in dark mode with more contrast, so the text keeps 7:1.",
     kind: "output",
   },
   "--_default-hover-bg-color": {

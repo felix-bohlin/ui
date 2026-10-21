@@ -28,6 +28,14 @@
       oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha)),
       oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-dark))
     );
+
+    @container style(--ui-contrast: more) {
+      --_default-active-bg-color: light-dark(
+        oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha)),
+        oklch(from var(--_accent) l 0.06 h / var(--ui-state-hover-alpha-dark))
+      );
+    }
+
     --_default-hover-bg-color: light-dark(
       oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha)),
       oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha-dark))

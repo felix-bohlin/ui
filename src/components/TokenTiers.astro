@@ -114,11 +114,12 @@ const link = (row: number, column: number) => {
     border: var(--ui-border-width) solid var(--ui-border-color);
     border-radius: var(--ui-radius);
     overflow-x: auto;
-    padding: var(--size-3) var(--size-2);
+    padding-block: var(--size-3);
   }
 
   table {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     inline-size: 100%;
     min-inline-size: 36rem;
   }
@@ -127,6 +128,15 @@ const link = (row: number, column: number) => {
   td {
     padding: var(--size-2) var(--size-3);
     vertical-align: middle;
+  }
+
+  th:first-child {
+    background-color: var(--ui-surface-default);
+    border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
+    inset-inline-start: 0;
+    padding-inline-start: var(--size-4);
+    position: sticky;
+    z-index: 1;
   }
 
   thead th {
@@ -144,18 +154,15 @@ const link = (row: number, column: number) => {
   }
 
   tbody th {
-    background-color: var(--ui-surface-default);
     inline-size: 12rem;
-    inset-inline-start: 0;
     min-inline-size: 9rem;
-    position: sticky;
     text-align: start;
-    z-index: 1;
   }
 
   .tier {
     display: grid;
     gap: var(--size-1);
+    line-height: var(--ui-line-height-tight);
   }
 
   .name {

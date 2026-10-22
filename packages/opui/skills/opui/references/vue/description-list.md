@@ -271,7 +271,7 @@ Step 3 of 4: Dotted
 
 Step 4 of 4: Container query
 
-- [Container queries ](https://webstatus.dev/features/container-queries)(Widely available): Chrome 105+, Edge 105+, Firefox 110+, Safari 16+
+- [`Container queries (size)` ](https://webstatus.dev/features/container-queries)(Widely available): Chrome 105+, Edge 105+, Firefox 110+, Safari 16+
 
 ```css
 .dl {
@@ -312,6 +312,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## Installation
 
 Import the components from `opui-css/vue`:
+
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md).
 
 - `opui-css/css/components/description-list.css`
 

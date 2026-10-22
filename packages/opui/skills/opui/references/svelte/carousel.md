@@ -676,7 +676,7 @@ Step 2 of 4: Scroll snap
 
 Step 3 of 4: Scroll buttons
 
-- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 151+, Edge 151+, Firefox 151+, Safari 27+
 - [`::scroll-button` ](https://webstatus.dev/features/scroll-buttons)(Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
 
 ```css
@@ -761,7 +761,7 @@ Step 4 of 4: Scroll markers
 
 ## Browser support
 
-- Chromium: Full support Supported since v144.
+- Chromium: Full support Supported since v151.
 - Firefox: Partial support Missing: scroll-buttons, scroll-marker-targets, scroll-markers.
 - Safari: Partial support Missing: scroll-buttons, scroll-marker-targets, scroll-markers.
 
@@ -770,6 +770,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## Installation
 
 Import the component from `opui-css/svelte`:
+
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/svelte/guide/getting-started.md).
 
 - `opui-css/css/components/carousel.css`
 

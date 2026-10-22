@@ -554,7 +554,7 @@ Step 4 of 4: Segmented
 ## Browser support
 
 - Chromium: Full support Supported since v138.
-- Firefox: Partial support Missing: sibling-count.
+- Firefox: Full support Supported since v154.
 - Safari: Full support Supported since v26.2.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/react/guide/browser-support/?components=Tabs.md).
@@ -562,6 +562,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## Installation
 
 Import the components from `opui-css/react`:
+
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/react/guide/getting-started.md).
 
 - `opui-css/css/components/tabs.css`
 

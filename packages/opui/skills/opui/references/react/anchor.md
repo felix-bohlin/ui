@@ -266,7 +266,7 @@ Read the post: [Hover cards without JavaScript](https://open-props-ui.netlify.ap
 Step 1 of 4: Hint
 
 - [Interest invokers ](https://webstatus.dev/features/interest-invokers)(Limited availability): Chrome 142+, Edge 142+, Firefox not supported, Safari not supported
-- [popover="hint" ](https://webstatus.dev/features/popover-hint)(Limited availability): Chrome 133+, Edge 133+, Firefox 149+, Safari not supported
+- [popover="hint" ](https://webstatus.dev/features/popover-hint)(Limited availability): Chrome 151+, Edge 151+, Firefox 153+, Safari not supported
 
 ```html
 <button type="button" interestfor="card">felix-bohlin/ui</button>
@@ -303,7 +303,7 @@ Step 2 of 4: Tap
 
 Step 3 of 4: Anchor
 
-- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 151+, Edge 151+, Firefox 151+, Safari 27+
 
 ```css
 .card {
@@ -327,7 +327,7 @@ Step 4 of 4: Flip
 
 ## Browser support
 
-- Chromium: Full support Supported since v144.
+- Chromium: Full support Supported since v151.
 - Firefox: Partial support Missing: interest-invokers.
 - Safari: Partial support Missing: interest-invokers, popover-hint.
 
@@ -342,4 +342,6 @@ Import the components from `opui-css/react`:
 - [Badge](https://open-props-ui.netlify.app/react/components/badge.md)
 - [Tooltip](https://open-props-ui.netlify.app/react/components/tooltip.md)
 
-* `opui-css/css/components/anchor.css`
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/react/guide/getting-started.md).
+
+- `opui-css/css/components/anchor.css`

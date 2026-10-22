@@ -1056,9 +1056,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Form](https://open-props-ui.netlify.app/html/components/form.md)
 
-* `opui-css/css/components/switch.css`
-* `opui-css/css/components/choice.css`
-* `opui-css/css/components/form.css`
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md).
+
+- `opui-css/css/components/switch.css`
+- `opui-css/css/components/choice.css`
+- `opui-css/css/components/form.css`
 
 ## Changelog
 

@@ -2,6 +2,7 @@
 import Learn from "./Learn.astro"
 import ReadMore from "../components/UnderTheHood/ReadMore.astro"
 import { references } from "../components/UnderTheHood/references"
+import { formatInline } from "../utils/format-inline"
 import { componentName, formatDate, posts } from "../utils/learn"
 import {
   componentHasFramework,
@@ -17,6 +18,11 @@ type Props = {
 const { slug, topic: topicProp } = Astro.props
 const post = posts.find((entry) => entry.slug === slug)!
 const component = post.component!
+if (!post.before || !post.now) {
+  throw new Error(`learn-posts.ts: ${slug} needs before and now`)
+}
+
+const { link } = Astro.locals
 
 const currentFramework = Astro.locals.framework
 
@@ -43,6 +49,16 @@ const topic =
   <Fragment slot="preamble">{post.description}</Fragment>
 
   <slot />
+
+  <section>
+    <h2 id="then-and-now">Then and now</h2>
+    <dl>
+      <dt>Then</dt>
+      <dd set:html={formatInline(post.before, link)} />
+      <dt>Now</dt>
+      <dd set:html={formatInline(post.now, link)} />
+    </dl>
+  </section>
 
   <section>
     <h2 id="read-more">Read more</h2>

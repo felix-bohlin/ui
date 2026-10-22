@@ -356,13 +356,15 @@ Step 4 of 4: Severity
 
 - Chromium: Full support Supported since v143.
 - Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v26.2.
+- Safari: Full support Supported since v26.4.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/react/guide/browser-support/?components=Callout.md).
 
 ## Installation
 
 Import the components from `opui-css/react`:
+
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/react/guide/getting-started.md).
 
 - `opui-css/css/components/callout.css`
 

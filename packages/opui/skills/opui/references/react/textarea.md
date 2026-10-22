@@ -561,8 +561,10 @@ Import the component from `opui-css/react`:
 
 - [Text Field](https://open-props-ui.netlify.app/react/components/text-field.md)
 
-* `opui-css/css/components/text-field.css`
-* `opui-css/css/components/textarea.css`
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/react/guide/getting-started.md).
+
+- `opui-css/css/components/text-field.css`
+- `opui-css/css/components/textarea.css`
 
 ## Changelog
 

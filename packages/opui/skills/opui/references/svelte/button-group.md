@@ -646,8 +646,10 @@ Import the component from `opui-css/svelte`:
 
 - [Button](https://open-props-ui.netlify.app/svelte/components/button.md)
 
-* `opui-css/css/components/button-group.css`
-* `opui-css/css/components/button.css`
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/svelte/guide/getting-started.md).
+
+- `opui-css/css/components/button-group.css`
+- `opui-css/css/components/button.css`
 
 ## Changelog
 

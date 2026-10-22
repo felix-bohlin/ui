@@ -691,9 +691,11 @@ Import the component from `opui-css/vue`:
 
 - [Form](https://open-props-ui.netlify.app/vue/components/form.md)
 
-* `opui-css/css/components/radio.css`
-* `opui-css/css/components/choice.css`
-* `opui-css/css/components/form.css`
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md).
+
+- `opui-css/css/components/radio.css`
+- `opui-css/css/components/choice.css`
+- `opui-css/css/components/form.css`
 
 ## Changelog
 

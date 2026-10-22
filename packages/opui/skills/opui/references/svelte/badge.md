@@ -440,9 +440,9 @@ Step 4 of 4: Dot
 
 ## Browser support
 
-- Chromium: Full support Supported since v144.
+- Chromium: Full support Supported since v125.
 - Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v26.
+- Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/svelte/guide/browser-support/?components=Badge.md).
 
@@ -454,8 +454,10 @@ Import the component from `opui-css/svelte`:
 
 - [Anchor](https://open-props-ui.netlify.app/svelte/components/anchor.md)
 
-* `opui-css/css/components/badge.css`
-* `opui-css/css/components/anchor.css`
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/svelte/guide/getting-started.md).
+
+- `opui-css/css/components/badge.css`
+- `opui-css/css/components/anchor.css`
 
 ## Changelog
 

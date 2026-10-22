@@ -698,7 +698,9 @@ Import the component from `opui-css/svelte`:
 - [Select](https://open-props-ui.netlify.app/svelte/components/select.md)
 - [Textarea](https://open-props-ui.netlify.app/svelte/components/textarea.md)
 
-* `opui-css/css/components/text-field.css`
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/svelte/guide/getting-started.md).
+
+- `opui-css/css/components/text-field.css`
 
 ## Changelog
 

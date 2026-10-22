@@ -177,6 +177,8 @@ async function generateIndex() {
       headings: [
         ...readHeadings(content),
         post.technique,
+        post.before,
+        post.now,
         ...(post.features ?? []),
       ]
         .filter(Boolean)

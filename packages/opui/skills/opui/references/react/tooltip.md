@@ -212,10 +212,10 @@ Read the post: [Tooltips with interestfor](https://open-props-ui.netlify.app/lea
 
 Step 1 of 5: Hint
 
-- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 151+, Edge 151+, Firefox 151+, Safari 27+
 - [Interest invokers ](https://webstatus.dev/features/interest-invokers)(Limited availability): Chrome 142+, Edge 142+, Firefox not supported, Safari not supported
 - [Invoker commands ](https://webstatus.dev/features/invoker-commands)(Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
-- [popover="hint" ](https://webstatus.dev/features/popover-hint)(Limited availability): Chrome 133+, Edge 133+, Firefox 149+, Safari not supported
+- [popover="hint" ](https://webstatus.dev/features/popover-hint)(Limited availability): Chrome 151+, Edge 151+, Firefox 153+, Safari not supported
 
 ```html
 <button
@@ -275,7 +275,7 @@ Step 3 of 5: Shift
 
 Step 4 of 5: Arrow
 
-- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 151+, Edge 151+, Firefox 151+, Safari 27+
 - [`min(), max(), and clamp()` ](https://webstatus.dev/features/min-max-clamp)(Widely available): Chrome 79+, Edge 79+, Firefox 75+, Safari 13.1+
 
 ```html
@@ -345,7 +345,7 @@ Step 5 of 5: Fade
 
 ## Browser support
 
-- Chromium: Full support Supported since v144.
+- Chromium: Full support Supported since v151.
 - Firefox: Partial support Missing: calc-size, display-animation, interest-invokers, overlay, text-wrap-pretty.
 - Safari: Partial support Missing: calc-size, interest-invokers, overlay, popover-hint.
 
@@ -359,8 +359,10 @@ Import the component from `opui-css/react`:
 
 - [Anchor](https://open-props-ui.netlify.app/react/components/anchor.md)
 
-* `opui-css/css/components/tooltip.css`
-* `opui-css/css/components/anchor.css`
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/react/guide/getting-started.md).
+
+- `opui-css/css/components/tooltip.css`
+- `opui-css/css/components/anchor.css`
 
 ## Changelog
 

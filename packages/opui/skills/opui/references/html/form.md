@@ -794,7 +794,9 @@ This doesn't include all the styles for all form elements, just the scaffolding 
 - [Radio](https://open-props-ui.netlify.app/html/components/radio.md)
 - [Switch](https://open-props-ui.netlify.app/html/components/switch.md)
 
-* `opui-css/css/components/form.css`
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md).
+
+- `opui-css/css/components/form.css`
 
 ## See also
 

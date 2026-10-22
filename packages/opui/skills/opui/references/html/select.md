@@ -886,7 +886,7 @@ Read the post: [A select you can style](https://open-props-ui.netlify.app/learn/
 
 Step 1 of 4: Base select
 
-- [Customizable \<select> ](https://webstatus.dev/features/customizable-select)(Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
+- [Customizable \<select> ](https://webstatus.dev/features/customizable-select)(Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari 27+
 
 ```html
 <label class="field">
@@ -1033,7 +1033,7 @@ Step 4 of 4: Animate
 
 - Chromium: Full support Supported since v135.
 - Firefox: Partial support Missing: customizable-select, display-animation, overlay.
-- Safari: Partial support Missing: customizable-select, overlay.
+- Safari: Partial support Missing: overlay.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Select.md).
 
@@ -1044,9 +1044,11 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 - [Text Field](https://open-props-ui.netlify.app/html/components/text-field.md)
 - [List](https://open-props-ui.netlify.app/html/components/list.md)
 
-* `opui-css/css/components/text-field.css`
-* `opui-css/css/components/select.css`
-* `opui-css/css/components/list.css`
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md).
+
+- `opui-css/css/components/text-field.css`
+- `opui-css/css/components/select.css`
+- `opui-css/css/components/list.css`
 
 ## See also
 

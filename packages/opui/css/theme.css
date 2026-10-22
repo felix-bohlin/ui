@@ -547,10 +547,7 @@
       );
       --ui-invalid: light-dark(
         var(--ui-critical),
-        oklch(
-          from var(--ui-critical) max(l, 0.85) min(c, var(--ui-text-max-chroma))
-            h
-        )
+        oklch(from var(--ui-critical) max(l, 0.85) min(c, 0.1) h)
       );
       --ui-invalid-text: light-dark(
         oklch(from var(--ui-invalid) min(l, var(--ui-text-max-lightness)) c h),
@@ -639,6 +636,8 @@
       --ui-focus-ring-width: 3px;
 
       --ui-code-bg-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 6%));
+
+      --ui-state-active-alpha-dark: var(--ui-state-hover-alpha-dark);
 
       --ui-button-accent: initial;
       --ui-button-on-accent: initial;

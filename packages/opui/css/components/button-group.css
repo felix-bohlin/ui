@@ -20,9 +20,7 @@
       --_edge-accent: var(--ui-button-accent, var(--ui-palette-strong));
       --_edge-color: var(--ui-control-border-color, var(--_edge-accent));
       --_edge-text: light-dark(
-        oklch(
-          from var(--_edge-accent) min(l, var(--ui-text-max-lightness)) c h
-        ),
+        var(--_edge-accent),
         oklch(
           from var(--_edge-accent) max(l, var(--ui-text-min-lightness))
             min(c, var(--ui-text-max-chroma)) h
@@ -34,9 +32,8 @@
       }
 
       &.ui-critical {
-        --_edge-accent: oklch(
-          from var(--ui-critical) min(l, var(--ui-fill-max-lightness)) c h
-        );
+        --_edge-accent: var(--ui-critical);
+        --_edge-text: var(--ui-critical-text);
       }
 
       &.ui-primary {

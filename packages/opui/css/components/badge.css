@@ -59,7 +59,7 @@
     }
 
     /* Colors */
-    &:is(.ui-critical, .ui-info, .ui-success) {
+    &:is(.ui-critical, .ui-info, .ui-neutral, .ui-success) {
       --_bg-color: oklch(
         from var(--_accent) min(l, var(--ui-fill-max-lightness)) c h
       );
@@ -75,6 +75,10 @@
       --_accent: var(--ui-info);
     }
 
+    &.ui-neutral {
+      --_accent: var(--ui-neutral);
+    }
+
     &.ui-success {
       --_accent: var(--ui-success);
     }
@@ -83,12 +87,6 @@
       --_bg-color: var(--ui-warning);
       --_border-color: var(--ui-warning);
       --_text-color: var(--ui-on-warning);
-    }
-
-    &.ui-neutral {
-      --_bg-color: var(--ui-neutral);
-      --_border-color: var(--ui-neutral);
-      --_text-color: var(--ui-on-accent);
     }
 
     /* Alignment */

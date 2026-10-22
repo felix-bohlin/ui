@@ -46,7 +46,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-choice-size-large":
     "`Checkbox` and `Radio` input size with `.ui-large`.",
   "--ui-choice-size-small":
-    "`Checkbox` and `Radio` input size with `.ui-small` and inside `List`.",
+    "`Checkbox` and `Radio` input size with `.ui-small`, and in dense `List` rows unless the control has a size class.",
   "--ui-choice-size-x-small":
     "`Checkbox` and `Radio` input size with `.ui-x-small`.",
   "--ui-code-bg-color":
@@ -105,7 +105,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-field-size-small": "Field height with `.ui-small`.",
   "--ui-field-size-x-small": "Field height with `.ui-x-small`.",
   "--ui-fill-max-lightness":
-    "The highest OKLCH lightness of an intent color used as a fill under light text: the critical, info and success `Badge`, and the critical `Button` and `ButtonGroup`. `0.48`, and `0.45` with more contrast.",
+    "The highest OKLCH lightness of an intent color used as a fill under light text: the critical, info, neutral and success `Badge`, and the fills of critical `Button`s, also in a critical `ButtonGroup`. Borders keep the intent color. `0.48`, and `0.45` with more contrast.",
   "--ui-focus-ring-color":
     "Color of the keyboard focus ring. By default the page background color inverted.",
   "--ui-focus-ring-inset":
@@ -297,7 +297,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-state-active-alpha-accent":
     "Alpha of the pressed state layer on primary and critical buttons.",
   "--ui-state-active-alpha-dark":
-    "Alpha of the pressed state layer on neutral buttons in dark mode.",
+    "Alpha of the pressed state layer on neutral buttons in dark mode. The hover alpha with more contrast, so the text keeps 7:1.",
   "--ui-state-hover-alpha":
     "Alpha of the hover state layer on neutral buttons in light mode.",
   "--ui-state-hover-alpha-accent":
@@ -324,7 +324,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-switch-thumb-size-large":
     "Diameter of the `Switch` thumb with `.ui-large`.",
   "--ui-switch-thumb-size-small":
-    "Diameter of the `Switch` thumb with `.ui-small` and inside `List`.",
+    "Diameter of the `Switch` thumb with `.ui-small`, and in `List` rows unless the switch has a size class.",
   "--ui-switch-thumb-size-x-small":
     "Diameter of the `Switch` thumb with `.ui-x-small`.",
   "--ui-switch-track-color":
@@ -333,23 +333,23 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-switch-track-height-large":
     "Height of the `Switch` track with `.ui-large`.",
   "--ui-switch-track-height-small":
-    "Height of the `Switch` track with `.ui-small` and inside `List`.",
+    "Height of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class.",
   "--ui-switch-track-height-x-small":
     "Height of the `Switch` track with `.ui-x-small`.",
   "--ui-switch-track-width": "Width of the `Switch` track.",
   "--ui-switch-track-width-large":
     "Width of the `Switch` track with `.ui-large`.",
   "--ui-switch-track-width-small":
-    "Width of the `Switch` track with `.ui-small` and inside `List`.",
+    "Width of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class.",
   "--ui-switch-track-width-x-small":
     "Width of the `Switch` track with `.ui-x-small`.",
   "--ui-text-disabled": "Text color of disabled buttons and chips.",
   "--ui-text-max-chroma":
-    "The highest OKLCH chroma of the intent text roles in dark mode, which keeps a light color inside sRGB. `0.1`.",
+    "The highest OKLCH chroma of the intent text roles in dark mode, which keeps a light color inside sRGB. `0.1`. Also caps the dark mode text of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`.",
   "--ui-text-max-lightness":
     "The highest OKLCH lightness of the intent text roles (`--ui-primary-text`, `--ui-critical-text` and the other `-text` roles) in light mode, so they keep 4.5:1 on every surface. `0.41`, and `0.3` with more contrast.",
   "--ui-text-min-lightness":
-    "The lowest OKLCH lightness of the intent text roles in dark mode, so they keep 4.5:1 on every surface. `0.8`, and `0.9` with more contrast. Their chroma is also capped at `--ui-text-max-chroma` in dark mode.",
+    "The lowest OKLCH lightness of the intent text roles in dark mode, so they keep 4.5:1 on every surface. `0.8`, and `0.9` with more contrast. Their chroma is also capped at `--ui-text-max-chroma` in dark mode. Also the lowest lightness of `Button` and `ButtonGroup` text without `.ui-primary` or `.ui-critical` in dark mode.",
   "--ui-text-muted": "Body text color.",
   "--ui-text-strong":
     "Strongest text color, for headings, labels and values. Body text is `--ui-text-muted`.",

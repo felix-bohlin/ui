@@ -777,7 +777,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
-- Inline `code` reads `--ui-code-bg-color`, code blocks read `--ui-code-block-bg-color` and `--ui-code-block-text-color`, and `del`, `ins` and `abbr` read the `--ui-palette-*` roles.
+- [Inline `code`](#rich-text-showcase) reads `--ui-code-bg-color`, code blocks read `--ui-code-block-bg-color` and `--ui-code-block-text-color`, and `del`, `ins` and `abbr` read the `--ui-palette-*` roles.
 - Inline `code`, `kbd`, `mark` and `var` are rounded with `--ui-radius-small`, and the blockquote bar and table rules follow `--ui-border-width-thick`.
 - Text sizes follow the type roles `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-size-body` and `--ui-font-size-large` on the `--ui-font-size-100` to `900` scale, with `--ui-line-height-*` and `--ui-letter-spacing-*` roles for the rest, so a theme reshapes the type in a few lines.
 - [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.

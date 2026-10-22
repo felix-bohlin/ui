@@ -76,7 +76,7 @@ const steps = [
     css: `
 .chip:where(button, a):hover {
   --bg: light-dark(
-    oklch(from var(--ui-surface-tonal) calc(l * 0.98) c h),
+    oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h),
     oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
   );
 }`,
@@ -85,6 +85,7 @@ const steps = [
       "<code>:where(button, a)</code>: only interactive chips react",
       "Relative color derives the hover shade from the surface",
       "<code>light-dark()</code> darkens in light mode, lightens in dark",
+      "The library names this shade <code>--ui-surface-tonal-hover</code>, shared with filled fields",
       "Hover the button chips",
     ],
     title: "Hover",

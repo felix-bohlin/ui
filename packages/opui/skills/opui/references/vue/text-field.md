@@ -762,3 +762,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Corners follow `--ui-radius` through [`--ui-field-radius`](#api), so one token squares or rounds every component.
 - The field reads [`--ui-shadow-field`](#api), or `--ui-shadow-control` when a theme leaves it unset.
 - With more contrast, [invalid](#validation) fields keep the lighter `--ui-invalid` of dark mode, which every invalid control now shares.
+- The [filled](#variants) hover reads `--ui-surface-tonal-hover`, shared with clickable chips.

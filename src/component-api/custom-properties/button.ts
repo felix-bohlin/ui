@@ -6,9 +6,14 @@ export default {
       "The accent color. Fills, borders, text, hover and active states are derived from it. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.",
     kind: "input",
   },
+  "--_accent-fill": {
+    description:
+      "Fill of filled buttons and of hovered outlined and tonal buttons, and the base of the filled hover and pressed shades. `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`.",
+    kind: "input",
+  },
   "--_accent-text": {
     description:
-      "Text color of text and outlined buttons. `--_accent`, lightened in dark mode to stay readable. `--ui-primary-text` in `.ui-primary`.",
+      "Text color of text and outlined buttons. `--_accent` in light mode. In dark mode its lightness is at least `--ui-text-min-lightness` and its chroma within `--ui-text-max-chroma`. `--ui-primary-text` in `.ui-primary` and `--ui-critical-text` in `.ui-critical`.",
     kind: "output",
   },
   "--_accent-tonal": {

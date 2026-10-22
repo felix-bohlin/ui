@@ -375,6 +375,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
    - `:where(button, a)`: only interactive chips react
    - Relative color derives the hover shade from the surface
    - `light-dark()` darkens in light mode, lightens in dark
+   - The library names this shade `--ui-surface-tonal-hover`, shared with filled fields
    - Hover the button chips
 
 Step 1 of 4: Base
@@ -448,7 +449,7 @@ Step 4 of 4: Hover
 ```css
 .chip:where(button, a):hover {
   --bg: light-dark(
-    oklch(from var(--ui-surface-tonal) calc(l * 0.98) c h),
+    oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h),
     oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
   );
 }

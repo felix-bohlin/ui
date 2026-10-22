@@ -115,6 +115,81 @@ const parseNotes = (lines: string[]) => {
   return notes
 }
 
+const optionPattern = /^([A-Z])(?: \(([^)]+)\))?[:,] (.*)$/
+
+const capitalize = (text: string) =>
+  text.charAt(0).toUpperCase() + text.slice(1)
+
+const toOption = (text: string, index: number, notes: TodoNote[] = []) => {
+  const match = text.match(optionPattern)
+  return match
+    ? { id: match[1], note: match[2], notes, text: capitalize(match[3]) }
+    : { id: String(index + 1), note: undefined, notes, text: capitalize(text) }
+}
+
+type FixOption = ReturnType<typeof toOption>
+
+const listOptions = (notes: TodoNote[], index: number) => {
+  const { level } = notes[index]
+  const options: FixOption[] = []
+  let end = index + 1
+
+  for (; end < notes.length && notes[end].level > level; end++) {
+    const note = notes[end]
+    if (note.kind === "item" && note.level === level + 1)
+      options.push(toOption(note.text, options.length))
+    else if (options.length)
+      options
+        .at(-1)!
+        .notes.push({ ...note, level: Math.max(0, note.level - level - 2) })
+    else return
+  }
+
+  return { end, options }
+}
+
+const inlineOptions = (text: string) => {
+  const match = text.match(/^(.*?)\s*Options: ([A-Z](?: \([^)]+\))?, .*)$/)
+  if (!match) return
+  return {
+    options: match[2]
+      .replace(/\.$/, "")
+      .split(/;\s+(?=[A-Z](?: \([^)]+\))?, )/)
+      .map((option, index) => toOption(option, index)),
+    text: match[1],
+  }
+}
+
+export const fixOptions = (notes: TodoNote[]) => {
+  for (const [index, note] of notes.entries()) {
+    if (note.kind === "code") continue
+
+    if (/^Options:?$/.test(note.text)) {
+      const list = listOptions(notes, index)
+      if (list && list.options.length > 1)
+        return {
+          notes: [...notes.slice(0, index), ...notes.slice(list.end)],
+          options: list.options,
+        }
+    }
+
+    const inline = inlineOptions(note.text)
+    if (inline && inline.options.length > 1)
+      return {
+        notes: notes.flatMap((other) =>
+          other !== note
+            ? [other]
+            : inline.text
+              ? [{ ...note, text: inline.text }]
+              : [],
+        ),
+        options: inline.options,
+      }
+  }
+
+  return { notes, options: [] as FixOption[] }
+}
+
 export const splitLinks = (text: string) =>
   text
     .split(/(\[[^\]]+\]\([^)]+\))/)

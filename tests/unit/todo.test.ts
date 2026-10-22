@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs"
 import { describe, expect, test } from "vitest"
 import {
+  fixOptions,
   parseTodo,
   slugify,
   splitInlineCode,
@@ -112,6 +113,75 @@ describe("parseTodo", () => {
     expect(sections.flatMap((section) => section.items)).toHaveLength(
       open.length,
     )
+  })
+})
+
+describe("fixOptions", () => {
+  test("turns an options list into fix options", () => {
+    expect(
+      fixOptions([
+        { kind: "item", level: 0, text: "Today: broken" },
+        { kind: "item", level: 0, text: "Options:" },
+        { kind: "item", level: 1, text: "A (recommended): use `outline`" },
+        { code: "a { b: c; }", kind: "code", level: 2 },
+        { kind: "item", level: 1, text: "B: keep it" },
+        { kind: "item", level: 0, text: "Wording with A" },
+      ]),
+    ).toEqual({
+      notes: [
+        { kind: "item", level: 0, text: "Today: broken" },
+        { kind: "item", level: 0, text: "Wording with A" },
+      ],
+      options: [
+        {
+          id: "A",
+          note: "recommended",
+          notes: [{ code: "a { b: c; }", kind: "code", level: 0 }],
+          text: "Use `outline`",
+        },
+        { id: "B", note: undefined, notes: [], text: "Keep it" },
+      ],
+    })
+  })
+
+  test("numbers options without letters", () => {
+    expect(
+      fixOptions([
+        { kind: "item", level: 0, text: "Options:" },
+        { kind: "item", level: 1, text: "Keep the CSS" },
+        { kind: "item", level: 1, text: "Bring back the class" },
+      ]).options.map((option) => option.id),
+    ).toEqual(["1", "2"])
+  })
+
+  test("splits inline options", () => {
+    expect(
+      fixOptions([
+        {
+          kind: "item",
+          level: 0,
+          text: "Still open: it conflicts. Options: A, keep it, with a test; B, remove it.",
+        },
+      ]),
+    ).toEqual({
+      notes: [{ kind: "item", level: 0, text: "Still open: it conflicts." }],
+      options: [
+        { id: "A", note: undefined, notes: [], text: "Keep it, with a test" },
+        { id: "B", note: undefined, notes: [], text: "Remove it" },
+      ],
+    })
+  })
+
+  test("leaves notes without options alone", () => {
+    const notes = [
+      {
+        kind: "item" as const,
+        level: 0,
+        text: "Options: keep it, or drop it.",
+      },
+    ]
+
+    expect(fixOptions(notes)).toEqual({ notes, options: [] })
   })
 })
 

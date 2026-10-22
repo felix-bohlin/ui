@@ -16,7 +16,13 @@ import CopyFallback from "../../components/Todo/CopyFallback.astro"
 import InlineText from "../../components/Todo/InlineText.astro"
 import TodoNotes from "../../components/Todo/TodoNotes.astro"
 import Document from "../../layouts/Document.astro"
-import { parseTodo, plainText, slugify, stressRefs } from "../../utils/todo"
+import {
+  fixOptions,
+  parseTodo,
+  plainText,
+  slugify,
+  stressRefs,
+} from "../../utils/todo"
 import {
   stressPages,
   stressSlug,
@@ -74,6 +80,7 @@ const todoSections = sections.map((section) => ({
   ...section,
   items: section.items.map((item) => ({
     ...item,
+    ...fixOptions(item.notes),
     examples: examplesFor(item.text),
   })),
 }))
@@ -195,17 +202,48 @@ const count = sections.reduce(
                   direction="row"
                   name={`todo-action-${slugify(section.title)}-${index}`}
                 >
-                  {actions.map((action) => (
-                    <Radio
-                      checked={!action}
-                      class="todo-action"
-                      size="small"
-                      value={action}
-                    >
-                      {action || "None"}
-                    </Radio>
-                  ))}
+                  {actions
+                    .filter(
+                      (action) => !item.options.length || action !== "Fix",
+                    )
+                    .map((action) => (
+                      <Radio
+                        checked={!action}
+                        class="todo-action"
+                        size="small"
+                        value={action}
+                      >
+                        {action || "None"}
+                      </Radio>
+                    ))}
                 </FieldGroup>
+                {item.options.length > 0 && (
+                  <FieldSet class="todo-fix-options">
+                    <FieldLegend>Fix with</FieldLegend>
+                    <FieldGroup
+                      name={`todo-action-${slugify(section.title)}-${index}`}
+                    >
+                      {item.options.map((option) => (
+                        <div class="todo-fix-option">
+                          <Radio
+                            class="todo-action"
+                            size="small"
+                            spread
+                            value={`Fix with option ${option.id}`}
+                          >
+                            {option.note
+                              ? `Option ${option.id} (${option.note})`
+                              : `Option ${option.id}`}
+                            <Fragment slot="end-text">
+                              <InlineText text={option.text} />
+                            </Fragment>
+                          </Radio>
+                          <TodoNotes notes={option.notes} />
+                        </div>
+                      ))}
+                    </FieldGroup>
+                  </FieldSet>
+                )}
               </FieldSet>
             </li>
           ))}
@@ -429,6 +467,22 @@ const count = sections.reduce(
       border-radius: var(--ui-radius);
       inline-size: 100%;
       max-block-size: 80dvb;
+    }
+  }
+
+  :global(.todo-actions-field) {
+    gap: var(--size-4);
+  }
+
+  .todo-fix-option {
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    display: grid;
+    gap: var(--size-2);
+    padding: var(--size-3);
+
+    &:has(:checked) {
+      border-color: var(--ui-primary);
     }
   }
 

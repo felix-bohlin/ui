@@ -430,7 +430,7 @@
 
     /* Sizes */
     &.ui-x-small {
-      --_field-padding-block: 0.1875rem;
+      --_field-padding-block: calc(var(--ui-space-1) * 0.75);
       --_font-size: var(--ui-font-size-caption);
       --_min-height: var(--ui-field-size-x-small);
     }
@@ -442,7 +442,7 @@
     }
 
     &.ui-large {
-      --_field-padding-block: 0.75rem;
+      --_field-padding-block: calc(var(--ui-space-2) * 1.5);
       --_field-padding-inline: var(--ui-space-3);
       --_min-height: var(--ui-field-size-large);
     }

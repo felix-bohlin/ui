@@ -92,7 +92,10 @@ const slug = (title: string) =>
       </li>
       <li>
         <code>-text</code> after a color is that color tuned for reading, such as
-        <code>--ui-primary-text</code> and <code>--ui-invalid-text</code>.
+        <code>--ui-primary-text</code> and <code>--ui-invalid-text</code>. Every
+        intent has one, and they keep 4.5:1 on every surface by staying within
+        <code>--ui-text-max-lightness</code> and
+        <code>--ui-text-min-lightness</code>.
       </li>
       <li>
         <code>-on-</code> before a surface names what is drawn on it, such as <code

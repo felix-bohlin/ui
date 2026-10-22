@@ -108,7 +108,7 @@ export default {
   },
   "--_marker-border-color": {
     description:
-      "Ring of the other markers. Defaults to `--ui-field-border-color`, which keeps 3:1 against the page.",
+      "Ring of the other markers. Defaults to `--ui-text-muted`, which keeps its contrast against the page in every theme.",
     kind: "input",
   },
   "--_marker-gap": {

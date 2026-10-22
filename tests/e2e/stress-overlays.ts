@@ -18,6 +18,9 @@ export type Scenario = {
   unreachableIn?: Partial<Record<"firefox" | "webkit", string>>
 }
 
+export const FIREFOX_SELF_RTL =
+  "Firefox places a popover with self- position-area keywords toward the wrong inline side in a right-to-left part of a left-to-right page"
+
 const WEBKIT_SCROLLED_ANCHOR =
   "WebKit moves a popover anchored inside a dialog, drawer or menu up by the page scroll"
 
@@ -414,12 +417,13 @@ export const SCENARIOS: Scenario[] = [
     top: id("toolbar-drawer-tip-close"),
   },
   {
+    failingIn: { firefox: FIREFOX_SELF_RTL },
     name: "rtl menu",
     steps: [open("rtl-menu")],
     top: id("rtl-menu"),
   },
   {
-    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
+    failingIn: { firefox: FIREFOX_SELF_RTL, webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "rtl submenu",
     steps: [open("rtl-menu"), open("rtl-submenu")],
     top: id("rtl-submenu"),
@@ -450,7 +454,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("rtl-drawer-end"),
   },
   {
-    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
+    failingIn: { firefox: FIREFOX_SELF_RTL, webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "rtl menu in drawer",
     steps: [open("rtl-drawer-start"), open("rtl-drawer-menu")],
     top: id("rtl-drawer-menu"),

@@ -1,6 +1,7 @@
 import { readdir, readFile, writeFile } from "node:fs/promises"
 import { basename, dirname, extname, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import postcss from "postcss"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const opuiDir = join(root, "packages/opui")
@@ -14,9 +15,7 @@ const update = process.argv.includes("--update")
 
 const CONSUMER_SET = ["--ui-anchor-position-area"]
 const PALETTE_STEP = /^--ui-(?:color|font-size|gray)-\d+$/
-const PRELUDE = /@(?:container|media)[^{]*/g
 const AT_PROPERTY = /@property\s+[\w-]+\s*\{[^}]*\}/g
-const PROPERTY = /(^|[\s;{])(--[\w-]+|[a-z][\w-]*)\s*:\s*([^;{}]*)/g
 const LENGTH = /(?<![\w.-]|\/\s*)(-?\d*\.?\d+)(px|rem)\b/g
 const INPUT = /"(--_[\w-]+)":\s*\{[^}]*kind:\s*"input"/g
 const PIXEL_STEP = /^\s*\d*\.?\d+px\s*$/
@@ -184,19 +183,24 @@ const withoutRoundSteps = (value) => {
   }
   return result
 }
-const literals = (source, inputs) =>
-  [
-    ...source
-      .replaceAll(AT_PROPERTY, "")
-      .replaceAll(PRELUDE, "")
-      .matchAll(PROPERTY),
-  ].flatMap(([, , property, value]) =>
-    inputs.has(property)
-      ? []
-      : [...withoutRoundSteps(value).matchAll(LENGTH)]
-          .filter(([, number]) => Number(number) !== 0)
-          .map(([, number, unit]) => `${property}: ${number}${unit}`),
-  )
+const ruleOf = (node) =>
+  node.parent?.type === "rule"
+    ? node.parent
+    : node.parent && ruleOf(node.parent)
+const literals = (source, inputs) => {
+  const result = []
+  postcss.parse(source.replaceAll(AT_PROPERTY, "")).walkDecls((declaration) => {
+    const { prop, value } = declaration
+    if (inputs.has(prop) && ruleOf(declaration)?.selector.startsWith(":where("))
+      return
+    result.push(
+      ...[...withoutRoundSteps(value).matchAll(LENGTH)]
+        .filter(([, number]) => Number(number) !== 0)
+        .map(([, number, unit]) => `${prop}: ${number}${unit}`),
+    )
+  })
+  return result
+}
 
 const found = Object.fromEntries(
   await Promise.all(
@@ -238,7 +242,7 @@ for (const file of new Set([...Object.keys(found), ...Object.keys(allowed)])) {
         tierErrors.push(
           kind === "primitives"
             ? `${entry} is read in ${file}: components read --ui-* roles, not palette steps or Open Props`
-            : `${entry} in ${file} is a literal length: use a --ui-* role, an em, ex, lh or ch value, or a documented --_* input`,
+            : `${entry} in ${file} is a literal length: use a --ui-* role, an em, ex, lh or ch value, or a documented --_* input in its :where() default rule`,
         )
       }
     }

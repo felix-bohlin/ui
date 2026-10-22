@@ -66,7 +66,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-control-size-x-small": "Shared x-small height for fields and buttons.",
   "--ui-critical": "Severity color for errors and destructive actions.",
   "--ui-critical-text":
-    "Critical as a text color: the `.ui-critical` items of a `Menu`. `--ui-critical` with its lightness clamped, at most 0.48 in light mode and at least 0.8 in dark mode, and further with more contrast.",
+    "Critical as a text color: the `.ui-critical` items of a `Menu`, and a `.ui-critical` `Button` with no variant or `.ui-outlined`. `--ui-critical` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
   "--ui-density":
     "Multiplier for the `--ui-control-size*` scale. `0.875` is compact, `1.125` is comfortable. See [Density](/guide/theming#density).",
   "--ui-disabled-opacity": "Opacity applied to disabled controls.",
@@ -171,10 +171,12 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-icon-size-small":
     "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.",
   "--ui-info": "Severity color for informational messages.",
+  "--ui-info-text":
+    "Info as a text color, for informational text outside an `.ui-info` scope. `--ui-info` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
   "--ui-invalid":
     "Color for invalid field borders, fills and outlines. Lighter in dark mode with more contrast, so invalid borders stand out from the page.",
   "--ui-invalid-text":
-    "Color for validation messages and invalid labels. Lighter than `--ui-invalid` in dark mode so the text stays readable.",
+    "Color for validation messages and invalid labels. `--ui-invalid` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, so it stays readable where `--ui-invalid` is lighter for borders.",
   "--ui-letter-spacing-caps":
     "Letter spacing of uppercase text: overlines and the first paragraph of an `hgroup`.",
   "--ui-letter-spacing-display":
@@ -191,6 +193,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-motion":
     "Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](/guide/theming#motion).",
   "--ui-neutral": "Severity color for neutral messages.",
+  "--ui-neutral-text":
+    "Neutral as a text color, for neutral text outside an `.ui-neutral` scope. `--ui-neutral` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
   "--ui-on-accent":
     "Near-white text on a saturated fill in both modes: critical buttons, severity `Badge`s and the checked choice mark in dark mode.",
   "--ui-on-inverse": "Text color on `--ui-surface-inverse`.",
@@ -231,7 +235,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "A faint fill of the current palette: tonal severity `Callout`s. Re-derived inside every severity scope.",
   "--ui-primary": "Brand color for primary actions and accents.",
   "--ui-primary-text":
-    "Primary as a text color: links, rich text links, `Callout` link hover, and `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`. Defaults to `--ui-primary` with its lightness clamped, at most 0.47 in light mode and at least 0.78 in dark mode, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
+    "Primary as a text color: links, rich text links, `Callout` link hover, and `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
   "--ui-primary-tonal":
     "Background of `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal`. When unset, a light tint of the palette. Material's `primary-container` and shadcn's `secondary` go here.",
   "--ui-radius":
@@ -297,6 +301,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-state-hover-alpha-dark":
     "Alpha of the hover state layer on neutral buttons in dark mode.",
   "--ui-success": "Severity color for success messages.",
+  "--ui-success-text":
+    "Success as a text color, for success text outside an `.ui-success` scope. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
   "--ui-surface-border-color":
     "Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.",
   "--ui-surface-default": "Page and card background.",
@@ -332,6 +338,10 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-switch-track-width-x-small":
     "Width of the `Switch` track with `.ui-x-small`.",
   "--ui-text-disabled": "Text color of disabled buttons and chips.",
+  "--ui-text-max-lightness":
+    "The highest OKLCH lightness of the intent text roles (`--ui-primary-text`, `--ui-critical-text` and the other `-text` roles) in light mode, so they keep 4.5:1 on every surface. `0.41`, and `0.3` with more contrast.",
+  "--ui-text-min-lightness":
+    "The lowest OKLCH lightness of the intent text roles in dark mode, so they keep 4.5:1 on every surface. `0.8`, and `0.9` with more contrast. Their chroma is also capped at `0.1` in dark mode, which keeps a light color inside sRGB.",
   "--ui-text-muted": "Body text color.",
   "--ui-text-strong":
     "Strongest text color, for headings, labels and values. Body text is `--ui-text-muted`.",
@@ -344,4 +354,6 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-underline-thickness-hover":
     "Underline thickness of `Link` and rich text links on hover and keyboard focus. At rest they keep the font's own thickness.",
   "--ui-warning": "Severity color for warnings.",
+  "--ui-warning-text":
+    "Warning as a text color, for warning text outside a `.ui-warning` scope. `--ui-warning` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
 }

@@ -1,6 +1,13 @@
 import { expect, test } from "@playwright/test"
 import { openFixture } from "./fixtures"
-import { SCENARIOS, id, isOpen, problems, run } from "./stress-overlays"
+import {
+  FIREFOX_SELF_RTL,
+  SCENARIOS,
+  id,
+  isOpen,
+  problems,
+  run,
+} from "./stress-overlays"
 
 for (const {
   failing,
@@ -37,8 +44,10 @@ for (const {
 }
 
 test("a menu in a right-to-left part of the page opens from its trigger's right edge", async ({
+  browserName,
   page,
 }) => {
+  test.fail(browserName === "firefox", FIREFOX_SELF_RTL)
   await openFixture(page, "html", "stress/overlays")
   await run(page, { open: "rtl-menu" })
   const edges = () =>

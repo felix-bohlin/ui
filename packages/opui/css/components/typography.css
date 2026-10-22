@@ -316,15 +316,6 @@
       }
     }
 
-    :where(.ui-list, :scope:where(.ui-list *))
-      a[href]:where(:not([class*="ui-"])) {
-      color: light-dark(
-        oklch(from var(--ui-primary-text) calc(l * 0.85) c h),
-        var(--ui-primary-text)
-      );
-      text-decoration-color: currentColor;
-    }
-
     mark a[href]:where(:not([class*="ui-"])) {
       &,
       &:hover,

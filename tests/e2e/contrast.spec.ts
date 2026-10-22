@@ -1,3 +1,4 @@
+import { readdirSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
@@ -125,26 +126,73 @@ test.describe("prefers-contrast", () => {
   })
 })
 
+const THEMES = [
+  "default",
+  ...readdirSync(new URL("../../packages/opui/themes/", import.meta.url))
+    .filter((file) => file.endsWith(".css"))
+    .map((file) => file.replace(/\.css$/, ""))
+    .toSorted(),
+]
+
+const THEME_EXCEPTIONS: Record<
+  string,
+  Partial<Record<"dark" | "light", Record<string, string>>>
+> = {
+  brutalist: {
+    dark: {
+      "--ui-field-border-color":
+        "neobrutalism keeps its black borders on the dark surface",
+    },
+    light: {
+      "--ui-selected-strong":
+        "neobrutalism marks the selected item with its light main color",
+    },
+  },
+  shadcn: {
+    light: {
+      "--ui-field-border-color":
+        "shadcn/ui draws its inputs with a 1.26:1 border",
+      "--ui-focus-ring-color":
+        "shadcn/ui draws its focus ring at 50% of a light gray",
+    },
+  },
+}
+
 test.describe("token promises", () => {
-  for (const colorScheme of ["light", "dark"] as const) {
-    for (const preference of ["no-preference", "more"] as const) {
-      test(`hold in ${colorScheme} mode with contrast ${preference}`, async ({
-        page,
-      }) => {
-        await openFixture(page, "html", "stress/theming")
-        await emulate(page, { colorScheme, contrast: preference })
-        const main = page.locator("main")
-        for (const [name, { against, ratio }] of Object.entries(
-          themeTokenPromises,
-        )) {
-          expect
-            .soft(
-              await contrast(main, `var(${name})`, `var(${against})`),
-              `${name} against ${against}`,
-            )
-            .toBeGreaterThanOrEqual(ratio)
-        }
-      })
+  for (const theme of THEMES) {
+    for (const colorScheme of ["light", "dark"] as const) {
+      for (const preference of ["no-preference", "more"] as const) {
+        test(`hold in the ${theme} theme in ${colorScheme} mode with contrast ${preference}`, async ({
+          page,
+        }) => {
+          await openFixture(
+            page,
+            "html",
+            "stress/theming",
+            theme === "default" ? undefined : `?theme=${theme}`,
+          )
+          await emulate(page, { colorScheme, contrast: preference })
+          const main = page.locator("main")
+          for (const [name, { against, ratio }] of Object.entries(
+            themeTokenPromises,
+          )) {
+            if (
+              preference === "no-preference" &&
+              THEME_EXCEPTIONS[theme]?.[colorScheme]?.[name]
+            ) {
+              continue
+            }
+            for (const surface of against) {
+              expect
+                .soft(
+                  await contrast(main, `var(${name})`, `var(${surface})`),
+                  `${name} against ${surface}`,
+                )
+                .toBeGreaterThanOrEqual(ratio)
+            }
+          }
+        })
+      }
     }
   }
 })

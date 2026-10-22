@@ -1,6 +1,9 @@
 import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
 
+const FIREFOX_SELF_RTL =
+  "Firefox places a popover with self- position-area keywords toward the wrong inline side in a right-to-left part of a left-to-right page"
+
 const WEBKIT_SCROLLED_ANCHOR =
   "WebKit moves a popover anchored inside a modal dialog up by the page scroll"
 
@@ -63,8 +66,10 @@ test("a popover anchored in the page flow opens below its trigger on a scrolled 
 })
 
 test("self- position-area keywords mirror in a right-to-left part of the page", async ({
+  browserName,
   page: tab,
 }) => {
+  test.fail(browserName === "firefox", FIREFOX_SELF_RTL)
   await tab.setContent(
     page(
       `<div class="center" dir="rtl">${trigger}</div>`,

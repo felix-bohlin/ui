@@ -339,7 +339,10 @@
     &.ui-vertical.ui-with-markers {
       anchor-name: --ui-carousel;
       anchor-scope: --ui-carousel;
-      margin-inline-end: calc(var(--_marker-size) + var(--_markers-gap));
+
+      @supports selector(::scroll-marker) {
+        margin-inline-end: calc(var(--_marker-size) + var(--_markers-gap));
+      }
 
       &::scroll-marker-group {
         flex-direction: column;

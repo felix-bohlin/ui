@@ -206,21 +206,23 @@
     }
 
     /* Customizable Select */
-    &:has(select button) {
-      select {
-        min-block-size: 0;
-        padding: 0;
+    @supports (appearance: base-select) {
+      &:has(select button) {
+        select {
+          min-block-size: 0;
+          padding: 0;
 
-        button {
-          outline: 0;
-          padding-block: var(--_field-padding-block-fit);
-          padding-inline: var(--_field-padding-inline) var(--_arrow-space);
+          button {
+            outline: 0;
+            padding-block: var(--_field-padding-block-fit);
+            padding-inline: var(--_field-padding-inline) var(--_arrow-space);
+          }
         }
       }
     }
 
     /* Non-customizable Select */
-    &:has(select):not(:has(button)) {
+    &:has(select) {
       select {
         padding-block: var(--_field-padding-block-fit);
         padding-inline: var(--_field-padding-inline) var(--_arrow-space);

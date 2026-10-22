@@ -168,11 +168,13 @@
 @position-try --ui-menu-block-end {
   margin-block: var(--_offset);
   margin-inline: 0;
+  max-block-size: min(var(--_max-block-size), calc(100% - 2 * var(--_offset)));
   position-area: self-block-end span-all;
 }
 
 @position-try --ui-menu-block-start {
   margin-block: var(--_offset);
   margin-inline: 0;
+  max-block-size: min(var(--_max-block-size), calc(100% - 2 * var(--_offset)));
   position-area: self-block-start span-all;
 }

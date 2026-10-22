@@ -53,7 +53,7 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 
 - Chromium is the target. The library uses new CSS as it ships and waits for Firefox and Safari to catch up.
 - A failure only in Firefox or WebKit never gets a workaround in the package. Mark it as an expected failure with the reason (`failingIn` in `tests/e2e/stress-overlays.ts`, `test.fail` elsewhere), and add a plain-HTML repro to `tests/e2e/engines.spec.ts` when it's a browser bug. When the browser catches up, the test fails with "expected to fail but passed": remove the entry.
-- A fallback is fine only when it costs nothing: an `@supports` block that turns a feature on, with the browser default as the fallback. Vendor pseudo-elements that are the only way to style a native control (`::-moz-range-track`, `::-webkit-slider-thumb`) aren't workarounds.
+- A fallback is fine only when it costs nothing: an `@supports` block that turns a feature on, with the browser default as the fallback, or a declaration that changes no API and does nothing in Chromium (like the cap in the Menu's last-resort `@position-try` options). Vendor pseudo-elements that are the only way to style a native control (`::-moz-range-track`, `::-webkit-slider-thumb`) aren't workarounds.
 - The one kept workaround is the iOS Safari submenu anchor in `menu.css`.
 
 ## Testing

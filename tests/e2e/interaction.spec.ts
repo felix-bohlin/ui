@@ -238,6 +238,28 @@ interaction(
 )
 
 interaction(
+  "select",
+  "Variants",
+  "select keeps its padding when a script adds the button",
+  async ({ root }) => {
+    const padding = await root
+      .locator("select")
+      .first()
+      .evaluate((select) => {
+        if (!select.querySelector("button")) {
+          select.prepend(document.createElement("button"))
+        }
+        const text = CSS.supports("appearance", "base-select")
+          ? select.querySelector("button")!
+          : select
+        return getComputedStyle(text).paddingInlineStart
+      })
+    expect(padding).not.toBe("0px")
+  },
+  ["html"],
+)
+
+interaction(
   "switch",
   "FieldGroupBinding",
   "switch group binds the checked values",

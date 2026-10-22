@@ -16,6 +16,7 @@ import {
   setThemeToken,
   themeTokens,
 } from "../../src/utils/theme-tokens"
+import { tokenType } from "../../src/utils/tokens-json"
 
 const sections = parseThemeTokens()
 const tokens = themeTokens()
@@ -90,6 +91,23 @@ describe("theme tokens", () => {
     expect(find("--ui-palette-source")?.optional).toBe(true)
     expect(find("--ui-focus-ring-color")?.optional).toBeUndefined()
     expect(find("--ui-color-scheme")).toBeUndefined()
+  })
+
+  test("more-contrast overrides are read from the contrast block", () => {
+    expect(find("--ui-text-max-lightness")).toMatchObject({
+      moreContrast: "0.3",
+      value: "0.41",
+    })
+    expect(find("--ui-motion")?.moreContrast).toBeUndefined()
+  })
+
+  test("every token has a design token type, unless the format has none for it", () => {
+    expect(
+      tokens
+        .filter((token) => !tokenType(token.name))
+        .map((token) => token.name)
+        .toSorted(),
+    ).toEqual(["--ui-button-hover-translate", "--ui-contrast"])
   })
 
   test("every token has a description and no description is stale", () => {

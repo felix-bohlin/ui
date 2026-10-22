@@ -62,9 +62,12 @@ const slug = (title: string) =>
         class="ui-link">/tokens.json</a
       >) in the <a href="https://www.designtokens.org/" class="ui-link"
         >W3C design tokens</a
-      > format, with CSS values and each token's variable and dark value under <code
-        >$extensions.opui</code
-      >.
+      > format: each token has a <code>$type</code>, a <code>$description</code>
+      and its CSS value as <code>$value</code>, and <code>$extensions.opui</code
+      >
+      holds its variable, tier, promise and its dark and more-contrast values. Values
+      are CSS expressions, not resolved colors. Tokens that are unset by default have
+      no <code>$value</code>, only an <code>example</code>.
     </p>
   </section>
 

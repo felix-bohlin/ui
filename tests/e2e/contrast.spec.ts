@@ -17,27 +17,33 @@ const contrast = async (
   background: string,
 ) => {
   const colors = await Promise.all([
-    resolveColor(locator, foreground),
+    resolveColor(locator, "var(--ui-surface-default)"),
     resolveColor(locator, background),
+    resolveColor(locator, foreground),
   ])
-  return locator.page().evaluate((values) => {
+  return locator.page().evaluate(([page, back, fore]) => {
     const canvas = document.createElement("canvas")
     canvas.width = canvas.height = 1
     const context = canvas.getContext("2d", { willReadFrequently: true })!
-    const luminance = (color: string) => {
-      context.fillStyle = color
-      context.fillRect(0, 0, 1, 1)
-      const [r, g, b] = [...context.getImageData(0, 0, 1, 1).data]
-        .slice(0, 3)
-        .map((channel) => {
-          const value = channel / 255
-          return value <= 0.03928
-            ? value / 12.92
-            : ((value + 0.055) / 1.055) ** 2.4
-        })
+    const paint = (...layers: string[]) => {
+      context.clearRect(0, 0, 1, 1)
+      for (const layer of layers) {
+        context.fillStyle = layer
+        context.fillRect(0, 0, 1, 1)
+      }
+      return [...context.getImageData(0, 0, 1, 1).data].slice(0, 3)
+    }
+    const luminance = (rgb: number[]) => {
+      const [r, g, b] = rgb.map((channel) => {
+        const value = channel / 255
+        return value <= 0.03928
+          ? value / 12.92
+          : ((value + 0.055) / 1.055) ** 2.4
+      })
       return 0.2126 * r + 0.7152 * g + 0.0722 * b
     }
-    const [a, b] = values.map(luminance)
+    const a = luminance(paint(page, back, fore))
+    const b = luminance(paint(page, back))
     return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
   }, colors)
 }
@@ -144,6 +150,16 @@ const THEME_EXCEPTIONS: Record<
   string,
   Partial<Record<"dark" | "light", Record<string, string>>>
 > = {
+  bootstrap: {
+    dark: {
+      "--ui-focus-ring-color":
+        "Bootstrap draws its focus ring at 25% of its primary blue",
+    },
+    light: {
+      "--ui-focus-ring-color":
+        "Bootstrap draws its focus ring at 25% of its primary blue",
+    },
+  },
   brutalist: {
     dark: {
       "--ui-field-border-color":
@@ -155,6 +171,12 @@ const THEME_EXCEPTIONS: Record<
     },
   },
   shadcn: {
+    dark: {
+      "--ui-field-border-color":
+        "shadcn/ui draws its dark inputs with a 15% white border",
+      "--ui-focus-ring-color":
+        "shadcn/ui draws its dark focus ring at 50% of a mid gray",
+    },
     light: {
       "--ui-field-border-color":
         "shadcn/ui draws its inputs with a 1.26:1 border",

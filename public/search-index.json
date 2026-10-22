@@ -1693,7 +1693,7 @@
     "id": "guide-browser-support-html",
     "title": "Browser support",
     "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
-    "headings": "",
+    "headings": "Policy",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/browser-support"
@@ -1702,7 +1702,7 @@
     "id": "guide-browser-support-astro",
     "title": "Browser support",
     "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
-    "headings": "",
+    "headings": "Policy",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/browser-support"
@@ -1711,7 +1711,7 @@
     "id": "guide-browser-support-react",
     "title": "Browser support",
     "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
-    "headings": "",
+    "headings": "Policy",
     "category": "Guide",
     "frameworkId": "react",
     "url": "/react/guide/browser-support"
@@ -1720,7 +1720,7 @@
     "id": "guide-browser-support-svelte",
     "title": "Browser support",
     "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
-    "headings": "",
+    "headings": "Policy",
     "category": "Guide",
     "frameworkId": "svelte",
     "url": "/svelte/guide/browser-support"
@@ -1729,7 +1729,7 @@
     "id": "guide-browser-support-vue",
     "title": "Browser support",
     "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
-    "headings": "",
+    "headings": "Policy",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/browser-support"

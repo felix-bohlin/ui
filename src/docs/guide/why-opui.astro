@@ -81,9 +81,13 @@ import DocLink from "../../components/DocLink.astro"
           production"
         </h3>
         <p>
-          Yes and no. Right now that's true for many components. The point is to
-          let the spec and the components mature alongside each other and in
-          time the library will be ready for production.
+          Yes and no. Chromium is the target: components use new features as
+          they ship, and in Firefox and Safari they fall back to what the
+          browser does by default (<DocLink href="/guide/browser-support#policy"
+            >Browser support</DocLink
+          >). If your users are on Chromium, or those defaults are good enough,
+          it's ready. The point is to let the spec and the components mature
+          alongside each other.
         </p>
         <p>We're all adults here, we make the decisions we think are best.</p>
       </CalloutContent>

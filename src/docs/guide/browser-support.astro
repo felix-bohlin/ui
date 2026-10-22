@@ -28,6 +28,27 @@ const years = Object.keys(categorized)
     today, this should hopefully get you more informed.
   </Fragment>
 
+  <section>
+    <h2 id="policy">Policy</h2>
+    <ul>
+      <li>
+        Chromium is the target. Open Props UI uses new HTML and CSS as it ships,
+        and waits for Firefox and Safari to catch up.
+      </li>
+      <li>
+        Where a browser lacks a feature, the component falls back to what that
+        browser does by default. There is no code for one browser only, unless
+        it changes no API and does nothing in Chromium. The one exception is iOS
+        Safari, where submenus anchor to their parent menu.
+      </li>
+      <li>
+        Firefox and Safari still run the tests. Their known failures are
+        recorded as expected, so each one fails the day the browser catches up
+        and the entry is removed.
+      </li>
+    </ul>
+  </section>
+
   <section class="filter-section">
     <div class="filter-group">
       <header>

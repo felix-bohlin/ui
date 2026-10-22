@@ -202,7 +202,7 @@ Put your own tokens in `@layer theme.custom`, which beats the defaults and loses
 
 ## Design tokens
 
-`opui-css/tokens.json` lists every theme token in the [W3C design tokens](https://www.designtokens.org/) format: its CSS variable, default, dark mode value and description. Use it with Style Dictionary or a design tool. Values are CSS expressions, so they work as they are in CSS.
+`opui-css/tokens.json` lists every theme token in the [W3C design tokens](https://www.designtokens.org/) format: its `$type`, description and default as `$value`, and under `$extensions.opui` its CSS variable, tier, contrast promise and dark and more-contrast values. Tokens that are unset by default have no `$value`, only an `example`. Values are CSS expressions, so they work as they are in CSS, and a design tool needs to resolve them first.
 
 ## AI assistants
 

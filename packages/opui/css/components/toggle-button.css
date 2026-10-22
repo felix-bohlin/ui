@@ -32,16 +32,7 @@
     position: relative;
     user-select: none;
 
-    input[type="checkbox"],
-    input[type="radio"] {
-      /* utils.css > .ui-sr-only */
-      block-size: 1px;
-      clip-path: inset(50%);
-      inline-size: 1px;
-      overflow: hidden;
-      position: absolute;
-      white-space: nowrap;
-    }
+    /* utils.css > .ui-sr-only */
 
     /* Element states */
     @media (hover: hover) {

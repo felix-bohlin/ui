@@ -708,8 +708,10 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 - [Card](https://open-props-ui.netlify.app/html/components/card.md)
 
-* `opui-css/css/components/accordion.css`
-* `opui-css/css/components/card.css`
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md).
+
+- `opui-css/css/components/accordion.css`
+- `opui-css/css/components/card.css`
 
 ## Changelog
 

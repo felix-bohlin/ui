@@ -811,6 +811,13 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 
 Dark mode shadows are darker: `theme.css` sets `--shadow-color: 220 40% 2%` and `--shadow-strength: 20%` under `.ui-dark` and the OS dark preference. Override both on `html` to change them. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
 
+Components read roles, not palette steps or Open Props values, and the roles are computed on `html`. Overriding a step such as `--ui-gray-4` or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the role, or add `.ui-palette` so the part derives its roles again from its own palette:
+
+```diff
+- .sidebar { --gray-4: #e5e7eb; }
++ .sidebar { --ui-surface-filled: #e5e7eb; }
+```
+
 ## Typography and rich text
 
 Rich text (`.ui-rich-text`) only styles headings without a class, like lists. Add a `.ui-h1`–`.ui-h6` class to a heading that has another class. Component parts such as the `Callout` title keep their own styles.
@@ -863,7 +870,9 @@ Deep type imports from `opui-css/components/*` follow one naming scheme: the roo
 + import type { CheckboxProps, TableCellProps } from "opui-css/astro"
 ```
 
-`opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). If you load `op.css` on its own and read those properties, import `opui-css/core/palette.css` and read the `--ui-` names (`--ui-palette-*` and `--ui-color-1` to `--ui-color-16`).
+`opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). If you load `op.css` on its own and read those properties, import `opui-css/core/palette.css` with `opui-css/css/theme.css`, which sets the palette knobs, and read the `--ui-` names (`--ui-palette-*` and `--ui-color-1` to `--ui-color-16`).
+
+The `types.solid.ts` files are gone, and so is the `solid-js` peer dependency. There are no Solid components; write your own prop types if you used them.
 
 # Migrating from v5.4 to v5.5
 

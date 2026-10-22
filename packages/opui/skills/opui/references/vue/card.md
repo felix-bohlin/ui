@@ -485,7 +485,9 @@ Import the components from `opui-css/vue`:
 - [Accordion](https://open-props-ui.netlify.app/vue/components/accordion.md)
 - [Dialog](https://open-props-ui.netlify.app/vue/components/dialog.md)
 
-* `opui-css/css/components/card.css`
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md).
+
+- `opui-css/css/components/card.css`
 
 ## Changelog
 

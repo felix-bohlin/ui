@@ -110,10 +110,7 @@
     &.ui-critical,
     :where(.ui-button-group.ui-critical) > & {
       --_accent: var(--ui-critical);
-      --_accent-text: light-dark(
-        var(--_accent),
-        oklch(from var(--_accent) max(l, 0.8) c h)
-      );
+      --_accent-text: var(--ui-critical-text);
       --_on-accent: var(--ui-on-accent);
 
       @container style(--ui-contrast: more) {
@@ -121,33 +118,16 @@
           var(--ui-critical),
           oklch(from var(--ui-critical) min(l, 0.45) c h)
         );
-        --_accent-text: light-dark(
-          var(--_accent),
-          oklch(from var(--_accent) max(l, 0.85) min(c, 0.1) h)
-        );
       }
     }
 
     &.ui-primary,
     :where(.ui-button-group.ui-primary) > & {
       --_accent: var(--ui-primary);
-      --_accent-text: var(
-        --ui-primary-text,
-        light-dark(var(--_accent), oklch(from var(--_accent) max(l, 0.75) c h))
-      );
+      --_accent-text: var(--ui-primary-text);
       --_accent-tonal: var(--ui-primary-tonal, var(--ui-palette-tint));
       --_on-accent: var(--ui-on-primary);
       --_on-accent-tonal: var(--ui-on-primary-tonal, var(--ui-palette-on-tint));
-
-      @container style(--ui-contrast: more) {
-        --_accent-text: var(
-          --ui-primary-text,
-          light-dark(
-            var(--_accent),
-            oklch(from var(--_accent) max(l, 0.85) min(c, 0.1) h)
-          )
-        );
-      }
     }
 
     /* Hover & Active */

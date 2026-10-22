@@ -1,12 +1,4 @@
 @layer theme.palette {
-  :where(:root) {
-    --ui-palette-hue: 250;
-    --ui-palette-hue-rotate-by: 0;
-    --ui-palette-chroma: 0.15;
-    --ui-gray-chroma: 0.01;
-    --ui-gray-hue: 255;
-  }
-
   :where(
     :root,
     .ui-warning,

@@ -11,6 +11,7 @@ import Default from "../layouts/Default.astro"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import opuiPackage from "../../packages/opui/package.json"
 
+const description = "Design system. Components. Modern HTML & CSS."
 const version = opuiPackage.version
 
 const currentFramework = Astro.locals.framework
@@ -30,7 +31,7 @@ const FRAMEWORK_BRANDING: Record<
 }
 ---
 
-<Default>
+<Default description={description}>
   <main id="main-content" class="container is-wide">
     <ComponentShowcase>
       <div id="main-heading">
@@ -42,9 +43,7 @@ const FRAMEWORK_BRANDING: Record<
 
           <h1 class="ui-h1">Open Props UI</h1>
 
-          <p class="hero-description">
-            Components built on modern CSS & HTML, and how they work.
-          </p>
+          <p class="hero-description">{description}</p>
         </hgroup>
 
         <div class="hero-ctas">

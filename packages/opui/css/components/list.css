@@ -13,9 +13,23 @@ Lists meant to be used stand-alone or as part of Select elements
       from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
     );
     --_item-gap: var(--ui-space-3);
-    --_selected-bg-color: var(--ui-selected, var(--_hover-bg-color));
+    --_selected-bg-color: var(
+      --ui-selected,
+      oklch(from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent))
+    );
+
+    @container style(--ui-contrast: more) {
+      --_selected-bg-color: var(--ui-selected, var(--_hover-bg-color));
+    }
+
+    --_selected-indicator-color: var(--ui-selected-strong);
+    --_selected-indicator-size: var(--ui-border-width-thick);
+    --_selected-shadow: inset var(--_selected-indicator-size) 0 0
+      var(--_selected-indicator-color);
     --_separator-space: var(--ui-space-3);
+    --_start-image-size: 3.5rem;
     --_start-size: var(--ui-icon-size);
+    --_start-video-size: 4rem;
 
     background-color: var(--_bg-color);
     color: var(--ui-text-strong);
@@ -23,6 +37,11 @@ Lists meant to be used stand-alone or as part of Select elements
     list-style: none;
     padding-block: var(--ui-space-2);
     padding-inline: 0;
+
+    &:dir(rtl) {
+      --_selected-shadow: inset calc(-1 * var(--_selected-indicator-size)) 0 0
+        var(--_selected-indicator-color);
+    }
 
     @media (pointer: coarse) {
       &,
@@ -92,7 +111,7 @@ Lists meant to be used stand-alone or as part of Select elements
         /* Checkbox / Radio */
         & > label {
           .ui-end {
-            padding-inline-end: 0.125rem;
+            padding-inline-end: calc(var(--ui-space-1) / 2);
           }
 
           &:where(.ui-checkbox, .ui-radio) {
@@ -163,6 +182,7 @@ Lists meant to be used stand-alone or as part of Select elements
         &:where([role="option"])[aria-selected="true"],
         &:has(> [aria-current="page"]) > :where(a, button, label) {
           background-color: var(--_selected-bg-color);
+          box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);
         }
       }
@@ -192,16 +212,13 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &[aria-selected="true"] {
           background-color: var(--_selected-bg-color);
-          color: var(--ui-on-selected, var(--ui-primary));
+          box-shadow: var(--_selected-shadow);
+          color: var(--ui-on-selected, var(--ui-primary-text));
         }
 
         &:checked {
-          background-color: var(
-            --ui-selected,
-            oklch(
-              from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
-            )
-          );
+          background-color: var(--_selected-bg-color);
+          box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);
         }
       }
@@ -234,6 +251,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &[aria-current="page"] {
           background-color: var(--_selected-bg-color);
+          box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);
         }
       }
@@ -273,7 +291,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
       /* Video */
       &:has(video) {
-        padding-block: 0.75rem;
+        padding-block: calc(var(--ui-space-2) * 1.5);
         padding-inline: 0 var(--ui-space-3);
       }
 
@@ -310,18 +328,18 @@ Lists meant to be used stand-alone or as part of Select elements
         }
 
         & > svg {
-          padding-block-start: 0.125rem;
+          padding-block-start: calc(var(--ui-space-1) / 2);
         }
 
         img {
           aspect-ratio: 1;
-          inline-size: 56px;
+          inline-size: var(--_start-image-size);
           object-fit: cover;
         }
 
         video {
           aspect-ratio: 16/9;
-          block-size: 64px;
+          block-size: var(--_start-video-size);
           object-fit: cover;
         }
       }

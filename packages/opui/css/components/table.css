@@ -10,7 +10,9 @@
     margin-block: var(--ui-space-3);
     margin-inline: 0;
     overflow: clip;
-    overflow-clip-margin: 6px;
+    overflow-clip-margin: calc(
+      (var(--ui-focus-ring-width) + var(--ui-focus-ring-offset)) * 1.5
+    );
     position: relative;
 
     /* Rows */

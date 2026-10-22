@@ -516,7 +516,7 @@ Step 2 of 5: Edge
 
 Step 3 of 5: Shadow
 
-- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 151+, Edge 151+, Firefox 151+, Safari 27+
 - [Container scroll-state queries ](https://webstatus.dev/features/container-scroll-state-queries)(Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari not supported
 
 ```css
@@ -636,7 +636,7 @@ Step 5 of 5: Backdrop
 
 ## Browser support
 
-- Chromium: Full support Supported since v144.
+- Chromium: Full support Supported since v151.
 - Firefox: Partial support Missing: container-scroll-state-queries, display-animation, overlay.
 - Safari: Partial support Missing: container-scroll-state-queries, dialog-closedby, overlay.
 
@@ -645,6 +645,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## Installation
 
 Import the components from `opui-css/vue`:
+
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md).
 
 - `opui-css/css/components/drawer.css`
 

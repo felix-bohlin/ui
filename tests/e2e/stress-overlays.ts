@@ -1,5 +1,6 @@
 import { expect } from "@playwright/test"
 import type { Page } from "@playwright/test"
+import { settle } from "./fixtures"
 
 type Step =
   | { click: string }
@@ -10,11 +11,19 @@ type Step =
 
 export type Scenario = {
   failing?: string
+  failingIn?: Partial<Record<"firefox" | "webkit", string>>
   name: string
   steps: Step[]
   stillOpen?: string[]
   top: string
+  unreachableIn?: Partial<Record<"firefox" | "webkit", string>>
 }
+
+export const FIREFOX_SELF_RTL =
+  "Firefox places a popover with self- position-area keywords toward the wrong inline side in a right-to-left part of a left-to-right page"
+
+const WEBKIT_SCROLLED_ANCHOR =
+  "WebKit moves a popover anchored inside a dialog, drawer or menu up by the page scroll"
 
 export const id = (name: string) => `#stress-overlays-${name}`
 
@@ -156,6 +165,7 @@ export const SCENARIOS: Scenario[] = [
     top: `${id(`side-${side}`)} .ui-footer`,
   })),
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "menu in block end drawer footer",
     steps: [open("side-block-end"), open("side-block-end-menu")],
     top: id("side-block-end-menu"),
@@ -222,21 +232,26 @@ export const SCENARIOS: Scenario[] = [
     top: id("edge-bottom-end-tooltip"),
   },
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "inline start submenu at the start edge",
     steps: [open("sub-view"), open("sub-view-zoom")],
     top: id("sub-view-zoom"),
   },
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "second level submenu",
     steps: [open("sub-file"), open("sub-file-export"), open("sub-file-image")],
     top: id("sub-file-image"),
+    unreachableIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
   },
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "submenu at the end edge",
     steps: [open("sub-edit"), open("sub-edit-transform")],
     top: id("sub-edit-transform"),
   },
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "second level submenu at the end edge",
     steps: [
       open("sub-edit"),
@@ -244,6 +259,7 @@ export const SCENARIOS: Scenario[] = [
       open("sub-edit-rotate"),
     ],
     top: id("sub-edit-rotate"),
+    unreachableIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
   },
   {
     name: "long form dialog",
@@ -291,16 +307,19 @@ export const SCENARIOS: Scenario[] = [
     })),
   ),
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "split button menu in dialog footer",
     steps: [open("split-dialog"), open("split-dialog-menu")],
     top: id("split-dialog-menu"),
   },
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "outlined split button menu in block end drawer footer",
     steps: [open("split-drawer"), open("split-drawer-outlined")],
     top: id("split-drawer-outlined"),
   },
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "filled split button menu in block end drawer footer",
     steps: [open("split-drawer"), open("split-drawer-filled")],
     top: id("split-drawer-filled"),
@@ -371,6 +390,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("toolbar-menu"),
   },
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "tooltip on a square button in a dialog",
     steps: [open("toolbar-dialog"), hover("toolbar-dialog-tip-align-left")],
     top: id("toolbar-dialog-tip-align-left"),
@@ -381,6 +401,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("toolbar-dialog-tip-clear"),
   },
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "tooltip on a square button in a drawer header",
     steps: [open("toolbar-drawer"), hover("toolbar-drawer-tip-edit")],
     top: id("toolbar-drawer-tip-edit"),
@@ -391,12 +412,19 @@ export const SCENARIOS: Scenario[] = [
     top: id("toolbar-drawer-tip-share"),
   },
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "tooltip on the close button at the drawer edge",
     steps: [open("toolbar-drawer"), hover("toolbar-drawer-tip-close")],
     top: id("toolbar-drawer-tip-close"),
   },
-  { name: "rtl menu", steps: [open("rtl-menu")], top: id("rtl-menu") },
   {
+    failingIn: { firefox: FIREFOX_SELF_RTL },
+    name: "rtl menu",
+    steps: [open("rtl-menu")],
+    top: id("rtl-menu"),
+  },
+  {
+    failingIn: { firefox: FIREFOX_SELF_RTL, webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "rtl submenu",
     steps: [open("rtl-menu"), open("rtl-submenu")],
     top: id("rtl-submenu"),
@@ -427,6 +455,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("rtl-drawer-end"),
   },
   {
+    failingIn: { firefox: FIREFOX_SELF_RTL, webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "rtl menu in drawer",
     steps: [open("rtl-drawer-start"), open("rtl-drawer-menu")],
     top: id("rtl-drawer-menu"),
@@ -474,6 +503,7 @@ export const run = async (page: Page, step: Step) => {
         ?.showPopover({ source: element })
     })
     await expect.poll(() => isOpen(page, id(step.hover)), step.hover).toBe(true)
+    await settle(page.locator(id(step.hover)))
     return
   }
   const target = "open" in step ? step.open : step.select
@@ -483,6 +513,7 @@ export const run = async (page: Page, step: Step) => {
       : page.locator(id(target))
   await control.click()
   await expect.poll(() => isOpen(page, id(target)), target).toBe(true)
+  await settle(page.locator(id(target)))
 }
 
 export const problems = (page: Page, selector: string) =>

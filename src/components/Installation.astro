@@ -37,6 +37,11 @@ const dependencies = tabs
   .map(pageFor)
   .filter((c) => c !== undefined)
 
+const cssTabs = tabs.filter((tab) => tab.title.endsWith(".css"))
+const allCss = cssTabs
+  .map((tab) => `/* ${tab.title} */\n${tab.code.trim()}\n`)
+  .join("\n")
+
 const usedBy = slug
   ? dependentsOf(slug).filter((c) =>
       componentHasFramework(Astro.locals.framework, c.slug),
@@ -91,5 +96,56 @@ const usedBy = slug
     )
   }
 
+  {
+    cssTabs.length > 0 && (
+      <div class="copy-all-css">
+        <p>
+          Copy the CSS into your project to own it. It reads tokens from Open
+          Props, <code>palette.css</code> and <code>theme.css</code>, so those
+          go on the page too, after <code>layers.css</code>. See
+          <a href={link("/guide/getting-started")}>Getting started</a>.
+        </p>
+        {cssTabs.length > 1 && (
+          <button
+            type="button"
+            class="ui-button ui-outlined ui-small"
+            data-css={allCss}
+          >
+            Copy all CSS
+          </button>
+        )}
+      </div>
+    )
+  }
+
   <CodeGroup tabs={tabs} />
 </section>
+
+<style>
+  .copy-all-css {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-3);
+    justify-content: space-between;
+
+    p {
+      flex: 1 1 30ch;
+      margin: 0;
+    }
+  }
+</style>
+
+<script>
+  import { copyText } from "../utils/storage"
+
+  document.addEventListener("click", async (event) => {
+    const button = (event.target as Element).closest<HTMLElement>(
+      ".copy-all-css [data-css]",
+    )
+    if (!button || !(await copyText(button.dataset.css ?? ""))) return
+    const label = button.textContent
+    button.textContent = "Copied"
+    setTimeout(() => (button.textContent = label), 1500)
+  })
+</script>

@@ -2,8 +2,7 @@ import type { CustomProperties } from "../types"
 
 export default {
   "--_text-color": {
-    description:
-      "Text and underline color. `--ui-primary-text`, or `--ui-primary` with its lightness clamped to stay readable when the theme doesn't set it.",
+    description: "Text and underline color. Defaults to `--ui-primary-text`.",
     kind: "input",
   },
 } satisfies CustomProperties

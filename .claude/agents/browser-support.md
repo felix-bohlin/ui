@@ -10,13 +10,14 @@ You check the browser support chips on the component docs pages. You report find
 
 - `AGENTS.md`
 - `.claude/skills/audit/findings-format.md`, the format for your report
-- `scripts/check-browser-support.mjs`, which only checks that each id exists in `web-features`
+- `scripts/check-browser-support.mjs`, which checks that each id exists in `web-features` and warns about ids that the stylesheets a page imports use but the page doesn't list, or that the page lists but nothing uses. It only knows the features in its `patterns` list, and counts a match only when its rule's selector can match the elements in the page's HTML examples (`src/component-examples/<slug>/*.html`), so the `input` and `textarea` rules in `text-field.css` don't count for Select
 
 ## How the pieces connect
 
 - A page is `src/docs/components/<slug>.astro`. Its `browserSupport={[…]}` lists `web-features` ids.
 - Its stylesheets are the `css` list in `src/component-api/<slug>/api.ts`, or the kebab-cased `source` when there is none, under `packages/opui/css/components/`. Pages can also import other stylesheets in `installationTabs`.
 - Shared files the component reads, such as `packages/opui/core/utils.css` and `packages/opui/css/theme.css`, count only for features the component depends on.
+- A stylesheet several components share, such as `text-field.css` (Select, Text field, Textarea), counts only for the rules that can match the component's markup.
 
 ## Check
 

@@ -108,7 +108,8 @@ describe("theme tokens", () => {
   test("every promise names declared tokens and is sorted", () => {
     for (const [name, promise] of Object.entries(themeTokenPromises)) {
       expect(find(name), name).toBeDefined()
-      expect(find(promise.against), promise.against).toBeDefined()
+      for (const against of promise.against)
+        expect(find(against), against).toBeDefined()
     }
     expect(Object.keys(themeTokenPromises)).toEqual(
       Object.keys(themeTokenPromises).toSorted(),

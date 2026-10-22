@@ -2007,8 +2007,8 @@
   {
     "id": "guide-why-opui-html",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
-    "headings": "Backstory The goal of OPUI",
+    "description": "Design system. Components. Modern HTML & CSS.",
+    "headings": "Own your code Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/why-opui"
@@ -2016,8 +2016,8 @@
   {
     "id": "guide-why-opui-astro",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
-    "headings": "Backstory The goal of OPUI",
+    "description": "Design system. Components. Modern HTML & CSS.",
+    "headings": "Own your code Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/why-opui"
@@ -2025,8 +2025,8 @@
   {
     "id": "guide-why-opui-react",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
-    "headings": "Backstory The goal of OPUI",
+    "description": "Design system. Components. Modern HTML & CSS.",
+    "headings": "Own your code Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "react",
     "url": "/react/guide/why-opui"
@@ -2034,8 +2034,8 @@
   {
     "id": "guide-why-opui-svelte",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
-    "headings": "Backstory The goal of OPUI",
+    "description": "Design system. Components. Modern HTML & CSS.",
+    "headings": "Own your code Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "svelte",
     "url": "/svelte/guide/why-opui"
@@ -2043,8 +2043,8 @@
   {
     "id": "guide-why-opui-vue",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
-    "headings": "Backstory The goal of OPUI",
+    "description": "Design system. Components. Modern HTML & CSS.",
+    "headings": "Own your code Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/why-opui"
@@ -2061,7 +2061,7 @@
   {
     "id": "guide-getting-started-html",
     "title": "Getting started",
-    "description": "Open Props UI is a CSS UI library exploring how next-gen HTML & CSS features\n    can change the way we create components. Designed to be used by professional\n    teams as well as tinkering hobbyists.",
+    "description": "Design system. Components. Modern HTML & CSS.",
     "headings": "Install via CDN Install via NPM Import the CSS Install manually Your first component",
     "category": "Guide",
     "frameworkId": "html",
@@ -2098,7 +2098,7 @@
     "id": "learn-accordion-height-auto",
     "title": "An accordion that animates to auto",
     "description": "interpolate-size and ::details-content let a details element transition to its natural height.",
-    "headings": "The problem The trick Try it Fallback interpolate-size details-content interpolate-size",
+    "headings": "The problem The trick Try it Fallback interpolate-size JavaScript that measures the content and animates a pixel height. `interpolate-size: allow-keywords` and `::details-content` transition a `<details>` to its natural height. details-content interpolate-size",
     "category": "Learn",
     "url": "/learn/accordion-height-auto"
   },
@@ -2106,7 +2106,7 @@
     "id": "learn-anchor-hover-cards",
     "title": "Hover cards without JavaScript",
     "description": "interestfor, popover=hint and anchor positioning open a hover card on hover and focus.",
-    "headings": "The problem The trick Try it Fallback interestfor anchor-positioning interest-invokers popover-hint",
+    "headings": "The problem The trick Try it Fallback interestfor Timers for hover intent, focus and blur listeners, and a positioning library that measures and flips the card. `interestfor` and `popover=\"hint\"` open it on hover and focus, and anchor positioning places it. anchor-positioning interest-invokers popover-hint",
     "category": "Learn",
     "url": "/learn/anchor-hover-cards"
   },
@@ -2114,7 +2114,7 @@
     "id": "learn-avatar-squircles",
     "title": "Squircle avatars with corner-shape",
     "description": "aspect-ratio, :has(img) and corner-shape for avatars.",
-    "headings": "The problem The trick Try it Fallback corner-shape aspect-ratio corner-shape has",
+    "headings": "The problem The trick Try it Fallback corner-shape An SVG mask or a `clip-path` path: a fixed shape that clips borders and shadows too. `corner-shape: squircle` draws the corner, and `aspect-ratio: 1` keeps the avatar square. aspect-ratio corner-shape has",
     "category": "Learn",
     "url": "/learn/avatar-squircles"
   },
@@ -2122,7 +2122,7 @@
     "id": "learn-button-icon-only-has",
     "title": "One Button, no IconButton",
     "description": ":has(> svg:only-child) turns any Button into an icon button.",
-    "headings": "The problem The trick Try it Fallback Gotchas :has() has",
+    "headings": "The problem The trick Try it Fallback Gotchas :has() A separate `IconButton` component or an `iconOnly` prop, with every size and variant built twice. `:has(> svg:only-child)` lets the button see that it only holds an icon. has",
     "category": "Learn",
     "url": "/learn/button-icon-only-has"
   },
@@ -2130,7 +2130,7 @@
     "id": "learn-callout-relative-colors",
     "title": "Severity colors from one source color",
     "description": "Relative colors and light-dark() derive every severity shade from one color.",
-    "headings": "The problem The trick Try it Fallback oklch(from …) light-dark relative-color",
+    "headings": "The problem The trick Try it Fallback oklch(from …) 40 hand-picked colors for five severities in two schemes, or a preprocessor that only works at build time. One `--ui-palette-source` per severity, and `oklch(from …)` derives every shade. light-dark relative-color",
     "category": "Learn",
     "url": "/learn/callout-relative-colors"
   },
@@ -2138,7 +2138,7 @@
     "id": "learn-carousel-css-only",
     "title": "A carousel made of CSS",
     "description": "Scroll snap, ::scroll-button() and ::scroll-marker: a carousel without JavaScript.",
-    "headings": "The problem The trick Try it Fallback ::scroll-button() scroll-buttons scroll-markers scroll-snap",
+    "headings": "The problem The trick Try it Fallback ::scroll-button() JavaScript that listens to scroll events to run the buttons and dots, with their accessibility done by hand. `::scroll-button()` and `::scroll-marker` generate focusable buttons and dots. scroll-buttons scroll-markers scroll-snap",
     "category": "Learn",
     "url": "/learn/carousel-css-only"
   },
@@ -2146,7 +2146,7 @@
     "id": "learn-checkbox-appearance-none",
     "title": "Drawing a checkbox",
     "description": "appearance: none, a clip-path checkmark and system colors for a native checkbox.",
-    "headings": "The problem The trick Try it Fallback appearance: none appearance clip-path",
+    "headings": "The problem The trick Try it Fallback appearance: none A hidden input and a fake box with an SVG check that mirrors every state. `appearance: none` lets the real input draw its own box and check. appearance clip-path",
     "category": "Learn",
     "url": "/learn/checkbox-appearance-none"
   },
@@ -2154,7 +2154,7 @@
     "id": "learn-description-list-leader-lines",
     "title": "Leader lines with grid",
     "description": "A container query and a grid pseudo-element draw dotted leader lines.",
-    "headings": "The problem The trick Try it Fallback @container container-queries",
+    "headings": "The problem The trick Try it Fallback @container A row of clipped dots, a repeating background or an empty filler element, and a media query that only knows the viewport. A grid per pair with a dotted `::after` between term and description, and a container query for the column. container-queries",
     "category": "Learn",
     "url": "/learn/description-list-leader-lines"
   },
@@ -2162,7 +2162,7 @@
     "id": "learn-dialog-closedby",
     "title": "Dialogs without JavaScript",
     "description": "Invoker commands, closedby and @starting-style for modal dialogs.",
-    "headings": "The problem The trick Keyboard shortcuts Try it Scroll lock Fallback closedby dialog-closedby invoker-commands starting-style",
+    "headings": "The problem The trick Keyboard shortcuts Try it Scroll lock Fallback closedby A click handler for `showModal()`, another for `close()`, and a backdrop listener that checks where the click landed. `commandfor`, `command` and `closedby` open and close it, and `@starting-style` fades it in. dialog-closedby invoker-commands starting-style",
     "category": "Learn",
     "url": "/learn/dialog-closedby"
   },
@@ -2170,7 +2170,7 @@
     "id": "learn-drawer-starting-style",
     "title": "Sliding drawers with @starting-style",
     "description": "A dialog that slides in from any edge, and out again with allow-discrete.",
-    "headings": "The problem The trick Try it Fallback @starting-style overlay starting-style transition-behavior",
+    "headings": "The problem The trick Try it Fallback @starting-style A fixed `<div>` with JavaScript for the focus trap, Esc and backdrop clicks, and a class removed after `transitionend` to animate it out. A modal `<dialog>` that slides with `translate`, `@starting-style` and `allow-discrete`. overlay starting-style transition-behavior",
     "category": "Learn",
     "url": "/learn/drawer-starting-style"
   },
@@ -2178,7 +2178,7 @@
     "id": "learn-form-fieldset-has",
     "title": "Smarter fieldsets with :has()",
     "description": ":has() lets fieldsets and legends style themselves from what they contain.",
-    "headings": "The problem The trick Try it Fallback :has(:required) has",
+    "headings": "The problem The trick Try it Fallback :has(:required) Modifier classes or props kept in sync with what the fieldset contains. `:has()` lets the fieldset and legend style themselves from their content. has",
     "category": "Learn",
     "url": "/learn/form-fieldset-has"
   },
@@ -2186,7 +2186,7 @@
     "id": "learn-menu-popover-anchor",
     "title": "Menus with popover and anchor positioning",
     "description": "Popover, invoker commands and anchor positioning: a menu with no JavaScript.",
-    "headings": "The problem The trick Try it Fallback popover anchor-positioning invoker-commands popover",
+    "headings": "The problem The trick Try it Fallback popover JavaScript to toggle and dismiss it, `z-index` fights, and a positioning library that measures and flips. `popover`, invoker commands and anchor positioning, with the trigger as the implicit anchor. anchor-positioning invoker-commands popover",
     "category": "Learn",
     "url": "/learn/menu-popover-anchor"
   },
@@ -2194,7 +2194,7 @@
     "id": "learn-progress-native",
     "title": "Styling the native progress bar",
     "description": "appearance: none and :indeterminate on the native progress element.",
-    "headings": "The problem The trick Try it Fallback :indeterminate appearance container-style-queries indeterminate",
+    "headings": "The problem The trick Try it Fallback :indeterminate A `<div role=\"progressbar\">` with its ARIA attributes kept in sync by hand. The native `<progress>` with `appearance: none`, so the role and the value stay native. appearance container-style-queries indeterminate",
     "category": "Learn",
     "url": "/learn/progress-native"
   },
@@ -2202,7 +2202,7 @@
     "id": "learn-range-tick-marks",
     "title": "Range sliders with datalist ticks",
     "description": "A scroll-driven gradient fill and datalist tick marks for input range.",
-    "headings": "The problem The trick Try it Fallback <datalist> datalist input-range scroll-driven-animations",
+    "headings": "The problem The trick Try it Fallback <datalist> Vendor pseudo-elements, a fill only Firefox could draw, and tick labels that never showed. A scroll-driven animation on the thumb fills the track, and `display: flex` brings the `<datalist>` labels back. datalist input-range scroll-driven-animations",
     "category": "Learn",
     "url": "/learn/range-tick-marks"
   },
@@ -2210,7 +2210,7 @@
     "id": "learn-select-base-select",
     "title": "A select you can style",
     "description": "appearance: base-select, ::picker(select) and :open for a fully styled select.",
-    "headings": "The problem The trick Try it Fallback base-select customizable-select open-pseudo",
+    "headings": "The problem The trick Try it Fallback base-select A rebuilt listbox: a button, a popup, ARIA roles and JavaScript for focus, keyboard and typeahead. `appearance: base-select` makes the real `<select>` stylable, with `<selectedcontent>` and `::picker(select)`. customizable-select open-pseudo",
     "category": "Learn",
     "url": "/learn/select-base-select"
   },
@@ -2218,7 +2218,7 @@
     "id": "learn-spinner-aria-busy",
     "title": "Spinners from aria-busy",
     "description": "aria-busy=true is all it takes to show a spinner.",
-    "headings": "The problem The trick Try it Fallback aria-busy animations-css not",
+    "headings": "The problem The trick Try it Fallback aria-busy A spinner class for sighted users and `aria-busy` for assistive technology, kept in sync. `[aria-busy=\"true\"]` is the only switch, and a `::before` ring spins. animations-css not",
     "category": "Learn",
     "url": "/learn/spinner-aria-busy"
   },
@@ -2226,7 +2226,7 @@
     "id": "learn-switch-checkbox",
     "title": "A switch from a checkbox",
     "description": "A native checkbox, appearance: none and an outline trick.",
-    "headings": "The problem The trick Try it Fallback light-dark() appearance light-dark",
+    "headings": "The problem The trick Try it Fallback light-dark() A `<button>` with `aria-checked` toggled in JavaScript, or a hidden checkbox plus extra spans. `<input type=\"checkbox\" role=\"switch\">` with `appearance: none` draws its own track and dot. appearance light-dark",
     "category": "Learn",
     "url": "/learn/switch-checkbox"
   },
@@ -2234,7 +2234,7 @@
     "id": "learn-table-scroll-state",
     "title": "A header that knows it’s stuck",
     "description": "scroll-state() container queries give a stuck table header and a scrolled dialog their shadows.",
-    "headings": "The problem The trick Scroll shadows Try it Fallback scroll-state() anchor-positioning container-scroll-state-queries",
+    "headings": "The problem The trick Scroll shadows Try it Fallback scroll-state() A scroll listener, or an `IntersectionObserver` with a sentinel element. `container-type: scroll-state` and `@container scroll-state(stuck: block-start)` show the shadow. anchor-positioning container-scroll-state-queries",
     "category": "Learn",
     "url": "/learn/table-scroll-state"
   },
@@ -2242,7 +2242,7 @@
     "id": "learn-tabs-radio-buttons",
     "title": "Tabs from radio buttons",
     "description": "Radio inputs, order and :nth-child(of S) for CSS-only tabs.",
-    "headings": "The problem The trick Try it Fallback :nth-child(of S) nth-child-of",
+    "headings": "The problem The trick Try it Fallback :nth-child(of S) JavaScript for clicks, `aria-selected` and panels, or CSS tabs with one selector per tab. One radio group, and `:checked + label + panel` shows the right panel. nth-child-of",
     "category": "Learn",
     "url": "/learn/tabs-radio-buttons"
   },
@@ -2250,7 +2250,7 @@
     "id": "learn-text-field-user-invalid",
     "title": "Validation that waits with :user-invalid",
     "description": ":user-invalid shows errors after the user interacts, not on page load.",
-    "headings": "The problem The trick Try it Fallback :user-invalid user-pseudos",
+    "headings": "The problem The trick Try it Fallback :user-invalid JavaScript that adds a touched class on blur. `:user-invalid` only matches after the user has changed the field. user-pseudos",
     "category": "Learn",
     "url": "/learn/text-field-user-invalid"
   },
@@ -2258,7 +2258,7 @@
     "id": "learn-textarea-field-sizing",
     "title": "Textareas that grow with field-sizing",
     "description": "field-sizing: content and lh units for auto-growing textareas.",
-    "headings": "The problem The trick Try it Fallback field-sizing field-sizing lh",
+    "headings": "The problem The trick Try it Fallback field-sizing JavaScript that resets the height to `scrollHeight` on every keystroke. `field-sizing: content` grows and shrinks the textarea with its text. field-sizing lh",
     "category": "Learn",
     "url": "/learn/textarea-field-sizing"
   },
@@ -2266,7 +2266,7 @@
     "id": "learn-tooltip-interest-invokers",
     "title": "Tooltips with interestfor",
     "description": "interestfor, calc-size() and @position-try for tooltips that stay on screen.",
-    "headings": "The problem The trick Staying on screen Try it Fallback calc-size() calc-size interest-invokers popover-hint",
+    "headings": "The problem The trick Staying on screen Try it Fallback calc-size() Event listeners, delays and a positioning library that measures and flips. `interestfor`, `popover=\"hint\"` and anchor positioning. calc-size interest-invokers popover-hint",
     "category": "Learn",
     "url": "/learn/tooltip-interest-invokers"
   },
@@ -2282,7 +2282,7 @@
     "id": "learn-vertical-rhythm-round",
     "title": "Vertical rhythm with round()",
     "description": "round() snaps line heights and font sizes to a rhythm step.",
-    "headings": "The problem The trick Try it Fallback round() lh round-mod-rem",
+    "headings": "The problem The trick Try it Fallback round() A Sass function per font size, which breaks once sizes are fluid. `round(up, value, step)` snaps every line height to the grid at computed time. lh round-mod-rem",
     "category": "Learn",
     "url": "/learn/vertical-rhythm-round"
   },
@@ -2678,7 +2678,7 @@
     "id": "api-anchor-astro",
     "title": "Anchor API",
     "description": "Reference for Anchor Astro component.",
-    "headings": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. alignment Any valid `position-area` value. Controls where the floating content is placed. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. trigger Shows the floating content always, or on hover and focus with `popover=\"hint\"`.",
+    "headings": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. alignment Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. trigger Shows the floating content always, or on hover and focus with `popover=\"hint\"`.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -2688,7 +2688,7 @@
     "id": "api-anchor-html",
     "title": "Anchor API",
     "description": "Reference for Anchor HTML component.",
-    "headings": ".ui-anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. .ui-anchor > :first-child The floating content. .ui-anchor-floating --ui-anchor-position-area Position Any valid `position-area` value. Controls where the floating content is placed. [popover=\"hint\"] Trigger Shows the floating content always, or on hover and focus with `popover=\"hint\"`.",
+    "headings": ".ui-anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. .ui-anchor > :first-child The floating content. .ui-anchor-floating --ui-anchor-position-area Position Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. [popover=\"hint\"] Trigger Shows the floating content always, or on hover and focus with `popover=\"hint\"`.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -2698,7 +2698,7 @@
     "id": "api-anchor-react",
     "title": "Anchor API",
     "description": "Reference for Anchor React component.",
-    "headings": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. alignment Any valid `position-area` value. Controls where the floating content is placed. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. trigger Shows the floating content always, or on hover and focus with `popover=\"hint\"`.",
+    "headings": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. alignment Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. trigger Shows the floating content always, or on hover and focus with `popover=\"hint\"`.",
     "category": "API",
     "frameworkId": "react",
     "type": "React",
@@ -2708,7 +2708,7 @@
     "id": "api-anchor-svelte",
     "title": "Anchor API",
     "description": "Reference for Anchor Svelte component.",
-    "headings": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. alignment Any valid `position-area` value. Controls where the floating content is placed. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. trigger Shows the floating content always, or on hover and focus with `popover=\"hint\"`.",
+    "headings": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. alignment Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. trigger Shows the floating content always, or on hover and focus with `popover=\"hint\"`.",
     "category": "API",
     "frameworkId": "svelte",
     "type": "Svelte",
@@ -2718,7 +2718,7 @@
     "id": "api-anchor-vue",
     "title": "Anchor API",
     "description": "Reference for Anchor Vue component.",
-    "headings": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. alignment Any valid `position-area` value. Controls where the floating content is placed. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. trigger Shows the floating content always, or on hover and focus with `popover=\"hint\"`.",
+    "headings": "Anchor Container element. Scopes the anchor to its content. The content the floating content is anchored to. The floating content. alignment Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. id The id of the root. With `trigger=\"hover\"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. trigger Shows the floating content always, or on hover and focus with `popover=\"hint\"`.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -4088,7 +4088,7 @@
     "id": "api-menu-html",
     "title": "Menu API",
     "description": "Reference for Menu HTML component.",
-    "headings": "menu.ui-menu.ui-list[popover] The menu surface, a popover anchored to its trigger. A group label. HTML and CSS only. .ui-menu > li.ui-label An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. .ui-menu > li Optional content at the start, such as an icon. .ui-menu > li > :is(a, button) > .ui-start The text (`text` on an item). .ui-menu > li > :is(a, button) > .ui-text Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item). .ui-menu > li > :is(a, button) > .ui-end .ui-align-end Alignment Which edge of the trigger the menu lines up with. --ui-anchor-position-area Position Any valid `position-area` value. Overrides the placement and alignment classes. li.ui-border-top .ui-bordered Borders A border between every item (`bordered`), or above one item (`borderTop` on an item). [command=\"hide-popover\"] Close on click Closes the whole menu on click, also from a submenu. Button items only. li > :is(a, button).ui-critical li.ui-critical Colors A destructive item (`critical` on an item). .ui-dense Dense Packs the items tighter. li > button[disabled] li > a[aria-disabled=\"true\"] State Disables an item (`disabled` on an item). A disabled link has no `href`. .ui-block-start .ui-inline-end .ui-inline-start Placement Where the menu opens. [popover=\"manual\"] Behavior The popover type. With `\"manual\"`, Esc and a click outside don't close the menu, and opening another menu doesn't either. [commandfor][command=\"toggle-popover\"] Trigger Opens the menu. `commandfor` is the menu id.",
+    "headings": "menu.ui-menu.ui-list[popover] The menu surface, a popover anchored to its trigger. A group label. HTML and CSS only. .ui-menu > li.ui-label An item, holding a `<button>` or an `<a>` with `href`. Rendered from `items`, or a `ListItem` in the default slot. .ui-menu > li Optional content at the start, such as an icon. .ui-menu > li > :is(a, button) > .ui-start The text (`text` on an item). .ui-menu > li > :is(a, button) > .ui-text Optional content at the end, such as a shortcut in a `<kbd>` (`shortcut` on an item). .ui-menu > li > :is(a, button) > .ui-end .ui-align-end Alignment Which edge of the trigger the menu lines up with. --ui-anchor-position-area Position Any valid `position-area` value. Overrides the placement and alignment classes. The `self-` keywords follow the menu's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. li.ui-border-top .ui-bordered Borders A border between every item (`bordered`), or above one item (`borderTop` on an item). [command=\"hide-popover\"] Close on click Closes the whole menu on click, also from a submenu. Button items only. li > :is(a, button).ui-critical li.ui-critical Colors A destructive item (`critical` on an item). .ui-dense Dense Packs the items tighter. li > button[disabled] li > a[aria-disabled=\"true\"] State Disables an item (`disabled` on an item). A disabled link has no `href`. .ui-block-start .ui-inline-end .ui-inline-start Placement Where the menu opens. [popover=\"manual\"] Behavior The popover type. With `\"manual\"`, Esc and a click outside don't close the menu, and opening another menu doesn't either. [commandfor][command=\"toggle-popover\"] Trigger Opens the menu. `commandfor` is the menu id.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -5078,7 +5078,7 @@
     "id": "api-tooltip-astro",
     "title": "Tooltip API",
     "description": "Reference for Tooltip Astro component.",
-    "headings": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. The tooltip, a `popover=\"hint\"`. alignment Any valid `position-area` value. Controls where the tooltip is placed. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor`, plus `commandfor` and `command=\"toggle-popover\"` for touch, with the same id to the trigger.",
+    "headings": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. The tooltip, a `popover=\"hint\"`. alignment Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor`, plus `commandfor` and `command=\"toggle-popover\"` for touch, with the same id to the trigger.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -5088,7 +5088,7 @@
     "id": "api-tooltip-html",
     "title": "Tooltip API",
     "description": "Reference for Tooltip HTML component.",
-    "headings": ".ui-tooltip Container element. The trigger that shows the tooltip on hover and focus. .ui-tooltip > :first-child The tooltip, a `popover=\"hint\"`. .ui-anchor-floating --ui-anchor-position-area Position Any valid `position-area` value. Controls where the tooltip is placed. .ui-with-arrow Arrow Adds an arrow that points to the trigger.",
+    "headings": ".ui-tooltip Container element. The trigger that shows the tooltip on hover and focus. .ui-tooltip > :first-child The tooltip, a `popover=\"hint\"`. .ui-anchor-floating --ui-anchor-position-area Position Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. .ui-with-arrow Arrow Adds an arrow that points to the trigger.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -5098,7 +5098,7 @@
     "id": "api-tooltip-react",
     "title": "Tooltip API",
     "description": "Reference for Tooltip React component.",
-    "headings": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. The tooltip, a `popover=\"hint\"`. alignment Any valid `position-area` value. Controls where the tooltip is placed. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor`, plus `commandfor` and `command=\"toggle-popover\"` for touch, with the same id to the trigger.",
+    "headings": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. The tooltip, a `popover=\"hint\"`. alignment Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor`, plus `commandfor` and `command=\"toggle-popover\"` for touch, with the same id to the trigger.",
     "category": "API",
     "frameworkId": "react",
     "type": "React",
@@ -5108,7 +5108,7 @@
     "id": "api-tooltip-svelte",
     "title": "Tooltip API",
     "description": "Reference for Tooltip Svelte component.",
-    "headings": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. The tooltip, a `popover=\"hint\"`. alignment Any valid `position-area` value. Controls where the tooltip is placed. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor`, plus `commandfor` and `command=\"toggle-popover\"` for touch, with the same id to the trigger.",
+    "headings": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. The tooltip, a `popover=\"hint\"`. alignment Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor`, plus `commandfor` and `command=\"toggle-popover\"` for touch, with the same id to the trigger.",
     "category": "API",
     "frameworkId": "svelte",
     "type": "Svelte",
@@ -5118,7 +5118,7 @@
     "id": "api-tooltip-vue",
     "title": "Tooltip API",
     "description": "Reference for Tooltip Vue component.",
-    "headings": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. The tooltip, a `popover=\"hint\"`. alignment Any valid `position-area` value. Controls where the tooltip is placed. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor`, plus `commandfor` and `command=\"toggle-popover\"` for touch, with the same id to the trigger.",
+    "headings": "Tooltip Container element. The trigger that shows the tooltip on hover and focus. The tooltip, a `popover=\"hint\"`. alignment Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. arrow Adds an arrow that points to the trigger. id The id of the tooltip. Add `interestfor`, plus `commandfor` and `command=\"toggle-popover\"` for touch, with the same id to the trigger.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",

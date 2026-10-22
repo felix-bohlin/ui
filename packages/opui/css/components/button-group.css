@@ -41,13 +41,7 @@
 
       &.ui-primary {
         --_edge-accent: var(--ui-primary);
-        --_edge-text: var(
-          --ui-primary-text,
-          light-dark(
-            var(--_edge-accent),
-            oklch(from var(--_edge-accent) max(l, 0.85) min(c, 0.1) h)
-          )
-        );
+        --_edge-text: var(--ui-primary-text);
       }
     }
 

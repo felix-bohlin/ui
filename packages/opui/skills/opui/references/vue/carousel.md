@@ -554,16 +554,17 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 | `--ui-focus-ring-style`            | `solid`                                                                           | Outline style of the focus ring.                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `--ui-focus-ring-width`            | `2px`                                                                             | Width of the focus ring.                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `--ui-motion`                      | `1`                                                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).                                                                                                                                                                                                                            |
-| `--ui-primary`                     | `light-dark(var(--ui-color-9), var(--ui-color-6))`                                | Brand color for primary actions and accents.                                                                                                                                                                                                                                                                                                                                                                                       |
 | `--ui-radius`                      | `var(--size-2)`                                                                   | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                                                                                                                                                                                   |
 | `--ui-radius-round`                | `var(--radius-round)`                                                             | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.                                                                                                                                                                                                                                                                                                 |
+| `--ui-selected-strong`             | `var(--ui-primary)`                                                               | Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row and the selected tab of filled `Tabs`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.                                                                                                                                  |
 | `--ui-shadow-overlay`              | `var(--shadow-3)`                                                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers and `Drawer`.                                                                                                                                                                                                                                                                                                                                                 |
+| `--ui-space-1`                     | `calc(var(--size-1) * var(--ui-space-scale))`                                     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                                    |
 | `--ui-space-2`                     | `calc(var(--size-2) * var(--ui-space-scale))`                                     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                                    |
 | `--ui-space-3`                     | `calc(var(--size-3) * var(--ui-space-scale))`                                     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                                    |
 | `--ui-space-5`                     | `calc(var(--size-5) * var(--ui-space-scale))`                                     | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                                    |
 | `--ui-space-8`                     | `calc(var(--size-8) * var(--ui-space-scale))`                                     | Spacing step 8: Open Props `--size-8` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                                    |
 | `--ui-surface-inverse`             | `light-dark(var(--ui-gray-15), var(--ui-gray-2))`                                 | Background of `Tooltip`, inverted against the page.                                                                                                                                                                                                                                                                                                                                                                                |
-| `--ui-text-strong`                 | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                 | Strongest text color, for headings, labels and values. Body text is `--ui-text-muted`.                                                                                                                                                                                                                                                                                                                                             |
+| `--ui-text-muted`                  | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`                                 | Body text color.                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
@@ -571,41 +572,44 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
 
-| Property                          | Kind   | Description                                                                                                                               |
-| --------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_block-size`                   | Input  | The height of `.ui-vertical`.                                                                                                             |
-| `--_button-bg-color`              | Input  | Background of the scroll buttons. Defaults to `--ui-surface-inverse`.                                                                     |
-| `--_button-border-color`          | Output | Border color of the scroll buttons. `--ui-control-border-color-filled` when the theme sets it, otherwise a shade of `--_button-bg-color`. |
-| `--_button-disabled-border-color` | Output | Border color of disabled scroll buttons, from `--_button-bg-color`.                                                                       |
-| `--_button-disabled-opacity`      | Input  | Opacity of disabled scroll buttons. `0` hides them, `.ui-buttons-persistent` sets `1`.                                                    |
-| `--_button-end-flip`              | Output | Mirrors the inline-end button. `1`, or `-1` in right-to-left.                                                                             |
-| `--_button-flip`                  | Output | Mirrors a scroll button, `1` or `-1`. From `--_button-start-flip` and `--_button-end-flip`.                                               |
-| `--_button-icon`                  | Input  | Icon of the scroll buttons, pointing forward. The previous button mirrors it.                                                             |
-| `--_button-icon-size`             | Input  | The icon size in the scroll buttons.                                                                                                      |
-| `--_button-inset`                 | Input  | Space between the scroll buttons and the carousel edge.                                                                                   |
-| `--_button-next-label`            | Input  | Accessible label of the next button.                                                                                                      |
-| `--_button-prev-label`            | Input  | Accessible label of the previous button.                                                                                                  |
-| `--_button-scale`                 | Output | The current scale of a scroll button. `0.94` while pressed.                                                                               |
-| `--_button-shadow`                | Input  | Shadow of the scroll buttons. Defaults to `--ui-shadow-overlay`.                                                                          |
-| `--_button-size`                  | Input  | Size of the scroll buttons. Defaults to `--ui-button-size-small`.                                                                         |
-| `--_button-start-flip`            | Output | Mirrors the inline-start button. `-1`, or `1` in right-to-left.                                                                           |
-| `--_duration`                     | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                  |
-| `--_ease`                         | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                       |
-| `--_gap`                          | Input  | Space between items.                                                                                                                      |
-| `--_item-size`                    | Output | The size of each item, from `--_per-view` and `--_gap`.                                                                                   |
-| `--_marker-active-bg-color`       | Input  | Background of the current marker. Defaults to `--ui-primary`.                                                                             |
-| `--_marker-bg-color`              | Input  | Background of the markers. Defaults to `--ui-text-strong` at 25% opacity.                                                                 |
-| `--_marker-gap`                   | Input  | Space between markers.                                                                                                                    |
-| `--_marker-label`                 | Input  | Accessible label of each marker, followed by the item number.                                                                             |
-| `--_marker-size`                  | Input  | Size of the markers. The dot sits inside, inset by `--ui-space-2`.                                                                        |
-| `--_markers-gap`                  | Input  | Space between the items and the markers.                                                                                                  |
-| `--_media-aspect-ratio`           | Input  | Aspect ratio of `img`, `video` and `iframe` in items.                                                                                     |
-| `--_media-border-radius`          | Input  | Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.                                                         |
-| `--_motion`                       | Input  | Motion multiplier for the button and marker transitions. `0` turns them off.                                                              |
-| `--_padding-block`                | Input  | Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.                                                        |
-| `--_padding-inline`               | Input  | The inline padding, showing the neighboring items. Set by `.ui-peek`.                                                                     |
-| `--_per-view`                     | Input  | Number of items per view.                                                                                                                 |
-| `--_snap-align`                   | Input  | Snap alignment of items. `.ui-align-center` sets `center`.                                                                                |
+| Property                          | Kind   | Description                                                                                                                                        |
+| --------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_block-size`                   | Input  | The height of `.ui-vertical`.                                                                                                                      |
+| `--_button-bg-color`              | Input  | Background of the scroll buttons. Defaults to `--ui-surface-inverse`.                                                                              |
+| `--_button-border-color`          | Output | Border color of the scroll buttons. `--ui-control-border-color-filled` when the theme sets it, otherwise a shade of `--_button-bg-color`.          |
+| `--_button-disabled-border-color` | Output | Border color of disabled scroll buttons, from `--_button-bg-color`.                                                                                |
+| `--_button-disabled-opacity`      | Input  | Opacity of disabled scroll buttons. `0` hides them, `.ui-buttons-persistent` sets `1`.                                                             |
+| `--_button-end-flip`              | Output | Mirrors the inline-end button. `1`, or `-1` in right-to-left.                                                                                      |
+| `--_button-flip`                  | Output | Mirrors a scroll button, `1` or `-1`. From `--_button-start-flip` and `--_button-end-flip`.                                                        |
+| `--_button-icon`                  | Input  | Icon of the scroll buttons, pointing forward. The previous button mirrors it.                                                                      |
+| `--_button-icon-size`             | Input  | The icon size in the scroll buttons.                                                                                                               |
+| `--_button-inset`                 | Input  | Space between the scroll buttons and the carousel edge.                                                                                            |
+| `--_button-next-label`            | Input  | Accessible label of the next button.                                                                                                               |
+| `--_button-prev-label`            | Input  | Accessible label of the previous button.                                                                                                           |
+| `--_button-scale`                 | Output | The current scale of a scroll button. `0.94` while pressed.                                                                                        |
+| `--_button-shadow`                | Input  | Shadow of the scroll buttons. Defaults to `--ui-shadow-overlay`.                                                                                   |
+| `--_button-size`                  | Input  | Size of the scroll buttons. Defaults to `--ui-button-size-small`.                                                                                  |
+| `--_button-start-flip`            | Output | Mirrors the inline-start button. `-1`, or `1` in right-to-left.                                                                                    |
+| `--_duration`                     | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                           |
+| `--_ease`                         | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                                |
+| `--_gap`                          | Input  | Space between items.                                                                                                                               |
+| `--_item-size`                    | Output | The size of each item, from `--_per-view` and `--_gap`.                                                                                            |
+| `--_marker-active-bg-color`       | Input  | Fill and ring of the current marker. Defaults to `--ui-selected-strong`.                                                                           |
+| `--_marker-active-padding`        | Input  | Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`. |
+| `--_marker-bg-color`              | Input  | Fill of the other markers. Defaults to `transparent`.                                                                                              |
+| `--_marker-border-color`          | Input  | Ring of the other markers. Defaults to `--ui-text-muted`, which keeps its contrast against the page in every theme.                                |
+| `--_marker-gap`                   | Input  | Space between markers.                                                                                                                             |
+| `--_marker-label`                 | Input  | Accessible label of each marker, followed by the item number.                                                                                      |
+| `--_marker-size`                  | Input  | Size of the markers. The dot sits inside, inset by `--ui-space-2`.                                                                                 |
+| `--_markers-gap`                  | Input  | Space between the items and the markers.                                                                                                           |
+| `--_media-aspect-ratio`           | Input  | Aspect ratio of `img`, `video` and `iframe` in items.                                                                                              |
+| `--_media-border-radius`          | Input  | Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.                                                                  |
+| `--_motion`                       | Input  | Motion multiplier for the button and marker transitions. `0` turns them off.                                                                       |
+| `--_padding-block`                | Input  | Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.                                                                 |
+| `--_padding-inline`               | Input  | The inline padding, showing the neighboring items. Set by `.ui-peek`.                                                                              |
+| `--_per-view`                     | Input  | Number of items per view.                                                                                                                          |
+| `--_scale-duration`               | Output | Duration of the scroll buttons' press scale, `--ui-duration-fast` times `--_motion`.                                                               |
+| `--_snap-align`                   | Input  | Snap alignment of items. `.ui-align-center` sets `center`.                                                                                         |
 
 ## Under the hood
 
@@ -676,7 +680,7 @@ Step 2 of 4: Scroll snap
 
 Step 3 of 4: Scroll buttons
 
-- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 151+, Edge 151+, Firefox 151+, Safari 27+
 - [`::scroll-button` ](https://webstatus.dev/features/scroll-buttons)(Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
 
 ```css
@@ -761,7 +765,7 @@ Step 4 of 4: Scroll markers
 
 ## Browser support
 
-- Chromium: Full support Supported since v144.
+- Chromium: Full support Supported since v151.
 - Firefox: Partial support Missing: scroll-buttons, scroll-marker-targets, scroll-markers.
 - Safari: Partial support Missing: scroll-buttons, scroll-marker-targets, scroll-markers.
 
@@ -770,6 +774,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## Installation
 
 Import the component from `opui-css/vue`:
+
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md).
 
 - `opui-css/css/components/carousel.css`
 
@@ -787,3 +793,4 @@ Import the component from `opui-css/vue`:
 - [Stretch](#stretch) cards to equal height with the `stretch` prop.
 - The [scroll buttons](#buttons-outside) draw one glyph as the inverse of the button face, so it follows `.ui-dark`, `.ui-light` and forced colors in every browser.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
+- Markers are rings in `--ui-text-muted`, which keep their contrast in every theme, and the current marker is a larger dot in [`--ui-selected-strong`](#api).

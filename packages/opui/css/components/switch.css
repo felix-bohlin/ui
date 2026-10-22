@@ -58,7 +58,7 @@
         inset-block-start: var(--_thumb-inset);
         inset-inline-start: var(--_thumb-inset);
         outline: var(--_thumb-outline-size) solid var(--_thumb-bg-color);
-        outline-offset: -1px;
+        outline-offset: calc(-1 * var(--ui-border-width));
         position: absolute;
         transition:
           background-color var(--_duration) var(--_ease),
@@ -77,7 +77,9 @@
         /* Dot */
         &::after {
           --_thumb-bg-color: var(--_on-accent);
-          --_thumb-outline-size: calc(var(--_thumb-inset) - 1px);
+          --_thumb-outline-size: calc(
+            var(--_thumb-inset) - var(--ui-border-width)
+          );
 
           inset-inline-start: calc(
             var(--_track-width) - var(--_thumb-size) - var(--_thumb-inset)
@@ -86,7 +88,9 @@
       }
 
       &:active::after {
-        --_thumb-outline-size: calc(var(--_thumb-inset) + 1px);
+        --_thumb-outline-size: calc(
+          var(--_thumb-inset) + var(--ui-border-width)
+        );
       }
     }
 

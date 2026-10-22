@@ -23,7 +23,7 @@ export default {
   },
   "--_text-color": {
     description:
-      "Text and underline color of links without a `ui-` class in `.ui-rich-text`. `--ui-primary-text`, or `--ui-primary` with its lightness clamped to stay readable when the theme doesn't set it.",
+      "Text and underline color of links without a `ui-` class in `.ui-rich-text`. Defaults to `--ui-primary-text`.",
     kind: "input",
   },
 } satisfies CustomProperties

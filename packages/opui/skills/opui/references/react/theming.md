@@ -173,7 +173,7 @@ transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease)
 
 `--ui-contrast` is `normal`, or `more` under `prefers-contrast: more`. A style query on it raises muted text, borders, the primary and intent colors and the focus ring, and components with their own tints have queries of their own.
 
-The query sets its values on `body`, so they beat a theme's `html` values, and optional tokens that carry contrast, like `--ui-primary-text`, are reset there. A theme that wants its own high-contrast value sets it again in its own `@container style(--ui-contrast: more)` block, as the example themes do for `--ui-button-accent`.
+The query sets its values on `body`, so they beat a theme's `html` values, and optional tokens that carry contrast, like `--ui-selected`, are reset there. A theme that wants its own high-contrast value sets it again in its own `@container style(--ui-contrast: more)` block, as the example themes do for `--ui-button-accent`.
 
 ### Classes
 

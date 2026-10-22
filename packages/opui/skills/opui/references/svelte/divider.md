@@ -188,7 +188,7 @@ Step 5 of 5: Ship it
 ## Browser support
 
 - Chromium: Full support Supported since v133.
-- Firefox: Partial support Missing: text-box.
+- Firefox: Full support Supported since v154.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/svelte/guide/browser-support/?components=Divider.md).
@@ -196,6 +196,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## Installation
 
 Import the component from `opui-css/svelte`:
+
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/svelte/guide/getting-started.md).
 
 - `opui-css/css/components/divider.css`
 

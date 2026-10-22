@@ -4,6 +4,7 @@
     --_bg-color: var(--ui-surface-inverse);
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease-enter);
+    --_max-inline-size: 15rem;
     --_min-inline-size: 10rem;
     --_offset: var(--ui-space-2);
     --_shift: var(--ui-space-4);
@@ -16,7 +17,7 @@
       font-size: var(--ui-font-size-small);
       line-height: var(--ui-line-height-tight);
       margin: var(--_offset);
-      max-inline-size: 240px;
+      max-inline-size: var(--_max-inline-size);
       min-inline-size: calc-size(
         max-content,
         min(size, var(--_min-inline-size))
@@ -25,7 +26,7 @@
       overflow: visible;
       padding-block: var(--ui-space-1);
       padding-inline: var(--ui-space-2);
-      position-area: var(--ui-anchor-position-area, block-start);
+      position-area: var(--ui-anchor-position-area, self-block-start);
       position-try-fallbacks:
         flip-inline,
         flip-block,
@@ -42,7 +43,7 @@
       }
     }
 
-    @container style(--ui-anchor-position-area: inline-start) or style(--ui-anchor-position-area: inline-end) {
+    @container style(--ui-anchor-position-area: inline-start) or style(--ui-anchor-position-area: inline-end) or style(--ui-anchor-position-area: self-inline-start) or style(--ui-anchor-position-area: self-inline-end) {
       & > .ui-anchor-floating {
         position-try-fallbacks:
           flip-inline,
@@ -114,11 +115,11 @@
 @position-try --ui-tooltip-shift-start {
   margin-block: 0 var(--_offset);
   margin-inline: 0 calc(anchor-size(inline) / 2 - var(--_shift));
-  position-area: block-start span-inline-start;
+  position-area: self-block-start span-self-inline-start;
 }
 
 @position-try --ui-tooltip-shift-end {
   margin-block: 0 var(--_offset);
   margin-inline: calc(anchor-size(inline) / 2 - var(--_shift)) 0;
-  position-area: block-start span-inline-end;
+  position-area: self-block-start span-self-inline-end;
 }

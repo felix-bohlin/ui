@@ -27,7 +27,7 @@ export default {
   },
   "--_edge-text": {
     description:
-      "Outline color of `.ui-outlined` with more contrast, a readable shade of `--_edge-accent`. `--ui-primary-text` in `.ui-primary` when a theme sets it.",
+      "Outline color of `.ui-outlined` with more contrast, a readable shade of `--_edge-accent`. `--ui-primary-text` in `.ui-primary`.",
     kind: "output",
   },
 } satisfies CustomProperties

@@ -22,7 +22,9 @@
   /*
 Screen-reader only
 */
-  .ui-sr-only {
+  .ui-sr-only,
+  :where(.ui-tabs) > .ui-tab-input[type="radio"],
+  :where(.ui-toggle-button) :is(input[type="checkbox"], input[type="radio"]) {
     block-size: 1px;
     clip-path: inset(50%);
     inline-size: 1px;

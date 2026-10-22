@@ -1,14 +1,5 @@
 ---
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableColumnGroup,
-  TableHead,
-  TableHeaderCell,
-  TableRow,
-} from "opui-css/astro"
+import { TableCell, TableRow } from "opui-css/astro"
 import {
   cssVarRows,
   htmlRows,
@@ -18,6 +9,7 @@ import {
   slotRows,
 } from "../component-api/rows"
 import DocLink from "./DocLink.astro"
+import DocsTable from "./DocsTable.astro"
 import HydrationMarker from "./HydrationMarker.astro"
 import type { ComponentApi } from "../component-api/types"
 import {
@@ -72,99 +64,77 @@ const cssVars = cssVarRows(api)
 
 {
   html.length > 0 && (
-    <div class="table-scroll wide">
-      <Table>
-        <TableColumnGroup>
-          <TableColumn style="min-width: 20%" />
-          <TableColumn style="min-width: 20%" />
-          <TableColumn style="min-width: 20%" />
-          <TableColumn style="min-width: 300px" />
-        </TableColumnGroup>
-        <TableHead>
-          <TableRow>
-            <TableHeaderCell>Type</TableHeaderCell>
-            <TableHeaderCell>Modifiers</TableHeaderCell>
-            <TableHeaderCell>Default</TableHeaderCell>
-            <TableHeaderCell>Description</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {html.map((row) => (
-            <TableRow>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>
-                {row.modifiers.map((modifier, i) => (
-                  <Fragment>
-                    {i > 0 && ", "}
-                    {modifier ? <code>{modifier}</code> : "default"}
-                  </Fragment>
-                ))}
-              </TableCell>
-              <TableCell>
-                {row.default === undefined ? (
-                  "-"
-                ) : row.default ? (
-                  <code>{row.default}</code>
-                ) : (
-                  "default"
-                )}
-              </TableCell>
-              <TableCell set:html={formatInline(row.description, link)} />
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+    <DocsTable
+      columns={[
+        { label: "Type", width: "20%" },
+        { label: "Modifiers", width: "20%" },
+        { label: "Default", width: "20%" },
+        { label: "Description" },
+      ]}
+    >
+      {html.map((row) => (
+        <TableRow>
+          <TableCell>{row.name}</TableCell>
+          <TableCell>
+            {row.modifiers.map((modifier, i) => (
+              <Fragment>
+                {i > 0 && ", "}
+                {modifier ? <code>{modifier}</code> : "default"}
+              </Fragment>
+            ))}
+          </TableCell>
+          <TableCell>
+            {row.default === undefined ? (
+              "-"
+            ) : row.default ? (
+              <code>{row.default}</code>
+            ) : (
+              "default"
+            )}
+          </TableCell>
+          <TableCell set:html={formatInline(row.description, link)} />
+        </TableRow>
+      ))}
+    </DocsTable>
   )
 }
 
 {
   rows.length > 0 && (
-    <div class="table-scroll wide">
-      <Table>
-        <TableColumnGroup>
-          <TableColumn style="min-width: 20%" />
-          <TableColumn style="min-width: 20%" />
-          <TableColumn style="min-width: 20%" />
-          <TableColumn style="min-width: 300px" />
-        </TableColumnGroup>
-        <TableHead>
+    <DocsTable
+      columns={[
+        { label: "Prop", width: "20%" },
+        { label: "Type", width: "20%" },
+        { label: "Default", width: "20%" },
+        { label: "Description" },
+      ]}
+    >
+      {rows.map((row) => {
+        const needs = hydration.find((entry) => entry.prop === row.name)
+        return (
           <TableRow>
-            <TableHeaderCell>Prop</TableHeaderCell>
-            <TableHeaderCell>Type</TableHeaderCell>
-            <TableHeaderCell>Default</TableHeaderCell>
-            <TableHeaderCell>Description</TableHeaderCell>
+            <TableCell>
+              <code>{row.name}</code>
+              {needs && <HydrationMarker hydration={needs} />}
+            </TableCell>
+            <TableCell>
+              {row.type
+                ? splitUnion(row.type).map((type, i) => (
+                    <Fragment>
+                      {i > 0 && ", "}
+                      <code>{type}</code>
+                    </Fragment>
+                  ))
+                : "-"}
+            </TableCell>
+            <TableCell>
+              {row.default ? <code>{row.default}</code> : "-"}
+            </TableCell>
+            <TableCell set:html={formatInline(row.description, link)} />
           </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => {
-            const needs = hydration.find((entry) => entry.prop === row.name)
-            return (
-              <TableRow>
-                <TableCell>
-                  <code>{row.name}</code>
-                  {needs && <HydrationMarker hydration={needs} />}
-                </TableCell>
-                <TableCell>
-                  {row.type
-                    ? splitUnion(row.type).map((type, i) => (
-                        <Fragment>
-                          {i > 0 && ", "}
-                          <code>{type}</code>
-                        </Fragment>
-                      ))
-                    : "-"}
-                </TableCell>
-                <TableCell>
-                  {row.default ? <code>{row.default}</code> : "-"}
-                </TableCell>
-                <TableCell set:html={formatInline(row.description, link)} />
-              </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
-    </div>
+        )
+      })}
+    </DocsTable>
   )
 }
 
@@ -177,30 +147,21 @@ const cssVars = cssVarRows(api)
     .map((table) => (
       <Fragment>
         <SlotsHeading>{table.heading}</SlotsHeading>
-        <div class="table-scroll">
-          <Table>
-            <TableColumnGroup>
-              <TableColumn style="min-width: 20%" />
-              <TableColumn style="min-width: 300px" />
-            </TableColumnGroup>
-            <TableHead>
-              <TableRow>
-                <TableHeaderCell>{table.label}</TableHeaderCell>
-                <TableHeaderCell>Description</TableHeaderCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {table.rows.map((row) => (
-                <TableRow>
-                  <TableCell>
-                    <code>{row.name}</code>
-                  </TableCell>
-                  <TableCell set:html={formatInline(row.description, link)} />
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <DocsTable
+          columns={[
+            { label: table.label, width: "30%" },
+            { label: "Description" },
+          ]}
+        >
+          {table.rows.map((row) => (
+            <TableRow>
+              <TableCell>
+                <code>{row.name}</code>
+              </TableCell>
+              <TableCell set:html={formatInline(row.description, link)} />
+            </TableRow>
+          ))}
+        </DocsTable>
       </Fragment>
     ))
 }
@@ -209,41 +170,31 @@ const cssVars = cssVarRows(api)
   cssVars.length > 0 && (
     <Fragment>
       <SlotsHeading>CSS variables</SlotsHeading>
-      <div class="table-scroll wide">
-        <Table>
-          <TableColumnGroup>
-            <TableColumn style="min-width: 20%" />
-            <TableColumn style="min-width: 20%" />
-            <TableColumn style="min-width: 300px" />
-          </TableColumnGroup>
-          <TableHead>
-            <TableRow>
-              <TableHeaderCell>Variable</TableHeaderCell>
-              <TableHeaderCell>Default</TableHeaderCell>
-              <TableHeaderCell>Description</TableHeaderCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {cssVars.map((row) => (
-              <TableRow>
-                <TableCell>
-                  <code>{row.name}</code>
-                </TableCell>
-                <TableCell>
-                  {row.default ? <code>{row.default}</code> : "Unset"}
-                  {row.dark && (
-                    <Fragment>
-                      <br />
-                      <code>{row.dark}</code> in dark mode
-                    </Fragment>
-                  )}
-                </TableCell>
-                <TableCell set:html={formatInline(row.description, link)} />
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      <DocsTable
+        columns={[
+          { label: "Variable", width: "30%" },
+          { label: "Default", width: "30%" },
+          { label: "Description" },
+        ]}
+      >
+        {cssVars.map((row) => (
+          <TableRow>
+            <TableCell>
+              <code>{row.name}</code>
+            </TableCell>
+            <TableCell>
+              {row.default ? <code>{row.default}</code> : "Unset"}
+              {row.dark && (
+                <Fragment>
+                  <br />
+                  <code>{row.dark}</code> in dark mode
+                </Fragment>
+              )}
+            </TableCell>
+            <TableCell set:html={formatInline(row.description, link)} />
+          </TableRow>
+        ))}
+      </DocsTable>
       <p>
         This component uses these theme tokens. Override them on{" "}
         <code>html</code> or on a wrapper. See all{" "}
@@ -254,20 +205,3 @@ const cssVars = cssVarRows(api)
 }
 
 {notes.map((note) => <p set:html={formatInline(note, link)} />)}
-
-<style>
-  .table-scroll {
-    margin-block-end: var(--size-4);
-    overflow-x: auto;
-
-    > :global(table) {
-      inline-size: 100%;
-      margin: 0;
-      table-layout: fixed;
-    }
-
-    &.wide > :global(table) {
-      min-inline-size: 40rem;
-    }
-  }
-</style>

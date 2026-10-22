@@ -361,7 +361,7 @@
 - `TextField` prefix and suffix use the field line height, so they no longer make the field taller on pages with a large line height.
 - `Radio` large (`.ui-large`) uses `--ui-choice-size-large`. It was the same size as the default.
 - `Select` keeps its arrow and its space at the inline end in RTL. The arrow covered the text.
-- `Select` keeps its padding in browsers without customizable select when React, Svelte or Vue renders it in the browser. The `<button>` inside the `<select>` turned the padding off there.
+- `Select` keeps its padding and the height of the other fields in browsers that keep the `<button>` inside the `<select>` but have no customizable select, like Firefox, and wherever React, Svelte or Vue render it in the browser. The button turned the padding off there.
 - `Badge` severity colors use their own text color instead of `--ui-on-primary`, and warning badges use `--ui-on-warning`, dark text on the warning fill.
 - `Checkbox`, `Radio`, `Switch`, `Range`, `TextField`, `Textarea` and `Select` validation messages and invalid labels use `--ui-invalid-text`, which is darker in light mode and lighter in dark mode. They failed contrast on dark and tinted surfaces.
 - `Badge` and `Tabs` respect `--ui-motion` and `prefers-reduced-motion`.

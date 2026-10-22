@@ -18,6 +18,10 @@ export default {
     description: "Easing of the fade. Defaults to `--ui-ease-enter`.",
     kind: "input",
   },
+  "--_max-inline-size": {
+    description: "The maximum width. Longer content wraps.",
+    kind: "input",
+  },
   "--_min-inline-size": {
     description: "The minimum width, unless the content is narrower.",
     kind: "input",

@@ -16,6 +16,7 @@ import {
   setThemeToken,
   themeTokens,
 } from "../../src/utils/theme-tokens"
+import { tokenType } from "../../src/utils/tokens-json"
 
 const sections = parseThemeTokens()
 const tokens = themeTokens()
@@ -92,6 +93,23 @@ describe("theme tokens", () => {
     expect(find("--ui-color-scheme")).toBeUndefined()
   })
 
+  test("more-contrast overrides are read from the contrast block", () => {
+    expect(find("--ui-text-max-lightness")).toMatchObject({
+      moreContrast: "0.3",
+      value: "0.41",
+    })
+    expect(find("--ui-motion")?.moreContrast).toBeUndefined()
+  })
+
+  test("every token has a design token type, unless the format has none for it", () => {
+    expect(
+      tokens
+        .filter((token) => !tokenType(token.name))
+        .map((token) => token.name)
+        .toSorted(),
+    ).toEqual(["--ui-button-hover-translate", "--ui-contrast"])
+  })
+
   test("every token has a description and no description is stale", () => {
     const names = tokens.map((token) => token.name)
     for (const name of names) {
@@ -108,7 +126,8 @@ describe("theme tokens", () => {
   test("every promise names declared tokens and is sorted", () => {
     for (const [name, promise] of Object.entries(themeTokenPromises)) {
       expect(find(name), name).toBeDefined()
-      expect(find(promise.against), promise.against).toBeDefined()
+      for (const against of promise.against)
+        expect(find(against), against).toBeDefined()
     }
     expect(Object.keys(themeTokenPromises)).toEqual(
       Object.keys(themeTokenPromises).toSorted(),

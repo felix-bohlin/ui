@@ -1,6 +1,6 @@
 # Open Props UI
 
-A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Designed to be used by professional teams as well as tinkering hobbyists.
+Design system. Components. Modern HTML & CSS.
 
 ## Usage
 
@@ -54,7 +54,7 @@ Run `pnpm check` before you commit. `pnpm check:fast` skips the build.
 
 Only the fixture pages at `/<framework>/test/<component>` need `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`). The stress test pages at `/tests/` also render in `pnpm dev`.
 
-`pnpm test:e2e` needs a Playwright Chromium. Install it once with `pnpm exec playwright install chromium`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium. CI runs the `mcr.microsoft.com/playwright` image. Visual baselines are only generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots. Until then, a new component's visual test fails locally.
+`pnpm test:e2e` needs Playwright's Chromium, Firefox and WebKit. Install them once with `pnpm exec playwright install chromium firefox webkit`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium. With Chromium only, pass `--project=light --project=dark`. CI runs the `mcr.microsoft.com/playwright` image. Visual baselines are only generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots. Until then, a new component's visual test fails locally.
 
 Record intended parity drift with `pnpm test:record-drift` and known accessibility violations with `pnpm test:e2e:record-a11y`.
 

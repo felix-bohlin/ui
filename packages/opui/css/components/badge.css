@@ -59,17 +59,12 @@
     }
 
     /* Colors */
-    &:is(.ui-critical, .ui-info, .ui-success) {
-      --_bg-color: oklch(from var(--_accent) min(l, 0.48) c h);
+    &:is(.ui-critical, .ui-info, .ui-neutral, .ui-success) {
+      --_bg-color: oklch(
+        from var(--_accent) min(l, var(--ui-fill-max-lightness)) c h
+      );
       --_border-color: var(--_bg-color);
       --_text-color: var(--ui-on-accent);
-
-      @container style(--ui-contrast: more) {
-        --_bg-color: light-dark(
-          oklch(from var(--_accent) min(l, 0.48) c h),
-          oklch(from var(--_accent) min(l, 0.45) c h)
-        );
-      }
     }
 
     &.ui-critical {
@@ -80,6 +75,10 @@
       --_accent: var(--ui-info);
     }
 
+    &.ui-neutral {
+      --_accent: var(--ui-neutral);
+    }
+
     &.ui-success {
       --_accent: var(--ui-success);
     }
@@ -87,16 +86,7 @@
     &.ui-warning {
       --_bg-color: var(--ui-warning);
       --_border-color: var(--ui-warning);
-      --_text-color: light-dark(
-        var(--ui-palette-strong),
-        var(--ui-palette-on-strong)
-      );
-    }
-
-    &.ui-neutral {
-      --_bg-color: var(--ui-neutral);
-      --_border-color: var(--ui-neutral);
-      --_text-color: var(--ui-on-accent);
+      --_text-color: var(--ui-on-warning);
     }
 
     /* Alignment */

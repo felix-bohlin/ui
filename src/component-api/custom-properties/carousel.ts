@@ -94,12 +94,21 @@ export default {
   },
   "--_marker-active-bg-color": {
     description:
-      "Background of the current marker. Defaults to `--ui-primary`.",
+      "Fill and ring of the current marker. Defaults to `--ui-selected-strong`.",
+    kind: "input",
+  },
+  "--_marker-active-padding": {
+    description:
+      "Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`.",
     kind: "input",
   },
   "--_marker-bg-color": {
+    description: "Fill of the other markers. Defaults to `transparent`.",
+    kind: "input",
+  },
+  "--_marker-border-color": {
     description:
-      "Background of the markers. Defaults to `--ui-text-strong` at 25% opacity.",
+      "Ring of the other markers. Defaults to `--ui-text-muted`, which keeps its contrast against the page in every theme.",
     kind: "input",
   },
   "--_marker-gap": {
@@ -147,6 +156,11 @@ export default {
   "--_per-view": {
     description: "Number of items per view.",
     kind: "input",
+  },
+  "--_scale-duration": {
+    description:
+      "Duration of the scroll buttons' press scale, `--ui-duration-fast` times `--_motion`.",
+    kind: "output",
   },
   "--_snap-align": {
     description: "Snap alignment of items. `.ui-align-center` sets `center`.",

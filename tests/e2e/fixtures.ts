@@ -131,6 +131,19 @@ export const openFixture = async (
   })
 }
 
+export const settle = (locator: Locator) =>
+  locator.evaluate((element) =>
+    Promise.all(
+      element
+        .getAnimations({ subtree: true })
+        .filter(
+          (animation) =>
+            animation.effect?.getComputedTiming().endTime !== Infinity,
+        )
+        .map((animation) => animation.finished.catch(() => undefined)),
+    ).then(() => undefined),
+  )
+
 export const computed = (locator: Locator, property: string, pseudo?: string) =>
   locator.evaluate(
     (element, [name, pseudoElement]) =>

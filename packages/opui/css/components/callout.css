@@ -8,13 +8,7 @@
     --_gap: var(--ui-space-3);
     --_icon-color: currentColor;
     --_icon-size: var(--ui-icon-size);
-    --_link-hover-color: var(
-      --ui-primary-text,
-      light-dark(
-        oklch(from var(--ui-primary) min(l, 0.47) c h),
-        oklch(from var(--ui-primary) max(l, 0.78) c h)
-      )
-    );
+    --_link-hover-color: var(--ui-primary-text);
     --_outlined-bg-color: var(--ui-surface-default);
     --_outlined-border-color: var(--ui-border-color);
     --_outlined-icon-color: currentColor;

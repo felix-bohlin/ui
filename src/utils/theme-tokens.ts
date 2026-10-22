@@ -2,6 +2,7 @@ import themeSource from "@opui/css/theme.css?raw"
 
 export type ThemeToken = {
   dark?: string
+  moreContrast?: string
   name: string
   optional?: boolean
   value: string
@@ -16,6 +17,7 @@ export type ThemeSection = {
 const HEADER = /^\s*\/\*\s*([^-.\s][^.]*?)(?:\s+-\s+(.*?))?\s*\*\/\s*$/
 const DECLARATION = /^(\s*)(--[\w-]+):\s*(.*)$/
 const OPTIONAL = /^\s*\/\*\s*(--[\w-]+):\s*(.*?);?\s*\*\/\s*$/
+const CONTRAST_SCOPE = /--ui-contrast:\s*more/
 const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
 const THEME_SCOPE = /\bhtml\b/
 const SECTION_ORDER = [
@@ -52,6 +54,7 @@ type Line =
   | { kind: "close" }
   | {
       kind: "declaration"
+      contrast: boolean
       dark: boolean
       end: number
       indent: string
@@ -109,7 +112,11 @@ function* walk(lines: string[]): Generator<[number, Line]> {
       continue
     }
     const declaration = line.match(DECLARATION)
-    if (!declaration || !scopes.some((scope) => THEME_SCOPE.test(scope))) {
+    const contrast = scopes.some((scope) => CONTRAST_SCOPE.test(scope))
+    if (
+      !declaration ||
+      !(contrast || scopes.some((scope) => THEME_SCOPE.test(scope)))
+    ) {
       prelude =
         !declaration && line.trim() !== "" && !line.trimEnd().endsWith(";")
           ? `${prelude} ${line.trim()}`
@@ -125,6 +132,7 @@ function* walk(lines: string[]): Generator<[number, Line]> {
     yield [
       start,
       {
+        contrast,
         dark: scopes.some((scope) => DARK_SCOPE.test(scope)),
         end: index,
         indent: declaration[1],
@@ -166,6 +174,10 @@ export const parseThemeTokens = (css = themeSource): ThemeSection[] => {
     const existing = sections
       .flatMap((candidate) => candidate.tokens)
       .find((token) => token.name === line.name)
+    if (line.contrast) {
+      if (existing && !existing.moreContrast) existing.moreContrast = line.value
+      continue
+    }
     if (existing?.optional && !line.dark) {
       existing.optional = undefined
       existing.value = line.value
@@ -220,7 +232,13 @@ export const themeTokens = (css = themeSource) =>
 export const setThemeToken = (css: string, name: string, value: string) => {
   const lines = css.split("\n")
   for (const [index, line] of walk(lines)) {
-    if (line.kind !== "declaration" || line.dark || line.name !== name) continue
+    if (
+      line.kind !== "declaration" ||
+      line.contrast ||
+      line.dark ||
+      line.name !== name
+    )
+      continue
     lines.splice(
       index,
       line.end - index + 1,

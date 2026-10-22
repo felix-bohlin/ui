@@ -1,8 +1,15 @@
+import { readdirSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
 import { themeTokenPromises } from "../../src/utils/theme-token-promises"
-import { COMPONENTS, computed, openFixture, resolveColor } from "./fixtures"
+import {
+  COMPONENTS,
+  computed,
+  openFixture,
+  resolveColor,
+  settle,
+} from "./fixtures"
 
 const contrast = async (
   locator: Locator,
@@ -10,33 +17,67 @@ const contrast = async (
   background: string,
 ) => {
   const colors = await Promise.all([
-    resolveColor(locator, foreground),
+    resolveColor(locator, "var(--ui-surface-default)"),
     resolveColor(locator, background),
+    resolveColor(locator, foreground),
   ])
-  return locator.page().evaluate((values) => {
+  return locator.page().evaluate(([page, back, fore]) => {
     const canvas = document.createElement("canvas")
     canvas.width = canvas.height = 1
     const context = canvas.getContext("2d", { willReadFrequently: true })!
-    const luminance = (color: string) => {
-      context.fillStyle = color
-      context.fillRect(0, 0, 1, 1)
-      const [r, g, b] = [...context.getImageData(0, 0, 1, 1).data]
-        .slice(0, 3)
-        .map((channel) => {
-          const value = channel / 255
-          return value <= 0.03928
-            ? value / 12.92
-            : ((value + 0.055) / 1.055) ** 2.4
-        })
+    const paint = (...layers: string[]) => {
+      context.clearRect(0, 0, 1, 1)
+      for (const layer of layers) {
+        context.fillStyle = layer
+        context.fillRect(0, 0, 1, 1)
+      }
+      return [...context.getImageData(0, 0, 1, 1).data].slice(0, 3)
+    }
+    const luminance = (rgb: number[]) => {
+      const [r, g, b] = rgb.map((channel) => {
+        const value = channel / 255
+        return value <= 0.03928
+          ? value / 12.92
+          : ((value + 0.055) / 1.055) ** 2.4
+      })
       return 0.2126 * r + 0.7152 * g + 0.0722 * b
     }
-    const [a, b] = values.map(luminance)
+    const a = luminance(paint(page, back, fore))
+    const b = luminance(paint(page, back))
     return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
   }, colors)
 }
 
+const QUERIES = {
+  colorScheme: "prefers-color-scheme",
+  contrast: "prefers-contrast",
+  forcedColors: "forced-colors",
+  reducedMotion: "prefers-reduced-motion",
+}
+
+const emulate = async (
+  page: Page,
+  media: NonNullable<Parameters<Page["emulateMedia"]>[0]>,
+) => {
+  await page.emulateMedia(media)
+  if (
+    "contrast" in media &&
+    page.context().browser()?.browserType().name() === "firefox"
+  ) {
+    await page.reload()
+  }
+  await page.waitForFunction(
+    (queries) => queries.every((query) => matchMedia(query).matches),
+    Object.entries(media).flatMap(([key, value]) =>
+      key in QUERIES && value
+        ? [`(${QUERIES[key as keyof typeof QUERIES]}: ${value})`]
+        : [],
+    ),
+  )
+}
+
 const setContrast = (page: Page, value: "more" | "no-preference") =>
-  page.emulateMedia({ contrast: value })
+  emulate(page, { contrast: value })
 
 test.describe("prefers-contrast", () => {
   test.beforeEach(async ({ page }) => {
@@ -65,7 +106,7 @@ test.describe("prefers-contrast", () => {
 
   for (const scheme of ["light", "dark"] as const) {
     test(`raises token contrast in ${scheme} mode`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme: scheme, contrast: "more" })
+      await emulate(page, { colorScheme: scheme, contrast: "more" })
       const main = page.locator("main")
       const surface = "var(--ui-surface-default)"
       expect(
@@ -97,33 +138,96 @@ test.describe("prefers-contrast", () => {
   })
 })
 
+const THEMES = [
+  "default",
+  ...readdirSync(new URL("../../packages/opui/themes/", import.meta.url))
+    .filter((file) => file.endsWith(".css"))
+    .map((file) => file.replace(/\.css$/, ""))
+    .toSorted(),
+]
+
+const THEME_EXCEPTIONS: Record<
+  string,
+  Partial<Record<"dark" | "light", Record<string, string>>>
+> = {
+  bootstrap: {
+    dark: {
+      "--ui-focus-ring-color":
+        "Bootstrap draws its focus ring at 25% of its primary blue",
+    },
+    light: {
+      "--ui-focus-ring-color":
+        "Bootstrap draws its focus ring at 25% of its primary blue",
+    },
+  },
+  brutalist: {
+    dark: {
+      "--ui-field-border-color":
+        "neobrutalism keeps its black borders on the dark surface",
+    },
+    light: {
+      "--ui-selected-strong":
+        "neobrutalism marks the selected item with its light main color",
+    },
+  },
+  shadcn: {
+    dark: {
+      "--ui-field-border-color":
+        "shadcn/ui draws its dark inputs with a 15% white border",
+      "--ui-focus-ring-color":
+        "shadcn/ui draws its dark focus ring at 50% of a mid gray",
+    },
+    light: {
+      "--ui-field-border-color":
+        "shadcn/ui draws its inputs with a 1.26:1 border",
+      "--ui-focus-ring-color":
+        "shadcn/ui draws its focus ring at 50% of a light gray",
+    },
+  },
+}
+
 test.describe("token promises", () => {
-  for (const colorScheme of ["light", "dark"] as const) {
-    for (const preference of ["no-preference", "more"] as const) {
-      test(`hold in ${colorScheme} mode with contrast ${preference}`, async ({
-        page,
-      }) => {
-        await openFixture(page, "html", "stress/theming")
-        await page.emulateMedia({ colorScheme, contrast: preference })
-        const main = page.locator("main")
-        for (const [name, { against, ratio }] of Object.entries(
-          themeTokenPromises,
-        )) {
-          expect
-            .soft(
-              await contrast(main, `var(${name})`, `var(${against})`),
-              `${name} against ${against}`,
-            )
-            .toBeGreaterThanOrEqual(ratio)
-        }
-      })
+  for (const theme of THEMES) {
+    for (const colorScheme of ["light", "dark"] as const) {
+      for (const preference of ["no-preference", "more"] as const) {
+        test(`hold in the ${theme} theme in ${colorScheme} mode with contrast ${preference}`, async ({
+          page,
+        }) => {
+          await openFixture(
+            page,
+            "html",
+            "stress/theming",
+            theme === "default" ? undefined : `?theme=${theme}`,
+          )
+          await emulate(page, { colorScheme, contrast: preference })
+          const main = page.locator("main")
+          for (const [name, { against, ratio }] of Object.entries(
+            themeTokenPromises,
+          )) {
+            if (
+              preference === "no-preference" &&
+              THEME_EXCEPTIONS[theme]?.[colorScheme]?.[name]
+            ) {
+              continue
+            }
+            for (const surface of against) {
+              expect
+                .soft(
+                  await contrast(main, `var(${name})`, `var(${surface})`),
+                  `${name} against ${surface}`,
+                )
+                .toBeGreaterThanOrEqual(ratio)
+            }
+          }
+        })
+      }
     }
   }
 })
 
 test.describe("forced-colors", () => {
   test.beforeEach(async ({ page }) => {
-    await page.emulateMedia({ forcedColors: "active" })
+    await emulate(page, { forcedColors: "active" })
   })
 
   test("the selected tab uses SelectedItem", async ({ page }) => {
@@ -184,7 +288,7 @@ test.describe("forced-colors", () => {
 const enhancedContrastViolations = async (page: Page, selector: string) => {
   const violations = []
   for (const colorScheme of ["light", "dark"] as const) {
-    await page.emulateMedia({ colorScheme, reducedMotion: "reduce" })
+    await emulate(page, { colorScheme, reducedMotion: "reduce" })
     const result = await new AxeBuilder({ page })
       .include(selector)
       .withRules(["color-contrast-enhanced"])
@@ -223,6 +327,7 @@ for (const id of ["contrast-overlays-menu", "contrast-overlays-tooltip"]) {
         Boolean(element.closest(".ui-contrast-more")),
       ),
     ).toBe(true)
+    await settle(popover)
     expect(await enhancedContrastViolations(page, `#${id}`)).toEqual([])
   })
 }
@@ -233,7 +338,7 @@ for (const component of COMPONENTS) {
   }) => {
     await openFixture(page, "html", component)
     for (const colorScheme of ["light", "dark"] as const) {
-      await page.emulateMedia({
+      await emulate(page, {
         colorScheme,
         contrast: "more",
         reducedMotion: "reduce",

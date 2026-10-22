@@ -47,7 +47,6 @@ const TYPE_FILES = [
   "types.astro.ts",
   "types.d.vue.ts",
   "types.react.ts",
-  "types.solid.ts",
   "types.svelte.ts",
   "types.ts",
 ]

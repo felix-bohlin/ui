@@ -575,6 +575,8 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 
 Import the components from `opui-css/svelte`:
 
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/svelte/guide/getting-started.md).
+
 - `opui-css/css/components/toggle-group.css`
 - `opui-css/css/components/toggle-button.css`
 

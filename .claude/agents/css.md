@@ -24,7 +24,7 @@ Skip what `pnpm lint`, `pnpm sort-css:check` and `pnpm check-css-vars` catch: de
 ## Quality
 
 - Rules sit in the right layer (`components.root`, `components.extended`, `components.prose`, `utils`) and component roots use `:where(.ui-…)` like the other components.
-- Values come from `--ui-*` role tokens, never from palette steps (`--ui-color-N`, `--ui-gray-N`), Open Props primitives (`--size-*`, `--font-size-*`, `--radius-*`, `--shadow-*`) or literal `px` and `rem` lengths; `ex`, `em`, `lh` and `ch` are fine. `scripts/css-vars-allowlist.json` lists the remaining exceptions; report any entry that a role could replace, and any new read that only passes because it was allowlisted. Colors that derive from a token use relative color syntax.
+- Values come from `--ui-*` role tokens, never from palette steps (`--ui-color-N`, `--ui-gray-N`), Open Props primitives (`--size-*`, `--font-size-*`, `--radius-*`, `--shadow-*`) or literal `px` and `rem` lengths; `ex`, `em`, `lh` and `ch` are fine, and so is a length default of a `--_*` input that its `api.ts` documents. `scripts/css-vars-allowlist.json` lists the remaining exceptions; report any entry that a role could replace, and any new read that only passes because it was allowlisted. Colors that derive from a token use relative color syntax.
 - A component with a job an existing role names reads that role (`--ui-control-border-color` for an unfilled control's border, `--ui-selected` for a selected state, `--ui-shadow-control` for a control's shadow) before anyone adds a token. A new token is named by its role, is optional with today's value as the fallback, and comes with a `-contrast` pair when it is a fill.
 - Private custom properties use `--_` and follow the scheme in the changelog: `--_accent`, `--_text-color`, `--_bg-color`, `--_duration`, `--_ease`, `--_size`, `--_min-height`.
 - No dead selectors: every class and part is used by a component, an example or the docs. Grep for it in `packages/opui/components` and `src/component-examples`.
@@ -33,6 +33,8 @@ Skip what `pnpm lint`, `pnpm sort-css:check` and `pnpm check-css-vars` catch: de
 - States use native attributes and pseudo-classes (`:disabled`, `[aria-disabled="true"]`, `:checked`, `:user-invalid`, `[open]`), not state classes.
 - Light and dark both work: colors go through `light-dark()` or tokens that do.
 - RTL works: no direction-dependent transforms or gradients without a `:dir(rtl)` case.
+- No component `@container style(--ui-contrast: more)` block re-tunes a number (a lightness, chroma or alpha). Limits are tokens in `theme.css` that its contrast block raises; a component block only changes shape or swaps to another role.
+- No workaround for Firefox or Safari alone (Browser support in `AGENTS.md`): an `@supports` gate with the browser default as the fallback is fine, a hand-built alternative for browsers without the feature is a finding.
 
 ## Modern CSS
 

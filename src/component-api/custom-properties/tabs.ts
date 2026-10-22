@@ -18,7 +18,7 @@ export default {
   },
   "--_active-text-color": {
     description:
-      "Text color of the selected tab. Defaults to `--ui-text-strong`, `.ui-filled` sets it to `--ui-on-primary`.",
+      "Text color of the selected tab. Defaults to `--ui-text-strong`, `.ui-filled` sets it to `--ui-on-selected-strong`.",
     kind: "input",
   },
   "--_border-radius": {
@@ -35,6 +35,11 @@ export default {
     description:
       "Easing of the transitions and focus ring. Defaults to `--ui-ease`.",
     kind: "input",
+  },
+  "--_focus-ring-duration": {
+    description:
+      "Duration of the focus ring animation, `--ui-duration` times `--_motion`, slower than the `--_duration` of the transitions.",
+    kind: "output",
   },
   "--_indicator-color": {
     description:

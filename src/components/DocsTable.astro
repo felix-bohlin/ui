@@ -1,0 +1,197 @@
+---
+import {
+  Table,
+  TableBody,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/astro"
+
+type Props = {
+  columns: { label: string; width?: string }[]
+}
+
+const LIMIT = 6
+
+const { columns } = Astro.props
+const rows = (await Astro.slots.render("default"))
+  .replace(/<td([^>]*)>\s*-\s*<\/td>/g, "<td$1 data-empty>-</td>")
+  .replace(/<tr\b[\s\S]*?<\/tr>/g, (row) => {
+    let column = 0
+    return row.replace(
+      /<t([dh])\b/g,
+      (cell) => `${cell} data-label="${columns[column++]?.label ?? ""}"`,
+    )
+  })
+const count = rows.match(/<tr\b/g)?.length ?? 0
+const collapsible = count > LIMIT + 2
+---
+
+<div
+  class="docs-table"
+  data-collapsed={collapsible ? "" : undefined}
+  data-count={collapsible ? count : undefined}
+>
+  <div class="scroll">
+    <Table>
+      <TableColumnGroup>
+        {
+          columns.map((column) => (
+            <TableColumn style={column.width && `width: ${column.width}`} />
+          ))
+        }
+      </TableColumnGroup>
+      <TableHead>
+        <TableRow>
+          {
+            columns.map((column) => (
+              <TableHeaderCell>{column.label}</TableHeaderCell>
+            ))
+          }
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <Fragment set:html={rows} />
+      </TableBody>
+    </Table>
+  </div>
+  {
+    collapsible && (
+      <button
+        aria-expanded="false"
+        class="ui-button ui-outlined ui-small"
+        data-table-toggle
+        type="button"
+      >
+        Show all {count} rows
+      </button>
+    )
+  }
+</div>
+
+<script>
+  const sync = (table: Element) => {
+    const button = table.querySelector("[data-table-toggle]")
+    if (!button) return
+    const collapsed = table.hasAttribute("data-collapsed")
+    button.setAttribute("aria-expanded", String(!collapsed))
+    button.textContent = collapsed
+      ? `Show all ${table.getAttribute("data-count")} rows`
+      : "Show fewer rows"
+  }
+
+  document.querySelectorAll("[data-table-toggle]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const table = button.closest(".docs-table")
+      if (!table) return
+      const collapsed = table.toggleAttribute("data-collapsed")
+      sync(table)
+      if (collapsed) button.scrollIntoView({ block: "nearest" })
+    })
+  })
+</script>
+
+<style>
+  .docs-table {
+    container-type: inline-size;
+    display: grid;
+    justify-items: center;
+    margin-block-end: var(--size-4);
+
+    > button {
+      margin-block-start: calc(-1 * var(--size-6));
+      position: relative;
+    }
+  }
+
+  .scroll {
+    inline-size: 100%;
+    overflow-x: auto;
+
+    > :global(table) {
+      inline-size: 100%;
+      margin: 0;
+      table-layout: fixed;
+    }
+  }
+
+  .docs-table[data-collapsed] {
+    .scroll {
+      mask-image: linear-gradient(
+        black calc(100% - var(--size-10)),
+        transparent
+      );
+    }
+
+    :global(tbody > tr:nth-child(n + 7)) {
+      display: none;
+    }
+  }
+
+  .docs-table:not([data-collapsed]) > button {
+    margin-block-start: var(--size-3);
+  }
+
+  @container (width < 36rem) {
+    .scroll > :global(table) {
+      display: block;
+
+      :global(colgroup) {
+        display: none;
+      }
+
+      :global(thead) {
+        block-size: 1px;
+        clip-path: inset(50%);
+        inline-size: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+      }
+
+      :global(tbody),
+      :global(tr) {
+        display: block;
+      }
+
+      :global(tr) {
+        border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+        padding-block: var(--size-2);
+      }
+
+      :global(tbody > tr:last-child) {
+        border-block-end: none;
+      }
+
+      :global(tr > *) {
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        display: block;
+        padding-block: var(--size-1);
+        padding-inline: var(--size-3);
+      }
+
+      :global(tr > [data-empty]) {
+        display: none;
+      }
+
+      :global(tr > :first-child) {
+        font-weight: var(--ui-font-weight-semibold);
+      }
+
+      :global(tr > :not(:first-child, :last-child)::before) {
+        color: var(--ui-text-muted);
+        content: attr(data-label) / "";
+        display: inline-block;
+        font-size: var(--ui-font-size-caption);
+        font-weight: var(--ui-font-weight-medium);
+        letter-spacing: var(--ui-letter-spacing-caps);
+        margin-inline-end: var(--size-2);
+        text-transform: uppercase;
+      }
+    }
+  }
+</style>

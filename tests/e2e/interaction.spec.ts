@@ -215,6 +215,11 @@ interaction(
   "Variants",
   "select picks an option with the keyboard",
   async ({ page, root }) => {
+    test.skip(
+      test.info().project.name === "firefox" &&
+        !(await page.evaluate(() => CSS.supports("appearance", "base-select"))),
+      "Firefox's native select picker ignores synthesized keys",
+    )
     const select = root.locator("select").first()
 
     await select.focus()
@@ -230,6 +235,45 @@ interaction(
       .poll(() => select.evaluate((el) => el.matches(":open")))
       .toBe(false)
   },
+)
+
+interaction(
+  "select",
+  "Variants",
+  "select keeps its padding when a script adds the button",
+  async ({ root }) => {
+    const padding = await root
+      .locator("select")
+      .first()
+      .evaluate((select) => {
+        if (!select.querySelector("button")) {
+          select.prepend(document.createElement("button"))
+        }
+        const text = CSS.supports("appearance", "base-select")
+          ? select.querySelector("button")!
+          : select
+        return getComputedStyle(text).paddingInlineStart
+      })
+    expect(padding).not.toBe("0px")
+  },
+  ["html"],
+)
+
+interaction(
+  "list",
+  "EndSwitch",
+  "a size class on a switch in a list row wins over the list size",
+  async ({ root }) => {
+    const label = root.locator("label.ui-switch").first()
+    const width = () =>
+      label
+        .locator("input")
+        .evaluate((input) => input.getBoundingClientRect().width)
+    const small = await width()
+    await label.evaluate((element) => element.classList.add("ui-large"))
+    expect(await width()).toBeGreaterThan(small)
+  },
+  ["html"],
 )
 
 interaction(

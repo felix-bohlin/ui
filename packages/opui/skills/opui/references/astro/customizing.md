@@ -1,10 +1,10 @@
 # Customizing
 
-Theme tokens change the whole library. When you want to change one component, or one instance of it, reach for its `--_` custom properties.
+Theme tokens change the whole library. To change one component, or one instance of it, set its `--_*` properties.
 
 ## Your theme
 
-A custom theme is a short list of [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md). Put them in the `theme.custom` layer: it sits right after the defaults in `theme.base`, so it beats them, and every component and utility still beats it. Only list what you change, and new tokens in later releases keep their defaults.
+A theme is the [knobs, roles and component tokens](https://open-props-ui.netlify.app/astro/guide/concepts.md#token-tiers) you change, in the `theme.custom` layer, right after the defaults. Tokens you leave out keep their defaults, also new ones in later releases.
 
 ```css
 @layer theme.custom {
@@ -19,11 +19,11 @@ A custom theme is a short list of [theme tokens](https://open-props-ui.netlify.a
 }
 ```
 
-Load it after the library, or after `layers.css` when you import single files. If it might load first, start it with the two `@layer` statements from `layers.css`, like the example themes and the generated file do, so `theme.custom` still lands after the defaults. The [Theme generator](https://open-props-ui.netlify.app/astro/guide/theme-generator.md) writes one for you, and [Theming](https://open-props-ui.netlify.app/astro/guide/theming.md) explains each token.
+If it might load before `layers.css`, start it with the two `@layer` statements from there, like the example themes do. The [Theme generator](https://open-props-ui.netlify.app/astro/guide/theme-generator.md) writes one for you.
 
 ### Example themes
 
-Four example themes ship with the package, each a deliberate copy of a look you know, to show how far tokens go. They copy their originals faithfully, also where those fall short of WCAG contrast, like the translucent focus rings of Bootstrap and shadcn and the bright blue of brutalist, so check contrast before you ship one. None of them touches component CSS: each one is a list of tokens in `theme.custom`, and the tests run every stress test page with each of them, in light and dark mode. Try them on this site in the theme drawer in the header, or in the [Theme generator](https://open-props-ui.netlify.app/astro/guide/theme-generator.md). They name their fonts, Geist, Roboto and DM Sans, but don't load them: host them with your site, from the Fontsource packages on npm like this site does, or load them from Bunny Fonts. Bootstrap uses the system font stack.
+Four themes ship with the package to show how far tokens go. Each is only tokens in `theme.custom`, no component CSS, and every stress test page runs with each of them in light and dark mode. They copy their originals faithfully, also where those fall short of WCAG contrast (the translucent focus rings of Bootstrap and shadcn, the bright blue of brutalist). They name their fonts (Geist, Roboto, DM Sans) but don't load them. Try them in the theme drawer in the header.
 
 - `bootstrap`: Bootstrap 5. Its `#0d6efd` blue, grays, 38px controls, regular weight buttons and labels, heading scale and the wide translucent focus ring.
 - `brutalist`: neobrutalism. Black 2px borders, hard 4px shadows that buttons press into on hover, a bright blue on pale blue and heavy type.
@@ -35,19 +35,9 @@ Four example themes ship with the package, each a deliberate copy of a look you 
 @import "opui-css/themes/brutalist.css";
 ```
 
-## What a theme can change
-
-The tokens come in tiers, and a theme works in the top three. The **primitives** are the palette steps `--ui-gray-1` to `--ui-gray-16` and `--ui-color-1` to `--ui-color-16`, derived from the palette knobs, and the Open Props scales. Change them through the knobs, `--ui-palette-hue`, `--ui-gray-chroma` and the rest, not by name. The **roles** are the contract: `--ui-primary`, `--ui-control-border-color`, `--ui-font-size-caption`, `--ui-space-3`, `--ui-shadow-elevated` and about 150 more, each with a description on the [tokens page](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) and, where it guarantees contrast, the ratio it promises against which token. Every component reads roles, so a role reaches every component with that job. **Component tokens** such as `--ui-button-accent` and `--ui-field-radius` exist for a job only one component has, and default to a role or a fixed size. The **private properties**, `--_accent` and friends, are each component's own wiring: documented on its page under [Component properties](#component-properties), meant for a single element, never for a theme.
-
-Component CSS never reads a primitive, and a check in `pnpm check` keeps it that way, so a theme that sets roles alone recreates Bootstrap, Material or shadcn. When a theme needs component CSS to reach something, that is a missing role, and worth an issue.
-
 ## Component properties
 
-There are two kinds of custom properties. [Theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md), like `--ui-primary` or `--ui-button-size`, are set on `html` and inherited by everything. Change one and every component that reads it follows.
-
-Component properties start with `--_`, like `--_accent` or `--_icon-size`. Each component declares them on itself and builds its styles from them. They're the knobs for that one component, and the API for customizing it.
-
-For example, Button reads these:
+The `--_*` private properties are each component's wiring, the last [tier](https://open-props-ui.netlify.app/astro/guide/concepts.md#token-tiers) before its CSS. Every component page lists its own under Component properties, marked as inputs or outputs, and components share names where they mean the same thing. Button reads these:
 
 - `--_accent`: the accent color. Fills, borders, text, hover and active states are all derived from it.
 - `--_bg-color` and `--_text-color`: the current background and text color.
@@ -57,14 +47,10 @@ For example, Button reads these:
 - `--_motion`: the motion multiplier, `0` turns transitions off.
 - `--_padding-inline`: the inline padding, set by the size classes.
 
-Other components use the same names where they mean the same thing, like `--_size` for the height of a Badge. Every component page lists its properties under Component properties, marked as inputs or outputs.
-
-## Set them on the component
-
-Theme tokens can be set on any parent, since they're inherited. `--_` properties can't: the component declares its own value, and a declared value always beats an inherited one. So set them on the component itself.
+The component declares them on itself, so set them on the component, not on a parent. Theme tokens are the ones to set on a parent:
 
 ```css
-/* Does nothing: every .ui-button sets its own --_icon-size */
+/* Does nothing: every .ui-button declares its own --_icon-size */
 .toolbar {
   --_icon-size: 1.25em;
 }
@@ -74,34 +60,17 @@ Theme tokens can be set on any parent, since they're inherited. `--_` properties
   --_icon-size: 1.25em;
 }
 
-/* Theme tokens are inherited, so a parent is fine */
+/* Theme tokens inherit, so a parent is fine */
 .toolbar {
   --ui-button-radius: var(--radius-round);
 }
 ```
 
-An inline `style` works too, for a one-off:
-
-Prefer the inputs, like `--_accent`, over the outputs, like `--_bg-color`. Hover, active and disabled states set the outputs too, so overriding `--_bg-color` freezes the background in every state, while a new `--_accent` flows through all of them.
+Prefer inputs like `--_accent` over outputs like `--_bg-color`. The states set the outputs, so a new `--_bg-color` freezes the background in every state, while a new `--_accent` flows through all of them.
 
 ## Unlayered or your own layer
 
-All OPUI styles live in [cascade layers](https://open-props-ui.netlify.app/astro/guide/concepts.md#cascade-layers). Where you put your overrides decides how they compete with the library, and with each other.
-
-### Unlayered
-
-CSS outside any layer beats every layer, whatever the specificity. Simple, and fine for most apps:
-
-```css
-.ui-button.compact {
-  --_min-height: var(--size-7);
-  --_padding-inline: 1ex;
-}
-```
-
-### Your own layer
-
-If you use layers yourself, add one after `utils`. It beats the library and still loses to your unlayered CSS, so one-off fixes keep working:
+Unlayered CSS beats every [layer](https://open-props-ui.netlify.app/astro/guide/concepts.md#cascade-layers), which is fine for most apps. If you use layers yourself, add one after `utils`: it beats the library and still loses to your unlayered one-off fixes.
 
 ```css
 @layer openprops, theme, normalize, components.prose, components.root, components.extended, utils, overrides;
@@ -113,25 +82,3 @@ If you use layers yourself, add one after `utils`. It beats the library and stil
   }
 }
 ```
-
-Layers are ordered by where they're first mentioned, so a layer you first use after the OPUI imports already lands after `utils`. Spelling out the full order is just nicer to read.
-
-## More examples
-
-Bigger icons in a toolbar, without touching the buttons elsewhere:
-
-```css
-.toolbar .ui-button {
-  --_icon-size: var(--size-5);
-}
-```
-
-A critical button that skips its color transitions:
-
-```html
-<button class="ui-button ui-filled ui-critical" style="--_motion: 0" type="button">
-  Delete
-</button>
-```
-
-Need to change it everywhere instead? Then it's a theme token, see [Theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) or try the [Theme generator](https://open-props-ui.netlify.app/astro/guide/theme-generator.md). [Theming](https://open-props-ui.netlify.app/astro/guide/theming.md) covers the palette, density, spacing, corners, fonts, elevation, motion and contrast.

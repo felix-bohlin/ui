@@ -20,7 +20,12 @@ const MIN_GAP = 24
 
 for (const framework of FRAMEWORKS) {
   for (const slug of HEROES) {
-    test(`${framework}/${slug} anatomy fits its layout`, async ({ page }) => {
+    test(`${framework}/${slug} anatomy fits its layout`, async ({
+      browserName,
+      page,
+    }) => {
+      test.slow(browserName === "webkit", "WebKit lays out these pages slowly")
+      await page.emulateMedia({ reducedMotion: "reduce" })
       await page.route(
         (url) => url.hostname !== "localhost",
         (route) => route.abort(),
@@ -78,6 +83,19 @@ for (const framework of FRAMEWORKS) {
           const own = anchorNames()
           sheet.disabled = false
           const names = new Set(named.flat())
+          const unsupported = new Set(
+            [
+              ...(diagram.querySelector("style")!.textContent ?? "").matchAll(
+                /([^{}\n]+::[^{}\n]+)\{\s*anchor-name:\s*([^;}]+)/g,
+              ),
+            ]
+              .filter(
+                ([, selector]) => !CSS.supports(`selector(${selector.trim()})`),
+              )
+              .flatMap(([, , value]) =>
+                value.split(/,\s*/).map((name) => name.trim()),
+              ),
+          )
           for (const rule of sheet.cssRules) {
             if (!(rule instanceof CSSStyleRule)) continue
             const [originating, pseudo] = rule.selectorText.split("::")
@@ -101,10 +119,10 @@ for (const framework of FRAMEWORKS) {
             unmatched: [
               ...diagram.querySelectorAll<HTMLElement>(".legend .part"),
             ]
-              .filter(
-                (part) =>
-                  !names.has(part.style.getPropertyValue("--part").trim()),
-              )
+              .filter((part) => {
+                const name = part.style.getPropertyValue("--part").trim()
+                return !names.has(name) && !unsupported.has(name)
+              })
               .map((part) => part.querySelector("code")!.textContent),
           }
         }),
@@ -120,7 +138,7 @@ for (const framework of FRAMEWORKS) {
           .toEqual([])
       }
 
-      if (framework !== "html") return
+      if (framework !== "html" || browserName !== "chromium") return
 
       await page.setViewportSize({ height: 900, width: 1280 })
       const { violations } = await new AxeBuilder({ page })

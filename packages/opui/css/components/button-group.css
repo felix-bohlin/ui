@@ -21,7 +21,10 @@
       --_edge-color: var(--ui-control-border-color, var(--_edge-accent));
       --_edge-text: light-dark(
         var(--_edge-accent),
-        oklch(from var(--_edge-accent) max(l, 0.85) min(c, 0.1) h)
+        oklch(
+          from var(--_edge-accent) max(l, var(--ui-text-min-lightness))
+            min(c, var(--ui-text-max-chroma)) h
+        )
       );
 
       @container style(--ui-contrast: more) {
@@ -30,24 +33,12 @@
 
       &.ui-critical {
         --_edge-accent: var(--ui-critical);
-
-        @container style(--ui-contrast: more) {
-          --_edge-accent: light-dark(
-            var(--ui-critical),
-            oklch(from var(--ui-critical) min(l, 0.45) c h)
-          );
-        }
+        --_edge-text: var(--ui-critical-text);
       }
 
       &.ui-primary {
         --_edge-accent: var(--ui-primary);
-        --_edge-text: var(
-          --ui-primary-text,
-          light-dark(
-            var(--_edge-accent),
-            oklch(from var(--_edge-accent) max(l, 0.85) min(c, 0.1) h)
-          )
-        );
+        --_edge-text: var(--ui-primary-text);
       }
     }
 

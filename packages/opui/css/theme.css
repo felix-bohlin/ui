@@ -109,6 +109,10 @@
 
     --ui-rhythm-step: 0.25rem;
 
+    --ui-underline-offset: 2px;
+    --ui-underline-offset-small: 1px;
+    --ui-underline-thickness-hover: 3px;
+
     /* Spacing - gaps, padding and margins inside and between components. */
     --ui-space-scale: 1;
     --ui-space-1: calc(var(--size-1) * var(--ui-space-scale));
@@ -175,6 +179,10 @@
 
     /* Contrast */
     --ui-contrast: normal;
+    --ui-fill-max-lightness: 0.48;
+    --ui-text-max-chroma: 0.1;
+    --ui-text-max-lightness: 0.41;
+    --ui-text-min-lightness: 0.8;
 
     /* State */
     --ui-disabled-opacity: 0.64;
@@ -258,15 +266,57 @@
 
     /* Intent tokens */
     --ui-critical: var(--ui-red);
+    --ui-critical-text: light-dark(
+      oklch(from var(--ui-critical) min(l, var(--ui-text-max-lightness)) c h),
+      oklch(
+        from var(--ui-critical) max(l, var(--ui-text-min-lightness))
+          min(c, var(--ui-text-max-chroma)) h
+      )
+    );
     --ui-info: var(--ui-blue);
+    --ui-info-text: light-dark(
+      oklch(from var(--ui-info) min(l, var(--ui-text-max-lightness)) c h),
+      oklch(
+        from var(--ui-info) max(l, var(--ui-text-min-lightness))
+          min(c, var(--ui-text-max-chroma)) h
+      )
+    );
     --ui-invalid: var(--ui-critical);
     --ui-invalid-text: light-dark(
-      var(--ui-invalid),
-      oklch(from var(--ui-invalid) max(l, 0.75) c h)
+      oklch(from var(--ui-invalid) min(l, var(--ui-text-max-lightness)) c h),
+      oklch(
+        from var(--ui-invalid) max(l, var(--ui-text-min-lightness))
+          min(c, var(--ui-text-max-chroma)) h
+      )
     );
     --ui-neutral: var(--ui-gray-9);
+    --ui-neutral-text: light-dark(
+      oklch(from var(--ui-neutral) min(l, var(--ui-text-max-lightness)) c h),
+      oklch(
+        from var(--ui-neutral) max(l, var(--ui-text-min-lightness))
+          min(c, var(--ui-text-max-chroma)) h
+      )
+    );
     --ui-success: var(--ui-green);
+    --ui-success-text: light-dark(
+      oklch(from var(--ui-success) min(l, var(--ui-text-max-lightness)) c h),
+      oklch(
+        from var(--ui-success) max(l, var(--ui-text-min-lightness))
+          min(c, var(--ui-text-max-chroma)) h
+      )
+    );
     --ui-warning: var(--ui-orange);
+    --ui-on-warning: oklch(
+      from var(--ui-warning) clamp(0.15, (0.565 - l) * 1000, 0.98)
+        calc(c * 0.15) h
+    );
+    --ui-warning-text: light-dark(
+      oklch(from var(--ui-warning) min(l, var(--ui-text-max-lightness)) c h),
+      oklch(
+        from var(--ui-warning) max(l, var(--ui-text-min-lightness))
+          min(c, var(--ui-text-max-chroma)) h
+      )
+    );
 
     /* Primary */
     --ui-primary: light-dark(var(--ui-color-9), var(--ui-color-6));
@@ -274,9 +324,17 @@
       from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98)
         calc(c * 0.15) h
     );
-    /* --ui-primary-text: light-dark(#0a58ca, #6ea8fe); */
+    --ui-primary-text: light-dark(
+      oklch(from var(--ui-primary) min(l, var(--ui-text-max-lightness)) c h),
+      oklch(
+        from var(--ui-primary) max(l, var(--ui-text-min-lightness))
+          min(c, var(--ui-text-max-chroma)) h
+      )
+    );
     /* --ui-primary-tonal: light-dark(var(--ui-color-6), var(--ui-color-11)); */
     /* --ui-on-primary-tonal: light-dark(var(--ui-gray-15), var(--ui-gray-1)); */
+    --ui-selected-strong: var(--ui-primary);
+    --ui-on-selected-strong: var(--ui-on-primary);
 
     /* Text */
     --ui-text-disabled: color-mix(
@@ -296,6 +354,10 @@
     --ui-surface-filled: light-dark(var(--ui-gray-4), var(--ui-gray-15));
     --ui-surface-inverse: light-dark(var(--ui-gray-15), var(--ui-gray-2));
     --ui-surface-tonal: light-dark(var(--ui-gray-3), var(--ui-gray-12));
+    --ui-surface-tonal-hover: light-dark(
+      oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h),
+      oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
+    );
     /* --ui-track-color: var(--ui-surface-tonal); */
 
     /* Borders */
@@ -324,6 +386,7 @@
     );
 
     /* Typography */
+    --ui-code-bg-color: light-dark(oklch(0 0 0 / 12%), oklch(1 0 0 / 10%));
     --ui-code-block-bg-color: var(--ui-color-15);
     --ui-code-block-text-color: var(--ui-color-1);
 
@@ -467,20 +530,73 @@
       );
 
       --ui-critical: var(--ui-red);
+      --ui-critical-text: light-dark(
+        oklch(from var(--ui-critical) min(l, var(--ui-text-max-lightness)) c h),
+        oklch(
+          from var(--ui-critical) max(l, var(--ui-text-min-lightness))
+            min(c, var(--ui-text-max-chroma)) h
+        )
+      );
       --ui-info: var(--ui-blue);
-      --ui-invalid: var(--ui-critical);
+      --ui-info-text: light-dark(
+        oklch(from var(--ui-info) min(l, var(--ui-text-max-lightness)) c h),
+        oklch(
+          from var(--ui-info) max(l, var(--ui-text-min-lightness))
+            min(c, var(--ui-text-max-chroma)) h
+        )
+      );
+      --ui-invalid: light-dark(
+        var(--ui-critical),
+        oklch(from var(--ui-critical) max(l, 0.85) min(c, 0.1) h)
+      );
       --ui-invalid-text: light-dark(
-        var(--ui-invalid),
-        oklch(from var(--ui-invalid) max(l, 0.85) min(c, 0.1) h)
+        oklch(from var(--ui-invalid) min(l, var(--ui-text-max-lightness)) c h),
+        oklch(
+          from var(--ui-invalid) max(l, var(--ui-text-min-lightness))
+            min(c, var(--ui-text-max-chroma)) h
+        )
       );
       --ui-neutral: light-dark(var(--ui-gray-11), var(--ui-gray-9));
+      --ui-neutral-text: light-dark(
+        oklch(from var(--ui-neutral) min(l, var(--ui-text-max-lightness)) c h),
+        oklch(
+          from var(--ui-neutral) max(l, var(--ui-text-min-lightness))
+            min(c, var(--ui-text-max-chroma)) h
+        )
+      );
       --ui-success: var(--ui-green);
+      --ui-success-text: light-dark(
+        oklch(from var(--ui-success) min(l, var(--ui-text-max-lightness)) c h),
+        oklch(
+          from var(--ui-success) max(l, var(--ui-text-min-lightness))
+            min(c, var(--ui-text-max-chroma)) h
+        )
+      );
+      --ui-warning-text: light-dark(
+        oklch(from var(--ui-warning) min(l, var(--ui-text-max-lightness)) c h),
+        oklch(
+          from var(--ui-warning) max(l, var(--ui-text-min-lightness))
+            min(c, var(--ui-text-max-chroma)) h
+        )
+      );
+      --ui-fill-max-lightness: 0.45;
+      --ui-text-max-lightness: 0.3;
+      --ui-text-min-lightness: 0.9;
 
       --ui-primary: light-dark(var(--ui-color-12), var(--ui-color-3));
       --ui-on-primary: oklch(
         from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98)
           calc(c * 0.15) h
       );
+      --ui-primary-text: light-dark(
+        oklch(from var(--ui-primary) min(l, var(--ui-text-max-lightness)) c h),
+        oklch(
+          from var(--ui-primary) max(l, var(--ui-text-min-lightness))
+            min(c, var(--ui-text-max-chroma)) h
+        )
+      );
+      --ui-selected-strong: var(--ui-primary);
+      --ui-on-selected-strong: var(--ui-on-primary);
 
       --ui-text-disabled: color-mix(
         in oklch,
@@ -513,8 +629,15 @@
       );
       --ui-field-helper-color: var(--ui-text-muted);
       --ui-field-required-color: var(--ui-invalid-text);
+      --ui-focus-ring-color: rgb(
+        from var(--ui-surface-default) calc(255 - r) calc(255 - g) calc(255 - b)
+      );
       --ui-focus-ring-inset: calc(-1 * var(--ui-focus-ring-width));
       --ui-focus-ring-width: 3px;
+
+      --ui-code-bg-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 6%));
+
+      --ui-state-active-alpha-dark: var(--ui-state-hover-alpha-dark);
 
       --ui-button-accent: initial;
       --ui-button-on-accent: initial;
@@ -522,7 +645,6 @@
       --ui-choice-on-accent: initial;
       --ui-control-border-color: initial;
       --ui-control-border-color-filled: initial;
-      --ui-primary-text: initial;
       --ui-primary-tonal: initial;
       --ui-on-primary-tonal: initial;
       --ui-selected: initial;

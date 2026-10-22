@@ -1,4 +1,4 @@
-Manual checks before releasing 6.0.0. The tests cover Chromium only, without real fonts, screen readers or touch, so these checks are about everything they can't see. Run the docs with `pnpm dev`, which also renders the stress test pages at `/tests/`, or use the Netlify preview of the pull request.
+Manual checks before releasing 6.0.0. The tests run in Chromium, and all but the visual, theme and `a11y.spec.ts` checks also in Firefox and WebKit on Linux, without real fonts, screen readers or touch, so these checks are about everything they can't see. Run the docs with `pnpm dev`, which also renders the stress test pages at `/tests/`, or use the Netlify preview of the pull request.
 
 ## CI and baselines
 
@@ -9,7 +9,7 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
   - Open the `chore: update visual snapshots` commit on the pull request and look through the changed images.
   - Expected to move: Avatar groups, Badge fills, Button padding, Carousel, Checkbox, Chip, Radio dots, Select picker, Switch sizes, Table footers, Tabs, Toggle, Typography and the stress pages. Anything else is a regression.
 - [ ] `pnpm check` and `pnpm test:e2e` pass locally
-  - Visual tests fail locally because of local fonts. Only the non-visual specs need to pass: `pnpm exec playwright test a11y interaction anatomy stress contrast theming`.
+  - Visual tests fail locally because of local fonts. Only the non-visual specs need to pass: `pnpm exec playwright test a11y interaction anatomy stress contrast theming`, with `--project=light` when Firefox and WebKit aren't installed.
 - [ ] The Netlify preview builds and loads
   - The `check` job deploys it and posts the URL on the pull request.
 
@@ -120,12 +120,13 @@ Manual checks before releasing 6.0.0. The tests cover Chromium only, without rea
   - Tab through every component page without a mouse. Focus is always visible and never lands on something hidden.
 - [ ] VoiceOver with Safari on macOS
   - Dialog and Drawer announce their names, Menu reads as a list of buttons, Tabs as a radio group ("1 of 3"), Select, Toggle group and Carousel make sense.
+  - TextField announces its label, hint and error, a `List` row with `aria-current="page"` reads as current, and a busy `Button` keeps its name.
 - [ ] NVDA with Firefox or Chrome on Windows
   - The same components as VoiceOver.
 - [ ] Windows contrast themes (forced colors)
-  - Checkbox, Radio and Switch states, selected Tabs and Toggles, Tooltip border and arrow, Carousel markers, Badges, Callouts and focus rings all show. The [contrast stress page](/tests/contrast/) has most of them.
+  - Checkbox, Radio and Switch states, selected Tabs and Toggles, Tooltip border and arrow, Carousel markers, Badges, Callouts, the Spinner gap and focus rings all show. The [contrast stress page](/tests/contrast/) has most of them.
 - [ ] Increased contrast
-  - macOS Increase contrast or `prefers-contrast: more` in devtools: borders get stronger, text stays readable, selected Toggle hover is readable.
+  - macOS Increase contrast or `prefers-contrast: more` in devtools: borders get stronger, text stays readable, selected Toggle hover is readable, invalid fields keep a visible edge in dark mode, and in Firefox the empty Range track keeps its edge.
 - [ ] Reduced motion
   - Dialog, Drawer, Accordion, Menu, Tooltip and Carousel don't animate.
 - [ ] Right to left

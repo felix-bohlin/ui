@@ -1,19 +1,13 @@
 @layer components.root {
   :where(.ui-link) {
-    --_text-color: var(
-      --ui-primary-text,
-      light-dark(
-        oklch(from var(--ui-primary) min(l, 0.47) c h),
-        oklch(from var(--ui-primary) max(l, 0.78) c h)
-      )
-    );
+    --_text-color: var(--ui-primary-text);
 
     color: var(--_text-color);
     cursor: pointer;
     font-weight: var(--ui-font-weight-bold);
     text-decoration: underline;
     text-decoration-color: var(--_text-color);
-    text-underline-offset: 2px;
+    text-underline-offset: var(--ui-underline-offset);
 
     &[href] {
       @media (hover: hover) {
@@ -23,7 +17,7 @@
             oklch(from var(--_text-color) calc(l * 1.15) c h)
           );
           text-decoration-color: currentColor;
-          text-decoration-thickness: 3px;
+          text-decoration-thickness: var(--ui-underline-thickness-hover);
         }
       }
 
@@ -33,7 +27,7 @@
           oklch(from var(--_text-color) calc(l * 1.15) c h)
         );
         text-decoration-color: currentColor;
-        text-decoration-thickness: 3px;
+        text-decoration-thickness: var(--ui-underline-thickness-hover);
       }
     }
   }

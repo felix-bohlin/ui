@@ -78,6 +78,11 @@
       }
     }
 
+    :where(.ui-field) :where(input, select:not([multiple], [size])) {
+      align-self: center;
+      block-size: calc(1lh + var(--_field-padding-block-fit) * 2);
+    }
+
     /* Affixes */
     .ui-prefix,
     .ui-suffix {
@@ -200,21 +205,25 @@
     }
 
     /* Customizable Select */
-    &:has(select button) {
-      select {
-        min-block-size: 0;
-        padding: 0;
+    @supports (appearance: base-select) {
+      &:has(select button) {
+        select {
+          align-self: auto;
+          block-size: auto;
+          min-block-size: 0;
+          padding: 0;
 
-        button {
-          outline: 0;
-          padding-block: var(--_field-padding-block-fit);
-          padding-inline: var(--_field-padding-inline) var(--_arrow-space);
+          button {
+            outline: 0;
+            padding-block: var(--_field-padding-block-fit);
+            padding-inline: var(--_field-padding-inline) var(--_arrow-space);
+          }
         }
       }
     }
 
     /* Non-customizable Select */
-    &:has(select):not(:has(button)) {
+    &:has(select) {
       select {
         padding-block: var(--_field-padding-block-fit);
         padding-inline: var(--_field-padding-inline) var(--_arrow-space);
@@ -358,11 +367,6 @@
       --_affix-color: var(--ui-invalid-text);
       --_border-color: var(--ui-invalid);
       --_helper-color: var(--ui-invalid-text);
-
-      @container style(--ui-contrast: more) {
-        --_accent: var(--ui-invalid-text);
-        --_border-color: var(--ui-invalid-text);
-      }
     }
 
     /*
@@ -380,10 +384,7 @@
         /* Hover */
         @media (hover: hover) {
           &:hover {
-            --_bg-color: light-dark(
-              oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h),
-              oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
-            );
+            --_bg-color: var(--ui-surface-tonal-hover);
           }
         }
       }
@@ -429,7 +430,7 @@
 
     /* Sizes */
     &.ui-x-small {
-      --_field-padding-block: 0.1875rem;
+      --_field-padding-block: calc(var(--ui-space-1) * 0.75);
       --_font-size: var(--ui-font-size-caption);
       --_min-height: var(--ui-field-size-x-small);
     }
@@ -441,7 +442,7 @@
     }
 
     &.ui-large {
-      --_field-padding-block: 0.75rem;
+      --_field-padding-block: calc(var(--ui-space-2) * 1.5);
       --_field-padding-inline: var(--ui-space-3);
       --_min-height: var(--ui-field-size-large);
     }

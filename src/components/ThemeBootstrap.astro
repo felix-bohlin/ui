@@ -72,9 +72,11 @@ const exampleThemes = Object.fromEntries(
     applyExampleTheme(name) {
       let style = document.getElementById("opui-example-theme")
       if (!name) {
+        delete document.documentElement.dataset.exampleTheme
         style?.remove()
         return
       }
+      document.documentElement.dataset.exampleTheme = name
       if (!style) {
         style = document.createElement("style")
         style.id = "opui-example-theme"

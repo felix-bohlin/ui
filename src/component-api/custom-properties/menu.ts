@@ -53,7 +53,7 @@ export default {
   },
   "--_min-block-size": {
     description:
-      "Height a popover menu keeps when space is tight, unless its content is shorter.",
+      "Height a popover menu keeps when space is tight, unless its content is shorter. Needs `calc-size()`.",
     kind: "input",
   },
   "--_min-inline-size": {
@@ -80,7 +80,7 @@ export default {
   },
   "--_side": {
     description:
-      "Side of the invoker the menu opens on. Set by `.ui-block-start`, `.ui-inline-start` and `.ui-inline-end`.",
+      "Side of the invoker the menu opens on, a `self-` keyword so it follows the menu's own direction. Set by `.ui-block-start`, `.ui-inline-start` and `.ui-inline-end`.",
     kind: "output",
   },
   "--_span": {

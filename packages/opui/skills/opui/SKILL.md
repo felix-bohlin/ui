@@ -60,7 +60,7 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 
 Example themes ship in `opui-css/themes/` (`bootstrap.css`, a Bootstrap 5 look, `brutalist.css`, a neobrutalism look, `m3.css`, a Material 3 look, and `shadcn.css`, a shadcn/ui look), to import or copy as a starting point. They name their fonts (DM Sans, Roboto, Geist) but don't load them. They start with the layer order, so they work wherever they load. A theme file you write should load after the library, or start with the two `@layer` statements from `css/layers.css`.
 
-`references/tokens.json` lists every theme token with its CSS variable, default, dark mode value and description, in the W3C design tokens format.
+`references/tokens.json` lists every theme token in the W3C design tokens format: its `$type`, description and default as `$value`, and under `$extensions.opui` its CSS variable, tier, contrast promise and dark and more-contrast values. Unset tokens have no `$value`, only an `example`.
 
 ## References
 

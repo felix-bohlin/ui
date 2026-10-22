@@ -8,9 +8,9 @@ export default {
   options: [
     {
       cssVar: "--ui-anchor-position-area",
-      default: '"start end"',
+      default: '"self-start self-end"',
       description:
-        "Any valid `position-area` value. Controls where the floating content is placed.",
+        "Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
       group: "Position",
       prop: "alignment",
     },

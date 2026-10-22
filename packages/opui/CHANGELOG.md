@@ -192,9 +192,10 @@
 - `Layout` classes for the space between components: `.ui-l-column` (a column), `.ui-l-row` (a row that wraps), `.ui-l-grid` (columns that fill the width without breakpoints) and `.ui-l-container` (a centered, capped width). Gaps come from the `--ui-space-*` scale, with `.ui-x-small`, `.ui-small` and `.ui-large`. CSS only, in `css/components/layout.css`, in the `utils` layer.
 - `Range` has a `--_track-base-color` property for the empty track at rest. The pressed and disabled states override it.
 - `theme.css` adds `--ui-selected-strong` and `--ui-on-selected-strong`, the mark of a selected item that has to stand out from the page on its own (3:1): the current `Carousel` marker, the bar on selected `List` rows and the selected tab of filled `Tabs`. They default to `--ui-primary` and `--ui-on-primary`. `--ui-selected` stays the fill behind a selected item.
-- `theme.css` adds `--ui-critical-text`, `--ui-info-text`, `--ui-neutral-text`, `--ui-success-text` and `--ui-warning-text`, the intent colors as text with 4.5:1 on every surface, like `--ui-primary-text` and `--ui-invalid-text`. All seven keep the lightness of their color within `--ui-text-max-lightness` (`0.41`) in light mode and `--ui-text-min-lightness` (`0.8`) in dark mode, where their chroma is capped at `0.1`, and `0.3` and `0.9` with more contrast. The critical items of a `Menu` and a `.ui-critical` `Button` with no variant or `.ui-outlined` read `--ui-critical-text`. It also adds `--ui-on-warning`, the text on a warning fill, read by the warning `Badge`.
+- `theme.css` adds `--ui-critical-text`, `--ui-info-text`, `--ui-neutral-text`, `--ui-success-text` and `--ui-warning-text`, the intent colors as text with 4.5:1 on every surface, like `--ui-primary-text` and `--ui-invalid-text`. All seven keep the lightness of their color within `--ui-text-max-lightness` (`0.41`) in light mode and `--ui-text-min-lightness` (`0.8`) in dark mode, where their chroma is capped at `--ui-text-max-chroma` (`0.1`), and `0.3` and `0.9` with more contrast. The critical items of a `Menu` and a `.ui-critical` `Button` with no variant or `.ui-outlined` read `--ui-critical-text`. It also adds `--ui-on-warning`, the text on a warning fill, read by the warning `Badge`.
 - `theme.css` adds `--ui-underline-offset`, `--ui-underline-offset-small` and `--ui-underline-thickness-hover`, read by `Link`, rich text links and the underlined text elements.
 - `List` takes `--_selected-indicator-color`, `--_selected-indicator-size`, `--_start-image-size` and `--_start-video-size`, `Tooltip` takes `--_max-inline-size`, and `Carousel` takes `--_marker-active-padding` and `--_marker-border-color`.
+- `theme.css` adds `--ui-fill-max-lightness`, the highest lightness of an intent color filled under light text (`0.48`, and `0.45` with more contrast), read by the critical, info and success `Badge` and the critical `Button` and `ButtonGroup`. It also adds `--ui-surface-tonal-hover`, the hover fill of clickable `Chip`s and filled `TextField`, `Select` and `Textarea` fields, and `--ui-code-bg-color`, the background of inline `code`. Components no longer re-tune their own colors with more contrast, the `theme.css` tokens carry the stricter values.
 
 ### Changed
 
@@ -304,6 +305,8 @@
 - `--ui-invalid` is lighter in dark mode with more contrast, so invalid fields, checkboxes, radios, switches and ranges keep a visible edge. `TextField` no longer swaps it for `--ui-invalid-text` itself.
 - `Spinner` ring is at least `--ui-border-width-thick` and grows with its size (`0.1875em`, `3px` at `16px`).
 - `normalize.css` reads `--ui-line-height-relaxed` for the page line height, `--ui-icon-size-large` for an `svg` without `width` (`1.5rem` instead of `2rem`) and `--ui-space-7` for the scroll margin of `:target`.
+- `Button` and `ButtonGroup` text keeps its lightness within `--ui-text-max-lightness` and `--ui-text-min-lightness`, like the intent `-text` roles, so a light `--ui-button-accent` stays readable in light mode. Critical filled buttons and the critical outlined `ButtonGroup` edge keep theirs within `--ui-fill-max-lightness`, like `Badge`, so they are a little darker.
+- `Chip` hover reads `--ui-surface-tonal-hover`, the hover of filled fields, so it is stronger.
 
 ### Fixed
 
@@ -463,7 +466,7 @@
 - `Chip` in Astro only renders `href` when the chip is an `a`.
 - `DescriptionListDescription`, `DescriptionListItem` and `DescriptionListTerm` in Vue no longer accept the list's `bordered` prop.
 - `Card` actions keep the edge padding for a text button with extra classes.
-- `List` sizes switches, checkboxes and radios through the public tokens, so switch sizes round to whole pixels in lists.
+- `List` sizes switches, checkboxes and radios through the public tokens, so switch sizes round to whole pixels in lists, and a size class on the control still wins.
 - `TextField` and `Textarea` with `autoFit` (`.ui-auto-fit`) shrink to their content in a block container or a field group, up to the container's width, and long helper text wraps at the field's width. They filled the container.
 - `opui-css/css/js/checkbox.js` resolves through `exports`. It resolved to `checkbox.js.css`.
 - `Accordion` group styles only apply to a `Card` with `role="group"` whose accordions are direct children, so a card with an accordion inside its `CardContent` keeps its layout and padding.

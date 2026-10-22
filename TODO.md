@@ -6665,7 +6665,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: the package README notes, next to "Ids in Astro", that the Astro components use `AsyncLocalStorage` (`node:async_hooks`), run on Node, Deno and Bun, and need `nodejs_compat` on Cloudflare. The Astro getting started guide has no matching section, and the Cloudflare SSR build wasn't run because `@astrojs/cloudflare` isn't installed here.
-- [ ] (2) List, Checkbox, Radio, Switch: List writes the public size tokens on its rows from `components.extended`, which beats the size classes in `choice.css` in `components.root`. A `.ui-large` or `.ui-x-small` switch in any list row renders small, and so do sized checkboxes and radios in a dense list; the `size` prop is ignored without a warning (`packages/opui/css/components/list.css:117-119,134-137,285-289`, `packages/opui/css/components/choice.css:135-155`)
+- [x] (2) List, Checkbox, Radio, Switch: List writes the public size tokens on its rows from `components.extended`, which beats the size classes in `choice.css` in `components.root`. A `.ui-large` or `.ui-x-small` switch in any list row renders small, and so do sized checkboxes and radios in a dense list; the `size` prop is ignored without a warning (`packages/opui/css/components/list.css:117-119,134-137,285-289`, `packages/opui/css/components/choice.css:135-155`)
   - Today:
     ```css
     &.ui-switch {
@@ -6684,6 +6684,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Explained: List shrinks a checkbox, radio or switch in a row by setting their size tokens in `list.css`. That file sits in a later layer than the size classes in `choice.css`, so List always wins. If List should control the size, which is what you want, the behavior is right. The only gap is that nothing says so: `<Switch size="large">` in a list row renders small, and the `size` prop silently does nothing there.
   - Proposed: keep the CSS as it is and add one sentence to the List page's checkbox, radio and switch sections: "Controls in a list row take the list's size, so their own `size` has no effect." Not changed yet; close the item or say to add the sentence.
   > Fix
+  - Fixed: the list row sizes moved from `list.css` to zero-specificity rules in `choice.css`, in the same layer as the size classes. A checkbox, radio or switch in a list row still takes the list's size by default, and its own size class (`.ui-x-small`, `.ui-small`, `.ui-large`) wins.
 - [x] (2) Tests: the parity normalizer trims every text run and drops whitespace-only text between elements, so a missing space between a word and an inline element (a React sentence without `{" "}`), or between two inline-block controls, compares as equal. The visual and axe runs only look at the HTML pages, so no test can see such a difference. A scratch copy that keeps whitespace between inline siblings makes 307 of 927 framework comparisons differ, almost all whitespace inside flex rows where it doesn't render, so some normalization is needed, but this much hides real cases (`tests/unit/normalize.ts:115-129`, `tests/e2e/visual.spec.ts:6`, `tests/e2e/a11y.spec.ts:41`)
   - Today:
     ```ts

@@ -198,4 +198,29 @@
       }
     }
   }
+
+  :where(
+      .ui-list.ui-dense > :where(li, option),
+      .ui-list.ui-dense > [role="group"] > :where(label, option)
+    )
+    > :where(label.ui-checkbox, label.ui-radio),
+  :where(
+      .ui-list.ui-dense > :where(li, option),
+      .ui-list.ui-dense > [role="group"] > :where(label, option)
+    )
+    :where(.ui-start, .ui-end)
+    :where(.ui-checkbox, .ui-radio) {
+    --ui-choice-size: var(--ui-choice-size-small);
+  }
+
+  /* Switches look comically big in lists, so it's better to use a smaller variant  */
+  :where(
+      .ui-list > :where(li, option),
+      .ui-list > [role="group"] > :where(label, option)
+    )
+    > :where(label.ui-switch) {
+    --ui-switch-thumb-size: var(--ui-switch-thumb-size-small);
+    --ui-switch-track-height: var(--ui-switch-track-height-small);
+    --ui-switch-track-width: var(--ui-switch-track-width-small);
+  }
 }

@@ -60,16 +60,11 @@
 
     /* Colors */
     &:is(.ui-critical, .ui-info, .ui-success) {
-      --_bg-color: oklch(from var(--_accent) min(l, 0.48) c h);
+      --_bg-color: oklch(
+        from var(--_accent) min(l, var(--ui-fill-max-lightness)) c h
+      );
       --_border-color: var(--_bg-color);
       --_text-color: var(--ui-on-accent);
-
-      @container style(--ui-contrast: more) {
-        --_bg-color: light-dark(
-          oklch(from var(--_accent) min(l, 0.48) c h),
-          oklch(from var(--_accent) min(l, 0.45) c h)
-        );
-      }
     }
 
     &.ui-critical {

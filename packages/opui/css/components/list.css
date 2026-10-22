@@ -113,10 +113,6 @@ Lists meant to be used stand-alone or as part of Select elements
           .ui-end {
             padding-inline-end: calc(var(--ui-space-1) / 2);
           }
-
-          &:where(.ui-checkbox, .ui-radio) {
-            --ui-choice-size: var(--ui-choice-size-small);
-          }
         }
 
         /* Leading and trailing content */
@@ -129,11 +125,6 @@ Lists meant to be used stand-alone or as part of Select elements
           .ui-button:has(> svg:only-child),
           svg {
             max-inline-size: var(--_start-size);
-          }
-
-          .ui-checkbox,
-          .ui-radio {
-            --ui-choice-size: var(--ui-choice-size-small);
           }
         }
       }
@@ -279,13 +270,6 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &:where(.ui-checkbox, .ui-radio) {
           inline-size: 100%;
-        }
-
-        /* Switches look comically big in lists, so it's better to use a smaller variant  */
-        &.ui-switch {
-          --ui-switch-thumb-size: var(--ui-switch-thumb-size-small);
-          --ui-switch-track-height: var(--ui-switch-track-height-small);
-          --ui-switch-track-width: var(--ui-switch-track-width-small);
         }
       }
 

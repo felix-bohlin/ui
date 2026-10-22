@@ -3,18 +3,12 @@
     --_motion: var(--ui-motion);
     --_accent: var(--ui-button-accent, var(--ui-palette-strong));
     --_accent-text: light-dark(
-      var(--_accent),
-      oklch(from var(--_accent) max(l, 0.75) c h)
+      oklch(from var(--_accent) min(l, var(--ui-text-max-lightness)) c h),
+      oklch(
+        from var(--_accent) max(l, var(--ui-text-min-lightness))
+          min(c, var(--ui-text-max-chroma)) h
+      )
     );
-    --_on-accent: var(--ui-button-on-accent, var(--ui-palette-on-strong));
-
-    @container style(--ui-contrast: more) {
-      --_accent-text: light-dark(
-        var(--_accent),
-        oklch(from var(--_accent) max(l, 0.85) min(c, 0.1) h)
-      );
-    }
-
     --_accent-tonal: var(--ui-surface-tonal);
     --_bg-color: transparent;
     --_border-color: transparent;
@@ -24,6 +18,7 @@
       oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha)),
       oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-dark))
     );
+    --_on-accent: var(--ui-button-on-accent, var(--ui-palette-on-strong));
     --_on-accent-tonal: var(--_accent);
 
     @container style(--ui-contrast: more) {
@@ -109,16 +104,11 @@
 
     &.ui-critical,
     :where(.ui-button-group.ui-critical) > & {
-      --_accent: var(--ui-critical);
+      --_accent: oklch(
+        from var(--ui-critical) min(l, var(--ui-fill-max-lightness)) c h
+      );
       --_accent-text: var(--ui-critical-text);
       --_on-accent: var(--ui-on-accent);
-
-      @container style(--ui-contrast: more) {
-        --_accent: light-dark(
-          var(--ui-critical),
-          oklch(from var(--ui-critical) min(l, 0.45) c h)
-        );
-      }
     }
 
     &.ui-primary,

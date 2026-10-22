@@ -260,6 +260,23 @@ interaction(
 )
 
 interaction(
+  "list",
+  "EndSwitch",
+  "a size class on a switch in a list row wins over the list size",
+  async ({ root }) => {
+    const label = root.locator("label.ui-switch").first()
+    const width = () =>
+      label
+        .locator("input")
+        .evaluate((input) => input.getBoundingClientRect().width)
+    const small = await width()
+    await label.evaluate((element) => element.classList.add("ui-large"))
+    expect(await width()).toBeGreaterThan(small)
+  },
+  ["html"],
+)
+
+interaction(
   "switch",
   "FieldGroupBinding",
   "switch group binds the checked values",

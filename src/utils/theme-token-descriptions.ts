@@ -49,6 +49,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "`Checkbox` and `Radio` input size with `.ui-small` and inside `List`.",
   "--ui-choice-size-x-small":
     "`Checkbox` and `Radio` input size with `.ui-x-small`.",
+  "--ui-code-bg-color":
+    "Background of inline `code` in rich text and `Typography`. A translucent black in light mode and white in dark mode, fainter with more contrast so the text stands out.",
   "--ui-code-block-bg-color":
     "Background of `pre.ui-code-block` and `pre` in rich text. A dark shade of the palette in both modes.",
   "--ui-code-block-text-color":
@@ -102,6 +104,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-field-size-large": "Field height with `.ui-large`.",
   "--ui-field-size-small": "Field height with `.ui-small`.",
   "--ui-field-size-x-small": "Field height with `.ui-x-small`.",
+  "--ui-fill-max-lightness":
+    "The highest OKLCH lightness of an intent color used as a fill under light text: the critical, info and success `Badge`, and the critical `Button` and `ButtonGroup`. `0.48`, and `0.45` with more contrast.",
   "--ui-focus-ring-color":
     "Color of the keyboard focus ring. By default the page background color inverted.",
   "--ui-focus-ring-inset":
@@ -312,6 +316,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Background of filled areas such as progress tracks and table stripes.",
   "--ui-surface-inverse": "Background of `Tooltip`, inverted against the page.",
   "--ui-surface-tonal": "Background of tonal variants.",
+  "--ui-surface-tonal-hover":
+    "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s and filled `TextField`, `Select` and `Textarea` fields. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
   "--ui-switch-thumb-color":
     "Color of the unchecked `Switch` thumb. The checked thumb uses `--ui-choice-on-accent`.",
   "--ui-switch-thumb-size": "Diameter of the `Switch` thumb.",
@@ -338,10 +344,12 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-switch-track-width-x-small":
     "Width of the `Switch` track with `.ui-x-small`.",
   "--ui-text-disabled": "Text color of disabled buttons and chips.",
+  "--ui-text-max-chroma":
+    "The highest OKLCH chroma of the intent text roles in dark mode, which keeps a light color inside sRGB. `0.1`.",
   "--ui-text-max-lightness":
     "The highest OKLCH lightness of the intent text roles (`--ui-primary-text`, `--ui-critical-text` and the other `-text` roles) in light mode, so they keep 4.5:1 on every surface. `0.41`, and `0.3` with more contrast.",
   "--ui-text-min-lightness":
-    "The lowest OKLCH lightness of the intent text roles in dark mode, so they keep 4.5:1 on every surface. `0.8`, and `0.9` with more contrast. Their chroma is also capped at `0.1` in dark mode, which keeps a light color inside sRGB.",
+    "The lowest OKLCH lightness of the intent text roles in dark mode, so they keep 4.5:1 on every surface. `0.8`, and `0.9` with more contrast. Their chroma is also capped at `--ui-text-max-chroma` in dark mode.",
   "--ui-text-muted": "Body text color.",
   "--ui-text-strong":
     "Strongest text color, for headings, labels and values. Body text is `--ui-text-muted`.",

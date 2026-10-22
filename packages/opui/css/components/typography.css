@@ -769,12 +769,7 @@
     }
 
     code {
-      background-color: light-dark(oklch(0 0 0 / 12%), oklch(1 0 0 / 10%));
-
-      @container style(--ui-contrast: more) {
-        background-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 6%));
-      }
-
+      background-color: var(--ui-code-bg-color);
       border-radius: var(--ui-radius-small);
       font-size: 0.9em;
       padding: 0.5ex;

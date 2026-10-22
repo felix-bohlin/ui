@@ -80,7 +80,7 @@ export default {
   },
   "--_side": {
     description:
-      "Side of the invoker the menu opens on. Set by `.ui-block-start`, `.ui-inline-start` and `.ui-inline-end`.",
+      "Side of the invoker the menu opens on, a `self-` keyword so it follows the menu's own direction. Set by `.ui-block-start`, `.ui-inline-start` and `.ui-inline-end`.",
     kind: "output",
   },
   "--_span": {

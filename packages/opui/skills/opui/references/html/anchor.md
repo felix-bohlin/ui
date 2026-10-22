@@ -177,10 +177,10 @@ Preview where a link goes before following it.
 
 ### Anchor API
 
-| Type     | Modifiers                                      | Default     | Description                                                                     |
-| -------- | ---------------------------------------------- | ----------- | ------------------------------------------------------------------------------- |
-| Position | `--ui-anchor-position-area`                    | `start end` | Any valid `position-area` value. Controls where the floating content is placed. |
-| Trigger  | default, `.ui-anchor-floating[popover="hint"]` | default     | Shows the floating content always, or on hover and focus with `popover="hint"`. |
+| Type     | Modifiers                                      | Default               | Description                                                                                                                                                                                                        |
+| -------- | ---------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Position | `--ui-anchor-position-area`                    | `self-start self-end` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
+| Trigger  | default, `.ui-anchor-floating[popover="hint"]` | default               | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                                                                                                    |
 
 #### Parts
 

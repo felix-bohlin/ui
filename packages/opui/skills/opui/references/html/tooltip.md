@@ -150,10 +150,10 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
 
 ### Tooltip API
 
-| Type     | Modifiers                   | Default       | Description                                                            |
-| -------- | --------------------------- | ------------- | ---------------------------------------------------------------------- |
-| Arrow    | `.ui-with-arrow`            | -             | Adds an arrow that points to the trigger.                              |
-| Position | `--ui-anchor-position-area` | `block-start` | Any valid `position-area` value. Controls where the tooltip is placed. |
+| Type     | Modifiers                   | Default            | Description                                                                                                                                                                                               |
+| -------- | --------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Arrow    | `.ui-with-arrow`            | -                  | Adds an arrow that points to the trigger.                                                                                                                                                                 |
+| Position | `--ui-anchor-position-area` | `self-block-start` | Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
 
 #### Parts
 

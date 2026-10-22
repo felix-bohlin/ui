@@ -209,12 +209,12 @@ Preview where a link goes before following it.
 
 ### Anchor API
 
-| Prop        | Type                   | Default       | Description                                                                                                               |
-| ----------- | ---------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `alignment` | `string`               | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                           |
-| `children`  | `Snippet`              | -             | The content to anchor to, followed by `AnchorContent`.                                                                    |
-| `id`        | `string`               | -             | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. |
-| `trigger`   | `"always"` , `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                           |
+| Prop        | Type                   | Default                 | Description                                                                                                                                                                                                        |
+| ----------- | ---------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `alignment` | `string`               | `"self-start self-end"` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
+| `children`  | `Snippet`              | -                       | The content to anchor to, followed by `AnchorContent`.                                                                                                                                                             |
+| `id`        | `string`               | -                       | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.                                                                                          |
+| `trigger`   | `"always"` , `"hover"` | `"always"`              | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                                                                                                    |
 
 ## Component properties
 

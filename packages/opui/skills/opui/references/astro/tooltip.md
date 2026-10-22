@@ -114,11 +114,11 @@ import { Button, Tooltip, TooltipContent } from "opui-css/astro"
 
 ### Tooltip API
 
-| Prop        | Type      | Default         | Description                                                                                                                            |
-| ----------- | --------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `alignment` | `string`  | `"block-start"` | Any valid `position-area` value. Controls where the tooltip is placed.                                                                 |
-| `arrow`     | `boolean` | `false`         | Adds an arrow that points to the trigger.                                                                                              |
-| `id`        | `string`  | -               | The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger. |
+| Prop        | Type      | Default              | Description                                                                                                                                                                                               |
+| ----------- | --------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `alignment` | `string`  | `"self-block-start"` | Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
+| `arrow`     | `boolean` | `false`              | Adds an arrow that points to the trigger.                                                                                                                                                                 |
+| `id`        | `string`  | -                    | The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger.                                                                    |
 
 #### Slots
 

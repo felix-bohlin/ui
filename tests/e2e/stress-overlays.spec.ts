@@ -35,3 +35,21 @@ for (const {
       )
   })
 }
+
+test("a menu in a right-to-left part of the page opens from its trigger's right edge", async ({
+  page,
+}) => {
+  await openFixture(page, "html", "stress/overlays")
+  await run(page, { open: "rtl-menu" })
+  const edges = () =>
+    page.evaluate(() => {
+      const menu = document
+        .getElementById("stress-overlays-rtl-menu")!
+        .getBoundingClientRect()
+      const trigger = document
+        .querySelector('[commandfor="stress-overlays-rtl-menu"]')!
+        .getBoundingClientRect()
+      return Math.round(menu.right - trigger.right)
+    })
+  await expect.poll(edges).toBe(0)
+})

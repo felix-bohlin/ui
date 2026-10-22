@@ -8,9 +8,9 @@ export default {
   options: [
     {
       cssVar: "--ui-anchor-position-area",
-      default: '"block-start"',
+      default: '"self-block-start"',
       description:
-        "Any valid `position-area` value. Controls where the tooltip is placed.",
+        "Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
       group: "Position",
       prop: "alignment",
     },

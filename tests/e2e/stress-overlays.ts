@@ -18,9 +18,6 @@ export type Scenario = {
   unreachableIn?: Partial<Record<"firefox" | "webkit", string>>
 }
 
-const FIREFOX_RTL_SPAN =
-  "Firefox spans an anchored menu toward the wrong inline side in a right-to-left part of a left-to-right page"
-
 const WEBKIT_SCROLLED_ANCHOR =
   "WebKit moves a popover anchored inside a dialog, drawer or menu up by the page scroll"
 
@@ -417,19 +414,17 @@ export const SCENARIOS: Scenario[] = [
     top: id("toolbar-drawer-tip-close"),
   },
   {
-    failingIn: { firefox: FIREFOX_RTL_SPAN },
     name: "rtl menu",
     steps: [open("rtl-menu")],
     top: id("rtl-menu"),
   },
   {
-    failingIn: { firefox: FIREFOX_RTL_SPAN, webkit: WEBKIT_SCROLLED_ANCHOR },
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "rtl submenu",
     steps: [open("rtl-menu"), open("rtl-submenu")],
     top: id("rtl-submenu"),
   },
   {
-    failingIn: { firefox: FIREFOX_RTL_SPAN },
     name: "rtl end aligned menu",
     steps: [open("rtl-end-menu")],
     top: id("rtl-end-menu"),
@@ -455,7 +450,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("rtl-drawer-end"),
   },
   {
-    failingIn: { firefox: FIREFOX_RTL_SPAN, webkit: WEBKIT_SCROLLED_ANCHOR },
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "rtl menu in drawer",
     steps: [open("rtl-drawer-start"), open("rtl-drawer-menu")],
     top: id("rtl-drawer-menu"),

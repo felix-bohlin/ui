@@ -26,7 +26,7 @@
       overflow: visible;
       padding-block: var(--ui-space-1);
       padding-inline: var(--ui-space-2);
-      position-area: var(--ui-anchor-position-area, block-start);
+      position-area: var(--ui-anchor-position-area, self-block-start);
       position-try-fallbacks:
         flip-inline,
         flip-block,
@@ -43,7 +43,7 @@
       }
     }
 
-    @container style(--ui-anchor-position-area: inline-start) or style(--ui-anchor-position-area: inline-end) {
+    @container style(--ui-anchor-position-area: inline-start) or style(--ui-anchor-position-area: inline-end) or style(--ui-anchor-position-area: self-inline-start) or style(--ui-anchor-position-area: self-inline-end) {
       & > .ui-anchor-floating {
         position-try-fallbacks:
           flip-inline,
@@ -115,11 +115,11 @@
 @position-try --ui-tooltip-shift-start {
   margin-block: 0 var(--_offset);
   margin-inline: 0 calc(anchor-size(inline) / 2 - var(--_shift));
-  position-area: block-start span-inline-start;
+  position-area: self-block-start span-self-inline-start;
 }
 
 @position-try --ui-tooltip-shift-end {
   margin-block: 0 var(--_offset);
   margin-inline: calc(anchor-size(inline) / 2 - var(--_shift)) 0;
-  position-area: block-start span-inline-end;
+  position-area: self-block-start span-self-inline-end;
 }

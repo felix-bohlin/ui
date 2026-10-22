@@ -16,8 +16,8 @@
     --_offset: var(--ui-space-1);
     --_position-area: var(--_side) var(--_span);
     --_shadow: var(--ui-shadow-overlay);
-    --_side: block-end;
-    --_span: span-inline-end;
+    --_side: self-block-end;
+    --_span: span-self-inline-end;
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
@@ -86,28 +86,28 @@
 
     /* Placements */
     &.ui-block-start {
-      --_side: block-start;
+      --_side: self-block-start;
     }
 
     &.ui-inline-end {
       --_margin-block: 0;
       --_margin-inline: var(--_offset);
-      --_side: inline-end;
-      --_span: span-block-end;
+      --_side: self-inline-end;
+      --_span: span-self-block-end;
     }
 
     &.ui-inline-start {
       --_margin-block: 0;
       --_margin-inline: var(--_offset);
-      --_side: inline-start;
-      --_span: span-block-end;
+      --_side: self-inline-start;
+      --_span: span-self-block-end;
     }
 
     &.ui-align-end {
-      --_span: span-inline-start;
+      --_span: span-self-inline-start;
 
       &:is(.ui-inline-end, .ui-inline-start) {
-        --_span: span-block-start;
+        --_span: span-self-block-start;
       }
     }
 
@@ -176,11 +176,11 @@
 @position-try --ui-menu-block-end {
   margin-block: var(--_offset);
   margin-inline: 0;
-  position-area: block-end span-all;
+  position-area: self-block-end span-all;
 }
 
 @position-try --ui-menu-block-start {
   margin-block: var(--_offset);
   margin-inline: 0;
-  position-area: block-start span-all;
+  position-area: self-block-start span-all;
 }

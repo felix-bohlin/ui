@@ -53,7 +53,7 @@ export default {
   },
   "--_min-block-size": {
     description:
-      "Height a popover menu keeps when space is tight, unless its content is shorter.",
+      "Height a popover menu keeps when space is tight, unless its content is shorter. Needs `calc-size()`.",
     kind: "input",
   },
   "--_min-inline-size": {

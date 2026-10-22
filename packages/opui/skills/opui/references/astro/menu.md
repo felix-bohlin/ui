@@ -401,7 +401,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_margin-block`    | Output | Block margin of a popover menu, `--_offset` or `0` depending on the placement.                                                                                      |
 | `--_margin-inline`   | Output | Inline margin of a popover menu, `--_offset` for `.ui-inline-start` and `.ui-inline-end`.                                                                           |
 | `--_max-block-size`  | Input  | Maximum height.                                                                                                                                                     |
-| `--_min-block-size`  | Input  | Height a popover menu keeps when space is tight, unless its content is shorter.                                                                                     |
+| `--_min-block-size`  | Input  | Height a popover menu keeps when space is tight, unless its content is shorter. Needs `calc-size()`.                                                                |
 | `--_min-inline-size` | Input  | Minimum width. A popover menu is also at least as wide as its invoker.                                                                                              |
 | `--_motion`          | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                                                          |
 | `--_offset`          | Input  | Gap between a popover menu and its invoker.                                                                                                                         |

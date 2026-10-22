@@ -106,10 +106,6 @@
   :where(.ui-u, .ui-abbr, .ui-dfn) {
     text-decoration: underline;
     text-underline-offset: var(--ui-underline-offset-small);
-
-    @supports (-moz-appearance: none) {
-      text-underline-offset: var(--ui-underline-offset);
-    }
   }
 
   :where(.ui-abbr, .ui-dfn) {
@@ -118,10 +114,6 @@
 
     &[title] {
       cursor: help;
-    }
-
-    @supports (-moz-appearance: none) {
-      text-underline-offset: var(--ui-underline-offset);
     }
   }
 
@@ -740,10 +732,6 @@
     :where(ins, u, abbr, dfn) {
       text-decoration: underline;
       text-underline-offset: var(--ui-underline-offset-small);
-
-      @supports (-moz-appearance: none) {
-        text-underline-offset: var(--ui-underline-offset);
-      }
     }
 
     :where(abbr, dfn) {
@@ -752,10 +740,6 @@
 
       &[title] {
         cursor: help;
-      }
-
-      @supports (-moz-appearance: none) {
-        text-underline-offset: var(--ui-underline-offset);
       }
     }
 

@@ -33,6 +33,7 @@ Skip what `pnpm lint`, `pnpm sort-css:check` and `pnpm check-css-vars` catch: de
 - States use native attributes and pseudo-classes (`:disabled`, `[aria-disabled="true"]`, `:checked`, `:user-invalid`, `[open]`), not state classes.
 - Light and dark both work: colors go through `light-dark()` or tokens that do.
 - RTL works: no direction-dependent transforms or gradients without a `:dir(rtl)` case.
+- No workaround for Firefox or Safari alone (Browser support in `AGENTS.md`): an `@supports` gate with the browser default as the fallback is fine, a hand-built alternative for browsers without the feature is a finding.
 
 ## Modern CSS
 

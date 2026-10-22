@@ -26,9 +26,10 @@
   color: var(--ui-color-1);
 }
 
-:where(h1, h2, h3, h4, h5, h6, hgroup h1 + p):not(
-  :where(.anatomy-diagram, .example-preview) *
-) {
+:where(:root:not([data-example-theme]))
+  :where(h1, h2, h3, h4, h5, h6, hgroup h1 + p):not(
+    :where(.anatomy-diagram, .example-preview) *
+  ) {
   font-family: var(--font-bricolage-grotesque), sans-serif;
 }
 

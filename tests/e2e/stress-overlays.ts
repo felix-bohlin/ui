@@ -21,8 +21,8 @@ export type Scenario = {
 export const FIREFOX_SELF_RTL =
   "Firefox places a popover with self- position-area keywords toward the wrong inline side in a right-to-left part of a left-to-right page"
 
-const NO_CALC_SIZE =
-  "Without calc-size(), a menu keeps its 60dvb height and runs off the viewport when neither side has that much room"
+const WEBKIT_NO_CALC_SIZE =
+  "WebKit has no calc-size(), so a 60dvb menu runs off the viewport when neither side has that much room"
 
 const WEBKIT_SCROLLED_ANCHOR =
   "WebKit moves a popover anchored inside a dialog, drawer or menu up by the page scroll"
@@ -274,7 +274,7 @@ export const SCENARIOS: Scenario[] = [
     top: `${id("long-country")} option:checked`,
   },
   {
-    failingIn: { firefox: NO_CALC_SIZE, webkit: NO_CALC_SIZE },
+    failingIn: { webkit: WEBKIT_NO_CALC_SIZE },
     name: "30 item menu in the middle of the viewport",
     steps: [scroll("long-menu", "center"), open("long-menu")],
     top: id("long-menu"),

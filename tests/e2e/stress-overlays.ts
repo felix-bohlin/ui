@@ -1,5 +1,6 @@
 import { expect } from "@playwright/test"
 import type { Page } from "@playwright/test"
+import { settle } from "./fixtures"
 
 type Step =
   | { click: string }
@@ -502,6 +503,7 @@ export const run = async (page: Page, step: Step) => {
         ?.showPopover({ source: element })
     })
     await expect.poll(() => isOpen(page, id(step.hover)), step.hover).toBe(true)
+    await settle(page.locator(id(step.hover)))
     return
   }
   const target = "open" in step ? step.open : step.select
@@ -511,6 +513,7 @@ export const run = async (page: Page, step: Step) => {
       : page.locator(id(target))
   await control.click()
   await expect.poll(() => isOpen(page, id(target)), target).toBe(true)
+  await settle(page.locator(id(target)))
 }
 
 export const problems = (page: Page, selector: string) =>

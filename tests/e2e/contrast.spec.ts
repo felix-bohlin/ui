@@ -3,7 +3,13 @@ import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
 import { themeTokenPromises } from "../../src/utils/theme-token-promises"
-import { COMPONENTS, computed, openFixture, resolveColor } from "./fixtures"
+import {
+  COMPONENTS,
+  computed,
+  openFixture,
+  resolveColor,
+  settle,
+} from "./fixtures"
 
 const contrast = async (
   locator: Locator,
@@ -299,6 +305,7 @@ for (const id of ["contrast-overlays-menu", "contrast-overlays-tooltip"]) {
         Boolean(element.closest(".ui-contrast-more")),
       ),
     ).toBe(true)
+    await settle(popover)
     expect(await enhancedContrastViolations(page, `#${id}`)).toEqual([])
   })
 }

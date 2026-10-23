@@ -75,7 +75,6 @@ import buttonGroupApi from "../../component-api/button-group/api"
   - `inherited: true` marks a native attribute the types don't declare, such as an `id` or `name` that `...rest` passes on. It needs a `type`, and the props table shows it in every framework that doesn't declare it. The check fails when every framework declares it, and when any other option is missing in a framework it applies to.
   - `values` maps each value of an enum prop to its modifier, or `null` when the value adds none (shown as `default`). The check fails when the keys don't match the prop's type.
   - `part` is the selector of the part that gets the modifier, such as `input` for the Checkbox `error` option.
-  - `htmlDefault` overrides the default in the HTML table, or hides it with `null`.
   - `htmlDescription` replaces the description in the HTML table, for an option whose HTML use differs, such as a `name` that Astro, Svelte and Vue generate.
   - `cssVar` is the CSS property an option sets, such as `--ui-anchor-position-area` or `font-size`. It can be combined with a class or `values`.
 - `slots`: slots that aren't parts, such as `default`.

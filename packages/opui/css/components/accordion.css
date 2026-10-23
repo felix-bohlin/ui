@@ -139,23 +139,24 @@
       }
     }
 
-    &.ui-marker-flip[open] > summary .ui-marker {
-      scale: 1 -1;
-    }
-
-    &.ui-marker-rotate[open] > summary .ui-marker {
+    &[open] > summary .ui-marker {
       rotate: 180deg;
     }
 
-    &.ui-marker-turn[open] > summary .ui-marker {
+    &.ui-marker-animation-flip[open] > summary .ui-marker {
+      rotate: none;
+      scale: 1 -1;
+    }
+
+    &.ui-marker-animation-turn[open] > summary .ui-marker {
       rotate: 90deg;
     }
 
-    &.ui-marker-turn:dir(rtl) > summary .ui-marker {
+    &.ui-marker-animation-turn:dir(rtl) > summary .ui-marker {
       scale: -1 1;
     }
 
-    &.ui-marker-turn[open]:dir(rtl) > summary .ui-marker {
+    &.ui-marker-animation-turn[open]:dir(rtl) > summary .ui-marker {
       rotate: -90deg;
     }
 

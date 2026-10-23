@@ -2,7 +2,7 @@
 --- astro
 +++ react
 @@ -23,5 +23,5 @@
- <details class="ui-accordion ui-card ui-marker-turn ui-outlined">
+ <details class="ui-accordion ui-card ui-marker-animation-turn ui-outlined">
    <summary>
 -    Turn␣
 +    Turn

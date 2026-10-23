@@ -20,13 +20,13 @@ const whatsNew = {
     ),
     {
       default: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
-      html: `<a href="#marker-animation">Marker animation</a> with <code>.ui-marker-flip</code>, <code>.ui-marker-rotate</code> or <code>.ui-marker-turn</code>.`,
+      html: `<a href="#marker-animation">Marker animation</a> with <code>.ui-marker-animation-flip</code> or <code>.ui-marker-animation-turn</code>. The marker rotates without a class.`,
     },
     slots(
       `Breaking: a chevron marker by default. The <a href="#custom-marker"><code>marker</code> slot</a> on <code>AccordionSummary</code> replaces it, so move a custom chevron there with <code>.ui-marker</code> or it shows twice.`,
     ),
     {
-      html: `Breaking: markers only animate with a <a href="#marker-animation">marker class</a>, and only the <a href="#custom-marker"><code>svg.ui-marker</code></a>. Add <code>.ui-marker-rotate</code> to keep the previous rotation.`,
+      html: `Breaking: only the <a href="#custom-marker"><code>svg.ui-marker</code></a> animates. Add <code>.ui-marker</code> to the chevron.`,
     },
     `<a href="#actions">Actions</a> line up with the content and the chevron.`,
     `Breaking: <code>--_transition</code> is <code>--_duration</code>, and <code>--_svg-transition</code> is gone, the chevron and the open and close transition use <code>--_duration</code> and <code>--_ease</code>, and the group's <code>--_gutter-color</code> is <code>--_divider-color</code> (<a href="#under-the-hood">Under the hood</a>).`,

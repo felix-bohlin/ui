@@ -3,7 +3,7 @@
 
   let {
     class: className,
-    markerAnimation = "rotate",
+    markerAnimation,
     variant,
 
     // Snippets
@@ -16,7 +16,9 @@
   class={[
     "ui-accordion",
     "ui-card",
-    markerAnimation && `ui-marker-${markerAnimation}`,
+    markerAnimation &&
+      markerAnimation !== "rotate" &&
+      `ui-marker-animation-${markerAnimation}`,
     variant && variant !== "transparent" && `ui-${variant}`,
     className,
   ]}

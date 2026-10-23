@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const { markerAnimation = "rotate", variant } = defineProps<Props>()
+const { markerAnimation, variant } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
@@ -10,7 +10,9 @@ defineSlots<Slots>()
     :class="[
       'ui-accordion',
       'ui-card',
-      markerAnimation && `ui-marker-${markerAnimation}`,
+      markerAnimation &&
+        markerAnimation !== 'rotate' &&
+        `ui-marker-animation-${markerAnimation}`,
       variant && variant !== 'transparent' && `ui-${variant}`,
       $props.class,
     ]"

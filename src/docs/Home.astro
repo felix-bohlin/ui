@@ -208,9 +208,8 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           </dl>
         </div>
         <figcaption id="drawing-caption">
-          <span class="figure-number">Fig. 1</span> A filled primary Button, drawn
-          to the live theme tokens. The values are read from the page, so a new theme
-          redraws the figure.
+          A filled primary Button, drawn to the live theme tokens. The values
+          are read from the page, so a new theme redraws the figure.
         </figcaption>
       </figure>
 
@@ -228,12 +227,11 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
     <section class="sheet" aria-labelledby="components-heading">
       <header class="sheet-header">
-        <p class="sheet-overline">Sheet 2 of 4, details</p>
         <h2 class="ui-h2" id="components-heading">Every component, to scale</h2>
         <p>
-          Each component is a CSS file you can read, change and keep. Open a
-          figure for its anatomy, its API and the files it depends on, with a
-          button that copies them all.
+          Each component is a CSS file you can read, change and keep. Open one
+          for its anatomy, its API and the files it depends on, with a button
+          that copies them all.
         </p>
       </header>
 
@@ -242,7 +240,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
     <section class="sheet" aria-labelledby="spec-heading">
       <header class="sheet-header">
-        <p class="sheet-overline">Sheet 3 of 4, specification</p>
         <h2 class="ui-h2" id="spec-heading">
           Turn three knobs, the whole kit follows
         </h2>
@@ -355,7 +352,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
     <section class="sheet" aria-labelledby="materials-heading">
       <header class="sheet-header">
-        <p class="sheet-overline">Sheet 4 of 4, bill of materials</p>
         <h2 class="ui-h2" id="materials-heading">What ships in the box</h2>
         <p>
           Install the package or copy the files you need. Either way the CSS is
@@ -568,8 +564,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
   }
 
   .blueprint {
-    counter-reset: figure 1;
-
     .component-showcase {
       gap: var(--size-4);
       margin-block: var(--size-6) 0;
@@ -580,18 +574,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       border: 1px solid var(--blueprint-line-strong);
       border-radius: var(--radius-1);
       box-shadow: none;
-      counter-increment: figure;
-      padding-block-start: var(--size-7);
 
       &::before {
-        background: none;
-        color: var(--blueprint-ink);
-        content: "Fig. " counter(figure);
-        font-size: var(--ui-font-size-caption);
-        font-weight: var(--ui-font-weight-medium);
-        inset: var(--size-2) auto auto var(--size-3);
-        mask-image: none;
-        opacity: 1;
+        display: none;
       }
 
       &::after {
@@ -664,12 +649,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     }
   }
 
-  .sheet-overline {
-    color: var(--blueprint-ink);
-    font-size: var(--ui-font-size-small);
-    font-weight: var(--ui-font-weight-medium);
-  }
-
   /* Hero */
   .hero {
     align-items: start;
@@ -732,20 +711,16 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
   /* Title block, the bottom corner of the sheet like on a drawing */
   .title-block {
     border: 1px solid var(--blueprint-line-strong);
-    display: grid;
+    display: none;
     font-size: var(--ui-font-size-caption);
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    justify-self: end;
+    grid-template-columns: repeat(6, auto);
+    inset-block-end: -1px;
+    inset-inline-end: -1px;
     margin: 0;
-
-    @media (width >= 600px) {
-      grid-template-columns: repeat(6, auto);
-    }
+    position: absolute;
 
     @media (width >= 900px) {
-      inset-block-end: -1px;
-      inset-inline-end: -1px;
-      position: absolute;
+      display: grid;
     }
 
     > div {
@@ -992,11 +967,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     color: var(--ui-text);
     font-size: var(--ui-font-size-small);
     text-wrap: pretty;
-  }
-
-  .figure-number {
-    color: var(--blueprint-ink);
-    font-weight: var(--ui-font-weight-semibold);
   }
 
   /* Specification bench */

@@ -530,10 +530,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     --ui-border-color: light-dark(var(--ui-color-4), var(--ui-color-11));
     --blueprint-ink: light-dark(var(--ui-color-11), var(--ui-color-5));
     --blueprint-ink-strong: light-dark(var(--ui-color-13), var(--ui-color-2));
-    --blueprint-line: light-dark(
-      oklch(from var(--ui-color-9) l c h / 9%),
-      oklch(from var(--ui-color-5) l c h / 8%)
-    );
     --blueprint-line-major: light-dark(
       oklch(from var(--ui-color-9) l c h / 18%),
       oklch(from var(--ui-color-5) l c h / 16%)
@@ -542,26 +538,16 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       oklch(from var(--ui-color-9) l c h / 55%),
       oklch(from var(--ui-color-5) l c h / 50%)
     );
-    --blueprint-square: 1.25rem;
 
     &::before {
-      background-image:
-        linear-gradient(var(--blueprint-line-major) 1px, transparent 1px),
-        linear-gradient(
-          90deg,
-          var(--blueprint-line-major) 1px,
-          transparent 1px
-        ),
-        linear-gradient(var(--blueprint-line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--blueprint-line) 1px, transparent 1px);
-      background-position: -1px -1px;
-      background-size:
-        calc(var(--blueprint-square) * 5) calc(var(--blueprint-square) * 5),
-        calc(var(--blueprint-square) * 5) calc(var(--blueprint-square) * 5),
-        var(--blueprint-square) var(--blueprint-square),
-        var(--blueprint-square) var(--blueprint-square);
+      background-image: radial-gradient(
+        var(--ui-text) 1.45px,
+        transparent 1.45px
+      );
+      background-size: 20px 20px;
       content: "";
       inset: 0;
+      opacity: 0.05;
       pointer-events: none;
       position: fixed;
       z-index: -1;
@@ -644,8 +630,8 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   .sheet {
     background-color: light-dark(
-      oklch(from var(--ui-surface) l c h / 88%),
-      oklch(from var(--ui-surface) l c h / 80%)
+      oklch(from var(--ui-surface) l c h / 30%),
+      oklch(from var(--ui-surface) l c h / 20%)
     );
     border: 1px solid var(--blueprint-line-strong);
     border-radius: var(--radius-1);

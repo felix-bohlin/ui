@@ -22,7 +22,7 @@ export default {
   },
   "--_outline-color": {
     description:
-      "The ring around each avatar in a `.ui-avatar-group`. Defaults to `--ui-surface-default`. Set on the group.",
+      "The ring around each avatar in a `.ui-avatar-group`. Defaults to `--ui-surface`. Set on the group.",
     kind: "input",
   },
   "--_outline-width": {

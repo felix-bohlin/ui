@@ -2,14 +2,14 @@
   :where(.ui-tabs) {
     --_motion: var(--ui-motion);
     --_active-bg-color: light-dark(
-      var(--ui-surface-default),
+      var(--ui-surface),
       oklch(100% 0 0 / var(--ui-state-hover-alpha))
     );
     --_active-border-color: var(
       --ui-control-border-color,
       var(--ui-field-border-color)
     );
-    --_active-shadow: var(--ui-shadow-tab);
+    --_active-shadow: var(--ui-shadow-selected);
     --_active-text-color: var(--ui-text-strong);
     --_border-radius: var(--ui-radius);
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
@@ -18,7 +18,7 @@
     --_indicator-color: transparent;
     --_indicator-size: var(--ui-border-width-thick);
     --_inset: calc(var(--ui-space-1) - var(--_track-border-width));
-    --_text-color: var(--ui-text-muted);
+    --_text-color: var(--ui-text);
     --_track-border-color: transparent;
     --_track-border-width: var(--ui-border-width);
     --_track-color: var(--ui-surface-tonal);

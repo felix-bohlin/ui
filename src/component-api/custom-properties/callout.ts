@@ -8,7 +8,7 @@ export default {
   },
   "--_border-color": {
     description:
-      "The current border color. `--ui-surface-border-color` when a theme sets it, otherwise `--ui-surface-tonal`. Set by the severity classes and `.ui-outlined`.",
+      "The current border color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-surface-tonal`. Set by the severity classes and `.ui-outlined`.",
     kind: "output",
   },
   "--_border-radius": {
@@ -42,8 +42,7 @@ export default {
     kind: "input",
   },
   "--_outlined-bg-color": {
-    description:
-      "Background of `.ui-outlined`. Defaults to `--ui-surface-default`.",
+    description: "Background of `.ui-outlined`. Defaults to `--ui-surface`.",
     kind: "input",
   },
   "--_outlined-border-color": {
@@ -69,7 +68,7 @@ export default {
   },
   "--_surface-bg-color": {
     description:
-      "The opaque background under the tint. Defaults to `--ui-surface-default`.",
+      "The opaque background under the tint. Defaults to `--ui-surface`.",
     kind: "input",
   },
   "--_text-color": {

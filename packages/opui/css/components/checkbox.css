@@ -4,7 +4,7 @@
     input[type="checkbox"] {
       appearance: none;
       aspect-ratio: 1;
-      background-color: var(--ui-surface-default);
+      background-color: var(--ui-surface);
       block-size: var(--_input-size);
       border: var(--ui-field-border-width) solid var(--ui-field-border-color);
       border-radius: var(--ui-radius-x-small);

@@ -35,7 +35,7 @@
     --_marker-active-bg-color: var(--ui-selected-strong);
     --_marker-active-padding: var(--ui-space-1);
     --_marker-bg-color: transparent;
-    --_marker-border-color: var(--ui-text-muted);
+    --_marker-border-color: var(--ui-text);
     --_marker-gap: 0px;
     --_marker-label: "Slide ";
     --_marker-size: var(--ui-space-5);

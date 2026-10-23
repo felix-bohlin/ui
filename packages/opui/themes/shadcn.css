@@ -44,11 +44,11 @@
       0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     --ui-shadow-elevated-light:
       0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --ui-surface-default: light-dark(oklch(1 0 0), oklch(0.145 0 0));
+    --ui-surface: light-dark(oklch(1 0 0), oklch(0.145 0 0));
     --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.205 0 0));
     --ui-surface-filled: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));
     --ui-surface-tonal: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));
-    --ui-text-muted: light-dark(oklch(0.269 0 0), oklch(0.922 0 0));
+    --ui-text: light-dark(oklch(0.269 0 0), oklch(0.922 0 0));
     --ui-text-strong: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
     --ui-track-color: var(--ui-field-border-color);
   }

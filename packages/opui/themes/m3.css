@@ -45,14 +45,14 @@
       0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
     --ui-shadow-elevated-light:
       0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
-    --ui-shadow-tab: none;
+    --ui-shadow-selected: none;
     --ui-state-active-alpha: 10%;
     --ui-state-hover-alpha: 8%;
-    --ui-surface-default: light-dark(#fef7ff, #141218);
+    --ui-surface: light-dark(#fef7ff, #141218);
     --ui-surface-elevated: light-dark(#f7f2fa, #1d1b20);
     --ui-surface-filled: light-dark(#e6e0e9, #36343b);
     --ui-surface-tonal: light-dark(#e8def8, #4a4458);
-    --ui-text-muted: light-dark(#49454f, #cac4d0);
+    --ui-text: light-dark(#49454f, #cac4d0);
     --ui-text-strong: light-dark(#1d1b20, #e6e0e9);
   }
 

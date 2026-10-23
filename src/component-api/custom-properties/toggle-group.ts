@@ -2,7 +2,7 @@ import type { CustomProperties } from "../types"
 
 export default {
   "--_bg-color": {
-    description: "Background of the group. Defaults to `--ui-surface-default`.",
+    description: "Background of the group. Defaults to `--ui-surface`.",
     kind: "input",
   },
   "--_border-color": {

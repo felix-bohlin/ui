@@ -30,7 +30,7 @@
       align-items: center;
       background-color: transparent;
       block-size: auto;
-      color: var(--ui-text-muted);
+      color: var(--ui-text);
       display: flex;
       font-size: var(--ui-font-size-caption);
       gap: var(--ui-space-3);

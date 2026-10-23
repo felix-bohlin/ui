@@ -81,7 +81,7 @@
 
   :where(.ui-avatar-group) {
     --_margin: var(--ui-space-3);
-    --_outline-color: var(--ui-surface-default);
+    --_outline-color: var(--ui-surface);
     --_outline-width: var(--ui-border-width-thick);
 
     display: flex;

@@ -56,8 +56,8 @@
   /* First p element (overline) */
   :where(.ui-hgroup) > p:first-of-type:first-child {
     color: light-dark(
-      oklch(from var(--ui-text-muted) calc(l * 1.25) c h),
-      oklch(from var(--ui-text-muted) calc(l * 0.9) c h)
+      oklch(from var(--ui-text) calc(l * 1.25) c h),
+      oklch(from var(--ui-text) calc(l * 0.9) c h)
     );
     font-size: var(--ui-font-size-caption);
     font-weight: var(--ui-font-weight-medium);
@@ -65,7 +65,7 @@
     text-transform: uppercase;
 
     @container style(--ui-contrast: more) {
-      color: var(--ui-text-muted);
+      color: var(--ui-text);
     }
   }
 
@@ -97,9 +97,9 @@
 
   /** Caption */
   :where(.ui-caption) {
-    color: var(--ui-text-muted);
+    color: var(--ui-text);
     font-size: var(--ui-font-size-caption);
-    line-height: var(--ui-line-height-body);
+    line-height: var(--ui-line-height);
   }
 
   /* Inline text elements - class utilities */
@@ -131,11 +131,11 @@
 
   /* Code */
   :where(.ui-kbd, .ui-var) {
-    background-color: var(--ui-text-muted);
-    border-color: var(--ui-text-muted);
+    background-color: var(--ui-text);
+    border-color: var(--ui-text);
     border-radius: var(--ui-radius-small);
     border-width: var(--ui-border-width);
-    color: var(--ui-on-inverse-muted);
+    color: var(--ui-text-subtle-on-inverse);
     font-family: var(--ui-font-code);
     overflow-wrap: anywhere;
     padding-block: 0.1ex;
@@ -197,7 +197,7 @@
     }
 
     footer {
-      color: var(--ui-text-muted);
+      color: var(--ui-text);
       margin-block-start: var(--ui-space-3);
     }
   }
@@ -335,7 +335,7 @@
       }
 
       footer {
-        color: var(--ui-text-muted);
+        color: var(--ui-text);
         margin-block-start: var(--_flow-space);
       }
     }
@@ -398,7 +398,7 @@
       }
 
       & figcaption {
-        color: var(--ui-text-muted);
+        color: var(--ui-text);
         font-size: var(--ui-font-size-caption);
         line-height: round(
           up,
@@ -513,8 +513,8 @@
     /** Overline */
     :is(.ui-overline, hgroup p:first-of-type:first-child) {
       color: light-dark(
-        oklch(from var(--ui-text-muted) calc(l * 1.25) c h),
-        oklch(from var(--ui-text-muted) calc(l * 0.9) c h)
+        oklch(from var(--ui-text) calc(l * 1.25) c h),
+        oklch(from var(--ui-text) calc(l * 0.9) c h)
       );
       font-size: var(--ui-font-size-caption);
       font-weight: var(--ui-font-weight-medium);
@@ -522,7 +522,7 @@
       text-transform: uppercase;
 
       @container style(--ui-contrast: more) {
-        color: var(--ui-text-muted);
+        color: var(--ui-text);
       }
     }
 
@@ -678,7 +678,7 @@
       overflow-inline: auto;
 
       caption {
-        color: var(--ui-text-muted);
+        color: var(--ui-text);
         font-size: var(--ui-font-size-caption);
         line-height: round(
           up,
@@ -794,11 +794,11 @@
     }
 
     :where(kbd, var) {
-      background-color: var(--ui-text-muted);
-      border-color: var(--ui-text-muted);
+      background-color: var(--ui-text);
+      border-color: var(--ui-text);
       border-radius: var(--ui-radius-small);
       border-width: var(--ui-border-width);
-      color: var(--ui-on-inverse-muted);
+      color: var(--ui-text-subtle-on-inverse);
       padding-block: 0.1ex;
       padding-inline: 0.3ex;
     }

@@ -43,7 +43,7 @@
     interpolate-size: allow-keywords;
 
     &:not(.ui-transparent) {
-      --_bg-color: var(--ui-surface-default);
+      --_bg-color: var(--ui-surface);
       --_focus-ring-offset: var(--ui-focus-ring-inset);
       --_margin-inline: 0;
       --_overflow: hidden;
@@ -51,10 +51,7 @@
     }
 
     &:is(.ui-elevated, .ui-tonal) {
-      --_border-color: var(
-        --ui-surface-border-color,
-        var(--ui-surface-default)
-      );
+      --_border-color: var(--ui-border-color-raised, var(--ui-surface));
       --_border-width: var(--ui-border-width);
 
       @media (forced-colors: active) {
@@ -68,7 +65,7 @@
     }
 
     &.ui-outlined {
-      --_bg-color: var(--ui-surface-default);
+      --_bg-color: var(--ui-surface);
       --_border-color: var(--ui-border-color);
       --_border-width: var(--ui-border-width);
       --_shadow: var(--ui-shadow-surface);

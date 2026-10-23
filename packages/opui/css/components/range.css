@@ -105,7 +105,7 @@
 
     /* Color */
     @container style(--ui-contrast: more) {
-      --_track-base-color: var(--ui-surface-default);
+      --_track-base-color: var(--ui-surface);
     }
 
     &.ui-filled {
@@ -316,7 +316,7 @@
         appearance: none;
         background: var(--_thumb-bg-color);
         block-size: var(--_thumb-size);
-        border: var(--_thumb-border-width) solid var(--ui-surface-default);
+        border: var(--_thumb-border-width) solid var(--ui-surface);
         border-radius: 50%;
         box-shadow: 0 0 0 var(--_thumb-highlight-size)
           var(--_thumb-highlight-color);
@@ -333,7 +333,7 @@
         appearance: none;
         background: var(--_thumb-bg-color);
         block-size: var(--_thumb-size);
-        border: var(--_thumb-border-width) solid var(--ui-surface-default);
+        border: var(--_thumb-border-width) solid var(--ui-surface);
         border-radius: 50%;
         box-shadow: 0 0 0 var(--_thumb-highlight-size)
           var(--_thumb-highlight-color);
@@ -365,7 +365,7 @@
         --_thumb-bg-color: color-mix(
           in oklch,
           var(--ui-text-strong) 50%,
-          var(--ui-surface-default)
+          var(--ui-surface)
         );
         --_track-color: var(--ui-field-border-color);
 

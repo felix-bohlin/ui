@@ -13,7 +13,7 @@
       rgb(33 37 41 / 0.75),
       rgb(222 226 230 / 0.75)
     );
-    --ui-field-label-color: var(--ui-text-muted);
+    --ui-field-label-color: var(--ui-text);
     --ui-field-label-font-size: 1rem;
     --ui-field-label-font-weight: var(--font-weight-4);
     --ui-focus-ring-color: rgb(13 110 253 / 0.25);
@@ -39,13 +39,13 @@
     --ui-shadow-elevated-dark: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
     --ui-shadow-elevated-light: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
     --ui-shadow-scroll: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
-    --ui-shadow-tab: none;
+    --ui-shadow-selected: none;
     --ui-success: #198754;
-    --ui-surface-default: light-dark(#fff, #212529);
+    --ui-surface: light-dark(#fff, #212529);
     --ui-surface-elevated: light-dark(#fff, #2b3035);
     --ui-surface-filled: light-dark(#e9ecef, #343a40);
     --ui-surface-tonal: light-dark(#f8f9fa, #2b3035);
-    --ui-text-muted: light-dark(#212529, #dee2e6);
+    --ui-text: light-dark(#212529, #dee2e6);
     --ui-text-strong: light-dark(#212529, #fff);
   }
 }

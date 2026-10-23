@@ -21,12 +21,12 @@ export default {
   },
   "--_bg-color": {
     description:
-      "The background. `--ui-surface-default` by default, set by the other variants, and `transparent` in `.ui-transparent` and in groups.",
+      "The background. `--ui-surface` by default, set by the other variants, and `transparent` in `.ui-transparent` and in groups.",
     kind: "output",
   },
   "--_border-color": {
     description:
-      "The border color. In `.ui-elevated` and `.ui-tonal`, `--ui-surface-border-color` when a theme sets it, otherwise `--ui-surface-default`. `--ui-border-color` in `.ui-outlined`.",
+      "The border color. In `.ui-elevated` and `.ui-tonal`, `--ui-border-color-raised` when a theme sets it, otherwise `--ui-surface`. `--ui-border-color` in `.ui-outlined`.",
     kind: "output",
   },
   "--_border-radius": {

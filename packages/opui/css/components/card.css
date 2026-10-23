@@ -10,7 +10,7 @@
     --_elevated-shadow: var(--ui-shadow-elevated);
     --_outlined-border-color: var(--ui-border-color);
     --_shadow: none;
-    --_surface-bg-color: var(--ui-surface-default);
+    --_surface-bg-color: var(--ui-surface);
     --_tonal-bg-color: var(--ui-surface-tonal);
 
     background-color: var(--_bg-color);
@@ -38,14 +38,14 @@
 
     &.ui-tonal {
       --_bg-color: var(--_tonal-bg-color);
-      --_border-color: var(--ui-surface-border-color, var(--_surface-bg-color));
+      --_border-color: var(--ui-border-color-raised, var(--_surface-bg-color));
       --_border-width: var(--ui-border-width);
       --_shadow: var(--ui-shadow-surface);
     }
 
     &.ui-elevated {
       --_bg-color: var(--_elevated-bg-color);
-      --_border-color: var(--ui-surface-border-color, var(--_surface-bg-color));
+      --_border-color: var(--ui-border-color-raised, var(--_surface-bg-color));
       --_border-width: var(--ui-border-width);
       --_shadow: var(--_elevated-shadow);
     }
@@ -141,7 +141,7 @@
 
     @media (hover: hover) {
       &:has(.ui-card-link:hover):not(:has(.ui-card .ui-card-link:hover)) {
-        --_border-color: var(--ui-text-muted);
+        --_border-color: var(--ui-text);
 
         @media (forced-colors: active) {
           --_border-color: Highlight;

@@ -196,7 +196,7 @@ const stepId = (index: number, part: string) =>
   .build-up-stage {
     align-items: center;
     background-image: radial-gradient(
-      color-mix(in oklch, var(--ui-text-muted) 5%, transparent) 1.45px,
+      color-mix(in oklch, var(--ui-text) 5%, transparent) 1.45px,
       transparent 1.45px
     );
     background-size: 20px 20px;
@@ -281,11 +281,11 @@ const stepId = (index: number, part: string) =>
 
   .build-up-marker {
     aspect-ratio: 1;
-    background-color: var(--ui-surface-default);
+    background-color: var(--ui-surface);
     border: 2px solid var(--ui-border-color);
     border-radius: var(--ui-radius-round);
     box-sizing: border-box;
-    color: var(--ui-text-muted);
+    color: var(--ui-text);
     display: grid;
     flex-shrink: 0;
     font-size: var(--ui-font-size-caption);
@@ -316,7 +316,7 @@ const stepId = (index: number, part: string) =>
   }
 
   .build-up-step-name {
-    color: var(--ui-text-muted);
+    color: var(--ui-text);
     font-weight: 600;
     min-inline-size: 0;
     padding-block-start: calc((var(--_marker) - 1lh) / 2);
@@ -330,7 +330,7 @@ const stepId = (index: number, part: string) =>
 
   .build-up-notes {
     block-size: 0;
-    color: var(--ui-text-muted);
+    color: var(--ui-text);
     display: grid;
     font-size: var(--ui-font-size-caption);
     gap: var(--ui-space-1);
@@ -353,7 +353,7 @@ const stepId = (index: number, part: string) =>
     & li {
       background: none;
       display: list-item;
-      line-height: var(--ui-line-height);
+      line-height: var(--ui-line-height-control);
       min-block-size: 0;
       padding: 0;
 

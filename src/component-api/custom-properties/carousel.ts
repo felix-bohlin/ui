@@ -113,7 +113,7 @@ export default {
   },
   "--_marker-border-color": {
     description:
-      "Ring of the other markers. Defaults to `--ui-text-muted`, which keeps its contrast against the page in every theme.",
+      "Ring of the other markers. Defaults to `--ui-text`, which keeps its contrast against the page in every theme.",
     kind: "input",
   },
   "--_marker-gap": {

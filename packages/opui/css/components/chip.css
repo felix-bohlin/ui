@@ -35,7 +35,7 @@
 
     /* Variants */
     &.ui-outlined {
-      --_bg-color: var(--ui-surface-default);
+      --_bg-color: var(--ui-surface);
       --_border-color: var(--ui-control-border-color, var(--ui-border-color));
       --_text-color: var(--ui-text-strong);
 
@@ -176,7 +176,7 @@
       opacity: var(--ui-disabled-opacity);
 
       @container style(--ui-contrast: more) {
-        --_text-color: var(--ui-text-muted);
+        --_text-color: var(--ui-text);
 
         opacity: 1;
       }

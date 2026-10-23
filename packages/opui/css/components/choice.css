@@ -23,7 +23,7 @@
     grid-auto-columns: auto;
     grid-auto-flow: column;
     inline-size: fit-content;
-    line-height: var(--ui-line-height);
+    line-height: var(--ui-line-height-control);
     user-select: none;
 
     &:not(:has(.ui-label, .ui-text)) {

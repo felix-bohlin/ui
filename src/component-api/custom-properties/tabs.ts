@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_active-bg-color": {
     description:
-      "Background of the selected tab. Defaults to `--ui-surface-default`, a translucent white in dark mode; the variant classes set it.",
+      "Background of the selected tab. Defaults to `--ui-surface`, a translucent white in dark mode; the variant classes set it.",
     kind: "input",
   },
   "--_active-border-color": {
@@ -13,7 +13,7 @@ export default {
   },
   "--_active-shadow": {
     description:
-      "Shadow of the selected tab. Defaults to `--ui-shadow-tab`. `.ui-line` and `.ui-outlined` remove it.",
+      "Shadow of the selected tab. Defaults to `--ui-shadow-selected`. `.ui-line` and `.ui-outlined` remove it.",
     kind: "input",
   },
   "--_active-text-color": {
@@ -60,8 +60,7 @@ export default {
     kind: "input",
   },
   "--_text-color": {
-    description:
-      "Text color of the unselected tabs. Defaults to `--ui-text-muted`.",
+    description: "Text color of the unselected tabs. Defaults to `--ui-text`.",
     kind: "input",
   },
   "--_track-border-color": {

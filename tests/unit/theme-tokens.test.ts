@@ -264,7 +264,7 @@ describe("generateCss", () => {
     })
     expect(css).toContain(":where(html, .ui-palette) {")
     expect(css).toContain(
-      "--ui-surface-default: light-dark(var(--ui-color-1), var(--ui-color-14));",
+      "--ui-surface: light-dark(var(--ui-color-1), var(--ui-color-14));",
     )
     expect(css).toContain("--ui-neutral: var(--ui-color-9);")
   })
@@ -272,7 +272,7 @@ describe("generateCss", () => {
   test("mixes gray and palette steps when only one mode disables grays", () => {
     const css = generateCss({ dark: {}, light: { "enable-grays": "false" } })
     expect(css).toContain(
-      "--ui-surface-default: light-dark(var(--ui-color-1), var(--ui-gray-13));",
+      "--ui-surface: light-dark(var(--ui-color-1), var(--ui-gray-13));",
     )
     expect(css).toContain(
       "--ui-neutral: light-dark(var(--ui-color-9), var(--ui-gray-9));",

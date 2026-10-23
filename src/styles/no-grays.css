@@ -2,12 +2,15 @@
   --ui-border-color: light-dark(var(--ui-color-4), var(--ui-color-12));
   --ui-field-border-color: light-dark(var(--ui-color-4), var(--ui-color-12));
   --ui-neutral: var(--ui-color-9);
-  --ui-surface-default: light-dark(var(--ui-color-1), var(--ui-color-14));
+  --ui-surface: light-dark(var(--ui-color-1), var(--ui-color-14));
   --ui-surface-elevated: light-dark(var(--ui-color-1), var(--ui-color-12));
   --ui-surface-filled: light-dark(var(--ui-color-5), var(--ui-color-16));
   --ui-surface-tonal: light-dark(var(--ui-color-4), var(--ui-color-12));
   --ui-on-inverse: light-dark(var(--ui-color-1), var(--ui-color-15));
-  --ui-text-muted: light-dark(var(--ui-color-13), var(--ui-color-4));
-  --ui-on-inverse-muted: light-dark(var(--ui-color-4), var(--ui-color-13));
+  --ui-text: light-dark(var(--ui-color-13), var(--ui-color-4));
+  --ui-text-subtle-on-inverse: light-dark(
+    var(--ui-color-4),
+    var(--ui-color-13)
+  );
   --ui-text-strong: light-dark(var(--ui-color-15), var(--ui-color-1));
 }

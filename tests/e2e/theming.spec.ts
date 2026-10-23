@@ -16,10 +16,10 @@ test("a .ui-dark subtree renders dark", async ({ page }) => {
 
   expect(await computed(scope, "color-scheme")).toBe("dark")
   expect(await computed(scope, "background-color")).toBe(
-    await resolveColor(scope, "var(--ui-surface-default)", "dark"),
+    await resolveColor(scope, "var(--ui-surface)", "dark"),
   )
   expect(await computed(scope, "background-color")).not.toBe(
-    await resolveColor(scope, "var(--ui-surface-default)", "light"),
+    await resolveColor(scope, "var(--ui-surface)", "light"),
   )
   expect(await computed(card, "background-color")).not.toBe(
     await computed(reference, "background-color"),
@@ -31,10 +31,10 @@ test("a .ui-light subtree renders light", async ({ page }) => {
 
   expect(await computed(scope, "color-scheme")).toBe("light")
   expect(await computed(scope, "background-color")).toBe(
-    await resolveColor(scope, "var(--ui-surface-default)", "light"),
+    await resolveColor(scope, "var(--ui-surface)", "light"),
   )
   expect(await computed(scope, "background-color")).not.toBe(
-    await resolveColor(scope, "var(--ui-surface-default)", "dark"),
+    await resolveColor(scope, "var(--ui-surface)", "dark"),
   )
 })
 

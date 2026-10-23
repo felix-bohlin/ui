@@ -236,7 +236,7 @@ import Example from "../../components/Example/index"
         <code>--ui-shadow-surface</code>: tonal and outlined cards and
         accordions, and callouts. <code>none</code> by default.
       </li>
-      <li><code>--ui-shadow-tab</code>: the selected tab.</li>
+      <li><code>--ui-shadow-selected</code>: the selected tab.</li>
     </ul>
     <Code
       code={`:where(html) {
@@ -381,7 +381,7 @@ import Example from "../../components/Example/index"
     .ui-list:not(.ui-tonal, .ui-transparent),
     .ui-table th
   ) {
-    --ui-border-color: var(--ui-text-muted);
+    --ui-border-color: var(--ui-text);
     --ui-field-border-color: var(--ui-border-color);
   }
 }`}

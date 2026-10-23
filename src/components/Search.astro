@@ -537,7 +537,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
 
 <style is:global>
   :where(.command[open]) {
-    background-color: var(--ui-surface-default);
+    background-color: var(--ui-surface);
     block-size: 100dvb;
     color: var(--ui-text-strong);
     display: flex;
@@ -580,7 +580,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       padding-inline: var(--size-3);
 
       svg {
-        color: var(--ui-text-muted);
+        color: var(--ui-text);
         flex-shrink: 0;
       }
 
@@ -595,7 +595,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
         padding-block: var(--size-3);
 
         &::placeholder {
-          color: var(--ui-text-muted);
+          color: var(--ui-text);
         }
       }
 
@@ -661,7 +661,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     }
 
     .command-group-heading {
-      color: var(--ui-text-muted);
+      color: var(--ui-text);
       font-size: var(--font-size-1);
       font-weight: var(--font-weight-6);
       letter-spacing: var(--font-letterspacing-1);
@@ -674,7 +674,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       align-items: center;
       background-color: var(--ui-surface-tonal);
       border-top: var(--border-size-1) solid var(--ui-surface-tonal);
-      color: var(--ui-text-muted);
+      color: var(--ui-text);
       display: flex;
       flex-wrap: nowrap;
       font-size: var(--font-size-0);
@@ -722,7 +722,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
         }
 
         span:not(.keys) {
-          color: var(--ui-text-muted);
+          color: var(--ui-text);
           font-size: 11px;
           line-height: 1;
           margin-block-start: 2px; /* Move text down more to match kbd vertical center */
@@ -731,7 +731,7 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
     }
 
     .command-empty {
-      color: var(--ui-text-muted);
+      color: var(--ui-text);
       font-size: var(--font-size-1);
       padding-block: var(--size-8);
       text-align: center;

@@ -13,9 +13,9 @@
 
   :where(html) {
     accent-color: var(--ui-primary);
-    background-color: var(--ui-surface-default);
+    background-color: var(--ui-surface);
     caret-color: var(--ui-primary);
-    color: var(--ui-text-muted);
+    color: var(--ui-text);
     font-family: var(--ui-font-body);
     interpolate-size: allow-keywords;
     line-height: var(--ui-line-height-relaxed);
@@ -86,13 +86,13 @@
   :where(select):autofill,
   :where(select):autofill:hover,
   :where(select):autofill:focus {
-    -webkit-text-fill-color: var(--ui-text-muted);
-    box-shadow: 0 0 0px 1e5px var(--ui-surface-default) inset;
+    -webkit-text-fill-color: var(--ui-text);
+    box-shadow: 0 0 0px 1e5px var(--ui-surface) inset;
     transition: background-color 5000s ease-in-out 0s;
   }
 
   ::placeholder {
-    color: var(--ui-text-muted);
+    color: var(--ui-text);
   }
 
   :focus-visible {

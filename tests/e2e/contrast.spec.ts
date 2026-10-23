@@ -17,7 +17,7 @@ const contrast = async (
   background: string,
 ) => {
   const colors = await Promise.all([
-    resolveColor(locator, "var(--ui-surface-default)"),
+    resolveColor(locator, "var(--ui-surface)"),
     resolveColor(locator, background),
     resolveColor(locator, foreground),
   ])
@@ -108,10 +108,8 @@ test.describe("prefers-contrast", () => {
     test(`raises token contrast in ${scheme} mode`, async ({ page }) => {
       await emulate(page, { colorScheme: scheme, contrast: "more" })
       const main = page.locator("main")
-      const surface = "var(--ui-surface-default)"
-      expect(
-        await contrast(main, "var(--ui-text-muted)", surface),
-      ).toBeGreaterThan(7)
+      const surface = "var(--ui-surface)"
+      expect(await contrast(main, "var(--ui-text)", surface)).toBeGreaterThan(7)
       expect(
         await contrast(main, "var(--ui-field-border-color)", surface),
       ).toBeGreaterThan(4.5)

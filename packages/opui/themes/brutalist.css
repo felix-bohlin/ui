@@ -33,13 +33,13 @@
     --ui-shadow-elevated-light: var(--ui-shadow-control);
     --ui-shadow-scroll: 0 2px 0 0 oklch(0 0 0);
     --ui-shadow-surface: var(--ui-shadow-control);
-    --ui-shadow-tab: none;
-    --ui-surface-border-color: var(--ui-border-color);
-    --ui-surface-default: light-dark(hsl(214 95% 93%), oklch(0.29 0.06 270));
+    --ui-shadow-selected: none;
+    --ui-border-color-raised: var(--ui-border-color);
+    --ui-surface: light-dark(hsl(214 95% 93%), oklch(0.29 0.06 270));
     --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.24 0 0));
     --ui-surface-filled: light-dark(oklch(1 0 0), oklch(0.24 0 0));
     --ui-surface-tonal: light-dark(hsl(217 100% 85%), oklch(0.36 0.1 265));
-    --ui-text-muted: light-dark(oklch(0 0 0), oklch(0.92 0 0));
+    --ui-text: light-dark(oklch(0 0 0), oklch(0.92 0 0));
     --ui-text-strong: light-dark(oklch(0 0 0), oklch(0.98 0 0));
   }
 }

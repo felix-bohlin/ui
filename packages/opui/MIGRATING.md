@@ -1014,15 +1014,17 @@ Every theme token has a `--ui-` prefix, like the classes: `--primary` is `--ui-p
 
 These tokens also have a new name, so adding the prefix isn't enough:
 
-| v5                        | v6                      |
-| ------------------------- | ----------------------- |
-| `--border-radius`         | `--ui-radius`           |
-| `--button-border-radius`  | `--ui-button-radius`    |
-| `--field-border-radius`   | `--ui-field-radius`     |
-| `--primary-contrast`      | `--ui-on-primary`       |
-| `--text-muted-contrast`   | `--ui-on-inverse-muted` |
-| `--text-primary`          | `--ui-text-strong`      |
-| `--text-primary-contrast` | `--ui-on-inverse`       |
+| v5                        | v6                            |
+| ------------------------- | ----------------------------- |
+| `--border-radius`         | `--ui-radius`                 |
+| `--button-border-radius`  | `--ui-button-radius`          |
+| `--field-border-radius`   | `--ui-field-radius`           |
+| `--primary-contrast`      | `--ui-on-primary`             |
+| `--surface-default`       | `--ui-surface`                |
+| `--text-muted`            | `--ui-text`                   |
+| `--text-muted-contrast`   | `--ui-text-subtle-on-inverse` |
+| `--text-primary`          | `--ui-text-strong`            |
+| `--text-primary-contrast` | `--ui-on-inverse`             |
 
 `--ui-on-*` is the text and icon color on a fill, so `--ui-on-primary` goes on `--ui-primary` and `--ui-on-inverse` on `--ui-surface-inverse`. `--primary-dark` and `--primary-light` are gone. Derive a shade from the primary instead, such as `oklch(from var(--ui-primary) calc(l * 0.75) c h)`.
 
@@ -1103,7 +1105,7 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Drawer                      | `--_color`                                        | `--_text-color`                                                                                                |
 | Drawer                      | `--_transition-duration`, `--_transition-timing`  | `--_duration`, `--_ease`                                                                                       |
 | List                        | `--_bg-color-hover`                               | `--_hover-bg-color`                                                                                            |
-| normalize.css               | `--_page-bg-color`                                | removed, `html` reads `--ui-surface-default`                                                                   |
+| normalize.css               | `--_page-bg-color`                                | removed, `html` reads `--ui-surface`                                                                           |
 | Progress                    | `--_accent-color`                                 | `--_accent`                                                                                                    |
 | Range                       | `--_thumb-bg`                                     | `--_thumb-bg-color`                                                                                            |
 | Switch                      | `--_accent-color`                                 | `--_accent`                                                                                                    |
@@ -1221,7 +1223,7 @@ If you use raw HTML or write CSS that targets library classes, you must rename e
 
 The full list of renamed tokens is in [CHANGELOG.md](./CHANGELOG.md#500---2026-05-21). Run a project-wide find/replace per token, then visually smoke test.
 
-CSS custom properties (`--ui-primary`, `--ui-surface-default`, `--size-3`, …) are unchanged.
+CSS custom properties (`--ui-primary`, `--ui-surface`, `--size-3`, …) are unchanged.
 
 These changes in 5.0.0 and 5.0.1 need a code change too:
 

@@ -131,7 +131,7 @@ const FRAMEWORK_BRANDING: Record<
 
 <style is:global>
   html {
-    --ui-surface-default: light-dark(var(--ui-color-1), var(--ui-color-14));
+    --ui-surface: light-dark(var(--ui-color-1), var(--ui-color-14));
     --ui-surface-filled: light-dark(var(--ui-color-3), var(--ui-color-16));
     --ui-surface-tonal: light-dark(var(--ui-color-3), var(--ui-color-12));
     --ui-surface-elevated: light-dark(var(--ui-color-1), var(--ui-color-12));
@@ -139,7 +139,7 @@ const FRAMEWORK_BRANDING: Record<
 
     &:before {
       background-image: radial-gradient(
-        var(--ui-text-muted) 1.4500000000000002px,
+        var(--ui-text) 1.4500000000000002px,
         transparent 1.4500000000000002px
       );
       background-size: 20px 20px;
@@ -172,7 +172,7 @@ const FRAMEWORK_BRANDING: Record<
 
   .framework-support {
     align-items: center;
-    color: var(--ui-text-muted);
+    color: var(--ui-text);
     display: flex;
     flex-wrap: wrap;
     font-size: var(--font-size-0);

@@ -15,8 +15,8 @@
   }
 
   :where(.ui-light, .ui-dark):where(:not(html)) {
-    background-color: var(--ui-surface-default);
-    color: var(--ui-text-muted);
+    background-color: var(--ui-surface);
+    color: var(--ui-text);
   }
 
   :where(html) {
@@ -42,7 +42,7 @@
 
     /* Focus ring */
     --ui-focus-ring-color: rgb(
-      from var(--ui-surface-default) calc(255 - r) calc(255 - g) calc(255 - b)
+      from var(--ui-surface) calc(255 - r) calc(255 - g) calc(255 - b)
     );
     --ui-focus-ring-inset: calc(-1 * var(--ui-focus-ring-width));
     --ui-focus-ring-offset: 2px;
@@ -103,8 +103,8 @@
     --ui-letter-spacing-heading: -0.01em;
 
     --ui-line-height-tight: 1.25;
-    --ui-line-height: 1.5;
-    --ui-line-height-body: 1.6;
+    --ui-line-height-control: 1.5;
+    --ui-line-height: 1.6;
     --ui-line-height-relaxed: 1.75;
 
     --ui-rhythm-step: 0.25rem;
@@ -149,9 +149,9 @@
     /* Field / input */
     /* --ui-field-radius: var(--ui-radius); */
     --ui-field-border-width: 1px;
-    --ui-field-helper-color: var(--ui-text-muted);
+    --ui-field-helper-color: var(--ui-text);
     --ui-field-helper-font-size: var(--ui-font-size-caption);
-    --ui-field-helper-line-height: var(--ui-line-height);
+    --ui-field-helper-line-height: var(--ui-line-height-control);
     --ui-field-label-color: var(--ui-text-strong);
     --ui-field-label-font-size: var(--ui-font-size-small);
     --ui-field-label-font-weight: var(--ui-font-weight-semibold);
@@ -231,7 +231,7 @@
     --ui-shadow-elevated-light: var(--shadow-3);
     --ui-shadow-scroll: var(--shadow-4);
     --ui-shadow-surface: none;
-    --ui-shadow-tab: var(--shadow-1);
+    --ui-shadow-selected: var(--shadow-1);
 
     /* Overlays */
     --ui-backdrop-blur: 1px;
@@ -341,17 +341,20 @@
     /* Text */
     --ui-text-disabled: color-mix(
       in oklch,
-      var(--ui-text-muted) 50%,
-      var(--ui-surface-default)
+      var(--ui-text) 50%,
+      var(--ui-surface)
     );
     --ui-on-inverse: light-dark(var(--ui-gray-1), var(--ui-gray-15));
-    --ui-text-muted: light-dark(var(--ui-gray-13), var(--ui-gray-4));
-    --ui-on-inverse-muted: light-dark(var(--ui-gray-4), var(--ui-gray-13));
+    --ui-text: light-dark(var(--ui-gray-13), var(--ui-gray-4));
+    --ui-text-subtle-on-inverse: light-dark(
+      var(--ui-gray-4),
+      var(--ui-gray-13)
+    );
     --ui-on-accent: var(--ui-gray-1);
     --ui-text-strong: light-dark(var(--ui-gray-15), var(--ui-gray-1));
 
     /* Surfaces */
-    --ui-surface-default: light-dark(var(--ui-gray-1), var(--ui-gray-13));
+    --ui-surface: light-dark(var(--ui-gray-1), var(--ui-gray-13));
     --ui-surface-elevated: light-dark(var(--ui-gray-1), var(--ui-gray-12));
     --ui-surface-filled: light-dark(var(--ui-gray-4), var(--ui-gray-15));
     --ui-surface-inverse: light-dark(var(--ui-gray-15), var(--ui-gray-2));
@@ -370,21 +373,21 @@
     );
     --ui-border-color-on-raised: light-dark(
       var(--ui-border-color),
-      var(--ui-surface-default)
+      var(--ui-surface)
     );
     /* --ui-control-border-color: var(--ui-field-border-color); */
     /* --ui-control-border-color-filled: oklch(0 0 0); */
-    /* --ui-surface-border-color: var(--ui-border-color); */
+    /* --ui-border-color-raised: var(--ui-border-color); */
 
     /* Field / input */
     --ui-field-border-color: color-mix(
       in oklch,
       var(--ui-text-strong) 50%,
-      var(--ui-surface-default)
+      var(--ui-surface)
     );
     --ui-field-border-color-on-raised: light-dark(
       var(--ui-field-border-color),
-      var(--ui-surface-default)
+      var(--ui-surface)
     );
 
     /* Typography */
@@ -603,37 +606,37 @@
 
       --ui-text-disabled: color-mix(
         in oklch,
-        var(--ui-text-muted) 60%,
-        var(--ui-surface-default)
+        var(--ui-text) 60%,
+        var(--ui-surface)
       );
-      --ui-text-muted: color-mix(
+      --ui-text: color-mix(
         in oklch,
         var(--ui-text-strong) 90%,
-        var(--ui-surface-default)
+        var(--ui-surface)
       );
 
       --ui-border-color: color-mix(
         in oklch,
         var(--ui-text-strong) 55%,
-        var(--ui-surface-default)
+        var(--ui-surface)
       );
       --ui-border-color-on-raised: light-dark(
         var(--ui-border-color),
-        var(--ui-surface-default)
+        var(--ui-surface)
       );
       --ui-field-border-color: color-mix(
         in oklch,
         var(--ui-text-strong) 70%,
-        var(--ui-surface-default)
+        var(--ui-surface)
       );
       --ui-field-border-color-on-raised: light-dark(
         var(--ui-field-border-color),
-        var(--ui-surface-default)
+        var(--ui-surface)
       );
-      --ui-field-helper-color: var(--ui-text-muted);
+      --ui-field-helper-color: var(--ui-text);
       --ui-field-required-color: var(--ui-invalid-text);
       --ui-focus-ring-color: rgb(
-        from var(--ui-surface-default) calc(255 - r) calc(255 - g) calc(255 - b)
+        from var(--ui-surface) calc(255 - r) calc(255 - g) calc(255 - b)
       );
       --ui-focus-ring-inset: calc(-1 * var(--ui-focus-ring-width));
       --ui-focus-ring-width: 3px;
@@ -652,7 +655,7 @@
       --ui-on-primary-tonal: initial;
       --ui-selected: initial;
       --ui-on-selected: initial;
-      --ui-surface-border-color: initial;
+      --ui-border-color-raised: initial;
       --ui-track-color: initial;
     }
 
@@ -683,7 +686,7 @@
     :where(body, .ui-contrast-more > *) {
       accent-color: var(--ui-primary);
       caret-color: var(--ui-primary);
-      color: var(--ui-text-muted);
+      color: var(--ui-text);
     }
   }
 }

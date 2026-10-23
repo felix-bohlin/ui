@@ -9,6 +9,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Border color inside filled surfaces: lists without a variant and table headers.",
   "--ui-border-color-on-raised":
     "Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. Defaults to `--ui-border-color` in light mode and the page background in dark mode.",
+  "--ui-border-color-raised":
+    "Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.",
   "--ui-border-width":
     "Default border width for components that draw a border.",
   "--ui-border-width-thick":
@@ -188,10 +190,11 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-letter-spacing-heading":
     "Letter spacing of `h3` and `h4`, slightly tighter than the body.",
   "--ui-line-height":
-    "Line height of interface text: labels, helpers, choice labels and field hints.",
-  "--ui-line-height-body":
     "Line height of body copy: prose, captions and `List` text.",
-  "--ui-line-height-relaxed": "Line height of `Tabs` labels.",
+  "--ui-line-height-control":
+    "Line height of interface text: labels, helpers, choice labels and field hints.",
+  "--ui-line-height-relaxed":
+    "Line height of the page text set on `html`, and of `Tabs` labels.",
   "--ui-line-height-tight":
     "Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.",
   "--ui-motion":
@@ -202,7 +205,6 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-on-accent":
     "Near-white text on a saturated fill in both modes: critical buttons, severity `Badge`s and the checked choice mark in dark mode.",
   "--ui-on-inverse": "Text color on `--ui-surface-inverse`.",
-  "--ui-on-inverse-muted": "Muted text color on an inverted surface.",
   "--ui-on-primary":
     "Text color on `--ui-primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--ui-primary` gets readable text.",
   "--ui-on-primary-tonal":
@@ -270,10 +272,10 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Shadow of layers that float above the page: `Menu`, `Select` pickers and `Drawer`.",
   "--ui-shadow-scroll":
     "Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.",
+  "--ui-shadow-selected":
+    "Shadow of the selected tab in default and `.ui-filled` `Tabs`. `.ui-line` and `.ui-outlined` have none. Defaults to Open Props `--shadow-1`.",
   "--ui-shadow-surface":
     "Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.",
-  "--ui-shadow-tab":
-    "Shadow of the selected tab in default and `.ui-filled` `Tabs`. `.ui-line` and `.ui-outlined` have none. Defaults to Open Props `--shadow-1`.",
   "--ui-space-1":
     "Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.",
   "--ui-space-2":
@@ -307,9 +309,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-success": "Severity color for success messages.",
   "--ui-success-text":
     "Success as a text color, for success text outside an `.ui-success` scope. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
-  "--ui-surface-border-color":
-    "Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.",
-  "--ui-surface-default": "Page and card background.",
+  "--ui-surface": "Page and card background.",
   "--ui-surface-elevated":
     "Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.",
   "--ui-surface-filled":
@@ -343,6 +343,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Width of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class.",
   "--ui-switch-track-width-x-small":
     "Width of the `Switch` track with `.ui-x-small`.",
+  "--ui-text": "Body text color.",
   "--ui-text-disabled": "Text color of disabled buttons and chips.",
   "--ui-text-max-chroma":
     "The highest OKLCH chroma of the intent text roles in dark mode, which keeps a light color inside sRGB. `0.1`. Also caps the dark mode text of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`.",
@@ -350,9 +351,10 @@ export const themeTokenDescriptions: Record<string, string> = {
     "The highest OKLCH lightness of the intent text roles (`--ui-primary-text`, `--ui-critical-text` and the other `-text` roles) in light mode, so they keep 4.5:1 on every surface. `0.41`, and `0.3` with more contrast.",
   "--ui-text-min-lightness":
     "The lowest OKLCH lightness of the intent text roles in dark mode, so they keep 4.5:1 on every surface. `0.8`, and `0.9` with more contrast. Their chroma is also capped at `--ui-text-max-chroma` in dark mode. Also the lowest lightness of `Button` and `ButtonGroup` text without `.ui-primary` or `.ui-critical` in dark mode.",
-  "--ui-text-muted": "Body text color.",
   "--ui-text-strong":
-    "Strongest text color, for headings, labels and values. Body text is `--ui-text-muted`.",
+    "Strongest text color, for headings, labels and values. Body text is `--ui-text`.",
+  "--ui-text-subtle-on-inverse":
+    "Subtle text color on an inverted fill: `kbd` and `var`, drawn on `--ui-text`.",
   "--ui-track-color":
     "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch a fixed gray.",
   "--ui-underline-offset":

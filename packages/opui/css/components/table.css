@@ -25,7 +25,7 @@
     /* Cells */
     th,
     td {
-      background-color: var(--ui-surface-default);
+      background-color: var(--ui-surface);
       border-block-end: var(--ui-border-width) solid var(--ui-border-color);
       border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
       font-size: var(--ui-font-size-small);
@@ -58,7 +58,7 @@
     tbody :is(th[scope="row"], tr:has(> td) > th) {
       --ui-border-color: inherit;
 
-      background-color: var(--ui-surface-default);
+      background-color: var(--ui-surface);
     }
 
     /* Round corner cells  */
@@ -112,7 +112,7 @@
     /* Caption */
     caption {
       caption-side: bottom;
-      color: var(--ui-text-muted);
+      color: var(--ui-text);
       font-size: var(--ui-font-size-small);
       margin-inline-start: var(--ui-space-2);
       padding-block: var(--ui-space-2);

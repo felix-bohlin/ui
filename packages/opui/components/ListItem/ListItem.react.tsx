@@ -28,7 +28,7 @@ export default function ListItem({
     : (as ?? (href ? "a" : undefined))
   const tagProps = hasControl
     ? { className: `ui-${type}`, htmlFor }
-    : { ...(rest as object), ...tagAttrs(Tag as string, disabled, href) }
+    : { ...tagAttrs(Tag as string, disabled, href), ...(rest as object) }
 
   const body = (
     <>

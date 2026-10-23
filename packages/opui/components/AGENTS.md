@@ -309,10 +309,10 @@ Form controls (TextField, Textarea, Select, Range, Checkbox, Radio, Switch), Lis
 ```astro
 <div class="ui-component">
   {
-    (label || Astro.slots.has("default")) && (
-      <span class="ui-text">
+    (label || Astro.slots.has("label")) && (
+      <span class="ui-label">
         {label}
-        <slot />
+        <slot name="label" />
       </span>
     )
   }
@@ -442,12 +442,12 @@ For repetitive structures (Menu, Select), prefer an `items` prop alongside stand
 
 ```astro
 ---
-type Item = { selected?: boolean; text: string; value: number | string }
+type Item = { label: string; selected?: boolean; value: number | string }
 type Props = { items?: Item[] }
 ---
 
 <select>
-  {items.map((item) => <option value={item.value}>{item.text}</option>)}
+  {items.map((item) => <option value={item.value}>{item.label}</option>)}
   <slot />
   <!-- Still allow manual entries -->
 </select>

@@ -54,7 +54,7 @@ export default {
   notes: {
     astro:
       "Attributes that aren't props go to the `<input>`, like `checked`, `disabled`, `name` and `required`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in the slot.",
-    html: "To hide the label, use `.ui-sr-only` instead of `.ui-label`. `data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property.",
+    html: "`data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property.",
     react:
       "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.",
     svelte:
@@ -79,8 +79,12 @@ export default {
       prop: "error",
     },
     {
+      class: ".ui-sr-only",
       default: "false",
-      description: "Visually hides the label.",
+      description:
+        "Visually hides the label, `.ui-sr-only` instead of `.ui-label`.",
+      group: "Label",
+      part: ".ui-label",
       prop: "hideLabel",
     },
     {

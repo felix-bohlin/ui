@@ -112,6 +112,20 @@ Text uses `--ui-on-primary`.
 + <Badge corner="end-end">
 ```
 
+The indicator is `.ui-indicator` instead of `.ui-badge-indicator`. For a count with words for screen readers, put the whole sentence in a `.ui-sr-only` element and hide the short visible text, so a translation can put the number wherever its language needs it:
+
+```diff
+  <span class="ui-anchor-floating">
+-   <span class="ui-badge-indicator">5</span>
++   <span class="ui-indicator">
++     <span aria-hidden="true">5</span>
++     <span class="ui-sr-only">5 unread messages</span>
++   </span>
+  </span>
+```
+
+`label` is a `string`. Pass a number as a string (`label="5"`).
+
 ## Button
 
 `.ui-icon-only` is removed. A `Button` whose only child is an `svg` is square, so drop the class.

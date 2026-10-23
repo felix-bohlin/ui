@@ -3,7 +3,7 @@ import { Badge } from "opui-css/vue"
 </script>
 
 <template>
-  <Badge color="critical" label="5" srLabel="unread messages">
+  <Badge color="critical" hideLabel label="5 unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -16,8 +16,9 @@ import { Badge } from "opui-css/vue"
         d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
       ></path>
     </svg>
+    <template #indicator>5</template>
   </Badge>
-  <Badge color="info" label="5" srLabel="unread messages">
+  <Badge color="info" hideLabel label="5 unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -30,8 +31,9 @@ import { Badge } from "opui-css/vue"
         d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
       ></path>
     </svg>
+    <template #indicator>5</template>
   </Badge>
-  <Badge color="neutral" label="5" srLabel="unread messages">
+  <Badge color="neutral" hideLabel label="5 unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -44,8 +46,9 @@ import { Badge } from "opui-css/vue"
         d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
       ></path>
     </svg>
+    <template #indicator>5</template>
   </Badge>
-  <Badge color="success" label="5" srLabel="unread messages">
+  <Badge color="success" hideLabel label="5 unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -58,8 +61,9 @@ import { Badge } from "opui-css/vue"
         d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
       ></path>
     </svg>
+    <template #indicator>5</template>
   </Badge>
-  <Badge color="warning" label="5" srLabel="unread messages">
+  <Badge color="warning" hideLabel label="5 unread messages">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -72,5 +76,6 @@ import { Badge } from "opui-css/vue"
         d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
       ></path>
     </svg>
+    <template #indicator>5</template>
   </Badge>
 </template>

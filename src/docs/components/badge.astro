@@ -81,27 +81,41 @@ export const description =
     <h2 id="indicator">Indicator</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set indicator text with the <code>label</code> prop or the <code
-          >indicator</code
-        > slot. The default slot holds the anchored element.
+        Set the indicator text with <code>label</code>. When the visible text is
+        short, like a count, set <code>hideLabel</code> and pass the whole sentence
+        as <code>label</code>, such as "5 unread messages", and the short form
+        in the <code>indicator</code> slot. Screen readers read the label and skip
+        the slot. The default slot holds the anchored element.
       </Fragment>
       <Fragment slot="html">
-        Put indicator text inside <code>.ui-badge-indicator</code>. The anchored
-        element is the badge's direct child before <code
-          >.ui-anchor-floating</code
-        >.
+        Put the indicator text inside <code>.ui-indicator</code>. When the
+        visible text is short, like a count, give it <code
+          >aria-hidden="true"</code
+        > and put the whole sentence, such as "5 unread messages", in a <code
+          >.ui-sr-only</code
+        > element next to it. The anchored element is the badge's direct child before
+        <code>.ui-anchor-floating</code>.
       </Fragment>
       <Fragment slot="react">
-        Set indicator text with the <code>label</code> prop or the <code
-          >indicator</code
-        > prop. <code>children</code> is the anchored element.
+        Set the indicator text with <code>label</code>. When the visible text is
+        short, like a count, set <code>hideLabel</code> and pass the whole sentence
+        as <code>label</code>, such as "5 unread messages", and the short form
+        in the <code>indicator</code> prop. Screen readers read the label and skip
+        the indicator. <code>children</code> is the anchored element.
       </Fragment>
       <Fragment slot="svelte">
-        Set indicator text with the <code>label</code> prop or the <code
-          >indicator</code
-        > snippet. The <code>children</code> snippet holds the anchored element.
+        Set the indicator text with <code>label</code>. When the visible text is
+        short, like a count, set <code>hideLabel</code> and pass the whole sentence
+        as <code>label</code>, such as "5 unread messages", and the short form
+        in the <code>indicator</code> snippet. Screen readers read the label and skip
+        the snippet. The <code>children</code> snippet holds the anchored element.
       </Fragment>
     </Conditional>
+    <p>
+      The badge never joins the number and the words, so a translation can put
+      the number wherever its language needs it, and the visible text can differ
+      from the sentence ("99+" and "More than 99 unread messages").
+    </p>
 
     <AutoExample name="Indicator" row />
   </section>
@@ -156,16 +170,25 @@ export const description =
   <Fragment slot="accessibility">
     <ul>
       <li>
-        A count on its own is read without context, such as "5". Add visually
-        hidden text inside the indicator, so it's read as "5 unread messages":
+        A count on its own is read without context, such as "5". Give the badge
+        the whole sentence for screen readers, so it's read as "5 unread
+        messages":
         <Conditional>
-          <Fragment slot="components">the <code>srLabel</code> prop.</Fragment>
-          <Fragment slot="html"
-            >a <code>.ui-sr-only</code> element inside <code
-              >.ui-badge-indicator</code
+          <Fragment slot="components"
+            ><code>hideLabel</code> with the sentence as <code>label</code
             >.</Fragment
           >
+          <Fragment slot="html"
+            >a <code>.ui-sr-only</code> element inside <code>.ui-indicator</code
+            >, with <code>aria-hidden="true"</code> on the visible text.</Fragment
+          >
         </Conditional>
+      </li>
+      <li>
+        The indicator sits next to the anchored element, not inside it. On a
+        button or a link, put the sentence in its name too, such as <code
+          >aria-label="Inbox, 5 unread messages"</code
+        >, since the name is what's read when it's focused.
       </li>
     </ul>
   </Fragment>

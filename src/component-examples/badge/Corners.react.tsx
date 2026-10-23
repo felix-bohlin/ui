@@ -3,7 +3,12 @@ import { Badge } from "opui-css/react"
 export default function Corners() {
   return (
     <>
-      <Badge corner="start-start" label="35" srLabel="unread messages">
+      <Badge
+        corner="start-start"
+        hideLabel
+        indicator="35"
+        label="35 unread messages"
+      >
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +22,7 @@ export default function Corners() {
           ></path>
         </svg>
       </Badge>
-      <Badge label="99+" srLabel="unread messages">
+      <Badge hideLabel indicator="99+" label="More than 99 unread messages">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +36,7 @@ export default function Corners() {
           ></path>
         </svg>
       </Badge>
-      <Badge corner="end-start" label="OK!" srLabel="inbox synced">
+      <Badge corner="end-start" hideLabel indicator="OK!" label="Inbox synced">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +50,12 @@ export default function Corners() {
           ></path>
         </svg>
       </Badge>
-      <Badge corner="end-end" label="3K" srLabel="unread messages">
+      <Badge
+        corner="end-end"
+        hideLabel
+        indicator="3K"
+        label="About 3,000 unread messages"
+      >
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"

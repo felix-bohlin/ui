@@ -8,9 +8,9 @@ export default function Badge({
   color,
   corner,
   dot,
+  hideLabel,
   invisible,
   label,
-  srLabel,
   children,
   indicator,
   ...rest
@@ -31,13 +31,16 @@ export default function Badge({
     >
       {children}
       <AnchorContent>
-        <span className="ui-badge-indicator">
-          {dot ? "" : label}
-          {!dot && indicator}
-          {srLabel && (
+        <span className="ui-indicator">
+          {dot || hideLabel ? (
             <>
-              {" "}
-              <span className="ui-sr-only">{srLabel}</span>
+              {!dot && indicator && <span aria-hidden="true">{indicator}</span>}
+              {label && <span className="ui-sr-only">{label}</span>}
+            </>
+          ) : (
+            <>
+              {label}
+              {indicator}
             </>
           )}
         </span>

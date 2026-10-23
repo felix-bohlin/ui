@@ -42,6 +42,8 @@
 - `TabsItem` `open` and `ToggleButton` `pressed` are `checked`, the native attribute they set.
 - `Anchor` and `Tooltip` `alignment` is `positionArea`, named after the CSS `position-area` value it takes, and `.ui-with-arrow` on a tooltip is `.ui-arrow`, like the `arrow` prop.
 - `Badge` `alignment` is `corner`, since it picks a corner of the child. The classes are unchanged.
+- `Badge` `label` is a `string` (types). Pass a number as a string.
+- `Badge` indicator is `.ui-indicator` instead of `.ui-badge-indicator`.
 - `FieldGroup` `direction` (`"row"`, `"column"`) is `orientation` (`"auto"`, `"horizontal"`, `"vertical"`), like `ButtonGroup`, `ToggleGroup` and `Carousel`, and `.ui-row` and `.ui-column` are `.ui-horizontal` and `.ui-vertical`. `auto`, the default, stacks fields and lines up a group of only buttons in a row.
 - `Avatar` `variant` is `shape` (`"circle"`, `"rounded"`, `"squared"`, `"squircle"`), with `circle` as the default. The classes are unchanged.
 - `Table` `variant` is `density` (`"dense"`, `"normal"`, `"spacious"`), so `variant` only names a surface. The classes are unchanged.
@@ -160,7 +162,7 @@
 - `Switch` takes `size="x-small"` and `size="large"` (`.ui-x-small`, `.ui-large`), from the new `--ui-switch-dot-size-*`, `--ui-switch-track-height-*` and `--ui-switch-track-width-*` x-small and large tokens. The dot inset follows the track and dot size, so custom `--switch-*` values stay centered.
 - `Chip` takes `size="x-small"` (`.ui-x-small`), 24px tall from the new `--ui-chip-size-x-small` token.
 - `Badge` `corner` takes `"start-end"`, the default corner.
-- `Badge` takes `srLabel`, visually hidden text (`.ui-sr-only`) inside the indicator that describes it to assistive technology, such as "3 unread".
+- `Badge` takes `hideLabel`, which renders `label` as visually hidden text (`.ui-sr-only`) inside the indicator, and hides the `indicator` slot from assistive technology. Pass the whole translated text as `label` ("5 unread messages") and the short visible form in the `indicator` slot ("5"), so the component never joins a number and words. A `dot` badge hides its `label` the same way.
 - `Avatar` takes a `size` prop (`.ui-x-small`, `.ui-small`, `.ui-large`) that matches the control sizes. Letters and icons scale with it, and large initials are `--ui-font-size-large`.
 - `DescriptionList` takes `inline` (`.ui-inline`), which keeps the term and the description side by side at any width.
 - `Chip` takes a `severity` prop (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) that tints a tonal chip, and `dot` (`.ui-dot`) for a leading dot in that color. The dot is a diamond for critical, a triangle for warning and a ring for neutral, and stays visible in forced colors mode. On an outlined chip only the dot is colored. The tint, border, text and dot read the `--ui-palette-*` roles, like `Callout`.

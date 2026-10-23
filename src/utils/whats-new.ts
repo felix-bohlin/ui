@@ -87,9 +87,13 @@ const whatsNew = {
     `Severity text reads <code>--ui-on-accent</code> and <code>--ui-palette-strong</code> instead of fixed grays.`,
     `Badges on round avatars sit on the avatar's edge (<a href="#corners">Corners</a>), and in an avatar group on the start side.`,
     {
-      default: `<a href="#indicator">Indicator</a> context for screen readers with <code>srLabel</code>.`,
-      html: `<a href="#indicator">Indicator</a> context for screen readers with <code>.ui-sr-only</code>.`,
+      default: `<a href="#indicator">Indicator</a> text for screen readers with <code>hideLabel</code>: one translated <code>label</code>, and the short visible text in <code>indicator</code>.`,
+      html: `<a href="#indicator">Indicator</a> text for screen readers with <code>.ui-sr-only</code>, next to the visible text with <code>aria-hidden="true"</code>.`,
     },
+    {
+      html: `Breaking: the indicator is <a href="#indicator"><code>.ui-indicator</code></a> instead of <code>.ui-badge-indicator</code>.`,
+    },
+    slots(`Breaking: <a href="#indicator"><code>label</code></a> is a string.`),
     components(
       `<a href="#corners"><code>corner</code></a> takes <code>"start-end"</code>, the default corner.`,
     ),

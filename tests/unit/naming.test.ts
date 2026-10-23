@@ -56,8 +56,13 @@ const vocabulary: Record<string, { group: string; values: string[] }> = {
 const replaced: Record<string, string> = {
   alignment: "corner or positionArea",
   direction: "orientation",
+  iconOnly: "aria-label",
+  perView: "itemsPerView",
   placement: "side",
   pressed: "checked",
+  srLabel: "hideLabel or aria-label",
+  text: "label",
+  title: "label",
 }
 
 const optionalModifiers = new Set(["as", "color", "severity", "type"])
@@ -82,6 +87,12 @@ const problems = apis.flatMap((api) => {
     }
     if (option.prop === "open" && !option.inherited) {
       report(option, "use checked")
+    }
+    if (/^(hide|sr|visually)[A-Z]/.test(option.prop)) {
+      if (option.prop !== "hideLabel") report(option, "use hideLabel")
+      else if (option.class !== ".ui-sr-only" || !option.part) {
+        report(option, "renders no .ui-sr-only on a part")
+      }
     }
 
     const concept = vocabulary[option.prop]
@@ -113,6 +124,7 @@ const problems = apis.flatMap((api) => {
     if (
       !option.values &&
       option.class &&
+      option.prop !== "hideLabel" &&
       booleanDefaults.has(option.default ?? "") &&
       !option.class.includes(`.ui-${kebab(option.prop)}`)
     ) {

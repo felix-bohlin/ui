@@ -82,6 +82,37 @@ const optionalModifiers = new Set([
 const prefixed = new Set(["align", "overflow"])
 const booleanDefaults = new Set(["false", "true"])
 
+const parts = new Set([
+  ".ui-actions",
+  ".ui-bottom",
+  ".ui-content",
+  ".ui-description",
+  ".ui-end",
+  ".ui-end-text",
+  ".ui-field",
+  ".ui-floating",
+  ".ui-footer",
+  ".ui-header",
+  ".ui-heading",
+  ".ui-icon-checked",
+  ".ui-icon-unchecked",
+  ".ui-indicator",
+  ".ui-input",
+  ".ui-label",
+  ".ui-legend",
+  ".ui-marker",
+  ".ui-panel",
+  ".ui-start",
+  ".ui-start-text",
+  ".ui-text",
+  ".ui-top",
+  ".ui-value",
+])
+const partExceptions = new Set([".ui-card-link"])
+const roots = new Set(
+  apis.flatMap((api) => api.root.selector.match(/\.ui-[a-z0-9-]+/g) ?? []),
+)
+
 const kebab = (name: string) =>
   name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
 const isProp = (option: ApiOption) =>
@@ -159,6 +190,21 @@ const problems = apis.flatMap((api) => {
       !option.class.includes(`.ui-${kebab(option.prop)}`)
     ) {
       report(option, `renders ${option.class}, not .ui-${kebab(option.prop)}`)
+    }
+  }
+
+  for (const part of api.parts) {
+    const last = part.selector.split(/\s*[>+~\s]\s*/).at(-1) ?? ""
+    const name = last.match(/\.ui-[a-z0-9-]+/g)?.at(-1)
+    if (
+      name &&
+      !parts.has(name) &&
+      !roots.has(name) &&
+      !partExceptions.has(name)
+    ) {
+      found.push(
+        `${api.component} ${part.selector}: ${name} is not a part name`,
+      )
     }
   }
 

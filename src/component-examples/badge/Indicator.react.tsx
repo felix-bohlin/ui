@@ -3,7 +3,7 @@ import { Badge } from "opui-css/react"
 export default function Indicator() {
   return (
     <>
-      <Badge label="5" srLabel="unread messages">
+      <Badge hideLabel indicator="5" label="5 unread messages">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +18,7 @@ export default function Indicator() {
         </svg>
       </Badge>
 
-      <Badge srLabel="unread messages" indicator="99+">
+      <Badge hideLabel indicator="99+" label="More than 99 unread messages">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"

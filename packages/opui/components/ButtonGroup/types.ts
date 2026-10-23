@@ -1,8 +1,7 @@
 export type Props = {
   color?: "critical" | "primary"
   orientation?: "horizontal" | "vertical"
-  scrollable?: boolean
-  shrink?: boolean
+  overflow?: "scroll" | "shrink" | "wrap"
   size?: "x-small" | "small" | "medium" | "large"
   variant?: "filled" | "outlined" | "tonal" | "transparent"
 }

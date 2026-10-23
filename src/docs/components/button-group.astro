@@ -71,12 +71,10 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   <ul>
     <li>Button groups should consist of 2-5 buttons.</li>
     <li>
-      Use <PropOrClass prop="scrollable" class=".ui-scrollable" /> or <PropOrClass
-        prop="shrink"
-        class=".ui-shrink"
-      /> when a group must stay on one row, see <a
-        href="#overflow"
-        class="ui-link">Overflow</a
+      Use <PropOrClass prop='overflow="scroll"' class=".ui-overflow-scroll" /> or
+      <PropOrClass prop='overflow="shrink"' class=".ui-overflow-shrink" /> when a
+      group must stay on one row, see <a href="#overflow" class="ui-link"
+        >Overflow</a
       >.
     </li>
     <li>
@@ -230,25 +228,25 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
     <Conditional as="p">
       <Fragment slot="components">
         Buttons wrap onto more rows when they don't fit. Use <code
-          >scrollable</code
+          >overflow="scroll"</code
         > to keep them on one row and scroll them sideways, or <code
-          >shrink</code
+          >overflow="shrink"</code
         > to keep them on one row and truncate their labels. Icon-only items keep
-        their size. <code>shrink</code> hides label text, so use it only when the
-        labels can be inferred or are icon-only, and prefer <code
-          >scrollable</code
+        their size. <code>overflow="shrink"</code> hides label text, so use it only
+        when the labels can be inferred or are icon-only, and prefer <code
+          >overflow="scroll"</code
         >
         when the text matters.
       </Fragment>
       <Fragment slot="html">
         Buttons wrap onto more rows when they don't fit. Add <code
-          >.ui-scrollable</code
+          >.ui-overflow-scroll</code
         > to keep them on one row and scroll them sideways, or <code
-          >.ui-shrink</code
+          >.ui-overflow-shrink</code
         > to keep them on one row and truncate their labels. Icon-only items keep
-        their size. <code>.ui-shrink</code> hides label text, so use it only when
-        the labels can be inferred or are icon-only, and prefer <code
-          >.ui-scrollable</code
+        their size. <code>.ui-overflow-shrink</code> hides label text, so use it only
+        when the labels can be inferred or are icon-only, and prefer <code
+          >.ui-overflow-scroll</code
         > when the text matters.
       </Fragment>
     </Conditional>

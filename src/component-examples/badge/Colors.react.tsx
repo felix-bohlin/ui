@@ -3,7 +3,7 @@ import { Badge } from "opui-css/react"
 export default function Colors() {
   return (
     <>
-      <Badge color="critical" label="5" srLabel="unread messages">
+      <Badge color="critical" hideLabel indicator="5" label="5 unread messages">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@ export default function Colors() {
           ></path>
         </svg>
       </Badge>
-      <Badge color="info" label="5" srLabel="unread messages">
+      <Badge color="info" hideLabel indicator="5" label="5 unread messages">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@ export default function Colors() {
           ></path>
         </svg>
       </Badge>
-      <Badge color="neutral" label="5" srLabel="unread messages">
+      <Badge color="neutral" hideLabel indicator="5" label="5 unread messages">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ export default function Colors() {
           ></path>
         </svg>
       </Badge>
-      <Badge color="success" label="5" srLabel="unread messages">
+      <Badge color="success" hideLabel indicator="5" label="5 unread messages">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@ export default function Colors() {
           ></path>
         </svg>
       </Badge>
-      <Badge color="warning" label="5" srLabel="unread messages">
+      <Badge color="warning" hideLabel indicator="5" label="5 unread messages">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"

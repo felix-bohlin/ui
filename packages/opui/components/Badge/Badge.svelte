@@ -8,9 +8,9 @@
     color,
     corner,
     dot,
+    hideLabel,
     invisible,
     label,
-    srLabel,
 
     // Snippets
     children,
@@ -34,10 +34,15 @@
 >
   {@render children?.()}
   <AnchorContent>
-    <span class="ui-badge-indicator">
-      {dot ? "" : label}
-      {#if !dot}{@render indicator?.()}{/if}
-      {#if srLabel}<span class="ui-sr-only">{srLabel}</span>{/if}
+    <span class="ui-indicator">
+      {#if dot || hideLabel}
+        {#if !dot && indicator}<span aria-hidden="true"
+            >{@render indicator()}</span
+          >{/if}
+        {#if label}<span class="ui-sr-only">{label}</span>{/if}
+      {:else}
+        {label}{@render indicator?.()}
+      {/if}
     </span>
   </AnchorContent>
 </Anchor>

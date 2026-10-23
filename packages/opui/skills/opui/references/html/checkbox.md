@@ -598,6 +598,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | Type       | Modifiers                                        | Default | Description                                                                          |
 | ---------- | ------------------------------------------------ | ------- | ------------------------------------------------------------------------------------ |
 | Disabled   | `input[disabled]`                                | -       | Dims the checkbox and shows a not-allowed cursor.                                    |
+| Label      | `.ui-label.ui-sr-only`                           | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
 | Required   | `input[required]`                                | -       | Adds a required mark after the label.                                                |
 | Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                             |
 | Spread     | `.ui-spread`                                     | -       | Pushes the label and the input to opposite ends.                                     |
@@ -664,7 +665,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-To hide the label, use `.ui-sr-only` instead of `.ui-label`. `data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property.
+`data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property.
 
 ### Checkbox input API
 

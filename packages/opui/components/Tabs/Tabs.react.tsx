@@ -8,7 +8,7 @@ import type { Props } from "./types.react"
 export default function Tabs({
   className,
   name,
-  scrollable,
+  overflow,
   variant,
   children,
   ...rest
@@ -21,7 +21,7 @@ export default function Tabs({
       <div
         className={cx([
           "ui-tabs",
-          { "ui-scrollable": scrollable },
+          overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
           variant && variant !== "tonal" && `ui-${variant}`,
           className,
         ])}

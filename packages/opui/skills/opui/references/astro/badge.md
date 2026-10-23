@@ -14,7 +14,7 @@
 
 - `label / slot="indicator"`
 
-  The indicator, inside `.ui-anchor-floating`.
+  The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`.
 
 ## Dot
 
@@ -25,7 +25,7 @@ Use `dot` to show a dot instead of the label.
 import { Badge } from "opui-css/astro"
 ---
 
-<Badge label="5" srLabel="unread messages">
+<Badge hideLabel label="5 unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -37,9 +37,10 @@ import { Badge } from "opui-css/astro"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path></svg
   >
+  <Fragment slot="indicator">5</Fragment>
 </Badge>
 
-<Badge dot srLabel="New messages">
+<Badge dot label="New messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +64,7 @@ Color the indicator with `color="critical"`, `color="info"`, `color="neutral"`, 
 import { Badge } from "opui-css/astro"
 ---
 
-<Badge color="critical" label="5" srLabel="unread messages">
+<Badge color="critical" hideLabel label="5 unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -75,8 +76,9 @@ import { Badge } from "opui-css/astro"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path></svg
   >
+  <Fragment slot="indicator">5</Fragment>
 </Badge>
-<Badge color="info" label="5" srLabel="unread messages">
+<Badge color="info" hideLabel label="5 unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -88,8 +90,9 @@ import { Badge } from "opui-css/astro"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path></svg
   >
+  <Fragment slot="indicator">5</Fragment>
 </Badge>
-<Badge color="neutral" label="5" srLabel="unread messages">
+<Badge color="neutral" hideLabel label="5 unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -101,8 +104,9 @@ import { Badge } from "opui-css/astro"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path></svg
   >
+  <Fragment slot="indicator">5</Fragment>
 </Badge>
-<Badge color="success" label="5" srLabel="unread messages">
+<Badge color="success" hideLabel label="5 unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -114,8 +118,9 @@ import { Badge } from "opui-css/astro"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path></svg
   >
+  <Fragment slot="indicator">5</Fragment>
 </Badge>
-<Badge color="warning" label="5" srLabel="unread messages">
+<Badge color="warning" hideLabel label="5 unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -127,19 +132,22 @@ import { Badge } from "opui-css/astro"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path></svg
   >
+  <Fragment slot="indicator">5</Fragment>
 </Badge>
 ```
 
 ## Indicator
 
-Set indicator text with the `label` prop or the `indicator` slot. The default slot holds the anchored element.
+Set the indicator text with `label`. When the visible text is short, like a count, set `hideLabel` and pass the whole sentence as `label`, such as "5 unread messages", and the short form in the `indicator` slot. Screen readers read the label and skip the slot. The default slot holds the anchored element.
+
+The badge never joins the number and the words, so a translation can put the number wherever its language needs it, and the visible text can differ from the sentence ("99+" and "More than 99 unread messages").
 
 ```astro
 ---
 import { Badge } from "opui-css/astro"
 ---
 
-<Badge label="5" srLabel="unread messages">
+<Badge hideLabel label="5 unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -151,9 +159,10 @@ import { Badge } from "opui-css/astro"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path></svg
   >
+  <Fragment slot="indicator">5</Fragment>
 </Badge>
 
-<Badge srLabel="unread messages">
+<Badge hideLabel label="More than 99 unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -178,8 +187,9 @@ Change the badge's visibility using the `invisible` prop.
 import { Badge } from "opui-css/astro"
 ---
 
-<Badge invisible label="5" srLabel="unread messages">
+<Badge hideLabel invisible label="5 unread messages">
   <!-- -->
+  <Fragment slot="indicator">5</Fragment>
 </Badge>
 ```
 
@@ -194,7 +204,7 @@ Set `corner` to `start-start`, `start-end` (the default), `end-start` or `end-en
 import { Badge } from "opui-css/astro"
 ---
 
-<Badge corner="start-start" label="35" srLabel="unread messages">
+<Badge corner="start-start" hideLabel label="35 unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -206,8 +216,9 @@ import { Badge } from "opui-css/astro"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path></svg
   >
+  <Fragment slot="indicator">35</Fragment>
 </Badge>
-<Badge label="99+" srLabel="unread messages">
+<Badge hideLabel label="More than 99 unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -219,8 +230,9 @@ import { Badge } from "opui-css/astro"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path></svg
   >
+  <Fragment slot="indicator">99+</Fragment>
 </Badge>
-<Badge corner="end-start" label="OK!" srLabel="inbox synced">
+<Badge corner="end-start" hideLabel label="Inbox synced">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -232,8 +244,9 @@ import { Badge } from "opui-css/astro"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path></svg
   >
+  <Fragment slot="indicator">OK!</Fragment>
 </Badge>
-<Badge corner="end-end" label="3K" srLabel="unread messages">
+<Badge corner="end-end" hideLabel label="About 3,000 unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -245,32 +258,34 @@ import { Badge } from "opui-css/astro"
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path></svg
   >
+  <Fragment slot="indicator">3K</Fragment>
 </Badge>
 ```
 
 ## Accessibility
 
-- A count on its own is read without context, such as "5". Add visually hidden text inside the indicator, so it's read as "5 unread messages": the `srLabel` prop.
+- A count on its own is read without context, such as "5". Give the badge the whole sentence for screen readers, so it's read as "5 unread messages": `hideLabel` with the sentence as `label`.
+- The indicator sits next to the anchored element, not inside it. On a button or a link, put the sentence in its name too, such as `aria-label="Inbox, 5 unread messages"`, since the name is what's read when it's focused.
 
 ## API
 
 ### Badge API
 
-| Prop        | Type                                                              | Default       | Description                                                                                |
-| ----------- | ----------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------ |
-| `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -             | Optional colors.                                                                           |
-| `corner`    | `"end-end"` , `"end-start"` , `"start-end"` , `"start-start"`     | `"start-end"` | The corner the indicator sits on.                                                          |
-| `dot`       | `boolean`                                                         | `false`       | Renders the indicator as a dot, without a label.                                           |
-| `invisible` | `boolean`                                                         | `false`       | Hides the indicator.                                                                       |
-| `label`     | `number` , `string`                                               | -             | The indicator, inside `.ui-anchor-floating`.                                               |
-| `srLabel`   | `string`                                                          | -             | Visually hidden text that describes the badge to assistive technology, such as "3 unread". |
+| Prop        | Type                                                              | Default       | Description                                                                                                                                                                          |
+| ----------- | ----------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -             | Optional colors.                                                                                                                                                                     |
+| `corner`    | `"end-end"` , `"end-start"` , `"start-end"` , `"start-start"`     | `"start-end"` | The corner the indicator sits on.                                                                                                                                                    |
+| `dot`       | `boolean`                                                         | `false`       | Renders the indicator as a dot, without a label.                                                                                                                                     |
+| `hideLabel` | `boolean`                                                         | `false`       | Hides `label` visually, for the whole sentence screen readers read, such as "5 unread messages". The `indicator` slot then holds the visible text and is hidden from screen readers. |
+| `invisible` | `boolean`                                                         | `false`       | Hides the indicator.                                                                                                                                                                 |
+| `label`     | `string`                                                          | -             | The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`.                                                                                    |
 
 #### Slots
 
-| Slot        | Description                                  |
-| ----------- | -------------------------------------------- |
-| `default`   | The element the badge is anchored to.        |
-| `indicator` | The indicator, inside `.ui-anchor-floating`. |
+| Slot        | Description                                                                                       |
+| ----------- | ------------------------------------------------------------------------------------------------- |
+| `default`   | The element the badge is anchored to.                                                             |
+| `indicator` | The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`. |
 
 #### CSS variables
 
@@ -463,7 +478,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - Severity text reads `--ui-on-accent` and `--ui-palette-strong` instead of fixed grays.
 - Badges on round avatars sit on the avatar's edge ([Corners](#corners)), and in an avatar group on the start side.
-- [Indicator](#indicator) context for screen readers with `srLabel`.
+- [Indicator](#indicator) text for screen readers with `hideLabel`: one translated `label`, and the short visible text in `indicator`.
+- Breaking: [`label`](#indicator) is a string.
 - [`corner`](#corners) takes `"start-end"`, the default corner.
 - Breaking: `--_badge-inset` is `--_inset-block` and `--_inset-inline` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

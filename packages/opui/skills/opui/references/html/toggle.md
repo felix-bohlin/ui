@@ -331,7 +331,7 @@ Change the layout of the group with the `.ui-vertical` class.
 
 ### Overflow
 
-Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep them on one row and scroll them sideways, or `.ui-shrink` to keep them on one row and truncate their labels. Icon-only items keep their size.
+Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-overflow-scroll` to keep them on one row and scroll them sideways, or `.ui-overflow-shrink` to keep them on one row and truncate their labels. Icon-only items keep their size.
 
 ```html
 <div role="group" class="ui-toggle-group">
@@ -348,21 +348,21 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scro
     Nothing at all
   </label>
 </div>
-<div role="group" class="ui-toggle-group ui-scrollable">
+<div role="group" class="ui-toggle-group ui-overflow-scroll">
   <label class="ui-toggle-button">
-    <input type="checkbox" name="overflow-scrollable" value="all" />
+    <input type="checkbox" name="overflow-scroll" value="all" />
     Everything
   </label>
   <label class="ui-toggle-button">
-    <input type="checkbox" name="overflow-scrollable" value="mentions" />
+    <input type="checkbox" name="overflow-scroll" value="mentions" />
     Mentions
   </label>
   <label class="ui-toggle-button">
-    <input type="checkbox" name="overflow-scrollable" value="none" />
+    <input type="checkbox" name="overflow-scroll" value="none" />
     Nothing at all
   </label>
 </div>
-<div role="group" class="ui-toggle-group ui-shrink">
+<div role="group" class="ui-toggle-group ui-overflow-shrink">
   <label class="ui-toggle-button">
     <input type="checkbox" name="overflow-shrink" value="all" />
     Everything
@@ -397,13 +397,12 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scro
 
 ### Toggle group API
 
-| Type        | Modifiers                                        | Default          | Description                                                                                                       |
-| ----------- | ------------------------------------------------ | ---------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Orientation | default, `.ui-vertical`                          | default          | The orientation of the element.                                                                                   |
-| Scroll      | `.ui-scrollable`                                 | -                | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| Selection   | `[role="group"]`, `[role="radiogroup"]`          | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
-| Shrink      | `.ui-shrink`                                     | -                | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default          | The size of the buttons.                                                                                          |
+| Type        | Modifiers                                             | Default          | Description                                                                                                                                                                                                                                       |
+| ----------- | ----------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Orientation | default, `.ui-vertical`                               | default          | The orientation of the element.                                                                                                                                                                                                                   |
+| Overflow    | default, `.ui-overflow-scroll`, `.ui-overflow-shrink` | default          | What the items do when they don't fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. |
+| Selection   | `[role="group"]`, `[role="radiogroup"]`               | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                                                                                                                                                     |
+| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small`      | default          | The size of the buttons.                                                                                                                                                                                                                          |
 
 #### Parts
 
@@ -690,7 +689,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - `ToggleButton` and `ToggleGroup` read [`--ui-control-border-color`](#api) for their border, like outlined buttons.
 - [Large](#sizes) size with `.ui-large`.
 - [Small and x-small](#sizes) toggles use smaller text, like `Button`.
-- [Groups wrap](#overflow) when they don't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
+- [Groups wrap](#overflow) when they don't fit, or scrolls with `.ui-overflow-scroll` or truncates with `.ui-overflow-shrink`.
 - Breaking: no `.ui-disabled`. A [toggle](#toggle-button) looks disabled when its input is `disabled`.
 - Breaking: `ToggleButton` `--_button-bg-color` is `--_bg-color`, `--_size` is `--_min-height` and `--_svg-size` is `--_icon-size`, which sizes direct child `svg`s like Button ([Under the hood](#under-the-hood)).
 - A disabled [toggle](#disabled) dims like a disabled button, and hover uses the button hover strength.

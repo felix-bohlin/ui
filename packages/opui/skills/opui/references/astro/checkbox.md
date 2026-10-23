@@ -506,7 +506,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | --------------- | ------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------ |
 | `endText`       | `string`                                         | -          | Supporting text displayed below the label.                                           |
 | `error`         | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.                                    |
-| `hideLabel`     | `boolean`                                        | `false`    | Visually hides the label.                                                            |
+| `hideLabel`     | `boolean`                                        | `false`    | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
 | `indeterminate` | `boolean`                                        | `false`    | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
 | `size`          | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                                             |
 | `spread`        | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.                                     |

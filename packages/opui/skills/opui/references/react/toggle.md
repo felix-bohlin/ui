@@ -296,7 +296,7 @@ export default function Vertical() {
 
 ### Overflow
 
-Toggle buttons in a group wrap onto more rows when they don't fit. Use `scrollable` to keep them on one row and scroll them sideways, or `shrink` to keep them on one row and truncate their labels. Icon-only items keep their size.
+Toggle buttons in a group wrap onto more rows when they don't fit. Use `overflow="scroll"` to keep them on one row and scroll them sideways, or `overflow="shrink"` to keep them on one row and truncate their labels. Icon-only items keep their size.
 
 ```tsx
 import { ToggleButton, ToggleGroup } from "opui-css/react"
@@ -309,12 +309,12 @@ export default function OverflowCode() {
         <ToggleButton value="mentions">Mentions</ToggleButton>
         <ToggleButton value="none">Nothing at all</ToggleButton>
       </ToggleGroup>
-      <ToggleGroup name="overflow-scrollable" scrollable>
+      <ToggleGroup name="overflow-scroll" overflow="scroll">
         <ToggleButton value="all">Everything</ToggleButton>
         <ToggleButton value="mentions">Mentions</ToggleButton>
         <ToggleButton value="none">Nothing at all</ToggleButton>
       </ToggleGroup>
-      <ToggleGroup name="overflow-shrink" shrink>
+      <ToggleGroup name="overflow-shrink" overflow="shrink">
         <ToggleButton value="all">Everything</ToggleButton>
         <ToggleButton value="mentions">Mentions</ToggleButton>
         <ToggleButton value="none">Nothing at all</ToggleButton>
@@ -349,18 +349,17 @@ export default function Disabled() {
 
 ### Toggle group API
 
-| Prop            | Type                                             | Default        | Description                                                                                                       |
-| --------------- | ------------------------------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `children`      | `ReactNode`                                      | -              | The toggle buttons.                                                                                               |
-| `defaultValue`  | `string` , `string[]`                            | -              | The starting selection when `value` is omitted.                                                                   |
-| `name`          | `string`                                         | -              | The name shared by the inputs. Generated when omitted.                                                            |
-| `onValueChange` | `(value: string \| string[]) => void`            | -              | Called with the new selection when a button is toggled.                                                           |
-| `orientation`   | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element.                                                                                   |
-| `scrollable`    | `boolean`                                        | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `selection`     | `"multiple"` , `"single"`                        | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
-| `shrink`        | `boolean`                                        | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`          | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons.                                                                                          |
-| `value`         | `string` , `string[]`                            | -              | The value of the checked button with `selection="single"`, or the values of the checked buttons.                  |
+| Prop            | Type                                             | Default        | Description                                                                                                                                                                                                                                       |
+| --------------- | ------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `children`      | `ReactNode`                                      | -              | The toggle buttons.                                                                                                                                                                                                                               |
+| `defaultValue`  | `string` , `string[]`                            | -              | The starting selection when `value` is omitted.                                                                                                                                                                                                   |
+| `name`          | `string`                                         | -              | The name shared by the inputs. Generated when omitted.                                                                                                                                                                                            |
+| `onValueChange` | `(value: string \| string[]) => void`            | -              | Called with the new selection when a button is toggled.                                                                                                                                                                                           |
+| `orientation`   | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element.                                                                                                                                                                                                                   |
+| `overflow`      | `"scroll"` , `"shrink"` , `"wrap"`               | `"wrap"`       | What the items do when they don't fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. |
+| `selection`     | `"multiple"` , `"single"`                        | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                                                                                                                                                     |
+| `size`          | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons.                                                                                                                                                                                                                          |
+| `value`         | `string` , `string[]`                            | -              | The value of the checked button with `selection="single"`, or the values of the checked buttons.                                                                                                                                                  |
 
 #### CSS variables
 
@@ -644,7 +643,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - `ToggleButton` and `ToggleGroup` read [`--ui-control-border-color`](#api) for their border, like outlined buttons.
 - [Large](#sizes) size with `size="large"`.
 - [Small and x-small](#sizes) toggles use smaller text, like `Button`.
-- [Groups wrap](#overflow) when they don't fit, or scrolls with `scrollable` or truncates with `shrink`.
+- [Groups wrap](#overflow) when they don't fit, or scrolls with `overflow="scroll"` or truncates with `overflow="shrink"`.
 - Breaking: no `.ui-disabled`. A [toggle](#toggle-button) looks disabled when its input is `disabled`.
 - Breaking: `ToggleButton` `--_button-bg-color` is `--_bg-color`, `--_size` is `--_min-height` and `--_svg-size` is `--_icon-size`, which sizes direct child `svg`s like Button ([Under the hood](#under-the-hood)).
 - A disabled [toggle](#disabled) dims like a disabled button, and hover uses the button hover strength.

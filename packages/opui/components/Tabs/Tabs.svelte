@@ -5,7 +5,7 @@
   let {
     class: className,
     name,
-    scrollable,
+    overflow,
     variant,
 
     // Snippets
@@ -26,7 +26,7 @@
 <div
   class={[
     "ui-tabs",
-    { "ui-scrollable": scrollable },
+    overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
     variant && variant !== "tonal" && `ui-${variant}`,
     className,
   ]}

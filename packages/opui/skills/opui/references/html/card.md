@@ -142,12 +142,12 @@ There are some basic styles here to get you going, but for more advanced use-cas
 
 ### Alignment
 
-Align actions to the end with the `.ui-align-end` class.
+Actions sit at the end. Add `.ui-align-start` to `.ui-actions` to line them up with the content instead.
 
 ```html
 <div class="ui-card ui-outlined">
   <div class="ui-content">Buttons aligned to the end. Works too!</div>
-  <div class="ui-actions ui-align-end">
+  <div class="ui-actions ui-align-start">
     <button type="button" class="ui-button">Cancel</button>
     <button type="button" class="ui-button">Save</button>
   </div>
@@ -155,7 +155,7 @@ Align actions to the end with the `.ui-align-end` class.
 
 <div class="ui-card ui-outlined">
   <div class="ui-content">Again, buttons are aligned to the end!</div>
-  <div class="ui-actions ui-align-end">
+  <div class="ui-actions ui-align-start">
     <button type="button" class="ui-button ui-outlined">Cancel</button>
     <button type="button" class="ui-button ui-filled">Save</button>
   </div>
@@ -163,7 +163,7 @@ Align actions to the end with the `.ui-align-end` class.
 
 <div class="ui-card ui-outlined">
   <div class="ui-content">Icon buttons aligned to the end!</div>
-  <div class="ui-actions ui-align-end">
+  <div class="ui-actions ui-align-start">
     <button
       type="button"
       class="ui-button ui-round ui-small"
@@ -281,9 +281,9 @@ To make the whole card clickable, add `.ui-card-link` to one link in it. Other l
 
 ### Card actions API
 
-| Type      | Modifiers                | Default | Description                |
-| --------- | ------------------------ | ------- | -------------------------- |
-| Alignment | default, `.ui-align-end` | default | Alignment for the actions. |
+| Type      | Modifiers                  | Default | Description                |
+| --------- | -------------------------- | ------- | -------------------------- |
+| Alignment | default, `.ui-align-start` | default | Alignment for the actions. |
 
 #### Parts
 
@@ -477,6 +477,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.
+- Breaking: [actions](#actions-alignment) sit at the end by default. Add `.ui-align-start` to line them up with the content.
 - Breaking: `--_card-bg-color`, `--_card-border-color`, `--_card-border-width` and `--_card-shadow` drop the `card-` prefix, the outlined `--_border-color` is `--_outlined-border-color`, and `--_bg-surface`, `--_bg-tonal` and `--_bg-elevated` are `--_surface-bg-color`, `--_tonal-bg-color` and `--_elevated-bg-color`, and `--_shadow-elevated` is `--_elevated-shadow` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the focus ring animation's duration and easing ([Under the hood](#under-the-hood)).
 - Elevated cards use [`--ui-shadow-elevated`](#api), and padding and gaps read the `--ui-space-*` scale.

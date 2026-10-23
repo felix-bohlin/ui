@@ -146,7 +146,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
 
 ### Alignment
 
-Align actions to the end with `align="end"` on `CardActions`.
+Actions sit at the end. Set `align="start"` on `CardActions` to line them up with the content instead.
 
 ```svelte
 <script lang="ts">
@@ -155,7 +155,7 @@ Align actions to the end with `align="end"` on `CardActions`.
 
 <Card variant="outlined">
   <CardContent>Buttons aligned to the end. Works too!</CardContent>
-  <CardActions align="end">
+  <CardActions align="start">
     <Button>Cancel</Button>
     <Button>Save</Button>
   </CardActions>
@@ -163,7 +163,7 @@ Align actions to the end with `align="end"` on `CardActions`.
 
 <Card variant="outlined">
   <CardContent>Again, buttons are aligned to the end!</CardContent>
-  <CardActions align="end">
+  <CardActions align="start">
     <Button variant="outlined">Cancel</Button>
     <Button variant="filled">Save</Button>
   </CardActions>
@@ -171,7 +171,7 @@ Align actions to the end with `align="end"` on `CardActions`.
 
 <Card variant="outlined">
   <CardContent>Icon buttons aligned to the end!</CardContent>
-  <CardActions align="end">
+  <CardActions align="start">
     <Button aria-label="Favorite" round size="small">
       <svg
         aria-hidden="true"
@@ -283,10 +283,10 @@ To make the whole card clickable, add `.ui-card-link` to one link in it. Other l
 
 ### Card actions API
 
-| Prop       | Type                | Default   | Description                   |
-| ---------- | ------------------- | --------- | ----------------------------- |
-| `align`    | `"end"` , `"start"` | `"start"` | Alignment for the actions.    |
-| `children` | `Snippet`           | -         | The actions, such as buttons. |
+| Prop       | Type                | Default | Description                   |
+| ---------- | ------------------- | ------- | ----------------------------- |
+| `align`    | `"end"` , `"start"` | `"end"` | Alignment for the actions.    |
+| `children` | `Snippet`           | -       | The actions, such as buttons. |
 
 #### CSS variables
 
@@ -476,6 +476,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.
+- [Actions](#actions-alignment) sit at the end by default, and `align="start"` lines them up with the content.
 - Breaking: `--_card-bg-color`, `--_card-border-color`, `--_card-border-width` and `--_card-shadow` drop the `card-` prefix, the outlined `--_border-color` is `--_outlined-border-color`, and `--_bg-surface`, `--_bg-tonal` and `--_bg-elevated` are `--_surface-bg-color`, `--_tonal-bg-color` and `--_elevated-bg-color`, and `--_shadow-elevated` is `--_elevated-shadow` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the focus ring animation's duration and easing ([Under the hood](#under-the-hood)).
 - Elevated cards use [`--ui-shadow-elevated`](#api), and padding and gaps read the `--ui-space-*` scale.

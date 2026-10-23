@@ -218,7 +218,7 @@ One concept has one prop name and one set of values in every component. `tests/u
   - `line` is an indicator with no track.
 - **Every enum names its default:**
   - The default adds no class. It maps to `null` in `api.ts`, where it shows as the default.
-  - The exceptions are `as` and `type`; `color` and `severity`, where leaving the prop out means none; and free strings.
+  - The exceptions are `as` and `type`; `bordered`, `color` and `severity`, where leaving the prop out means none; and free strings.
 - **One class shape per kind of value:**
   - A value of `variant`, `size`, `color`, `severity`, `side`, `orientation`, `density`, `shape` or `corner` renders `.ui-<value>` (`.ui-filled`, `.ui-block-start`).
   - A value of `align`, `overflow` or a component's own enum renders `.ui-<prop>-<value>`, so the class says which prop it belongs to (`.ui-align-end`, `.ui-overflow-scroll`, `.ui-backdrop-transparent`, `.ui-marker-animation-flip`).

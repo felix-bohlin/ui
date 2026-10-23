@@ -79,19 +79,6 @@
       }
     }
 
-    & > .ui-actions:not(.ui-align-start) {
-      justify-content: end;
-      padding-inline: var(--ui-space-3);
-
-      &:has(> .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
-        padding-inline: var(--ui-space-3)
-          max(
-            var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
-            var(--ui-space-1)
-          );
-      }
-    }
-
     &[open] {
       opacity: 1;
       pointer-events: all;

@@ -9,6 +9,6 @@ import { Button, Menu } from "opui-css/vue"
   <Menu
     dense
     id="menu-dense-1"
-    :items="[{ text: 'Copy' }, { text: 'Cut' }, { text: 'Paste' }]"
+    :items="[{ label: 'Copy' }, { label: 'Cut' }, { label: 'Paste' }]"
   />
 </template>

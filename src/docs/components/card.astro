@@ -117,12 +117,14 @@ import cardActionsApi from "../../component-api/card-actions/api"
     <h3 id="actions-alignment">Alignment</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Align actions to the end with <code>align="end"</code> on <code
+        Actions sit at the end. Set <code>align="start"</code> on <code
           >CardActions</code
-        >.
+        > to line them up with the content instead.
       </Fragment>
       <Fragment slot="html">
-        Align actions to the end with the <code>.ui-align-end</code> class.
+        Actions sit at the end. Add <code>.ui-align-start</code> to <code
+          >.ui-actions</code
+        > to line them up with the content instead.
       </Fragment>
     </Conditional>
 

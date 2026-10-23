@@ -5,7 +5,7 @@ export default function Alignment() {
     <>
       <Card variant="outlined">
         <CardContent>Buttons aligned to the end. Works too!</CardContent>
-        <CardActions align="end">
+        <CardActions align="start">
           <Button>Cancel</Button>
           <Button>Save</Button>
         </CardActions>
@@ -13,7 +13,7 @@ export default function Alignment() {
 
       <Card variant="outlined">
         <CardContent>Again, buttons are aligned to the end!</CardContent>
-        <CardActions align="end">
+        <CardActions align="start">
           <Button variant="outlined">Cancel</Button>
           <Button variant="filled">Save</Button>
         </CardActions>
@@ -21,7 +21,7 @@ export default function Alignment() {
 
       <Card variant="outlined">
         <CardContent>Icon buttons aligned to the end!</CardContent>
-        <CardActions align="end">
+        <CardActions align="start">
           <Button aria-label="Favorite" round size="small">
             <svg
               aria-hidden="true"

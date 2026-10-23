@@ -4,27 +4,27 @@ export default {
   component: "DescriptionList",
   options: [
     {
-      class: ".ui-bordered",
-      default: "false",
-      description: "Adds a border between the term and the description.",
-      group: "Bordered",
+      description:
+        "Adds a line between the term and the description, solid or dotted.",
+      group: "Borders",
       prop: "bordered",
-      values: { dotted: ".ui-bordered.ui-dotted" },
+      values: { dotted: ".ui-bordered-dotted", solid: ".ui-bordered-solid" },
     },
     {
-      class: ".ui-inline",
-      default: "false",
+      default: '"auto"',
       description:
-        "Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower.",
-      group: "Layout",
-      prop: "inline",
+        "The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width.",
+      group: "Orientation",
+      prop: "orientation",
+      values: { auto: null, horizontal: ".ui-horizontal" },
     },
   ],
   parts: [
     {
       component: "DescriptionListItem",
+      code: "<div>",
       description: "Groups a term with its description.",
-      selector: ".ui-item",
+      selector: "dl.ui-description-list > div",
     },
     {
       code: "<dt>",

@@ -203,7 +203,7 @@ import {
 
 ## Actions
 
-Add buttons or other interactive elements below the content with `AccordionActions`, after `AccordionContent`.
+Add buttons or other interactive elements below the content with `AccordionActions`, after `AccordionContent`. They sit at the end, and `align="start"` lines them up with the content.
 
 ```vue
 <script setup lang="ts">
@@ -432,6 +432,44 @@ Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To 
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
+### Accordion actions API
+
+| Prop    | Type                | Default | Description                |
+| ------- | ------------------- | ------- | -------------------------- |
+| `align` | `"end"` , `"start"` | `"end"` | Alignment for the actions. |
+
+#### Slots
+
+| Slot      | Description                   |
+| --------- | ----------------------------- |
+| `default` | The actions, such as buttons. |
+
+#### CSS variables
+
+| Variable                    | Default                                                                         | Description                                                                                                                                                                                                                                 |
+| --------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`         | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                               | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                 |
+| `--ui-border-width`         | `1px`                                                                           | Default border width for components that draw a border.                                                                                                                                                                                     |
+| `--ui-duration`             | `0.2s`                                                                          | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                   |
+| `--ui-ease`                 | `ease`                                                                          | Default easing for transitions.                                                                                                                                                                                                             |
+| `--ui-focus-ring-inset`     | `calc(-1 * var(--ui-focus-ring-width))`                                         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                           |
+| `--ui-focus-ring-offset`    | `2px`                                                                           | Distance between a control and its focus ring.                                                                                                                                                                                              |
+| `--ui-focus-ring-width`     | `2px`                                                                           | Width of the focus ring.                                                                                                                                                                                                                    |
+| `--ui-font-weight-bold`     | `var(--font-weight-7)`                                                          | Font weight for headings, buttons and terms.                                                                                                                                                                                                |
+| `--ui-motion`               | `1`                                                                             | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).                                     |
+| `--ui-radius`               | `var(--size-2)`                                                                 | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.            |
+| `--ui-shadow-elevated`      | `var(--ui-shadow-elevated-light)` `var(--ui-shadow-elevated-dark)` in dark mode | Shadow of elevated `Card` and `Accordion`. Switches between `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one.    |
+| `--ui-shadow-surface`       | `none`                                                                          | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                              |
+| `--ui-space-1`              | `calc(var(--size-1) * var(--ui-space-scale))`                                   | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-space-2`              | `calc(var(--size-2) * var(--ui-space-scale))`                                   | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                   | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-surface-border-color` | Unset                                                                           | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background. |
+| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                               | Page and card background.                                                                                                                                                                                                                   |
+| `--ui-surface-elevated`     | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                               | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                           |
+| `--ui-surface-tonal`        | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                               | Background of tonal variants.                                                                                                                                                                                                               |
+
+This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
+
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
@@ -601,6 +639,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
 - Breaking: a chevron marker by default. The [`marker` slot](#custom-marker) on `AccordionSummary` replaces it, so move a custom chevron there with `.ui-marker` or it shows twice.
 - [Actions](#actions) line up with the content and the chevron.
+- [`AccordionActions`](#actions) take `align="start"`.
 - Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron and the open and close transition use `--_duration` and `--_ease`, and the group's `--_gutter-color` is `--_divider-color` ([Under the hood](#under-the-hood)).
 - Breaking: an accordion without a [variant](#variants) is `plain`, the page surface with padding, like a card. `variant="default"` is gone: use `variant="transparent"` for the previous look.
 - Elevated accordions use [`--ui-shadow-elevated`](#api), the elevated card shadow, also in dark mode. Padding and gaps read the `--ui-space-*` scale.

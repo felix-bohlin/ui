@@ -15,12 +15,12 @@ export default {
       prop: "name",
     },
     {
-      class: ".ui-scrollable",
-      default: "false",
+      default: '"wrap"',
       description:
-        "Keeps the tabs on one row and scrolls them sideways when they don't fit.",
-      group: "Scroll",
-      prop: "scrollable",
+        'What the tabs do when they don\'t fit. `"wrap"` wraps them onto more rows, and `"scroll"` keeps them on one row and scrolls it sideways.',
+      group: "Overflow",
+      prop: "overflow",
+      values: { scroll: ".ui-overflow-scroll", wrap: null },
     },
     {
       default: '"tonal"',

@@ -117,6 +117,20 @@ Text uses `--ui-on-primary`.
 + <Badge corner="end-end">
 ```
 
+The indicator is `.ui-indicator` instead of `.ui-badge-indicator`. For a count with words for screen readers, put the whole sentence in a `.ui-sr-only` element and hide the short visible text, so a translation can put the number wherever its language needs it:
+
+```diff
+  <span class="ui-anchor-floating">
+-   <span class="ui-badge-indicator">5</span>
++   <span class="ui-indicator">
++     <span aria-hidden="true">5</span>
++     <span class="ui-sr-only">5 unread messages</span>
++   </span>
+  </span>
+```
+
+`label` is a `string`. Pass a number as a string (`label="5"`).
+
 ## Button
 
 `.ui-icon-only` is removed. A `Button` whose only child is an `svg` is square, so drop the class.
@@ -174,7 +188,7 @@ Variants apply to the whole group. Move a variant from a button inside a group t
 +   <button class="ui-button">One</button>
 ```
 
-Groups wrap onto more rows when they don't fit, instead of overflowing. Use `scrollable` (`.ui-scrollable`) or `shrink` (`.ui-shrink`) to keep them on one row. Small buttons are `--ui-button-size-small` (32px) instead of 30px.
+Groups wrap onto more rows when they don't fit, instead of overflowing. Use `overflow="scroll"` (`.ui-overflow-scroll`) or `overflow="shrink"` (`.ui-overflow-shrink`) to keep them on one row. Small buttons are `--ui-button-size-small` (32px) instead of 30px.
 
 ## Callout
 
@@ -211,8 +225,15 @@ In Astro and Vue the regions are parts instead of slots. `actionsAlign` is `alig
 + <Card>
 +   <CardHeader><h3>Title</h3></CardHeader>
 +   <CardContent><p>Text</p></CardContent>
-+   <CardActions align="end"><Button>Open</Button></CardActions>
++   <CardActions><Button>Open</Button></CardActions>
 + </Card>
+```
+
+Actions sit at the end, like in `Dialog`, `Accordion` and `Drawer`. Drop `.ui-align-end` from `.ui-actions` in a card, and add `.ui-align-start` (`align="start"` on `CardActions`) to keep actions lined up with the content.
+
+```diff
+- <div class="ui-actions">
++ <div class="ui-actions ui-align-start">
 ```
 
 `types.ts` no longer exports a `Slots` type.
@@ -314,6 +335,20 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 - <dd class="ui-description">Ada</dd>
 + <dt>Name</dt>
 + <dd>Ada</dd>
+```
+
+`bordered` takes `"solid"` or `"dotted"`, and the items are plain `div`s without `.ui-item`.
+
+```diff
+- <DescriptionList bordered>
++ <DescriptionList bordered="solid">
+```
+
+```diff
+- <dl class="ui-description-list ui-bordered ui-dotted">
+-   <div class="ui-item">
++ <dl class="ui-description-list ui-bordered-dotted">
++   <div>
 ```
 
 Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
@@ -654,7 +689,7 @@ Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`,
 +   <div class="ui-tab-panel">…</div>
 ```
 
-Tabs that don't fit can stay on one row and scroll sideways with `scrollable` (`.ui-scrollable`).
+Tabs that don't fit can stay on one row and scroll sideways with `overflow="scroll"` (`.ui-overflow-scroll`).
 
 `TabsItem` `open` is `checked`, the attribute it sets on the radio.
 
@@ -734,7 +769,7 @@ Same as Text field: `aria-invalid="true"` on the `<textarea>` replaces `data-inv
 
 ## Toggle button and toggle group
 
-Text shrinks with the size like `Button`: `--ui-font-size-small` when small and `--ui-font-size-caption` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
+Text shrinks with the size like `Button`: `--ui-font-size-small` when small and `--ui-font-size-caption` when x-small. Groups wrap onto more rows when they don't fit; use `overflow="scroll"` or `overflow="shrink"` to keep them on one row.
 
 `ToggleButton` in Astro and Vue no longer generates an input `id`. Pass `id` when something outside the component references the input.
 

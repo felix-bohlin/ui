@@ -22,7 +22,7 @@ export default function Custom() {
         </svg>
       </Button>
       <Menu id="menu-custom-1">
-        <li className="ui-label">Document</li>
+        <li className="ui-heading">Document</li>
         <ListItem
           as="button"
           headline="Rename"

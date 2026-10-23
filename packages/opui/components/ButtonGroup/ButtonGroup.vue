@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const { color, orientation, scrollable, shrink, size, variant } =
-  defineProps<Props>()
+const { color, orientation, overflow, size, variant } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
@@ -11,11 +10,10 @@ defineSlots<Slots>()
     :class="[
       'ui-button-group',
       {
-        'ui-scrollable': scrollable,
-        'ui-shrink': shrink,
         'ui-vertical': orientation === 'vertical',
       },
       color && `ui-${color}`,
+      overflow && overflow !== 'wrap' && `ui-overflow-${overflow}`,
       size && size !== 'medium' && `ui-${size}`,
       variant && variant !== 'transparent' && `ui-${variant}`,
       $props.class,

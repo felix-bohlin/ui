@@ -10,7 +10,7 @@
 
   Container element.
 
-* `.ui-item`
+* `<div>`
 
   Groups a term with its description.
 
@@ -26,15 +26,15 @@
 
 ```html
 <dl class="ui-description-list">
-  <div class="ui-item">
+  <div>
     <dt>Price</dt>
     <dd>6 950 000</dd>
   </div>
-  <div class="ui-item">
+  <div>
     <dt>Size</dt>
     <dd>64 m²</dd>
   </div>
-  <div class="ui-item">
+  <div>
     <dt>Rooms</dt>
     <dd>3</dd>
   </div>
@@ -43,60 +43,60 @@
 
 ## Bordered
 
-Add `.ui-bordered` to the `<dl>` element. For a dotted style, also add `.ui-dotted`.
+Add `.ui-bordered-solid` to the `<dl>` element to add a separator between the term and description on all items, or `.ui-bordered-dotted` for a dotted one.
 
-Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border, unless they're inline (`.ui-inline`).
+Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border, unless they're horizontal (`.ui-horizontal`).
 
 ```html
-<dl class="ui-description-list ui-bordered">
-  <div class="ui-item">
+<dl class="ui-description-list ui-bordered-solid">
+  <div>
     <dt>Price</dt>
     <dd>6 950 000</dd>
   </div>
-  <div class="ui-item">
+  <div>
     <dt>Size</dt>
     <dd>64 m²</dd>
   </div>
-  <div class="ui-item">
+  <div>
     <dt>Rooms</dt>
     <dd>3</dd>
   </div>
 </dl>
 
-<dl class="ui-description-list ui-bordered ui-dotted">
-  <div class="ui-item">
+<dl class="ui-description-list ui-bordered-dotted">
+  <div>
     <dt>Price</dt>
     <dd>6 950 000</dd>
   </div>
-  <div class="ui-item">
+  <div>
     <dt>Size</dt>
     <dd>64 m²</dd>
   </div>
-  <div class="ui-item">
+  <div>
     <dt>Rooms</dt>
     <dd>3</dd>
   </div>
 </dl>
 ```
 
-## Inline
+## Orientation
 
-The term and the description stack when the list is `45ch` or narrower, and sit side by side when it's wider. Set `.ui-inline` to keep them side by side at any width, for example for totals in a sidebar or summary card.
+By default the term and the description stack when the list is `45ch` or narrower, and sit side by side when it's wider. Set `.ui-horizontal` to keep them side by side at any width, for example for totals in a sidebar or summary card.
 
 ```html
 <dl
-  class="ui-description-list ui-bordered ui-inline"
+  class="ui-description-list ui-bordered-solid ui-horizontal"
   style="max-inline-size: 18rem"
 >
-  <div class="ui-item">
+  <div>
     <dt>Subtotal</dt>
     <dd>$120.00</dd>
   </div>
-  <div class="ui-item">
+  <div>
     <dt>Shipping</dt>
     <dd>$8.00</dd>
   </div>
-  <div class="ui-item">
+  <div>
     <dt>Total</dt>
     <dd>$128.00</dd>
   </div>
@@ -107,17 +107,17 @@ The term and the description stack when the list is `45ch` or narrower, and sit 
 
 ### Description list API
 
-| Type     | Modifiers                                | Default | Description                                                                                                              |
-| -------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Bordered | `.ui-bordered`, `.ui-bordered.ui-dotted` | -       | Adds a border between the term and the description.                                                                      |
-| Layout   | `.ui-inline`                             | -       | Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower. |
+| Type        | Modifiers                                   | Default | Description                                                                                                                                                      |
+| ----------- | ------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Borders     | `.ui-bordered-dotted`, `.ui-bordered-solid` | -       | Adds a line between the term and the description, solid or dotted.                                                                                               |
+| Orientation | default, `.ui-horizontal`                   | default | The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width. |
 
 #### Parts
 
 | Part                     | Description                         |
 | ------------------------ | ----------------------------------- |
 | `dl.ui-description-list` | Container element.                  |
-| `.ui-item`               | Groups a term with its description. |
+| `<div>`                  | Groups a term with its description. |
 | `<dt>`                   | The term.                           |
 | `<dd>`                   | The description.                    |
 
@@ -139,10 +139,10 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property          | Kind  | Description                                                                                      |
-| ----------------- | ----- | ------------------------------------------------------------------------------------------------ |
-| `--_border-style` | Input | Style of the line between term and description in `.ui-bordered`. `.ui-dotted` makes it dotted.  |
-| `--_border-width` | Input | Width of the line between term and description in `.ui-bordered`. `.ui-dotted` sets it to `2px`. |
+| Property          | Kind  | Description                                                                             |
+| ----------------- | ----- | --------------------------------------------------------------------------------------- |
+| `--_border-style` | Input | Style of the line between term and description. `.ui-bordered-dotted` makes it dotted.  |
+| `--_border-width` | Input | Width of the line between term and description. `.ui-bordered-dotted` sets it to `2px`. |
 
 ## Under the hood
 
@@ -292,5 +292,6 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
-- [Inline](#inline) keeps terms and descriptions side by side at any width with `.ui-inline`.
+- [Orientation](#orientation): `.ui-horizontal` keeps terms and descriptions side by side at any width.
+- Breaking: [`.ui-bordered-solid`](#bordered) and `.ui-bordered-dotted` replace `.ui-bordered` and `.ui-dotted`, and items are plain `div`s without `.ui-item`.
 - Breaking: `.ui-term` and `.ui-description` are gone. The list styles `dt` and `dd` by element ([Basics](#basics)).

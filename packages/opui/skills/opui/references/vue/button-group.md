@@ -13,7 +13,7 @@ Groups related buttons.
   The buttons and button links.
 
 * Button groups should consist of 2-5 buttons.
-* Use `scrollable` or `shrink` when a group must stay on one row, see [Overflow](#overflow).
+* Use `overflow="scroll"` or `overflow="shrink"` when a group must stay on one row, see [Overflow](#overflow).
 * If an icon is used without label text make sure the button communicates clearly what it does.
 
 Button group or Toggle group?
@@ -243,7 +243,7 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
     <Menu
       id="button-group-split-button-1"
       align="end"
-      :items="[{ text: 'Save as draft' }, { text: 'Save and publish' }]"
+      :items="[{ label: 'Save as draft' }, { label: 'Save and publish' }]"
     />
   </ButtonGroup>
 </template>
@@ -455,7 +455,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 ## Overflow
 
-Buttons wrap onto more rows when they don't fit. Use `scrollable` to keep them on one row and scroll them sideways, or `shrink` to keep them on one row and truncate their labels. Icon-only items keep their size. `shrink` hides label text, so use it only when the labels can be inferred or are icon-only, and prefer `scrollable` when the text matters.
+Buttons wrap onto more rows when they don't fit. Use `overflow="scroll"` to keep them on one row and scroll them sideways, or `overflow="shrink"` to keep them on one row and truncate their labels. Icon-only items keep their size. `overflow="shrink"` hides label text, so use it only when the labels can be inferred or are icon-only, and prefer `overflow="scroll"` when the text matters.
 
 ```vue
 <script setup lang="ts">
@@ -469,13 +469,21 @@ import { Button, ButtonGroup } from "opui-css/vue"
     <Button>Mark as unread</Button>
     <Button>Delete</Button>
   </ButtonGroup>
-  <ButtonGroup variant="outlined" scrollable style="max-inline-size: 18rem">
+  <ButtonGroup
+    variant="outlined"
+    overflow="scroll"
+    style="max-inline-size: 18rem"
+  >
     <Button>Archive</Button>
     <Button>Move to folder</Button>
     <Button>Mark as unread</Button>
     <Button>Delete</Button>
   </ButtonGroup>
-  <ButtonGroup variant="outlined" shrink style="max-inline-size: 18rem">
+  <ButtonGroup
+    variant="outlined"
+    overflow="shrink"
+    style="max-inline-size: 18rem"
+  >
     <Button>Archive</Button>
     <Button>Move to folder</Button>
     <Button>Mark as unread</Button>
@@ -488,14 +496,13 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 ### Button group API
 
-| Prop          | Type                                                    | Default         | Description                                                                                                       |
-| ------------- | ------------------------------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `color`       | `"critical"` , `"primary"`                              | -               | Optional colors for the buttons.                                                                                  |
-| `orientation` | `"horizontal"` , `"vertical"`                           | `"horizontal"`  | The orientation of the element.                                                                                   |
-| `scrollable`  | `boolean`                                               | `false`         | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `shrink`      | `boolean`                                               | `false`         | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"large"` , `"medium"` , `"small"` , `"x-small"`        | `"medium"`      | The size of the buttons.                                                                                          |
-| `variant`     | `"filled"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant of the buttons.                                                                                       |
+| Prop          | Type                                                    | Default         | Description                                                                                                                                                                                                                                       |
+| ------------- | ------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `color`       | `"critical"` , `"primary"`                              | -               | Optional colors for the buttons.                                                                                                                                                                                                                  |
+| `orientation` | `"horizontal"` , `"vertical"`                           | `"horizontal"`  | The orientation of the element.                                                                                                                                                                                                                   |
+| `overflow`    | `"scroll"` , `"shrink"` , `"wrap"`                      | `"wrap"`        | What the items do when they don't fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. |
+| `size`        | `"large"` , `"medium"` , `"small"` , `"x-small"`        | `"medium"`      | The size of the buttons.                                                                                                                                                                                                                          |
+| `variant`     | `"filled"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant of the buttons.                                                                                                                                                                                                                       |
 
 #### Slots
 
@@ -787,7 +794,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: [variants](#variants) apply to the whole group. A variant on a single button inside a group is no longer supported.
 - [x-small](#sizes) size with `size="x-small"`.
 - [Small](#sizes) groups use the same text size as a small `Button`.
-- [Wraps](#overflow) when it doesn't fit, or scrolls with `scrollable` or truncates with `shrink`.
+- [Wraps](#overflow) when it doesn't fit, or scrolls with `overflow="scroll"` or truncates with `overflow="shrink"`.
 - Button links (`href`) get the group styles too, see [Variants](#variants).
 - [`orientation`](#vertical-orientation) takes `"horizontal"`, the default, like `Carousel`.
 - Corners follow `--ui-radius` through [`--ui-button-radius`](#api), so one token squares or rounds every component.

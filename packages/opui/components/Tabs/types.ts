@@ -1,6 +1,6 @@
 export type Props = {
   name?: string
-  scrollable?: boolean
+  overflow?: "scroll" | "wrap"
   variant?: "filled" | "line" | "outlined" | "tonal"
 }
 

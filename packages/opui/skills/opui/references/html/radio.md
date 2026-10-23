@@ -450,14 +450,15 @@ The selected value lives in the inputs, which share a `name`. Submit them with a
 
 ### Radio API
 
-| Type       | Modifiers                                        | Default | Description                                       |
-| ---------- | ------------------------------------------------ | ------- | ------------------------------------------------- |
-| Disabled   | `input[disabled]`                                | -       | Dims the radio and shows a not-allowed cursor.    |
-| Required   | `input[required]`                                | -       | Adds a required mark after the label.             |
-| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                          |
-| Spread     | `.ui-spread`                                     | -       | Pushes the label and the input to opposite ends.  |
-| Stack      | `.ui-stack`                                      | -       | Stacks the label under the input.                 |
-| Validation | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles. |
+| Type       | Modifiers                                        | Default | Description                                                     |
+| ---------- | ------------------------------------------------ | ------- | --------------------------------------------------------------- |
+| Disabled   | `input[disabled]`                                | -       | Dims the radio and shows a not-allowed cursor.                  |
+| Label      | `.ui-label.ui-sr-only`                           | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. |
+| Required   | `input[required]`                                | -       | Adds a required mark after the label.                           |
+| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                        |
+| Spread     | `.ui-spread`                                     | -       | Pushes the label and the input to opposite ends.                |
+| Stack      | `.ui-stack`                                      | -       | Stacks the label under the input.                               |
+| Validation | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles.               |
 
 #### Parts
 
@@ -517,8 +518,6 @@ The selected value lives in the inputs, which share a `name`. Submit them with a
 | `--ui-text-strong`                 | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                | Strongest text color, for headings, labels and values. Body text is `--ui-text-muted`.                                                                                                                                                                                                                                   |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
-
-To hide the label, use `.ui-sr-only` instead of `.ui-label`.
 
 ### Radio input API
 

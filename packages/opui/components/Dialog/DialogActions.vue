@@ -9,7 +9,7 @@ defineSlots<Slots>()
   <div
     :class="[
       'ui-actions',
-      { 'ui-align-start': align === 'start' },
+      align && align !== 'end' && `ui-align-${align}`,
       $props.class,
     ]"
   >

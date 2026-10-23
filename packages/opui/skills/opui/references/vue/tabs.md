@@ -132,9 +132,9 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </template>
 ```
 
-## Scrollable
+## Overflow
 
-Tabs wrap onto more rows when they don't fit. Use `scrollable` to keep them on one row and scroll them sideways instead. The open panel stays in view. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
+Tabs wrap onto more rows when they don't fit. Use `overflow="scroll"` to keep them on one row and scroll them sideways instead. The open panel stays in view. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
 
 ```vue
 <script setup lang="ts">
@@ -142,7 +142,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </script>
 
 <template>
-  <Tabs name="scrollable-tabs" scrollable>
+  <Tabs name="overflow-tabs" overflow="scroll">
     <TabsItem checked>
       <TabsTab>Profile</TabsTab>
       <TabsPanel>Profile settings and information.</TabsPanel>
@@ -203,11 +203,11 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 ### Tabs API
 
-| Prop         | Type                                             | Default   | Description                                                                                              |
-| ------------ | ------------------------------------------------ | --------- | -------------------------------------------------------------------------------------------------------- |
-| `name`       | `string`                                         | -         | The name shared by the tab inputs. Generated when omitted.                                               |
-| `scrollable` | `boolean`                                        | `false`   | Keeps the tabs on one row and scrolls them sideways when they don't fit.                                 |
-| `variant`    | `"filled"` , `"line"` , `"outlined"` , `"tonal"` | `"tonal"` | The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill. |
+| Prop       | Type                                             | Default   | Description                                                                                                                             |
+| ---------- | ------------------------------------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`     | `string`                                         | -         | The name shared by the tab inputs. Generated when omitted.                                                                              |
+| `overflow` | `"scroll"` , `"wrap"`                            | `"wrap"`  | What the tabs do when they don't fit. `"wrap"` wraps them onto more rows, and `"scroll"` keeps them on one row and scrolls it sideways. |
+| `variant`  | `"filled"` , `"line"` , `"outlined"` , `"tonal"` | `"tonal"` | The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.                                |
 
 #### Slots
 
@@ -592,7 +592,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The outlined track reads [`--ui-control-border-color`](#api) for its border, like outlined buttons.
 - Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`.
 - Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. `TabsItem` and `TabsPanel` no longer take `panelId`, and `TabsPanel` no longer takes `tabId`.
-- [Scrollable](#scrollable) tabs with the `scrollable` prop.
+- Tabs that [scroll](#overflow) with `overflow="scroll"`.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with the `variant` prop.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - The selected tab's shadow reads [`--ui-shadow-tab`](#api), so themes can change or remove it.

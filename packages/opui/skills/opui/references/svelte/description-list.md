@@ -52,9 +52,9 @@
 
 ## Bordered
 
-Set `bordered` on `DescriptionList` to add a separator between the term and description on all items. Use `bordered="dotted"` for a dotted style.
+Set `bordered="solid"` on `DescriptionList` to add a separator between the term and description on all items, or `bordered="dotted"` for a dotted one.
 
-Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border, unless they're inline (`inline`).
+Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border, unless they're horizontal (`orientation="horizontal"`).
 
 ```svelte
 <script lang="ts">
@@ -66,7 +66,7 @@ Above `45ch` the term and description share a row and the border fills the gap b
   } from "opui-css/svelte"
 </script>
 
-<DescriptionList bordered>
+<DescriptionList bordered="solid">
   <DescriptionListItem>
     <DescriptionListTerm>Price</DescriptionListTerm>
     <DescriptionListDescription>6 950 000</DescriptionListDescription>
@@ -97,9 +97,9 @@ Above `45ch` the term and description share a row and the border fills the gap b
 </DescriptionList>
 ```
 
-## Inline
+## Orientation
 
-The term and the description stack when the list is `45ch` or narrower, and sit side by side when it's wider. Set `inline` to keep them side by side at any width, for example for totals in a sidebar or summary card.
+By default the term and the description stack when the list is `45ch` or narrower, and sit side by side when it's wider. Set `orientation="horizontal"` to keep them side by side at any width, for example for totals in a sidebar or summary card.
 
 ```svelte
 <script lang="ts">
@@ -111,7 +111,11 @@ The term and the description stack when the list is `45ch` or narrower, and sit 
   } from "opui-css/svelte"
 </script>
 
-<DescriptionList bordered inline style="max-inline-size: 18rem">
+<DescriptionList
+  bordered="solid"
+  orientation="horizontal"
+  style="max-inline-size: 18rem"
+>
   <DescriptionListItem>
     <DescriptionListTerm>Subtotal</DescriptionListTerm>
     <DescriptionListDescription>$120.00</DescriptionListDescription>
@@ -131,11 +135,11 @@ The term and the description stack when the list is `45ch` or narrower, and sit 
 
 ### Description list API
 
-| Prop       | Type                   | Default | Description                                                                                                              |
-| ---------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `bordered` | `"dotted"` , `boolean` | `false` | Adds a border between the term and the description.                                                                      |
-| `children` | `Snippet`              | -       | The items.                                                                                                               |
-| `inline`   | `boolean`              | `false` | Keeps the term and the description side by side at any width. Without it they stack when the list is `45ch` or narrower. |
+| Prop          | Type                      | Default  | Description                                                                                                                                                      |
+| ------------- | ------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bordered`    | `"dotted"` , `"solid"`    | -        | Adds a line between the term and the description, solid or dotted.                                                                                               |
+| `children`    | `Snippet`                 | -        | The items.                                                                                                                                                       |
+| `orientation` | `"auto"` , `"horizontal"` | `"auto"` | The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width. |
 
 #### CSS variables
 
@@ -155,10 +159,10 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
 
-| Property          | Kind  | Description                                                                                      |
-| ----------------- | ----- | ------------------------------------------------------------------------------------------------ |
-| `--_border-style` | Input | Style of the line between term and description in `.ui-bordered`. `.ui-dotted` makes it dotted.  |
-| `--_border-width` | Input | Width of the line between term and description in `.ui-bordered`. `.ui-dotted` sets it to `2px`. |
+| Property          | Kind  | Description                                                                             |
+| ----------------- | ----- | --------------------------------------------------------------------------------------- |
+| `--_border-style` | Input | Style of the line between term and description. `.ui-bordered-dotted` makes it dotted.  |
+| `--_border-width` | Input | Width of the line between term and description. `.ui-bordered-dotted` sets it to `2px`. |
 
 ## Under the hood
 
@@ -310,4 +314,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
-- [Inline](#inline) keeps terms and descriptions side by side at any width with `inline`.
+- [Orientation](#orientation): `orientation="horizontal"` keeps terms and descriptions side by side at any width.

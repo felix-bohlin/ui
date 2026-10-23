@@ -8,13 +8,21 @@
   <Button>Mark as unread</Button>
   <Button>Delete</Button>
 </ButtonGroup>
-<ButtonGroup variant="outlined" scrollable style="max-inline-size: 18rem">
+<ButtonGroup
+  variant="outlined"
+  overflow="scroll"
+  style="max-inline-size: 18rem"
+>
   <Button>Archive</Button>
   <Button>Move to folder</Button>
   <Button>Mark as unread</Button>
   <Button>Delete</Button>
 </ButtonGroup>
-<ButtonGroup variant="outlined" shrink style="max-inline-size: 18rem">
+<ButtonGroup
+  variant="outlined"
+  overflow="shrink"
+  style="max-inline-size: 18rem"
+>
   <Button>Archive</Button>
   <Button>Move to folder</Button>
   <Button>Mark as unread</Button>

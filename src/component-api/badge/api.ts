@@ -36,16 +36,22 @@ export default {
       prop: "dot",
     },
     {
+      class: ".ui-sr-only",
+      default: "false",
+      description:
+        'Hides `label` visually, for the whole sentence screen readers read, such as "5 unread messages". The `indicator` slot then holds the visible text and is hidden from screen readers.',
+      group: "Label",
+      htmlDescription:
+        'Hides the text visually, for the whole sentence screen readers read, such as "5 unread messages". Give the visible text `aria-hidden="true"`.',
+      part: ".ui-indicator",
+      prop: "hideLabel",
+    },
+    {
       class: ".ui-invisible",
       default: "false",
       description: "Hides the indicator.",
-      group: "Visibility",
+      group: "Invisible",
       prop: "invisible",
-    },
-    {
-      description:
-        'Visually hidden text that describes the badge to assistive technology, such as "3 unread".',
-      prop: "srLabel",
     },
   ],
   parts: [
@@ -56,9 +62,10 @@ export default {
       slots: ["default"],
     },
     {
-      description: "The indicator, inside `.ui-anchor-floating`.",
+      description:
+        "The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`.",
       props: ["label"],
-      selector: ".ui-badge-indicator",
+      selector: ".ui-indicator",
       slots: ["indicator"],
     },
   ],

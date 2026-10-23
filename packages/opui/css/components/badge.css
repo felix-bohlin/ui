@@ -38,7 +38,7 @@
     }
 
     /* Indicator */
-    & > .ui-anchor-floating > .ui-badge-indicator {
+    & > .ui-anchor-floating > .ui-indicator {
       background-color: var(--_bg-color);
       block-size: var(--_size);
       border: var(--_border-width) solid var(--_border-color);
@@ -115,7 +115,7 @@
       --_anchor-ty: calc(var(--_dot-size) * var(--_sign-y));
     }
 
-    &.ui-dot > .ui-anchor-floating > .ui-badge-indicator {
+    &.ui-dot > .ui-anchor-floating > .ui-indicator {
       block-size: var(--_dot-size);
       inline-size: var(--_dot-size);
       min-inline-size: var(--_dot-size);
@@ -128,7 +128,7 @@
       --_inset: calc(50% + 50% * sin(45deg));
     }
 
-    :where(.ui-avatar-group) > & > .ui-anchor-floating > .ui-badge-indicator {
+    :where(.ui-avatar-group) > & > .ui-anchor-floating > .ui-indicator {
       box-shadow: 0 0 0 var(--_outline-width) var(--_outline-color);
     }
 
@@ -138,7 +138,7 @@
     }
 
     /* Visibility */
-    &.ui-invisible > .ui-anchor-floating > .ui-badge-indicator {
+    &.ui-invisible > .ui-anchor-floating > .ui-indicator {
       opacity: 0;
       visibility: hidden;
     }

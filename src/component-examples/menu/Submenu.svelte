@@ -1,13 +1,13 @@
 <script lang="ts">
   import { Button, ListItem, Menu } from "opui-css/svelte"
 
-  const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
+  const formats = [{ label: "PDF" }, { label: "PNG" }, { label: "SVG" }]
 </script>
 
 <Button commandfor="menu-submenu-1" command="toggle-popover" variant="outlined">
   File
 </Button>
-<Menu id="menu-submenu-1" items={[{ text: "New" }, { text: "Open" }]}>
+<Menu id="menu-submenu-1" items={[{ label: "New" }, { label: "Open" }]}>
   <ListItem
     as="button"
     headline="Export"

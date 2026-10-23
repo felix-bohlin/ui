@@ -3,7 +3,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </script>
 
 <template>
-  <Tabs name="scrollable-tabs" scrollable>
+  <Tabs name="overflow-tabs" overflow="scroll">
     <TabsItem checked>
       <TabsTab>Profile</TabsTab>
       <TabsPanel>Profile settings and information.</TabsPanel>

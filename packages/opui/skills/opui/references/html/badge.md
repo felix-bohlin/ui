@@ -12,9 +12,9 @@
 
   The element the badge is anchored to.
 
-- `.ui-badge-indicator`
+- `.ui-indicator`
 
-  The indicator, inside `.ui-anchor-floating`.
+  The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`.
 
 ## Dot
 
@@ -35,8 +35,9 @@ Use `.ui-dot` to show a dot instead of the label.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator"
-      >5 <span class="ui-sr-only">unread messages</span></span
+    <span class="ui-indicator"
+      ><span aria-hidden="true">5</span
+      ><span class="ui-sr-only">5 unread messages</span></span
     >
   </span>
 </span>
@@ -55,7 +56,7 @@ Use `.ui-dot` to show a dot instead of the label.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator"
+    <span class="ui-indicator"
       ><span class="ui-sr-only">New messages</span></span
     >
   </span>
@@ -81,8 +82,9 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
     ></path>
   </svg>
   <span class="ui-anchor-floating"
-    ><span class="ui-badge-indicator"
-      >5 <span class="ui-sr-only">unread messages</span></span
+    ><span class="ui-indicator"
+      ><span aria-hidden="true">5</span
+      ><span class="ui-sr-only">5 unread messages</span></span
     ></span
   >
 </span>
@@ -101,8 +103,9 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
     ></path>
   </svg>
   <span class="ui-anchor-floating"
-    ><span class="ui-badge-indicator"
-      >5 <span class="ui-sr-only">unread messages</span></span
+    ><span class="ui-indicator"
+      ><span aria-hidden="true">5</span
+      ><span class="ui-sr-only">5 unread messages</span></span
     ></span
   >
 </span>
@@ -121,8 +124,9 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
     ></path>
   </svg>
   <span class="ui-anchor-floating"
-    ><span class="ui-badge-indicator"
-      >5 <span class="ui-sr-only">unread messages</span></span
+    ><span class="ui-indicator"
+      ><span aria-hidden="true">5</span
+      ><span class="ui-sr-only">5 unread messages</span></span
     ></span
   >
 </span>
@@ -141,8 +145,9 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
     ></path>
   </svg>
   <span class="ui-anchor-floating"
-    ><span class="ui-badge-indicator"
-      >5 <span class="ui-sr-only">unread messages</span></span
+    ><span class="ui-indicator"
+      ><span aria-hidden="true">5</span
+      ><span class="ui-sr-only">5 unread messages</span></span
     ></span
   >
 </span>
@@ -161,8 +166,9 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
     ></path>
   </svg>
   <span class="ui-anchor-floating"
-    ><span class="ui-badge-indicator"
-      >5 <span class="ui-sr-only">unread messages</span></span
+    ><span class="ui-indicator"
+      ><span aria-hidden="true">5</span
+      ><span class="ui-sr-only">5 unread messages</span></span
     ></span
   >
 </span>
@@ -170,7 +176,9 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
 
 ## Indicator
 
-Put indicator text inside `.ui-badge-indicator`. The anchored element is the badge's direct child before `.ui-anchor-floating`.
+Put the indicator text inside `.ui-indicator`. When the visible text is short, like a count, give it `aria-hidden="true"` and put the whole sentence, such as "5 unread messages", in a `.ui-sr-only` element next to it. The anchored element is the badge's direct child before `.ui-anchor-floating`.
+
+The badge never joins the number and the words, so a translation can put the number wherever its language needs it, and the visible text can differ from the sentence ("99+" and "More than 99 unread messages").
 
 ```html
 <span class="ui-anchor ui-badge">
@@ -187,8 +195,9 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator"
-      >5 <span class="ui-sr-only">unread messages</span></span
+    <span class="ui-indicator"
+      ><span aria-hidden="true">5</span
+      ><span class="ui-sr-only">5 unread messages</span></span
     >
   </span>
 </span>
@@ -207,8 +216,9 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator"
-      >99+ <span class="ui-sr-only">unread messages</span></span
+    <span class="ui-indicator"
+      ><span aria-hidden="true">99+</span
+      ><span class="ui-sr-only">More than 99 unread messages</span></span
     >
   </span>
 </span>
@@ -222,8 +232,9 @@ Change the badge's visibility using the `.ui-invisible` class.
 <span class="ui-anchor ui-badge ui-invisible">
   <!-- -->
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator"
-      >5 <span class="ui-sr-only">unread messages</span></span
+    <span class="ui-indicator"
+      ><span aria-hidden="true">5</span
+      ><span class="ui-sr-only">5 unread messages</span></span
     >
   </span>
 </span>
@@ -250,8 +261,9 @@ The corner of the child the badge sits on.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator"
-      >35 <span class="ui-sr-only">unread messages</span></span
+    <span class="ui-indicator"
+      ><span aria-hidden="true">35</span
+      ><span class="ui-sr-only">35 unread messages</span></span
     >
   </span>
 </span>
@@ -270,8 +282,9 @@ The corner of the child the badge sits on.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator"
-      >99+ <span class="ui-sr-only">unread messages</span></span
+    <span class="ui-indicator"
+      ><span aria-hidden="true">99+</span
+      ><span class="ui-sr-only">More than 99 unread messages</span></span
     >
   </span>
 </span>
@@ -290,8 +303,9 @@ The corner of the child the badge sits on.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator"
-      >OK! <span class="ui-sr-only">inbox synced</span></span
+    <span class="ui-indicator"
+      ><span aria-hidden="true">OK!</span
+      ><span class="ui-sr-only">Inbox synced</span></span
     >
   </span>
 </span>
@@ -310,8 +324,9 @@ The corner of the child the badge sits on.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator"
-      >3K <span class="ui-sr-only">unread messages</span></span
+    <span class="ui-indicator"
+      ><span aria-hidden="true">3K</span
+      ><span class="ui-sr-only">About 3,000 unread messages</span></span
     >
   </span>
 </span>
@@ -319,26 +334,28 @@ The corner of the child the badge sits on.
 
 ## Accessibility
 
-- A count on its own is read without context, such as "5". Add visually hidden text inside the indicator, so it's read as "5 unread messages": a `.ui-sr-only` element inside `.ui-badge-indicator`.
+- A count on its own is read without context, such as "5". Give the badge the whole sentence for screen readers, so it's read as "5 unread messages": a `.ui-sr-only` element inside `.ui-indicator`, with `aria-hidden="true"` on the visible text.
+- The indicator sits next to the anchored element, not inside it. On a button or a link, put the sentence in its name too, such as `aria-label="Inbox, 5 unread messages"`, since the name is what's read when it's focused.
 
 ## API
 
 ### Badge API
 
-| Type       | Modifiers                                                               | Default | Description                                      |
-| ---------- | ----------------------------------------------------------------------- | ------- | ------------------------------------------------ |
-| Colors     | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | Optional colors.                                 |
-| Dot        | `.ui-dot`                                                               | -       | Renders the indicator as a dot, without a label. |
-| Position   | default, `.ui-end-end`, `.ui-end-start`, `.ui-start-start`              | default | The corner the indicator sits on.                |
-| Visibility | `.ui-invisible`                                                         | -       | Hides the indicator.                             |
+| Type      | Modifiers                                                               | Default | Description                                                                                                                                   |
+| --------- | ----------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Colors    | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | Optional colors.                                                                                                                              |
+| Dot       | `.ui-dot`                                                               | -       | Renders the indicator as a dot, without a label.                                                                                              |
+| Invisible | `.ui-invisible`                                                         | -       | Hides the indicator.                                                                                                                          |
+| Label     | `.ui-indicator.ui-sr-only`                                              | -       | Hides the text visually, for the whole sentence screen readers read, such as "5 unread messages". Give the visible text `aria-hidden="true"`. |
+| Position  | default, `.ui-end-end`, `.ui-end-start`, `.ui-start-start`              | default | The corner the indicator sits on.                                                                                                             |
 
 #### Parts
 
-| Part                  | Description                                  |
-| --------------------- | -------------------------------------------- |
-| `.ui-badge`           | Container element. Also takes `.ui-anchor`.  |
-| `& > :first-child`    | The element the badge is anchored to.        |
-| `.ui-badge-indicator` | The indicator, inside `.ui-anchor-floating`. |
+| Part               | Description                                                                                       |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| `.ui-badge`        | Container element. Also takes `.ui-anchor`.                                                       |
+| `& > :first-child` | The element the badge is anchored to.                                                             |
+| `.ui-indicator`    | The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`. |
 
 #### CSS variables
 
@@ -529,7 +546,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - Severity text reads `--ui-on-accent` and `--ui-palette-strong` instead of fixed grays.
 - Badges on round avatars sit on the avatar's edge ([Corners](#corners)), and in an avatar group on the start side.
-- [Indicator](#indicator) context for screen readers with `.ui-sr-only`.
+- [Indicator](#indicator) text for screen readers with `.ui-sr-only`, next to the visible text with `aria-hidden="true"`.
+- Breaking: the indicator is [`.ui-indicator`](#indicator) instead of `.ui-badge-indicator`.
 - Breaking: `--_badge-inset` is `--_inset-block` and `--_inset-inline` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - The indicator border reads [`--ui-border-width-thick`](#api).

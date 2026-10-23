@@ -22,11 +22,11 @@ export default function Basics() {
       <Menu
         id="menu-basics-1"
         items={[
-          { text: "Edit", shortcut: "Ctrl+E" },
-          { text: "Duplicate", shortcut: "Ctrl+D" },
-          { text: "Archive", disabled: true },
-          { text: "Help", href: "#basics" },
-          { text: "Delete", borderTop: true, color: "critical" },
+          { label: "Edit", shortcut: "Ctrl+E" },
+          { label: "Duplicate", shortcut: "Ctrl+D" },
+          { disabled: true, label: "Archive" },
+          { href: "#basics", label: "Help" },
+          { borderTop: true, color: "critical", label: "Delete" },
         ]}
       />
     </>
@@ -54,7 +54,11 @@ export default function Bordered() {
       <Menu
         bordered
         id="menu-bordered-1"
-        items={[{ text: "Edit" }, { text: "Duplicate" }, { text: "Archive" }]}
+        items={[
+          { label: "Edit" },
+          { label: "Duplicate" },
+          { label: "Archive" },
+        ]}
       />
     </>
   )
@@ -81,7 +85,7 @@ export default function Dense() {
       <Menu
         dense
         id="menu-dense-1"
-        items={[{ text: "Copy" }, { text: "Cut" }, { text: "Paste" }]}
+        items={[{ label: "Copy" }, { label: "Cut" }, { label: "Paste" }]}
       />
     </>
   )
@@ -117,7 +121,7 @@ export default function Custom() {
         </svg>
       </Button>
       <Menu id="menu-custom-1">
-        <li className="ui-label">Document</li>
+        <li className="ui-heading">Document</li>
         <ListItem
           as="button"
           headline="Rename"
@@ -205,7 +209,7 @@ export default function Custom() {
 ```tsx
 import { Button, Menu } from "opui-css/react"
 
-const items = [{ text: "First" }, { text: "Second" }, { text: "Third" }]
+const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
 
 export default function Placement() {
   return (
@@ -262,7 +266,7 @@ Pass a `Menu` to the `submenu` prop of a `ListItem`. Mark the item with an icon 
 ```tsx
 import { Button, ListItem, Menu } from "opui-css/react"
 
-const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
+const formats = [{ label: "PDF" }, { label: "PNG" }, { label: "SVG" }]
 
 export default function Submenu() {
   return (
@@ -274,7 +278,7 @@ export default function Submenu() {
       >
         File
       </Button>
-      <Menu id="menu-submenu-1" items={[{ text: "New" }, { text: "Open" }]}>
+      <Menu id="menu-submenu-1" items={[{ label: "New" }, { label: "Open" }]}>
         <ListItem
           as="button"
           headline="Export"
@@ -306,7 +310,7 @@ export default function Submenu() {
 
 ## Manual
 
-`popover="manual"` keeps the menu open until the trigger or an item closes it. Esc and a click outside don't close it, and opening another menu doesn't either. Items close the menu by default, so set `closeOnClick: false` on the ones that should keep it open.
+`popover="manual"` keeps the menu open until the trigger or an item closes it. Esc and a click outside don't close it, and opening another menu doesn't either. Items close the menu by default, so set `keepOpen: true` on the ones that should keep it open.
 
 ```tsx
 import { Button, Menu } from "opui-css/react"
@@ -325,9 +329,9 @@ export default function Manual() {
         id="menu-manual-1"
         popover="manual"
         items={[
-          { text: "Zoom in", closeOnClick: false },
-          { text: "Zoom out", closeOnClick: false },
-          { text: "Done", borderTop: true },
+          { keepOpen: true, label: "Zoom in" },
+          { keepOpen: true, label: "Zoom out" },
+          { borderTop: true, label: "Done" },
         ]}
       />
     </>
@@ -355,16 +359,16 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 ### Menu API
 
-| Prop       | Type                                                                | Default       | Description                                                                                                                                  |
-| ---------- | ------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `align`    | `"end"` , `"start"`                                                 | `"start"`     | Which edge of the trigger the menu lines up with.                                                                                            |
-| `bordered` | `boolean`                                                           | `false`       | Adds a border between the items.                                                                                                             |
-| `children` | `ReactNode`                                                         | -             | The items, such as `ListItem`s.                                                                                                              |
-| `dense`    | `boolean`                                                           | `false`       | Packs the items tighter.                                                                                                                     |
-| `id`       | `string`                                                            | -             | The id of the menu, which the trigger's `commandfor` points at. Generated when omitted.                                                      |
-| `items`    | `MenuItem[]`                                                        | -             | The items, as `{ borderTop, closeOnClick, color, disabled, href, shortcut, text }` objects. Other keys go to the item's `<a>` or `<button>`. |
-| `popover`  | `"auto"` , `"manual"`                                               | `"auto"`      | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                    |
-| `side`     | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"block-end"` | The side of the trigger the menu opens on.                                                                                                   |
+| Prop       | Type                                                                | Default       | Description                                                                                                                                                                                                                                                                                                  |
+| ---------- | ------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `align`    | `"end"` , `"start"`                                                 | `"start"`     | Which edge of the trigger the menu lines up with.                                                                                                                                                                                                                                                            |
+| `bordered` | `boolean`                                                           | `false`       | Adds a border between the items.                                                                                                                                                                                                                                                                             |
+| `children` | `ReactNode`                                                         | -             | The items, such as `ListItem`s.                                                                                                                                                                                                                                                                              |
+| `dense`    | `boolean`                                                           | `false`       | Packs the items tighter.                                                                                                                                                                                                                                                                                     |
+| `id`       | `string`                                                            | -             | The id of the menu, which the trigger's `commandfor` points at. Generated when omitted.                                                                                                                                                                                                                      |
+| `items`    | `MenuItem[]`                                                        | -             | The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>` or `<button>`. |
+| `popover`  | `"auto"` , `"manual"`                                               | `"auto"`      | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                                                                                                                                                                                    |
+| `side`     | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"block-end"` | The side of the trigger the menu opens on.                                                                                                                                                                                                                                                                   |
 
 #### CSS variables
 

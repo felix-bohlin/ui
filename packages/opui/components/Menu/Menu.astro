@@ -45,16 +45,16 @@ const html = await menuContext.provide({ rootId }, () =>
     items?.map(
       ({
         borderTop,
-        closeOnClick = true,
         color,
         disabled,
         href,
+        keepOpen,
+        label,
         shortcut,
-        text,
         ...itemRest
       }) => {
         const Tag = href ? "a" : "button"
-        const closes = !href && closeOnClick && !disabled
+        const closes = !href && !keepOpen && !disabled
 
         return (
           <li
@@ -73,7 +73,7 @@ const html = await menuContext.provide({ rootId }, () =>
               {...itemRest}
             >
               <div class="ui-text">
-                <p>{text}</p>
+                <p>{label}</p>
               </div>
               {shortcut && (
                 <div class="ui-end">

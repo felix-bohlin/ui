@@ -41,12 +41,12 @@ provide(MenuKey, reactive({ rootId }))
       v-for="(
         {
           borderTop,
-          closeOnClick = true,
           color,
           disabled,
           href,
+          keepOpen,
+          label,
           shortcut,
-          text,
           ...itemRest
         },
         index
@@ -57,17 +57,15 @@ provide(MenuKey, reactive({ rootId }))
       <component
         :is="href ? 'a' : 'button'"
         :aria-disabled="href && disabled ? 'true' : undefined"
-        :command="
-          !href && closeOnClick && !disabled ? 'hide-popover' : undefined
-        "
-        :commandfor="!href && closeOnClick && !disabled ? rootId : undefined"
+        :command="!href && !keepOpen && !disabled ? 'hide-popover' : undefined"
+        :commandfor="!href && !keepOpen && !disabled ? rootId : undefined"
         :disabled="!href && disabled ? true : undefined"
         :href="href && !disabled ? href : undefined"
         :type="href ? undefined : 'button'"
         v-bind="itemRest"
       >
         <div class="ui-text">
-          <p>{{ text }}</p>
+          <p>{{ label }}</p>
         </div>
         <div v-if="shortcut" class="ui-end">
           <kbd>{{ shortcut }}</kbd>

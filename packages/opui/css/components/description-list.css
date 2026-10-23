@@ -9,7 +9,7 @@
     margin: 0;
     padding: 0;
 
-    &.ui-dotted {
+    &.ui-bordered-dotted {
       --_border-style: dotted;
       --_border-width: var(--ui-border-width-thick);
     }
@@ -18,7 +18,7 @@
       container-type: normal;
     }
 
-    .ui-item {
+    & > div {
       align-items: baseline;
       display: grid;
       gap: var(--ui-space-1);
@@ -28,7 +28,7 @@
       overflow-wrap: anywhere;
       padding: 0;
 
-      & + .ui-item {
+      & + div {
         margin-block-start: var(--ui-space-1);
       }
 
@@ -45,7 +45,7 @@
       }
     }
 
-    &.ui-bordered > .ui-item {
+    &:is(.ui-bordered-dotted, .ui-bordered-solid) > div {
       grid-template-columns: auto 1fr auto;
 
       dt {
@@ -67,13 +67,13 @@
     }
 
     @container (inline-size <= 45ch) {
-      &:not(.ui-inline) > .ui-item {
+      &:not(.ui-horizontal) > div {
         align-items: normal;
         gap: 0;
         grid-template-columns: none;
         justify-content: normal;
 
-        & + .ui-item {
+        & + div {
           margin-block-start: var(--ui-space-3);
         }
 

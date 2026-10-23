@@ -3,7 +3,7 @@ import { computed, provide, reactive, useId } from "vue"
 import { TabsKey } from "./context.vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { name, scrollable, variant } = defineProps<Props>()
+const { name, overflow, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
 const uid = useId()
@@ -15,7 +15,7 @@ provide(TabsKey, reactive({ groupName }))
   <div
     :class="[
       'ui-tabs',
-      { 'ui-scrollable': scrollable },
+      overflow && overflow !== 'wrap' && `ui-overflow-${overflow}`,
       variant && variant !== 'tonal' && `ui-${variant}`,
       $props.class,
     ]"

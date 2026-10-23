@@ -6,7 +6,7 @@ import { tabsContext } from "./context.astro"
 export const title = "Tabs"
 
 const $id = createId(Astro.locals)
-const { class: className, name, scrollable, variant, ...rest } = Astro.props
+const { class: className, name, overflow, variant, ...rest } = Astro.props
 
 const groupName = name || $id("tabs")
 const html = await tabsContext.provide({ groupName }, () =>
@@ -17,7 +17,7 @@ const html = await tabsContext.provide({ groupName }, () =>
 <div
   class:list={[
     "ui-tabs",
-    { "ui-scrollable": scrollable },
+    overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
     variant && variant !== "tonal" && `ui-${variant}`,
     className,
   ]}

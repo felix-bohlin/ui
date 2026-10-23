@@ -29,6 +29,12 @@ const whatsNew = {
       html: `Breaking: only the <a href="#custom-marker"><code>svg.ui-marker</code></a> animates. Add <code>.ui-marker</code> to the chevron.`,
     },
     `<a href="#actions">Actions</a> line up with the content and the chevron.`,
+    {
+      ...components(
+        `<a href="#actions"><code>AccordionActions</code></a> take <code>align="start"</code>.`,
+      ),
+      html: `<a href="#actions">Actions</a> take <code>.ui-align-start</code>.`,
+    },
     `Breaking: <code>--_transition</code> is <code>--_duration</code>, and <code>--_svg-transition</code> is gone, the chevron and the open and close transition use <code>--_duration</code> and <code>--_ease</code>, and the group's <code>--_gutter-color</code> is <code>--_divider-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     {
       ...slots(
@@ -90,9 +96,13 @@ const whatsNew = {
     `Severity text reads <code>--ui-on-accent</code> and <code>--ui-palette-strong</code> instead of fixed grays.`,
     `Badges on round avatars sit on the avatar's edge (<a href="#corners">Corners</a>), and in an avatar group on the start side.`,
     {
-      default: `<a href="#indicator">Indicator</a> context for screen readers with <code>srLabel</code>.`,
-      html: `<a href="#indicator">Indicator</a> context for screen readers with <code>.ui-sr-only</code>.`,
+      default: `<a href="#indicator">Indicator</a> text for screen readers with <code>hideLabel</code>: one translated <code>label</code>, and the short visible text in <code>indicator</code>.`,
+      html: `<a href="#indicator">Indicator</a> text for screen readers with <code>.ui-sr-only</code>, next to the visible text with <code>aria-hidden="true"</code>.`,
     },
+    {
+      html: `Breaking: the indicator is <a href="#indicator"><code>.ui-indicator</code></a> instead of <code>.ui-badge-indicator</code>.`,
+    },
+    slots(`Breaking: <a href="#indicator"><code>label</code></a> is a string.`),
     components(
       `<a href="#corners"><code>corner</code></a> takes <code>"start-end"</code>, the default corner.`,
     ),
@@ -162,8 +172,8 @@ const whatsNew = {
     },
     `<a href="#sizes">Small</a> groups use the same text size as a small <code>Button</code>.`,
     {
-      default: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>scrollable</code> or truncates with <code>shrink</code>.`,
-      html: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>.ui-scrollable</code> or truncates with <code>.ui-shrink</code>.`,
+      default: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>overflow="scroll"</code> or truncates with <code>overflow="shrink"</code>.`,
+      html: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>.ui-overflow-scroll</code> or truncates with <code>.ui-overflow-shrink</code>.`,
     },
     {
       default: `Button links (<code>href</code>) get the group styles too, see <a href="#variants">Variants</a>.`,
@@ -199,6 +209,14 @@ const whatsNew = {
     `Add <code>.ui-card-link</code> to a link to make the <a href="#clickable">whole card clickable</a>.`,
     `<a href="#variants">Tonal and elevated</a> cards have a border in the page background color, so they stay visible on tonal surfaces.`,
     `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
+    {
+      ...slots(
+        `Breaking: <a href="#actions-alignment">actions</a> sit at the end by default. Set <code>align="start"</code> on <code>CardActions</code> to line them up with the content.`,
+      ),
+      html: `Breaking: <a href="#actions-alignment">actions</a> sit at the end by default. Add <code>.ui-align-start</code> to line them up with the content.`,
+      react: `<a href="#actions-alignment">Actions</a> sit at the end by default, and <code>align="start"</code> lines them up with the content.`,
+      svelte: `<a href="#actions-alignment">Actions</a> sit at the end by default, and <code>align="start"</code> lines them up with the content.`,
+    },
     `Breaking: <code>--_card-bg-color</code>, <code>--_card-border-color</code>, <code>--_card-border-width</code> and <code>--_card-shadow</code> drop the <code>card-</code> prefix, the outlined <code>--_border-color</code> is <code>--_outlined-border-color</code>, and <code>--_bg-surface</code>, <code>--_bg-tonal</code> and <code>--_bg-elevated</code> are <code>--_surface-bg-color</code>, <code>--_tonal-bg-color</code> and <code>--_elevated-bg-color</code>, and <code>--_shadow-elevated</code> is <code>--_elevated-shadow</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Elevated cards use <a href="#api"><code>--ui-shadow-elevated</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
@@ -339,9 +357,15 @@ const whatsNew = {
       vue: `Breaking: <code>Description</code> is now <a href="#api"><code>DescriptionListDescription</code></a>, like Astro.`,
     },
     {
-      default: `<a href="#inline">Inline</a> keeps terms and descriptions side by side at any width with <code>inline</code>.`,
-      html: `<a href="#inline">Inline</a> keeps terms and descriptions side by side at any width with <code>.ui-inline</code>.`,
+      default: `<a href="#orientation">Orientation</a>: <code>orientation="horizontal"</code> keeps terms and descriptions side by side at any width.`,
+      html: `<a href="#orientation">Orientation</a>: <code>.ui-horizontal</code> keeps terms and descriptions side by side at any width.`,
     },
+    {
+      html: `Breaking: <a href="#bordered"><code>.ui-bordered-solid</code></a> and <code>.ui-bordered-dotted</code> replace <code>.ui-bordered</code> and <code>.ui-dotted</code>, and items are plain <code>div</code>s without <code>.ui-item</code>.`,
+    },
+    slots(
+      `Breaking: <a href="#bordered"><code>bordered</code></a> takes <code>"solid"</code> or <code>"dotted"</code>.`,
+    ),
     {
       ...slots(
         `Breaking: <code>DescriptionListTerm</code> and <code>DescriptionListDescription</code> no longer render <code>.ui-term</code> and <code>.ui-description</code>. Select <code>dt</code> and <code>dd</code> in your CSS (<a href="#basics">Basics</a>).`,
@@ -772,8 +796,8 @@ const whatsNew = {
       html: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. Style <code>.ui-tab-label</code> and <code>.ui-tab-panel</code> instead of <code>[role="tab"]</code> and <code>[role="tabpanel"]</code>.`,
     },
     {
-      default: `<a href="#scrollable">Scrollable</a> tabs with the <code>scrollable</code> prop.`,
-      html: `<a href="#scrollable">Scrollable</a> tabs with <code>.ui-scrollable</code>.`,
+      default: `Tabs that <a href="#overflow">scroll</a> with <code>overflow="scroll"</code>.`,
+      html: `Tabs that <a href="#overflow">scroll</a> with <code>.ui-overflow-scroll</code>.`,
     },
     {
       default: `<a href="#filled">Filled</a>, <a href="#line">line</a> and <a href="#outlined">outlined</a> variants with the <code>variant</code> prop.`,
@@ -889,8 +913,8 @@ const whatsNew = {
     },
     `<a href="#sizes">Small and x-small</a> toggles use smaller text, like <code>Button</code>.`,
     {
-      default: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>scrollable</code> or truncates with <code>shrink</code>.`,
-      html: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>.ui-scrollable</code> or truncates with <code>.ui-shrink</code>.`,
+      default: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>overflow="scroll"</code> or truncates with <code>overflow="shrink"</code>.`,
+      html: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>.ui-overflow-scroll</code> or truncates with <code>.ui-overflow-shrink</code>.`,
     },
     `Breaking: no <code>.ui-disabled</code>. A <a href="#toggle-button">toggle</a> looks disabled when its input is <code>disabled</code>.`,
     `Breaking: <code>ToggleButton</code> <code>--_button-bg-color</code> is <code>--_bg-color</code>, <code>--_size</code> is <code>--_min-height</code> and <code>--_svg-size</code> is <code>--_icon-size</code>, which sizes direct child <code>svg</code>s like Button (<a href="#under-the-hood">Under the hood</a>).`,

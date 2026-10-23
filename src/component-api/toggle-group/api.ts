@@ -39,12 +39,16 @@ export default {
       values: { horizontal: null, vertical: ".ui-vertical" },
     },
     {
-      class: ".ui-scrollable",
-      default: "false",
+      default: '"wrap"',
       description:
-        "Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.",
-      group: "Scroll",
-      prop: "scrollable",
+        'What the items do when they don\'t fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size.',
+      group: "Overflow",
+      prop: "overflow",
+      values: {
+        scroll: ".ui-overflow-scroll",
+        shrink: ".ui-overflow-shrink",
+        wrap: null,
+      },
     },
     {
       default: '"multiple"',
@@ -53,14 +57,6 @@ export default {
       group: "Selection",
       prop: "selection",
       values: { multiple: '[role="group"]', single: '[role="radiogroup"]' },
-    },
-    {
-      class: ".ui-shrink",
-      default: "false",
-      description:
-        "Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size.",
-      group: "Shrink",
-      prop: "shrink",
     },
     {
       default: '"medium"',

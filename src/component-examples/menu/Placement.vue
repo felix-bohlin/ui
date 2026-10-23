@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Button, Menu } from "opui-css/vue"
 
-const items = [{ text: "First" }, { text: "Second" }, { text: "Third" }]
+const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
 </script>
 
 <template>

@@ -5,8 +5,7 @@ export default function ButtonGroup({
   className,
   color,
   orientation,
-  scrollable,
-  shrink,
+  overflow,
   size,
   variant,
   ...rest
@@ -16,11 +15,10 @@ export default function ButtonGroup({
       className={cx([
         "ui-button-group",
         {
-          "ui-scrollable": scrollable,
-          "ui-shrink": shrink,
           "ui-vertical": orientation === "vertical",
         },
         color && `ui-${color}`,
+        overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
         size && size !== "medium" && `ui-${size}`,
         variant && variant !== "transparent" && `ui-${variant}`,
         className,

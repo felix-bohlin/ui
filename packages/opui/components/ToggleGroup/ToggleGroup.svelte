@@ -7,9 +7,8 @@
     class: className,
     name,
     orientation,
-    scrollable,
+    overflow,
     selection = "multiple",
-    shrink,
     size,
     value = $bindable(),
 
@@ -42,10 +41,9 @@
   class={[
     "ui-toggle-group",
     {
-      "ui-scrollable": scrollable,
-      "ui-shrink": shrink,
       "ui-vertical": orientation === "vertical",
     },
+    overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
     size && size !== "medium" && `ui-${size}`,
     className,
   ]}

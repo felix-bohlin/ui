@@ -1,11 +1,11 @@
 export type MenuItem = {
   borderTop?: boolean
-  closeOnClick?: boolean
   color?: "critical"
   disabled?: boolean
   href?: string
+  keepOpen?: boolean
+  label: string
   shortcut?: string
-  text: string
 }
 
 export type Props = {

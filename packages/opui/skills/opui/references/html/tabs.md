@@ -156,85 +156,85 @@ Use `.ui-outlined` for a bordered track without a background.
 </div>
 ```
 
-## Scrollable
+## Overflow
 
-Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them on one row and scroll them sideways instead. The open panel stays in view. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
+Tabs wrap onto more rows when they don't fit. Use `.ui-overflow-scroll` to keep them on one row and scroll them sideways instead. The open panel stays in view. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
 
 ```html
-<div class="ui-tabs ui-scrollable">
+<div class="ui-tabs ui-overflow-scroll">
   <input
     type="radio"
-    name="scrollable-tabs"
-    id="tabs-scrollable-1"
+    name="overflow-tabs"
+    id="tabs-overflow-1"
     class="ui-tab-input"
     checked
   />
-  <label for="tabs-scrollable-1" class="ui-tab-label">Profile</label>
+  <label for="tabs-overflow-1" class="ui-tab-label">Profile</label>
   <div class="ui-tab-panel">Profile settings and information.</div>
 
   <input
     type="radio"
-    name="scrollable-tabs"
-    id="tabs-scrollable-2"
+    name="overflow-tabs"
+    id="tabs-overflow-2"
     class="ui-tab-input"
   />
-  <label for="tabs-scrollable-2" class="ui-tab-label">Settings</label>
+  <label for="tabs-overflow-2" class="ui-tab-label">Settings</label>
   <div class="ui-tab-panel">General account settings.</div>
 
   <input
     type="radio"
-    name="scrollable-tabs"
-    id="tabs-scrollable-3"
+    name="overflow-tabs"
+    id="tabs-overflow-3"
     class="ui-tab-input"
   />
-  <label for="tabs-scrollable-3" class="ui-tab-label">Notifications</label>
+  <label for="tabs-overflow-3" class="ui-tab-label">Notifications</label>
   <div class="ui-tab-panel">Manage your notifications.</div>
 
   <input
     type="radio"
-    name="scrollable-tabs"
-    id="tabs-scrollable-4"
+    name="overflow-tabs"
+    id="tabs-overflow-4"
     class="ui-tab-input"
   />
-  <label for="tabs-scrollable-4" class="ui-tab-label">Billing</label>
+  <label for="tabs-overflow-4" class="ui-tab-label">Billing</label>
   <div class="ui-tab-panel">Plans, invoices and payment methods.</div>
 
   <input
     type="radio"
-    name="scrollable-tabs"
-    id="tabs-scrollable-5"
+    name="overflow-tabs"
+    id="tabs-overflow-5"
     class="ui-tab-input"
   />
-  <label for="tabs-scrollable-5" class="ui-tab-label">Security</label>
+  <label for="tabs-overflow-5" class="ui-tab-label">Security</label>
   <div class="ui-tab-panel">
     Passwords, sessions and two-factor authentication.
   </div>
 
   <input
     type="radio"
-    name="scrollable-tabs"
-    id="tabs-scrollable-6"
+    name="overflow-tabs"
+    id="tabs-overflow-6"
     class="ui-tab-input"
   />
-  <label for="tabs-scrollable-6" class="ui-tab-label">Integrations</label>
+  <label for="tabs-overflow-6" class="ui-tab-label">Integrations</label>
   <div class="ui-tab-panel">Connected apps and webhooks.</div>
 
   <input
     type="radio"
-    name="scrollable-tabs"
-    id="tabs-scrollable-7"
+    name="overflow-tabs"
+    id="tabs-overflow-7"
     class="ui-tab-input"
   />
-  <label for="tabs-scrollable-7" class="ui-tab-label">Team</label>
+  <label for="tabs-overflow-7" class="ui-tab-label">Team</label>
   <div class="ui-tab-panel">Members and roles.</div>
 
   <input
     type="radio"
-    name="scrollable-tabs"
-    id="tabs-scrollable-8"
+    name="overflow-tabs"
+    id="tabs-overflow-8"
     class="ui-tab-input"
   />
-  <label for="tabs-scrollable-8" class="ui-tab-label">Advanced</label>
+  <label for="tabs-overflow-8" class="ui-tab-label">Advanced</label>
   <div class="ui-tab-panel">Export data or delete the account.</div>
 </div>
 ```
@@ -263,11 +263,11 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 ### Tabs API
 
-| Type     | Modifiers                                         | Default | Description                                                                                              |
-| -------- | ------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| Group    | `.ui-tab-input[name]`                             | -       | The name shared by the tab inputs.                                                                       |
-| Scroll   | `.ui-scrollable`                                  | -       | Keeps the tabs on one row and scrolls them sideways when they don't fit.                                 |
-| Variants | default, `.ui-filled`, `.ui-line`, `.ui-outlined` | default | The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill. |
+| Type     | Modifiers                                         | Default | Description                                                                                                                             |
+| -------- | ------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Group    | `.ui-tab-input[name]`                             | -       | The name shared by the tab inputs.                                                                                                      |
+| Overflow | default, `.ui-overflow-scroll`                    | default | What the tabs do when they don't fit. `"wrap"` wraps them onto more rows, and `"scroll"` keeps them on one row and scrolls it sideways. |
+| Variants | default, `.ui-filled`, `.ui-line`, `.ui-outlined` | default | The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.                                |
 
 #### Parts
 
@@ -654,7 +654,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The outlined track reads [`--ui-control-border-color`](#api) for its border, like outlined buttons.
 - Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`.
 - Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. Style `.ui-tab-label` and `.ui-tab-panel` instead of `[role="tab"]` and `[role="tabpanel"]`.
-- [Scrollable](#scrollable) tabs with `.ui-scrollable`.
+- Tabs that [scroll](#overflow) with `.ui-overflow-scroll`.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with `.ui-filled`, `.ui-line` and `.ui-outlined`.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - The selected tab's shadow reads [`--ui-shadow-tab`](#api), so themes can change or remove it.

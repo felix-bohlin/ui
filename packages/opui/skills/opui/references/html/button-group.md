@@ -13,7 +13,7 @@ Groups related buttons by wrapping them with `class="ui-button-group"` and `role
   The buttons and button links.
 
 * Button groups should consist of 2-5 buttons.
-* Use `.ui-scrollable` or `.ui-shrink` when a group must stay on one row, see [Overflow](#overflow).
+* Use `.ui-overflow-scroll` or `.ui-overflow-shrink` when a group must stay on one row, see [Overflow](#overflow).
 * If an icon is used without label text make sure the button communicates clearly what it does.
 
 Button group or Toggle group?
@@ -437,7 +437,7 @@ Change the layout of the group with the `.ui-vertical` class.
 
 ## Overflow
 
-Buttons wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep them on one row and scroll them sideways, or `.ui-shrink` to keep them on one row and truncate their labels. Icon-only items keep their size. `.ui-shrink` hides label text, so use it only when the labels can be inferred or are icon-only, and prefer `.ui-scrollable` when the text matters.
+Buttons wrap onto more rows when they don't fit. Add `.ui-overflow-scroll` to keep them on one row and scroll them sideways, or `.ui-overflow-shrink` to keep them on one row and truncate their labels. Icon-only items keep their size. `.ui-overflow-shrink` hides label text, so use it only when the labels can be inferred or are icon-only, and prefer `.ui-overflow-scroll` when the text matters.
 
 ```html
 <div
@@ -452,7 +452,7 @@ Buttons wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep th
 </div>
 <div
   role="group"
-  class="ui-button-group ui-outlined ui-scrollable"
+  class="ui-button-group ui-outlined ui-overflow-scroll"
   style="max-inline-size: 18rem"
 >
   <button type="button" class="ui-button">Archive</button>
@@ -462,7 +462,7 @@ Buttons wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep th
 </div>
 <div
   role="group"
-  class="ui-button-group ui-outlined ui-shrink"
+  class="ui-button-group ui-outlined ui-overflow-shrink"
   style="max-inline-size: 18rem"
 >
   <button type="button" class="ui-button">Archive</button>
@@ -476,14 +476,13 @@ Buttons wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep th
 
 ### Button group API
 
-| Type        | Modifiers                                          | Default | Description                                                                                                       |
-| ----------- | -------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
-| Colors      | `.ui-critical`, `.ui-primary`                      | -       | Optional colors for the buttons.                                                                                  |
-| Orientation | default, `.ui-vertical`                            | default | The orientation of the element.                                                                                   |
-| Scroll      | `.ui-scrollable`                                   | -       | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| Shrink      | `.ui-shrink`                                       | -       | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small`   | default | The size of the buttons.                                                                                          |
-| Variants    | default, `.ui-filled`, `.ui-outlined`, `.ui-tonal` | default | The variant of the buttons.                                                                                       |
+| Type        | Modifiers                                             | Default | Description                                                                                                                                                                                                                                       |
+| ----------- | ----------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Colors      | `.ui-critical`, `.ui-primary`                         | -       | Optional colors for the buttons.                                                                                                                                                                                                                  |
+| Orientation | default, `.ui-vertical`                               | default | The orientation of the element.                                                                                                                                                                                                                   |
+| Overflow    | default, `.ui-overflow-scroll`, `.ui-overflow-shrink` | default | What the items do when they don't fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. |
+| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small`      | default | The size of the buttons.                                                                                                                                                                                                                          |
+| Variants    | default, `.ui-filled`, `.ui-outlined`, `.ui-tonal`    | default | The variant of the buttons.                                                                                                                                                                                                                       |
 
 #### Parts
 
@@ -776,7 +775,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: [variants](#variants) apply to the whole group. A variant on a single button inside a group is no longer supported.
 - [x-small](#sizes) size with `.ui-x-small`.
 - [Small](#sizes) groups use the same text size as a small `Button`.
-- [Wraps](#overflow) when it doesn't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
+- [Wraps](#overflow) when it doesn't fit, or scrolls with `.ui-overflow-scroll` or truncates with `.ui-overflow-shrink`.
 - `<a class="ui-button">` links get the group styles too, see [Variants](#variants).
 - Corners follow `--ui-radius` through [`--ui-button-radius`](#api), so one token squares or rounds every component.
 - Themes set the color of groups without `.ui-primary` or `.ui-critical` with [`--ui-button-accent`](#api), the edge and dividers of outlined groups with `--ui-control-border-color` and of filled and tonal groups with `--ui-control-border-color-filled`, and the font weight and size with `--ui-button-font-weight` and `--ui-font-size-control`, like buttons. In dark mode the text stays at least as light as `--ui-text-min-lightness`.

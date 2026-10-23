@@ -12,9 +12,8 @@ export default function ToggleGroup({
   name,
   onValueChange,
   orientation,
-  scrollable,
+  overflow,
   selection = "multiple",
-  shrink,
   size,
   value,
   children,
@@ -39,10 +38,9 @@ export default function ToggleGroup({
         className={cx([
           "ui-toggle-group",
           {
-            "ui-scrollable": scrollable,
-            "ui-shrink": shrink,
             "ui-vertical": orientation === "vertical",
           },
+          overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
           size && size !== "medium" && `ui-${size}`,
           className,
         ])}

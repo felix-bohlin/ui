@@ -11,7 +11,7 @@ export default function Overflow() {
       </ButtonGroup>
       <ButtonGroup
         variant="outlined"
-        scrollable
+        overflow="scroll"
         style={{ maxInlineSize: "18rem" }}
       >
         <Button>Archive</Button>
@@ -19,7 +19,11 @@ export default function Overflow() {
         <Button>Mark as unread</Button>
         <Button>Delete</Button>
       </ButtonGroup>
-      <ButtonGroup variant="outlined" shrink style={{ maxInlineSize: "18rem" }}>
+      <ButtonGroup
+        variant="outlined"
+        overflow="shrink"
+        style={{ maxInlineSize: "18rem" }}
+      >
         <Button>Archive</Button>
         <Button>Move to folder</Button>
         <Button>Mark as unread</Button>

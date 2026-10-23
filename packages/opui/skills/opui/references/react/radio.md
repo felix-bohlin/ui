@@ -486,15 +486,15 @@ export default function FieldGroupBinding() {
 
 ### Radio API
 
-| Prop        | Type                                             | Default    | Description                                       |
-| ----------- | ------------------------------------------------ | ---------- | ------------------------------------------------- |
-| `children`  | `ReactNode`                                      | -          | The label.                                        |
-| `endText`   | `ReactNode`                                      | -          | Supporting text displayed below the label.        |
-| `error`     | `boolean`                                        | `false`    | Marks the control invalid and shows error styles. |
-| `hideLabel` | `boolean`                                        | `false`    | Visually hides the label.                         |
-| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                          |
-| `spread`    | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.  |
-| `stack`     | `boolean`                                        | `false`    | Stacks the label under the input.                 |
+| Prop        | Type                                             | Default    | Description                                                     |
+| ----------- | ------------------------------------------------ | ---------- | --------------------------------------------------------------- |
+| `children`  | `ReactNode`                                      | -          | The label.                                                      |
+| `endText`   | `ReactNode`                                      | -          | Supporting text displayed below the label.                      |
+| `error`     | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.               |
+| `hideLabel` | `boolean`                                        | `false`    | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. |
+| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                        |
+| `spread`    | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.                |
+| `stack`     | `boolean`                                        | `false`    | Stacks the label under the input.                               |
 
 #### CSS variables
 

@@ -11,9 +11,9 @@ const {
   color,
   corner,
   dot,
+  hideLabel,
   invisible,
   label,
-  srLabel,
   ...rest
 } = Astro.props
 ---
@@ -33,10 +33,24 @@ const {
 >
   <slot />
   <AnchorContent>
-    <span class="ui-badge-indicator">
-      {dot ? "" : label}
-      {!dot && <slot name="indicator" />}
-      {srLabel && <span class="ui-sr-only">{srLabel}</span>}
+    <span class="ui-indicator">
+      {
+        dot || hideLabel ? (
+          <>
+            {!dot && Astro.slots.has("indicator") && (
+              <span aria-hidden="true">
+                <slot name="indicator" />
+              </span>
+            )}
+            {label && <span class="ui-sr-only">{label}</span>}
+          </>
+        ) : (
+          <>
+            {label}
+            <slot name="indicator" />
+          </>
+        )
+      }
     </span>
   </AnchorContent>
 </Anchor>

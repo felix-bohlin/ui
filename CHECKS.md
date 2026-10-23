@@ -102,7 +102,7 @@ Manual checks before releasing 6.0.0. The tests run in Chromium, and all but the
   - [Table](/html/components/table/): scroll shadows on wide tables, sticky header, row headers, footers line up, only body rows highlight on hover, dense and spacious.
 - [ ] Tabs
   - [Tabs](/html/components/tabs/): every variant, arrow keys move between tabs, RTL.
-  - [Scrollable](/html/components/tabs/#scrollable) tabs with many tabs: keyboard focus scrolls each tab into view. Uses `sibling-index()`, so check Firefox and Safari versions that have it.
+  - [Overflow](/html/components/tabs/#overflow) tabs with many tabs: keyboard focus scrolls each tab into view. Uses `sibling-index()`, so check Firefox and Safari versions that have it.
 - [ ] Text field
   - [Text field](/html/components/text-field/): every size and variant, prefix and suffix, auto-fit width, the autosuggest chevron is centered at every size, invalid after interaction.
 - [ ] Textarea

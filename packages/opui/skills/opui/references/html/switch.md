@@ -656,14 +656,15 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Switch API
 
-| Type       | Modifiers                                        | Default | Description                                       |
-| ---------- | ------------------------------------------------ | ------- | ------------------------------------------------- |
-| Disabled   | `input[disabled]`                                | -       | Dims the switch and shows a not-allowed cursor.   |
-| Required   | `input[required]`                                | -       | Adds a required mark after the label.             |
-| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                          |
-| Spread     | `.ui-spread`                                     | -       | Pushes the label and the switch to opposite ends. |
-| Stack      | `.ui-stack`                                      | -       | Stacks the label under the switch.                |
-| Validation | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles. |
+| Type       | Modifiers                                        | Default | Description                                                     |
+| ---------- | ------------------------------------------------ | ------- | --------------------------------------------------------------- |
+| Disabled   | `input[disabled]`                                | -       | Dims the switch and shows a not-allowed cursor.                 |
+| Label      | `.ui-label.ui-sr-only`                           | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. |
+| Required   | `input[required]`                                | -       | Adds a required mark after the label.                           |
+| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                        |
+| Spread     | `.ui-spread`                                     | -       | Pushes the label and the switch to opposite ends.               |
+| Stack      | `.ui-stack`                                      | -       | Stacks the label under the switch.                              |
+| Validation | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles.               |
 
 #### Parts
 
@@ -734,7 +735,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-The input needs `type="checkbox"` and `role="switch"`. To hide the label, use `.ui-sr-only` instead of `.ui-label`.
+The input needs `type="checkbox"` and `role="switch"`.
 
 ### Switch input API
 

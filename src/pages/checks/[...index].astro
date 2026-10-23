@@ -105,7 +105,7 @@ const count = sections.reduce(
   const doneOf = (item: HTMLElement) =>
     item.querySelector<HTMLInputElement>(".checks-done input")!
   const status = document.querySelector("#checks-status")!
-  const copyFallback = document.querySelector<HTMLElement>(
+  const copyFallback = document.querySelector<HTMLDialogElement>(
     "[data-copy-fallback]",
   )!
   const progress = document.querySelector("#checks-progress")!
@@ -211,7 +211,7 @@ const count = sections.reduce(
       }
       status.textContent = (await copyOrSelect(text, copyFallback))
         ? `Copied ${commented} ${commented === 1 ? "comment" : "comments"}.`
-        : "This browser blocked copying. The text is selected below: press and hold it, then copy."
+        : "This browser blocked copying."
     })
 
   document

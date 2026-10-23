@@ -1,4 +1,29 @@
+export const copySelection = (field: HTMLTextAreaElement) => {
+  field.select()
+  field.setSelectionRange(0, field.value.length)
+  try {
+    return document.execCommand("copy")
+  } catch {
+    return false
+  }
+}
+
+const copyWithField = (text: string) => {
+  const active = document.activeElement
+  const field = document.createElement("textarea")
+  field.readOnly = true
+  field.style.cssText =
+    "font-size: 16px; inset-block-start: 0; opacity: 0; position: fixed;"
+  field.value = text
+  document.body.append(field)
+  const copied = copySelection(field)
+  field.remove()
+  if (active instanceof HTMLElement) active.focus({ preventScroll: true })
+  return copied
+}
+
 export const copyText = async (text: string) => {
+  if (!isSecureContext) return copyWithField(text)
   try {
     await Promise.race([
       navigator.clipboard.writeText(text),
@@ -6,7 +31,7 @@ export const copyText = async (text: string) => {
     ])
     return true
   } catch {
-    return false
+    return copyWithField(text)
   }
 }
 

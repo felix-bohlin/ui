@@ -392,7 +392,7 @@ const count = itemCount(sections)
     }
   }
 
-  const copyFallback = document.querySelector<HTMLElement>(
+  const copyFallback = document.querySelector<HTMLDialogElement>(
     "[data-copy-fallback]",
   )!
 
@@ -448,9 +448,7 @@ const count = itemCount(sections)
       setStatus(`Copied ${commented} ${commented === 1 ? "todo" : "todos"}.`)
       return
     }
-    setStatus(
-      "This browser blocked copying. The text is selected below: press and hold it, then copy.",
-    )
+    setStatus("This browser blocked copying.")
   })
 
   document.querySelector("#todo-clear")!.addEventListener("click", () => {

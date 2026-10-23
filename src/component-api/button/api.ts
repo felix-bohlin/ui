@@ -5,8 +5,10 @@ export default {
   options: [
     {
       description:
-        "The accessible name. Required with `iconOnly`, for buttons without visible text.",
+        "The accessible name, for a button without visible text. React and Svelte require it when there are no `children`.",
+      inherited: true,
       prop: "aria-label",
+      type: "string",
     },
     {
       default: '"button"',
@@ -46,12 +48,6 @@ export default {
       prop: "href",
     },
     {
-      default: "false",
-      description:
-        "Marks the button as icon-only, so `aria-label` is required. Types only.",
-      prop: "iconOnly",
-    },
-    {
       class: ".ui-round",
       default: "false",
       description: "Fully rounded corners, a circle when icon-only.",
@@ -88,12 +84,6 @@ export default {
       code: "<svg>",
       description: "An optional icon.",
       selector: ".ui-button > svg",
-    },
-    {
-      code: '<span class="ui-text">',
-      description:
-        "The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook.",
-      selector: ".ui-button > .ui-text",
     },
     {
       code: "<kbd>",

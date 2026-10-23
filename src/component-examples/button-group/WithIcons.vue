@@ -4,7 +4,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 <template>
   <ButtonGroup variant="outlined">
-    <Button aria-label="OK" iconOnly>
+    <Button aria-label="OK">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </svg>
     </Button>
     <Button> Maybe </Button>
-    <Button aria-label="No" iconOnly>
+    <Button aria-label="No">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"

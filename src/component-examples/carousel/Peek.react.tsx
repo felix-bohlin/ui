@@ -13,7 +13,7 @@ export default function Peek() {
     <Carousel
       align="center"
       aria-label="Destinations"
-      buttons={false}
+      buttons="none"
       markers
       peek
     >

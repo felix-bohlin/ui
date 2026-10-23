@@ -35,37 +35,37 @@
 
 <div class="example-row">
   <ButtonGroup orientation="vertical">
-    <Button aria-label="Increase" iconOnly>
+    <Button aria-label="Increase">
       {@render plusIcon()}
     </Button>
-    <Button aria-label="Decrease" iconOnly>
+    <Button aria-label="Decrease">
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
 
   <ButtonGroup orientation="vertical" variant="outlined">
-    <Button aria-label="Increase" iconOnly>
+    <Button aria-label="Increase">
       {@render plusIcon()}
     </Button>
-    <Button aria-label="Decrease" iconOnly>
+    <Button aria-label="Decrease">
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
 
   <ButtonGroup orientation="vertical" variant="tonal">
-    <Button aria-label="Increase" iconOnly>
+    <Button aria-label="Increase">
       {@render plusIcon()}
     </Button>
-    <Button aria-label="Decrease" iconOnly>
+    <Button aria-label="Decrease">
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
 
   <ButtonGroup orientation="vertical" variant="filled">
-    <Button aria-label="Increase" iconOnly>
+    <Button aria-label="Increase">
       {@render plusIcon()}
     </Button>
-    <Button aria-label="Decrease" iconOnly>
+    <Button aria-label="Decrease">
       {@render minusIcon()}
     </Button>
   </ButtonGroup>

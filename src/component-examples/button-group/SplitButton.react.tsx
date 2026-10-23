@@ -6,7 +6,6 @@ export default function SplitButton() {
       <Button>Save</Button>
       <Button
         aria-label="More save options"
-        iconOnly
         commandfor="button-group-split-button-1"
         command="toggle-popover"
       >

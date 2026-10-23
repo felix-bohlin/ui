@@ -4,11 +4,10 @@ v6 has breaking changes for most components. If you only use the Astro or Vue co
 
 ## Accordion
 
-Markers only animate with a marker class on `details`, and only the `svg` with `.ui-marker` is the marker. In HTML, add `.ui-marker-rotate` to keep the previous rotation, or use `.ui-marker-flip` or `.ui-marker-turn`, and add `.ui-marker` to the chevron. Other icons in the `summary` no longer flip or rotate. Astro and Vue default to `markerAnimation="rotate"`.
+Only the `svg` with `.ui-marker` is the marker. Add `.ui-marker` to the chevron to keep it rotating, or add `.ui-marker-animation-flip` or `.ui-marker-animation-turn` to `details` for another animation (`markerAnimation` in Astro and Vue). Other icons in the `summary` no longer rotate.
 
 ```diff
-- <details class="ui-accordion">
-+ <details class="ui-accordion ui-marker-rotate">
+  <details class="ui-accordion">
     <summary>
 -     Title <svg>…</svg>
 +     Title <svg class="ui-marker">…</svg>

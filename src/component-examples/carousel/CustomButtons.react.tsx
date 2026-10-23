@@ -15,7 +15,7 @@ export default function CustomButtons() {
         aria-label="Destinations"
         buttons="outside"
         className="carousel-custom-buttons"
-        perView={2}
+        itemsPerView={2}
       >
         {places.map(({ description, title }) => (
           <li key={title}>

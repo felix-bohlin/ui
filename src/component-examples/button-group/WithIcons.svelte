@@ -42,11 +42,11 @@
   </svg>{/snippet}
 
 <ButtonGroup variant="outlined">
-  <Button aria-label="OK" iconOnly>
+  <Button aria-label="OK">
     {@render checkIcon()}
   </Button>
   <Button>Maybe</Button>
-  <Button aria-label="No" iconOnly>
+  <Button aria-label="No">
     {@render closeIcon()}
   </Button>
 </ButtonGroup>

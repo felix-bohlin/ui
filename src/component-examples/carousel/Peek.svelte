@@ -10,7 +10,7 @@
   ]
 </script>
 
-<Carousel align="center" aria-label="Destinations" buttons={false} markers peek>
+<Carousel align="center" aria-label="Destinations" buttons="none" markers peek>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">

@@ -14,7 +14,7 @@ const places = [
   <Carousel
     align="center"
     aria-label="Destinations"
-    :buttons="false"
+    buttons="none"
     markers
     peek
   >

@@ -698,7 +698,7 @@
       </hgroup>
       <div class="ui-content">
         <div class="ui-card ui-outlined" role="group">
-          <details class="ui-accordion ui-card ui-marker-rotate" open>
+          <details class="ui-accordion ui-card" open>
             <summary>
               First
               <svg
@@ -717,7 +717,7 @@
             </summary>
             <div class="ui-content"><p>Open by default.</p></div>
           </details>
-          <details class="ui-accordion ui-card ui-marker-rotate">
+          <details class="ui-accordion ui-card">
             <summary>
               Second
               <svg
@@ -765,7 +765,7 @@
       </div>
     </div>
     <div class="stress-stack">
-      <details class="ui-accordion ui-card ui-marker-rotate ui-outlined" open>
+      <details class="ui-accordion ui-card ui-outlined" open>
         <summary>
           Card inside accordion
           <svg
@@ -798,7 +798,7 @@
           ><button class="ui-button" type="button">Agree</button>
         </div>
       </details>
-      <details class="ui-accordion ui-card ui-marker-rotate">
+      <details class="ui-accordion ui-card">
         <summary>
           Text accordion, closed
           <svg
@@ -1901,9 +1901,9 @@
     </hgroup>
     <div class="ui-content">
       <ul
-        class="ui-carousel ui-buttons-outside ui-stretch ui-buttons ui-markers"
+        class="ui-carousel ui-buttons-outside ui-stretch ui-markers"
         aria-label="Plans"
-        style="--_per-view: 2"
+        style="--_items-per-view: 2"
       >
         <li>
           <div class="ui-card ui-tonal">
@@ -2048,7 +2048,7 @@
       </div>
     </article>
     <div class="stress-stack">
-      <details class="ui-accordion ui-card ui-marker-rotate ui-outlined" open>
+      <details class="ui-accordion ui-card ui-outlined" open>
         <summary>
           Accordion
           <svg
@@ -2125,7 +2125,7 @@
     markers mirror in right to left.
   </p>
   <div class="stress-grid">
-    <details class="ui-accordion ui-card ui-marker-rotate ui-outlined" open>
+    <details class="ui-accordion ui-card ui-outlined" open>
       <summary>
         <span
           >Rotate: A summary long enough to wrap onto several lines next to its
@@ -2151,7 +2151,10 @@
         </p>
       </div>
     </details>
-    <details class="ui-accordion ui-card ui-marker-flip ui-tonal" open>
+    <details
+      class="ui-accordion ui-card ui-marker-animation-flip ui-tonal"
+      open
+    >
       <summary>
         <span
           >Flip: A summary long enough to wrap onto several lines next to its
@@ -2177,7 +2180,10 @@
         </p>
       </div>
     </details>
-    <details class="ui-accordion ui-card ui-marker-turn ui-elevated" open>
+    <details
+      class="ui-accordion ui-card ui-marker-animation-turn ui-elevated"
+      open
+    >
       <summary>
         <span
           >Turn: A summary long enough to wrap onto several lines next to its
@@ -2203,7 +2209,7 @@
         </p>
       </div>
     </details>
-    <details class="ui-accordion ui-card ui-marker-rotate ui-outlined" open>
+    <details class="ui-accordion ui-card ui-outlined" open>
       <summary>
         <span
           >Custom marker: A summary long enough to wrap onto several lines next
@@ -2230,7 +2236,7 @@
         </p>
       </div>
     </details>
-    <details class="ui-accordion ui-card ui-marker-rotate ui-outlined" open>
+    <details class="ui-accordion ui-card ui-outlined" open>
       <summary>
         <span class="ui-anchor ui-badge ui-critical"
           ><svg
@@ -2277,7 +2283,7 @@
         ><button class="ui-button" type="button">Apply</button>
       </div>
     </details>
-    <details class="ui-accordion ui-card ui-marker-turn ui-outlined">
+    <details class="ui-accordion ui-card ui-marker-animation-turn ui-outlined">
       <summary>
         <span>Closed turn marker</span
         ><svg
@@ -2304,7 +2310,10 @@
   </div>
   <span class="stress-tag">Right to left</span>
   <div class="stress-grid" dir="rtl">
-    <details class="ui-accordion ui-card ui-marker-turn ui-outlined" open>
+    <details
+      class="ui-accordion ui-card ui-marker-animation-turn ui-outlined"
+      open
+    >
       <summary>
         <span
           >Turn, open: A summary long enough to wrap onto several lines next to
@@ -2330,7 +2339,7 @@
         </p>
       </div>
     </details>
-    <details class="ui-accordion ui-card ui-marker-turn ui-outlined">
+    <details class="ui-accordion ui-card ui-marker-animation-turn ui-outlined">
       <summary>
         <span>Turn, closed</span
         ><svg
@@ -2354,7 +2363,10 @@
         </p>
       </div>
     </details>
-    <details class="ui-accordion ui-card ui-marker-flip ui-tonal" open>
+    <details
+      class="ui-accordion ui-card ui-marker-animation-flip ui-tonal"
+      open
+    >
       <summary>
         <span class="ui-anchor ui-badge ui-critical"
           ><svg
@@ -2405,7 +2417,7 @@
       <hgroup><h3>Mail settings</h3></hgroup>
       <div class="ui-content">
         <div class="ui-card ui-outlined" role="group">
-          <details class="ui-accordion ui-card ui-marker-turn" open>
+          <details class="ui-accordion ui-card ui-marker-animation-turn" open>
             <summary>
               <span class="ui-anchor ui-badge ui-critical"
                 ><svg
@@ -2450,7 +2462,7 @@
               </p>
             </div>
           </details>
-          <details class="ui-accordion ui-card ui-marker-turn">
+          <details class="ui-accordion ui-card ui-marker-animation-turn">
             <summary>
               <span
                 >A summary long enough to wrap onto several lines next to its
@@ -2477,7 +2489,7 @@
               </p>
             </div>
           </details>
-          <details class="ui-accordion ui-card ui-marker-turn">
+          <details class="ui-accordion ui-card ui-marker-animation-turn">
             <summary>
               <span>Short</span
               ><svg
@@ -2712,7 +2724,7 @@
     <div class="stress-narrow">
       <span class="stress-tag">Peek, centered, 20 markers</span>
       <ul
-        class="ui-carousel ui-align-center ui-peek ui-buttons ui-markers"
+        class="ui-carousel ui-align-center ui-peek ui-markers"
         aria-label="Peek with many slides"
       >
         <li>
@@ -2820,9 +2832,9 @@
     <div class="stress-narrow">
       <span class="stress-tag">Three per view, persistent buttons</span>
       <ul
-        class="ui-carousel ui-persistent-buttons ui-buttons ui-markers"
+        class="ui-carousel ui-persistent-buttons ui-markers"
         aria-label="Forecast"
-        style="--_per-view: 3"
+        style="--_items-per-view: 3"
       >
         <li>
           <div class="ui-card ui-outlined">
@@ -2901,7 +2913,7 @@
     <div class="stress-narrow">
       <span class="stress-tag">Vertical, peek, 12 markers</span>
       <ul
-        class="ui-carousel ui-peek ui-vertical ui-buttons ui-markers"
+        class="ui-carousel ui-peek ui-vertical ui-markers"
         aria-label="Vertical with many slides"
         style="--_block-size: 16rem"
       >
@@ -2971,9 +2983,9 @@
   <span class="stress-tag">Right to left</span>
   <div class="stress-wide-column" dir="rtl">
     <ul
-      class="ui-carousel ui-align-center ui-buttons-outside ui-persistent-buttons ui-buttons ui-markers"
+      class="ui-carousel ui-align-center ui-buttons-outside ui-persistent-buttons ui-markers"
       aria-label="Right to left"
-      style="--_per-view: 2"
+      style="--_items-per-view: 2"
     >
       <li>
         <div class="ui-card ui-tonal">
@@ -3064,9 +3076,9 @@
         <hgroup><h3>Forecast</h3></hgroup>
         <div class="ui-content">
           <ul
-            class="ui-carousel ui-buttons-outside ui-persistent-buttons ui-buttons ui-markers"
+            class="ui-carousel ui-buttons-outside ui-persistent-buttons ui-markers"
             aria-label="Forecast in a card"
-            style="--_per-view: 2"
+            style="--_items-per-view: 2"
           >
             <li>
               <div class="ui-card ui-outlined">
@@ -3149,7 +3161,7 @@
         <hgroup><h3>Vertical</h3></hgroup>
         <div class="ui-content">
           <ul
-            class="ui-carousel ui-buttons-outside ui-vertical ui-buttons ui-markers"
+            class="ui-carousel ui-buttons-outside ui-vertical ui-markers"
             aria-label="Vertical in a card"
             style="--_block-size: 12rem"
           >

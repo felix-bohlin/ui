@@ -9,7 +9,6 @@ export default function Button({
   color,
   disabled,
   href,
-  iconOnly: _iconOnly,
   round,
   size,
   variant,

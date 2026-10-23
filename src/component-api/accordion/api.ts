@@ -13,21 +13,21 @@ export default {
       attribute: "[name]",
       description:
         "Groups accordions so only one of them can be open at a time.",
-      group: "Grouping",
+      group: "Group",
       inherited: true,
       prop: "name",
       type: "string",
     },
     {
       default: '"rotate"',
-      description: "How the marker animates when the accordion opens.",
-      group: "Marker",
-      htmlDefault: null,
+      description:
+        "How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open.",
+      group: "Marker animation",
       prop: "markerAnimation",
       values: {
-        flip: ".ui-marker-flip",
-        rotate: ".ui-marker-rotate",
-        turn: ".ui-marker-turn",
+        flip: ".ui-marker-animation-flip",
+        rotate: null,
+        turn: ".ui-marker-animation-turn",
       },
     },
     {

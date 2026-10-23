@@ -14,7 +14,12 @@ const places = [
 
 export default function Stretch() {
   return (
-    <Carousel aria-label="Destinations" buttons="outside" perView={3} stretch>
+    <Carousel
+      aria-label="Destinations"
+      buttons="outside"
+      itemsPerView={3}
+      stretch
+    >
       {places.map(({ description, title }) => (
         <li key={title}>
           <Card variant="tonal">

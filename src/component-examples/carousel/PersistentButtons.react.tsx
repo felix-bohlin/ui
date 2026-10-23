@@ -12,7 +12,7 @@ export default function PersistentButtons() {
     <Carousel
       buttons="outside"
       aria-label="Destinations"
-      perView={2}
+      itemsPerView={2}
       persistentButtons
     >
       {places.map(({ description, title }) => (

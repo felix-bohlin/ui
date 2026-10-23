@@ -8,9 +8,9 @@ const places = [
   { description: "Medina markets and Mediterranean light.", title: "Tunis" },
 ]
 
-export default function PerView() {
+export default function ItemsPerView() {
   return (
-    <Carousel aria-label="Destinations" buttons="outside" perView={3}>
+    <Carousel aria-label="Destinations" buttons="outside" itemsPerView={3}>
       {places.map(({ description, title }) => (
         <li key={title}>
           <Card variant="tonal">

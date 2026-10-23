@@ -8,7 +8,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const { endText, error, hideLabel, orientation, size, spread } =
+const { endText, error, hideLabel, label, orientation, size, spread } =
   defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
@@ -21,7 +21,7 @@ const modelValue = defineModel<boolean | (string | number)[] | undefined>({
 
 warnUnnamed(
   "Switch",
-  slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
+  label || slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
 )
 </script>
 
@@ -61,10 +61,10 @@ warnUnnamed(
     />
 
     <span
-      v-if="$slots.default"
+      v-if="label || $slots.default"
       :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
     >
-      <slot></slot>
+      {{ label }}<slot></slot>
     </span>
 
     <span v-if="endText || $slots['end-text']" class="ui-end-text">

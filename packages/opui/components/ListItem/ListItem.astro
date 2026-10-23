@@ -1,6 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import type { HTMLAttributes } from "astro/types"
+import { tagAttrs } from "../tag"
 
 export const title = "List Item"
 
@@ -10,7 +11,9 @@ const {
   class: className,
   color,
   description,
+  disabled,
   for: htmlFor,
+  href,
   inset,
   label,
   type,
@@ -24,7 +27,7 @@ const hasLabel = !!label || Astro.slots.has("label")
 const hasDescription = !!description || Astro.slots.has("description")
 const tagProps = hasControl
   ? { class: `ui-${type}`, for: htmlFor }
-  : { type: Tag === "button" ? ("button" as const) : undefined, ...rest }
+  : { ...rest, ...tagAttrs(Tag ?? "", disabled, href) }
 ---
 
 <li

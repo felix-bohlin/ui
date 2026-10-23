@@ -11,6 +11,7 @@ export default function Select({
   defaultValue,
   dense,
   error,
+  hideLabel,
   id,
   items = [],
   multiple,
@@ -70,7 +71,7 @@ export default function Select({
       style={style}
     >
       {label && (
-        <span className="ui-label" id={labelId}>
+        <span className={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
           {label}
         </span>
       )}

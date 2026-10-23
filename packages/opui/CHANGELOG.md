@@ -128,6 +128,9 @@
 
 ### Added
 
+- `TextField`, `Textarea`, `Select` and `Range` take `hideLabel`, which renders the label as `.ui-sr-only` instead of `.ui-label`, so the field keeps its accessible name without a visible label.
+- `Checkbox`, `Radio` and `Switch` take a `label` string, a shorthand for the default slot.
+- `Avatar` and `ListItem` links take `disabled`, like `Button` and `Chip`: the link drops its `href` and gets `aria-disabled="true"`.
 - `Carousel` takes an `aspectRatio` prop that crops media, like `--_media-aspect-ratio`.
 - `Progress` has a `--_loop-duration` property for the length of its indeterminate loop.
 - `opui-css/svelte` exports Svelte 5 components for every Astro and Vue component. Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are snippets (`children`, and camelCased names such as `endText`), `TextField`, `Textarea`, `Select`, `Range` and `ToggleGroup` support `bind:value`, `Checkbox` and `Switch` support `bind:checked` and `bind:group`, `ToggleButton` supports `bind:checked`, and `Radio` supports `bind:group`. `svelte` `^5.29` is an optional peer dependency.

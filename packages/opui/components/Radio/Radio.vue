@@ -8,7 +8,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const { endText, error, hideLabel, orientation, size, spread } =
+const { endText, error, hideLabel, label, orientation, size, spread } =
   defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
@@ -21,7 +21,7 @@ const modelValue = defineModel<string | number | boolean | undefined>({
 
 warnUnnamed(
   "Radio",
-  slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
+  label || slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
 )
 </script>
 
@@ -43,8 +43,10 @@ warnUnnamed(
       v-model="modelValue"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
     />
-    <span v-if="$slots.default" :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      ><slot></slot
+    <span
+      v-if="label || $slots.default"
+      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      >{{ label }}<slot></slot
     ></span>
     <span v-if="endText || $slots['end-text']" class="ui-end-text">
       {{ endText }}<slot name="end-text"></slot>

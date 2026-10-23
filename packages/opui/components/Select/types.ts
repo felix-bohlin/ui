@@ -2,6 +2,7 @@ export type Props = {
   dense?: boolean
   endText?: string
   error?: boolean
+  hideLabel?: boolean
   items?: SelectItem[]
   label?: string
   size?: "x-small" | "small" | "medium" | "large"

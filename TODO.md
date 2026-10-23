@@ -6904,10 +6904,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: keep `transparent` as Accordion's default, as the naming model has it, and say in the Accordion Variants prose that it differs from Card.
   > Fix with option A
   - Fixed with option A: Accordion takes `variant="plain"`, the default, with the page surface and padding like a Card, and `variant="transparent"` (`.ui-transparent`) for the previous look. A group card without a variant pads its accordions, and a `.ui-transparent` group doesn't. The Breaking entry, MIGRATING and What's new say how to keep the old look, and the flush accordions on the stress pages take `.ui-transparent`.
-- [ ] (1) Avatar: link avatars can't be disabled (`disabled?: never` with `href`), while Button and Chip links can, through `aria-disabled="true"` and the dropped `href` that `tagAttrs` already handles (`packages/opui/components/Avatar/types.ts:5-19`, `packages/opui/components/Chip/types.ts`, `packages/opui/components/tag.ts:1-6`)
+- [x] (1) Avatar: link avatars can't be disabled (`disabled?: never` with `href`), while Button and Chip links can, through `aria-disabled="true"` and the dropped `href` that `tagAttrs` already handles (`packages/opui/components/Avatar/types.ts:5-19`, `packages/opui/components/Chip/types.ts`, `packages/opui/components/tag.ts:1-6`)
   - Fix: Should Avatar allow `disabled` on links like Chip?
   > Fix
   > Yes
+  - Fixed: the link branch of the Avatar and ListItem types takes `disabled`, and the components pass it through `tagAttrs`, so a disabled link drops its `href` and gets `aria-disabled="true"`. The Avatar HTML API has a State row for it.
 - [x] (1) Badge, Chip, Callout, Button: the same five values (`critical`, `info`, `neutral`, `success`, `warning`) are `color` on Badge and Chip and `severity` on Callout, and Button uses `color` for `critical` and `primary`. ListItem and MenuItem set the same `.ui-critical` with a `critical` boolean, and Divider puts `primary` in `variant` next to `filled` and `tonal` (`src/component-api/badge/api.ts:18-29`, `src/component-api/callout/api.ts:10-22`, `packages/opui/components/ListItem/types.ts:3`, `packages/opui/components/Divider/types.ts:3`)
   - Options:
     - A: keep them (`severity` for messages, `color` for decoration, a boolean for destructive items).

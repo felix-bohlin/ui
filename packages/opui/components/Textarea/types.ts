@@ -2,6 +2,7 @@ export type Props = {
   autoFit?: boolean
   endText?: string
   error?: boolean
+  hideLabel?: boolean
   label?: string
   size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean

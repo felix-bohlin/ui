@@ -7,6 +7,7 @@
     autoFit,
     class: className,
     error,
+    hideLabel,
     id,
     name,
     size,
@@ -45,7 +46,9 @@
   {style}
 >
   {#if label}
-    <span class="ui-label">{@render content(label)}</span>
+    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}
+      >{@render content(label)}</span
+    >
   {/if}
   {#if startText}
     <span class="ui-start-text">{@render content(startText)}</span>

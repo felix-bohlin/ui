@@ -8,6 +8,7 @@
     class: className,
     endText,
     error,
+    hideLabel,
     id,
     items,
     list,
@@ -69,7 +70,7 @@
   {style}
 >
   {#if label}
-    <span class="ui-label" id={labelId}>
+    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
       {@render content(label)}
     </span>
   {/if}

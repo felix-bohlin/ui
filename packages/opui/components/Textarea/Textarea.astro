@@ -10,6 +10,7 @@ const {
   class: className,
   endText,
   error,
+  hideLabel,
   id,
   label,
   name,
@@ -40,7 +41,7 @@ const field = fieldGroupContext.get()
 >
   {
     (label || Astro.slots.has("label")) && (
-      <span class="ui-label">
+      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
         {label}
         <slot name="label" />
       </span>

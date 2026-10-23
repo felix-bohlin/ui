@@ -141,6 +141,7 @@ export default {
     },
     {
       description: "The label.",
+      props: ["label"],
       selector: ".ui-label",
       slots: ["default"],
     },

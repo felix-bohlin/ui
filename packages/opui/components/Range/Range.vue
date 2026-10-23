@@ -20,6 +20,7 @@ defineOptions({
 const {
   endText,
   error,
+  hideLabel,
   id,
   items,
   label,
@@ -94,7 +95,11 @@ const endTextId = `range-end-${uid}`
     :for="hasValue ? inputId : undefined"
     :style="$attrs.style"
   >
-    <span v-if="label || $slots.label" class="ui-label" :id="labelId">
+    <span
+      v-if="label || $slots.label"
+      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      :id="labelId"
+    >
       {{ label }}<slot name="label"></slot>
     </span>
     <output

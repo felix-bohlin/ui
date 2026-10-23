@@ -1,5 +1,6 @@
 import type { ElementType } from "react"
 import { cx } from "../cx"
+import { tagAttrs } from "../tag"
 import type { Props } from "./types.react"
 
 export default function ListItem({
@@ -7,6 +8,7 @@ export default function ListItem({
   borderTop,
   className,
   color,
+  disabled,
   href,
   htmlFor,
   inset,
@@ -26,11 +28,7 @@ export default function ListItem({
     : (as ?? (href ? "a" : undefined))
   const tagProps = hasControl
     ? { className: `ui-${type}`, htmlFor }
-    : {
-        href,
-        type: Tag === "button" ? ("button" as const) : undefined,
-        ...(rest as object),
-      }
+    : { ...(rest as object), ...tagAttrs(Tag as string, disabled, href) }
 
   const body = (
     <>

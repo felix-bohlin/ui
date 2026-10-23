@@ -11,6 +11,7 @@ export default function Range({
   defaultValue,
   endText,
   error,
+  hideLabel,
   id,
   items,
   label,
@@ -86,7 +87,7 @@ export default function Range({
       style={style}
     >
       {hasLabel && (
-        <span className="ui-label" id={labelId}>
+        <span className={hideLabel ? "ui-sr-only" : "ui-label"} id={labelId}>
           {label}
         </span>
       )}

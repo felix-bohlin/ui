@@ -8,7 +8,7 @@ export type Props = {
 } & (
   | {
       as?: "a"
-      disabled?: never
+      disabled?: boolean
       href: string
       type?: never
     }

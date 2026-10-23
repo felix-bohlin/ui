@@ -11,25 +11,25 @@ export default {
   },
   options: [
     {
-      class: ".ui-l-column",
+      class: ".ui-layout-column",
       description: "A column with even space between its children.",
       group: "Column",
       prop: "column",
     },
     {
-      class: ".ui-l-container",
+      class: ".ui-layout-container",
       description: "Centers its content and caps its width.",
       group: "Container",
       prop: "container",
     },
     {
-      class: ".ui-l-grid",
+      class: ".ui-layout-grid",
       description: "Columns that fill the width and wrap.",
       group: "Grid",
       prop: "grid",
     },
     {
-      class: ".ui-l-row",
+      class: ".ui-layout-row",
       description: "A wrapping row with its children centered on one line.",
       group: "Row",
       prop: "row",
@@ -37,7 +37,7 @@ export default {
     {
       default: '"medium"',
       description:
-        "The space between children of `.ui-l-column`, `.ui-l-row` and `.ui-l-grid`.",
+        "The space between children of `.ui-layout-column`, `.ui-layout-row` and `.ui-layout-grid`.",
       group: "Sizes",
       prop: "size",
       values: {
@@ -51,6 +51,7 @@ export default {
   parts: [],
   root: {
     description: "Any element. The classes only set its layout.",
-    selector: ".ui-l-column, .ui-l-row, .ui-l-grid, .ui-l-container",
+    selector:
+      ".ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-container",
   },
 } satisfies ComponentApi

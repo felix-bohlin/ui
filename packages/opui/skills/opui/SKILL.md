@@ -34,19 +34,19 @@ Change the least specific thing that does the job, in this order:
 
 Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border-color`): hover, active and disabled set them, so an override freezes them in every state. Change the input they derive from, such as `--_accent`. Don't add `!important` or long selectors: the layers already let your CSS win.
 
-| To change                          | Set                                                                                                              |
-| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Main color                         | `--ui-palette-hue` and `--ui-palette-chroma`, or `--ui-palette-source` with any color                            |
-| Main color in one part of the page | `.ui-palette` and `--ui-palette-hue` on that element                                                             |
-| Corners                            | `--ui-radius` (buttons and fields follow it)                                                                     |
-| Fonts                              | `--ui-font-body`, `--ui-font-heading`, `--ui-font-code`                                                          |
-| Control height                     | `--ui-density`                                                                                                   |
-| Spacing in and between containers  | `--ui-space-scale`                                                                                               |
-| Shadows                            | `--ui-shadow-elevated-light`, `--ui-shadow-elevated-dark`, `--ui-shadow-overlay`                                 |
-| Space between components           | `.ui-l-column`, `.ui-l-row`, `.ui-l-grid` and `.ui-l-container` (see `layout.md`), not your own flex or grid CSS |
-| Transitions                        | `--ui-motion` (`0` turns them off), `--ui-duration`, `--ui-ease`                                                 |
-| One component's color              | `--_accent` on it, or `.ui-primary`/`.ui-critical`                                                               |
-| A severity color for a section     | `.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-neutral`                                          |
+| To change                          | Set                                                                                                                                  |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Main color                         | `--ui-palette-hue` and `--ui-palette-chroma`, or `--ui-palette-source` with any color                                                |
+| Main color in one part of the page | `.ui-palette` and `--ui-palette-hue` on that element                                                                                 |
+| Corners                            | `--ui-radius` (buttons and fields follow it)                                                                                         |
+| Fonts                              | `--ui-font-body`, `--ui-font-heading`, `--ui-font-code`                                                                              |
+| Control height                     | `--ui-density`                                                                                                                       |
+| Spacing in and between containers  | `--ui-space-scale`                                                                                                                   |
+| Shadows                            | `--ui-shadow-elevated-light`, `--ui-shadow-elevated-dark`, `--ui-shadow-overlay`                                                     |
+| Space between components           | `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-container` (see `layout.md`), not your own flex or grid CSS |
+| Transitions                        | `--ui-motion` (`0` turns them off), `--ui-duration`, `--ui-ease`                                                                     |
+| One component's color              | `--_accent` on it, or `.ui-primary`/`.ui-critical`                                                                                   |
+| A severity color for a section     | `.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-neutral`                                                              |
 
 ```css
 @layer theme.custom {

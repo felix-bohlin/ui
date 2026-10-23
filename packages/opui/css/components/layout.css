@@ -1,5 +1,5 @@
 @layer utils {
-  :where(.ui-l-column) {
+  :where(.ui-layout-column) {
     --_gap: var(--ui-space-3);
 
     display: flex;
@@ -7,7 +7,7 @@
     gap: var(--_gap);
   }
 
-  :where(.ui-l-row) {
+  :where(.ui-layout-row) {
     --_gap: var(--ui-space-3);
     --_justify-content: flex-start;
 
@@ -18,7 +18,7 @@
     justify-content: var(--_justify-content);
   }
 
-  :where(.ui-l-grid) {
+  :where(.ui-layout-grid) {
     --_gap: var(--ui-space-3);
     --_min-inline-size: 16rem;
 
@@ -30,7 +30,7 @@
     );
   }
 
-  :where(.ui-l-column, .ui-l-row, .ui-l-grid) {
+  :where(.ui-layout-column, .ui-layout-row, .ui-layout-grid) {
     &.ui-x-small {
       --_gap: var(--ui-space-1);
     }
@@ -44,7 +44,7 @@
     }
   }
 
-  :where(.ui-l-container) {
+  :where(.ui-layout-container) {
     --_max-inline-size: 72rem;
     --_padding-inline: var(--ui-space-4);
 

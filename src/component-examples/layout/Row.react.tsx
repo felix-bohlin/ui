@@ -2,7 +2,7 @@ import { Button } from "opui-css/react"
 
 export default function Row() {
   return (
-    <div className="ui-l-row">
+    <div className="ui-layout-row">
       <Button color="primary" variant="filled">
         Save
       </Button>

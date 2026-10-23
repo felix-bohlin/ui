@@ -2,7 +2,7 @@
   import { Card, CardContent } from "opui-css/svelte"
 </script>
 
-<div class="ui-l-column">
+<div class="ui-layout-column">
   <Card variant="outlined">
     <CardContent>First</CardContent>
   </Card>

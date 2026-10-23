@@ -174,6 +174,55 @@ Follow this order for readability:
 
 Native states use native attributes, not classes: a disabled `<button>` gets `disabled`, a disabled link gets `aria-disabled="true"`.
 
+### Naming props, values and classes
+
+One concept has one prop name and one set of values in every component. `tests/unit/naming.test.ts` checks every `api.ts` against this model, and its allowlist only shrinks.
+
+| Concept                            | Prop                           | Values                                                                    |
+| ---------------------------------- | ------------------------------ | ------------------------------------------------------------------------- |
+| Paint only                         | `color`                        | `critical`, `info`, `neutral`, `primary`, `success`, `warning`            |
+| Meaning                            | `severity`                     | `critical`, `info`, `neutral`, `success`, `warning`                       |
+| Surface                            | `variant`                      | `elevated`, `filled`, `line`, `outlined`, `plain`, `tonal`, `transparent` |
+| Size                               | `size`                         | `x-small`, `small`, `medium`, `large`                                     |
+| Density                            | `dense` (boolean) or `density` | `dense`, `normal`, `spacious`                                             |
+| Shape                              | `round` (boolean) or `shape`   | `circle`, `rounded`, `squared`, `squircle`                                |
+| Layout axis                        | `orientation`                  | `auto`, `horizontal`, `vertical`                                          |
+| Side of a trigger or the viewport  | `side`                         | `block-end`, `block-start`, `inline-end`, `inline-start`                  |
+| Alignment on that side or in a row | `align`                        | `start`, `center`, `end`                                                  |
+| Corner                             | `corner`                       | `start-start`, `start-end`, `end-start`, `end-end`                        |
+| Free CSS position                  | `positionArea`                 | any `position-area` value                                                 |
+| Checked state                      | `checked`                      | the native attribute                                                      |
+
+- **Values:** a component accepts the values it supports from its set.
+- **`color` and `severity`:**
+  - `color` changes paint and nothing else.
+  - `severity` says what something means, and adds the cues that meaning needs: an icon, a shape-coded dot. Meaning never rests on color alone.
+  - `primary` is emphasis, not meaning, so it is a `color` only.
+- **Variant words keep Material 3's meaning, and describe the resting look; a hover or selected tint never counts against them:**
+  - `filled` is a solid fill in the component's own color: the accent on actions (Button, ButtonGroup, Tabs), a surface on fields, containers and tracks.
+  - `tonal` is the tonal surface or palette tint.
+  - `outlined` is drawn in the border color with no fill.
+  - `elevated` is raised with a shadow.
+  - `transparent` has no surface and no border at rest. A text button is `transparent`.
+  - `plain` is the page surface with no border, and differs from `transparent` on a tinted parent.
+  - `line` is an indicator with no track.
+- **Every enum names its default:**
+  - The default adds no class. It maps to `null` in `api.ts`, where it shows as the default.
+  - The exceptions are `as` and `type`; `color` and `severity`, where leaving the prop out means none; and free strings.
+- **Booleans and enums:**
+  - A modifier with one alternative is a boolean and renders the class of the same name (`round` gives `.ui-round`, `stickyHeader` gives `.ui-sticky-header`).
+  - A modifier with several values is an enum named after the concept.
+  - A component never has both for one concept.
+- **One class, one meaning:**
+  - A part class (`.ui-text`, `.ui-label`) is never also a variant.
+  - Size words on a component root are its size. On a text element they are its text size, and a component's own rules win.
+- **`start` and `end` are logical,** along the axis that fits: inline for slots in a row (`.ui-start`, `.ui-end`), block for text above and below a field (`startText`, `endText`).
+- **The checked state uses the native name and each framework's native semantics:**
+  - In React, `checked` with `onChange` is controlled and `defaultChecked` is uncontrolled.
+  - In Svelte, `checked` is `$bindable()` where one input owns the state.
+  - In Astro and Vue, `checked` is the native attribute.
+  - Inside a group that owns the value (ToggleGroup), the group wins.
+
 ```astro
 <div
   class:list={[

@@ -1,0 +1,351 @@
+{
+  "classes": [
+    ".ui-abbr",
+    ".ui-accordion",
+    ".ui-actions",
+    ".ui-align-end",
+    ".ui-anchor",
+    ".ui-anchor-floating",
+    ".ui-auto-fit",
+    ".ui-avatar",
+    ".ui-backdrop-transparent",
+    ".ui-badge",
+    ".ui-badge-indicator",
+    ".ui-block-end",
+    ".ui-block-start",
+    ".ui-blockquote",
+    ".ui-border-filled",
+    ".ui-border-primary",
+    ".ui-border-tonal",
+    ".ui-border-top",
+    ".ui-bordered",
+    ".ui-button",
+    ".ui-button-group",
+    ".ui-callout",
+    ".ui-caption",
+    ".ui-card",
+    ".ui-checkbox",
+    ".ui-chip",
+    ".ui-cite",
+    ".ui-close-button",
+    ".ui-code-block",
+    ".ui-content",
+    ".ui-critical",
+    ".ui-dark",
+    ".ui-default",
+    ".ui-del",
+    ".ui-dense",
+    ".ui-description",
+    ".ui-description-list",
+    ".ui-dfn",
+    ".ui-dialog",
+    ".ui-disabled",
+    ".ui-divider",
+    ".ui-dot",
+    ".ui-dotted",
+    ".ui-drawer",
+    ".ui-elevated",
+    ".ui-end",
+    ".ui-end-end",
+    ".ui-end-start",
+    ".ui-end-text",
+    ".ui-exiting",
+    ".ui-field",
+    ".ui-field-description",
+    ".ui-field-group",
+    ".ui-fieldset",
+    ".ui-fieldset-item",
+    ".ui-filled",
+    ".ui-footer",
+    ".ui-form",
+    ".ui-gutterless",
+    ".ui-h1",
+    ".ui-h2",
+    ".ui-h3",
+    ".ui-h4",
+    ".ui-h5",
+    ".ui-h6",
+    ".ui-header",
+    ".ui-hgroup",
+    ".ui-icon",
+    ".ui-icon-button",
+    ".ui-icon-checked",
+    ".ui-icon-only",
+    ".ui-icon-unchecked",
+    ".ui-info",
+    ".ui-inline-end",
+    ".ui-inline-start",
+    ".ui-ins",
+    ".ui-inset",
+    ".ui-invisible",
+    ".ui-item",
+    ".ui-kbd",
+    ".ui-label",
+    ".ui-large",
+    ".ui-legend",
+    ".ui-light",
+    ".ui-link",
+    ".ui-list",
+    ".ui-mark",
+    ".ui-multiline",
+    ".ui-neutral",
+    ".ui-not-rich-text",
+    ".ui-outlined",
+    ".ui-overline",
+    ".ui-p",
+    ".ui-prefix",
+    ".ui-primary",
+    ".ui-progress",
+    ".ui-radio",
+    ".ui-range",
+    ".ui-rich-text",
+    ".ui-rounded",
+    ".ui-row",
+    ".ui-s",
+    ".ui-samp",
+    ".ui-scroll-lock",
+    ".ui-select",
+    ".ui-small",
+    ".ui-spacious",
+    ".ui-spread",
+    ".ui-squared",
+    ".ui-squircle",
+    ".ui-sr-only",
+    ".ui-stack",
+    ".ui-start",
+    ".ui-start-start",
+    ".ui-start-text",
+    ".ui-sub",
+    ".ui-success",
+    ".ui-suffix",
+    ".ui-sup",
+    ".ui-switch",
+    ".ui-tab-input",
+    ".ui-tab-label",
+    ".ui-tab-panel",
+    ".ui-table",
+    ".ui-tabs",
+    ".ui-term",
+    ".ui-text",
+    ".ui-text-field",
+    ".ui-textarea",
+    ".ui-title",
+    ".ui-toast",
+    ".ui-toggle-button",
+    ".ui-toggle-group",
+    ".ui-tonal",
+    ".ui-tooltip",
+    ".ui-transparent",
+    ".ui-u",
+    ".ui-value",
+    ".ui-var",
+    ".ui-vertical",
+    ".ui-warning",
+    ".ui-with-arrow",
+    ".ui-x-small"
+  ],
+  "props": {
+    "Accordion": {
+      "Accordion": ["name", "open", "variant"]
+    },
+    "Anchor": {
+      "Anchor": ["alignment", "trigger"]
+    },
+    "Avatar": {
+      "Avatar": [
+        "alt",
+        "as",
+        "command",
+        "commandfor",
+        "disabled",
+        "href",
+        "interestfor",
+        "isGroup",
+        "src",
+        "variant"
+      ]
+    },
+    "Badge": {
+      "Badge": ["alignment", "color", "dot", "invisible", "label"]
+    },
+    "Button": {
+      "Button": ["as", "color", "disabled", "href", "size", "variant"]
+    },
+    "ButtonGroup": {
+      "ButtonGroup": ["color", "orientation", "size", "variant"]
+    },
+    "Callout": {
+      "Callout": ["severity", "variant"]
+    },
+    "Card": {
+      "Card": ["actionsAlign", "variant"]
+    },
+    "Checkbox": {
+      "Checkbox": [
+        "error",
+        "hideLabel",
+        "indeterminate",
+        "size",
+        "spread",
+        "stack"
+      ],
+      "CheckboxInput": ["indeterminate"]
+    },
+    "Chip": {
+      "Chip": ["as", "label", "multiline", "size", "variant"]
+    },
+    "ClassicSelect": {
+      "ClassicSelect": [
+        "endText",
+        "error",
+        "id",
+        "items",
+        "label",
+        "size",
+        "variant"
+      ]
+    },
+    "DescriptionList": {
+      "Description": ["bordered"],
+      "DescriptionList": ["bordered"]
+    },
+    "Dialog": {
+      "Dialog": ["actionsAlign"]
+    },
+    "Divider": {
+      "Divider": ["variant"]
+    },
+    "Drawer": {
+      "Drawer": ["backdrop", "closedby", "id", "scrollLock", "side"],
+      "DrawerFooter": [],
+      "DrawerHeader": ["heading"]
+    },
+    "FieldDescription": {
+      "FieldDescription": []
+    },
+    "FieldGroup": {
+      "FieldGroup": ["direction", "name"]
+    },
+    "FieldLegend": {
+      "FieldLegend": ["as"]
+    },
+    "FieldSet": {
+      "FieldSet": ["as"]
+    },
+    "Form": {
+      "Form": ["as"]
+    },
+    "IconButton": {
+      "IconButton": ["as", "color", "disabled", "href", "size", "variant"]
+    },
+    "List": {
+      "List": ["bordered", "dense", "divided", "gutterless", "variant"]
+    },
+    "ListItem": {
+      "ListItem": [
+        "as",
+        "borderTop",
+        "description",
+        "disabled",
+        "for",
+        "headline",
+        "href",
+        "inset",
+        "type"
+      ]
+    },
+    "Progress": {
+      "Progress": [
+        "aria-busy",
+        "aria-describedby",
+        "aria-label",
+        "id",
+        "max",
+        "value",
+        "variant"
+      ]
+    },
+    "Radio": {
+      "Radio": ["error", "hideLabel", "size", "stack"],
+      "RadioInput": []
+    },
+    "Range": {
+      "Range": [
+        "endText",
+        "id",
+        "label",
+        "list",
+        "options",
+        "spread",
+        "startText",
+        "value",
+        "valueSuffix",
+        "variant"
+      ]
+    },
+    "Select": {
+      "Select": [
+        "dense",
+        "description",
+        "endText",
+        "error",
+        "items",
+        "label",
+        "size",
+        "spread",
+        "variant"
+      ]
+    },
+    "Switch": {
+      "Switch": ["error", "hideLabel", "small", "spread", "stack"],
+      "SwitchInput": []
+    },
+    "Table": {
+      "Table": ["variant"]
+    },
+    "Tabs": {
+      "Tabs": ["name"],
+      "TabsItem": ["name", "open", "panelId", "tabId"],
+      "TabsPanel": ["panelId", "tabId"],
+      "TabsTab": ["tabId"]
+    },
+    "Textarea": {
+      "Textarea": [
+        "autoFit",
+        "description",
+        "endText",
+        "error",
+        "filled",
+        "id",
+        "label",
+        "small",
+        "spread"
+      ]
+    },
+    "TextField": {
+      "TextField": [
+        "autoFit",
+        "description",
+        "endText",
+        "error",
+        "filled",
+        "id",
+        "label",
+        "small",
+        "spread",
+        "startText",
+        "type"
+      ]
+    },
+    "ToggleButton": {
+      "ToggleButton": ["label", "pressed", "size", "type"]
+    },
+    "ToggleGroup": {
+      "ToggleGroup": ["name", "orientation", "selection", "size"]
+    },
+    "Tooltip": {
+      "Tooltip": ["alignment", "arrow", "id", "label"]
+    }
+  },
+  "version": "5.4.3"
+}

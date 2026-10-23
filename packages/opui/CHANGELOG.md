@@ -78,7 +78,7 @@
 
 - `Accordion`, `Anchor`, `Callout`, `Card`, `Dialog`, `Drawer` and `Tooltip` no longer export a `Slots` type from `types.ts`, and the Vue `Drawer` types no longer export `DrawerHeadingIdKey`, `DrawerSlots`, `DrawerHeaderSlots` or `DrawerFooterSlots`.
 - `Chip` hover and press ripple. Remove any `--ripple` overrides.
-- `IconButton`. Use `Button`: an icon-only button is square by default, `round` (`.ui-round`) makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`. Icons are smaller (`--_icon-size: var(--size-5)` matches the old 24px), and the icon color is the button's accent instead of the inherited text color.
+- `IconButton` (`.ui-icon-button`). Use `Button`: an icon-only button is square by default, `round` (`.ui-round`) makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`. Icons are smaller (`--_icon-size: var(--size-5)` matches the old 24px), and the icon color is the button's accent instead of the inherited text color.
 - `palette.css` no longer registers the palette variables (`--color-*`, `--gray-*`, `--palette-source` and `--palette-hue`) with `@property`.
 - `ToggleGroup` no longer exports the unused `ToggleContext` type.
 - `TextField` and `Textarea` no longer take `supportingText` or the `supporting-text` slot. Use `endText` (`end-text`).
@@ -92,7 +92,8 @@
 - `ClassicSelect`. Use `Select`: it renders the same field, with the browser's own picker where customizable select isn't supported.
 - `open-props.css` no longer imports Open Props' `props.palette.css`, so `opui-css/open-props` (`dist/op.css`) no longer declares `--palette-hue`, `--palette-chroma`, `--palette-hue-rotate-by` or `--color-1` to `--color-16`. `core/palette.css` declares them as `--ui-palette-*` and `--ui-color-1` to `--ui-color-16`.
 - `DescriptionList` `.ui-term` and `.ui-description`. The list styles `dt` and `dd` by element, and `DescriptionListTerm` and `DescriptionListDescription` render a plain `dt` and `dd`.
-- `Toast`. `toast.css`, `css/js/toast.js` with `initToastManager()` and `showToast()`, and their types are gone.
+- `Range` thumbs no longer change their border inside a focused `.ui-fieldset-item`, a class no component renders.
+- `Toast`. `toast.css` with `.ui-toast` and its parts (`.ui-close-button`, `.ui-exiting`, `.ui-icon`, `.ui-title`), `css/js/toast.js` with `initToastManager()` and `showToast()`, and their types are gone.
 - `theme.css` `--primary-dark` and `--primary-light`. Derive a shade from `--ui-primary` with relative color instead, such as `oklch(from var(--ui-primary) calc(l * 0.75) c h)`.
 - `types.solid.ts` from every component folder, and the `solid-js` peer dependency. There are no Solid components.
 

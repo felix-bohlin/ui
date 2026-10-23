@@ -11,7 +11,8 @@ When creating or updating a component API, ensure:
 - [ ] **Inline code**: Wrap classes, selectors, tags and props in backticks in descriptions and notes. `formatInline` renders them as `<code>` and escapes HTML, so never write `<code>` tags. Link to docs pages with `[label](/components/name)`.
 - [ ] **Class Prefixing**: Classes in `class` and `values` use the `ui-` prefix and a leading dot (`.ui-primary`).
 - [ ] **Baseline value**: Map an enum value that adds no class to `null` in `values` (`values: { end: ".ui-align-end", start: null }`). The table shows it as `default`.
-- [ ] **Standard groups**: Use `Variants`, `Sizes`, `Colors` and `Orientation` as the `group` where they fit.
+- [ ] **Named default**: An enum names its default value in `default` (`'"medium"'`), and that value maps to `null`. The exceptions are `as`, `type`, `color`, `severity` and free strings. The names and values follow the naming model in [packages/opui/components/AGENTS.md](../../packages/opui/components/AGENTS.md#naming-props-values-and-classes), and `tests/unit/naming.test.ts` checks them.
+- [ ] **Standard groups**: Use `Alignment` for `align`, `Colors` for `color`, `Density` for `density`, `Orientation` for `orientation`, `Position` for `side`, `corner` and `positionArea`, `Severities` for `severity`, `Shape` for `shape`, `Sizes` for `size` and `Variants` for `variant`.
 - [ ] **Short Descriptions**: All descriptions are very short and concise (often a single sentence fragment). Reuse the standard phrases:
   - `The variant to use.` (for Variants)
   - `The size of the element.` (for Sizes)

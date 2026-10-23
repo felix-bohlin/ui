@@ -401,17 +401,17 @@ Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons ke
 
 ### Toggle button API
 
-| Prop       | Type                                             | Default      | Description                                                |
-| ---------- | ------------------------------------------------ | ------------ | ---------------------------------------------------------- |
-| `checked`  | `boolean`                                        | `false`      | Selects the button.                                        |
-| `children` | `ReactNode`                                      | -            | The label and an optional icon.                            |
-| `disabled` | `boolean`                                        | `false`      | Disables the button.                                       |
-| `id`       | `string`                                         | -            | The id of the `<input>`.                                   |
-| `label`    | `string`                                         | -            | The button text when there is no child content.            |
-| `name`     | `string`                                         | -            | The name of the input. Set by the group.                   |
-| `size`     | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                   |
-| `type`     | `"checkbox"` , `"radio"`                         | `"checkbox"` | The input type. `"radio"` allows one selection in a group. |
-| `value`    | `string`                                         | -            | The value of the input.                                    |
+| Prop       | Type                                             | Default      | Description                                                                                                               |
+| ---------- | ------------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `checked`  | `boolean`                                        | `false`      | Selects the button.                                                                                                       |
+| `children` | `ReactNode`                                      | -            | The label and an optional icon.                                                                                           |
+| `disabled` | `boolean`                                        | `false`      | Disables the button.                                                                                                      |
+| `id`       | `string`                                         | -            | The id of the `<input>`.                                                                                                  |
+| `label`    | `string`                                         | -            | The button text when there is no child content.                                                                           |
+| `name`     | `string`                                         | -            | The name of the input. Set by the group.                                                                                  |
+| `size`     | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                                                                  |
+| `type`     | `"checkbox"` , `"radio"`                         | `"checkbox"` | The input type. `"radio"` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio. |
+| `value`    | `string`                                         | -            | The value of the input.                                                                                                   |
 
 #### CSS variables
 
@@ -650,5 +650,3 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Corners follow `--ui-radius` through [`--ui-button-radius`](#api), so one token squares or rounds every component.
 - The default size reads [`--ui-font-size-control`](#sizes) for its font size, like buttons.
 - [Sizes](#sizes) name the default: `size="medium"`.
-- Breaking: `ToggleGroup` `selection` is [`multiple`](#multi-select), and a group is [single-select](#single-select) by default.
-- Breaking: `ToggleButton` [`value`](#api) no longer falls back to `label`.

@@ -26,7 +26,7 @@ export default {
   "--_ease": {
     description:
       "Easing of the open and close transitions. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing.",
-    kind: "input",
+    kind: "output",
   },
   "--_hover-bg-color": {
     description:

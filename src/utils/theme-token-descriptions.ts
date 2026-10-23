@@ -179,6 +179,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-icon-size-large": "Icon size inside `Avatar` and `List`.",
   "--ui-icon-size-small":
     "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.",
+  "--ui-icon-size-x-small":
+    "Smallest icon size, for icons in x-small controls. Not read by a component yet.",
   "--ui-info": "Severity color for informational messages.",
   "--ui-info-text":
     "Info as a text color, for informational text outside an `.ui-info` scope. `--ui-info` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
@@ -249,6 +251,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Background of `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal`. When unset, a light tint of the palette. Material's `primary-container` and shadcn's `secondary` go here.",
   "--ui-radius":
     "Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.",
+  "--ui-radius-large":
+    "Corner radius for large surfaces, such as cards and dialogs that want more rounding than controls. `--ui-radius` times 1.5, so `0` still squares it. Not read by a component yet.",
   "--ui-radius-round":
     "The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.",
   "--ui-radius-small":
@@ -263,6 +267,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` on toggles and `--ui-primary` at `--ui-state-active-alpha-accent` on list items and options. Pair it with `--ui-on-selected`.",
   "--ui-selected-strong":
     "Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row and the selected tab of filled `Tabs`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.",
+  "--ui-shadow-color":
+    "Hue, saturation and lightness of every shadow, as space-separated HSL channels: `220 3% 15%`, and `220 40% 2%` in dark mode. Sets Open Props `--shadow-color`, which the `--shadow-*` steps read.",
   "--ui-shadow-control":
     "Shadow of buttons with a variant and of fields. `none` by default, for themes that lift controls off the page.",
   "--ui-shadow-elevated":
@@ -277,6 +283,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.",
   "--ui-shadow-selected":
     "Shadow of the selected tab in default and `.ui-filled` `Tabs`. `.ui-line` and `.ui-outlined` have none. Defaults to Open Props `--shadow-1`.",
+  "--ui-shadow-strength":
+    "Opacity of the shadow layers: `1%`, and `20%` in dark mode. Sets Open Props `--shadow-strength`.",
   "--ui-shadow-surface":
     "Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.",
   "--ui-space-1":

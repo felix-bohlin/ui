@@ -684,7 +684,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.
+Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.
 
 ### Checkbox input API
 

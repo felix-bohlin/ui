@@ -362,16 +362,16 @@ The selection lives in the inputs. Read it from the form, or listen for `change`
 
 ### Toggle button API
 
-| Prop       | Type                                             | Default      | Description                                                |
-| ---------- | ------------------------------------------------ | ------------ | ---------------------------------------------------------- |
-| `checked`  | `boolean`                                        | `false`      | Selects the button.                                        |
-| `disabled` | `boolean`                                        | `false`      | Disables the button.                                       |
-| `id`       | `string`                                         | -            | The id of the `<input>`.                                   |
-| `label`    | `string`                                         | -            | The button text when there is no child content.            |
-| `name`     | `string`                                         | -            | The name of the input. Set by the group.                   |
-| `size`     | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                   |
-| `type`     | `"checkbox"` , `"radio"`                         | `"checkbox"` | The input type. `"radio"` allows one selection in a group. |
-| `value`    | `string`                                         | -            | The value of the input.                                    |
+| Prop       | Type                                             | Default      | Description                                                                                                               |
+| ---------- | ------------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `checked`  | `boolean`                                        | `false`      | Selects the button.                                                                                                       |
+| `disabled` | `boolean`                                        | `false`      | Disables the button.                                                                                                      |
+| `id`       | `string`                                         | -            | The id of the `<input>`.                                                                                                  |
+| `label`    | `string`                                         | -            | The button text when there is no child content.                                                                           |
+| `name`     | `string`                                         | -            | The name of the input. Set by the group.                                                                                  |
+| `size`     | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                                                                  |
+| `type`     | `"checkbox"` , `"radio"`                         | `"checkbox"` | The input type. `"radio"` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio. |
+| `value`    | `string`                                         | -            | The value of the input.                                                                                                   |
 
 #### Slots
 

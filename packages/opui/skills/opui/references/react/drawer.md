@@ -402,7 +402,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_content-padding`   | Input  | Padding of `.ui-content`.                                                                                  |
 | `--_direction`         | Output | Direction of the inline slide, `-1` in right-to-left.                                                      |
 | `--_duration`          | Output | Duration of the transitions, `--ui-duration-slow` times `--_motion`.                                       |
-| `--_ease`              | Input  | Easing of the slide and backdrop fade. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing. |
+| `--_ease`              | Output | Easing of the slide and backdrop fade. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing. |
 | `--_header-font-size`  | Input  | Font size of headings in `.ui-header`.                                                                     |
 | `--_header-padding`    | Input  | Padding of `.ui-header`.                                                                                   |
 | `--_inline-size`       | Input  | Width of drawers that open from the inline start or end.                                                   |

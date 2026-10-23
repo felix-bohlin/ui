@@ -53,7 +53,7 @@ export default {
   "--_ease": {
     description:
       "Easing of the slide and backdrop fade. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing.",
-    kind: "input",
+    kind: "output",
   },
   "--_header-font-size": {
     description: "Font size of headings in `.ui-header`.",

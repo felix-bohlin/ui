@@ -16,18 +16,6 @@ export default {
       prop: "disabled",
     },
     {
-      description:
-        'Disables a button chip. A link chip, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. On a static chip, `aria-disabled="true"` only dims it a little and keeps its text readable.',
-      frameworks: ["html"],
-      group: "State",
-      prop: "state",
-      values: {
-        button: "button[disabled]",
-        link: 'a[aria-disabled="true"]',
-        static: 'div[aria-disabled="true"]',
-      },
-    },
-    {
       class: ".ui-dot",
       default: "false",
       description:
@@ -69,6 +57,18 @@ export default {
         medium: null,
         small: ".ui-small",
         "x-small": ".ui-x-small",
+      },
+    },
+    {
+      description:
+        'Disables a button chip. A link chip, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. On a static chip, `aria-disabled="true"` only dims it a little and keeps its text readable.',
+      frameworks: ["html"],
+      group: "State",
+      prop: "state",
+      values: {
+        button: "button[disabled]",
+        link: 'a[aria-disabled="true"]',
+        static: 'div[aria-disabled="true"]',
       },
     },
     {

@@ -322,6 +322,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: import the parts by their flat names, such as [`DescriptionListItem`](#api). The `DescriptionList.Item` aliases are gone.
 - Breaking: the part files are `DescriptionListDescription.*`, `DescriptionListItem.*` and `DescriptionListTerm.*`. Update deep `opui-css/components/*` imports ([API](#api)).
 - [Orientation](#orientation): `orientation="horizontal"` keeps terms and descriptions side by side at any width.
+- Breaking: [items](#bordered) render a plain `div` without `.ui-item`.
 - Breaking: [`bordered`](#bordered) takes `"solid"` or `"dotted"`.
 - Breaking: `DescriptionListTerm` and `DescriptionListDescription` no longer render `.ui-term` and `.ui-description`. Select `dt` and `dd` in your CSS ([Basics](#basics)).
 - Breaking: deep type imports from `components/DescriptionList/types.astro` are named [`DescriptionListTermProps`](#api), `DescriptionListDescriptionProps` and `DescriptionListItemProps` (was `TermProps`, `DescriptionProps` and `ItemProps`), like the framework entry.

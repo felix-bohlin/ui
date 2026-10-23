@@ -16,7 +16,7 @@ export default {
       class: ".ui-border-top",
       default: "false",
       description: "Adds a border above the item.",
-      group: "Border top",
+      group: "Borders",
       prop: "borderTop",
     },
     {
@@ -27,6 +27,7 @@ export default {
       values: { critical: ".ui-critical" },
     },
     {
+      default: "false",
       description:
         'Disables a button item. A link item drops its `href` and gets `aria-disabled="true"` instead.',
       prop: "disabled",

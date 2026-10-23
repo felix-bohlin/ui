@@ -32,17 +32,27 @@ describe("parseTodo", () => {
       {
         items: [
           {
+            component: undefined,
+            files: [],
+            headline: "Tooltips `never` show",
             line: "- [] (2) Tooltips `never` show",
             notes: [],
+            recommended: undefined,
             severity: 2,
             status: "",
+            summary: undefined,
             text: "Tooltips `never` show",
           },
           {
+            component: undefined,
+            files: [],
+            headline: "Unscored",
             line: "- [?] Unscored",
             notes: [],
+            recommended: undefined,
             severity: undefined,
             status: "?",
+            summary: undefined,
             text: "Unscored",
           },
         ],
@@ -60,10 +70,15 @@ describe("parseTodo", () => {
       {
         items: [
           {
+            component: undefined,
+            files: [],
+            headline: "Fixed",
             line: "- [x] (3) Fixed",
             notes: [{ kind: "item", level: 0, text: "Note" }],
+            recommended: undefined,
             severity: 3,
             status: "x",
+            summary: undefined,
             text: "Fixed",
           },
         ],
@@ -103,6 +118,134 @@ describe("parseTodo", () => {
       ],
       [],
     ])
+  })
+
+  test("splits the component and the file references off the headline", () => {
+    const [section] = parseTodo(
+      [
+        "## Bugs",
+        "",
+        "- [ ] (2) Checkbox, Radio: the label wraps (`packages/opui/css/components/choice.css:12-18`, `src/docs/components/checkbox.astro`)",
+        "- [ ] (1) Docs site: dead CSS (`src/layouts/Document.astro:4`)",
+        "- [ ] (2) Tabs: the pill is off (`layout` Surfaces, `forms` Fields)",
+        "- [ ] (3) Carousel in Chromium 141 (the sandbox browser): the button sits outside",
+        "- [ ] (4) New components the blocks point to. Each block draws these with its own CSS:",
+      ].join("\n"),
+    ).sections
+
+    expect(
+      section.items.map(({ component, files, headline }) => ({
+        component,
+        files,
+        headline,
+      })),
+    ).toEqual([
+      {
+        component: "Checkbox, Radio",
+        files: [
+          "packages/opui/css/components/choice.css:12-18",
+          "src/docs/components/checkbox.astro",
+        ],
+        headline: "The label wraps",
+      },
+      {
+        component: "Docs site",
+        files: ["src/layouts/Document.astro:4"],
+        headline: "Dead CSS",
+      },
+      {
+        component: "Tabs",
+        files: [],
+        headline: "The pill is off (`layout` Surfaces, `forms` Fields)",
+      },
+      {
+        component: undefined,
+        files: [],
+        headline:
+          "Carousel in Chromium 141 (the sandbox browser): the button sits outside",
+      },
+      {
+        component: undefined,
+        files: [],
+        headline:
+          "New components the blocks point to. Each block draws these with its own CSS:",
+      },
+    ])
+  })
+
+  test("pulls the summary and the recommendation out of the notes", () => {
+    const [section] = parseTodo(
+      [
+        "## Bugs",
+        "",
+        "- [ ] (2) List: no role",
+        "  - Summary: Safari may read the list as plain text.",
+        "  - Recommended: Fix with option B. It follows the no extra ARIA decision.",
+        "  - Fix: confirm first.",
+        "- [ ] (1) Chip: dot",
+        "  - Recommended: Explain further and provide an example",
+        "  - Summary: The dot is round.",
+        "- [ ] (1) Tabs: pill",
+        "  - Recommended: Rewrite it",
+        "  - Summary: One.",
+        "  - Summary: Two.",
+      ].join("\n"),
+    ).sections
+
+    expect(
+      section.items.map(({ notes, recommended, summary }) => ({
+        notes,
+        recommended,
+        summary,
+      })),
+    ).toEqual([
+      {
+        notes: [{ kind: "item", level: 0, text: "Fix: confirm first." }],
+        recommended: {
+          action: "Fix with option B",
+          reason: "It follows the no extra ARIA decision.",
+        },
+        summary: "Safari may read the list as plain text.",
+      },
+      {
+        notes: [],
+        recommended: {
+          action: "Explain further and provide an example",
+          reason: undefined,
+        },
+        summary: "The dot is round.",
+      },
+      {
+        notes: [
+          { kind: "item", level: 0, text: "Recommended: Rewrite it" },
+          { kind: "item", level: 0, text: "Summary: Two." },
+        ],
+        recommended: undefined,
+        summary: "One.",
+      },
+    ])
+  })
+
+  test("every recommendation in TODO.md names a page action", () => {
+    const source = readFileSync("TODO.md", "utf8")
+    const { sections } = parseTodo(source)
+
+    for (const item of sections.flatMap((section) => section.items)) {
+      const { options } = fixOptions(item.notes)
+      const stray = item.notes.find(
+        (note) => note.kind === "item" && note.text.startsWith("Recommended:"),
+      )
+      expect(stray, item.text).toBeUndefined()
+      if (!item.recommended) continue
+      const option = item.recommended.action.match(/^Fix with option (\w+)$/)
+      if (option)
+        expect(
+          options.map(({ id }) => id),
+          item.text,
+        ).toContain(option[1])
+      else if (options.length)
+        expect(item.recommended.action, item.text).not.toBe("Fix")
+    }
   })
 
   test("parses every open item in TODO.md", () => {

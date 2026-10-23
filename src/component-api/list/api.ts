@@ -7,7 +7,7 @@ export default {
       class: ".ui-bordered",
       default: "false",
       description: "Adds a border between list items.",
-      group: "Bordered",
+      group: "Borders",
       prop: "bordered",
     },
     {

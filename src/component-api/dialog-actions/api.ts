@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "DialogActions",
+  css: ["card"],
   options: [
     {
       default: '"end"',

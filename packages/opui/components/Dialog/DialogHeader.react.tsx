@@ -10,6 +10,10 @@ export default function DialogHeader({ className, id, ...rest }: Props) {
   warnReplacedId("DialogHeader", "Dialog", id, dialog?.headerId)
 
   return (
-    <hgroup className={cx([className])} id={dialog?.headerId ?? id} {...rest} />
+    <hgroup
+      className={cx(["ui-header", className])}
+      id={dialog?.headerId ?? id}
+      {...rest}
+    />
   )
 }

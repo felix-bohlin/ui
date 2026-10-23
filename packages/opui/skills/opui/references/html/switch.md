@@ -1069,7 +1069,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
-- Breaking: `--_track-height` and `--_track-width` are `--_track-block-size` and `--_track-inline-size` ([Under the hood](#under-the-hood)).
+- Breaking: `--_track-height` and `--_track-width` are `--_track-block-size` and `--_track-inline-size`, `--_accent-contrast` is `--_on-accent`, and the `--_dot-*` properties are `--_thumb-*` ([Under the hood](#under-the-hood)).
 - Breaking: [`.ui-vertical`](#label-position) replaces `.ui-stack`.
 - The unchecked thumb and track read [`--ui-switch-thumb-bg-color`](#api) and `--ui-switch-track-bg-color`.
 - The unchecked track border is [`--ui-field-border-color`](#api), like the checkbox and radio borders.

@@ -66,7 +66,8 @@ export default {
     },
     {
       default: '"checkbox"',
-      description: 'The input type. `"radio"` allows one selection in a group.',
+      description:
+        'The input type. `"radio"` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.',
       group: "Type",
       part: "input",
       prop: "type",

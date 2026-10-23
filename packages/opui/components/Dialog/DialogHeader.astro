@@ -9,6 +9,10 @@ const dialog = dialogContext.get()
 warnReplacedId("DialogHeader", "Dialog", id, dialog?.headerId)
 ---
 
-<hgroup class:list={[className]} id={dialog?.headerId ?? id} {...rest}>
+<hgroup
+  class:list={["ui-header", className]}
+  id={dialog?.headerId ?? id}
+  {...rest}
+>
   <slot />
 </hgroup>

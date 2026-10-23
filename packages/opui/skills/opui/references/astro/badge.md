@@ -14,7 +14,7 @@
 
 - `label / slot="indicator"`
 
-  The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.
+  The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`.
 
 ## Dot
 
@@ -275,17 +275,17 @@ import { Badge } from "opui-css/astro"
 | ----------- | ----------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -             | Optional colors.                                                                                                                                                                     |
 | `corner`    | `"end-end"` , `"end-start"` , `"start-end"` , `"start-start"`     | `"start-end"` | The corner the indicator sits on.                                                                                                                                                    |
-| `dot`       | `boolean`                                                         | `false`       | Renders the indicator as a dot, without a label.                                                                                                                                     |
+| `dot`       | `boolean`                                                         | `false`       | Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown.                                                                           |
 | `hideLabel` | `boolean`                                                         | `false`       | Hides `label` visually, for the whole sentence screen readers read, such as "5 unread messages". The `indicator` slot then holds the visible text and is hidden from screen readers. |
 | `invisible` | `boolean`                                                         | `false`       | Hides the indicator.                                                                                                                                                                 |
-| `label`     | `string`                                                          | -             | The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.                                                                                           |
+| `label`     | `string`                                                          | -             | The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`.                                                       |
 
 #### Slots
 
-| Slot        | Description                                                                                |
-| ----------- | ------------------------------------------------------------------------------------------ |
-| `default`   | The element the badge is anchored to.                                                      |
-| `indicator` | The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`. |
+| Slot        | Description                                                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `default`   | The element the badge is anchored to.                                                                                          |
+| `indicator` | The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`. |
 
 #### CSS variables
 
@@ -320,7 +320,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property          | Kind   | Description                                                                                                               |
 | ----------------- | ------ | ------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`       | Input  | The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info` and `.ui-success`.                  |
+| `--_accent`       | Input  | The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral` and `.ui-success`.   |
 | `--_bg-color`     | Output | Background of the indicator. Defaults to `--ui-primary`, set by the color classes.                                        |
 | `--_border-color` | Output | Border color of the indicator. Set by the color classes.                                                                  |
 | `--_border-width` | Input  | Border width of the indicator.                                                                                            |
@@ -477,9 +477,11 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - Breaking: `--_anchor-tx` and `--_anchor-ty` are `--_shift-x` and `--_shift-y` ([Under the hood](#under-the-hood)).
+- Breaking: `Badge` no longer renders `.ui-anchor`. Style [`.ui-badge`](#api) instead.
 - Severity text reads `--ui-on-accent` and `--ui-palette-strong` instead of fixed grays.
 - Badges on round avatars sit on the avatar's edge ([Corners](#corners)), and in an avatar group on the start side.
 - [Indicator](#indicator) text for screen readers with `hideLabel`: one translated `label`, and the short visible text in `indicator`.
+- Breaking: the indicator is [`.ui-indicator`](#indicator) instead of `.ui-badge-indicator`, inside `.ui-floating` instead of `.ui-anchor-floating`.
 - Breaking: [`label`](#indicator) is a string.
 - [`corner`](#corners) takes `"start-end"`, the default corner.
 - Breaking: `--_badge-inset` is `--_inset-block` and `--_inset-inline` ([Under the hood](#under-the-hood)).

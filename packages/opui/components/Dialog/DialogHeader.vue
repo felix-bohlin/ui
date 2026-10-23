@@ -12,7 +12,7 @@ warnReplacedId("DialogHeader", "Dialog", id, dialog?.headerId)
 </script>
 
 <template>
-  <hgroup :class="[$props.class]" :id="dialog?.headerId ?? id">
+  <hgroup :class="['ui-header', $props.class]" :id="dialog?.headerId ?? id">
     <slot></slot>
   </hgroup>
 </template>

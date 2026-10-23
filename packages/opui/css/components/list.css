@@ -398,7 +398,7 @@ Lists meant to be used stand-alone or as part of Select elements
     & > :where(label.ui-checkbox, label.ui-radio),
     & > :where(.ui-start, .ui-end) :where(.ui-checkbox, .ui-radio),
     &
-      > :where(a, button, label)
+      > :where(a, button, div, label)
       > :where(.ui-start, .ui-end)
       :where(.ui-checkbox, .ui-radio) {
       --ui-choice-size: var(--ui-choice-size-small);

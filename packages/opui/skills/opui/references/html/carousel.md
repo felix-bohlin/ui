@@ -44,7 +44,7 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
 <ul class="ui-carousel ui-markers" aria-label="Destinations">
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Kyoto</h3>
         <p>Temples, gardens and quiet lanes.</p>
@@ -53,7 +53,7 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lima</h3>
         <p>Ceviche by the Pacific.</p>
@@ -62,7 +62,7 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lisbon</h3>
         <p>Tiles, trams and custard tarts.</p>
@@ -71,7 +71,7 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Oslo</h3>
         <p>Fjords, saunas and modern architecture.</p>
@@ -80,7 +80,7 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Tunis</h3>
         <p>Medina markets and Mediterranean light.</p>
@@ -102,7 +102,7 @@ Set `--_items-per-view` to show more than one item at a time.
 >
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Kyoto</h3>
         <p>Temples, gardens and quiet lanes.</p>
@@ -111,7 +111,7 @@ Set `--_items-per-view` to show more than one item at a time.
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lima</h3>
         <p>Ceviche by the Pacific.</p>
@@ -120,7 +120,7 @@ Set `--_items-per-view` to show more than one item at a time.
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lisbon</h3>
         <p>Tiles, trams and custard tarts.</p>
@@ -129,7 +129,7 @@ Set `--_items-per-view` to show more than one item at a time.
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Oslo</h3>
         <p>Fjords, saunas and modern architecture.</p>
@@ -138,7 +138,7 @@ Set `--_items-per-view` to show more than one item at a time.
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Tunis</h3>
         <p>Medina markets and Mediterranean light.</p>
@@ -162,7 +162,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
 >
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Kyoto</h3>
         <p>Temples, gardens and quiet lanes.</p>
@@ -171,7 +171,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lima</h3>
         <p>
@@ -183,7 +183,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lisbon</h3>
         <p>Tiles and trams.</p>
@@ -192,7 +192,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Oslo</h3>
         <p>Fjords, saunas and modern architecture.</p>
@@ -201,7 +201,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Tunis</h3>
         <p>Medina markets.</p>
@@ -222,7 +222,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
 >
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Kyoto</h3>
         <p>Temples, gardens and quiet lanes.</p>
@@ -231,7 +231,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lima</h3>
         <p>Ceviche by the Pacific.</p>
@@ -240,7 +240,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lisbon</h3>
         <p>Tiles, trams and custard tarts.</p>
@@ -249,7 +249,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Oslo</h3>
         <p>Fjords, saunas and modern architecture.</p>
@@ -258,7 +258,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Tunis</h3>
         <p>Medina markets and Mediterranean light.</p>
@@ -280,7 +280,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
 >
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Kyoto</h3>
         <p>Temples, gardens and quiet lanes.</p>
@@ -289,7 +289,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lima</h3>
         <p>Ceviche by the Pacific.</p>
@@ -298,7 +298,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lisbon</h3>
         <p>Tiles, trams and custard tarts.</p>
@@ -307,7 +307,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Oslo</h3>
         <p>Fjords, saunas and modern architecture.</p>
@@ -316,7 +316,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Tunis</h3>
         <p>Medina markets and Mediterranean light.</p>
@@ -516,7 +516,7 @@ Use `.ui-buttons-outside` to keep the buttons off the content.
 >
   <li>
     <div class="ui-card ui-outlined">
-      <hgroup>
+      <hgroup class="ui-header">
         <h3>Basic</h3>
         <p>For personal projects.</p>
       </hgroup>
@@ -527,7 +527,7 @@ Use `.ui-buttons-outside` to keep the buttons off the content.
   </li>
   <li>
     <div class="ui-card ui-outlined">
-      <hgroup>
+      <hgroup class="ui-header">
         <h3>Enterprise</h3>
         <p>For large organisations.</p>
       </hgroup>
@@ -538,7 +538,7 @@ Use `.ui-buttons-outside` to keep the buttons off the content.
   </li>
   <li>
     <div class="ui-card ui-outlined">
-      <hgroup>
+      <hgroup class="ui-header">
         <h3>Pro</h3>
         <p>For growing teams.</p>
       </hgroup>
@@ -549,7 +549,7 @@ Use `.ui-buttons-outside` to keep the buttons off the content.
   </li>
   <li>
     <div class="ui-card ui-outlined">
-      <hgroup>
+      <hgroup class="ui-header">
         <h3>Team</h3>
         <p>For small teams.</p>
       </hgroup>
@@ -573,7 +573,7 @@ Use `.ui-persistent-buttons` to keep both buttons visible at the ends. A disable
 >
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Kyoto</h3>
         <p>Temples, gardens and quiet lanes.</p>
@@ -582,7 +582,7 @@ Use `.ui-persistent-buttons` to keep both buttons visible at the ends. A disable
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lisbon</h3>
         <p>Tiles, trams and custard tarts.</p>
@@ -591,7 +591,7 @@ Use `.ui-persistent-buttons` to keep both buttons visible at the ends. A disable
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Oslo</h3>
         <p>Fjords, saunas and modern architecture.</p>
@@ -600,7 +600,7 @@ Use `.ui-persistent-buttons` to keep both buttons visible at the ends. A disable
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Tunis</h3>
         <p>Medina markets and Mediterranean light.</p>
@@ -622,7 +622,7 @@ Use `.ui-persistent-buttons` to keep both buttons visible at the ends. A disable
 >
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Kyoto</h3>
         <p>Temples, gardens and quiet lanes.</p>
@@ -631,7 +631,7 @@ Use `.ui-persistent-buttons` to keep both buttons visible at the ends. A disable
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lima</h3>
         <p>Ceviche by the Pacific.</p>
@@ -640,7 +640,7 @@ Use `.ui-persistent-buttons` to keep both buttons visible at the ends. A disable
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Lisbon</h3>
         <p>Tiles, trams and custard tarts.</p>
@@ -649,7 +649,7 @@ Use `.ui-persistent-buttons` to keep both buttons visible at the ends. A disable
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Oslo</h3>
         <p>Fjords, saunas and modern architecture.</p>
@@ -658,7 +658,7 @@ Use `.ui-persistent-buttons` to keep both buttons visible at the ends. A disable
   </li>
   <li>
     <div class="ui-card ui-tonal">
-      <hgroup>
+      <hgroup class="ui-header">
         <p>Destination</p>
         <h3>Tunis</h3>
         <p>Medina markets and Mediterranean light.</p>
@@ -695,7 +695,7 @@ With `.ui-markers`, the markers are a box next to the carousel, not inside it. I
     <ul class="ui-carousel ui-markers" aria-label="Destinations">
       <li>
         <div class="ui-card ui-tonal">
-          <hgroup>
+          <hgroup class="ui-header">
             <p>Destination</p>
             <h3>Kyoto</h3>
           </hgroup>
@@ -703,7 +703,7 @@ With `.ui-markers`, the markers are a box next to the carousel, not inside it. I
       </li>
       <li>
         <div class="ui-card ui-tonal">
-          <hgroup>
+          <hgroup class="ui-header">
             <p>Destination</p>
             <h3>Lima</h3>
           </hgroup>
@@ -711,7 +711,7 @@ With `.ui-markers`, the markers are a box next to the carousel, not inside it. I
       </li>
       <li>
         <div class="ui-card ui-tonal">
-          <hgroup>
+          <hgroup class="ui-header">
             <p>Destination</p>
             <h3>Lisbon</h3>
           </hgroup>

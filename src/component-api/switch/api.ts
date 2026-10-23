@@ -24,13 +24,13 @@ export default {
   },
   notes: {
     astro:
-      "Attributes that aren't props go to the `<input>`, like `checked`, `disabled`, `name` and `required`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in the slot.",
+      "Attributes that aren't props go to the `<input>`, like `checked`, `disabled`, `name` and `required`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
     html: 'The input needs `type="checkbox"` and `role="switch"`.',
     react:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange`, or `defaultChecked`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`.",
     svelte:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in the slot.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
   },
   options: [
     {
@@ -59,20 +59,20 @@ export default {
       prop: "hideLabel",
     },
     {
-      attribute: "[required]",
-      description: "Adds a required mark after the label.",
-      frameworks: ["html"],
-      group: "Required",
-      part: "input",
-      prop: "required",
-    },
-    {
       default: '"horizontal"',
       description:
         "The orientation of the element. `vertical` stacks the label under the switch.",
       group: "Orientation",
       prop: "orientation",
       values: { horizontal: null, vertical: ".ui-vertical" },
+    },
+    {
+      attribute: "[required]",
+      description: "Adds a required mark after the label.",
+      frameworks: ["html"],
+      group: "Required",
+      part: "input",
+      prop: "required",
     },
     {
       default: '"medium"',

@@ -8,7 +8,7 @@ Use a Dialog for a question or a short task that needs the user's full attention
 
   Container element.
 
-- `<hgroup>`
+- `hgroup.ui-header`
 
   The dialog header. Names the dialog through `aria-labelledby`.
 
@@ -32,7 +32,7 @@ The terms "modal" and "dialog" are often used interchangeably, but there's an im
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
-Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-actions`. Name the dialog by pointing `aria-labelledby` at its title.
+Put the title in an `hgroup.ui-header`, the body in `.ui-content` and the buttons in `.ui-actions`. Name the dialog by pointing `aria-labelledby` at its title.
 
 ```html
 <button
@@ -49,7 +49,7 @@ Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-
   class="ui-dialog ui-elevated"
   aria-labelledby="dialog-basics-1-title"
 >
-  <hgroup id="dialog-basics-1-title">
+  <hgroup class="ui-header" id="dialog-basics-1-title">
     <h2 class="ui-h4">Newsletter</h2>
   </hgroup>
   <div class="ui-content">
@@ -97,7 +97,7 @@ Actions sit at the end. Add `.ui-align-start` to `.ui-actions` to move them to t
   class="ui-dialog ui-elevated"
   aria-labelledby="dialog-actions-alignment-1-title"
 >
-  <hgroup id="dialog-actions-alignment-1-title">
+  <hgroup class="ui-header" id="dialog-actions-alignment-1-title">
     <h2 class="ui-h4">Keyboard shortcuts</h2>
   </hgroup>
   <div class="ui-content">
@@ -137,7 +137,7 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
   aria-labelledby="dialog-alert-dialog-1-title"
   aria-describedby="dialog-alert-dialog-1-description"
 >
-  <hgroup id="dialog-alert-dialog-1-title">
+  <hgroup class="ui-header" id="dialog-alert-dialog-1-title">
     <h2 class="ui-h4">Delete project?</h2>
   </hgroup>
   <div class="ui-content">
@@ -186,7 +186,7 @@ The dialog is up to `60ch` wide. Set `--_max-inline-size` on it for a wider or n
   style="--_max-inline-size: 40rem"
   aria-labelledby="dialog-width-1-title"
 >
-  <hgroup id="dialog-width-1-title">
+  <hgroup class="ui-header" id="dialog-width-1-title">
     <h2 class="ui-h4">Newsletter</h2>
   </hgroup>
   <div class="ui-content">
@@ -234,7 +234,7 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
   class="ui-dialog ui-elevated"
   aria-labelledby="dialog-long-content-1-title"
 >
-  <hgroup id="dialog-long-content-1-title">
+  <hgroup class="ui-header" id="dialog-long-content-1-title">
     <h2 class="ui-h4">Terms of service</h2>
   </hgroup>
   <div class="ui-content">
@@ -351,7 +351,7 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
   class="ui-dialog ui-elevated"
   closedby="any"
 >
-  <hgroup id="dialog-close-behaviors-1-title">
+  <hgroup class="ui-header" id="dialog-close-behaviors-1-title">
     <h2 class="ui-h4">How to close</h2>
   </hgroup>
   <div class="ui-content">
@@ -434,7 +434,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 | Part               | Description                                                    |
 | ------------------ | -------------------------------------------------------------- |
 | `dialog.ui-dialog` | Container element.                                             |
-| `<hgroup>`         | The dialog header. Names the dialog through `aria-labelledby`. |
+| `hgroup.ui-header` | The dialog header. Names the dialog through `aria-labelledby`. |
 | `.ui-content`      | The dialog content.                                            |
 | `.ui-actions`      | A group of actions, such as buttons.                           |
 
@@ -492,18 +492,32 @@ Add `.ui-elevated` to the root for the raised surface.
 
 #### CSS variables
 
-| Variable                 | Default                                       | Description                                                                                                                                                                                              |
-| ------------------------ | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-backdrop-bg-color` | `rgb(0 0 0 / 0.5)`                            | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                       |
-| `--ui-backdrop-blur`     | `1px`                                         | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                         |
-| `--ui-duration-slow`     | `0.3s`                                        | Transition duration for entering and leaving overlays: `Dialog`, `Drawer` and `Menu`.                                                                                                                    |
-| `--ui-ease-enter`        | `var(--ease-out-3)`                           | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`.                                                                                                                          |
-| `--ui-motion`            | `1`                                           | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
-| `--ui-shadow-overlay`    | `var(--shadow-3)`                             | Shadow of layers that float above the page: `Menu`, `Select` pickers and `Drawer`.                                                                                                                       |
-| `--ui-shadow-scroll`     | `var(--shadow-4)`                             | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                 |
-| `--ui-space-2`           | `calc(var(--size-2) * var(--ui-space-scale))` | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                          |
-| `--ui-space-4`           | `calc(var(--size-4) * var(--ui-space-scale))` | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                          |
-| `--ui-space-6`           | `calc(var(--size-6) * var(--ui-space-scale))` | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                          |
+| Variable                   | Default                                                                         | Description                                                                                                                                                                                                                                 |
+| -------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`        | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`                               | Default border color for cards, lists, tables and dividers.                                                                                                                                                                                 |
+| `--ui-border-color-raised` | Unset                                                                           | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background. |
+| `--ui-border-width`        | `1px`                                                                           | Default border width for components that draw a border.                                                                                                                                                                                     |
+| `--ui-duration`            | `0.2s`                                                                          | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                   |
+| `--ui-ease`                | `ease`                                                                          | Default easing for transitions.                                                                                                                                                                                                             |
+| `--ui-focus-ring-color`    | `rgb( from var(--ui-surface) calc(255 - r) calc(255 - g) calc(255 - b) )`       | Color of the keyboard focus ring. By default the page background color inverted.                                                                                                                                                            |
+| `--ui-focus-ring-offset`   | `2px`                                                                           | Distance between a control and its focus ring.                                                                                                                                                                                              |
+| `--ui-focus-ring-style`    | `solid`                                                                         | Outline style of the focus ring.                                                                                                                                                                                                            |
+| `--ui-focus-ring-width`    | `2px`                                                                           | Width of the focus ring.                                                                                                                                                                                                                    |
+| `--ui-font-size-body`      | `var(--ui-font-size-300)`                                                       | Font size of body copy, `Card` text and the `Callout` title. Defaults to `--ui-font-size-300`.                                                                                                                                              |
+| `--ui-font-size-caption`   | `var(--ui-font-size-100)`                                                       | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.                              |
+| `--ui-line-height-tight`   | `1.25`                                                                          | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                                                                |
+| `--ui-motion`              | `1`                                                                             | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                                    |
+| `--ui-radius`              | `var(--size-2)`                                                                 | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.            |
+| `--ui-shadow-elevated`     | `var(--ui-shadow-elevated-light)` `var(--ui-shadow-elevated-dark)` in dark mode | Shadow of elevated `Card` and `Accordion`. Switches between `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one.    |
+| `--ui-shadow-surface`      | `none`                                                                          | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                              |
+| `--ui-space-1`             | `calc(var(--size-1) * var(--ui-space-scale))`                                   | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-space-2`             | `calc(var(--size-2) * var(--ui-space-scale))`                                   | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-space-3`             | `calc(var(--size-3) * var(--ui-space-scale))`                                   | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-space-4`             | `calc(var(--size-4) * var(--ui-space-scale))`                                   | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                             |
+| `--ui-surface`             | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                               | Page and card background.                                                                                                                                                                                                                   |
+| `--ui-surface-elevated`    | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                               | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                           |
+| `--ui-surface-tonal`       | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                               | Background of tonal variants.                                                                                                                                                                                                               |
+| `--ui-text`                | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`                               | Body text color.                                                                                                                                                                                                                            |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -741,6 +755,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- The [header](#usage) takes `.ui-header` on its `hgroup`, like the `Drawer` header.
 - Opens over [`--ui-duration-slow`](#api), the overlay duration.
 - Breaking: `.ui-card` is no longer needed on [`.ui-dialog`](#usage), which `card.css` styles itself.
 - The dialog shadow is [`--ui-shadow-overlay`](#api), like Drawer and Menu.

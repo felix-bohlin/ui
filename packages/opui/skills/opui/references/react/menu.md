@@ -434,7 +434,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_border-width`         | Input  | The border width. Defaults to `--ui-border-width`.                                                                                                                  |
 | `--_divider-border-color` | Input  | Color of the item separators. Defaults to `--_border-color`.                                                                                                        |
 | `--_duration`             | Output | Duration of the transitions, `--ui-duration-slow` times `--_motion`.                                                                                                |
-| `--_ease`                 | Input  | Easing of the open and close transitions. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing.                                                       |
+| `--_ease`                 | Output | Easing of the open and close transitions. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing.                                                       |
 | `--_hover-bg-color`       | Output | Hover background of `.ui-critical` items, from `--ui-critical`.                                                                                                     |
 | `--_margin-block`         | Output | Block margin of a popover menu, `--_offset` or `0` depending on the side.                                                                                           |
 | `--_margin-inline`        | Output | Inline margin of a popover menu, `--_offset` for `.ui-inline-start` and `.ui-inline-end`.                                                                           |

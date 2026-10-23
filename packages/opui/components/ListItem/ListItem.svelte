@@ -32,7 +32,7 @@
   const tagProps = $derived(
     hasControl
       ? { class: `ui-${type}`, for: htmlFor }
-      : { ...rest, ...tagAttrs(Tag ?? "", disabled, href) },
+      : { ...tagAttrs(Tag ?? "", disabled, href), ...rest },
   )
 </script>
 

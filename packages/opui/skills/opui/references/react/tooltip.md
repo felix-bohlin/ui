@@ -135,7 +135,7 @@ export default function Arrow() {
 | -------------- | ----------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `arrow`        | `boolean`   | `false`              | Adds an arrow that points to the trigger.                                                                                                                                                                 |
 | `children`     | `ReactNode` | -                    | The trigger, followed by `TooltipContent`.                                                                                                                                                                |
-| `id`           | `string`    | -                    | The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger.                                                                    |
+| `id`           | `string`    | -                    | The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger. Required.                                                          |
 | `positionArea` | `string`    | `"self-block-start"` | Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
 
 #### CSS variables

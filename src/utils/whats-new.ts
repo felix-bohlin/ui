@@ -15,6 +15,9 @@ const whatsNew = {
   accordion: [
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code> (<a href="#under-the-hood">Under the hood</a>).`,
     {
+      ...slots(
+        `Breaking: <code>Accordion</code> no longer renders <code>.ui-card</code>. Style <a href="#basics"><code>.ui-accordion</code></a> instead.`,
+      ),
       html: `Breaking: <code>.ui-card</code> is no longer needed on <a href="#basics"><code>.ui-accordion</code></a>, which <code>card.css</code> styles itself.`,
     },
     `Tonal and elevated <a href="#variants">accordions</a> have a border in the page background color, like cards, so they stay visible on tonal surfaces.`,
@@ -56,6 +59,9 @@ const whatsNew = {
   anchor: [
     `Breaking: <code>--_anchor-tx</code> and <code>--_anchor-ty</code> are <code>--_shift-x</code> and <code>--_shift-y</code> (<a href="#under-the-hood">Under the hood</a>).`,
     {
+      ...slots(
+        `Breaking: the floating content is <a href="#api"><code>.ui-floating</code></a> instead of <code>.ui-anchor-floating</code>.`,
+      ),
       html: `Breaking: the floating content is <a href="#api"><code>.ui-floating</code></a> instead of <code>.ui-anchor-floating</code>.`,
     },
     slots(
@@ -109,6 +115,9 @@ const whatsNew = {
   badge: [
     `Breaking: <code>--_anchor-tx</code> and <code>--_anchor-ty</code> are <code>--_shift-x</code> and <code>--_shift-y</code> (<a href="#under-the-hood">Under the hood</a>).`,
     {
+      ...slots(
+        `Breaking: <code>Badge</code> no longer renders <code>.ui-anchor</code>. Style <a href="#api"><code>.ui-badge</code></a> instead.`,
+      ),
       html: `Breaking: <code>.ui-anchor</code> is no longer needed on <a href="#api"><code>.ui-badge</code></a>, which <code>anchor.css</code> positions itself.`,
     },
     `Severity text reads <code>--ui-on-accent</code> and <code>--ui-palette-strong</code> instead of fixed grays.`,
@@ -118,6 +127,9 @@ const whatsNew = {
       html: `<a href="#indicator">Indicator</a> text for screen readers with <code>.ui-sr-only</code>, next to the visible text with <code>aria-hidden="true"</code>.`,
     },
     {
+      ...slots(
+        `Breaking: the indicator is <a href="#indicator"><code>.ui-indicator</code></a> instead of <code>.ui-badge-indicator</code>, inside <code>.ui-floating</code> instead of <code>.ui-anchor-floating</code>.`,
+      ),
       html: `Breaking: the indicator is <a href="#indicator"><code>.ui-indicator</code></a> instead of <code>.ui-badge-indicator</code>, inside <code>.ui-floating</code> instead of <code>.ui-anchor-floating</code>.`,
     },
     slots(`Breaking: <a href="#indicator"><code>label</code></a> is a string.`),
@@ -224,6 +236,12 @@ const whatsNew = {
     `<a href="#variants">Callouts</a> read <a href="#api"><code>--ui-shadow-surface</code></a>, and callouts without a severity <code>--ui-border-color-raised</code>, when a theme sets them.`,
   ],
   card: [
+    {
+      ...components(
+        `<a href="#header"><code>CardHeader</code></a> renders <code>hgroup.ui-header</code>.`,
+      ),
+      html: `The <a href="#header">header</a> takes <code>.ui-header</code> on its <code>hgroup</code>, like the <code>Drawer</code> header.`,
+    },
     slots(
       `Breaking: <a href="#api"><code>CardHeader</code>, <code>CardContent</code> and <code>CardActions</code></a> replace the slots, and <code>align</code> on <code>CardActions</code> replaces <code>actionsAlign</code>.`,
     ),
@@ -394,6 +412,9 @@ const whatsNew = {
       html: `<a href="#orientation">Orientation</a>: <code>.ui-horizontal</code> keeps terms and descriptions side by side at any width.`,
     },
     {
+      ...slots(
+        `Breaking: <a href="#bordered">items</a> render a plain <code>div</code> without <code>.ui-item</code>.`,
+      ),
       html: `Breaking: <a href="#bordered"><code>.ui-bordered-solid</code></a> and <code>.ui-bordered-dotted</code> replace <code>.ui-bordered</code> and <code>.ui-dotted</code>, and items are plain <code>div</code>s without <code>.ui-item</code>.`,
     },
     slots(
@@ -410,8 +431,17 @@ const whatsNew = {
     },
   ],
   dialog: [
+    {
+      ...components(
+        `<a href="#usage"><code>DialogHeader</code></a> renders <code>hgroup.ui-header</code>.`,
+      ),
+      html: `The <a href="#usage">header</a> takes <code>.ui-header</code> on its <code>hgroup</code>, like the <code>Drawer</code> header.`,
+    },
     `Opens over <a href="#api"><code>--ui-duration-slow</code></a>, the overlay duration.`,
     {
+      ...slots(
+        `Breaking: <code>Dialog</code> no longer renders <code>.ui-card</code>. Style <a href="#usage"><code>.ui-dialog</code></a> instead.`,
+      ),
       html: `Breaking: <code>.ui-card</code> is no longer needed on <a href="#usage"><code>.ui-dialog</code></a>, which <code>card.css</code> styles itself.`,
     },
     `The dialog shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, like Drawer and Menu.`,
@@ -495,8 +525,8 @@ const whatsNew = {
   ],
   form: [
     {
-      ...components(
-        `Breaking: <code>FieldSet</code> is <a href="#fieldset"><code>Fieldset</code></a>.`,
+      ...slots(
+        `Breaking: <code>FieldSet</code> is <a href="#fieldset"><code>Fieldset</code></a>, and <code>FieldDescription</code> renders <code>.ui-description</code> instead of <code>.ui-field-description</code>.`,
       ),
       html: `Breaking: the <a href="#fieldset">fieldset</a> description is <code>.ui-description</code> instead of <code>.ui-field-description</code>.`,
     },
@@ -805,7 +835,7 @@ const whatsNew = {
     components(
       `<a href="#api"><code>label</code></a> takes the label text, a shorthand for the default slot.`,
     ),
-    `Breaking: <code>--_track-height</code> and <code>--_track-width</code> are <code>--_track-block-size</code> and <code>--_track-inline-size</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_track-height</code> and <code>--_track-width</code> are <code>--_track-block-size</code> and <code>--_track-inline-size</code>, <code>--_accent-contrast</code> is <code>--_on-accent</code>, and the <code>--_dot-*</code> properties are <code>--_thumb-*</code> (<a href="#under-the-hood">Under the hood</a>).`,
     {
       ...slots(
         `Breaking: <a href="#label-position"><code>orientation="vertical"</code></a> replaces <code>stack</code>.`,
@@ -904,8 +934,8 @@ const whatsNew = {
       html: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. Style <code>.ui-label</code> and <code>.ui-panel</code> instead of <code>[role="tab"]</code> and <code>[role="tabpanel"]</code>.`,
     },
     {
-      ...components(
-        `Breaking: <code>TabsTab</code> is <a href="#api"><code>TabsLabel</code></a>.`,
+      ...slots(
+        `Breaking: <code>TabsTab</code> is <a href="#api"><code>TabsLabel</code></a>, and the parts render <code>.ui-input</code>, <code>.ui-label</code> and <code>.ui-panel</code> instead of <code>.ui-tab-input</code>, <code>.ui-tab-label</code> and <code>.ui-tab-panel</code>.`,
       ),
       html: `Breaking: the parts are <a href="#api"><code>.ui-input</code></a>, <code>.ui-label</code> and <code>.ui-panel</code> instead of <code>.ui-tab-input</code>, <code>.ui-tab-label</code> and <code>.ui-tab-panel</code>.`,
     },
@@ -1076,18 +1106,24 @@ const whatsNew = {
     slots(
       `Breaking: <code>ToggleButton</code> <code>pressed</code> is <a href="#single-select"><code>checked</code></a>.`,
     ),
-    components(
+    slots(
       `Breaking: <code>ToggleGroup</code> <code>selection</code> is <a href="#multi-select"><code>multiple</code></a>, and a group is <a href="#single-select">single-select</a> by default.`,
     ),
-    components(
+    slots(
       `Breaking: <code>ToggleButton</code> <a href="#api"><code>value</code></a> no longer falls back to <code>label</code>.`,
     ),
   ],
   tooltip: [
     {
+      ...slots(
+        `Breaking: <code>Tooltip</code> no longer renders <code>.ui-anchor</code>. Style <a href="#basics"><code>.ui-tooltip</code></a> instead.`,
+      ),
       html: `Breaking: <code>.ui-anchor</code> is no longer needed on <a href="#basics"><code>.ui-tooltip</code></a>, which <code>anchor.css</code> positions itself.`,
     },
     {
+      ...slots(
+        `Breaking: the floating content is <a href="#api"><code>.ui-floating</code></a> instead of <code>.ui-anchor-floating</code>.`,
+      ),
       html: `Breaking: the floating content is <a href="#api"><code>.ui-floating</code></a> instead of <code>.ui-anchor-floating</code>.`,
     },
     slots(

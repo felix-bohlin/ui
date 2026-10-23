@@ -52,7 +52,7 @@ export default {
   },
   "--_thumb-highlight-bg-color": {
     description:
-      "Color of the ring around the thumb, from `--_accent` and `--ui-state-active-alpha-light`.",
+      "Color of the ring around the thumb, from `--_accent` at `--ui-state-active-alpha-light`, or `--ui-state-active-alpha-dark` in dark mode.",
     kind: "output",
   },
   "--_thumb-highlight-size": {

@@ -10,6 +10,6 @@
   }: Props = $props()
 </script>
 
-<div class={["ui-item", className]} {...rest}>
+<div class={[className]} {...rest}>
   {@render children?.()}
 </div>

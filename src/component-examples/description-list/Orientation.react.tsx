@@ -5,9 +5,13 @@ import {
   DescriptionListTerm,
 } from "opui-css/react"
 
-export default function Inline() {
+export default function Orientation() {
   return (
-    <DescriptionList bordered inline style={{ maxInlineSize: "18rem" }}>
+    <DescriptionList
+      bordered="solid"
+      orientation="horizontal"
+      style={{ maxInlineSize: "18rem" }}
+    >
       <DescriptionListItem>
         <DescriptionListTerm>Subtotal</DescriptionListTerm>
         <DescriptionListDescription>$120.00</DescriptionListDescription>

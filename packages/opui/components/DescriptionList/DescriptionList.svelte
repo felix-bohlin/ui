@@ -4,7 +4,7 @@
   let {
     bordered,
     class: className,
-    inline,
+    orientation,
 
     // Snippets
     children,
@@ -15,11 +15,8 @@
 <dl
   class={[
     "ui-description-list",
-    {
-      "ui-bordered": bordered,
-      "ui-dotted": bordered === "dotted",
-      "ui-inline": inline,
-    },
+    bordered && `ui-bordered-${bordered}`,
+    orientation && orientation !== "auto" && `ui-${orientation}`,
     className,
   ]}
   {...rest}

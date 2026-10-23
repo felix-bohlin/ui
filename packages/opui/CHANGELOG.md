@@ -28,6 +28,8 @@
 - `Button`, and `Chip` and `Avatar` with `as="button"`, render `type="button"` by default in Astro and Vue, so they no longer submit forms. Pass `type="submit"` for submit buttons.
 - `TextField` and `Textarea` in Astro pass extra attributes to the `<input>`/`<textarea>` instead of the `<label>`. `class` and `style` stay on the label. In Vue, `style` now goes to the label instead of the input.
 - `DescriptionList` in Vue exports `DescriptionListDescription` instead of `Description`, like Astro.
+- `DescriptionList` `bordered` takes `"solid"` or `"dotted"` (`.ui-bordered-solid`, `.ui-bordered-dotted`) instead of `true` or `"dotted"` (`.ui-bordered`, and `.ui-dotted` with it).
+- `DescriptionList` items are plain `div`s: `DescriptionListItem` no longer renders `.ui-item`, and the list styles `dl.ui-description-list > div`.
 - `ListItem` `as` only accepts `"a"`, `"button"` or `"div"` (types).
 - `Tabs` render no `tablist`, `tab` or `tabpanel` roles and no `aria-controls`/`aria-labelledby`, so screen readers announce the radio group they are. `TabsItem` and `TabsPanel` no longer take `panelId`, and `TabsPanel` no longer takes `tabId`. `tabs.css` no longer matches `[role="tab"]` or `[role="tabpanel"]`, use `.ui-tab-label` and `.ui-tab-panel`.
 - `FieldGroup` no longer sets `role="group"`. Wrap it in a `FieldSet` (a `<fieldset>`, already a group) to group and name the fields. `FieldSet` with another element in `as` gets `role="group"`.
@@ -164,7 +166,7 @@
 - `Badge` `corner` takes `"start-end"`, the default corner.
 - `Badge` takes `hideLabel`, which renders `label` as visually hidden text (`.ui-sr-only`) inside the indicator, and hides the `indicator` slot from assistive technology. Pass the whole translated text as `label` ("5 unread messages") and the short visible form in the `indicator` slot ("5"), so the component never joins a number and words. A `dot` badge hides its `label` the same way.
 - `Avatar` takes a `size` prop (`.ui-x-small`, `.ui-small`, `.ui-large`) that matches the control sizes. Letters and icons scale with it, and large initials are `--ui-font-size-large`.
-- `DescriptionList` takes `inline` (`.ui-inline`), which keeps the term and the description side by side at any width.
+- `DescriptionList` takes `orientation="horizontal"` (`.ui-horizontal`), which keeps the term and the description side by side at any width. The default, `auto`, stacks them when the list is `45ch` or narrower.
 - `Chip` takes a `severity` prop (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) that tints a tonal chip, and `dot` (`.ui-dot`) for a leading dot in that color. The dot is a diamond for critical, a triangle for warning and a ring for neutral, and stays visible in forced colors mode. On an outlined chip only the dot is colored. The tint, border, text and dot read the `--ui-palette-*` roles, like `Callout`.
 - `Divider` takes content in the middle of the line, text or any element, through the default slot (a `<div>` instead of the `<hr>`), or in HTML as a `<div class="ui-divider">` or `<p class="ui-divider">`. `align` (`.ui-align-start`, `.ui-align-end`) moves it to one side, and the lines follow the variant.
 - `checkbox.js` exports `syncIndeterminate(input)`, which sets a checkbox's `indeterminate` property from its `data-indeterminate` attribute.

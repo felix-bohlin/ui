@@ -9666,8 +9666,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) Carousel: `buttons` is `boolean | "outside"`, with a separate `persistentButtons` flag. The naming model gives a modifier one form, a boolean or an enum (`packages/opui/components/Carousel/types.ts`, `src/component-api/carousel/api.ts`)
   - Fix: an enum such as `buttons: "inside" | "none" | "outside"`, with `persistentButtons` kept as the boolean it is.
   - Fixed: `buttons` is `"inside" | "none" | "outside"`, `inside` by default with no class, `.ui-buttons-none` and `.ui-buttons-outside`. `persistentButtons` stays a boolean, and `perView` is `itemsPerView` (`--_items-per-view`).
-- [ ] (1) DescriptionList: `bordered` is `boolean | "dotted"`, a toggle and a line style in one prop (`packages/opui/components/DescriptionList/types.ts`, `src/component-api/description-list/api.ts`)
+- [x] (1) DescriptionList: `bordered` is `boolean | "dotted"`, a toggle and a line style in one prop (`packages/opui/components/DescriptionList/types.ts`, `src/component-api/description-list/api.ts`)
   - Fix: `bordered` stays a boolean and the line style becomes its own enum, or `bordered` becomes `"dotted" | "none" | "solid"`.
+  - Fixed: `bordered` is `"dotted" | "solid"` with no default (`.ui-bordered-dotted`, `.ui-bordered-solid`), `inline` is `orientation="horizontal"` (`.ui-horizontal`), and items are plain `div`s without `.ui-item`.
 - [ ] (1) Range: options take `{ value, label }`, while Menu and Select items take `text` for the same job, the key decided for item text (`packages/opui/components/Range/types.ts:2`)
   - Fix: `text` on Range options, or keep `label` because it mirrors the native `<option label>`, and say so in the naming model.
 - [ ] (1) TabsItem, TabsTab: the id prop is `tabId`, where every other component takes `id` (`packages/opui/components/Tabs/types.ts`)

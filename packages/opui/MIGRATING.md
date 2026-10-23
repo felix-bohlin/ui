@@ -325,6 +325,20 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 + <dd>Ada</dd>
 ```
 
+`bordered` takes `"solid"` or `"dotted"`, and the items are plain `div`s without `.ui-item`.
+
+```diff
+- <DescriptionList bordered>
++ <DescriptionList bordered="solid">
+```
+
+```diff
+- <dl class="ui-description-list ui-bordered ui-dotted">
+-   <div class="ui-item">
++ <dl class="ui-description-list ui-bordered-dotted">
++   <div>
+```
+
 Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Dialog

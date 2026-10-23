@@ -340,9 +340,15 @@ const whatsNew = {
       vue: `Breaking: <code>Description</code> is now <a href="#api"><code>DescriptionListDescription</code></a>, like Astro.`,
     },
     {
-      default: `<a href="#inline">Inline</a> keeps terms and descriptions side by side at any width with <code>inline</code>.`,
-      html: `<a href="#inline">Inline</a> keeps terms and descriptions side by side at any width with <code>.ui-inline</code>.`,
+      default: `<a href="#orientation">Orientation</a>: <code>orientation="horizontal"</code> keeps terms and descriptions side by side at any width.`,
+      html: `<a href="#orientation">Orientation</a>: <code>.ui-horizontal</code> keeps terms and descriptions side by side at any width.`,
     },
+    {
+      html: `Breaking: <a href="#bordered"><code>.ui-bordered-solid</code></a> and <code>.ui-bordered-dotted</code> replace <code>.ui-bordered</code> and <code>.ui-dotted</code>, and items are plain <code>div</code>s without <code>.ui-item</code>.`,
+    },
+    slots(
+      `Breaking: <a href="#bordered"><code>bordered</code></a> takes <code>"solid"</code> or <code>"dotted"</code>.`,
+    ),
     {
       ...slots(
         `Breaking: <code>DescriptionListTerm</code> and <code>DescriptionListDescription</code> no longer render <code>.ui-term</code> and <code>.ui-description</code>. Select <code>dt</code> and <code>dd</code> in your CSS (<a href="#basics">Basics</a>).`,

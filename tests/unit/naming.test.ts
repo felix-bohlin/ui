@@ -60,6 +60,7 @@ const replaced: Record<string, string> = {
   iconOnly: "aria-label",
   perView: "itemsPerView",
   placement: "side",
+  inline: "orientation",
   pressed: "checked",
   scrollable: "overflow",
   shrink: "overflow",
@@ -68,7 +69,14 @@ const replaced: Record<string, string> = {
   title: "label",
 }
 
-const optionalModifiers = new Set(["as", "color", "severity", "type"])
+const optionalModifiers = new Set([
+  "as",
+  "bordered",
+  "color",
+  "severity",
+  "type",
+])
+const prefixed = new Set(["align", "overflow"])
 const booleanDefaults = new Set(["false", "true"])
 
 const kebab = (name: string) =>
@@ -85,7 +93,7 @@ const problems = apis.flatMap((api) => {
   const props = api.options.filter(isProp)
 
   for (const option of props) {
-    if (replaced[option.prop]) {
+    if (api.source && replaced[option.prop]) {
       report(option, `use ${replaced[option.prop]}`)
     }
     if (option.prop === "open" && !option.inherited) {
@@ -107,6 +115,19 @@ const problems = apis.flatMap((api) => {
       }
       if (option.group !== concept.group) {
         report(option, `group is not "${concept.group}"`)
+      }
+    }
+
+    if (option.values && option.prop !== "as" && option.prop !== "type") {
+      for (const [value, modifier] of Object.entries(option.values)) {
+        if (!modifier || !/^\.ui-[a-z0-9-]+$/.test(modifier)) continue
+        const shape =
+          concept && !prefixed.has(option.prop)
+            ? `.ui-${value}`
+            : `.ui-${kebab(option.prop)}-${value}`
+        if ((concept || api.source) && modifier !== shape) {
+          report(option, `"${value}" renders ${modifier}, not ${shape}`)
+        }
       }
     }
 

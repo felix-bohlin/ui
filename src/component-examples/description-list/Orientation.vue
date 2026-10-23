@@ -8,7 +8,11 @@ import {
 </script>
 
 <template>
-  <DescriptionList bordered inline style="max-inline-size: 18rem">
+  <DescriptionList
+    bordered="solid"
+    orientation="horizontal"
+    style="max-inline-size: 18rem"
+  >
     <DescriptionListItem>
       <DescriptionListTerm>Subtotal</DescriptionListTerm>
       <DescriptionListDescription>$120.00</DescriptionListDescription>

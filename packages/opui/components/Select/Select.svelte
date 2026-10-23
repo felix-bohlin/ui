@@ -93,7 +93,7 @@
       <div class={["ui-list", { "ui-dense": dense }]}>
         {#each items as item (item.value)}
           <option selected={isSelected(item) || undefined} value={item.value}
-            >{item.text}</option
+            >{item.label}</option
           >
         {/each}
         {@render children?.()}

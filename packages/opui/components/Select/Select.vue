@@ -129,7 +129,7 @@ const field = inject(FieldGroupKey, undefined)
             :selected="isSelected(item.value) || undefined"
             :value="item.value"
           >
-            {{ item.text }}
+            {{ item.label }}
           </option>
           <slot></slot>
         </div>

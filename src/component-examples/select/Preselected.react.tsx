@@ -11,9 +11,9 @@ export default function Preselected() {
       <Select
         label="Role"
         items={[
-          { text: "Designer", value: "designer" },
-          { text: "Developer", value: "developer" },
-          { text: "Manager", value: "manager" },
+          { label: "Designer", value: "designer" },
+          { label: "Developer", value: "developer" },
+          { label: "Manager", value: "manager" },
         ]}
         value={role}
         onChange={(event) => setRole(event.currentTarget.value)}
@@ -22,9 +22,9 @@ export default function Preselected() {
       <Select
         label="Team"
         items={[
-          { text: "Design", value: "design" },
-          { selected: true, text: "Engineering", value: "engineering" },
-          { text: "Sales", value: "sales" },
+          { label: "Design", value: "design" },
+          { label: "Engineering", selected: true, value: "engineering" },
+          { label: "Sales", value: "sales" },
         ]}
       />
     </>

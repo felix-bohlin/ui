@@ -76,7 +76,7 @@
 - `Drawer` and `Menu` require `id` (types) and no longer generate one, since their trigger points at it with `commandfor`.
 - `Dialog` page scroll lock lives in `core/utils.css`, shared with the `Drawer` `.ui-scroll-lock`, and no longer sets `block-size: 100%` on `html`. If you import single files, import `utils.css` too, or the page scrolls behind a modal dialog.
 - `ListItem` `type` can't be combined with `as` or `href` (types).
-- `Select` items are typed `SelectItem`, with a `number | string` `value`. Rename imports of `Item` from `components/Select/types`.
+- `Select` items are typed `SelectItem`, with a `number | string` `value`, and take `label` instead of `text`, like `Menu` and `Range` items. Rename imports of `Item` from `components/Select/types`.
 - `Avatar` no longer takes `isGroup`. Wrap avatars in `AvatarGroup`, which renders `div.ui-avatar-group` with `role="group"`.
 - `Button` and `Chip` links with `disabled` (`aria-disabled="true"`) no longer render `href`, so they can't be focused or followed. `button.css` and `chip.css` no longer set `pointer-events: none` on disabled links, so remove `href` from them in HTML.
 - `TextField`, `Textarea` and `Select` take `startText` (the `start-text` slot) instead of `description`, matching `endText`, `Range` and the `.ui-start-text` class.

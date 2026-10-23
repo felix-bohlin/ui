@@ -695,6 +695,9 @@ const whatsNew = {
     },
   ],
   select: [
+    slots(
+      `Breaking: <a href="#api"><code>items</code></a> take <code>label</code> instead of <code>text</code>.`,
+    ),
     {
       ...slots(
         `Breaking: the <a href="#affix">affix</a> slots are <code>start</code> and <code>end</code> instead of <code>prefix</code> and <code>suffix</code>, and <a href="#top-and-bottom"><code>top</code> and <code>bottom</code></a> instead of <code>header</code> and <code>footer</code>.`,

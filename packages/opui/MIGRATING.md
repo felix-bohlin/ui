@@ -671,6 +671,13 @@ The `items` type is `SelectItem`, exported from every framework barrel, and its 
 + import type { SelectItem } from "opui-css/react"
 ```
 
+Items take `label` instead of `text`, like `Menu` and `Range` items.
+
+```diff
+- items={[{ text: "Sweden", value: "se" }]}
++ items={[{ label: "Sweden", value: "se" }]}
+```
+
 `description` is `startText` (the `start-text` slot in Astro and Vue), like Text field.
 
 ```diff

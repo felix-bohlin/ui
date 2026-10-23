@@ -245,8 +245,8 @@ export const description =
         <UISelect
           data-control="content"
           items={[
-            { text: "Images", value: "images" },
-            { text: "Cards", value: "cards" },
+            { label: "Images", value: "images" },
+            { label: "Cards", value: "cards" },
           ]}
           label="Content"
           size="small"
@@ -254,23 +254,23 @@ export const description =
         <UISelect
           data-control="buttons"
           items={[
-            { text: "Inside", value: "inside" },
-            { text: "Outside", value: "outside" },
-            { text: "None", value: "none" },
+            { label: "Inside", value: "inside" },
+            { label: "Outside", value: "outside" },
+            { label: "None", value: "none" },
           ]}
           label="Buttons"
           size="small"
         />
         <UISelect
           data-control="items-per-view"
-          items={["1", "2", "3", "4"].map((value) => ({ text: value, value }))}
+          items={["1", "2", "3", "4"].map((value) => ({ label: value, value }))}
           label="Items per view"
           size="small"
         />
         <UISelect
           data-control="aspect-ratio"
           items={["16 / 9", "4 / 3", "1", "3 / 4"].map((value) => ({
-            text: value,
+            label: value,
             value,
           }))}
           label="Aspect ratio"

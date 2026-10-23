@@ -11,8 +11,8 @@ export type Props = {
 }
 
 export type SelectItem = {
+  label: string
   selected?: boolean
-  text: string
   value: number | string
 }
 

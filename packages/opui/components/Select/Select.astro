@@ -97,7 +97,7 @@ const isSelected = (item: SelectItem) =>
         {
           items.map((item) => (
             <option selected={isSelected(item) || undefined} value={item.value}>
-              {item.text}
+              {item.label}
             </option>
           ))
         }

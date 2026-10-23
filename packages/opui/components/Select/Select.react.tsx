@@ -95,7 +95,7 @@ export default function Select({
           <div className={cx(["ui-list", { "ui-dense": dense }])}>
             {items.map((item) => (
               <option key={item.value} value={item.value}>
-                {item.text}
+                {item.label}
               </option>
             ))}
             {children}

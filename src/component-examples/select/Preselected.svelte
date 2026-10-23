@@ -7,9 +7,9 @@
 <Select
   label="Role"
   items={[
-    { text: "Designer", value: "designer" },
-    { text: "Developer", value: "developer" },
-    { text: "Manager", value: "manager" },
+    { label: "Designer", value: "designer" },
+    { label: "Developer", value: "developer" },
+    { label: "Manager", value: "manager" },
   ]}
   bind:value={role}
 />
@@ -17,8 +17,8 @@
 <Select
   label="Team"
   items={[
-    { text: "Design", value: "design" },
-    { selected: true, text: "Engineering", value: "engineering" },
-    { text: "Sales", value: "sales" },
+    { label: "Design", value: "design" },
+    { label: "Engineering", selected: true, value: "engineering" },
+    { label: "Sales", value: "sales" },
   ]}
 />

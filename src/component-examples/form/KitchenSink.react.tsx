@@ -16,9 +16,9 @@ import {
 } from "opui-css/react"
 
 const roleItems = [
-  { text: "Designer", value: "design" },
-  { text: "Developer", value: "dev" },
-  { text: "Manager", value: "manager" },
+  { label: "Designer", value: "design" },
+  { label: "Developer", value: "dev" },
+  { label: "Manager", value: "manager" },
 ]
 
 export default function KitchenSink() {

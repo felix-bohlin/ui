@@ -86,7 +86,7 @@ export const description =
         buttons="outside"
         aria-label="Destinations"
         markers
-        perView={2}
+        itemsPerView={2}
         persistentButtons
       >
         {
@@ -109,14 +109,14 @@ export const description =
     <h2 id="basics">Basics</h2>
     <Conditional as="p">
       <Fragment slot="components"
-        >The carousel has previous and next buttons by default. Set <code
-          >markers</code
-        > to add a marker per item.</Fragment
+        >The carousel has previous and next buttons by default, and <code
+          >buttons="none"</code
+        > leaves them out. Set <code>markers</code> to add a marker per item.</Fragment
       >
       <Fragment slot="html"
-        >Add <code>.ui-buttons</code> for previous and next buttons, and <code
-          >.ui-markers</code
-        > for a marker per item.</Fragment
+        >The carousel has previous and next buttons without a class, and <code
+          >.ui-buttons-none</code
+        > leaves them out. Add <code>.ui-markers</code> for a marker per item.</Fragment
       >
     </Conditional>
     <p>
@@ -129,13 +129,13 @@ export const description =
   </section>
 
   <section>
-    <h2 id="per-view">Items per view</h2>
+    <h2 id="items-per-view">Items per view</h2>
     <p>
-      Set <PropOrClass prop="perView" class="--_per-view" /> to show more than one
-      item at a time.
+      Set <PropOrClass prop="itemsPerView" class="--_items-per-view" /> to show more
+      than one item at a time.
     </p>
 
-    <AutoExample name="PerView" />
+    <AutoExample name="ItemsPerView" />
   </section>
 
   <section>
@@ -262,7 +262,7 @@ export const description =
           size="small"
         />
         <UISelect
-          data-control="per-view"
+          data-control="items-per-view"
           items={["1", "2", "3", "4"].map((value) => ({ text: value, value }))}
           label="Items per view"
           size="small"
@@ -294,7 +294,7 @@ export const description =
       <div class="carousel-playground" data-carousel-playground>
         <ul
           aria-label="Photos"
-          class="ui-carousel ui-buttons"
+          class="ui-carousel"
           data-content="images"
           style="--_block-size: 20rem"
         >
@@ -314,7 +314,7 @@ export const description =
         </ul>
         <ul
           aria-label="Destinations"
-          class="ui-carousel ui-buttons"
+          class="ui-carousel"
           data-content="cards"
           hidden
           style="--_block-size: 20rem"
@@ -397,24 +397,23 @@ export const description =
     orientation?: string
     peek: boolean
     persistentButtons: boolean
-    perView: number
+    itemsPerView: number
     stretch: boolean
   }
 
   const htmlSnippet = (state: State, label: string) => {
     const classes = [
       "ui-carousel",
-      state.buttons === "outside" && "ui-buttons-outside",
       state.persistentButtons && "ui-persistent-buttons",
       state.peek && "ui-peek",
       state.stretch && "ui-stretch",
       state.orientation && "ui-vertical",
-      state.buttons !== "none" && "ui-buttons",
       state.markers && "ui-markers",
       state.align && "ui-align-center",
+      state.buttons !== "inside" && `ui-buttons-${state.buttons}`,
     ].filter(Boolean)
     const style = [
-      state.perView > 1 && `--_per-view: ${state.perView}`,
+      state.itemsPerView > 1 && `--_items-per-view: ${state.itemsPerView}`,
       state.aspectRatio !== "16 / 9" &&
         `--_media-aspect-ratio: ${state.aspectRatio}`,
       state.orientation && "--_block-size: 20rem",
@@ -437,13 +436,13 @@ export const description =
       state.align && `align="center"`,
       `aria-label="${label}"`,
       state.aspectRatio !== "16 / 9" && `aspectRatio="${state.aspectRatio}"`,
-      state.buttons === "outside" && `buttons="outside"`,
-      state.buttons === "none" && expression("buttons", "false"),
+      state.buttons !== "inside" && `buttons="${state.buttons}"`,
       state.markers && "markers",
       state.orientation && `orientation="vertical"`,
       state.peek && "peek",
       state.persistentButtons && "persistentButtons",
-      state.perView > 1 && expression("perView", String(state.perView)),
+      state.itemsPerView > 1 &&
+        expression("itemsPerView", String(state.itemsPerView)),
       state.stretch && "stretch",
       state.orientation &&
         (framework === "react"
@@ -480,7 +479,7 @@ export const description =
         orientation: checked("vertical") ? "vertical" : undefined,
         peek: checked("peek"),
         persistentButtons: checked("persistent"),
-        perView: Number(value("per-view")),
+        itemsPerView: Number(value("items-per-view")),
         stretch: checked("stretch"),
       }
 
@@ -498,9 +497,12 @@ export const description =
         carousel.classList.toggle("ui-peek", state.peek)
         carousel.classList.toggle("ui-stretch", state.stretch)
         carousel.classList.toggle("ui-vertical", !!state.orientation)
-        carousel.classList.toggle("ui-buttons", state.buttons !== "none")
+        carousel.classList.toggle("ui-buttons-none", state.buttons === "none")
         carousel.classList.toggle("ui-markers", state.markers)
-        carousel.style.setProperty("--_per-view", String(state.perView))
+        carousel.style.setProperty(
+          "--_items-per-view",
+          String(state.itemsPerView),
+        )
         carousel.style.setProperty("--_media-aspect-ratio", state.aspectRatio)
       }
 

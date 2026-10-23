@@ -12,10 +12,6 @@ Buttons do things, like saving a form or opening a dialog. For filters, tags and
 
   An optional icon.
 
-- `<span class="ui-text">`
-
-  The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook.
-
 - `<kbd>`
 
   An optional keyboard hint.
@@ -232,7 +228,7 @@ export default function Keyboard() {
 
 ## Icon-only
 
-Set `iconOnly` and name the button with `aria-label`. The types require `aria-label` when `iconOnly` is set. Add `round` for a circle.
+Name a button whose only child is an `svg` with `aria-label`. React and Svelte require `aria-label` when there are no `children`. Add `round` for a circle.
 
 ```tsx
 import { Button } from "opui-css/react"
@@ -256,48 +252,46 @@ export default function IconOnly() {
   return (
     <>
       <div className="example-row">
-        <Button aria-label="Edit" iconOnly>
-          {editIcon}
-        </Button>
-        <Button aria-label="Edit" iconOnly round>
-          {editIcon}
-        </Button>
-      </div>
-      <div className="example-row">
-        <Button aria-label="Edit" iconOnly variant="outlined">
-          {editIcon}
-        </Button>
-        <Button aria-label="Edit" iconOnly round variant="outlined">
+        <Button aria-label="Edit">{editIcon}</Button>
+        <Button aria-label="Edit" round>
           {editIcon}
         </Button>
       </div>
       <div className="example-row">
-        <Button aria-label="Edit" iconOnly variant="tonal">
+        <Button aria-label="Edit" variant="outlined">
           {editIcon}
         </Button>
-        <Button aria-label="Edit" iconOnly round variant="tonal">
-          {editIcon}
-        </Button>
-      </div>
-      <div className="example-row">
-        <Button aria-label="Edit" iconOnly variant="filled">
-          {editIcon}
-        </Button>
-        <Button aria-label="Edit" iconOnly round variant="filled">
+        <Button aria-label="Edit" round variant="outlined">
           {editIcon}
         </Button>
       </div>
       <div className="example-row">
-        <Button aria-label="Edit" iconOnly round size="x-small" variant="tonal">
+        <Button aria-label="Edit" variant="tonal">
           {editIcon}
         </Button>
-        <Button aria-label="Edit" iconOnly round size="small" variant="tonal">
+        <Button aria-label="Edit" round variant="tonal">
           {editIcon}
         </Button>
-        <Button aria-label="Edit" iconOnly round variant="tonal">
+      </div>
+      <div className="example-row">
+        <Button aria-label="Edit" variant="filled">
           {editIcon}
         </Button>
-        <Button aria-label="Edit" iconOnly round size="large" variant="tonal">
+        <Button aria-label="Edit" round variant="filled">
+          {editIcon}
+        </Button>
+      </div>
+      <div className="example-row">
+        <Button aria-label="Edit" round size="x-small" variant="tonal">
+          {editIcon}
+        </Button>
+        <Button aria-label="Edit" round size="small" variant="tonal">
+          {editIcon}
+        </Button>
+        <Button aria-label="Edit" round variant="tonal">
+          {editIcon}
+        </Button>
+        <Button aria-label="Edit" round size="large" variant="tonal">
           {editIcon}
         </Button>
       </div>
@@ -333,18 +327,17 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ### Button API
 
-| Prop         | Type                                                    | Default         | Description                                                                          |
-| ------------ | ------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------ |
-| `aria-label` | `string`                                                | -               | The accessible name. Required with `iconOnly`, for buttons without visible text.     |
-| `as`         | `"a"` , `"button"`                                      | `"button"`      | The element to render. Defaults to `"a"` with `href`.                                |
-| `children`   | `ReactNode`                                             | -               | The label and an optional icon.                                                      |
-| `color`      | `"critical"` , `"primary"`                              | -               | Optional colors.                                                                     |
-| `disabled`   | `boolean`                                               | `false`         | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
-| `href`       | `string`                                                | -               | The link to use. Renders an `<a>`.                                                   |
-| `iconOnly`   | `boolean`                                               | `false`         | Marks the button as icon-only, so `aria-label` is required. Types only.              |
-| `round`      | `boolean`                                               | `false`         | Fully rounded corners, a circle when icon-only.                                      |
-| `size`       | `"large"` , `"medium"` , `"small"` , `"x-small"`        | `"medium"`      | The size of the element.                                                             |
-| `variant`    | `"filled"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use.                                                                  |
+| Prop         | Type                                                    | Default         | Description                                                                                                       |
+| ------------ | ------------------------------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `aria-label` | `string`                                                | -               | The accessible name, for a button without visible text. React and Svelte require it when there are no `children`. |
+| `as`         | `"a"` , `"button"`                                      | `"button"`      | The element to render. Defaults to `"a"` with `href`.                                                             |
+| `children`   | `ReactNode`                                             | -               | The label and an optional icon.                                                                                   |
+| `color`      | `"critical"` , `"primary"`                              | -               | Optional colors.                                                                                                  |
+| `disabled`   | `boolean`                                               | `false`         | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`.                              |
+| `href`       | `string`                                                | -               | The link to use. Renders an `<a>`.                                                                                |
+| `round`      | `boolean`                                               | `false`         | Fully rounded corners, a circle when icon-only.                                                                   |
+| `size`       | `"large"` , `"medium"` , `"small"` , `"x-small"`        | `"medium"`      | The size of the element.                                                                                          |
+| `variant`    | `"filled"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use.                                                                                               |
 
 #### CSS variables
 
@@ -548,7 +541,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: icon styles only apply to a direct child `svg`. Wrap the label in a `<span class="ui-text">` next to an icon to [tighten the padding](#buttons-with-icon-and-label), or the button renders as icon-only.
 - Links with `aria-disabled="true"` [look and act disabled](#disabled).
 - [Primary and critical](#colors) colors pass contrast in light and dark mode.
-- [`iconOnly`](#icon-only) makes `aria-label` required on icon-only buttons (types only).
+- [Icon-only](#icon-only) buttons need `aria-label` when there are no `children` (types only).
 - Breaking: a button takes link attributes only with `href` ([types](#api)).
 - Breaking: `--_color`, `--_color-contrast` and `--_color-tonal` are `--_accent`, `--_on-accent` and `--_accent-tonal` ([Under the hood](#under-the-hood)).
 - Breaking: [disabled links](#disabled) have no `href`, so they can't be focused or followed.

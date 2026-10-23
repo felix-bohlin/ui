@@ -161,11 +161,11 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/svelte/
   </svg>{/snippet}
 
 <ButtonGroup variant="outlined">
-  <Button aria-label="OK" iconOnly>
+  <Button aria-label="OK">
     {@render checkIcon()}
   </Button>
   <Button>Maybe</Button>
-  <Button aria-label="No" iconOnly>
+  <Button aria-label="No">
     {@render closeIcon()}
   </Button>
 </ButtonGroup>
@@ -199,7 +199,6 @@ A [Menu](https://open-props-ui.netlify.app/svelte/components/menu.md) after the 
   <Button>Save</Button>
   <Button
     aria-label="More save options"
-    iconOnly
     commandfor="button-group-split-button-1"
     command="toggle-popover"
   >
@@ -288,37 +287,37 @@ Change the layout of the group with the `orientation="vertical"` prop.
 
 <div class="example-row">
   <ButtonGroup orientation="vertical">
-    <Button aria-label="Increase" iconOnly>
+    <Button aria-label="Increase">
       {@render plusIcon()}
     </Button>
-    <Button aria-label="Decrease" iconOnly>
+    <Button aria-label="Decrease">
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
 
   <ButtonGroup orientation="vertical" variant="outlined">
-    <Button aria-label="Increase" iconOnly>
+    <Button aria-label="Increase">
       {@render plusIcon()}
     </Button>
-    <Button aria-label="Decrease" iconOnly>
+    <Button aria-label="Decrease">
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
 
   <ButtonGroup orientation="vertical" variant="tonal">
-    <Button aria-label="Increase" iconOnly>
+    <Button aria-label="Increase">
       {@render plusIcon()}
     </Button>
-    <Button aria-label="Decrease" iconOnly>
+    <Button aria-label="Decrease">
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
 
   <ButtonGroup orientation="vertical" variant="filled">
-    <Button aria-label="Increase" iconOnly>
+    <Button aria-label="Increase">
       {@render plusIcon()}
     </Button>
-    <Button aria-label="Decrease" iconOnly>
+    <Button aria-label="Decrease">
       {@render minusIcon()}
     </Button>
   </ButtonGroup>
@@ -458,18 +457,17 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Button API
 
-| Prop         | Type                                                    | Default         | Description                                                                          |
-| ------------ | ------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------ |
-| `aria-label` | `string`                                                | -               | The accessible name. Required with `iconOnly`, for buttons without visible text.     |
-| `as`         | `"a"` , `"button"`                                      | `"button"`      | The element to render. Defaults to `"a"` with `href`.                                |
-| `children`   | `Snippet`                                               | -               | The label and an optional icon.                                                      |
-| `color`      | `"critical"` , `"primary"`                              | -               | Optional colors.                                                                     |
-| `disabled`   | `boolean`                                               | `false`         | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
-| `href`       | `string`                                                | -               | The link to use. Renders an `<a>`.                                                   |
-| `iconOnly`   | `boolean`                                               | `false`         | Marks the button as icon-only, so `aria-label` is required. Types only.              |
-| `round`      | `boolean`                                               | `false`         | Fully rounded corners, a circle when icon-only.                                      |
-| `size`       | `"large"` , `"medium"` , `"small"` , `"x-small"`        | `"medium"`      | The size of the element.                                                             |
-| `variant`    | `"filled"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use.                                                                  |
+| Prop         | Type                                                    | Default         | Description                                                                                                       |
+| ------------ | ------------------------------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `aria-label` | `string`                                                | -               | The accessible name, for a button without visible text. React and Svelte require it when there are no `children`. |
+| `as`         | `"a"` , `"button"`                                      | `"button"`      | The element to render. Defaults to `"a"` with `href`.                                                             |
+| `children`   | `Snippet` , `Snippet`                                   | -               | The label and an optional icon.                                                                                   |
+| `color`      | `"critical"` , `"primary"`                              | -               | Optional colors.                                                                                                  |
+| `disabled`   | `boolean`                                               | `false`         | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`.                              |
+| `href`       | `string`                                                | -               | The link to use. Renders an `<a>`.                                                                                |
+| `round`      | `boolean`                                               | `false`         | Fully rounded corners, a circle when icon-only.                                                                   |
+| `size`       | `"large"` , `"medium"` , `"small"` , `"x-small"`        | `"medium"`      | The size of the element.                                                                                          |
+| `variant`    | `"filled"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use.                                                                                               |
 
 #### CSS variables
 

@@ -12,10 +12,6 @@ Buttons do things, like saving a form or opening a dialog. For filters, tags and
 
   An optional icon.
 
-- `<span class="ui-text">`
-
-  The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook.
-
 - `<kbd>`
 
   An optional keyboard hint.
@@ -387,12 +383,11 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 #### Parts
 
-| Part                     | Description                                                                                         |
-| ------------------------ | --------------------------------------------------------------------------------------------------- |
-| `.ui-button`             | Container element.                                                                                  |
-| `<svg>`                  | An optional icon.                                                                                   |
-| `<span class="ui-text">` | The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook. |
-| `<kbd>`                  | An optional keyboard hint.                                                                          |
+| Part         | Description                |
+| ------------ | -------------------------- |
+| `.ui-button` | Container element.         |
+| `<svg>`      | An optional icon.          |
+| `<kbd>`      | An optional keyboard hint. |
 
 #### CSS variables
 

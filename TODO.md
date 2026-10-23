@@ -5460,11 +5460,12 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - `--_accent-contrast`: add "`.ui-primary` sets `--ui-primary-contrast`, `.ui-critical` `--ui-text-on-accent`." and to `--_accent-text` "`--ui-primary-text` in `.ui-primary` when a theme sets it."
     - `--_shadow`: "The shadow. `--ui-shadow-control` on `.ui-filled`, `.ui-outlined` and `.ui-tonal`, `--ui-button-hover-shadow` on hover when a theme sets it, none on text buttons." with `kind: "output"`.
   - Fixed: the five descriptions use the item's wording, and `--_shadow` is an output.
-- [ ] (1) Button: the part selector `.ui-button > .ui-text` matches no rule; neither `button.css` nor `button-group.css` mentions `.ui-text`, and the only wrapper rule is `& > span` in `.ui-shrink`. The description says "the class is a hook", but the guide requires every part selector to exist in the CSS (`src/component-api/button/api.ts:88-93`, `packages/opui/css/components/button-group.css:160-163`)
+- [x] (1) Button: the part selector `.ui-button > .ui-text` matches no rule; neither `button.css` nor `button-group.css` mentions `.ui-text`, and the only wrapper rule is `& > span` in `.ui-shrink`. The description says "the class is a hook", but the guide requires every part selector to exist in the CSS (`src/component-api/button/api.ts:88-93`, `packages/opui/css/components/button-group.css:160-163`)
   - Options:
     - A: use the element the CSS looks for as the selector and keep the class in `code` (`selector: ".ui-button > span"`, `code: '<span class="ui-text">'`).
     - B: add a `.ui-text` rule to `button.css`.
   > Fix
+  - Fixed: the `.ui-button > .ui-text` part is gone from `api.ts`, since no rule styles it. The Icon and label prose still says to wrap the label, which the CSS looks for, and `iconOnly` is gone: React and Svelte require `aria-label` when there are no `children`.
 - [x] (1) Button, Button group, Radio, Select, Switch: the Sizes labels mix cases, "x-small" next to "Small", "Default" and "Large" (`src/component-examples/button/Sizes.astro:6-9,13-16`, `src/component-examples/button-group/Sizes.astro:5-7`, `src/component-examples/radio/Sizes.astro:32`, `src/component-examples/select/Sizes.astro:5-6`, `src/component-examples/switch/Sizes.astro:6,12`, and the other formats of each)
   - Fix: "X-small" in every format.
   - Fixed: the labels read "X-small" in every format, the Select `label` and the Switch hidden text included.
@@ -9664,8 +9665,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (1) Tokens: there is no data visualization palette. Primer, shadcn/ui (`chart-1` to `chart-5`) and Carbon ship categorical and sequential palettes for charts (`packages/opui/css/theme.css`)
 - [ ] (1) Tabs: no Tabs-level `value`. A controlled tab set needs one piece of state that sets `checked` on every `TabsItem`, since a tab that loses its check fires no `onChange` (`packages/opui/components/Tabs/types.ts`, `src/component-api/tabs-item/api.ts`)
   - Fix: `value` on `Tabs`, with `onValueChange` in React, `bind:value` in Svelte and `v-model` in Vue, like `ToggleGroup`.
-- [ ] (1) Carousel: `buttons` is `boolean | "outside"`, with a separate `persistentButtons` flag. The naming model gives a modifier one form, a boolean or an enum (`packages/opui/components/Carousel/types.ts`, `src/component-api/carousel/api.ts`)
+- [x] (1) Carousel: `buttons` is `boolean | "outside"`, with a separate `persistentButtons` flag. The naming model gives a modifier one form, a boolean or an enum (`packages/opui/components/Carousel/types.ts`, `src/component-api/carousel/api.ts`)
   - Fix: an enum such as `buttons: "inside" | "none" | "outside"`, with `persistentButtons` kept as the boolean it is.
+  - Fixed: `buttons` is `"inside" | "none" | "outside"`, `inside` by default with no class, `.ui-buttons-none` and `.ui-buttons-outside`. `persistentButtons` stays a boolean, and `perView` is `itemsPerView` (`--_items-per-view`).
 - [ ] (1) DescriptionList: `bordered` is `boolean | "dotted"`, a toggle and a line style in one prop (`packages/opui/components/DescriptionList/types.ts`, `src/component-api/description-list/api.ts`)
   - Fix: `bordered` stays a boolean and the line style becomes its own enum, or `bordered` becomes `"dotted" | "none" | "solid"`.
 - [ ] (1) Range: options take `{ value, label }`, while Menu and Select items take `text` for the same job, the key decided for item text (`packages/opui/components/Range/types.ts:2`)

@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Carousel",
   notes: {
-    html: "The root is a `<ul>` with an `aria-label`. CSS adds the buttons and markers.",
+    html: "The root is a `<ul>` with an `aria-label`. CSS adds the buttons, and `.ui-markers` the markers.",
   },
   options: [
     {
@@ -30,24 +30,23 @@ export default {
       prop: "aspectRatio",
     },
     {
-      class: ".ui-buttons",
-      default: "true",
+      default: '"inside"',
       description:
-        'Previous and next buttons. `"outside"` places them beside the items.',
+        'Previous and next buttons. `"outside"` places them beside the items, and `"none"` leaves them out.',
       group: "Buttons",
-      htmlDescription:
-        "Previous and next buttons. `.ui-buttons-outside` places them beside the items, together with `.ui-buttons`.",
       prop: "buttons",
-      values: { outside: ".ui-buttons-outside" },
+      values: {
+        inside: null,
+        none: ".ui-buttons-none",
+        outside: ".ui-buttons-outside",
+      },
     },
     {
-      class: ".ui-motion-off",
-      default: "false",
-      description:
-        "Turns off smooth scrolling and the transitions, like reduced motion or `--ui-motion: 0` on a parent.",
-      frameworks: ["html"],
-      group: "Motion",
-      prop: "motionOff",
+      cssVar: "--_items-per-view",
+      default: "1",
+      description: "Number of visible items.",
+      group: "Items per view",
+      prop: "itemsPerView",
     },
     {
       class: ".ui-markers",
@@ -78,13 +77,6 @@ export default {
         "Keeps the buttons visible at the ends. A disabled button has a muted border.",
       group: "Persistent buttons",
       prop: "persistentButtons",
-    },
-    {
-      cssVar: "--_per-view",
-      default: "1",
-      description: "Number of visible items.",
-      group: "Items per view",
-      prop: "perView",
     },
     {
       class: ".ui-stretch",

@@ -1,5 +1,12 @@
 ---
-import { Textarea } from "opui-css/astro"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogHeader,
+  Textarea,
+} from "opui-css/astro"
 
 type Props = {
   label: string
@@ -8,12 +15,39 @@ type Props = {
 const { label } = Astro.props
 ---
 
-<div class="copy-fallback" data-copy-fallback hidden>
-  <Textarea label={label} readonly rows={8} spread />
-</div>
+<Dialog data-copy-fallback id="copy-fallback">
+  <DialogHeader>
+    <h2 class="ui-h4">{`Copy ${label.toLowerCase()}`}</h2>
+  </DialogHeader>
+  <DialogContent>
+    <p>
+      This browser blocked copying. The text is selected: press and hold it,
+      then copy.
+    </p>
+    <Textarea class="copy-fallback-field" readonly rows={8}>
+      <span class="ui-sr-only" slot="label">{label}</span>
+    </Textarea>
+  </DialogContent>
+  <DialogActions>
+    <Button commandfor="copy-fallback" command="close">Close</Button>
+    <Button data-copy-again variant="filled">Copy</Button>
+  </DialogActions>
+</Dialog>
+
+<script>
+  import { copySelection } from "../../utils/storage"
+
+  const dialog = document.querySelector<HTMLDialogElement>(
+    "[data-copy-fallback]",
+  )!
+
+  dialog.querySelector("[data-copy-again]")!.addEventListener("click", () => {
+    if (copySelection(dialog.querySelector("textarea")!)) dialog.close()
+  })
+</script>
 
 <style>
-  .copy-fallback {
+  :global(.copy-fallback-field) {
     inline-size: 100%;
   }
 </style>

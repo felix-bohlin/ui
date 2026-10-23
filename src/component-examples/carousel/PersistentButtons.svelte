@@ -12,7 +12,7 @@
 <Carousel
   buttons="outside"
   aria-label="Destinations"
-  perView={2}
+  itemsPerView={2}
   persistentButtons
 >
   {#each places as { description, title } (title)}

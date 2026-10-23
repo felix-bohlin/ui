@@ -165,7 +165,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     <Carousel
       aria-hidden="true"
       inert
-      buttons={false}
+      buttons="none"
       class="showcase-carousel"
       aria-label="Destinations"
     >
@@ -454,7 +454,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     }
 
     .showcase-carousel {
-      --_per-view: 2.5;
+      --_items-per-view: 2.5;
 
       inline-size: 100%;
       mask-image: linear-gradient(to right, black 75%, transparent);

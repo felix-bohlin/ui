@@ -129,7 +129,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 <template>
   <ButtonGroup variant="outlined">
-    <Button aria-label="OK" iconOnly>
+    <Button aria-label="OK">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </svg>
     </Button>
     <Button> Maybe </Button>
-    <Button aria-label="No" iconOnly>
+    <Button aria-label="No">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -224,7 +224,6 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
     <Button>Save</Button>
     <Button
       aria-label="More save options"
-      iconOnly
       commandfor="button-group-split-button-1"
       command="toggle-popover"
     >
@@ -286,7 +285,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 <template>
   <div class="example-row">
     <ButtonGroup orientation="vertical">
-      <Button aria-label="Increase" iconOnly>
+      <Button aria-label="Increase">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -303,7 +302,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
-      <Button aria-label="Decrease" iconOnly>
+      <Button aria-label="Decrease">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -322,7 +321,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </ButtonGroup>
 
     <ButtonGroup orientation="vertical" variant="outlined">
-      <Button aria-label="Increase" iconOnly>
+      <Button aria-label="Increase">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -339,7 +338,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
-      <Button aria-label="Decrease" iconOnly>
+      <Button aria-label="Decrease">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -358,7 +357,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </ButtonGroup>
 
     <ButtonGroup orientation="vertical" variant="tonal">
-      <Button aria-label="Increase" iconOnly>
+      <Button aria-label="Increase">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -375,7 +374,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
-      <Button aria-label="Decrease" iconOnly>
+      <Button aria-label="Decrease">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -394,7 +393,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
     </ButtonGroup>
 
     <ButtonGroup orientation="vertical" variant="filled">
-      <Button aria-label="Increase" iconOnly>
+      <Button aria-label="Increase">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -411,7 +410,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </Button>
-      <Button aria-label="Decrease" iconOnly>
+      <Button aria-label="Decrease">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -572,17 +571,16 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Button API
 
-| Prop         | Type                                                    | Default         | Description                                                                          |
-| ------------ | ------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------ |
-| `aria-label` | `string`                                                | -               | The accessible name. Required with `iconOnly`, for buttons without visible text.     |
-| `as`         | `"a"` , `"button"`                                      | `"button"`      | The element to render. Defaults to `"a"` with `href`.                                |
-| `color`      | `"critical"` , `"primary"`                              | -               | Optional colors.                                                                     |
-| `disabled`   | `boolean`                                               | `false`         | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
-| `href`       | `string`                                                | -               | The link to use. Renders an `<a>`.                                                   |
-| `iconOnly`   | `boolean`                                               | `false`         | Marks the button as icon-only, so `aria-label` is required. Types only.              |
-| `round`      | `boolean`                                               | `false`         | Fully rounded corners, a circle when icon-only.                                      |
-| `size`       | `"large"` , `"medium"` , `"small"` , `"x-small"`        | `"medium"`      | The size of the element.                                                             |
-| `variant`    | `"filled"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use.                                                                  |
+| Prop         | Type                                                    | Default         | Description                                                                                                       |
+| ------------ | ------------------------------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `aria-label` | `string`                                                | -               | The accessible name, for a button without visible text. React and Svelte require it when there are no `children`. |
+| `as`         | `"a"` , `"button"`                                      | `"button"`      | The element to render. Defaults to `"a"` with `href`.                                                             |
+| `color`      | `"critical"` , `"primary"`                              | -               | Optional colors.                                                                                                  |
+| `disabled`   | `boolean`                                               | `false`         | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`.                              |
+| `href`       | `string`                                                | -               | The link to use. Renders an `<a>`.                                                                                |
+| `round`      | `boolean`                                               | `false`         | Fully rounded corners, a circle when icon-only.                                                                   |
+| `size`       | `"large"` , `"medium"` , `"small"` , `"x-small"`        | `"medium"`      | The size of the element.                                                                                          |
+| `variant`    | `"filled"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use.                                                                                               |
 
 #### Slots
 

@@ -112,7 +112,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
 <Card variant="outlined">
   <CardContent>Icon buttons work too!</CardContent>
   <CardActions>
-    <Button aria-label="Favorite" iconOnly round size="small">
+    <Button aria-label="Favorite" round size="small">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +126,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
         ></path>
       </svg>
     </Button>
-    <Button aria-label="Share" iconOnly round size="small">
+    <Button aria-label="Share" round size="small">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -172,7 +172,7 @@ Align actions to the end with `align="end"` on `CardActions`.
 <Card variant="outlined">
   <CardContent>Icon buttons aligned to the end!</CardContent>
   <CardActions align="end">
-    <Button aria-label="Favorite" iconOnly round size="small">
+    <Button aria-label="Favorite" round size="small">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -186,7 +186,7 @@ Align actions to the end with `align="end"` on `CardActions`.
         ></path>
       </svg>
     </Button>
-    <Button aria-label="Share" iconOnly round size="small">
+    <Button aria-label="Share" round size="small">
       <svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"

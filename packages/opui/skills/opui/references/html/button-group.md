@@ -573,12 +573,11 @@ The root needs `role="group"`.
 
 #### Parts
 
-| Part                     | Description                                                                                         |
-| ------------------------ | --------------------------------------------------------------------------------------------------- |
-| `.ui-button`             | Container element.                                                                                  |
-| `<svg>`                  | An optional icon.                                                                                   |
-| `<span class="ui-text">` | The label. Wrap it when the button has an icon. The CSS looks for the element, the class is a hook. |
-| `<kbd>`                  | An optional keyboard hint.                                                                          |
+| Part         | Description                |
+| ------------ | -------------------------- |
+| `.ui-button` | Container element.         |
+| `<svg>`      | An optional icon.          |
+| `<kbd>`      | An optional keyboard hint. |
 
 #### CSS variables
 

@@ -349,13 +349,13 @@ export default function MarkerAnimation() {
 
 ### Accordion API
 
-| Prop              | Type                                                                  | Default    | Description                                                                                                                                         |
-| ----------------- | --------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `children`        | `ReactNode`                                                           | -          | The accordion parts.                                                                                                                                |
-| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                                      | `"rotate"` | How the marker animates when the accordion opens.                                                                                                   |
-| `name`            | `string`                                                              | -          | Groups accordions so only one of them can be open at a time.                                                                                        |
-| `open`            | `boolean`                                                             | `false`    | Whether the accordion is open.                                                                                                                      |
-| `variant`         | `"elevated"` , `"outlined"` , `"plain"` , `"tonal"` , `"transparent"` | `"plain"`  | The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface, border or padding. |
+| Prop              | Type                                                                  | Default    | Description                                                                                                                                                                                               |
+| ----------------- | --------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `children`        | `ReactNode`                                                           | -          | The accordion parts.                                                                                                                                                                                      |
+| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                                      | `"rotate"` | How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open. |
+| `name`            | `string`                                                              | -          | Groups accordions so only one of them can be open at a time.                                                                                                                                              |
+| `open`            | `boolean`                                                             | `false`    | Whether the accordion is open.                                                                                                                                                                            |
+| `variant`         | `"elevated"` , `"outlined"` , `"plain"` , `"tonal"` , `"transparent"` | `"plain"`  | The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface, border or padding.                                                       |
 
 #### CSS variables
 

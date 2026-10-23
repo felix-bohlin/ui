@@ -1,11 +1,14 @@
 import { copyText, readStored, writeStored } from "../../utils/storage"
 
-export const copyOrSelect = async (text: string, fallback: HTMLElement) => {
+export const copyOrSelect = async (
+  text: string,
+  fallback: HTMLDialogElement,
+) => {
   const copied = await copyText(text)
-  fallback.hidden = copied
   if (!copied) {
     const field = fallback.querySelector("textarea")!
     field.value = text
+    fallback.showModal()
     field.focus()
     field.setSelectionRange(0, text.length)
   }

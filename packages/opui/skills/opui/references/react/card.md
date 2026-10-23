@@ -119,7 +119,7 @@ export default function Actions() {
       <Card variant="outlined">
         <CardContent>Icon buttons work too!</CardContent>
         <CardActions>
-          <Button aria-label="Favorite" iconOnly round size="small">
+          <Button aria-label="Favorite" round size="small">
             <svg
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -133,7 +133,7 @@ export default function Actions() {
               ></path>
             </svg>
           </Button>
-          <Button aria-label="Share" iconOnly round size="small">
+          <Button aria-label="Share" round size="small">
             <svg
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -183,7 +183,7 @@ export default function Alignment() {
       <Card variant="outlined">
         <CardContent>Icon buttons aligned to the end!</CardContent>
         <CardActions align="end">
-          <Button aria-label="Favorite" iconOnly round size="small">
+          <Button aria-label="Favorite" round size="small">
             <svg
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +197,7 @@ export default function Alignment() {
               ></path>
             </svg>
           </Button>
-          <Button aria-label="Share" iconOnly round size="small">
+          <Button aria-label="Share" round size="small">
             <svg
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"

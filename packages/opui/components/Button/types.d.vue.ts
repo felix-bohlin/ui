@@ -1,9 +1,6 @@
 import type { Class, DefaultSlots } from "../vue"
-import type { IconOnlyProps, SharedProps } from "./types"
+import type { Props as BaseProps } from "./types"
 
-export type Props = SharedProps &
-  Class & {
-    iconOnly?: boolean
-  } & /* @vue-ignore */ IconOnlyProps
+export type Props = BaseProps & Class
 
 export type Slots = DefaultSlots

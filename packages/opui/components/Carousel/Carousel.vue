@@ -4,12 +4,12 @@ import type { Props, Slots } from "./types.d.vue"
 const {
   align,
   aspectRatio,
-  buttons = true,
+  buttons,
+  itemsPerView,
   markers,
   orientation,
   peek,
   persistentButtons,
-  perView,
   stretch,
 } = defineProps<Props>()
 defineSlots<Slots>()
@@ -20,20 +20,22 @@ defineSlots<Slots>()
     :class="[
       'ui-carousel',
       {
-        'ui-buttons-outside': buttons === 'outside',
         'ui-persistent-buttons': persistentButtons,
         'ui-peek': peek,
         'ui-stretch': stretch,
         'ui-vertical': orientation === 'vertical',
-        'ui-buttons': buttons,
         'ui-markers': markers,
       },
       align && align !== 'start' && `ui-align-${align}`,
+      buttons && buttons !== 'inside' && `ui-buttons-${buttons}`,
       $props.class,
     ]"
     :style="
-      perView || aspectRatio
-        ? { '--_per-view': perView, '--_media-aspect-ratio': aspectRatio }
+      itemsPerView || aspectRatio
+        ? {
+            '--_items-per-view': itemsPerView,
+            '--_media-aspect-ratio': aspectRatio,
+          }
         : undefined
     "
   >

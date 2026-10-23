@@ -3,7 +3,7 @@ import type { Props } from "./types.react"
 
 export default function Accordion({
   className,
-  markerAnimation = "rotate",
+  markerAnimation,
   variant,
   ...rest
 }: Props) {
@@ -12,7 +12,9 @@ export default function Accordion({
       className={cx([
         "ui-accordion",
         "ui-card",
-        markerAnimation && `ui-marker-${markerAnimation}`,
+        markerAnimation &&
+          markerAnimation !== "rotate" &&
+          `ui-marker-animation-${markerAnimation}`,
         variant && variant !== "plain" && `ui-${variant}`,
         className,
       ])}

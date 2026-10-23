@@ -5,13 +5,13 @@
   let {
     align,
     aspectRatio,
-    buttons = true,
+    buttons,
     class: className,
+    itemsPerView,
     markers,
     orientation,
     peek,
     persistentButtons,
-    perView,
     stretch,
     style,
 
@@ -25,19 +25,18 @@
   class={[
     "ui-carousel",
     {
-      "ui-buttons-outside": buttons === "outside",
       "ui-persistent-buttons": persistentButtons,
       "ui-peek": peek,
       "ui-stretch": stretch,
       "ui-vertical": orientation === "vertical",
-      "ui-buttons": buttons,
       "ui-markers": markers,
     },
     align && align !== "start" && `ui-align-${align}`,
+    buttons && buttons !== "inside" && `ui-buttons-${buttons}`,
     className,
   ]}
   style={mergeStyle(
-    { "--_per-view": perView, "--_media-aspect-ratio": aspectRatio },
+    { "--_items-per-view": itemsPerView, "--_media-aspect-ratio": aspectRatio },
     style,
   )}
   {...rest}

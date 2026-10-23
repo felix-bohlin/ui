@@ -36,7 +36,7 @@
 
 ## Basics
 
-The carousel has previous and next buttons by default. Set `markers` to add a marker per item.
+The carousel has previous and next buttons by default, and `buttons="none"` leaves them out. Set `markers` to add a marker per item.
 
 Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-snap list with a scrollbar.
 
@@ -70,7 +70,7 @@ Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-sn
 
 ## Items per view
 
-Set `perView` to show more than one item at a time.
+Set `itemsPerView` to show more than one item at a time.
 
 ```svelte
 <script lang="ts">
@@ -85,7 +85,7 @@ Set `perView` to show more than one item at a time.
   ]
 </script>
 
-<Carousel aria-label="Destinations" buttons="outside" perView={3}>
+<Carousel aria-label="Destinations" buttons="outside" itemsPerView={3}>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
@@ -123,7 +123,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
   ]
 </script>
 
-<Carousel aria-label="Destinations" buttons="outside" perView={3} stretch>
+<Carousel aria-label="Destinations" buttons="outside" itemsPerView={3} stretch>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
@@ -155,7 +155,7 @@ Use `peek` to show part of the neighboring items, and `align="center"` to snap i
   ]
 </script>
 
-<Carousel align="center" aria-label="Destinations" buttons={false} markers peek>
+<Carousel align="center" aria-label="Destinations" buttons="none" markers peek>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">
@@ -256,7 +256,7 @@ Square photos, three per view.
   ]
 </script>
 
-<Carousel aria-label="Gallery" perView={3} aspectRatio="1">
+<Carousel aria-label="Gallery" itemsPerView={3} aspectRatio="1">
   {#each photos as { alt, id } (id)}
     <li>
       <img
@@ -367,7 +367,7 @@ Use `buttons="outside"` to keep the buttons off the content.
   ]
 </script>
 
-<Carousel aria-label="Plans" buttons="outside" perView={2}>
+<Carousel aria-label="Plans" buttons="outside" itemsPerView={2}>
   {#each plans as { action, description, title } (title)}
     <li>
       <Card variant="outlined">
@@ -403,7 +403,7 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
 <Carousel
   buttons="outside"
   aria-label="Destinations"
-  perView={2}
+  itemsPerView={2}
   persistentButtons
 >
   {#each places as { description, title } (title)}
@@ -441,7 +441,7 @@ Use `persistentButtons` to keep both buttons visible at the ends. A disabled but
   aria-label="Destinations"
   buttons="outside"
   class="carousel-custom-buttons"
-  perView={2}
+  itemsPerView={2}
 >
   {#each places as { description, title } (title)}
     <li>
@@ -521,19 +521,19 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 
 ### Carousel API
 
-| Prop                | Type                          | Default        | Description                                                                                                           |
-| ------------------- | ----------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `align`             | `"center"` , `"start"`        | `"start"`      | Where items snap.                                                                                                     |
-| `aria-label`        | `string`                      | -              | Accessible name of the carousel.                                                                                      |
-| `aspectRatio`       | `number` , `string`           | `"16 / 9"`     | Aspect ratio that images, videos and iframes are cropped to.                                                          |
-| `buttons`           | `"outside"` , `boolean`       | `true`         | Previous and next buttons. `"outside"` places them beside the items.                                                  |
-| `children`          | `Snippet`                     | -              | An item.                                                                                                              |
-| `markers`           | `boolean`                     | `false`        | One marker per item, after the list.                                                                                  |
-| `orientation`       | `"horizontal"` , `"vertical"` | `"horizontal"` | The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default.                      |
-| `peek`              | `boolean`                     | `false`        | Shows part of the neighboring items.                                                                                  |
-| `persistentButtons` | `boolean`                     | `false`        | Keeps the buttons visible at the ends. A disabled button has a muted border.                                          |
-| `perView`           | `number`                      | `1`            | Number of visible items.                                                                                              |
-| `stretch`           | `boolean`                     | `false`        | Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it. |
+| Prop                | Type                                | Default        | Description                                                                                                           |
+| ------------------- | ----------------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `align`             | `"center"` , `"start"`              | `"start"`      | Where items snap.                                                                                                     |
+| `aria-label`        | `string`                            | -              | Accessible name of the carousel.                                                                                      |
+| `aspectRatio`       | `number` , `string`                 | `"16 / 9"`     | Aspect ratio that images, videos and iframes are cropped to.                                                          |
+| `buttons`           | `"inside"` , `"none"` , `"outside"` | `"inside"`     | Previous and next buttons. `"outside"` places them beside the items, and `"none"` leaves them out.                    |
+| `children`          | `Snippet`                           | -              | An item.                                                                                                              |
+| `itemsPerView`      | `number`                            | `1`            | Number of visible items.                                                                                              |
+| `markers`           | `boolean`                           | `false`        | One marker per item, after the list.                                                                                  |
+| `orientation`       | `"horizontal"` , `"vertical"`       | `"horizontal"` | The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default.                      |
+| `peek`              | `boolean`                           | `false`        | Shows part of the neighboring items.                                                                                  |
+| `persistentButtons` | `boolean`                           | `false`        | Keeps the buttons visible at the ends. A disabled button has a muted border.                                          |
+| `stretch`           | `boolean`                           | `false`        | Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it. |
 
 #### CSS variables
 
@@ -589,7 +589,8 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_duration`                     | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                           |
 | `--_ease`                         | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                                |
 | `--_gap`                          | Input  | Space between items.                                                                                                                               |
-| `--_item-size`                    | Output | The size of each item, from `--_per-view` and `--_gap`.                                                                                            |
+| `--_item-size`                    | Output | The size of each item, from `--_items-per-view` and `--_gap`.                                                                                      |
+| `--_items-per-view`               | Input  | Number of items per view.                                                                                                                          |
 | `--_marker-active-bg-color`       | Input  | Fill and ring of the current marker. Defaults to `--ui-selected-strong`.                                                                           |
 | `--_marker-active-padding`        | Input  | Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`. |
 | `--_marker-bg-color`              | Input  | Fill of the other markers. Defaults to `transparent`.                                                                                              |
@@ -603,7 +604,6 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_motion`                       | Input  | Motion multiplier for the button and marker transitions. `0` turns them off.                                                                       |
 | `--_padding-block`                | Input  | Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.                                                                 |
 | `--_padding-inline`               | Input  | The inline padding, showing the neighboring items. Set by `.ui-peek`.                                                                              |
-| `--_per-view`                     | Input  | Number of items per view.                                                                                                                          |
 | `--_scale-duration`               | Output | Duration of the scroll buttons' press scale, `--ui-duration-fast` times `--_motion`.                                                               |
 | `--_snap-align`                   | Input  | Snap alignment of items. `.ui-align-center` sets `center`.                                                                                         |
 

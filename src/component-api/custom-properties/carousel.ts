@@ -89,8 +89,13 @@ export default {
     kind: "input",
   },
   "--_item-size": {
-    description: "The size of each item, from `--_per-view` and `--_gap`.",
+    description:
+      "The size of each item, from `--_items-per-view` and `--_gap`.",
     kind: "output",
+  },
+  "--_items-per-view": {
+    description: "Number of items per view.",
+    kind: "input",
   },
   "--_marker-active-bg-color": {
     description:
@@ -151,10 +156,6 @@ export default {
   "--_padding-inline": {
     description:
       "The inline padding, showing the neighboring items. Set by `.ui-peek`.",
-    kind: "input",
-  },
-  "--_per-view": {
-    description: "Number of items per view.",
     kind: "input",
   },
   "--_scale-duration": {

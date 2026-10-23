@@ -1,4 +1,4 @@
-export type SharedProps = {
+export type Props = {
   color?: "critical" | "primary"
   round?: boolean
   size?: "x-small" | "small" | "medium" | "large"
@@ -16,13 +16,12 @@ export type SharedProps = {
     }
 )
 
-export type IconOnlyProps =
+export type Slots<S> =
   | {
       "aria-label": string
-      iconOnly: true
+      children?: S
     }
   | {
-      iconOnly?: false
+      "aria-label"?: string
+      children: S
     }
-
-export type Props = SharedProps & IconOnlyProps

@@ -31,7 +31,7 @@ Explain more about the topic shown in the summary through supporting text.
 Put the header in the `<summary>` and the body in a `.ui-content` element.
 
 ```html
-<details class="ui-accordion ui-card ui-marker-rotate">
+<details class="ui-accordion ui-card">
   <summary>
     Accordion
     <svg
@@ -65,7 +65,7 @@ Put the header in the `<summary>` and the body in a `.ui-content` element.
 Add one of the variant classes (`.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.ui-transparent`) to the `<details>` element to change how it looks. Without one the accordion has the page surface and no border, like a card. Add `.ui-card` for the card styles.
 
 ```html
-<details class="ui-accordion ui-card ui-marker-rotate">
+<details class="ui-accordion ui-card">
   <summary>
     Plain
     <svg
@@ -91,7 +91,7 @@ Add one of the variant classes (`.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.u
   </div>
 </details>
 
-<details class="ui-accordion ui-card ui-marker-rotate ui-elevated">
+<details class="ui-accordion ui-card ui-elevated">
   <summary>
     Elevated
     <svg
@@ -117,7 +117,7 @@ Add one of the variant classes (`.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.u
   </div>
 </details>
 
-<details class="ui-accordion ui-card ui-marker-rotate ui-outlined">
+<details class="ui-accordion ui-card ui-outlined">
   <summary>
     Outlined
     <svg
@@ -143,7 +143,7 @@ Add one of the variant classes (`.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.u
   </div>
 </details>
 
-<details class="ui-accordion ui-card ui-marker-rotate ui-tonal">
+<details class="ui-accordion ui-card ui-tonal">
   <summary>
     Tonal
     <svg
@@ -169,7 +169,7 @@ Add one of the variant classes (`.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.u
   </div>
 </details>
 
-<details class="ui-accordion ui-card ui-marker-rotate ui-transparent">
+<details class="ui-accordion ui-card ui-transparent">
   <summary>
     Transparent
     <svg
@@ -202,7 +202,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
 
 ```html
 <div class="ui-card ui-outlined" role="group">
-  <details class="ui-accordion ui-card ui-marker-rotate">
+  <details class="ui-accordion ui-card">
     <summary>
       Accordion title
       <svg
@@ -227,7 +227,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
       </p>
     </div>
   </details>
-  <details class="ui-accordion ui-card ui-marker-rotate">
+  <details class="ui-accordion ui-card">
     <summary>
       Accordion title
       <svg
@@ -252,7 +252,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
       </p>
     </div>
   </details>
-  <details class="ui-accordion ui-card ui-marker-rotate">
+  <details class="ui-accordion ui-card">
     <summary>
       Accordion title
       <svg
@@ -286,7 +286,7 @@ Set the same `name` attribute on each `<details>` element to allow only one of t
 
 ```html
 <div class="ui-card ui-outlined" role="group">
-  <details class="ui-accordion ui-card ui-marker-rotate" name="example-group">
+  <details class="ui-accordion ui-card" name="example-group">
     <summary>
       First
       <svg
@@ -307,7 +307,7 @@ Set the same `name` attribute on each `<details>` element to allow only one of t
       <p>Only one accordion in the group is open at a time.</p>
     </div>
   </details>
-  <details class="ui-accordion ui-card ui-marker-rotate" name="example-group">
+  <details class="ui-accordion ui-card" name="example-group">
     <summary>
       Second
       <svg
@@ -336,7 +336,7 @@ Set the same `name` attribute on each `<details>` element to allow only one of t
 Add buttons or other interactive elements below the content in a `.ui-actions` element, after `.ui-content`.
 
 ```html
-<details open class="ui-accordion ui-card ui-marker-rotate ui-elevated">
+<details open class="ui-accordion ui-card ui-elevated">
   <summary>
     Accordion with actions
     <svg
@@ -372,7 +372,7 @@ Add buttons or other interactive elements below the content in a `.ui-actions` e
 Replace the `svg.ui-marker` inside the `summary` to change the marker, and keep `aria-hidden="true"` on it since it's decorative. Leave it out to fall back to the native arrow. Only `.ui-marker` animates, so other icons in the `summary`, such as a leading status icon, stay put.
 
 ```html
-<details class="ui-accordion ui-card ui-marker-rotate ui-outlined">
+<details class="ui-accordion ui-card ui-outlined">
   <summary>
     Custom marker
     <svg
@@ -404,10 +404,10 @@ Replace the `svg.ui-marker` inside the `summary` to change the marker, and keep 
 
 ## Marker animation
 
-Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details>` element to animate the `.ui-marker` when the accordion opens.
+The `.ui-marker` rotates when the accordion opens. Add `.ui-marker-animation-flip` or `.ui-marker-animation-turn` to the `<details>` element to flip or turn it instead.
 
 ```html
-<details class="ui-accordion ui-card ui-marker-flip ui-outlined">
+<details class="ui-accordion ui-card ui-marker-animation-flip ui-outlined">
   <summary>
     Flip
     <svg
@@ -433,7 +433,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
   </div>
 </details>
 
-<details class="ui-accordion ui-card ui-marker-rotate ui-outlined">
+<details class="ui-accordion ui-card ui-outlined">
   <summary>
     Rotate
     <svg
@@ -459,7 +459,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
   </div>
 </details>
 
-<details class="ui-accordion ui-card ui-marker-turn ui-outlined">
+<details class="ui-accordion ui-card ui-marker-animation-turn ui-outlined">
   <summary>
     Turn
     <svg
@@ -495,12 +495,12 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 
 ### Accordion API
 
-| Type     | Modifiers                                                               | Default | Description                                                                                                                                         |
-| -------- | ----------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Grouping | `[name]`                                                                | -       | Groups accordions so only one of them can be open at a time.                                                                                        |
-| Marker   | `.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn`               | -       | How the marker animates when the accordion opens.                                                                                                   |
-| State    | `[open]`                                                                | -       | Whether the accordion is open.                                                                                                                      |
-| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.ui-transparent` | default | The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface, border or padding. |
+| Type             | Modifiers                                                               | Default | Description                                                                                                                                                                                               |
+| ---------------- | ----------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Group            | `[name]`                                                                | -       | Groups accordions so only one of them can be open at a time.                                                                                                                                              |
+| Marker animation | default, `.ui-marker-animation-flip`, `.ui-marker-animation-turn`       | default | How the marker animates when the accordion opens. `rotate` turns it upside down, `flip` mirrors it, and `turn` gives a chevron that points to the inline end a quarter turn, so it points down when open. |
+| State            | `[open]`                                                                | -       | Whether the accordion is open.                                                                                                                                                                            |
+| Variants         | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.ui-transparent` | default | The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface, border or padding.                                                       |
 
 #### Parts
 
@@ -745,8 +745,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - Tonal and elevated [accordions](#variants) have a border in the page background color, like cards, so they stay visible on tonal surfaces.
 - The inset focus ring sits at `--ui-focus-ring-inset` like every other inset ring, and elevated and tonal accordions keep a border in forced colors.
-- [Marker animation](#marker-animation) with `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn`.
-- Breaking: markers only animate with a [marker class](#marker-animation), and only the [`svg.ui-marker`](#custom-marker). Add `.ui-marker-rotate` to keep the previous rotation.
+- [Marker animation](#marker-animation) with `.ui-marker-animation-flip` or `.ui-marker-animation-turn`. The marker rotates without a class.
+- Breaking: only the [`svg.ui-marker`](#custom-marker) animates. Add `.ui-marker` to the chevron.
 - [Actions](#actions) line up with the content and the chevron.
 - Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron and the open and close transition use `--_duration` and `--_ease`, and the group's `--_gutter-color` is `--_divider-color` ([Under the hood](#under-the-hood)).
 - Breaking: an accordion without a [variant class](#variants) has the page surface and padding, like a card. Add `.ui-transparent` for the previous look.

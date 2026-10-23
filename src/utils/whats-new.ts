@@ -172,8 +172,8 @@ const whatsNew = {
       `Breaking: buttons render <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
     ),
     {
-      react: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> when there are no <code>children</code> (types only).`,
-      svelte: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> when there are no <code>children</code> (types only).`,
+      react: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> or <code>aria-labelledby</code> when there are no <code>children</code> (types only).`,
+      svelte: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> or <code>aria-labelledby</code> when there are no <code>children</code> (types only).`,
     },
     components(
       `Breaking: a button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
@@ -379,7 +379,7 @@ const whatsNew = {
       default: `<a href="#severities">Severities</a> for statuses with <code>severity</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
       html: `<a href="#severities">Severities</a> for statuses with <code>.ui-success</code>, <code>.ui-warning</code> and more, and a shape-coded <a href="#dot"><code>.ui-dot</code></a>.`,
     },
-    `<a href="#disabled">Disabled</a> chips: <code>aria-disabled="true"</code> on a link chip, and on a static chip to dim it.`,
+    `<a href="#disabled">Disabled</a> chips: <code>aria-disabled="true"</code> on a link chip, and <code>.ui-disabled</code> for an inactive static chip.`,
     `Breaking: <code>--_color</code> is <code>--_text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     components(
       `<a href="#disabled"><code>disabled</code></a> works on button and link chips. A link chip gets <code>aria-disabled="true"</code>.`,

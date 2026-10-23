@@ -166,10 +166,9 @@
       --_text-color: var(--ui-text-disabled);
 
       cursor: not-allowed;
-      opacity: var(--ui-disabled-opacity);
     }
 
-    &[aria-disabled="true"]:not(a, button) {
+    &.ui-disabled:not(a, button) {
       --_text-color: var(--ui-text-strong);
 
       cursor: auto;

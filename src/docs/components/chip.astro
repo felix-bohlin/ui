@@ -183,26 +183,26 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
         Disable a button or link chip with the <code>disabled</code> prop. A link
         chip drops its <code>href</code> and gets <code
           >aria-disabled="true"</code
-        > instead. A static chip can't be disabled, so <code
-          >aria-disabled="true"</code
-        > only dims it a little and keeps its text readable.
+        > instead. A static chip can't be disabled. Give it <code
+          >class="ui-disabled"</code
+        > for an inactive look, which announces nothing.
       </Fragment>
       <Fragment slot="html">
         Disable a button chip with the <code>disabled</code> attribute. On a link
         chip, remove the <code>href</code> and add <code
           >aria-disabled="true"</code
         >. A static
-        {" "}<code>&lt;div class="ui-chip"&gt;</code> can't be disabled, so <code
-          >aria-disabled="true"</code
-        > only dims it a little and keeps its text readable.
+        {" "}<code>&lt;div class="ui-chip"&gt;</code> can't be disabled. Add <code
+          >.ui-disabled</code
+        > for an inactive look, which announces nothing.
       </Fragment>
       <Fragment slot="react">
         Disable a button or link chip with the <code>disabled</code> prop. A link
         chip drops its <code>href</code> and gets <code
           >aria-disabled="true"</code
-        > instead. A static chip can't be disabled, so <code
-          >aria-disabled="true"</code
-        > only dims it a little and keeps its text readable.
+        > instead. A static chip can't be disabled. Give it <code
+          >class="ui-disabled"</code
+        > for an inactive look, which announces nothing.
       </Fragment>
     </Conditional>
     <AutoExample name="Disabled" row />

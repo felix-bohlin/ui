@@ -292,7 +292,14 @@
     /* Disabled */
     &:is([disabled], [aria-disabled="true"]) {
       cursor: not-allowed;
-      opacity: var(--ui-disabled-opacity);
+
+      &:is(
+        .ui-filled,
+        .ui-tonal,
+        :where(.ui-button-group.ui-filled, .ui-button-group.ui-tonal) > *
+      ) {
+        opacity: var(--ui-disabled-opacity);
+      }
 
       &:not(
         .ui-filled,
@@ -300,6 +307,10 @@
         :where(.ui-button-group.ui-filled, .ui-button-group.ui-tonal) > *
       ) {
         --_text-color: var(--ui-text-disabled);
+      }
+
+      &:is(.ui-outlined, :where(.ui-button-group.ui-outlined) > *) {
+        --_border-color: var(--ui-text-disabled);
       }
     }
 

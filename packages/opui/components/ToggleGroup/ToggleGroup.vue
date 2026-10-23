@@ -12,7 +12,7 @@ const uid = useId()
 const groupName = computed(() => name || `toggle-group-${uid}`)
 const inputType = computed(() => (multiple ? "checkbox" : "radio"))
 const change = (input: HTMLInputElement) => {
-  model.value = selectionOf(input, multiple)
+  if (model.value !== undefined) model.value = selectionOf(input, multiple)
 }
 
 provide(

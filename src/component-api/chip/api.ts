@@ -61,14 +61,14 @@ export default {
     },
     {
       description:
-        'Disables a button chip. A link chip, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. On a static chip, `aria-disabled="true"` only dims it a little and keeps its text readable.',
+        "Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `aria-disabled=\"true\"` instead. A static chip can't be disabled; `.ui-disabled` gives it an inactive look without announcing a state.",
       frameworks: ["html"],
       group: "State",
       prop: "state",
       values: {
         button: "button[disabled]",
         link: 'a[aria-disabled="true"]',
-        static: 'div[aria-disabled="true"]',
+        static: ".ui-disabled",
       },
     },
     {

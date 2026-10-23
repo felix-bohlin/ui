@@ -47,6 +47,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-chip-size-x-small": "`Chip` height with `.ui-x-small`.",
   "--ui-choice-accent":
     "Fill of a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of `Range`. When unset, `--ui-primary`, with its lightness capped in dark mode for the choice controls. Set it to `--ui-primary` for the plain primary, like Material and shadcn.",
+  "--ui-choice-fill-max-lightness":
+    "The highest OKLCH lightness of a checked `Checkbox`, `Radio` and `Switch` fill in dark mode, so the light mark keeps 3:1. `0.62`.",
   "--ui-choice-label-offset":
     "Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.",
   "--ui-choice-on-accent":

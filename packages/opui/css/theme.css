@@ -153,6 +153,7 @@
     /* Choice controls */
     /* --ui-choice-accent: var(--ui-primary); */
     /* --ui-choice-on-accent: var(--ui-on-primary); */
+    --ui-choice-fill-max-lightness: 0.62;
     --ui-choice-label-offset: 0px;
     --ui-choice-ripple-bg-color: oklch(0.6 0 0 / 0.2);
 

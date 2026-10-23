@@ -254,7 +254,7 @@
 - `ButtonGroup` buttons draw a `ButtonBorder` border under `forced-colors: active`, where their shadows disappear.
 - `Dialog` takes `--ui-shadow-overlay`, like `Drawer` and `Menu`, instead of the raised card shadow.
 - `Select` group labels take a shade of the picker's surface and `--ui-text` for their text, instead of fixed gray steps.
-- The severity scopes (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`, `del`, `ins`, `abbr`, `dfn`) take their hue from the intent tokens (`--ui-neutral` for `.ui-neutral`), so a theme's `--ui-success` reaches every success surface.
+- The severity scopes (`.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning`, `del`, `ins`, `abbr`, `dfn`) take their hue from the intent tokens, so a theme's `--ui-success` reaches every success surface.
 - The unchecked `Switch` track border is `--ui-field-border-color`, like the checkbox and radio borders, instead of the dot color.
 - `normalize.css` sets `box-shadow` instead of `-webkit-box-shadow` on autofilled fields, and font and color inheritance on `::file-selector-button`.
 - `ButtonGroup` focus ring sits inside the button with a gap and uses `--ui-focus-ring-color`, so it shows on every variant and isn't clipped by the group.

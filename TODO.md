@@ -11383,3 +11383,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: tabs read `--ui-line-height-control` and keep their height through padding, and `html` reads `--ui-line-height`.
 - [ ] (1) Tokens: the token table hides instance inputs and files some tokens in the wrong section: `--ui-anchor-position-area` isn't listed (it is set per element, not themed), `--ui-code-block-*` sit under Typography, `--ui-track-bg-color` under Surfaces, and there is no Palette steps tier (`src/utils/theme-tokens.ts:24-47`, `packages/opui/css/theme.css`)
   - Fix: an "Instance inputs" section built from an explicit list in `theme-tokens.ts`, Code and Controls sections in `theme.css`, and a Palette steps tier generated from `core/palette.css`.
+- [ ] (2) Tokens: a severity class on the same element as `.ui-palette`, or on a direct child of `.ui-contrast-more`, loses its palette. `--ui-red`, `--ui-blue`, `--ui-green` and `--ui-orange` are declared again on those elements from `--ui-color-N`, which comes from the `--ui-palette-source` the severity scope derives from them, so Chromium drops the whole cycle as guaranteed-invalid. `.ui-neutral` keeps a fixed source for this reason, so a theme can't recolor neutral through `--ui-neutral` (`packages/opui/css/theme.css:275-278,321,483-486,543-554`, `packages/opui/core/palette.css:2-18,89-136`)
+  - Fix: confirm with `<div class="ui-contrast-more"><span class="ui-chip ui-critical">` and `<span class="ui-palette ui-chip ui-critical">`.
+  - Options:
+    - A (recommended): give the named colors and `--ui-neutral` the step's lightness as a number (steps 7, 9 and 11 have the same lightness in every palette), so they stop depending on the element's own palette, then derive `.ui-neutral` from `--ui-neutral` like the other scopes.
+    - B: keep today's values and document that a severity class can't sit on a `.ui-palette` element or a direct child of `.ui-contrast-more`.
+

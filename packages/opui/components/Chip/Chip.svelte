@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { content } from "../content.svelte"
   import { tagAttrs } from "../tag"
   import type { Props } from "./types.svelte"
 
@@ -8,15 +9,14 @@
     disabled,
     dot,
     href,
-    label,
     multiline,
     severity,
     size,
     variant = "tonal",
 
     // Snippets
-    children,
     end,
+    label,
     start,
     ...rest
   }: Props = $props()
@@ -39,7 +39,7 @@
   ]}
   {...tagAttrs(Tag, disabled, href)}
   {...rest}
-  >{@render start?.()}{@render children?.()}{#if label}<span class="ui-text"
-      >{label}</span
+  >{@render start?.()}{#if label}<span class="ui-text"
+      >{@render content(label)}</span
     >{/if}{@render end?.()}</svelte:element
 >

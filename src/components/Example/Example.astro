@@ -211,8 +211,11 @@ const outputId = `${groupName}-output`
             aria-expanded="false"
             aria-label={`Show ${codeLangLabel}`}
           >
-            <span class="code-label">{codeLangLabel}</span>
+            <span class="code-label" slot="label">
+              {codeLangLabel}
+            </span>
             <svg
+              slot="end"
               xmlns="http://www.w3.org/2000/svg"
               width="32"
               height="32"

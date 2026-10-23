@@ -14,7 +14,6 @@ export default function Chip({
   severity,
   size,
   variant = "tonal",
-  children,
   end,
   start,
   ...rest
@@ -39,7 +38,6 @@ export default function Chip({
       {...(rest as object)}
     >
       {start}
-      {children}
       {label && <span className="ui-text">{label}</span>}
       {end}
     </Tag>

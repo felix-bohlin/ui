@@ -70,7 +70,7 @@ const FRAMEWORK_BRANDING: Record<
                   data-framework={framework.id}
                 >
                   <Logo slot="start" />
-                  <span class="ui-text">{framework.label}</span>
+                  <Fragment slot="label">{framework.label}</Fragment>
                 </Chip>
               )
             })

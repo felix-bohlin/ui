@@ -10,22 +10,22 @@ export default {
       type: '"a" | "button" | "div"',
     },
     {
-      class: ".ui-disabled",
       default: "false",
       description:
         'Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead.',
-      group: "State",
-      htmlDescription:
-        "Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips.",
       prop: "disabled",
     },
     {
       description:
-        'Disables a button chip. A link chip, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
+        'Disables a button chip. A link chip, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. On a static chip, `aria-disabled="true"` only dims it a little and keeps its text readable.',
       frameworks: ["html"],
-      group: "Disabled",
-      prop: "disabledState",
-      values: { button: "button[disabled]", link: 'a[aria-disabled="true"]' },
+      group: "State",
+      prop: "state",
+      values: {
+        button: "button[disabled]",
+        link: 'a[aria-disabled="true"]',
+        static: 'div[aria-disabled="true"]',
+      },
     },
     {
       class: ".ui-dot",
@@ -87,9 +87,10 @@ export default {
       slots: ["start"],
     },
     {
-      description: "The label.",
+      description: "The label, text or rich content.",
       props: ["label"],
       selector: ".ui-chip > .ui-text",
+      slots: ["label"],
     },
     {
       code: "<svg>",
@@ -102,11 +103,5 @@ export default {
     description: "Container element. Can be a `<div>`, `<a>` or `<button>`.",
     selector: ".ui-chip",
   },
-  slots: [
-    {
-      description: "Content placed before the label.",
-      name: "default",
-    },
-  ],
   source: "Chip",
 } satisfies ComponentApi

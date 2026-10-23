@@ -59,12 +59,12 @@ const HEADINGS = {
                 <Icon />
               ))}
             </span>
-            <span class="ui-text">
+            <Fragment slot="label">
               {entry.label}
               {entry.level === "full" && entry.sinceVersion && (
                 <span class="version">{entry.sinceVersion}+</span>
               )}
-            </span>
+            </Fragment>
             <svg
               slot="end"
               xmlns="http://www.w3.org/2000/svg"

@@ -7,13 +7,7 @@ const features = Object.keys(featureToComponents).sort()
 ---
 
 <div class="chip-rain" aria-hidden="true" hidden>
-  {
-    features.map((id) => (
-      <Chip class="raindrop" size="small">
-        {id}
-      </Chip>
-    ))
-  }
+  {features.map((id) => <Chip class="raindrop" label={id} size="small" />)}
 </div>
 
 <script>

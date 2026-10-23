@@ -76,9 +76,8 @@ const years = Object.keys(categorized)
               type="button"
               data-id={id}
               class="filter-chip"
-            >
-              {id}
-            </Chip>
+              label={id}
+            />
           ))
         }
       </div>
@@ -110,9 +109,8 @@ const years = Object.keys(categorized)
               type="button"
               data-id={name}
               class="filter-chip"
-            >
-              {name}
-            </Chip>
+              label={name}
+            />
           ))
         }
       </div>
@@ -144,9 +142,8 @@ const years = Object.keys(categorized)
               type="button"
               data-id={year}
               class="filter-chip"
-            >
-              {year}
-            </Chip>
+              label={year}
+            />
           ))
         }
         <Chip
@@ -155,9 +152,8 @@ const years = Object.keys(categorized)
           type="button"
           data-id="limited"
           class="filter-chip"
-        >
-          Limited
-        </Chip>
+          label="Limited"
+        />
       </div>
     </div>
 

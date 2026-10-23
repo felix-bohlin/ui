@@ -57,7 +57,7 @@ const label = needs.length
     command="toggle-popover"
   >
     <Server slot="start" crossed={needs.length > 0} />
-    <span class="ui-text" set:html={label} />
+    <Fragment slot="label" set:html={label} />
   </Chip>
   <TooltipContent>
     <strong class="tooltip-heading"

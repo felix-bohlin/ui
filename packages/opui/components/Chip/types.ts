@@ -25,5 +25,6 @@ export type Props = {
 
 export type Slots<S> = {
   end?: S
+  label?: string | S
   start?: S
 }

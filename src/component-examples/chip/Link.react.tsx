@@ -5,6 +5,7 @@ export default function Link() {
     <>
       <Chip href="#" variant="tonal" label="Tonal link" />
       <Chip
+        label="Outlined link"
         href="#"
         variant="outlined"
         end={
@@ -21,9 +22,7 @@ export default function Link() {
             ></path>
           </svg>
         }
-      >
-        <span className="ui-text">Outlined link</span>
-      </Chip>
+      />
     </>
   )
 }

@@ -3,8 +3,7 @@
 </script>
 
 <Chip href="#" variant="tonal" label="Tonal link" />
-<Chip href="#" variant="outlined">
-  <span class="ui-text">Outlined link</span>
+<Chip href="#" variant="outlined" label="Outlined link">
   {#snippet end()}<svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"

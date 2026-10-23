@@ -317,6 +317,9 @@ const whatsNew = {
     ),
   ],
   chip: [
+    slots(
+      `Breaking: the default slot is gone. Pass the text as <a href="#api"><code>label</code></a>, or rich content in the <code>label</code> slot.`,
+    ),
     `Outlined chips take <code>--ui-shadow-control</code> like outlined buttons.`,
     `Chips without <code>.ui-outlined</code> read <code>--ui-control-border-color-filled</code> for their border, like filled buttons.`,
     `Outlined chips read <a href="#api"><code>--ui-control-border-color</code></a> for their border, like outlined buttons.`,
@@ -340,7 +343,7 @@ const whatsNew = {
       default: `<a href="#severities">Severities</a> for statuses with <code>severity</code>, and a shape-coded <a href="#dot"><code>dot</code></a>.`,
       html: `<a href="#severities">Severities</a> for statuses with <code>.ui-success</code>, <code>.ui-warning</code> and more, and a shape-coded <a href="#dot"><code>.ui-dot</code></a>.`,
     },
-    `<a href="#disabled">Disabled</a> chips: <code>aria-disabled="true"</code> on a button or link chip, and <code>.ui-disabled</code> to dim a static chip.`,
+    `<a href="#disabled">Disabled</a> chips: <code>aria-disabled="true"</code> on a link chip, and on a static chip to dim it.`,
     `Breaking: <code>--_color</code> is <code>--_text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     components(
       `<a href="#disabled"><code>disabled</code></a> works on button and link chips. A link chip gets <code>aria-disabled="true"</code>.`,

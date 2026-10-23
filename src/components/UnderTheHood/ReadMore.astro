@@ -21,8 +21,14 @@ const { topic } = Astro.props
             target="_blank"
             variant="outlined"
           >
-            {reference.code ? <code>{reference.label}</code> : reference.label}
-            <svg aria-hidden="true" viewBox="0 0 24 24">
+            <Fragment slot="label">
+              {reference.code ? (
+                <code>{reference.label}</code>
+              ) : (
+                reference.label
+              )}
+            </Fragment>
+            <svg aria-hidden="true" slot="end" viewBox="0 0 24 24">
               <path d="M14 3v2h3.6l-9.8 9.8 1.4 1.4L19 6.4V10h2V3zm5 16H5V5h7V3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-7h-2z" />
             </svg>
           </Chip>

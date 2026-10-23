@@ -36,7 +36,12 @@ const Tag = as || (href ? "a" : "div")
   ]}
   {...tagAttrs(Tag, disabled, href)}
   {...rest as HTMLAttributes<"button">}
-  ><slot name="start" /><slot />{
-    label && <span class="ui-text">{label}</span>
+  ><slot name="start" />{
+    (label || Astro.slots.has("label")) && (
+      <span class="ui-text">
+        {label}
+        <slot name="label" />
+      </span>
+    )
   }<slot name="end" /></Tag
 >

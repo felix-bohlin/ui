@@ -308,6 +308,13 @@ In Astro and Vue, a tonal `Chip` no longer renders `.ui-tonal`. Target `.ui-chip
 + .ui-chip:not(.ui-outlined) { --_bg-color: var(--ui-primary-tonal); }
 ```
 
+The default slot is gone. Pass the text as `label`, or rich content in the `label` slot.
+
+```diff
+- <Chip><span class="ui-text">Open now</span></Chip>
++ <Chip label="Open now" />
+```
+
 ## Classic select
 
 `ClassicSelect` is removed. Use `Select` with the same `label`, `items` (now `SelectItem[]`), `endText`, `size`, `variant` and `error`. Options passed as children go in Select's default slot. Browsers without customizable select show the native picker.

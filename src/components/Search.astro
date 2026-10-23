@@ -53,8 +53,9 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       type="button"
       variant="tonal"
       class="filter-chip active"
-      data-filter="all">All</Chip
-    >
+      data-filter="all"
+      label="All"
+    />
     {
       SEARCH_CATEGORIES.map((category) => (
         <Chip
@@ -65,9 +66,8 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
           variant="outlined"
           class="filter-chip"
           data-filter={category.id}
-        >
-          {category.label}
-        </Chip>
+          label={category.label}
+        />
       ))
     }
   </div>

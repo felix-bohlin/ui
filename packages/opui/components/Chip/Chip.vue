@@ -36,8 +36,9 @@ const Tag = computed<"a" | "button" | "div">(() => as || (href ? "a" : "div"))
     v-bind="tagAttrs(Tag, disabled, href)"
   >
     <slot name="start"></slot>
-    <slot></slot>
-    <span v-if="label" class="ui-text">{{ label }}</span>
+    <span v-if="label || $slots.label" class="ui-text"
+      >{{ label }}<slot name="label"></slot
+    ></span>
     <slot name="end"></slot>
   </component>
 </template>

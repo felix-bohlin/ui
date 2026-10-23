@@ -3,11 +3,13 @@ import type { ComponentProps, ReactNode } from "react"
 
 type Slots = Base.Slots<ReactNode>
 
+type WithoutLabel<T> = T extends unknown ? Omit<T, "label"> : never
+
 // prettier-ignore
-export type Props = Base.Props &
+export type Props = WithoutLabel<Base.Props> &
   Slots &
   (
-    | ({ as?: "a" } & ComponentProps<"a">)
-    | ({ as: "button" } & ComponentProps<"button">)
-    | ({ as?: "div" } & ComponentProps<"div">)
+    | ({ as?: "a" } & Omit<ComponentProps<"a">, "children">)
+    | ({ as: "button" } & Omit<ComponentProps<"button">, "children">)
+    | ({ as?: "div" } & Omit<ComponentProps<"div">, "children">)
   )

@@ -9,6 +9,7 @@ export default function Button() {
       </div>
       <div className="example-row">
         <Chip
+          label="Open now"
           as="button"
           variant="tonal"
           start={
@@ -25,10 +26,9 @@ export default function Button() {
               ></path>
             </svg>
           }
-        >
-          <span className="ui-text">Open now</span>
-        </Chip>
+        />
         <Chip
+          label="Sort by"
           as="button"
           variant="outlined"
           end={
@@ -45,9 +45,7 @@ export default function Button() {
               ></path>
             </svg>
           }
-        >
-          <span className="ui-text">Sort by</span>
-        </Chip>
+        />
       </div>
     </>
   )

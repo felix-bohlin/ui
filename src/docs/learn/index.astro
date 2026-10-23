@@ -90,30 +90,39 @@ const entries = posts
             <div class="ui-content">
               <ul aria-label="Tags" class="learn-chips">
                 <li>
-                  <Chip size="small">{labelOf(categories, post.category)}</Chip>
+                  <Chip
+                    size="small"
+                    label={labelOf(categories, post.category)}
+                  />
                 </li>
                 {post.component && (
                   <li>
-                    <Chip size="small" variant="outlined">
-                      {componentName(post.component)}
-                    </Chip>
+                    <Chip
+                      size="small"
+                      variant="outlined"
+                      label={componentName(post.component)}
+                    />
                   </li>
                 )}
                 {post.series && (
                   <li>
                     <Chip size="small" variant="outlined">
-                      {post.series.label}
-                      <span class="learn-chip-part">
-                        {post.series.part}/{post.series.total}
-                      </span>
+                      <Fragment slot="label">
+                        {post.series.label}
+                        <span class="learn-chip-part">
+                          {post.series.part}/{post.series.total}
+                        </span>
+                      </Fragment>
                     </Chip>
                   </li>
                 )}
                 {post.features.map((feature) => (
                   <li>
-                    <Chip size="small" variant="outlined">
-                      {feature.name}
-                    </Chip>
+                    <Chip
+                      size="small"
+                      variant="outlined"
+                      label={feature.name}
+                    />
                   </li>
                 ))}
               </ul>

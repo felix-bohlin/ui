@@ -4,6 +4,7 @@ export default function Icon() {
   return (
     <>
       <Chip
+        label="Tonal"
         variant="tonal"
         start={
           <svg
@@ -19,10 +20,9 @@ export default function Icon() {
             ></path>
           </svg>
         }
-      >
-        <span className="ui-text">Tonal</span>
-      </Chip>
+      />
       <Chip
+        label="Outlined"
         variant="outlined"
         end={
           <svg
@@ -38,9 +38,7 @@ export default function Icon() {
             ></path>
           </svg>
         }
-      >
-        <span className="ui-text">Outlined</span>
-      </Chip>
+      />
     </>
   )
 }

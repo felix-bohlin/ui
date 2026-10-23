@@ -824,7 +824,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
-- Breaking: `FieldSet` is [`Fieldset`](#fieldset).
+- Breaking: `FieldSet` is [`Fieldset`](#fieldset), and `FieldDescription` renders `.ui-description` instead of `.ui-field-description`.
 - Breaking: [`FieldGroup`](#field-group) no longer sets `role="group"`. Wrap it in a `Fieldset` to group and name the fields.
 - Breaking: set `error` on each field instead of `data-invalid` on the `Fieldset` ([Invalid](#fieldset-invalid)).
 - `Form`, `Fieldset` and `FieldLegend` type [`as`](#without-fieldset) as `"div" | "form"`, `"div" | "fieldset"` and `"legend" | "p"`.

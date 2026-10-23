@@ -592,7 +592,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The outlined track reads [`--ui-control-border-color`](#api) for its border, like outlined buttons.
 - Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-bg-color` and `--_track-bg-color`.
 - Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. `TabsItem` and `TabsPanel` no longer take `panelId`, and `TabsPanel` no longer takes `tabId`.
-- Breaking: `TabsTab` is [`TabsLabel`](#api).
+- Breaking: `TabsTab` is [`TabsLabel`](#api), and the parts render `.ui-input`, `.ui-label` and `.ui-panel` instead of `.ui-tab-input`, `.ui-tab-label` and `.ui-tab-panel`.
 - Tabs that [scroll](#overflow) with `overflow="scroll"`.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with the `variant` prop.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

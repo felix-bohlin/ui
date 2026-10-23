@@ -578,7 +578,6 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The selected pill has a border, `--ui-control-border-color` or the field border, so it reaches 3:1 against the track without the shadow.
 - The outlined track reads [`--ui-control-border-color`](#api) for its border, like outlined buttons.
 - Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-bg-color` and `--_track-bg-color`.
-- Breaking: `TabsTab` is [`TabsLabel`](#api).
 - Tabs that [scroll](#overflow) with `overflow="scroll"`.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with the `variant` prop.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

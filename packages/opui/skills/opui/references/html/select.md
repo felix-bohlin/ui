@@ -844,7 +844,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-padding`           | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |
-| `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                                                                      |
+| `--_border-color`            | Output | The current border color of `.ui-field` and the `.ui-top` and `.ui-bottom` dividers. Set by the invalid state.                                                 |
 | `--_chevron-image`           | Input  | The select arrow, as an image used for a mask.                                                                                                                 |
 | `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                                          |
 | `--_duration`                | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                                       |

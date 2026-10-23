@@ -445,7 +445,7 @@ import {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `checked`, `disabled`, `name` and `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in the slot.
+Attributes that aren't props go to the `<input>`, like `checked`, `disabled`, `name` and `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
 
 ### Radio input API
 

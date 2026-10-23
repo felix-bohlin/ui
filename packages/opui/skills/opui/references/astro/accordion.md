@@ -616,6 +616,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - Breaking: `--_border-radius` is `--_radius` ([Under the hood](#under-the-hood)).
+- Breaking: `Accordion` no longer renders `.ui-card`. Style [`.ui-accordion`](#basics) instead.
 - Tonal and elevated [accordions](#variants) have a border in the page background color, like cards, so they stay visible on tonal surfaces.
 - The inset focus ring sits at `--ui-focus-ring-inset` like every other inset ring, and elevated and tonal accordions keep a border in forced colors.
 - Breaking: [`AccordionSummary`, `AccordionContent`](#basics) and [`AccordionActions`](#actions) replace the slots, and the root no longer wraps its children in `.ui-content`.

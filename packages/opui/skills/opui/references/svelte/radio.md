@@ -460,7 +460,7 @@ Bind the selected value with `bind:group` on each `Radio`. It holds the `value` 
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`.
+Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.
 
 ### Radio input API
 

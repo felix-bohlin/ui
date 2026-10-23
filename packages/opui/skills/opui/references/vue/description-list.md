@@ -328,5 +328,6 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: the part files are `DescriptionListDescription.*`, `DescriptionListItem.*` and `DescriptionListTerm.*`. Update deep `opui-css/components/*` imports ([API](#api)).
 - Breaking: `Description` is now [`DescriptionListDescription`](#api), like Astro.
 - [Orientation](#orientation): `orientation="horizontal"` keeps terms and descriptions side by side at any width.
+- Breaking: [items](#bordered) render a plain `div` without `.ui-item`.
 - Breaking: [`bordered`](#bordered) takes `"solid"` or `"dotted"`.
 - Breaking: `DescriptionListTerm` and `DescriptionListDescription` no longer render `.ui-term` and `.ui-description`. Select `dt` and `dd` in your CSS ([Basics](#basics)).

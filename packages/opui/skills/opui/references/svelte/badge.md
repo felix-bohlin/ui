@@ -14,7 +14,7 @@
 
 - `label / indicator`
 
-  The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.
+  The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`.
 
 ## Dot
 
@@ -284,11 +284,11 @@ Set `corner` to `start-start`, `start-end` (the default), `end-start` or `end-en
 | `children`  | `Snippet`                                                         | -             | The element the badge is anchored to.                                                                                                                                                |
 | `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -             | Optional colors.                                                                                                                                                                     |
 | `corner`    | `"end-end"` , `"end-start"` , `"start-end"` , `"start-start"`     | `"start-end"` | The corner the indicator sits on.                                                                                                                                                    |
-| `dot`       | `boolean`                                                         | `false`       | Renders the indicator as a dot, without a label.                                                                                                                                     |
+| `dot`       | `boolean`                                                         | `false`       | Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown.                                                                           |
 | `hideLabel` | `boolean`                                                         | `false`       | Hides `label` visually, for the whole sentence screen readers read, such as "5 unread messages". The `indicator` slot then holds the visible text and is hidden from screen readers. |
-| `indicator` | `Snippet`                                                         | -             | The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.                                                                                           |
+| `indicator` | `Snippet`                                                         | -             | The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`.                                                       |
 | `invisible` | `boolean`                                                         | `false`       | Hides the indicator.                                                                                                                                                                 |
-| `label`     | `string`                                                          | -             | The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.                                                                                           |
+| `label`     | `string`                                                          | -             | The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`.                                                       |
 
 #### CSS variables
 
@@ -323,7 +323,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property          | Kind   | Description                                                                                                               |
 | ----------------- | ------ | ------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`       | Input  | The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info` and `.ui-success`.                  |
+| `--_accent`       | Input  | The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral` and `.ui-success`.   |
 | `--_bg-color`     | Output | Background of the indicator. Defaults to `--ui-primary`, set by the color classes.                                        |
 | `--_border-color` | Output | Border color of the indicator. Set by the color classes.                                                                  |
 | `--_border-width` | Input  | Border width of the indicator.                                                                                            |

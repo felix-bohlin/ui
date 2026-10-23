@@ -781,9 +781,3 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Select](https://open-props-ui.netlify.app/svelte/components/select.md)
 - [Text Field](https://open-props-ui.netlify.app/svelte/components/text-field.md)
 - [Textarea](https://open-props-ui.netlify.app/svelte/components/textarea.md)
-
-## Changelog
-
-### What's new
-
-- Breaking: `FieldSet` is [`Fieldset`](#fieldset).

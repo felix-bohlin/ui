@@ -694,7 +694,7 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 
 | Type     | Modifiers                               | Default | Description                                                            |
 | -------- | --------------------------------------- | ------- | ---------------------------------------------------------------------- |
-| Bordered | `.ui-bordered`                          | -       | Adds a border between list items.                                      |
+| Borders  | `.ui-bordered`                          | -       | Adds a border between list items.                                      |
 | Dense    | `.ui-dense`                             | -       | Packs the items tighter.                                               |
 | Flush    | `.ui-flush`                             | -       | Removes the inline padding.                                            |
 | Variants | default, `.ui-tonal`, `.ui-transparent` | default | The variant to use. The default `filled` list uses the filled surface. |
@@ -748,13 +748,13 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### List item API
 
-| Type       | Modifiers                                                       | Default | Description                                                                                                                  |
-| ---------- | --------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Border top | `.ui-border-top`                                                | -       | Adds a border above the item.                                                                                                |
-| Colors     | `.ui-critical`                                                  | -       | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/html/components/menu.md). |
-| Inset      | `.ui-inset`                                                     | -       | Aligns the text with items that have start content.                                                                          |
-| State      | `[aria-current="page"]`, `[aria-disabled="true"]`, `[disabled]` | -       | Highlights the current item, or dims a disabled one. Set it on the `<a>`, `<button>` or `<label>`.                           |
-| Type       | `label.ui-checkbox`, `label.ui-radio`, `label.ui-switch`        | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                     |
+| Type    | Modifiers                                                       | Default | Description                                                                                                                  |
+| ------- | --------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Borders | `.ui-border-top`                                                | -       | Adds a border above the item.                                                                                                |
+| Colors  | `.ui-critical`                                                  | -       | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/html/components/menu.md). |
+| Inset   | `.ui-inset`                                                     | -       | Aligns the text with items that have start content.                                                                          |
+| State   | `[aria-current="page"]`, `[aria-disabled="true"]`, `[disabled]` | -       | Highlights the current item, or dims a disabled one. Set it on the `<a>`, `<button>` or `<label>`.                           |
+| Type    | `label.ui-checkbox`, `label.ui-radio`, `label.ui-switch`        | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                     |
 
 #### Parts
 

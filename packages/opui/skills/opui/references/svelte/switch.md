@@ -573,7 +573,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`.
+Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.
 
 ### Switch input API
 
@@ -905,7 +905,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - [`label`](#api) takes the label text, a shorthand for the default slot.
-- Breaking: `--_track-height` and `--_track-width` are `--_track-block-size` and `--_track-inline-size` ([Under the hood](#under-the-hood)).
+- Breaking: `--_track-height` and `--_track-width` are `--_track-block-size` and `--_track-inline-size`, `--_accent-contrast` is `--_on-accent`, and the `--_dot-*` properties are `--_thumb-*` ([Under the hood](#under-the-hood)).
 - The unchecked thumb and track read [`--ui-switch-thumb-bg-color`](#api) and `--ui-switch-track-bg-color`.
 - The unchecked track border is [`--ui-field-border-color`](#api), like the checkbox and radio borders.
 - The checked track reads [`--ui-choice-accent`](#api) and the unchecked track `--ui-track-bg-color` when a theme sets them.

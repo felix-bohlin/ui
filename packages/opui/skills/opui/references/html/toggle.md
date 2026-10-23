@@ -454,12 +454,12 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Toggle button API
 
-| Type     | Modifiers                                        | Default                  | Description                                                |
-| -------- | ------------------------------------------------ | ------------------------ | ---------------------------------------------------------- |
-| Checked  | `input[checked]`                                 | -                        | Selects the button.                                        |
-| Disabled | `input[disabled]`                                | -                        | Disables the button.                                       |
-| Sizes    | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default                  | The size of the element.                                   |
-| Type     | `input[type="checkbox"]`, `input[type="radio"]`  | `input[type="checkbox"]` | The input type. `"radio"` allows one selection in a group. |
+| Type     | Modifiers                                        | Default                  | Description                                                                                                               |
+| -------- | ------------------------------------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| Checked  | `input[checked]`                                 | -                        | Selects the button.                                                                                                       |
+| Disabled | `input[disabled]`                                | -                        | Disables the button.                                                                                                      |
+| Sizes    | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default                  | The size of the element.                                                                                                  |
+| Type     | `input[type="checkbox"]`, `input[type="radio"]`  | `input[type="checkbox"]` | The input type. `"radio"` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio. |
 
 #### Parts
 

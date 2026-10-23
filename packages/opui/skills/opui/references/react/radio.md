@@ -547,7 +547,7 @@ export default function FieldGroupBinding() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.
+Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.
 
 ### Radio input API
 

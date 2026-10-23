@@ -10,6 +10,7 @@ import {
   FieldLegend,
   Fieldset,
   Radio,
+  Select,
   ToggleButton,
 } from "opui-css/astro"
 import CommentField from "../../components/Todo/CommentField.astro"
@@ -18,6 +19,7 @@ import InlineText from "../../components/Todo/InlineText.astro"
 import TodoNotes from "../../components/Todo/TodoNotes.astro"
 import Document from "../../layouts/Document.astro"
 import {
+  actionValues,
   fixOptions,
   parseTodo,
   plainText,
@@ -75,22 +77,35 @@ const examplesFor = (text: string) => {
   ]
 }
 
+const chipSeverity = (severity = 0) =>
+  severity >= 7
+    ? "critical"
+    : severity >= 4
+      ? "warning"
+      : severity === 3
+        ? "info"
+        : "neutral"
+
 const todoSections = sections.map((section) => ({
   ...section,
-  items: section.items.map((item) => ({
-    ...item,
-    ...fixOptions(item.notes),
-    examples: examplesFor(item.text),
-  })),
+  items: section.items
+    .map((item) => ({
+      ...item,
+      ...fixOptions(item.notes),
+      examples: examplesFor(item.text),
+    }))
+    .toSorted((a, b) => (b.severity ?? 0) - (a.severity ?? 0)),
 }))
 
-const actions = [
-  "None",
-  "Explain further",
-  "Explain further and provide an example",
-  "Fix",
-  "Remove issue",
-]
+const components = [
+  ...new Set(
+    sections.flatMap((section) =>
+      section.items.map((item) => item.component ?? "Other"),
+    ),
+  ),
+].toSorted((a, b) => a.localeCompare(b))
+
+const actions = ["None", ...actionValues]
 
 const count = itemCount(sections)
 ---
@@ -112,37 +127,119 @@ const count = itemCount(sections)
     }
   </p>
 
+  <form class="todo-filters ui-not-rich-text" id="todo-filters">
+    <Select
+      id="todo-filter-section"
+      items={[
+        { label: "All sections", value: "" },
+        ...sections.map((section) => ({
+          label: section.title,
+          value: slugify(section.title),
+        })),
+      ]}
+      label="Section"
+      size="small"
+    />
+    <Select
+      id="todo-filter-severity"
+      items={[
+        { label: "All severities", value: "" },
+        { label: "1", value: "1" },
+        { label: "2", value: "2" },
+        { label: "3", value: "3" },
+        { label: "4 and up", value: "4" },
+      ]}
+      label="Severity"
+      size="small"
+    />
+    <Select
+      id="todo-filter-component"
+      items={[
+        { label: "All components", value: "" },
+        ...components.map((component) => ({
+          label: component,
+          value: slugify(component),
+        })),
+      ]}
+      label="Component"
+      size="small"
+    />
+    <ToggleButton id="todo-filter-unanswered" size="small">
+      Unanswered only
+    </ToggleButton>
+  </form>
+  <p class="todo-shortcuts">
+    <kbd>j</kbd>
+    <kbd>k</kbd> next and previous todo, <kbd>n</kbd> next unanswered, <kbd
+      >a</kbd
+    > accept, <kbd>1</kbd> to <kbd>5</kbd> actions, <kbd>c</kbd> comment, <kbd
+      >e</kbd
+    > details.
+  </p>
+
   {
     todoSections.map((section) => (
-      <section data-todo-section={section.title}>
+      <section
+        data-todo-section={section.title}
+        data-todo-section-slug={slugify(section.title)}
+      >
         <h2 id={slugify(section.title)}>{section.title}</h2>
         <ol class="todo-list ui-not-rich-text">
           {section.items.map((item, index) => (
             <li
               class="todo-item"
+              data-todo-component={slugify(item.component ?? "Other")}
               data-todo-key={slugify(item.text)}
               data-todo-line={item.line}
+              data-todo-recommended={item.recommended?.action}
+              data-todo-severity={item.severity}
             >
               <button class="todo-summary" type="button">
                 <span class="todo-summary-text">
-                  <InlineText text={item.text} />
+                  <InlineText text={item.summary ?? item.text} />
                 </span>
                 <span class="todo-summary-answer" />
               </button>
-              <div class="todo-text" tabindex="-1">
+              <div class="todo-head" tabindex="-1">
                 {item.severity && (
                   <Chip
                     class="todo-severity"
+                    dot
                     label={`Severity ${item.severity}`}
+                    severity={chipSeverity(item.severity)}
                     size="small"
                     variant="tonal"
                   />
                 )}
-                <span>
-                  <InlineText text={item.text} />
+                {item.component && (
+                  <strong class="todo-component">{item.component}</strong>
+                )}
+                <span class="todo-headline">
+                  <InlineText text={item.summary ?? item.headline} />
                 </span>
               </div>
-              <TodoNotes notes={item.notes} />
+              {item.summary ? (
+                <Accordion class="todo-details" variant="outlined">
+                  <AccordionSummary>Details</AccordionSummary>
+                  <AccordionContent>
+                    <p class="todo-text">
+                      <InlineText text={item.headline} />
+                    </p>
+                    <TodoNotes notes={item.notes} />
+                    {item.files.length > 0 && (
+                      <ul class="todo-files">
+                        {item.files.map((file) => (
+                          <li>
+                            <code>{file}</code>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </AccordionContent>
+                </Accordion>
+              ) : (
+                <TodoNotes notes={item.notes} />
+              )}
               {item.examples.length > 0 && (
                 <Accordion class="todo-examples" variant="outlined">
                   <AccordionSummary>
@@ -174,6 +271,27 @@ const count = itemCount(sections)
                   </AccordionContent>
                 </Accordion>
               )}
+              {item.recommended && (
+                <p class="todo-recommended">
+                  <span>
+                    Recommended:{" "}
+                    <strong>
+                      {`${item.recommended.action}${item.recommended.reason ? "." : ""}`}
+                    </strong>
+                    {item.recommended.reason && (
+                      <InlineText text={item.recommended.reason} />
+                    )}
+                  </span>
+                  <Button
+                    class="todo-accept"
+                    data-accept
+                    size="small"
+                    variant="outlined"
+                  >
+                    Accept
+                  </Button>
+                </p>
+              )}
               <CommentField text={item.text} />
               <Fieldset class="todo-actions-field">
                 <FieldLegend class="ui-sr-only">
@@ -197,6 +315,9 @@ const count = itemCount(sections)
                         value={action}
                       >
                         {action}
+                        {item.recommended?.action === action && (
+                          <span class="todo-mark">Recommended</span>
+                        )}
                       </ToggleButton>
                     ))}
                 </FieldGroup>
@@ -207,7 +328,16 @@ const count = itemCount(sections)
                       name={`todo-action-${slugify(section.title)}-${index}`}
                     >
                       {item.options.map((option) => (
-                        <div class="todo-fix-option">
+                        <div
+                          class:list={[
+                            "todo-fix-option",
+                            {
+                              "is-recommended":
+                                item.recommended?.action ===
+                                `Fix with option ${option.id}`,
+                            },
+                          ]}
+                        >
                           <Radio
                             class="todo-action"
                             size="small"
@@ -217,6 +347,10 @@ const count = itemCount(sections)
                             {option.note
                               ? `Option ${option.id} (${option.note})`
                               : `Option ${option.id}`}
+                            {item.recommended?.action ===
+                              `Fix with option ${option.id}` && (
+                              <span class="todo-mark">Recommended</span>
+                            )}
                             <Fragment slot="end-text">
                               <InlineText text={option.text} />
                             </Fragment>
@@ -244,11 +378,14 @@ const count = itemCount(sections)
   </section>
 
   <div class="todo-dock ui-not-rich-text">
-    <p class="todo-count" id="todo-count">{`0/${count} answered`}</p>
+    <p class="todo-count" id="todo-count">
+      {`0/${count}`}<span class="todo-count-label"> answered</span>
+    </p>
     <p class="todo-status" id="todo-status" role="status"></p>
     <ToggleButton id="todo-hide-answered" size="small"
       >Hide answered</ToggleButton
     >
+    <Button id="todo-next" size="small" variant="outlined">Next</Button>
     <Button id="todo-copy" size="small" variant="filled">Copy</Button>
   </div>
 </Document>
@@ -266,6 +403,8 @@ const count = itemCount(sections)
 
   const items = [...document.querySelectorAll<HTMLElement>(".todo-item")]
   const keyOf = (item: HTMLElement) => item.dataset.todoKey!
+  const headOf = (item: HTMLElement) =>
+    item.querySelector<HTMLElement>(".todo-head")!
   const actionsOf = (item: HTMLElement) => [
     ...item.querySelectorAll<HTMLInputElement>(".todo-action input"),
   ]
@@ -309,11 +448,98 @@ const count = itemCount(sections)
   const answerOf = (item: HTMLElement) =>
     [checkedAction(item), comments.commentOf(item)].filter(Boolean).join(": ")
 
+  const filters = {
+    component: document.querySelector<HTMLSelectElement>(
+      "#todo-filter-component",
+    )!,
+    section: document.querySelector<HTMLSelectElement>("#todo-filter-section")!,
+    severity: document.querySelector<HTMLSelectElement>(
+      "#todo-filter-severity",
+    )!,
+    unanswered: document.querySelector<HTMLInputElement>(
+      "#todo-filter-unanswered",
+    )!,
+  }
+
+  const matchesFilters = (item: HTMLElement) => {
+    const section = item.closest<HTMLElement>("[data-todo-section-slug]")!
+    const severity = Number(item.dataset.todoSeverity ?? 0)
+    const wanted = Number(filters.severity.value)
+    return (
+      (!filters.section.value ||
+        section.dataset.todoSectionSlug === filters.section.value) &&
+      (!filters.severity.value ||
+        (wanted >= 4 ? severity >= 4 : severity === wanted)) &&
+      (!filters.component.value ||
+        item.dataset.todoComponent === filters.component.value) &&
+      (!filters.unanswered.checked || !answerOf(item))
+    )
+  }
+
+  const visibleItems = () => items.filter((item) => !item.hidden)
+
   const answerCount = document.querySelector("#todo-count")!
   const countAnswered = () => {
-    const answered = items.filter(answerOf).length
-    answerCount.textContent = `${answered}/${items.length} answered`
+    const visible = visibleItems()
+    const answered = visible.filter(answerOf).length
+    const hidden = items.length - visible.length
+    const label = document.createElement("span")
+    label.className = "todo-count-label"
+    label.textContent = " answered"
+    answerCount.replaceChildren(`${answered}/${visible.length}`, label)
+    if (hidden) {
+      const link = document.createElement("a")
+      link.className = "ui-link"
+      link.href = "#todo-filters"
+      link.textContent = `${hidden} hidden`
+      answerCount.append(", ", link)
+    }
   }
+
+  const applyFilters = () => {
+    for (const item of items) item.hidden = !matchesFilters(item)
+    for (const section of document.querySelectorAll<HTMLElement>(
+      "[data-todo-section]",
+    ))
+      section.hidden = !section.querySelector(".todo-item:not([hidden])")
+    countAnswered()
+  }
+
+  const syncFiltersToUrl = () => {
+    const params = new URLSearchParams(location.search)
+    for (const [name, control] of Object.entries(filters)) {
+      const value =
+        control instanceof HTMLInputElement
+          ? control.checked
+            ? "1"
+            : ""
+          : control.value
+      if (value) params.set(name, value)
+      else params.delete(name)
+    }
+    const query = params.toString()
+    history.replaceState(
+      null,
+      "",
+      `${location.pathname}${query ? `?${query}` : ""}${location.hash}`,
+    )
+  }
+
+  const readFiltersFromUrl = () => {
+    const params = new URLSearchParams(location.search)
+    for (const [name, control] of Object.entries(filters)) {
+      const value = params.get(name) ?? ""
+      if (control instanceof HTMLInputElement) control.checked = value === "1"
+      else if ([...control.options].some((option) => option.value === value))
+        control.value = value
+    }
+  }
+
+  for (const control of Object.values(filters))
+    control.addEventListener("change", () => {
+      syncFiltersToUrl()
+      applyFilters()
+    })
 
   const hideKey = "opui-todo-hide-answered"
   const hideAnswered = document.querySelector<HTMLInputElement>(
@@ -333,13 +559,15 @@ const count = itemCount(sections)
     collapseAnswered()
   })
 
+  const expand = (item: HTMLElement) => {
+    item.classList.remove("is-collapsed")
+    headOf(item).focus({ preventScroll: true })
+  }
+
   for (const item of items)
-    item.querySelector(".todo-summary")!.addEventListener("click", () => {
-      item.classList.remove("is-collapsed")
-      item
-        .querySelector<HTMLElement>(".todo-text")!
-        .focus({ preventScroll: true })
-    })
+    item
+      .querySelector(".todo-summary")!
+      .addEventListener("click", () => expand(item))
 
   for (const item of items)
     item
@@ -357,7 +585,106 @@ const count = itemCount(sections)
     }
   }
 
-  countAnswered()
+  const accept = (item: HTMLElement) => {
+    const recommended = item.dataset.todoRecommended
+    const input = actionsOf(item).find((input) => input.value === recommended)
+    if (!input) return
+    input.checked = true
+    input.dispatchEvent(new Event("change", { bubbles: true }))
+    collapseAnswered()
+    setStatus(`Accepted: ${recommended}`)
+  }
+
+  for (const item of items)
+    item
+      .querySelector("[data-accept]")
+      ?.addEventListener("click", () => accept(item))
+
+  let lastItem: HTMLElement | undefined
+
+  const currentItem = () =>
+    document.activeElement?.closest<HTMLElement>(".todo-item") ??
+    (lastItem && !lastItem.hidden ? lastItem : undefined)
+
+  const goTo = (item: HTMLElement | undefined) => {
+    if (!item) {
+      setStatus("No unanswered todos.")
+      return
+    }
+    lastItem = item
+    item.classList.remove("is-collapsed")
+    item.scrollIntoView({ block: "start" })
+    headOf(item).focus({ preventScroll: true })
+  }
+
+  const nextUnanswered = () => {
+    const candidates = visibleItems().filter((item) => !answerOf(item))
+    const current = currentItem()
+    const top = current ? current.getBoundingClientRect().top : 0
+    goTo(
+      candidates.find(
+        (item) => item !== current && item.getBoundingClientRect().top > top,
+      ) ?? candidates.find((item) => item !== current),
+    )
+  }
+
+  const step = (direction: 1 | -1) => {
+    const visible = visibleItems()
+    const current = currentItem()
+    const index = current ? visible.indexOf(current) : -1
+    goTo(
+      visible[
+        index < 0 ? (direction > 0 ? 0 : visible.length - 1) : index + direction
+      ],
+    )
+  }
+
+  document.querySelector("#todo-next")!.addEventListener("click", () => {
+    nextUnanswered()
+  })
+
+  document.addEventListener("keydown", (event) => {
+    const target = event.target as HTMLElement
+    if (
+      event.metaKey ||
+      event.ctrlKey ||
+      event.altKey ||
+      document.querySelector("dialog[open]")
+    )
+      return
+    const inField = target.closest("input, textarea, select, [contenteditable]")
+    if (inField) {
+      if (event.key === "Escape" && target.matches("textarea")) {
+        const item = currentItem()
+        if (item) headOf(item).focus({ preventScroll: true })
+      }
+      return
+    }
+    const item = currentItem()
+    const pill = /^[1-5]$/.test(event.key) ? Number(event.key) : 0
+    if (event.key === "j") step(1)
+    else if (event.key === "k") step(-1)
+    else if (event.key === "n") nextUnanswered()
+    else if (event.key === "a" && item) accept(item)
+    else if (event.key === "c" && item) {
+      item.querySelector("textarea")!.focus()
+      event.preventDefault()
+    } else if (event.key === "e" && item) {
+      const details = item.querySelector<HTMLDetailsElement>(".todo-details")
+      if (details) details.open = !details.open
+    } else if (pill && item) {
+      const input = item.querySelectorAll<HTMLInputElement>(
+        ".todo-action-row .todo-action input",
+      )[pill - 1]
+      if (!input) return
+      input.checked = true
+      input.dispatchEvent(new Event("change", { bubbles: true }))
+    } else return
+    event.preventDefault()
+  })
+
+  readFiltersFromUrl()
+  applyFilters()
   collapseAnswered()
 
   const buildText = () => {
@@ -458,19 +785,45 @@ const count = itemCount(sections)
       for (const input of actionsOf(item))
         input.checked = input.value === "None"
     writeActions({})
-    countAnswered()
+    applyFilters()
     collapseAnswered()
     setStatus("Comments and actions cleared.")
   })
 </script>
 
 <style>
+  .todo-filters {
+    align-items: end;
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin-block-end: var(--size-3);
+  }
+
+  .todo-shortcuts {
+    color: var(--ui-text);
+    display: none;
+    font-size: var(--ui-font-size-small);
+    margin: 0 0 var(--size-4);
+
+    @media (pointer: fine) {
+      display: block;
+    }
+  }
+
   .todo-list {
     display: grid;
     gap: var(--size-4);
     list-style: none;
     margin: 0 0 var(--size-6);
     padding: 0;
+  }
+
+  .todo-item,
+  :global(section[data-todo-section]) {
+    &[hidden] {
+      display: none;
+    }
   }
 
   .todo-item {
@@ -480,10 +833,51 @@ const count = itemCount(sections)
     padding-block-end: var(--size-4);
   }
 
-  .todo-text {
-    :global(.todo-severity) {
-      margin-inline-end: var(--size-2);
+  .todo-head {
+    align-items: center;
+    border-radius: var(--ui-radius);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+    scroll-margin-block-start: calc(var(--size-10) + var(--size-3));
+
+    &:focus-visible {
+      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+        var(--ui-focus-ring-color);
+      outline-offset: var(--ui-focus-ring-offset);
     }
+  }
+
+  .todo-headline {
+    flex-basis: 100%;
+  }
+
+  .todo-text {
+    margin: 0 0 var(--size-2);
+  }
+
+  .todo-files {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    list-style: none;
+    margin: var(--size-2) 0 0;
+    padding: 0;
+  }
+
+  .todo-recommended {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--ui-font-size-small);
+    gap: var(--size-2) var(--size-3);
+    justify-content: space-between;
+    margin: 0;
+  }
+
+  .todo-mark {
+    color: var(--ui-primary-text);
+    font-size: var(--ui-font-size-caption);
+    margin-inline-start: var(--size-1);
   }
 
   .todo-example {
@@ -542,6 +936,10 @@ const count = itemCount(sections)
       }
     }
 
+    &.is-recommended {
+      border-color: var(--ui-primary);
+    }
+
     &:has(:checked) {
       background-color: var(--ui-primary-tonal);
       border-color: var(--ui-primary);
@@ -576,6 +974,7 @@ const count = itemCount(sections)
     padding: var(--size-2) var(--size-3);
     padding-block-end: max(var(--size-2), env(safe-area-inset-bottom));
     position: sticky;
+    white-space: nowrap;
     z-index: 1;
   }
 
@@ -587,11 +986,24 @@ const count = itemCount(sections)
     font-variant-numeric: tabular-nums;
     margin: 0;
     min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .todo-count:has(+ .todo-status:not(:empty)),
   .todo-status:empty {
     display: none;
+  }
+
+  @media (width < 30rem) {
+    .todo-dock {
+      gap: var(--size-1);
+      padding-inline: var(--size-2);
+    }
+
+    :global(.todo-count-label) {
+      display: none;
+    }
   }
 
   .todo-summary {

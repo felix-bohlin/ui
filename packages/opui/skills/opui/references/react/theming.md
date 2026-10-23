@@ -203,8 +203,8 @@ Style queries match the parent, so the values land on `body`, on the children of
       .ui-success,
       .ui-warning
     ),
-    .ui-card:is(.ui-elevated, .ui-tonal),
-    .ui-list:not(.ui-tonal, .ui-transparent),
+    :is(.ui-card, .ui-dialog):is(.ui-elevated, .ui-tonal),
+    :is(.ui-list, .ui-menu):not(.ui-tonal, .ui-transparent),
     .ui-table th
   ) {
     --ui-border-color: var(--ui-text);

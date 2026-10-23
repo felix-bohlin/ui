@@ -102,6 +102,7 @@ const splitHeadline = (text: string) => {
       ? entries.map((entry) => entry.slice(1, -1))
       : []
   if (files.length) headline = headline.slice(0, -refs![0].length)
+  if (component) headline = headline.charAt(0).toUpperCase() + headline.slice(1)
 
   return { component, files, headline }
 }

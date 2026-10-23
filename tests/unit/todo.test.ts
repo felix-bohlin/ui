@@ -146,17 +146,17 @@ describe("parseTodo", () => {
           "packages/opui/css/components/choice.css:12-18",
           "src/docs/components/checkbox.astro",
         ],
-        headline: "the label wraps",
+        headline: "The label wraps",
       },
       {
         component: "Docs site",
         files: ["src/layouts/Document.astro:4"],
-        headline: "dead CSS",
+        headline: "Dead CSS",
       },
       {
         component: "Tabs",
         files: [],
-        headline: "the pill is off (`layout` Surfaces, `forms` Fields)",
+        headline: "The pill is off (`layout` Surfaces, `forms` Fields)",
       },
       {
         component: undefined,
@@ -233,7 +233,7 @@ describe("parseTodo", () => {
     for (const item of sections.flatMap((section) => section.items)) {
       const { options } = fixOptions(item.notes)
       const stray = item.notes.find(
-        (note) => note.kind === "item" && /^Recommended:/.test(note.text),
+        (note) => note.kind === "item" && note.text.startsWith("Recommended:"),
       )
       expect(stray, item.text).toBeUndefined()
       if (!item.recommended) continue

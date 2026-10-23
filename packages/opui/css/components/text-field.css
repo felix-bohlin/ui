@@ -449,6 +449,10 @@
 
     &.ui-small,
     &.ui-x-small {
+      @media (pointer: coarse) {
+        --_font-size: var(--ui-font-size-control);
+      }
+
       &:has(input[type="color"]) {
         .ui-label {
           line-height: var(--ui-line-height);

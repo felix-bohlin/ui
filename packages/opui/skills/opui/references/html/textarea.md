@@ -68,6 +68,8 @@ Textareas are outlined by default. Add `.ui-filled` for a filled textarea.
 
 Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 
+On touch screens, x-small and small fields keep the default text size (`--ui-font-size-control`, 16px), so iOS Safari doesn't zoom in when one is focused.
+
 ```html
 <label class="ui-textarea ui-x-small">
   <span class="ui-label">x-small</span>

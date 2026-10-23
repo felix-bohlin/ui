@@ -361,6 +361,7 @@
 - `TextField`, `Textarea` and `Select` with `spread` (`.ui-spread`) collapse to a column when narrower than 400px. Previously the field was squeezed next to the label.
 - `Select` with `spread` centers its arrow on the field.
 - `TextField` and `Select` small fields are `--ui-field-size-small` (32px) high, like a small `Button`. They were 38px.
+- `TextField`, `Textarea` and `Select` x-small and small fields keep the default `--ui-font-size-control` text on touch screens, so iOS Safari no longer zooms in when one is focused.
 - `TextField` date, time, week and month inputs no longer grow taller than the field, so small ones are 32px and time inputs are no longer 41px.
 - `TextField` file inputs are `--ui-field-size` high. They were 2px taller.
 - `ToggleGroup` is as high as a `ToggleButton` of the same size. The group border made it 2px taller.

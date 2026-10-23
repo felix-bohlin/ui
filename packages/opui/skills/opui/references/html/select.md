@@ -90,6 +90,8 @@ The select is outlined by default. Use `.ui-filled` for a filled background.
 
 Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 
+On touch screens, x-small and small fields keep the default text size (`--ui-font-size-control`, 16px), so iOS Safari doesn't zoom in when one is focused.
+
 ```html
 <label class="ui-select ui-x-small">
   <span class="ui-label" id="select-sizes-1-label">X-small</span>

@@ -74,6 +74,8 @@ import { Select } from "opui-css/astro"
 
 Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
+On touch screens, x-small and small fields keep the default text size (`--ui-font-size-control`, 16px), so iOS Safari doesn't zoom in when one is focused.
+
 ```astro
 ---
 import { Select } from "opui-css/astro"

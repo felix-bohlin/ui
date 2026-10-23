@@ -123,7 +123,13 @@ const count = itemCount(sections)
               data-todo-key={slugify(item.text)}
               data-todo-line={item.line}
             >
-              <div class="todo-text">
+              <button class="todo-summary" type="button">
+                <span class="todo-summary-text">
+                  <InlineText text={item.text} />
+                </span>
+                <span class="todo-summary-answer" />
+              </button>
+              <div class="todo-text" tabindex="-1">
                 {item.severity && (
                   <Chip
                     class="todo-severity"
@@ -231,22 +237,20 @@ const count = itemCount(sections)
 
   <h2 id="copy">Copy</h2>
 
-  <section class="todo-dock ui-not-rich-text">
-    <div class="todo-actions">
-      <p class="todo-count" id="todo-count">{`0 of ${count} answered`}</p>
-      <div class="todo-buttons">
-        <Button id="todo-copy" variant="filled">Copy</Button>
-        <Button class="todo-more" id="todo-clear" variant="outlined">
-          Clear all
-        </Button>
-      </div>
-      <Checkbox checked class="todo-more" id="todo-only-commented">
-        Only answered todos
-      </Checkbox>
-      <p class="todo-status" id="todo-status" role="status"></p>
-      <CopyFallback label="Todos and comments" />
-    </div>
+  <section class="todo-copy ui-not-rich-text">
+    <Checkbox checked id="todo-only-commented">Only answered todos</Checkbox>
+    <Button id="todo-clear" variant="outlined">Clear all</Button>
+    <CopyFallback label="Todos and comments" />
   </section>
+
+  <div class="todo-dock ui-not-rich-text">
+    <p class="todo-count" id="todo-count">{`0/${count} answered`}</p>
+    <p class="todo-status" id="todo-status" role="status"></p>
+    <ToggleButton id="todo-hide-answered" size="small"
+      >Hide answered</ToggleButton
+    >
+    <Button id="todo-copy" size="small" variant="filled">Copy</Button>
+  </div>
 </Document>
 
 <script>
@@ -274,10 +278,17 @@ const count = itemCount(sections)
     "#todo-only-commented",
   )!
 
-  const notSaved = () => {
-    status.textContent =
-      "Comments can't be saved in this browser. Copy them before leaving the page."
+  let statusTimer = 0
+  const setStatus = (text: string) => {
+    clearTimeout(statusTimer)
+    status.textContent = text
+    statusTimer = window.setTimeout(() => (status.textContent = ""), 5000)
   }
+
+  const notSaved = () =>
+    setStatus(
+      "Comments can't be saved in this browser. Copy them before leaving the page.",
+    )
 
   const comments = trackComments({
     items,
@@ -295,13 +306,40 @@ const count = itemCount(sections)
     if (!writeActions(actions)) notSaved()
   }
 
+  const answerOf = (item: HTMLElement) =>
+    [checkedAction(item), comments.commentOf(item)].filter(Boolean).join(": ")
+
   const answerCount = document.querySelector("#todo-count")!
   const countAnswered = () => {
-    const answered = items.filter(
-      (item) => checkedAction(item) || comments.commentOf(item),
-    ).length
-    answerCount.textContent = `${answered} of ${items.length} answered`
+    const answered = items.filter(answerOf).length
+    answerCount.textContent = `${answered}/${items.length} answered`
   }
+
+  const hideKey = "opui-todo-hide-answered"
+  const hideAnswered = document.querySelector<HTMLInputElement>(
+    "#todo-hide-answered",
+  )!
+  const collapseAnswered = () => {
+    for (const item of items) {
+      const answer = hideAnswered.checked ? answerOf(item) : ""
+      item.classList.toggle("is-collapsed", Boolean(answer))
+      item.querySelector(".todo-summary-answer")!.textContent = answer
+    }
+  }
+
+  hideAnswered.checked = readStored(hideKey, false)
+  hideAnswered.addEventListener("change", () => {
+    writeStored(hideKey, hideAnswered.checked)
+    collapseAnswered()
+  })
+
+  for (const item of items)
+    item.querySelector(".todo-summary")!.addEventListener("click", () => {
+      item.classList.remove("is-collapsed")
+      item
+        .querySelector<HTMLElement>(".todo-text")!
+        .focus({ preventScroll: true })
+    })
 
   for (const item of items)
     item
@@ -320,6 +358,7 @@ const count = itemCount(sections)
   }
 
   countAnswered()
+  collapseAnswered()
 
   const buildText = () => {
     const blocks: string[] = []
@@ -402,15 +441,16 @@ const count = itemCount(sections)
   document.querySelector("#todo-copy")!.addEventListener("click", async () => {
     const { commented, text } = buildText()
     if (onlyCommented.checked && !commented) {
-      status.textContent = "No answers yet."
+      setStatus("No answers yet.")
       return
     }
     if (await copyOrSelect(text, copyFallback)) {
-      status.textContent = `Copied ${commented} answered ${commented === 1 ? "todo" : "todos"}.`
+      setStatus(`Copied ${commented} ${commented === 1 ? "todo" : "todos"}.`)
       return
     }
-    status.textContent =
-      "This browser blocked copying. The text is selected below: press and hold it, then copy."
+    setStatus(
+      "This browser blocked copying. The text is selected below: press and hold it, then copy.",
+    )
   })
 
   document.querySelector("#todo-clear")!.addEventListener("click", () => {
@@ -421,7 +461,8 @@ const count = itemCount(sections)
         input.checked = input.value === "None"
     writeActions({})
     countAnswered()
-    status.textContent = "Comments and actions cleared."
+    collapseAnswered()
+    setStatus("Comments and actions cleared.")
   })
 </script>
 
@@ -518,53 +559,76 @@ const count = itemCount(sections)
     }
   }
 
+  .todo-copy {
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+    margin-block-end: var(--size-4);
+  }
+
   .todo-dock {
+    align-items: center;
+    background-color: var(--ui-surface-elevated);
+    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
     bottom: 0;
-    container-type: scroll-state;
+    box-shadow: var(--ui-shadow-elevated);
+    display: flex;
+    gap: var(--size-2);
+    margin-inline: calc(-1 * var(--size-3));
+    padding: var(--size-2) var(--size-3);
+    padding-block-end: max(var(--size-2), env(safe-area-inset-bottom));
     position: sticky;
     z-index: 1;
   }
 
-  .todo-actions {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-3);
-    justify-content: space-between;
-
-    > :not(.todo-count, .todo-buttons) {
-      flex-basis: 100%;
-    }
-
-    @container scroll-state(stuck: bottom) {
-      background-color: var(--ui-surface-elevated);
-      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-      box-shadow: var(--ui-shadow-elevated);
-      margin-inline: calc(-1 * var(--size-3));
-      padding: var(--size-2) var(--size-3);
-
-      :global(.todo-more),
-      .todo-status:empty {
-        display: none;
-      }
-    }
-  }
-
-  .todo-count {
-    color: var(--ui-text-muted);
-    font-variant-numeric: tabular-nums;
-    margin: 0;
-  }
-
-  .todo-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2);
-  }
-
+  .todo-count,
   .todo-status {
     color: var(--ui-text-muted);
+    flex: 1;
+    font-size: var(--ui-font-size-small);
+    font-variant-numeric: tabular-nums;
     margin: 0;
-    min-block-size: 1lh;
+    min-inline-size: 0;
+  }
+
+  .todo-count:has(+ .todo-status:not(:empty)),
+  .todo-status:empty {
+    display: none;
+  }
+
+  .todo-summary {
+    display: none;
+  }
+
+  .todo-item.is-collapsed {
+    > :global(*) {
+      display: none;
+    }
+
+    > .todo-summary {
+      appearance: none;
+      background: none;
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+      display: grid;
+      font: inherit;
+      gap: var(--size-1);
+      inline-size: 100%;
+      padding: 0;
+      text-align: start;
+    }
+  }
+
+  .todo-summary-text,
+  .todo-summary-answer {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .todo-summary-answer {
+    color: var(--ui-text-muted);
+    font-size: var(--ui-font-size-small);
   }
 </style>

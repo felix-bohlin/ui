@@ -11,7 +11,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-border-color":
     "Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.",
   "--ui-border-color-on-filled":
-    "Border color inside filled surfaces: lists without a variant and table headers.",
+    "Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.",
   "--ui-border-color-on-raised":
     "Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. The light border mix in light mode and the page background in dark mode. Each raised component sets `--ui-border-color` to it on its root.",
   "--ui-border-color-raised":

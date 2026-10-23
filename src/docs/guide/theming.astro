@@ -121,6 +121,33 @@ import Example from "../../components/Example/index"
   </section>
 
   <section>
+    <h2 id="surfaces">Surfaces</h2>
+    <p>
+      <code>--ui-surface</code> is the page, <code>--ui-surface-elevated</code> the
+      raised layers (elevated cards and accordions, dialogs, drawers, menus), <code
+        >--ui-surface-tonal</code
+      > the tinted variants, <code>--ui-surface-filled</code> lists, tracks and table
+      headers, and <code>--ui-surface-inverse</code> tooltips. <code
+        >--ui-text-strong</code
+      > is for headings, labels and values, <code>--ui-text</code> for body copy.
+    </p>
+    <p>
+      A raised component (tonal and elevated <code>Card</code> and <code
+        >Accordion</code
+      >, <code>Dialog</code>, <code>Drawer</code>, <code>Menu</code> and a <code
+        >Callout</code
+      > without a severity) sets <code>--ui-border-color</code> to <code
+        >--ui-border-color-on-raised</code
+      > and <code>--ui-field-border-color</code> to <code
+        >--ui-field-border-color-on-raised</code
+      > on its root, so dividers and fields inside it stay visible on the raised fill.
+      Filled lists and table headers do the same with the <code>-on-filled</code
+      > pair. A theme with its own border colors sets the <code>-on-raised</code
+      > and <code>-on-filled</code> tokens too, as the example themes do.
+    </p>
+  </section>
+
+  <section>
     <h2 id="density">Density</h2>
     <p>
       <code>--ui-density</code> scales the <code>--ui-control-size*</code> roles,

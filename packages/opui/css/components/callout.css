@@ -18,6 +18,7 @@
     --_surface-bg-color: var(--ui-surface);
     --_text-color: var(--ui-text-strong);
     --_title-font-size: var(--ui-font-size-body);
+    --ui-divider-gap: var(--ui-space-3);
 
     background-color: var(--_surface-bg-color);
     border: var(--ui-border-width) solid var(--_border-color);
@@ -27,6 +28,18 @@
     isolation: isolate;
     padding: var(--_padding);
     position: relative;
+
+    &:not(
+      .ui-critical,
+      .ui-info,
+      .ui-neutral,
+      .ui-outlined,
+      .ui-success,
+      .ui-warning
+    ) {
+      --ui-border-color: var(--ui-border-color-on-raised);
+      --ui-field-border-color: var(--ui-field-border-color-on-raised);
+    }
 
     &.ui-critical,
     &.ui-info,

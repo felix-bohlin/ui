@@ -263,6 +263,16 @@ describe("fixOptions", () => {
     ).toEqual(["Keep it", "Allow pairs (a, b)", "Drop it"])
   })
 
+  test("names the group after an options condition", () => {
+    expect(
+      fixOptions([
+        item("Options if a browser fails:"),
+        item("A: load a polyfill.", 1),
+        item("B: keep the fallback.", 1),
+      ]).legend,
+    ).toBe("Fix if a browser fails, with")
+  })
+
   test("names the group after a fix condition", () => {
     const { legend, notes } = fixOptions([
       item("Fix if a browser fails: load a polyfill, or keep the fallback."),

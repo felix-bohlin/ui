@@ -27,7 +27,7 @@ One finding per item, in the `TODO.md` item format. `Component:` is the componen
     ```
 ````
 
-With several fixes, `Fix:` keeps what applies to all of them, such as what to confirm first, and each choice is a lettered item under `Options:`. Mark at most one `(recommended)`, and put a choice's code block under its own item:
+With several fixes, `Fix:` keeps what applies to all of them, such as what to confirm first, and each choice is a lettered item under `Options:`. Mark at most one `(recommended)`, and put a choice's code block under its own item. When the fix only applies if something happens, name it in the heading, such as `Options if a browser fails:`. For example:
 
 ````md
 - [ ] (2) Component: what is wrong (`path/to/file.css:12-18`)

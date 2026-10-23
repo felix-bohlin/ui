@@ -259,11 +259,12 @@ export const fixOptions = (notes: TodoNote[]) => {
     const note = notes[index]
     if (note.kind === "code" || note.kind === "comment") continue
 
-    if (/^Options:?$/.test(note.text)) {
+    const header = note.text.match(/^Options(?: (if [^:]+))?:?$/)
+    if (header) {
       const list = listOptions(notes, index)
       if (list && list.options.length > 1) {
         found = {
-          legend: "Fix with",
+          legend: header[1] ? `Fix ${header[1]}, with` : "Fix with",
           notes: [...notes.slice(0, index), ...notes.slice(list.end)],
           options: list.options,
         }

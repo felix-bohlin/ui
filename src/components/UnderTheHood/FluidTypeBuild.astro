@@ -23,7 +23,7 @@ const steps = [
     notes: [
       "<code>var(--viewport) * 0.09</code> stands in for <code>9vi</code>, so the slider plays the viewport",
       "Each heading grows over its own range: the <code>h1</code> from 356 to 622px, the <code>h4</code> from 587 to 667px",
-      "Drag <strong>Viewport</strong> to 600px: the <code>h1</code> is nearly full size, the <code>h3</code> and <code>h4</code> have barely moved",
+      "At 600px, the starting value, the <code>h1</code> is nearly full size, the <code>h3</code> is already done and the <code>h4</code> has barely moved",
     ],
     title: "A clamp() per heading",
   },
@@ -52,7 +52,7 @@ const steps = [
 }`,
     features: ["progress-function"],
     notes: [
-      "Any length can ride the ramp: the gap between the headings here, the spacing scale in the theme",
+      "Any length can ride the ramp: the gap between the headings here, or a spacing scale in your theme",
       "The theme rounds the sizes to the rhythm step on top, see Vertical rhythm with round()",
     ],
     title: "Reuse the ramp",

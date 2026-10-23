@@ -43,7 +43,7 @@ import Code from "../../components/Code.astro"
       </li>
       <li>
         With <code>100vi</code> as the value, one window of viewport widths becomes
-        one ramp, computed once on <code>html</code>
+        one ramp, computed on <code>html</code> and on every palette scope
       </li>
       <li>
         Each heading mixes its two steps with the ramp: <code
@@ -77,9 +77,12 @@ import Code from "../../components/Code.astro"
       (var(--ui-font-size-900) - var(--ui-font-size-700)) *
       var(--ui-fluid-progress)
   );
-}
-
-:where(html) {
+}`}
+    />
+    <p>A theme can put other values on the ramp:</p>
+    <Code
+      lang="css"
+      code={`:where(html) {
   --ui-space-scale: calc(0.875 + 0.125 * var(--ui-fluid-progress));
 }`}
     />
@@ -99,8 +102,8 @@ import Code from "../../components/Code.astro"
       </li>
       <li>
         The arguments are separated by commas, like <code>clamp()</code>. An
-        earlier draft wrote <code>progress(value from start to end)</code>, and
-        that form parses nowhere
+        earlier draft wrote <code>progress(value from start to end)</code>, the
+        shipped syntax is the comma one
       </li>
       <li>
         The theme keeps the <code>clamp()</code> sizes in <code

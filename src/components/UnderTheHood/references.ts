@@ -274,6 +274,7 @@ export const references = {
   fluid: [
     { code: true, href: mdn("Web/CSS/@supports"), label: "@supports" },
     { code: true, href: mdn("Web/CSS/calc"), label: "calc()" },
+    { code: true, href: mdn("Web/CSS/clamp"), label: "clamp()" },
     { code: true, href: mdn("Web/CSS/progress"), label: "progress()" },
     { code: true, href: mdn("Web/CSS/length#vi"), label: "vi" },
   ],

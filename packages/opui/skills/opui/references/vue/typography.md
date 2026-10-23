@@ -696,6 +696,8 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 Read the post: [Vertical rhythm with round()](https://open-props-ui.netlify.app/learn/vertical-rhythm-round)
 
+Read the post: [Fluid type with progress()](https://open-props-ui.netlify.app/learn/fluid-type-progress)
+
 1. Unsnapped
 
    - Stripes mark each line box (`1lh`), dotted lines mark `--ui-rhythm-step`
@@ -771,6 +773,71 @@ Step 4 of 4: Flow space
 .prose h2 {
   margin-block: calc(var(--flow-space) * 3)
     round(var(--flow-space) * 0.75, var(--ui-rhythm-step));
+}
+```
+
+1. Fixed sizes
+
+   - The dashed box is the viewport. Drag **Viewport**: the headings don't care
+   - The largest step of the scale on every screen
+
+2. A clamp() per heading
+
+   - `var(--viewport) * 0.09` stands in for `9vi`, so the slider plays the viewport
+   - Each heading grows over its own range: the `h1` from 356 to 622px, the `h4` from 587 to 667px
+   - At 600px, the starting value, the `h1` is nearly full size, the `h3` is already done and the `h4` has barely moved
+
+3. One ramp
+
+   - `progress(value, start, end)` is 0 at the start, 1 at the end, clamped in between
+   - Every heading reads the same ramp, so they grow together
+   - Drag **Window start** and **Window end**: the breakpoints move, the sizes stay
+
+4. Reuse the ramp
+
+   - Any length can ride the ramp: the gap between the headings here, or a spacing scale in your theme
+   - The theme rounds the sizes to the rhythm step on top, see Vertical rhythm with round()
+
+Step 1 of 4: Fixed sizes
+
+```css
+.h1 { font-size: 3.5rem; }
+.h2 { font-size: 2.5rem; }
+.h3 { font-size: 1.5rem; }
+.h4 { font-size: 1.25rem; }
+```
+
+Step 2 of 4: A clamp() per heading
+
+```css
+.h1 { font-size: clamp(2rem, var(--viewport) * 0.09, 3.5rem); }
+.h2 { font-size: clamp(1.5rem, var(--viewport) * 0.06, 2.5rem); }
+.h3 { font-size: clamp(1.25rem, var(--viewport) * 0.04, 1.5rem); }
+.h4 { font-size: clamp(1.1rem, var(--viewport) * 0.03, 1.25rem); }
+```
+
+Step 3 of 4: One ramp
+
+- [`progress()` ](https://webstatus.dev/features/progress-function)(Newly available): Chrome 138+, Edge 138+, Firefox 155+, Safari 26+
+
+```css
+.viewport {
+  --progress: progress(var(--viewport), var(--fluid-min), var(--fluid-max));
+}
+
+.h1 { font-size: calc(2rem + (3.5rem - 2rem) * var(--progress)); }
+.h2 { font-size: calc(1.5rem + (2.5rem - 1.5rem) * var(--progress)); }
+.h3 { font-size: calc(1.25rem + (1.5rem - 1.25rem) * var(--progress)); }
+.h4 { font-size: calc(1.1rem + (1.25rem - 1.1rem) * var(--progress)); }
+```
+
+Step 4 of 4: Reuse the ramp
+
+- [`progress()` ](https://webstatus.dev/features/progress-function)(Newly available): Chrome 138+, Edge 138+, Firefox 155+, Safari 26+
+
+```css
+.viewport {
+  gap: calc(0.5rem + 1rem * var(--progress));
 }
 ```
 

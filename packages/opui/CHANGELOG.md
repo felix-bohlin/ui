@@ -57,7 +57,8 @@
 - `Drawer` in Astro and Vue takes parts instead of slots: `DrawerHeader`, `DrawerTitle`, `DrawerContent` and `DrawerFooter`. `DrawerTitle` replaces the `DrawerHeader` `heading` prop and names the drawer. The drawer no longer looks for a heading: without a `DrawerTitle`, pass `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`, and a dev warning says when it is replaced. In Astro and Vue, `DrawerHeader` in a `Drawer` closes it with `command="close"` (Invoker Commands) instead of a click handler, so the Vue `DrawerHeader` closes the drawer without hydration, and browsers without Invoker Commands need a polyfill.
 - `Table` and `DescriptionList` part files are `components/Table/TableBody.*`, `TableCell.*`, `TableColumn.*`, `TableColumnGroup.*`, `TableHead.*`, `TableHeaderCell.*`, `TableRow.*` and `components/DescriptionList/DescriptionListDescription.*`, `DescriptionListItem.*`, `DescriptionListTerm.*`. The `opui-css/<framework>` exports are unchanged; update deep `./components/*` imports.
 - `TableColumn` `width` takes a CSS length. A declaration string (`width="min-width: 10rem"`) is no longer parsed; pass `style` instead.
-- `ToggleGroup` `size="default"` is `size="medium"`, and `Accordion` `variant="default"` is `variant="transparent"`, the names of their default looks.
+- `ToggleGroup` `size="default"` is `size="medium"`, the name of its default look.
+- `Accordion` `variant="default"` is gone. An accordion without a variant is `plain`, the page surface with padding and no border, like a `Card`, and a group card without a variant pads its accordions too. Use `variant="transparent"` (`.ui-transparent`) for the previous look, with no surface or padding.
 - `choice.css` holds the layout, label, end text, sizes and disabled styles shared by `Checkbox`, `Radio` and `Switch`, which moved out of `checkbox.css`, `radio.css` and `switch.css`. Import it with them, in any order, or use `components.css`.
 - `Anchor` requires `id` with `trigger="hover"` and no longer generates one. Pass the same `id` to `interestfor` on the trigger.
 - `Avatar`, `Button` and `Chip` types match the rendered element: a button `Avatar` or `Chip` needs `as="button"`, a link `Chip` needs `href`, `disabled` only goes with a button or a link, and `Button` takes link attributes only with `href` (types).
@@ -205,7 +206,7 @@
 - `theme.css` adds `--ui-underline-offset`, `--ui-underline-offset-small` and `--ui-underline-thickness-hover`, read by `Link`, rich text links and the underlined text elements.
 - `List` takes `--_selected-indicator-color`, `--_selected-indicator-size`, `--_start-image-size` and `--_start-video-size`, `Tooltip` takes `--_max-inline-size`, and `Carousel` takes `--_marker-active-padding` and `--_marker-border-color`.
 - `theme.css` adds `--ui-fill-max-lightness`, the highest lightness of an intent color filled under light text (`0.48`, and `0.45` with more contrast), read by the critical, info, neutral and success `Badge` and the fills of critical `Button`s. It also adds `--ui-surface-tonal-hover`, the hover fill of clickable `Chip`s without a `severity` and filled `TextField`, `Select` and `Textarea` fields, and `--ui-code-bg-color`, the background of inline `code` in rich text (fainter with more contrast).
-- `Accordion`, `Avatar`, `Button`, `ButtonGroup`, `Card`, `Checkbox`, `Chip`, `Divider`, `List`, `Progress`, `Radio`, `Range`, `Select`, `Switch`, `Tabs`, `TextField`, `Textarea`, `ToggleButton` and `ToggleGroup` accept their default by name, which adds no class: `size="medium"` on every sized component, `variant="transparent"` on `Accordion`, `Button` and `ButtonGroup`, `"plain"` on `Card`, `"outlined"` on `Divider` and `Range`, `"filled"` on `List`, and `"tonal"` on `Progress` and `Tabs`. In HTML, a `Drawer` opens from the inline start without `.ui-inline-start`.
+- `Accordion`, `Avatar`, `Button`, `ButtonGroup`, `Card`, `Checkbox`, `Chip`, `Divider`, `List`, `Progress`, `Radio`, `Range`, `Select`, `Switch`, `Tabs`, `TextField`, `Textarea`, `ToggleButton` and `ToggleGroup` accept their default by name, which adds no class: `size="medium"` on every sized component, `variant="plain"` on `Accordion` and `Card`, `"transparent"` on `Button` and `ButtonGroup`, `"outlined"` on `Divider` and `Range`, `"filled"` on `List`, and `"tonal"` on `Progress` and `Tabs`. In HTML, a `Drawer` opens from the inline start without `.ui-inline-start`.
 
 ### Changed
 
@@ -414,7 +415,7 @@
 - `FieldGroup` `orientation="vertical"` stacks a group of only buttons.
 - `ToggleButton` in Vue is a radio in a single-selection `ToggleGroup`, like Astro, even with a `type`.
 - `ToggleGroup` separators show in forced colors.
-- `Accordion` focus ring is drawn inside the summary of `.ui-elevated`, `.ui-outlined`, `.ui-tonal` and grouped accordions, so the card no longer clips it, and outside the summary of an accordion without a variant, so it no longer cuts through the text and marker.
+- `Accordion` focus ring is drawn inside the summary of `.ui-elevated`, `.ui-outlined`, `.ui-tonal` and grouped accordions, so the card no longer clips it, and outside the summary of a transparent accordion, so it no longer cuts through the text and marker.
 - `Select`, `Textarea` and `TextField` draw the focus ring around the field, like `Button`, only when the control itself has focus, not a link in the header or footer. The border keeps its color while the ring shows.
 - `Switch` focus ring is rounded.
 - `Button`, `ButtonGroup`, `Card`, `Range`, `Select`, `Tabs`, `Textarea`, `TextField` and `ToggleButton` focus rings grow in like the rest of the library. `normalize.css` animates the `:focus-visible` ring with the `ui-focus-ring` keyframes instead of an `outline-offset` transition, which a component's own `transition` overrode.
@@ -456,7 +457,7 @@
 - `ListItem` with `as="button"` renders `type="button"`, so it no longer submits a surrounding form.
 - `Callout` links in a tonal callout take the hover color on keyboard focus too.
 - `Card` actions aligned to the end line up a plain last button with the content, and no longer pull a filled or outlined last button to the edge.
-- `Accordion` content in a group without a variant lines up with the summary.
+- `Accordion` content in a transparent group lines up with the summary.
 - `Radio` dot stays centered at every zoom level and screen scale. It's a `radial-gradient()` on the input's background instead of a separate `::after` box.
 - `Range` with `spread`, a value and tick marks no longer draws the value over the tick labels, and the end text of a narrow spread range no longer overlaps the slider or the tick labels.
 - `Range` tick labels line up with the thumb at both ends.
@@ -535,7 +536,7 @@
 - `Switch` checked icon uses the dot's contrast color, so it shows on the accent track.
 - `Typography` inline `code` in `del` and `ins` has no inline padding, so no gap shows before the next character.
 - `Checkbox`, `Radio`, `Range`, `Select`, `Switch`, `TextField` and `Textarea` in Vue render a text prop and its slot together, like Astro, instead of dropping the prop.
-- `Accordion` actions keep room for the focus ring, so the last button's ring isn't clipped in a group without a variant.
+- `Accordion` actions keep room for the focus ring, so the last button's ring isn't clipped in a transparent group.
 - `Checkbox` draws a disabled box in `GrayText` in forced colors mode, like `Switch`, instead of the enabled colors at reduced opacity.
 - `Checkbox` and `Radio` draw the check, dash and dot of a checked invalid control in `--ui-on-accent`, so they keep their contrast on the red fill when a theme sets `--ui-choice-on-accent` or `--ui-on-primary`.
 - `DescriptionList` no longer clips the focus ring of a link or button in a term.

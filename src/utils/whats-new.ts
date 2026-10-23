@@ -30,14 +30,17 @@ const whatsNew = {
     },
     `<a href="#actions">Actions</a> line up with the content and the chevron.`,
     `Breaking: <code>--_transition</code> is <code>--_duration</code>, and <code>--_svg-transition</code> is gone, the chevron and the open and close transition use <code>--_duration</code> and <code>--_ease</code>, and the group's <code>--_gutter-color</code> is <code>--_divider-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    slots(
-      `Breaking: <a href="#variants"><code>variant="default"</code></a> is <code>variant="transparent"</code>, the name of the default look.`,
-    ),
+    {
+      ...slots(
+        `Breaking: an accordion without a <a href="#variants">variant</a> is <code>plain</code>, the page surface with padding, like a card. <code>variant="default"</code> is gone: use <code>variant="transparent"</code> for the previous look.`,
+      ),
+      html: `Breaking: an accordion without a <a href="#variants">variant class</a> has the page surface and padding, like a card. Add <code>.ui-transparent</code> for the previous look.`,
+    },
     `Elevated accordions use <a href="#api"><code>--ui-shadow-elevated</code></a>, the elevated card shadow, also in dark mode. Padding and gaps read the <code>--ui-space-*</code> scale.`,
     `<a href="#variants">Tonal and outlined</a> accordions read <a href="#api"><code>--ui-shadow-surface</code></a>, <code>none</code> unless a theme sets it, and tonal and elevated accordions <code>--ui-surface-border-color</code>.`,
     {
-      react: `<a href="#variants">Variants</a> name the default: <code>variant="transparent"</code>.`,
-      svelte: `<a href="#variants">Variants</a> name the default: <code>variant="transparent"</code>.`,
+      react: `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
+      svelte: `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
     },
   ],
   anchor: [

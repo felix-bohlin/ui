@@ -20,7 +20,8 @@ export default {
     kind: "input",
   },
   "--_bg-color": {
-    description: "The background. Set by the variants.",
+    description:
+      "The background. `--ui-surface-default` by default, set by the other variants, and `transparent` in `.ui-transparent` and in groups.",
     kind: "output",
   },
   "--_border-color": {
@@ -62,7 +63,7 @@ export default {
   },
   "--_focus-ring-offset": {
     description:
-      "Offset of the `summary` focus ring. The variants and groups move it inside.",
+      "Offset of the `summary` focus ring. Inside the summary, except in `.ui-transparent`.",
     kind: "input",
   },
   "--_group-radius": {
@@ -72,7 +73,7 @@ export default {
   },
   "--_item-padding-inline": {
     description:
-      "Inline padding of the items in a group. `0` when the card has no variant.",
+      "Inline padding of the items in a group. `0` when the card is `.ui-transparent`.",
     kind: "input",
   },
   "--_item-summary-padding-inline": {
@@ -81,7 +82,8 @@ export default {
     kind: "input",
   },
   "--_margin-inline": {
-    description: "The inline margin. `0` in the variants and groups.",
+    description:
+      "The inline margin. `0`, except in `.ui-transparent` outside a group.",
     kind: "input",
   },
   "--_motion": {
@@ -90,12 +92,13 @@ export default {
     kind: "input",
   },
   "--_overflow": {
-    description: "The overflow. Set to `hidden` by the variants.",
+    description:
+      "The overflow. `hidden`, except in `.ui-transparent` and in groups.",
     kind: "output",
   },
   "--_padding-inline": {
     description:
-      "Inline padding of `summary`, `.ui-content` and `.ui-actions`. Set by the variants.",
+      "Inline padding of `summary`, `.ui-content` and `.ui-actions`. `0` in `.ui-transparent`.",
     kind: "input",
   },
   "--_shadow": {

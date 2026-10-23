@@ -6893,7 +6893,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: every option has its own group (Scroll and Shrink, Spread and Stack, Disabled and Checked) in the Button group, Toggle group, Checkbox, Radio, Switch and Toggle button APIs, and `checkApi` warns when two options share a group.
-- [ ] (1) Accordion, Card: an Accordion without a variant is transparent (it also takes `.ui-card`, and `accordion.css` wins from `components.extended`), while a Card without a variant has the page surface (`plain`) and is only transparent with `variant="transparent"` (`.ui-transparent`). The note at the done item "Card and Accordion get the page background with no variant" no longer holds for Accordion (`packages/opui/css/components/accordion.css:8,42-64`, `packages/opui/css/components/card.css:2-13,32-37`)
+- [x] (1) Accordion, Card: an Accordion without a variant is transparent (it also takes `.ui-card`, and `accordion.css` wins from `components.extended`), while a Card without a variant has the page surface (`plain`) and is only transparent with `variant="transparent"` (`.ui-transparent`). The note at the done item "Card and Accordion get the page background with no variant" no longer holds for Accordion (`packages/opui/css/components/accordion.css:8,42-64`, `packages/opui/css/components/card.css:2-13,32-37`)
   - Fix: Is the transparent Accordion baseline intended? If so, the API descriptions already say it. Otherwise Accordion follows Card.
   > Fix
   > That wasn’t intended
@@ -6901,6 +6901,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A: Accordion follows Card: add `plain` (the page surface, no border) as the default, keep `transparent` as a variant, and point the `variant="default"` Breaking entry at `plain`.
     - B: keep `transparent` as Accordion's default, as the naming model has it, and say in the Accordion Variants prose that it differs from Card.
+  > Fix with option A
+  - Fixed with option A: Accordion takes `variant="plain"`, the default, with the page surface and padding like a Card, and `variant="transparent"` (`.ui-transparent`) for the previous look. A group card without a variant pads its accordions, and a `.ui-transparent` group doesn't. The Breaking entry, MIGRATING and What's new say how to keep the old look, and the flush accordions on the stress pages take `.ui-transparent`.
 - [ ] (1) Avatar: link avatars can't be disabled (`disabled?: never` with `href`), while Button and Chip links can, through `aria-disabled="true"` and the dropped `href` that `tagAttrs` already handles (`packages/opui/components/Avatar/types.ts:5-19`, `packages/opui/components/Chip/types.ts`, `packages/opui/components/tag.ts:1-6`)
   - Fix: Should Avatar allow `disabled` on links like Chip?
   > Fix

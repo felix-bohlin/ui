@@ -154,7 +154,7 @@ Components should often inherit styles from others (e.g., `Accordion` and `Dialo
   class:list={[
     "ui-accordion",
     "ui-card",
-    variant && variant !== "transparent" && `ui-${variant}`,
+    variant && variant !== "plain" && `ui-${variant}`,
     className,
   ]}
   {...rest}

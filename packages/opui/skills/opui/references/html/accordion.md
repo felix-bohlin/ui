@@ -62,12 +62,12 @@ Put the header in the `<summary>` and the body in a `.ui-content` element.
 
 ## Variants
 
-Add one of the variant classes (`.ui-elevated`, `.ui-outlined`, `.ui-tonal`) to the `<details>` element to change how it looks. Add `.ui-card` for the card styles.
+Add one of the variant classes (`.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.ui-transparent`) to the `<details>` element to change how it looks. Without one the accordion has the page surface and no border, like a card. Add `.ui-card` for the card styles.
 
 ```html
 <details class="ui-accordion ui-card ui-marker-rotate">
   <summary>
-    Transparent
+    Plain
     <svg
       aria-hidden="true"
       class="ui-marker"
@@ -146,6 +146,32 @@ Add one of the variant classes (`.ui-elevated`, `.ui-outlined`, `.ui-tonal`) to 
 <details class="ui-accordion ui-card ui-marker-rotate ui-tonal">
   <summary>
     Tonal
+    <svg
+      aria-hidden="true"
+      class="ui-marker"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+      />
+    </svg>
+  </summary>
+  <div class="ui-content">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
+  </div>
+</details>
+
+<details class="ui-accordion ui-card ui-marker-rotate ui-transparent">
+  <summary>
+    Transparent
     <svg
       aria-hidden="true"
       class="ui-marker"
@@ -469,12 +495,12 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 
 ### Accordion API
 
-| Type     | Modifiers                                                 | Default | Description                                                                                  |
-| -------- | --------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------- |
-| Grouping | `[name]`                                                  | -       | Groups accordions so only one of them can be open at a time.                                 |
-| Marker   | `.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn` | -       | How the marker animates when the accordion opens.                                            |
-| State    | `[open]`                                                  | -       | Whether the accordion is open.                                                               |
-| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`      | default | The variant to use. The default `transparent` accordion has no background, border or shadow. |
+| Type     | Modifiers                                                               | Default | Description                                                                                                                                         |
+| -------- | ----------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Grouping | `[name]`                                                                | -       | Groups accordions so only one of them can be open at a time.                                                                                        |
+| Marker   | `.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn`               | -       | How the marker animates when the accordion opens.                                                                                                   |
+| State    | `[open]`                                                                | -       | Whether the accordion is open.                                                                                                                      |
+| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.ui-transparent` | default | The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface, border or padding. |
 
 #### Parts
 
@@ -566,7 +592,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_actions-margin-block-start`  | Input  | Space above `.ui-actions`.                                                                                                                                                      |
 | `--_actions-padding-block-end`   | Input  | Bottom padding of `.ui-actions`. Defaults to `--_summary-padding-block`.                                                                                                        |
 | `--_actions-padding-inline`      | Input  | Inline padding of `.ui-actions`. Defaults to `--_content-padding-inline`, and at least the focus ring's space.                                                                  |
-| `--_bg-color`                    | Output | The background. Set by the variants.                                                                                                                                            |
+| `--_bg-color`                    | Output | The background. `--ui-surface-default` by default, set by the other variants, and `transparent` in `.ui-transparent` and in groups.                                             |
 | `--_border-color`                | Output | The border color. In `.ui-elevated` and `.ui-tonal`, `--ui-surface-border-color` when a theme sets it, otherwise `--ui-surface-default`. `--ui-border-color` in `.ui-outlined`. |
 | `--_border-radius`               | Input  | The corner radius, also of the `summary` focus ring. Defaults to `--ui-radius`.                                                                                                 |
 | `--_border-width`                | Output | The border width. Set by the variants.                                                                                                                                          |
@@ -575,14 +601,14 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_divider-color`               | Input  | Color of the border between items in a group. Defaults to `--ui-border-color`.                                                                                                  |
 | `--_duration`                    | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                                                                                                 |
 | `--_ease`                        | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                                                             |
-| `--_focus-ring-offset`           | Input  | Offset of the `summary` focus ring. The variants and groups move it inside.                                                                                                     |
+| `--_focus-ring-offset`           | Input  | Offset of the `summary` focus ring. Inside the summary, except in `.ui-transparent`.                                                                                            |
 | `--_group-radius`                | Input  | Corner radius of the first and last item in a group. Defaults to `--ui-radius`.                                                                                                 |
-| `--_item-padding-inline`         | Input  | Inline padding of the items in a group. `0` when the card has no variant.                                                                                                       |
+| `--_item-padding-inline`         | Input  | Inline padding of the items in a group. `0` when the card is `.ui-transparent`.                                                                                                 |
 | `--_item-summary-padding-inline` | Input  | Inline padding of the item `summary` in a group. Defaults to `--_item-padding-inline`.                                                                                          |
-| `--_margin-inline`               | Input  | The inline margin. `0` in the variants and groups.                                                                                                                              |
+| `--_margin-inline`               | Input  | The inline margin. `0`, except in `.ui-transparent` outside a group.                                                                                                            |
 | `--_motion`                      | Input  | Motion multiplier for `--_duration`. `0` turns the transitions off.                                                                                                             |
-| `--_overflow`                    | Output | The overflow. Set to `hidden` by the variants.                                                                                                                                  |
-| `--_padding-inline`              | Input  | Inline padding of `summary`, `.ui-content` and `.ui-actions`. Set by the variants.                                                                                              |
+| `--_overflow`                    | Output | The overflow. `hidden`, except in `.ui-transparent` and in groups.                                                                                                              |
+| `--_padding-inline`              | Input  | Inline padding of `summary`, `.ui-content` and `.ui-actions`. `0` in `.ui-transparent`.                                                                                         |
 | `--_shadow`                      | Output | The shadow. `.ui-elevated` sets `--ui-shadow-elevated`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`.                                                               |
 | `--_summary-padding-block`       | Input  | Block padding of `summary`.                                                                                                                                                     |
 | `--_summary-padding-inline`      | Input  | Inline padding of `summary`. Defaults to `--_padding-inline`.                                                                                                                   |
@@ -723,5 +749,6 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: markers only animate with a [marker class](#marker-animation), and only the [`svg.ui-marker`](#custom-marker). Add `.ui-marker-rotate` to keep the previous rotation.
 - [Actions](#actions) line up with the content and the chevron.
 - Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron and the open and close transition use `--_duration` and `--_ease`, and the group's `--_gutter-color` is `--_divider-color` ([Under the hood](#under-the-hood)).
+- Breaking: an accordion without a [variant class](#variants) has the page surface and padding, like a card. Add `.ui-transparent` for the previous look.
 - Elevated accordions use [`--ui-shadow-elevated`](#api), the elevated card shadow, also in dark mode. Padding and gaps read the `--ui-space-*` scale.
 - [Tonal and outlined](#variants) accordions read [`--ui-shadow-surface`](#api), `none` unless a theme sets it, and tonal and elevated accordions `--ui-surface-border-color`.

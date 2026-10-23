@@ -42,7 +42,8 @@
     /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
     interpolate-size: allow-keywords;
 
-    &:is(.ui-elevated, .ui-outlined, .ui-tonal) {
+    &:not(.ui-transparent) {
+      --_bg-color: var(--ui-surface-default);
       --_focus-ring-offset: var(--ui-focus-ring-inset);
       --_margin-inline: 0;
       --_overflow: hidden;
@@ -184,15 +185,17 @@
 
     display: block;
 
-    &:not(.ui-elevated, .ui-outlined, .ui-tonal) {
+    &.ui-transparent {
       --_item-padding-inline: 0em;
     }
 
     & > details.ui-accordion {
+      --_bg-color: transparent;
       --_border-color: transparent;
       --_border-width: 0;
       --_focus-ring-offset: var(--ui-focus-ring-inset);
       --_margin-inline: 0;
+      --_overflow: visible;
       --_padding-inline: var(--_item-padding-inline);
       --_shadow: none;
       --_summary-padding-inline: var(--_item-summary-padding-inline);

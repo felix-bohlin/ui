@@ -40,11 +40,16 @@ In Astro and Vue the regions are parts instead of slots. The root no longer wrap
 + </AccordionSummary>
 ```
 
-`variant` no longer accepts `"default"`. The default look is named `transparent`: write that, or leave the prop out.
+An accordion without a variant has the page surface with padding and no border, like a `Card` (`plain`, the new default), and a group card without a variant pads its accordions too. `variant` no longer accepts `"default"`. For the previous look, with no surface or padding, use `variant="transparent"` (`.ui-transparent`).
 
 ```diff
-- <Accordion variant="default">
+- <Accordion>
 + <Accordion variant="transparent">
+```
+
+```diff
+- <details class="ui-accordion ui-card">
++ <details class="ui-accordion ui-card ui-transparent">
 ```
 
 ## Anchor

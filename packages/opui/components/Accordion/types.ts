@@ -1,6 +1,6 @@
 export type Props = {
   markerAnimation?: "flip" | "rotate" | "turn"
-  variant?: "elevated" | "outlined" | "tonal" | "transparent"
+  variant?: "elevated" | "outlined" | "plain" | "tonal" | "transparent"
 }
 
 export type AccordionActionsProps = {}

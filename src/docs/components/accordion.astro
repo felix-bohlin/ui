@@ -90,14 +90,17 @@ export const description =
     <Conditional as="p">
       <Fragment slot="components">
         Use the <code>variant</code> prop to change how it looks. The default is <code
-          >transparent</code
-        >.
+          >plain</code
+        >, the page surface with no border, like a Card. <code>transparent</code
+        > drops the surface and the padding.
       </Fragment>
       <Fragment slot="html">
         Add one of the variant classes (<code>.ui-elevated</code>, <code
           >.ui-outlined</code
-        >, <code>.ui-tonal</code>) to the <code>&lt;details&gt;</code> element to
-        change how it looks. Add <code>.ui-card</code> for the card styles.
+        >, <code>.ui-tonal</code>, <code>.ui-transparent</code>) to the <code
+          >&lt;details&gt;</code
+        > element to change how it looks. Without one the accordion has the page surface
+        and no border, like a card. Add <code>.ui-card</code> for the card styles.
       </Fragment>
     </Conditional>
 

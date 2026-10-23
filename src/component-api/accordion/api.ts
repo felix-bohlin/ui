@@ -40,16 +40,17 @@ export default {
       type: "boolean",
     },
     {
-      default: '"transparent"',
+      default: '"plain"',
       description:
-        "The variant to use. The default `transparent` accordion has no background, border or shadow.",
+        "The variant to use. The default `plain` accordion has the page surface and no border, like a Card. `transparent` has no surface, border or padding.",
       group: "Variants",
       prop: "variant",
       values: {
         elevated: ".ui-elevated",
         outlined: ".ui-outlined",
+        plain: null,
         tonal: ".ui-tonal",
-        transparent: null,
+        transparent: ".ui-transparent",
       },
     },
   ],

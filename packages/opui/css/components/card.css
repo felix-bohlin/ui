@@ -57,7 +57,7 @@
       --_shadow: var(--ui-shadow-surface);
     }
 
-    & > :where(hgroup, .ui-content) {
+    & > :where(hgroup, .ui-content, .ui-header) {
       margin-block: 0;
       padding-inline: var(--ui-space-3);
 
@@ -67,7 +67,7 @@
     }
 
     /* Header */
-    & > hgroup {
+    & > :where(hgroup, .ui-header) {
       padding-block: var(--ui-space-3) 0;
 
       & > :where(h1, h2, h3, h4, h5, h6, p) {

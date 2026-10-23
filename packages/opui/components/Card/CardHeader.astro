@@ -4,6 +4,6 @@ import type { CardHeaderProps as Props } from "./types.astro"
 const { class: className, ...rest } = Astro.props
 ---
 
-<hgroup class:list={[className]} {...rest}>
+<hgroup class:list={["ui-header", className]} {...rest}>
   <slot />
 </hgroup>

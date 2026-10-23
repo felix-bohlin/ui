@@ -24,10 +24,10 @@ export default {
   ],
   parts: [
     {
-      code: "<hgroup>",
+      code: "hgroup.ui-header",
       component: "CardHeader",
       description: "The card header.",
-      selector: "hgroup",
+      selector: "hgroup.ui-header",
     },
     {
       component: "CardContent",

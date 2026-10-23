@@ -129,6 +129,7 @@
 
 ### Added
 
+- `CardHeader` and `DialogHeader` render `hgroup.ui-header`, the header region class `Drawer` uses, and `card.css` styles `.ui-header` like the `hgroup`.
 - `TextField`, `Textarea`, `Select` and `Range` take `hideLabel`, which renders the label as `.ui-sr-only` instead of `.ui-label`, so the field keeps its accessible name without a visible label.
 - `Checkbox`, `Radio` and `Switch` take a `label` string, a shorthand for the default slot.
 - `Avatar` and `ListItem` links take `disabled`, like `Button` and `Chip`: the link drops its `href` and gets `aria-disabled="true"`.

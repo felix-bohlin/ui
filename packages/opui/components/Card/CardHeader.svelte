@@ -10,6 +10,6 @@
   }: Props = $props()
 </script>
 
-<hgroup class={[className]} {...rest}>
+<hgroup class={["ui-header", className]} {...rest}>
   {@render children?.()}
 </hgroup>

@@ -224,6 +224,12 @@ const whatsNew = {
     `<a href="#variants">Callouts</a> read <a href="#api"><code>--ui-shadow-surface</code></a>, and callouts without a severity <code>--ui-border-color-raised</code>, when a theme sets them.`,
   ],
   card: [
+    {
+      ...components(
+        `<a href="#header"><code>CardHeader</code></a> renders <code>hgroup.ui-header</code>.`,
+      ),
+      html: `The <a href="#header">header</a> takes <code>.ui-header</code> on its <code>hgroup</code>, like the <code>Drawer</code> header.`,
+    },
     slots(
       `Breaking: <a href="#api"><code>CardHeader</code>, <code>CardContent</code> and <code>CardActions</code></a> replace the slots, and <code>align</code> on <code>CardActions</code> replaces <code>actionsAlign</code>.`,
     ),
@@ -410,6 +416,12 @@ const whatsNew = {
     },
   ],
   dialog: [
+    {
+      ...components(
+        `<a href="#usage"><code>DialogHeader</code></a> renders <code>hgroup.ui-header</code>.`,
+      ),
+      html: `The <a href="#usage">header</a> takes <code>.ui-header</code> on its <code>hgroup</code>, like the <code>Drawer</code> header.`,
+    },
     `Opens over <a href="#api"><code>--ui-duration-slow</code></a>, the overlay duration.`,
     {
       html: `Breaking: <code>.ui-card</code> is no longer needed on <a href="#usage"><code>.ui-dialog</code></a>, which <code>card.css</code> styles itself.`,

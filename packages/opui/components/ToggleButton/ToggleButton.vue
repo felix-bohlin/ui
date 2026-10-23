@@ -31,7 +31,7 @@ const finalName = computed(() => name || group?.groupName || field?.name)
 const finalType = computed(() =>
   group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
 )
-const grouped = computed(() => isSelected(group?.value, value || label))
+const grouped = computed(() => isSelected(group?.value, value))
 warnGroupedChecked("ToggleButton", grouped.value, checkedProp)
 const checked = computed(() => grouped.value ?? checkedProp)
 const change = (event: Event) =>
@@ -51,7 +51,7 @@ const change = (event: Event) =>
       :checked="checked"
       :name="finalName"
       :type="finalType"
-      :value="value || label"
+      :value="value"
       @change="change"
       v-bind="inputAttrs"
     />

@@ -2,7 +2,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/react"
 
 export default function Interactive() {
   return (
-    <ToggleGroup selection="single" name="transport">
+    <ToggleGroup name="transport">
       <ToggleButton value="walking" defaultChecked>
         <svg
           aria-hidden="true"

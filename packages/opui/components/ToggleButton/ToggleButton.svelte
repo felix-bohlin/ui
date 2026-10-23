@@ -29,7 +29,7 @@
   const finalType = $derived(
     group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
   )
-  const grouped = $derived(isSelected(group?.value, value || label))
+  const grouped = $derived(isSelected(group?.value, value))
 
   untrack(() => warnGroupedChecked("ToggleButton", grouped, checked))
 </script>
@@ -46,7 +46,7 @@
     checked={grouped ?? checked}
     name={finalName}
     type={finalType}
-    value={value || label}
+    {value}
     {...rest}
     onchange={(event) => {
       if (grouped === undefined) checked = event.currentTarget.checked

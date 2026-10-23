@@ -122,7 +122,7 @@ export const description =
     <h3 id="multi-select">Multi-select</h3>
     <Conditional>
       <p slot="components">
-        Use <code>selection="multiple"</code> for multi-select groups.
+        Set <code>multiple</code> for multi-select groups.
       </p>
       <p slot="html">
         Use <code>type="checkbox"</code> for multi-select groups.
@@ -134,8 +134,8 @@ export const description =
     <h3 id="single-select">Single-select</h3>
     <Conditional>
       <p slot="components">
-        Use <code>selection="single"</code> for single-select groups. Every button
-        is a radio then, and a <code>type</code> on a button is ignored. Set <code
+        A group without <code>multiple</code> is single-select. Every button is a
+        radio then, and a <code>type</code> on a button is ignored. Set <code
           >checked</code
         > on the starting button, or <code>defaultChecked</code> in React.
       </p>
@@ -172,26 +172,26 @@ export const description =
           >onValueChange</code
         > on the <code>ToggleGroup</code>, or set the starting selection with <code
           >defaultValue</code
-        >. The value is a string with <code>selection="single"</code> and an array
-        of strings with <code>selection="multiple"</code>. A button is checked
-        when its <code>value</code> is in it, so the buttons don't need <code
-          >defaultChecked</code
-        >.
+        >. The value is a string, and an array of strings with <code
+          >multiple</code
+        >. A button is checked when its <code>value</code> is in it, so the buttons
+        don't need <code>defaultChecked</code>.
       </Fragment>
       <Fragment slot="svelte">
         Bind the selection with <code>bind:value</code> on the <code
           >ToggleGroup</code
-        >. The value is a string with <code>selection="single"</code> and an array
-        of strings with <code>selection="multiple"</code>. A button is checked
-        when its <code>value</code> is in it, and setting the variable updates the
-        buttons.
+        >. The value is a string, and an array of strings with <code
+          >multiple</code
+        >. A button is checked when its <code>value</code> is in it, and setting the
+        variable updates the buttons.
       </Fragment>
       <Fragment slot="vue">
         Bind the selection with <code>v-model</code> on the <code
           >ToggleGroup</code
-        >. The value is a string with <code>selection="single"</code> and an array
-        of strings with <code>selection="multiple"</code>. A button is checked
-        when its <code>value</code> is in it, and setting the ref updates the buttons.
+        >. The value is a string, and an array of strings with <code
+          >multiple</code
+        >. A button is checked when its <code>value</code> is in it, and setting the
+        ref updates the buttons.
       </Fragment>
     </Conditional>
 
@@ -271,7 +271,7 @@ export const description =
 
   <Fragment slot="anatomy">
     <Anatomy api={toggleGroupApi} zoom={1.25}>
-      <UIToggleGroup name="toggle-anatomy" selection="single">
+      <UIToggleGroup name="toggle-anatomy">
         <UIToggleButton checked type="radio">Day</UIToggleButton>
         <UIToggleButton type="radio">Week</UIToggleButton>
         <UIToggleButton type="radio">Month</UIToggleButton>

@@ -5,10 +5,10 @@
 
   let {
     class: className,
+    multiple,
     name,
     orientation,
     overflow,
-    selection = "multiple",
     size,
     value = $bindable(),
 
@@ -19,11 +19,11 @@
 
   const uid = $props.id()
   const groupName = $derived(name || `toggle-group-${uid}`)
-  const inputType = $derived(selection === "single" ? "radio" : "checkbox")
+  const inputType = $derived(multiple ? "checkbox" : "radio")
 
   setToggleGroupContext({
     change(input) {
-      value = selectionOf(input, selection)
+      value = selectionOf(input, multiple)
     },
     get groupName() {
       return groupName
@@ -47,7 +47,7 @@
     size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  role={selection === "single" ? "radiogroup" : "group"}
+  role={multiple ? "group" : "radiogroup"}
   {...rest}
 >
   {@render children?.()}

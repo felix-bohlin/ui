@@ -4,12 +4,9 @@ export const isSelected = (
 ) =>
   selected === undefined ? undefined : [selected].flat().includes(String(value))
 
-export const selectionOf = (
-  input: HTMLInputElement,
-  selection: "multiple" | "single",
-) =>
-  selection === "single"
-    ? input.value
-    : [...(input.closest(".ui-toggle-group")?.querySelectorAll("input") ?? [])]
+export const selectionOf = (input: HTMLInputElement, multiple?: boolean) =>
+  multiple
+    ? [...(input.closest(".ui-toggle-group")?.querySelectorAll("input") ?? [])]
         .filter((item) => item.checked && item.name === input.name)
         .map((item) => item.value)
+    : input.value

@@ -17,7 +17,6 @@ export default function Binding() {
       <ToggleGroup
         aria-label="View"
         name="calendar-view"
-        selection="single"
         value={view}
         onValueChange={setView}
       >
@@ -27,6 +26,7 @@ export default function Binding() {
       </ToggleGroup>
       <ToggleGroup
         aria-label="Text format"
+        multiple
         name="text-format"
         value={format}
         onValueChange={setFormat}

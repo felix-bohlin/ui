@@ -3,7 +3,7 @@
   import ToggleGroup from "../../../packages/opui/components/ToggleGroup/ToggleGroup.svelte"
 </script>
 
-<ToggleGroup selection="single" value="left">
-  <ToggleButton label="left" />
-  <ToggleButton checked label="right" />
+<ToggleGroup value="left">
+  <ToggleButton label="left" value="left" />
+  <ToggleButton checked label="right" value="right" />
 </ToggleGroup>

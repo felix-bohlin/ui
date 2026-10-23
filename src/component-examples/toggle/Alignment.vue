@@ -3,7 +3,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <ToggleGroup selection="single" name="alignment">
+  <ToggleGroup name="alignment">
     <ToggleButton value="left" aria-label="Align left">
       <svg
         aria-hidden="true"

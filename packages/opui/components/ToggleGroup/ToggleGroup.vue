@@ -4,23 +4,15 @@ import { ToggleGroupKey } from "./context.vue"
 import { selectionOf } from "./selection"
 import type { Props, Slots } from "./types.d.vue"
 
-const {
-  name,
-  orientation,
-  overflow,
-  selection = "multiple",
-  size,
-} = defineProps<Props>()
+const { multiple, name, orientation, overflow, size } = defineProps<Props>()
 defineSlots<Slots>()
 const model = defineModel<string | string[]>()
 
 const uid = useId()
 const groupName = computed(() => name || `toggle-group-${uid}`)
-const inputType = computed(() =>
-  selection === "single" ? "radio" : "checkbox",
-)
+const inputType = computed(() => (multiple ? "checkbox" : "radio"))
 const change = (input: HTMLInputElement) => {
-  model.value = selectionOf(input, selection)
+  model.value = selectionOf(input, multiple)
 }
 
 provide(
@@ -40,7 +32,7 @@ provide(
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :role="selection === 'single' ? 'radiogroup' : 'group'"
+    :role="multiple ? 'group' : 'radiogroup'"
   >
     <slot></slot>
   </div>

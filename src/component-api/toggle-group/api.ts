@@ -5,7 +5,7 @@ export default {
   css: ["toggle-button", "toggle-group"],
   model: {
     description:
-      'The value of the checked button with `selection="single"`, or the values of the checked buttons.',
+      "The value of the checked button, or the values of the checked buttons with `multiple`.",
     prop: "value",
     type: "string | string[]",
   },
@@ -20,6 +20,14 @@ export default {
       description: "The starting selection when `value` is omitted.",
       frameworks: ["react"],
       prop: "defaultValue",
+    },
+    {
+      attribute: '[role="group"]',
+      default: "false",
+      description:
+        'Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role="radiogroup"]`.',
+      group: "Multiple",
+      prop: "multiple",
     },
     {
       description: "The name shared by the inputs. Generated when omitted.",
@@ -51,14 +59,6 @@ export default {
       },
     },
     {
-      default: '"multiple"',
-      description:
-        'Whether one or several buttons can be selected. `"single"` uses radio inputs.',
-      group: "Selection",
-      prop: "selection",
-      values: { multiple: '[role="group"]', single: '[role="radiogroup"]' },
-    },
-    {
       default: '"medium"',
       description: "The size of the buttons.",
       group: "Sizes",
@@ -72,7 +72,7 @@ export default {
     },
     {
       description:
-        'The value of the checked button with `selection="single"`, or the values of the checked buttons.',
+        "The value of the checked button, or the values of the checked buttons with `multiple`.",
       frameworks: ["react"],
       prop: "value",
     },

@@ -1014,6 +1014,12 @@ const whatsNew = {
     slots(
       `Breaking: <code>ToggleButton</code> <code>pressed</code> is <a href="#single-select"><code>checked</code></a>.`,
     ),
+    components(
+      `Breaking: <code>ToggleGroup</code> <code>selection</code> is <a href="#multi-select"><code>multiple</code></a>, and a group is <a href="#single-select">single-select</a> by default.`,
+    ),
+    components(
+      `Breaking: <code>ToggleButton</code> <a href="#api"><code>value</code></a> no longer falls back to <code>label</code>.`,
+    ),
   ],
   tooltip: [
     {

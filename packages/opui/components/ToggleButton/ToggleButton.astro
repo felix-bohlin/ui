@@ -36,7 +36,7 @@ const finalType = group?.inputType === "radio" ? "radio" : (type ?? "checkbox")
     checked={checked}
     name={finalName}
     type={finalType}
-    value={value || label}
+    value={value}
     {...rest}
   />
   <slot>{label}</slot>

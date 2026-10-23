@@ -27,7 +27,7 @@ export default function ToggleButton({
   const finalName = name || group?.groupName || field?.name
   const finalType =
     group?.inputType === "radio" ? "radio" : (type ?? "checkbox")
-  const grouped = isSelected(group?.value, value || label)
+  const grouped = isSelected(group?.value, value)
   warnGroupedChecked("ToggleButton", grouped, checked ?? defaultChecked)
 
   return (
@@ -44,7 +44,7 @@ export default function ToggleButton({
         defaultChecked={grouped === undefined ? defaultChecked : undefined}
         name={finalName}
         type={finalType}
-        value={value || label}
+        value={value}
         {...rest}
         onChange={(event) => {
           group?.change(event.currentTarget)

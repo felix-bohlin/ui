@@ -10,17 +10,17 @@
   }
 </script>
 
-<ToggleGroup
-  aria-label="View"
-  bind:value={view}
-  name="calendar-view"
-  selection="single"
->
+<ToggleGroup aria-label="View" bind:value={view} name="calendar-view">
   <ToggleButton value="day">Day</ToggleButton>
   <ToggleButton value="week">Week</ToggleButton>
   <ToggleButton value="month">Month</ToggleButton>
 </ToggleGroup>
-<ToggleGroup aria-label="Text format" bind:value={format} name="text-format">
+<ToggleGroup
+  aria-label="Text format"
+  bind:value={format}
+  multiple
+  name="text-format"
+>
   <ToggleButton value="bold">Bold</ToggleButton>
   <ToggleButton value="italic">Italic</ToggleButton>
   <ToggleButton value="underline">Underline</ToggleButton>

@@ -914,6 +914,22 @@ In Astro and Vue, `style` on a `ToggleButton` goes to the root `<label>` instead
 + <ToggleGroup size="medium">
 ```
 
+`ToggleGroup` `selection` is `multiple`, and a group is single-select by default. Add `multiple` where the group was multi-select, which was the default, and drop `selection="single"`.
+
+```diff
+- <ToggleGroup>
++ <ToggleGroup multiple>
+- <ToggleGroup selection="single">
++ <ToggleGroup>
+```
+
+`ToggleButton` `value` no longer falls back to `label`. Pass `value` when the input needs one.
+
+```diff
+- <ToggleButton label="Bold" />
++ <ToggleButton label="Bold" value="bold" />
+```
+
 `ToggleButton` icon styles only apply to a direct child `svg`, sized with `--_icon-size`. An `svg` nested in another element is no longer sized, so move it out of its wrapper:
 
 ```diff

@@ -3,7 +3,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <ToggleGroup selection="single" name="transport">
+  <ToggleGroup name="transport">
     <ToggleButton value="walking" checked>
       <svg
         aria-hidden="true"

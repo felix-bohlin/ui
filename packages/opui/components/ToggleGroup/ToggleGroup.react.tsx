@@ -9,11 +9,11 @@ import type { Props } from "./types.react"
 export default function ToggleGroup({
   className,
   defaultValue,
+  multiple,
   name,
   onValueChange,
   orientation,
   overflow,
-  selection = "multiple",
   size,
   value,
   children,
@@ -21,11 +21,11 @@ export default function ToggleGroup({
 }: Props) {
   const uid = useId()
   const groupName = name || `toggle-group-${uid}`
-  const inputType = selection === "single" ? "radio" : "checkbox"
+  const inputType = multiple ? "checkbox" : "radio"
   const [inner, setInner] = useState(defaultValue)
 
   const change = (input: HTMLInputElement) => {
-    const next = selectionOf(input, selection)
+    const next = selectionOf(input, multiple)
     if (inner !== undefined) setInner(next)
     onValueChange?.(next as never)
   }
@@ -44,7 +44,7 @@ export default function ToggleGroup({
           size && size !== "medium" && `ui-${size}`,
           className,
         ])}
-        role={selection === "single" ? "radiogroup" : "group"}
+        role={multiple ? "group" : "radiogroup"}
         {...rest}
       >
         {children}

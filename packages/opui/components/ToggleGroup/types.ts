@@ -1,8 +1,8 @@
 export type Props = {
+  multiple?: boolean
   name?: string
   orientation?: "horizontal" | "vertical"
   overflow?: "scroll" | "shrink" | "wrap"
-  selection?: "single" | "multiple"
   size?: "x-small" | "small" | "medium" | "large"
 }
 
@@ -14,7 +14,7 @@ export type Context = {
 }
 
 export type Selection<Single, Multiple> =
-  ({ selection: "single" } & Single) | ({ selection?: "multiple" } & Multiple)
+  ({ multiple?: false } & Single) | ({ multiple: true } & Multiple)
 
 export type Slots<S> = {
   children?: S

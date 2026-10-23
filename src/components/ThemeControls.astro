@@ -25,12 +25,7 @@ const defaults = tokenDefaults("light")
 <FieldSet>
   <FieldLegend>Example theme</FieldLegend>
   <FieldGroup>
-    <ToggleGroup
-      aria-label="Example theme"
-      name="example-theme"
-      selection="single"
-      size="small"
-    >
+    <ToggleGroup aria-label="Example theme" name="example-theme" size="small">
       <ToggleButton checked value="default">Default</ToggleButton>
       {
         EXAMPLE_THEMES.map((theme) => (
@@ -101,12 +96,7 @@ const defaults = tokenDefaults("light")
       <FieldGroup>
         <div class="radius-field">
           <span class="ui-label">{field.label}</span>
-          <ToggleGroup
-            aria-label={field.label}
-            name={field.token}
-            selection="single"
-            size="small"
-          >
+          <ToggleGroup aria-label={field.label} name={field.token} size="small">
             {radiusOptions(field.token).map((option) => (
               <ToggleButton
                 checked={option.value === defaults[field.token]}

@@ -24,6 +24,7 @@ describe("ToggleButton checked", () => {
           createElement(ToggleButtonReact, {
             defaultChecked: true,
             label: "Bold",
+            value: "Bold",
           }),
         ),
       ),
@@ -31,7 +32,7 @@ describe("ToggleButton checked", () => {
     expect(
       checkedInputs(
         renderSvelte(ToggleButtonSvelte, {
-          props: { checked: true, label: "Bold" },
+          props: { checked: true, label: "Bold", value: "Bold" },
         }).body,
       ),
     ).toEqual(["Bold"])
@@ -39,7 +40,12 @@ describe("ToggleButton checked", () => {
       checkedInputs(
         await renderVue(
           createSSRApp({
-            render: () => h(ToggleButtonVue, { checked: true, label: "Bold" }),
+            render: () =>
+              h(ToggleButtonVue, {
+                checked: true,
+                label: "Bold",
+                value: "Bold",
+              }),
           }),
         ),
       ),
@@ -53,12 +59,13 @@ describe("ToggleButton checked", () => {
         renderReact(
           createElement(
             ToggleGroupReact,
-            { selection: "single", value: "left" },
-            createElement(ToggleButtonReact, { label: "left" }),
+            { value: "left" },
+            createElement(ToggleButtonReact, { label: "left", value: "left" }),
             createElement(ToggleButtonReact, {
               checked: true,
               label: "right",
               onChange: () => {},
+              value: "right",
             }),
           ),
         ),
@@ -72,14 +79,14 @@ describe("ToggleButton checked", () => {
         await renderVue(
           createSSRApp({
             render: () =>
-              h(
-                ToggleGroupVue,
-                { modelValue: "left", selection: "single" },
-                () => [
-                  h(ToggleButtonVue, { label: "left" }),
-                  h(ToggleButtonVue, { checked: true, label: "right" }),
-                ],
-              ),
+              h(ToggleGroupVue, { modelValue: "left" }, () => [
+                h(ToggleButtonVue, { label: "left", value: "left" }),
+                h(ToggleButtonVue, {
+                  checked: true,
+                  label: "right",
+                  value: "right",
+                }),
+              ]),
           }),
         ),
       ),

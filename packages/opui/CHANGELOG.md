@@ -66,6 +66,8 @@
 - `Table` and `DescriptionList` part files are `components/Table/TableBody.*`, `TableCell.*`, `TableColumn.*`, `TableColumnGroup.*`, `TableHead.*`, `TableHeaderCell.*`, `TableRow.*` and `components/DescriptionList/DescriptionListDescription.*`, `DescriptionListItem.*`, `DescriptionListTerm.*`. The `opui-css/<framework>` exports are unchanged; update deep `./components/*` imports.
 - `TableColumn` `width` takes a CSS length. A declaration string (`width="min-width: 10rem"`) is no longer parsed; pass `style` instead.
 - `ToggleGroup` `size="default"` is `size="medium"`, the name of its default look.
+- `ToggleGroup` `selection` is `multiple`. A group is single-select by default, so add `multiple` to a group that left `selection` out or set `selection="multiple"`, and drop `selection="single"`.
+- `ToggleButton` `value` no longer falls back to `label`. Pass `value` when the input needs one, such as in a form or a `ToggleGroup`.
 - `Accordion` `variant="default"` is gone. An accordion without a variant is `plain`, the page surface with padding and no border, like a `Card`, and a group card without a variant pads its accordions too. Use `variant="transparent"` (`.ui-transparent`) for the previous look, with no surface or padding.
 - `choice.css` holds the layout, label, end text, sizes and disabled styles shared by `Checkbox`, `Radio` and `Switch`, which moved out of `checkbox.css`, `radio.css` and `switch.css`. Import it with them, in any order, or use `components.css`.
 - `Anchor` requires `id` with `trigger="hover"` and no longer generates one. Pass the same `id` to `interestfor` on the trigger.
@@ -188,7 +190,7 @@
 - `Select` and `Range` export `SelectItem` and `RangeItem` from every framework barrel.
 - `AvatarGroup` component (`div.ui-avatar-group[role="group"]`) in Astro, React, Svelte and Vue. It takes `class`, attributes such as `aria-label`, and avatars as children, and raises a focused avatar so the next one doesn't cover its focus ring.
 - `ListItem` takes `color="critical"` (`li.ui-critical`) for a destructive item in a `Menu`.
-- `ToggleGroup` takes a bindable `value`: `bind:value` in Svelte, `v-model` in Vue, and `value`, `defaultValue` and `onValueChange` in React. It is a string with `selection="single"` and an array of strings otherwise, and a `ToggleButton` in the group takes its checked state from it once the group has one. The button's own `checked` or `defaultChecked` is then ignored, and a dev warning says so.
+- `ToggleGroup` takes a bindable `value`: `bind:value` in Svelte, `v-model` in Vue, and `value`, `defaultValue` and `onValueChange` in React. It is a string, and an array of strings with `multiple`, and a `ToggleButton` in the group takes its checked state from it once the group has one. The button's own `checked` or `defaultChecked` is then ignored, and a dev warning says so.
 - `Table` has `TableCaption` and `TableFoot` parts for `<caption>` and `<tfoot>`.
 - `Checkbox`, `Radio` and `Switch` take an `endText` string in Astro and Vue, like `TextField`.
 - `ButtonGroup` and `ToggleGroup` `orientation` takes `"horizontal"`, the default, like `Carousel`.

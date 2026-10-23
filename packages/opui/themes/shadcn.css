@@ -2,7 +2,7 @@
 @layer theme.palette, theme.base, theme.custom;
 
 @layer theme.custom {
-  :where(html) {
+  :where(html, .ui-palette, .ui-contrast-more) {
     --ui-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 0.1));
     --ui-border-color-on-raised: var(--ui-border-color);
     --ui-radius: 0.875rem;
@@ -54,13 +54,5 @@
     --ui-text: light-dark(oklch(0.269 0 0), oklch(0.922 0 0));
     --ui-text-strong: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
     --ui-track-bg-color: var(--ui-field-border-color);
-  }
-
-  @container style(--ui-contrast: more) {
-    :where(body, .ui-contrast-more > *) {
-      --ui-button-accent: var(--ui-primary);
-      --ui-button-on-accent: var(--ui-on-primary);
-      --ui-control-border-color: var(--ui-field-border-color);
-    }
   }
 }

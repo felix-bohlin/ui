@@ -17,7 +17,8 @@ export type ThemeSection = {
 const HEADER = /^\s*\/\*\s*([^-.\s][^.]*?)(?:\s+-\s+(.*?))?\s*\*\/\s*$/
 const DECLARATION = /^(\s*)(--[\w-]+):\s*(.*)$/
 const OPTIONAL = /^\s*\/\*\s*(--[\w-]+):\s*(.*?);?\s*\*\/\s*$/
-const CONTRAST_SCOPE = /--ui-contrast:\s*more/
+const CONTRAST_SCOPE =
+  /prefers-contrast:\s*more|:where\(\.ui-contrast-more\)|--ui-contrast:\s*more/
 const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
 const THEME_SCOPE = /\bhtml\b/
 const SECTION_ORDER = [

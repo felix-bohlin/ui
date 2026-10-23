@@ -202,12 +202,7 @@ test.describe("token promises", () => {
           for (const [name, { against, ratio }] of Object.entries(
             themeTokenPromises,
           )) {
-            if (
-              preference === "no-preference" &&
-              THEME_EXCEPTIONS[theme]?.[colorScheme]?.[name]
-            ) {
-              continue
-            }
+            if (THEME_EXCEPTIONS[theme]?.[colorScheme]?.[name]) continue
             for (const surface of against) {
               expect
                 .soft(

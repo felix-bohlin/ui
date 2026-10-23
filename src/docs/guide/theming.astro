@@ -56,13 +56,22 @@ import Example from "../../components/Example/index"
     <p>
       Or set <code>--ui-palette-source</code> to any color: the palette keeps its
       oklch hue, scales its chroma and sets the lightness per step. The palette is
-      computed on <code>:root</code>, <code>.ui-palette</code> and the severity classes,
-      so the knobs do nothing anywhere else. Each severity class is one source:
+      computed on <code>:root</code>, <code>.ui-palette</code>, <code
+        >.ui-contrast-more</code
+      >, the severity classes and the inline <code>del</code>, <code>ins</code>,
+      <code>abbr</code> and <code>dfn</code> elements and their classes, so the knobs
+      do nothing anywhere else. Each severity class takes its hue from its intent
+      token, so setting <code>--ui-critical</code>, <code>--ui-info</code>, <code
+        >--ui-success</code
+      > or <code>--ui-warning</code> recolors the scope. <code>.ui-neutral</code
+      > follows
+      <code>--ui-gray-hue</code> and <code>--ui-gray-chroma</code> instead:
     </p>
 
     <Code
       code={`:where(.ui-warning) {
-  --ui-palette-source: oklch(0.58 0.21 var(--hue-orange));
+  --ui-palette-source: oklch(from var(--ui-warning) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
 }`}
       lang="css"
     />
@@ -84,8 +93,10 @@ import Example from "../../components/Example/index"
         <code>.ui-light</code> and <code>.ui-dark</code> force a color scheme.
       </li>
       <li>
-        <code>.ui-palette</code> re-derives the palette and every color token from
-        the knobs set on that element.
+        <code>.ui-palette</code> re-derives the palette and every derived token (colors,
+        control sizes, spacing, type roles and radii) from the knobs the element sets
+        or inherits. <code>.ui-contrast-more</code> does the same with the contrast
+        knobs tightened.
       </li>
     </ul>
     <p>
@@ -114,8 +125,9 @@ import Example from "../../components/Example/index"
     <p>
       <code>--ui-density</code> scales the <code>--ui-control-size*</code> roles,
       so fields, buttons and list items grow or shrink together, and their padding
-      shrinks down to the height of the text. Set it on <code>html</code>, where
-      the sizes resolve.
+      shrinks down to the height of the text. Set it on <code>html</code>, or on
+      a
+      <code>.ui-palette</code> element to change one part of the page.
     </p>
     <Code
       code={`:where(html) {
@@ -130,9 +142,10 @@ import Example from "../../components/Example/index"
     <p>
       <code>--ui-space-1</code> to <code>--ui-space-8</code> pad and space containers,
       forms and rich text. Each is the Open Props size of the same number times
-      <code>--ui-space-scale</code>, set on <code>html</code>. Controls follow <code
-        >--ui-density</code
-      > instead, so a roomy form can keep compact fields.
+      <code>--ui-space-scale</code>, set on <code>html</code> or a <code
+        >.ui-palette</code
+      > element. Controls follow <code>--ui-density</code> instead, so a roomy form
+      can keep compact fields.
     </p>
     <Code
       code={`:where(html) {
@@ -295,18 +308,38 @@ import Example from "../../components/Example/index"
     <h2 id="contrast">Contrast</h2>
     <p>
       <code>--ui-contrast</code> is <code>normal</code>, or <code>more</code> under
-      <code>prefers-contrast: more</code>. A style query on it raises muted
-      text, borders, the primary and intent colors and the focus ring, and
-      components with their own tints have queries of their own.
+      <code>prefers-contrast: more</code>. More contrast changes no color
+      directly. It tightens the knobs the roles are derived from, and every role
+      follows:
+      <code>--ui-text-strength-light</code> and <code
+        >--ui-text-strength-dark</code
+      >
+      (how much of <code>--ui-text-strong</code> goes into <code>--ui-text</code
+      >),
+      <code>--ui-border-strength-light</code>, <code
+        >--ui-border-strength-dark</code
+      >
+      and <code>--ui-field-border-strength</code> for the borders, <code
+        >--ui-text-max-lightness</code
+      >, <code>--ui-text-min-lightness</code> and <code
+        >--ui-text-max-chroma</code
+      >
+      for the <code>-text</code> roles, <code>--ui-fill-max-lightness</code> for intent
+      fills, <code>--ui-primary-max-lightness</code> and <code
+        >--ui-primary-min-lightness</code
+      > for the primary, the <code>--ui-palette-*-lightness</code> limits for the
+      palette roles, and <code>--ui-focus-ring-width</code>. Their values in
+      both modes are on
+      <DocLink href="/guide/theme-tokens#contrast">Theme tokens</DocLink>.
+      Components with translucent fills or text have style queries of their own
+      for the shape changes.
     </p>
     <p>
-      The query sets its values on <code>body</code>, so they beat a theme's <code
-        >html</code
-      > values, and optional tokens that carry contrast, like <code
-        >--ui-selected</code
-      >, are reset there. A theme that wants its own high-contrast value sets it
-      again in its own <code>@container style(--ui-contrast: more)</code> block, as
-      the example themes do for <code>--ui-button-accent</code>.
+      A theme that sets a knob or <code>--ui-primary-source</code> keeps working with
+      more contrast. A theme that pins a role directly, such as <code
+        >--ui-text: #333</code
+      >, owns that role in every contrast mode. Set the knob instead, or give
+      the role its own value under <code>@media (prefers-contrast: more)</code>.
     </p>
 
     <Example row showCode={false}>
@@ -343,55 +376,41 @@ import Example from "../../components/Example/index"
     <h3 id="contrast-classes">Classes</h3>
     <ul>
       <li>
-        <code>.ui-contrast-more</code>: sets <code>--ui-contrast: more</code>,
-        on
-        <code>html</code> or any element.
+        <code>.ui-contrast-more</code>: sets <code>--ui-contrast: more</code> and
+        the tightened knobs, on <code>html</code> or any element. On an element it
+        is a scope like <code>.ui-palette</code>, so every role inside is
+        derived again.
       </li>
       <li>
         <code>.ui-contrast-normal</code>: sets <code>--ui-contrast: normal</code
         >, on <code>html</code> to ignore the OS preference. It can't lower the contrast
-        inside a <code>.ui-contrast-more</code> ancestor, where the tokens are already
-        resolved.
+        inside a <code>.ui-contrast-more</code> ancestor.
       </li>
     </ul>
     <Code code={`<html lang="en" class="ui-contrast-more">`} lang="html" />
 
     <h3 id="contrast-custom">Custom values</h3>
     <p>
-      Style queries match the parent, so the values land on <code>body</code>,
-      on the children of <code>.ui-contrast-more</code> and on the surfaces with their
-      own border colors. To tune them, query with the same selectors:
+      To tune more contrast, set the knobs where the library sets them: on <code
+        >html</code
+      > under the media query, and on <code>.ui-contrast-more</code>.
     </p>
     <Code
-      code={`@container style(--ui-contrast: more) {
-  :where(
-    body,
-    .ui-contrast-more > *,
-    .ui-palette,
-    .ui-accordion:is(.ui-elevated, .ui-tonal),
-    .ui-callout:not(
-      .ui-critical,
-      .ui-info,
-      .ui-neutral,
-      .ui-outlined,
-      .ui-success,
-      .ui-warning
-    ),
-    :is(.ui-card, .ui-dialog):is(.ui-elevated, .ui-tonal),
-    :is(.ui-list, .ui-menu):not(.ui-tonal, .ui-transparent),
-    .ui-table th
-  ) {
-    --ui-border-color: var(--ui-text);
-    --ui-field-border-color: var(--ui-border-color);
+      code={`@layer theme.custom {
+  @media (prefers-contrast: more) {
+    :where(html:not(.ui-contrast-normal)) {
+      --ui-border-strength-light: 70%;
+      --ui-field-border-strength: 80%;
+    }
+  }
+
+  :where(.ui-contrast-more) {
+    --ui-border-strength-light: 70%;
+    --ui-field-border-strength: 80%;
   }
 }`}
       lang="css"
     />
-    <p>
-      Set tokens that read an overridden one, like <code
-        >--ui-field-border-color</code
-      >, again in the same rule.
-    </p>
 
     <h3 id="forced-colors">Forced colors</h3>
     <p>

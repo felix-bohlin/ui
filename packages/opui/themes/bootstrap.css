@@ -2,7 +2,7 @@
 @layer theme.palette, theme.base, theme.custom;
 
 @layer theme.custom {
-  :where(html) {
+  :where(html, .ui-palette, .ui-contrast-more) {
     --ui-border-color: light-dark(#dee2e6, #495057);
     --ui-border-color-on-raised: var(--ui-border-color);
     --ui-radius: 0.375rem;

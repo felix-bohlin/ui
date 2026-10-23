@@ -15,7 +15,7 @@
  *  - An example theme's tokens come first, and the other tokens only when
  *    they differ from it.
  *  - With grays disabled, the text, surface and border mappings go in
- *    `:where(html, .ui-palette)`, like in theme.css.
+ *    `:where(html, .ui-palette, .ui-contrast-more)`, like in theme.css.
  */
 
 import {
@@ -138,7 +138,7 @@ export function generateCss({
   const darkPairs = darkTokens.map((token) => [token, darkSnap[token]] as const)
   const rules = [
     rule(":where(html)", lightPairs),
-    rule(":where(html, .ui-palette)", rampTokens),
+    rule(":where(html, .ui-palette, .ui-contrast-more)", rampTokens),
     rule(":where(html.ui-dark)", darkPairs),
     darkPairs.length > 0
       ? `  @media (prefers-color-scheme: dark) {\n${rule(":where(html:not(.ui-light))", darkPairs, "    ")}\n  }`

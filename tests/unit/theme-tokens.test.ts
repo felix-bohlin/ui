@@ -145,22 +145,25 @@ describe("theme tokens", () => {
     expect(tokenDefaults("light")["--ui-radius"]).toBe("var(--size-2)")
   })
 
-  test("contrast overrides also set the tokens derived from them", () => {
-    const block = themeSource.slice(
-      themeSource.indexOf("@container style(--ui-contrast: more)"),
-    )
-    const overridden = new Set(
-      [...block.matchAll(/^\s*(--[\w-]+):/gm)].map((match) => match[1]),
-    )
-    expect(overridden.size).toBeGreaterThan(0)
-    for (const token of tokens.filter((candidate) => !candidate.optional)) {
-      const references = [
-        ...`${token.value} ${token.dark ?? ""}`.matchAll(/var\((--[\w-]+)/g),
-      ].map((match) => match[1])
-      if (references.some((name) => overridden.has(name))) {
-        expect(overridden, token.name).toContain(token.name)
-      }
-    }
+  test("the knob block reads no other token, so knobs inherit into every scope", () => {
+    const start = themeSource.indexOf(":where(html) {")
+    const end = themeSource.indexOf("\n  }\n", start)
+    const block = themeSource.slice(start, end)
+    const reads = [
+      ...block.matchAll(/^\s*(--ui-[\w-]+):[^;]*var\(--(?:ui-|_)[^;]*;/gm),
+    ].map((match) => match[1])
+    expect(reads).toEqual(["--ui-shadow-elevated"])
+  })
+
+  test("the contrast rules set knobs only, and both set the same ones", () => {
+    const bodies = [
+      ...themeSource.matchAll(
+        /:where\((?:html:not\(\.ui-contrast-normal\)|\.ui-contrast-more)\) \{([^}]*)\}/g,
+      ),
+    ].map((match) => match[1].replaceAll(/\s+/g, " ").trim())
+    expect(bodies).toHaveLength(2)
+    expect(bodies[0]).toBe(bodies[1])
+    expect(bodies[0]).not.toMatch(/var\(--(?:ui-|_)/)
   })
 
   test("every scope that sets --ui-palette-source re-derives the palette", () => {
@@ -266,7 +269,7 @@ describe("generateCss", () => {
       dark: { "enable-grays": "false" },
       light: { "enable-grays": "false" },
     })
-    expect(css).toContain(":where(html, .ui-palette) {")
+    expect(css).toContain(":where(html, .ui-palette, .ui-contrast-more) {")
     expect(css).toContain(
       "--ui-surface: light-dark(var(--ui-color-1), var(--ui-color-14));",
     )

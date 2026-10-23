@@ -40,13 +40,13 @@ See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md
 
 ## Variants
 
-Use the modifier classes `.ui-filled` or `.ui-tonal` on the wrapper `<div>` to swap the progress bar track surface for better contrast on different backgrounds. Without a class, the track is tonal, the same as `.ui-tonal`.
+Use the modifier class `.ui-filled` on the wrapper `<div>` to swap the progress bar track surface for better contrast on different backgrounds. Without a class, the track is tonal.
 
 ```html
 <div class="ui-progress ui-filled">
   <progress aria-label="Storage used" value="25" max="100"></progress>
 </div>
-<div class="ui-progress ui-tonal">
+<div class="ui-progress">
   <progress aria-label="Memory used" value="75" max="100"></progress>
 </div>
 ```
@@ -75,10 +75,10 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ### Progress API
 
-| Type     | Modifiers                 | Default | Description                                                           |
-| -------- | ------------------------- | ------- | --------------------------------------------------------------------- |
-| Value    | `progress[value]`         | -       | The current value. Omit it for an indeterminate state.                |
-| Variants | `.ui-filled`, `.ui-tonal` | -       | The variant to use. Without one, the track looks the same as `tonal`. |
+| Type     | Modifiers             | Default | Description                                            |
+| -------- | --------------------- | ------- | ------------------------------------------------------ |
+| Value    | `progress[value]`     | -       | The current value. Omit it for an indeterminate state. |
+| Variants | default, `.ui-filled` | default | The variant to use.                                    |
 
 #### Parts
 
@@ -279,3 +279,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).
 - [Progress bars](#indeterminate) center in table cells and lines of text.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
+- The default [tonal](#variants) track needs no `.ui-tonal`.

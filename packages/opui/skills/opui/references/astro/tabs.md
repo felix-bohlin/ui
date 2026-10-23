@@ -32,7 +32,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="basic-tabs">
-  <TabsItem open>
+  <TabsItem checked>
     <TabsTab>Profile</TabsTab>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>
@@ -57,7 +57,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="filled-tabs" variant="filled">
-  <TabsItem open>
+  <TabsItem checked>
     <TabsTab>Profile</TabsTab>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>
@@ -82,7 +82,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="line-tabs" variant="line">
-  <TabsItem open>
+  <TabsItem checked>
     <TabsTab>Profile</TabsTab>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>
@@ -107,7 +107,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="outlined-tabs" variant="outlined">
-  <TabsItem open>
+  <TabsItem checked>
     <TabsTab>Profile</TabsTab>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>
@@ -132,7 +132,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
 ---
 
 <Tabs name="scrollable-tabs" scrollable>
-  <TabsItem open>
+  <TabsItem checked>
     <TabsTab>Profile</TabsTab>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>
@@ -191,11 +191,11 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 ### Tabs API
 
-| Prop         | Type                                 | Default | Description                                                                                          |
-| ------------ | ------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
-| `name`       | `string`                             | -       | The name shared by the tab inputs. Generated when omitted.                                           |
-| `scrollable` | `boolean`                            | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit.                             |
-| `variant`    | `"filled"` , `"line"` , `"outlined"` | -       | The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill. |
+| Prop         | Type                                             | Default   | Description                                                                                          |
+| ------------ | ------------------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------- |
+| `name`       | `string`                                         | -         | The name shared by the tab inputs. Generated when omitted.                                           |
+| `scrollable` | `boolean`                                        | `false`   | Keeps the tabs on one row and scrolls them sideways when they don't fit.                             |
+| `variant`    | `"filled"` , `"line"` , `"outlined"` , `"tonal"` | `"tonal"` | The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill. |
 
 #### Slots
 
@@ -241,11 +241,11 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Tabs item API
 
-| Prop    | Type      | Default | Description                                  |
-| ------- | --------- | ------- | -------------------------------------------- |
-| `name`  | `string`  | -       | Overrides the name shared by the tab inputs. |
-| `open`  | `boolean` | `false` | Selects the tab initially.                   |
-| `tabId` | `string`  | -       | The id of the input. Generated when omitted. |
+| Prop      | Type      | Default | Description                                  |
+| --------- | --------- | ------- | -------------------------------------------- |
+| `checked` | `boolean` | `false` | Selects the tab initially.                   |
+| `name`    | `string`  | -       | Overrides the name shared by the tab inputs. |
+| `tabId`   | `string`  | -       | The id of the input. Generated when omitted. |
 
 #### Slots
 
@@ -587,3 +587,5 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The selected tab's shadow reads [`--ui-shadow-tab`](#api), so themes can change or remove it.
 - Labels read [`--ui-font-size-control`](#api) for their font size, like buttons.
 - The selected tab of [filled](#filled) tabs reads `--ui-selected-strong` and `--ui-on-selected-strong`.
+- [Variants](#basics) name the default: `variant="tonal"`.
+- Breaking: `TabsItem` `open` is [`checked`](#basics).

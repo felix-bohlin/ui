@@ -36,15 +36,12 @@
 
 ## Basics
 
-Add `.ui-with-buttons` for previous and next buttons, and `.ui-with-markers` for a marker per item.
+Add `.ui-buttons` for previous and next buttons, and `.ui-markers` for a marker per item.
 
 Browsers without `::scroll-button()` and `::scroll-marker` get a plain scroll-snap list with a scrollbar.
 
 ```html
-<ul
-  class="ui-carousel ui-with-buttons ui-with-markers"
-  aria-label="Destinations"
->
+<ul class="ui-carousel ui-buttons ui-markers" aria-label="Destinations">
   <li>
     <div class="ui-card ui-tonal">
       <hgroup>
@@ -99,7 +96,7 @@ Set `--_per-view` to show more than one item at a time.
 
 ```html
 <ul
-  class="ui-carousel ui-buttons-outside ui-with-buttons"
+  class="ui-carousel ui-buttons-outside ui-buttons"
   aria-label="Destinations"
   style="--_per-view: 3"
 >
@@ -159,7 +156,7 @@ Items in a row are as tall as the tallest one, but their content keeps its own h
 
 ```html
 <ul
-  class="ui-carousel ui-buttons-outside ui-stretch ui-with-buttons"
+  class="ui-carousel ui-buttons-outside ui-stretch ui-buttons"
   aria-label="Destinations"
   style="--_per-view: 3"
 >
@@ -220,7 +217,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
 
 ```html
 <ul
-  class="ui-carousel ui-align-center ui-peek ui-with-markers"
+  class="ui-carousel ui-align-center ui-peek ui-markers"
   aria-label="Destinations"
 >
   <li>
@@ -277,7 +274,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
 
 ```html
 <ul
-  class="ui-carousel ui-vertical ui-with-buttons ui-with-markers"
+  class="ui-carousel ui-vertical ui-buttons ui-markers"
   aria-label="Destinations"
   style="--_block-size: 16rem"
 >
@@ -334,7 +331,7 @@ Use `.ui-peek` to show part of the neighboring items, and `.ui-align-center` to 
 `--_media-aspect-ratio` crops images to the same shape, `16 / 9` by default.
 
 ```html
-<ul class="ui-carousel ui-with-buttons ui-with-markers" aria-label="Photos">
+<ul class="ui-carousel ui-buttons ui-markers" aria-label="Photos">
   <li>
     <img
       alt="A deep blue fjord between steep mountains"
@@ -389,7 +386,7 @@ Square photos, three per view.
 
 ```html
 <ul
-  class="ui-carousel ui-with-buttons"
+  class="ui-carousel ui-buttons"
   aria-label="Gallery"
   style="--_per-view: 3; --_media-aspect-ratio: 1"
 >
@@ -446,7 +443,7 @@ Square photos, three per view.
 `video` fills the item too.
 
 ```html
-<ul class="ui-carousel ui-with-buttons ui-with-markers" aria-label="Videos">
+<ul class="ui-carousel ui-buttons ui-markers" aria-label="Videos">
   <li>
     <video
       aria-label="A red flower bud opening"
@@ -473,7 +470,7 @@ Square photos, three per view.
 So does an `iframe`.
 
 ```html
-<ul class="ui-carousel ui-with-buttons ui-with-markers" aria-label="Tutorials">
+<ul class="ui-carousel ui-buttons ui-markers" aria-label="Tutorials">
   <li>
     <iframe
       allow="encrypted-media; fullscreen; picture-in-picture"
@@ -513,7 +510,7 @@ Use `.ui-buttons-outside` to keep the buttons off the content.
 
 ```html
 <ul
-  class="ui-carousel ui-buttons-outside ui-with-buttons"
+  class="ui-carousel ui-buttons-outside ui-buttons"
   aria-label="Plans"
   style="--_per-view: 2"
 >
@@ -566,11 +563,11 @@ Use `.ui-buttons-outside` to keep the buttons off the content.
 
 ## Persistent buttons
 
-Use `.ui-buttons-persistent` to keep both buttons visible at the ends. A disabled button has a muted border.
+Use `.ui-persistent-buttons` to keep both buttons visible at the ends. A disabled button has a muted border.
 
 ```html
 <ul
-  class="ui-carousel ui-buttons-outside ui-buttons-persistent ui-with-buttons"
+  class="ui-carousel ui-buttons-outside ui-persistent-buttons ui-buttons"
   aria-label="Destinations"
   style="--_per-view: 2"
 >
@@ -619,7 +616,7 @@ Use `.ui-buttons-persistent` to keep both buttons visible at the ends. A disable
 
 ```html
 <ul
-  class="ui-carousel ui-buttons-outside ui-with-buttons carousel-custom-buttons"
+  class="ui-carousel ui-buttons-outside ui-buttons carousel-custom-buttons"
   aria-label="Destinations"
   style="--_per-view: 2"
 >
@@ -684,7 +681,7 @@ Try the options together. The code below the carousel updates as you go.
 
 ## Grid and flex layouts
 
-With `.ui-with-markers`, the markers are a box next to the carousel, not inside it. In a grid or flex parent they become an item of their own and land in the next cell. Wrap the carousel in a `div` to keep them together.
+With `.ui-markers`, the markers are a box next to the carousel, not inside it. In a grid or flex parent they become an item of their own and land in the next cell. Wrap the carousel in a `div` to keep them together.
 
 ```html
 <div
@@ -695,10 +692,7 @@ With `.ui-with-markers`, the markers are a box next to the carousel, not inside 
   "
 >
   <div>
-    <ul
-      class="ui-carousel ui-with-buttons ui-with-markers"
-      aria-label="Destinations"
-    >
+    <ul class="ui-carousel ui-buttons ui-markers" aria-label="Destinations">
       <li>
         <div class="ui-card ui-tonal">
           <hgroup>
@@ -748,19 +742,19 @@ The buttons and markers scroll smoothly unless motion is off: with reduced motio
 
 ### Carousel API
 
-| Type               | Modifiers                                 | Default  | Description                                                                                                           |
-| ------------------ | ----------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------- |
-| Alignment          | default, `.ui-align-center`               | default  | Where items snap.                                                                                                     |
-| Aspect ratio       | `--_media-aspect-ratio`                   | `16 / 9` | Aspect ratio that images, videos and iframes are cropped to.                                                          |
-| Buttons            | `.ui-buttons-outside`, `.ui-with-buttons` | -        | Previous and next buttons. `.ui-buttons-outside` places them beside the items, together with `.ui-with-buttons`.      |
-| Items per view     | `--_per-view`                             | `1`      | Number of visible items.                                                                                              |
-| Label              | `[aria-label]`                            | -        | Accessible name of the carousel.                                                                                      |
-| Markers            | `.ui-with-markers`                        | -        | One marker per item, after the list.                                                                                  |
-| Motion             | `.ui-motion-off`                          | -        | Turns off smooth scrolling and the transitions, like reduced motion or `--ui-motion: 0` on a parent.                  |
-| Orientation        | default, `.ui-vertical`                   | default  | The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default.                      |
-| Peek               | `.ui-peek`                                | -        | Shows part of the neighboring items.                                                                                  |
-| Persistent buttons | `.ui-buttons-persistent`                  | -        | Keeps the buttons visible at the ends. A disabled button has a muted border.                                          |
-| Stretch            | `.ui-stretch`                             | -        | Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it. |
+| Type               | Modifiers                            | Default  | Description                                                                                                           |
+| ------------------ | ------------------------------------ | -------- | --------------------------------------------------------------------------------------------------------------------- |
+| Alignment          | default, `.ui-align-center`          | default  | Where items snap.                                                                                                     |
+| Aspect ratio       | `--_media-aspect-ratio`              | `16 / 9` | Aspect ratio that images, videos and iframes are cropped to.                                                          |
+| Buttons            | `.ui-buttons`, `.ui-buttons-outside` | -        | Previous and next buttons. `.ui-buttons-outside` places them beside the items, together with `.ui-buttons`.           |
+| Items per view     | `--_per-view`                        | `1`      | Number of visible items.                                                                                              |
+| Label              | `[aria-label]`                       | -        | Accessible name of the carousel.                                                                                      |
+| Markers            | `.ui-markers`                        | -        | One marker per item, after the list.                                                                                  |
+| Motion             | `.ui-motion-off`                     | -        | Turns off smooth scrolling and the transitions, like reduced motion or `--ui-motion: 0` on a parent.                  |
+| Orientation        | default, `.ui-vertical`              | default  | The orientation of the element. A vertical carousel is `--_block-size` tall, `24rem` by default.                      |
+| Peek               | `.ui-peek`                           | -        | Shows part of the neighboring items.                                                                                  |
+| Persistent buttons | `.ui-persistent-buttons`             | -        | Keeps the buttons visible at the ends. A disabled button has a muted border.                                          |
+| Stretch            | `.ui-stretch`                        | -        | Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it. |
 
 #### Parts
 
@@ -813,7 +807,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_button-bg-color`              | Input  | Background of the scroll buttons. Defaults to `--ui-surface-inverse`.                                                                              |
 | `--_button-border-color`          | Output | Border color of the scroll buttons. `--ui-control-border-color-filled` when the theme sets it, otherwise a shade of `--_button-bg-color`.          |
 | `--_button-disabled-border-color` | Output | Border color of disabled scroll buttons, from `--_button-bg-color`.                                                                                |
-| `--_button-disabled-opacity`      | Input  | Opacity of disabled scroll buttons. `0` hides them, `.ui-buttons-persistent` sets `1`.                                                             |
+| `--_button-disabled-opacity`      | Input  | Opacity of disabled scroll buttons. `0` hides them, `.ui-persistent-buttons` sets `1`.                                                             |
 | `--_button-end-flip`              | Output | Mirrors the inline-end button. `1`, or `-1` in right-to-left.                                                                                      |
 | `--_button-flip`                  | Output | Mirrors a scroll button, `1` or `-1`. From `--_button-start-flip` and `--_button-end-flip`.                                                        |
 | `--_button-icon`                  | Input  | Icon of the scroll buttons, pointing forward. The previous button mirrors it.                                                                      |
@@ -1021,7 +1015,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Images](#images) are cropped with `--_media-aspect-ratio`.
 - A [playground](#playground) to try the options together.
 - New component. A [scroll snap carousel](#basics) with buttons and markers generated by CSS.
-- [Persistent buttons](#persistent-buttons) with `.ui-buttons-persistent`.
+- [Persistent buttons](#persistent-buttons) with `.ui-persistent-buttons`.
 - [Vertical](#vertical) carousels with `.ui-vertical`.
 - [Stretch](#stretch) cards to equal height with `.ui-stretch`.
 - The [scroll buttons](#buttons-outside) draw one glyph as the inverse of the button face, so it follows `.ui-dark`, `.ui-light` and forced colors in every browser.

@@ -308,14 +308,14 @@ import { Button, ButtonGroup } from "opui-css/astro"
 
 ### Button group API
 
-| Prop          | Type                                  | Default        | Description                                                                                                       |
-| ------------- | ------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `color`       | `"critical"` , `"primary"`            | -              | Optional colors for the buttons.                                                                                  |
-| `orientation` | `"horizontal"` , `"vertical"`         | `"horizontal"` | The orientation of the element.                                                                                   |
-| `scrollable`  | `boolean`                             | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `shrink`      | `boolean`                             | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"large"` , `"small"` , `"x-small"`   | -              | The size of the buttons.                                                                                          |
-| `variant`     | `"filled"` , `"outlined"` , `"tonal"` | -              | The variant of the buttons.                                                                                       |
+| Prop          | Type                                                    | Default         | Description                                                                                                       |
+| ------------- | ------------------------------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `color`       | `"critical"` , `"primary"`                              | -               | Optional colors for the buttons.                                                                                  |
+| `orientation` | `"horizontal"` , `"vertical"`                           | `"horizontal"`  | The orientation of the element.                                                                                   |
+| `scrollable`  | `boolean`                                               | `false`         | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `shrink`      | `boolean`                                               | `false`         | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`        | `"large"` , `"medium"` , `"small"` , `"x-small"`        | `"medium"`      | The size of the buttons.                                                                                          |
+| `variant`     | `"filled"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant of the buttons.                                                                                       |
 
 #### Slots
 
@@ -391,17 +391,17 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Button API
 
-| Prop         | Type                                  | Default    | Description                                                                          |
-| ------------ | ------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
-| `aria-label` | `string`                              | -          | The accessible name. Required with `iconOnly`, for buttons without visible text.     |
-| `as`         | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.                                |
-| `color`      | `"critical"` , `"primary"`            | -          | Optional colors.                                                                     |
-| `disabled`   | `boolean`                             | `false`    | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
-| `href`       | `string`                              | -          | The link to use. Renders an `<a>`.                                                   |
-| `iconOnly`   | `boolean`                             | `false`    | Marks the button as icon-only, so `aria-label` is required. Types only.              |
-| `round`      | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                                      |
-| `size`       | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                                             |
-| `variant`    | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                                  |
+| Prop         | Type                                                    | Default         | Description                                                                          |
+| ------------ | ------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------ |
+| `aria-label` | `string`                                                | -               | The accessible name. Required with `iconOnly`, for buttons without visible text.     |
+| `as`         | `"a"` , `"button"`                                      | `"button"`      | The element to render. Defaults to `"a"` with `href`.                                |
+| `color`      | `"critical"` , `"primary"`                              | -               | Optional colors.                                                                     |
+| `disabled`   | `boolean`                                               | `false`         | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
+| `href`       | `string`                                                | -               | The link to use. Renders an `<a>`.                                                   |
+| `iconOnly`   | `boolean`                                               | `false`         | Marks the button as icon-only, so `aria-label` is required. Types only.              |
+| `round`      | `boolean`                                               | `false`         | Fully rounded corners, a circle when icon-only.                                      |
+| `size`       | `"large"` , `"medium"` , `"small"` , `"x-small"`        | `"medium"`      | The size of the element.                                                             |
+| `variant`    | `"filled"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use.                                                                  |
 
 #### Slots
 
@@ -615,3 +615,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Themes set the color of groups without `.ui-primary` or `.ui-critical` with [`--ui-button-accent`](#api), the edge and dividers of outlined groups with `--ui-control-border-color` and of filled and tonal groups with `--ui-control-border-color-filled`, and the font weight and size with `--ui-button-font-weight` and `--ui-font-size-control`, like buttons. In dark mode the text stays at least as light as `--ui-text-min-lightness`.
 - [Primary](#colors) outlined and text buttons read `--ui-primary-text`, the same readable primary as links.
 - [Critical](#colors) fills stay within `--ui-fill-max-lightness`, like buttons, and with more contrast the outlined edge reads `--ui-critical-text`, like the dividers.
+- [Sizes](#sizes) and [variants](#variants) name their defaults: `size="medium"` and `variant="transparent"`.

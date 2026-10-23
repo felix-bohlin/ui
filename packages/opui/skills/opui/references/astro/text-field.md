@@ -424,18 +424,18 @@ import { TextField } from "opui-css/astro"
 
 ### Text field API
 
-| Prop        | Type                                | Default      | Description                                                               |
-| ----------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `autoFit`   | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                           |
-| `endText`   | `string`                            | -            | Supporting text displayed below the field.                                |
-| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
-| `id`        | `string`                            | -            | The id of the `<input>`.                                                  |
-| `label`     | `string`                            | -            | The label for the field.                                                  |
-| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
-| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the input to the other.   |
-| `startText` | `string`                            | -            | Start text displayed above the field.                                     |
-| `type`      | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
-| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
+| Prop        | Type                                             | Default      | Description                                                               |
+| ----------- | ------------------------------------------------ | ------------ | ------------------------------------------------------------------------- |
+| `autoFit`   | `boolean`                                        | `false`      | Lets the width follow the content, from `25ch`.                           |
+| `endText`   | `string`                                         | -            | Supporting text displayed below the field.                                |
+| `error`     | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                         |
+| `id`        | `string`                                         | -            | The id of the `<input>`.                                                  |
+| `label`     | `string`                                         | -            | The label for the field.                                                  |
+| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                  |
+| `spread`    | `boolean`                                        | `false`      | Pushes the label and start text to one side and the input to the other.   |
+| `startText` | `string`                                         | -            | Start text displayed above the field.                                     |
+| `type`      | `"numeric"` , `string`                           | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
+| `variant`   | `"filled"` , `"outlined"`                        | `"outlined"` | The variant to use.                                                       |
 
 #### Slots
 
@@ -735,3 +735,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The field reads [`--ui-shadow-field`](#api), or `--ui-shadow-control` when a theme leaves it unset.
 - With more contrast, [invalid](#validation) fields keep the lighter `--ui-invalid` of dark mode, which every invalid control now shares.
 - The [filled](#variants) hover reads `--ui-surface-tonal-hover`, shared with clickable chips.
+- [Sizes](#sizes) name the default: `size="medium"`.

@@ -94,9 +94,9 @@ import { Avatar } from "opui-css/vue"
 </template>
 ```
 
-## Variants
+## Shapes
 
-Change the shape of the avatar with the `variant` prop.
+Change the shape of the avatar with the `shape` prop. The default is `circle`.
 
 ```vue
 <script setup lang="ts">
@@ -105,15 +105,15 @@ import { Avatar } from "opui-css/vue"
 
 <template>
   <Avatar
-    variant="rounded"
+    shape="rounded"
     src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?w=96&h=96&fit=crop&auto=format"
     alt="Jonas Berg"
   />
 
-  <Avatar aria-label="Sam Quist" role="img" variant="squared">SQ</Avatar>
+  <Avatar aria-label="Sam Quist" role="img" shape="squared">SQ</Avatar>
 
   <Avatar
-    variant="squircle"
+    shape="squircle"
     src="https://plus.unsplash.com/premium_photo-1770631651199-d92007477b6f?w=96&h=96&fit=crop&auto=format"
     alt="Sara Kim"
   />
@@ -170,15 +170,15 @@ A [Badge](https://open-props-ui.netlify.app/vue/components/badge.md) on an avata
 
 ### Avatar API
 
-| Prop       | Type                                     | Default | Description                                                                                                 |
-| ---------- | ---------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
-| `alt`      | `string`                                 | -       | Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it. |
-| `as`       | `"a"` , `"button"` , `"div"`             | `"div"` | The element to render. Defaults to `"a"` with `href`.                                                       |
-| `disabled` | `boolean`                                | `false` | Disables the avatar when `as` is `"button"`.                                                                |
-| `href`     | `string`                                 | -       | The link to use. Renders an `<a>`.                                                                          |
-| `size`     | `"large"` , `"small"` , `"x-small"`      | -       | The size of the element.                                                                                    |
-| `src`      | `string`                                 | -       | The image source. Replaces the content.                                                                     |
-| `variant`  | `"rounded"` , `"squared"` , `"squircle"` | -       | The variant to use.                                                                                         |
+| Prop       | Type                                                  | Default    | Description                                                                                                 |
+| ---------- | ----------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------- |
+| `alt`      | `string`                                              | -          | Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it. |
+| `as`       | `"a"` , `"button"` , `"div"`                          | `"div"`    | The element to render. Defaults to `"a"` with `href`.                                                       |
+| `disabled` | `boolean`                                             | `false`    | Disables the avatar when `as` is `"button"`.                                                                |
+| `href`     | `string`                                              | -          | The link to use. Renders an `<a>`.                                                                          |
+| `shape`    | `"circle"` , `"rounded"` , `"squared"` , `"squircle"` | `"circle"` | The shape of the avatar.                                                                                    |
+| `size`     | `"large"` , `"medium"` , `"small"` , `"x-small"`      | `"medium"` | The size of the element.                                                                                    |
+| `src`      | `string`                                              | -          | The image source. Replaces the content.                                                                     |
 
 #### Slots
 
@@ -409,3 +409,5 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: [`AvatarGroup`](#grouped) groups avatars and replaces the `isGroup` prop.
 - Rounded avatars never get rounder than [`--ui-radius`](#api), so `0` squares them.
 - The ring around [grouped](#grouped) avatars reads `--ui-border-width-thick`.
+- [Sizes](#sizes) name the default: `size="medium"`.
+- Breaking: `variant` is [`shape`](#shapes), with `circle` as the default.

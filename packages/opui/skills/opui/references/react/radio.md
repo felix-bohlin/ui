@@ -246,19 +246,19 @@ The radio lines up with the first line of its label and centers on the label's c
 
 Use `RadioInput` without the label for a custom layout, such as the end of a list item. See [List](https://open-props-ui.netlify.app/react/components/list.md#radio).
 
-## Direction
+## Orientation
 
-Radios stack vertically by default. Set `direction="row"` on the `FieldGroup` to put them in a row.
+Radios stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
 
 ```tsx
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
 
-export default function FieldGroupDirection() {
+export default function FieldGroupOrientation() {
   return (
     <Form>
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup direction="row" name="radio-group-direction">
+        <FieldGroup orientation="horizontal" name="radio-group-direction">
           <Radio value="1" defaultChecked>
             Radio 1
           </Radio>
@@ -291,7 +291,10 @@ export default function FieldGroupFieldDescription() {
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
-        <FieldGroup direction="row" name="radio-group-field-description-1">
+        <FieldGroup
+          orientation="horizontal"
+          name="radio-group-field-description-1"
+        >
           <Radio value="1" defaultChecked>
             Radio 1
           </Radio>
@@ -302,7 +305,10 @@ export default function FieldGroupFieldDescription() {
 
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup direction="row" name="radio-group-field-description-2">
+        <FieldGroup
+          orientation="horizontal"
+          name="radio-group-field-description-2"
+        >
           <Radio value="1" defaultChecked>
             Radio 1
           </Radio>
@@ -330,7 +336,7 @@ export default function FieldGroupDisabled() {
     <Form>
       <FieldSet disabled>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup direction="row" name="radio-group-disabled">
+        <FieldGroup orientation="horizontal" name="radio-group-disabled">
           <Radio value="1" defaultChecked>
             Radio 1
           </Radio>
@@ -355,7 +361,7 @@ export default function FieldGroupRequired() {
     <Form>
       <FieldSet>
         <FieldLegend>These are required!</FieldLegend>
-        <FieldGroup direction="row" name="radio-group-required">
+        <FieldGroup orientation="horizontal" name="radio-group-required">
           <Radio value="1" required>
             Radio 1
           </Radio>
@@ -386,7 +392,7 @@ export default function FieldGroupValidation() {
     <Form>
       <FieldSet aria-describedby="radio-field-group-validation-1-error">
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup direction="row" name="radio-group-validation">
+        <FieldGroup orientation="horizontal" name="radio-group-validation">
           <Radio defaultChecked error value="1">
             Radio 1
           </Radio>
@@ -480,15 +486,15 @@ export default function FieldGroupBinding() {
 
 ### Radio API
 
-| Prop        | Type                                | Default | Description                                       |
-| ----------- | ----------------------------------- | ------- | ------------------------------------------------- |
-| `children`  | `ReactNode`                         | -       | The label.                                        |
-| `endText`   | `ReactNode`                         | -       | Supporting text displayed below the label.        |
-| `error`     | `boolean`                           | `false` | Marks the control invalid and shows error styles. |
-| `hideLabel` | `boolean`                           | `false` | Visually hides the label.                         |
-| `size`      | `"large"` , `"small"` , `"x-small"` | -       | The size of the element.                          |
-| `spread`    | `boolean`                           | `false` | Pushes the label and the input to opposite ends.  |
-| `stack`     | `boolean`                           | `false` | Stacks the label under the input.                 |
+| Prop        | Type                                             | Default    | Description                                       |
+| ----------- | ------------------------------------------------ | ---------- | ------------------------------------------------- |
+| `children`  | `ReactNode`                                      | -          | The label.                                        |
+| `endText`   | `ReactNode`                                      | -          | Supporting text displayed below the label.        |
+| `error`     | `boolean`                                        | `false`    | Marks the control invalid and shows error styles. |
+| `hideLabel` | `boolean`                                        | `false`    | Visually hides the label.                         |
+| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                          |
+| `spread`    | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.  |
+| `stack`     | `boolean`                                        | `false`    | Stacks the label under the input.                 |
 
 #### CSS variables
 
@@ -598,11 +604,11 @@ The radio `<input>` without the label, for a custom layout inside a `label.ui-ra
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                              |
-| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| `children`  | `ReactNode`          | -       | The fields, such as checkboxes, radios or switches.                                                      |
-| `direction` | `"column"` , `"row"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
-| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
+| Prop          | Type                                     | Default  | Description                                                                                               |
+| ------------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `children`    | `ReactNode`                              | -        | The fields, such as checkboxes, radios or switches.                                                       |
+| `name`        | `string`                                 | -        | Sets `name` on the OPUI fields inside that don't set their own.                                           |
+| `orientation` | `"auto"` , `"horizontal"` , `"vertical"` | `"auto"` | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### CSS variables
 
@@ -791,3 +797,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - A radio without a [label](#visible-label), `aria-label` or `aria-labelledby` warns in development.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
+- [Sizes](#sizes) name the default: `size="medium"`.

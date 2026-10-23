@@ -474,7 +474,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 | Grouping | `[name]`                                                  | -       | Groups accordions so only one of them can be open at a time.                       |
 | Marker   | `.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn` | -       | How the marker animates when the accordion opens.                                  |
 | State    | `[open]`                                                  | -       | Whether the accordion is open.                                                     |
-| Variants | `.ui-elevated`, `.ui-outlined`, `.ui-tonal`               | -       | The variant to use. Without one the accordion has no background, border or shadow. |
+| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`      | default | The variant to use. Without one the accordion has no background, border or shadow. |
 
 #### Parts
 

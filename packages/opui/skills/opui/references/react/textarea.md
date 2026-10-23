@@ -324,22 +324,22 @@ export default function AutoFit() {
 
 ### Textarea API
 
-| Prop        | Type                                | Default      | Description                                                                |
-| ----------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------- |
-| `autoFit`   | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.  |
-| `children`  | `ReactNode`                         | -            | Extra content inside the root.                                             |
-| `endText`   | `ReactNode`                         | -            | Supporting text displayed below the field.                                 |
-| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                          |
-| `footer`    | `ReactNode`                         | -            | Content below the textarea, inside the border, with a divider.             |
-| `header`    | `ReactNode`                         | -            | Content above the textarea, inside the border, with a divider.             |
-| `id`        | `string`                            | -            | The id of the `<textarea>`.                                                |
-| `label`     | `ReactNode`                         | -            | The label for the field.                                                   |
-| `prefix`    | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.               |
-| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                   |
-| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the textarea to the other. |
-| `startText` | `ReactNode`                         | -            | Start text displayed above the field.                                      |
-| `suffix`    | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                 |
-| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                        |
+| Prop        | Type                                             | Default      | Description                                                                |
+| ----------- | ------------------------------------------------ | ------------ | -------------------------------------------------------------------------- |
+| `autoFit`   | `boolean`                                        | `false`      | Lets the width follow the content and allows resizing in both directions.  |
+| `children`  | `ReactNode`                                      | -            | Extra content inside the root.                                             |
+| `endText`   | `ReactNode`                                      | -            | Supporting text displayed below the field.                                 |
+| `error`     | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                          |
+| `footer`    | `ReactNode`                                      | -            | Content below the textarea, inside the border, with a divider.             |
+| `header`    | `ReactNode`                                      | -            | Content above the textarea, inside the border, with a divider.             |
+| `id`        | `string`                                         | -            | The id of the `<textarea>`.                                                |
+| `label`     | `ReactNode`                                      | -            | The label for the field.                                                   |
+| `prefix`    | `ReactNode`                                      | -            | Content at the inline-start of the field, inside the border.               |
+| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                   |
+| `spread`    | `boolean`                                        | `false`      | Pushes the label and start text to one side and the textarea to the other. |
+| `startText` | `ReactNode`                                      | -            | Start text displayed above the field.                                      |
+| `suffix`    | `ReactNode`                                      | -            | Content at the inline-end of the field, inside the border.                 |
+| `variant`   | `"filled"` , `"outlined"`                        | `"outlined"` | The variant to use.                                                        |
 
 #### CSS variables
 
@@ -583,3 +583,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Corners follow `--ui-radius` through [`--ui-field-radius`](#api), so one token squares or rounds every component.
 - The field reads [`--ui-shadow-field`](#api), or `--ui-shadow-control` when a theme leaves it unset.
 - The [filled](#variants) hover reads `--ui-surface-tonal-hover`, shared with clickable chips.
+- [Sizes](#sizes) name the default: `size="medium"`.

@@ -38,7 +38,7 @@ See also: [Spinner](https://open-props-ui.netlify.app/svelte/components/spinner.
 
 ## Variants
 
-Use the `variant` prop to swap the progress bar track surface for better contrast on different backgrounds. Without a variant, the track is tonal, the same as `variant="tonal"`.
+Use the `variant` prop to swap the progress bar track surface for better contrast on different backgrounds. The default, `tonal`, is a tonal track.
 
 ```svelte
 <script lang="ts">
@@ -75,12 +75,12 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ### Progress API
 
-| Prop       | Type                   | Default | Description                                                           |
-| ---------- | ---------------------- | ------- | --------------------------------------------------------------------- |
-| `children` | `Snippet`              | -       | Fallback content inside the `<progress>`.                             |
-| `max`      | `number` , `string`    | -       | The maximum value.                                                    |
-| `value`    | `number` , `string`    | -       | The current value. Omit it for an indeterminate state.                |
-| `variant`  | `"filled"` , `"tonal"` | -       | The variant to use. Without one, the track looks the same as `tonal`. |
+| Prop       | Type                   | Default   | Description                                            |
+| ---------- | ---------------------- | --------- | ------------------------------------------------------ |
+| `children` | `Snippet`              | -         | Fallback content inside the `<progress>`.              |
+| `max`      | `number` , `string`    | -         | The maximum value.                                     |
+| `value`    | `number` , `string`    | -         | The current value. Omit it for an indeterminate state. |
+| `variant`  | `"filled"` , `"tonal"` | `"tonal"` | The variant to use.                                    |
 
 #### CSS variables
 
@@ -277,3 +277,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).
 - [Progress bars](#indeterminate) center in table cells and lines of text.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
+- [Variants](#variants) name the default: `variant="tonal"`.

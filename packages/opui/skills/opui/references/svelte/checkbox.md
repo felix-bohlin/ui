@@ -248,7 +248,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
 </Form>
 ```
 
-### Direction
+### Orientation
 
 ```svelte
 <script lang="ts">
@@ -264,7 +264,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="checkbox-group-direction">
+    <FieldGroup orientation="horizontal" name="checkbox-group-direction">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
@@ -293,7 +293,10 @@ Can be placed above and below the fields.
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
-    <FieldGroup direction="row" name="checkbox-group-field-description-1">
+    <FieldGroup
+      orientation="horizontal"
+      name="checkbox-group-field-description-1"
+    >
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
@@ -302,7 +305,10 @@ Can be placed above and below the fields.
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="checkbox-group-field-description-2">
+    <FieldGroup
+      orientation="horizontal"
+      name="checkbox-group-field-description-2"
+    >
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
@@ -332,7 +338,7 @@ Set `disabled` on the `FieldSet` to disable every checkbox in it, or on a single
 <Form>
   <FieldSet disabled>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="checkbox-group-disabled">
+    <FieldGroup orientation="horizontal" name="checkbox-group-disabled">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
@@ -359,7 +365,7 @@ Each checkbox with `required` must be checked before the form submits. There's n
 <Form>
   <FieldSet>
     <FieldLegend>These are required!</FieldLegend>
-    <FieldGroup direction="row" name="checkbox-group-required">
+    <FieldGroup orientation="horizontal" name="checkbox-group-required">
       <Checkbox required>Checkbox 1</Checkbox>
       <Checkbox required>Checkbox 2</Checkbox>
       <Checkbox required>Checkbox 3</Checkbox>
@@ -388,7 +394,7 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 <Form>
   <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="checkbox-group-validation">
+    <FieldGroup orientation="horizontal" name="checkbox-group-validation">
       <Checkbox checked error>Checkbox 1</Checkbox>
       <Checkbox error>Checkbox 2</Checkbox>
       <Checkbox error>Checkbox 3</Checkbox>
@@ -455,18 +461,18 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Prop                                                                                                                                                                                                                                | Type                                | Default | Description                                                                          |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------ |
-| `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                    | `boolean`                           | -       | The checked state.                                                                   |
-| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                      | `(string \| number)[]`              | -       | The checked values of a group.                                                       |
-| `children`                                                                                                                                                                                                                          | `Snippet`                           | -       | The label.                                                                           |
-| `endText`                                                                                                                                                                                                                           | `Snippet` , `string`                | -       | Supporting text displayed below the label.                                           |
-| `error`                                                                                                                                                                                                                             | `boolean`                           | `false` | Marks the control invalid and shows error styles.                                    |
-| `hideLabel`                                                                                                                                                                                                                         | `boolean`                           | `false` | Visually hides the label.                                                            |
-| `indeterminate` **Needs hydration** A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`                           | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| `size`                                                                                                                                                                                                                              | `"large"` , `"small"` , `"x-small"` | -       | The size of the element.                                                             |
-| `spread`                                                                                                                                                                                                                            | `boolean`                           | `false` | Pushes the label and the input to opposite ends.                                     |
-| `stack`                                                                                                                                                                                                                             | `boolean`                           | `false` | Stacks the label under the input.                                                    |
+| Prop                                                                                                                                                                                                                                | Type                                             | Default    | Description                                                                          |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------ |
+| `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                    | `boolean`                                        | -          | The checked state.                                                                   |
+| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                      | `(string \| number)[]`                           | -          | The checked values of a group.                                                       |
+| `children`                                                                                                                                                                                                                          | `Snippet`                                        | -          | The label.                                                                           |
+| `endText`                                                                                                                                                                                                                           | `Snippet` , `string`                             | -          | Supporting text displayed below the label.                                           |
+| `error`                                                                                                                                                                                                                             | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.                                    |
+| `hideLabel`                                                                                                                                                                                                                         | `boolean`                                        | `false`    | Visually hides the label.                                                            |
+| `indeterminate` **Needs hydration** A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`                                        | `false`    | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| `size`                                                                                                                                                                                                                              | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                                             |
+| `spread`                                                                                                                                                                                                                            | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.                                     |
+| `stack`                                                                                                                                                                                                                             | `boolean`                                        | `false`    | Stacks the label under the input.                                                    |
 
 #### CSS variables
 
@@ -582,11 +588,11 @@ The checkbox `<input>` without the label, for a custom layout inside a `label.ui
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                              |
-| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| `children`  | `Snippet`            | -       | The fields, such as checkboxes, radios or switches.                                                      |
-| `direction` | `"column"` , `"row"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
-| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
+| Prop          | Type                                     | Default  | Description                                                                                               |
+| ------------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `children`    | `Snippet`                                | -        | The fields, such as checkboxes, radios or switches.                                                       |
+| `name`        | `string`                                 | -        | Sets `name` on the OPUI fields inside that don't set their own.                                           |
+| `orientation` | `"auto"` , `"horizontal"` , `"vertical"` | `"auto"` | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### CSS variables
 
@@ -821,3 +827,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - A checkbox without a [label](#labels), `aria-label` or `aria-labelledby` warns in development.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners never get rounder than [`--ui-radius`](#api), so `0` squares them.
+- [Sizes](#sizes) name the default: `size="medium"`.

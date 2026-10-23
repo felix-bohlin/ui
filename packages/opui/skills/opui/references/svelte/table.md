@@ -40,11 +40,11 @@
 
   An optional title for the table.
 
-## Variants
+## Density
 
-Change the cell padding with `variant="dense"` or `variant="spacious"`.
+Change the cell padding with `density="dense"` or `density="spacious"`. The default is `normal`.
 
-### Default
+### Normal
 
 ```svelte
 <script lang="ts">
@@ -114,7 +114,7 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
   } from "opui-css/svelte"
 </script>
 
-<Table variant="dense">
+<Table density="dense">
   <TableCaption>Band Members</TableCaption>
   <TableHead>
     <TableRow>
@@ -153,7 +153,7 @@ Change the cell padding with `variant="dense"` or `variant="spacious"`.
   } from "opui-css/svelte"
 </script>
 
-<Table variant="spacious">
+<Table density="spacious">
   <TableCaption>Band Members</TableCaption>
   <TableHead>
     <TableRow>
@@ -370,11 +370,11 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 
 ### Table API
 
-| Prop           | Type                     | Default | Description                                                                                          |
-| -------------- | ------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
-| `children`     | `Snippet`                | -       | The table sections.                                                                                  |
-| `stickyHeader` | `boolean`                | `false` | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
-| `variant`      | `"dense"` , `"spacious"` | -       | The variant to use.                                                                                  |
+| Prop           | Type                                  | Default    | Description                                                                                          |
+| -------------- | ------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------- |
+| `children`     | `Snippet`                             | -          | The table sections.                                                                                  |
+| `density`      | `"dense"` , `"normal"` , `"spacious"` | `"normal"` | The cell padding.                                                                                    |
+| `stickyHeader` | `boolean`                             | `false`    | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
 
 #### CSS variables
 
@@ -655,8 +655,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - A checkbox alone in a cell is centered ([Default](#default)).
-- [Dense](#variants) tables have less block padding.
-- Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
+- [Dense](#density) tables have less block padding.
+- Fields and selects in cells keep a `12ch` minimum width, in every [density](#density).
 - [Sticky header](#sticky-header) with the `stickyHeader` prop.
 - Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).
 - [`TableCaption` and `TableFoot`](#default) render the caption and the footer rows.

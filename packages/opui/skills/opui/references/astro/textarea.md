@@ -270,17 +270,17 @@ import { Textarea } from "opui-css/astro"
 
 ### Textarea API
 
-| Prop        | Type                                | Default      | Description                                                                |
-| ----------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------- |
-| `autoFit`   | `boolean`                           | `false`      | Lets the width follow the content and allows resizing in both directions.  |
-| `endText`   | `string`                            | -            | Supporting text displayed below the field.                                 |
-| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                          |
-| `id`        | `string`                            | -            | The id of the `<textarea>`.                                                |
-| `label`     | `string`                            | -            | The label for the field.                                                   |
-| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                   |
-| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the textarea to the other. |
-| `startText` | `string`                            | -            | Start text displayed above the field.                                      |
-| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                        |
+| Prop        | Type                                             | Default      | Description                                                                |
+| ----------- | ------------------------------------------------ | ------------ | -------------------------------------------------------------------------- |
+| `autoFit`   | `boolean`                                        | `false`      | Lets the width follow the content and allows resizing in both directions.  |
+| `endText`   | `string`                                         | -            | Supporting text displayed below the field.                                 |
+| `error`     | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                          |
+| `id`        | `string`                                         | -            | The id of the `<textarea>`.                                                |
+| `label`     | `string`                                         | -            | The label for the field.                                                   |
+| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                   |
+| `spread`    | `boolean`                                        | `false`      | Pushes the label and start text to one side and the textarea to the other. |
+| `startText` | `string`                                         | -            | Start text displayed above the field.                                      |
+| `variant`   | `"filled"` , `"outlined"`                        | `"outlined"` | The variant to use.                                                        |
 
 #### Slots
 
@@ -541,3 +541,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Corners follow `--ui-radius` through [`--ui-field-radius`](#api), so one token squares or rounds every component.
 - The field reads [`--ui-shadow-field`](#api), or `--ui-shadow-control` when a theme leaves it unset.
 - The [filled](#variants) hover reads `--ui-surface-tonal-hover`, shared with clickable chips.
+- [Sizes](#sizes) name the default: `size="medium"`.

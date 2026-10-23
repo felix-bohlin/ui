@@ -12,7 +12,7 @@ This text is placed under
 
 ## Variants
 
-Use `.ui-filled`, `.ui-primary`, or `.ui-tonal` to change the line color.
+Use `.ui-filled` or `.ui-tonal` to change the line color, and `.ui-primary` for a primary line.
 
 ```html
 Filled
@@ -72,7 +72,8 @@ The space above and below a divider is `--ui-divider-space`. Cards, callouts, di
 | Type      | Modifiers                                   | Default | Description                         |
 | --------- | ------------------------------------------- | ------- | ----------------------------------- |
 | Alignment | default, `.ui-align-end`, `.ui-align-start` | default | Where the content sits on the line. |
-| Variants  | `.ui-filled`, `.ui-primary`, `.ui-tonal`    | -       | The variant to use.                 |
+| Colors    | `.ui-primary`                               | -       | Optional colors.                    |
+| Variants  | default, `.ui-filled`, `.ui-tonal`          | default | The variant to use.                 |
 
 #### Parts
 

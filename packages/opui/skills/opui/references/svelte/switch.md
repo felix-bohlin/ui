@@ -274,7 +274,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
 </Form>
 ```
 
-### Direction
+### Orientation
 
 ```svelte
 <script lang="ts">
@@ -290,7 +290,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="switch-group-direction">
+    <FieldGroup orientation="horizontal" name="switch-group-direction">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
@@ -319,7 +319,10 @@ Can be placed above and below the fields.
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
-    <FieldGroup direction="row" name="switch-group-field-description-1">
+    <FieldGroup
+      orientation="horizontal"
+      name="switch-group-field-description-1"
+    >
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
@@ -328,7 +331,10 @@ Can be placed above and below the fields.
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="switch-group-field-description-2">
+    <FieldGroup
+      orientation="horizontal"
+      name="switch-group-field-description-2"
+    >
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
@@ -358,7 +364,7 @@ Set `disabled` on the `FieldSet` to disable every switch in it, or on a single `
 <Form>
   <FieldSet disabled>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="switch-group-disabled">
+    <FieldGroup orientation="horizontal" name="switch-group-disabled">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
@@ -385,7 +391,7 @@ Each switch with `required` must be on before the form submits. There's no nativ
 <Form>
   <FieldSet>
     <FieldLegend>These are required!</FieldLegend>
-    <FieldGroup direction="row" name="switch-group-required">
+    <FieldGroup orientation="horizontal" name="switch-group-required">
       <Switch required>Switch 1</Switch>
       <Switch required>Switch 2</Switch>
       <Switch required>Switch 3</Switch>
@@ -414,7 +420,7 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 <Form>
   <FieldSet aria-describedby="switch-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="switch-field-group-validation">
+    <FieldGroup orientation="horizontal" name="switch-field-group-validation">
       <Switch error>Switch 1</Switch>
       <Switch error>Switch 2</Switch>
       <Switch error>Switch 3</Switch>
@@ -489,19 +495,19 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Switch API
 
-| Prop                                                                                                                                                                             | Type                                | Default | Description                                       |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- | ------------------------------------------------- |
-| `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `boolean`                           | -       | The checked state.                                |
-| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.   | `(string \| number)[]`              | -       | The checked values of a group.                    |
-| `children`                                                                                                                                                                       | `Snippet`                           | -       | The label.                                        |
-| `endText`                                                                                                                                                                        | `Snippet` , `string`                | -       | Supporting text displayed below the label.        |
-| `error`                                                                                                                                                                          | `boolean`                           | `false` | Marks the control invalid and shows error styles. |
-| `hideLabel`                                                                                                                                                                      | `boolean`                           | `false` | Visually hides the label.                         |
-| `iconChecked`                                                                                                                                                                    | `Snippet`                           | -       | An optional icon in the thumb when checked.       |
-| `iconUnchecked`                                                                                                                                                                  | `Snippet`                           | -       | An optional icon in the thumb when unchecked.     |
-| `size`                                                                                                                                                                           | `"large"` , `"small"` , `"x-small"` | -       | The size of the element.                          |
-| `spread`                                                                                                                                                                         | `boolean`                           | `false` | Pushes the label and the switch to opposite ends. |
-| `stack`                                                                                                                                                                          | `boolean`                           | `false` | Stacks the label under the switch.                |
+| Prop                                                                                                                                                                             | Type                                             | Default    | Description                                       |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ---------- | ------------------------------------------------- |
+| `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `boolean`                                        | -          | The checked state.                                |
+| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.   | `(string \| number)[]`                           | -          | The checked values of a group.                    |
+| `children`                                                                                                                                                                       | `Snippet`                                        | -          | The label.                                        |
+| `endText`                                                                                                                                                                        | `Snippet` , `string`                             | -          | Supporting text displayed below the label.        |
+| `error`                                                                                                                                                                          | `boolean`                                        | `false`    | Marks the control invalid and shows error styles. |
+| `hideLabel`                                                                                                                                                                      | `boolean`                                        | `false`    | Visually hides the label.                         |
+| `iconChecked`                                                                                                                                                                    | `Snippet`                                        | -          | An optional icon in the thumb when checked.       |
+| `iconUnchecked`                                                                                                                                                                  | `Snippet`                                        | -          | An optional icon in the thumb when unchecked.     |
+| `size`                                                                                                                                                                           | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                          |
+| `spread`                                                                                                                                                                         | `boolean`                                        | `false`    | Pushes the label and the switch to opposite ends. |
+| `stack`                                                                                                                                                                          | `boolean`                                        | `false`    | Stacks the label under the switch.                |
 
 #### CSS variables
 
@@ -632,11 +638,11 @@ The switch `<input>` without the label, for a custom layout such as the end of a
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                              |
-| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| `children`  | `Snippet`            | -       | The fields, such as checkboxes, radios or switches.                                                      |
-| `direction` | `"column"` , `"row"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
-| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
+| Prop          | Type                                     | Default  | Description                                                                                               |
+| ------------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `children`    | `Snippet`                                | -        | The fields, such as checkboxes, radios or switches.                                                       |
+| `name`        | `string`                                 | -        | Sets `name` on the OPUI fields inside that don't set their own.                                           |
+| `orientation` | `"auto"` , `"horizontal"` , `"vertical"` | `"auto"` | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### CSS variables
 
@@ -901,3 +907,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: `--_accent-color` is `--_accent`, and `--_transition-time` and `--_transition-tf` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
 - A switch without a [label](#labels), `aria-label` or `aria-labelledby` warns in development.
 - A checked invalid switch turns its track red, like Checkbox and Radio ([Validation](#validation)).
+- [Sizes](#sizes) name the default: `size="medium"`.

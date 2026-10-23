@@ -397,13 +397,13 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scro
 
 ### Toggle group API
 
-| Type        | Modifiers                               | Default          | Description                                                                                                       |
-| ----------- | --------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Orientation | default, `.ui-vertical`                 | default          | The orientation of the element.                                                                                   |
-| Scroll      | `.ui-scrollable`                        | -                | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| Selection   | `[role="group"]`, `[role="radiogroup"]` | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
-| Shrink      | `.ui-shrink`                            | -                | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| Sizes       | `.ui-large`, `.ui-small`, `.ui-x-small` | -                | The size of the buttons. Without one they are the default control size.                                           |
+| Type        | Modifiers                                        | Default          | Description                                                                                                       |
+| ----------- | ------------------------------------------------ | ---------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Orientation | default, `.ui-vertical`                          | default          | The orientation of the element.                                                                                   |
+| Scroll      | `.ui-scrollable`                                 | -                | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| Selection   | `[role="group"]`, `[role="radiogroup"]`          | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
+| Shrink      | `.ui-shrink`                                     | -                | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default          | The size of the buttons. Without one they are the default control size.                                           |
 
 #### Parts
 
@@ -455,12 +455,12 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Toggle button API
 
-| Type     | Modifiers                                       | Default                  | Description                                                |
-| -------- | ----------------------------------------------- | ------------------------ | ---------------------------------------------------------- |
-| Checked  | `input[checked]`                                | -                        | Selects the button.                                        |
-| Disabled | `input[disabled]`                               | -                        | Disables the button.                                       |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`         | -                        | The size of the element.                                   |
-| Type     | `input[type="checkbox"]`, `input[type="radio"]` | `input[type="checkbox"]` | The input type. `"radio"` allows one selection in a group. |
+| Type     | Modifiers                                        | Default                  | Description                                                |
+| -------- | ------------------------------------------------ | ------------------------ | ---------------------------------------------------------- |
+| Checked  | `input[checked]`                                 | -                        | Selects the button.                                        |
+| Disabled | `input[disabled]`                                | -                        | Disables the button.                                       |
+| Sizes    | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default                  | The size of the element.                                   |
+| Type     | `input[type="checkbox"]`, `input[type="radio"]`  | `input[type="checkbox"]` | The input type. `"radio"` allows one selection in a group. |
 
 #### Parts
 

@@ -16,7 +16,7 @@ This text is placed under
 
 ## Variants
 
-Use the `variant` prop to change the line color.
+Use the `variant` prop to change the line color, and `color="primary"` for a primary line. The default variant, `outlined`, is the border color.
 
 ```svelte
 <script lang="ts">
@@ -27,7 +27,7 @@ Filled
 <Divider variant="filled" />
 
 Primary
-<Divider variant="primary" />
+<Divider color="primary" />
 
 Tonal
 <Divider variant="tonal" />
@@ -35,7 +35,7 @@ Tonal
 
 ## Content
 
-Pass text or any element as children to place it in the middle of the line. The divider then renders a `<div>` instead of an `<hr>`, so screen readers read the content in order. Set `align` to `start` or `end` to move it to one side. The lines follow the `variant`.
+Pass text or any element as children to place it in the middle of the line. The divider then renders a `<div>` instead of an `<hr>`, so screen readers read the content in order. Set `align` to `start` or `end` to move it to one side. The lines follow the `variant` and `color`.
 
 ```svelte
 <script lang="ts">
@@ -46,7 +46,7 @@ Pass text or any element as children to place it in the middle of the line. The 
 
 <Divider align="start">Billing</Divider>
 
-<Divider align="end" variant="primary">Today</Divider>
+<Divider align="end" color="primary">Today</Divider>
 
 <Divider>
   <Button round size="small" variant="outlined">Show 12 more replies</Button>
@@ -83,11 +83,12 @@ The space above and below a divider is `--ui-divider-space`. Cards, callouts, di
 
 ### Divider API
 
-| Prop       | Type                                 | Default    | Description                                                    |
-| ---------- | ------------------------------------ | ---------- | -------------------------------------------------------------- |
-| `align`    | `"center"` , `"end"` , `"start"`     | `"center"` | Where the content sits on the line.                            |
-| `children` | `Snippet`                            | -          | Optional content in the middle of the line. Renders a `<div>`. |
-| `variant`  | `"filled"` , `"primary"` , `"tonal"` | -          | The variant to use.                                            |
+| Prop       | Type                                  | Default      | Description                                                    |
+| ---------- | ------------------------------------- | ------------ | -------------------------------------------------------------- |
+| `align`    | `"center"` , `"end"` , `"start"`      | `"center"`   | Where the content sits on the line.                            |
+| `children` | `Snippet`                             | -            | Optional content in the middle of the line. Renders a `<div>`. |
+| `color`    | `"primary"`                           | -            | Optional colors.                                               |
+| `variant`  | `"filled"` , `"outlined"` , `"tonal"` | `"outlined"` | The variant to use.                                            |
 
 #### CSS variables
 

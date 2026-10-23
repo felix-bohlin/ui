@@ -16,7 +16,7 @@ This text is placed under
 
 ## Variants
 
-Use the `variant` prop to change the line color.
+Use the `variant` prop to change the line color, and `color="primary"` for a primary line. The default variant, `outlined`, is the border color.
 
 ```astro
 ---
@@ -27,7 +27,7 @@ Filled
 <Divider variant="filled" />
 
 Primary
-<Divider variant="primary" />
+<Divider color="primary" />
 
 Tonal
 <Divider variant="tonal" />
@@ -35,7 +35,7 @@ Tonal
 
 ## Content
 
-Put text or any element in the default slot to place it in the middle of the line. The divider then renders a `<div>` instead of an `<hr>`, so screen readers read the content in order. Set `align` to `start` or `end` to move it to one side. The lines follow the `variant`.
+Put text or any element in the default slot to place it in the middle of the line. The divider then renders a `<div>` instead of an `<hr>`, so screen readers read the content in order. Set `align` to `start` or `end` to move it to one side. The lines follow the `variant` and `color`.
 
 ```astro
 ---
@@ -46,7 +46,7 @@ import { Button, Divider } from "opui-css/astro"
 
 <Divider align="start">Billing</Divider>
 
-<Divider align="end" variant="primary">Today</Divider>
+<Divider align="end" color="primary">Today</Divider>
 
 <Divider>
   <Button round size="small" variant="outlined">Show 12 more replies</Button>
@@ -83,10 +83,11 @@ import { Card, CardContent, Divider } from "opui-css/astro"
 
 ### Divider API
 
-| Prop      | Type                                 | Default    | Description                         |
-| --------- | ------------------------------------ | ---------- | ----------------------------------- |
-| `align`   | `"center"` , `"end"` , `"start"`     | `"center"` | Where the content sits on the line. |
-| `variant` | `"filled"` , `"primary"` , `"tonal"` | -          | The variant to use.                 |
+| Prop      | Type                                  | Default      | Description                         |
+| --------- | ------------------------------------- | ------------ | ----------------------------------- |
+| `align`   | `"center"` , `"end"` , `"start"`      | `"center"`   | Where the content sits on the line. |
+| `color`   | `"primary"`                           | -            | Optional colors.                    |
+| `variant` | `"filled"` , `"outlined"` , `"tonal"` | `"outlined"` | The variant to use.                 |
 
 #### Slots
 
@@ -211,4 +212,5 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - [Spacing](#spacing) comes from `--ui-divider-space`, which cards, callouts, dialogs and drawers make tighter.
+- Breaking: `variant="primary"` is [`color="primary"`](#variants), and the default line is named `outlined`.
 - [Content](#content) in the middle of the line through the default slot, aligned with `align`.

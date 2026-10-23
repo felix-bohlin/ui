@@ -263,11 +263,11 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 ### Tabs API
 
-| Type     | Modifiers                                | Default | Description                                                                                          |
-| -------- | ---------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
-| Group    | `.ui-tab-input[name]`                    | -       | The name shared by the tab inputs.                                                                   |
-| Scroll   | `.ui-scrollable`                         | -       | Keeps the tabs on one row and scrolls them sideways when they don't fit.                             |
-| Variants | `.ui-filled`, `.ui-line`, `.ui-outlined` | -       | The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill. |
+| Type     | Modifiers                                         | Default | Description                                                                                          |
+| -------- | ------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
+| Group    | `.ui-tab-input[name]`                             | -       | The name shared by the tab inputs.                                                                   |
+| Scroll   | `.ui-scrollable`                                  | -       | Keeps the tabs on one row and scrolls them sideways when they don't fit.                             |
+| Variants | default, `.ui-filled`, `.ui-line`, `.ui-outlined` | default | The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill. |
 
 #### Parts
 

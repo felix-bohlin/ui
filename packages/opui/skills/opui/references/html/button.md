@@ -376,14 +376,14 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ### Button API
 
-| Type     | Modifiers                                 | Default | Description                                                                                                                 |
-| -------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                                                                            |
-| Current  | `[aria-current="page"]`                   | -       | Keeps the pressed background on a default (text) button link, for the current page in navigation.                           |
-| Shape    | `.ui-round`                               | -       | Fully rounded corners, a circle when icon-only.                                                                             |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                                                                                    |
-| State    | `[disabled]`, `a[aria-disabled="true"]`   | -       | Disables the button. A link button, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |
-| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                                                                                                         |
+| Type     | Modifiers                                          | Default | Description                                                                                                                 |
+| -------- | -------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Colors   | `.ui-critical`, `.ui-primary`                      | -       | Optional colors.                                                                                                            |
+| Current  | `[aria-current="page"]`                            | -       | Keeps the pressed background on a default (text) button link, for the current page in navigation.                           |
+| Shape    | `.ui-round`                                        | -       | Fully rounded corners, a circle when icon-only.                                                                             |
+| Sizes    | default, `.ui-large`, `.ui-small`, `.ui-x-small`   | default | The size of the element.                                                                                                    |
+| State    | `[disabled]`, `a[aria-disabled="true"]`            | -       | Disables the button. A link button, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |
+| Variants | default, `.ui-filled`, `.ui-outlined`, `.ui-tonal` | default | The variant to use.                                                                                                         |
 
 #### Parts
 

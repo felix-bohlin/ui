@@ -32,7 +32,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/react"
 export default function Basics() {
   return (
     <Tabs name="basic-tabs">
-      <TabsItem open>
+      <TabsItem defaultChecked>
         <TabsTab>Profile</TabsTab>
         <TabsPanel>Profile settings and information.</TabsPanel>
       </TabsItem>
@@ -59,7 +59,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/react"
 export default function Filled() {
   return (
     <Tabs name="filled-tabs" variant="filled">
-      <TabsItem open>
+      <TabsItem defaultChecked>
         <TabsTab>Profile</TabsTab>
         <TabsPanel>Profile settings and information.</TabsPanel>
       </TabsItem>
@@ -86,7 +86,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/react"
 export default function Line() {
   return (
     <Tabs name="line-tabs" variant="line">
-      <TabsItem open>
+      <TabsItem defaultChecked>
         <TabsTab>Profile</TabsTab>
         <TabsPanel>Profile settings and information.</TabsPanel>
       </TabsItem>
@@ -113,7 +113,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/react"
 export default function Outlined() {
   return (
     <Tabs name="outlined-tabs" variant="outlined">
-      <TabsItem open>
+      <TabsItem defaultChecked>
         <TabsTab>Profile</TabsTab>
         <TabsPanel>Profile settings and information.</TabsPanel>
       </TabsItem>
@@ -140,7 +140,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/react"
 export default function Scrollable() {
   return (
     <Tabs name="scrollable-tabs" scrollable>
-      <TabsItem open>
+      <TabsItem defaultChecked>
         <TabsTab>Profile</TabsTab>
         <TabsPanel>Profile settings and information.</TabsPanel>
       </TabsItem>
@@ -203,12 +203,12 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 ### Tabs API
 
-| Prop         | Type                                 | Default | Description                                                                                          |
-| ------------ | ------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
-| `children`   | `ReactNode`                          | -       | The tab items.                                                                                       |
-| `name`       | `string`                             | -       | The name shared by the tab inputs. Generated when omitted.                                           |
-| `scrollable` | `boolean`                            | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit.                             |
-| `variant`    | `"filled"` , `"line"` , `"outlined"` | -       | The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill. |
+| Prop         | Type                                             | Default   | Description                                                                                          |
+| ------------ | ------------------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------- |
+| `children`   | `ReactNode`                                      | -         | The tab items.                                                                                       |
+| `name`       | `string`                                         | -         | The name shared by the tab inputs. Generated when omitted.                                           |
+| `scrollable` | `boolean`                                        | `false`   | Keeps the tabs on one row and scrolls them sideways when they don't fit.                             |
+| `variant`    | `"filled"` , `"line"` , `"outlined"` , `"tonal"` | `"tonal"` | The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill. |
 
 #### CSS variables
 
@@ -250,9 +250,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 | Prop       | Type        | Default | Description                                  |
 | ---------- | ----------- | ------- | -------------------------------------------- |
+| `checked`  | `boolean`   | `false` | Selects the tab initially.                   |
 | `children` | `ReactNode` | -       | The tab and the panel.                       |
 | `name`     | `string`    | -       | Overrides the name shared by the tab inputs. |
-| `open`     | `boolean`   | `false` | Selects the tab initially.                   |
 | `tabId`    | `string`    | -       | The id of the input. Generated when omitted. |
 
 #### CSS variables
@@ -290,6 +290,8 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-text-strong`          | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                 | Strongest text color, for headings, labels and values. Body text is `--ui-text-muted`.                                                                                                                                                                                                                                                                                                                                                                                        |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
+
+`defaultChecked` selects the starting tab. To control the tabs, keep the selected tab in one piece of state, set `checked` on every item from it and update it in each item's `onChange`: a tab that loses its check to another one fires no `onChange` of its own.
 
 ### Tabs tab API
 
@@ -580,3 +582,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The selected tab's shadow reads [`--ui-shadow-tab`](#api), so themes can change or remove it.
 - Labels read [`--ui-font-size-control`](#api) for their font size, like buttons.
 - The selected tab of [filled](#filled) tabs reads `--ui-selected-strong` and `--ui-on-selected-strong`.
+- [Variants](#basics) name the default: `variant="tonal"`.

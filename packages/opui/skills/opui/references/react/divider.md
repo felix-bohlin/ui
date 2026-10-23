@@ -18,7 +18,7 @@ export default function Basics() {
 
 ## Variants
 
-Use the `variant` prop to change the line color.
+Use the `variant` prop to change the line color, and `color="primary"` for a primary line. The default variant, `outlined`, is the border color.
 
 ```tsx
 import { Divider } from "opui-css/react"
@@ -26,7 +26,7 @@ import { Divider } from "opui-css/react"
 export default function Variants() {
   return (
     <>
-      Filled <Divider variant="filled" /> Primary <Divider variant="primary" />{" "}
+      Filled <Divider variant="filled" /> Primary <Divider color="primary" />{" "}
       Tonal <Divider variant="tonal" />
     </>
   )
@@ -35,7 +35,7 @@ export default function Variants() {
 
 ## Content
 
-Pass text or any element as children to place it in the middle of the line. The divider then renders a `<div>` instead of an `<hr>`, so screen readers read the content in order. Set `align` to `start` or `end` to move it to one side. The lines follow the `variant`.
+Pass text or any element as children to place it in the middle of the line. The divider then renders a `<div>` instead of an `<hr>`, so screen readers read the content in order. Set `align` to `start` or `end` to move it to one side. The lines follow the `variant` and `color`.
 
 ```tsx
 import { Button, Divider } from "opui-css/react"
@@ -47,7 +47,7 @@ export default function Content() {
 
       <Divider align="start">Billing</Divider>
 
-      <Divider align="end" variant="primary">
+      <Divider align="end" color="primary">
         Today
       </Divider>
 
@@ -93,11 +93,12 @@ export default function Spacing() {
 
 ### Divider API
 
-| Prop       | Type                                 | Default    | Description                                                    |
-| ---------- | ------------------------------------ | ---------- | -------------------------------------------------------------- |
-| `align`    | `"center"` , `"end"` , `"start"`     | `"center"` | Where the content sits on the line.                            |
-| `children` | `ReactNode`                          | -          | Optional content in the middle of the line. Renders a `<div>`. |
-| `variant`  | `"filled"` , `"primary"` , `"tonal"` | -          | The variant to use.                                            |
+| Prop       | Type                                  | Default      | Description                                                    |
+| ---------- | ------------------------------------- | ------------ | -------------------------------------------------------------- |
+| `align`    | `"center"` , `"end"` , `"start"`      | `"center"`   | Where the content sits on the line.                            |
+| `children` | `ReactNode`                           | -            | Optional content in the middle of the line. Renders a `<div>`. |
+| `color`    | `"primary"`                           | -            | Optional colors.                                               |
+| `variant`  | `"filled"` , `"outlined"` , `"tonal"` | `"outlined"` | The variant to use.                                            |
 
 #### CSS variables
 

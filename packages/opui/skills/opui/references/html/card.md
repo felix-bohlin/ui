@@ -30,15 +30,15 @@ Explain more about the topic shown in the headline and subhead through supportin
 
 ## Variants
 
-Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.ui-elevated` classes. Without a variant class the card has the page surface color and no border. Put the body in `.ui-content`.
+Change the card variant with the `.ui-transparent`, `.ui-outlined`, `.ui-tonal`, and `.ui-elevated` classes. Without a variant class the card has the page surface color and no border. Put the body in `.ui-content`.
 
 ```html
 <div class="ui-card">
-  <div class="ui-content">Default</div>
+  <div class="ui-content">Plain</div>
 </div>
 
-<div class="ui-card ui-text">
-  <div class="ui-content">Text</div>
+<div class="ui-card ui-transparent">
+  <div class="ui-content">Transparent</div>
 </div>
 
 <div class="ui-card ui-outlined">
@@ -233,9 +233,9 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 ### Card API
 
-| Type     | Modifiers                                               | Default | Description                                                                        |
-| -------- | ------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
-| Variants | `.ui-elevated`, `.ui-outlined`, `.ui-text`, `.ui-tonal` | -       | The variant to use. Without one the card has the page surface color and no border. |
+| Type     | Modifiers                                                               | Default | Description                                                                        |
+| -------- | ----------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.ui-transparent` | default | The variant to use. Without one the card has the page surface color and no border. |
 
 #### Parts
 
@@ -483,3 +483,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: `--_shadow-light` and `--_shadow-dark` are gone. Set [`--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark`](#api) in your theme, or [`--_elevated-shadow`](#component-properties) on the card.
 - [Tonal and outlined](#variants) cards read [`--ui-shadow-surface`](#api), and tonal and elevated cards `--ui-surface-border-color`, when a theme sets them.
 - Borders inside [tonal and elevated](#variants) cards read `--ui-border-color-on-raised` and `--ui-field-border-color-on-raised`, so a theme's borders reach inside.
+- Breaking: `.ui-text` on a card is [`.ui-transparent`](#variants).

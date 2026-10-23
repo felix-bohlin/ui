@@ -26,7 +26,7 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
 ## Basics
 
-Change the opening side with the `.ui-inline-start`, `.ui-inline-end`, `.ui-block-start`, and `.ui-block-end` classes.
+A drawer opens from the inline start by default. Change the side with the `.ui-inline-end`, `.ui-block-start` and `.ui-block-end` classes.
 
 `.ui-header` and `.ui-footer` stay put while `.ui-content` scrolls, with a shadow on the scrolled edge.
 
@@ -71,7 +71,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 </div>
 
 <dialog
-  class="ui-drawer ui-scroll-lock ui-inline-start"
+  class="ui-drawer ui-scroll-lock"
   id="drawer-basics-1"
   aria-labelledby="drawer-basics-1-heading"
   closedby="any"
@@ -320,7 +320,7 @@ Without `closedby`, the browser picks: a modal drawer, opened with `command="sho
 </button>
 
 <dialog
-  class="ui-drawer ui-scroll-lock ui-inline-start"
+  class="ui-drawer ui-scroll-lock"
   id="drawer-close-behaviors-1"
   aria-labelledby="drawer-close-behaviors-1-heading"
   closedby="any"
@@ -421,12 +421,12 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 
 ### Drawer API
 
-| Type           | Modifiers                                                                | Default | Description                                                                                                                               |
-| -------------- | ------------------------------------------------------------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Backdrop       | default, `.ui-backdrop-transparent`                                      | default | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
-| Close behavior | `[closedby]`                                                             | -       | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
-| Scroll lock    | `.ui-scroll-lock`                                                        | -       | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
-| Sides          | `.ui-block-end`, `.ui-block-start`, `.ui-inline-end`, `.ui-inline-start` | -       | The side it opens from.                                                                                                                   |
+| Type           | Modifiers                                                     | Default | Description                                                                                                                               |
+| -------------- | ------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Backdrop       | default, `.ui-backdrop-transparent`                           | default | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
+| Close behavior | `[closedby]`                                                  | -       | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
+| Position       | default, `.ui-block-end`, `.ui-block-start`, `.ui-inline-end` | default | The side it opens from.                                                                                                                   |
+| Scroll lock    | `.ui-scroll-lock`                                             | -       | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
 
 #### Parts
 
@@ -813,3 +813,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Content padding is `--ui-space-3`, like the header and footer ([Basics](#basics)).
 - The scroll shadow reads [`--ui-shadow-scroll`](#api).
 - The panel sits on [`--ui-surface-elevated`](#api), like Dialog and Menu.
+- A drawer opens from the [inline start](#basics) without `.ui-inline-start`.

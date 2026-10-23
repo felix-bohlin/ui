@@ -183,18 +183,18 @@ import { Badge } from "opui-css/astro"
 </Badge>
 ```
 
-## Alignment
+## Corners
 
-Where the badge should be placed over the child.
+The corner of the child the badge sits on.
 
-`start-start`, default (`start-end`), `end-start`, `end-end`.
+Set `corner` to `start-start`, `start-end` (the default), `end-start` or `end-end`.
 
 ```astro
 ---
 import { Badge } from "opui-css/astro"
 ---
 
-<Badge alignment="start-start" label="35" srLabel="unread messages">
+<Badge corner="start-start" label="35" srLabel="unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -220,7 +220,7 @@ import { Badge } from "opui-css/astro"
     ></path></svg
   >
 </Badge>
-<Badge alignment="end-start" label="OK!" srLabel="inbox synced">
+<Badge corner="end-start" label="OK!" srLabel="inbox synced">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -233,7 +233,7 @@ import { Badge } from "opui-css/astro"
     ></path></svg
   >
 </Badge>
-<Badge alignment="end-end" label="3K" srLabel="unread messages">
+<Badge corner="end-end" label="3K" srLabel="unread messages">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -258,8 +258,8 @@ import { Badge } from "opui-css/astro"
 
 | Prop        | Type                                                              | Default       | Description                                                                                |
 | ----------- | ----------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------ |
-| `alignment` | `"end-end"` , `"end-start"` , `"start-end"` , `"start-start"`     | `"start-end"` | Where the indicator is placed.                                                             |
 | `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -             | Optional colors.                                                                           |
+| `corner`    | `"end-end"` , `"end-start"` , `"start-end"` , `"start-start"`     | `"start-end"` | The corner the indicator sits on.                                                          |
 | `dot`       | `boolean`                                                         | `false`       | Renders the indicator as a dot, without a label.                                           |
 | `invisible` | `boolean`                                                         | `false`       | Hides the indicator.                                                                       |
 | `label`     | `number` , `string`                                               | -             | The indicator, inside `.ui-anchor-floating`.                                               |
@@ -462,11 +462,12 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - Severity text reads `--ui-on-accent` and `--ui-palette-strong` instead of fixed grays.
-- Badges on round avatars sit on the avatar's edge ([Alignment](#alignment)), and in an avatar group on the start side.
+- Badges on round avatars sit on the avatar's edge ([Corners](#corners)), and in an avatar group on the start side.
 - [Indicator](#indicator) context for screen readers with `srLabel`.
-- [`alignment`](#alignment) takes `"start-end"`, the default placement.
+- [`corner`](#corners) takes `"start-end"`, the default corner.
 - Breaking: `--_badge-inset` is `--_inset-block` and `--_inset-inline` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - The indicator border reads [`--ui-border-width-thick`](#api).
 - [Warning](#colors) badges read `--ui-on-warning`, the text color on a warning fill.
 - [Critical, info, neutral and success](#colors) fills stay below `--ui-fill-max-lightness`, so their text keeps its contrast.
+- Breaking: `alignment` is [`corner`](#corners).

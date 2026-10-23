@@ -54,45 +54,45 @@ export default function RichContent() {
 }
 ```
 
-## Alignment
+## Position
 
-Use the `alignment` prop.
+Set `positionArea` to any `position-area` value.
 
 ```tsx
 import { Button, Tooltip, TooltipContent } from "opui-css/react"
 
 const tooltips = [
   {
-    alignment: "block-start",
-    id: "tooltip-alignment-1",
+    id: "tooltip-position-1",
     label: "Above",
+    positionArea: "block-start",
     text: "Top",
   },
   {
-    alignment: "inline-start",
-    id: "tooltip-alignment-2",
+    id: "tooltip-position-2",
     label: "Before",
+    positionArea: "inline-start",
     text: "Start",
   },
   {
-    alignment: "inline-end",
-    id: "tooltip-alignment-3",
+    id: "tooltip-position-3",
     label: "After",
+    positionArea: "inline-end",
     text: "End",
   },
   {
-    alignment: "block-end",
-    id: "tooltip-alignment-4",
+    id: "tooltip-position-4",
     label: "Below",
+    positionArea: "block-end",
     text: "Bottom",
   },
 ]
 
-export default function Alignment() {
+export default function Position() {
   return (
     <div className="example-compass">
-      {tooltips.map(({ alignment, id, label, text }) => (
-        <Tooltip key={id} alignment={alignment} id={id}>
+      {tooltips.map(({ id, label, positionArea, text }) => (
+        <Tooltip key={id} id={id} positionArea={positionArea}>
           <Button interestfor={id} commandfor={id} command="toggle-popover">
             {text}
           </Button>
@@ -131,12 +131,12 @@ export default function Arrow() {
 
 ### Tooltip API
 
-| Prop        | Type        | Default              | Description                                                                                                                                                                                               |
-| ----------- | ----------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `alignment` | `string`    | `"self-block-start"` | Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
-| `arrow`     | `boolean`   | `false`              | Adds an arrow that points to the trigger.                                                                                                                                                                 |
-| `children`  | `ReactNode` | -                    | The trigger, followed by `TooltipContent`.                                                                                                                                                                |
-| `id`        | `string`    | -                    | The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger.                                                                    |
+| Prop           | Type        | Default              | Description                                                                                                                                                                                               |
+| -------------- | ----------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `arrow`        | `boolean`   | `false`              | Adds an arrow that points to the trigger.                                                                                                                                                                 |
+| `children`     | `ReactNode` | -                    | The trigger, followed by `TooltipContent`.                                                                                                                                                                |
+| `id`           | `string`    | -                    | The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger.                                                                    |
+| `positionArea` | `string`    | `"self-block-start"` | Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
 
 #### CSS variables
 
@@ -161,18 +161,18 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
 
-| Property             | Kind   | Description                                                                   |
-| -------------------- | ------ | ----------------------------------------------------------------------------- |
-| `--_arrow-size`      | Input  | Size of the arrow in `.ui-with-arrow`.                                        |
-| `--_bg-color`        | Input  | Background of the tooltip and its arrow. Defaults to `--ui-surface-inverse`.  |
-| `--_duration`        | Output | Duration of the fade, `--ui-duration` times `--_motion`.                      |
-| `--_ease`            | Input  | Easing of the fade. Defaults to `--ui-ease-enter`.                            |
-| `--_max-inline-size` | Input  | The maximum width. Longer content wraps.                                      |
-| `--_min-inline-size` | Input  | The minimum width, unless the content is narrower.                            |
-| `--_motion`          | Input  | Motion multiplier for the fade. `0` turns it off.                             |
-| `--_offset`          | Input  | Distance from the trigger. `.ui-with-arrow` computes it from `--_arrow-size`. |
-| `--_shift`           | Input  | How far a shifted tooltip reaches past the center of the trigger.             |
-| `--_text-color`      | Input  | The text color. Defaults to `--ui-on-inverse`.                                |
+| Property             | Kind   | Description                                                                  |
+| -------------------- | ------ | ---------------------------------------------------------------------------- |
+| `--_arrow-size`      | Input  | Size of the arrow in `.ui-arrow`.                                            |
+| `--_bg-color`        | Input  | Background of the tooltip and its arrow. Defaults to `--ui-surface-inverse`. |
+| `--_duration`        | Output | Duration of the fade, `--ui-duration` times `--_motion`.                     |
+| `--_ease`            | Input  | Easing of the fade. Defaults to `--ui-ease-enter`.                           |
+| `--_max-inline-size` | Input  | The maximum width. Longer content wraps.                                     |
+| `--_min-inline-size` | Input  | The minimum width, unless the content is narrower.                           |
+| `--_motion`          | Input  | Motion multiplier for the fade. `0` turns it off.                            |
+| `--_offset`          | Input  | Distance from the trigger. `.ui-arrow` computes it from `--_arrow-size`.     |
+| `--_shift`           | Input  | How far a shifted tooltip reaches past the center of the trigger.            |
+| `--_text-color`      | Input  | The text color. Defaults to `--ui-on-inverse`.                               |
 
 ## Under the hood
 

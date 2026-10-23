@@ -424,18 +424,18 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 ### Select API
 
-| Prop        | Type                                | Default      | Description                                                              |
-| ----------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------ |
-| `dense`     | `boolean`                           | `false`      | Packs the items tighter.                                                 |
-| `endText`   | `string`                            | -            | Supporting text displayed below the field.                               |
-| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                        |
-| `id`        | `string`                            | -            | The id of the `<select>`.                                                |
-| `items`     | `SelectItem[]`                      | `[]`         | The options, as `{ selected, text, value }` objects.                     |
-| `label`     | `string`                            | -            | The label for the field.                                                 |
-| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                 |
-| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the select to the other. |
-| `startText` | `string`                            | -            | Start text displayed above the field.                                    |
-| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                      |
+| Prop        | Type                                             | Default      | Description                                                              |
+| ----------- | ------------------------------------------------ | ------------ | ------------------------------------------------------------------------ |
+| `dense`     | `boolean`                                        | `false`      | Packs the items tighter.                                                 |
+| `endText`   | `string`                                         | -            | Supporting text displayed below the field.                               |
+| `error`     | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                        |
+| `id`        | `string`                                         | -            | The id of the `<select>`.                                                |
+| `items`     | `SelectItem[]`                                   | `[]`         | The options, as `{ selected, text, value }` objects.                     |
+| `label`     | `string`                                         | -            | The label for the field.                                                 |
+| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                 |
+| `spread`    | `boolean`                                        | `false`      | Pushes the label and start text to one side and the select to the other. |
+| `startText` | `string`                                         | -            | Start text displayed above the field.                                    |
+| `variant`   | `"filled"` , `"outlined"`                        | `"outlined"` | The variant to use.                                                      |
 
 #### Slots
 
@@ -788,3 +788,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The picker shadow is [`--ui-shadow-overlay`](#api), shared with menus and drawers.
 - The field reads [`--ui-shadow-field`](#api), or `--ui-shadow-control` when a theme leaves it unset.
 - The [filled](#variants) hover reads `--ui-surface-tonal-hover`, shared with clickable chips.
+- [Sizes](#sizes) name the default: `size="medium"`.

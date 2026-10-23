@@ -159,7 +159,7 @@ import {
 
 ### Row
 
-Set `direction="row"` to lay out fields horizontally.
+Set `orientation="horizontal"` to lay out fields horizontally.
 
 ```vue
 <script setup lang="ts">
@@ -170,7 +170,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
   <Form>
     <FieldSet>
       <FieldLegend>Options</FieldLegend>
-      <FieldGroup direction="row">
+      <FieldGroup orientation="horizontal">
         <Checkbox>Option 1</Checkbox>
         <Checkbox>Option 2</Checkbox>
         <Checkbox>Option 3</Checkbox>
@@ -271,7 +271,7 @@ import {
 
 ## Actions
 
-A field group with only buttons lines up in a row. Set `direction="column"` to stack the buttons instead. Separate the group from the fields with `Divider`.
+A field group with only buttons lines up in a row. Set `orientation="vertical"` to stack the buttons instead. Separate the group from the fields with `Divider`.
 
 ```vue
 <script setup lang="ts">
@@ -311,7 +311,7 @@ import { Button, FieldGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <FieldGroup direction="column">
+  <FieldGroup orientation="vertical">
     <Button>Save draft</Button>
     <Button variant="filled">Publish</Button>
   </FieldGroup>
@@ -620,10 +620,10 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                              |
-| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| `direction` | `"column"` , `"row"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
-| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
+| Prop          | Type                                     | Default  | Description                                                                                               |
+| ------------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `name`        | `string`                                 | -        | Sets `name` on the OPUI fields inside that don't set their own.                                           |
+| `orientation` | `"auto"` , `"horizontal"` , `"vertical"` | `"auto"` | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### Slots
 
@@ -827,3 +827,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: [`FieldGroup`](#field-group) no longer sets `role="group"`. Wrap it in a `FieldSet` to group and name the fields.
 - Breaking: set `error` on each field instead of `data-invalid` on the `FieldSet` ([Invalid](#fieldset-invalid)).
 - `Form`, `FieldSet` and `FieldLegend` type [`as`](#without-fieldset) as `"div" | "form"`, `"div" | "fieldset"` and `"legend" | "p"`.
+- Breaking: [`FieldGroup`](#field-group-row) `direction` is `orientation` (`"horizontal"`, `"vertical"`), like `ButtonGroup`.

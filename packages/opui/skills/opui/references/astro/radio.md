@@ -178,9 +178,9 @@ The radio lines up with the first line of its label and centers on the label's c
 
 Use `RadioInput` without the label for a custom layout, such as the end of a list item. See [List](https://open-props-ui.netlify.app/astro/components/list.md#radio).
 
-## Direction
+## Orientation
 
-Radios stack vertically by default. Set `direction="row"` on the `FieldGroup` to put them in a row.
+Radios stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
 
 ```astro
 ---
@@ -190,7 +190,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="radio-group-direction">
+    <FieldGroup orientation="horizontal" name="radio-group-direction">
       <Radio value="1" checked>Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
@@ -219,7 +219,7 @@ import {
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
-    <FieldGroup direction="row" name="radio-group-field-description-1">
+    <FieldGroup orientation="horizontal" name="radio-group-field-description-1">
       <Radio value="1" checked>Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
@@ -228,7 +228,7 @@ import {
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="radio-group-field-description-2">
+    <FieldGroup orientation="horizontal" name="radio-group-field-description-2">
       <Radio value="1" checked>Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
@@ -252,7 +252,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 <Form>
   <FieldSet disabled>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="radio-group-disabled">
+    <FieldGroup orientation="horizontal" name="radio-group-disabled">
       <Radio value="1" checked>Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
@@ -273,7 +273,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 <Form>
   <FieldSet>
     <FieldLegend>These are required!</FieldLegend>
-    <FieldGroup direction="row" name="radio-group-required">
+    <FieldGroup orientation="horizontal" name="radio-group-required">
       <Radio value="1" required>Radio 1</Radio>
       <Radio value="2" required>Radio 2</Radio>
       <Radio value="3" required>Radio 3</Radio>
@@ -296,7 +296,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 <Form>
   <FieldSet aria-describedby="radio-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="radio-group-validation">
+    <FieldGroup orientation="horizontal" name="radio-group-validation">
       <Radio checked error value="1">Radio 1</Radio>
       <Radio error value="2">Radio 2</Radio>
       <Radio error value="3">Radio 3</Radio>
@@ -371,14 +371,14 @@ import {
 
 ### Radio API
 
-| Prop        | Type                                | Default | Description                                       |
-| ----------- | ----------------------------------- | ------- | ------------------------------------------------- |
-| `endText`   | `string`                            | -       | Supporting text displayed below the label.        |
-| `error`     | `boolean`                           | `false` | Marks the control invalid and shows error styles. |
-| `hideLabel` | `boolean`                           | `false` | Visually hides the label.                         |
-| `size`      | `"large"` , `"small"` , `"x-small"` | -       | The size of the element.                          |
-| `spread`    | `boolean`                           | `false` | Pushes the label and the input to opposite ends.  |
-| `stack`     | `boolean`                           | `false` | Stacks the label under the input.                 |
+| Prop        | Type                                             | Default    | Description                                       |
+| ----------- | ------------------------------------------------ | ---------- | ------------------------------------------------- |
+| `endText`   | `string`                                         | -          | Supporting text displayed below the label.        |
+| `error`     | `boolean`                                        | `false`    | Marks the control invalid and shows error styles. |
+| `hideLabel` | `boolean`                                        | `false`    | Visually hides the label.                         |
+| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                          |
+| `spread`    | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.  |
+| `stack`     | `boolean`                                        | `false`    | Stacks the label under the input.                 |
 
 #### Slots
 
@@ -495,10 +495,10 @@ The radio `<input>` without the label, for a custom layout inside a `label.ui-ra
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                              |
-| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| `direction` | `"column"` , `"row"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
-| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
+| Prop          | Type                                     | Default  | Description                                                                                               |
+| ------------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `name`        | `string`                                 | -        | Sets `name` on the OPUI fields inside that don't set their own.                                           |
+| `orientation` | `"auto"` , `"horizontal"` , `"vertical"` | `"auto"` | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### Slots
 
@@ -698,3 +698,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: deep type imports from `components/Radio/types` are named `Props` and `Slots` (was `RadioProps` and `RadioSlots`). Import [`RadioProps`](#api) from the framework entry instead.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Breaking: `style` goes to the root `<label>`, like `class`, so `--_` properties set through it apply ([API](#api)).
+- [Sizes](#sizes) name the default: `size="medium"`.

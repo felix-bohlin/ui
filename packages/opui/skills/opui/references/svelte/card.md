@@ -30,7 +30,7 @@ Explain more about the topic shown in the headline and subhead through supportin
 
 ## Variants
 
-Change the card variant with the `variant` prop. Without a variant the card has the page surface color and no border. Put the body in `CardContent`.
+Change the card variant with the `variant` prop. The default, `plain`, has the page surface color and no border. Put the body in `CardContent`.
 
 ```svelte
 <script lang="ts">
@@ -38,11 +38,11 @@ Change the card variant with the `variant` prop. Without a variant the card has 
 </script>
 
 <Card>
-  <CardContent>Default</CardContent>
+  <CardContent>Plain</CardContent>
 </Card>
 
-<Card variant="text">
-  <CardContent>Text</CardContent>
+<Card variant="transparent">
+  <CardContent>Transparent</CardContent>
 </Card>
 
 <Card variant="outlined">
@@ -243,10 +243,10 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 ### Card API
 
-| Prop       | Type                                               | Default | Description                                                                        |
-| ---------- | -------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
-| `children` | `Snippet`                                          | -       | The card parts, and any other content.                                             |
-| `variant`  | `"elevated"` , `"outlined"` , `"text"` , `"tonal"` | -       | The variant to use. Without one the card has the page surface color and no border. |
+| Prop       | Type                                                                  | Default   | Description                                                                        |
+| ---------- | --------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------- |
+| `children` | `Snippet`                                                             | -         | The card parts, and any other content.                                             |
+| `variant`  | `"elevated"` , `"outlined"` , `"plain"` , `"tonal"` , `"transparent"` | `"plain"` | The variant to use. Without one the card has the page surface color and no border. |
 
 #### CSS variables
 
@@ -482,3 +482,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: `--_shadow-light` and `--_shadow-dark` are gone. Set [`--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark`](#api) in your theme, or [`--_elevated-shadow`](#component-properties) on the card.
 - [Tonal and outlined](#variants) cards read [`--ui-shadow-surface`](#api), and tonal and elevated cards `--ui-surface-border-color`, when a theme sets them.
 - Borders inside [tonal and elevated](#variants) cards read `--ui-border-color-on-raised` and `--ui-field-border-color-on-raised`, so a theme's borders reach inside.
+- [Variants](#variants) name the default: `variant="plain"`.

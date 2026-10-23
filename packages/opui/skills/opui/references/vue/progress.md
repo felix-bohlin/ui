@@ -45,7 +45,7 @@ onBeforeUnmount(() => clearInterval(interval))
 
 ## Variants
 
-Use the `variant` prop to swap the progress bar track surface for better contrast on different backgrounds. Without a variant, the track is tonal, the same as `variant="tonal"`.
+Use the `variant` prop to swap the progress bar track surface for better contrast on different backgrounds. The default, `tonal`, is a tonal track.
 
 ```vue
 <script setup lang="ts">
@@ -86,11 +86,11 @@ import { Progress } from "opui-css/vue"
 
 ### Progress API
 
-| Prop      | Type                   | Default | Description                                                           |
-| --------- | ---------------------- | ------- | --------------------------------------------------------------------- |
-| `max`     | `number` , `string`    | -       | The maximum value.                                                    |
-| `value`   | `number` , `string`    | -       | The current value. Omit it for an indeterminate state.                |
-| `variant` | `"filled"` , `"tonal"` | -       | The variant to use. Without one, the track looks the same as `tonal`. |
+| Prop      | Type                   | Default   | Description                                            |
+| --------- | ---------------------- | --------- | ------------------------------------------------------ |
+| `max`     | `number` , `string`    | -         | The maximum value.                                     |
+| `value`   | `number` , `string`    | -         | The current value. Omit it for an indeterminate state. |
+| `variant` | `"filled"` , `"tonal"` | `"tonal"` | The variant to use.                                    |
 
 #### Slots
 
@@ -290,8 +290,9 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - The track is always outlined with `--ui-field-border-color`, so the empty part is visible.
 - The track reads [`--ui-track-color`](#api) when a theme sets it.
-- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
+- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look. The default is named `tonal`.
 - Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).
 - [Progress bars](#indeterminate) center in table cells and lines of text.
 - Breaking: `style` goes to the root, like `class`, instead of the `<progress>` ([API](#api)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
+- [Variants](#variants) name the default: `variant="tonal"`.

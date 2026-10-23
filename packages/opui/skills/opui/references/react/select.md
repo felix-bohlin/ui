@@ -497,23 +497,23 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 ### Select API
 
-| Prop        | Type                                | Default      | Description                                                              |
-| ----------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------ |
-| `children`  | `ReactNode`                         | -            | Extra `<option>` and `<optgroup>` elements.                              |
-| `dense`     | `boolean`                           | `false`      | Packs the items tighter.                                                 |
-| `endText`   | `ReactNode`                         | -            | Supporting text displayed below the field.                               |
-| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                        |
-| `footer`    | `ReactNode`                         | -            | Content below the select, inside the border, with a divider.             |
-| `header`    | `ReactNode`                         | -            | Content above the select, inside the border, with a divider.             |
-| `id`        | `string`                            | -            | The id of the `<select>`.                                                |
-| `items`     | `SelectItem[]`                      | `[]`         | The options, as `{ selected, text, value }` objects.                     |
-| `label`     | `ReactNode`                         | -            | The label for the field.                                                 |
-| `prefix`    | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.             |
-| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                 |
-| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the select to the other. |
-| `startText` | `ReactNode`                         | -            | Start text displayed above the field.                                    |
-| `suffix`    | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.               |
-| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                      |
+| Prop        | Type                                             | Default      | Description                                                              |
+| ----------- | ------------------------------------------------ | ------------ | ------------------------------------------------------------------------ |
+| `children`  | `ReactNode`                                      | -            | Extra `<option>` and `<optgroup>` elements.                              |
+| `dense`     | `boolean`                                        | `false`      | Packs the items tighter.                                                 |
+| `endText`   | `ReactNode`                                      | -            | Supporting text displayed below the field.                               |
+| `error`     | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                        |
+| `footer`    | `ReactNode`                                      | -            | Content below the select, inside the border, with a divider.             |
+| `header`    | `ReactNode`                                      | -            | Content above the select, inside the border, with a divider.             |
+| `id`        | `string`                                         | -            | The id of the `<select>`.                                                |
+| `items`     | `SelectItem[]`                                   | `[]`         | The options, as `{ selected, text, value }` objects.                     |
+| `label`     | `ReactNode`                                      | -            | The label for the field.                                                 |
+| `prefix`    | `ReactNode`                                      | -            | Content at the inline-start of the field, inside the border.             |
+| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                 |
+| `spread`    | `boolean`                                        | `false`      | Pushes the label and start text to one side and the select to the other. |
+| `startText` | `ReactNode`                                      | -            | Start text displayed above the field.                                    |
+| `suffix`    | `ReactNode`                                      | -            | Content at the inline-end of the field, inside the border.               |
+| `variant`   | `"filled"` , `"outlined"`                        | `"outlined"` | The variant to use.                                                      |
 
 #### CSS variables
 
@@ -850,3 +850,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The picker shadow is [`--ui-shadow-overlay`](#api), shared with menus and drawers.
 - The field reads [`--ui-shadow-field`](#api), or `--ui-shadow-control` when a theme leaves it unset.
 - The [filled](#variants) hover reads `--ui-surface-tonal-hover`, shared with clickable chips.
+- [Sizes](#sizes) name the default: `size="medium"`.

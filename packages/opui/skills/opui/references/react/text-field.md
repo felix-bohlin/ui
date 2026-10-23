@@ -481,23 +481,23 @@ export default function NoLabel() {
 
 ### Text field API
 
-| Prop        | Type                                | Default      | Description                                                               |
-| ----------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `autoFit`   | `boolean`                           | `false`      | Lets the width follow the content, from `25ch`.                           |
-| `children`  | `ReactNode`                         | -            | Extra content inside the root, such as a `<datalist>`.                    |
-| `endText`   | `ReactNode`                         | -            | Supporting text displayed below the field.                                |
-| `error`     | `boolean`                           | `false`      | Marks the control invalid and shows error styles.                         |
-| `footer`    | `ReactNode`                         | -            | Content below the input, inside the border, with a divider.               |
-| `header`    | `ReactNode`                         | -            | Content above the input, inside the border, with a divider.               |
-| `id`        | `string`                            | -            | The id of the `<input>`.                                                  |
-| `label`     | `ReactNode`                         | -            | The label for the field.                                                  |
-| `prefix`    | `ReactNode`                         | -            | Content at the inline-start of the field, inside the border.              |
-| `size`      | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                  |
-| `spread`    | `boolean`                           | `false`      | Pushes the label and start text to one side and the input to the other.   |
-| `startText` | `ReactNode`                         | -            | Start text displayed above the field.                                     |
-| `suffix`    | `ReactNode`                         | -            | Content at the inline-end of the field, inside the border.                |
-| `type`      | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
-| `variant`   | `"filled"` , `"outlined"`           | `"outlined"` | The variant to use.                                                       |
+| Prop        | Type                                             | Default      | Description                                                               |
+| ----------- | ------------------------------------------------ | ------------ | ------------------------------------------------------------------------- |
+| `autoFit`   | `boolean`                                        | `false`      | Lets the width follow the content, from `25ch`.                           |
+| `children`  | `ReactNode`                                      | -            | Extra content inside the root, such as a `<datalist>`.                    |
+| `endText`   | `ReactNode`                                      | -            | Supporting text displayed below the field.                                |
+| `error`     | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                         |
+| `footer`    | `ReactNode`                                      | -            | Content below the input, inside the border, with a divider.               |
+| `header`    | `ReactNode`                                      | -            | Content above the input, inside the border, with a divider.               |
+| `id`        | `string`                                         | -            | The id of the `<input>`.                                                  |
+| `label`     | `ReactNode`                                      | -            | The label for the field.                                                  |
+| `prefix`    | `ReactNode`                                      | -            | Content at the inline-start of the field, inside the border.              |
+| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                  |
+| `spread`    | `boolean`                                        | `false`      | Pushes the label and start text to one side and the input to the other.   |
+| `startText` | `ReactNode`                                      | -            | Start text displayed above the field.                                     |
+| `suffix`    | `ReactNode`                                      | -            | Content at the inline-end of the field, inside the border.                |
+| `type`      | `"numeric"` , `string`                           | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
+| `variant`   | `"filled"` , `"outlined"`                        | `"outlined"` | The variant to use.                                                       |
 
 #### CSS variables
 
@@ -780,3 +780,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The field reads [`--ui-shadow-field`](#api), or `--ui-shadow-control` when a theme leaves it unset.
 - With more contrast, [invalid](#validation) fields keep the lighter `--ui-invalid` of dark mode, which every invalid control now shares.
 - The [filled](#variants) hover reads `--ui-surface-tonal-hover`, shared with clickable chips.
+- [Sizes](#sizes) name the default: `size="medium"`.

@@ -20,7 +20,7 @@ Floating content
 
 ## Always visible
 
-Floating content that is always shown, like a coach mark beside a button. Put it in `AnchorContent`, and set `alignment` to any `position-area` value to place it.
+Floating content that is always shown, like a coach mark beside a button. Put it in `AnchorContent`, and set `positionArea` to any `position-area` value to place it.
 
 ```svelte
 <script lang="ts">
@@ -33,7 +33,7 @@ Floating content that is always shown, like a coach mark beside a button. Put it
   } from "opui-css/svelte"
 </script>
 
-<Anchor alignment="inline-end">
+<Anchor positionArea="inline-end">
   <Button variant="outlined">Export</Button>
   <AnchorContent>
     <Card variant="tonal" class="coach-mark">
@@ -79,7 +79,7 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
 <div>
   The source lives in
   <Anchor
-    alignment="block-end span-inline-end"
+    positionArea="block-end span-inline-end"
     trigger="hover"
     id="anchor-repo-card-1"
   >
@@ -95,7 +95,7 @@ Put a [Card](https://open-props-ui.netlify.app/svelte/components/card.md) in the
             <Avatar
               src="https://github.com/felix-bohlin.png"
               alt=""
-              variant="rounded"
+              shape="rounded"
             />
             <div>
               <strong>felix-bohlin/ui</strong>
@@ -155,7 +155,7 @@ Preview where a link goes before following it.
 <div>
   Learn more about
   <Anchor
-    alignment="block-end span-inline-end"
+    positionArea="block-end span-inline-end"
     trigger="hover"
     id="anchor-link-preview-1"
   >
@@ -209,12 +209,12 @@ Preview where a link goes before following it.
 
 ### Anchor API
 
-| Prop        | Type                   | Default                 | Description                                                                                                                                                                                                        |
-| ----------- | ---------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `alignment` | `string`               | `"self-start self-end"` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
-| `children`  | `Snippet`              | -                       | The content to anchor to, followed by `AnchorContent`.                                                                                                                                                             |
-| `id`        | `string`               | -                       | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.                                                                                          |
-| `trigger`   | `"always"` , `"hover"` | `"always"`              | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                                                                                                    |
+| Prop           | Type                   | Default                 | Description                                                                                                                                                                                                        |
+| -------------- | ---------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `children`     | `Snippet`              | -                       | The content to anchor to, followed by `AnchorContent`.                                                                                                                                                             |
+| `id`           | `string`               | -                       | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.                                                                                          |
+| `positionArea` | `string`               | `"self-start self-end"` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
+| `trigger`      | `"always"` , `"hover"` | `"always"`              | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                                                                                                    |
 
 ## Component properties
 

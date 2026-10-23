@@ -90,7 +90,7 @@ Use `selection="multiple"` for multi-select groups.
 
 ### Single-select
 
-Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `pressed` on the button that starts pressed.
+Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `checked` on the button that starts pressed, or `defaultChecked` in React.
 
 ```svelte
 <script lang="ts">
@@ -112,7 +112,7 @@ Use `selection="single"` for single-select groups. Every button is a radio then,
       ></path>
     </svg>
   </ToggleButton>
-  <ToggleButton value="center" pressed aria-label="Align center">
+  <ToggleButton value="center" checked aria-label="Align center">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@ Put an `svg` before the text in `children`. Icon-only buttons need an `aria-labe
 </script>
 
 <ToggleGroup selection="single" name="transport">
-  <ToggleButton value="walking" pressed>
+  <ToggleButton value="walking" checked>
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -250,7 +250,7 @@ Change the layout of the group with the `orientation="vertical"` prop.
 
 <ToggleGroup selection="single" name="view" orientation="vertical">
   <ToggleButton value="day">Day</ToggleButton>
-  <ToggleButton value="week" pressed>Week</ToggleButton>
+  <ToggleButton value="week" checked>Week</ToggleButton>
   <ToggleButton value="month">Month</ToggleButton>
 </ToggleGroup>
 ```
@@ -300,16 +300,16 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Use `scrollab
 
 ### Toggle group API
 
-| Prop                                                                                                                                                                           | Type                                | Default        | Description                                                                                                       |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `string[]`               | -              | The value of the pressed button with `selection="single"`, or the values of the pressed buttons.                  |
-| `children`                                                                                                                                                                     | `Snippet`                           | -              | The toggle buttons.                                                                                               |
-| `name`                                                                                                                                                                         | `string`                            | -              | The name shared by the inputs. Generated when omitted.                                                            |
-| `orientation`                                                                                                                                                                  | `"horizontal"` , `"vertical"`       | `"horizontal"` | The orientation of the element.                                                                                   |
-| `scrollable`                                                                                                                                                                   | `boolean`                           | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `selection`                                                                                                                                                                    | `"multiple"` , `"single"`           | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
-| `shrink`                                                                                                                                                                       | `boolean`                           | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`                                                                                                                                                                         | `"large"` , `"small"` , `"x-small"` | -              | The size of the buttons. Without one they are the default control size.                                           |
+| Prop                                                                                                                                                                           | Type                                             | Default        | Description                                                                                                       |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `string[]`                            | -              | The value of the pressed button with `selection="single"`, or the values of the pressed buttons.                  |
+| `children`                                                                                                                                                                     | `Snippet`                                        | -              | The toggle buttons.                                                                                               |
+| `name`                                                                                                                                                                         | `string`                                         | -              | The name shared by the inputs. Generated when omitted.                                                            |
+| `orientation`                                                                                                                                                                  | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element.                                                                                   |
+| `scrollable`                                                                                                                                                                   | `boolean`                                        | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `selection`                                                                                                                                                                    | `"multiple"` , `"single"`                        | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
+| `shrink`                                                                                                                                                                       | `boolean`                                        | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`                                                                                                                                                                         | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons. Without one they are the default control size.                                           |
 
 #### CSS variables
 
@@ -354,17 +354,17 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Toggle button API
 
-| Prop       | Type                                | Default      | Description                                                                                  |
-| ---------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------------------------- |
-| `children` | `Snippet`                           | -            | The label and an optional icon.                                                              |
-| `disabled` | `boolean`                           | `false`      | Disables the button.                                                                         |
-| `id`       | `string`                            | -            | The id of the `<input>`.                                                                     |
-| `label`    | `string`                            | -            | The button text when there is no child content, and the input value when `value` is omitted. |
-| `name`     | `string`                            | -            | The name of the input. Set by the group.                                                     |
-| `pressed`  | `boolean`                           | `false`      | Selects the button.                                                                          |
-| `size`     | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                                     |
-| `type`     | `"checkbox"` , `"radio"`            | `"checkbox"` | The input type. `"radio"` allows one selection in a group.                                   |
-| `value`    | `string`                            | -            | The value of the input.                                                                      |
+| Prop       | Type                                             | Default      | Description                                                                                  |
+| ---------- | ------------------------------------------------ | ------------ | -------------------------------------------------------------------------------------------- |
+| `checked`  | `boolean`                                        | `false`      | Selects the button.                                                                          |
+| `children` | `Snippet`                                        | -            | The label and an optional icon.                                                              |
+| `disabled` | `boolean`                                        | `false`      | Disables the button.                                                                         |
+| `id`       | `string`                                         | -            | The id of the `<input>`.                                                                     |
+| `label`    | `string`                                         | -            | The button text when there is no child content, and the input value when `value` is omitted. |
+| `name`     | `string`                                         | -            | The name of the input. Set by the group.                                                     |
+| `size`     | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                                     |
+| `type`     | `"checkbox"` , `"radio"`                         | `"checkbox"` | The input type. `"radio"` allows one selection in a group.                                   |
+| `value`    | `string`                                         | -            | The value of the input.                                                                      |
 
 #### CSS variables
 
@@ -406,7 +406,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. In a `ToggleGroup` with `bind:value`, the group's value sets the state instead of `pressed`.
+Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. `bind:checked` binds a standalone button. In a `ToggleGroup` with `bind:value`, the group's value wins.
 
 ## Component properties
 
@@ -601,3 +601,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - `--_duration` and `--_ease` set the focus ring animation's duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--ui-radius` through [`--ui-button-radius`](#api), so one token squares or rounds every component.
 - The default size reads [`--ui-font-size-control`](#sizes) for its font size, like buttons.
+- [Sizes](#sizes) name the default: `size="medium"`.

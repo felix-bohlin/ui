@@ -578,7 +578,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_button-bg-color`              | Input  | Background of the scroll buttons. Defaults to `--ui-surface-inverse`.                                                                              |
 | `--_button-border-color`          | Output | Border color of the scroll buttons. `--ui-control-border-color-filled` when the theme sets it, otherwise a shade of `--_button-bg-color`.          |
 | `--_button-disabled-border-color` | Output | Border color of disabled scroll buttons, from `--_button-bg-color`.                                                                                |
-| `--_button-disabled-opacity`      | Input  | Opacity of disabled scroll buttons. `0` hides them, `.ui-buttons-persistent` sets `1`.                                                             |
+| `--_button-disabled-opacity`      | Input  | Opacity of disabled scroll buttons. `0` hides them, `.ui-persistent-buttons` sets `1`.                                                             |
 | `--_button-end-flip`              | Output | Mirrors the inline-end button. `1`, or `-1` in right-to-left.                                                                                      |
 | `--_button-flip`                  | Output | Mirrors a scroll button, `1` or `-1`. From `--_button-start-flip` and `--_button-end-flip`.                                                        |
 | `--_button-icon`                  | Input  | Icon of the scroll buttons, pointing forward. The previous button mirrors it.                                                                      |

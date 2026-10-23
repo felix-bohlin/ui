@@ -35,20 +35,20 @@ The Chip has two variants: `tonal` (default) and `outlined`.
 <Chip variant="outlined" label="Outlined" />
 ```
 
-## Colors
+## Severities
 
-Set `color` to `critical`, `info`, `neutral`, `success` or `warning` to tint a tonal chip, such as a status. Keep the status in the label, since color alone doesn't tell it.
+Set `severity` to `critical`, `info`, `neutral`, `success` or `warning` to tint a tonal chip, such as a status. Keep the status in the label, since color alone doesn't tell it.
 
 ```svelte
 <script lang="ts">
   import { Chip } from "opui-css/svelte"
 </script>
 
-<Chip color="critical" label="Past due" />
-<Chip color="info" label="Processing" />
-<Chip color="neutral" label="Refunded" />
-<Chip color="success" label="Paid" />
-<Chip color="warning" label="Due 15 Oct" />
+<Chip severity="critical" label="Past due" />
+<Chip severity="info" label="Processing" />
+<Chip severity="neutral" label="Refunded" />
+<Chip severity="success" label="Paid" />
+<Chip severity="warning" label="Due 15 Oct" />
 ```
 
 ## Sizes
@@ -122,20 +122,38 @@ Set `dot` to add a leading dot in the chip's color. The shape follows the color:
 </script>
 
 <div class="example-row">
-  <Chip color="critical" dot label="Past due" />
-  <Chip color="info" dot label="Processing" />
-  <Chip color="neutral" dot label="Refunded" />
-  <Chip color="success" dot label="Paid" />
-  <Chip color="warning" dot label="Due 15 Oct" />
+  <Chip severity="critical" dot label="Past due" />
+  <Chip severity="info" dot label="Processing" />
+  <Chip severity="neutral" dot label="Refunded" />
+  <Chip severity="success" dot label="Paid" />
+  <Chip severity="warning" dot label="Due 15 Oct" />
 </div>
 
 <div class="example-row">
-  <Chip color="critical" dot label="Past due" size="small" variant="outlined" />
-  <Chip color="info" dot label="Processing" size="small" variant="outlined" />
-  <Chip color="neutral" dot label="Refunded" size="small" variant="outlined" />
-  <Chip color="success" dot label="Paid" size="small" variant="outlined" />
   <Chip
-    color="warning"
+    severity="critical"
+    dot
+    label="Past due"
+    size="small"
+    variant="outlined"
+  />
+  <Chip
+    severity="info"
+    dot
+    label="Processing"
+    size="small"
+    variant="outlined"
+  />
+  <Chip
+    severity="neutral"
+    dot
+    label="Refunded"
+    size="small"
+    variant="outlined"
+  />
+  <Chip severity="success" dot label="Paid" size="small" variant="outlined" />
+  <Chip
+    severity="warning"
     dot
     label="Due 15 Oct"
     size="small"
@@ -237,20 +255,20 @@ Disable a button or link chip with the `disabled` prop. A link chip drops its `h
 
 ### Chip API
 
-| Prop        | Type                                                              | Default   | Description                                                                                   |
-| ----------- | ----------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------- |
-| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`   | The element to render. Defaults to `"a"` with `href`.                                         |
-| `children`  | `Snippet`                                                         | -         | Content placed before the label.                                                              |
-| `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | Optional colors.                                                                              |
-| `disabled`  | `boolean`                                                         | `false`   | Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead. |
-| `dot`       | `boolean`                                                         | `false`   | Adds a leading dot in the chip's color. Its shape follows the color.                          |
-| `end`       | `Snippet`                                                         | -         | Optional content at the end, such as an icon.                                                 |
-| `href`      | `string`                                                          | -         | The link to use. Renders an `<a>`.                                                            |
-| `label`     | `string`                                                          | -         | The label.                                                                                    |
-| `multiline` | `boolean`                                                         | `false`   | Lets the label wrap to multiple lines.                                                        |
-| `size`      | `"large"` , `"small"` , `"x-small"`                               | -         | The size of the element.                                                                      |
-| `start`     | `Snippet`                                                         | -         | Optional content at the start, such as an icon.                                               |
-| `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                           |
+| Prop        | Type                                                              | Default    | Description                                                                                   |
+| ----------- | ----------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------- |
+| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`    | The element to render. Defaults to `"a"` with `href`.                                         |
+| `children`  | `Snippet`                                                         | -          | Content placed before the label.                                                              |
+| `disabled`  | `boolean`                                                         | `false`    | Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead. |
+| `dot`       | `boolean`                                                         | `false`    | Adds a leading dot in the chip's color. Its shape follows the severity.                       |
+| `end`       | `Snippet`                                                         | -          | Optional content at the end, such as an icon.                                                 |
+| `href`      | `string`                                                          | -          | The link to use. Renders an `<a>`.                                                            |
+| `label`     | `string`                                                          | -          | The label.                                                                                    |
+| `multiline` | `boolean`                                                         | `false`    | Lets the label wrap to multiple lines.                                                        |
+| `severity`  | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -          | The severity of a status chip. It tints the chip and shapes its dot.                          |
+| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"`                  | `"medium"` | The size of the element.                                                                      |
+| `start`     | `Snippet`                                                         | -          | Optional content at the start, such as an icon.                                               |
+| `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"`  | The variant to use.                                                                           |
 
 #### CSS variables
 
@@ -442,10 +460,11 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Long labels truncate with an ellipsis unless the chip is [`multiline`](#sizes).
 - The hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
 - `size` takes `"x-small"`. [Sizes](#sizes)
-- [Colors](#colors) for statuses with `color`, and a shape-coded [`dot`](#dot).
+- [Severities](#severities) for statuses with `severity`, and a shape-coded [`dot`](#dot).
 - [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
 - Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
 - [`disabled`](#disabled) works on button and link chips. A link chip gets `aria-disabled="true"`.
 - Breaking: a button chip needs `as="button"`, and a link chip needs `href` ([types](#api)).
 - Breaking: [disabled link chips](#disabled) have no `href`, so they can't be focused or followed.
 - [Button](#button) and [link](#link) chips hover with `--ui-surface-tonal-hover`, like filled fields.
+- [Sizes](#sizes) name the default: `size="medium"`.

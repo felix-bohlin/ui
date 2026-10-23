@@ -40,11 +40,11 @@
 
   An optional title for the table.
 
-## Variants
+## Density
 
 Change the cell padding with the `.ui-dense` or `.ui-spacious` class.
 
-### Default
+### Normal
 
 ```html
 <table class="ui-table">
@@ -313,10 +313,10 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 
 ### Table API
 
-| Type          | Modifiers                   | Default | Description                                                                                          |
-| ------------- | --------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
-| Sticky header | `.ui-sticky-header`         | -       | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
-| Variants      | `.ui-dense`, `.ui-spacious` | -       | The variant to use.                                                                                  |
+| Type          | Modifiers                            | Default | Description                                                                                          |
+| ------------- | ------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Density       | default, `.ui-dense`, `.ui-spacious` | default | The cell padding.                                                                                    |
+| Sticky header | `.ui-sticky-header`                  | -       | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
 
 #### Parts
 
@@ -614,8 +614,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - A checkbox alone in a cell is centered ([Default](#default)).
-- [Dense](#variants) tables (`.ui-dense`) have less block padding.
-- Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
+- [Dense](#density) tables (`.ui-dense`) have less block padding.
+- Fields and selects in cells keep a `12ch` minimum width, in every [density](#density).
 - [Sticky header](#sticky-header) with `.ui-sticky-header`.
 - Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

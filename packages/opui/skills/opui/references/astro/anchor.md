@@ -20,7 +20,7 @@ Floating content
 
 ## Always visible
 
-Floating content that is always shown, like a coach mark beside a button. Put it in `AnchorContent`, and set `alignment` to any `position-area` value to place it.
+Floating content that is always shown, like a coach mark beside a button. Put it in `AnchorContent`, and set `positionArea` to any `position-area` value to place it.
 
 ```astro
 ---
@@ -33,7 +33,7 @@ import {
 } from "opui-css/astro"
 ---
 
-<Anchor alignment="inline-end">
+<Anchor positionArea="inline-end">
   <Button variant="outlined">Export</Button>
   <AnchorContent>
     <Card variant="tonal" class="coach-mark">
@@ -77,7 +77,7 @@ import {
 <div>
   The source lives in
   <Anchor
-    alignment="block-end span-inline-end"
+    positionArea="block-end span-inline-end"
     trigger="hover"
     id="anchor-repo-card-1"
   >
@@ -93,7 +93,7 @@ import {
             <Avatar
               src="https://github.com/felix-bohlin.png"
               alt=""
-              variant="rounded"
+              shape="rounded"
             />
             <div>
               <strong>felix-bohlin/ui</strong>
@@ -151,7 +151,7 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/astro"
 <div>
   Learn more about
   <Anchor
-    alignment="block-end span-inline-end"
+    positionArea="block-end span-inline-end"
     trigger="hover"
     id="anchor-link-preview-1"
   >
@@ -203,11 +203,11 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/astro"
 
 ### Anchor API
 
-| Prop        | Type                   | Default                 | Description                                                                                                                                                                                                        |
-| ----------- | ---------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `alignment` | `string`               | `"self-start self-end"` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
-| `id`        | `string`               | -                       | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.                                                                                          |
-| `trigger`   | `"always"` , `"hover"` | `"always"`              | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                                                                                                    |
+| Prop           | Type                   | Default                 | Description                                                                                                                                                                                                        |
+| -------------- | ---------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`           | `string`               | -                       | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.                                                                                          |
+| `positionArea` | `string`               | `"self-start self-end"` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
+| `trigger`      | `"always"` , `"hover"` | `"always"`              | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                                                                                                    |
 
 #### Slots
 
@@ -341,3 +341,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.
 - Breaking: [hover anchors](#hover-trigger) no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and put `interestfor` on the trigger.
+- Breaking: `alignment` is [`positionArea`](#always-visible).

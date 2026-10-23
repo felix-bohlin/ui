@@ -48,7 +48,7 @@ You can place any markup you want (famous last words) inside `.ui-anchor-floatin
 </span>
 ```
 
-## Alignment
+## Position
 
 Set `--ui-anchor-position-area` on the parent with your preferred `position-area` value.
 
@@ -61,13 +61,13 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
     <button
       type="button"
       class="ui-button"
-      interestfor="tooltip-alignment-1"
-      commandfor="tooltip-alignment-1"
+      interestfor="tooltip-position-1"
+      commandfor="tooltip-position-1"
       command="toggle-popover"
     >
       Top
     </button>
-    <span class="ui-anchor-floating" id="tooltip-alignment-1" popover="hint"
+    <span class="ui-anchor-floating" id="tooltip-position-1" popover="hint"
       >Above</span
     >
   </span>
@@ -78,13 +78,13 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
     <button
       type="button"
       class="ui-button"
-      interestfor="tooltip-alignment-2"
-      commandfor="tooltip-alignment-2"
+      interestfor="tooltip-position-2"
+      commandfor="tooltip-position-2"
       command="toggle-popover"
     >
       Start
     </button>
-    <span class="ui-anchor-floating" id="tooltip-alignment-2" popover="hint"
+    <span class="ui-anchor-floating" id="tooltip-position-2" popover="hint"
       >Before</span
     >
   </span>
@@ -95,13 +95,13 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
     <button
       type="button"
       class="ui-button"
-      interestfor="tooltip-alignment-3"
-      commandfor="tooltip-alignment-3"
+      interestfor="tooltip-position-3"
+      commandfor="tooltip-position-3"
       command="toggle-popover"
     >
       End
     </button>
-    <span class="ui-anchor-floating" id="tooltip-alignment-3" popover="hint"
+    <span class="ui-anchor-floating" id="tooltip-position-3" popover="hint"
       >After</span
     >
   </span>
@@ -112,13 +112,13 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
     <button
       type="button"
       class="ui-button"
-      interestfor="tooltip-alignment-4"
-      commandfor="tooltip-alignment-4"
+      interestfor="tooltip-position-4"
+      commandfor="tooltip-position-4"
       command="toggle-popover"
     >
       Bottom
     </button>
-    <span class="ui-anchor-floating" id="tooltip-alignment-4" popover="hint"
+    <span class="ui-anchor-floating" id="tooltip-position-4" popover="hint"
       >Below</span
     >
   </span>
@@ -127,10 +127,10 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
 
 ## Arrow
 
-Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve with `corner-shape` one day.
+Add the `.ui-arrow` class on the `.ui-tooltip`. This would be cool to solve with `corner-shape` one day.
 
 ```html
-<span class="ui-anchor ui-tooltip ui-with-arrow">
+<span class="ui-anchor ui-tooltip ui-arrow">
   <button
     type="button"
     class="ui-button"
@@ -152,7 +152,7 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
 
 | Type     | Modifiers                   | Default            | Description                                                                                                                                                                                               |
 | -------- | --------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Arrow    | `.ui-with-arrow`            | -                  | Adds an arrow that points to the trigger.                                                                                                                                                                 |
+| Arrow    | `.ui-arrow`                 | -                  | Adds an arrow that points to the trigger.                                                                                                                                                                 |
 | Position | `--ui-anchor-position-area` | `self-block-start` | Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
 
 #### Parts
@@ -188,18 +188,18 @@ Add `.ui-anchor` to the root too. Give `.ui-anchor-floating` `popover="hint"` an
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property             | Kind   | Description                                                                   |
-| -------------------- | ------ | ----------------------------------------------------------------------------- |
-| `--_arrow-size`      | Input  | Size of the arrow in `.ui-with-arrow`.                                        |
-| `--_bg-color`        | Input  | Background of the tooltip and its arrow. Defaults to `--ui-surface-inverse`.  |
-| `--_duration`        | Output | Duration of the fade, `--ui-duration` times `--_motion`.                      |
-| `--_ease`            | Input  | Easing of the fade. Defaults to `--ui-ease-enter`.                            |
-| `--_max-inline-size` | Input  | The maximum width. Longer content wraps.                                      |
-| `--_min-inline-size` | Input  | The minimum width, unless the content is narrower.                            |
-| `--_motion`          | Input  | Motion multiplier for the fade. `0` turns it off.                             |
-| `--_offset`          | Input  | Distance from the trigger. `.ui-with-arrow` computes it from `--_arrow-size`. |
-| `--_shift`           | Input  | How far a shifted tooltip reaches past the center of the trigger.             |
-| `--_text-color`      | Input  | The text color. Defaults to `--ui-on-inverse`.                                |
+| Property             | Kind   | Description                                                                  |
+| -------------------- | ------ | ---------------------------------------------------------------------------- |
+| `--_arrow-size`      | Input  | Size of the arrow in `.ui-arrow`.                                            |
+| `--_bg-color`        | Input  | Background of the tooltip and its arrow. Defaults to `--ui-surface-inverse`. |
+| `--_duration`        | Output | Duration of the fade, `--ui-duration` times `--_motion`.                     |
+| `--_ease`            | Input  | Easing of the fade. Defaults to `--ui-ease-enter`.                           |
+| `--_max-inline-size` | Input  | The maximum width. Longer content wraps.                                     |
+| `--_min-inline-size` | Input  | The minimum width, unless the content is narrower.                           |
+| `--_motion`          | Input  | Motion multiplier for the fade. `0` turns it off.                            |
+| `--_offset`          | Input  | Distance from the trigger. `.ui-arrow` computes it from `--_arrow-size`.     |
+| `--_shift`           | Input  | How far a shifted tooltip reaches past the center of the trigger.            |
+| `--_text-color`      | Input  | The text color. Defaults to `--ui-on-inverse`.                               |
 
 ## Under the hood
 
@@ -398,3 +398,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners never get rounder than [`--ui-radius`](#api), so `0` squares them.
 - [`--_max-inline-size`](#api) sets the maximum width.
+- Breaking: `.ui-with-arrow` is [`.ui-arrow`](#arrow).

@@ -636,7 +636,7 @@ cold-brew 1.0.0</samp></pre>
 | Overline      | `.ui-overline`                                                                                                                                             | -       | Small uppercase label text.                                                                                                                        |
 | Paragraph     | `.ui-p`                                                                                                                                                    | -       | Body paragraph styling.                                                                                                                            |
 | Rich text     | `.ui-not-rich-text`                                                                                                                                        | -       | Ends the `.ui-rich-text` styles inside it.                                                                                                         |
-| Sizes         | `.ui-large`, `.ui-small`                                                                                                                                   | -       | Size modifiers on `.ui-p`.                                                                                                                         |
+| Sizes         | default, `.ui-large`, `.ui-small`                                                                                                                          | default | Size modifiers on `.ui-p`.                                                                                                                         |
 
 #### Parts
 

@@ -40,11 +40,11 @@
 
   An optional title for the table.
 
-## Variants
+## Density
 
-Change the cell padding with `variant="dense"` or `variant="spacious"`.
+Change the cell padding with `density="dense"` or `density="spacious"`. The default is `normal`.
 
-### Default
+### Normal
 
 ```vue
 <script setup lang="ts">
@@ -117,7 +117,7 @@ import {
 </script>
 
 <template>
-  <Table variant="dense">
+  <Table density="dense">
     <TableCaption>Band Members</TableCaption>
     <TableHead>
       <TableRow>
@@ -158,7 +158,7 @@ import {
 </script>
 
 <template>
-  <Table variant="spacious">
+  <Table density="spacious">
     <TableCaption>Band Members</TableCaption>
     <TableHead>
       <TableRow>
@@ -380,10 +380,10 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 
 ### Table API
 
-| Prop           | Type                     | Default | Description                                                                                          |
-| -------------- | ------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
-| `stickyHeader` | `boolean`                | `false` | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
-| `variant`      | `"dense"` , `"spacious"` | -       | The variant to use.                                                                                  |
+| Prop           | Type                                  | Default    | Description                                                                                          |
+| -------------- | ------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------- |
+| `density`      | `"dense"` , `"normal"` , `"spacious"` | `"normal"` | The cell padding.                                                                                    |
+| `stickyHeader` | `boolean`                             | `false`    | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
 
 #### Slots
 
@@ -673,8 +673,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - Breaking: the part files are `TableBody.*`, `TableCell.*`, `TableColumn.*`, `TableColumnGroup.*`, `TableHead.*`, `TableHeaderCell.*` and `TableRow.*`. Update deep `opui-css/components/*` imports ([API](#api)).
 - A checkbox alone in a cell is centered ([Default](#default)).
-- [Dense](#variants) tables have less block padding.
-- Fields and selects in cells keep a `12ch` minimum width, in every [variant](#variants).
+- [Dense](#density) tables have less block padding.
+- Fields and selects in cells keep a `12ch` minimum width, in every [density](#density).
 - [Sticky header](#sticky-header) with the `stickyHeader` prop.
 - Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).
 - Breaking: [`TableColumn` `width`](#api) takes a CSS length; a declaration string such as `"min-width: 10rem"` is no longer parsed, pass `style` instead.
@@ -683,3 +683,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: deep type imports from `components/Table/types` have one type per part, such as [`TableCellProps`](#api), instead of `SectionProps`, and `TableColumnProps` instead of `ColumnProps`.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - The [sticky header](#sticky-header) shadow reads `--ui-shadow-scroll`.
+- Breaking: `variant` is [`density`](#density), with `normal` as the default.

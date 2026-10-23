@@ -4,7 +4,7 @@ A popover [List](https://open-props-ui.netlify.app/svelte/components/list.md), a
 
 ## Basics
 
-`items` with `borderTop`, `critical`, `disabled`, `href` and `shortcut`.
+`items` with `borderTop`, `color`, `disabled`, `href` and `shortcut`.
 
 ```svelte
 <script lang="ts">
@@ -21,7 +21,7 @@ A popover [List](https://open-props-ui.netlify.app/svelte/components/list.md), a
     { text: "Duplicate", shortcut: "Ctrl+D" },
     { text: "Archive", disabled: true },
     { text: "Help", href: "#basics" },
-    { text: "Delete", borderTop: true, critical: true },
+    { text: "Delete", borderTop: true, color: "critical" },
   ]}
 />
 ```
@@ -156,7 +156,7 @@ If you want to decide yourself what goes into your list.
     as="button"
     headline="Delete"
     borderTop
-    critical
+    color="critical"
     commandfor="menu-custom-1"
     command="hide-popover"
   >
@@ -178,7 +178,7 @@ If you want to decide yourself what goes into your list.
 
 ## Placement
 
-`placement`, or any `--ui-anchor-position-area`. `align="end"` to line up with the end edge.
+`side`, or any `--ui-anchor-position-area`. `align="end"` to line up with the end edge.
 
 ```svelte
 <script lang="ts">
@@ -194,7 +194,7 @@ If you want to decide yourself what goes into your list.
 >
   Block start
 </Button>
-<Menu id="menu-placement-1" {items} placement="block-start" />
+<Menu id="menu-placement-1" {items} side="block-start" />
 
 <Button
   commandfor="menu-placement-2"
@@ -212,7 +212,7 @@ If you want to decide yourself what goes into your list.
 >
   Inline start
 </Button>
-<Menu id="menu-placement-3" {items} placement="inline-start" />
+<Menu id="menu-placement-3" {items} side="inline-start" />
 
 <Button
   commandfor="menu-placement-4"
@@ -221,7 +221,7 @@ If you want to decide yourself what goes into your list.
 >
   Inline end
 </Button>
-<Menu id="menu-placement-4" {items} placement="inline-end" />
+<Menu id="menu-placement-4" {items} side="inline-end" />
 
 <Button
   commandfor="menu-placement-5"
@@ -269,7 +269,7 @@ Pass a `Menu` to the `submenu` snippet of a `ListItem`. Mark the item with an ic
       </svg>
     {/snippet}
     {#snippet submenu()}
-      <Menu id="menu-submenu-2" items={formats} placement="inline-end" />
+      <Menu id="menu-submenu-2" items={formats} side="inline-end" />
     {/snippet}
   </ListItem>
 </Menu>
@@ -318,16 +318,16 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 
 ### Menu API
 
-| Prop        | Type                                                                | Default       | Description                                                                                                                                     |
-| ----------- | ------------------------------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `align`     | `"end"` , `"start"`                                                 | `"start"`     | Which edge of the trigger the menu lines up with.                                                                                               |
-| `bordered`  | `boolean`                                                           | `false`       | Adds a border between the items.                                                                                                                |
-| `children`  | `Snippet`                                                           | -             | The items, such as `ListItem`s.                                                                                                                 |
-| `dense`     | `boolean`                                                           | `false`       | Packs the items tighter.                                                                                                                        |
-| `id`        | `string`                                                            | -             | The id of the menu, which the trigger's `commandfor` points at. Generated when omitted.                                                         |
-| `items`     | `MenuItem[]`                                                        | -             | The items, as `{ borderTop, closeOnClick, critical, disabled, href, shortcut, text }` objects. Other keys go to the item's `<a>` or `<button>`. |
-| `placement` | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"block-end"` | Where the menu opens.                                                                                                                           |
-| `popover`   | `"auto"` , `"manual"`                                               | `"auto"`      | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                       |
+| Prop       | Type                                                                | Default       | Description                                                                                                                                  |
+| ---------- | ------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `align`    | `"end"` , `"start"`                                                 | `"start"`     | Which edge of the trigger the menu lines up with.                                                                                            |
+| `bordered` | `boolean`                                                           | `false`       | Adds a border between the items.                                                                                                             |
+| `children` | `Snippet`                                                           | -             | The items, such as `ListItem`s.                                                                                                              |
+| `dense`    | `boolean`                                                           | `false`       | Packs the items tighter.                                                                                                                     |
+| `id`       | `string`                                                            | -             | The id of the menu, which the trigger's `commandfor` points at. Generated when omitted.                                                      |
+| `items`    | `MenuItem[]`                                                        | -             | The items, as `{ borderTop, closeOnClick, color, disabled, href, shortcut, text }` objects. Other keys go to the item's `<a>` or `<button>`. |
+| `popover`  | `"auto"` , `"manual"`                                               | `"auto"`      | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                    |
+| `side`     | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"block-end"` | The side of the trigger the menu opens on.                                                                                                   |
 
 #### CSS variables
 
@@ -588,6 +588,6 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Submenus](#submenu) with the `submenu` snippet on `ListItem`.
 - Menus shrink to the space on their side and flip when it's less than `12rem` ([Placement](#placement)).
 - [Dividers between items](#bordered) with the `bordered` prop.
-- `critical` on a `ListItem` marks a destructive [custom item](#custom).
+- `color="critical"` on a `ListItem` marks a destructive [custom item](#custom).
 - The menu shadow is [`--ui-shadow-overlay`](#api), shared with drawers and select pickers.
 - [Critical items](#basics) read `--ui-critical-text`.

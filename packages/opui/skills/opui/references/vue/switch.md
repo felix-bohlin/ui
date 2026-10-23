@@ -294,7 +294,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 </template>
 ```
 
-### Direction
+### Orientation
 
 ```vue
 <script setup lang="ts">
@@ -305,7 +305,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
   <Form>
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="switch-group-direction">
+      <FieldGroup orientation="horizontal" name="switch-group-direction">
         <Switch>Switch 1</Switch>
         <Switch>Switch 2</Switch>
         <Switch>Switch 3</Switch>
@@ -336,7 +336,10 @@ import {
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
       <FieldDescription>Field description above fields</FieldDescription>
-      <FieldGroup direction="row" name="switch-group-field-description-1">
+      <FieldGroup
+        orientation="horizontal"
+        name="switch-group-field-description-1"
+      >
         <Switch>Switch 1</Switch>
         <Switch>Switch 2</Switch>
         <Switch>Switch 3</Switch>
@@ -345,7 +348,10 @@ import {
 
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="switch-group-field-description-2">
+      <FieldGroup
+        orientation="horizontal"
+        name="switch-group-field-description-2"
+      >
         <Switch>Switch 1</Switch>
         <Switch>Switch 2</Switch>
         <Switch>Switch 3</Switch>
@@ -371,7 +377,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
   <Form>
     <FieldSet disabled>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="switch-group-disabled">
+      <FieldGroup orientation="horizontal" name="switch-group-disabled">
         <Switch>Switch 1</Switch>
         <Switch>Switch 2</Switch>
         <Switch>Switch 3</Switch>
@@ -394,7 +400,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
   <Form>
     <FieldSet>
       <FieldLegend>These are required!</FieldLegend>
-      <FieldGroup direction="row" name="switch-group-required">
+      <FieldGroup orientation="horizontal" name="switch-group-required">
         <Switch required>Switch 1</Switch>
         <Switch required>Switch 2</Switch>
         <Switch required>Switch 3</Switch>
@@ -419,7 +425,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
   <Form>
     <FieldSet aria-describedby="switch-field-group-validation-1-error">
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="switch-field-group-validation">
+      <FieldGroup orientation="horizontal" name="switch-field-group-validation">
         <Switch error>Switch 1</Switch>
         <Switch error>Switch 2</Switch>
         <Switch error>Switch 3</Switch>
@@ -492,15 +498,15 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Switch API
 
-| Prop                                                                                                                                                                        | Type                                | Default | Description                                          |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- | ---------------------------------------------------- |
-| `endText`                                                                                                                                                                   | `string`                            | -       | Supporting text displayed below the label.           |
-| `error`                                                                                                                                                                     | `boolean`                           | `false` | Marks the control invalid and shows error styles.    |
-| `hideLabel`                                                                                                                                                                 | `boolean`                           | `false` | Visually hides the label.                            |
-| `size`                                                                                                                                                                      | `"large"` , `"small"` , `"x-small"` | -       | The size of the element.                             |
-| `spread`                                                                                                                                                                    | `boolean`                           | `false` | Pushes the label and the switch to opposite ends.    |
-| `stack`                                                                                                                                                                     | `boolean`                           | `false` | Stacks the label under the switch.                   |
-| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `boolean` , `(string \| number)[]`  | -       | The checked state, or the checked values of a group. |
+| Prop                                                                                                                                                                        | Type                                             | Default    | Description                                          |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ---------- | ---------------------------------------------------- |
+| `endText`                                                                                                                                                                   | `string`                                         | -          | Supporting text displayed below the label.           |
+| `error`                                                                                                                                                                     | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.    |
+| `hideLabel`                                                                                                                                                                 | `boolean`                                        | `false`    | Visually hides the label.                            |
+| `size`                                                                                                                                                                      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                             |
+| `spread`                                                                                                                                                                    | `boolean`                                        | `false`    | Pushes the label and the switch to opposite ends.    |
+| `stack`                                                                                                                                                                     | `boolean`                                        | `false`    | Stacks the label under the switch.                   |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `boolean` , `(string \| number)[]`               | -          | The checked state, or the checked values of a group. |
 
 #### Slots
 
@@ -639,10 +645,10 @@ The switch `<input>` without the label, for a custom layout such as the end of a
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                              |
-| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| `direction` | `"column"` , `"row"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
-| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
+| Prop          | Type                                     | Default  | Description                                                                                               |
+| ------------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `name`        | `string`                                 | -        | Sets `name` on the OPUI fields inside that don't set their own.                                           |
+| `orientation` | `"auto"` , `"horizontal"` , `"vertical"` | `"auto"` | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### Slots
 
@@ -918,3 +924,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - A checked invalid switch turns its track red, like Checkbox and Radio ([Validation](#validation)).
 - Breaking: deep type imports from `components/Switch/types` are named `Props` and `Slots` (was `SwitchProps` and `SwitchSlots`). Import [`SwitchProps`](#api) from the framework entry instead.
 - Breaking: `style` goes to the root `<label>`, like `class`, so `--_` properties set through it apply ([API](#api)).
+- [Sizes](#sizes) name the default: `size="medium"`.

@@ -200,15 +200,15 @@ The radio lines up with the first line of its label and centers on the label's c
 
 Use `<input type="radio">` without the label for a custom layout, such as the end of a list item. See [List](https://open-props-ui.netlify.app/html/components/list.md#radio).
 
-## Direction
+## Orientation
 
-Radios stack vertically by default. Add `.ui-row` to the `.ui-field-group` to put them in a row.
+Radios stack vertically by default. Add `.ui-horizontal` to the `.ui-field-group` to put them in a row.
 
 ```html
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-radio">
         <input name="radio-group-direction" type="radio" value="1" checked />
         <span class="ui-label">Radio 1</span>
@@ -235,7 +235,7 @@ Can be placed above and below the fields.
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
     <p class="ui-field-description">Field description above fields</p>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-radio">
         <input
           name="radio-group-field-description-1"
@@ -258,7 +258,7 @@ Can be placed above and below the fields.
 
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-radio">
         <input
           name="radio-group-field-description-2"
@@ -292,7 +292,7 @@ Attach the `disabled` attribute to the `<fieldset>` element to disable every rad
 <form class="ui-form">
   <fieldset class="ui-fieldset" disabled>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-radio">
         <input name="radio-group-disabled" type="radio" value="1" checked />
         <span class="ui-label">Radio 1</span>
@@ -318,7 +318,7 @@ Attach the `required` attribute to at least one of your `<input>` elements.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>These are required!</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-radio">
         <input name="radio-group-required" type="radio" value="1" required />
         <span class="ui-label">Radio 1</span>
@@ -349,7 +349,7 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
     class="ui-fieldset"
   >
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-radio">
         <input
           aria-invalid="true"
@@ -450,14 +450,14 @@ The selected value lives in the inputs, which share a `name`. Submit them with a
 
 ### Radio API
 
-| Type       | Modifiers                               | Default | Description                                       |
-| ---------- | --------------------------------------- | ------- | ------------------------------------------------- |
-| Disabled   | `input[disabled]`                       | -       | Dims the radio and shows a not-allowed cursor.    |
-| Required   | `input[required]`                       | -       | Adds a required mark after the label.             |
-| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                          |
-| Spread     | `.ui-spread`                            | -       | Pushes the label and the input to opposite ends.  |
-| Stack      | `.ui-stack`                             | -       | Stacks the label under the input.                 |
-| Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles. |
+| Type       | Modifiers                                        | Default | Description                                       |
+| ---------- | ------------------------------------------------ | ------- | ------------------------------------------------- |
+| Disabled   | `input[disabled]`                                | -       | Dims the radio and shows a not-allowed cursor.    |
+| Required   | `input[required]`                                | -       | Adds a required mark after the label.             |
+| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                          |
+| Spread     | `.ui-spread`                                     | -       | Pushes the label and the input to opposite ends.  |
+| Stack      | `.ui-stack`                                      | -       | Stacks the label under the input.                 |
+| Validation | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles. |
 
 #### Parts
 
@@ -580,9 +580,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field group API
 
-| Type        | Modifiers               | Default | Description                                                                                              |
-| ----------- | ----------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| Orientation | `.ui-column`, `.ui-row` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| Type        | Modifiers                                 | Default | Description                                                                                               |
+| ----------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| Orientation | default, `.ui-horizontal`, `.ui-vertical` | default | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### Parts
 

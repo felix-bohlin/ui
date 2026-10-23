@@ -82,7 +82,7 @@
 </div>
 ```
 
-## Variants
+## Shapes
 
 Change the shape of the avatar with the `.ui-rounded`, `.ui-squared` and `.ui-squircle` classes.
 
@@ -142,10 +142,10 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 
 ### Avatar API
 
-| Type     | Modifiers                                    | Default | Description              |
-| -------- | -------------------------------------------- | ------- | ------------------------ |
-| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`      | -       | The size of the element. |
-| Variants | `.ui-rounded`, `.ui-squared`, `.ui-squircle` | -       | The variant to use.      |
+| Type  | Modifiers                                             | Default | Description              |
+| ----- | ----------------------------------------------------- | ------- | ------------------------ |
+| Shape | default, `.ui-rounded`, `.ui-squared`, `.ui-squircle` | default | The shape of the avatar. |
+| Sizes | default, `.ui-large`, `.ui-small`, `.ui-x-small`      | default | The size of the element. |
 
 #### Parts
 

@@ -592,13 +592,13 @@ export default function Dense() {
 
 ### List API
 
-| Prop         | Type                        | Default | Description                                                        |
-| ------------ | --------------------------- | ------- | ------------------------------------------------------------------ |
-| `bordered`   | `boolean`                   | `false` | Adds a border between list items.                                  |
-| `children`   | `ReactNode`                 | -       | The list items.                                                    |
-| `dense`      | `boolean`                   | `false` | Packs the items tighter.                                           |
-| `gutterless` | `boolean`                   | `false` | Removes the inline padding.                                        |
-| `variant`    | `"tonal"` , `"transparent"` | -       | The variant to use. Without one, the list uses the filled surface. |
+| Prop         | Type                                     | Default    | Description                                                        |
+| ------------ | ---------------------------------------- | ---------- | ------------------------------------------------------------------ |
+| `bordered`   | `boolean`                                | `false`    | Adds a border between list items.                                  |
+| `children`   | `ReactNode`                              | -          | The list items.                                                    |
+| `dense`      | `boolean`                                | `false`    | Packs the items tighter.                                           |
+| `gutterless` | `boolean`                                | `false`    | Removes the inline padding.                                        |
+| `variant`    | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. Without one, the list uses the filled surface. |
 
 #### CSS variables
 
@@ -647,7 +647,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `as`          | `"a"` , `"button"` , `"div"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`. |
 | `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                   |
 | `children`    | `ReactNode`                           | -       | Extra content inside `.ui-text`, or all the content when there's no text.                                                                       |
-| `critical`    | `boolean`                             | `false` | A destructive item in a [Menu](https://open-props-ui.netlify.app/react/components/menu.md).                                                     |
+| `color`       | `"critical"`                          | -       | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/react/components/menu.md).                   |
 | `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
 | `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
 | `end`         | `ReactNode`                           | -       | Optional content at the end, such as a value or an action.                                                                                      |
@@ -880,3 +880,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: [`type`](#checkbox) can't be combined with `as` or `href` (types).
 - Breaking: rows no longer style `aria-selected="true"` on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with [`aria-current="page"`](#selected).
 - [Selected and current rows](#selected) have a bar on their start edge in `--ui-selected-strong` and a stronger fill than hover, so they don't rely on a tint alone.
+- [Variants](#variants) name the default: `variant="filled"`.

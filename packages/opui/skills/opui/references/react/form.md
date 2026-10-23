@@ -157,7 +157,7 @@ export default function FieldGroupExample() {
 
 ### Row
 
-Set `direction="row"` to lay out fields horizontally.
+Set `orientation="horizontal"` to lay out fields horizontally.
 
 ```tsx
 import {
@@ -173,7 +173,7 @@ export default function FieldGroupRow() {
     <Form>
       <FieldSet>
         <FieldLegend>Options</FieldLegend>
-        <FieldGroup direction="row">
+        <FieldGroup orientation="horizontal">
           <Checkbox>Option 1</Checkbox>
           <Checkbox>Option 2</Checkbox>
           <Checkbox>Option 3</Checkbox>
@@ -283,7 +283,7 @@ export default function FieldsetRequired() {
 
 ## Actions
 
-A field group with only buttons lines up in a row. Set `direction="column"` to stack the buttons instead. Separate the group from the fields with `Divider`.
+A field group with only buttons lines up in a row. Set `orientation="vertical"` to stack the buttons instead. Separate the group from the fields with `Divider`.
 
 ```tsx
 import {
@@ -322,7 +322,7 @@ import { Button, FieldGroup } from "opui-css/react"
 
 export default function ActionsColumn() {
   return (
-    <FieldGroup direction="column">
+    <FieldGroup orientation="vertical">
       <Button>Save draft</Button>
       <Button variant="filled">Publish</Button>
     </FieldGroup>
@@ -620,11 +620,11 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                              |
-| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| `children`  | `ReactNode`          | -       | The fields, such as checkboxes, radios or switches.                                                      |
-| `direction` | `"column"` , `"row"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
-| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
+| Prop          | Type                                     | Default  | Description                                                                                               |
+| ------------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `children`    | `ReactNode`                              | -        | The fields, such as checkboxes, radios or switches.                                                       |
+| `name`        | `string`                                 | -        | Sets `name` on the OPUI fields inside that don't set their own.                                           |
+| `orientation` | `"auto"` , `"horizontal"` , `"vertical"` | `"auto"` | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### CSS variables
 

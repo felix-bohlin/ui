@@ -557,13 +557,13 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 ### Text field API
 
-| Type       | Modifiers                               | Default | Description                                                             |
-| ---------- | --------------------------------------- | ------- | ----------------------------------------------------------------------- |
-| Auto-fit   | `.ui-auto-fit`                          | -       | Lets the width follow the content, from `25ch`.                         |
-| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                |
-| Spread     | `.ui-spread`                            | -       | Pushes the label and start text to one side and the input to the other. |
-| Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles.                       |
-| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                     |
+| Type       | Modifiers                                        | Default | Description                                                             |
+| ---------- | ------------------------------------------------ | ------- | ----------------------------------------------------------------------- |
+| Auto-fit   | `.ui-auto-fit`                                   | -       | Lets the width follow the content, from `25ch`.                         |
+| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                |
+| Spread     | `.ui-spread`                                     | -       | Pushes the label and start text to one side and the input to the other. |
+| Validation | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles.                       |
+| Variants   | default, `.ui-filled`                            | default | The variant to use.                                                     |
 
 #### Parts
 

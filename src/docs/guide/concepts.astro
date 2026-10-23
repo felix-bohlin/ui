@@ -213,6 +213,196 @@ import TokenTiers from "../../components/TokenTiers.astro"
   </section>
 
   <section>
+    <h2 id="naming">Naming</h2>
+    <p>
+      One idea has one prop name and one set of values in every component, so
+      what you learn on one page carries over to the next.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Idea</th>
+          <th>Prop</th>
+          <th>Values</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Paint only</td>
+          <td><code>color</code></td>
+          <td>
+            <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
+              >primary</code
+            >, <code>success</code>, <code>warning</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Meaning</td>
+          <td><code>severity</code></td>
+          <td>
+            <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
+              >success</code
+            >, <code>warning</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Surface</td>
+          <td><code>variant</code></td>
+          <td>
+            <code>elevated</code>, <code>filled</code>, <code>line</code>, <code
+              >outlined</code
+            >, <code>plain</code>, <code>tonal</code>, <code>transparent</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Size</td>
+          <td><code>size</code></td>
+          <td>
+            <code>x-small</code>, <code>small</code>, <code>medium</code>, <code
+              >large</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>Density</td>
+          <td><code>dense</code> or <code>density</code></td>
+          <td>
+            <code>dense</code>, <code>normal</code>, <code>spacious</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Shape</td>
+          <td><code>round</code> or <code>shape</code></td>
+          <td>
+            <code>circle</code>, <code>rounded</code>, <code>squared</code>, <code
+              >squircle</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>Layout axis</td>
+          <td><code>orientation</code></td>
+          <td>
+            <code>auto</code>, <code>horizontal</code>, <code>vertical</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Side of a trigger or the screen</td>
+          <td><code>side</code></td>
+          <td>
+            <code>block-end</code>, <code>block-start</code>, <code
+              >inline-end</code
+            >, <code>inline-start</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Alignment on that side or in a row</td>
+          <td><code>align</code></td>
+          <td><code>start</code>, <code>center</code>, <code>end</code></td>
+        </tr>
+        <tr>
+          <td>Corner</td>
+          <td><code>corner</code></td>
+          <td>
+            <code>start-start</code>, <code>start-end</code>, <code
+              >end-start</code
+            >, <code>end-end</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Any CSS position</td>
+          <td><code>positionArea</code></td>
+          <td>any <code>position-area</code> value</td>
+        </tr>
+        <tr>
+          <td>Checked state</td>
+          <td><code>checked</code></td>
+          <td>the native attribute</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      A component takes the values it supports from its set. <code>color</code> only
+      changes the paint. <code>severity</code> says what something means and adds
+      what that meaning needs, like the icon of a <DocLink
+        href="/components/callout#severities">Callout</DocLink
+      > or the shaped dot of a <DocLink href="/components/chip#severities"
+        >Chip</DocLink
+      >, because a color alone doesn't tell everyone.
+    </p>
+
+    <h3 id="variants">Variants</h3>
+    <p>
+      A variant describes the resting look. A hover or a selected tint never
+      counts against it. <code>filled</code> is a solid fill in the component's own
+      color: the accent on a Button, a surface on a field or a track. <code
+        >tonal</code
+      > is the tonal surface, <code>outlined</code> a border with no fill, <code
+        >elevated</code
+      > a raised surface with a shadow, and <code>transparent</code> no surface and
+      no border. <code>plain</code> is the page surface with no border, and only differs
+      from <code>transparent</code> on a tinted background:
+    </p>
+    <Example centered>
+      <div class="concepts-ladder">
+        {
+          ["page", "tonal"].map((surface) => (
+            <div
+              class:list={[
+                "concepts-surface",
+                { "is-tonal": surface === "tonal" },
+              ]}
+            >
+              {["plain", "transparent", "tonal", "outlined", "elevated"].map(
+                (variant) => (
+                  <div
+                    class:list={[
+                      "ui-card",
+                      variant !== "plain" && `ui-${variant}`,
+                    ]}
+                  >
+                    <div class="ui-content">
+                      <code>{variant}</code>
+                    </div>
+                  </div>
+                ),
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </Example>
+    <p>
+      Every option names its default, which adds no class: <code
+        >size="medium"</code
+      >, <code>variant="transparent"</code> on a Button, <code
+        >variant="plain"</code
+      > on a Card. Leaving the prop out and writing the default give the same result.
+    </p>
+
+    <h3 id="start-and-end">Start and end</h3>
+    <p>
+      <code>start</code> and <code>end</code> follow the writing direction along the
+      axis that fits: <code>.ui-start</code> and <code>.ui-end</code> hold content
+      at the start and end of a row, and <code>startText</code> and <code
+        >endText</code
+      > put text above and below a field.
+    </p>
+
+    <h3 id="checked">Checked</h3>
+    <p>
+      A <DocLink href="/components/toggle">ToggleButton</DocLink> or a <DocLink
+        href="/components/tabs">TabsItem</DocLink
+      > takes <code>checked</code>, the attribute it sets on its input, with
+      each framework's own rules. In React <code>checked</code> with <code
+        >onChange</code
+      > controls it and <code>defaultChecked</code> sets where it starts. In a group
+      that owns the value, such as a ToggleGroup with a <code>value</code>, the
+      group wins.
+    </p>
+  </section>
+
+  <section>
     <h2 id="rich-text">Rich text</h2>
     <p>
       <code>.ui-rich-text</code> styles the classless elements inside it, for Markdown
@@ -340,6 +530,24 @@ import TokenTiers from "../../components/TokenTiers.astro"
 
     > span {
       block-size: var(--size-6);
+    }
+  }
+
+  .concepts-ladder {
+    display: grid;
+    gap: var(--size-3);
+    inline-size: 100%;
+  }
+
+  .concepts-surface {
+    border-radius: var(--ui-radius);
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    padding: var(--size-3);
+
+    &.is-tonal {
+      background-color: var(--ui-surface-tonal);
     }
   }
 

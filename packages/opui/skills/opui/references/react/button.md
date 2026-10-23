@@ -333,18 +333,18 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ### Button API
 
-| Prop         | Type                                  | Default    | Description                                                                          |
-| ------------ | ------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
-| `aria-label` | `string`                              | -          | The accessible name. Required with `iconOnly`, for buttons without visible text.     |
-| `as`         | `"a"` , `"button"`                    | `"button"` | The element to render. Defaults to `"a"` with `href`.                                |
-| `children`   | `ReactNode`                           | -          | The label and an optional icon.                                                      |
-| `color`      | `"critical"` , `"primary"`            | -          | Optional colors.                                                                     |
-| `disabled`   | `boolean`                             | `false`    | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
-| `href`       | `string`                              | -          | The link to use. Renders an `<a>`.                                                   |
-| `iconOnly`   | `boolean`                             | `false`    | Marks the button as icon-only, so `aria-label` is required. Types only.              |
-| `round`      | `boolean`                             | `false`    | Fully rounded corners, a circle when icon-only.                                      |
-| `size`       | `"large"` , `"small"` , `"x-small"`   | -          | The size of the element.                                                             |
-| `variant`    | `"filled"` , `"outlined"` , `"tonal"` | -          | The variant to use.                                                                  |
+| Prop         | Type                                                    | Default         | Description                                                                          |
+| ------------ | ------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------ |
+| `aria-label` | `string`                                                | -               | The accessible name. Required with `iconOnly`, for buttons without visible text.     |
+| `as`         | `"a"` , `"button"`                                      | `"button"`      | The element to render. Defaults to `"a"` with `href`.                                |
+| `children`   | `ReactNode`                                             | -               | The label and an optional icon.                                                      |
+| `color`      | `"critical"` , `"primary"`                              | -               | Optional colors.                                                                     |
+| `disabled`   | `boolean`                                               | `false`         | Disables the button. A link button drops its `href` and gets `aria-disabled="true"`. |
+| `href`       | `string`                                                | -               | The link to use. Renders an `<a>`.                                                   |
+| `iconOnly`   | `boolean`                                               | `false`         | Marks the button as icon-only, so `aria-label` is required. Types only.              |
+| `round`      | `boolean`                                               | `false`         | Fully rounded corners, a circle when icon-only.                                      |
+| `size`       | `"large"` , `"medium"` , `"small"` , `"x-small"`        | `"medium"`      | The size of the element.                                                             |
+| `variant`    | `"filled"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use.                                                                  |
 
 #### CSS variables
 
@@ -557,3 +557,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Themes set the color of [default buttons](#colors) with [`--ui-button-accent`](#api) and `--ui-button-on-accent`, the border with `--ui-control-border-color` (outlined) and `--ui-control-border-color-filled` (filled and tonal), the font weight with `--ui-button-font-weight`, the shadow with `--ui-shadow-control`, the hover shadow and offset with `--ui-button-hover-shadow` and `--ui-button-hover-translate`, and the font size with `--ui-font-size-control`. In dark mode the text stays at least as light as `--ui-text-min-lightness`, like the intent text roles.
 - [Primary](#colors) outlined and text buttons read `--ui-primary-text`, the same readable primary as links, and critical ones `--ui-critical-text`.
 - [Critical](#colors) fills and their hover and pressed shades stay within `--ui-fill-max-lightness`, and the border keeps `--ui-critical`.
+- [Sizes](#sizes) and [variants](#variants) name their defaults: `size="medium"` and `variant="transparent"`.

@@ -339,13 +339,13 @@ export default function MarkerAnimation() {
 
 ### Accordion API
 
-| Prop              | Type                                    | Default    | Description                                                                        |
-| ----------------- | --------------------------------------- | ---------- | ---------------------------------------------------------------------------------- |
-| `children`        | `ReactNode`                             | -          | The accordion parts.                                                               |
-| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`        | `"rotate"` | How the marker animates when the accordion opens.                                  |
-| `name`            | `string`                                | -          | Groups accordions so only one of them can be open at a time.                       |
-| `open`            | `boolean`                               | `false`    | Whether the accordion is open.                                                     |
-| `variant`         | `"elevated"` , `"outlined"` , `"tonal"` | -          | The variant to use. Without one the accordion has no background, border or shadow. |
+| Prop              | Type                                                      | Default         | Description                                                                        |
+| ----------------- | --------------------------------------------------------- | --------------- | ---------------------------------------------------------------------------------- |
+| `children`        | `ReactNode`                                               | -               | The accordion parts.                                                               |
+| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                          | `"rotate"`      | How the marker animates when the accordion opens.                                  |
+| `name`            | `string`                                                  | -               | Groups accordions so only one of them can be open at a time.                       |
+| `open`            | `boolean`                                                 | `false`         | Whether the accordion is open.                                                     |
+| `variant`         | `"elevated"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use. Without one the accordion has no background, border or shadow. |
 
 #### CSS variables
 
@@ -585,3 +585,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron and the open and close transition use `--_duration` and `--_ease`, and the group's `--_gutter-color` is `--_divider-color` ([Under the hood](#under-the-hood)).
 - Elevated accordions use [`--ui-shadow-elevated`](#api), the elevated card shadow, also in dark mode. Padding and gaps read the `--ui-space-*` scale.
 - [Tonal and outlined](#variants) accordions read [`--ui-shadow-surface`](#api), `none` unless a theme sets it, and tonal and elevated accordions `--ui-surface-border-color`.
+- [Variants](#variants) name the default: `variant="transparent"`.

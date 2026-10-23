@@ -540,12 +540,12 @@ import { List, ListItem } from "opui-css/astro"
 
 ### List API
 
-| Prop         | Type                        | Default | Description                                                        |
-| ------------ | --------------------------- | ------- | ------------------------------------------------------------------ |
-| `bordered`   | `boolean`                   | `false` | Adds a border between list items.                                  |
-| `dense`      | `boolean`                   | `false` | Packs the items tighter.                                           |
-| `gutterless` | `boolean`                   | `false` | Removes the inline padding.                                        |
-| `variant`    | `"tonal"` , `"transparent"` | -       | The variant to use. Without one, the list uses the filled surface. |
+| Prop         | Type                                     | Default    | Description                                                        |
+| ------------ | ---------------------------------------- | ---------- | ------------------------------------------------------------------ |
+| `bordered`   | `boolean`                                | `false`    | Adds a border between list items.                                  |
+| `dense`      | `boolean`                                | `false`    | Packs the items tighter.                                           |
+| `gutterless` | `boolean`                                | `false`    | Removes the inline padding.                                        |
+| `variant`    | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. Without one, the list uses the filled surface. |
 
 #### Slots
 
@@ -599,7 +599,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `as`          | `"a"` , `"button"` , `"div"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`. |
 | `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                   |
-| `critical`    | `boolean`                             | `false` | A destructive item in a [Menu](https://open-props-ui.netlify.app/astro/components/menu.md).                                                     |
+| `color`       | `"critical"`                          | -       | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/astro/components/menu.md).                   |
 | `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
 | `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
 | `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                        |
@@ -834,10 +834,11 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: `divided` is removed. Use [`bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
 - Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
-- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
+- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look. The default is named `filled`.
 - Breaking: [`ListItem` `as`](#list-item-api) only accepts `"a"`, `"button"` or `"div"`.
 - Breaking: `--_bg-color-hover` is `--_hover-bg-color` ([Under the hood](#under-the-hood)).
 - A checked [option](#radio) uses `--ui-state-active-alpha-accent`.
 - Breaking: [`type`](#checkbox) can't be combined with `as` or `href` (types).
 - Breaking: rows no longer style `aria-selected="true"` on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with [`aria-current="page"`](#selected).
 - [Selected and current rows](#selected) have a bar on their start edge in `--ui-selected-strong` and a stronger fill than hover, so they don't rely on a tint alone.
+- [Variants](#variants) name the default: `variant="filled"`.

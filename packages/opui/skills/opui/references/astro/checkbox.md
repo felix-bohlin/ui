@@ -268,7 +268,7 @@ import {
 </Form>
 ```
 
-### Direction
+### Orientation
 
 ```astro
 ---
@@ -284,7 +284,7 @@ import {
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="checkbox-group-direction">
+    <FieldGroup orientation="horizontal" name="checkbox-group-direction">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
@@ -313,7 +313,10 @@ import {
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
-    <FieldGroup direction="row" name="checkbox-group-field-description-1">
+    <FieldGroup
+      orientation="horizontal"
+      name="checkbox-group-field-description-1"
+    >
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
@@ -322,7 +325,10 @@ import {
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="checkbox-group-field-description-2">
+    <FieldGroup
+      orientation="horizontal"
+      name="checkbox-group-field-description-2"
+    >
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
@@ -352,7 +358,7 @@ import {
 <Form>
   <FieldSet disabled>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="checkbox-group-disabled">
+    <FieldGroup orientation="horizontal" name="checkbox-group-disabled">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
@@ -379,7 +385,7 @@ import {
 <Form>
   <FieldSet>
     <FieldLegend>These are required!</FieldLegend>
-    <FieldGroup direction="row" name="checkbox-group-required">
+    <FieldGroup orientation="horizontal" name="checkbox-group-required">
       <Checkbox required>Checkbox 1</Checkbox>
       <Checkbox required>Checkbox 2</Checkbox>
       <Checkbox required>Checkbox 3</Checkbox>
@@ -408,7 +414,7 @@ import {
 <Form>
   <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="checkbox-group-validation">
+    <FieldGroup orientation="horizontal" name="checkbox-group-validation">
       <Checkbox checked error>Checkbox 1</Checkbox>
       <Checkbox error>Checkbox 2</Checkbox>
       <Checkbox error>Checkbox 3</Checkbox>
@@ -494,15 +500,15 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Prop            | Type                                | Default | Description                                                                          |
-| --------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------ |
-| `endText`       | `string`                            | -       | Supporting text displayed below the label.                                           |
-| `error`         | `boolean`                           | `false` | Marks the control invalid and shows error styles.                                    |
-| `hideLabel`     | `boolean`                           | `false` | Visually hides the label.                                                            |
-| `indeterminate` | `boolean`                           | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| `size`          | `"large"` , `"small"` , `"x-small"` | -       | The size of the element.                                                             |
-| `spread`        | `boolean`                           | `false` | Pushes the label and the input to opposite ends.                                     |
-| `stack`         | `boolean`                           | `false` | Stacks the label under the input.                                                    |
+| Prop            | Type                                             | Default    | Description                                                                          |
+| --------------- | ------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------ |
+| `endText`       | `string`                                         | -          | Supporting text displayed below the label.                                           |
+| `error`         | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.                                    |
+| `hideLabel`     | `boolean`                                        | `false`    | Visually hides the label.                                                            |
+| `indeterminate` | `boolean`                                        | `false`    | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| `size`          | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                                             |
+| `spread`        | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.                                     |
+| `stack`         | `boolean`                                        | `false`    | Stacks the label under the input.                                                    |
 
 #### Slots
 
@@ -623,10 +629,10 @@ The checkbox `<input>` without the label, for a custom layout inside a `label.ui
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                              |
-| ----------- | -------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| `direction` | `"column"` , `"row"` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
-| `name`      | `string`             | -       | Sets `name` on the OPUI fields inside that don't set their own.                                          |
+| Prop          | Type                                     | Default  | Description                                                                                               |
+| ------------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `name`        | `string`                                 | -        | Sets `name` on the OPUI fields inside that don't set their own.                                           |
+| `orientation` | `"auto"` , `"horizontal"` , `"vertical"` | `"auto"` | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### Slots
 
@@ -872,3 +878,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners never get rounder than [`--ui-radius`](#api), so `0` squares them.
 - Breaking: `style` goes to the root `<label>`, like `class`, so `--_` properties set through it apply ([API](#api)).
+- [Sizes](#sizes) name the default: `size="medium"`.

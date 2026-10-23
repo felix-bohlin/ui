@@ -355,13 +355,13 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 </form>
 ```
 
-### Direction
+### Orientation
 
 ```html
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-switch">
         <input name="switch-group-direction" type="checkbox" role="switch" />
         <span class="ui-label">Switch 1</span>
@@ -388,7 +388,7 @@ Can be placed above and below the fields.
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
     <p class="ui-field-description">Field description above fields</p>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-switch">
         <input
           name="switch-group-field-description-1"
@@ -418,7 +418,7 @@ Can be placed above and below the fields.
 
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-switch">
         <input
           name="switch-group-field-description-2"
@@ -459,7 +459,7 @@ Attach the `disabled` attribute to the `<fieldset>` element to disable every swi
 <form class="ui-form">
   <fieldset class="ui-fieldset" disabled>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-switch">
         <input name="switch-group-disabled" type="checkbox" role="switch" />
         <span class="ui-label">Switch 1</span>
@@ -485,7 +485,7 @@ Each switch with `required` must be on before the form submits. There's no nativ
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>These are required!</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-switch">
         <input
           name="switch-group-required"
@@ -531,7 +531,7 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
     class="ui-fieldset"
   >
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-switch">
         <input
           aria-invalid="true"
@@ -654,14 +654,14 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Switch API
 
-| Type       | Modifiers                               | Default | Description                                       |
-| ---------- | --------------------------------------- | ------- | ------------------------------------------------- |
-| Disabled   | `input[disabled]`                       | -       | Dims the switch and shows a not-allowed cursor.   |
-| Required   | `input[required]`                       | -       | Adds a required mark after the label.             |
-| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                          |
-| Spread     | `.ui-spread`                            | -       | Pushes the label and the switch to opposite ends. |
-| Stack      | `.ui-stack`                             | -       | Stacks the label under the switch.                |
-| Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles. |
+| Type       | Modifiers                                        | Default | Description                                       |
+| ---------- | ------------------------------------------------ | ------- | ------------------------------------------------- |
+| Disabled   | `input[disabled]`                                | -       | Dims the switch and shows a not-allowed cursor.   |
+| Required   | `input[required]`                                | -       | Adds a required mark after the label.             |
+| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                          |
+| Spread     | `.ui-spread`                                     | -       | Pushes the label and the switch to opposite ends. |
+| Stack      | `.ui-stack`                                      | -       | Stacks the label under the switch.                |
+| Validation | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles. |
 
 #### Parts
 
@@ -802,9 +802,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field group API
 
-| Type        | Modifiers               | Default | Description                                                                                              |
-| ----------- | ----------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| Orientation | `.ui-column`, `.ui-row` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| Type        | Modifiers                                 | Default | Description                                                                                               |
+| ----------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| Orientation | default, `.ui-horizontal`, `.ui-vertical` | default | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### Parts
 

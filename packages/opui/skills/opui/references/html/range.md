@@ -285,11 +285,11 @@ Add the `.ui-spread` class to display the label and start text on the left with 
 
 ### Range API
 
-| Type       | Modifiers                    | Default | Description                                                                                                                  |
-| ---------- | ---------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Spread     | `.ui-spread`                 | -       | Pushes the label and start text to one side and the input to the other.                                                      |
-| Validation | `input[aria-invalid="true"]` | -       | Marks the control invalid and shows error styles.                                                                            |
-| Variants   | `.ui-filled`, `.ui-tonal`    | -       | The variant to use. Without one, the track uses `--ui-track-color`, or the field border color when the theme doesn't set it. |
+| Type       | Modifiers                          | Default | Description                                                                                                                  |
+| ---------- | ---------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Spread     | `.ui-spread`                       | -       | Pushes the label and start text to one side and the input to the other.                                                      |
+| Validation | `input[aria-invalid="true"]`       | -       | Marks the control invalid and shows error styles.                                                                            |
+| Variants   | default, `.ui-filled`, `.ui-tonal` | default | The variant to use. Without one, the track uses `--ui-track-color`, or the field border color when the theme doesn't set it. |
 
 #### Parts
 

@@ -339,13 +339,13 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 </form>
 ```
 
-### Direction
+### Orientation
 
 ```html
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-checkbox">
         <input name="checkbox-group-direction" type="checkbox" checked />
         <span class="ui-label">Checkbox 1</span>
@@ -372,7 +372,7 @@ Can be placed above and below the fields.
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
     <p class="ui-field-description">Field description above fields</p>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-checkbox">
         <input
           name="checkbox-group-field-description-1"
@@ -394,7 +394,7 @@ Can be placed above and below the fields.
 
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-checkbox">
         <input
           name="checkbox-group-field-description-2"
@@ -427,7 +427,7 @@ Attach the `disabled` attribute to the `<fieldset>` element to disable every che
 <form class="ui-form">
   <fieldset class="ui-fieldset" disabled>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-checkbox">
         <input name="checkbox-group-disabled" type="checkbox" checked />
         <span class="ui-label">Checkbox 1</span>
@@ -453,7 +453,7 @@ Each checkbox with `required` must be checked before the form submits. There's n
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>These are required!</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-checkbox">
         <input name="checkbox-group-required" type="checkbox" required />
         <span class="ui-label">Checkbox 1</span>
@@ -484,7 +484,7 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
     class="ui-fieldset"
   >
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-checkbox">
         <input
           aria-invalid="true"
@@ -593,15 +593,15 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Type       | Modifiers                               | Default | Description                                                                          |
-| ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------------------ |
-| Disabled   | `input[disabled]`                       | -       | Dims the checkbox and shows a not-allowed cursor.                                    |
-| Required   | `input[required]`                       | -       | Adds a required mark after the label.                                                |
-| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                             |
-| Spread     | `.ui-spread`                            | -       | Pushes the label and the input to opposite ends.                                     |
-| Stack      | `.ui-stack`                             | -       | Stacks the label under the input.                                                    |
-| State      | `input[data-indeterminate]`             | -       | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| Validation | `input[aria-invalid="true"]`            | -       | Marks the control invalid and shows error styles.                                    |
+| Type       | Modifiers                                        | Default | Description                                                                          |
+| ---------- | ------------------------------------------------ | ------- | ------------------------------------------------------------------------------------ |
+| Disabled   | `input[disabled]`                                | -       | Dims the checkbox and shows a not-allowed cursor.                                    |
+| Required   | `input[required]`                                | -       | Adds a required mark after the label.                                                |
+| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                             |
+| Spread     | `.ui-spread`                                     | -       | Pushes the label and the input to opposite ends.                                     |
+| Stack      | `.ui-stack`                                      | -       | Stacks the label under the input.                                                    |
+| State      | `input[data-indeterminate]`                      | -       | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| Validation | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles.                                    |
 
 #### Parts
 
@@ -728,9 +728,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field group API
 
-| Type        | Modifiers               | Default | Description                                                                                              |
-| ----------- | ----------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| Orientation | `.ui-column`, `.ui-row` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| Type        | Modifiers                                 | Default | Description                                                                                               |
+| ----------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| Orientation | default, `.ui-horizontal`, `.ui-vertical` | default | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### Parts
 

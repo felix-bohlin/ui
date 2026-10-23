@@ -229,9 +229,9 @@ Change the badge's visibility using the `.ui-invisible` class.
 </span>
 ```
 
-## Alignment
+## Corners
 
-Where the badge should be placed over the child.
+The corner of the child the badge sits on.
 
 `.ui-start-start`, default (`start-end`, no class), `.ui-end-start`, `.ui-end-end`.
 
@@ -329,7 +329,7 @@ Where the badge should be placed over the child.
 | ---------- | ----------------------------------------------------------------------- | ------- | ------------------------------------------------ |
 | Colors     | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | Optional colors.                                 |
 | Dot        | `.ui-dot`                                                               | -       | Renders the indicator as a dot, without a label. |
-| Position   | default, `.ui-end-end`, `.ui-end-start`, `.ui-start-start`              | default | Where the indicator is placed.                   |
+| Position   | default, `.ui-end-end`, `.ui-end-start`, `.ui-start-start`              | default | The corner the indicator sits on.                |
 | Visibility | `.ui-invisible`                                                         | -       | Hides the indicator.                             |
 
 #### Parts
@@ -528,7 +528,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - Severity text reads `--ui-on-accent` and `--ui-palette-strong` instead of fixed grays.
-- Badges on round avatars sit on the avatar's edge ([Alignment](#alignment)), and in an avatar group on the start side.
+- Badges on round avatars sit on the avatar's edge ([Corners](#corners)), and in an avatar group on the start side.
 - [Indicator](#indicator) context for screen readers with `.ui-sr-only`.
 - Breaking: `--_badge-inset` is `--_inset-block` and `--_inset-inline` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

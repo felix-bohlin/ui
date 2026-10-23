@@ -147,13 +147,13 @@ Lays out related fields. Wrap it in a fieldset to group them for screen readers.
 
 ### Row
 
-Add `.ui-row` to lay out fields horizontally.
+Add `.ui-horizontal` to lay out fields horizontally.
 
 ```html
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Options</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-checkbox">
         <input type="checkbox" />
         <span class="ui-label">Option 1</span>
@@ -257,7 +257,7 @@ The legend gets an asterisk when a field inside is required.
 
 ## Actions
 
-A field group with only buttons lines up in a row. Add `.ui-column` to stack the buttons instead. Separate the group from the fields with `<hr class="ui-divider">`.
+A field group with only buttons lines up in a row. Add `.ui-vertical` to stack the buttons instead. Separate the group from the fields with `<hr class="ui-divider">`.
 
 ```html
 <form class="ui-form">
@@ -283,7 +283,7 @@ A field group with only buttons lines up in a row. Add `.ui-column` to stack the
 ```
 
 ```html
-<div class="ui-field-group ui-column">
+<div class="ui-field-group ui-vertical">
   <button type="button" class="ui-button">Save draft</button>
   <button type="button" class="ui-button ui-filled">Publish</button>
 </div>
@@ -608,9 +608,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Field group API
 
-| Type        | Modifiers               | Default | Description                                                                                              |
-| ----------- | ----------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| Orientation | `.ui-column`, `.ui-row` | -       | The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row. |
+| Type        | Modifiers                                 | Default | Description                                                                                               |
+| ----------- | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| Orientation | default, `.ui-horizontal`, `.ui-vertical` | default | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### Parts
 
@@ -813,3 +813,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - Drop `role="group"` from a [`.ui-field-group`](#field-group) inside a fieldset, which already groups the fields.
 - Breaking: an invalid `.ui-fieldset` takes `aria-invalid="true"` on each control instead of `data-invalid` on the fieldset ([Invalid](#fieldset-invalid)).
+- Breaking: [`.ui-row` and `.ui-column`](#field-group-row) on a field group are `.ui-horizontal` and `.ui-vertical`.

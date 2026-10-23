@@ -88,7 +88,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/astro"
 
 ### Single-select
 
-Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `pressed` on the button that starts pressed.
+Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `checked` on the button that starts pressed, or `defaultChecked` in React.
 
 ```astro
 ---
@@ -109,7 +109,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/astro"
       ></path></svg
     >
   </ToggleButton>
-  <ToggleButton value="center" pressed aria-label="Align center">
+  <ToggleButton value="center" checked aria-label="Align center">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +140,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/astro"
 
 ### Binding
 
-Astro renders the group on the server, so it has no bound value. The selection lives in the inputs, which share the group's `name`. Submit them with a form, where `FormData.get()` reads a single-select group and `getAll()` a multi-select one, or read the checked inputs in a script on `change`. Set `input.checked = input.defaultChecked` to go back to the `pressed` buttons.
+Astro renders the group on the server, so it has no bound value. The selection lives in the inputs, which share the group's `name`. Submit them with a form, where `FormData.get()` reads a single-select group and `getAll()` a multi-select one, or read the checked inputs in a script on `change`. Set `input.checked = input.defaultChecked` to go back to the `checked` buttons.
 
 ```astro
 ---
@@ -149,11 +149,11 @@ import { Button, ToggleButton, ToggleGroup } from "opui-css/astro"
 
 <ToggleGroup aria-label="View" name="calendar-view" selection="single">
   <ToggleButton value="day">Day</ToggleButton>
-  <ToggleButton pressed value="week">Week</ToggleButton>
+  <ToggleButton checked value="week">Week</ToggleButton>
   <ToggleButton value="month">Month</ToggleButton>
 </ToggleGroup>
 <ToggleGroup aria-label="Text format" name="text-format">
-  <ToggleButton pressed value="bold">Bold</ToggleButton>
+  <ToggleButton checked value="bold">Bold</ToggleButton>
   <ToggleButton value="italic">Italic</ToggleButton>
   <ToggleButton value="underline">Underline</ToggleButton>
 </ToggleGroup>
@@ -199,7 +199,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/astro"
 ---
 
 <ToggleGroup selection="single" name="transport">
-  <ToggleButton value="walking" pressed>
+  <ToggleButton value="walking" checked>
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -258,7 +258,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/astro"
 
 <ToggleGroup selection="single" name="view" orientation="vertical">
   <ToggleButton value="day">Day</ToggleButton>
-  <ToggleButton value="week" pressed>Week</ToggleButton>
+  <ToggleButton value="week" checked>Week</ToggleButton>
   <ToggleButton value="month">Month</ToggleButton>
 </ToggleGroup>
 ```
@@ -308,14 +308,14 @@ import { ToggleButton } from "opui-css/astro"
 
 ### Toggle group API
 
-| Prop          | Type                                | Default        | Description                                                                                                       |
-| ------------- | ----------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `name`        | `string`                            | -              | The name shared by the inputs. Generated when omitted.                                                            |
-| `orientation` | `"horizontal"` , `"vertical"`       | `"horizontal"` | The orientation of the element.                                                                                   |
-| `scrollable`  | `boolean`                           | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `selection`   | `"multiple"` , `"single"`           | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
-| `shrink`      | `boolean`                           | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"large"` , `"small"` , `"x-small"` | -              | The size of the buttons. Without one they are the default control size.                                           |
+| Prop          | Type                                             | Default        | Description                                                                                                       |
+| ------------- | ------------------------------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `name`        | `string`                                         | -              | The name shared by the inputs. Generated when omitted.                                                            |
+| `orientation` | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element.                                                                                   |
+| `scrollable`  | `boolean`                                        | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `selection`   | `"multiple"` , `"single"`                        | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
+| `shrink`      | `boolean`                                        | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`        | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons. Without one they are the default control size.                                           |
 
 #### Slots
 
@@ -368,16 +368,16 @@ The selection lives in the inputs. Read it from the form, or listen for `change`
 
 ### Toggle button API
 
-| Prop       | Type                                | Default      | Description                                                                                  |
-| ---------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------------------------- |
-| `disabled` | `boolean`                           | `false`      | Disables the button.                                                                         |
-| `id`       | `string`                            | -            | The id of the `<input>`.                                                                     |
-| `label`    | `string`                            | -            | The button text when there is no child content, and the input value when `value` is omitted. |
-| `name`     | `string`                            | -            | The name of the input. Set by the group.                                                     |
-| `pressed`  | `boolean`                           | `false`      | Selects the button.                                                                          |
-| `size`     | `"large"` , `"small"` , `"x-small"` | -            | The size of the element.                                                                     |
-| `type`     | `"checkbox"` , `"radio"`            | `"checkbox"` | The input type. `"radio"` allows one selection in a group.                                   |
-| `value`    | `string`                            | -            | The value of the input.                                                                      |
+| Prop       | Type                                             | Default      | Description                                                                                  |
+| ---------- | ------------------------------------------------ | ------------ | -------------------------------------------------------------------------------------------- |
+| `checked`  | `boolean`                                        | `false`      | Selects the button.                                                                          |
+| `disabled` | `boolean`                                        | `false`      | Disables the button.                                                                         |
+| `id`       | `string`                                         | -            | The id of the `<input>`.                                                                     |
+| `label`    | `string`                                         | -            | The button text when there is no child content, and the input value when `value` is omitted. |
+| `name`     | `string`                                         | -            | The name of the input. Set by the group.                                                     |
+| `size`     | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                                     |
+| `type`     | `"checkbox"` , `"radio"`                         | `"checkbox"` | The input type. `"radio"` allows one selection in a group.                                   |
+| `value`    | `string`                                         | -            | The value of the input.                                                                      |
 
 #### Slots
 
@@ -614,7 +614,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Groups wrap](#overflow) when they don't fit, or scrolls with `scrollable` or truncates with `shrink`.
 - Breaking: no `.ui-disabled`. A [toggle](#toggle-button) looks disabled when its input is `disabled`.
 - Breaking: `ToggleButton` `--_button-bg-color` is `--_bg-color`, `--_size` is `--_min-height` and `--_svg-size` is `--_icon-size`, which sizes direct child `svg`s like Button ([Under the hood](#under-the-hood)).
-- Breaking: [`size="default"`](#sizes) is gone on `ToggleGroup`. Leave `size` out for the default size.
+- Breaking: [`size="default"`](#sizes) is `size="medium"` on `ToggleGroup`, like every sized component.
 - A disabled [toggle](#disabled) dims like a disabled button, and hover uses the button hover strength.
 - Breaking: `style` on `ToggleButton` goes to the root, like `class`, instead of the `<input>` ([API](#api)).
 - [`orientation`](#vertical-orientation) on `ToggleGroup` takes `"horizontal"`, the default.
@@ -622,3 +622,5 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - `--_duration` and `--_ease` set the focus ring animation's duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--ui-radius` through [`--ui-button-radius`](#api), so one token squares or rounds every component.
 - The default size reads [`--ui-font-size-control`](#sizes) for its font size, like buttons.
+- [Sizes](#sizes) name the default: `size="medium"`.
+- Breaking: `ToggleButton` `pressed` is [`checked`](#single-select).

@@ -259,6 +259,17 @@ for (const file of new Set([...Object.keys(found), ...Object.keys(allowed)])) {
 if (update) {
   const next = Object.fromEntries(
     Object.entries(found)
+      .map(([file, lists]) => [
+        file,
+        {
+          literals: lists.literals.filter((entry) =>
+            allowed[file]?.literals?.includes(entry),
+          ),
+          primitives: lists.primitives.filter((entry) =>
+            allowed[file]?.primitives?.includes(entry),
+          ),
+        },
+      ])
       .filter(
         ([, lists]) => lists.literals.length + lists.primitives.length > 0,
       )
@@ -275,7 +286,10 @@ const errors = [
         `${name} is read but never defined (${[...files].toSorted().join(", ")})`,
     ),
   ...privateErrors.toSorted(),
-  ...(update ? [] : tierErrors.toSorted()),
+  ...(update
+    ? tierErrors.filter((error) => !error.includes("no longer there"))
+    : tierErrors
+  ).toSorted(),
 ]
 
 if (errors.length > 0) {

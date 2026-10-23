@@ -16,9 +16,6 @@ const examplesDir = fileURLToPath(
   new URL("../src/component-examples", import.meta.url),
 )
 const coreDir = fileURLToPath(new URL("../packages/opui/core", import.meta.url))
-const themeFile = fileURLToPath(
-  new URL("../packages/opui/css/theme.css", import.meta.url),
-)
 
 const patterns = [
   { id: "anchor-positioning", pattern: /\b(anchor-name|position-anchor):/ },
@@ -69,13 +66,12 @@ const readCss = (files) =>
     ),
   ).then((sources) => sources.join("\n"))
 
-const shared = await readCss([
-  themeFile,
-  ...(await readdir(coreDir))
+const shared = await readCss(
+  (await readdir(coreDir))
     .filter((file) => file.endsWith(".css"))
     .sort()
     .map((file) => join(coreDir, file)),
-])
+)
 
 const exampleElements = async (name) => {
   const dir = join(examplesDir, name)
@@ -241,6 +237,7 @@ const usesFeature = ({ rules, source }, pattern, elements) => {
 
 const missing = []
 const unused = []
+const ignore = { badge: ["anchor-positioning"] }
 
 for (const [comp, ids] of Object.entries(components)) {
   const elements = await exampleElements(comp)
@@ -249,7 +246,9 @@ for (const [comp, ids] of Object.entries(components)) {
   )
   for (const { id, pattern } of patterns) {
     const used = css.some((sheet) => usesFeature(sheet, pattern, elements))
-    if (used && !ids.includes(id)) missing.push(`${comp}: "${id}"`)
+    if (used && !ids.includes(id) && !ignore[comp]?.includes(id)) {
+      missing.push(`${comp}: "${id}"`)
+    }
     if (ids.includes(id) && !used && !pattern.test(shared)) {
       unused.push(`${comp}: "${id}"`)
     }

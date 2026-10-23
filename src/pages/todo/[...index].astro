@@ -10,6 +10,7 @@ import {
   FieldLegend,
   FieldSet,
   Radio,
+  ToggleButton,
 } from "opui-css/astro"
 import CommentField from "../../components/Todo/CommentField.astro"
 import CopyFallback from "../../components/Todo/CopyFallback.astro"
@@ -86,7 +87,7 @@ const todoSections = sections.map((section) => ({
 }))
 
 const actions = [
-  "",
+  "None",
   "Explain further",
   "Explain further and provide an example",
   "Fix",
@@ -118,9 +119,10 @@ const count = sections.reduce(
       </p>
     ) : (
       <p slot="preamble">
-        {count} open todos from <code>TODO.md</code>. Comment on any of them,
-        then copy the todos with your comments at the bottom of the page.
-        Comments are saved in this browser. The {doneCount} fixed todos are on{" "}
+        {count} open todos from <code>TODO.md</code>. Comment on any of them or
+        pick an action, then copy your answers with Copy at the bottom of the
+        screen. Answers are saved in this browser. The {doneCount} fixed todos
+        are on{" "}
         <a class="ui-link" href="/todo/done/">
           Done
         </a>
@@ -199,6 +201,7 @@ const count = sections.reduce(
                   {`Actions for: ${plainText(item.text)}`}
                 </FieldLegend>
                 <FieldGroup
+                  class="todo-action-row"
                   direction="row"
                   name={`todo-action-${slugify(section.title)}-${index}`}
                 >
@@ -207,14 +210,15 @@ const count = sections.reduce(
                       (action) => !item.options.length || action !== "Fix",
                     )
                     .map((action) => (
-                      <Radio
-                        checked={!action}
+                      <ToggleButton
                         class="todo-action"
+                        pressed={action === "None"}
                         size="small"
+                        type="radio"
                         value={action}
                       >
-                        {action || "None"}
-                      </Radio>
+                        {action}
+                      </ToggleButton>
                     ))}
                 </FieldGroup>
                 {item.options.length > 0 && (
@@ -254,16 +258,21 @@ const count = sections.reduce(
 
   <h2 id="copy">Copy</h2>
 
-  <section class="todo-actions ui-not-rich-text">
-    <Checkbox checked id="todo-only-commented">
-      Only todos I commented on
-    </Checkbox>
-    <div class="todo-buttons">
-      <Button id="todo-copy" variant="filled">Copy todos and comments</Button>
-      <Button id="todo-clear" variant="outlined">Clear comments</Button>
+  <section class="todo-dock ui-not-rich-text">
+    <div class="todo-actions">
+      <p class="todo-count" id="todo-count">{`0 of ${count} answered`}</p>
+      <div class="todo-buttons">
+        <Button id="todo-copy" variant="filled">Copy</Button>
+        <Button class="todo-more" id="todo-clear" variant="outlined">
+          Clear all
+        </Button>
+      </div>
+      <Checkbox checked class="todo-more" id="todo-only-commented">
+        Only answered todos
+      </Checkbox>
+      <p class="todo-status" id="todo-status" role="status"></p>
+      <CopyFallback label="Todos and comments" />
     </div>
-    <p class="todo-status" id="todo-status" role="status"></p>
-    <CopyFallback label="Todos and comments" />
   </section>
 </Document>
 
@@ -283,8 +292,10 @@ const count = sections.reduce(
   const actionsOf = (item: HTMLElement) => [
     ...item.querySelectorAll<HTMLInputElement>(".todo-action input"),
   ]
-  const checkedAction = (item: HTMLElement) =>
-    actionsOf(item).find((input) => input.checked)?.value
+  const checkedAction = (item: HTMLElement) => {
+    const value = actionsOf(item).find((input) => input.checked)?.value
+    return value === "None" ? undefined : value
+  }
   const status = document.querySelector("#todo-status")!
   const onlyCommented = document.querySelector<HTMLInputElement>(
     "#todo-only-commented",
@@ -311,13 +322,31 @@ const count = sections.reduce(
     if (!writeActions(actions)) notSaved()
   }
 
+  const answerCount = document.querySelector("#todo-count")!
+  const countAnswered = () => {
+    const answered = items.filter(
+      (item) => checkedAction(item) || comments.commentOf(item),
+    ).length
+    answerCount.textContent = `${answered} of ${items.length} answered`
+  }
+
+  for (const item of items)
+    item
+      .querySelector("textarea")!
+      .addEventListener("input", () => countAnswered())
+
   const savedActions = readActions()
   for (const item of items) {
     for (const input of actionsOf(item)) {
-      input.checked = (savedActions[keyOf(item)] ?? "") === input.value
-      input.addEventListener("change", () => saveActions(item))
+      input.checked = (savedActions[keyOf(item)] ?? "None") === input.value
+      input.addEventListener("change", () => {
+        saveActions(item)
+        countAnswered()
+      })
     }
   }
+
+  countAnswered()
 
   const buildText = () => {
     const blocks: string[] = []
@@ -400,11 +429,11 @@ const count = sections.reduce(
   document.querySelector("#todo-copy")!.addEventListener("click", async () => {
     const { commented, text } = buildText()
     if (onlyCommented.checked && !commented) {
-      status.textContent = "No comments yet."
+      status.textContent = "No answers yet."
       return
     }
     if (await copyOrSelect(text, copyFallback)) {
-      status.textContent = `Copied ${commented} ${commented === 1 ? "comment" : "comments"}.`
+      status.textContent = `Copied ${commented} answered ${commented === 1 ? "todo" : "todos"}.`
       return
     }
     status.textContent =
@@ -412,12 +441,14 @@ const count = sections.reduce(
   })
 
   document.querySelector("#todo-clear")!.addEventListener("click", () => {
-    if (!confirm("Clear all comments?")) return
+    if (!confirm("Clear all comments and actions?")) return
     comments.clear()
     for (const item of items)
-      for (const input of actionsOf(item)) input.checked = !input.value
+      for (const input of actionsOf(item))
+        input.checked = input.value === "None"
     writeActions({})
-    status.textContent = "Comments cleared."
+    countAnswered()
+    status.textContent = "Comments and actions cleared."
   })
 </script>
 
@@ -474,22 +505,82 @@ const count = sections.reduce(
     gap: var(--size-4);
   }
 
+  :global(.todo-action-row) {
+    gap: var(--size-2);
+  }
+
+  :global(
+    .todo-item:has(
+      input:checked:not([value="None"]),
+      textarea:not(:placeholder-shown)
+    )
+  ) {
+    border-inline-start: var(--ui-border-width-thick) solid var(--ui-primary);
+    padding-inline-start: var(--size-3);
+  }
+
   .todo-fix-option {
     border: var(--ui-border-width) solid var(--ui-border-color);
     border-radius: var(--ui-radius);
     display: grid;
-    gap: var(--size-2);
-    padding: var(--size-3);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--ui-surface-tonal-hover);
+      }
+    }
 
     &:has(:checked) {
+      background-color: var(--ui-primary-tonal);
       border-color: var(--ui-primary);
+    }
+
+    :global(.ui-radio) {
+      cursor: pointer;
+      padding: var(--size-3);
+    }
+
+    :global(.todo-notes) {
+      padding: 0 var(--size-3) var(--size-3);
     }
   }
 
+  .todo-dock {
+    bottom: 0;
+    container-type: scroll-state;
+    position: sticky;
+    z-index: 1;
+  }
+
   .todo-actions {
-    display: grid;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--size-3);
-    justify-items: start;
+    justify-content: space-between;
+
+    > :not(.todo-count, .todo-buttons) {
+      flex-basis: 100%;
+    }
+
+    @container scroll-state(stuck: bottom) {
+      background-color: var(--ui-surface-elevated);
+      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+      box-shadow: var(--ui-shadow-elevated);
+      margin-inline: calc(-1 * var(--size-3));
+      padding: var(--size-2) var(--size-3);
+
+      :global(.todo-more),
+      .todo-status:empty {
+        display: none;
+      }
+    }
+  }
+
+  .todo-count {
+    color: var(--ui-text-muted);
+    font-variant-numeric: tabular-nums;
+    margin: 0;
   }
 
   .todo-buttons {

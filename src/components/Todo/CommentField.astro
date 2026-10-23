@@ -9,7 +9,7 @@ type Props = {
 const { text } = Astro.props
 ---
 
-<Textarea autoFit placeholder="Comment" rows={1} size="small">
+<Textarea class="comment-field" placeholder="Comment" rows={1} size="small">
   <span class="ui-sr-only" slot="label">
     {`Comment on: ${plainText(text)}`}
   </span>
@@ -17,6 +17,10 @@ const { text } = Astro.props
 </Textarea>
 
 <style>
+  :global(.comment-field textarea) {
+    field-sizing: content;
+  }
+
   .comment-saved:empty {
     display: none;
   }

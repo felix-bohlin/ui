@@ -9,11 +9,11 @@
     --ui-button-font-weight: var(--font-weight-4);
     --ui-density: 0.95;
     --ui-field-border-color-on-raised: var(--ui-field-border-color);
-    --ui-field-helper-color: light-dark(
+    --ui-field-helper-text-color: light-dark(
       rgb(33 37 41 / 0.75),
       rgb(222 226 230 / 0.75)
     );
-    --ui-field-label-color: var(--ui-text);
+    --ui-field-label-text-color: var(--ui-text);
     --ui-field-label-font-size: 1rem;
     --ui-field-label-font-weight: var(--font-weight-4);
     --ui-focus-ring-color: rgb(13 110 253 / 0.25);

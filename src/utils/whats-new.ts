@@ -416,7 +416,7 @@ const whatsNew = {
     ),
   ],
   divider: [
-    `<a href="#spacing">Spacing</a> comes from <code>--ui-divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,
+    `<a href="#spacing">Spacing</a> comes from <code>--ui-divider-gap</code>, which cards, callouts, dialogs and drawers make tighter.`,
     {
       html: `Breaking: <a href="#variants"><code>.ui-filled</code>, <code>.ui-primary</code> and <code>.ui-tonal</code></a> replace the <code>.ui-border-*</code> classes.`,
     },
@@ -454,7 +454,7 @@ const whatsNew = {
       default: `Named by <a href="#accessibility"><code>DrawerTitle</code></a> through <code>aria-labelledby</code>.`,
       html: `Name it with <a href="#accessibility"><code>aria-labelledby</code></a> pointing at the header heading.`,
     },
-    `The <a href="#basics">backdrop</a> dims and blurs like <code>Dialog</code>, through <code>--ui-backdrop-color</code> and <code>--ui-backdrop-blur</code>.`,
+    `The <a href="#basics">backdrop</a> dims and blurs like <code>Dialog</code>, through <code>--ui-backdrop-bg-color</code> and <code>--ui-backdrop-blur</code>.`,
     `Breaking: <code>--_color</code> is <code>--_text-color</code>, and <code>--_transition-duration</code> and <code>--_transition-timing</code> are <code>--_duration</code> and <code>--_ease</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `The drawer shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and select pickers. Padding reads the <code>--ui-space-*</code> scale.`,
     `Content padding is <code>--ui-space-3</code>, like the header and the actions (<a href="#basics">Basics</a>).`,
@@ -573,7 +573,7 @@ const whatsNew = {
   ],
   progress: [
     `The track is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
-    `The track reads <a href="#api"><code>--ui-track-color</code></a> when a theme sets it.`,
+    `The track reads <a href="#api"><code>--ui-track-bg-color</code></a> when a theme sets it.`,
     {
       ...slots(
         `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look. The default is named <code>tonal</code>.`,
@@ -651,7 +651,7 @@ const whatsNew = {
       `Breaking: <a href="#tick-marks"><code>items</code></a> replaces <code>options</code>, the label goes in the <code>label</code> slot, and the readout slot is <a href="#value"><code>value-text</code></a>.`,
     ),
     `The empty track reaches 3:1 against the page by default, and with more contrast it takes the page color with an inset edge so the fill stands out.`,
-    `The thumb and fill read <a href="#api"><code>--ui-choice-accent</code></a> and the empty track <code>--ui-track-color</code> when a theme sets them.`,
+    `The thumb and fill read <a href="#api"><code>--ui-choice-accent</code></a> and the empty track <code>--ui-track-bg-color</code> when a theme sets them.`,
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
     {
       ...slots(
@@ -769,9 +769,9 @@ const whatsNew = {
       ),
       html: `Breaking: <a href="#label-position"><code>.ui-vertical</code></a> replaces <code>.ui-stack</code>.`,
     },
-    `The unchecked thumb and track read <a href="#api"><code>--ui-switch-thumb-color</code></a> and <code>--ui-switch-track-color</code>.`,
+    `The unchecked thumb and track read <a href="#api"><code>--ui-switch-thumb-bg-color</code></a> and <code>--ui-switch-track-bg-color</code>.`,
     `The unchecked track border is <a href="#api"><code>--ui-field-border-color</code></a>, like the checkbox and radio borders.`,
-    `The checked track reads <a href="#api"><code>--ui-choice-accent</code></a> and the unchecked track <code>--ui-track-color</code> when a theme sets them.`,
+    `The checked track reads <a href="#api"><code>--ui-choice-accent</code></a> and the unchecked track <code>--ui-track-bg-color</code> when a theme sets them.`,
     slots(
       `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
     ),

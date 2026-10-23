@@ -19,7 +19,7 @@
     /* Legend */
     :where(legend, .ui-legend) {
       all: unset;
-      color: var(--ui-field-label-color);
+      color: var(--ui-field-label-text-color);
       font-weight: var(--ui-field-label-font-weight);
       margin-block-end: var(--ui-space-3);
 
@@ -42,7 +42,7 @@
 
     /* End text */
     > :where(.ui-end-text) {
-      color: var(--ui-field-helper-color);
+      color: var(--ui-field-helper-text-color);
       font-size: var(--ui-field-helper-font-size);
       line-height: var(--ui-field-helper-line-height);
     }
@@ -68,7 +68,7 @@
     /* Required */
     &:has(:required) {
       :where(legend, .ui-legend)::after {
-        color: var(--ui-field-required-color);
+        color: var(--ui-field-required-text-color);
         content: "*";
         margin-inline-start: 0.25ex;
 

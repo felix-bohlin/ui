@@ -419,7 +419,7 @@ The primary line is a color, not a variant.
 
 ## Drawer
 
-The backdrop dims and blurs like `Dialog`, through `--ui-backdrop-color` and `--ui-backdrop-blur`. `.ui-backdrop-transparent` still removes it. Header headings take the free space, so several header actions line up at the end.
+The backdrop dims and blurs like `Dialog`, through `--ui-backdrop-bg-color` and `--ui-backdrop-blur`. `.ui-backdrop-transparent` still removes it. Header headings take the free space, so several header actions line up at the end.
 
 In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces the `DrawerHeader` `heading` prop, and `aria-labelledby` points at it. The drawer no longer looks for your own heading, so a drawer without a `DrawerTitle` needs `aria-label`. `DrawerHeader` closes its drawer with `command="close"` (Invoker Commands) instead of a click handler, so older browsers need a polyfill.
 

@@ -68,7 +68,7 @@ export default {
   },
   "--_helper-color": {
     description:
-      "The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-color`, set by the invalid state.",
+      "The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-text-color`, set by the invalid state.",
     kind: "output",
   },
   "--_min-height": {

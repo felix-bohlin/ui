@@ -70,7 +70,7 @@ export default {
   },
   "--_track-base-color": {
     description:
-      "Color of the empty track at rest. `--ui-track-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`.",
+      "Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`.",
     kind: "input",
   },
   "--_track-color": {

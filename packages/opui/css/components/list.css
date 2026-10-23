@@ -411,7 +411,7 @@ Lists meant to be used stand-alone or as part of Select elements
     )
     > :where(label.ui-switch) {
     --ui-switch-thumb-size: var(--ui-switch-thumb-size-small);
-    --ui-switch-track-height: var(--ui-switch-track-height-small);
-    --ui-switch-track-width: var(--ui-switch-track-width-small);
+    --ui-switch-track-block-size: var(--ui-switch-track-block-size-small);
+    --ui-switch-track-inline-size: var(--ui-switch-track-inline-size-small);
   }
 }

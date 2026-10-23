@@ -48,7 +48,7 @@
     /* Required dot */
     &:has(:required) {
       .ui-label::after {
-        color: var(--ui-field-required-color);
+        color: var(--ui-field-required-text-color);
         content: "*";
         margin-inline-start: 0.25ex;
 
@@ -60,7 +60,7 @@
 
     /* Label */
     .ui-label {
-      color: var(--ui-field-label-color);
+      color: var(--ui-field-label-text-color);
       font-size: var(--ui-field-label-font-size);
       grid-column: 2;
       grid-row: 1;
@@ -73,7 +73,7 @@
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--ui-field-helper-color);
+      color: var(--ui-field-helper-text-color);
       font-size: var(--ui-field-helper-font-size);
       grid-column: 2;
       grid-row: 2;
@@ -104,7 +104,7 @@
           &::before {
             --_thumb-scale: 0.01;
 
-            background-color: var(--ui-choice-ripple-color);
+            background-color: var(--ui-choice-ripple-bg-color);
             clip-path: circle(50%);
             content: "";
             inset: calc((100% - var(--_ripple-size)) / 2);
@@ -136,22 +136,22 @@
     &.ui-x-small {
       --ui-choice-size: var(--ui-choice-size-x-small);
       --ui-switch-thumb-size: var(--ui-switch-thumb-size-x-small);
-      --ui-switch-track-height: var(--ui-switch-track-height-x-small);
-      --ui-switch-track-width: var(--ui-switch-track-width-x-small);
+      --ui-switch-track-block-size: var(--ui-switch-track-block-size-x-small);
+      --ui-switch-track-inline-size: var(--ui-switch-track-inline-size-x-small);
     }
 
     &.ui-small {
       --ui-choice-size: var(--ui-choice-size-small);
       --ui-switch-thumb-size: var(--ui-switch-thumb-size-small);
-      --ui-switch-track-height: var(--ui-switch-track-height-small);
-      --ui-switch-track-width: var(--ui-switch-track-width-small);
+      --ui-switch-track-block-size: var(--ui-switch-track-block-size-small);
+      --ui-switch-track-inline-size: var(--ui-switch-track-inline-size-small);
     }
 
     &.ui-large {
       --ui-choice-size: var(--ui-choice-size-large);
       --ui-switch-thumb-size: var(--ui-switch-thumb-size-large);
-      --ui-switch-track-height: var(--ui-switch-track-height-large);
-      --ui-switch-track-width: var(--ui-switch-track-width-large);
+      --ui-switch-track-block-size: var(--ui-switch-track-block-size-large);
+      --ui-switch-track-inline-size: var(--ui-switch-track-inline-size-large);
     }
 
     /* Spread layout */

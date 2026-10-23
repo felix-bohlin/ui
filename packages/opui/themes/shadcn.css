@@ -17,7 +17,10 @@
     --ui-field-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 0.15));
     --ui-field-border-color-on-raised: var(--ui-field-border-color);
     --ui-field-radius: 0.5rem;
-    --ui-field-helper-color: light-dark(oklch(0.556 0 0), oklch(0.708 0 0));
+    --ui-field-helper-text-color: light-dark(
+      oklch(0.556 0 0),
+      oklch(0.708 0 0)
+    );
     --ui-field-label-font-weight: var(--font-weight-5);
     --ui-focus-ring-color: light-dark(
       oklch(0.708 0 0 / 0.5),
@@ -50,7 +53,7 @@
     --ui-surface-tonal: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));
     --ui-text: light-dark(oklch(0.269 0 0), oklch(0.922 0 0));
     --ui-text-strong: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
-    --ui-track-color: var(--ui-field-border-color);
+    --ui-track-bg-color: var(--ui-field-border-color);
   }
 
   @container style(--ui-contrast: more) {

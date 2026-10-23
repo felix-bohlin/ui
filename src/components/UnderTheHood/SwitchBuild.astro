@@ -5,7 +5,7 @@ const steps = [
   {
     css: `
 .switch {
-  --dot-color: var(--ui-switch-thumb-color);
+  --dot-color: var(--ui-switch-thumb-bg-color);
 
   appearance: none;
   block-size: 1.5rem;
@@ -16,7 +16,7 @@ const steps = [
 }
 
 .switch::before {
-  background-color: var(--ui-track-color, var(--ui-switch-track-color));
+  background-color: var(--ui-track-bg-color, var(--ui-switch-track-bg-color));
   border: var(--ui-field-border-width) solid var(--ui-field-border-color);
   border-radius: 1e5px;
   content: "";
@@ -32,7 +32,7 @@ const steps = [
     notes: [
       "A checkbox with <code>role=&quot;switch&quot;</code>: announced as on/off, same form value",
       "<code>appearance: none</code> frees both pseudo-elements, <code>::before</code> is the track",
-      "The theme's <code>--ui-switch-thumb-color</code> and <code>--ui-switch-track-color</code> pick the colors per color scheme",
+      "The theme's <code>--ui-switch-thumb-bg-color</code> and <code>--ui-switch-track-bg-color</code> pick the colors per color scheme",
       "The track border is the field border, so the track reaches 3:1",
     ],
     title: "Track",

@@ -149,13 +149,13 @@
     /* Field / input */
     /* --ui-field-radius: var(--ui-radius); */
     --ui-field-border-width: 1px;
-    --ui-field-helper-color: var(--ui-text);
+    --ui-field-helper-text-color: var(--ui-text);
     --ui-field-helper-font-size: var(--ui-font-size-caption);
     --ui-field-helper-line-height: var(--ui-line-height-control);
-    --ui-field-label-color: var(--ui-text-strong);
+    --ui-field-label-text-color: var(--ui-text-strong);
     --ui-field-label-font-size: var(--ui-font-size-small);
     --ui-field-label-font-weight: var(--ui-font-weight-semibold);
-    --ui-field-required-color: var(--ui-invalid-text);
+    --ui-field-required-text-color: var(--ui-invalid-text);
 
     /* Button */
     /* --ui-button-accent: light-dark(var(--ui-color-16), var(--ui-color-1)); */
@@ -166,7 +166,7 @@
     /* --ui-button-hover-translate: none; */
 
     /* Divider */
-    --ui-divider-space: calc(var(--size-fluid-3) * var(--ui-space-scale));
+    --ui-divider-gap: calc(var(--size-fluid-3) * var(--ui-space-scale));
 
     /* Motion */
     --ui-duration-fast: 0.1s;
@@ -186,7 +186,7 @@
 
     /* State */
     --ui-disabled-opacity: 0.64;
-    --ui-choice-ripple-color: oklch(0.6 0 0 / 0.2);
+    --ui-choice-ripple-bg-color: oklch(0.6 0 0 / 0.2);
     /* --ui-selected: var(--ui-primary); */
     /* --ui-on-selected: var(--ui-on-primary); */
     --ui-state-active-alpha: 20%;
@@ -213,14 +213,18 @@
     --ui-switch-thumb-size-small: calc(0.75rem * var(--ui-density));
     --ui-switch-thumb-size: calc(var(--size-3) * var(--ui-density));
     --ui-switch-thumb-size-large: calc(var(--size-4) * var(--ui-density));
-    --ui-switch-track-height-x-small: calc(var(--size-3) * var(--ui-density));
-    --ui-switch-track-height-small: calc(var(--size-4) * var(--ui-density));
-    --ui-switch-track-height: calc(var(--size-5) * var(--ui-density));
-    --ui-switch-track-height-large: calc(var(--size-6) * var(--ui-density));
-    --ui-switch-track-width-x-small: calc(var(--size-7) * var(--ui-density));
-    --ui-switch-track-width-small: calc(2.5rem * var(--ui-density));
-    --ui-switch-track-width: calc(var(--size-8) * var(--ui-density));
-    --ui-switch-track-width-large: calc(3.5rem * var(--ui-density));
+    --ui-switch-track-block-size-x-small: calc(
+      var(--size-3) * var(--ui-density)
+    );
+    --ui-switch-track-block-size-small: calc(var(--size-4) * var(--ui-density));
+    --ui-switch-track-block-size: calc(var(--size-5) * var(--ui-density));
+    --ui-switch-track-block-size-large: calc(var(--size-6) * var(--ui-density));
+    --ui-switch-track-inline-size-x-small: calc(
+      var(--size-7) * var(--ui-density)
+    );
+    --ui-switch-track-inline-size-small: calc(2.5rem * var(--ui-density));
+    --ui-switch-track-inline-size: calc(var(--size-8) * var(--ui-density));
+    --ui-switch-track-inline-size-large: calc(3.5rem * var(--ui-density));
 
     /* Elevation */
     --ui-shadow-control: none;
@@ -235,7 +239,7 @@
 
     /* Overlays */
     --ui-backdrop-blur: 1px;
-    --ui-backdrop-color: rgb(0 0 0 / 0.5);
+    --ui-backdrop-bg-color: rgb(0 0 0 / 0.5);
   }
 
   :where(html.ui-dark) {
@@ -363,7 +367,7 @@
       oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h),
       oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
     );
-    /* --ui-track-color: var(--ui-surface-tonal); */
+    /* --ui-track-bg-color: var(--ui-surface-tonal); */
 
     /* Borders */
     --ui-border-color: light-dark(var(--ui-gray-4), var(--ui-gray-12));
@@ -396,8 +400,11 @@
     --ui-code-block-text-color: var(--ui-color-1);
 
     /* Choice controls */
-    --ui-switch-thumb-color: light-dark(var(--ui-gray-11), var(--ui-gray-14));
-    --ui-switch-track-color: light-dark(var(--ui-gray-3), var(--ui-gray-8));
+    --ui-switch-thumb-bg-color: light-dark(
+      var(--ui-gray-11),
+      var(--ui-gray-14)
+    );
+    --ui-switch-track-bg-color: light-dark(var(--ui-gray-3), var(--ui-gray-8));
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -499,7 +506,7 @@
 
   /* Compact surfaces */
   :where(.ui-callout, .ui-card, .ui-dialog, .ui-drawer) {
-    --ui-divider-space: var(--ui-space-3);
+    --ui-divider-gap: var(--ui-space-3);
   }
 
   /* Higher contrast */
@@ -633,8 +640,8 @@
         var(--ui-field-border-color),
         var(--ui-surface)
       );
-      --ui-field-helper-color: var(--ui-text);
-      --ui-field-required-color: var(--ui-invalid-text);
+      --ui-field-helper-text-color: var(--ui-text);
+      --ui-field-required-text-color: var(--ui-invalid-text);
       --ui-focus-ring-color: rgb(
         from var(--ui-surface) calc(255 - r) calc(255 - g) calc(255 - b)
       );
@@ -656,7 +663,7 @@
       --ui-selected: initial;
       --ui-on-selected: initial;
       --ui-border-color-raised: initial;
-      --ui-track-color: initial;
+      --ui-track-bg-color: initial;
     }
 
     :where(

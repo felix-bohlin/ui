@@ -35,7 +35,7 @@ export default {
   },
   "--_thumb-bg-color": {
     description:
-      "Color of the unchecked thumb. Defaults to `--ui-switch-thumb-color`. The checked thumb uses `--_on-accent`.",
+      "Color of the unchecked thumb. Defaults to `--ui-switch-thumb-bg-color`. The checked thumb uses `--_on-accent`.",
     kind: "input",
   },
   "--_thumb-inset": {
@@ -55,7 +55,7 @@ export default {
   },
   "--_track-bg-color": {
     description:
-      "Background of the unchecked track. `--ui-track-color` when the theme sets it, otherwise `--ui-switch-track-color`.",
+      "Background of the unchecked track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-switch-track-bg-color`.",
     kind: "input",
   },
   "--_track-border-color": {
@@ -65,12 +65,12 @@ export default {
   },
   "--_track-height": {
     description:
-      "Height of the track. Defaults to `--ui-switch-track-height`, set by the size classes.",
+      "Height of the track. Defaults to `--ui-switch-track-block-size`, set by the size classes.",
     kind: "input",
   },
   "--_track-width": {
     description:
-      "Width of the track. Defaults to `--ui-switch-track-width`, set by the size classes.",
+      "Width of the track. Defaults to `--ui-switch-track-inline-size`, set by the size classes.",
     kind: "input",
   },
 } satisfies CustomProperties

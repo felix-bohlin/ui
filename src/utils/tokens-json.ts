@@ -24,7 +24,7 @@ const TYPES: [RegExp, string][] = [
     "color",
   ],
   [
-    /blur|height|inset|offset|radius|size|space|spacing|step|thickness|width/,
+    /blur|gap|height|inset|offset|radius|size|space|spacing|step|thickness|width/,
     "dimension",
   ],
 ]

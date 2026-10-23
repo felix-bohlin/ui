@@ -11,7 +11,7 @@
       )
     );
     --_input-size: var(--_track-height);
-    --_thumb-bg-color: var(--ui-switch-thumb-color);
+    --_thumb-bg-color: var(--ui-switch-thumb-bg-color);
     --_thumb-inset: round(
       down,
       (var(--_track-height) - var(--_thumb-size)) / 2,
@@ -19,10 +19,13 @@
     );
     --_thumb-outline-size: 0;
     --_thumb-size: round(var(--ui-switch-thumb-size), 1px);
-    --_track-bg-color: var(--ui-track-color, var(--ui-switch-track-color));
+    --_track-bg-color: var(
+      --ui-track-bg-color,
+      var(--ui-switch-track-bg-color)
+    );
     --_track-border-color: var(--ui-field-border-color);
-    --_track-height: round(var(--ui-switch-track-height), 1px);
-    --_track-width: round(var(--ui-switch-track-width), 1px);
+    --_track-height: round(var(--ui-switch-track-block-size), 1px);
+    --_track-width: round(var(--ui-switch-track-inline-size), 1px);
 
     :where(input[type="checkbox"][role="switch"]) {
       appearance: none;

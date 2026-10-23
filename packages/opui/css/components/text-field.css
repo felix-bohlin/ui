@@ -27,7 +27,7 @@
     );
     --_field-padding-inline: var(--ui-space-2);
     --_font-size: var(--ui-font-size-control);
-    --_helper-color: var(--ui-field-helper-color);
+    --_helper-color: var(--ui-field-helper-text-color);
     --_min-height: var(--ui-field-size);
 
     align-content: start;
@@ -150,7 +150,7 @@
     /* Required/Invalid */
     &:has(:required) {
       .ui-label::after {
-        color: var(--ui-field-required-color);
+        color: var(--ui-field-required-text-color);
         content: "*";
         margin-inline-start: 0.25ex;
 
@@ -296,7 +296,7 @@
 
     /* Label */
     .ui-label {
-      color: var(--ui-field-label-color);
+      color: var(--ui-field-label-text-color);
       font-size: var(--ui-field-label-font-size);
       font-weight: var(--ui-field-label-font-weight);
       grid-column: 1/-1;

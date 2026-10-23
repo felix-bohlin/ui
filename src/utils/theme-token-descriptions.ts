@@ -1,6 +1,7 @@
 export const themeTokenDescriptions: Record<string, string> = {
+  "--ui-backdrop-bg-color":
+    "Overlay color behind an open `Dialog` or `Drawer`.",
   "--ui-backdrop-blur": "Blur radius behind an open `Dialog` or `Drawer`.",
-  "--ui-backdrop-color": "Overlay color behind an open `Dialog` or `Drawer`.",
   "--ui-blue":
     "A literal blue, Open Props' `--hue-blue` at the palette lightness. No severity meaning.",
   "--ui-border-color":
@@ -42,7 +43,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.",
   "--ui-choice-on-accent":
     "Color of the mark on a checked `Checkbox`, `Radio` and `Switch`. Set it with `--ui-choice-accent`. When unset, `--ui-on-primary` in light mode and near-white in dark mode.",
-  "--ui-choice-ripple-color":
+  "--ui-choice-ripple-bg-color":
     "Halo color for the `Checkbox` and `Radio` hover effect.",
   "--ui-choice-size": "Default `Checkbox` and `Radio` input size.",
   "--ui-choice-size-large":
@@ -74,7 +75,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-density":
     "Multiplier for the `--ui-control-size*` scale. `0.875` is compact, `1.125` is comfortable. See [Density](/guide/theming#density).",
   "--ui-disabled-opacity": "Opacity applied to disabled controls.",
-  "--ui-divider-space":
+  "--ui-divider-gap":
     "Block margin around a `Divider`, times `--ui-space-scale`. Cards, callouts, dialogs and drawers set it to `--ui-space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
   "--ui-duration": "Default transition duration. Multiplied by `--ui-motion`.",
   "--ui-duration-fast": "Transition duration for hover and press feedback.",
@@ -89,19 +90,19 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Field border color inside raised surfaces. Defaults to `--ui-field-border-color` in light mode and the page background in dark mode.",
   "--ui-field-border-width":
     "Border width for fields, `Checkbox`, `Radio` and `Switch`.",
-  "--ui-field-helper-color":
-    "Text color for helper and end text under a field.",
   "--ui-field-helper-font-size":
     "Font size for helper and end text under a field.",
   "--ui-field-helper-line-height":
     "Line height for helper and end text under a field.",
-  "--ui-field-label-color": "Text color for field labels.",
+  "--ui-field-helper-text-color":
+    "Text color for helper and end text under a field.",
   "--ui-field-label-font-size": "Font size for field labels.",
   "--ui-field-label-font-weight":
     "Font weight for emphasized field labels and legends.",
+  "--ui-field-label-text-color": "Text color for field labels.",
   "--ui-field-radius":
     "Corner radius for fields. When unset, they follow `--ui-radius`, also where it's set on a part of the page.",
-  "--ui-field-required-color": "Color of the required asterisk.",
+  "--ui-field-required-text-color": "Color of the required asterisk.",
   "--ui-field-size": "Default field height.",
   "--ui-field-size-large": "Field height with `.ui-large`.",
   "--ui-field-size-small": "Field height with `.ui-small`.",
@@ -318,7 +319,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-surface-tonal": "Background of tonal variants.",
   "--ui-surface-tonal-hover":
     "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s and filled `TextField`, `Select` and `Textarea` fields. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
-  "--ui-switch-thumb-color":
+  "--ui-switch-thumb-bg-color":
     "Color of the unchecked `Switch` thumb. The checked thumb uses `--ui-choice-on-accent`.",
   "--ui-switch-thumb-size": "Diameter of the `Switch` thumb.",
   "--ui-switch-thumb-size-large":
@@ -327,21 +328,21 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Diameter of the `Switch` thumb with `.ui-small`, and in `List` rows unless the switch has a size class.",
   "--ui-switch-thumb-size-x-small":
     "Diameter of the `Switch` thumb with `.ui-x-small`.",
-  "--ui-switch-track-color":
-    "Background of the unchecked `Switch` track when `--ui-track-color` is unset.",
-  "--ui-switch-track-height": "Height of the `Switch` track.",
-  "--ui-switch-track-height-large":
+  "--ui-switch-track-bg-color":
+    "Background of the unchecked `Switch` track when `--ui-track-bg-color` is unset.",
+  "--ui-switch-track-block-size": "Height of the `Switch` track.",
+  "--ui-switch-track-block-size-large":
     "Height of the `Switch` track with `.ui-large`.",
-  "--ui-switch-track-height-small":
+  "--ui-switch-track-block-size-small":
     "Height of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class.",
-  "--ui-switch-track-height-x-small":
+  "--ui-switch-track-block-size-x-small":
     "Height of the `Switch` track with `.ui-x-small`.",
-  "--ui-switch-track-width": "Width of the `Switch` track.",
-  "--ui-switch-track-width-large":
+  "--ui-switch-track-inline-size": "Width of the `Switch` track.",
+  "--ui-switch-track-inline-size-large":
     "Width of the `Switch` track with `.ui-large`.",
-  "--ui-switch-track-width-small":
+  "--ui-switch-track-inline-size-small":
     "Width of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class.",
-  "--ui-switch-track-width-x-small":
+  "--ui-switch-track-inline-size-x-small":
     "Width of the `Switch` track with `.ui-x-small`.",
   "--ui-text": "Body text color.",
   "--ui-text-disabled": "Text color of disabled buttons and chips.",
@@ -355,7 +356,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Strongest text color, for headings, labels and values. Body text is `--ui-text`.",
   "--ui-text-subtle-on-inverse":
     "Subtle text color on an inverted fill: `kbd` and `var`, drawn on `--ui-text`.",
-  "--ui-track-color":
+  "--ui-track-bg-color":
     "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch a fixed gray.",
   "--ui-underline-offset":
     "Gap between text and its underline: `Link` and rich text links, and in Firefox `abbr`, `dfn`, `ins` and `u`.",

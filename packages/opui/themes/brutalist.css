@@ -3,7 +3,7 @@
 
 @layer theme.custom {
   :where(html) {
-    --ui-backdrop-color: oklch(0 0 0 / 0.8);
+    --ui-backdrop-bg-color: oklch(0 0 0 / 0.8);
     --ui-border-color: oklch(0 0 0);
     --ui-border-color-on-filled: var(--ui-border-color);
     --ui-border-color-on-raised: var(--ui-border-color);

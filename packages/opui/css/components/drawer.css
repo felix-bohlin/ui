@@ -3,7 +3,7 @@
     --_motion: var(--ui-motion);
     --_actions-gap: var(--ui-space-3);
     --_actions-padding: var(--ui-space-3);
-    --_backdrop-bg-color: var(--ui-backdrop-color);
+    --_backdrop-bg-color: var(--ui-backdrop-bg-color);
     --_backdrop-blur: blur(var(--ui-backdrop-blur));
     --_bg-color: var(--ui-surface-elevated);
     --_block-size: min(80vb, 650px);

@@ -2,7 +2,7 @@ import type { CustomProperties } from "../types"
 
 export default {
   "--_backdrop-bg-color": {
-    description: "The backdrop color. Defaults to `--ui-backdrop-color`.",
+    description: "The backdrop color. Defaults to `--ui-backdrop-bg-color`.",
     kind: "input",
   },
   "--_backdrop-blur": {

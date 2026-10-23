@@ -11,7 +11,7 @@ export default {
   },
   "--_backdrop-bg-color": {
     description:
-      "The backdrop color. Defaults to `--ui-backdrop-color`, `.ui-backdrop-transparent` clears it.",
+      "The backdrop color. Defaults to `--ui-backdrop-bg-color`, `.ui-backdrop-transparent` clears it.",
     kind: "input",
   },
   "--_backdrop-blur": {

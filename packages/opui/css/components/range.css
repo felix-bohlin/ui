@@ -23,7 +23,7 @@
       --_thumb-size: 30px;
     }
 
-    --_track-base-color: var(--ui-track-color, var(--ui-field-border-color));
+    --_track-base-color: var(--ui-track-bg-color, var(--ui-field-border-color));
     --_track-height: 0.75ex;
     --_track-radius: var(--ui-radius-round);
 
@@ -34,7 +34,7 @@
 
     .ui-label {
       align-self: baseline;
-      color: var(--ui-field-label-color);
+      color: var(--ui-field-label-text-color);
       font-size: var(--ui-field-label-font-size);
       font-weight: var(--ui-field-label-font-weight);
       grid-column: 1;
@@ -43,7 +43,7 @@
 
     :where(.ui-value) {
       align-self: baseline;
-      color: var(--ui-field-helper-color);
+      color: var(--ui-field-helper-text-color);
       font-size: var(--ui-field-helper-font-size);
       font-variant-numeric: tabular-nums;
       font-weight: var(--ui-font-weight-semibold);
@@ -54,7 +54,7 @@
     }
 
     .ui-start-text {
-      color: var(--ui-field-helper-color);
+      color: var(--ui-field-helper-text-color);
       font-size: var(--ui-field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 2;
@@ -62,7 +62,7 @@
     }
 
     :where(.ui-end-text) {
-      color: var(--ui-field-helper-color);
+      color: var(--ui-field-helper-text-color);
       font-size: var(--ui-field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 5;
@@ -71,7 +71,7 @@
 
     /* Datalist (tick mark labels) */
     :where(datalist) {
-      color: var(--ui-field-helper-color);
+      color: var(--ui-field-helper-text-color);
       display: flex;
       font-size: var(--ui-field-helper-font-size);
       grid-column: 1/-1;
@@ -113,7 +113,7 @@
     }
 
     &.ui-tonal {
-      --_track-base-color: var(--ui-track-color, var(--ui-surface-tonal));
+      --_track-base-color: var(--ui-track-bg-color, var(--ui-surface-tonal));
     }
 
     /* Orientation */

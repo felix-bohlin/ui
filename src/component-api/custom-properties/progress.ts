@@ -7,7 +7,7 @@ export default {
   },
   "--_bg-color": {
     description:
-      "Color of the track. `--ui-track-color` when the theme sets it, otherwise `--ui-surface-tonal`; `.ui-filled` sets it to `--ui-surface-filled`.",
+      "Color of the track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-surface-tonal`; `.ui-filled` sets it to `--ui-surface-filled`.",
     kind: "input",
   },
   "--_duration": {

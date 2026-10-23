@@ -7,7 +7,8 @@ export default {
       {
         description:
           "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
-        fallback: "Update the `<output>` text on `input` yourself.",
+        fallback:
+          "Update the `<output>` text on `input` yourself, or add `data-live` to it and call `initRange()` from `opui-css/css/js/range.js`.",
         prop: "valueSuffix",
       },
     ],
@@ -15,13 +16,15 @@ export default {
       {
         description:
           "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
-        fallback: "Update the `<output>` text on `input` yourself.",
+        fallback:
+          "Update the `<output>` text on `input` yourself, or add `data-live` to it and call `initRange()` from `opui-css/css/js/range.js`.",
         prop: "valueSuffix",
       },
       {
         description:
           "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
-        fallback: "Update the `<output>` text on `input` yourself.",
+        fallback:
+          "Update the `<output>` text on `input` yourself, or add `data-live` to it and call `initRange()` from `opui-css/css/js/range.js`.",
         prop: "valueText",
       },
     ],
@@ -29,13 +32,15 @@ export default {
       {
         description:
           "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
-        fallback: "Update the `<output>` text on `input` yourself.",
+        fallback:
+          "Update the `<output>` text on `input` yourself, or add `data-live` to it and call `initRange()` from `opui-css/css/js/range.js`.",
         prop: "valueSuffix",
       },
       {
         description:
           "The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works.",
-        fallback: "Update the `<output>` text on `input` yourself.",
+        fallback:
+          "Update the `<output>` text on `input` yourself, or add `data-live` to it and call `initRange()` from `opui-css/css/js/range.js`.",
         prop: "valueText",
       },
     ],

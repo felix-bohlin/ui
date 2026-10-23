@@ -106,10 +106,10 @@ See [progress accessibility](https://open-props-ui.netlify.app/react/components/
 
 #### CSS variables
 
-| Variable                  | Default                | Description                                                                                                                                                                                                                                 |
-| ------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-width-thick` | `var(--border-size-2)` | Width of emphasized rules: the `Table` head and foot borders, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, and at one and a half times, the blockquote bar. |
-| `--ui-motion`             | `1`                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion).                                   |
+| Variable                  | Default                | Description                                                                                                                                                                                                                                                                                                 |
+| ------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-width-thick` | `var(--border-size-2)` | Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar. |
+| `--ui-motion`             | `1`                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion).                                                                                                   |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
@@ -226,6 +226,14 @@ Step 4 of 4: Reduced motion
   );
 }
 ```
+
+## Browser support
+
+- Chromium: Full support Supported since v111.
+- Firefox: Full support Supported since v151.
+- Safari: Full support Supported since v18.
+
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/react/guide/browser-support/?components=Spinner.md).
 
 ## Installation
 

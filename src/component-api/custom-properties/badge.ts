@@ -4,7 +4,7 @@ export default {
   "--_accent": {
     description:
       "The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral` and `.ui-success`.",
-    kind: "input",
+    kind: "output",
   },
   "--_bg-color": {
     description:

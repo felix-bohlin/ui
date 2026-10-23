@@ -22,7 +22,7 @@ export default {
   },
   "--_loop-duration": {
     description:
-      "One cycle of the indeterminate animation, `--_loop-duration` times `--_motion`, and of the pulse that replaces it when `--_motion` is `0`.",
+      "Length of one cycle of the indeterminate animation, and of the pulse that replaces it when `--_motion` is `0`. `2s` by default, multiplied by `--_motion`.",
     kind: "input",
   },
   "--_motion": {

@@ -97,7 +97,7 @@ export default {
   },
   "--_radius": {
     description:
-      "The corner radius. Defaults to `--ui-button-radius`, `.ui-round` makes it round.",
+      "The corner radius. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it. `.ui-round` makes it round.",
     kind: "input",
   },
   "--_shadow": {

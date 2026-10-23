@@ -21,6 +21,8 @@ A theme is the [knobs, roles and component tokens](https://open-props-ui.netlify
 
 If it might load before `layers.css`, start it with the two `@layer` statements from there, like the example themes do. The [Theme generator](https://open-props-ui.netlify.app/react/guide/theme-generator.md) writes one for you.
 
+Knobs inherit, so `html` is enough for them. A role you pin, such as `--ui-surface` or `--ui-primary`, goes on `:where(html, .ui-palette, .ui-contrast-more)` so the scope classes keep it. The example themes do that for every token.
+
 ### Example themes
 
 Four themes ship with the package to show how far tokens go. Each is only tokens in `theme.custom`, no component CSS, and every stress test page runs with each of them in light and dark mode. They copy their originals faithfully, also where those fall short of WCAG contrast (the translucent focus rings of Bootstrap and shadcn, the bright blue of brutalist). They name their fonts (Geist, Roboto, DM Sans) but don't load them. Try them in the theme drawer in the header.

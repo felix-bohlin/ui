@@ -13,6 +13,27 @@ import Example from "../../components/Example/index"
   </Fragment>
 
   <section>
+    <p>
+      Snippets on this page belong in <code>@layer theme.custom</code>, see <DocLink
+        href="/guide/customizing">Customizing</DocLink
+      >. Every token and its default is on <DocLink href="/guide/theme-tokens"
+        >Theme tokens</DocLink
+      >, and the <DocLink href="/guide/theme-generator">Theme generator</DocLink
+      >
+      writes a theme for you.
+    </p>
+    <p>
+      v6 renames every token: <code>--primary</code> is <code>--ui-primary</code
+      >,
+      <code>--text-primary</code> is <code>--ui-text-strong</code>, <code
+        >--surface-default</code
+      > is <code>--ui-surface</code>. The full table is in <DocLink
+        href="/guide/migrating#theme-and-tokens">Migrating</DocLink
+      >.
+    </p>
+  </section>
+
+  <section>
     <h2 id="palette">Palette</h2>
     <p>
       One hue and chroma in <code>theme.css</code> become a source color, <code
@@ -101,9 +122,10 @@ import Example from "../../components/Example/index"
     </ul>
     <p>
       On an element, <code>.ui-dark</code> and <code>.ui-light</code> only pick the
-      other side of <code>light-dark()</code>. The hue and the shadows still
-      come from the page, so a <code>.ui-dark</code> box on a light page stays green.
-      Add
+      other side of <code>light-dark()</code>. The hue, and the shadow color and
+      strength, still come from the page, so a <code>.ui-dark</code> box on a light
+      page stays green; <code>--ui-shadow-elevated</code> and the surface and text
+      colors switch with the scheme. Add
       <code>.ui-palette</code> with the dark hue to match dark mode:
     </p>
     <Code
@@ -195,7 +217,12 @@ import Example from "../../components/Example/index"
       it until you set <code>--ui-button-radius</code> or <code
         >--ui-field-radius</code
       >. Small parts like <code>kbd</code>, tooltips and checkboxes never get
-      rounder than it, so <code>0</code> squares everything.
+      rounder than it, so <code>0</code> squares everything. <code
+        >--ui-radius-x-small</code
+      >, <code>--ui-radius-small</code> and <code>--ui-radius-large</code> derive
+      from it (capped at 2px and 5px, and times 1.5), and <code
+        >--ui-radius-round</code
+      > is the pill.
     </p>
     <Code
       code={`:where(html) {
@@ -254,10 +281,9 @@ import Example from "../../components/Example/index"
     <h2 id="elevation">Elevation</h2>
     <ul>
       <li>
-        <code>--ui-shadow-control</code>: buttons with a variant and fields. <code
-          >none</code
-        > until a theme sets it, and the optional <code>--ui-shadow-field</code> splits
-        off the fields.
+        <code>--ui-shadow-control</code>: buttons with a variant, chips, toggle
+        buttons and fields. <code>none</code> until a theme sets it, and the optional
+        <code>--ui-shadow-field</code> splits off the fields.
       </li>
       <li>
         <code>--ui-shadow-elevated</code>: elevated cards and accordions. Set <code
@@ -266,7 +292,10 @@ import Example from "../../components/Example/index"
         also in scoped parts of the page.
       </li>
       <li>
-        <code>--ui-shadow-overlay</code>: menus, <code>select</code> pickers and drawers.
+        <code>--ui-shadow-overlay</code>: dialogs, drawers, menus, <code
+          >select</code
+        >
+        pickers and the carousel buttons.
       </li>
       <li>
         <code>--ui-shadow-scroll</code>: the edges of scrolled dialogs, drawers
@@ -277,6 +306,14 @@ import Example from "../../components/Example/index"
         accordions, and callouts. <code>none</code> by default.
       </li>
       <li><code>--ui-shadow-selected</code>: the selected tab.</li>
+      <li>
+        <code>--ui-shadow-color</code> and <code>--ui-shadow-strength</code>:
+        the HSL channels and opacity every Open Props shadow is built from, <code
+          >220 3% 15%</code
+        > and <code>1%</code> in light mode, <code>220 40% 2%</code> and <code
+          >20%</code
+        > in dark mode.
+      </li>
     </ul>
     <Code
       code={`:where(html) {

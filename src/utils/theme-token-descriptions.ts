@@ -23,7 +23,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-border-width":
     "Default border width for components that draw a border.",
   "--ui-border-width-thick":
-    "Width of emphasized rules: the `Table` head and foot borders, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, and at one and a half times, the blockquote bar.",
+    "Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar.",
   "--ui-button-accent":
     "Color of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, the darkest palette color in light mode and the lightest in dark mode.",
   "--ui-button-font-weight":
@@ -93,7 +93,7 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Transition duration for entering and leaving overlays: `Dialog`, `Drawer` and `Menu`.",
   "--ui-ease": "Default easing for transitions.",
   "--ui-ease-enter":
-    "Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`.",
+    "Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`, and the `Badge`, `Progress` and `Tooltip` transitions.",
   "--ui-ease-exit":
     "Easing for elements leaving the screen: closing `Drawer` and `Menu`.",
   "--ui-field-border-color":
@@ -190,7 +190,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-green":
     "A literal green, Open Props' `--hue-green` at the palette lightness. No severity meaning.",
   "--ui-icon-size": "Default icon size inside components.",
-  "--ui-icon-size-large": "Icon size inside `Avatar` and `List`.",
+  "--ui-icon-size-large":
+    "Icon size inside `Avatar`, and of an `svg` without a `width` in `normalize.css`.",
   "--ui-icon-size-small":
     "Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.",
   "--ui-icon-size-x-small":
@@ -232,7 +233,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-on-primary-tonal":
     "Text color on `--ui-primary-tonal`. Set it with `--ui-primary-tonal`.",
   "--ui-on-selected":
-    "Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and `--ui-primary` on a selected `Select` option.",
+    "Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and `--ui-primary-text` on a selected `Select` option.",
   "--ui-on-selected-strong":
     "Text color on `--ui-selected-strong`: the selected tab of filled `Tabs`. Defaults to `--ui-on-primary`.",
   "--ui-on-warning":
@@ -240,11 +241,11 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-orange":
     "A literal orange, Open Props' `--hue-orange` at the palette lightness. No severity meaning.",
   "--ui-palette-accent":
-    "The accent shade of the current palette: `Callout` icons and outlined borders, the `abbr` underline. Stronger with more contrast. Re-derived inside every severity scope, so `.ui-success` gets a green one.",
+    "The accent shade of the current palette: `Callout` icons and outlined borders, the `abbr` underline. Stronger with more contrast. The severity `Chip` dot reads it. Re-derived inside every severity scope, so `.ui-success` gets a green one.",
   "--ui-palette-accent-min-lightness":
     "The lowest OKLCH lightness of `--ui-palette-accent` in dark mode. `0`, and `0.71` with more contrast.",
   "--ui-palette-border":
-    "The border shade of the current palette: tonal `Callout` borders. Stronger with more contrast. Re-derived inside every severity scope.",
+    "The border shade of the current palette: tonal `Callout` borders. Stronger with more contrast. Severity `Chip` borders read it. Re-derived inside every severity scope.",
   "--ui-palette-border-max-lightness":
     "The highest OKLCH lightness of `--ui-palette-border` in light mode. `1`, and `0.53` with more contrast.",
   "--ui-palette-border-min-lightness":
@@ -260,7 +261,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-palette-source":
     "The source color the palette is derived from. Set it to replace `--ui-palette-hue` and `--ui-palette-chroma`. Any color works: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. See [Palette](/guide/theming#palette).",
   "--ui-palette-strong":
-    "The strongest shade of the current palette, the darkest in light mode and the lightest in dark mode, with the most contrast against the page: `Callout` text, the default `Button` fill when `--ui-button-accent` is unset. Re-derived inside every severity scope.",
+    "The strongest shade of the current palette, the darkest in light mode and the lightest in dark mode, with the most contrast against the page: `Callout` text, the default `Button` fill when `--ui-button-accent` is unset. Severity `Chip` text reads it. Re-derived inside every severity scope.",
   "--ui-palette-text":
     "A readable text shade of the current palette: `del`, `ins`, `.ui-del` and `.ui-ins`. Darker in light mode and lighter in dark mode with more contrast. Re-derived inside every severity scope.",
   "--ui-palette-text-max-lightness":
@@ -274,7 +275,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-palette-tint-min-lightness":
     "The lowest OKLCH lightness of `--ui-palette-tint` in light mode. `0`, and `0.84` with more contrast.",
   "--ui-palette-tint-subtle":
-    "A faint fill of the current palette: tonal severity `Callout`s. Re-derived inside every severity scope.",
+    "A faint fill of the current palette: tonal severity `Callout`s. Tonal severity `Chip`s read it. Re-derived inside every severity scope.",
   "--ui-primary":
     "Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color.",
   "--ui-primary-max-lightness":
@@ -284,7 +285,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-primary-source":
     "The brand color `--ui-primary` is derived from, within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set it to a theme's brand color so more contrast can darken or lighten it while keeping its hue. Setting `--ui-primary` directly pins the color in every contrast mode.",
   "--ui-primary-text":
-    "Primary as a text color: links, rich text links, `Callout` link hover, and `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
+    "Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`, and a selected `Select` option. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text.",
   "--ui-primary-tonal":
     "Background of `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal`. When unset, a light tint of the palette. Material's `primary-container` and shadcn's `secondary` go here.",
   "--ui-radius":
@@ -308,7 +309,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-shadow-color":
     "Hue, saturation and lightness of every shadow, as space-separated HSL channels: `220 3% 15%`, and `220 40% 2%` in dark mode. Sets Open Props `--shadow-color`, which the `--shadow-*` steps read.",
   "--ui-shadow-control":
-    "Shadow of buttons with a variant and of fields. `none` by default, for themes that lift controls off the page.",
+    "Shadow of buttons with a variant, standalone `ToggleButton`, outlined `Chip` and fields. `none` by default, for themes that lift controls off the page.",
   "--ui-shadow-elevated":
     "Shadow of elevated `Card` and `Accordion`. Switches between `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one.",
   "--ui-shadow-elevated-dark": "`--ui-shadow-elevated` in dark mode.",
@@ -316,7 +317,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-shadow-field":
     "Shadow of `TextField`, `Textarea` and `Select` fields. When unset, they follow `--ui-shadow-control`. Set it to `none` to lift buttons but keep fields flat.",
   "--ui-shadow-overlay":
-    "Shadow of layers that float above the page: `Menu`, `Select` pickers and `Drawer`.",
+    "Shadow of layers that float above the page: `Dialog`, `Drawer`, `Menu`, `Select` pickers and the `Carousel` buttons.",
   "--ui-shadow-scroll":
     "Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.",
   "--ui-shadow-selected":
@@ -363,7 +364,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.",
   "--ui-surface-filled":
     "Background of filled areas such as progress tracks and table stripes.",
-  "--ui-surface-inverse": "Background of `Tooltip`, inverted against the page.",
+  "--ui-surface-inverse":
+    "Background of `Tooltip` and the `Carousel` buttons, inverted against the page.",
   "--ui-surface-tonal": "Background of tonal variants.",
   "--ui-surface-tonal-hover":
     "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s and filled `TextField`, `Select` and `Textarea` fields. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
@@ -395,7 +397,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-text":
     "Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.",
   "--ui-text-disabled":
-    "Text color of disabled buttons and chips. `--ui-text` mixed into `--ui-surface` at `--ui-text-disabled-strength`.",
+    "Text color of disabled buttons and chips. `--ui-text` mixed into `--ui-surface` at `--ui-text-disabled-strength`. Also the label and border of an unchecked disabled `ToggleButton`.",
   "--ui-text-disabled-strength":
     "How much of `--ui-text` is mixed into `--ui-surface` for `--ui-text-disabled`. `50%`, and `60%` with more contrast.",
   "--ui-text-max-chroma":
@@ -413,7 +415,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-text-subtle-on-inverse":
     "Subtle text color on an inverted fill: `kbd` and `var`, drawn on `--ui-text`.",
   "--ui-track-bg-color":
-    "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch a fixed gray.",
+    "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch `--ui-switch-track-bg-color`.",
   "--ui-underline-offset":
     "Gap between text and its underline: `Link` and rich text links, and in Firefox `abbr`, `dfn`, `ins` and `u`.",
   "--ui-underline-offset-small":

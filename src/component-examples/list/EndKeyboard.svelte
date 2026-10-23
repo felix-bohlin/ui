@@ -3,10 +3,10 @@
 </script>
 
 <List>
-  <ListItem headline="Save all">
+  <ListItem label="Save all">
     {#snippet end()}<kbd>Ctrl+Shift+S</kbd>{/snippet}
   </ListItem>
-  <ListItem headline="Save">
+  <ListItem label="Save">
     {#snippet end()}<kbd>Ctrl+S</kbd>{/snippet}
   </ListItem>
 </List>

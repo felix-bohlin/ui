@@ -9,9 +9,9 @@ const {
   description,
   disabled,
   for: htmlFor,
-  headline,
   href,
   inset,
+  label,
   type,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
@@ -21,16 +21,16 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const hasLabel = computed(
+const hasControl = computed(
   () => type === "checkbox" || type === "radio" || type === "switch",
 )
 const Tag = computed(() =>
-  hasLabel.value ? "label" : (as ?? (href ? "a" : undefined)),
+  hasControl.value ? "label" : (as ?? (href ? "a" : undefined)),
 )
 
-const liAttrs = computed(() => (hasLabel.value || !Tag.value ? attrs : {}))
+const liAttrs = computed(() => (hasControl.value || !Tag.value ? attrs : {}))
 const tagAttrs = computed(() =>
-  hasLabel.value
+  hasControl.value
     ? { class: `ui-${type}`, for: htmlFor }
     : {
         disabled: Tag.value === "button" ? disabled : undefined,
@@ -57,10 +57,14 @@ const tagAttrs = computed(() =>
       <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
-      <div v-if="headline || description || slots.text" class="ui-text">
-        <p v-if="headline">{{ headline }}</p>
-        <p v-if="description">{{ description }}</p>
-        <slot name="text"></slot>
+      <div
+        v-if="label || description || slots.label || slots.description"
+        class="ui-text"
+      >
+        <p v-if="label || slots.label">{{ label }}<slot name="label"></slot></p>
+        <p v-if="description || slots.description">
+          {{ description }}<slot name="description"></slot>
+        </p>
         <slot></slot>
       </div>
       <slot v-else></slot>
@@ -73,10 +77,14 @@ const tagAttrs = computed(() =>
       <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
-      <div v-if="headline || description || slots.text" class="ui-text">
-        <p v-if="headline">{{ headline }}</p>
-        <p v-if="description">{{ description }}</p>
-        <slot name="text"></slot>
+      <div
+        v-if="label || description || slots.label || slots.description"
+        class="ui-text"
+      >
+        <p v-if="label || slots.label">{{ label }}<slot name="label"></slot></p>
+        <p v-if="description || slots.description">
+          {{ description }}<slot name="description"></slot>
+        </p>
         <slot></slot>
       </div>
       <slot v-else></slot>

@@ -213,28 +213,27 @@ export const description =
     <h2 id="text">Text</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Main text lives in the <code>text</code> slot, or pass <code
-          >headline</code
-        >
-        {" "}and <code>description</code> props directly on <code>ListItem</code
-        >.
+        Pass <code>label</code> and <code>description</code> on <code
+          >ListItem</code
+        >, as props or as slots of the same name for rich content. The default
+        slot adds more content after them.
       </Fragment>
       <Fragment slot="html">
-        Main text lives in <code>div.ui-text</code>.
+        Main text lives in <code>div.ui-text</code>: the label is the first <code
+          >&lt;p&gt;</code
+        > and the description the second.
       </Fragment>
       <Fragment slot="react">
-        Main text lives in the <code>text</code> prop, or pass <code
-          >headline</code
-        >
-        {" "}and <code>description</code> props directly on <code>ListItem</code
-        >.
+        Pass <code>label</code> and <code>description</code> on <code
+          >ListItem</code
+        >, as text or as rich content. <code>children</code> adds more content after
+        them.
       </Fragment>
       <Fragment slot="svelte">
-        Main text lives in the <code>text</code> snippet, or pass <code
-          >headline</code
-        >
-        {" "}and <code>description</code> props directly on <code>ListItem</code
-        >.
+        Pass <code>label</code> and <code>description</code> on <code
+          >ListItem</code
+        >, as text or as snippets for rich content. <code>children</code> adds more
+        content after them.
       </Fragment>
     </Conditional>
 
@@ -457,7 +456,7 @@ export const description =
     <Anatomy api={listItemApi} zoom={1.25}>
       <UIList style="inline-size: 18rem">
         <ListItem
-          headline="Headline"
+          label="Headline"
           description="Supporting text"
           href="#clickable-list-item"
         >

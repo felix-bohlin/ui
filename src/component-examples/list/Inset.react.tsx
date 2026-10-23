@@ -4,7 +4,7 @@ export default function Inset() {
   return (
     <List>
       <ListItem
-        headline="No inset"
+        label="No inset"
         start={
           <svg
             aria-hidden="true"
@@ -20,10 +20,10 @@ export default function Inset() {
           </svg>
         }
       />
-      <ListItem inset headline="Inset class">
+      <ListItem inset label="Inset class">
         <p>Makes the text line up nicely</p>
       </ListItem>
-      <ListItem inset headline="Inset class" start="Hidden">
+      <ListItem inset label="Inset class" start="Hidden">
         <p>
           Any <code>div.ui-start</code> will be hidden when inset
         </p>

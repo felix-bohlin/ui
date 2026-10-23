@@ -6,10 +6,10 @@ export default function Selected() {
       <ListItem
         href="#"
         aria-current="page"
-        headline="Selected item"
+        label="Selected item"
         description='This item has aria-current="page" on its link'
       />
-      <ListItem href="#" headline="Normal item" />
+      <ListItem href="#" label="Normal item" />
     </List>
   )
 }

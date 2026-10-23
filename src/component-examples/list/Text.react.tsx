@@ -3,12 +3,12 @@ import { List, ListItem } from "opui-css/react"
 export default function Text() {
   return (
     <List>
-      <ListItem headline="Headline" />
+      <ListItem label="Headline" />
       <ListItem
-        headline="Headline"
+        label="Headline"
         description="Supporting text that truly is quite long enough to fill up multiple lines."
       />
-      <ListItem headline="Headline">
+      <ListItem label="Headline">
         <p>Supporting text</p>
         <p>Even more supporting text</p>
       </ListItem>

@@ -3,14 +3,14 @@
 </script>
 
 <List>
-  <ListItem headline="Headline">
+  <ListItem label="Headline">
     {#snippet end()}30kB{/snippet}
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     {#snippet end()}99%{/snippet}
   </ListItem>
   <ListItem
-    headline="Headline"
+    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
   >
     {#snippet end()}100+{/snippet}

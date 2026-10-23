@@ -9,7 +9,7 @@ export default {
   options: [
     {
       description:
-        'The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`.',
+        'The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`.',
       prop: "as",
     },
     {
@@ -40,7 +40,8 @@ export default {
       prop: "href",
     },
     {
-      description: "The `for` attribute of the `<label>` when `type` is set.",
+      description:
+        "The `for` attribute of the `<label>` when `type` is set, as `htmlFor` like on the element.",
       frameworks: ["react"],
       prop: "htmlFor",
     },
@@ -91,19 +92,20 @@ export default {
     {
       description: "The text content.",
       selector: ".ui-text",
-      slots: ["text"],
     },
     {
       code: "<p>",
-      description: "The headline, the first paragraph.",
-      props: ["headline"],
+      description: "The label, the first paragraph.",
+      props: ["label"],
       selector: ".ui-text > p:first-child",
+      slots: ["label"],
     },
     {
       code: "<p>",
       description: "Supporting text, the second paragraph.",
       props: ["description"],
       selector: ".ui-text > p + p",
+      slots: ["description"],
     },
     {
       description: "Optional content at the end, such as a value or an action.",
@@ -119,7 +121,7 @@ export default {
   slots: [
     {
       description:
-        "Extra content inside `.ui-text`, or all the content when there's no text.",
+        "More content inside `.ui-text`, after the label and description, or all the content when there's neither.",
       name: "default",
     },
     {

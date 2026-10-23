@@ -4,7 +4,7 @@ export default function StartImage() {
   return (
     <List>
       <ListItem
-        headline="Headline"
+        label="Headline"
         description="Supporting text"
         start={
           <img
@@ -16,7 +16,7 @@ export default function StartImage() {
         }
       />
       <ListItem
-        headline="Headline"
+        label="Headline"
         description="Supporting text"
         start={
           <img

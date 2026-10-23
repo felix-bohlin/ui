@@ -498,6 +498,9 @@ const whatsNew = {
     `New: <a href="#column"><code>.ui-l-column</code></a>, <a href="#row"><code>.ui-l-row</code></a>, <a href="#grid"><code>.ui-l-grid</code></a> and <a href="#container"><code>.ui-l-container</code></a> lay out the space between components.`,
   ],
   list: [
+    slots(
+      `Breaking: <code>ListItem</code> <a href="#text"><code>label</code></a> replaces <code>headline</code>, and the <code>label</code> and <code>description</code> slots replace the <code>text</code> slot.`,
+    ),
     {
       ...slots(
         `Breaking: <a href="#flush"><code>flush</code></a> replaces <code>gutterless</code>.`,

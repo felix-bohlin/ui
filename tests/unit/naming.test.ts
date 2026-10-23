@@ -57,6 +57,7 @@ const vocabulary: Record<string, { group: string; values: string[] }> = {
 const replaced: Record<string, string> = {
   alignment: "corner or positionArea",
   direction: "orientation",
+  headline: "label",
   gutterless: "flush",
   iconOnly: "aria-label",
   options: "items",

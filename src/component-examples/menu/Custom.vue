@@ -25,7 +25,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     <li class="ui-heading">Document</li>
     <ListItem
       as="button"
-      headline="Rename"
+      label="Rename"
       commandfor="menu-custom-1"
       command="hide-popover"
     >
@@ -45,7 +45,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     </ListItem>
     <ListItem
       as="button"
-      headline="Copy"
+      label="Copy"
       commandfor="menu-custom-1"
       command="hide-popover"
     >
@@ -63,7 +63,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
       </template>
       <template #end><kbd>Ctrl+C</kbd></template>
     </ListItem>
-    <ListItem headline="Open in new tab" href="#menu">
+    <ListItem label="Open in new tab" href="#menu">
       <template #start>
         <svg
           aria-hidden="true"
@@ -79,7 +79,7 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     </ListItem>
     <ListItem
       as="button"
-      headline="Delete"
+      label="Delete"
       borderTop
       color="critical"
       commandfor="menu-custom-1"

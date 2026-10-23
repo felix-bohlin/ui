@@ -24,7 +24,7 @@
   <li class="ui-heading">Document</li>
   <ListItem
     as="button"
-    headline="Rename"
+    label="Rename"
     commandfor="menu-custom-1"
     command="hide-popover"
   >
@@ -44,7 +44,7 @@
   </ListItem>
   <ListItem
     as="button"
-    headline="Copy"
+    label="Copy"
     commandfor="menu-custom-1"
     command="hide-popover"
   >
@@ -62,7 +62,7 @@
     {/snippet}
     {#snippet end()}<kbd>Ctrl+C</kbd>{/snippet}
   </ListItem>
-  <ListItem headline="Open in new tab" href="#menu">
+  <ListItem label="Open in new tab" href="#menu">
     {#snippet start()}
       <svg
         aria-hidden="true"
@@ -78,7 +78,7 @@
   </ListItem>
   <ListItem
     as="button"
-    headline="Delete"
+    label="Delete"
     borderTop
     color="critical"
     commandfor="menu-custom-1"

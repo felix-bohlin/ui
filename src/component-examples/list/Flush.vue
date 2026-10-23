@@ -4,7 +4,7 @@ import { Button, List, ListItem } from "opui-css/vue"
 
 <template>
   <List flush>
-    <ListItem headline="Gutterless list item">
+    <ListItem label="Gutterless list item">
       <template #end>
         <Button aria-label="Delete" round size="small">
           <svg
@@ -22,7 +22,7 @@ import { Button, List, ListItem } from "opui-css/vue"
         </Button>
       </template>
     </ListItem>
-    <ListItem headline="Headline" description="Supporting text">
+    <ListItem label="Headline" description="Supporting text">
       <template #start
         ><svg
           aria-hidden="true"

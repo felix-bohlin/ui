@@ -3,12 +3,12 @@
 </script>
 
 <List>
-  <ListItem headline="Headline" />
+  <ListItem label="Headline" />
   <ListItem
-    headline="Headline"
+    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
   />
-  <ListItem headline="Trailing supporting text">
+  <ListItem label="Trailing supporting text">
     {#snippet end()}100+{/snippet}
   </ListItem>
 </List>

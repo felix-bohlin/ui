@@ -15,7 +15,7 @@ export default function Submenu() {
       <Menu id="menu-submenu-1" items={[{ label: "New" }, { label: "Open" }]}>
         <ListItem
           as="button"
-          headline="Export"
+          label="Export"
           commandfor="menu-submenu-2"
           command="toggle-popover"
           end={

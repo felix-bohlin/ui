@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { content } from "../content.svelte"
   import type { Props } from "./types.svelte"
   import type { HTMLAttributes } from "svelte/elements"
 
@@ -7,28 +8,27 @@
     borderTop,
     class: className,
     color,
-    description,
     for: htmlFor,
-    headline,
     href,
     inset,
     type,
 
     // Snippets
     children,
+    description,
     end,
+    label,
     start,
     submenu,
-    text,
     ...rest
   }: Props = $props()
 
-  const hasLabel = $derived(
+  const hasControl = $derived(
     type === "checkbox" || type === "radio" || type === "switch",
   )
-  const Tag = $derived(hasLabel ? "label" : (as ?? (href ? "a" : undefined)))
+  const Tag = $derived(hasControl ? "label" : (as ?? (href ? "a" : undefined)))
   const tagProps = $derived(
-    hasLabel
+    hasControl
       ? { class: `ui-${type}`, for: htmlFor }
       : { href, type: Tag === "button" ? "button" : undefined, ...rest },
   )
@@ -40,11 +40,10 @@
       {@render start()}
     </div>
   {/if}
-  {#if headline || description || text}
+  {#if label || description}
     <div class="ui-text">
-      {#if headline}<p>{headline}</p>{/if}
-      {#if description}<p>{description}</p>{/if}
-      {@render text?.()}
+      {#if label}<p>{@render content(label)}</p>{/if}
+      {#if description}<p>{@render content(description)}</p>{/if}
       {@render children?.()}
     </div>
   {:else}
@@ -66,7 +65,7 @@
     color && `ui-${color}`,
     className,
   ]}
-  {...(hasLabel || !Tag ? rest : {}) as HTMLAttributes<HTMLLIElement>}
+  {...(hasControl || !Tag ? rest : {}) as HTMLAttributes<HTMLLIElement>}
 >
   {#if Tag}
     <svelte:element this={Tag} {...tagProps as HTMLAttributes<HTMLElement>}>

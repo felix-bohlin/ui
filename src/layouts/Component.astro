@@ -289,13 +289,13 @@ const learnPost = currentSlug
                   href={`https://github.com/felix-bohlin/ui/commit/${entry.hash}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  headline={entry.message}
+                  label={entry.message}
                 >
                   <time slot="end" datetime={entry.date}>
                     {entry.relativeDate}
                   </time>
                   {entry.types.length > 0 && (
-                    <span slot="text" class="changelog-types">
+                    <span class="changelog-types">
                       {entry.types.map((type) => (
                         <Chip label={type} variant="outlined" size="small" />
                       ))}

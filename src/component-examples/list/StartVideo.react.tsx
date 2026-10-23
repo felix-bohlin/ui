@@ -4,7 +4,7 @@ export default function StartVideo() {
   return (
     <List>
       <ListItem
-        headline="Headline"
+        label="Headline"
         description="Supporting text"
         start={
           <video controls muted>
@@ -17,7 +17,7 @@ export default function StartVideo() {
         end="13:37"
       />
       <ListItem
-        headline="Headline"
+        label="Headline"
         description="Supporting text"
         start={
           <video controls muted>

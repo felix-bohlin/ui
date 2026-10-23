@@ -550,6 +550,18 @@ Rows are no longer styled by `aria-selected="true"` on a `li`, `a`, `button` or 
 
 `type` can't be combined with `as` or `href` (types).
 
+`headline` is `label`, and the `text` slot is gone. Use the `label` and `description` props, or the slots of the same name for rich content.
+
+```diff
+- <ListItem headline="Inbox" description="3 new" />
++ <ListItem label="Inbox" description="3 new" />
+```
+
+```diff
+- <Fragment slot="text">Checkbox 1</Fragment>
++ <Fragment slot="label">Checkbox 1</Fragment>
+```
+
 ## Progress
 
 Without a visible label the progress bar aligns to the middle. Give it a hidden label (`.ui-sr-only` in HTML).

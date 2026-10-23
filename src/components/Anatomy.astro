@@ -108,12 +108,11 @@ const tour = [
             style={`--i: ${i}; --part: --${id}-part-${i + 1}; --marker: --${id}-marker-${i + 1}; --row: --${id}-row-${i + 1};`}
           >
             <span slot="start" class="marker" />
-            <Fragment slot="text">
-              <p>
-                <code>{part.label}</code>
-              </p>
-              <p set:html={formatInline(part.description, Astro.locals.link)} />
-            </Fragment>
+            <code slot="label">{part.label}</code>
+            <Fragment
+              slot="description"
+              set:html={formatInline(part.description, Astro.locals.link)}
+            />
             <span class="glow" aria-hidden="true" />
             <span class="frame" aria-hidden="true" />
             <span class="leader" aria-hidden="true">

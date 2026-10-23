@@ -3,8 +3,8 @@ export type Props = {
   color?: "critical"
   description?: string
   for?: string
-  headline?: string
   inset?: boolean
+  label?: string
 } & (
   | {
       as?: "a"
@@ -33,8 +33,9 @@ export type Props = {
 )
 
 export type Slots<S> = {
+  description?: string | S
   end?: S
+  label?: string | S
   start?: S
   submenu?: S
-  text?: S
 }

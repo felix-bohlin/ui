@@ -4,11 +4,11 @@
 
 <List>
   <ListItem type="switch">
-    {#snippet text()}Switch 1{/snippet}
+    {#snippet label()}Switch 1{/snippet}
     {#snippet end()}<SwitchInput />{/snippet}
   </ListItem>
   <ListItem type="switch">
-    {#snippet text()}Switch 2{/snippet}
+    {#snippet label()}Switch 2{/snippet}
     {#snippet end()}<SwitchInput />{/snippet}
   </ListItem>
 </List>

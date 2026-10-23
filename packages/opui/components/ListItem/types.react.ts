@@ -1,7 +1,9 @@
 import type * as Base from "./types"
 import type { ComponentProps, ReactNode } from "react"
 
-type WithoutFor<T> = T extends unknown ? Omit<T, "for"> : never
+type WithoutFor<T> = T extends unknown
+  ? Omit<T, "description" | "for" | "label">
+  : never
 
 // prettier-ignore
 export type Props =

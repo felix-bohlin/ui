@@ -4,18 +4,18 @@ export default function Variants() {
   return (
     <>
       <List>
-        <ListItem headline="Filled (default)" />
-        <ListItem headline="Second item" />
+        <ListItem label="Filled (default)" />
+        <ListItem label="Second item" />
       </List>
 
       <List variant="tonal">
-        <ListItem headline="Tonal" />
-        <ListItem headline="Second item" />
+        <ListItem label="Tonal" />
+        <ListItem label="Second item" />
       </List>
 
       <List variant="transparent">
-        <ListItem headline="Transparent" />
-        <ListItem headline="Second item" />
+        <ListItem label="Transparent" />
+        <ListItem label="Second item" />
       </List>
     </>
   )

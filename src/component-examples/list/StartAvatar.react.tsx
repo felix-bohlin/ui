@@ -4,11 +4,11 @@ export default function StartAvatar() {
   return (
     <List>
       <ListItem
-        headline="Headline"
+        label="Headline"
         start={<Avatar aria-hidden="true">AB</Avatar>}
       />
       <ListItem
-        headline="Headline"
+        label="Headline"
         description="Supporting text"
         start={
           <Avatar>

@@ -4,7 +4,7 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="No inset">
+    <ListItem label="No inset">
       <template #start
         ><svg
           aria-hidden="true"
@@ -19,10 +19,10 @@ import { List, ListItem } from "opui-css/vue"
           ></path></svg
       ></template>
     </ListItem>
-    <ListItem inset headline="Inset class">
+    <ListItem inset label="Inset class">
       <p>Makes the text line up nicely</p>
     </ListItem>
-    <ListItem inset headline="Inset class">
+    <ListItem inset label="Inset class">
       <template #start>Hidden</template>
       <p>Any <code>div.ui-start</code> will be hidden when inset</p>
     </ListItem>

@@ -3,7 +3,7 @@
 </script>
 
 <List flush>
-  <ListItem headline="Gutterless list item">
+  <ListItem label="Gutterless list item">
     {#snippet end()}
       <Button aria-label="Delete" round size="small">
         <svg
@@ -21,7 +21,7 @@
       </Button>
     {/snippet}
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     {#snippet start()}<svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"

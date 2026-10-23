@@ -4,7 +4,7 @@ export default function Flush() {
   return (
     <List flush>
       <ListItem
-        headline="Gutterless list item"
+        label="Gutterless list item"
         end={
           <Button aria-label="Delete" round size="small">
             <svg
@@ -23,7 +23,7 @@ export default function Flush() {
         }
       />
       <ListItem
-        headline="Headline"
+        label="Headline"
         description="Supporting text"
         start={
           <svg

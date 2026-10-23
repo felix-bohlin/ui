@@ -32,6 +32,7 @@
 - `DescriptionList` in Vue exports `DescriptionListDescription` instead of `Description`, like Astro.
 - `DescriptionList` `bordered` takes `"solid"` or `"dotted"` (`.ui-bordered-solid`, `.ui-bordered-dotted`) instead of `true` or `"dotted"` (`.ui-bordered`, and `.ui-dotted` with it).
 - `DescriptionList` items are plain `div`s: `DescriptionListItem` no longer renders `.ui-item`, and the list styles `dl.ui-description-list > div`.
+- `ListItem` `headline` is `label`, and the `text` slot is gone: `label` and `description` take a string or, as slots of the same name, rich content, rendered as the two paragraphs in `.ui-text`. The default slot adds more content after them.
 - `ListItem` `as` only accepts `"a"`, `"button"` or `"div"` (types).
 - `Tabs` render no `tablist`, `tab` or `tabpanel` roles and no `aria-controls`/`aria-labelledby`, so screen readers announce the radio group they are. `TabsItem` and `TabsPanel` no longer take `panelId`, and `TabsPanel` no longer takes `tabId`. `tabs.css` no longer matches `[role="tab"]` or `[role="tabpanel"]`, use `.ui-tab-label` and `.ui-tab-panel`.
 - `FieldGroup` no longer sets `role="group"`. Wrap it in a `FieldSet` (a `<fieldset>`, already a group) to group and name the fields. `FieldSet` with another element in `as` gets `role="group"`.

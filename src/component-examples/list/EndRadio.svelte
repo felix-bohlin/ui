@@ -4,14 +4,14 @@
 
 <List>
   <ListItem type="radio">
-    {#snippet text()}Radio 1{/snippet}
+    {#snippet label()}Radio 1{/snippet}
     {#snippet end()}<RadioInput
         name="radio-example-group"
         value="1"
       />{/snippet}
   </ListItem>
   <ListItem type="radio">
-    {#snippet text()}Radio 2{/snippet}
+    {#snippet label()}Radio 2{/snippet}
     {#snippet end()}<RadioInput
         name="radio-example-group"
         value="2"

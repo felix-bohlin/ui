@@ -7,24 +7,24 @@ export default function ListItem({
   borderTop,
   className,
   color,
-  description,
-  headline,
   href,
   htmlFor,
   inset,
   type,
   children,
+  description,
   end,
+  label,
   start,
   submenu,
-  text,
   ...rest
 }: Props) {
-  const hasLabel = type === "checkbox" || type === "radio" || type === "switch"
-  const Tag: ElementType | undefined = hasLabel
+  const hasControl =
+    type === "checkbox" || type === "radio" || type === "switch"
+  const Tag: ElementType | undefined = hasControl
     ? "label"
     : (as ?? (href ? "a" : undefined))
-  const tagProps = hasLabel
+  const tagProps = hasControl
     ? { className: `ui-${type}`, htmlFor }
     : {
         href,
@@ -35,11 +35,10 @@ export default function ListItem({
   const body = (
     <>
       {start && <div className="ui-start">{start}</div>}
-      {headline || description || text ? (
+      {label || description ? (
         <div className="ui-text">
-          {headline && <p>{headline}</p>}
+          {label && <p>{label}</p>}
           {description && <p>{description}</p>}
-          {text}
           {children}
         </div>
       ) : (
@@ -59,7 +58,7 @@ export default function ListItem({
         color && `ui-${color}`,
         className,
       ])}
-      {...(hasLabel || !Tag ? (rest as object) : {})}
+      {...(hasControl || !Tag ? (rest as object) : {})}
     >
       {Tag ? <Tag {...tagProps}>{body}</Tag> : body}
       {submenu}

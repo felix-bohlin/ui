@@ -25,7 +25,7 @@ export default function Custom() {
         <li className="ui-heading">Document</li>
         <ListItem
           as="button"
-          headline="Rename"
+          label="Rename"
           commandfor="menu-custom-1"
           command="hide-popover"
           start={
@@ -44,7 +44,7 @@ export default function Custom() {
         />
         <ListItem
           as="button"
-          headline="Copy"
+          label="Copy"
           commandfor="menu-custom-1"
           command="hide-popover"
           start={
@@ -62,7 +62,7 @@ export default function Custom() {
           end={<kbd>Ctrl+C</kbd>}
         />
         <ListItem
-          headline="Open in new tab"
+          label="Open in new tab"
           href="#menu"
           start={
             <svg
@@ -79,7 +79,7 @@ export default function Custom() {
         />
         <ListItem
           as="button"
-          headline="Delete"
+          label="Delete"
           borderTop
           color="critical"
           commandfor="menu-custom-1"

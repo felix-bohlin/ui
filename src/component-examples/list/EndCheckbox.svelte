@@ -4,11 +4,11 @@
 
 <List>
   <ListItem type="checkbox">
-    {#snippet text()}Checkbox 1{/snippet}
+    {#snippet label()}Checkbox 1{/snippet}
     {#snippet end()}<CheckboxInput />{/snippet}
   </ListItem>
   <ListItem type="checkbox">
-    {#snippet text()}Checkbox 2{/snippet}
+    {#snippet label()}Checkbox 2{/snippet}
     {#snippet end()}<CheckboxInput />{/snippet}
   </ListItem>
 </List>

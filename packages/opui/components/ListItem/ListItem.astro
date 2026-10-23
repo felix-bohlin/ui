@@ -11,16 +11,18 @@ const {
   color,
   description,
   for: htmlFor,
-  headline,
   inset,
+  label,
   type,
   ...rest
 } = Astro.props
 
-const hasLabel = type === "checkbox" || type === "radio" || type === "switch"
-const Tag = hasLabel ? "label" : as
-const liProps = Tag && !hasLabel ? {} : rest
-const tagProps = hasLabel
+const hasControl = type === "checkbox" || type === "radio" || type === "switch"
+const Tag = hasControl ? "label" : as
+const liProps = Tag && !hasControl ? {} : rest
+const hasLabel = !!label || Astro.slots.has("label")
+const hasDescription = !!description || Astro.slots.has("description")
+const tagProps = hasControl
   ? { class: `ui-${type}`, for: htmlFor }
   : { type: Tag === "button" ? ("button" as const) : undefined, ...rest }
 ---
@@ -46,11 +48,20 @@ const tagProps = hasLabel
             <slot name="start" />
           </div>
         )}
-        {headline || description || Astro.slots.text ? (
+        {hasLabel || hasDescription ? (
           <div class="ui-text">
-            {headline && <p>{headline}</p>}
-            {description && <p>{description}</p>}
-            <slot name="text" />
+            {hasLabel && (
+              <p>
+                {label}
+                <slot name="label" />
+              </p>
+            )}
+            {hasDescription && (
+              <p>
+                {description}
+                <slot name="description" />
+              </p>
+            )}
             <slot />
           </div>
         ) : (
@@ -70,11 +81,20 @@ const tagProps = hasLabel
             <slot name="start" />
           </div>
         )}
-        {headline || description || Astro.slots.text ? (
+        {hasLabel || hasDescription ? (
           <div class="ui-text">
-            {headline && <p>{headline}</p>}
-            {description && <p>{description}</p>}
-            <slot name="text" />
+            {hasLabel && (
+              <p>
+                {label}
+                <slot name="label" />
+              </p>
+            )}
+            {hasDescription && (
+              <p>
+                {description}
+                <slot name="description" />
+              </p>
+            )}
             <slot />
           </div>
         ) : (

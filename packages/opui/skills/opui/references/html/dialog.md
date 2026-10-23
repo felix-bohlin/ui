@@ -8,7 +8,7 @@ Use a Dialog for a question or a short task that needs the user's full attention
 
   Container element.
 
-- `<hgroup>`
+- `hgroup.ui-header`
 
   The dialog header. Names the dialog through `aria-labelledby`.
 
@@ -32,7 +32,7 @@ The terms "modal" and "dialog" are often used interchangeably, but there's an im
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
-Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-actions`. Name the dialog by pointing `aria-labelledby` at its title.
+Put the title in an `hgroup.ui-header`, the body in `.ui-content` and the buttons in `.ui-actions`. Name the dialog by pointing `aria-labelledby` at its title.
 
 ```html
 <button
@@ -49,7 +49,7 @@ Put the title in an `hgroup`, the body in `.ui-content` and the buttons in `.ui-
   class="ui-dialog ui-elevated"
   aria-labelledby="dialog-basics-1-title"
 >
-  <hgroup id="dialog-basics-1-title">
+  <hgroup class="ui-header" id="dialog-basics-1-title">
     <h2 class="ui-h4">Newsletter</h2>
   </hgroup>
   <div class="ui-content">
@@ -97,7 +97,7 @@ Actions sit at the end. Add `.ui-align-start` to `.ui-actions` to move them to t
   class="ui-dialog ui-elevated"
   aria-labelledby="dialog-actions-alignment-1-title"
 >
-  <hgroup id="dialog-actions-alignment-1-title">
+  <hgroup class="ui-header" id="dialog-actions-alignment-1-title">
     <h2 class="ui-h4">Keyboard shortcuts</h2>
   </hgroup>
   <div class="ui-content">
@@ -137,7 +137,7 @@ Use `role="alertdialog"` when the dialog interrupts with something that needs a 
   aria-labelledby="dialog-alert-dialog-1-title"
   aria-describedby="dialog-alert-dialog-1-description"
 >
-  <hgroup id="dialog-alert-dialog-1-title">
+  <hgroup class="ui-header" id="dialog-alert-dialog-1-title">
     <h2 class="ui-h4">Delete project?</h2>
   </hgroup>
   <div class="ui-content">
@@ -186,7 +186,7 @@ The dialog is up to `60ch` wide. Set `--_max-inline-size` on it for a wider or n
   style="--_max-inline-size: 40rem"
   aria-labelledby="dialog-width-1-title"
 >
-  <hgroup id="dialog-width-1-title">
+  <hgroup class="ui-header" id="dialog-width-1-title">
     <h2 class="ui-h4">Newsletter</h2>
   </hgroup>
   <div class="ui-content">
@@ -234,7 +234,7 @@ The dialog grows up to 85% of the viewport height. The header and actions stay p
   class="ui-dialog ui-elevated"
   aria-labelledby="dialog-long-content-1-title"
 >
-  <hgroup id="dialog-long-content-1-title">
+  <hgroup class="ui-header" id="dialog-long-content-1-title">
     <h2 class="ui-h4">Terms of service</h2>
   </hgroup>
   <div class="ui-content">
@@ -351,7 +351,7 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
   class="ui-dialog ui-elevated"
   closedby="any"
 >
-  <hgroup id="dialog-close-behaviors-1-title">
+  <hgroup class="ui-header" id="dialog-close-behaviors-1-title">
     <h2 class="ui-h4">How to close</h2>
   </hgroup>
   <div class="ui-content">
@@ -434,7 +434,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 | Part               | Description                                                    |
 | ------------------ | -------------------------------------------------------------- |
 | `dialog.ui-dialog` | Container element.                                             |
-| `<hgroup>`         | The dialog header. Names the dialog through `aria-labelledby`. |
+| `hgroup.ui-header` | The dialog header. Names the dialog through `aria-labelledby`. |
 | `.ui-content`      | The dialog content.                                            |
 | `.ui-actions`      | A group of actions, such as buttons.                           |
 
@@ -741,6 +741,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- The [header](#usage) takes `.ui-header` on its `hgroup`, like the `Drawer` header.
 - Opens over [`--ui-duration-slow`](#api), the overlay duration.
 - Breaking: `.ui-card` is no longer needed on [`.ui-dialog`](#usage), which `card.css` styles itself.
 - The dialog shadow is [`--ui-shadow-overlay`](#api), like Drawer and Menu.

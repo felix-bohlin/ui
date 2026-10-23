@@ -688,6 +688,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- [`DialogHeader`](#usage) renders `hgroup.ui-header`.
 - Opens over [`--ui-duration-slow`](#api), the overlay duration.
 - The dialog shadow is [`--ui-shadow-overlay`](#api), like Drawer and Menu.
 - [Long content](#long-content) scrolls between a fixed header and actions.

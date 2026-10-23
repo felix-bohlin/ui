@@ -5665,12 +5665,12 @@ Findings with a page and section in brackets come from the stress pages in `src/
     <th colspan="2" scope="colgroup">Nature</th>
     ```
   - Fixed: in all five Advanced formats "Country" has `scope="col"`, "Major Cities" and "Nature" `scope="colgroup"` and the second-row headers `scope="col"`, and the Advanced prose explains it.
-- [ ] (1) Table: the footers read "All great bands!" and "Scandinavia != The Nordics", which aren't the totals or summaries the Accessibility text says a `<tfoot>` is for. Table isn't in the open placeholder content question in Questions, which decides the tone for the other folders (`src/component-examples/table/Default.astro:47`, `src/component-examples/table/Advanced.astro:81`, `src/docs/components/table.astro:170-171`)
+- [ ] (1) Table: the footers read "All great bands!" and "Scandinavia != The Nordics", which aren't the totals or summaries the Accessibility text says a `<tfoot>` is for. Table isn't in the open placeholder content question in Questions, which decides the tone for the other folders (`src/component-examples/table/Normal.astro:47`, `src/component-examples/table/Advanced.astro:83`, `src/docs/components/table.astro:170-171`)
   - Fix: a summary row, such as "4 members" and "5 countries", unless that question keeps the playful content.
   > Fix
-- [ ] (1) Table: the What's new note "Fields and selects in cells keep a `12ch` minimum width, in every variant" links `#variants`, but no table example puts a field or select in a cell (`src/utils/whats-new.ts:625`, `src/docs/components/table.astro:93-116`, `packages/opui/css/components/text-field.css:340-342`)
+- [ ] (1) Table: the What's new note "Fields and selects in cells keep a `12ch` minimum width, in every density" links `#density`, but no table example puts a field or select in a cell (`src/utils/whats-new.ts:733`, `src/docs/components/table.astro:93-116`, `packages/opui/css/components/text-field.css:340-342`)
   - Options:
-    - A: add a cell with a `TextField` or `Select` to one variant example (or a small "Controls in cells" example) and point the note at it.
+    - A: add a cell with a `TextField` or `Select` to one density example (or a small "Controls in cells" example) and point the note at it.
     - B: drop the link.
   > Fix
 - [x] (1) Tabs: in `custom-properties/tabs.ts`, `--_active-bg-color` has no default while every sibling names one, `--_active-border-color` says "the variant classes set it" where all three set it to `transparent`, and `--_border-radius` says the tab radius is "reduced by `--_inset`" while the CSS also subtracts `--_track-border-width` (`src/component-api/custom-properties/tabs.ts:4-12,23-27`, `packages/opui/css/components/tabs.css:4-7,104-106,174,180,192`)
@@ -6171,7 +6171,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A: add `src/component-examples/checkbox/BasicsCode.html` with the markup only.
     - B: have the script import and call `activateIndeterminate()` so the snippet matches the prose.
   > Fix
-- [ ] (2) Chip: the Dot prose says "The shape follows the color … so the dots differ without color too", but only `critical` (diamond), `warning` (triangle) and `neutral` (ring) get a shape. `info` and `success` are both plain filled circles, so Processing and Paid in the Dot example have identical dots once color is gone (`src/docs/components/chip.astro:140-153`, `packages/opui/css/components/chip.css:109-142`, `src/component-examples/chip/Dot.html:6-8,14-16,28-30,36-38`)
+- [ ] (2) Chip: the Dot prose says "The shape follows the severity … so the dots differ without color too", but only `critical` (diamond), `warning` (triangle) and `neutral` (ring) get a shape. `info` and `success` are both plain filled circles, so Processing and Paid in the Dot example have identical dots once color is gone (`src/docs/components/chip.astro:140-153`, `packages/opui/css/components/chip.css:109-142`, `src/component-examples/chip/Dot.html:6-8,14-16,28-30,36-38`)
   - Options:
     - A: give `info` or `success` its own shape (for example a square for `info`) and keep the sentence.
     - B: change it to "critical, warning and neutral have their own shapes; info and success are round, so keep the status in the label"
@@ -6326,9 +6326,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (2) Switch: the What's new note "A checked invalid switch turns its track red" links `#validation`, but no switch on the page is both checked and invalid: the Validation, Spread and field group Validation examples set `error` on unchecked switches only (`src/utils/whats-new.ts:605`, `src/component-examples/switch/Validation.astro:10-18`, `src/component-examples/switch/Spread.astro:20-23`, `src/component-examples/switch/FieldGroupValidation.astro:9-11`)
   - Fix: check one invalid switch in `Validation` in all five formats so the red track shows.
   - Fixed: the first invalid switch in Validation is checked in all five formats, so the red track shows.
-- [ ] (2) Table: the What's new note "A checkbox alone in a cell is centered" links `#default`, but no table example has a checkbox (`src/utils/whats-new.ts:620`, `src/component-examples/table/Default.astro:14-50`, `packages/opui/css/components/table.css:49-58`)
+- [ ] (2) Table: the What's new note "A checkbox alone in a cell is centered" links `#normal`, but no table example has a checkbox (`src/utils/whats-new.ts:728`, `src/component-examples/table/Normal.astro:14-50`, `packages/opui/css/components/table.css:49-58`)
   - Options:
-    - A: add a selection column with a `Checkbox hideLabel` to the Default example in all five formats.
+    - A: add a selection column with a `Checkbox hideLabel` to the Normal example in all five formats.
     - B: add a "Selection" example and link the note to it.
   > Fix
   > Add example
@@ -6893,10 +6893,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: every option has its own group (Scroll and Shrink, Spread and Stack, Disabled and Checked) in the Button group, Toggle group, Checkbox, Radio, Switch and Toggle button APIs, and `checkApi` warns when two options share a group.
-- [ ] (1) Accordion, Card: an Accordion without a variant is transparent (it also takes `.ui-card`, and `accordion.css` wins from `components.extended`), while a Card without a variant has the page surface and is only transparent with `variant="text"`, which Accordion doesn't take. The note at the done item "Card and Accordion get the page background with no variant" no longer holds for Accordion (`packages/opui/css/components/accordion.css:8,42-64`, `packages/opui/css/components/card.css:4,13,32-37`)
+- [ ] (1) Accordion, Card: an Accordion without a variant is transparent (it also takes `.ui-card`, and `accordion.css` wins from `components.extended`), while a Card without a variant has the page surface (`plain`) and is only transparent with `variant="transparent"` (`.ui-transparent`). The note at the done item "Card and Accordion get the page background with no variant" no longer holds for Accordion (`packages/opui/css/components/accordion.css:8,42-64`, `packages/opui/css/components/card.css:2-13,32-37`)
   - Fix: Is the transparent Accordion baseline intended? If so, the API descriptions already say it. Otherwise Accordion follows Card.
   > Fix
   > That wasn’t intended
+  - Still open: the naming model now names this default: Accordion's `variant` is `"elevated" | "outlined" | "tonal" | "transparent"` with `transparent` as the default, the 6.0.0 rename of `variant="default"` (CHANGELOG Breaking, MIGRATING). Following Card changes that rename and how every accordion without a variant looks, so it needs a choice.
+  - Options:
+    - A: Accordion follows Card: add `plain` (the page surface, no border) as the default, keep `transparent` as a variant, and point the `variant="default"` Breaking entry at `plain`.
+    - B: keep `transparent` as Accordion's default, as the naming model has it, and say in the Accordion Variants prose that it differs from Card.
 - [ ] (1) Avatar: link avatars can't be disabled (`disabled?: never` with `href`), while Button and Chip links can, through `aria-disabled="true"` and the dropped `href` that `tagAttrs` already handles (`packages/opui/components/Avatar/types.ts:5-19`, `packages/opui/components/Chip/types.ts`, `packages/opui/components/tag.ts:1-6`)
   - Fix: Should Avatar allow `disabled` on links like Chip?
   > Fix
@@ -6933,7 +6937,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   > Yes, although we should be any to show what’s a dependency and what’s not maybe?
   - Partly fixed: `dialog.css` declares `--_elevated-shadow: var(--ui-shadow-overlay)` itself and `custom-properties/dialog.ts` documents it, so the Dialog table lists it.
-- [ ] (1) Examples: many examples use placeholder or joke content: Lorem ipsum in Accordion and Drawer Basics; "Legend", "Checkbox 1/2/3", "Radio 1/2/3", "Switch 1", "These are required!" and "Something went wrong!" in the Checkbox, Radio and Switch field group examples; "Headline" and "Supporting text" as List content; meta labels in Range ("Label", "Invalid Range", "No variant = var(--ui-field-border-color)"); "Pick me!", "No me!!" and "Uh-oh" in the Select and TextField Validation examples; three identical labels per Button group. Spread, Binding and FieldGroupBinding already use real content. The done item at TODO.md:3880 keeps the informal voice in prose (`src/component-examples/{accordion,button-group,checkbox,drawer,form,list,radio,range,select,switch,text-field,textarea}/`)
+- [ ] (1) Examples: many examples use placeholder or joke content: Lorem ipsum in Accordion and Drawer Basics; "Legend", "Checkbox 1/2/3", "Radio 1/2/3", "Switch 1", "These are required!" and "Something went wrong!" in the Checkbox, Radio and Switch field group examples; "Headline" and "Supporting text" as List content; meta labels in Range ("Label", "Invalid Range", "`outlined` (default) = var(--ui-field-border-color)"); "Pick me!", "No me!!" and "Uh-oh" in the Select and TextField Validation examples; three identical labels per Button group. Spread, Binding and FieldGroupBinding already use real content. The done item at TODO.md:3880 keeps the informal voice in prose (`src/component-examples/{accordion,button-group,checkbox,drawer,form,list,radio,range,select,switch,text-field,textarea}/`)
   - Options:
     - A: replace them with short realistic content (an FAQ, "Notifications" with Email, Push and SMS, "Volume").
     - B: keep the playful ones as the site's voice.
@@ -10353,11 +10357,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: `Example.astro` handles `data-toggle-class`/`data-toggle-target` on a control, and Badge, Drawer, List, Text field and Form's size toggle use it, so their scripts are gone. List renders one Switch with `PropOrClass`.
-  - Still open: Form's spread toggle stays custom, because it sets `.ui-spread` on the fields and `.ui-row` on the radio group, two classes on two targets.
+  - Still open: Form's spread toggle stays custom, because it sets `.ui-spread` on the fields and `.ui-horizontal` on the radio group, two classes on two targets.
   - Options:
     - A: keep it custom.
     - B: allow several class and target pairs per control.
-    - C: drop the `.ui-row` part.
+    - C: drop the `.ui-horizontal` part.
   > Fix
 - [x] (2) Drawer, Tooltip: the same "four triggers in a cross" layout is built two ways. Drawer uses `.drawer-examples` plus `.top`/`.left`/`.right`/`.bottom` classes, with the CSS in the page's `is:global` style and again in `Usage.html`, where `.top` and the others are unscoped page-wide classes. Tooltip pastes a `.tooltip-alignment-grid` `<style>` into all five files (`src/component-examples/drawer/Usage.html:262-291`, `src/docs/components/drawer.astro:424-453`, `src/component-examples/tooltip/Alignment.astro:40-64`, `src/component-examples/tooltip/Alignment.html:66-93`, `src/component-examples/tooltip/Alignment.react.tsx:33-57`, `src/component-examples/tooltip/Alignment.svelte:40-66`, `src/component-examples/tooltip/Alignment.vue:46-70`)
   - Today:
@@ -10850,7 +10854,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: removed the three dead entries, the two orphaned files and the unused `source` option, and `tests/unit/todo-examples.test.ts` checks that every example matches exactly one item.
-- [ ] (2) Tooling: `sort-css` only looks at `.astro`, `.css`, `.svelte` and `.vue` files, so the `<style>` blocks in `src/**/*.html` are never checked: 36 blocks, 5 stress pages, 127 todo examples and 6 component examples, and the block CSS is what users copy from the CSS tab. Three are already unsorted, although AGENTS.md says declarations are sorted "in `<style>` blocks". Separately, `css-declaration-sorter` leaves `--*` declarations untouched, so six rules have unsorted private properties, two of them in files an earlier fix sorted by hand (`scripts/sort-css.mjs:11-21`, `src/blocks/analytics-dashboard.html:101-102`, `src/component-examples/drawer/Usage.html:264-271`, `src/component-examples/tooltip/Alignment.html:68-75`, `packages/opui/css/components/callout.css:2-20`)
+- [ ] (2) Tooling: `sort-css` only looks at `.astro`, `.css`, `.svelte` and `.vue` files, so the `<style>` blocks in `src/**/*.html` are never checked: 36 blocks, 5 stress pages, 127 todo examples and 6 component examples, and the block CSS is what users copy from the CSS tab. Three are already unsorted, although AGENTS.md says declarations are sorted "in `<style>` blocks". Separately, `css-declaration-sorter` leaves `--*` declarations untouched, so six rules have unsorted private properties, two of them in files an earlier fix sorted by hand (`scripts/sort-css.mjs:11-21`, `src/blocks/analytics-dashboard.html:101-102`, `src/component-examples/drawer/Usage.html:264-271`, `src/component-examples/tooltip/Position.html`, `packages/opui/css/components/callout.css:2-20`)
   - Today:
     ```
     const files = await globby(
@@ -11166,11 +11170,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (2) Drawer: `DrawerHeader` inside a `Drawer` now closes it with `command="close"` and `commandfor` set to the drawer id, in Astro and Vue too (before: an inline `onclick` when `commandfor` wasn't passed). On `/astro/test/drawer`, `/vue/test/drawer` (`OPUI_TEST_PAGES=1 pnpm dev`) and the site's mobile menu, check in Chromium, Firefox 144+ and Safari 26.2+ that Tab to the close button, then Enter, closes the drawer and focus goes back to the trigger. Also check that `commandfor` matches the `<dialog>` id when no `id` is passed (`packages/opui/components/Drawer/DrawerHeader.astro:16-20`, `DrawerHeader.vue:15-19`)
   - Renders:
     ```html
-    <dialog
-      class="ui-drawer ui-inline-start"
-      id="drawer-1"
-      aria-labelledby="drawer-1-heading"
-    >
+    <dialog class="ui-drawer" id="drawer-1" aria-labelledby="drawer-1-heading">
       <div class="ui-header">
         <h2 id="drawer-1-heading">Filters</h2>
         <button aria-label="Close" command="close" commandfor="drawer-1">

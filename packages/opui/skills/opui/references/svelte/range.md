@@ -51,7 +51,10 @@ Use the `variant` prop to swap the track surface for better contrast on differen
   import { Range } from "opui-css/svelte"
 </script>
 
-<Range>No variant = <code>var(--ui-field-border-color)</code></Range>
+<Range
+  ><code>outlined</code> (default) =
+  <code>var(--ui-field-border-color)</code></Range
+>
 <Range variant="filled">
   <code>filled</code> = <code>var(--ui-surface-filled)</code>
 </Range>

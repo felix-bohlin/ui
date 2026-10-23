@@ -53,7 +53,8 @@ Use the `.ui-filled` or `.ui-tonal` class to swap the track surface for better c
 ```html
 <label class="ui-range">
   <span class="ui-label" id="range-surfaces-1-label"
-    >No variant = <code>var(--ui-field-border-color)</code></span
+    ><code>outlined</code> (default) =
+    <code>var(--ui-field-border-color)</code></span
   >
   <input aria-labelledby="range-surfaces-1-label" type="range" />
 </label>

@@ -17,7 +17,7 @@ import { Button, Menu } from "opui-css/vue"
       { text: 'Duplicate', shortcut: 'Ctrl+D' },
       { text: 'Archive', disabled: true },
       { text: 'Help', href: '#basics' },
-      { text: 'Delete', borderTop: true, critical: true },
+      { text: 'Delete', borderTop: true, color: 'critical' },
     ]"
   />
 </template>

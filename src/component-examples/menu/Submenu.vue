@@ -34,7 +34,7 @@ const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
         </svg>
       </template>
       <template #submenu>
-        <Menu id="menu-submenu-2" :items="formats" placement="inline-end" />
+        <Menu id="menu-submenu-2" :items="formats" side="inline-end" />
       </template>
     </ListItem>
   </Menu>

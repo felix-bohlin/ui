@@ -114,8 +114,8 @@ export const description =
         > to add a marker per item.</Fragment
       >
       <Fragment slot="html"
-        >Add <code>.ui-with-buttons</code> for previous and next buttons, and <code
-          >.ui-with-markers</code
+        >Add <code>.ui-buttons</code> for previous and next buttons, and <code
+          >.ui-markers</code
         > for a marker per item.</Fragment
       >
     </Conditional>
@@ -215,7 +215,7 @@ export const description =
     <p>
       Use <PropOrClass
         prop="persistentButtons"
-        class=".ui-buttons-persistent"
+        class=".ui-persistent-buttons"
       /> to keep both buttons visible at the ends. A disabled button has a muted border.
     </p>
 
@@ -294,7 +294,7 @@ export const description =
       <div class="carousel-playground" data-carousel-playground>
         <ul
           aria-label="Photos"
-          class="ui-carousel ui-with-buttons"
+          class="ui-carousel ui-buttons"
           data-content="images"
           style="--_block-size: 20rem"
         >
@@ -314,7 +314,7 @@ export const description =
         </ul>
         <ul
           aria-label="Destinations"
-          class="ui-carousel ui-with-buttons"
+          class="ui-carousel ui-buttons"
           data-content="cards"
           hidden
           style="--_block-size: 20rem"
@@ -342,10 +342,10 @@ export const description =
   <section>
     <h2 id="grid-and-flex-layouts">Grid and flex layouts</h2>
     <p>
-      With <PropOrClass prop="markers" class=".ui-with-markers" />, the markers
-      are a box next to the carousel, not inside it. In a grid or flex parent
-      they become an item of their own and land in the next cell. Wrap the
-      carousel in a <code>div</code> to keep them together.
+      With <PropOrClass prop="markers" class=".ui-markers" />, the markers are a
+      box next to the carousel, not inside it. In a grid or flex parent they
+      become an item of their own and land in the next cell. Wrap the carousel
+      in a <code>div</code> to keep them together.
     </p>
 
     <AutoExample name="GridLayout" />
@@ -405,12 +405,12 @@ export const description =
     const classes = [
       "ui-carousel",
       state.buttons === "outside" && "ui-buttons-outside",
-      state.persistentButtons && "ui-buttons-persistent",
+      state.persistentButtons && "ui-persistent-buttons",
       state.peek && "ui-peek",
       state.stretch && "ui-stretch",
       state.orientation && "ui-vertical",
-      state.buttons !== "none" && "ui-with-buttons",
-      state.markers && "ui-with-markers",
+      state.buttons !== "none" && "ui-buttons",
+      state.markers && "ui-markers",
       state.align && "ui-align-center",
     ].filter(Boolean)
     const style = [
@@ -492,14 +492,14 @@ export const description =
           state.buttons === "outside",
         )
         carousel.classList.toggle(
-          "ui-buttons-persistent",
+          "ui-persistent-buttons",
           state.persistentButtons,
         )
         carousel.classList.toggle("ui-peek", state.peek)
         carousel.classList.toggle("ui-stretch", state.stretch)
         carousel.classList.toggle("ui-vertical", !!state.orientation)
-        carousel.classList.toggle("ui-with-buttons", state.buttons !== "none")
-        carousel.classList.toggle("ui-with-markers", state.markers)
+        carousel.classList.toggle("ui-buttons", state.buttons !== "none")
+        carousel.classList.toggle("ui-markers", state.markers)
         carousel.style.setProperty("--_per-view", String(state.perView))
         carousel.style.setProperty("--_media-aspect-ratio", state.aspectRatio)
       }

@@ -8,12 +8,12 @@ export const title = "Chip"
 const {
   as,
   class: className,
-  color,
   disabled,
   dot,
   href,
   label,
   multiline,
+  severity,
   size,
   variant = "tonal",
   ...rest
@@ -29,7 +29,7 @@ const Tag = as || (href ? "a" : "div")
       "ui-dot": dot,
       "ui-multiline": multiline,
     },
-    color && `ui-${color}`,
+    severity && `ui-${severity}`,
     size && `ui-${size}`,
     variant && `ui-${variant}`,
     className,

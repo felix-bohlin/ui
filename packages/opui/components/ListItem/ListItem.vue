@@ -5,7 +5,7 @@ import type { Props, Slots } from "./types.d.vue"
 const {
   as,
   borderTop,
-  critical,
+  color,
   description,
   disabled,
   for: htmlFor,
@@ -46,9 +46,9 @@ const tagAttrs = computed(() =>
     :class="[
       {
         'ui-border-top': borderTop,
-        'ui-critical': critical,
         'ui-inset': inset,
       },
+      color && `ui-${color}`,
       $props.class,
     ]"
     v-bind="liAttrs"

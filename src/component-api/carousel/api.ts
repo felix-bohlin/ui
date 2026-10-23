@@ -30,13 +30,13 @@ export default {
       prop: "aspectRatio",
     },
     {
-      class: ".ui-with-buttons",
+      class: ".ui-buttons",
       default: "true",
       description:
         'Previous and next buttons. `"outside"` places them beside the items.',
       group: "Buttons",
       htmlDescription:
-        "Previous and next buttons. `.ui-buttons-outside` places them beside the items, together with `.ui-with-buttons`.",
+        "Previous and next buttons. `.ui-buttons-outside` places them beside the items, together with `.ui-buttons`.",
       prop: "buttons",
       values: { outside: ".ui-buttons-outside" },
     },
@@ -50,7 +50,7 @@ export default {
       prop: "motionOff",
     },
     {
-      class: ".ui-with-markers",
+      class: ".ui-markers",
       default: "false",
       description: "One marker per item, after the list.",
       group: "Markers",
@@ -72,7 +72,7 @@ export default {
       prop: "peek",
     },
     {
-      class: ".ui-buttons-persistent",
+      class: ".ui-persistent-buttons",
       default: "false",
       description:
         "Keeps the buttons visible at the ends. A disabled button has a muted border.",

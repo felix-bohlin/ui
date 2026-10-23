@@ -12,8 +12,8 @@ const {
   dense,
   id,
   items,
-  placement,
   popover = "auto",
+  side,
   ...rest
 } = Astro.props
 
@@ -34,7 +34,7 @@ const html = await menuContext.provide({ rootId }, () =>
       "ui-bordered": bordered,
       "ui-dense": dense,
     },
-    placement && placement !== "block-end" && `ui-${placement}`,
+    side && side !== "block-end" && `ui-${side}`,
     className,
   ]}
   id={menuId}
@@ -46,7 +46,7 @@ const html = await menuContext.provide({ rootId }, () =>
       ({
         borderTop,
         closeOnClick = true,
-        critical,
+        color,
         disabled,
         href,
         shortcut,
@@ -59,7 +59,8 @@ const html = await menuContext.provide({ rootId }, () =>
         return (
           <li
             class:list={[
-              { "ui-border-top": borderTop, "ui-critical": critical },
+              { "ui-border-top": borderTop },
+              color && `ui-${color}`,
             ]}
           >
             <Tag

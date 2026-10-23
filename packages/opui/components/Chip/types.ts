@@ -1,8 +1,8 @@
 export type Props = {
-  color?: "critical" | "info" | "neutral" | "success" | "warning"
   dot?: boolean
   label?: string
   multiline?: boolean
+  severity?: "critical" | "info" | "neutral" | "success" | "warning"
   size?: "x-small" | "small" | "large"
   variant?: "outlined" | "tonal"
 } & (

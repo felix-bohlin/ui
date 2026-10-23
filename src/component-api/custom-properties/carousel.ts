@@ -22,7 +22,7 @@ export default {
   },
   "--_button-disabled-opacity": {
     description:
-      "Opacity of disabled scroll buttons. `0` hides them, `.ui-buttons-persistent` sets `1`.",
+      "Opacity of disabled scroll buttons. `0` hides them, `.ui-persistent-buttons` sets `1`.",
     kind: "input",
   },
   "--_button-end-flip": {

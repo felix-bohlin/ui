@@ -121,7 +121,7 @@
     }
 
     /* Buttons */
-    &.ui-with-buttons {
+    &.ui-buttons {
       &::scroll-button(inline-start),
       &::scroll-button(inline-end),
       &.ui-vertical::scroll-button(block-start),
@@ -206,7 +206,7 @@
             margin-block: calc(var(--_button-size) + var(--_button-inset));
             margin-inline: 0;
 
-            &.ui-with-markers {
+            &.ui-markers {
               margin-inline-end: calc(
                 var(--_marker-size) + var(--_markers-gap)
               );
@@ -250,7 +250,7 @@
         outline-offset: var(--ui-focus-ring-offset);
       }
 
-      &.ui-buttons-persistent {
+      &.ui-persistent-buttons {
         --_button-disabled-opacity: 1;
       }
 
@@ -276,7 +276,7 @@
     }
 
     /* Markers */
-    &.ui-with-markers {
+    &.ui-markers {
       scroll-marker-group: after;
 
       &::scroll-marker-group {
@@ -336,7 +336,7 @@
       }
     }
 
-    &.ui-vertical.ui-with-markers {
+    &.ui-vertical.ui-markers {
       anchor-name: --ui-carousel;
       anchor-scope: --ui-carousel;
 
@@ -358,7 +358,7 @@
 
     /* Firefox and Safari fallback */
     @supports selector(::scroll-button(*)) {
-      &:is(.ui-with-buttons, .ui-with-markers) {
+      &:is(.ui-buttons, .ui-markers) {
         scrollbar-width: none;
       }
     }

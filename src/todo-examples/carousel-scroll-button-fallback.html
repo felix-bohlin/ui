@@ -1,7 +1,7 @@
 <style>
   @layer components.extended {
     @scope (.todo-fixed) {
-      :where(.ui-carousel).ui-with-buttons {
+      :where(.ui-carousel).ui-buttons {
         &::scroll-button(inline-start),
         &::scroll-button(inline-end) {
           inset-block-start: anchor(center, 50%);
@@ -35,7 +35,7 @@
     <p class="todo-label">Current</p>
     <div class="todo-carousel">
       <ul
-        class="ui-carousel ui-buttons-outside ui-with-buttons ui-with-markers"
+        class="ui-carousel ui-buttons-outside ui-buttons ui-markers"
         aria-label="Destinations"
       >
         <li>
@@ -90,7 +90,7 @@
     <p class="todo-label">Proposed: <code>anchor()</code> fallbacks</p>
     <div class="todo-carousel">
       <ul
-        class="ui-carousel ui-buttons-outside ui-with-buttons ui-with-markers"
+        class="ui-carousel ui-buttons-outside ui-buttons ui-markers"
         aria-label="Destinations"
       >
         <li>

@@ -6,7 +6,7 @@ export default function ListItem({
   as,
   borderTop,
   className,
-  critical,
+  color,
   description,
   headline,
   href,
@@ -54,9 +54,9 @@ export default function ListItem({
       className={cx([
         {
           "ui-border-top": borderTop,
-          "ui-critical": critical,
           "ui-inset": inset,
         },
+        color && `ui-${color}`,
         className,
       ])}
       {...(hasLabel || !Tag ? (rest as object) : {})}

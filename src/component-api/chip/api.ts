@@ -10,18 +10,6 @@ export default {
       type: '"a" | "button" | "div"',
     },
     {
-      description: "Optional colors.",
-      group: "Colors",
-      prop: "color",
-      values: {
-        critical: ".ui-critical",
-        info: ".ui-info",
-        neutral: ".ui-neutral",
-        success: ".ui-success",
-        warning: ".ui-warning",
-      },
-    },
-    {
       class: ".ui-disabled",
       default: "false",
       description:
@@ -43,7 +31,7 @@ export default {
       class: ".ui-dot",
       default: "false",
       description:
-        "Adds a leading dot in the chip's color. Its shape follows the color.",
+        "Adds a leading dot in the chip's color. Its shape follows the severity.",
       group: "Dot",
       prop: "dot",
     },
@@ -57,6 +45,19 @@ export default {
       description: "Lets the label wrap to multiple lines.",
       group: "Layout",
       prop: "multiline",
+    },
+    {
+      description:
+        "The severity of a status chip. It tints the chip and shapes its dot.",
+      group: "Severities",
+      prop: "severity",
+      values: {
+        critical: ".ui-critical",
+        info: ".ui-info",
+        neutral: ".ui-neutral",
+        success: ".ui-success",
+        warning: ".ui-warning",
+      },
     },
     {
       description: "The size of the element.",

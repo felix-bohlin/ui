@@ -9,8 +9,8 @@
     dense,
     id,
     items,
-    placement,
     popover = "auto",
+    side,
 
     // Snippets
     children,
@@ -38,16 +38,16 @@
       "ui-bordered": bordered,
       "ui-dense": dense,
     },
-    placement && placement !== "block-end" && `ui-${placement}`,
+    side && side !== "block-end" && `ui-${side}`,
     className,
   ]}
   id={menuId}
   popover={popover === "auto" ? "" : popover}
   {...rest}
 >
-  {#each items ?? [] as { borderTop, closeOnClick = true, critical, disabled, href, shortcut, text, ...itemRest }, index (index)}
+  {#each items ?? [] as { borderTop, closeOnClick = true, color, disabled, href, shortcut, text, ...itemRest }, index (index)}
     {@const closes = !href && closeOnClick && !disabled}
-    <li class={[{ "ui-border-top": borderTop, "ui-critical": critical }]}>
+    <li class={[{ "ui-border-top": borderTop }, color && `ui-${color}`]}>
       <svelte:element
         this={href ? "a" : "button"}
         aria-disabled={href && disabled ? "true" : undefined}

@@ -20,11 +20,11 @@ export default {
       prop: "borderTop",
     },
     {
-      class: ".ui-critical",
-      default: "false",
-      description: "A destructive item in a [Menu](/components/menu).",
+      description:
+        "Optional colors. `critical` marks a destructive item in a [Menu](/components/menu).",
       group: "Colors",
-      prop: "critical",
+      prop: "color",
+      values: { critical: ".ui-critical" },
     },
     {
       description: 'Disables the item when `as` is `"button"`.',

@@ -12,8 +12,8 @@ export default function Menu({
   dense,
   id,
   items,
-  placement,
   popover = "auto",
+  side,
   children,
   ...rest
 }: Props) {
@@ -31,7 +31,7 @@ export default function Menu({
           "ui-bordered": bordered,
           "ui-dense": dense,
         },
-        placement && placement !== "block-end" && `ui-${placement}`,
+        side && side !== "block-end" && `ui-${side}`,
         className,
       ])}
       id={menuId}
@@ -43,7 +43,7 @@ export default function Menu({
           {
             borderTop,
             closeOnClick = true,
-            critical,
+            color,
             disabled,
             href,
             shortcut,
@@ -58,7 +58,8 @@ export default function Menu({
           return (
             <li
               className={cx([
-                { "ui-border-top": borderTop, "ui-critical": critical },
+                { "ui-border-top": borderTop },
+                color && `ui-${color}`,
               ])}
               key={index}
             >

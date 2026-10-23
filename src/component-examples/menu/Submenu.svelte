@@ -29,7 +29,7 @@
       </svg>
     {/snippet}
     {#snippet submenu()}
-      <Menu id="menu-submenu-2" items={formats} placement="inline-end" />
+      <Menu id="menu-submenu-2" items={formats} side="inline-end" />
     {/snippet}
   </ListItem>
 </Menu>

@@ -9,8 +9,8 @@ const {
   dense,
   id,
   items,
-  placement,
   popover = "auto",
+  side,
 } = defineProps<Props>()
 defineSlots<Slots>()
 
@@ -32,7 +32,7 @@ provide(MenuKey, reactive({ rootId }))
         'ui-bordered': bordered,
         'ui-dense': dense,
       },
-      placement && placement !== 'block-end' && `ui-${placement}`,
+      side && side !== 'block-end' && `ui-${side}`,
       $props.class,
     ]"
     :popover="popover === 'auto' ? '' : popover"
@@ -42,7 +42,7 @@ provide(MenuKey, reactive({ rootId }))
         {
           borderTop,
           closeOnClick = true,
-          critical,
+          color,
           disabled,
           href,
           shortcut,
@@ -52,7 +52,7 @@ provide(MenuKey, reactive({ rootId }))
         index
       ) in items"
       :key="index"
-      :class="[{ 'ui-border-top': borderTop, 'ui-critical': critical }]"
+      :class="[{ 'ui-border-top': borderTop }, color && `ui-${color}`]"
     >
       <component
         :is="href ? 'a' : 'button'"

@@ -112,7 +112,7 @@
 - `Button` links with `aria-disabled="true"` look disabled and get no hover or press styles.
 - `Chip` supports `aria-disabled="true"`, and `.ui-disabled` dims a static chip (it doesn't disable a button or link chip).
 - `Carousel` buttons take an image icon via `--_button-icon`, sized with `--_button-icon-size`. It defaults to a chevron that points right, drawn as the inverse of the button face so it follows `.ui-dark`, `.ui-light` and forced colors, mirrored for the previous button and in RTL, and rotated in vertical carousels.
-- `Carousel` takes a `persistentButtons` prop (`.ui-buttons-persistent`) that keeps both buttons visible. A disabled button keeps its fill and gets a more muted border (`--_button-disabled-border-color`).
+- `Carousel` takes a `persistentButtons` prop (`.ui-persistent-buttons`) that keeps both buttons visible. A disabled button keeps its fill and gets a more muted border (`--_button-disabled-border-color`).
 - `Tabs` take a `variant` prop. `filled` (`.ui-filled`) fills the selected tab with `--ui-selected-strong`, the primary color unless a theme sets it, `line` (`.ui-line`) drops the track and marks the selected tab with a line, and `outlined` (`.ui-outlined`) uses a bordered track without a background.
 - `Tabs` take a `scrollable` prop (`.ui-scrollable`). The tabs stay on one row and scroll sideways when they don't fit, and the open panel stays in view. Takes any number of tabs.
 - `layers.css` holds the `@layer` order, for importing single component files.
@@ -155,7 +155,7 @@
 - `Badge` takes `srLabel`, visually hidden text (`.ui-sr-only`) inside the indicator that describes it to assistive technology, such as "3 unread".
 - `Avatar` takes a `size` prop (`.ui-x-small`, `.ui-small`, `.ui-large`) that matches the control sizes. Letters and icons scale with it, and large initials are `--ui-font-size-large`.
 - `DescriptionList` takes `inline` (`.ui-inline`), which keeps the term and the description side by side at any width.
-- `Chip` takes a `color` prop (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) that tints a tonal chip, and `dot` (`.ui-dot`) for a leading dot in that color. The dot is a diamond for critical, a triangle for warning and a ring for neutral, and stays visible in forced colors mode. On an outlined chip only the dot is colored. The tint, border, text and dot read the `--ui-palette-*` roles, like `Callout`.
+- `Chip` takes a `severity` prop (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) that tints a tonal chip, and `dot` (`.ui-dot`) for a leading dot in that color. The dot is a diamond for critical, a triangle for warning and a ring for neutral, and stays visible in forced colors mode. On an outlined chip only the dot is colored. The tint, border, text and dot read the `--ui-palette-*` roles, like `Callout`.
 - `Divider` takes content in the middle of the line, text or any element, through the default slot (a `<div>` instead of the `<hr>`), or in HTML as a `<div class="ui-divider">` or `<p class="ui-divider">`. `align` (`.ui-align-start`, `.ui-align-end`) moves it to one side, and the lines follow the variant.
 - `checkbox.js` exports `syncIndeterminate(input)`, which sets a checkbox's `indeterminate` property from its `data-indeterminate` attribute.
 - `Dialog` types `closedby` in every framework.
@@ -163,7 +163,7 @@
 - `Chip` takes a `disabled` prop in Astro, React, Svelte and Vue. A button chip gets `disabled`, a link chip `aria-disabled="true"`.
 - `Select` and `Range` export `SelectItem` and `RangeOption` from every framework barrel.
 - `AvatarGroup` component (`div.ui-avatar-group[role="group"]`) in Astro, React, Svelte and Vue. It takes `class`, attributes such as `aria-label`, and avatars as children, and raises a focused avatar so the next one doesn't cover its focus ring.
-- `ListItem` takes a `critical` prop (`li.ui-critical`) for a destructive item in a `Menu`.
+- `ListItem` takes `color="critical"` (`li.ui-critical`) for a destructive item in a `Menu`.
 - `ToggleGroup` takes a bindable `value`: `bind:value` in Svelte, `v-model` in Vue, and `value`, `defaultValue` and `onValueChange` in React. It is a string with `selection="single"` and an array of strings otherwise, and `ToggleButton` takes its pressed state from it.
 - `Table` has `TableCaption` and `TableFoot` parts for `<caption>` and `<tfoot>`.
 - `Checkbox`, `Radio` and `Switch` take an `endText` string in Astro and Vue, like `TextField`.

@@ -5,12 +5,12 @@ import type { Props, Slots } from "./types.d.vue"
 
 const {
   as,
-  color,
   disabled,
   dot,
   href,
   label,
   multiline,
+  severity,
   size,
   variant = "tonal",
 } = defineProps<Props>()
@@ -28,7 +28,7 @@ const Tag = computed<"a" | "button" | "div">(() => as || (href ? "a" : "div"))
         'ui-dot': dot,
         'ui-multiline': multiline,
       },
-      color && `ui-${color}`,
+      severity && `ui-${severity}`,
       size && `ui-${size}`,
       variant && `ui-${variant}`,
       $props.class,

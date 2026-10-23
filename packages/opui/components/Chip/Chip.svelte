@@ -5,12 +5,12 @@
   let {
     as,
     class: className,
-    color,
     disabled,
     dot,
     href,
     label,
     multiline,
+    severity,
     size,
     variant = "tonal",
 
@@ -32,7 +32,7 @@
       "ui-dot": dot,
       "ui-multiline": multiline,
     },
-    color && `ui-${color}`,
+    severity && `ui-${severity}`,
     size && `ui-${size}`,
     variant && `ui-${variant}`,
     className,

@@ -11,7 +11,7 @@
 >
   Block start
 </Button>
-<Menu id="menu-placement-1" {items} placement="block-start" />
+<Menu id="menu-placement-1" {items} side="block-start" />
 
 <Button
   commandfor="menu-placement-2"
@@ -29,7 +29,7 @@
 >
   Inline start
 </Button>
-<Menu id="menu-placement-3" {items} placement="inline-start" />
+<Menu id="menu-placement-3" {items} side="inline-start" />
 
 <Button
   commandfor="menu-placement-4"
@@ -38,7 +38,7 @@
 >
   Inline end
 </Button>
-<Menu id="menu-placement-4" {items} placement="inline-end" />
+<Menu id="menu-placement-4" {items} side="inline-end" />
 
 <Button
   commandfor="menu-placement-5"

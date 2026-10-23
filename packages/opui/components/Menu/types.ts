@@ -1,7 +1,7 @@
 export type MenuItem = {
   borderTop?: boolean
   closeOnClick?: boolean
-  critical?: boolean
+  color?: "critical"
   disabled?: boolean
   href?: string
   shortcut?: string
@@ -14,8 +14,8 @@ export type Props = {
   dense?: boolean
   id?: string
   items?: MenuItem[]
-  placement?: "block-end" | "block-start" | "inline-end" | "inline-start"
   popover?: "auto" | "manual"
+  side?: "block-end" | "block-start" | "inline-end" | "inline-start"
 }
 
 export type Context = {

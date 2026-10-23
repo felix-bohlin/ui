@@ -82,7 +82,7 @@ export default function Custom() {
           as="button"
           headline="Delete"
           borderTop
-          critical
+          color="critical"
           commandfor="menu-custom-1"
           command="hide-popover"
           start={

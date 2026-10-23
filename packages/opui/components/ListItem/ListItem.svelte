@@ -6,7 +6,7 @@
     as,
     borderTop,
     class: className,
-    critical,
+    color,
     description,
     for: htmlFor,
     headline,
@@ -61,9 +61,9 @@
   class={[
     {
       "ui-border-top": borderTop,
-      "ui-critical": critical,
       "ui-inset": inset,
     },
+    color && `ui-${color}`,
     className,
   ]}
   {...(hasLabel || !Tag ? rest : {}) as HTMLAttributes<HTMLLIElement>}

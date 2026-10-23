@@ -28,7 +28,7 @@ export default {
       description:
         "Any valid `position-area` value. Overrides the placement and alignment classes. The `self-` keywords follow the menu's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
       frameworks: ["html"],
-      group: "Position",
+      group: "Position area",
       prop: "anchorPositionArea",
     },
     {
@@ -54,7 +54,7 @@ export default {
       prop: "closeOnClick",
     },
     {
-      description: "A destructive item (`critical` on an item).",
+      description: 'A destructive item (`color: "critical"` on an item).',
       frameworks: ["html"],
       group: "Colors",
       prop: "critical",
@@ -88,20 +88,8 @@ export default {
     },
     {
       description:
-        "The items, as `{ borderTop, closeOnClick, critical, disabled, href, shortcut, text }` objects. Other keys go to the item's `<a>` or `<button>`.",
+        "The items, as `{ borderTop, closeOnClick, color, disabled, href, shortcut, text }` objects. Other keys go to the item's `<a>` or `<button>`.",
       prop: "items",
-    },
-    {
-      default: '"block-end"',
-      description: "Where the menu opens.",
-      group: "Placement",
-      prop: "placement",
-      values: {
-        "block-end": null,
-        "block-start": ".ui-block-start",
-        "inline-end": ".ui-inline-end",
-        "inline-start": ".ui-inline-start",
-      },
     },
     {
       default: '"auto"',
@@ -110,6 +98,18 @@ export default {
       group: "Behavior",
       prop: "popover",
       values: { auto: null, manual: '[popover="manual"]' },
+    },
+    {
+      default: '"block-end"',
+      description: "The side of the trigger the menu opens on.",
+      group: "Position",
+      prop: "side",
+      values: {
+        "block-end": null,
+        "block-start": ".ui-block-start",
+        "inline-end": ".ui-inline-end",
+        "inline-start": ".ui-inline-start",
+      },
     },
     {
       attribute: '[commandfor][command="toggle-popover"]',

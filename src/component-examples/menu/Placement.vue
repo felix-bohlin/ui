@@ -12,7 +12,7 @@ const items = [{ text: "First" }, { text: "Second" }, { text: "Third" }]
   >
     Block start
   </Button>
-  <Menu id="menu-placement-1" :items="items" placement="block-start" />
+  <Menu id="menu-placement-1" :items="items" side="block-start" />
 
   <Button
     commandfor="menu-placement-2"
@@ -30,7 +30,7 @@ const items = [{ text: "First" }, { text: "Second" }, { text: "Third" }]
   >
     Inline start
   </Button>
-  <Menu id="menu-placement-3" :items="items" placement="inline-start" />
+  <Menu id="menu-placement-3" :items="items" side="inline-start" />
 
   <Button
     commandfor="menu-placement-4"
@@ -39,7 +39,7 @@ const items = [{ text: "First" }, { text: "Second" }, { text: "Third" }]
   >
     Inline end
   </Button>
-  <Menu id="menu-placement-4" :items="items" placement="inline-end" />
+  <Menu id="menu-placement-4" :items="items" side="inline-end" />
 
   <Button
     commandfor="menu-placement-5"

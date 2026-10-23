@@ -1,11 +1,11 @@
 import type { CustomProperties } from "../types"
 
 export default {
-  "--_anchor-tx": {
+  "--_shift-x": {
     description: "Horizontal shift of `.ui-floating`. Defaults to `0`.",
     kind: "input",
   },
-  "--_anchor-ty": {
+  "--_shift-y": {
     description: "Vertical shift of `.ui-floating`. Defaults to `0`.",
     kind: "input",
   },

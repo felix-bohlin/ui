@@ -6,7 +6,7 @@ export default {
       "Digits reserved for the numbers of an `ol`, from its number of items.",
     kind: "output",
   },
-  "--_flow-space": {
+  "--_flow-gap": {
     description:
       "Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it.",
     kind: "input",

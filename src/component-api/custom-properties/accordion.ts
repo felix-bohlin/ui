@@ -29,11 +29,6 @@ export default {
       "The border color. In `.ui-elevated` and `.ui-tonal`, `--ui-border-color-raised` when a theme sets it, otherwise `--ui-surface`. `--ui-border-color` in `.ui-outlined`.",
     kind: "output",
   },
-  "--_border-radius": {
-    description:
-      "The corner radius, also of the `summary` focus ring. Defaults to `--ui-radius`.",
-    kind: "input",
-  },
   "--_border-width": {
     description: "The border width. Set by the variants.",
     kind: "output",
@@ -47,7 +42,7 @@ export default {
       "Inline padding of `.ui-content`. Defaults to `--_padding-inline`.",
     kind: "input",
   },
-  "--_divider-color": {
+  "--_divider-border-color": {
     description:
       "Color of the border between items in a group. Defaults to `--ui-border-color`.",
     kind: "input",
@@ -99,6 +94,11 @@ export default {
   "--_padding-inline": {
     description:
       "Inline padding of `summary`, `.ui-content` and `.ui-actions`. `0` in `.ui-transparent`.",
+    kind: "input",
+  },
+  "--_radius": {
+    description:
+      "The corner radius, also of the `summary` focus ring. Defaults to `--ui-radius`.",
     kind: "input",
   },
   "--_shadow": {

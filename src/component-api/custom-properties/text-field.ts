@@ -6,7 +6,7 @@ export default {
       "Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid.",
     kind: "input",
   },
-  "--_affix-color": {
+  "--_affix-text-color": {
     description:
       "The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text`, set by the invalid state.",
     kind: "output",
@@ -15,7 +15,7 @@ export default {
     description: "Distance of the select arrow from the inline end.",
     kind: "input",
   },
-  "--_arrow-space": {
+  "--_arrow-padding": {
     description:
       "Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.",
     kind: "output",
@@ -30,7 +30,7 @@ export default {
       "The current border color of `.ui-field`, its header and footer. Set by the invalid state.",
     kind: "output",
   },
-  "--_chevron-icon": {
+  "--_chevron-image": {
     description: "The select arrow, as an image used for a mask.",
     kind: "input",
   },
@@ -54,7 +54,7 @@ export default {
   },
   "--_field-padding-block-fit": {
     description:
-      "The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.",
+      "The block padding in use, `--_field-padding-block` capped to fit `--_min-block-size`.",
     kind: "output",
   },
   "--_field-padding-inline": {
@@ -66,12 +66,12 @@ export default {
     description: "The font size of the control and affixes.",
     kind: "input",
   },
-  "--_helper-color": {
+  "--_helper-text-color": {
     description:
       "The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-text-color`, set by the invalid state.",
     kind: "output",
   },
-  "--_min-height": {
+  "--_min-block-size": {
     description:
       "The minimum height of `.ui-field`. Defaults to `--ui-field-size`, set by the size classes.",
     kind: "input",

@@ -522,7 +522,7 @@ In Astro and Vue, a drawer that opens from the inline start no longer renders `.
 
 ## Icon button
 
-`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `round` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`.
+`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `round` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-block-size: var(--size-4)`.
 
 ```diff
 - <IconButton aria-label="Edit">
@@ -801,7 +801,7 @@ In Astro, import the parts by their flat names: `TabsItem`, `TabsLabel` and `Tab
 + <TabsItem>
 ```
 
-Tabs look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone: use `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`, or a `variant` (`filled`, `line`, `outlined`). The open panel has a `--ui-space-2` top margin, so remove any spacing you added above it.
+Tabs look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone: use `--_active-bg-color`, `--_active-text-color`, `--_indicator-bg-color` and `--_track-bg-color`, or a `variant` (`filled`, `line`, `outlined`). The open panel has a `--ui-space-2` top margin, so remove any spacing you added above it.
 
 ```diff
 - .ui-tabs { --_accent-color: var(--ui-critical); }
@@ -1107,20 +1107,30 @@ Component borders read `--ui-border-width` (`Accordion`, `ButtonGroup`, `Callout
 
 Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick.
 
-Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size` and `--_min-height` for sizes. Rename them where you set them:
+Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size`, `--_radius` and `--_min-block-size` for sizes. A color says what it paints (`-bg-color`, `-text-color`, `-border-color`), sizes are logical (`-block-size`, `-inline-size`) and names aren't abbreviated. Rename them where you set them:
 
 | Component                   | Old                                               | New                                                                                                            |
 | --------------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | Accordion                   | `--_transition`                                   | `--_duration`                                                                                                  |
 | Accordion                   | `--_svg-transition`                               | removed, the chevron uses `--_duration` and `--_ease`                                                          |
-| Accordion                   | `--_gutter-color` (group)                         | `--_divider-color`                                                                                             |
+| Accordion                   | `--_gutter-color` (group)                         | `--_divider-border-color`                                                                                      |
+| Accordion                   | `--_border-radius`                                | `--_radius`                                                                                                    |
+| Anchor                      | `--_anchor-tx`, `--_anchor-ty`                    | `--_shift-x`, `--_shift-y`                                                                                     |
 | Avatar                      | `--_color`                                        | `--_text-color`                                                                                                |
 | Avatar                      | `--_width`                                        | `--_size`                                                                                                      |
 | Badge                       | `--_badge-inset`                                  | `--_inset-block`, `--_inset-inline`                                                                            |
+| Badge                       | `--_anchor-tx`, `--_anchor-ty`                    | `--_shift-x`, `--_shift-y`                                                                                     |
 | Button                      | `--_color`, `--_color-contrast`, `--_color-tonal` | `--_accent`, `--_on-accent`, `--_accent-tonal`                                                                 |
+| Button                      | `--_border-radius`                                | `--_radius`                                                                                                    |
+| Button                      | `--_min-height`                                   | `--_min-block-size`                                                                                            |
+| ButtonGroup                 | `--_border-radius`, `--_min-height`               | `--_radius`, `--_min-block-size`                                                                               |
+| ButtonGroup                 | `--_divider-color`                                | `--_divider-border-color`                                                                                      |
 | Callout                     | `--_color`                                        | `--_text-color`                                                                                                |
 | Callout                     | `--_outlined-color`                               | `--_outlined-text-color`                                                                                       |
 | Callout                     | `--_surface-bg`                                   | `--_surface-bg-color`                                                                                          |
+| Callout                     | `--_border-radius`                                | `--_radius`                                                                                                    |
+| Callout                     | `--_icon-color`, `--_outlined-icon-color`         | `--_icon-text-color`, `--_outlined-icon-text-color`                                                            |
+| Callout                     | `--_link-hover-color`                             | `--_link-hover-text-color`                                                                                     |
 | Card                        | `--_card-bg-color`                                | `--_bg-color`                                                                                                  |
 | Card                        | `--_card-border-color`                            | `--_border-color`                                                                                              |
 | Card                        | `--_card-border-width`                            | `--_border-width`                                                                                              |
@@ -1136,16 +1146,22 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | normalize.css               | `--_page-bg-color`                                | removed, `html` reads `--ui-surface`                                                                           |
 | Progress                    | `--_accent-color`                                 | `--_accent`                                                                                                    |
 | Range                       | `--_thumb-bg`                                     | `--_thumb-bg-color`                                                                                            |
+| Range                       | `--_thumb-highlight-color`                        | `--_thumb-highlight-bg-color`                                                                                  |
+| Range                       | `--_track-color`, `--_track-fill-color`           | `--_track-bg-color`, `--_track-fill-bg-color`                                                                  |
+| Range                       | `--_track-fill`                                   | `--_track-fill-fraction`                                                                                       |
+| Range                       | `--_track-height`                                 | `--_track-block-size`                                                                                          |
 | Switch                      | `--_accent-color`                                 | `--_accent`                                                                                                    |
 | Switch                      | `--_transition-time`, `--_transition-tf`          | `--_duration`, `--_ease`                                                                                       |
-| Table                       | `--_table-border-radius`                          | `--_border-radius`                                                                                             |
+| Switch                      | `--_track-height`, `--_track-width`               | `--_track-block-size`, `--_track-inline-size`                                                                  |
+| Table                       | `--_table-border-radius`                          | `--_radius`                                                                                                    |
 | TextField, Textarea, Select | `--_accent-color`                                 | `--_accent`                                                                                                    |
-| TextField, Textarea, Select | `--_height`                                       | `--_min-height`                                                                                                |
-| TextField, Textarea, Select | `--_label-color`                                  | `--_affix-color`                                                                                               |
-| TextField, Textarea, Select | `--_end-text-color`                               | `--_helper-color`                                                                                              |
+| TextField, Textarea, Select | `--_height`                                       | `--_min-block-size`                                                                                            |
+| TextField, Textarea, Select | `--_label-color`                                  | `--_affix-text-color`                                                                                          |
+| TextField, Textarea, Select | `--_end-text-color`                               | `--_helper-text-color`                                                                                         |
 | ToggleButton                | `--_button-bg-color`                              | `--_bg-color`                                                                                                  |
-| ToggleButton                | `--_size`                                         | `--_min-height` (a minimum height)                                                                             |
+| ToggleButton                | `--_size`                                         | `--_min-block-size` (a minimum height)                                                                         |
 | ToggleButton                | `--_svg-size`                                     | `--_icon-size` (direct child `svg`s only)                                                                      |
+| ToggleGroup                 | `--_border-radius`                                | `--_radius`                                                                                                    |
 | Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`               | `--_bg-color`, `--_text-color`                                                                                 |
 | Tooltip                     | `--_tooltip-offset`                               | `--_offset`                                                                                                    |
 

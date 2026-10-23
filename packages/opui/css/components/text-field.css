@@ -6,14 +6,14 @@
   :where(.ui-text-field, .ui-textarea, .ui-select) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-primary);
-    --_affix-color: var(--ui-text);
+    --_affix-text-color: var(--ui-text);
     --_arrow-inset: var(--ui-space-3);
-    --_arrow-space: calc(
+    --_arrow-padding: calc(
       var(--_arrow-inset) + var(--_chevron-size) + var(--ui-space-3)
     );
     --_bg-color: var(--ui-surface);
     --_border-color: var(--ui-field-border-color);
-    --_chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414'/%3E%3C/svg%3E");
+    --_chevron-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414'/%3E%3C/svg%3E");
     --_chevron-size: var(--ui-icon-size-small);
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
@@ -22,13 +22,13 @@
       var(--_field-padding-block),
       max(
         0px,
-        (var(--_min-height) - 1lh - var(--ui-field-border-width) * 2) / 2
+        (var(--_min-block-size) - 1lh - var(--ui-field-border-width) * 2) / 2
       )
     );
     --_field-padding-inline: var(--ui-space-2);
     --_font-size: var(--ui-font-size-control);
-    --_helper-color: var(--ui-field-helper-text-color);
-    --_min-height: var(--ui-field-size);
+    --_helper-text-color: var(--ui-field-helper-text-color);
+    --_min-block-size: var(--ui-field-size);
 
     align-content: start;
     display: grid;
@@ -48,7 +48,7 @@
         "start input end"
         "bottom bottom bottom";
       grid-template-columns: auto 1fr auto;
-      min-block-size: var(--_min-height);
+      min-block-size: var(--_min-block-size);
 
       transition: border-color var(--_duration) var(--_ease);
     }
@@ -86,7 +86,7 @@
     /* Affixes */
     .ui-field > :is(.ui-start, .ui-end) {
       align-items: center;
-      color: var(--_affix-color);
+      color: var(--_affix-text-color);
       display: inline-flex;
       font-size: var(--_font-size);
       line-height: var(--ui-line-height-tight);
@@ -111,7 +111,7 @@
 
     .ui-field > :is(.ui-top, .ui-bottom) {
       align-items: center;
-      color: var(--_affix-color);
+      color: var(--_affix-text-color);
       display: flex;
       font-size: var(--ui-font-size-caption);
       gap: var(--ui-space-2);
@@ -166,7 +166,9 @@
 
       input {
         align-self: flex-start;
-        block-size: calc(var(--_min-height) - var(--ui-field-border-width) * 2);
+        block-size: calc(
+          var(--_min-block-size) - var(--ui-field-border-width) * 2
+        );
         box-shadow: none;
         color: var(--ui-text-strong);
         cursor: inherit;
@@ -213,7 +215,7 @@
           button {
             outline: 0;
             padding-block: var(--_field-padding-block-fit);
-            padding-inline: var(--_field-padding-inline) var(--_arrow-space);
+            padding-inline: var(--_field-padding-inline) var(--_arrow-padding);
           }
         }
       }
@@ -223,15 +225,15 @@
     &:has(select) {
       select {
         padding-block: var(--_field-padding-block-fit);
-        padding-inline: var(--_field-padding-inline) var(--_arrow-space);
+        padding-inline: var(--_field-padding-inline) var(--_arrow-padding);
       }
     }
 
     /* Input - color */
     &:has(input[type="color"]) {
       .ui-field {
-        block-size: var(--_min-height);
-        inline-size: var(--_min-height);
+        block-size: var(--_min-block-size);
+        inline-size: var(--_min-block-size);
         min-block-size: 0;
         overflow: hidden;
       }
@@ -239,8 +241,8 @@
       input {
         appearance: none;
         background: none;
-        block-size: var(--_min-height);
-        inline-size: var(--_min-height);
+        block-size: var(--_min-block-size);
+        inline-size: var(--_min-block-size);
         overflow: hidden;
         padding: 0;
 
@@ -306,7 +308,7 @@
     }
 
     :where(.ui-start-text) {
-      color: var(--_helper-color);
+      color: var(--_helper-text-color);
       font-size: var(--ui-field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 2;
@@ -326,7 +328,7 @@
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--_helper-color);
+      color: var(--_helper-text-color);
       font-size: var(--ui-field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 3;
@@ -361,9 +363,9 @@
     /* Validation */
     &:has([aria-invalid="true"], :user-invalid) {
       --_accent: var(--ui-invalid);
-      --_affix-color: var(--ui-invalid-text);
+      --_affix-text-color: var(--ui-invalid-text);
       --_border-color: var(--ui-invalid);
-      --_helper-color: var(--ui-invalid-text);
+      --_helper-text-color: var(--ui-invalid-text);
     }
 
     /*
@@ -429,19 +431,19 @@
     &.ui-x-small {
       --_field-padding-block: calc(var(--ui-space-1) * 0.75);
       --_font-size: var(--ui-font-size-caption);
-      --_min-height: var(--ui-field-size-x-small);
+      --_min-block-size: var(--ui-field-size-x-small);
     }
 
     &.ui-small {
       --_field-padding-block: var(--ui-space-1);
       --_font-size: var(--ui-font-size-small);
-      --_min-height: var(--ui-field-size-small);
+      --_min-block-size: var(--ui-field-size-small);
     }
 
     &.ui-large {
       --_field-padding-block: calc(var(--ui-space-2) * 1.5);
       --_field-padding-inline: var(--ui-space-3);
-      --_min-height: var(--ui-field-size-large);
+      --_min-block-size: var(--ui-field-size-large);
     }
 
     &.ui-small,
@@ -538,7 +540,7 @@
     }
 
     input[list] {
-      padding-inline-end: var(--_arrow-space);
+      padding-inline-end: var(--_arrow-padding);
     }
 
     .ui-field::after {
@@ -549,7 +551,7 @@
       inset-block: 0;
       inset-inline: auto var(--_arrow-inset);
       margin-block: auto;
-      mask: var(--_chevron-icon) center / contain no-repeat;
+      mask: var(--_chevron-image) center / contain no-repeat;
       pointer-events: none;
       position: absolute;
 

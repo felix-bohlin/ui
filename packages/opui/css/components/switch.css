@@ -7,14 +7,14 @@
       var(--_thumb-size),
       max(
         0px,
-        var(--_track-width) - var(--_thumb-size) - var(--_thumb-inset) * 3
+        var(--_track-inline-size) - var(--_thumb-size) - var(--_thumb-inset) * 3
       )
     );
-    --_input-size: var(--_track-height);
+    --_input-size: var(--_track-block-size);
     --_thumb-bg-color: var(--ui-switch-thumb-bg-color);
     --_thumb-inset: round(
       down,
-      (var(--_track-height) - var(--_thumb-size)) / 2,
+      (var(--_track-block-size) - var(--_thumb-size)) / 2,
       1px
     );
     --_thumb-outline-size: 0;
@@ -23,27 +23,27 @@
       --ui-track-bg-color,
       var(--ui-switch-track-bg-color)
     );
+    --_track-block-size: round(var(--ui-switch-track-block-size), 1px);
     --_track-border-color: var(--ui-field-border-color);
-    --_track-height: round(var(--ui-switch-track-block-size), 1px);
-    --_track-width: round(var(--ui-switch-track-inline-size), 1px);
+    --_track-inline-size: round(var(--ui-switch-track-inline-size), 1px);
 
     :where(input[type="checkbox"][role="switch"]) {
       appearance: none;
-      block-size: var(--_track-height);
+      block-size: var(--_track-block-size);
       border-radius: var(--ui-radius-round);
       cursor: pointer;
-      inline-size: var(--_track-width);
+      inline-size: var(--_track-inline-size);
       margin: 0;
       position: relative;
 
       /* Track */
       &::before {
         background-color: var(--_track-bg-color);
-        block-size: var(--_track-height);
+        block-size: var(--_track-block-size);
         border: var(--ui-field-border-width) solid var(--_track-border-color);
         border-radius: var(--ui-radius-round);
         content: "";
-        inline-size: var(--_track-width);
+        inline-size: var(--_track-inline-size);
         inset: 0;
         position: absolute;
         transition:
@@ -85,7 +85,7 @@
           );
 
           inset-inline-start: calc(
-            var(--_track-width) - var(--_thumb-size) - var(--_thumb-inset)
+            var(--_track-inline-size) - var(--_thumb-size) - var(--_thumb-inset)
           );
         }
       }
@@ -127,7 +127,7 @@
         grid-row: 1;
         margin-block-start: round(
           down,
-          (var(--_track-height) - var(--_icon-size)) / 2,
+          (var(--_track-block-size) - var(--_icon-size)) / 2,
           1px
         );
         pointer-events: none;
@@ -141,7 +141,7 @@
 
       .ui-icon-unchecked {
         margin-inline-start: calc(
-          var(--_track-width) - var(--_icon-size) - var(--_thumb-inset)
+          var(--_track-inline-size) - var(--_icon-size) - var(--_thumb-inset)
         );
       }
     }

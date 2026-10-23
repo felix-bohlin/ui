@@ -2,13 +2,13 @@
   :where(.ui-toggle-group) {
     --_bg-color: var(--ui-surface);
     --_border-color: var(--ui-control-border-color, var(--ui-border-color));
-    --_border-radius: min(
+    --_radius: min(
       var(--ui-button-radius, var(--ui-radius)),
       var(--ui-button-size) / 2
     );
 
     background-color: var(--_bg-color);
-    border-radius: var(--_border-radius);
+    border-radius: var(--_radius);
     display: inline-flex;
     flex-wrap: wrap;
     inline-size: fit-content;
@@ -78,8 +78,8 @@
         box-shadow: none;
         margin-block-start: calc(-1 * var(--ui-border-width));
         margin-inline-start: calc(-1 * var(--ui-border-width));
-        min-block-size: calc(var(--_min-height) + var(--ui-border-width));
-        min-inline-size: calc(var(--_min-height) + var(--ui-border-width));
+        min-block-size: calc(var(--_min-block-size) + var(--ui-border-width));
+        min-inline-size: calc(var(--_min-block-size) + var(--ui-border-width));
       }
     }
   }

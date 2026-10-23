@@ -496,6 +496,8 @@ Private `--_*` properties follow the same suffixes as component tokens, so one w
 - A value that is neither a length nor a color is named by its type: `--_<part>-image`, `--_<part>-label`, `--_<part>-fraction`.
 - Role names carry no suffix, like the role tokens: `--_accent`, `--_on-accent`.
 
+`tests/unit/css-properties.test.ts` checks every `--_*` property and every component token in the stylesheets against these rules, with no allowlist.
+
 ### Forced colors
 
 Windows High Contrast (`forced-colors: active`) repaints everything with system colors and drops backgrounds and shadows. A component needs a `@media (forced-colors: active)` block only where a boundary or a state is carried by color alone: a shadow-only edge, a tinted selected state, a filled track. Borders are forced to `CanvasText` by the browser and need nothing, and Chromium forces a `transparent` border color like any other. The components without a block, and why:

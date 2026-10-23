@@ -11,10 +11,6 @@ export default {
       "The current border color. `--ui-border-color-raised` when a theme sets it, otherwise `--ui-surface-tonal`. Set by the severity classes and `.ui-outlined`.",
     kind: "output",
   },
-  "--_border-radius": {
-    description: "The corner radius. Defaults to `--ui-radius`.",
-    kind: "input",
-  },
   "--_content-gap": {
     description: "Space between the children of `.ui-content`.",
     kind: "input",
@@ -27,16 +23,16 @@ export default {
     description: "Gap between a direct child `svg` and `.ui-content`.",
     kind: "input",
   },
-  "--_icon-color": {
-    description:
-      "The current color of a direct child `svg`. Set by the severity classes and `.ui-outlined`.",
-    kind: "output",
-  },
   "--_icon-size": {
     description: "Width of the icon column when there's a direct child `svg`.",
     kind: "input",
   },
-  "--_link-hover-color": {
+  "--_icon-text-color": {
+    description:
+      "The current color of a direct child `svg`. Set by the severity classes and `.ui-outlined`.",
+    kind: "output",
+  },
+  "--_link-hover-text-color": {
     description:
       "Link color on hover and focus. Defaults to `--ui-primary-text`, not used in `.ui-outlined`.",
     kind: "input",
@@ -50,7 +46,7 @@ export default {
       "Border color of `.ui-outlined`. Defaults to `--ui-border-color`, set by the severity classes.",
     kind: "input",
   },
-  "--_outlined-icon-color": {
+  "--_outlined-icon-text-color": {
     description: "Icon color of `.ui-outlined`. Set by the severity classes.",
     kind: "input",
   },
@@ -60,6 +56,10 @@ export default {
   },
   "--_padding": {
     description: "The padding.",
+    kind: "input",
+  },
+  "--_radius": {
+    description: "The corner radius. Defaults to `--ui-radius`.",
     kind: "input",
   },
   "--_shadow": {

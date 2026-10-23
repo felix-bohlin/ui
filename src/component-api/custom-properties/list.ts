@@ -6,7 +6,7 @@ export default {
       "Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.",
     kind: "input",
   },
-  "--_divider-color": {
+  "--_divider-border-color": {
     description:
       "Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-strong` in `.ui-tonal`.",
     kind: "input",
@@ -24,7 +24,7 @@ export default {
       "Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`, stronger than `--_hover-bg-color`. With more contrast it is `--_hover-bg-color`, so the text keeps 7:1, and the bar marks the row.",
     kind: "input",
   },
-  "--_selected-indicator-color": {
+  "--_selected-indicator-bg-color": {
     description:
       "Color of the bar on the start edge of selected and current items and options, which marks them without relying on the fill. Defaults to `--ui-selected-strong`.",
     kind: "input",
@@ -36,10 +36,10 @@ export default {
   },
   "--_selected-shadow": {
     description:
-      "Inset shadow that draws the bar from `--_selected-indicator-color` and `--_selected-indicator-size`, on the start edge in both writing directions.",
+      "Inset shadow that draws the bar from `--_selected-indicator-bg-color` and `--_selected-indicator-size`, on the start edge in both writing directions.",
     kind: "output",
   },
-  "--_separator-space": {
+  "--_separator-gap": {
     description:
       "Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.",
     kind: "input",

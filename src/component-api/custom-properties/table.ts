@@ -1,11 +1,6 @@
 import type { CustomProperties } from "../types"
 
 export default {
-  "--_border-radius": {
-    description:
-      "Corner radius of the table and its corner cells. Defaults to `--ui-radius`.",
-    kind: "input",
-  },
   "--_duration": {
     description:
       "Duration of the header shadow transition, `--ui-duration` times `--_motion`.",
@@ -19,6 +14,11 @@ export default {
   "--_motion": {
     description:
       "Motion multiplier for the header shadow transition in `.ui-sticky-header`. `0` turns it off.",
+    kind: "input",
+  },
+  "--_radius": {
+    description:
+      "Corner radius of the table and its corner cells. Defaults to `--ui-radius`.",
     kind: "input",
   },
   "--_scroll-shadow": {

@@ -11,7 +11,7 @@
       inset-block: 0;
       inset-inline: auto var(--_arrow-inset);
       margin-block: auto;
-      mask: var(--_chevron-icon) center / contain no-repeat;
+      mask: var(--_chevron-image) center / contain no-repeat;
       pointer-events: none;
       position: absolute;
       transition: scale var(--_duration) var(--_ease);
@@ -145,7 +145,7 @@
         inline-size: var(--_chevron-size);
         inset-inline-end: var(--_arrow-inset);
         justify-self: end;
-        mask: var(--_chevron-icon) center / contain no-repeat;
+        mask: var(--_chevron-image) center / contain no-repeat;
         pointer-events: none;
         position: relative;
 
@@ -162,7 +162,7 @@
         align-self: start;
         grid-row: 1 / span 3;
         margin-block-start: calc(
-          (var(--_min-height) - var(--_chevron-size)) / 2
+          (var(--_min-block-size) - var(--_chevron-size)) / 2
         );
       }
 

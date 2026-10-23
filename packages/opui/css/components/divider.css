@@ -1,29 +1,29 @@
 @layer components.root {
   :where(.ui-divider) {
-    --_divider-color: var(--ui-border-color);
+    --_divider-border-color: var(--ui-border-color);
 
-    background-color: var(--_divider-color);
+    background-color: var(--_divider-border-color);
     block-size: var(--ui-border-width);
     margin-block: var(--ui-divider-gap);
 
     /* Border color */
     &.ui-filled {
-      --_divider-color: var(--ui-surface-filled);
+      --_divider-border-color: var(--ui-surface-filled);
     }
 
     &.ui-tonal {
-      --_divider-color: var(--ui-surface-tonal);
+      --_divider-border-color: var(--ui-surface-tonal);
     }
 
     @container style(--ui-contrast: more) {
       &.ui-filled,
       &.ui-tonal {
-        --_divider-color: var(--ui-border-color);
+        --_divider-border-color: var(--ui-border-color);
       }
     }
 
     &.ui-primary {
-      --_divider-color: var(--ui-primary);
+      --_divider-border-color: var(--ui-primary);
     }
 
     &:not(:empty) {
@@ -38,7 +38,7 @@
 
       &::before,
       &::after {
-        background-color: var(--_divider-color);
+        background-color: var(--_divider-border-color);
         block-size: var(--ui-border-width);
         content: "";
         flex: 1;

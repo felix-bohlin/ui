@@ -16,7 +16,7 @@ export default {
       "The current border color. Defaults to `--ui-control-border-color-filled`, and `.ui-outlined` to `--ui-control-border-color`, both falling back to `--ui-border-color`. The severity classes set it.",
     kind: "output",
   },
-  "--_dot-color": {
+  "--_dot-bg-color": {
     description:
       "The color of the `.ui-dot` marker. `currentColor`, or `--ui-palette-accent` with a severity class.",
     kind: "output",

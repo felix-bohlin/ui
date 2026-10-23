@@ -1,10 +1,10 @@
 @layer components.root {
   :where(.ui-table) {
-    --_border-radius: var(--ui-radius);
+    --_radius: var(--ui-radius);
 
     border: var(--ui-border-width) solid var(--ui-border-color);
     border-collapse: separate;
-    border-radius: var(--_border-radius);
+    border-radius: var(--_radius);
     border-spacing: 0;
     inline-size: 100%;
     margin-block: var(--ui-space-3);
@@ -64,22 +64,22 @@
     /* Round corner cells  */
     & > thead:first-of-type tr:first-child {
       th:first-child {
-        border-start-start-radius: var(--_border-radius);
+        border-start-start-radius: var(--_radius);
       }
 
       th:last-child {
-        border-start-end-radius: var(--_border-radius);
+        border-start-end-radius: var(--_radius);
       }
     }
 
     /* Logic for tables without thead */
     & > tbody:first-of-type:not(thead ~ tbody) tr:first-child {
       :where(th, td):first-child {
-        border-start-start-radius: var(--_border-radius);
+        border-start-start-radius: var(--_radius);
       }
 
       :where(th, td):last-child {
-        border-start-end-radius: var(--_border-radius);
+        border-start-end-radius: var(--_radius);
       }
     }
 
@@ -92,11 +92,11 @@
       }
 
       :where(th, td):first-child {
-        border-end-start-radius: var(--_border-radius);
+        border-end-start-radius: var(--_radius);
       }
 
       :where(th, td):last-child {
-        border-end-end-radius: var(--_border-radius);
+        border-end-end-radius: var(--_radius);
       }
     }
 

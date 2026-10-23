@@ -11,17 +11,17 @@
     );
     --_active-shadow: var(--ui-shadow-selected);
     --_active-text-color: var(--ui-text-strong);
-    --_border-radius: var(--ui-radius);
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_ease: var(--ui-ease);
     --_focus-ring-duration: calc(var(--ui-duration) * var(--_motion));
-    --_indicator-color: transparent;
+    --_indicator-bg-color: transparent;
     --_indicator-size: var(--ui-border-width-thick);
     --_inset: calc(var(--ui-space-1) - var(--_track-border-width));
+    --_radius: var(--ui-radius);
     --_text-color: var(--ui-text);
+    --_track-bg-color: var(--ui-surface-tonal);
     --_track-border-color: transparent;
     --_track-border-width: var(--ui-border-width);
-    --_track-color: var(--ui-surface-tonal);
 
     align-items: flex-start;
     display: flex;
@@ -71,7 +71,7 @@
     /* Tab */
     & > .ui-label {
       align-items: center;
-      background-color: var(--_track-color);
+      background-color: var(--_track-bg-color);
       border-block: var(--_track-border-width) solid var(--_track-border-color);
       color: var(--_text-color);
       cursor: pointer;
@@ -95,7 +95,7 @@
       &::before {
         border: var(--ui-border-width) solid transparent;
         border-radius: calc(
-          var(--_border-radius) - var(--_inset) - var(--_track-border-width)
+          var(--_radius) - var(--_inset) - var(--_track-border-width)
         );
         content: "";
         inset-block: var(--_inset);
@@ -108,7 +108,7 @@
       }
 
       &::after {
-        background-color: var(--_indicator-color);
+        background-color: var(--_indicator-bg-color);
         block-size: var(--_indicator-size);
         border-radius: var(--_indicator-size);
         content: "";
@@ -120,10 +120,10 @@
       }
 
       &:nth-child(1 of .ui-label) {
-        border-end-start-radius: var(--_border-radius);
+        border-end-start-radius: var(--_radius);
         border-inline-start: var(--_track-border-width) solid
           var(--_track-border-color);
-        border-start-start-radius: var(--_border-radius);
+        border-start-start-radius: var(--_radius);
         padding-inline-start: calc(
           var(--ui-space-3) + var(--_inset) - var(--_track-border-width)
         );
@@ -134,10 +134,10 @@
       }
 
       &:nth-last-child(1 of .ui-label) {
-        border-end-end-radius: var(--_border-radius);
+        border-end-end-radius: var(--_radius);
         border-inline-end: var(--_track-border-width) solid
           var(--_track-border-color);
-        border-start-end-radius: var(--_border-radius);
+        border-start-end-radius: var(--_radius);
         padding-inline-end: calc(
           var(--ui-space-3) + var(--_inset) - var(--_track-border-width)
         );
@@ -172,10 +172,10 @@
       --_active-bg-color: transparent;
       --_active-border-color: transparent;
       --_active-shadow: none;
-      --_indicator-color: var(--ui-text-strong);
+      --_indicator-bg-color: var(--ui-text-strong);
       --_inset: 0px;
+      --_track-bg-color: transparent;
       --_track-border-width: 0px;
-      --_track-color: transparent;
 
       column-gap: var(--ui-space-1);
     }
@@ -184,11 +184,11 @@
       --_active-bg-color: var(--ui-surface-tonal);
       --_active-border-color: transparent;
       --_active-shadow: none;
+      --_track-bg-color: transparent;
       --_track-border-color: var(
         --ui-control-border-color,
         var(--ui-border-color)
       );
-      --_track-color: transparent;
     }
 
     :where(.ui-accordion, .ui-card, .ui-dialog) > & {
@@ -251,8 +251,8 @@
         --_active-bg-color: SelectedItem;
         --_active-border-color: SelectedItem;
         --_active-text-color: SelectedItemText;
-        --_indicator-color: SelectedItem;
-        --_track-color: Canvas;
+        --_indicator-bg-color: SelectedItem;
+        --_track-bg-color: Canvas;
         --ui-focus-ring-color: CanvasText;
 
         border-color: CanvasText;

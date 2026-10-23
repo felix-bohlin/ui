@@ -6,7 +6,7 @@
     --_ease: var(--ui-ease);
     --_font-size: var(--ui-font-size-control);
     --_icon-size: var(--ui-icon-size);
-    --_min-height: var(--ui-button-size);
+    --_min-block-size: var(--ui-button-size);
 
     align-items: center;
     background-color: var(--_bg-color);
@@ -14,7 +14,7 @@
       var(--ui-control-border-color, var(--ui-border-color));
     border-radius: min(
       var(--ui-button-radius, var(--ui-radius)),
-      var(--_min-height) / 2
+      var(--_min-block-size) / 2
     );
     box-shadow: var(--ui-shadow-control);
     color: var(--ui-text-strong);
@@ -24,8 +24,8 @@
     gap: var(--ui-space-2);
     inline-size: fit-content;
     justify-content: center;
-    min-block-size: var(--_min-height);
-    min-inline-size: var(--_min-height);
+    min-block-size: var(--_min-block-size);
+    min-inline-size: var(--_min-block-size);
     outline-offset: var(--ui-focus-ring-inset);
     padding-block: 0;
     padding-inline: var(--ui-space-2);
@@ -89,18 +89,18 @@
     &.ui-x-small,
     :where(.ui-toggle-group.ui-x-small) > & {
       --_font-size: var(--ui-font-size-caption);
-      --_min-height: var(--ui-button-size-x-small);
+      --_min-block-size: var(--ui-button-size-x-small);
     }
 
     &.ui-small,
     :where(.ui-toggle-group.ui-small) > & {
       --_font-size: var(--ui-font-size-small);
-      --_min-height: var(--ui-button-size-small);
+      --_min-block-size: var(--ui-button-size-small);
     }
 
     &.ui-large,
     :where(.ui-toggle-group.ui-large) > & {
-      --_min-height: var(--ui-button-size-large);
+      --_min-block-size: var(--ui-button-size-large);
       padding-inline: var(--ui-space-3);
     }
 

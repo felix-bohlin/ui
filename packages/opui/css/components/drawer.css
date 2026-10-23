@@ -10,7 +10,7 @@
     --_border-color: var(--ui-border-color);
     --_border-width: var(--ui-border-width);
     --_content-padding: var(--ui-space-3);
-    --_dir: 1;
+    --_direction: 1;
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease-enter);
     --_header-font-size: var(--ui-font-size-large);
@@ -36,7 +36,7 @@
       translate var(--_duration) var(--_ease);
 
     &:dir(rtl) {
-      --_dir: -1;
+      --_direction: -1;
     }
 
     &::backdrop {
@@ -141,14 +141,14 @@
       border-inline-end: var(--_border-width) solid var(--_border-color);
       inset-inline-end: auto;
       inset-inline-start: 0;
-      translate: calc(-100% * var(--_dir)) 0;
+      translate: calc(-100% * var(--_direction)) 0;
     }
 
     &.ui-inline-end {
       border-inline-start: var(--_border-width) solid var(--_border-color);
       inset-inline-end: 0;
       inset-inline-start: auto;
-      translate: calc(100% * var(--_dir)) 0;
+      translate: calc(100% * var(--_direction)) 0;
     }
 
     &.ui-block-start,
@@ -190,11 +190,11 @@
         }
 
         &:not(.ui-block-end, .ui-block-start, .ui-inline-end) {
-          translate: calc(-100% * var(--_dir)) 0;
+          translate: calc(-100% * var(--_direction)) 0;
         }
 
         &.ui-inline-end {
-          translate: calc(100% * var(--_dir)) 0;
+          translate: calc(100% * var(--_direction)) 0;
         }
 
         &.ui-block-start {

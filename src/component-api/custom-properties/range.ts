@@ -21,12 +21,12 @@ export default {
       "Duration of the focus ring animation, `--ui-duration` times `--_motion`, slower than the `--_duration` of the transitions.",
     kind: "output",
   },
-  "--_forced-fill-color": {
+  "--_forced-fill-bg-color": {
     description:
       "Thumb and fill color in forced colors mode. `GrayText` when disabled.",
     kind: "output",
   },
-  "--_forced-track-color": {
+  "--_forced-track-bg-color": {
     description: "Track color in forced colors mode. `GrayText` when disabled.",
     kind: "output",
   },
@@ -50,7 +50,7 @@ export default {
       "Width of the page-colored ring between the thumb and the track. Set on the `<input>`.",
     kind: "input",
   },
-  "--_thumb-highlight-color": {
+  "--_thumb-highlight-bg-color": {
     description:
       "Color of the ring around the thumb, from `--_accent` and `--ui-state-active-alpha`.",
     kind: "output",
@@ -68,28 +68,28 @@ export default {
     description: "Width and height of the thumb. Larger on touch screens.",
     kind: "input",
   },
-  "--_track-base-color": {
+  "--_track-base-bg-color": {
     description:
       "Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`.",
     kind: "input",
   },
-  "--_track-color": {
+  "--_track-bg-color": {
     description:
-      "The current track color, from `--_track-base-color`; set by the active and disabled states.",
+      "The current track color, from `--_track-base-bg-color`; set by the active and disabled states.",
     kind: "output",
   },
-  "--_track-fill": {
-    description:
-      "How much of the track is filled, animated from the thumb position.",
-    kind: "output",
+  "--_track-block-size": {
+    description: "Height of the track.",
+    kind: "input",
   },
-  "--_track-fill-color": {
+  "--_track-fill-bg-color": {
     description: "Color of the filled part of the track, from `--_accent`.",
     kind: "output",
   },
-  "--_track-height": {
-    description: "Height of the track.",
-    kind: "input",
+  "--_track-fill-fraction": {
+    description:
+      "How much of the track is filled, animated from the thumb position.",
+    kind: "output",
   },
   "--_track-radius": {
     description: "Corner radius of the track.",

@@ -30,11 +30,6 @@ export default {
     description: "The current border color. Set by the variant and states.",
     kind: "output",
   },
-  "--_border-radius": {
-    description:
-      "The corner radius. Defaults to `--ui-button-radius`, `.ui-round` makes it round.",
-    kind: "input",
-  },
   "--_border-width": {
     description: "The border width.",
     kind: "input",
@@ -71,10 +66,10 @@ export default {
   },
   "--_icon-size": {
     description:
-      "The size of a direct child `svg`. Icon-only buttons scale it with `--_min-height`.",
+      "The size of a direct child `svg`. Icon-only buttons scale it with `--_min-block-size`.",
     kind: "input",
   },
-  "--_min-height": {
+  "--_min-block-size": {
     description: "The height. Set by the size classes.",
     kind: "input",
   },
@@ -98,6 +93,11 @@ export default {
   },
   "--_padding-inline": {
     description: "The inline padding. Set by the size classes.",
+    kind: "input",
+  },
+  "--_radius": {
+    description:
+      "The corner radius. Defaults to `--ui-button-radius`, `.ui-round` makes it round.",
     kind: "input",
   },
   "--_shadow": {

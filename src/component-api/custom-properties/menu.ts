@@ -7,18 +7,14 @@ export default {
   },
   "--_border-color": {
     description:
-      "The border color. Defaults to `--ui-border-color-on-raised`, and `--_divider-color` follows it.",
-    kind: "input",
-  },
-  "--_border-radius": {
-    description: "The corner radius. Defaults to `--ui-radius`.",
+      "The border color. Defaults to `--ui-border-color-on-raised`, and `--_divider-border-color` follows it.",
     kind: "input",
   },
   "--_border-width": {
     description: "The border width. Defaults to `--ui-border-width`.",
     kind: "input",
   },
-  "--_divider-color": {
+  "--_divider-border-color": {
     description: "Color of the item separators. Defaults to `--_border-color`.",
     kind: "input",
   },
@@ -73,6 +69,10 @@ export default {
     description:
       "The `position-area` of a popover menu, from `--_side` and `--_span`. `--ui-anchor-position-area` overrides it.",
     kind: "output",
+  },
+  "--_radius": {
+    description: "The corner radius. Defaults to `--ui-radius`.",
+    kind: "input",
   },
   "--_shadow": {
     description: "The shadow. Defaults to `--ui-shadow-overlay`.",

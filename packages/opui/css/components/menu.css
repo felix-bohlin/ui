@@ -3,9 +3,8 @@
     --_motion: var(--ui-motion);
     --_bg-color: var(--ui-surface-elevated);
     --_border-color: var(--ui-border-color-on-raised);
-    --_border-radius: var(--ui-radius);
     --_border-width: var(--ui-border-width);
-    --_divider-color: var(--_border-color);
+    --_divider-border-color: var(--_border-color);
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease-enter);
     --_margin-block: var(--_offset);
@@ -15,13 +14,14 @@
     --_min-inline-size: 12rem;
     --_offset: var(--ui-space-1);
     --_position-area: var(--_side) var(--_span);
+    --_radius: var(--ui-radius);
     --_shadow: var(--ui-shadow-overlay);
     --_side: self-block-end;
     --_span: span-self-inline-end;
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
-    border-radius: var(--_border-radius);
+    border-radius: var(--_radius);
     box-shadow: var(--_shadow);
     margin: 0;
     max-block-size: var(--_max-block-size);

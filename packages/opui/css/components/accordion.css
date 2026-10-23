@@ -10,7 +10,6 @@
     );
     --_bg-color: transparent;
     --_border-color: transparent;
-    --_border-radius: var(--ui-radius);
     --_border-width: 0;
     --_content-padding-block: var(--ui-space-2) var(--ui-space-3);
     --_content-padding-inline: var(--_padding-inline);
@@ -20,13 +19,14 @@
     --_margin-inline: var(--ui-space-1);
     --_overflow: visible;
     --_padding-inline: 0em;
+    --_radius: var(--ui-radius);
     --_shadow: none;
     --_summary-padding-block: var(--ui-space-3);
     --_summary-padding-inline: var(--_padding-inline);
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
-    border-radius: var(--_border-radius);
+    border-radius: var(--_radius);
     box-shadow: var(--_shadow);
     display: block;
     margin-inline: var(--_margin-inline);
@@ -101,7 +101,7 @@
       user-select: none;
 
       &:focus-visible {
-        border-radius: var(--_border-radius);
+        border-radius: var(--_radius);
         outline-offset: var(--_focus-ring-offset);
       }
 
@@ -181,7 +181,7 @@
 
   /* Accordion group  */
   :where(.ui-card[role="group"]:has(> details.ui-accordion)) {
-    --_divider-color: var(--ui-border-color);
+    --_divider-border-color: var(--ui-border-color);
     --_group-radius: var(--ui-radius);
     --_item-padding-inline: var(--ui-space-3);
     --_item-summary-padding-inline: var(--_item-padding-inline);
@@ -205,7 +205,8 @@
 
       /* Border between accordion items */
       & + & {
-        border-block-start: var(--ui-border-width) solid var(--_divider-color);
+        border-block-start: var(--ui-border-width) solid
+          var(--_divider-border-color);
         border-radius: 0;
       }
 

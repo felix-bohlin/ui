@@ -21,7 +21,7 @@ export default {
     kind: "output",
   },
   "--_input-size": {
-    description: "Height the label centers on, `--_track-height`.",
+    description: "Height the label centers on, `--_track-block-size`.",
     kind: "output",
   },
   "--_motion": {
@@ -40,7 +40,7 @@ export default {
   },
   "--_thumb-inset": {
     description:
-      "Gap between the thumb and the track edge, computed from `--_track-height` and `--_thumb-size`.",
+      "Gap between the thumb and the track edge, computed from `--_track-block-size` and `--_thumb-size`.",
     kind: "output",
   },
   "--_thumb-outline-size": {
@@ -58,17 +58,17 @@ export default {
       "Background of the unchecked track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-switch-track-bg-color`.",
     kind: "input",
   },
+  "--_track-block-size": {
+    description:
+      "Height of the track. Defaults to `--ui-switch-track-block-size`, set by the size classes.",
+    kind: "input",
+  },
   "--_track-border-color": {
     description:
       "Border of the unchecked track. Defaults to `--ui-field-border-color`, like the checkbox and radio borders. The checked track uses `--_accent`.",
     kind: "input",
   },
-  "--_track-height": {
-    description:
-      "Height of the track. Defaults to `--ui-switch-track-block-size`, set by the size classes.",
-    kind: "input",
-  },
-  "--_track-width": {
+  "--_track-inline-size": {
     description:
       "Width of the track. Defaults to `--ui-switch-track-inline-size`, set by the size classes.",
     kind: "input",

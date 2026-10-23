@@ -16,8 +16,8 @@
     );
     --_button-disabled-opacity: 0;
     --_button-end-flip: 1;
-    --_button-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0'/%3E%3C/svg%3E");
-    --_button-icon-size: 60%;
+    --_button-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0'/%3E%3C/svg%3E");
+    --_button-image-size: 60%;
     --_button-inset: var(--ui-space-2);
     --_button-next-label: "Next";
     --_button-prev-label: "Previous";
@@ -41,7 +41,7 @@
     --_marker-size: var(--ui-space-5);
     --_markers-gap: var(--ui-space-3);
     --_media-aspect-ratio: 16 / 9;
-    --_media-border-radius: var(--ui-radius);
+    --_media-radius: var(--ui-radius);
     --_padding-block: 0px;
     --_padding-inline: 0px;
     --_scale-duration: calc(var(--ui-duration-fast) * var(--_motion));
@@ -81,7 +81,7 @@
     & > * > :where(iframe, img, video) {
       aspect-ratio: var(--_media-aspect-ratio);
       block-size: auto;
-      border-radius: var(--_media-border-radius);
+      border-radius: var(--_media-radius);
       inline-size: 100%;
       object-fit: cover;
     }
@@ -131,10 +131,10 @@
 
         background-blend-mode: difference;
         background-color: var(--_button-bg-color);
-        background-image: var(--_button-icon);
+        background-image: var(--_button-image);
         background-position: center;
         background-repeat: no-repeat;
-        background-size: var(--_button-icon-size);
+        background-size: var(--_button-image-size);
         block-size: var(--_button-size);
         border: var(--ui-border-width) solid var(--_button-border-color);
         border-radius: var(--ui-radius-round);

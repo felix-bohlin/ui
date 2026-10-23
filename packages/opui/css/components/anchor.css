@@ -1,7 +1,7 @@
 @layer components.root {
   :where(.ui-anchor, .ui-badge, .ui-tooltip) {
-    --_anchor-tx: 0;
-    --_anchor-ty: 0;
+    --_shift-x: 0;
+    --_shift-y: 0;
 
     anchor-name: --anchor;
     anchor-scope: --anchor;
@@ -15,7 +15,7 @@
       position: absolute;
       position-anchor: --anchor;
       position-area: var(--ui-anchor-position-area, self-start self-end);
-      translate: var(--_anchor-tx) var(--_anchor-ty);
+      translate: var(--_shift-x) var(--_shift-y);
     }
 
     /* Hover-triggered */
@@ -34,7 +34,7 @@
         flip-inline,
         flip-block flip-inline;
       position-visibility: anchors-visible;
-      translate: var(--_anchor-tx) var(--_anchor-ty);
+      translate: var(--_shift-x) var(--_shift-y);
     }
   }
 }

@@ -5,7 +5,7 @@
       --ui-control-border-color-filled,
       var(--ui-border-color)
     );
-    --_dot-color: currentColor;
+    --_dot-bg-color: currentColor;
     --_font-size: var(--ui-font-size-caption);
     --_icon-padding-inline: var(--ui-space-1);
     --_icon-size: var(--ui-icon-size-small);
@@ -51,7 +51,7 @@
     }
 
     &:is(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
-      --_dot-color: var(--ui-palette-accent);
+      --_dot-bg-color: var(--ui-palette-accent);
 
       &:where(:not(.ui-outlined)) {
         --_bg-color: var(--ui-palette-tint-subtle);
@@ -92,7 +92,7 @@
     }
 
     &.ui-dot::before {
-      background-color: var(--_dot-color);
+      background-color: var(--_dot-bg-color);
       block-size: var(--ui-space-2);
       border-radius: var(--ui-radius-round);
       content: "";
@@ -113,7 +113,7 @@
 
     &.ui-dot.ui-neutral::before {
       background-color: transparent;
-      border: var(--ui-border-width-thick) solid var(--_dot-color);
+      border: var(--ui-border-width-thick) solid var(--_dot-bg-color);
 
       @media (forced-colors: active) {
         border-color: CanvasText;

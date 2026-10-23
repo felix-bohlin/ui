@@ -24,7 +24,7 @@ export default {
     description: "Size of a direct child `svg`. Defaults to `--ui-icon-size`.",
     kind: "input",
   },
-  "--_min-height": {
+  "--_min-block-size": {
     description:
       "Height and minimum width. Set by the size classes on the button or its group.",
     kind: "input",

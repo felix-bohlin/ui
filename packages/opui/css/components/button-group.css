@@ -1,24 +1,27 @@
 @layer components.extended {
   :where([role="group"].ui-button-group) {
-    --_border-radius: var(--ui-button-radius, var(--ui-radius));
-    --_edge-color: transparent;
+    --_edge-outline-color: transparent;
+    --_radius: var(--ui-button-radius, var(--ui-radius));
 
-    border-radius: var(--_border-radius);
+    border-radius: var(--_radius);
     display: inline-flex;
     flex-wrap: wrap;
     inline-size: fit-content;
     max-inline-size: 100%;
-    outline: var(--ui-border-width) solid var(--_edge-color);
+    outline: var(--ui-border-width) solid var(--_edge-outline-color);
     outline-offset: calc(-1 * var(--ui-border-width));
     overflow: hidden;
 
     &:is(.ui-filled, .ui-outlined, .ui-tonal) {
-      --_edge-color: var(--ui-control-border-color-filled, transparent);
+      --_edge-outline-color: var(--ui-control-border-color-filled, transparent);
     }
 
     &.ui-outlined {
       --_edge-accent: var(--ui-button-accent, var(--ui-palette-strong));
-      --_edge-color: var(--ui-control-border-color, var(--_edge-accent));
+      --_edge-outline-color: var(
+        --ui-control-border-color,
+        var(--_edge-accent)
+      );
       --_edge-text: light-dark(
         var(--_edge-accent),
         oklch(
@@ -28,7 +31,10 @@
       );
 
       @container style(--ui-contrast: more) {
-        --_edge-color: var(--ui-control-border-color, var(--_edge-text));
+        --_edge-outline-color: var(
+          --ui-control-border-color,
+          var(--_edge-text)
+        );
       }
 
       &.ui-critical {
@@ -47,8 +53,8 @@
       --_border-color: transparent;
       border-radius: 0;
       box-shadow:
-        calc(-1 * var(--ui-border-width)) 0 0 0 var(--_divider-color),
-        0 calc(-1 * var(--ui-border-width)) 0 0 var(--_divider-color);
+        calc(-1 * var(--ui-border-width)) 0 0 0 var(--_divider-border-color),
+        0 calc(-1 * var(--ui-border-width)) 0 0 var(--_divider-border-color);
       flex: auto;
 
       @media (forced-colors: active) {
@@ -56,7 +62,7 @@
       }
 
       /* button.css > --_accent-tonal */
-      --_divider-color: var(
+      --_divider-border-color: var(
         --ui-control-border-color-filled,
         light-dark(
           oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
@@ -68,9 +74,9 @@
       &:is([disabled], [aria-disabled="true"]) {
         box-shadow:
           calc(-1 * var(--ui-border-width)) 0 0 0
-            color-mix(in oklch, var(--_divider-color) 40%, transparent),
+            color-mix(in oklch, var(--_divider-border-color) 40%, transparent),
           0 calc(-1 * var(--ui-border-width)) 0 0
-            color-mix(in oklch, var(--_divider-color) 40%, transparent);
+            color-mix(in oklch, var(--_divider-border-color) 40%, transparent);
       }
 
       &:focus-visible {
@@ -78,18 +84,21 @@
       }
 
       :where(.ui-button-group.ui-outlined) & {
-        --_divider-color: var(--ui-control-border-color, var(--_accent));
+        --_divider-border-color: var(--ui-control-border-color, var(--_accent));
 
         @container style(--ui-contrast: more) {
-          --_divider-color: var(--ui-control-border-color, var(--_accent-text));
+          --_divider-border-color: var(
+            --ui-control-border-color,
+            var(--_accent-text)
+          );
         }
       }
 
       :where(.ui-button-group.ui-filled) & {
-        --_divider-color: currentColor;
+        --_divider-border-color: currentColor;
 
         :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) & {
-          --_divider-color: light-dark(
+          --_divider-border-color: light-dark(
             oklch(from var(--_accent) calc(l - 0.1) c h),
             oklch(from var(--_accent) calc(l + 0.1) c h)
           );

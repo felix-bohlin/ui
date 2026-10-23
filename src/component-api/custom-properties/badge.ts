@@ -6,16 +6,6 @@ export default {
       "The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info` and `.ui-success`.",
     kind: "input",
   },
-  "--_anchor-tx": {
-    description:
-      "Horizontal shift of the indicator, from `--_sign-x`. `.ui-dot` and round avatars change it.",
-    kind: "output",
-  },
-  "--_anchor-ty": {
-    description:
-      "Vertical shift of the indicator, from `--_sign-y`. `.ui-dot` and round avatars change it.",
-    kind: "output",
-  },
   "--_bg-color": {
     description:
       "Background of the indicator. Defaults to `--ui-primary`, set by the color classes.",
@@ -29,9 +19,9 @@ export default {
     description: "Border width of the indicator.",
     kind: "input",
   },
-  "--_dir": {
+  "--_direction": {
     description:
-      "Direction flag that flips `--_anchor-tx`. `1`, or `-1` in right-to-left.",
+      "Direction flag that flips `--_shift-x`. `1`, or `-1` in right-to-left.",
     kind: "output",
   },
   "--_dot-size": {
@@ -65,6 +55,16 @@ export default {
   "--_motion": {
     description: "Motion multiplier for the transitions. `0` turns them off.",
     kind: "input",
+  },
+  "--_shift-x": {
+    description:
+      "Horizontal shift of the indicator, from `--_sign-x`. `.ui-dot` and round avatars change it.",
+    kind: "output",
+  },
+  "--_shift-y": {
+    description:
+      "Vertical shift of the indicator, from `--_sign-y`. `.ui-dot` and round avatars change it.",
+    kind: "output",
   },
   "--_sign-x": {
     description:

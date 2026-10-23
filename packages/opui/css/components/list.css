@@ -8,7 +8,7 @@ Lists meant to be used stand-alone or as part of Select elements
 */
   :where(.ui-list, .ui-menu) {
     --_bg-color: var(--ui-surface-filled);
-    --_divider-color: var(--ui-border-color);
+    --_divider-border-color: var(--ui-border-color);
     --_hover-bg-color: oklch(
       from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
     );
@@ -22,11 +22,11 @@ Lists meant to be used stand-alone or as part of Select elements
       --_selected-bg-color: var(--ui-selected, var(--_hover-bg-color));
     }
 
-    --_selected-indicator-color: var(--ui-selected-strong);
+    --_selected-indicator-bg-color: var(--ui-selected-strong);
     --_selected-indicator-size: var(--ui-border-width-thick);
     --_selected-shadow: inset var(--_selected-indicator-size) 0 0
-      var(--_selected-indicator-color);
-    --_separator-space: var(--ui-space-3);
+      var(--_selected-indicator-bg-color);
+    --_separator-gap: var(--ui-space-3);
     --_start-image-size: 3.5rem;
     --_start-size: var(--ui-icon-size);
     --_start-video-size: 4rem;
@@ -40,7 +40,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
     &:dir(rtl) {
       --_selected-shadow: inset calc(-1 * var(--_selected-indicator-size)) 0 0
-        var(--_selected-indicator-color);
+        var(--_selected-indicator-bg-color);
     }
 
     @media (pointer: coarse) {
@@ -57,7 +57,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
     &.ui-tonal {
       --_bg-color: var(--ui-surface-tonal);
-      --_divider-color: color-mix(
+      --_divider-border-color: color-mix(
         in oklch,
         var(--ui-border-color),
         var(--ui-text-strong) 20%
@@ -70,13 +70,14 @@ Lists meant to be used stand-alone or as part of Select elements
     &.ui-bordered > :where([role="group"]) > :where(option + option),
     & > :where(li, option).ui-border-top,
     & > :where([role="group"]) > :where(label, option).ui-border-top {
-      margin-block-start: var(--_separator-space);
+      margin-block-start: var(--_separator-gap);
 
       &::before {
-        border-block-start: var(--ui-border-width) solid var(--_divider-color);
+        border-block-start: var(--ui-border-width) solid
+          var(--_divider-border-color);
         content: "";
         display: block;
-        inset-block: calc(var(--_separator-space) / -2) auto;
+        inset-block: calc(var(--_separator-gap) / -2) auto;
         inset-inline: 0;
         position: absolute;
         visibility: visible;
@@ -87,7 +88,7 @@ Lists meant to be used stand-alone or as part of Select elements
     /* Dense - less gaps and spacing */
     &.ui-dense {
       --_item-gap: var(--ui-space-2);
-      --_separator-space: var(--ui-space-2);
+      --_separator-gap: var(--ui-space-2);
       --_start-size: var(--ui-icon-size-small);
 
       & > :where(li, option),

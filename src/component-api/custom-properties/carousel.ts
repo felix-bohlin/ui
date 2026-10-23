@@ -35,12 +35,12 @@ export default {
       "Mirrors a scroll button, `1` or `-1`. From `--_button-start-flip` and `--_button-end-flip`.",
     kind: "output",
   },
-  "--_button-icon": {
+  "--_button-image": {
     description:
       "Icon of the scroll buttons, pointing forward. The previous button mirrors it.",
     kind: "input",
   },
-  "--_button-icon-size": {
+  "--_button-image-size": {
     description: "The icon size in the scroll buttons.",
     kind: "input",
   },
@@ -138,7 +138,7 @@ export default {
     description: "Aspect ratio of `img`, `video` and `iframe` in items.",
     kind: "input",
   },
-  "--_media-border-radius": {
+  "--_media-radius": {
     description:
       "Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.",
     kind: "input",

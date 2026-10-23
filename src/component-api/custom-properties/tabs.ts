@@ -21,11 +21,6 @@ export default {
       "Text color of the selected tab. Defaults to `--ui-text-strong`, `.ui-filled` sets it to `--ui-on-selected-strong`.",
     kind: "input",
   },
-  "--_border-radius": {
-    description:
-      "Corner radius of the track. The selected tab's radius is reduced by `--_inset` and `--_track-border-width`.",
-    kind: "input",
-  },
   "--_duration": {
     description:
       "Duration of the transitions, `--ui-duration-fast` times `--_motion`.",
@@ -41,7 +36,7 @@ export default {
       "Duration of the focus ring animation, `--ui-duration` times `--_motion`, slower than the `--_duration` of the transitions.",
     kind: "output",
   },
-  "--_indicator-color": {
+  "--_indicator-bg-color": {
     description:
       "Color of the line under the selected tab. `transparent` unless `.ui-line`.",
     kind: "input",
@@ -59,8 +54,18 @@ export default {
     description: "Motion multiplier for the transitions. `0` turns them off.",
     kind: "input",
   },
+  "--_radius": {
+    description:
+      "Corner radius of the track. The selected tab's radius is reduced by `--_inset` and `--_track-border-width`.",
+    kind: "input",
+  },
   "--_text-color": {
     description: "Text color of the unselected tabs. Defaults to `--ui-text`.",
+    kind: "input",
+  },
+  "--_track-bg-color": {
+    description:
+      "Background of the track behind the tabs. Defaults to `--ui-surface-tonal`.",
     kind: "input",
   },
   "--_track-border-color": {
@@ -70,11 +75,6 @@ export default {
   },
   "--_track-border-width": {
     description: "Border width of the track. `0px` in `.ui-line`.",
-    kind: "input",
-  },
-  "--_track-color": {
-    description:
-      "Background of the track behind the tabs. Defaults to `--ui-surface-tonal`.",
     kind: "input",
   },
 } satisfies CustomProperties

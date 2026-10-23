@@ -41,7 +41,7 @@ export default {
     description: "Padding of `.ui-content`.",
     kind: "input",
   },
-  "--_dir": {
+  "--_direction": {
     description: "Direction of the inline slide, `-1` in right-to-left.",
     kind: "output",
   },

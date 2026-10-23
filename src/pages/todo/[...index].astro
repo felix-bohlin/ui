@@ -38,12 +38,10 @@ export function getStaticPaths() {
 }
 
 const showDone = Astro.params.index === "done"
-const { done, intro, sections: open } = parseTodo(source)
+const { done, sections: open } = parseTodo(source)
 const sections = showDone ? done : open
-const doneCount = done.reduce(
-  (total, section) => total + section.items.length,
-  0,
-)
+const itemCount = (list: typeof done) =>
+  list.reduce((total, section) => total + section.items.length, 0)
 const stressExamples = Object.fromEntries(
   Object.entries(stressPages).map(([path, html]) => [
     stressSlug(path),
@@ -94,10 +92,7 @@ const actions = [
   "Remove issue",
 ]
 
-const count = sections.reduce(
-  (total, section) => total + section.items.length,
-  0,
-)
+const count = itemCount(sections)
 ---
 
 <Document
@@ -107,37 +102,15 @@ const count = sections.reduce(
   showToc
 >
   <Fragment slot="title">{showDone ? "Done" : "TODO"}</Fragment>
-  {
-    showDone ? (
-      <p slot="preamble">
-        {count} fixed todos from <code>TODO.md</code>. Open the examples to
-        check each fix, and comment on any that need another look. Back to the{" "}
-        <a class="ui-link" href="/todo/">
-          open todos
-        </a>
-        .
-      </p>
-    ) : (
-      <p slot="preamble">
-        {count} open todos from <code>TODO.md</code>. Comment on any of them or
-        pick an action, then copy your answers with Copy at the bottom of the
-        screen. Answers are saved in this browser. The {doneCount} fixed todos
-        are on{" "}
-        <a class="ui-link" href="/todo/done/">
-          Done
-        </a>
-        .
-      </p>
-    )
-  }
-
-  {
-    intro.map((paragraph) => (
-      <p>
-        <InlineText text={paragraph} />
-      </p>
-    ))
-  }
+  <p slot="preamble">
+    {
+      showDone ? (
+        <a class="ui-link" href="/todo/">{`Open (${itemCount(open)})`}</a>
+      ) : (
+        <a class="ui-link" href="/todo/done/">{`Done (${itemCount(done)})`}</a>
+      )
+    }
+  </p>
 
   {
     todoSections.map((section) => (

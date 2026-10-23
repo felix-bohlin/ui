@@ -60,6 +60,7 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 
 - Items and notes follow `.claude/skills/audit/findings-format.md`. That includes notes you add later, such as a `Still open:` answer.
 - When a note offers more than one fix, write the choices as an `Options:` list with lettered items (`- A (recommended): …`, `- B: …`), never as "do this, or that" in one sentence. The `/todo` page turns the list into a radio group.
+- Answers copied from the `/todo` page (`OPUI_TEST_PAGES=1`) start with "TODO.md with my comments": each answered item's line from `TODO.md`, then `> ` lines with the chosen action (`Explain further`, `Explain further and provide an example`, `Fix`, `Fix with option B`, `Remove issue`) and the comment. `Fix with option B` picks B from the item's `Options:` list. Add the `> ` lines under the item in `TODO.md`, do what they ask, and note the outcome below them (`Fixed:`, `Explained:`, `Still open:`). The `/todo/done/` page collects answers on fixed items the same way.
 
 ## Testing
 

@@ -186,7 +186,6 @@
 
     /* State */
     --ui-disabled-opacity: 0.64;
-    --ui-choice-ripple-bg-color: oklch(0.6 0 0 / 0.2);
     /* --ui-selected: var(--ui-primary); */
     /* --ui-on-selected: var(--ui-on-primary); */
     --ui-state-active-alpha-light: 20%;
@@ -205,6 +204,7 @@
     /* --ui-choice-accent: var(--ui-primary); */
     /* --ui-choice-on-accent: var(--ui-on-primary); */
     --ui-choice-label-offset: 0px;
+    --ui-choice-ripple-bg-color: oklch(0.6 0 0 / 0.2);
     --ui-choice-size-x-small: calc(0.875rem * var(--ui-density));
     --ui-choice-size-small: calc(var(--size-3) * var(--ui-density));
     --ui-choice-size: calc(var(--size-4) * var(--ui-density));

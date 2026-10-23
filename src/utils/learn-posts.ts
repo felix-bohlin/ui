@@ -368,6 +368,22 @@ export const posts = [
     title: "Vertical rhythm with round()",
     topics: ["layout", "typography"],
   },
+  {
+    before:
+      "A clamp() per heading with a hand-tuned vi slope, so every heading grew over a different range of viewport widths.",
+    category: "under-the-hood",
+    component: "typography",
+    date: "2026-10-23",
+    description:
+      "progress() turns the viewport width into one 0 to 1 ramp that every heading size shares.",
+    features: ["progress-function"],
+    level: "intermediate",
+    now: "`progress(100vi, start, end)` is one shared ramp, and each heading mixes its two steps with it.",
+    slug: "fluid-type-progress",
+    technique: "progress()",
+    title: "Fluid type with progress()",
+    topics: ["layout", "typography"],
+  },
 ].toSorted(
   (a, b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title),
 )

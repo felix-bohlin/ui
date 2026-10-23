@@ -2175,6 +2175,14 @@
     "url": "/learn/drawer-starting-style"
   },
   {
+    "id": "learn-fluid-type-progress",
+    "title": "Fluid type with progress()",
+    "description": "progress() turns the viewport width into one 0 to 1 ramp that every heading size shares.",
+    "headings": "The problem The trick Try it Fallback progress() A clamp() per heading with a hand-tuned vi slope, so every heading grew over a different range of viewport widths. `progress(100vi, start, end)` is one shared ramp, and each heading mixes its two steps with it. progress-function",
+    "category": "Learn",
+    "url": "/learn/fluid-type-progress"
+  },
+  {
     "id": "learn-form-fieldset-has",
     "title": "Smarter fieldsets with :has()",
     "description": ":has() lets fieldsets and legends style themselves from what they contain.",

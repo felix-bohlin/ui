@@ -271,6 +271,12 @@ export const references = {
     },
     { code: true, href: mdn("Web/CSS/translate"), label: "translate" },
   ],
+  fluid: [
+    { code: true, href: mdn("Web/CSS/@supports"), label: "@supports" },
+    { code: true, href: mdn("Web/CSS/calc"), label: "calc()" },
+    { code: true, href: mdn("Web/CSS/progress"), label: "progress()" },
+    { code: true, href: mdn("Web/CSS/length#vi"), label: "vi" },
+  ],
   form: [
     { code: true, href: mdn("Web/CSS/:has"), label: ":has()" },
     { code: true, href: mdn("Web/CSS/:not"), label: ":not()" },

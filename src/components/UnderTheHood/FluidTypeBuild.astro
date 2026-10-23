@@ -1,0 +1,119 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.h1 { font-size: 3.5rem; }
+.h2 { font-size: 2.5rem; }
+.h3 { font-size: 1.5rem; }
+.h4 { font-size: 1.25rem; }`,
+    notes: [
+      "The dashed box is the viewport. Drag <strong>Viewport</strong>: the headings don't care",
+      "The largest step of the scale on every screen",
+    ],
+    title: "Fixed sizes",
+  },
+  {
+    css: `
+.h1 { font-size: clamp(2rem, var(--viewport) * 0.09, 3.5rem); }
+.h2 { font-size: clamp(1.5rem, var(--viewport) * 0.06, 2.5rem); }
+.h3 { font-size: clamp(1.25rem, var(--viewport) * 0.04, 1.5rem); }
+.h4 { font-size: clamp(1.1rem, var(--viewport) * 0.03, 1.25rem); }`,
+    notes: [
+      "<code>var(--viewport) * 0.09</code> stands in for <code>9vi</code>, so the slider plays the viewport",
+      "Each heading grows over its own range: the <code>h1</code> from 356 to 622px, the <code>h4</code> from 587 to 667px",
+      "Drag <strong>Viewport</strong> to 600px: the <code>h1</code> is nearly full size, the <code>h3</code> and <code>h4</code> have barely moved",
+    ],
+    title: "A clamp() per heading",
+  },
+  {
+    css: `
+.viewport {
+  --progress: progress(var(--viewport), var(--fluid-min), var(--fluid-max));
+}
+
+.h1 { font-size: calc(2rem + (3.5rem - 2rem) * var(--progress)); }
+.h2 { font-size: calc(1.5rem + (2.5rem - 1.5rem) * var(--progress)); }
+.h3 { font-size: calc(1.25rem + (1.5rem - 1.25rem) * var(--progress)); }
+.h4 { font-size: calc(1.1rem + (1.25rem - 1.1rem) * var(--progress)); }`,
+    features: ["progress-function"],
+    notes: [
+      "<code>progress(value, start, end)</code> is 0 at the start, 1 at the end, clamped in between",
+      "Every heading reads the same ramp, so they grow together",
+      "Drag <strong>Window start</strong> and <strong>Window end</strong>: the breakpoints move, the sizes stay",
+    ],
+    title: "One ramp",
+  },
+  {
+    css: `
+.viewport {
+  gap: calc(0.5rem + 1rem * var(--progress));
+}`,
+    features: ["progress-function"],
+    notes: [
+      "Any length can ride the ramp: the gap between the headings here, the spacing scale in the theme",
+      "The theme rounds the sizes to the rhythm step on top, see Vertical rhythm with round()",
+    ],
+    title: "Reuse the ramp",
+  },
+]
+
+const knobs = [
+  {
+    label: "Viewport",
+    max: 960,
+    min: 320,
+    property: "--viewport",
+    step: 10,
+    unit: "px",
+    value: 600,
+  },
+  {
+    label: "Window start",
+    max: 480,
+    min: 240,
+    property: "--fluid-min",
+    step: 16,
+    unit: "px",
+    value: 320,
+  },
+  {
+    label: "Window end",
+    max: 960,
+    min: 480,
+    property: "--fluid-max",
+    step: 16,
+    unit: "px",
+    value: 768,
+  },
+]
+---
+
+<BuildUp id="build-fluid-type" knobs={knobs} steps={steps}>
+  <div class="viewport">
+    <p class="h1">Heading one</p>
+    <p class="h2">Heading two</p>
+    <p class="h3">Heading three</p>
+    <p class="h4">Heading four</p>
+  </div>
+</BuildUp>
+
+<style>
+  .viewport {
+    border: var(--ui-border-width-thick) dashed var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    display: grid;
+    gap: var(--ui-space-2);
+    inline-size: min(100%, var(--viewport));
+    padding: var(--ui-space-3);
+
+    & > p {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-bold);
+      line-height: 1.2;
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+  }
+</style>

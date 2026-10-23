@@ -21,7 +21,7 @@ const builds = Object.entries(modules)
   .map(([path, module]) => {
     const fileName = path.split("/").pop()!.replace("Build.astro", "")
     const slug =
-      fileName === "Rhythm"
+      fileName === "FluidType" || fileName === "Rhythm"
         ? "typography"
         : fileName.replace(/(?<!^)([A-Z])/g, "-$1").toLowerCase()
     const name = componentName(slug)

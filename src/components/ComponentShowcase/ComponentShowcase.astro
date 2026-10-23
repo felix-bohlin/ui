@@ -55,9 +55,13 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 ---
 
 <div class="component-showcase component-showcase--hero">
-  <div class="component-showcase__intro">
-    <slot />
-  </div>
+  {
+    Astro.slots.has("default") && (
+      <div class="component-showcase__intro">
+        <slot />
+      </div>
+    )
+  }
 
   <ComponentCard name="Accordion" href="/components/accordion" size="wide">
     <Accordion aria-hidden="true" inert variant="outlined">

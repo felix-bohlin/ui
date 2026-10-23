@@ -1,5 +1,24 @@
 ---
-import { Button, Chip } from "opui-css/astro"
+import {
+  Button,
+  Callout,
+  CalloutContent,
+  CalloutIcon,
+  Checkbox,
+  Chip,
+  Progress,
+  Range,
+  Switch,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  TextField,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
 import AstroLogo from "../components/AstroLogo.astro"
 import ChipRain from "../components/ChipRain.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
@@ -8,16 +27,26 @@ import ReactLogo from "../components/ReactLogo.astro"
 import SvelteLogo from "../components/SvelteLogo.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
+import { allBlocks } from "../utils/blocks"
+import { components } from "../utils/components"
+import { EXAMPLE_THEMES } from "../utils/example-themes"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
+import { posts } from "../utils/learn-posts"
+import { RADIUS_OPTIONS } from "../utils/theme-store"
+import { themeTokens, tokenTier } from "../utils/theme-tokens"
 import opuiPackage from "../../packages/opui/package.json"
 
 const description = "Design system. Components. Modern HTML & CSS."
 const version = opuiPackage.version
 
 const currentFramework = Astro.locals.framework
+const { link } = Astro.locals
 const componentsHref = hrefFor(currentFramework, "/components")
 const quickstartHref = hrefFor(currentFramework, "/guide/getting-started")
 const migratingHref = hrefFor(currentFramework, "/guide/migrating")
+const conceptsHref = hrefFor(currentFramework, "/guide/concepts")
+const generatorHref = hrefFor(currentFramework, "/guide/theme-generator")
+const tokensHref = hrefFor(currentFramework, "/guide/theme-tokens")
 
 const FRAMEWORK_BRANDING: Record<
   FrameworkId,
@@ -29,22 +58,90 @@ const FRAMEWORK_BRANDING: Record<
   svelte: { color: "#FF3E00", Logo: SvelteLogo },
   vue: { color: "#41B883", Logo: VueLogo },
 }
+
+const roleTokens = themeTokens().filter(
+  (token) => tokenTier(token.name) === "role",
+).length
+
+const materials = [
+  {
+    href: link("/blocks"),
+    item: "Blocks",
+    note: "Pages and sections built from the components",
+    qty: allBlocks.length,
+  },
+  {
+    href: componentsHref,
+    item: "Components",
+    note: "One CSS file each, with HTML, Astro, React, Svelte and Vue",
+    qty: components.length,
+  },
+  {
+    href: hrefFor(currentFramework, "/guide/customizing#example-themes"),
+    item: "Example themes",
+    note: EXAMPLE_THEMES.map((theme) => theme.label).join(", "),
+    qty: EXAMPLE_THEMES.length,
+  },
+  {
+    href: link("/learn"),
+    item: "Learn posts",
+    note: "The CSS behind each component, one feature at a time",
+    qty: posts.length,
+  },
+  {
+    href: "https://open-props.style",
+    item: "Open Props",
+    note: "The sizes, radii, easings and shadows underneath",
+    qty: 1,
+  },
+  {
+    href: tokensHref,
+    item: "Theme tokens",
+    note: "Roles every component reads, each with a contrast promise",
+    qty: roleTokens,
+  },
+]
+
+const titleBlock = [
+  { label: "Drawing", value: "Open Props UI" },
+  { label: "Rev", value: version },
+  { label: "Scale", value: "1:1" },
+  { label: "Material", value: "HTML & CSS" },
+  { label: "Base", value: "Open Props" },
+  { label: "Sheet", value: "1 of 4" },
+]
+
+const dimensions = [
+  { prop: "block-size", token: "--ui-button-size", value: "40px" },
+  { prop: "border-radius", token: "--ui-button-radius", value: "8px" },
+  { prop: "font-size", token: "--ui-font-size-control", value: "16px" },
+  { prop: "font-weight", token: "--ui-button-font-weight", value: "700" },
+  { prop: "background-color", token: "--ui-primary", value: "" },
+]
+
+const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 ---
 
 <Default description={description}>
-  <main id="main-content" class="container is-wide">
-    <ComponentShowcase>
-      <div id="main-heading">
+  <main id="main-content" class="blueprint container is-wide">
+    <section class="sheet hero" aria-labelledby="main-heading">
+      <div class="hero-copy">
         <hgroup class="ui-hgroup">
-          <p>
-            {version}
+          <p class="hero-overline">
+            <Chip size="small" variant="outlined" label={`v${version}`} />
             <a class="ui-link" href={migratingHref}>Migrating to v6</a>
           </p>
 
-          <h1 class="ui-h1">Open Props UI</h1>
+          <h1 class="ui-h1" id="main-heading">Open Props UI</h1>
 
           <p class="hero-description">{description}</p>
         </hgroup>
+
+        <p class="hero-lede">
+          One set of theme tokens, drawn through {components.length} components in
+          HTML, Astro, React, Svelte and Vue. Built on Open Props and the CSS that
+          shipped this year.
+        </p>
 
         <div class="hero-ctas">
           <Button href={quickstartHref} variant="filled" color="primary">
@@ -77,7 +174,235 @@ const FRAMEWORK_BRANDING: Record<
           }
         </p>
       </div>
-    </ComponentShowcase>
+
+      <figure class="drawing" aria-labelledby="drawing-caption">
+        <div class="drawing-stage">
+          <div class="drawing-subject">
+            <button class="ui-button ui-filled ui-primary" inert type="button">
+              Get started
+            </button>
+          </div>
+          <span class="dimension dimension-height" aria-hidden="true"></span>
+          <span class="leader leader-radius" aria-hidden="true"></span>
+          <span class="leader leader-fill" aria-hidden="true"></span>
+          <span class="leader leader-text" aria-hidden="true"></span>
+          <span class="leader leader-weight" aria-hidden="true"></span>
+          <dl class="dimensions">
+            {
+              dimensions.map((dimension) => (
+                <div class={`dimension-label label-${dimension.prop}`}>
+                  <dt>
+                    <code>{dimension.token}</code>
+                  </dt>
+                  <dd>
+                    {dimension.prop === "background-color" && (
+                      <span class="swatch" aria-hidden="true" />
+                    )}
+                    <output data-prop={dimension.prop}>
+                      {dimension.value}
+                    </output>
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+        <figcaption id="drawing-caption">
+          <span class="figure-number">Fig. 1</span> A filled primary Button, drawn
+          to the live theme tokens. The values are read from the page, so a new theme
+          redraws the figure.
+        </figcaption>
+      </figure>
+
+      <dl class="title-block" aria-label="Title block">
+        {
+          titleBlock.map((cell) => (
+            <div>
+              <dt>{cell.label}</dt>
+              <dd>{cell.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="sheet" aria-labelledby="components-heading">
+      <header class="sheet-header">
+        <p class="sheet-overline">Sheet 2 of 4, details</p>
+        <h2 class="ui-h2" id="components-heading">Every component, to scale</h2>
+        <p>
+          Each component is a CSS file you can read, change and keep. Open a
+          figure for its anatomy, its API and the files it depends on, with a
+          button that copies them all.
+        </p>
+      </header>
+
+      <ComponentShowcase />
+    </section>
+
+    <section class="sheet" aria-labelledby="spec-heading">
+      <header class="sheet-header">
+        <p class="sheet-overline">Sheet 3 of 4, specification</p>
+        <h2 class="ui-h2" id="spec-heading">
+          Turn three knobs, the whole kit follows
+        </h2>
+        <p>
+          A theme sets knobs like the palette hue. The knobs derive a 16-step
+          palette, the palette fills about {roleTokens} role tokens such as
+          <code>--ui-primary</code> and <code>--ui-surface</code>, and every
+          component reads the roles. No component reads a palette step, and a
+          check in the repo keeps it that way.
+        </p>
+      </header>
+
+      <div class="bench">
+        <form class="knobs ui-form" id="spec-knobs">
+          <Range
+            label="Hue"
+            name="--ui-palette-hue"
+            min={0}
+            max={360}
+            step={1}
+            value={240}
+            valueSuffix="°"
+          />
+          <Range
+            label="Chroma"
+            name="--ui-palette-chroma"
+            min={0}
+            max={1}
+            step={0.05}
+            value={0.6}
+          />
+          <div class="knob-radius">
+            <span class="ui-label" id="spec-radius-label">Radius</span>
+            <ToggleGroup
+              aria-labelledby="spec-radius-label"
+              name="spec-radius"
+              size="small"
+            >
+              {
+                RADIUS_OPTIONS.map((option) => (
+                  <ToggleButton
+                    checked={option.value === "var(--size-2)"}
+                    value={option.value}
+                  >
+                    {option.text}
+                  </ToggleButton>
+                ))
+              }
+            </ToggleGroup>
+          </div>
+          <p class="knob-note">
+            The same knobs, and about forty more, live in the <a
+              class="ui-link"
+              href={generatorHref}>theme generator</a
+            >. How the tiers fit together is in <a
+              class="ui-link"
+              href={conceptsHref}>Concepts</a
+            >.
+          </p>
+        </form>
+
+        <div
+          class="specimen ui-palette ui-not-rich-text"
+          id="spec-specimen"
+          style="--ui-palette-hue: 240; --ui-palette-chroma: 0.6"
+        >
+          <div class="palette-strip" aria-hidden="true">
+            {
+              steps.map((step) => (
+                <span style={`background-color: var(--ui-color-${step})`} />
+              ))
+            }
+          </div>
+
+          <div class="specimen-row">
+            <Button variant="filled" color="primary" inert>Filled</Button>
+            <Button variant="tonal" color="primary" inert>Tonal</Button>
+            <Button variant="outlined" color="primary" inert>Outlined</Button>
+          </div>
+
+          <div class="specimen-row">
+            <Chip label="Tonal chip" />
+            <Chip label="Outlined chip" variant="outlined" />
+            <Switch checked inert>Switch</Switch>
+            <Checkbox checked inert>Checkbox</Checkbox>
+          </div>
+
+          <div class="specimen-row">
+            <TextField label="Text field" placeholder="Type here" inert />
+          </div>
+
+          <Progress
+            variant="filled"
+            value={64}
+            max={100}
+            aria-label="Progress"
+          />
+
+          <Callout severity="info" variant="tonal">
+            <CalloutIcon />
+            <CalloutContent>
+              <h3>Scoped, not global</h3>
+              This box is a <code>.ui-palette</code> scope. The rest of the page keeps
+              its own knobs.
+            </CalloutContent>
+          </Callout>
+        </div>
+      </div>
+    </section>
+
+    <section class="sheet" aria-labelledby="materials-heading">
+      <header class="sheet-header">
+        <p class="sheet-overline">Sheet 4 of 4, bill of materials</p>
+        <h2 class="ui-h2" id="materials-heading">What ships in the box</h2>
+        <p>
+          Install the package or copy the files you need. Either way the CSS is
+          layered, so your theme and your overrides win without <code
+            >!important</code
+          >.
+        </p>
+      </header>
+
+      <Table class="materials" density="dense">
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>No.</TableHeaderCell>
+            <TableHeaderCell>Item</TableHeaderCell>
+            <TableHeaderCell class="materials-qty">Qty</TableHeaderCell>
+            <TableHeaderCell>Description</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {
+            materials.map((material, index) => (
+              <TableRow>
+                <TableCell>
+                  <code>{String(index + 1).padStart(2, "0")}</code>
+                </TableCell>
+                <TableCell>
+                  <a class="ui-link" href={material.href}>
+                    {material.item}
+                  </a>
+                </TableCell>
+                <TableCell class="materials-qty">{material.qty}</TableCell>
+                <TableCell>{material.note}</TableCell>
+              </TableRow>
+            ))
+          }
+        </TableBody>
+      </Table>
+
+      <div class="hero-ctas">
+        <Button href={quickstartHref} variant="filled" color="primary">
+          Start drafting
+        </Button>
+        <Button href={generatorHref} variant="outlined" color="primary">
+          Theme generator
+        </Button>
+      </div>
+    </section>
   </main>
 
   <ChipRain />
@@ -127,39 +452,274 @@ const FRAMEWORK_BRANDING: Record<
         themeStore.setToken(mode, "--ui-palette-chroma", chroma)
       })
     })
+
+  const subject = document.querySelector<HTMLElement>(".drawing .ui-button")
+  const outputs = document.querySelectorAll<HTMLOutputElement>(
+    ".drawing output[data-prop]",
+  )
+
+  function measure() {
+    if (!subject) return
+    const style = getComputedStyle(subject)
+    outputs.forEach((output) => {
+      const prop = output.dataset.prop
+      if (!prop) return
+      const value = style.getPropertyValue(prop).trim()
+      output.textContent =
+        prop === "border-radius" ? value.split(" ")[0] : value
+    })
+  }
+
+  measure()
+  document.addEventListener("theme:change", measure)
+  new MutationObserver(measure).observe(document.documentElement, {
+    attributeFilter: ["class", "style"],
+    attributes: true,
+  })
+
+  const knobs = document.querySelector<HTMLFormElement>("#spec-knobs")
+  const specimen = document.querySelector<HTMLElement>("#spec-specimen")
+
+  function applyKnobs() {
+    if (!knobs || !specimen) return
+    const data = new FormData(knobs)
+    const hue = data.get("--ui-palette-hue")
+    const chroma = data.get("--ui-palette-chroma")
+    const radius = data.get("spec-radius")
+    if (typeof hue === "string") {
+      specimen.style.setProperty("--ui-palette-hue", hue)
+    }
+    if (typeof chroma === "string") {
+      specimen.style.setProperty("--ui-palette-chroma", chroma)
+    }
+    if (typeof radius === "string") {
+      specimen.style.setProperty("--ui-radius", radius)
+      specimen.style.setProperty(
+        "--ui-radius-small",
+        `min(var(--radius-2), ${radius})`,
+      )
+      specimen.style.setProperty(
+        "--ui-radius-x-small",
+        `min(var(--radius-1), ${radius})`,
+      )
+    }
+  }
+
+  knobs?.addEventListener("input", applyKnobs)
+  knobs?.addEventListener("change", applyKnobs)
+  applyKnobs()
 </script>
 
 <style is:global>
   html {
-    --ui-surface: light-dark(var(--ui-color-1), var(--ui-color-14));
+    --ui-palette-chroma: 0.6;
+    --ui-palette-hue: var(--hue-blue);
+    --ui-gray-chroma: 0.025;
+    --ui-gray-hue: 250;
+    --ui-surface: light-dark(
+      oklch(from var(--ui-color-1) 99% c h),
+      oklch(from var(--ui-color-14) l calc(c * 1.4) h)
+    );
     --ui-surface-filled: light-dark(var(--ui-color-3), var(--ui-color-16));
-    --ui-surface-tonal: light-dark(var(--ui-color-3), var(--ui-color-12));
-    --ui-surface-elevated: light-dark(var(--ui-color-1), var(--ui-color-12));
-    --ui-border-color: light-dark(var(--ui-color-4), var(--ui-color-12));
+    --ui-surface-tonal: light-dark(
+      var(--ui-color-2),
+      oklch(from var(--ui-color-13) l calc(c * 1.3) h)
+    );
+    --ui-surface-elevated: light-dark(
+      oklch(from var(--ui-color-1) 99.5% c h),
+      oklch(from var(--ui-color-13) l calc(c * 1.3) h)
+    );
+    --ui-border-color: light-dark(var(--ui-color-4), var(--ui-color-11));
+    --blueprint-ink: light-dark(var(--ui-color-11), var(--ui-color-5));
+    --blueprint-ink-strong: light-dark(var(--ui-color-13), var(--ui-color-2));
+    --blueprint-line: light-dark(
+      oklch(from var(--ui-color-9) l c h / 14%),
+      oklch(from var(--ui-color-5) l c h / 13%)
+    );
+    --blueprint-line-major: light-dark(
+      oklch(from var(--ui-color-9) l c h / 28%),
+      oklch(from var(--ui-color-5) l c h / 24%)
+    );
+    --blueprint-line-strong: light-dark(
+      oklch(from var(--ui-color-9) l c h / 55%),
+      oklch(from var(--ui-color-5) l c h / 50%)
+    );
+    --blueprint-square: 1.25rem;
 
-    &:before {
-      background-image: radial-gradient(
-        var(--ui-text) 1.4500000000000002px,
-        transparent 1.4500000000000002px
-      );
-      background-size: 20px 20px;
-      bottom: 0;
+    &::before {
+      background-image:
+        linear-gradient(var(--blueprint-line-major) 1px, transparent 1px),
+        linear-gradient(
+          90deg,
+          var(--blueprint-line-major) 1px,
+          transparent 1px
+        ),
+        linear-gradient(var(--blueprint-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--blueprint-line) 1px, transparent 1px);
+      background-position: -1px -1px;
+      background-size:
+        calc(var(--blueprint-square) * 5) calc(var(--blueprint-square) * 5),
+        calc(var(--blueprint-square) * 5) calc(var(--blueprint-square) * 5),
+        var(--blueprint-square) var(--blueprint-square),
+        var(--blueprint-square) var(--blueprint-square);
       content: "";
-      left: 0;
-      opacity: 0.05;
+      inset: 0;
       pointer-events: none;
       position: fixed;
-      right: 0;
-      top: 0;
+      z-index: -1;
+    }
+
+    &::after {
+      background: radial-gradient(
+        120% 80% at 50% 0%,
+        transparent 40%,
+        light-dark(oklch(0 0 0 / 4%), oklch(0 0 0 / 35%))
+      );
+      content: "";
+      inset: 0;
+      pointer-events: none;
+      position: fixed;
+      z-index: -1;
+    }
+  }
+
+  .blueprint {
+    counter-reset: figure 1;
+
+    .component-showcase {
+      gap: var(--size-4);
+      margin-block: var(--size-6) 0;
+    }
+
+    .showcase-card {
+      background-color: transparent;
+      border: 1px solid var(--blueprint-line-strong);
+      border-radius: var(--radius-1);
+      box-shadow: none;
+      counter-increment: figure;
+      padding-block-start: var(--size-7);
+
+      &::before {
+        background: none;
+        color: var(--blueprint-ink);
+        content: "Fig. " counter(figure);
+        font-family: var(--ui-font-code);
+        font-size: var(--ui-font-size-caption);
+        inset: var(--size-2) auto auto var(--size-3);
+        letter-spacing: var(--ui-letter-spacing-caps);
+        mask-image: none;
+        opacity: 1;
+        text-transform: uppercase;
+      }
+
+      &::after {
+        block-size: var(--size-3);
+        border-block-start: 1px solid var(--blueprint-line-strong);
+        border-inline-end: 1px solid var(--blueprint-line-strong);
+        content: "";
+        inline-size: var(--size-3);
+        inset: -1px -1px auto auto;
+        pointer-events: none;
+        position: absolute;
+        translate: var(--size-1) calc(-1 * var(--size-1));
+      }
+
+      &:hover {
+        border-color: var(--blueprint-ink);
+      }
+    }
+
+    .showcase-link {
+      border-color: transparent;
     }
   }
 </style>
 
 <style>
+  :is(h1, h2, p) {
+    text-wrap: pretty;
+  }
+
+  #main-content {
+    display: grid;
+    gap: var(--size-8);
+    padding-block: var(--size-4) var(--size-8);
+  }
+
+  .sheet {
+    background-color: light-dark(
+      oklch(from var(--ui-surface) l c h / 55%),
+      oklch(from var(--ui-surface) l c h / 35%)
+    );
+    border: 1px solid var(--blueprint-line-strong);
+    border-radius: var(--radius-1);
+    outline: 1px solid var(--blueprint-line-major);
+    outline-offset: 5px;
+    padding: var(--size-7) var(--size-6);
+    position: relative;
+
+    @media (width >= 900px) {
+      padding: var(--size-9) var(--size-9) var(--size-8);
+    }
+  }
+
+  .sheet-header {
+    display: grid;
+    gap: var(--size-3);
+    margin-block-end: var(--size-6);
+    max-inline-size: 60ch;
+
+    h2 {
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    code {
+      font-size: 0.9em;
+    }
+  }
+
+  .sheet-overline {
+    color: var(--blueprint-ink);
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-caption);
+    letter-spacing: var(--ui-letter-spacing-caps);
+    text-transform: uppercase;
+  }
+
+  /* Hero */
+  .hero {
+    align-items: start;
+    display: grid;
+    gap: var(--size-8);
+
+    @media (width >= 900px) {
+      gap: var(--size-10);
+      grid-template-columns: minmax(0, 7fr) minmax(0, 6fr);
+      padding-block-end: calc(var(--size-9) + var(--size-6));
+    }
+  }
+
+  .hero-overline {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+  }
+
   .hero-description {
     font-size: var(--font-size-2);
     line-height: var(--font-lineheight-4);
     text-wrap: balance;
+  }
+
+  .hero-lede {
+    color: var(--ui-text);
+    margin-block-start: var(--size-4);
+    max-inline-size: 48ch;
   }
 
   .hero-ctas {
@@ -167,7 +727,7 @@ const FRAMEWORK_BRANDING: Record<
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-2);
-    margin-block-start: var(--size-8);
+    margin-block-start: var(--size-7);
   }
 
   .framework-support {
@@ -189,24 +749,405 @@ const FRAMEWORK_BRANDING: Record<
     }
   }
 
-  :is(h1, h2, p) {
+  /* Title block, the bottom corner of the sheet like on a drawing */
+  .title-block {
+    border: 1px solid var(--blueprint-line-strong);
+    display: grid;
+    font-size: var(--ui-font-size-caption);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-self: end;
+    margin: 0;
+
+    @media (width >= 600px) {
+      grid-template-columns: repeat(6, auto);
+    }
+
+    @media (width >= 900px) {
+      inset-block-end: -1px;
+      inset-inline-end: -1px;
+      position: absolute;
+    }
+
+    > div {
+      border: 1px solid var(--blueprint-line-strong);
+      display: grid;
+      gap: var(--size-1);
+      margin: -1px 0 0 -1px;
+      padding: var(--size-1) var(--size-3);
+    }
+
+    dt {
+      color: var(--blueprint-ink);
+      font-family: var(--ui-font-code);
+      font-size: 0.65rem;
+      letter-spacing: var(--ui-letter-spacing-caps);
+      text-transform: uppercase;
+    }
+
+    dd {
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-semibold);
+      margin: 0;
+      white-space: nowrap;
+    }
+  }
+
+  /* Drawing, a button with dimension lines */
+  .drawing {
+    display: grid;
+    gap: var(--size-4);
+    justify-items: stretch;
+    margin: 0;
+  }
+
+  .drawing-stage {
+    align-items: center;
+    container-type: inline-size;
+    display: flex;
+    justify-content: center;
+    min-block-size: 22rem;
+    position: relative;
+  }
+
+  .drawing-subject {
+    zoom: 1.75;
+
+    .ui-button {
+      anchor-name: --drawing-subject;
+      white-space: nowrap;
+    }
+  }
+
+  .dimension,
+  .leader {
+    color: var(--blueprint-ink);
+    pointer-events: none;
+    position: absolute;
+    position-anchor: --drawing-subject;
+  }
+
+  .dimension-height {
+    border-inline-start: 1px solid currentColor;
+    inset-block: anchor(top) anchor(bottom);
+    inset-inline-start: calc(anchor(right) + var(--size-4));
+
+    &::before,
+    &::after {
+      border-block-start: 1px solid currentColor;
+      content: "";
+      inline-size: var(--size-3);
+      inset-inline-start: calc(-1 * var(--size-3) / 2 - 0.5px);
+      position: absolute;
+    }
+
+    &::before {
+      inset-block-start: 0;
+    }
+
+    &::after {
+      inset-block-end: 0;
+    }
+  }
+
+  .leader {
+    border-block-start: 1px solid currentColor;
+    inline-size: var(--leader-length, 5rem);
+    rotate: var(--leader-angle, 0deg);
+    transform-origin: 0 0;
+
+    &::before {
+      background-color: currentColor;
+      block-size: 5px;
+      border-radius: var(--radius-round);
+      content: "";
+      inline-size: 5px;
+      inset-block-start: -3px;
+      inset-inline-start: -2px;
+      position: absolute;
+    }
+  }
+
+  .leader-radius {
+    --leader-angle: -145deg;
+    --leader-length: 4rem;
+
+    inset-block-start: calc(anchor(top) + 4px);
+    inset-inline-start: calc(anchor(left) + 4px);
+  }
+
+  .leader-fill {
+    --leader-angle: 150deg;
+    --leader-length: 4rem;
+
+    inset-block-start: calc(anchor(bottom) - 10px);
+    inset-inline-start: calc(anchor(left) + 24px);
+  }
+
+  .leader-text {
+    --leader-angle: -40deg;
+    --leader-length: 4rem;
+
+    inset-block-start: calc(anchor(top) + 14px);
+    inset-inline-start: calc(anchor(right) - 30px);
+  }
+
+  .leader-weight {
+    --leader-angle: 40deg;
+    --leader-length: 3.5rem;
+
+    inset-block-start: calc(anchor(bottom) - 14px);
+    inset-inline-start: calc(anchor(right) - 44px);
+  }
+
+  .dimensions {
+    margin: 0;
+  }
+
+  .dimension-label {
+    display: grid;
+    gap: var(--size-1);
+    position: absolute;
+    position-anchor: --drawing-subject;
+    white-space: nowrap;
+
+    dt code {
+      background: none;
+      color: var(--ui-text-strong);
+      font-size: var(--ui-font-size-caption);
+      padding: 0;
+    }
+
+    dd {
+      align-items: center;
+      color: var(--blueprint-ink);
+      display: flex;
+      font-family: var(--ui-font-code);
+      font-size: var(--ui-font-size-caption);
+      gap: var(--size-2);
+      margin: 0;
+    }
+
+    .swatch {
+      background-color: var(--ui-primary);
+      block-size: var(--size-3);
+      border: 1px solid var(--blueprint-ink);
+      border-radius: var(--radius-1);
+      flex: none;
+      inline-size: var(--size-3);
+    }
+  }
+
+  .label-block-size {
+    inset-block-start: anchor(center);
+    inset-inline-start: calc(anchor(right) + var(--size-6));
+    translate: 0 -50%;
+  }
+
+  .label-border-radius {
+    inset-block-end: calc(anchor(top) + 2.6rem);
+    inset-inline-end: calc(anchor(left) + 2.75rem);
+    text-align: end;
+
+    dd {
+      justify-content: end;
+    }
+  }
+
+  .label-background-color {
+    inset-block-start: calc(anchor(bottom) + 1.6rem);
+    inset-inline-end: calc(anchor(left) + 1.75rem);
+    text-align: end;
+
+    dd {
+      justify-content: end;
+    }
+  }
+
+  .label-font-size {
+    inset-block-end: calc(anchor(top) + 2.1rem);
+    inset-inline-start: calc(anchor(right) + 1.25rem);
+  }
+
+  .label-font-weight {
+    inset-block-start: calc(anchor(bottom) + 1.6rem);
+    inset-inline-start: calc(anchor(right) + 1rem);
+  }
+
+  @container (width < 30rem) {
+    .drawing-stage {
+      flex-direction: column;
+      gap: var(--size-7);
+      min-block-size: 0;
+      padding-block: var(--size-5);
+    }
+
+    .drawing-subject {
+      zoom: 1.4;
+    }
+
+    .leader {
+      display: none;
+    }
+
+    .dimensions {
+      display: grid;
+      gap: var(--size-3) var(--size-5);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      inline-size: 100%;
+    }
+
+    .dimension-label {
+      position: static;
+      text-align: start;
+      translate: none;
+      white-space: normal;
+
+      dd {
+        justify-content: start;
+      }
+
+      code {
+        overflow-wrap: anywhere;
+      }
+    }
+  }
+
+  .drawing figcaption {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
     text-wrap: pretty;
   }
 
-  #main-content {
-    padding-block: var(--size-4);
-    &:before {
-      background: radial-gradient(
-        100% 100% at 50% 0%,
-        var(--ui-primary),
-        transparent
-      );
-      content: "";
-      inset: 0;
-      opacity: 0.3;
-      pointer-events: none;
-      position: fixed;
-      z-index: -1;
+  .figure-number {
+    color: var(--blueprint-ink);
+    font-family: var(--ui-font-code);
+    letter-spacing: var(--ui-letter-spacing-caps);
+    text-transform: uppercase;
+  }
+
+  /* Specification bench */
+  .bench {
+    display: grid;
+    gap: var(--size-6);
+
+    @media (width >= 900px) {
+      align-items: start;
+      grid-template-columns: minmax(16rem, 2fr) minmax(0, 3fr);
+    }
+  }
+
+  .knobs {
+    display: grid;
+    gap: var(--size-5);
+  }
+
+  .knob-radius {
+    display: grid;
+    gap: var(--size-2);
+    justify-items: start;
+  }
+
+  .knob-note {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+  }
+
+  .specimen {
+    background-color: var(--ui-surface);
+    border: 1px solid var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    color: var(--ui-text);
+    display: grid;
+    gap: var(--size-5);
+    padding: var(--size-5);
+
+    h3 {
+      font-size: var(--ui-font-size-body);
+    }
+  }
+
+  .palette-strip {
+    border-radius: var(--ui-radius-small);
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    overflow: hidden;
+
+    span {
+      block-size: var(--size-5);
+    }
+  }
+
+  .specimen-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3) var(--size-4);
+
+    :global(.ui-text-field) {
+      flex: 1;
+    }
+  }
+
+  /* Bill of materials */
+  .materials {
+    inline-size: 100%;
+
+    code {
+      background: none;
+      color: var(--blueprint-ink);
+      padding: 0;
+    }
+  }
+
+  .materials-qty {
+    text-align: end;
+  }
+
+  .materials + .hero-ctas {
+    margin-block-start: var(--size-7);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .dimension,
+    .leader,
+    .dimension-label {
+      animation: draw-in 0.6s var(--ease-out-3) both;
+      animation-delay: calc(0.15s * var(--draw-order, 1));
+    }
+
+    .dimension-height {
+      --draw-order: 1;
+    }
+
+    .label-block-size {
+      --draw-order: 2;
+    }
+
+    .leader-radius,
+    .label-border-radius {
+      --draw-order: 3;
+    }
+
+    .leader-fill,
+    .label-background-color {
+      --draw-order: 4;
+    }
+
+    .leader-text,
+    .label-font-size {
+      --draw-order: 5;
+    }
+
+    .leader-weight,
+    .label-font-weight {
+      --draw-order: 6;
+    }
+  }
+
+  @keyframes draw-in {
+    from {
+      opacity: 0;
     }
   }
 </style>

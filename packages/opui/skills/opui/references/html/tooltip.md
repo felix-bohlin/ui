@@ -2,7 +2,7 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md).
 
-Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Give the `.ui-floating` element `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
+Add the `.ui-tooltip` class to the wrapper. Give the `.ui-floating` element `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
 
 ## Basics
 
@@ -11,7 +11,7 @@ Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Give the `.ui
 Set the tooltip text inside `.ui-floating[popover="hint"]`.
 
 ```html
-<span class="ui-anchor ui-tooltip">
+<span class="ui-tooltip">
   <button
     type="button"
     class="ui-button"
@@ -32,7 +32,7 @@ Set the tooltip text inside `.ui-floating[popover="hint"]`.
 You can place any markup you want (famous last words) inside `.ui-floating[popover="hint"]`, not only text.
 
 ```html
-<span class="ui-anchor ui-tooltip">
+<span class="ui-tooltip">
   <button
     type="button"
     class="ui-button"
@@ -54,10 +54,7 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
 
 ```html
 <div class="example-compass">
-  <span
-    class="ui-anchor ui-tooltip"
-    style="--ui-anchor-position-area: block-start"
-  >
+  <span class="ui-tooltip" style="--ui-anchor-position-area: block-start">
     <button
       type="button"
       class="ui-button"
@@ -71,10 +68,7 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
       >Above</span
     >
   </span>
-  <span
-    class="ui-anchor ui-tooltip"
-    style="--ui-anchor-position-area: inline-start"
-  >
+  <span class="ui-tooltip" style="--ui-anchor-position-area: inline-start">
     <button
       type="button"
       class="ui-button"
@@ -88,10 +82,7 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
       >Before</span
     >
   </span>
-  <span
-    class="ui-anchor ui-tooltip"
-    style="--ui-anchor-position-area: inline-end"
-  >
+  <span class="ui-tooltip" style="--ui-anchor-position-area: inline-end">
     <button
       type="button"
       class="ui-button"
@@ -105,10 +96,7 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
       >After</span
     >
   </span>
-  <span
-    class="ui-anchor ui-tooltip"
-    style="--ui-anchor-position-area: block-end"
-  >
+  <span class="ui-tooltip" style="--ui-anchor-position-area: block-end">
     <button
       type="button"
       class="ui-button"
@@ -130,7 +118,7 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
 Add the `.ui-arrow` class on the `.ui-tooltip`. This would be cool to solve with `corner-shape` one day.
 
 ```html
-<span class="ui-anchor ui-tooltip ui-arrow">
+<span class="ui-tooltip ui-arrow">
   <button
     type="button"
     class="ui-button"
@@ -182,7 +170,7 @@ Add the `.ui-arrow` class on the `.ui-tooltip`. This would be cool to solve with
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-Add `.ui-anchor` to the root too. Give `.ui-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
+Give `.ui-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
 
 ## Component properties
 
@@ -393,6 +381,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: `.ui-anchor` is no longer needed on [`.ui-tooltip`](#basics), which `anchor.css` positions itself.
 - Breaking: the floating content is [`.ui-floating`](#api) instead of `.ui-anchor-floating`.
 - The [arrow](#arrow) points at the trigger in every position, also after a flip.
 - Breaking: `--_tooltip-bg` and `--_tooltip-color` are `--_bg-color` and `--_text-color`, and `--_tooltip-offset` is `--_offset` ([Under the hood](#under-the-hood)).

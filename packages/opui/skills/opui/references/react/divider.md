@@ -63,7 +63,7 @@ export default function Content() {
 
 ## Spacing
 
-The space above and below a divider is `--ui-divider-space`. Cards, callouts, dialogs and drawers set a tighter value, and a divider that is a direct child of a card has no margin, since the card's gap already spaces it. Set `--ui-divider-space` on any wrapper to change it for every divider inside.
+The space above and below a divider is `--ui-divider-gap`. Cards, callouts, dialogs and drawers set a tighter value, and a divider that is a direct child of a card has no margin, since the card's gap already spaces it. Set `--ui-divider-gap` on any wrapper to change it for every divider inside.
 
 ```tsx
 import { Card, CardContent, Divider } from "opui-css/react"
@@ -80,7 +80,7 @@ export default function Spacing() {
         </CardContent>
       </Card>
 
-      <div style={{ "--ui-divider-space": "var(--ui-space-1)" }}>
+      <div style={{ "--ui-divider-gap": "var(--ui-space-1)" }}>
         A custom space on any wrapper <Divider /> reaches every divider inside
         it.
       </div>
@@ -106,14 +106,14 @@ export default function Spacing() {
 | ------------------------ | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--ui-border-color`      | `light-dark(var(--ui-gray-4), var(--ui-gray-12))`   | Default border color for cards, lists, tables and dividers.                                                                                                                                                                 |
 | `--ui-border-width`      | `1px`                                               | Default border width for components that draw a border.                                                                                                                                                                     |
-| `--ui-divider-space`     | `calc(var(--size-fluid-3) * var(--ui-space-scale))` | Block margin around a `Divider`, times `--ui-space-scale`. Cards, callouts, dialogs and drawers set it to `--ui-space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it. |
+| `--ui-divider-gap`       | `calc(var(--size-fluid-3) * var(--ui-space-scale))` | Block margin around a `Divider`, times `--ui-space-scale`. Cards, callouts, dialogs and drawers set it to `--ui-space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it. |
 | `--ui-font-size-caption` | `var(--ui-font-size-100)`                           | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.              |
 | `--ui-primary`           | `light-dark(var(--ui-color-9), var(--ui-color-6))`  | Brand color for primary actions and accents.                                                                                                                                                                                |
 | `--ui-space-3`           | `calc(var(--size-3) * var(--ui-space-scale))`       | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                             |
 | `--ui-space-4`           | `calc(var(--size-4) * var(--ui-space-scale))`       | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                             |
 | `--ui-surface-filled`    | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`   | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                       |
 | `--ui-surface-tonal`     | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`   | Background of tonal variants.                                                                                                                                                                                               |
-| `--ui-text-muted`        | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`   | Body text color.                                                                                                                                                                                                            |
+| `--ui-text`              | `light-dark(var(--ui-gray-13), var(--ui-gray-4))`   | Body text color.                                                                                                                                                                                                            |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
@@ -190,7 +190,7 @@ Step 4 of 5: Breathe
 
 ```css
 .divider {
-  margin-block: var(--ui-divider-space);
+  margin-block: var(--ui-divider-gap);
 }
 ```
 
@@ -216,6 +216,6 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
-- [Spacing](#spacing) comes from `--ui-divider-space`, which cards, callouts, dialogs and drawers make tighter.
+- [Spacing](#spacing) comes from `--ui-divider-gap`, which cards, callouts, dialogs and drawers make tighter.
 - [Variants](#variants) name the default: `variant="outlined"`.
 - [Content](#content) in the middle of the line as children, aligned with `align`.

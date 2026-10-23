@@ -127,7 +127,7 @@ The type scale, `--ui-font-size-100` to `--ui-font-size-900` (12px to 56px), is 
 - `--ui-shadow-overlay`: menus, `select` pickers and drawers.
 - `--ui-shadow-scroll`: the edges of scrolled dialogs, drawers and sticky table headers.
 - `--ui-shadow-surface`: tonal and outlined cards and accordions, and callouts. `none` by default.
-- `--ui-shadow-tab`: the selected tab.
+- `--ui-shadow-selected`: the selected tab.
 
 ```css
 :where(html) {
@@ -207,7 +207,7 @@ Style queries match the parent, so the values land on `body`, on the children of
     .ui-list:not(.ui-tonal, .ui-transparent),
     .ui-table th
   ) {
-    --ui-border-color: var(--ui-text-muted);
+    --ui-border-color: var(--ui-text);
     --ui-field-border-color: var(--ui-border-color);
   }
 }

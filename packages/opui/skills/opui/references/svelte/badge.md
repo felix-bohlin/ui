@@ -6,7 +6,7 @@
 
 - `<Badge>`
 
-  Container element. Also takes `.ui-anchor`.
+  Container element.
 
 - `children`
 

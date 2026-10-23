@@ -6,7 +6,7 @@
 
 - `.ui-badge`
 
-  Container element. Also takes `.ui-anchor`.
+  Container element.
 
 - `& > :first-child`
 
@@ -21,7 +21,7 @@
 Use `.ui-dot` to show a dot instead of the label.
 
 ```html
-<span class="ui-anchor ui-badge">
+<span class="ui-badge">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ Use `.ui-dot` to show a dot instead of the label.
   </span>
 </span>
 
-<span class="ui-anchor ui-badge ui-dot">
+<span class="ui-badge ui-dot">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@ Use `.ui-dot` to show a dot instead of the label.
 Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` or `.ui-warning`.
 
 ```html
-<span class="ui-anchor ui-badge ui-critical">
+<span class="ui-badge ui-critical">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
   >
 </span>
 
-<span class="ui-anchor ui-badge ui-info">
+<span class="ui-badge ui-info">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +110,7 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
   >
 </span>
 
-<span class="ui-anchor ui-badge ui-neutral">
+<span class="ui-badge ui-neutral">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +131,7 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
   >
 </span>
 
-<span class="ui-anchor ui-badge ui-success">
+<span class="ui-badge ui-success">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +152,7 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
   >
 </span>
 
-<span class="ui-anchor ui-badge ui-warning">
+<span class="ui-badge ui-warning">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -181,7 +181,7 @@ Put the indicator text inside `.ui-indicator`. When the visible text is short, l
 The badge never joins the number and the words, so a translation can put the number wherever its language needs it, and the visible text can differ from the sentence ("99+" and "More than 99 unread messages").
 
 ```html
-<span class="ui-anchor ui-badge">
+<span class="ui-badge">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +202,7 @@ The badge never joins the number and the words, so a translation can put the num
   </span>
 </span>
 
-<span class="ui-anchor ui-badge">
+<span class="ui-badge">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -229,7 +229,7 @@ The badge never joins the number and the words, so a translation can put the num
 Change the badge's visibility using the `.ui-invisible` class.
 
 ```html
-<span class="ui-anchor ui-badge ui-invisible">
+<span class="ui-badge ui-invisible">
   <!-- -->
   <span class="ui-floating">
     <span class="ui-indicator"
@@ -247,7 +247,7 @@ The corner of the child the badge sits on.
 `.ui-start-start`, default (`start-end`, no class), `.ui-end-start`, `.ui-end-end`.
 
 ```html
-<span class="ui-anchor ui-badge ui-start-start">
+<span class="ui-badge ui-start-start">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -268,7 +268,7 @@ The corner of the child the badge sits on.
   </span>
 </span>
 
-<span class="ui-anchor ui-badge">
+<span class="ui-badge">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -289,7 +289,7 @@ The corner of the child the badge sits on.
   </span>
 </span>
 
-<span class="ui-anchor ui-badge ui-end-start">
+<span class="ui-badge ui-end-start">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -310,7 +310,7 @@ The corner of the child the badge sits on.
   </span>
 </span>
 
-<span class="ui-anchor ui-badge ui-end-end">
+<span class="ui-badge ui-end-end">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -353,7 +353,7 @@ The corner of the child the badge sits on.
 
 | Part               | Description                                                                                |
 | ------------------ | ------------------------------------------------------------------------------------------ |
-| `.ui-badge`        | Container element. Also takes `.ui-anchor`.                                                |
+| `.ui-badge`        | Container element.                                                                         |
 | `& > :first-child` | The element the badge is anchored to.                                                      |
 | `.ui-indicator`    | The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`. |
 
@@ -544,6 +544,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: `.ui-anchor` is no longer needed on [`.ui-badge`](#api), which `anchor.css` positions itself.
 - Severity text reads `--ui-on-accent` and `--ui-palette-strong` instead of fixed grays.
 - Badges on round avatars sit on the avatar's edge ([Corners](#corners)), and in an avatar group on the start side.
 - [Indicator](#indicator) text for screen readers with `.ui-sr-only`, next to the visible text with `aria-hidden="true"`.

@@ -193,7 +193,7 @@ A [Badge](https://open-props-ui.netlify.app/svelte/components/badge.md) on an av
 | `--ui-radius-round`         | `var(--radius-round)`                                                                    | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.                                                                                                          |
 | `--ui-radius-small`         | `min(var(--radius-2), var(--ui-radius))`                                                 | Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-radius`, capped at 5px.                                                                                     |
 | `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                            | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                             |
-| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                        | Page and card background.                                                                                                                                                                                                                   |
+| `--ui-surface`              | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                        | Page and card background.                                                                                                                                                                                                                   |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -225,7 +225,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-radius-round`         | `var(--radius-round)`                                                                    | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.                                                                                                          |
 | `--ui-radius-small`         | `min(var(--radius-2), var(--ui-radius))`                                                 | Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-radius`, capped at 5px.                                                                                     |
 | `--ui-space-3`              | `calc(var(--size-3) * var(--ui-space-scale))`                                            | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                             |
-| `--ui-surface-default`      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                        | Page and card background.                                                                                                                                                                                                                   |
+| `--ui-surface`              | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                        | Page and card background.                                                                                                                                                                                                                   |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -233,16 +233,16 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
 
-| Property           | Kind  | Description                                                                                                |
-| ------------------ | ----- | ---------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`      | Input | The background. Defaults to `--ui-primary`. An avatar with an `img` is always transparent.                 |
-| `--_font-size`     | Input | The font size of initials. Set by the size classes.                                                        |
-| `--_icon-size`     | Input | The maximum width of an `svg`. Set by `.ui-x-small` and `.ui-small`.                                       |
-| `--_margin`        | Input | How much avatars in a `.ui-avatar-group` overlap. Set on the group.                                        |
-| `--_outline-color` | Input | The ring around each avatar in a `.ui-avatar-group`. Defaults to `--ui-surface-default`. Set on the group. |
-| `--_outline-width` | Input | Width of the ring around each avatar in a `.ui-avatar-group`. Set on the group.                            |
-| `--_size`          | Input | The width and height. Defaults to `--ui-control-size`, set by the size classes.                            |
-| `--_text-color`    | Input | The text and icon color. Defaults to `--ui-on-primary`.                                                    |
+| Property           | Kind  | Description                                                                                        |
+| ------------------ | ----- | -------------------------------------------------------------------------------------------------- |
+| `--_bg-color`      | Input | The background. Defaults to `--ui-primary`. An avatar with an `img` is always transparent.         |
+| `--_font-size`     | Input | The font size of initials. Set by the size classes.                                                |
+| `--_icon-size`     | Input | The maximum width of an `svg`. Set by `.ui-x-small` and `.ui-small`.                               |
+| `--_margin`        | Input | How much avatars in a `.ui-avatar-group` overlap. Set on the group.                                |
+| `--_outline-color` | Input | The ring around each avatar in a `.ui-avatar-group`. Defaults to `--ui-surface`. Set on the group. |
+| `--_outline-width` | Input | Width of the ring around each avatar in a `.ui-avatar-group`. Set on the group.                    |
+| `--_size`          | Input | The width and height. Defaults to `--ui-control-size`, set by the size classes.                    |
+| `--_text-color`    | Input | The text and icon color. Defaults to `--ui-on-primary`.                                            |
 
 ## Under the hood
 
@@ -353,7 +353,7 @@ Step 4 of 4: Group
 }
 
 .avatar-group .avatar {
-  box-shadow: 0 0 0 2px var(--ui-surface-default);
+  box-shadow: 0 0 0 2px var(--ui-surface);
 }
 
 .avatar-group > * + * {

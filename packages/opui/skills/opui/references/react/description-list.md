@@ -159,7 +159,7 @@ export default function Orientation() {
 | `--ui-font-weight-bold`   | `var(--font-weight-7)`                            | Font weight for headings, buttons and terms.                                                                                                                                                                                                |
 | `--ui-space-1`            | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                             |
 | `--ui-space-3`            | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                             |
-| `--ui-text-muted`         | `light-dark(var(--ui-gray-13), var(--ui-gray-4))` | Body text color.                                                                                                                                                                                                                            |
+| `--ui-text`               | `light-dark(var(--ui-gray-13), var(--ui-gray-4))` | Body text color.                                                                                                                                                                                                                            |
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
@@ -235,7 +235,7 @@ Step 1 of 4: Row
 }
 
 .item dd {
-  color: var(--ui-text-muted);
+  color: var(--ui-text);
   margin: 0;
   text-align: end;
 }

@@ -14,7 +14,7 @@ Label End text
 
   The checkbox input.
 
-- `children`
+- `label / children`
 
   The label.
 
@@ -478,6 +478,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `error`                                                                                                                                                                                                                             | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                                    |
 | `hideLabel`                                                                                                                                                                                                                         | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
 | `indeterminate` **Needs hydration** A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`                                        | `false`        | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| `label`                                                                                                                                                                                                                             | `string`                                         | -              | The label.                                                                           |
 | `orientation`                                                                                                                                                                                                                       | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the input.         |
 | `size`                                                                                                                                                                                                                              | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                             |
 | `spread`                                                                                                                                                                                                                            | `boolean`                                        | `false`        | Pushes the label and the input to opposite ends.                                     |
@@ -826,6 +827,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- [`label`](#api) takes the label text, a shorthand for the default slot.
 - The unchecked border, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The checked fill and mark read [`--ui-choice-accent`](#api) and `--ui-choice-on-accent` when a theme sets them.
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.

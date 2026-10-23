@@ -215,6 +215,8 @@ const problems = apis.flatMap((api) => {
       if (option.prop !== "hideLabel") report(option, "use hideLabel")
       else if (option.class !== ".ui-sr-only" || !option.part) {
         report(option, "renders no .ui-sr-only on a part")
+      } else if (option.part.endsWith(".ui-label")) {
+        report(option, "the hidden label has .ui-sr-only instead of .ui-label")
       }
     }
 

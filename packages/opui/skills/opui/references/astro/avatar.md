@@ -161,7 +161,7 @@ A [Badge](https://open-props-ui.netlify.app/astro/components/badge.md) on an ava
 | ---------- | ----------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------- |
 | `alt`      | `string`                                              | -          | Alternative text for the image. Required with `src`. Use an empty string when the name is shown next to it. |
 | `as`       | `"a"` , `"button"` , `"div"`                          | `"div"`    | The element to render. Defaults to `"a"` with `href`.                                                       |
-| `disabled` | `boolean`                                             | `false`    | Disables the avatar when `as` is `"button"`.                                                                |
+| `disabled` | `boolean`                                             | `false`    | Disables a button avatar. A link avatar drops its `href` and gets `aria-disabled="true"` instead.           |
 | `href`     | `string`                                              | -          | The link to use. Renders an `<a>`.                                                                          |
 | `shape`    | `"circle"` , `"rounded"` , `"squared"` , `"squircle"` | `"circle"` | The shape of the avatar.                                                                                    |
 | `size`     | `"large"` , `"medium"` , `"small"` , `"x-small"`      | `"medium"` | The size of the element.                                                                                    |
@@ -385,6 +385,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- A link avatar takes [`disabled`](#api): it drops its `href` and gets `aria-disabled="true"`.
 - Initials read the type roles: `--ui-font-size-caption`, `--ui-font-size-small` and `--ui-font-size-large` by size.
 - A badge on a [grouped](#grouped) avatar sits on its start side, the part the next avatar doesn't cover, with the same ring as the avatars.
 - Breaking: [`alt`](#image) is required when `src` is set.

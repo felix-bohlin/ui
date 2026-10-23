@@ -260,6 +260,7 @@ export default function Spread() {
 | `datalist`                                                                                                                                                                                          | `ReactNode`                           | -            | Tick marks and their labels, under the input.                                                                                         |
 | `endText`                                                                                                                                                                                           | `ReactNode`                           | -            | Supporting text displayed below the input.                                                                                            |
 | `error`                                                                                                                                                                                             | `boolean`                             | `false`      | Marks the control invalid and shows error styles.                                                                                     |
+| `hideLabel`                                                                                                                                                                                         | `boolean`                             | `false`      | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.                            |
 | `id`                                                                                                                                                                                                | `string`                              | -            | The id of the `<input>`. Generated when omitted and the value is shown.                                                               |
 | `items`                                                                                                                                                                                             | `RangeItem[]`                         | -            | Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick.    |
 | `label`                                                                                                                                                                                             | `ReactNode`                           | -            | The label for the range.                                                                                                              |
@@ -297,7 +298,8 @@ export default function Spread() {
 | `--ui-space-1`                  | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                    | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                                                                          |
 | `--ui-space-2`                  | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                    | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                                                                          |
 | `--ui-space-4`                  | `calc(var(--size-4) * var(--ui-space-scale))`                                                                                                                                                    | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                                                                                                          |
-| `--ui-state-active-alpha`       | `20%`                                                                                                                                                                                            | Alpha of the pressed state layer on neutral buttons in light mode.                                                                                                                                                                                                                                                       |
+| `--ui-state-active-alpha-dark`  | `30%`                                                                                                                                                                                            | Alpha of the pressed state layer on neutral buttons in dark mode. The hover alpha with more contrast, so the text keeps 7:1.                                                                                                                                                                                             |
+| `--ui-state-active-alpha-light` | `20%`                                                                                                                                                                                            | Alpha of the pressed state layer on neutral buttons in light mode.                                                                                                                                                                                                                                                       |
 | `--ui-surface`                  | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                | Page and card background.                                                                                                                                                                                                                                                                                                |
 | `--ui-surface-filled`           | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                                                                                                                                | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                                                                                                    |
 | `--ui-surface-tonal`            | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                | Background of tonal variants.                                                                                                                                                                                                                                                                                            |
@@ -324,7 +326,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_motion`                   | Input  | Motion multiplier for the thumb highlight and focus ring. `0` turns them off.                                                                                                            |
 | `--_thumb-bg-color`           | Output | The current thumb color. From `--_accent`, set by the disabled state.                                                                                                                    |
 | `--_thumb-border-width`       | Input  | Width of the page-colored ring between the thumb and the track. Set on the `<input>`.                                                                                                    |
-| `--_thumb-highlight-bg-color` | Output | Color of the ring around the thumb, from `--_accent` and `--ui-state-active-alpha`.                                                                                                      |
+| `--_thumb-highlight-bg-color` | Output | Color of the ring around the thumb, from `--_accent` and `--ui-state-active-alpha-light`.                                                                                                |
 | `--_thumb-highlight-size`     | Output | Current width of the ring around the thumb. Set by the hover and active states.                                                                                                          |
 | `--_thumb-offset`             | Output | Vertical offset that centers the thumb on the track.                                                                                                                                     |
 | `--_thumb-size`               | Input  | Width and height of the thumb. Larger on touch screens.                                                                                                                                  |
@@ -366,7 +368,7 @@ Read the post: [Range sliders with datalist ticks](https://open-props-ui.netlify
 4. Halo
 
    - A `box-shadow` spread draws the ring, no extra element
-   - Relative color: the primary hue at a fixed lightness, with the theme's `--ui-state-active-alpha`
+   - Relative color: the primary hue at a fixed lightness, with the theme's `--ui-state-active-alpha-light`
    - The pseudo-elements inherit `--halo` from the input's `:hover` and `:active`
    - `:not([disabled])`: no halo on a disabled slider
    - Hover and drag the thumb
@@ -519,13 +521,13 @@ Step 4 of 5: Halo
 
 .range::-webkit-slider-thumb {
   box-shadow: 0 0 0 var(--halo)
-    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha));
+    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha-light));
   transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
 }
 
 .range::-moz-range-thumb {
   box-shadow: 0 0 0 var(--halo)
-    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha));
+    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha-light));
   transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
 }
 ```
@@ -592,6 +594,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- [`hideLabel`](#api) hides the label visually and keeps it as the accessible name.
 - Breaking: `--_thumb-highlight-color`, `--_track-color`, `--_track-fill-color`, `--_track-fill` and `--_track-height` are `--_thumb-highlight-bg-color`, `--_track-bg-color`, `--_track-fill-bg-color`, `--_track-fill-fraction` and `--_track-block-size` ([Under the hood](#under-the-hood)).
 - The empty track reaches 3:1 against the page by default, and with more contrast it takes the page color with an inset edge so the fill stands out.
 - The thumb and fill read [`--ui-choice-accent`](#api) and the empty track `--ui-track-bg-color` when a theme sets them.

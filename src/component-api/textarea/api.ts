@@ -40,7 +40,7 @@ export default {
       description:
         "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
       group: "Label",
-      part: ".ui-label",
+      part: ".ui-textarea > span",
       prop: "hideLabel",
     },
     {

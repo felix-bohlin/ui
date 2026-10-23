@@ -14,7 +14,7 @@ Label End text
 
   The radio input.
 
-- `children`
+- `label / children`
 
   The label.
 
@@ -492,6 +492,7 @@ export default function FieldGroupBinding() {
 | `endText`     | `ReactNode`                                      | -              | Supporting text displayed below the label.                                   |
 | `error`       | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                            |
 | `hideLabel`   | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.              |
+| `label`       | `string`                                         | -              | The label.                                                                   |
 | `orientation` | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the input. |
 | `size`        | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                     |
 | `spread`      | `boolean`                                        | `false`        | Pushes the label and the input to opposite ends.                             |
@@ -787,6 +788,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- [`label`](#api) takes the label text, a shorthand for the default slot.
 - The unchecked ring, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The checked fill and dot read [`--ui-choice-accent`](#api) and `--ui-choice-on-accent` when a theme sets them.
 - [Radios](#sizes) are 20px, the same `--ui-choice-size` as Checkbox.

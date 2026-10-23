@@ -723,13 +723,14 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 ### Select API
 
-| Type       | Modifiers                                        | Default | Description                                                              |
-| ---------- | ------------------------------------------------ | ------- | ------------------------------------------------------------------------ |
-| Dense      | `.ui-list.ui-dense`                              | -       | Packs the items tighter.                                                 |
-| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                 |
-| Spread     | `.ui-spread`                                     | -       | Pushes the label and start text to one side and the select to the other. |
-| Validation | `select[aria-invalid="true"]`                    | -       | Marks the control invalid and shows error styles.                        |
-| Variants   | default, `.ui-filled`                            | default | The variant to use.                                                      |
+| Type       | Modifiers                                        | Default | Description                                                                                                |
+| ---------- | ------------------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------------- |
+| Dense      | `.ui-list.ui-dense`                              | -       | Packs the items tighter.                                                                                   |
+| Label      | `.ui-select > span.ui-sr-only`                   | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. |
+| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                                                   |
+| Spread     | `.ui-spread`                                     | -       | Pushes the label and start text to one side and the select to the other.                                   |
+| Validation | `select[aria-invalid="true"]`                    | -       | Marks the control invalid and shows error styles.                                                          |
+| Variants   | default, `.ui-filled`                            | default | The variant to use.                                                                                        |
 
 #### Parts
 

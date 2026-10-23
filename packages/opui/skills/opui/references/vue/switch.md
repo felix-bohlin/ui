@@ -22,7 +22,7 @@ Theme Label End text
 
   An optional icon in the thumb when checked.
 
-- `v-slot:default`
+- `label / v-slot:default`
 
   The label.
 
@@ -511,6 +511,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 | `endText`                                                                                                                                                                   | `string`                                         | -              | Supporting text displayed below the label.                                    |
 | `error`                                                                                                                                                                     | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                             |
 | `hideLabel`                                                                                                                                                                 | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.               |
+| `label`                                                                                                                                                                     | `string`                                         | -              | The label.                                                                    |
 | `orientation`                                                                                                                                                               | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the switch. |
 | `size`                                                                                                                                                                      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                      |
 | `spread`                                                                                                                                                                    | `boolean`                                        | `false`        | Pushes the label and the switch to opposite ends.                             |
@@ -918,6 +919,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- [`label`](#api) takes the label text, a shorthand for the default slot.
 - Breaking: `--_track-height` and `--_track-width` are `--_track-block-size` and `--_track-inline-size` ([Under the hood](#under-the-hood)).
 - Breaking: [`orientation="vertical"`](#label-position) replaces `stack`.
 - The unchecked thumb and track read [`--ui-switch-thumb-bg-color`](#api) and `--ui-switch-track-bg-color`.

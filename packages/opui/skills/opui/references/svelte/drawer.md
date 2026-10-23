@@ -268,8 +268,9 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 | `--ui-backdrop-blur`     | `1px`                                             | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                           |
 | `--ui-border-color`      | `light-dark(var(--ui-gray-4), var(--ui-gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                                |
 | `--ui-border-width`      | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                    |
-| `--ui-duration`          | `0.2s`                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                  |
-| `--ui-ease-enter`        | `var(--ease-out-3)`                               | Easing for elements entering the screen.                                                                                                                                                                   |
+| `--ui-duration-slow`     | `0.3s`                                            | Transition duration for entering and leaving overlays: `Dialog`, `Drawer` and `Menu`.                                                                                                                      |
+| `--ui-ease-enter`        | `var(--ease-out-3)`                               | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`.                                                                                                                            |
+| `--ui-ease-exit`         | `var(--ease-in-3)`                                | Easing for elements leaving the screen: closing `Drawer` and `Menu`.                                                                                                                                       |
 | `--ui-font-size-large`   | `var(--ui-font-size-500)`                         | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.                                                                          |
 | `--ui-motion`            | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
 | `--ui-shadow-overlay`    | `var(--shadow-3)`                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers and `Drawer`.                                                                                                                         |
@@ -301,8 +302,9 @@ Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria
 | `--ui-backdrop-blur`     | `1px`                                             | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                           |
 | `--ui-border-color`      | `light-dark(var(--ui-gray-4), var(--ui-gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                                |
 | `--ui-border-width`      | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                    |
-| `--ui-duration`          | `0.2s`                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                  |
-| `--ui-ease-enter`        | `var(--ease-out-3)`                               | Easing for elements entering the screen.                                                                                                                                                                   |
+| `--ui-duration-slow`     | `0.3s`                                            | Transition duration for entering and leaving overlays: `Dialog`, `Drawer` and `Menu`.                                                                                                                      |
+| `--ui-ease-enter`        | `var(--ease-out-3)`                               | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`.                                                                                                                            |
+| `--ui-ease-exit`         | `var(--ease-in-3)`                                | Easing for elements leaving the screen: closing `Drawer` and `Menu`.                                                                                                                                       |
 | `--ui-font-size-large`   | `var(--ui-font-size-500)`                         | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.                                                                          |
 | `--ui-motion`            | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
 | `--ui-shadow-overlay`    | `var(--shadow-3)`                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers and `Drawer`.                                                                                                                         |
@@ -331,8 +333,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-backdrop-blur`     | `1px`                                             | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                           |
 | `--ui-border-color`      | `light-dark(var(--ui-gray-4), var(--ui-gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                                |
 | `--ui-border-width`      | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                    |
-| `--ui-duration`          | `0.2s`                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                  |
-| `--ui-ease-enter`        | `var(--ease-out-3)`                               | Easing for elements entering the screen.                                                                                                                                                                   |
+| `--ui-duration-slow`     | `0.3s`                                            | Transition duration for entering and leaving overlays: `Dialog`, `Drawer` and `Menu`.                                                                                                                      |
+| `--ui-ease-enter`        | `var(--ease-out-3)`                               | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`.                                                                                                                            |
+| `--ui-ease-exit`         | `var(--ease-in-3)`                                | Easing for elements leaving the screen: closing `Drawer` and `Menu`.                                                                                                                                       |
 | `--ui-font-size-large`   | `var(--ui-font-size-500)`                         | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.                                                                          |
 | `--ui-motion`            | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/svelte/guide/theming.md#motion). |
 | `--ui-shadow-overlay`    | `var(--shadow-3)`                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers and `Drawer`.                                                                                                                         |
@@ -350,27 +353,27 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
 
-| Property               | Kind   | Description                                                                                          |
-| ---------------------- | ------ | ---------------------------------------------------------------------------------------------------- |
-| `--_actions-gap`       | Input  | Gap between items in `.ui-actions`.                                                                  |
-| `--_actions-padding`   | Input  | Padding of `.ui-actions`.                                                                            |
-| `--_backdrop-bg-color` | Input  | The backdrop color. Defaults to `--ui-backdrop-bg-color`, `.ui-backdrop-transparent` clears it.      |
-| `--_backdrop-blur`     | Input  | The backdrop filter. Defaults to a `--ui-backdrop-blur` blur, `.ui-backdrop-transparent` removes it. |
-| `--_bg-color`          | Input  | The background. Defaults to `--ui-surface-elevated`.                                                 |
-| `--_block-size`        | Input  | Height of `.ui-block-start` and `.ui-block-end` drawers.                                             |
-| `--_border-color`      | Input  | Color of the inner edge border and the `.ui-header` and `.ui-actions` dividers.                      |
-| `--_border-width`      | Input  | Width of the inner edge border and the `.ui-header` and `.ui-actions` dividers.                      |
-| `--_content-padding`   | Input  | Padding of `.ui-content`.                                                                            |
-| `--_direction`         | Output | Direction of the inline slide, `-1` in right-to-left.                                                |
-| `--_duration`          | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                      |
-| `--_ease`              | Input  | Easing of the slide and backdrop fade. Defaults to `--ui-ease-enter`.                                |
-| `--_header-font-size`  | Input  | Font size of headings in `.ui-header`.                                                               |
-| `--_header-padding`    | Input  | Padding of `.ui-header`.                                                                             |
-| `--_inline-size`       | Input  | Width of drawers that open from the inline start or end.                                             |
-| `--_motion`            | Input  | Motion multiplier for the transitions. `0` turns them off.                                           |
-| `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.              |
-| `--_shadow`            | Input  | The shadow. Defaults to `--ui-shadow-overlay`.                                                       |
-| `--_text-color`        | Input  | The text color. Defaults to `--ui-text-strong`.                                                      |
+| Property               | Kind   | Description                                                                                                |
+| ---------------------- | ------ | ---------------------------------------------------------------------------------------------------------- |
+| `--_actions-gap`       | Input  | Gap between items in `.ui-actions`.                                                                        |
+| `--_actions-padding`   | Input  | Padding of `.ui-actions`.                                                                                  |
+| `--_backdrop-bg-color` | Input  | The backdrop color. Defaults to `--ui-backdrop-bg-color`, `.ui-backdrop-transparent` clears it.            |
+| `--_backdrop-blur`     | Input  | The backdrop filter. Defaults to a `--ui-backdrop-blur` blur, `.ui-backdrop-transparent` removes it.       |
+| `--_bg-color`          | Input  | The background. Defaults to `--ui-surface-elevated`.                                                       |
+| `--_block-size`        | Input  | Height of `.ui-block-start` and `.ui-block-end` drawers.                                                   |
+| `--_border-color`      | Input  | Color of the inner edge border and the `.ui-header` and `.ui-actions` dividers.                            |
+| `--_border-width`      | Input  | Width of the inner edge border and the `.ui-header` and `.ui-actions` dividers.                            |
+| `--_content-padding`   | Input  | Padding of `.ui-content`.                                                                                  |
+| `--_direction`         | Output | Direction of the inline slide, `-1` in right-to-left.                                                      |
+| `--_duration`          | Output | Duration of the transitions, `--ui-duration-slow` times `--_motion`.                                       |
+| `--_ease`              | Input  | Easing of the slide and backdrop fade. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing. |
+| `--_header-font-size`  | Input  | Font size of headings in `.ui-header`.                                                                     |
+| `--_header-padding`    | Input  | Padding of `.ui-header`.                                                                                   |
+| `--_inline-size`       | Input  | Width of drawers that open from the inline start or end.                                                   |
+| `--_motion`            | Input  | Motion multiplier for the transitions. `0` turns them off.                                                 |
+| `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.                    |
+| `--_shadow`            | Input  | The shadow. Defaults to `--ui-shadow-overlay`.                                                             |
+| `--_text-color`        | Input  | The text color. Defaults to `--ui-text-strong`.                                                            |
 
 ## Under the hood
 
@@ -627,6 +630,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Opens over [`--ui-duration-slow`](#api) with `--ui-ease-enter` and closes with `--ui-ease-exit`.
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Basics](#basics)).
 - [`DrawerActions`](#api) take `align`, and sit at the end on every side.
 - Named by [`DrawerTitle`](#accessibility) through `aria-labelledby`.

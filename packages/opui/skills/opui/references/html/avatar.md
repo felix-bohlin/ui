@@ -142,10 +142,11 @@ A [Badge](https://open-props-ui.netlify.app/html/components/badge.md) on an avat
 
 ### Avatar API
 
-| Type  | Modifiers                                             | Default | Description              |
-| ----- | ----------------------------------------------------- | ------- | ------------------------ |
-| Shape | default, `.ui-rounded`, `.ui-squared`, `.ui-squircle` | default | The shape of the avatar. |
-| Sizes | default, `.ui-large`, `.ui-small`, `.ui-x-small`      | default | The size of the element. |
+| Type  | Modifiers                                             | Default | Description                                                                                                                      |
+| ----- | ----------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Shape | default, `.ui-rounded`, `.ui-squared`, `.ui-squircle` | default | The shape of the avatar.                                                                                                         |
+| Sizes | default, `.ui-large`, `.ui-small`, `.ui-x-small`      | default | The size of the element.                                                                                                         |
+| State | `a[aria-disabled="true"]`, `button[disabled]`         | -       | Disables a button avatar. A link avatar, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |
 
 #### Parts
 

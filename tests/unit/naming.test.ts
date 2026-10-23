@@ -56,14 +56,15 @@ const vocabulary: Record<string, { group: string; values: string[] }> = {
 
 const replaced: Record<string, string> = {
   alignment: "corner or positionArea",
+  closeOnClick: "keepOpen",
   direction: "orientation",
-  headline: "label",
   gutterless: "flush",
+  headline: "label",
   iconOnly: "aria-label",
+  inline: "orientation",
   options: "items",
   perView: "itemsPerView",
   placement: "side",
-  inline: "orientation",
   pressed: "checked",
   scrollable: "overflow",
   selection: "multiple",
@@ -84,6 +85,25 @@ const optionalModifiers = new Set([
 ])
 const prefixed = new Set(["align", "overflow"])
 const booleanDefaults = new Set(["false", "true"])
+const groups = new Set([
+  "Alignment",
+  "Behavior",
+  "Borders",
+  "Colors",
+  "Density",
+  "Group",
+  "Label",
+  "Layout",
+  "Orientation",
+  "Overflow",
+  "Position",
+  "Severities",
+  "Shape",
+  "Sizes",
+  "State",
+  "Validation",
+  "Variants",
+])
 
 const parts = new Set([
   ".ui-actions",
@@ -112,12 +132,34 @@ const parts = new Set([
   ".ui-value",
 ])
 const partExceptions = new Set([".ui-card-link"])
+const slots = new Set([
+  "bottom",
+  "datalist",
+  "default",
+  "description",
+  "end",
+  "end-text",
+  "icon-checked",
+  "icon-unchecked",
+  "indicator",
+  "label",
+  "marker",
+  "start",
+  "start-text",
+  "submenu",
+  "top",
+  "value-text",
+])
 const roots = new Set(
   apis.flatMap((api) => api.root.selector.match(/\.ui-[a-z0-9-]+/g) ?? []),
 )
 
 const kebab = (name: string) =>
   name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
+const sentence = (name: string) => {
+  const words = kebab(name).replaceAll("-", " ")
+  return words[0].toUpperCase() + words.slice(1)
+}
 const isProp = (option: ApiOption) =>
   !option.frameworks || option.frameworks.some((name) => name !== "html")
 const defaultValue = (option: ApiOption) =>
@@ -128,6 +170,16 @@ const problems = apis.flatMap((api) => {
   const report = (option: ApiOption, message: string) =>
     found.push(`${api.component} ${option.prop}: ${message}`)
   const props = api.options.filter(isProp)
+
+  for (const option of api.options) {
+    if (
+      option.group &&
+      !groups.has(option.group) &&
+      option.group !== sentence(option.prop)
+    ) {
+      report(option, `group "${option.group}" is not in the group list`)
+    }
+  }
 
   for (const option of props) {
     if (api.source && replaced[option.prop]) {
@@ -211,6 +263,15 @@ const problems = apis.flatMap((api) => {
       found.push(
         `${api.component} ${part.selector}: ${name} is not a part name`,
       )
+    }
+  }
+
+  for (const slot of [
+    ...(api.slots ?? []).map((slot) => slot.name),
+    ...api.parts.flatMap((part) => part.slots ?? []),
+  ]) {
+    if (!slots.has(slot)) {
+      found.push(`${api.component} ${slot}: not in the slot list`)
     }
   }
 

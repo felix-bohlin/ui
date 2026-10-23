@@ -67,7 +67,7 @@ export default {
     {
       description:
         "Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.",
-      group: "Controls",
+      group: "Type",
       prop: "type",
       values: {
         checkbox: "label.ui-checkbox",

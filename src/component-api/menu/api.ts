@@ -28,7 +28,7 @@ export default {
       description:
         "Any valid `position-area` value. Overrides the side and alignment classes. The `self-` keywords follow the menu's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
       frameworks: ["html"],
-      group: "Position area",
+      group: "Anchor position area",
       prop: "anchorPositionArea",
     },
     {

@@ -6,7 +6,7 @@ export default {
     {
       attribute: "[for]",
       description: "The id of the input it labels. Set by the item.",
-      group: "For",
+      group: "Tab id",
       htmlDescription: "The id of the input it labels.",
       prop: "tabId",
     },

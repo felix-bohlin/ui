@@ -22,7 +22,7 @@ export default {
     {
       attribute: "[id]",
       description: "The id of the input. Generated when omitted.",
-      group: "Id",
+      group: "Tab id",
       htmlDescription: "The id of the input.",
       prop: "tabId",
     },

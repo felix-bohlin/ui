@@ -23,7 +23,7 @@ export default {
       default: "false",
       description:
         "Lets the width follow the content and allows resizing in both directions.",
-      group: "Auto-fit",
+      group: "Auto fit",
       prop: "autoFit",
     },
     {

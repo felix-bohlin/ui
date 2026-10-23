@@ -21,7 +21,7 @@ export default {
       default: '"any"',
       description:
         'How the drawer can be closed. `"any"` also closes it on a click outside.',
-      group: "Close behavior",
+      group: "Behavior",
       prop: "closedby",
     },
     {

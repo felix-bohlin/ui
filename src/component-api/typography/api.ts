@@ -29,14 +29,8 @@ export default {
       prop: "codeBlock",
     },
     {
-      class: ".ui-hgroup",
-      description: "Groups an overline, heading, and optional body copy.",
-      group: "Heading group",
-      prop: "hgroup",
-    },
-    {
       description: "Heading styles for any element.",
-      group: "Headings",
+      group: "Heading",
       prop: "heading",
       values: {
         h1: ".ui-h1",
@@ -46,6 +40,12 @@ export default {
         h5: ".ui-h5",
         h6: ".ui-h6",
       },
+    },
+    {
+      class: ".ui-hgroup",
+      description: "Groups an overline, heading, and optional body copy.",
+      group: "Heading group",
+      prop: "headingGroup",
     },
     {
       description: "Inline text element utilities.",
@@ -76,6 +76,12 @@ export default {
       prop: "link",
     },
     {
+      class: ".ui-not-rich-text",
+      description: "Ends the `.ui-rich-text` styles inside it.",
+      group: "Not rich text",
+      prop: "notRichText",
+    },
+    {
       class: ".ui-overline",
       description: "Small uppercase label text.",
       group: "Overline",
@@ -86,12 +92,6 @@ export default {
       description: "Body paragraph styling.",
       group: "Paragraph",
       prop: "paragraph",
-    },
-    {
-      class: ".ui-not-rich-text",
-      description: "Ends the `.ui-rich-text` styles inside it.",
-      group: "Rich text",
-      prop: "notRichText",
     },
     {
       default: '"medium"',

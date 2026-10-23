@@ -13,7 +13,7 @@ export default {
       attribute: "[closedby]",
       description:
         'How the dialog can be closed. `"any"` also closes it on a click outside.',
-      group: "Close behavior",
+      group: "Behavior",
       prop: "closedby",
     },
   ],

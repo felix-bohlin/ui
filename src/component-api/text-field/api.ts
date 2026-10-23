@@ -22,7 +22,7 @@ export default {
       class: ".ui-auto-fit",
       default: "false",
       description: "Lets the width follow the content, from `25ch`.",
-      group: "Auto-fit",
+      group: "Auto fit",
       prop: "autoFit",
     },
     {

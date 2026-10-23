@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, provide, reactive, useAttrs, useId } from "vue"
+import { computed, provide, reactive, useAttrs } from "vue"
 import { autoLabelledBy } from "../id"
 import { DrawerKey } from "./context.vue"
 import type { Props, Slots } from "./types.d.vue"
@@ -8,24 +8,20 @@ const {
   backdrop = "blurred",
   closedby = "any",
   id,
-  scrollLock = true,
+  scrollLock,
   side = "inline-start",
 } = defineProps<Props>()
 defineSlots<Slots>()
 
 const attrs = useAttrs()
-const uid = useId()
-const drawerId = computed(() => id || `drawer-${uid}`)
-const labelledBy = computed(() =>
-  autoLabelledBy(attrs, `${drawerId.value}-heading`),
-)
+const labelledBy = computed(() => autoLabelledBy(attrs, `${id}-heading`))
 
-provide(DrawerKey, reactive({ id: drawerId, titleId: labelledBy }))
+provide(DrawerKey, reactive({ id: computed(() => id), titleId: labelledBy }))
 </script>
 
 <template>
   <dialog
-    :id="drawerId"
+    :id="id"
     :aria-labelledby="labelledBy"
     :class="[
       'ui-drawer',

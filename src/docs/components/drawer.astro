@@ -6,7 +6,7 @@ import {
   Button as UIButton,
   Drawer as UIDrawer,
   DrawerContent as UIDrawerContent,
-  DrawerFooter as UIDrawerFooter,
+  DrawerActions as UIDrawerActions,
   DrawerHeader as UIDrawerHeader,
   DrawerTitle as UIDrawerTitle,
   Switch,
@@ -22,7 +22,7 @@ import {
 
 import DrawerCSS from "@opui/css/components/drawer.css?raw"
 import drawerApi from "../../component-api/drawer/api"
-import drawerFooterApi from "../../component-api/drawer-footer/api"
+import drawerActionsApi from "../../component-api/drawer-actions/api"
 import drawerHeaderApi from "../../component-api/drawer-header/api"
 import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
 
@@ -53,7 +53,7 @@ import PropOrClass from "../../components/PropOrClass.astro"
   apis={[
     { title: "Drawer API", api: drawerApi },
     { title: "Drawer header API", api: drawerHeaderApi },
-    { title: "Drawer footer API", api: drawerFooterApi },
+    { title: "Drawer actions API", api: drawerActionsApi },
   ]}
   changelogPaths={[
     {
@@ -89,12 +89,17 @@ import PropOrClass from "../../components/PropOrClass.astro"
         </p>
         <p>
           Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
-          <code>DrawerFooter</code>. The <code>DrawerHeader</code> adds a close button.
+          <code>DrawerActions</code>. The <code>DrawerHeader</code> adds a close button.
           Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
+          Give the drawer an <code>id</code>, which the trigger's <code
+            >commandfor</code
+          > points at.
         </p>
         <p>
-          The header and footer stay put while the content scrolls, with a
-          shadow on the scrolled edge.
+          The header and the actions stay put while the content scrolls, with a
+          shadow on the scrolled edge. The actions sit at the end, and <code
+            >align="start"</code
+          > on <code>DrawerActions</code> lines them up with the content.
         </p>
         <p>
           The backdrop dims and blurs the page by default. Use <code
@@ -102,10 +107,9 @@ import PropOrClass from "../../components/PropOrClass.astro"
           > to keep the page behind it fully visible.
         </p>
         <p>
-          Page scrolling is locked by default when the drawer is open. With a
-          transparent backdrop the page stays scrollable, except on screens
-          narrower than 500px. Use the <code>{"scrollLock={false}"}</code> prop to
-          allow scrolling on every screen.
+          Set <code>scrollLock</code> to lock page scrolling while the drawer is open.
+          With a transparent backdrop the page stays scrollable, except on screens
+          narrower than 500px.
         </p>
       </Fragment>
       <Fragment slot="html">
@@ -116,9 +120,10 @@ import PropOrClass from "../../components/PropOrClass.astro"
           > classes.
         </p>
         <p>
-          <code>.ui-header</code> and <code>.ui-footer</code> stay put while <code
+          <code>.ui-header</code> and <code>.ui-actions</code> stay put while <code
             >.ui-content</code
-          > scrolls, with a shadow on the scrolled edge.
+          > scrolls, with a shadow on the scrolled edge. The actions sit at the end,
+          and <code>.ui-align-start</code> lines them up with the content.
         </p>
         <p>
           The backdrop dims and blurs the page by default. Use the <code
@@ -160,8 +165,8 @@ import PropOrClass from "../../components/PropOrClass.astro"
     <Anatomy>
       <UIDrawer
         closedby="none"
+        id="drawer-anatomy"
         open
-        scrollLock={false}
         style="block-size: auto; inline-size: 18rem; position: static"
       >
         <UIDrawerHeader>
@@ -170,10 +175,10 @@ import PropOrClass from "../../components/PropOrClass.astro"
         <UIDrawerContent>
           <p>Narrow the list by status, owner and date.</p>
         </UIDrawerContent>
-        <UIDrawerFooter>
+        <UIDrawerActions>
           <UIButton size="small">Reset</UIButton>
           <UIButton size="small" variant="filled">Apply</UIButton>
-        </UIDrawerFooter>
+        </UIDrawerActions>
       </UIDrawer>
     </Anatomy>
   </Fragment>

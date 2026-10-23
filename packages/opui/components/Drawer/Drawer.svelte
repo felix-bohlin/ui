@@ -8,7 +8,7 @@
     class: className,
     closedby = "any",
     id,
-    scrollLock = true,
+    scrollLock,
     side = "inline-start",
 
     // Snippets
@@ -16,13 +16,11 @@
     ...rest
   }: Props = $props()
 
-  const uid = $props.id()
-  const drawerId = $derived(id || `drawer-${uid}`)
-  const labelledBy = $derived(autoLabelledBy(rest, `${drawerId}-heading`))
+  const labelledBy = $derived(autoLabelledBy(rest, `${id}-heading`))
 
   setDrawerContext({
     get id() {
-      return drawerId
+      return id
     },
     get titleId() {
       return labelledBy
@@ -42,7 +40,7 @@
     className,
   ]}
   aria-labelledby={labelledBy}
-  id={drawerId}
+  {id}
   {...rest}
 >
   {@render children?.()}

@@ -368,7 +368,7 @@ In Astro and Vue the regions are parts instead of slots, like `Card`: `DialogHea
 + <Dialog>
 +   <DialogHeader><h2>Title</h2></DialogHeader>
 +   <DialogContent><p>Text</p></DialogContent>
-+   <DialogActions align="end"><Button>Close</Button></DialogActions>
++   <DialogActions><Button>Close</Button></DialogActions>
 + </Dialog>
 ```
 
@@ -411,8 +411,22 @@ In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces 
 +     <DrawerTitle>Filters</DrawerTitle>
 +   </DrawerHeader>
 +   <DrawerContent>…</DrawerContent>
-+   <DrawerFooter>…</DrawerFooter>
++   <DrawerActions>…</DrawerActions>
   </Drawer>
+```
+
+`DrawerFooter` is `DrawerActions`, which renders `.ui-actions` instead of `.ui-footer`. The actions sit at the end on every side, also in an `inline-end` drawer, and `align="start"` (`.ui-align-start`) lines them up with the content. `--_footer-gap` and `--_footer-padding` are `--_actions-gap` and `--_actions-padding`.
+
+```diff
+- <div class="ui-footer">
++ <div class="ui-actions">
+```
+
+The page no longer locks scrolling by default in Astro and Vue. Set `scrollLock` on drawers that should lock it. `id` is required, since the trigger's `commandfor` points at it.
+
+```diff
+- <Drawer>
++ <Drawer id="filters" scrollLock>
 ```
 
 `types.ts` no longer exports a `Slots` type, and the Vue types no longer export `DrawerHeadingIdKey`, `DrawerSlots`, `DrawerHeaderSlots` or `DrawerFooterSlots`.

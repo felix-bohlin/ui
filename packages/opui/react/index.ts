@@ -31,8 +31,8 @@ export { default as DialogContent } from "../components/Dialog/DialogContent.rea
 export { default as DialogHeader } from "../components/Dialog/DialogHeader.react"
 export { default as Divider } from "../components/Divider/Divider.react"
 export { default as Drawer } from "../components/Drawer/Drawer.react"
+export { default as DrawerActions } from "../components/Drawer/DrawerActions.react"
 export { default as DrawerContent } from "../components/Drawer/DrawerContent.react"
-export { default as DrawerFooter } from "../components/Drawer/DrawerFooter.react"
 export { default as DrawerHeader } from "../components/Drawer/DrawerHeader.react"
 export { default as DrawerTitle } from "../components/Drawer/DrawerTitle.react"
 export { default as FieldDescription } from "../components/FieldDescription/FieldDescription.react"
@@ -119,8 +119,8 @@ export type {
 } from "../components/Dialog/types.react"
 export type { Props as DividerProps } from "../components/Divider/types.react"
 export type {
+  DrawerActionsProps,
   DrawerContentProps,
-  DrawerFooterProps,
   DrawerHeaderProps,
   Props as DrawerProps,
   DrawerTitleProps,

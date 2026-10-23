@@ -3,9 +3,10 @@ import { expect, test } from "vitest"
 import AccordionActions from "../../packages/opui/components/Accordion/AccordionActions.astro"
 import CardActions from "../../packages/opui/components/Card/CardActions.astro"
 import DialogActions from "../../packages/opui/components/Dialog/DialogActions.astro"
+import DrawerActions from "../../packages/opui/components/Drawer/DrawerActions.astro"
 
 const container = await AstroContainer.create()
-const parts = { AccordionActions, CardActions, DialogActions }
+const parts = { AccordionActions, CardActions, DialogActions, DrawerActions }
 
 const classes = async (
   part: (typeof parts)[keyof typeof parts],

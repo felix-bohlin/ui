@@ -1,6 +1,5 @@
 "use client"
 
-import { useId } from "react"
 import { cx } from "../cx"
 import { autoLabelledBy } from "../id"
 import { DrawerContext } from "./context.react"
@@ -11,16 +10,14 @@ export default function Drawer({
   className,
   closedby = "any",
   id,
-  scrollLock = true,
+  scrollLock,
   side = "inline-start",
   ...rest
 }: Props) {
-  const uid = useId()
-  const drawerId = id || `drawer-${uid}`
-  const labelledBy = autoLabelledBy(rest, `${drawerId}-heading`)
+  const labelledBy = autoLabelledBy(rest, `${id}-heading`)
 
   return (
-    <DrawerContext value={{ id: drawerId, titleId: labelledBy }}>
+    <DrawerContext value={{ id, titleId: labelledBy }}>
       <dialog
         className={cx([
           "ui-drawer",
@@ -33,7 +30,7 @@ export default function Drawer({
         ])}
         aria-labelledby={labelledBy}
         closedby={closedby}
-        id={drawerId}
+        id={id}
         {...rest}
       />
     </DrawerContext>

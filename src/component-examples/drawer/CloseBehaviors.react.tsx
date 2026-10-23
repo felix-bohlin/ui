@@ -5,7 +5,7 @@ import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerFooter,
+  DrawerActions,
   DrawerHeader,
   DrawerTitle,
   FieldGroup,
@@ -28,7 +28,7 @@ export default function CloseBehaviors() {
       >
         Open drawer
       </Button>
-      <Drawer id="drawer-close-behaviors-1" closedby={closedby}>
+      <Drawer id="drawer-close-behaviors-1" scrollLock closedby={closedby}>
         <DrawerHeader>
           <DrawerTitle>How to close</DrawerTitle>
         </DrawerHeader>
@@ -49,7 +49,7 @@ export default function CloseBehaviors() {
             </FieldGroup>
           </FieldSet>
         </DrawerContent>
-        <DrawerFooter>
+        <DrawerActions>
           <Button
             size="small"
             commandfor="drawer-close-behaviors-1"
@@ -57,7 +57,7 @@ export default function CloseBehaviors() {
           >
             Close manually
           </Button>
-        </DrawerFooter>
+        </DrawerActions>
       </Drawer>
     </>
   )

@@ -4,10 +4,10 @@ import type { SvelteHTMLElements } from "svelte/elements"
 export type Props = Base.Props &
   Omit<SvelteHTMLElements["dialog"], "closedby" | "id">
 
-export type DrawerContentProps = Base.DrawerContentProps &
+export type DrawerActionsProps = Base.DrawerActionsProps &
   SvelteHTMLElements["div"]
 
-export type DrawerFooterProps = Base.DrawerFooterProps &
+export type DrawerContentProps = Base.DrawerContentProps &
   SvelteHTMLElements["div"]
 
 export type DrawerHeaderProps = Base.DrawerHeaderProps &

@@ -425,13 +425,24 @@ const whatsNew = {
     ),
     `Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls (<a href="#basics">Basics</a>).`,
     {
+      ...slots(
+        `Breaking: <a href="#api"><code>DrawerActions</code></a> replaces <code>DrawerFooter</code> and takes <code>align</code>. The actions sit at the end on every side.`,
+      ),
+      html: `Breaking: <a href="#basics"><code>.ui-actions</code></a> replaces <code>.ui-footer</code>. The actions sit at the end on every side, and <code>.ui-align-start</code> lines them up with the content.`,
+      react: `<a href="#api"><code>DrawerActions</code></a> take <code>align</code>, and sit at the end on every side.`,
+      svelte: `<a href="#api"><code>DrawerActions</code></a> take <code>align</code>, and sit at the end on every side.`,
+    },
+    slots(
+      `Breaking: the page no longer <a href="#basics">locks scrolling</a> by default. Set <code>scrollLock</code>, and pass the <code>id</code> the trigger points at.`,
+    ),
+    {
       default: `Named by <a href="#accessibility"><code>DrawerTitle</code></a> through <code>aria-labelledby</code>.`,
       html: `Name it with <a href="#accessibility"><code>aria-labelledby</code></a> pointing at the header heading.`,
     },
     `The <a href="#basics">backdrop</a> dims and blurs like <code>Dialog</code>, through <code>--ui-backdrop-color</code> and <code>--ui-backdrop-blur</code>.`,
     `Breaking: <code>--_color</code> is <code>--_text-color</code>, and <code>--_transition-duration</code> and <code>--_transition-timing</code> are <code>--_duration</code> and <code>--_ease</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `The drawer shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and select pickers. Padding reads the <code>--ui-space-*</code> scale.`,
-    `Content padding is <code>--ui-space-3</code>, like the header and footer (<a href="#basics">Basics</a>).`,
+    `Content padding is <code>--ui-space-3</code>, like the header and the actions (<a href="#basics">Basics</a>).`,
     `The scroll shadow reads <a href="#api"><code>--ui-shadow-scroll</code></a>.`,
     `The panel sits on <a href="#api"><code>--ui-surface-elevated</code></a>, like Dialog and Menu.`,
     components(

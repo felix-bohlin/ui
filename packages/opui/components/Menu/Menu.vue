@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, provide, reactive, useId } from "vue"
+import { computed, inject, provide, reactive } from "vue"
 import { MenuKey } from "./context.vue"
 import type { Props, Slots } from "./types.d.vue"
 
@@ -14,16 +14,14 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 
-const uid = useId()
-const menuId = computed(() => id || `menu-${uid}`)
 const parent = inject(MenuKey, undefined)
-const rootId = computed(() => parent?.rootId ?? menuId.value)
+const rootId = computed(() => parent?.rootId ?? id)
 provide(MenuKey, reactive({ rootId }))
 </script>
 
 <template>
   <menu
-    :id="menuId"
+    :id="id"
     :class="[
       'ui-menu',
       'ui-list',

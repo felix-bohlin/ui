@@ -2,7 +2,7 @@ import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerFooter,
+  DrawerActions,
   DrawerHeader,
   DrawerTitle,
 } from "opui-css/react"
@@ -25,7 +25,7 @@ export default function Basics() {
         </Button>
       </div>
 
-      <Drawer id="drawer-basics-1" side="inline-start">
+      <Drawer id="drawer-basics-1" scrollLock side="inline-start">
         <DrawerHeader>
           <DrawerTitle>Inline Start</DrawerTitle>
         </DrawerHeader>
@@ -49,14 +49,14 @@ export default function Basics() {
             dicta sunt explicabo.
           </p>
         </DrawerContent>
-        <DrawerFooter>
+        <DrawerActions>
           <Button size="small" commandfor="drawer-basics-1" command="close">
             Close
           </Button>
-        </DrawerFooter>
+        </DrawerActions>
       </Drawer>
 
-      <Drawer id="drawer-basics-2" side="inline-end">
+      <Drawer id="drawer-basics-2" scrollLock side="inline-end">
         <DrawerHeader>
           <DrawerTitle>Inline End</DrawerTitle>
         </DrawerHeader>
@@ -80,14 +80,14 @@ export default function Basics() {
             dicta sunt explicabo.
           </p>
         </DrawerContent>
-        <DrawerFooter>
+        <DrawerActions>
           <Button size="small" commandfor="drawer-basics-2" command="close">
             Close
           </Button>
-        </DrawerFooter>
+        </DrawerActions>
       </Drawer>
 
-      <Drawer id="drawer-basics-3" side="block-start">
+      <Drawer id="drawer-basics-3" scrollLock side="block-start">
         <DrawerHeader>
           <DrawerTitle>Block Start</DrawerTitle>
         </DrawerHeader>
@@ -105,14 +105,14 @@ export default function Basics() {
             anim id est laborum.
           </p>
         </DrawerContent>
-        <DrawerFooter>
+        <DrawerActions>
           <Button size="small" commandfor="drawer-basics-3" command="close">
             Close
           </Button>
-        </DrawerFooter>
+        </DrawerActions>
       </Drawer>
 
-      <Drawer id="drawer-basics-4" side="block-end">
+      <Drawer id="drawer-basics-4" scrollLock side="block-end">
         <DrawerHeader>
           <DrawerTitle>Block End</DrawerTitle>
         </DrawerHeader>
@@ -130,11 +130,11 @@ export default function Basics() {
             anim id est laborum.
           </p>
         </DrawerContent>
-        <DrawerFooter>
+        <DrawerActions>
           <Button size="small" commandfor="drawer-basics-4" command="close">
             Close
           </Button>
-        </DrawerFooter>
+        </DrawerActions>
       </Drawer>
     </>
   )

@@ -1,14 +1,16 @@
 export type Props = {
   backdrop?: "blurred" | "transparent"
   closedby?: "any" | "closerequest" | "none"
-  id?: string
+  id: string
   scrollLock?: boolean
   side?: "block-end" | "block-start" | "inline-end" | "inline-start"
 }
 
-export type DrawerContentProps = {}
+export type DrawerActionsProps = {
+  align?: "start" | "end"
+}
 
-export type DrawerFooterProps = {}
+export type DrawerContentProps = {}
 
 export type DrawerHeaderProps = {
   closeLabel?: string

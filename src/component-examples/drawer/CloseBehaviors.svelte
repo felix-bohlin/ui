@@ -3,7 +3,7 @@
     Button,
     Drawer,
     DrawerContent,
-    DrawerFooter,
+    DrawerActions,
     DrawerHeader,
     DrawerTitle,
     FieldGroup,
@@ -23,7 +23,7 @@
   Open drawer
 </Button>
 
-<Drawer id="drawer-close-behaviors-1" {closedby}>
+<Drawer id="drawer-close-behaviors-1" scrollLock {closedby}>
   <DrawerHeader>
     <DrawerTitle>How to close</DrawerTitle>
   </DrawerHeader>
@@ -37,9 +37,9 @@
       </FieldGroup>
     </FieldSet>
   </DrawerContent>
-  <DrawerFooter>
+  <DrawerActions>
     <Button size="small" commandfor="drawer-close-behaviors-1" command="close">
       Close manually
     </Button>
-  </DrawerFooter>
+  </DrawerActions>
 </Drawer>

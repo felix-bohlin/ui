@@ -1,6 +1,5 @@
 "use client"
 
-import { useId } from "react"
 import { cx } from "../cx"
 import { MenuContext, useMenuContext } from "./context.react"
 import type { Props } from "./types.react"
@@ -17,9 +16,7 @@ export default function Menu({
   children,
   ...rest
 }: Props) {
-  const uid = useId()
-  const menuId = id || `menu-${uid}`
-  const rootId = useMenuContext()?.rootId ?? menuId
+  const rootId = useMenuContext()?.rootId ?? id
 
   return (
     <menu
@@ -34,7 +31,7 @@ export default function Menu({
         side && side !== "block-end" && `ui-${side}`,
         className,
       ])}
-      id={menuId}
+      id={id}
       popover={popover === "auto" ? "" : popover}
       {...rest}
     >

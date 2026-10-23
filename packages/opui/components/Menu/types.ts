@@ -12,7 +12,7 @@ export type Props = {
   align?: "start" | "end"
   bordered?: boolean
   dense?: boolean
-  id?: string
+  id: string
   items?: MenuItem[]
   popover?: "auto" | "manual"
   side?: "block-end" | "block-start" | "inline-end" | "inline-start"

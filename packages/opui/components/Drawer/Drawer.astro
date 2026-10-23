@@ -1,6 +1,6 @@
 ---
 import type { Props } from "./types.astro"
-import { autoLabelledBy, createId } from "../id"
+import { autoLabelledBy } from "../id"
 import { drawerContext } from "./context.astro"
 
 export const title = "Drawer"
@@ -10,17 +10,14 @@ const {
   class: className,
   closedby = "any",
   id,
-  scrollLock = true,
+  scrollLock,
   side = "inline-start",
   ...rest
 } = Astro.props
 
-const $id = createId(Astro.locals)
-const drawerId = id || $id("drawer")
-const labelledBy = autoLabelledBy(rest, `${drawerId}-heading`)
-const html = await drawerContext.provide(
-  { id: drawerId, titleId: labelledBy },
-  () => Astro.slots.render("default"),
+const labelledBy = autoLabelledBy(rest, `${id}-heading`)
+const html = await drawerContext.provide({ id, titleId: labelledBy }, () =>
+  Astro.slots.render("default"),
 )
 ---
 
@@ -36,7 +33,7 @@ const html = await drawerContext.provide(
     className,
   ]}
   aria-labelledby={labelledBy}
-  id={drawerId}
+  id={id}
   {...rest}
 >
   <Fragment set:html={html} />

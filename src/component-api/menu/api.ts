@@ -47,7 +47,7 @@ export default {
     },
     {
       description:
-        "The id of the menu, which the trigger's `commandfor` points at. Generated when omitted.",
+        "The id of the menu, which the trigger's `commandfor` points at. Required.",
       prop: "id",
     },
     {

@@ -59,7 +59,7 @@
 - `Anchor` in Astro and Vue takes `AnchorContent` instead of the `anchored` slot. Without it, no floating element renders.
 - `Tooltip` in Astro and Vue takes `TooltipContent` instead of `label` and the `content` slot.
 - `Callout` in Astro and Vue takes parts instead of slots: `CalloutIcon` renders the severity icon and `CalloutContent` the content. The root no longer renders an icon or wraps its children in `.ui-content`. The `title` slot and `headingLevel` are gone: write the title as a plain heading of any level first in `CalloutContent`. A custom icon is an `svg` placed first in `Callout`.
-- `Drawer` in Astro and Vue takes parts instead of slots: `DrawerHeader`, `DrawerTitle`, `DrawerContent` and `DrawerFooter`. `DrawerTitle` replaces the `DrawerHeader` `heading` prop and names the drawer. The drawer no longer looks for a heading: without a `DrawerTitle`, pass `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`, and a dev warning says when it is replaced. In Astro and Vue, `DrawerHeader` in a `Drawer` closes it with `command="close"` (Invoker Commands) instead of a click handler, so the Vue `DrawerHeader` closes the drawer without hydration, and browsers without Invoker Commands need a polyfill.
+- `Drawer` in Astro and Vue takes parts instead of slots: `DrawerHeader`, `DrawerTitle`, `DrawerContent` and `DrawerActions`. `DrawerTitle` replaces the `DrawerHeader` `heading` prop and names the drawer. The drawer no longer looks for a heading: without a `DrawerTitle`, pass `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`, and a dev warning says when it is replaced. In Astro and Vue, `DrawerHeader` in a `Drawer` closes it with `command="close"` (Invoker Commands) instead of a click handler, so the Vue `DrawerHeader` closes the drawer without hydration, and browsers without Invoker Commands need a polyfill.
 - `Table` and `DescriptionList` part files are `components/Table/TableBody.*`, `TableCell.*`, `TableColumn.*`, `TableColumnGroup.*`, `TableHead.*`, `TableHeaderCell.*`, `TableRow.*` and `components/DescriptionList/DescriptionListDescription.*`, `DescriptionListItem.*`, `DescriptionListTerm.*`. The `opui-css/<framework>` exports are unchanged; update deep `./components/*` imports.
 - `TableColumn` `width` takes a CSS length. A declaration string (`width="min-width: 10rem"`) is no longer parsed; pass `style` instead.
 - `ToggleGroup` `size="default"` is `size="medium"`, the name of its default look.
@@ -67,6 +67,9 @@
 - `choice.css` holds the layout, label, end text, sizes and disabled styles shared by `Checkbox`, `Radio` and `Switch`, which moved out of `checkbox.css`, `radio.css` and `switch.css`. Import it with them, in any order, or use `components.css`.
 - `Anchor` requires `id` with `trigger="hover"` and no longer generates one. Pass the same `id` to `interestfor` on the trigger.
 - `Avatar`, `Button` and `Chip` types match the rendered element: a button `Avatar` or `Chip` needs `as="button"`, a link `Chip` needs `href`, `disabled` only goes with a button or a link, and `Button` takes link attributes only with `href` (types).
+- `DrawerFooter` is `DrawerActions`, which renders `.ui-actions` instead of `.ui-footer` and takes `align` like the other actions parts. The actions sit at the end on every side, and `align="start"` (`.ui-align-start`) lines them up with the content, instead of starting in an `inline-end` drawer. `--_footer-gap` and `--_footer-padding` are `--_actions-gap` and `--_actions-padding`.
+- `Drawer` in Astro and Vue no longer locks page scroll by default. Set `scrollLock` (`.ui-scroll-lock`) on drawers that should lock it.
+- `Drawer` and `Menu` require `id` (types) and no longer generate one, since their trigger points at it with `commandfor`.
 - `Dialog` page scroll lock lives in `core/utils.css`, shared with the `Drawer` `.ui-scroll-lock`, and no longer sets `block-size: 100%` on `html`. If you import single files, import `utils.css` too, or the page scrolls behind a modal dialog.
 - `ListItem` `type` can't be combined with `as` or `href` (types).
 - `Select` items are typed `SelectItem`, with a `number | string` `value`. Rename imports of `Item` from `components/Select/types`.
@@ -280,7 +283,7 @@
 - `Select` and `TextField` auto-suggest arrows are a chevron instead of a triangle.
 - `List` only styles direct `li`/`option` children (and options in a `[role="group"]`) as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin.
 - `Divider` that is a direct child of a card has no margin, since the card's gap spaces it.
-- `Drawer` content padding is `--ui-space-3`, like its header and footer and `Dialog`. It was `--ui-space-4`, so the title and the body text didn't line up.
+- `Drawer` content padding is `--ui-space-3`, like its header and actions and `Dialog`. It was `--ui-space-4`, so the title and the body text didn't line up.
 - `DialogActions` only renders a class for `align="start"` (`.ui-align-start`). `align="end"` is the default look and no longer adds `.ui-align-end`.
 - `AccordionActions` takes `align` (`.ui-align-start`), like `CardActions` and `DialogActions`.
 - `Accordion` with `variant="tonal"` or `variant="elevated"` has a border in the page background color unless a theme sets `--ui-surface-border-color`, like tonal and elevated cards, so it stays visible on tonal surfaces.

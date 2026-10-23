@@ -17,10 +17,8 @@
     ...rest
   }: Props = $props()
 
-  const uid = $props.id()
-  const menuId = $derived(id || `menu-${uid}`)
   const parent = getMenuContext()
-  const rootId = $derived(parent?.rootId ?? menuId)
+  const rootId = $derived(parent?.rootId ?? id)
 
   setMenuContext({
     get rootId() {
@@ -41,7 +39,7 @@
     side && side !== "block-end" && `ui-${side}`,
     className,
   ]}
-  id={menuId}
+  {id}
   popover={popover === "auto" ? "" : popover}
   {...rest}
 >

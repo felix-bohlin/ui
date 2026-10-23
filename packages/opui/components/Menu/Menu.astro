@@ -1,6 +1,5 @@
 ---
 import type { Props } from "./types.astro"
-import { createId } from "../id"
 import { menuContext } from "./context.astro"
 
 export const title = "Menu"
@@ -17,9 +16,7 @@ const {
   ...rest
 } = Astro.props
 
-const $id = createId(Astro.locals)
-const menuId = id || $id("menu")
-const rootId = menuContext.get()?.rootId ?? menuId
+const rootId = menuContext.get()?.rootId ?? id
 const html = await menuContext.provide({ rootId }, () =>
   Astro.slots.render("default"),
 )
@@ -37,7 +34,7 @@ const html = await menuContext.provide({ rootId }, () =>
     side && side !== "block-end" && `ui-${side}`,
     className,
   ]}
-  id={menuId}
+  id={id}
   popover={popover === "auto" ? "" : popover}
   {...rest}
 >

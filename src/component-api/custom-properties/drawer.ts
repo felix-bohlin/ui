@@ -1,6 +1,14 @@
 import type { CustomProperties } from "../types"
 
 export default {
+  "--_actions-gap": {
+    description: "Gap between items in `.ui-actions`.",
+    kind: "input",
+  },
+  "--_actions-padding": {
+    description: "Padding of `.ui-actions`.",
+    kind: "input",
+  },
   "--_backdrop-bg-color": {
     description:
       "The backdrop color. Defaults to `--ui-backdrop-color`, `.ui-backdrop-transparent` clears it.",
@@ -21,12 +29,12 @@ export default {
   },
   "--_border-color": {
     description:
-      "Color of the inner edge border and the `.ui-header` and `.ui-footer` dividers.",
+      "Color of the inner edge border and the `.ui-header` and `.ui-actions` dividers.",
     kind: "input",
   },
   "--_border-width": {
     description:
-      "Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.",
+      "Width of the inner edge border and the `.ui-header` and `.ui-actions` dividers.",
     kind: "input",
   },
   "--_content-padding": {
@@ -45,14 +53,6 @@ export default {
   "--_ease": {
     description:
       "Easing of the slide and backdrop fade. Defaults to `--ui-ease-enter`.",
-    kind: "input",
-  },
-  "--_footer-gap": {
-    description: "Gap between items in `.ui-footer`.",
-    kind: "input",
-  },
-  "--_footer-padding": {
-    description: "Padding of `.ui-footer`.",
     kind: "input",
   },
   "--_header-font-size": {

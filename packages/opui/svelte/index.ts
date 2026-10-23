@@ -32,8 +32,8 @@ export { default as DialogContent } from "../components/Dialog/DialogContent.sve
 export { default as DialogHeader } from "../components/Dialog/DialogHeader.svelte"
 export { default as Divider } from "../components/Divider/Divider.svelte"
 export { default as Drawer } from "../components/Drawer/Drawer.svelte"
+export { default as DrawerActions } from "../components/Drawer/DrawerActions.svelte"
 export { default as DrawerContent } from "../components/Drawer/DrawerContent.svelte"
-export { default as DrawerFooter } from "../components/Drawer/DrawerFooter.svelte"
 export { default as DrawerHeader } from "../components/Drawer/DrawerHeader.svelte"
 export { default as DrawerTitle } from "../components/Drawer/DrawerTitle.svelte"
 export { default as FieldDescription } from "../components/FieldDescription/FieldDescription.svelte"
@@ -120,8 +120,8 @@ export type {
 } from "../components/Dialog/types.svelte"
 export type { Props as DividerProps } from "../components/Divider/types.svelte"
 export type {
+  DrawerActionsProps,
   DrawerContentProps,
-  DrawerFooterProps,
   DrawerHeaderProps,
   Props as DrawerProps,
   DrawerTitleProps,

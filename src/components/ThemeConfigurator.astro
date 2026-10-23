@@ -4,7 +4,7 @@ import {
   Divider,
   Drawer,
   DrawerContent,
-  DrawerFooter,
+  DrawerActions,
   DrawerHeader,
   DrawerTitle,
   FieldGroup,
@@ -21,7 +21,6 @@ const { link } = Astro.locals
   backdrop="transparent"
   closedby="any"
   id="theme-configurator-drawer"
-  scrollLock={false}
   side="inline-end"
 >
   <DrawerHeader>
@@ -94,7 +93,7 @@ const { link } = Astro.locals
     </div>
   </DrawerContent>
 
-  <DrawerFooter>
+  <DrawerActions>
     <Button size="small" commandfor="theme-configurator-drawer" command="close"
       >Close</Button
     >
@@ -105,7 +104,7 @@ const { link } = Astro.locals
       variant="outlined"
       id="theme-configurator-get-css">Get CSS</Button
     >
-  </DrawerFooter>
+  </DrawerActions>
 </Drawer>
 
 <script>

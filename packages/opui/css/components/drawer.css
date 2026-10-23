@@ -1,6 +1,8 @@
 @layer components.root {
   :where(dialog.ui-drawer) {
     --_motion: var(--ui-motion);
+    --_actions-gap: var(--ui-space-3);
+    --_actions-padding: var(--ui-space-3);
     --_backdrop-bg-color: var(--ui-backdrop-color);
     --_backdrop-blur: blur(var(--ui-backdrop-blur));
     --_bg-color: var(--ui-surface-elevated);
@@ -11,8 +13,6 @@
     --_dir: 1;
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease-enter);
-    --_footer-gap: var(--ui-space-3);
-    --_footer-padding: var(--ui-space-3);
     --_header-font-size: var(--ui-font-size-large);
     --_header-padding: var(--ui-space-3);
     --_inline-size: min(375px, 100vi);
@@ -118,12 +118,16 @@
       }
     }
 
-    & > .ui-footer {
+    & > .ui-actions {
       border-block-start: var(--_border-width) solid var(--_border-color);
       display: flex;
-      gap: var(--_footer-gap);
+      gap: var(--_actions-gap);
       justify-content: end;
-      padding: var(--_footer-padding);
+      padding: var(--_actions-padding);
+
+      &.ui-align-start {
+        justify-content: start;
+      }
     }
 
     &:not(.ui-block-end, .ui-block-start) {
@@ -145,10 +149,6 @@
       inset-inline-end: 0;
       inset-inline-start: auto;
       translate: calc(100% * var(--_dir)) 0;
-
-      & > .ui-footer {
-        justify-content: start;
-      }
     }
 
     &.ui-block-start,

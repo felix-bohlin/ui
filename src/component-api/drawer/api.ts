@@ -25,12 +25,13 @@ export default {
       prop: "closedby",
     },
     {
-      description: "The id of the `<dialog>`. Generated when omitted.",
+      description:
+        "The id of the `<dialog>`, which the trigger's `commandfor` points at. Required.",
       prop: "id",
     },
     {
       class: ".ui-scroll-lock",
-      default: "true",
+      default: "false",
       description:
         "Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px.",
       group: "Scroll lock",
@@ -68,9 +69,9 @@ export default {
       selector: ".ui-content",
     },
     {
-      component: "DrawerFooter",
-      description: "The footer.",
-      selector: ".ui-footer",
+      component: "DrawerActions",
+      description: "The actions, at the end.",
+      selector: ".ui-actions",
     },
   ],
   root: {

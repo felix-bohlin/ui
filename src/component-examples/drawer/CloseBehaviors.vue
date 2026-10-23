@@ -3,7 +3,7 @@ import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerFooter,
+  DrawerActions,
   DrawerHeader,
   DrawerTitle,
   FieldGroup,
@@ -25,7 +25,7 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
     Open drawer
   </Button>
 
-  <Drawer id="drawer-close-behaviors-1" :closedby="closedby">
+  <Drawer id="drawer-close-behaviors-1" scrollLock :closedby="closedby">
     <DrawerHeader>
       <DrawerTitle>How to close</DrawerTitle>
     </DrawerHeader>
@@ -39,7 +39,7 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
         </FieldGroup>
       </FieldSet>
     </DrawerContent>
-    <DrawerFooter>
+    <DrawerActions>
       <Button
         size="small"
         commandfor="drawer-close-behaviors-1"
@@ -47,6 +47,6 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
       >
         Close manually
       </Button>
-    </DrawerFooter>
+    </DrawerActions>
   </Drawer>
 </template>

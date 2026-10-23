@@ -495,6 +495,7 @@ Private `--_*` properties follow the same suffixes as component tokens, so one w
 - No abbreviations: `--_shift-x` and `--_direction`, never `--_tx` or `--_dir`.
 - A value that is neither a length nor a color is named by its type: `--_<part>-image`, `--_<part>-label`, `--_<part>-fraction`.
 - Role names carry no suffix, like the role tokens: `--_accent`, `--_on-accent`.
+- A line that stands in for a border keeps the border name even when a background draws it: the `Divider` line is `--_divider-border-color`, like the dividers in `Accordion`, `List` and `Menu`.
 
 `tests/unit/css-properties.test.ts` checks every `--_*` property and every component token in the stylesheets against these rules, with no allowlist.
 

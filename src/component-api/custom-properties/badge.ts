@@ -3,7 +3,7 @@ import type { CustomProperties } from "../types"
 export default {
   "--_accent": {
     description:
-      "The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info` and `.ui-success`.",
+      "The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral` and `.ui-success`.",
     kind: "input",
   },
   "--_bg-color": {

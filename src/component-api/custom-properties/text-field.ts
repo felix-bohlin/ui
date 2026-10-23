@@ -27,7 +27,7 @@ export default {
   },
   "--_border-color": {
     description:
-      "The current border color of `.ui-field`, its header and footer. Set by the invalid state.",
+      "The current border color of `.ui-field` and the `.ui-top` and `.ui-bottom` dividers. Set by the invalid state.",
     kind: "output",
   },
   "--_chevron-image": {

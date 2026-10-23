@@ -8,7 +8,7 @@ export default {
   options: [
     {
       description:
-        'The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.',
+        'The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. Required with `trigger="hover"`.',
       prop: "id",
     },
     {

@@ -3,7 +3,7 @@ import { Button, List, ListItem } from "opui-css/vue"
 </script>
 
 <template>
-  <List gutterless>
+  <List flush>
     <ListItem headline="Gutterless list item">
       <template #end>
         <Button aria-label="Delete" round size="small">

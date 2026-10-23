@@ -18,11 +18,11 @@ export default {
       prop: "dense",
     },
     {
-      class: ".ui-gutterless",
+      class: ".ui-flush",
       default: "false",
       description: "Removes the inline padding.",
-      group: "Gutterless",
-      prop: "gutterless",
+      group: "Flush",
+      prop: "flush",
     },
     {
       default: '"filled"',

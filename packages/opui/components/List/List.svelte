@@ -5,7 +5,7 @@
     bordered,
     class: className,
     dense,
-    gutterless,
+    flush,
     variant,
 
     // Snippets
@@ -20,7 +20,7 @@
     {
       "ui-bordered": bordered,
       "ui-dense": dense,
-      "ui-gutterless": gutterless,
+      "ui-flush": flush,
     },
     variant && variant !== "filled" && `ui-${variant}`,
     className,

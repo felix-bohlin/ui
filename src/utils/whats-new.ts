@@ -495,6 +495,12 @@ const whatsNew = {
     `New: <a href="#column"><code>.ui-l-column</code></a>, <a href="#row"><code>.ui-l-row</code></a>, <a href="#grid"><code>.ui-l-grid</code></a> and <a href="#container"><code>.ui-l-container</code></a> lay out the space between components.`,
   ],
   list: [
+    {
+      ...slots(
+        `Breaking: <a href="#flush"><code>flush</code></a> replaces <code>gutterless</code>.`,
+      ),
+      html: `Breaking: <a href="#flush"><code>.ui-flush</code></a> replaces <code>.ui-gutterless</code>.`,
+    },
     `Selected and current items read <a href="#api"><code>--ui-selected</code></a> and <code>--ui-on-selected</code> when a theme sets them.`,
     `Smaller <a href="#icon">start</a> and end icons.`,
     {

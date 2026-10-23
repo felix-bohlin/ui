@@ -530,6 +530,13 @@ Rows are no longer styled by `aria-selected="true"` on a `li`, `a`, `button` or 
 + <a aria-current="page" href="/inbox">
 ```
 
+`gutterless` (`.ui-gutterless`) is `flush` (`.ui-flush`).
+
+```diff
+- <List gutterless>
++ <List flush>
+```
+
 ## List item
 
 `as` only accepts `"a"`, `"button"` or `"div"` (types).

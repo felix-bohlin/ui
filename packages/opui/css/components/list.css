@@ -129,7 +129,7 @@ Lists meant to be used stand-alone or as part of Select elements
     }
 
     /* Gutterless */
-    &.ui-gutterless {
+    &.ui-flush {
       & > :where(li, option),
       & > :where([role="group"]) > :where(option) {
         padding-inline: 0;

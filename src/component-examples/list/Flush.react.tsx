@@ -1,8 +1,8 @@
 import { Button, List, ListItem } from "opui-css/react"
 
-export default function Gutterless() {
+export default function Flush() {
   return (
-    <List gutterless>
+    <List flush>
       <ListItem
         headline="Gutterless list item"
         end={

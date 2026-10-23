@@ -5,7 +5,7 @@ export default function List({
   bordered,
   className,
   dense,
-  gutterless,
+  flush,
   variant,
   ...rest
 }: Props) {
@@ -16,7 +16,7 @@ export default function List({
         {
           "ui-bordered": bordered,
           "ui-dense": dense,
-          "ui-gutterless": gutterless,
+          "ui-flush": flush,
         },
         variant && variant !== "filled" && `ui-${variant}`,
         className,

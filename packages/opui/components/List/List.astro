@@ -6,7 +6,7 @@ const {
   bordered,
   class: className,
   dense,
-  gutterless,
+  flush,
   variant,
   ...rest
 } = Astro.props
@@ -18,7 +18,7 @@ const {
     {
       "ui-bordered": bordered,
       "ui-dense": dense,
-      "ui-gutterless": gutterless,
+      "ui-flush": flush,
     },
     variant && variant !== "filled" && `ui-${variant}`,
     className,

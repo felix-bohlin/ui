@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const { bordered, dense, gutterless, variant } = defineProps<Props>()
+const { bordered, dense, flush, variant } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
@@ -12,7 +12,7 @@ defineSlots<Slots>()
       {
         'ui-bordered': bordered,
         'ui-dense': dense,
-        'ui-gutterless': gutterless,
+        'ui-flush': flush,
       },
       variant && variant !== 'filled' && `ui-${variant}`,
       $props.class,

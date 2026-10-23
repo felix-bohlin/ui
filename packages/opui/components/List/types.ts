@@ -1,6 +1,6 @@
 export type Props = {
   bordered?: boolean
   dense?: boolean
-  gutterless?: boolean
+  flush?: boolean
   variant?: "filled" | "tonal" | "transparent"
 }

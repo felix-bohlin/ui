@@ -57,6 +57,7 @@ const vocabulary: Record<string, { group: string; values: string[] }> = {
 const replaced: Record<string, string> = {
   alignment: "corner or positionArea",
   direction: "orientation",
+  gutterless: "flush",
   iconOnly: "aria-label",
   options: "items",
   perView: "itemsPerView",
@@ -132,6 +133,9 @@ const problems = apis.flatMap((api) => {
     }
     if (option.prop === "open" && !option.inherited) {
       report(option, "use checked")
+    }
+    if (/^(no|non|un)[A-Z]/.test(option.prop) || /less$/.test(option.prop)) {
+      report(option, "names what turning it on turns off")
     }
     if (option.default === "true") {
       report(option, "a boolean is off when it's left out")

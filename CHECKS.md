@@ -77,7 +77,7 @@ Manual checks before releasing 6.0.0. The tests run in Chromium, and all but the
 - [ ] Form, field set and field group
   - [Form](/html/components/form/): legends, descriptions, row and column groups, required marks, invalid groups.
 - [ ] List
-  - [List](/html/components/list/): dense, inset, gutterless, bordered, rows with buttons and links, videos, nested lists.
+  - [List](/html/components/list/): dense, inset, flush, bordered, rows with buttons and links, videos, nested lists.
 - [ ] Menu in Chrome
   - [Menu](/html/components/menu/): placements flip near the edges, end alignment, submenus open to the free side, a tall menu stops at 60% of the viewport and scrolls.
   - Keyboard as documented in [Accessibility](/html/components/menu/#keyboard-support): Tab enters the open menu, Esc closes it and returns focus.

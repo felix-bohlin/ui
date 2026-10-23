@@ -129,6 +129,7 @@
 
 ### Added
 
+- `theme.css` adds `--ui-icon-size-x-small` (`0.75rem`) and `--ui-radius-large` (`--ui-radius` times 1.5) to complete their families, and `--ui-shadow-color` and `--ui-shadow-strength` under Elevation.
 - `CardHeader` and `DialogHeader` render `hgroup.ui-header`, the header region class `Drawer` uses, and `card.css` styles `.ui-header` like the `hgroup`.
 - `TextField`, `Textarea`, `Select` and `Range` take `hideLabel`, which renders the label as `.ui-sr-only` instead of `.ui-label`, so the field keeps its accessible name without a visible label.
 - `Checkbox`, `Radio` and `Switch` take a `label` string, a shorthand for the default slot.
@@ -235,6 +236,7 @@
 
 ### Changed
 
+- `theme.css` sets the Open Props `--shadow-color` and `--shadow-strength` from `--ui-shadow-color` and `--ui-shadow-strength`, so a theme sets the shadow tint and strength with `--ui-` tokens. A page forced to `.ui-light` under a dark OS preference gets the light shadow values.
 - `Dialog`, `Drawer` and `Menu` open over `--ui-duration-slow` (`0.3s`, was `--ui-duration`) with `--ui-ease-enter`, and `Drawer` and `Menu` close with `--ui-ease-exit`, as the tokens describe.
 - `--ui-field-border-color` is a 50% mix of the text color into the page (3:1 or more) instead of `--ui-border-color`, so fields, checkboxes, radios, switches and the range track have a visible boundary without more contrast. Inside filled surfaces it mixes into `--ui-surface-filled` the same way. The example themes keep their own.
 - `Progress` outlines its track with `--ui-field-border-color`, so the empty part is visible.

@@ -36,6 +36,7 @@
     --ui-radius: var(--size-2);
     --ui-border-width: 1px;
     --ui-border-width-thick: var(--border-size-2);
+    --ui-radius-large: calc(var(--ui-radius) * 1.5);
     --ui-radius-round: var(--radius-round);
     --ui-radius-small: min(var(--radius-2), var(--ui-radius));
     --ui-radius-x-small: min(var(--radius-1), var(--ui-radius));
@@ -196,6 +197,7 @@
     --ui-state-hover-alpha-dark: 20%;
 
     /* Icons */
+    --ui-icon-size-x-small: 0.75rem;
     --ui-icon-size-small: var(--size-3);
     --ui-icon-size: var(--size-4);
     --ui-icon-size-large: var(--size-5);
@@ -236,16 +238,23 @@
     --ui-shadow-scroll: var(--shadow-4);
     --ui-shadow-surface: none;
     --ui-shadow-selected: var(--shadow-1);
+    --ui-shadow-color: 220 3% 15%;
+    --ui-shadow-strength: 1%;
 
     /* Overlays */
     --ui-backdrop-blur: 1px;
     --ui-backdrop-bg-color: rgb(0 0 0 / 0.5);
   }
 
+  :where(:root) {
+    --shadow-color: var(--ui-shadow-color);
+    --shadow-strength: var(--ui-shadow-strength);
+  }
+
   :where(html.ui-dark) {
     --ui-palette-hue: var(--hue-blue);
-    --shadow-color: 220 40% 2%;
-    --shadow-strength: 20%;
+    --ui-shadow-color: 220 40% 2%;
+    --ui-shadow-strength: 20%;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -255,9 +264,9 @@
 
     :where(html:not(.ui-light)) {
       --ui-palette-hue: var(--hue-blue);
-      --shadow-color: 220 40% 2%;
+      --ui-shadow-color: 220 40% 2%;
       --ui-shadow-elevated: var(--ui-shadow-elevated-dark);
-      --shadow-strength: 20%;
+      --ui-shadow-strength: 20%;
     }
   }
 

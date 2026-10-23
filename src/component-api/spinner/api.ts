@@ -13,7 +13,7 @@ export default {
       default: "1em",
       description: "Spinner size follows the element's computed font size.",
       group: "Sizes",
-      prop: "font-size",
+      prop: "size",
     },
   ],
   parts: [],

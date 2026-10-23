@@ -107,7 +107,11 @@ describe("theme tokens", () => {
         .filter((token) => !tokenType(token.name))
         .map((token) => token.name)
         .toSorted(),
-    ).toEqual(["--ui-button-hover-translate", "--ui-contrast"])
+    ).toEqual([
+      "--ui-button-hover-translate",
+      "--ui-contrast",
+      "--ui-shadow-color",
+    ])
   })
 
   test("every token has a description and no description is stale", () => {

@@ -9,12 +9,12 @@ export type Props = BaseProps &
   }
 
 export type Slots = {
+  bottom?: Slot
   default?: Slot
+  end?: Slot
   "end-text"?: Slot
-  footer?: Slot
-  header?: Slot
   label?: Slot
-  prefix?: Slot
+  start?: Slot
   "start-text"?: Slot
-  suffix?: Slot
+  top?: Slot
 }

@@ -94,14 +94,14 @@ export default {
     {
       description:
         "Content above the select, inside the border, with a divider.",
-      selector: ".ui-header",
-      slots: ["header"],
+      selector: ".ui-field > .ui-top",
+      slots: ["top"],
     },
     {
       description:
         "Content at the inline-start of the field, inside the border.",
-      selector: ".ui-prefix",
-      slots: ["prefix"],
+      selector: ".ui-field > .ui-start",
+      slots: ["start"],
     },
     {
       code: "<select>",
@@ -111,14 +111,14 @@ export default {
     },
     {
       description: "Content at the inline-end of the field, inside the border.",
-      selector: ".ui-suffix",
-      slots: ["suffix"],
+      selector: ".ui-field > .ui-end",
+      slots: ["end"],
     },
     {
       description:
         "Content below the select, inside the border, with a divider.",
-      selector: ".ui-footer",
-      slots: ["footer"],
+      selector: ".ui-field > .ui-bottom",
+      slots: ["bottom"],
     },
     {
       description: "Supporting text displayed below the field.",

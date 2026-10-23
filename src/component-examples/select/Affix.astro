@@ -3,7 +3,7 @@ import { Select } from "opui-css/astro"
 ---
 
 <Select label="Currency">
-  <Fragment slot="prefix">¤</Fragment>
+  <Fragment slot="start">¤</Fragment>
   <option value="">-</option>
   <option>EUR</option>
   <option>SEK</option>
@@ -13,7 +13,7 @@ import { Select } from "opui-css/astro"
 <Select label="Country">
   <svg
     aria-hidden="true"
-    slot="prefix"
+    slot="start"
     width="16"
     height="16"
     viewBox="0 0 24 24"
@@ -36,7 +36,7 @@ import { Select } from "opui-css/astro"
 </Select>
 
 <Select label="Delivery time">
-  <Fragment slot="suffix">days</Fragment>
+  <Fragment slot="end">days</Fragment>
   <option>1</option>
   <option>3</option>
   <option>5</option>

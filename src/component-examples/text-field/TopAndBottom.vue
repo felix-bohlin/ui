@@ -4,10 +4,10 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <TextField label="Name" placeholder="Ada Lovelace">
-    <template #header>Shown on your profile</template>
+    <template #top>Shown on your profile</template>
   </TextField>
 
   <TextField label="Tagline" placeholder="A short description">
-    <template #footer>0 / 80</template>
+    <template #bottom>0 / 80</template>
   </TextField>
 </template>

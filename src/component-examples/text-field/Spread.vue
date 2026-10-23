@@ -29,20 +29,20 @@ import { TextField } from "opui-css/vue"
 
   <TextField spread label="Amount" placeholder="0.00">
     <template #start-text>Daily spending limit</template>
-    <template #prefix>€</template>
-    <template #suffix>EUR</template>
+    <template #start>€</template>
+    <template #end>EUR</template>
   </TextField>
 
   <TextField spread label="Website" placeholder="example.com" variant="filled">
     <template #start-text>Your public profile URL</template>
-    <template #prefix>https://</template>
+    <template #start>https://</template>
     <template #end-text>Must include a valid domain</template>
   </TextField>
 
   <TextField spread label="Project name" placeholder="my-project">
     <template #start-text>Used to generate the project URL</template>
-    <template #header>acme.dev/</template>
-    <template #footer>Lowercase letters and dashes only</template>
+    <template #top>acme.dev/</template>
+    <template #bottom>Lowercase letters and dashes only</template>
   </TextField>
 
   <TextField
@@ -53,7 +53,7 @@ import { TextField } from "opui-css/vue"
     type="password"
   >
     <template #start-text>Stored encrypted at rest</template>
-    <template #prefix>
+    <template #start>
       <svg
         aria-hidden="true"
         width="16"
@@ -69,8 +69,8 @@ import { TextField } from "opui-css/vue"
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </svg>
     </template>
-    <template #header>Secret</template>
-    <template #footer>Rotates every 90 days</template>
+    <template #top>Secret</template>
+    <template #bottom>Rotates every 90 days</template>
     <template #end-text>Treat like a password</template>
   </TextField>
 </template>

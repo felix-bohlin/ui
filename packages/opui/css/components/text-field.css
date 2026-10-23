@@ -44,9 +44,9 @@
       grid-column: 1/-1;
       grid-row: 2;
       grid-template-areas:
-        "header header header"
-        "prefix input  suffix"
-        "footer footer footer";
+        "top   top   top"
+        "start input end"
+        "bottom bottom bottom";
       grid-template-columns: auto 1fr auto;
       min-block-size: var(--_min-height);
 
@@ -84,8 +84,7 @@
     }
 
     /* Affixes */
-    .ui-prefix,
-    .ui-suffix {
+    .ui-field > :is(.ui-start, .ui-end) {
       align-items: center;
       color: var(--_affix-color);
       display: inline-flex;
@@ -102,16 +101,15 @@
       }
     }
 
-    .ui-prefix {
-      grid-area: prefix;
+    .ui-field > .ui-start {
+      grid-area: start;
     }
 
-    .ui-suffix {
-      grid-area: suffix;
+    .ui-field > .ui-end {
+      grid-area: end;
     }
 
-    .ui-header,
-    .ui-footer {
+    .ui-field > :is(.ui-top, .ui-bottom) {
       align-items: center;
       color: var(--_affix-color);
       display: flex;
@@ -121,30 +119,29 @@
       padding-inline: var(--_field-padding-inline);
     }
 
-    .ui-header {
+    .ui-field > .ui-top {
       border-block-end: var(--ui-field-border-width) solid var(--_border-color);
-      grid-area: header;
+      grid-area: top;
     }
 
-    .ui-footer {
+    .ui-field > .ui-bottom {
       border-block-start: var(--ui-field-border-width) solid
         var(--_border-color);
-      grid-area: footer;
+      grid-area: bottom;
     }
 
     /* Remove padding on the input when affixes are next to it */
-    .ui-field:has(> .ui-prefix) :where(input, textarea, select) {
+    .ui-field:has(> .ui-start) :where(input, textarea, select) {
       padding-inline-start: 0;
     }
 
-    .ui-field:has(> .ui-suffix) :where(input, textarea, select) {
+    .ui-field:has(> .ui-end) :where(input, textarea, select) {
       padding-inline-end: 0;
     }
 
     /* Textarea - keep affix aligned with the first line */
     &.ui-textarea .ui-field {
-      .ui-prefix,
-      .ui-suffix {
+      & > :is(.ui-start, .ui-end) {
         align-self: start;
         padding-block: var(--_field-padding-block-fit);
       }

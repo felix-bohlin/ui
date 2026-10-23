@@ -50,7 +50,7 @@ import { Select } from "opui-css/vue"
   <Select spread>
     <template #label>Time zone</template>
     <template #start-text>Used for reminders and due dates</template>
-    <template #prefix>UTC</template>
+    <template #start>UTC</template>
     <option>-03:00</option>
     <option>+00:00</option>
     <option>+01:00</option>
@@ -61,7 +61,7 @@ import { Select } from "opui-css/vue"
   <Select spread variant="filled">
     <template #label>Region</template>
     <template #start-text>Affects data residency and latency</template>
-    <template #prefix>
+    <template #start>
       <svg
         aria-hidden="true"
         width="16"

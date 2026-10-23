@@ -29,7 +29,7 @@
 
 <Textarea spread label="Bio" placeholder="Tell us about yourself...">
   {#snippet startText()}Shown on your public profile{/snippet}
-  {#snippet prefix()}
+  {#snippet start()}
     <svg
       aria-hidden="true"
       width="16"
@@ -46,7 +46,7 @@
       <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
     </svg>
   {/snippet}
-  {#snippet footer()}280 characters left{/snippet}
+  {#snippet bottom()}280 characters left{/snippet}
 </Textarea>
 
 <Textarea
@@ -56,7 +56,7 @@
   placeholder="Markdown supported..."
 >
   {#snippet startText()}Shown on the changelog page{/snippet}
-  {#snippet header()}v1.4.0{/snippet}
-  {#snippet footer()}Saved 2 minutes ago{/snippet}
+  {#snippet top()}v1.4.0{/snippet}
+  {#snippet bottom()}Saved 2 minutes ago{/snippet}
   {#snippet endText()}Drafts are auto-saved{/snippet}
 </Textarea>

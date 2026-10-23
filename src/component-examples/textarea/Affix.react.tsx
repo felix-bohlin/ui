@@ -6,7 +6,7 @@ export default function Affix() {
       <Textarea
         label="Notes"
         placeholder="Add a note..."
-        prefix={
+        start={
           <svg
             aria-hidden="true"
             width="16"
@@ -27,7 +27,7 @@ export default function Affix() {
       <Textarea
         label="Comment"
         placeholder="Write a comment..."
-        suffix="Markdown"
+        end="Markdown"
       />
     </>
   )

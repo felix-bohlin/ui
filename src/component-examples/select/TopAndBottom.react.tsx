@@ -1,11 +1,11 @@
 import { Select } from "opui-css/react"
 
-export default function HeaderFooter() {
+export default function TopAndBottom() {
   return (
     <Select
       label="Car"
-      header="Company cars only"
-      footer={
+      top="Company cars only"
+      bottom={
         <a className="ui-link" href="#">
           Manage cars…
         </a>

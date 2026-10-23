@@ -136,20 +136,20 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <h2 id="affix">Affix</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Use the <code>prefix</code> and <code>suffix</code> slots to affix icons or
-        short text alongside the select inside the field's border.
+        Use the <code>start</code> and <code>end</code> slots to affix icons or short
+        text alongside the select inside the field's border.
       </Fragment>
       <Fragment slot="html">
-        Add a <code>.ui-prefix</code> or <code>.ui-suffix</code> element inside
+        Add a <code>.ui-start</code> or <code>.ui-end</code> element inside
         {" "}<code>.ui-field</code> to affix content alongside the select.
       </Fragment>
       <Fragment slot="react">
-        Use the <code>prefix</code> and <code>suffix</code> props to affix icons or
-        short text alongside the select inside the field's border.
+        Use the <code>start</code> and <code>end</code> props to affix icons or short
+        text alongside the select inside the field's border.
       </Fragment>
       <Fragment slot="svelte">
-        Use the <code>prefix</code> and <code>suffix</code> snippets to affix icons
-        or short text alongside the select inside the field's border.
+        Use the <code>start</code> and <code>end</code> snippets to affix icons or
+        short text alongside the select inside the field's border.
       </Fragment>
     </Conditional>
 
@@ -157,27 +157,27 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   </section>
 
   <section>
-    <h2 id="header-and-footer">Header and footer</h2>
+    <h2 id="top-and-bottom">Top and bottom</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Use the <code>header</code> and <code>footer</code> slots for short text or
-        a link above and below the select, inside the field's border and set off by
+        Use the <code>top</code> and <code>bottom</code> slots for short text or a
+        link above and below the select, inside the field's border and set off by
         a divider.
       </Fragment>
       <Fragment slot="html">
-        Add a <code>.ui-header</code> or <code>.ui-footer</code> element inside
+        Add a <code>.ui-top</code> or <code>.ui-bottom</code> element inside
         {" "}<code>.ui-field</code> for short text or a link above and below the select,
         inside the field's border and set off by a divider.
       </Fragment>
       <Fragment slot="react">
-        Use the <code>header</code> and <code>footer</code> props for short text or
-        a link above and below the select, inside the field's border and set off by
+        Use the <code>top</code> and <code>bottom</code> props for short text or a
+        link above and below the select, inside the field's border and set off by
         a divider.
       </Fragment>
       <Fragment slot="svelte">
-        Use the <code>header</code> and <code>footer</code> snippets for short text
-        or a link above and below the select, inside the field's border and set off
-        by a divider.
+        Use the <code>top</code> and <code>bottom</code> snippets for short text or
+        a link above and below the select, inside the field's border and set off by
+        a divider.
       </Fragment>
     </Conditional>
     <p>
@@ -195,7 +195,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
         >, so screen readers read them with the select.
       </Fragment>
     </Conditional>
-    <AutoExample name="HeaderFooter" row spacious />
+    <AutoExample name="TopAndBottom" row spacious />
   </section>
 
   <section>
@@ -307,10 +307,10 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
         label="Label"
         name="select-anatomy"
       >
-        <span slot="header">Header</span>
-        <span slot="prefix">¤</span>
-        <span slot="suffix">EUR</span>
-        <span slot="footer">Footer</span>
+        <span slot="top">Top</span>
+        <span slot="start">¤</span>
+        <span slot="end">EUR</span>
+        <span slot="bottom">Bottom</span>
       </UISelect>
     </Anatomy>
   </Fragment>

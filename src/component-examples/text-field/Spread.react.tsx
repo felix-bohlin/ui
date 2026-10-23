@@ -47,8 +47,8 @@ export default function Spread() {
         label="Amount"
         placeholder="0.00"
         startText="Daily spending limit"
-        prefix="€"
-        suffix="EUR"
+        start="€"
+        end="EUR"
       />
 
       <TextField
@@ -57,7 +57,7 @@ export default function Spread() {
         placeholder="example.com"
         variant="filled"
         startText="Your public profile URL"
-        prefix="https://"
+        start="https://"
         endText="Must include a valid domain"
       />
 
@@ -66,8 +66,8 @@ export default function Spread() {
         label="Project name"
         placeholder="my-project"
         startText="Used to generate the project URL"
-        header="acme.dev/"
-        footer="Lowercase letters and dashes only"
+        top="acme.dev/"
+        bottom="Lowercase letters and dashes only"
       />
 
       <TextField
@@ -77,7 +77,7 @@ export default function Spread() {
         placeholder="Paste your key"
         type="password"
         startText="Stored encrypted at rest"
-        prefix={
+        start={
           <svg
             aria-hidden="true"
             width="16"
@@ -93,8 +93,8 @@ export default function Spread() {
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
         }
-        header="Secret"
-        footer="Rotates every 90 days"
+        top="Secret"
+        bottom="Rotates every 90 days"
         endText="Treat like a password"
       />
     </>

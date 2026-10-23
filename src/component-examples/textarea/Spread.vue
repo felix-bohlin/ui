@@ -32,7 +32,7 @@ import { Textarea } from "opui-css/vue"
 
   <Textarea spread label="Bio" placeholder="Tell us about yourself...">
     <template #start-text>Shown on your public profile</template>
-    <template #prefix>
+    <template #start>
       <svg
         aria-hidden="true"
         width="16"
@@ -52,7 +52,7 @@ import { Textarea } from "opui-css/vue"
         ></path>
       </svg>
     </template>
-    <template #footer>280 characters left</template>
+    <template #bottom>280 characters left</template>
   </Textarea>
 
   <Textarea
@@ -62,8 +62,8 @@ import { Textarea } from "opui-css/vue"
     placeholder="Markdown supported..."
   >
     <template #start-text>Shown on the changelog page</template>
-    <template #header>v1.4.0</template>
-    <template #footer>Saved 2 minutes ago</template>
+    <template #top>v1.4.0</template>
+    <template #bottom>Saved 2 minutes ago</template>
     <template #end-text>Drafts are auto-saved</template>
   </Textarea>
 </template>

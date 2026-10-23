@@ -21,13 +21,13 @@ export default function Select({
   value,
   variant = "outlined",
   children,
+  bottom,
+  end,
   endText,
-  footer,
-  header,
   label,
-  prefix,
+  start,
   startText,
-  suffix,
+  top,
   ...rest
 }: Props) {
   const uid = useId()
@@ -35,13 +35,13 @@ export default function Select({
   const labelId = `select-label-${uid}`
   const startTextId = startText ? `start-text-${uid}` : undefined
   const endTextId = endText ? `end-text-${uid}` : undefined
-  const headerId = header ? `header-${uid}` : undefined
-  const footerId = footer ? `footer-${uid}` : undefined
+  const topId = top ? `top-${uid}` : undefined
+  const bottomId = bottom ? `bottom-${uid}` : undefined
   const describedBy = idRefs(
-    headerId,
+    topId,
     startTextId,
     endTextId,
-    footerId,
+    bottomId,
     rest["aria-describedby"],
   )
 
@@ -101,16 +101,16 @@ export default function Select({
             {children}
           </div>
         </select>
-        {prefix && <span className="ui-prefix">{prefix}</span>}
-        {suffix && <span className="ui-suffix">{suffix}</span>}
-        {header && (
-          <span className="ui-header" id={headerId}>
-            {header}
+        {start && <span className="ui-start">{start}</span>}
+        {end && <span className="ui-end">{end}</span>}
+        {top && (
+          <span className="ui-top" id={topId}>
+            {top}
           </span>
         )}
-        {footer && (
-          <span className="ui-footer" id={footerId}>
-            {footer}
+        {bottom && (
+          <span className="ui-bottom" id={bottomId}>
+            {bottom}
           </span>
         )}
       </span>

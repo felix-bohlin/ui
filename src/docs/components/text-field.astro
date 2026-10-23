@@ -127,42 +127,41 @@ export const description =
     <h2 id="affix">Affix</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> slots to affix content inside the field's border.
-        Prefix and suffix sit beside the input, while header and footer span the field's
-        full width with a divider.
+        Use the <code>start</code>, <code>end</code>, <code>top</code>, and <code
+          >bottom</code
+        > slots to affix content inside the field's border. Start and end sit beside
+        the input, while top and bottom span the field's full width with a divider.
       </Fragment>
       <Fragment slot="html">
-        Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
-          >.ui-header</code
-        >, or{" "}
-        <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
-        inside the field's border. Prefix and suffix sit beside the input, while header
-        and footer span the field's full width with a divider.
+        Add <code>.ui-start</code>, <code>.ui-end</code>, <code>.ui-top</code>,
+        or{" "}
+        <code>.ui-bottom</code> elements inside <code>.ui-field</code> to affix content
+        inside the field's border. Start and end sit beside the input, while top and
+        bottom span the field's full width with a divider.
       </Fragment>
       <Fragment slot="react">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> props to affix content inside the field's border.
-        Prefix and suffix sit beside the input, while header and footer span the field's
-        full width with a divider.
+        Use the <code>start</code>, <code>end</code>, <code>top</code>, and <code
+          >bottom</code
+        > props to affix content inside the field's border. Start and end sit beside
+        the input, while top and bottom span the field's full width with a divider.
       </Fragment>
       <Fragment slot="svelte">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> snippets to affix content inside the field's border.
-        Prefix and suffix sit beside the input, while header and footer span the field's
-        full width with a divider.
+        Use the <code>start</code>, <code>end</code>, <code>top</code>, and <code
+          >bottom</code
+        > snippets to affix content inside the field's border. Start and end sit beside
+        the input, while top and bottom span the field's full width with a divider.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Affix" column />
 
-    <h3 id="headers-and-footers">Headers and footers</h3>
+    <h3 id="top-and-bottom">Top and bottom</h3>
     <p>
-      Use the header for inside-field captions (filenames, categories) and the
-      footer for counters and hints.
+      Use the top for inside-field captions (filenames, categories) and the
+      bottom for counters and hints.
     </p>
 
-    <AutoExample name="Headers" column />
+    <AutoExample name="TopAndBottom" column />
   </section>
 
   <section>
@@ -377,10 +376,10 @@ export const description =
         placeholder="Placeholder"
         value="Value"
       >
-        <span slot="header">Header</span>
-        <span slot="prefix">€</span>
-        <span slot="suffix">EUR</span>
-        <span slot="footer">Footer</span>
+        <span slot="top">Top</span>
+        <span slot="start">€</span>
+        <span slot="end">EUR</span>
+        <span slot="bottom">Bottom</span>
       </UITextField>
     </Anatomy>
   </Fragment>

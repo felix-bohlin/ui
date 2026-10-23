@@ -3,7 +3,7 @@
 </script>
 
 <Select label="Currency">
-  {#snippet prefix()}¤{/snippet}
+  {#snippet start()}¤{/snippet}
   <option value="">-</option>
   <option>EUR</option>
   <option>SEK</option>
@@ -11,7 +11,7 @@
 </Select>
 
 <Select label="Country">
-  {#snippet prefix()}<svg
+  {#snippet start()}<svg
       aria-hidden="true"
       width="16"
       height="16"
@@ -35,7 +35,7 @@
 </Select>
 
 <Select label="Delivery time">
-  {#snippet suffix()}days{/snippet}
+  {#snippet end()}days{/snippet}
   <option>1</option>
   <option>3</option>
   <option>5</option>

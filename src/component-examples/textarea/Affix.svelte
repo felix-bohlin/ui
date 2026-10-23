@@ -3,7 +3,7 @@
 </script>
 
 <Textarea label="Notes" placeholder="Add a note...">
-  {#snippet prefix()}<svg
+  {#snippet start()}<svg
       aria-hidden="true"
       width="16"
       height="16"
@@ -22,5 +22,5 @@
 </Textarea>
 
 <Textarea label="Comment" placeholder="Write a comment...">
-  {#snippet suffix()}Markdown{/snippet}
+  {#snippet end()}Markdown{/snippet}
 </Textarea>

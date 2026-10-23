@@ -76,6 +76,7 @@
 - `Avatar` no longer takes `isGroup`. Wrap avatars in `AvatarGroup`, which renders `div.ui-avatar-group` with `role="group"`.
 - `Button` and `Chip` links with `disabled` (`aria-disabled="true"`) no longer render `href`, so they can't be focused or followed. `button.css` and `chip.css` no longer set `pointer-events: none` on disabled links, so remove `href` from them in HTML.
 - `TextField`, `Textarea` and `Select` take `startText` (the `start-text` slot) instead of `description`, matching `endText`, `Range` and the `.ui-start-text` class.
+- `TextField`, `Textarea` and `Select` slots inside the field's border are `start` and `end` (`.ui-start`, `.ui-end`) instead of `prefix` and `suffix` (`.ui-prefix`, `.ui-suffix`), and `top` and `bottom` (`.ui-top`, `.ui-bottom`) instead of `header` and `footer` (`.ui-header`, `.ui-footer`), so `start` and `end` mean the inline sides in every component and the container regions keep their own names.
 - `Checkbox`, `Progress`, `Radio`, `Range`, `Select`, `Switch` and `ToggleButton` in Astro and Vue put `style` on the root, like `class`, instead of the `<select>`, `<input>` or `<progress>`, so `--_` properties set through `style` apply.
 - `TextField` styles in `text-input.css` moved into `text-field.css`, and `text-input.css` is removed. Remove its import.
 - `Checkbox`, `Radio`, `Switch`, `Range`, `DescriptionList` and `Table` type files are named like the other components: `components/Checkbox/types*` export `Props` and `Slots` instead of `CheckboxProps` and `CheckboxSlots` (likewise `Radio`, `Switch` and `Range`), `DescriptionList` exports `DescriptionListTermProps`, `DescriptionListDescriptionProps` and `DescriptionListItemProps` instead of `TermProps`, `DescriptionProps` and `ItemProps`, and `Table` exports one type per part (`TableBodyProps`, `TableCellProps` and the rest) instead of `SectionProps`, and `TableColumnProps` instead of `ColumnProps`. Import the types from `opui-css/<framework>` instead.
@@ -376,12 +377,12 @@
 - `TextField` file inputs are `--ui-field-size` high. They were 2px taller.
 - `ToggleGroup` is as high as a `ToggleButton` of the same size. The group border made it 2px taller.
 - `TextField`, `Textarea` and `Select` keep their field height when a grid or flex parent stretches them, e.g. next to a field with end text. The extra space went into the field.
-- `TextField` prefix and suffix icons are capped at `--ui-icon-size`, so a large icon no longer makes the field taller.
+- `TextField` start and end icons are capped at `--ui-icon-size`, so a large icon no longer makes the field taller.
 - `TextField` autosuggest arrow sits at the inline end in RTL. It overlapped the text.
 - `ToggleButton` only grows inside a `ToggleGroup`. On its own in a flex container it stretched to fill the row.
 - `Range` with `spread` (`.ui-spread`) collapses to a column when narrower than 400px, like `TextField`. The container query had no container, so it never applied, and the slider's minimum width could push its parent wider.
 - `TextField` and `Select` without a label are as high as their field. The empty label row added 4px above it.
-- `TextField` prefix and suffix use the field line height, so they no longer make the field taller on pages with a large line height.
+- `TextField` start and end affixes use the field line height, so they no longer make the field taller on pages with a large line height.
 - `Radio` large (`.ui-large`) uses `--ui-choice-size-large`. It was the same size as the default.
 - `Select` keeps its arrow and its space at the inline end in RTL. The arrow covered the text.
 - `Select` keeps its padding and the height of the other fields in browsers that keep the `<button>` inside the `<select>` but have no customizable select, like Firefox, and wherever React, Svelte or Vue render it in the browser. The button turned the padding off there.

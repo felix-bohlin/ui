@@ -10,11 +10,11 @@ export type Props = {
 }
 
 export type Slots<S> = {
+  bottom?: string | S
+  end?: string | S
   endText?: string | S
-  footer?: string | S
-  header?: string | S
   label?: string | S
-  prefix?: string | S
+  start?: string | S
   startText?: string | S
-  suffix?: string | S
+  top?: string | S
 }

@@ -49,7 +49,7 @@
 <Select spread>
   {#snippet label()}Time zone{/snippet}
   {#snippet startText()}Used for reminders and due dates{/snippet}
-  {#snippet prefix()}UTC{/snippet}
+  {#snippet start()}UTC{/snippet}
   <option>-03:00</option>
   <option>+00:00</option>
   <option>+01:00</option>
@@ -60,7 +60,7 @@
 <Select spread variant="filled">
   {#snippet label()}Region{/snippet}
   {#snippet startText()}Affects data residency and latency{/snippet}
-  {#snippet prefix()}
+  {#snippet start()}
     <svg
       aria-hidden="true"
       width="16"

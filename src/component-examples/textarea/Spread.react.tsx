@@ -46,7 +46,7 @@ export default function Spread() {
         label="Bio"
         placeholder="Tell us about yourself..."
         startText="Shown on your public profile"
-        prefix={
+        start={
           <svg
             aria-hidden="true"
             width="16"
@@ -62,7 +62,7 @@ export default function Spread() {
             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
           </svg>
         }
-        footer="280 characters left"
+        bottom="280 characters left"
       />
 
       <Textarea
@@ -71,8 +71,8 @@ export default function Spread() {
         label="Release notes"
         placeholder="Markdown supported..."
         startText="Shown on the changelog page"
-        header="v1.4.0"
-        footer="Saved 2 minutes ago"
+        top="v1.4.0"
+        bottom="Saved 2 minutes ago"
         endText="Drafts are auto-saved"
       />
     </>

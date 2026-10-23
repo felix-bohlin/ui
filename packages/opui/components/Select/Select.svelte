@@ -21,13 +21,13 @@
 
     // Snippets
     children,
+    bottom,
+    end,
     endText,
-    footer,
-    header,
     label,
-    prefix,
+    start,
     startText,
-    suffix,
+    top,
     ...rest
   }: Props = $props()
 
@@ -41,16 +41,10 @@
   const labelId = `select-label-${uid}`
   const startTextId = $derived(startText ? `start-text-${uid}` : undefined)
   const endTextId = $derived(endText ? `end-text-${uid}` : undefined)
-  const headerId = $derived(header ? `header-${uid}` : undefined)
-  const footerId = $derived(footer ? `footer-${uid}` : undefined)
+  const topId = $derived(top ? `top-${uid}` : undefined)
+  const bottomId = $derived(bottom ? `bottom-${uid}` : undefined)
   const describedBy = $derived(
-    idRefs(
-      headerId,
-      startTextId,
-      endTextId,
-      footerId,
-      rest["aria-describedby"],
-    ),
+    idRefs(topId, startTextId, endTextId, bottomId, rest["aria-describedby"]),
   )
 
   const isSelected = (item: SelectItem) =>
@@ -105,17 +99,17 @@
         {@render children?.()}
       </div>
     </select>
-    {#if prefix}
-      <span class="ui-prefix">{@render content(prefix)}</span>
+    {#if start}
+      <span class="ui-start">{@render content(start)}</span>
     {/if}
-    {#if suffix}
-      <span class="ui-suffix">{@render content(suffix)}</span>
+    {#if end}
+      <span class="ui-end">{@render content(end)}</span>
     {/if}
-    {#if header}
-      <span class="ui-header" id={headerId}>{@render content(header)}</span>
+    {#if top}
+      <span class="ui-top" id={topId}>{@render content(top)}</span>
     {/if}
-    {#if footer}
-      <span class="ui-footer" id={footerId}>{@render content(footer)}</span>
+    {#if bottom}
+      <span class="ui-bottom" id={bottomId}>{@render content(bottom)}</span>
     {/if}
   </span>
   {#if endText}

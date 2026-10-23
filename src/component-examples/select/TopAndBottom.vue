@@ -4,8 +4,8 @@ import { Select } from "opui-css/vue"
 
 <template>
   <Select label="Car">
-    <template #header>Company cars only</template>
-    <template #footer><a class="ui-link" href="#">Manage cars…</a></template>
+    <template #top>Company cars only</template>
+    <template #bottom><a class="ui-link" href="#">Manage cars…</a></template>
     <option value="">-</option>
     <option>Kia EV6</option>
     <option>Volkswagen ID.4</option>

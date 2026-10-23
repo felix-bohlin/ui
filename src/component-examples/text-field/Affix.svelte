@@ -3,20 +3,20 @@
 </script>
 
 <TextField label="Amount" placeholder="0.00">
-  {#snippet prefix()}€{/snippet}
-  {#snippet suffix()}EUR{/snippet}
+  {#snippet start()}€{/snippet}
+  {#snippet end()}EUR{/snippet}
 </TextField>
 
 <TextField label="Website" placeholder="example.com">
-  {#snippet prefix()}https://{/snippet}
+  {#snippet start()}https://{/snippet}
 </TextField>
 
 <TextField label="Weight" type="numeric" placeholder="0">
-  {#snippet suffix()}kg{/snippet}
+  {#snippet end()}kg{/snippet}
 </TextField>
 
 <TextField label="Search" placeholder="Search...">
-  {#snippet prefix()}<svg
+  {#snippet start()}<svg
       aria-hidden="true"
       width="16"
       height="16"

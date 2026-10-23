@@ -3,9 +3,9 @@
 </script>
 
 <TextField label="Name" placeholder="Ada Lovelace">
-  {#snippet header()}Shown on your profile{/snippet}
+  {#snippet top()}Shown on your profile{/snippet}
 </TextField>
 
 <TextField label="Tagline" placeholder="A short description">
-  {#snippet footer()}0 / 80{/snippet}
+  {#snippet bottom()}0 / 80{/snippet}
 </TextField>

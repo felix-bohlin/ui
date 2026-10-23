@@ -68,8 +68,8 @@ const uid = useId()
 const labelId = `select-label-${uid}`
 const startTextId = `start-text-${uid}`
 const endTextId = `end-text-${uid}`
-const headerId = `header-${uid}`
-const footerId = `footer-${uid}`
+const topId = `top-${uid}`
+const bottomId = `bottom-${uid}`
 const field = inject(FieldGroupKey, undefined)
 </script>
 
@@ -105,10 +105,10 @@ const field = inject(FieldGroupKey, undefined)
         v-model="model"
         :aria-describedby="
           idRefs(
-            $slots.header && headerId,
+            $slots.top && topId,
             (startText || $slots['start-text']) && startTextId,
             (endText || $slots['end-text']) && endTextId,
-            $slots.footer && footerId,
+            $slots.bottom && bottomId,
             attrs['aria-describedby'],
           )
         "
@@ -134,17 +134,15 @@ const field = inject(FieldGroupKey, undefined)
           <slot></slot>
         </div>
       </select>
-      <span class="ui-prefix" v-if="$slots.prefix"
-        ><slot name="prefix"></slot
+      <span class="ui-start" v-if="$slots.start"
+        ><slot name="start"></slot
       ></span>
-      <span class="ui-suffix" v-if="$slots.suffix"
-        ><slot name="suffix"></slot
+      <span class="ui-end" v-if="$slots.end"><slot name="end"></slot></span>
+      <span class="ui-top" :id="topId" v-if="$slots.top"
+        ><slot name="top"></slot
       ></span>
-      <span class="ui-header" :id="headerId" v-if="$slots.header"
-        ><slot name="header"></slot
-      ></span>
-      <span class="ui-footer" :id="footerId" v-if="$slots.footer"
-        ><slot name="footer"></slot
+      <span class="ui-bottom" :id="bottomId" v-if="$slots.bottom"
+        ><slot name="bottom"></slot
       ></span>
     </span>
 

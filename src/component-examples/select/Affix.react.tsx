@@ -3,7 +3,7 @@ import { Select } from "opui-css/react"
 export default function Affix() {
   return (
     <>
-      <Select label="Currency" prefix="¤">
+      <Select label="Currency" start="¤">
         <option value="">-</option>
         <option>EUR</option>
         <option>SEK</option>
@@ -12,7 +12,7 @@ export default function Affix() {
 
       <Select
         label="Country"
-        prefix={
+        start={
           <svg
             aria-hidden="true"
             width="16"
@@ -36,7 +36,7 @@ export default function Affix() {
         <option>Sweden</option>
       </Select>
 
-      <Select label="Delivery time" suffix="days">
+      <Select label="Delivery time" end="days">
         <option>1</option>
         <option>3</option>
         <option>5</option>

@@ -28,20 +28,20 @@
 
 <TextField spread label="Amount" placeholder="0.00">
   {#snippet startText()}Daily spending limit{/snippet}
-  {#snippet prefix()}€{/snippet}
-  {#snippet suffix()}EUR{/snippet}
+  {#snippet start()}€{/snippet}
+  {#snippet end()}EUR{/snippet}
 </TextField>
 
 <TextField spread label="Website" placeholder="example.com" variant="filled">
   {#snippet startText()}Your public profile URL{/snippet}
-  {#snippet prefix()}https://{/snippet}
+  {#snippet start()}https://{/snippet}
   {#snippet endText()}Must include a valid domain{/snippet}
 </TextField>
 
 <TextField spread label="Project name" placeholder="my-project">
   {#snippet startText()}Used to generate the project URL{/snippet}
-  {#snippet header()}acme.dev/{/snippet}
-  {#snippet footer()}Lowercase letters and dashes only{/snippet}
+  {#snippet top()}acme.dev/{/snippet}
+  {#snippet bottom()}Lowercase letters and dashes only{/snippet}
 </TextField>
 
 <TextField
@@ -52,7 +52,7 @@
   type="password"
 >
   {#snippet startText()}Stored encrypted at rest{/snippet}
-  {#snippet prefix()}
+  {#snippet start()}
     <svg
       aria-hidden="true"
       width="16"
@@ -68,7 +68,7 @@
       <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
     </svg>
   {/snippet}
-  {#snippet header()}Secret{/snippet}
-  {#snippet footer()}Rotates every 90 days{/snippet}
+  {#snippet top()}Secret{/snippet}
+  {#snippet bottom()}Rotates every 90 days{/snippet}
   {#snippet endText()}Treat like a password{/snippet}
 </TextField>

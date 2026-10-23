@@ -1,18 +1,18 @@
 import { Textarea } from "opui-css/react"
 
-export default function Headers() {
+export default function TopAndBottom() {
   return (
     <>
       <Textarea
         label="Code"
         placeholder="console.log('Hello, world!')"
-        header="script.js"
+        top="script.js"
       />
 
       <Textarea
         label="Comment"
         placeholder="Write a comment..."
-        footer="0 / 280"
+        bottom="0 / 280"
       />
     </>
   )

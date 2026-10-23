@@ -4,7 +4,7 @@ import { Select } from "opui-css/vue"
 
 <template>
   <Select label="Currency">
-    <template #prefix>¤</template>
+    <template #start>¤</template>
     <option value="">-</option>
     <option>EUR</option>
     <option>SEK</option>
@@ -12,7 +12,7 @@ import { Select } from "opui-css/vue"
   </Select>
 
   <Select label="Country">
-    <template #prefix
+    <template #start
       ><svg
         aria-hidden="true"
         width="16"
@@ -37,7 +37,7 @@ import { Select } from "opui-css/vue"
   </Select>
 
   <Select label="Delivery time">
-    <template #suffix>days</template>
+    <template #end>days</template>
     <option>1</option>
     <option>3</option>
     <option>5</option>

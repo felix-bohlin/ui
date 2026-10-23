@@ -3,22 +3,22 @@ import { TextField } from "opui-css/astro"
 ---
 
 <TextField label="Amount" placeholder="0.00">
-  <Fragment slot="prefix">€</Fragment>
-  <Fragment slot="suffix">EUR</Fragment>
+  <Fragment slot="start">€</Fragment>
+  <Fragment slot="end">EUR</Fragment>
 </TextField>
 
 <TextField label="Website" placeholder="example.com">
-  <Fragment slot="prefix">https://</Fragment>
+  <Fragment slot="start">https://</Fragment>
 </TextField>
 
 <TextField label="Weight" type="numeric" placeholder="0">
-  <Fragment slot="suffix">kg</Fragment>
+  <Fragment slot="end">kg</Fragment>
 </TextField>
 
 <TextField label="Search" placeholder="Search...">
   <svg
     aria-hidden="true"
-    slot="prefix"
+    slot="start"
     width="16"
     height="16"
     viewBox="0 0 24 24"

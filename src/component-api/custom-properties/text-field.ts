@@ -8,7 +8,7 @@ export default {
   },
   "--_affix-color": {
     description:
-      "The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.",
+      "The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.",
     kind: "output",
   },
   "--_arrow-inset": {

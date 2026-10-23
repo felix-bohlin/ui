@@ -619,6 +619,18 @@ The `items` type is `SelectItem`, exported from every framework barrel, and its 
 + <Select label="Country" startText="Where you live" items={items} />
 ```
 
+The slots inside the field's border are `start` and `end` instead of `prefix` and `suffix`, and `top` and `bottom` instead of `header` and `footer`. In HTML, the classes are `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`.
+
+```diff
+- <span class="ui-prefix">€</span>
++ <span class="ui-start">€</span>
+```
+
+```diff
+- <Select label="Price" prefix="€" items={items} />
++ <Select label="Price" start="€" items={items} />
+```
+
 ## Switch
 
 `Switch` takes `size="small"` instead of `small`.
@@ -755,6 +767,18 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 - @import "opui-css/css/components/text-input.css";
 ```
 
+The slots inside the field's border are `start` and `end` instead of `prefix` and `suffix`, and `top` and `bottom` instead of `header` and `footer`. In HTML, the classes are `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`.
+
+```diff
+- <span class="ui-prefix">€</span>
++ <span class="ui-start">€</span>
+```
+
+```diff
+- <TextField label="Amount" prefix="€" suffix="EUR" />
++ <TextField label="Amount" start="€" end="EUR" />
+```
+
 ## Textarea
 
 `Textarea` takes a `size` prop instead of `small`, like `TextField`.
@@ -776,6 +800,18 @@ The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is
 ```
 
 Same as Text field: `aria-invalid="true"` on the `<textarea>` replaces `data-invalid` on `.ui-textarea`.
+
+The slots inside the field's border are `start` and `end` instead of `prefix` and `suffix`, and `top` and `bottom` instead of `header` and `footer`. In HTML, the classes are `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`.
+
+```diff
+- <span class="ui-prefix">€</span>
++ <span class="ui-start">€</span>
+```
+
+```diff
+- <Textarea label="Bio" footer="0 / 160" />
++ <Textarea label="Bio" bottom="0 / 160" />
+```
 
 ## Toast
 

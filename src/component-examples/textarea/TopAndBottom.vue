@@ -4,10 +4,10 @@ import { Textarea } from "opui-css/vue"
 
 <template>
   <Textarea label="Code" placeholder="console.log('Hello, world!')">
-    <template #header>script.js</template>
+    <template #top>script.js</template>
   </Textarea>
 
   <Textarea label="Comment" placeholder="Write a comment...">
-    <template #footer>0 / 280</template>
+    <template #bottom>0 / 280</template>
   </Textarea>
 </template>

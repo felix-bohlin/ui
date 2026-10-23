@@ -17,13 +17,13 @@
 
     // Snippets
     children,
+    bottom,
+    end,
     endText,
-    footer,
-    header,
     label,
-    prefix,
+    start,
     startText,
-    suffix,
+    top,
     ...rest
   }: Props = $props()
 
@@ -57,17 +57,17 @@
       {id}
       name={name ?? field?.name}
     ></textarea>
-    {#if prefix}
-      <span class="ui-prefix">{@render content(prefix)}</span>
+    {#if start}
+      <span class="ui-start">{@render content(start)}</span>
     {/if}
-    {#if suffix}
-      <span class="ui-suffix">{@render content(suffix)}</span>
+    {#if end}
+      <span class="ui-end">{@render content(end)}</span>
     {/if}
-    {#if header}
-      <span class="ui-header">{@render content(header)}</span>
+    {#if top}
+      <span class="ui-top">{@render content(top)}</span>
     {/if}
-    {#if footer}
-      <span class="ui-footer">{@render content(footer)}</span>
+    {#if bottom}
+      <span class="ui-bottom">{@render content(bottom)}</span>
     {/if}
   </span>
   {#if endText}

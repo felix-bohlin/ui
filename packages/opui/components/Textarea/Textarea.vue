@@ -66,17 +66,13 @@ const field = inject(FieldGroupKey, undefined)
         :id="id"
         :name="attrs.name ?? field?.name"
       ></textarea>
-      <span class="ui-prefix" v-if="$slots.prefix"
-        ><slot name="prefix"></slot
+      <span class="ui-start" v-if="$slots.start"
+        ><slot name="start"></slot
       ></span>
-      <span class="ui-suffix" v-if="$slots.suffix"
-        ><slot name="suffix"></slot
-      ></span>
-      <span class="ui-header" v-if="$slots.header"
-        ><slot name="header"></slot
-      ></span>
-      <span class="ui-footer" v-if="$slots.footer"
-        ><slot name="footer"></slot
+      <span class="ui-end" v-if="$slots.end"><slot name="end"></slot></span>
+      <span class="ui-top" v-if="$slots.top"><slot name="top"></slot></span>
+      <span class="ui-bottom" v-if="$slots.bottom"
+        ><slot name="bottom"></slot
       ></span>
     </span>
 

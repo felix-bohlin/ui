@@ -15,13 +15,13 @@ export default function Textarea({
   style,
   variant,
   children,
+  bottom,
+  end,
   endText,
-  footer,
-  header,
   label,
-  prefix,
+  start,
   startText,
-  suffix,
+  top,
   ...rest
 }: Props) {
   const field = useFieldGroupContext()
@@ -49,10 +49,10 @@ export default function Textarea({
           id={id}
           name={name ?? field?.name}
         />
-        {prefix && <span className="ui-prefix">{prefix}</span>}
-        {suffix && <span className="ui-suffix">{suffix}</span>}
-        {header && <span className="ui-header">{header}</span>}
-        {footer && <span className="ui-footer">{footer}</span>}
+        {start && <span className="ui-start">{start}</span>}
+        {end && <span className="ui-end">{end}</span>}
+        {top && <span className="ui-top">{top}</span>}
+        {bottom && <span className="ui-bottom">{bottom}</span>}
       </span>
       {endText && <span className="ui-end-text">{endText}</span>}
       {children}

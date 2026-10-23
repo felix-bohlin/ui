@@ -34,13 +34,13 @@ const startTextId =
   startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
 const endTextId =
   endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
-const headerId = Astro.slots.has("header") ? $id("header") : undefined
-const footerId = Astro.slots.has("footer") ? $id("footer") : undefined
+const topId = Astro.slots.has("top") ? $id("top") : undefined
+const bottomId = Astro.slots.has("bottom") ? $id("bottom") : undefined
 const describedBy = idRefs(
-  headerId,
+  topId,
   startTextId,
   endTextId,
-  footerId,
+  bottomId,
   ariaDescribedBy,
 )
 const isSelected = (item: SelectItem) =>
@@ -105,30 +105,30 @@ const isSelected = (item: SelectItem) =>
       </div>
     </select>
     {
-      Astro.slots.has("prefix") && (
-        <span class="ui-prefix">
-          <slot name="prefix" />
+      Astro.slots.has("start") && (
+        <span class="ui-start">
+          <slot name="start" />
         </span>
       )
     }
     {
-      Astro.slots.has("suffix") && (
-        <span class="ui-suffix">
-          <slot name="suffix" />
+      Astro.slots.has("end") && (
+        <span class="ui-end">
+          <slot name="end" />
         </span>
       )
     }
     {
-      Astro.slots.has("header") && (
-        <span class="ui-header" id={headerId}>
-          <slot name="header" />
+      Astro.slots.has("top") && (
+        <span class="ui-top" id={topId}>
+          <slot name="top" />
         </span>
       )
     }
     {
-      Astro.slots.has("footer") && (
-        <span class="ui-footer" id={footerId}>
-          <slot name="footer" />
+      Astro.slots.has("bottom") && (
+        <span class="ui-bottom" id={bottomId}>
+          <slot name="bottom" />
         </span>
       )
     }

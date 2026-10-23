@@ -49,7 +49,7 @@ import { Select } from "opui-css/astro"
 <Select spread>
   <Fragment slot="label">Time zone</Fragment>
   <Fragment slot="start-text">Used for reminders and due dates</Fragment>
-  <Fragment slot="prefix">UTC</Fragment>
+  <Fragment slot="start">UTC</Fragment>
   <option>-03:00</option>
   <option>+00:00</option>
   <option>+01:00</option>
@@ -60,7 +60,7 @@ import { Select } from "opui-css/astro"
 <Select spread variant="filled">
   <Fragment slot="label">Region</Fragment>
   <Fragment slot="start-text">Affects data residency and latency</Fragment>
-  <Fragment slot="prefix">
+  <Fragment slot="start">
     <svg
       aria-hidden="true"
       width="16"

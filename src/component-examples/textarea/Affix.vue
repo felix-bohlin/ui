@@ -4,7 +4,7 @@ import { Textarea } from "opui-css/vue"
 
 <template>
   <Textarea label="Notes" placeholder="Add a note...">
-    <template #prefix
+    <template #start
       ><svg
         aria-hidden="true"
         width="16"
@@ -26,6 +26,6 @@ import { Textarea } from "opui-css/vue"
   </Textarea>
 
   <Textarea label="Comment" placeholder="Write a comment...">
-    <template #suffix>Markdown</template>
+    <template #end>Markdown</template>
   </Textarea>
 </template>

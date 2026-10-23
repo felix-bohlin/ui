@@ -662,6 +662,12 @@ const whatsNew = {
     },
   ],
   select: [
+    {
+      ...slots(
+        `Breaking: the <a href="#affix">affix</a> slots are <code>start</code> and <code>end</code> instead of <code>prefix</code> and <code>suffix</code>, and <a href="#top-and-bottom"><code>top</code> and <code>bottom</code></a> instead of <code>header</code> and <code>footer</code>.`,
+      ),
+      html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
+    },
     `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons.`,
     `The field border reaches 3:1 against the page by default, and the picker keeps the browser's checkmark on the selected option.`,
     `<a href="#option-groups">Group labels</a> take a shade of the picker's surface and <code>--ui-text-muted</code> instead of fixed grays.`,
@@ -826,6 +832,12 @@ const whatsNew = {
     ),
   ],
   "text-field": [
+    {
+      ...slots(
+        `Breaking: the <a href="#affix">affix</a> slots are <code>start</code> and <code>end</code> instead of <code>prefix</code> and <code>suffix</code>, and <a href="#top-and-bottom"><code>top</code> and <code>bottom</code></a> instead of <code>header</code> and <code>footer</code>.`,
+      ),
+      html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
+    },
     `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons.`,
     `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
@@ -869,6 +881,12 @@ const whatsNew = {
     ),
   ],
   textarea: [
+    {
+      ...slots(
+        `Breaking: the <a href="#affix">affix</a> slots are <code>start</code> and <code>end</code> instead of <code>prefix</code> and <code>suffix</code>, and <a href="#top-and-bottom"><code>top</code> and <code>bottom</code></a> instead of <code>header</code> and <code>footer</code>.`,
+      ),
+      html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
+    },
     `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons.`,
     `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,

@@ -5,7 +5,7 @@ import { Textarea } from "opui-css/astro"
 <Textarea label="Notes" placeholder="Add a note...">
   <svg
     aria-hidden="true"
-    slot="prefix"
+    slot="start"
     width="16"
     height="16"
     viewBox="0 0 24 24"
@@ -21,5 +21,5 @@ import { Textarea } from "opui-css/astro"
 </Textarea>
 
 <Textarea label="Comment" placeholder="Write a comment...">
-  <Fragment slot="suffix">Markdown</Fragment>
+  <Fragment slot="end">Markdown</Fragment>
 </Textarea>

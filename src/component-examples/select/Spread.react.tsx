@@ -65,7 +65,7 @@ export default function Spread() {
         spread
         label="Time zone"
         startText="Used for reminders and due dates"
-        prefix="UTC"
+        start="UTC"
       >
         <option>-03:00</option>
         <option>+00:00</option>
@@ -79,7 +79,7 @@ export default function Spread() {
         variant="filled"
         label="Region"
         startText="Affects data residency and latency"
-        prefix={
+        start={
           <svg
             aria-hidden="true"
             width="16"

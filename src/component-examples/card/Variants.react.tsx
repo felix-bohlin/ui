@@ -4,11 +4,11 @@ export default function Variants() {
   return (
     <>
       <Card>
-        <CardContent>Default</CardContent>
+        <CardContent>Plain</CardContent>
       </Card>
 
-      <Card variant="text">
-        <CardContent>Text</CardContent>
+      <Card variant="transparent">
+        <CardContent>Transparent</CardContent>
       </Card>
 
       <Card variant="outlined">

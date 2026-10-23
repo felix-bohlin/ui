@@ -2,7 +2,7 @@ import type { CustomProperties } from "../types"
 
 export default {
   "--_arrow-size": {
-    description: "Size of the arrow in `.ui-with-arrow`.",
+    description: "Size of the arrow in `.ui-arrow`.",
     kind: "input",
   },
   "--_bg-color": {
@@ -32,7 +32,7 @@ export default {
   },
   "--_offset": {
     description:
-      "Distance from the trigger. `.ui-with-arrow` computes it from `--_arrow-size`.",
+      "Distance from the trigger. `.ui-arrow` computes it from `--_arrow-size`.",
     kind: "input",
   },
   "--_shift": {

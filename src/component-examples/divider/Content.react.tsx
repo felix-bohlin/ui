@@ -7,7 +7,7 @@ export default function Content() {
 
       <Divider align="start">Billing</Divider>
 
-      <Divider align="end" variant="primary">
+      <Divider align="end" color="primary">
         Today
       </Divider>
 

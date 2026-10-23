@@ -55,7 +55,7 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
       <Fragment slot="components">
         Floating content that is always shown, like a coach mark beside a
         button. Put it in <code>AnchorContent</code>, and set <code
-          >alignment</code
+          >positionArea</code
         > to any <code>position-area</code> value to place it.
       </Fragment>
       <Fragment slot="html">
@@ -111,7 +111,7 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UIAnchor alignment="start center">
+      <UIAnchor positionArea="start center">
         <UIButton variant="outlined">Anchor</UIButton>
         <UIAnchorContent>
           <UICard variant="tonal">

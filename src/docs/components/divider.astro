@@ -39,12 +39,14 @@ import dividerApi from "../../component-api/divider/api"
     <h2 id="variants">Variants</h2>
     <Conditional>
       <p slot="components">
-        Use the <code>variant</code> prop to change the line color.
+        Use the <code>variant</code> prop to change the line color, and <code
+          >color="primary"</code
+        > for a primary line. The default variant, <code>outlined</code>, is the
+        border color.
       </p>
       <p slot="html">
-        Use <code>.ui-filled</code>, <code>.ui-primary</code>, or <code
-          >.ui-tonal</code
-        > to change the line color.
+        Use <code>.ui-filled</code> or <code>.ui-tonal</code> to change the line color,
+        and <code>.ui-primary</code> for a primary line.
       </p>
     </Conditional>
     <AutoExample name="Variants" />
@@ -58,7 +60,9 @@ import dividerApi from "../../component-api/divider/api"
         the line. The divider then renders a <code>&lt;div&gt;</code> instead of an
         <code>&lt;hr&gt;</code>, so screen readers read the content in order.
         Set <code>align</code> to <code>start</code> or <code>end</code> to move it
-        to one side. The lines follow the <code>variant</code>.
+        to one side. The lines follow the <code>variant</code> and <code
+          >color</code
+        >.
       </p>
       <p slot="html">
         Put text or any element in a <code>&lt;div class="ui-divider"&gt;</code> or
@@ -74,7 +78,7 @@ import dividerApi from "../../component-api/divider/api"
           >&lt;hr&gt;</code
         >, so screen readers read the content in order. Set <code>align</code> to
         <code>start</code> or <code>end</code> to move it to one side. The lines follow
-        the <code>variant</code>.
+        the <code>variant</code> and <code>color</code>.
       </p>
       <p slot="svelte">
         Pass text or any element as children to place it in the middle of the
@@ -82,7 +86,7 @@ import dividerApi from "../../component-api/divider/api"
           >&lt;hr&gt;</code
         >, so screen readers read the content in order. Set <code>align</code> to
         <code>start</code> or <code>end</code> to move it to one side. The lines follow
-        the <code>variant</code>.
+        the <code>variant</code> and <code>color</code>.
       </p>
     </Conditional>
     <AutoExample name="Content" column />

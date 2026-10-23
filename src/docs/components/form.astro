@@ -136,10 +136,10 @@ const anatomyApi = {
     <h3 id="field-group-row">Row</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>direction="row"</code> to lay out fields horizontally.
+        Set <code>orientation="horizontal"</code> to lay out fields horizontally.
       </Fragment>
       <Fragment slot="html">
-        Add <code>.ui-row</code> to lay out fields horizontally.
+        Add <code>.ui-horizontal</code> to lay out fields horizontally.
       </Fragment>
     </Conditional>
 
@@ -194,14 +194,14 @@ const anatomyApi = {
     <Conditional as="p">
       <Fragment slot="components">
         A field group with only buttons lines up in a row. Set <code
-          >direction="column"</code
+          >orientation="vertical"</code
         > to stack the buttons instead. Separate the group from the fields with <code
           >Divider</code
         >.
       </Fragment>
       <Fragment slot="html">
         A field group with only buttons lines up in a row. Add <code
-          >.ui-column</code
+          >.ui-vertical</code
         > to stack the buttons instead. Separate the group from the fields with <code
           >&lt;hr class="ui-divider"&gt;</code
         >.
@@ -319,7 +319,7 @@ const anatomyApi = {
             example
               .querySelectorAll(".ui-field-group:has(> .ui-radio)")
               .forEach((group) => {
-                group.classList.toggle("ui-row", spreadToggle.checked)
+                group.classList.toggle("ui-horizontal", spreadToggle.checked)
               })
           }
 

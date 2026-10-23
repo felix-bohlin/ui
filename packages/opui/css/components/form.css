@@ -93,7 +93,7 @@
     }
 
     /* If it only has buttons */
-    &:has(> .ui-button):not(.ui-column, :has(> :not(.ui-button))) {
+    &:has(> .ui-button):not(.ui-vertical, :has(> :not(.ui-button))) {
       align-items: center;
       flex-direction: row;
       gap: var(--ui-space-2);
@@ -109,11 +109,11 @@
     }
 
     /* Directions */
-    &.ui-column:has(> .ui-button):not(:has(> :not(.ui-button))) {
+    &.ui-vertical:has(> .ui-button):not(:has(> :not(.ui-button))) {
       align-items: start;
     }
 
-    &.ui-row {
+    &.ui-horizontal {
       flex-direction: row;
       flex-wrap: wrap;
 

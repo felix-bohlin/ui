@@ -3,7 +3,7 @@ import type { Props } from "./types.astro"
 
 export const title = "Divider"
 
-const { align, class: className, variant, ...rest } = Astro.props
+const { align, class: className, color, variant, ...rest } = Astro.props
 ---
 
 {
@@ -12,7 +12,8 @@ const { align, class: className, variant, ...rest } = Astro.props
       class:list={[
         "ui-divider",
         align && align !== "center" && `ui-align-${align}`,
-        variant && `ui-${variant}`,
+        color && `ui-${color}`,
+        variant && variant !== "outlined" && `ui-${variant}`,
         className,
       ]}
       {...rest}
@@ -21,7 +22,12 @@ const { align, class: className, variant, ...rest } = Astro.props
     </div>
   ) : (
     <hr
-      class:list={["ui-divider", variant && `ui-${variant}`, className]}
+      class:list={[
+        "ui-divider",
+        color && `ui-${color}`,
+        variant && variant !== "outlined" && `ui-${variant}`,
+        className,
+      ]}
       {...rest}
     />
   )

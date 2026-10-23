@@ -31,7 +31,7 @@ const defaults = tokenDefaults("light")
       selection="single"
       size="small"
     >
-      <ToggleButton pressed value="default">Default</ToggleButton>
+      <ToggleButton checked value="default">Default</ToggleButton>
       {
         EXAMPLE_THEMES.map((theme) => (
           <ToggleButton value={theme.name}>{theme.label}</ToggleButton>
@@ -109,7 +109,7 @@ const defaults = tokenDefaults("light")
           >
             {radiusOptions(field.token).map((option) => (
               <ToggleButton
-                pressed={option.value === defaults[field.token]}
+                checked={option.value === defaults[field.token]}
                 title={option.value}
                 value={option.value}
               >

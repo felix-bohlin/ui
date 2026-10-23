@@ -4,6 +4,7 @@ import type { Props } from "./types.react"
 export default function Divider({
   align,
   className,
+  color,
   variant,
   children,
   ...rest
@@ -13,7 +14,8 @@ export default function Divider({
       className={cx([
         "ui-divider",
         align && align !== "center" && `ui-align-${align}`,
-        variant && `ui-${variant}`,
+        color && `ui-${color}`,
+        variant && variant !== "outlined" && `ui-${variant}`,
         className,
       ])}
       {...rest}
@@ -22,7 +24,12 @@ export default function Divider({
     </div>
   ) : (
     <hr
-      className={cx(["ui-divider", variant && `ui-${variant}`, className])}
+      className={cx([
+        "ui-divider",
+        color && `ui-${color}`,
+        variant && variant !== "outlined" && `ui-${variant}`,
+        className,
+      ])}
       {...rest}
     />
   )

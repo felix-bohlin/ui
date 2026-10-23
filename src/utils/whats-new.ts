@@ -31,7 +31,7 @@ const whatsNew = {
     `<a href="#actions">Actions</a> line up with the content and the chevron.`,
     `Breaking: <code>--_transition</code> is <code>--_duration</code>, and <code>--_svg-transition</code> is gone, the chevron and the open and close transition use <code>--_duration</code> and <code>--_ease</code>, and the group's <code>--_gutter-color</code> is <code>--_divider-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
-      `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone. Leave <code>variant</code> out for the default look.`,
+      `Breaking: <a href="#variants"><code>variant="default"</code></a> is <code>variant="transparent"</code>, the name of the default look.`,
     ),
     `Elevated accordions use <a href="#api"><code>--ui-shadow-elevated</code></a>, the elevated card shadow, also in dark mode. Padding and gaps read the <code>--ui-space-*</code> scale.`,
     `<a href="#variants">Tonal and outlined</a> accordions read <a href="#api"><code>--ui-shadow-surface</code></a>, <code>none</code> unless a theme sets it, and tonal and elevated accordions <code>--ui-surface-border-color</code>.`,
@@ -45,6 +45,9 @@ const whatsNew = {
     ),
     slots(
       `Breaking: <a href="#hover-trigger">hover anchors</a> no longer wrap the trigger in a <code>&lt;span interestfor&gt;</code>. Give the anchor an <code>id</code> and put <code>interestfor</code> on the trigger.`,
+    ),
+    slots(
+      `Breaking: <code>alignment</code> is <a href="#always-visible"><code>positionArea</code></a>.`,
     ),
   ],
   avatar: [
@@ -75,22 +78,28 @@ const whatsNew = {
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
     ),
+    slots(
+      `Breaking: <code>variant</code> is <a href="#shapes"><code>shape</code></a>, with <code>circle</code> as the default.`,
+    ),
   ],
   badge: [
     `Severity text reads <code>--ui-on-accent</code> and <code>--ui-palette-strong</code> instead of fixed grays.`,
-    `Badges on round avatars sit on the avatar's edge (<a href="#alignment">Alignment</a>), and in an avatar group on the start side.`,
+    `Badges on round avatars sit on the avatar's edge (<a href="#corners">Corners</a>), and in an avatar group on the start side.`,
     {
       default: `<a href="#indicator">Indicator</a> context for screen readers with <code>srLabel</code>.`,
       html: `<a href="#indicator">Indicator</a> context for screen readers with <code>.ui-sr-only</code>.`,
     },
     components(
-      `<a href="#alignment"><code>alignment</code></a> takes <code>"start-end"</code>, the default placement.`,
+      `<a href="#corners"><code>corner</code></a> takes <code>"start-end"</code>, the default corner.`,
     ),
     `Breaking: <code>--_badge-inset</code> is <code>--_inset-block</code> and <code>--_inset-inline</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `The indicator border reads <a href="#api"><code>--ui-border-width-thick</code></a>.`,
     `<a href="#colors">Warning</a> badges read <code>--ui-on-warning</code>, the text color on a warning fill.`,
     `<a href="#colors">Critical, info, neutral and success</a> fills stay below <code>--ui-fill-max-lightness</code>, so their text keeps its contrast.`,
+    slots(
+      `Breaking: <code>alignment</code> is <a href="#corners"><code>corner</code></a>.`,
+    ),
   ],
   button: [
     `The file input takes <code>--ui-shadow-field</code> and <code>--ui-radius-small</code> like other fields.`,
@@ -194,6 +203,12 @@ const whatsNew = {
     components(
       `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
     ),
+    {
+      ...slots(
+        `Breaking: <code>variant="text"</code> is <a href="#variants"><code>variant="transparent"</code></a>.`,
+      ),
+      html: `Breaking: <code>.ui-text</code> on a card is <a href="#variants"><code>.ui-transparent</code></a>.`,
+    },
   ],
   carousel: [
     `The scroll buttons take <a href="#api"><code>--ui-shadow-overlay</code></a>, so a theme's shadows reach them.`,
@@ -358,6 +373,9 @@ const whatsNew = {
     {
       html: `Breaking: <a href="#variants"><code>.ui-filled</code>, <code>.ui-primary</code> and <code>.ui-tonal</code></a> replace the <code>.ui-border-*</code> classes.`,
     },
+    slots(
+      `Breaking: <code>variant="primary"</code> is <a href="#variants"><code>color="primary"</code></a>, and the default line is named <code>outlined</code>.`,
+    ),
     {
       ...slots(
         `<a href="#content">Content</a> in the middle of the line through the default slot, aligned with <code>align</code>.`,
@@ -405,6 +423,12 @@ const whatsNew = {
       astro: `<a href="#field-group"><code>FieldGroup</code></a> names its inputs through context, so a bare <code>input</code>, <code>select</code> or <code>textarea</code> no longer gets the group <code>name</code>, like in React, Svelte and Vue.`,
       vue: `<code>Form</code>, <code>FieldSet</code> and <code>FieldLegend</code> type <a href="#without-fieldset"><code>as</code></a> as <code>"div" | "form"</code>, <code>"div" | "fieldset"</code> and <code>"legend" | "p"</code>.`,
     },
+    {
+      ...slots(
+        `Breaking: <a href="#field-group-row"><code>FieldGroup</code></a> <code>direction</code> is <code>orientation</code> (<code>"horizontal"</code>, <code>"vertical"</code>), like <code>ButtonGroup</code>.`,
+      ),
+      html: `Breaking: <a href="#field-group-row"><code>.ui-row</code> and <code>.ui-column</code></a> on a field group are <code>.ui-horizontal</code> and <code>.ui-vertical</code>.`,
+    },
   ],
   layout: [
     `New: <a href="#column"><code>.ui-l-column</code></a>, <a href="#row"><code>.ui-l-row</code></a>, <a href="#grid"><code>.ui-l-grid</code></a> and <a href="#container"><code>.ui-l-container</code></a> lay out the space between components.`,
@@ -422,7 +446,7 @@ const whatsNew = {
     `Only direct children are styled as rows, so nested lists inside a row stay normal lists (<a href="#under-the-hood">Under the hood</a>).`,
     {
       ...slots(
-        `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
+        `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look. The default is named <code>filled</code>.`,
       ),
       html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
     },
@@ -472,7 +496,7 @@ const whatsNew = {
     `The track reads <a href="#api"><code>--ui-track-color</code></a> when a theme sets it.`,
     {
       ...slots(
-        `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
+        `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look. The default is named <code>tonal</code>.`,
       ),
       html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
     },
@@ -544,7 +568,7 @@ const whatsNew = {
     },
     {
       ...slots(
-        `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
+        `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look. The default is named <code>outlined</code>.`,
       ),
       html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
     },
@@ -687,10 +711,10 @@ const whatsNew = {
     ),
     `A checkbox alone in a cell is centered (<a href="#default">Default</a>).`,
     {
-      default: `<a href="#variants">Dense</a> tables have less block padding.`,
-      html: `<a href="#variants">Dense</a> tables (<code>.ui-dense</code>) have less block padding.`,
+      default: `<a href="#density">Dense</a> tables have less block padding.`,
+      html: `<a href="#density">Dense</a> tables (<code>.ui-dense</code>) have less block padding.`,
     },
-    `Fields and selects in cells keep a <code>12ch</code> minimum width, in every <a href="#variants">variant</a>.`,
+    `Fields and selects in cells keep a <code>12ch</code> minimum width, in every <a href="#density">density</a>.`,
     {
       default: `<a href="#sticky-header">Sticky header</a> with the <code>stickyHeader</code> prop.`,
       html: `<a href="#sticky-header">Sticky header</a> with <code>.ui-sticky-header</code>.`,
@@ -710,6 +734,9 @@ const whatsNew = {
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `The <a href="#sticky-header">sticky header</a> shadow reads <code>--ui-shadow-scroll</code>.`,
+    slots(
+      `Breaking: <code>variant</code> is <a href="#density"><code>density</code></a>, with <code>normal</code> as the default.`,
+    ),
   ],
   tabs: [
     `The selected pill has a border, <code>--ui-control-border-color</code> or the field border, so it reaches 3:1 against the track without the shadow.`,
@@ -738,6 +765,9 @@ const whatsNew = {
     `The selected tab of <a href="#filled">filled</a> tabs reads <code>--ui-selected-strong</code> and <code>--ui-on-selected-strong</code>.`,
     components(
       `<a href="#basics">Variants</a> name the default: <code>variant="tonal"</code>.`,
+    ),
+    slots(
+      `Breaking: <code>TabsItem</code> <code>open</code> is <a href="#basics"><code>checked</code></a>.`,
     ),
   ],
   "text-field": [
@@ -845,7 +875,7 @@ const whatsNew = {
     `Breaking: no <code>.ui-disabled</code>. A <a href="#toggle-button">toggle</a> looks disabled when its input is <code>disabled</code>.`,
     `Breaking: <code>ToggleButton</code> <code>--_button-bg-color</code> is <code>--_bg-color</code>, <code>--_size</code> is <code>--_min-height</code> and <code>--_svg-size</code> is <code>--_icon-size</code>, which sizes direct child <code>svg</code>s like Button (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
-      `Breaking: <a href="#sizes"><code>size="default"</code></a> is gone on <code>ToggleGroup</code>. Leave <code>size</code> out for the default size.`,
+      `Breaking: <a href="#sizes"><code>size="default"</code></a> is <code>size="medium"</code> on <code>ToggleGroup</code>, like every sized component.`,
     ),
     `A disabled <a href="#disabled">toggle</a> dims like a disabled button, and hover uses the button hover strength.`,
     {
@@ -866,6 +896,9 @@ const whatsNew = {
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
     ),
+    slots(
+      `Breaking: <code>ToggleButton</code> <code>pressed</code> is <a href="#single-select"><code>checked</code></a>.`,
+    ),
   ],
   tooltip: [
     slots(
@@ -880,6 +913,12 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners never get rounder than <a href="#api"><code>--ui-radius</code></a>, so <code>0</code> squares them.`,
     `<a href="#api"><code>--_max-inline-size</code></a> sets the maximum width.`,
+    {
+      ...slots(
+        `Breaking: <code>alignment</code> is <a href="#position"><code>positionArea</code></a>.`,
+      ),
+      html: `Breaking: <code>.ui-with-arrow</code> is <a href="#arrow"><code>.ui-arrow</code></a>.`,
+    },
   ],
   typography: [
     `<a href="#rich-text-showcase">Inline <code>code</code></a> reads <code>--ui-code-bg-color</code>, code blocks read <code>--ui-code-block-bg-color</code> and <code>--ui-code-block-text-color</code>, and <code>del</code>, <code>ins</code> and <code>abbr</code> read the <code>--ui-palette-*</code> roles.`,

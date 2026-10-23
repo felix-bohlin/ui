@@ -6,10 +6,10 @@ import { toggleGroupContext } from "../ToggleGroup/context.astro"
 export const title = "Toggle Button"
 
 const {
+  checked,
   class: className,
   label,
   name,
-  pressed,
   size,
   style,
   type,
@@ -33,7 +33,7 @@ const finalType = group?.inputType === "radio" ? "radio" : (type ?? "checkbox")
   style={style}
 >
   <input
-    checked={pressed}
+    checked={checked}
     name={finalName}
     type={finalType}
     value={value || label}

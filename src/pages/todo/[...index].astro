@@ -181,7 +181,7 @@ const count = itemCount(sections)
                 </FieldLegend>
                 <FieldGroup
                   class="todo-action-row"
-                  direction="row"
+                  orientation="horizontal"
                   name={`todo-action-${slugify(section.title)}-${index}`}
                 >
                   {actions
@@ -191,7 +191,7 @@ const count = itemCount(sections)
                     .map((action) => (
                       <ToggleButton
                         class="todo-action"
-                        pressed={action === "None"}
+                        checked={action === "None"}
                         size="small"
                         type="radio"
                         value={action}

@@ -105,10 +105,10 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
   </section>
 
   <section>
-    <h2 id="alignment">Alignment</h2>
+    <h2 id="position">Position</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Use the <code>alignment</code> prop.
+        Set <code>positionArea</code> to any <code>position-area</code> value.
       </Fragment>
       <Fragment slot="html">
         Set <code>--ui-anchor-position-area</code> on the parent with your preferred
@@ -116,7 +116,7 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
       </Fragment>
     </Conditional>
 
-    <AutoExample name="Alignment" row spacious />
+    <AutoExample name="Position" row spacious />
   </section>
 
   <section>
@@ -129,8 +129,8 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
         {" "}one day.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-with-arrow</code> class on the <code>.ui-tooltip</code
-        >. This would be cool to solve with <code>corner-shape</code> one day.
+        Add the <code>.ui-arrow</code> class on the <code>.ui-tooltip</code>.
+        This would be cool to solve with <code>corner-shape</code> one day.
       </Fragment>
     </Conditional>
 

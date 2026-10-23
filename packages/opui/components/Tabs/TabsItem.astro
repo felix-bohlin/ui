@@ -4,7 +4,7 @@ import { createId } from "../id"
 import { tabsContext } from "./context.astro"
 
 const $id = createId(Astro.locals)
-const { class: className, name, open, tabId, ...rest } = Astro.props
+const { checked, class: className, name, tabId, ...rest } = Astro.props
 
 const parent = tabsContext.get()
 const groupName = name || parent?.groupName || $id("tabs")
@@ -16,7 +16,7 @@ const html = await tabsContext.provide(
 ---
 
 <input
-  checked={open}
+  checked={checked}
   class:list={["ui-tab-input", className]}
   id={computedTabId}
   name={groupName}

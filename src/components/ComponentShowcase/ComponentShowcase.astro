@@ -326,7 +326,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Table" href="/components/table" size="wide">
-    <Table aria-hidden="true" variant="dense">
+    <Table aria-hidden="true" density="dense">
       <TableHead>
         <TableRow>
           <TableHeaderCell>Band</TableHeaderCell>
@@ -351,7 +351,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Tabs" href="/components/tabs" size="wide">
     <Tabs aria-hidden="true" inert name="index-tabs-showcase">
-      <TabsItem open>
+      <TabsItem checked>
         <TabsTab>Profile</TabsTab>
         <TabsPanel>Profile settings and information.</TabsPanel>
       </TabsItem>
@@ -376,7 +376,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <ComponentCard name="Toggle" href="/components/toggle">
     <ToggleGroup aria-hidden="true" inert>
-      <ToggleButton pressed size="small" aria-label="Bold">
+      <ToggleButton checked size="small" aria-label="Bold">
         <strong>B</strong>
       </ToggleButton>
       <ToggleButton size="small" aria-label="Italic">
@@ -389,10 +389,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Tooltip" href="/components/tooltip">
-    <Anchor
-      class="ui-tooltip ui-with-arrow showcase-tooltip"
-      aria-hidden="true"
-    >
+    <Anchor class="ui-tooltip ui-arrow showcase-tooltip" aria-hidden="true">
       <Button variant="outlined" inert>Save</Button>
       <AnchorContent>Save your changes</AnchorContent>
     </Anchor>

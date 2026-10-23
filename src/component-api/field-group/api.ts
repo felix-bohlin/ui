@@ -9,15 +9,20 @@ export default {
   options: [
     {
       description:
-        "The orientation of the fields. Without it, fields stack and a group with only buttons lines up in a row.",
-      group: "Orientation",
-      prop: "direction",
-      values: { column: ".ui-column", row: ".ui-row" },
-    },
-    {
-      description:
         "Sets `name` on the OPUI fields inside that don't set their own.",
       prop: "name",
+    },
+    {
+      default: '"auto"',
+      description:
+        "The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row.",
+      group: "Orientation",
+      prop: "orientation",
+      values: {
+        auto: null,
+        horizontal: ".ui-horizontal",
+        vertical: ".ui-vertical",
+      },
     },
   ],
   page: "form",

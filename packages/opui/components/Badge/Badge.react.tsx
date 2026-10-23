@@ -4,9 +4,9 @@ import { cx } from "../cx"
 import type { Props } from "./types.react"
 
 export default function Badge({
-  alignment,
   className,
   color,
+  corner,
   dot,
   invisible,
   label,
@@ -23,7 +23,7 @@ export default function Badge({
           "ui-dot": dot,
           "ui-invisible": invisible,
         },
-        alignment && alignment !== "start-end" && `ui-${alignment}`,
+        corner && corner !== "start-end" && `ui-${corner}`,
         color && `ui-${color}`,
         className,
       ])}

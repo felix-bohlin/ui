@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const { align, variant } = defineProps<Props>()
+const { align, color, variant } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
@@ -11,7 +11,8 @@ defineSlots<Slots>()
     :class="[
       'ui-divider',
       align && align !== 'center' && `ui-align-${align}`,
-      variant && `ui-${variant}`,
+      color && `ui-${color}`,
+      variant && variant !== 'outlined' && `ui-${variant}`,
       $props.class,
     ]"
   >
@@ -19,6 +20,11 @@ defineSlots<Slots>()
   </div>
   <hr
     v-else
-    :class="['ui-divider', variant && `ui-${variant}`, $props.class]"
+    :class="[
+      'ui-divider',
+      color && `ui-${color}`,
+      variant && variant !== 'outlined' && `ui-${variant}`,
+      $props.class,
+    ]"
   />
 </template>

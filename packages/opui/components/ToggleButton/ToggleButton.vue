@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { computed, inject, useAttrs } from "vue"
+import { warnGroupedChecked } from "../dev"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { ToggleGroupKey } from "../ToggleGroup/context.vue"
 import { isSelected } from "../ToggleGroup/selection"
 import type { Props, Slots } from "./types.d.vue"
 
-const { label, name, pressed, size, type, value } = defineProps<Props>()
+const {
+  checked: checkedProp = undefined,
+  label,
+  name,
+  size,
+  type,
+  value,
+} = defineProps<Props>()
 defineSlots<Slots>()
 
 defineOptions({
@@ -23,9 +31,9 @@ const finalName = computed(() => name || group?.groupName || field?.name)
 const finalType = computed(() =>
   group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
 )
-const checked = computed(
-  () => isSelected(group?.value, value || label) ?? pressed,
-)
+const grouped = computed(() => isSelected(group?.value, value || label))
+warnGroupedChecked("ToggleButton", grouped.value, checkedProp)
+const checked = computed(() => grouped.value ?? checkedProp)
 const change = (event: Event) =>
   group?.change(event.currentTarget as HTMLInputElement)
 </script>

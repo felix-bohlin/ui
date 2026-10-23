@@ -6,9 +6,9 @@ import { mergeStyle } from "../style"
 export const title = "Anchor"
 
 const {
-  alignment,
   class: className,
   id: idProp,
+  positionArea,
   style,
   trigger = "always",
   ...rest
@@ -25,7 +25,7 @@ const html = await anchorContext.provide(
 <span
   class:list={["ui-anchor", className]}
   id={isHover ? undefined : idProp}
-  style={mergeStyle({ "--ui-anchor-position-area": alignment }, style)}
+  style={mergeStyle({ "--ui-anchor-position-area": positionArea }, style)}
   {...rest}
 >
   <Fragment set:html={html} />

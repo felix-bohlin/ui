@@ -14,7 +14,7 @@ import {
   <div>
     The source lives in
     <Anchor
-      alignment="block-end span-inline-end"
+      positionArea="block-end span-inline-end"
       trigger="hover"
       id="anchor-repo-card-1"
     >
@@ -31,7 +31,7 @@ import {
               <Avatar
                 src="https://github.com/felix-bohlin.png"
                 alt=""
-                variant="rounded"
+                shape="rounded"
               />
               <div>
                 <strong>felix-bohlin/ui</strong>

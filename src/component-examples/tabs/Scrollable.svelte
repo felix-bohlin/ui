@@ -3,7 +3,7 @@
 </script>
 
 <Tabs name="scrollable-tabs" scrollable>
-  <TabsItem open>
+  <TabsItem checked>
     <TabsTab>Profile</TabsTab>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>

@@ -7,17 +7,17 @@ export default {
   },
   options: [
     {
+      description:
+        'The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.',
+      prop: "id",
+    },
+    {
       cssVar: "--ui-anchor-position-area",
       default: '"self-start self-end"',
       description:
         "Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
       group: "Position",
-      prop: "alignment",
-    },
-    {
-      description:
-        'The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.',
-      prop: "id",
+      prop: "positionArea",
     },
     {
       default: '"always"',

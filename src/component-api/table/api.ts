@@ -8,18 +8,19 @@ export default {
   ),
   options: [
     {
+      default: '"normal"',
+      description: "The cell padding.",
+      group: "Density",
+      prop: "density",
+      values: { dense: ".ui-dense", normal: null, spacious: ".ui-spacious" },
+    },
+    {
       class: ".ui-sticky-header",
       default: "false",
       description:
         "Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`.",
       group: "Sticky header",
       prop: "stickyHeader",
-    },
-    {
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "variant",
-      values: { dense: ".ui-dense", spacious: ".ui-spacious" },
     },
   ],
   parts: [

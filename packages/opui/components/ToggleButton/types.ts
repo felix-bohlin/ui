@@ -1,6 +1,6 @@
 export type Props = {
+  checked?: boolean
   label?: string
-  pressed?: boolean
   size?: "x-small" | "small" | "medium" | "large"
   type?: "checkbox" | "radio"
 }

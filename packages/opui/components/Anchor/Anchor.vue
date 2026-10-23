@@ -3,14 +3,14 @@ import { computed, provide, reactive } from "vue"
 import { AnchorKey } from "./context.vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { alignment, id: idProp, trigger = "always" } = defineProps<Props>()
+const { id: idProp, positionArea, trigger = "always" } = defineProps<Props>()
 defineSlots<Slots>()
 
 const isHover = computed(() => trigger === "hover")
 const id = computed(() => (isHover.value ? idProp : undefined))
 
-const positionArea = computed(() =>
-  alignment ? { "--ui-anchor-position-area": alignment } : undefined,
+const positionStyle = computed(() =>
+  positionArea ? { "--ui-anchor-position-area": positionArea } : undefined,
 )
 
 provide(
@@ -26,7 +26,7 @@ provide(
   <span
     :id="isHover ? undefined : idProp"
     :class="['ui-anchor', $props.class]"
-    v-bind="positionArea && { style: positionArea }"
+    v-bind="positionStyle && { style: positionStyle }"
   >
     <slot></slot>
   </span>

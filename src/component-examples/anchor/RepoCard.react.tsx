@@ -14,7 +14,7 @@ export default function RepoCard() {
       <div>
         The source lives in{" "}
         <Anchor
-          alignment="block-end span-inline-end"
+          positionArea="block-end span-inline-end"
           trigger="hover"
           id="anchor-repo-card-1"
         >
@@ -32,7 +32,7 @@ export default function RepoCard() {
                   <Avatar
                     src="https://github.com/felix-bohlin.png"
                     alt=""
-                    variant="rounded"
+                    shape="rounded"
                   />
                   <div>
                     <strong>felix-bohlin/ui</strong>

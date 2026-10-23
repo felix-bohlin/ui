@@ -1,0 +1,16 @@
+<script setup lang="ts">
+import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
+</script>
+
+<template>
+  <Form>
+    <FieldSet>
+      <FieldLegend>Legend</FieldLegend>
+      <FieldGroup orientation="horizontal" name="checkbox-group-direction">
+        <Checkbox checked>Checkbox 1</Checkbox>
+        <Checkbox>Checkbox 2</Checkbox>
+        <Checkbox>Checkbox 3</Checkbox>
+      </FieldGroup>
+    </FieldSet>
+  </Form>
+</template>

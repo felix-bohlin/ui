@@ -6,7 +6,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
   <Form>
     <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="checkbox-group-validation">
+      <FieldGroup orientation="horizontal" name="checkbox-group-validation">
         <Checkbox checked error>Checkbox 1</Checkbox>
         <Checkbox error>Checkbox 2</Checkbox>
         <Checkbox error>Checkbox 3</Checkbox>

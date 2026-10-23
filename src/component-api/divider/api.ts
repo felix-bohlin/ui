@@ -15,12 +15,19 @@ export default {
       },
     },
     {
+      description: "Optional colors.",
+      group: "Colors",
+      prop: "color",
+      values: { primary: ".ui-primary" },
+    },
+    {
+      default: '"outlined"',
       description: "The variant to use.",
       group: "Variants",
       prop: "variant",
       values: {
         filled: ".ui-filled",
-        primary: ".ui-primary",
+        outlined: null,
         tonal: ".ui-tonal",
       },
     },

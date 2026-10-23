@@ -5,18 +5,6 @@ export default {
   css: ["anchor", "badge"],
   options: [
     {
-      default: '"start-end"',
-      description: "Where the indicator is placed.",
-      group: "Position",
-      prop: "alignment",
-      values: {
-        "end-end": ".ui-end-end",
-        "end-start": ".ui-end-start",
-        "start-end": null,
-        "start-start": ".ui-start-start",
-      },
-    },
-    {
       description: "Optional colors.",
       group: "Colors",
       prop: "color",
@@ -26,6 +14,18 @@ export default {
         neutral: ".ui-neutral",
         success: ".ui-success",
         warning: ".ui-warning",
+      },
+    },
+    {
+      default: '"start-end"',
+      description: "The corner the indicator sits on.",
+      group: "Position",
+      prop: "corner",
+      values: {
+        "end-end": ".ui-end-end",
+        "end-start": ".ui-end-start",
+        "start-end": null,
+        "start-start": ".ui-start-start",
       },
     },
     {

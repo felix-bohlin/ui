@@ -6,7 +6,7 @@ export default function LinkPreview() {
       <div>
         Learn more about{" "}
         <Anchor
-          alignment="block-end span-inline-end"
+          positionArea="block-end span-inline-end"
           trigger="hover"
           id="anchor-link-preview-1"
         >

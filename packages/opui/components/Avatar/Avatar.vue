@@ -3,7 +3,7 @@ import { computed } from "vue"
 import { tagAttrs } from "../tag"
 import type { Props, Slots } from "./types.d.vue"
 
-const { alt, as, disabled, href, size, src, variant } = defineProps<Props>()
+const { alt, as, disabled, href, shape, size, src } = defineProps<Props>()
 defineSlots<Slots>()
 
 const Tag = computed(() => as || (href ? "a" : "div"))
@@ -15,7 +15,7 @@ const Tag = computed(() => as || (href ? "a" : "div"))
     :class="[
       'ui-avatar',
       size && size !== 'medium' && `ui-${size}`,
-      variant && `ui-${variant}`,
+      shape && shape !== 'circle' && `ui-${shape}`,
       $props.class,
     ]"
     v-bind="tagAttrs(Tag, disabled, href)"

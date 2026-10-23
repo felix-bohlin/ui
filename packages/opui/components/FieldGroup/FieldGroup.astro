@@ -3,7 +3,7 @@ import type { Props } from "./types.astro"
 import { fieldGroupContext } from "./context.astro"
 export const title = "Field Group"
 
-const { class: className, direction, name, ...rest } = Astro.props
+const { class: className, name, orientation, ...rest } = Astro.props
 
 const parent = fieldGroupContext.get()
 const html = await fieldGroupContext.provide(
@@ -13,7 +13,11 @@ const html = await fieldGroupContext.provide(
 ---
 
 <div
-  class:list={["ui-field-group", direction && `ui-${direction}`, className]}
+  class:list={[
+    "ui-field-group",
+    orientation && orientation !== "auto" && `ui-${orientation}`,
+    className,
+  ]}
   {...rest}
 >
   <Fragment set:html={html} />

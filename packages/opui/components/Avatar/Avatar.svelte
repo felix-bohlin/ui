@@ -8,9 +8,9 @@
     class: className,
     disabled,
     href,
+    shape,
     size,
     src,
-    variant,
 
     // Snippets
     children,
@@ -25,7 +25,7 @@
   class={[
     "ui-avatar",
     size && size !== "medium" && `ui-${size}`,
-    variant && `ui-${variant}`,
+    shape && shape !== "circle" && `ui-${shape}`,
     className,
   ]}
   {...tagAttrs(Tag, disabled, href)}

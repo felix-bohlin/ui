@@ -3,7 +3,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/react"
 export default function Outlined() {
   return (
     <Tabs name="outlined-tabs" variant="outlined">
-      <TabsItem open>
+      <TabsItem defaultChecked>
         <TabsTab>Profile</TabsTab>
         <TabsPanel>Profile settings and information.</TabsPanel>
       </TabsItem>

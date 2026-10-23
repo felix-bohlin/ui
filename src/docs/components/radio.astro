@@ -211,19 +211,20 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   </section>
 
   <section>
-    <h2 id="field-group-direction">Direction</h2>
+    <h2 id="field-group-orientation">Orientation</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Radios stack vertically by default. Set <code>direction="row"</code> on the
+        Radios stack vertically by default. Set <code
+          >orientation="horizontal"</code
+        > on the
         <code>FieldGroup</code> to put them in a row.
       </Fragment>
       <Fragment slot="html">
-        Radios stack vertically by default. Add <code>.ui-row</code> to the <code
-          >.ui-field-group</code
-        > to put them in a row.
+        Radios stack vertically by default. Add <code>.ui-horizontal</code> to the
+        <code>.ui-field-group</code> to put them in a row.
       </Fragment>
     </Conditional>
-    <AutoExample name="FieldGroupDirection" row />
+    <AutoExample name="FieldGroupOrientation" row />
   </section>
 
   <section>

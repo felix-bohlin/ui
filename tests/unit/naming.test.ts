@@ -1,6 +1,8 @@
 import { expect, test } from "vitest"
 import type { ApiOption, ComponentApi } from "../../src/component-api/types"
-import allowlist from "./naming-allowlist.json"
+import allowlistJson from "./naming-allowlist.json"
+
+const allowlist: string[] = allowlistJson
 
 const apis = Object.values(
   import.meta.glob<ComponentApi>("../../src/component-api/*/api.ts", {

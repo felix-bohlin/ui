@@ -55,7 +55,7 @@
     }
 
     /* Arrow */
-    &.ui-with-arrow {
+    &.ui-arrow {
       --_arrow-size: var(--ui-space-2);
 
       & > .ui-anchor-floating {

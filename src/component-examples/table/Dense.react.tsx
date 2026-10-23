@@ -10,7 +10,7 @@ import {
 
 export default function Dense() {
   return (
-    <Table variant="dense">
+    <Table density="dense">
       <TableCaption>Band Members</TableCaption>
       <TableHead>
         <TableRow>

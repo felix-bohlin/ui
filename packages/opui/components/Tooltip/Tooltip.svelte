@@ -3,10 +3,10 @@
   import type { Props } from "./types.svelte"
 
   let {
-    alignment,
     arrow,
     class: className,
     id,
+    positionArea,
 
     // Snippets
     children,
@@ -15,9 +15,9 @@
 </script>
 
 <Anchor
-  {alignment}
-  class={["ui-tooltip", { "ui-with-arrow": arrow }, className]}
+  class={["ui-tooltip", { "ui-arrow": arrow }, className]}
   {id}
+  {positionArea}
   trigger="hover"
   {...rest}
 >

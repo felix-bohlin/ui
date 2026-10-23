@@ -3,8 +3,8 @@
 
   let {
     class: className,
+    density,
     stickyHeader,
-    variant,
 
     // Snippets
     children,
@@ -16,7 +16,7 @@
   class={[
     "ui-table",
     { "ui-sticky-header": stickyHeader },
-    variant && `ui-${variant}`,
+    density && density !== "normal" && `ui-${density}`,
     className,
   ]}
   {...rest}

@@ -13,7 +13,10 @@ export default function FieldGroupFieldDescription() {
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
-        <FieldGroup direction="row" name="radio-group-field-description-1">
+        <FieldGroup
+          orientation="horizontal"
+          name="radio-group-field-description-1"
+        >
           <Radio value="1" defaultChecked>
             Radio 1
           </Radio>
@@ -24,7 +27,10 @@ export default function FieldGroupFieldDescription() {
 
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup direction="row" name="radio-group-field-description-2">
+        <FieldGroup
+          orientation="horizontal"
+          name="radio-group-field-description-2"
+        >
           <Radio value="1" defaultChecked>
             Radio 1
           </Radio>

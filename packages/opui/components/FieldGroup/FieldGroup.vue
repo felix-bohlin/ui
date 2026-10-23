@@ -3,7 +3,7 @@ import { computed, inject, provide, reactive } from "vue"
 import { FieldGroupKey } from "./context.vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { direction, name } = defineProps<Props>()
+const { name, orientation } = defineProps<Props>()
 defineSlots<Slots>()
 
 const parent = inject(FieldGroupKey, undefined)
@@ -12,7 +12,11 @@ provide(FieldGroupKey, reactive({ name: computed(() => name || parent?.name) }))
 
 <template>
   <div
-    :class="['ui-field-group', direction && `ui-${direction}`, $props.class]"
+    :class="[
+      'ui-field-group',
+      orientation && orientation !== 'auto' && `ui-${orientation}`,
+      $props.class,
+    ]"
   >
     <slot></slot>
   </div>

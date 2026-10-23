@@ -11,7 +11,7 @@
 <Form>
   <FieldSet aria-describedby="radio-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="radio-group-validation">
+    <FieldGroup orientation="horizontal" name="radio-group-validation">
       <Radio checked error value="1">Radio 1</Radio>
       <Radio error value="2">Radio 2</Radio>
       <Radio error value="3">Radio 3</Radio>

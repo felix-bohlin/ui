@@ -5,6 +5,7 @@
   let {
     align,
     class: className,
+    color,
     variant,
 
     // Snippets
@@ -18,7 +19,8 @@
     class={[
       "ui-divider",
       align && align !== "center" && `ui-align-${align}`,
-      variant && `ui-${variant}`,
+      color && `ui-${color}`,
+      variant && variant !== "outlined" && `ui-${variant}`,
       className,
     ]}
     {...rest as HTMLAttributes<HTMLDivElement>}
@@ -26,5 +28,13 @@
     {@render children()}
   </div>
 {:else}
-  <hr class={["ui-divider", variant && `ui-${variant}`, className]} {...rest} />
+  <hr
+    class={[
+      "ui-divider",
+      color && `ui-${color}`,
+      variant && variant !== "outlined" && `ui-${variant}`,
+      className,
+    ]}
+    {...rest}
+  />
 {/if}

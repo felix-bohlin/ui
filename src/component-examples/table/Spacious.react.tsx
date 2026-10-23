@@ -10,7 +10,7 @@ import {
 
 export default function Spacious() {
   return (
-    <Table variant="spacious">
+    <Table density="spacious">
       <TableCaption>Band Members</TableCaption>
       <TableHead>
         <TableRow>

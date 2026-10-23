@@ -3,7 +3,7 @@
 </script>
 
 <Tabs name="basic-tabs">
-  <TabsItem open>
+  <TabsItem checked>
     <TabsTab>Profile</TabsTab>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>

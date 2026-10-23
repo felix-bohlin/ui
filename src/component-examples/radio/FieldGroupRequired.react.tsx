@@ -5,7 +5,7 @@ export default function FieldGroupRequired() {
     <Form>
       <FieldSet>
         <FieldLegend>These are required!</FieldLegend>
-        <FieldGroup direction="row" name="radio-group-required">
+        <FieldGroup orientation="horizontal" name="radio-group-required">
           <Radio value="1" required>
             Radio 1
           </Radio>

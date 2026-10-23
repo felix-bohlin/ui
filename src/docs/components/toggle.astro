@@ -134,8 +134,8 @@ export const description =
       <p slot="components">
         Use <code>selection="single"</code> for single-select groups. Every button
         is a radio then, and a <code>type</code> on a button is ignored. Set <code
-          >pressed</code
-        > on the button that starts pressed.
+          >checked</code
+        > on the button that starts pressed, or <code>defaultChecked</code> in React.
       </p>
       <p slot="html">
         Use <code>type="radio"</code> for single-select groups. Add <code
@@ -155,7 +155,7 @@ export const description =
         group and <code>getAll()</code> a multi-select one, or read the checked inputs
         in a script on <code>change</code>. Set <code
           >input.checked = input.defaultChecked</code
-        > to go back to the <code>pressed</code> buttons.
+        > to go back to the <code>checked</code> buttons.
       </Fragment>
       <Fragment slot="html">
         The selection lives in the inputs, which share a <code>name</code>.
@@ -173,7 +173,7 @@ export const description =
         >. The value is a string with <code>selection="single"</code> and an array
         of strings with <code>selection="multiple"</code>. A button is pressed
         when its <code>value</code> is in it, so the buttons don't need <code
-          >pressed</code
+          >defaultChecked</code
         >.
       </Fragment>
       <Fragment slot="svelte">
@@ -270,7 +270,7 @@ export const description =
   <Fragment slot="anatomy">
     <Anatomy api={toggleGroupApi} zoom={1.25}>
       <UIToggleGroup name="toggle-anatomy" selection="single">
-        <UIToggleButton pressed type="radio">Day</UIToggleButton>
+        <UIToggleButton checked type="radio">Day</UIToggleButton>
         <UIToggleButton type="radio">Week</UIToggleButton>
         <UIToggleButton type="radio">Month</UIToggleButton>
       </UIToggleGroup>

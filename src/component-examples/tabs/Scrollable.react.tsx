@@ -3,7 +3,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/react"
 export default function Scrollable() {
   return (
     <Tabs name="scrollable-tabs" scrollable>
-      <TabsItem open>
+      <TabsItem defaultChecked>
         <TabsTab>Profile</TabsTab>
         <TabsPanel>Profile settings and information.</TabsPanel>
       </TabsItem>

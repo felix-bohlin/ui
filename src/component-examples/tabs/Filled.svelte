@@ -3,7 +3,7 @@
 </script>
 
 <Tabs name="filled-tabs" variant="filled">
-  <TabsItem open>
+  <TabsItem checked>
     <TabsTab>Profile</TabsTab>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>

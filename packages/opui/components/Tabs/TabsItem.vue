@@ -3,7 +3,7 @@ import { computed, inject, provide, reactive, useId } from "vue"
 import { TabsKey } from "./context.vue"
 import type { Slots, TabsItemProps } from "./types.d.vue"
 
-const { name, open, tabId } = defineProps<TabsItemProps>()
+const { checked = undefined, name, tabId } = defineProps<TabsItemProps>()
 defineSlots<Slots>()
 
 defineOptions({
@@ -20,7 +20,7 @@ provide(TabsKey, reactive({ groupName, tabId: computedTabId }))
 
 <template>
   <input
-    :checked="open"
+    :checked="checked"
     :class="['ui-tab-input', $props.class]"
     :id="computedTabId"
     :name="groupName"

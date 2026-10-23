@@ -6,7 +6,7 @@ Filled
 <Divider variant="filled" />
 
 Primary
-<Divider variant="primary" />
+<Divider color="primary" />
 
 Tonal
 <Divider variant="tonal" />

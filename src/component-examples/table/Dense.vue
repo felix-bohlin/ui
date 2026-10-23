@@ -11,7 +11,7 @@ import {
 </script>
 
 <template>
-  <Table variant="dense">
+  <Table density="dense">
     <TableCaption>Band Members</TableCaption>
     <TableHead>
       <TableRow>

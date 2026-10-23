@@ -5,7 +5,7 @@ export default function FieldGroupDisabled() {
     <Form>
       <FieldSet disabled>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup direction="row" name="switch-group-disabled">
+        <FieldGroup orientation="horizontal" name="switch-group-disabled">
           <Switch>Switch 1</Switch>
           <Switch>Switch 2</Switch>
           <Switch>Switch 3</Switch>

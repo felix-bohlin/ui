@@ -23,6 +23,18 @@ export default {
       prop: "href",
     },
     {
+      default: '"circle"',
+      description: "The shape of the avatar.",
+      group: "Shape",
+      prop: "shape",
+      values: {
+        circle: null,
+        rounded: ".ui-rounded",
+        squared: ".ui-squared",
+        squircle: ".ui-squircle",
+      },
+    },
+    {
       default: '"medium"',
       description: "The size of the element.",
       group: "Sizes",
@@ -37,16 +49,6 @@ export default {
     {
       description: "The image source. Replaces the content.",
       prop: "src",
-    },
-    {
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "variant",
-      values: {
-        rounded: ".ui-rounded",
-        squared: ".ui-squared",
-        squircle: ".ui-squircle",
-      },
     },
   ],
   parts: [

@@ -2,17 +2,21 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "TabsItem",
+  notes: {
+    react:
+      "`defaultChecked` selects the starting tab. To control the tabs, keep the selected tab in one piece of state, set `checked` on every item from it and update it in each item's `onChange`: a tab that loses its check to another one fires no `onChange` of its own.",
+  },
   options: [
-    {
-      description: "Overrides the name shared by the tab inputs.",
-      prop: "name",
-    },
     {
       attribute: "[checked]",
       default: "false",
       description: "Selects the tab initially.",
       group: "State",
-      prop: "open",
+      prop: "checked",
+    },
+    {
+      description: "Overrides the name shared by the tab inputs.",
+      prop: "name",
     },
     {
       attribute: "[id]",

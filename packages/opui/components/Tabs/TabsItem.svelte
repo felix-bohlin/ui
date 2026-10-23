@@ -3,9 +3,9 @@
   import type { TabsItemProps as Props } from "./types.svelte"
 
   let {
+    checked,
     class: className,
     name,
-    open,
     tabId,
 
     // Snippets
@@ -29,7 +29,7 @@
 </script>
 
 <input
-  checked={open}
+  {checked}
   class={["ui-tab-input", className]}
   id={computedTabId}
   name={groupName}

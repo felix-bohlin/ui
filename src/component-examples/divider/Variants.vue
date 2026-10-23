@@ -7,7 +7,7 @@ import { Divider } from "opui-css/vue"
   <Divider variant="filled" />
 
   Primary
-  <Divider variant="primary" />
+  <Divider color="primary" />
 
   Tonal
   <Divider variant="tonal" />

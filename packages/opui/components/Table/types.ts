@@ -1,6 +1,6 @@
 export type Props = {
+  density?: "dense" | "normal" | "spacious"
   stickyHeader?: boolean
-  variant?: "dense" | "spacious"
 }
 
 export type TableColumnProps = {

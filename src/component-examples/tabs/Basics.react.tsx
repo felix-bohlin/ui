@@ -3,7 +3,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/react"
 export default function Basics() {
   return (
     <Tabs name="basic-tabs">
-      <TabsItem open>
+      <TabsItem defaultChecked>
         <TabsTab>Profile</TabsTab>
         <TabsPanel>Profile settings and information.</TabsPanel>
       </TabsItem>

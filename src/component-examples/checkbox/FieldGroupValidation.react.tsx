@@ -11,7 +11,7 @@ export default function FieldGroupValidation() {
     <Form>
       <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup direction="row" name="checkbox-group-validation">
+        <FieldGroup orientation="horizontal" name="checkbox-group-validation">
           <Checkbox defaultChecked error>
             Checkbox 1
           </Checkbox>

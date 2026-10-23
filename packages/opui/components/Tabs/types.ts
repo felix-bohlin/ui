@@ -5,8 +5,8 @@ export type Props = {
 }
 
 export type TabsItemProps = {
+  checked?: boolean
   name?: string
-  open?: boolean
   tabId?: string
 }
 

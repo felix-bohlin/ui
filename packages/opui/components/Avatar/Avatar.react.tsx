@@ -9,9 +9,9 @@ export default function Avatar({
   className,
   disabled,
   href,
+  shape,
   size,
   src,
-  variant,
   children,
   ...rest
 }: Props) {
@@ -22,7 +22,7 @@ export default function Avatar({
       className={cx([
         "ui-avatar",
         size && size !== "medium" && `ui-${size}`,
-        variant && `ui-${variant}`,
+        shape && shape !== "circle" && `ui-${shape}`,
         className,
       ])}
       {...tagAttrs(Tag as string, disabled, href)}

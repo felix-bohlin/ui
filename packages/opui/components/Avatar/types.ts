@@ -1,6 +1,6 @@
 export type Props = {
+  shape?: "circle" | "rounded" | "squared" | "squircle"
   size?: "x-small" | "small" | "medium" | "large"
-  variant?: "squared" | "rounded" | "squircle"
 } & (
   | {
       as?: "div"

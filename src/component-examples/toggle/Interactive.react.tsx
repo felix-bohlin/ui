@@ -3,7 +3,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/react"
 export default function Interactive() {
   return (
     <ToggleGroup selection="single" name="transport">
-      <ToggleButton value="walking" pressed>
+      <ToggleButton value="walking" defaultChecked>
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"

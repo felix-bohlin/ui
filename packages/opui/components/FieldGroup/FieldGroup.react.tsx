@@ -6,8 +6,8 @@ import type { Props } from "./types.react"
 
 export default function FieldGroup({
   className,
-  direction,
   name,
+  orientation,
   ...rest
 }: Props) {
   const parent = useFieldGroupContext()
@@ -17,7 +17,7 @@ export default function FieldGroup({
       <div
         className={cx([
           "ui-field-group",
-          direction && `ui-${direction}`,
+          orientation && orientation !== "auto" && `ui-${orientation}`,
           className,
         ])}
         {...rest}

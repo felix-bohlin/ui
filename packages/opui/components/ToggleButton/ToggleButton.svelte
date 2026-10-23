@@ -1,15 +1,16 @@
 <script lang="ts">
+  import { warnGroupedChecked } from "../dev"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { getToggleGroupContext } from "../ToggleGroup/context.svelte"
   import { isSelected } from "../ToggleGroup/selection"
   import type { Props } from "./types.svelte"
 
   let {
+    checked = $bindable(),
     class: className,
     label,
     name,
     onchange,
-    pressed,
     size,
     style,
     type,
@@ -27,7 +28,8 @@
   const finalType = $derived(
     group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
   )
-  const checked = $derived(isSelected(group?.value, value || label) ?? pressed)
+  const grouped = $derived(isSelected(group?.value, value || label))
+  $effect(() => warnGroupedChecked("ToggleButton", grouped, checked))
 </script>
 
 <label
@@ -39,12 +41,13 @@
   {style}
 >
   <input
-    {checked}
+    checked={grouped ?? checked}
     name={finalName}
     type={finalType}
     value={value || label}
     {...rest}
     onchange={(event) => {
+      if (grouped === undefined) checked = event.currentTarget.checked
       group?.change(event.currentTarget)
       onchange?.(event)
     }}

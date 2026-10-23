@@ -8,7 +8,6 @@ import type { TabsItemProps as Props } from "./types.react"
 export default function TabsItem({
   className,
   name,
-  open,
   tabId,
   children,
   ...rest
@@ -22,7 +21,6 @@ export default function TabsItem({
     <TabsContext value={{ groupName, tabId: computedTabId }}>
       <input
         className={cx(["ui-tab-input", className])}
-        defaultChecked={open}
         id={computedTabId}
         name={groupName}
         type="radio"

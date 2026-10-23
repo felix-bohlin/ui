@@ -4,8 +4,8 @@
 
   let {
     class: className,
-    direction,
     name,
+    orientation,
 
     // Snippets
     children,
@@ -21,7 +21,11 @@
 </script>
 
 <div
-  class={["ui-field-group", direction && `ui-${direction}`, className]}
+  class={[
+    "ui-field-group",
+    orientation && orientation !== "auto" && `ui-${orientation}`,
+    className,
+  ]}
   {...rest}
 >
   {@render children?.()}

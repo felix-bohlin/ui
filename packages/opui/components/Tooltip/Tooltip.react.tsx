@@ -3,17 +3,17 @@ import { cx } from "../cx"
 import type { Props } from "./types.react"
 
 export default function Tooltip({
-  alignment,
   arrow,
   className,
   id,
+  positionArea,
   ...rest
 }: Props) {
   return (
     <Anchor
-      alignment={alignment}
-      className={cx(["ui-tooltip", { "ui-with-arrow": arrow }, className])}
+      className={cx(["ui-tooltip", { "ui-arrow": arrow }, className])}
       id={id}
+      positionArea={positionArea}
       trigger="hover"
       {...rest}
     />

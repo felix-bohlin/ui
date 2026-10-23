@@ -3,8 +3,7 @@ import Anchor from "../Anchor/Anchor.vue"
 import AnchorContent from "../Anchor/AnchorContent.vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { alignment, color, dot, invisible, label, srLabel } =
-  defineProps<Props>()
+const { color, corner, dot, invisible, label, srLabel } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
@@ -16,7 +15,7 @@ defineSlots<Slots>()
         'ui-dot': dot,
         'ui-invisible': invisible,
       },
-      alignment && alignment !== 'start-end' && `ui-${alignment}`,
+      corner && corner !== 'start-end' && `ui-${corner}`,
       color && `ui-${color}`,
       $props.class,
     ]"

@@ -4,9 +4,9 @@
   import type { Props } from "./types.svelte"
 
   let {
-    alignment,
     class: className,
     id: idProp,
+    positionArea,
     style,
     trigger = "always",
 
@@ -31,7 +31,7 @@
 <span
   class={["ui-anchor", className]}
   id={isHover ? undefined : idProp}
-  style={mergeStyle({ "--ui-anchor-position-area": alignment }, style)}
+  style={mergeStyle({ "--ui-anchor-position-area": positionArea }, style)}
   {...rest}
 >
   {@render children?.()}

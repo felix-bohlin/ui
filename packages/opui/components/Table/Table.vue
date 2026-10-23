@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const { stickyHeader, variant } = defineProps<Props>()
+const { density, stickyHeader } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
@@ -10,7 +10,7 @@ defineSlots<Slots>()
     :class="[
       'ui-table',
       { 'ui-sticky-header': stickyHeader },
-      variant && `ui-${variant}`,
+      density && density !== 'normal' && `ui-${density}`,
       $props.class,
     ]"
   >

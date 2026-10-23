@@ -1,17 +1,19 @@
 "use client"
 
 import { cx } from "../cx"
+import { warnGroupedChecked } from "../dev"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { useToggleGroupContext } from "../ToggleGroup/context.react"
 import { isSelected } from "../ToggleGroup/selection"
 import type { Props } from "./types.react"
 
 export default function ToggleButton({
+  checked,
   className,
+  defaultChecked,
   label,
   name,
   onChange,
-  pressed,
   size,
   style,
   type,
@@ -25,7 +27,8 @@ export default function ToggleButton({
   const finalName = name || group?.groupName || field?.name
   const finalType =
     group?.inputType === "radio" ? "radio" : (type ?? "checkbox")
-  const checked = isSelected(group?.value, value || label)
+  const grouped = isSelected(group?.value, value || label)
+  warnGroupedChecked("ToggleButton", grouped, checked ?? defaultChecked)
 
   return (
     <label
@@ -37,8 +40,8 @@ export default function ToggleButton({
       style={style}
     >
       <input
-        checked={checked}
-        defaultChecked={checked === undefined ? pressed : undefined}
+        checked={grouped ?? checked}
+        defaultChecked={grouped === undefined ? defaultChecked : undefined}
         name={finalName}
         type={finalType}
         value={value || label}

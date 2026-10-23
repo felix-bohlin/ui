@@ -19,7 +19,7 @@ const { tabs } = Astro.props
   <Tabs variant="line" class="code-tabs">
     {
       tabs.map((tab, index) => (
-        <TabsItem open={index === 0}>
+        <TabsItem checked={index === 0}>
           <TabsTab>{tab.title}</TabsTab>
           <TabsPanel>
             {tab.code && <Code code={tab.code} lang={tab.lang} />}

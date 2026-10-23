@@ -4,9 +4,9 @@
   import type { Props } from "./types.svelte"
 
   let {
-    alignment,
     class: className,
     color,
+    corner,
     dot,
     invisible,
     label,
@@ -26,7 +26,7 @@
       "ui-dot": dot,
       "ui-invisible": invisible,
     },
-    alignment && alignment !== "start-end" && `ui-${alignment}`,
+    corner && corner !== "start-end" && `ui-${corner}`,
     color && `ui-${color}`,
     className,
   ]}

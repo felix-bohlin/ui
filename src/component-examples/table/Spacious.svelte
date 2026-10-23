@@ -10,7 +10,7 @@
   } from "opui-css/svelte"
 </script>
 
-<Table variant="spacious">
+<Table density="spacious">
   <TableCaption>Band Members</TableCaption>
   <TableHead>
     <TableRow>

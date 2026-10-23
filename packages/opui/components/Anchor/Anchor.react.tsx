@@ -5,17 +5,17 @@ import { AnchorContext } from "./context.react"
 import type { Props } from "./types.react"
 
 export default function Anchor({
-  alignment,
   className,
   id: idProp,
+  positionArea,
   style,
   trigger = "always",
   ...rest
 }: Props) {
   const isHover = trigger === "hover"
   const id = isHover ? idProp : undefined
-  const positionArea = alignment
-    ? { "--ui-anchor-position-area": alignment }
+  const positionStyle = positionArea
+    ? { "--ui-anchor-position-area": positionArea }
     : undefined
 
   return (
@@ -25,7 +25,7 @@ export default function Anchor({
       <span
         className={cx(["ui-anchor", className])}
         id={isHover ? undefined : idProp}
-        style={positionArea ? { ...positionArea, ...style } : style}
+        style={positionStyle ? { ...positionStyle, ...style } : style}
         {...rest}
       />
     </AnchorContext>

@@ -5,7 +5,7 @@ export default function FieldGroupDisabled() {
     <Form>
       <FieldSet disabled>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup direction="row" name="radio-group-disabled">
+        <FieldGroup orientation="horizontal" name="radio-group-disabled">
           <Radio value="1" defaultChecked>
             Radio 1
           </Radio>

@@ -3,7 +3,7 @@ import { Anchor, AnchorContent, Button, Card, CardContent } from "opui-css/vue"
 </script>
 
 <template>
-  <Anchor alignment="inline-end">
+  <Anchor positionArea="inline-end">
     <Button variant="outlined">Export</Button>
     <AnchorContent>
       <Card variant="tonal" class="coach-mark">

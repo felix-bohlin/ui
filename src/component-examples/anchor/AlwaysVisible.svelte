@@ -8,7 +8,7 @@
   } from "opui-css/svelte"
 </script>
 
-<Anchor alignment="inline-end">
+<Anchor positionArea="inline-end">
   <Button variant="outlined">Export</Button>
   <AnchorContent>
     <Card variant="tonal" class="coach-mark">

@@ -7,9 +7,9 @@ import AnchorContent from "../Anchor/AnchorContent.astro"
 export const title = "Badge"
 
 const {
-  alignment,
   class: className,
   color,
+  corner,
   dot,
   invisible,
   label,
@@ -25,7 +25,7 @@ const {
       "ui-dot": dot,
       "ui-invisible": invisible,
     },
-    alignment && alignment !== "start-end" && `ui-${alignment}`,
+    corner && corner !== "start-end" && `ui-${corner}`,
     color && `ui-${color}`,
     className,
   ]}

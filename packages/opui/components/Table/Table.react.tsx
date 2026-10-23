@@ -3,8 +3,8 @@ import type { Props } from "./types.react"
 
 export default function Table({
   className,
+  density,
   stickyHeader,
-  variant,
   ...rest
 }: Props) {
   return (
@@ -12,7 +12,7 @@ export default function Table({
       className={cx([
         "ui-table",
         { "ui-sticky-header": stickyHeader },
-        variant && `ui-${variant}`,
+        density && density !== "normal" && `ui-${density}`,
         className,
       ])}
       {...rest}

@@ -70,6 +70,13 @@ With `trigger="hover"`, `id` is required and no longer generated. Pass the same 
 + <Anchor id="repo-card" trigger="hover">
 ```
 
+`alignment` is `positionArea`, named after the CSS `position-area` value it takes.
+
+```diff
+- <Anchor alignment="inline-end">
++ <Anchor positionArea="inline-end">
+```
+
 ## Avatar
 
 `alt` is required when `src` is set (types). Use `alt=""` for decorative images.
@@ -88,9 +95,23 @@ Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-butt
 + </AvatarGroup>
 ```
 
+`variant` is `shape`, since it picks the shape. The classes are unchanged.
+
+```diff
+- <Avatar variant="rounded">
++ <Avatar shape="rounded">
+```
+
 ## Badge
 
 Text uses `--ui-on-primary`.
+
+`alignment` is `corner`. The classes are unchanged.
+
+```diff
+- <Badge alignment="end-end">
++ <Badge corner="end-end">
+```
 
 ## Button
 
@@ -191,6 +212,18 @@ In Astro and Vue the regions are parts instead of slots. `actionsAlign` is `alig
 ```
 
 `types.ts` no longer exports a `Slots` type.
+
+The text card is the transparent card, so `.ui-text` only names a text part.
+
+```diff
+- <Card variant="text">
++ <Card variant="transparent">
+```
+
+```diff
+- <div class="ui-card ui-text">
++ <div class="ui-card ui-transparent">
+```
 
 ## Checkbox
 
@@ -301,7 +334,7 @@ The page scroll lock behind a modal dialog moved to `core/utils.css`. If you imp
 
 A divider that is a direct child of a card has no margin, since the card's gap spaces it.
 
-The variant classes drop the `border-` prefix. The `variant` prop is unchanged.
+The variant classes drop the `border-` prefix.
 
 ```diff
 - <hr class="ui-divider ui-border-tonal" />
@@ -309,6 +342,13 @@ The variant classes drop the `border-` prefix. The `variant` prop is unchanged.
 ```
 
 `.ui-border-filled` and `.ui-border-primary` are `.ui-filled` and `.ui-primary`.
+
+The primary line is a color, not a variant.
+
+```diff
+- <Divider variant="primary" />
++ <Divider color="primary" />
+```
 
 ## Drawer
 
@@ -346,6 +386,18 @@ In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces 
 `FieldSet` with another element in `as` gets `role="group"`.
 
 `data-invalid` on `.ui-fieldset` no longer colors the fields inside. Put `aria-invalid="true"` on each control (Astro and Vue: `error` on each `Checkbox`, `Radio` or `Switch`). The fieldset's own `.ui-end-text` (a direct child) turns red when a control inside has `aria-invalid="true"` or is `:user-invalid`. A checked invalid switch turns its track red, like Checkbox and Radio.
+
+`FieldGroup` `direction` is `orientation`, like `ButtonGroup`, `ToggleGroup` and `Carousel`. `.ui-row` and `.ui-column` are `.ui-horizontal` and `.ui-vertical`.
+
+```diff
+- <FieldGroup direction="row">
++ <FieldGroup orientation="horizontal">
+```
+
+```diff
+- <div class="ui-field-group ui-row">
++ <div class="ui-field-group ui-horizontal">
+```
 
 ## Icon button
 
@@ -516,6 +568,13 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 Dense cells have less block padding.
 
+`variant` is `density`, since it sets the cell padding. The classes are unchanged.
+
+```diff
+- <Table variant="dense">
++ <Table density="dense">
+```
+
 In Astro, import the parts by their flat names, such as `TableHead`, `TableRow` and `TableCell`. The `Table.Head`-style aliases are gone.
 
 ```diff
@@ -571,6 +630,13 @@ Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`,
 ```
 
 Tabs that don't fit can stay on one row and scroll sideways with `scrollable` (`.ui-scrollable`).
+
+`TabsItem` `open` is `checked`, the attribute it sets on the radio. In React, use `defaultChecked` for the starting tab.
+
+```diff
+- <TabsItem open>
++ <TabsItem checked>
+```
 
 ## Text field
 
@@ -672,6 +738,13 @@ In Astro and Vue, `style` on a `ToggleButton` goes to the root `<label>` instead
 + <label class="ui-toggle-button"><input type="checkbox" /><svg>…</svg></label>
 ```
 
+`ToggleButton` `pressed` is `checked`, the attribute it sets on the input. In React, use `defaultChecked` for the starting state, or `checked` with `onChange` to control it.
+
+```diff
+- <ToggleButton pressed value="bold">
++ <ToggleButton checked value="bold">
+```
+
 ## Tooltip
 
 `Tooltip` no longer wraps the trigger in a `<span interestfor>`. Give the tooltip an `id` (now required in the types) and add `interestfor` with that id to the trigger.
@@ -690,6 +763,18 @@ In Astro and Vue the text goes in `TooltipContent` instead of `label` or the `co
 `types.ts` no longer exports a `Slots` type.
 
 Tooltips use `--ui-surface-inverse` and `--ui-on-inverse`, and shift along the viewport edge instead of squeezing, with or without an arrow.
+
+`alignment` is `positionArea`, and `.ui-with-arrow` is `.ui-arrow`, like the `arrow` prop.
+
+```diff
+- <Tooltip alignment="block-end" id="hint">
++ <Tooltip id="hint" positionArea="block-end">
+```
+
+```diff
+- <span class="ui-anchor ui-tooltip ui-with-arrow">
++ <span class="ui-anchor ui-tooltip ui-arrow">
+```
 
 ## Theme and tokens
 

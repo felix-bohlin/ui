@@ -11,10 +11,6 @@
       --_divider-color: var(--ui-surface-filled);
     }
 
-    &.ui-primary {
-      --_divider-color: var(--ui-primary);
-    }
-
     &.ui-tonal {
       --_divider-color: var(--ui-surface-tonal);
     }
@@ -24,6 +20,10 @@
       &.ui-tonal {
         --_divider-color: var(--ui-border-color);
       }
+    }
+
+    &.ui-primary {
+      --_divider-color: var(--ui-primary);
     }
 
     &:not(:empty) {

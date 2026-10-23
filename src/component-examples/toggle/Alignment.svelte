@@ -17,7 +17,7 @@
       ></path>
     </svg>
   </ToggleButton>
-  <ToggleButton value="center" pressed aria-label="Align center">
+  <ToggleButton value="center" checked aria-label="Align center">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"

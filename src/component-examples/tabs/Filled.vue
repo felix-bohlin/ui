@@ -4,7 +4,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 
 <template>
   <Tabs name="filled-tabs" variant="filled">
-    <TabsItem open>
+    <TabsItem checked>
       <TabsTab>Profile</TabsTab>
       <TabsPanel>Profile settings and information.</TabsPanel>
     </TabsItem>

@@ -11,8 +11,8 @@
     --_border-width: var(--ui-border-width);
     --_content-padding: var(--ui-space-3);
     --_direction: 1;
-    --_duration: calc(var(--ui-duration) * var(--_motion));
-    --_ease: var(--ui-ease-enter);
+    --_duration: calc(var(--ui-duration-slow) * var(--_motion));
+    --_ease: var(--ui-ease-exit);
     --_header-font-size: var(--ui-font-size-large);
     --_header-padding: var(--ui-space-3);
     --_inline-size: min(375px, 100vi);
@@ -178,6 +178,8 @@
     }
 
     &[open] {
+      --_ease: var(--ui-ease-enter);
+
       translate: 0 0;
 
       &::backdrop {

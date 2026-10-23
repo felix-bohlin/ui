@@ -73,17 +73,19 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-critical-text":
     "Critical as a text color: the `.ui-critical` items of a `Menu`, and a `.ui-critical` `Button` with no variant or `.ui-outlined`. `--ui-critical` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
   "--ui-density":
-    "Multiplier for the `--ui-control-size*` scale. `0.875` is compact, `1.125` is comfortable. See [Density](/guide/theming#density).",
+    "Multiplier for the control sizes: `--ui-control-size*`, `--ui-chip-size*`, `--ui-choice-size*` and the `Switch` thumb and track sizes. `0.875` is compact, `1.125` is comfortable. See [Density](/guide/theming#density).",
   "--ui-disabled-opacity": "Opacity applied to disabled controls.",
   "--ui-divider-gap":
     "Block margin around a `Divider`, times `--ui-space-scale`. Cards, callouts, dialogs and drawers set it to `--ui-space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
   "--ui-duration": "Default transition duration. Multiplied by `--ui-motion`.",
   "--ui-duration-fast": "Transition duration for hover and press feedback.",
   "--ui-duration-slow":
-    "Transition duration for entering and leaving overlays.",
+    "Transition duration for entering and leaving overlays: `Dialog`, `Drawer` and `Menu`.",
   "--ui-ease": "Default easing for transitions.",
-  "--ui-ease-enter": "Easing for elements entering the screen.",
-  "--ui-ease-exit": "Easing for elements leaving the screen.",
+  "--ui-ease-enter":
+    "Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`.",
+  "--ui-ease-exit":
+    "Easing for elements leaving the screen: closing `Drawer` and `Menu`.",
   "--ui-field-border-color":
     "Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch`, the `Range` track and the `Progress` outline. A 50% mix of the text color into the page, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
   "--ui-field-border-color-on-raised":
@@ -294,19 +296,19 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-space-8":
     "Spacing step 8: Open Props `--size-8` times `--ui-space-scale`.",
   "--ui-space-scale":
-    "Multiplier for the `--space-*` scale, the gaps, padding and margins of containers such as cards, dialogs, forms, tables and rich text. Controls follow `--ui-density` instead. See [Spacing](/guide/theming#spacing).",
-  "--ui-state-active-alpha":
-    "Alpha of the pressed state layer on neutral buttons in light mode.",
+    "Multiplier for the `--ui-space-*` scale, the gaps, padding and margins of containers such as cards, dialogs, forms, tables and rich text. Controls follow `--ui-density` instead. See [Spacing](/guide/theming#spacing).",
   "--ui-state-active-alpha-accent":
     "Alpha of the pressed state layer on primary and critical buttons.",
   "--ui-state-active-alpha-dark":
     "Alpha of the pressed state layer on neutral buttons in dark mode. The hover alpha with more contrast, so the text keeps 7:1.",
-  "--ui-state-hover-alpha":
-    "Alpha of the hover state layer on neutral buttons in light mode.",
+  "--ui-state-active-alpha-light":
+    "Alpha of the pressed state layer on neutral buttons in light mode.",
   "--ui-state-hover-alpha-accent":
     "Alpha of the hover state layer on primary and critical buttons.",
   "--ui-state-hover-alpha-dark":
     "Alpha of the hover state layer on neutral buttons in dark mode.",
+  "--ui-state-hover-alpha-light":
+    "Alpha of the hover state layer on neutral buttons in light mode.",
   "--ui-success": "Severity color for success messages.",
   "--ui-success-text":
     "Success as a text color, for success text outside an `.ui-success` scope. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
@@ -364,7 +366,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Gap between text and the underline of `abbr`, `dfn`, `ins` and `u` and their classes. Firefox uses `--ui-underline-offset`.",
   "--ui-underline-thickness-hover":
     "Underline thickness of `Link` and rich text links on hover and keyboard focus. At rest they keep the font's own thickness.",
-  "--ui-warning": "Severity color for warnings.",
+  "--ui-warning":
+    "Severity color for warnings. Unlike the other severities it keeps its lightness with more contrast: the fill is light and takes dark `--ui-on-warning` text, and `--ui-warning-text` gets the stricter lightness limits instead.",
   "--ui-warning-text":
     "Warning as a text color, for warning text outside a `.ui-warning` scope. `--ui-warning` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
 }

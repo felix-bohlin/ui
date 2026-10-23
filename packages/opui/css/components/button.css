@@ -15,11 +15,11 @@
     --_border-color: transparent;
     --_border-width: var(--ui-border-width);
     --_default-active-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha)),
+      oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-light)),
       oklch(from var(--_accent) l 0.06 h / var(--ui-state-active-alpha-dark))
     );
     --_default-hover-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha)),
+      oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha-light)),
       oklch(from var(--_accent) l 0.01 h / var(--ui-state-hover-alpha-dark))
     );
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));

@@ -10,7 +10,7 @@ const slug = (title: string) =>
 
 const TYPES: [RegExp, string][] = [
   [
-    /-(alpha|alpha-accent|alpha-dark|chroma|hue|hue-rotate-by|lightness|opacity|scale)$|^--ui-(density|motion)$|line-height/,
+    /-(alpha-accent|alpha-dark|alpha-light|chroma|hue|hue-rotate-by|lightness|opacity|scale)$|^--ui-(density|motion)$|line-height/,
     "number",
   ],
   [/^--ui-font-(body|code|heading)$/, "fontFamily"],

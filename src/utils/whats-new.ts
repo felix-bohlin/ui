@@ -404,6 +404,7 @@ const whatsNew = {
     },
   ],
   dialog: [
+    `Opens over <a href="#api"><code>--ui-duration-slow</code></a>, the overlay duration.`,
     {
       html: `Breaking: <code>.ui-card</code> is no longer needed on <a href="#usage"><code>.ui-dialog</code></a>, which <code>card.css</code> styles itself.`,
     },
@@ -450,6 +451,7 @@ const whatsNew = {
     },
   ],
   drawer: [
+    `Opens over <a href="#api"><code>--ui-duration-slow</code></a> with <code>--ui-ease-enter</code> and closes with <code>--ui-ease-exit</code>.`,
     slots(
       `Breaking: <a href="#basics"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>. The <code>DrawerHeader</code> close button uses <code>command="close"</code>.`,
     ),

@@ -3,7 +3,7 @@
     --_motion: var(--ui-motion);
     --_active-bg-color: light-dark(
       var(--ui-surface),
-      oklch(100% 0 0 / var(--ui-state-hover-alpha))
+      oklch(100% 0 0 / var(--ui-state-hover-alpha-dark))
     );
     --_active-border-color: var(
       --ui-control-border-color,

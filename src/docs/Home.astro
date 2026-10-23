@@ -43,7 +43,6 @@ const currentFramework = Astro.locals.framework
 const { link } = Astro.locals
 const componentsHref = hrefFor(currentFramework, "/components")
 const quickstartHref = hrefFor(currentFramework, "/guide/getting-started")
-const migratingHref = hrefFor(currentFramework, "/guide/migrating")
 const conceptsHref = hrefFor(currentFramework, "/guide/concepts")
 const generatorHref = hrefFor(currentFramework, "/guide/theme-generator")
 const tokensHref = hrefFor(currentFramework, "/guide/theme-tokens")
@@ -127,10 +126,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     <section class="sheet hero" aria-labelledby="main-heading">
       <div class="hero-copy">
         <hgroup class="ui-hgroup">
-          <p class="hero-overline">
-            <Chip size="small" variant="outlined" label={`v${version}`} />
-            <a class="ui-link" href={migratingHref}>Migrating to v6</a>
-          </p>
+          <p>{version}</p>
 
           <h1 class="ui-h1" id="main-heading">Open Props UI</h1>
 
@@ -678,13 +674,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       grid-template-columns: minmax(0, 7fr) minmax(0, 6fr);
       padding-block-end: calc(var(--size-9) + var(--size-6));
     }
-  }
-
-  .hero-overline {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-3);
   }
 
   .hero-description {

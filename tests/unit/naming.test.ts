@@ -99,6 +99,9 @@ const problems = apis.flatMap((api) => {
     if (option.prop === "open" && !option.inherited) {
       report(option, "use checked")
     }
+    if (option.default === "true") {
+      report(option, "a boolean is off when it's left out")
+    }
     if (/^(hide|sr|visually)[A-Z]/.test(option.prop)) {
       if (option.prop !== "hideLabel") report(option, "use hideLabel")
       else if (option.class !== ".ui-sr-only" || !option.part) {

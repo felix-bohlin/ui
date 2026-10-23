@@ -15,7 +15,7 @@ const places = [
     aria-label="Destinations"
     buttons="outside"
     class="carousel-custom-buttons"
-    :perView="2"
+    :itemsPerView="2"
   >
     <li v-for="{ description, title } in places" :key="title">
       <Card variant="tonal">

@@ -14,7 +14,7 @@
   aria-label="Destinations"
   buttons="outside"
   class="carousel-custom-buttons"
-  perView={2}
+  itemsPerView={2}
 >
   {#each places as { description, title } (title)}
     <li>

@@ -9662,8 +9662,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (1) Tokens: there is no data visualization palette. Primer, shadcn/ui (`chart-1` to `chart-5`) and Carbon ship categorical and sequential palettes for charts (`packages/opui/css/theme.css`)
 - [ ] (1) Tabs: no Tabs-level `value`. A controlled tab set needs one piece of state that sets `checked` on every `TabsItem`, since a tab that loses its check fires no `onChange` (`packages/opui/components/Tabs/types.ts`, `src/component-api/tabs-item/api.ts`)
   - Fix: `value` on `Tabs`, with `onValueChange` in React, `bind:value` in Svelte and `v-model` in Vue, like `ToggleGroup`.
-- [ ] (1) Carousel: `buttons` is `boolean | "outside"`, with a separate `persistentButtons` flag. The naming model gives a modifier one form, a boolean or an enum (`packages/opui/components/Carousel/types.ts`, `src/component-api/carousel/api.ts`)
+- [x] (1) Carousel: `buttons` is `boolean | "outside"`, with a separate `persistentButtons` flag. The naming model gives a modifier one form, a boolean or an enum (`packages/opui/components/Carousel/types.ts`, `src/component-api/carousel/api.ts`)
   - Fix: an enum such as `buttons: "inside" | "none" | "outside"`, with `persistentButtons` kept as the boolean it is.
+  - Fixed: `buttons` is `"inside" | "none" | "outside"`, `inside` by default with no class, `.ui-buttons-none` and `.ui-buttons-outside`. `persistentButtons` stays a boolean, and `perView` is `itemsPerView` (`--_items-per-view`).
 - [ ] (1) DescriptionList: `bordered` is `boolean | "dotted"`, a toggle and a line style in one prop (`packages/opui/components/DescriptionList/types.ts`, `src/component-api/description-list/api.ts`)
   - Fix: `bordered` stays a boolean and the line style becomes its own enum, or `bordered` becomes `"dotted" | "none" | "solid"`.
 - [ ] (1) Range: options take `{ value, label }`, while Menu and Select items take `text` for the same job, the key decided for item text (`packages/opui/components/Range/types.ts:2`)

@@ -11,7 +11,7 @@ const photos = [
 </script>
 
 <template>
-  <Carousel aria-label="Gallery" :perView="3" aspectRatio="1">
+  <Carousel aria-label="Gallery" :itemsPerView="3" aspectRatio="1">
     <li v-for="{ alt, id } in photos" :key="id">
       <img
         :alt="alt"

@@ -13,7 +13,7 @@ const places = [
   <Carousel
     aria-label="Destinations"
     buttons="outside"
-    :perView="2"
+    :itemsPerView="2"
     persistentButtons
   >
     <li v-for="{ description, title } in places" :key="title">

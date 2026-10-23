@@ -28,8 +28,10 @@
     --_ease: var(--ui-ease);
     --_gap: var(--ui-space-3);
     --_item-size: calc(
-      (100% - (var(--_per-view) - 1) * var(--_gap)) / var(--_per-view)
+      (100% - (var(--_items-per-view) - 1) * var(--_gap)) /
+        var(--_items-per-view)
     );
+    --_items-per-view: 1;
     --_marker-active-bg-color: var(--ui-selected-strong);
     --_marker-active-padding: var(--ui-space-1);
     --_marker-bg-color: transparent;
@@ -42,7 +44,6 @@
     --_media-border-radius: var(--ui-radius);
     --_padding-block: 0px;
     --_padding-inline: 0px;
-    --_per-view: 1;
     --_scale-duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_snap-align: start;
 
@@ -121,7 +122,7 @@
     }
 
     /* Buttons */
-    &.ui-buttons {
+    &:not(.ui-buttons-none) {
       &::scroll-button(inline-start),
       &::scroll-button(inline-end),
       &.ui-vertical::scroll-button(block-start),
@@ -358,7 +359,7 @@
 
     /* Firefox and Safari fallback */
     @supports selector(::scroll-button(*)) {
-      &:is(.ui-buttons, .ui-markers) {
+      &:is(:not(.ui-buttons-none), .ui-markers) {
         scrollbar-width: none;
       }
     }

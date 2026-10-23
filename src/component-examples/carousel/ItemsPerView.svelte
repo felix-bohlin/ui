@@ -10,7 +10,7 @@
   ]
 </script>
 
-<Carousel aria-label="Destinations" buttons="outside" perView={3}>
+<Carousel aria-label="Destinations" buttons="outside" itemsPerView={3}>
   {#each places as { description, title } (title)}
     <li>
       <Card variant="tonal">

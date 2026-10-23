@@ -180,7 +180,7 @@ Native states use native attributes, not classes: a disabled `<button>` gets `di
 
 ### Naming props, values and classes
 
-One concept has one prop name and one set of values in every component. `tests/unit/naming.test.ts` checks every `api.ts` against this model, and its allowlist only shrinks.
+One concept has one prop name and one set of values in every component. `tests/unit/naming.test.ts` checks every `api.ts` against this model, and its allowlist only shrinks. A new rule lands with its check, in the change that makes the check pass.
 
 | Concept                            | Prop                           | Values                                                                    |
 | ---------------------------------- | ------------------------------ | ------------------------------------------------------------------------- |
@@ -196,6 +196,12 @@ One concept has one prop name and one set of values in every component. `tests/u
 | Corner                             | `corner`                       | `start-start`, `start-end`, `end-start`, `end-end`                        |
 | Free CSS position                  | `positionArea`                 | any `position-area` value                                                 |
 | Checked state                      | `checked`                      | the native attribute                                                      |
+| One or many                        | `multiple` (boolean)           | the native attribute                                                      |
+| Overflow on the layout axis        | `overflow`                     | `scroll`, `shrink`, `wrap`                                                |
+| Primary text                       | `label`                        | a string, with a `label` slot for rich content                            |
+| Secondary text                     | `description`                  | a string, with a `description` slot for rich content                      |
+| A visible label made invisible     | `hideLabel` (boolean)          | renders `.ui-sr-only` on the label                                        |
+| A list of entries                  | `items`                        | objects with `label`, `value` and `description`                           |
 
 - **Values:** a component accepts the values it supports from its set.
 - **`color` and `severity`:**
@@ -213,14 +219,42 @@ One concept has one prop name and one set of values in every component. `tests/u
 - **Every enum names its default:**
   - The default adds no class. It maps to `null` in `api.ts`, where it shows as the default.
   - The exceptions are `as` and `type`; `color` and `severity`, where leaving the prop out means none; and free strings.
+- **One class shape per kind of value:**
+  - A value of `variant`, `size`, `color`, `severity`, `side`, `orientation`, `density`, `shape` or `corner` renders `.ui-<value>` (`.ui-filled`, `.ui-block-start`).
+  - A value of `align`, `overflow` or a component's own enum renders `.ui-<prop>-<value>`, so the class says which prop it belongs to (`.ui-align-end`, `.ui-overflow-scroll`, `.ui-backdrop-transparent`, `.ui-marker-animation-flip`).
+  - The default renders nothing, in every framework and in HTML.
 - **Booleans and enums:**
-  - A modifier with one alternative is a boolean and renders the class of the same name (`round` gives `.ui-round`, `stickyHeader` gives `.ui-sticky-header`).
+  - A modifier with one alternative is a boolean and renders the class of the same name (`round` gives `.ui-round`, `stickyHeader` gives `.ui-sticky-header`). `hideLabel` is the one exception and renders `.ui-sr-only`.
+  - A boolean is off when it's left out, so its class is never the framework default. Its name says what turning it on does, never what it turns off: no `no`, `non` or `un` prefix and no `less` suffix.
+  - When the usual case is the one people turn off, the modifier is an enum with the usual case as its named default (Carousel `buttons`: `inside`, `none`, `outside`).
   - A modifier with several values is an enum named after the concept.
-  - A component never has both for one concept.
+  - A component never has both for one concept, and never two booleans for one axis (`overflow`, not `scrollable` and `shrink`).
+- **One or many is the native `multiple`,** layout along an axis is `orientation` and overflow along it is `overflow`.
+- **`align` has one default per part,** wherever the part appears. `.ui-actions` lines up at the end in every container that has it.
+- **Text:**
+  - The primary text of anything is `label`, a string prop with a slot of the same name for rich content. Secondary text is `description`. Never `headline`, `text` or `title`.
+  - Item objects (`MenuItem`, `SelectItem`, `RangeOption`) use `label`, `value` and `description`, and a list of them is `items`.
+  - The default slot is the main content, never the label. On a choice control (Checkbox, Radio, Switch, ToggleButton) the label is the main content, so there the default slot is the label and `label` is its string shorthand.
+- **Accessible names:**
+  - When the visible label can be hidden, the prop is `hideLabel`, which renders `.ui-sr-only` on the label.
+  - A component with no visible text takes `aria-label` from the caller, and its types require it. No other prop supplies or hides a name.
+  - The name of a control the component generates inside one of its parts is `<part>Label`, such as `closeLabel` on `DrawerHeader`.
+  - A component never joins a number and words into one name, since their order depends on the language. The caller passes the whole translated string (`<Badge hideLabel label="5 unread messages">`).
+- **Native names:**
+  - A prop that passes straight to the element keeps its lowercase native name (`closedby`, `commandfor`, `popover`, `for`). React maps `for` to `htmlFor`, like the element.
+  - A prop the component interprets is camelCase, and never reuses a native name for something else (Badge `invisible`, not `hidden`).
+  - An overlay that a trigger addresses with `commandfor` or `interestfor` requires `id` in its types (Drawer, Menu, Tooltip and a hover Anchor).
 - **One class, one meaning:**
   - A part class (`.ui-text`, `.ui-label`) is never also a variant.
   - Size words on a component root are its size. On a text element they are its text size, and a component's own rules win.
-- **`start` and `end` are logical,** along the axis that fits: inline for slots in a row (`.ui-start`, `.ui-end`), block for text above and below a field (`startText`, `endText`).
+  - `.ui-dot` means a dot is shown, on Badge (the indicator is only a dot) and on Chip (the severity dot). The two roots differ, the visual is the same.
+- **`start` and `end` are logical,** along the axis that fits: inline for slots in a row (`.ui-start`, `.ui-end`), block for text above and below a field (`startText`, `endText`). Inside a field's box, the regions above and below the input are `top` and `bottom` (`.ui-top`, `.ui-bottom`).
+- **Slots and parts:**
+  - A slot has one name in all five frameworks, kebab-case in Astro and Vue (`value-text`) and camelCase in React and Svelte (`valueText`). When a name clashes with a prop in one framework, the slot is renamed everywhere. The allowed names are listed in [src/component-api/AGENTS.md](../../src/component-api/AGENTS.md#names).
+  - The block regions of a container are parts, never slots: `.ui-header`, `.ui-content`, `.ui-actions` for buttons and `.ui-footer` for anything else at the end.
+  - A part styled only under its root has a bare role class (`.ui-header`, `.ui-label`, `.ui-indicator`). A class that is also styled on its own, or shared by several roots, is a root class and carries the component name (`.ui-field-group`, `.ui-text-field`). `.ui-card-link` is the one exception, since `.ui-link` is the Link root.
+  - A part's CSS reaches it with child combinators (`> .ui-label`), so a bare part class never styles the part of the same name in a nested component.
+- **Every option is one of three kinds:** a prop with an HTML equivalent (`class` or `attribute` in `api.ts`), an HTML-only class or attribute (`frameworks: ["html"]`), or a prop-only behavior with no output (`keepOpen`). Every class a stylesheet adds is named by an option or a part.
 - **The checked state uses the native name and each framework's native semantics:**
   - In React, `checked` with `onChange` is controlled and `defaultChecked` is uncontrolled.
   - In Svelte, `checked` is `$bindable()` where one input owns the state.
@@ -446,7 +480,22 @@ A new token follows the naming model, so each word means one thing:
 - Variant and context come last: `-filled` for a filled control (`--ui-control-border-color-filled`), `-on-{surface}` for what is drawn on a surface (`--ui-border-color-on-raised`).
 - `light` and `dark` only name a color scheme, `inverse` only the opposite of it, `primary` only the brand color, and `elevated`, `filled` and `tonal` only their variants. `raised` is any surface above the page.
 - One part, one word: the radius family is `--ui-radius-*`, and the Switch part is the thumb.
-- Component tokens start with the component and end like the `--_*` properties: `-bg-color`, `-text-color`, `-border-color`, `-size`, `-radius` (`--ui-code-block-bg-color`, `--ui-choice-ripple-color`).
+- `--ui-on-{fill}` always has a `--ui-{fill}` or a `--ui-surface-{fill}` to sit on (`--ui-on-primary` on `--ui-primary`, `--ui-on-inverse` on `--ui-surface-inverse`). The mark on a severity fill is `--ui-palette-on-strong`, since the fill is the palette's strong shade.
+- The default of a family is the bare name, and modifiers add a suffix: `--ui-text`, `--ui-text-strong`, `--ui-text-subtle`; `--ui-surface`, `--ui-surface-filled`, `--ui-surface-tonal`, `--ui-surface-inverse`; `--ui-line-height` and `--ui-line-height-control`.
+- `control` is anything a user operates (buttons, chips, toggles, tabs, fields), and `field` is the subset that holds a value. A `--ui-field-*` token exists only where fields differ from other controls, and the size tokens of each are aliases of `--ui-control-size*`.
+- A token that names a color by its role carries no suffix (`--ui-primary`, `--ui-selected`, `--ui-button-accent`). A token that names a property of a part ends in what it paints.
+- Component tokens start with the component and end like the `--_*` properties: `-bg-color`, `-text-color`, `-border-color`, `-size`, `-radius`, `-gap` or `-shadow` (`--ui-code-block-bg-color`, `--ui-choice-ripple-bg-color`). A color is never a bare `-color`. `-size` is the one word for an extent, and `-width` only names a border or outline thickness. Sizes are logical (`-inline-size`, `-block-size`).
+
+### Naming custom properties
+
+Private `--_*` properties follow the same suffixes as component tokens, so one word means one thing in every stylesheet:
+
+- `--_radius`, never `--_border-radius`.
+- Logical sizes only: `--_min-block-size`, `--_inline-size`, never `--_min-height` or `--_width`.
+- `-gap` is the distance between siblings, `-padding` an inset and `-margin` an outside offset. Never `-space`.
+- No abbreviations: `--_shift-x` and `--_direction`, never `--_tx` or `--_dir`.
+- A value that is neither a length nor a color is named by its type: `--_<part>-image`, `--_<part>-label`, `--_<part>-fraction`.
+- Role names carry no suffix, like the role tokens: `--_accent`, `--_on-accent`.
 
 ### Forced colors
 

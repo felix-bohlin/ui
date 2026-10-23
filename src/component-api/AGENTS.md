@@ -12,7 +12,7 @@ When creating or updating a component API, ensure:
 - [ ] **Class Prefixing**: Classes in `class` and `values` use the `ui-` prefix and a leading dot (`.ui-primary`).
 - [ ] **Baseline value**: Map an enum value that adds no class to `null` in `values` (`values: { end: ".ui-align-end", start: null }`). The table shows it as `default`.
 - [ ] **Named default**: An enum names its default value in `default` (`'"medium"'`), and that value maps to `null`. The exceptions are `as`, `type`, `color`, `severity` and free strings. The names and values follow the naming model in [packages/opui/components/AGENTS.md](../../packages/opui/components/AGENTS.md#naming-props-values-and-classes), and `tests/unit/naming.test.ts` checks them.
-- [ ] **Standard groups**: Use `Alignment` for `align`, `Colors` for `color`, `Density` for `density`, `Orientation` for `orientation`, `Position` for `side`, `corner` and `positionArea`, `Severities` for `severity`, `Shape` for `shape`, `Sizes` for `size` and `Variants` for `variant`.
+- [ ] **Standard groups**: Use `Alignment` for `align`, `Colors` for `color`, `Density` for `density`, `Orientation` for `orientation`, `Overflow` for `overflow`, `Position` for `side`, `corner` and `positionArea`, `Severities` for `severity`, `Shape` for `shape`, `Sizes` for `size` and `Variants` for `variant`. Other options use a group from [Names](#names).
 - [ ] **Short Descriptions**: All descriptions are very short and concise (often a single sentence fragment). Reuse the standard phrases:
   - `The variant to use.` (for Variants)
   - `The size of the element.` (for Sizes)
@@ -20,6 +20,14 @@ When creating or updating a component API, ensure:
   - `The orientation of the element.` (for Orientation)
 
 `ApiTables` generates the rest: the column layout and widths, `default` and `-` in the Default column, and comma-separated types.
+
+## Names
+
+Groups, parts and slots come from closed lists, so a new component can't invent a name for a concept that already has one. `tests/unit/naming.test.ts` checks them.
+
+- **Groups:** `Alignment`, `Behavior`, `Borders`, `Colors`, `Density`, `Group`, `Label`, `Layout`, `Orientation`, `Overflow`, `Position`, `Severities`, `Shape`, `Sizes`, `State`, `Validation` and `Variants`. An option that fits none of them is grouped under its own name in sentence case (`stickyHeader` in `Sticky header`). Options for one concept share one option with `values` (the ListItem `state` row), since two options never share a group.
+- **Part classes:** `.ui-actions`, `.ui-bottom`, `.ui-content`, `.ui-description`, `.ui-end`, `.ui-end-text`, `.ui-field`, `.ui-floating`, `.ui-footer`, `.ui-header`, `.ui-heading`, `.ui-icon-checked`, `.ui-icon-unchecked`, `.ui-indicator`, `.ui-input`, `.ui-label`, `.ui-legend`, `.ui-marker`, `.ui-panel`, `.ui-start`, `.ui-start-text`, `.ui-text`, `.ui-top` and `.ui-value`. A part may also be another component's root (the `DrawerHeader` close `.ui-button`). `.ui-card-link` is the one exception. The class in the last compound of a part's `selector` is checked.
+- **Slots:** `bottom`, `datalist`, `default`, `description`, `end`, `end-text`, `icon-checked`, `icon-unchecked`, `indicator`, `label`, `marker`, `start`, `start-text`, `submenu`, `top` and `value-text`. React and Svelte use the camelCase form (`valueText`), so a slot has one name in every framework.
 
 ## Framework-specific APIs
 

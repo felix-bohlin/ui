@@ -115,19 +115,65 @@ const parseNotes = (lines: string[]) => {
   return notes
 }
 
-const optionPattern = /^([A-Z])(?: \(([^)]+)\))?[:,] (.*)$/
+const optionPattern = /^([A-Z])(?: \(([^)]+)\))?[:,] (.*)$/s
 
-const capitalize = (text: string) =>
-  text.charAt(0).toUpperCase() + text.slice(1)
+const tidy = (text: string) => {
+  const trimmed = text.trim().replace(/[;,]$/, "")
+  const single = trimmed.endsWith(".") && !trimmed.slice(0, -1).includes(". ")
+  const clause = single ? trimmed.slice(0, -1) : trimmed
+  return clause.charAt(0).toUpperCase() + clause.slice(1)
+}
 
 const toOption = (text: string, index: number, notes: TodoNote[] = []) => {
-  const match = text.match(optionPattern)
+  const match = text.trim().match(optionPattern)
   return match
-    ? { id: match[1], note: match[2], notes, text: capitalize(match[3]) }
-    : { id: String(index + 1), note: undefined, notes, text: capitalize(text) }
+    ? {
+        id: match[1],
+        note: match[2],
+        notes,
+        text: tidy(match[3]),
+        value: `Fix with option ${match[1]}`,
+      }
+    : {
+        id: String(index + 1),
+        note: undefined,
+        notes,
+        text: tidy(text),
+        value: `Fix with option ${index + 1}`,
+      }
 }
 
 type FixOption = ReturnType<typeof toOption>
+
+const lettered = (texts: string[]) =>
+  texts.map((text, index) => {
+    const id = String.fromCharCode(65 + index)
+    return {
+      ...toOption(text, index),
+      id,
+      value: `Fix with option ${id}: ${tidy(text)}`,
+    }
+  })
+
+const topLevel = (text: string) => {
+  const indexes: number[] = []
+  let code = false
+  let depth = 0
+
+  for (let index = 0; index < text.length; index++) {
+    const char = text[index]
+    if (char === "`") code = !code
+    else if (code) continue
+    else if (char === "(") depth++
+    else if (char === ")") depth = Math.max(0, depth - 1)
+    else if (!depth) indexes.push(index)
+  }
+
+  return indexes
+}
+
+const splitAt = (text: string, indexes: number[]) =>
+  indexes.map((index, i) => text.slice(index, indexes[i + 1]))
 
 const listOptions = (notes: TodoNote[], index: number) => {
   const { level } = notes[index]
@@ -148,46 +194,103 @@ const listOptions = (notes: TodoNote[], index: number) => {
   return { end, options }
 }
 
-const inlineOptions = (text: string) => {
-  const match = text.match(/^(.*?)\s*Options: ([A-Z](?: \([^)]+\))?, .*)$/)
-  if (!match) return
+const letteredOptions = (text: string) => {
+  const markers: number[] = []
+
+  for (const index of topLevel(text)) {
+    const letter = String.fromCharCode(65 + markers.length)
+    const before = text.slice(0, index)
+    const marker = text.slice(index).match(/^[A-Z](?: \([^)]+\))?([:,]) /)
+    if (
+      text[index] === letter &&
+      marker &&
+      (marker[1] === ":"
+        ? !before || before.endsWith(" ")
+        : before.endsWith(markers.length ? "; " : "Options: "))
+    )
+      markers.push(index)
+  }
+
+  if (markers.length < 2) return
   return {
-    options: match[2]
-      .replace(/\.$/, "")
-      .split(/;\s+(?=[A-Z](?: \([^)]+\))?, )/)
-      .map((option, index) => toOption(option, index)),
-    text: match[1],
+    options: splitAt(text, markers).map((option, index) =>
+      toOption(option, index),
+    ),
+    preamble: text.slice(0, markers[0]),
+  }
+}
+
+const alternativeOptions = (text: string) => {
+  if (text.includes("?")) return
+  const top = topLevel(text)
+  const options = top.find((index) => text.startsWith("Options: ", index))
+  const start =
+    options === undefined
+      ? text.match(/^Fix(?: [^:`]*)?: /)?.[0].length
+      : options + "Options: ".length
+  if (start === undefined) return
+
+  const separator =
+    options === undefined ? /^(, or |; or |\. Or,? )/ : /^, (or )?/
+  const cuts = top.flatMap((index) => {
+    const match = index > start && text.slice(index).match(separator)
+    return match ? [{ index, length: match[0].length }] : []
+  })
+  if (!cuts.length || (options === undefined && cuts.length > 1)) return
+
+  return {
+    options: lettered(
+      [{ index: start, length: 0 }, ...cuts].map((cut, i) =>
+        text.slice(cut.index + cut.length, cuts[i]?.index),
+      ),
+    ),
+    preamble: text.slice(0, start),
   }
 }
 
 export const fixOptions = (notes: TodoNote[]) => {
-  for (const [index, note] of notes.entries()) {
-    if (note.kind === "code") continue
+  let found = {
+    legend: "Fix with",
+    notes,
+    options: [] as FixOption[],
+  }
+
+  for (let index = 0; index < notes.length; index++) {
+    const note = notes[index]
+    if (note.kind === "code" || note.kind === "comment") continue
 
     if (/^Options:?$/.test(note.text)) {
       const list = listOptions(notes, index)
-      if (list && list.options.length > 1)
-        return {
+      if (list && list.options.length > 1) {
+        found = {
+          legend: "Fix with",
           notes: [...notes.slice(0, index), ...notes.slice(list.end)],
           options: list.options,
         }
+        index = list.end - 1
+      }
+      continue
     }
 
-    const inline = inlineOptions(note.text)
-    if (inline && inline.options.length > 1)
-      return {
-        notes: notes.flatMap((other) =>
-          other !== note
-            ? [other]
-            : inline.text
-              ? [{ ...note, text: inline.text }]
-              : [],
-        ),
-        options: inline.options,
-      }
+    const inline = letteredOptions(note.text) ?? alternativeOptions(note.text)
+    if (!inline) continue
+
+    const preamble = inline.preamble.replace(/\s*(Fix|Options):\s*$/, "").trim()
+    const condition = preamble.match(/^Fix (if [^:]+):$/)
+    found = {
+      legend: condition ? `Fix ${condition[1]}, with` : "Fix with",
+      notes: notes.flatMap((other) =>
+        other !== note
+          ? [other]
+          : preamble && !condition
+            ? [{ ...note, text: preamble }]
+            : [],
+      ),
+      options: inline.options,
+    }
   }
 
-  return { notes, options: [] as FixOption[] }
+  return found
 }
 
 export const splitLinks = (text: string) =>

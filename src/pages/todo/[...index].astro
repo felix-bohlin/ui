@@ -219,7 +219,7 @@ const count = sections.reduce(
                 </FieldGroup>
                 {item.options.length > 0 && (
                   <FieldSet class="todo-fix-options">
-                    <FieldLegend>Fix with</FieldLegend>
+                    <FieldLegend>{item.legend}</FieldLegend>
                     <FieldGroup
                       name={`todo-action-${slugify(section.title)}-${index}`}
                     >

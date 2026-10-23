@@ -117,29 +117,53 @@ describe("parseTodo", () => {
 })
 
 describe("fixOptions", () => {
+  const item = (text: string, level = 0) => ({
+    kind: "item" as const,
+    level,
+    text,
+  })
+  const summary = (notes: Parameters<typeof fixOptions>[0]) => {
+    const { legend, notes: rest, options } = fixOptions(notes)
+    return {
+      legend,
+      notes: rest,
+      options: options.map(({ id, note, text, value }) => ({
+        id,
+        note,
+        text,
+        value,
+      })),
+    }
+  }
+
   test("turns an options list into fix options", () => {
     expect(
       fixOptions([
-        { kind: "item", level: 0, text: "Today: broken" },
-        { kind: "item", level: 0, text: "Options:" },
-        { kind: "item", level: 1, text: "A (recommended): use `outline`" },
+        item("Today: broken"),
+        item("Options:"),
+        item("A (recommended): use `outline`", 1),
         { code: "a { b: c; }", kind: "code", level: 2 },
-        { kind: "item", level: 1, text: "B: keep it" },
-        { kind: "item", level: 0, text: "Wording with A" },
+        item("B: keep it", 1),
+        item("Wording with A"),
       ]),
     ).toEqual({
-      notes: [
-        { kind: "item", level: 0, text: "Today: broken" },
-        { kind: "item", level: 0, text: "Wording with A" },
-      ],
+      legend: "Fix with",
+      notes: [item("Today: broken"), item("Wording with A")],
       options: [
         {
           id: "A",
           note: "recommended",
           notes: [{ code: "a { b: c; }", kind: "code", level: 0 }],
           text: "Use `outline`",
+          value: "Fix with option A",
         },
-        { id: "B", note: undefined, notes: [], text: "Keep it" },
+        {
+          id: "B",
+          note: undefined,
+          notes: [],
+          text: "Keep it",
+          value: "Fix with option B",
+        },
       ],
     })
   })
@@ -147,41 +171,131 @@ describe("fixOptions", () => {
   test("numbers options without letters", () => {
     expect(
       fixOptions([
-        { kind: "item", level: 0, text: "Options:" },
-        { kind: "item", level: 1, text: "Keep the CSS" },
-        { kind: "item", level: 1, text: "Bring back the class" },
+        item("Options:"),
+        item("Keep the CSS", 1),
+        item("Bring back the class", 1),
       ]).options.map((option) => option.id),
     ).toEqual(["1", "2"])
   })
 
-  test("splits inline options", () => {
+  test("splits lettered options in a sentence", () => {
     expect(
-      fixOptions([
-        {
-          kind: "item",
-          level: 0,
-          text: "Still open: it conflicts. Options: A, keep it, with a test; B, remove it.",
-        },
+      summary([
+        item(
+          'Fix: confirm first. If it fails: A: `List` renders `role="list"` (axe: fine). B: a short note: "add it".',
+        ),
       ]),
     ).toEqual({
-      notes: [{ kind: "item", level: 0, text: "Still open: it conflicts." }],
+      legend: "Fix with",
+      notes: [item("Fix: confirm first. If it fails:")],
       options: [
-        { id: "A", note: undefined, notes: [], text: "Keep it, with a test" },
-        { id: "B", note: undefined, notes: [], text: "Remove it" },
+        {
+          id: "A",
+          note: undefined,
+          text: '`List` renders `role="list"` (axe: fine)',
+          value: "Fix with option A",
+        },
+        {
+          id: "B",
+          note: undefined,
+          text: 'A short note: "add it"',
+          value: "Fix with option B",
+        },
       ],
     })
   })
 
+  test("splits inline options", () => {
+    expect(
+      summary([
+        item(
+          "Still open: it conflicts. Options: A, keep it, with a test; B, remove it.",
+        ),
+      ]),
+    ).toEqual({
+      legend: "Fix with",
+      notes: [item("Still open: it conflicts.")],
+      options: [
+        {
+          id: "A",
+          note: undefined,
+          text: "Keep it, with a test",
+          value: "Fix with option A",
+        },
+        {
+          id: "B",
+          note: undefined,
+          text: "Remove it",
+          value: "Fix with option B",
+        },
+      ],
+    })
+  })
+
+  test("letters a fix that offers this or that", () => {
+    expect(
+      summary([item("Fix: add `a, or b` (or c) to Grouped, or drop it.")]),
+    ).toEqual({
+      legend: "Fix with",
+      notes: [],
+      options: [
+        {
+          id: "A",
+          note: undefined,
+          text: "Add `a, or b` (or c) to Grouped",
+          value: "Fix with option A: Add `a, or b` (or c) to Grouped",
+        },
+        {
+          id: "B",
+          note: undefined,
+          text: "Drop it",
+          value: "Fix with option B: Drop it",
+        },
+      ],
+    })
+  })
+
+  test("splits a list of unlettered options", () => {
+    expect(
+      fixOptions([
+        item("Still open: Options: keep it, allow pairs (a, b), or drop it."),
+      ]).options.map((option) => option.text),
+    ).toEqual(["Keep it", "Allow pairs (a, b)", "Drop it"])
+  })
+
+  test("names the group after a fix condition", () => {
+    const { legend, notes } = fixOptions([
+      item("Fix if a browser fails: load a polyfill, or keep the fallback."),
+    ])
+
+    expect({ legend, notes }).toEqual({
+      legend: "Fix if a browser fails, with",
+      notes: [],
+    })
+  })
+
+  test("uses the latest options", () => {
+    expect(
+      fixOptions([
+        item("Fix: add it, or drop it."),
+        item("Still open: Options: keep it, or sort all."),
+      ]).options.map((option) => option.text),
+    ).toEqual(["Keep it", "Sort all"])
+  })
+
   test("leaves notes without options alone", () => {
     const notes = [
-      {
-        kind: "item" as const,
-        level: 0,
-        text: "Options: keep it, or drop it.",
-      },
+      item("Fix: Keep them, or settle on `color` everywhere?"),
+      item("Fixed: added it, or so it seems."),
+      item("Fix: one change, or two, or three."),
+      { kind: "comment" as const, level: 0, text: "Fix: this, or that" },
     ]
 
-    expect(fixOptions(notes)).toEqual({ notes, options: [] })
+    expect(fixOptions(notes)).toEqual({
+      legend: "Fix with",
+      notes,
+      options: [],
+    })
   })
 })
 

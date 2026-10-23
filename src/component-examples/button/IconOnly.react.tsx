@@ -19,48 +19,46 @@ export default function IconOnly() {
   return (
     <>
       <div className="example-row">
-        <Button aria-label="Edit" iconOnly>
-          {editIcon}
-        </Button>
-        <Button aria-label="Edit" iconOnly round>
-          {editIcon}
-        </Button>
-      </div>
-      <div className="example-row">
-        <Button aria-label="Edit" iconOnly variant="outlined">
-          {editIcon}
-        </Button>
-        <Button aria-label="Edit" iconOnly round variant="outlined">
+        <Button aria-label="Edit">{editIcon}</Button>
+        <Button aria-label="Edit" round>
           {editIcon}
         </Button>
       </div>
       <div className="example-row">
-        <Button aria-label="Edit" iconOnly variant="tonal">
+        <Button aria-label="Edit" variant="outlined">
           {editIcon}
         </Button>
-        <Button aria-label="Edit" iconOnly round variant="tonal">
-          {editIcon}
-        </Button>
-      </div>
-      <div className="example-row">
-        <Button aria-label="Edit" iconOnly variant="filled">
-          {editIcon}
-        </Button>
-        <Button aria-label="Edit" iconOnly round variant="filled">
+        <Button aria-label="Edit" round variant="outlined">
           {editIcon}
         </Button>
       </div>
       <div className="example-row">
-        <Button aria-label="Edit" iconOnly round size="x-small" variant="tonal">
+        <Button aria-label="Edit" variant="tonal">
           {editIcon}
         </Button>
-        <Button aria-label="Edit" iconOnly round size="small" variant="tonal">
+        <Button aria-label="Edit" round variant="tonal">
           {editIcon}
         </Button>
-        <Button aria-label="Edit" iconOnly round variant="tonal">
+      </div>
+      <div className="example-row">
+        <Button aria-label="Edit" variant="filled">
           {editIcon}
         </Button>
-        <Button aria-label="Edit" iconOnly round size="large" variant="tonal">
+        <Button aria-label="Edit" round variant="filled">
+          {editIcon}
+        </Button>
+      </div>
+      <div className="example-row">
+        <Button aria-label="Edit" round size="x-small" variant="tonal">
+          {editIcon}
+        </Button>
+        <Button aria-label="Edit" round size="small" variant="tonal">
+          {editIcon}
+        </Button>
+        <Button aria-label="Edit" round variant="tonal">
+          {editIcon}
+        </Button>
+        <Button aria-label="Edit" round size="large" variant="tonal">
           {editIcon}
         </Button>
       </div>

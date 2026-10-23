@@ -5,7 +5,7 @@
 <List gutterless>
   <ListItem headline="Gutterless list item">
     {#snippet end()}
-      <Button aria-label="Delete" iconOnly round size="small">
+      <Button aria-label="Delete" round size="small">
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"

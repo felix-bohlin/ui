@@ -8,7 +8,6 @@
     color,
     disabled,
     href,
-    iconOnly: _iconOnly,
     round,
     size,
     variant,

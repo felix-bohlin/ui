@@ -127,9 +127,10 @@ const whatsNew = {
     slots(
       `Breaking: buttons render <code>type="button"</code> by default. Pass <a href="#api"><code>type="submit"</code></a> for submit buttons.`,
     ),
-    components(
-      `<a href="#icon-only"><code>iconOnly</code></a> makes <code>aria-label</code> required on icon-only buttons (types only).`,
-    ),
+    {
+      react: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> when there are no <code>children</code> (types only).`,
+      svelte: `<a href="#icon-only">Icon-only</a> buttons need <code>aria-label</code> when there are no <code>children</code> (types only).`,
+    },
     components(
       `Breaking: a button takes link attributes only with <code>href</code> (<a href="#api">types</a>).`,
     ),

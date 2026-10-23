@@ -15,48 +15,48 @@
   >{/snippet}
 
 <div class="example-row">
-  <Button aria-label="Edit" iconOnly>
+  <Button aria-label="Edit">
     {@render editIcon()}
   </Button>
-  <Button aria-label="Edit" iconOnly round>
-    {@render editIcon()}
-  </Button>
-</div>
-<div class="example-row">
-  <Button aria-label="Edit" iconOnly variant="outlined">
-    {@render editIcon()}
-  </Button>
-  <Button aria-label="Edit" iconOnly round variant="outlined">
+  <Button aria-label="Edit" round>
     {@render editIcon()}
   </Button>
 </div>
 <div class="example-row">
-  <Button aria-label="Edit" iconOnly variant="tonal">
+  <Button aria-label="Edit" variant="outlined">
     {@render editIcon()}
   </Button>
-  <Button aria-label="Edit" iconOnly round variant="tonal">
-    {@render editIcon()}
-  </Button>
-</div>
-<div class="example-row">
-  <Button aria-label="Edit" iconOnly variant="filled">
-    {@render editIcon()}
-  </Button>
-  <Button aria-label="Edit" iconOnly round variant="filled">
+  <Button aria-label="Edit" round variant="outlined">
     {@render editIcon()}
   </Button>
 </div>
 <div class="example-row">
-  <Button aria-label="Edit" iconOnly round size="x-small" variant="tonal">
+  <Button aria-label="Edit" variant="tonal">
     {@render editIcon()}
   </Button>
-  <Button aria-label="Edit" iconOnly round size="small" variant="tonal">
+  <Button aria-label="Edit" round variant="tonal">
     {@render editIcon()}
   </Button>
-  <Button aria-label="Edit" iconOnly round variant="tonal">
+</div>
+<div class="example-row">
+  <Button aria-label="Edit" variant="filled">
     {@render editIcon()}
   </Button>
-  <Button aria-label="Edit" iconOnly round size="large" variant="tonal">
+  <Button aria-label="Edit" round variant="filled">
+    {@render editIcon()}
+  </Button>
+</div>
+<div class="example-row">
+  <Button aria-label="Edit" round size="x-small" variant="tonal">
+    {@render editIcon()}
+  </Button>
+  <Button aria-label="Edit" round size="small" variant="tonal">
+    {@render editIcon()}
+  </Button>
+  <Button aria-label="Edit" round variant="tonal">
+    {@render editIcon()}
+  </Button>
+  <Button aria-label="Edit" round size="large" variant="tonal">
     {@render editIcon()}
   </Button>
 </div>

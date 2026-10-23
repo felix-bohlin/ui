@@ -150,10 +150,10 @@ export const description =
     <h2 id="icon-only">Icon-only</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>iconOnly</code> and name the button with <code
+        Name a button whose only child is an <code>svg</code> with <code
           >aria-label</code
-        >. The types require <code>aria-label</code> when <code>iconOnly</code> is
-        set. Add <code>round</code> for a circle.
+        >. React and Svelte require <code>aria-label</code> when there are no
+        <code>children</code>. Add <code>round</code> for a circle.
       </Fragment>
       <Fragment slot="html">
         Name a button whose only child is an <code>svg</code> with <code

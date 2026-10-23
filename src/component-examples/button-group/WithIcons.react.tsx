@@ -49,13 +49,9 @@ export default function WithIcons() {
   return (
     <>
       <ButtonGroup variant="outlined">
-        <Button aria-label="OK" iconOnly>
-          {checkIcon}
-        </Button>
+        <Button aria-label="OK">{checkIcon}</Button>
         <Button>Maybe</Button>
-        <Button aria-label="No" iconOnly>
-          {closeIcon}
-        </Button>
+        <Button aria-label="No">{closeIcon}</Button>
       </ButtonGroup>
 
       <ButtonGroup variant="outlined">

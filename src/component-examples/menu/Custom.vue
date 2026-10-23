@@ -7,7 +7,6 @@ import { Button, ListItem, Menu } from "opui-css/vue"
     round
     size="small"
     aria-label="More actions"
-    iconOnly
     commandfor="menu-custom-1"
     command="toggle-popover"
   >

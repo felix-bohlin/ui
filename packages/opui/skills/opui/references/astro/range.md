@@ -8,11 +8,11 @@ Label 50 Start text End text
 
   Container element.
 
-- `label / slot="default"`
+- `label / slot="label"`
 
   The label for the range.
 
-- `valueSuffix / slot="value"`
+- `valueSuffix / slot="value-text"`
 
   Shows the current value, with an optional `valueSuffix`.
 
@@ -24,7 +24,7 @@ Label 50 Start text End text
 
   The range input.
 
-- `list / options / slot="datalist"`
+- `items / list / slot="datalist"`
 
   Tick marks and their labels, under the input.
 
@@ -51,15 +51,21 @@ Use the `variant` prop to swap the track surface for better contrast on differen
 import { Range } from "opui-css/astro"
 ---
 
-<Range
-  ><code>outlined</code> (default) = <code>var(--ui-field-border-color)</code
-  ></Range
->
+<Range>
+  <Fragment slot="label"
+    ><code>outlined</code> (default) = <code>var(--ui-field-border-color)</code
+    ></Fragment
+  >
+</Range>
 <Range variant="filled">
-  <code>filled</code> = <code>var(--ui-surface-filled)</code>
+  <Fragment slot="label"
+    ><code>filled</code> = <code>var(--ui-surface-filled)</code></Fragment
+  >
 </Range>
 <Range variant="tonal">
-  <code>tonal</code> = <code>var(--ui-surface-tonal)</code>
+  <Fragment slot="label"
+    ><code>tonal</code> = <code>var(--ui-surface-tonal)</code></Fragment
+  >
 </Range>
 ```
 
@@ -75,7 +81,7 @@ import { Range } from "opui-css/astro"
 
 ## Value
 
-Pass the `valueSuffix` prop to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and its script keeps the text in sync with the input. Content in the `value` named slot replaces the readout. It renders once on the server, and the script leaves it as it is.
+Pass the `valueSuffix` prop to render a live readout of the slider's current value next to the label. The component wires up an `<output>` element and its script keeps the text in sync with the input. Content in the `value-text` slot replaces the readout. It renders once on the server, and the script leaves it as it is.
 
 ```astro
 ---
@@ -91,7 +97,7 @@ import { Range } from "opui-css/astro"
 ---
 
 <Range id="range-value-text-1" label="Temperature" max="30" min="10" value="21">
-  <b slot="value">21°</b>
+  <b slot="value-text">21°</b>
 </Range>
 
 <script>
@@ -107,7 +113,7 @@ import { Range } from "opui-css/astro"
 
 ## Tick marks
 
-Pass an `options` array - `options=[{ value, label }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id, and put your own `<option>` elements in the `datalist` slot.
+Pass an `items` array - `items=[{ label, value }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id, and put your own `<option>` elements in the `datalist` slot.
 
 ```astro
 ---
@@ -116,7 +122,7 @@ import { Range } from "opui-css/astro"
 
 <Range
   label="Tick marks with labels"
-  options={[
+  items={[
     { value: 0, label: "0%" },
     { value: 25, label: "25%" },
     { value: 50, label: "50%" },
@@ -168,27 +174,24 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 import { Range } from "opui-css/astro"
 ---
 
-<Range spread>
-  Spread Layout
+<Range label="Spread Layout" spread>
   <Fragment slot="start-text">Start text</Fragment>
   <Fragment slot="end-text">End text</Fragment>
 </Range>
 
-<Range spread disabled>
-  Disabled
+<Range label="Disabled" spread disabled>
   <Fragment slot="start-text">Start text</Fragment>
   <Fragment slot="end-text">End text</Fragment>
 </Range>
 
-<Range spread error endText="This value is incorrect.">
-  Invalid Range
+<Range label="Invalid Range" spread error endText="This value is incorrect.">
   <Fragment slot="start-text">Start text</Fragment>
 </Range>
 
 <Range
   label="Tick marks with labels"
   spread
-  options={[
+  items={[
     { value: 0, label: "0%" },
     { value: 25, label: "25%" },
     { value: 50, label: "50%" },
@@ -215,9 +218,9 @@ import { Range } from "opui-css/astro"
 | `endText`     | `string`                              | -            | Supporting text displayed below the input.                                                                                         |
 | `error`       | `boolean`                             | `false`      | Marks the control invalid and shows error styles.                                                                                  |
 | `id`          | `string`                              | -            | The id of the `<input>`. Generated when omitted and the value is shown.                                                            |
+| `items`       | `RangeItem[]`                         | -            | Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. |
 | `label`       | `string`                              | -            | The label for the range.                                                                                                           |
-| `list`        | `string`                              | -            | The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.                                               |
-| `options`     | `RangeOption[]`                       | -            | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                                                     |
+| `list`        | `string`                              | -            | The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.                                                 |
 | `spread`      | `boolean`                             | `false`      | Pushes the label and start text to one side and the input to the other.                                                            |
 | `startText`   | `string`                              | -            | Description text displayed above the input.                                                                                        |
 | `value`       | `number` , `string`                   | -            | The current value.                                                                                                                 |
@@ -229,10 +232,10 @@ import { Range } from "opui-css/astro"
 | Slot         | Description                                              |
 | ------------ | -------------------------------------------------------- |
 | `datalist`   | Tick marks and their labels, under the input.            |
-| `default`    | The label for the range.                                 |
 | `end-text`   | Supporting text displayed below the input.               |
+| `label`      | The label for the range.                                 |
 | `start-text` | Description text displayed above the input.              |
-| `value`      | Shows the current value, with an optional `valueSuffix`. |
+| `value-text` | Shows the current value, with an optional `valueSuffix`. |
 
 #### CSS variables
 
@@ -555,6 +558,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`items`](#tick-marks) replaces `options`, the label goes in the `label` slot, and the readout slot is [`value-text`](#value).
 - The empty track reaches 3:1 against the page by default, and with more contrast it takes the page color with an inset edge so the fill stands out.
 - The thumb and fill read [`--ui-choice-accent`](#api) and the empty track `--ui-track-color` when a theme sets them.
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
@@ -562,7 +566,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look. The default is named `outlined`.
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
-- `options` is typed as [`RangeOption[]`](#tick-marks), exported from every framework.
+- [`items`](#tick-marks) is typed as `RangeItem[]`, exported from every framework.
 - [`options`](#tick-marks) renders a linked `<datalist>` without a `list` id.
 - Breaking: `style` goes to the root, like `class`, instead of the `<input>` ([API](#api)).
 - Breaking: extra attributes are typed as `<input>` attributes, where they go ([API](#api)).

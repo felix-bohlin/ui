@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Start text € EUR Header Footer Supporting text
+Label Start text € EUR Top Bottom Supporting text
 
 - `<TextField>`
 
@@ -20,11 +20,11 @@ Label Start text € EUR Header Footer Supporting text
 
   The boxed input area.
 
-- `v-slot:header`
+- `v-slot:top`
 
   Content above the input, inside the border, with a divider.
 
-- `v-slot:prefix`
+- `v-slot:start`
 
   Content at the inline-start of the field, inside the border.
 
@@ -32,11 +32,11 @@ Label Start text € EUR Header Footer Supporting text
 
   The input element.
 
-- `v-slot:suffix`
+- `v-slot:end`
 
   Content at the inline-end of the field, inside the border.
 
-- `v-slot:footer`
+- `v-slot:bottom`
 
   Content below the input, inside the border, with a divider.
 
@@ -106,7 +106,7 @@ import { TextField } from "opui-css/vue"
 
 ## Affix
 
-Use the `prefix`, `suffix`, `header`, and `footer` slots to affix content inside the field's border. Prefix and suffix sit beside the input, while header and footer span the field's full width with a divider.
+Use the `start`, `end`, `top`, and `bottom` slots to affix content inside the field's border. Start and end sit beside the input, while top and bottom span the field's full width with a divider.
 
 ```vue
 <script setup lang="ts">
@@ -115,20 +115,20 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <TextField label="Amount" placeholder="0.00">
-    <template #prefix>€</template>
-    <template #suffix>EUR</template>
+    <template #start>€</template>
+    <template #end>EUR</template>
   </TextField>
 
   <TextField label="Website" placeholder="example.com">
-    <template #prefix>https://</template>
+    <template #start>https://</template>
   </TextField>
 
   <TextField label="Weight" type="numeric" placeholder="0">
-    <template #suffix>kg</template>
+    <template #end>kg</template>
   </TextField>
 
   <TextField label="Search" placeholder="Search...">
-    <template #prefix
+    <template #start
       ><svg
         aria-hidden="true"
         width="16"
@@ -147,9 +147,9 @@ import { TextField } from "opui-css/vue"
 </template>
 ```
 
-### Headers and footers
+### Top and bottom
 
-Use the header for inside-field captions (filenames, categories) and the footer for counters and hints.
+Use the top for inside-field captions (filenames, categories) and the bottom for counters and hints.
 
 ```vue
 <script setup lang="ts">
@@ -158,11 +158,11 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <TextField label="Name" placeholder="Ada Lovelace">
-    <template #header>Shown on your profile</template>
+    <template #top>Shown on your profile</template>
   </TextField>
 
   <TextField label="Tagline" placeholder="A short description">
-    <template #footer>0 / 80</template>
+    <template #bottom>0 / 80</template>
   </TextField>
 </template>
 ```
@@ -245,20 +245,20 @@ import { TextField } from "opui-css/vue"
 
   <TextField spread label="Amount" placeholder="0.00">
     <template #start-text>Daily spending limit</template>
-    <template #prefix>€</template>
-    <template #suffix>EUR</template>
+    <template #start>€</template>
+    <template #end>EUR</template>
   </TextField>
 
   <TextField spread label="Website" placeholder="example.com" variant="filled">
     <template #start-text>Your public profile URL</template>
-    <template #prefix>https://</template>
+    <template #start>https://</template>
     <template #end-text>Must include a valid domain</template>
   </TextField>
 
   <TextField spread label="Project name" placeholder="my-project">
     <template #start-text>Used to generate the project URL</template>
-    <template #header>acme.dev/</template>
-    <template #footer>Lowercase letters and dashes only</template>
+    <template #top>acme.dev/</template>
+    <template #bottom>Lowercase letters and dashes only</template>
   </TextField>
 
   <TextField
@@ -269,7 +269,7 @@ import { TextField } from "opui-css/vue"
     type="password"
   >
     <template #start-text>Stored encrypted at rest</template>
-    <template #prefix>
+    <template #start>
       <svg
         aria-hidden="true"
         width="16"
@@ -285,8 +285,8 @@ import { TextField } from "opui-css/vue"
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </svg>
     </template>
-    <template #header>Secret</template>
-    <template #footer>Rotates every 90 days</template>
+    <template #top>Secret</template>
+    <template #bottom>Rotates every 90 days</template>
     <template #end-text>Treat like a password</template>
   </TextField>
 </template>
@@ -471,14 +471,14 @@ import { TextField } from "opui-css/vue"
 
 | Slot         | Description                                                  |
 | ------------ | ------------------------------------------------------------ |
+| `bottom`     | Content below the input, inside the border, with a divider.  |
 | `default`    | Extra content inside the root, such as a `<datalist>`.       |
+| `end`        | Content at the inline-end of the field, inside the border.   |
 | `end-text`   | Supporting text displayed below the field.                   |
-| `footer`     | Content below the input, inside the border, with a divider.  |
-| `header`     | Content above the input, inside the border, with a divider.  |
 | `label`      | The label for the field.                                     |
-| `prefix`     | Content at the inline-start of the field, inside the border. |
+| `start`      | Content at the inline-start of the field, inside the border. |
 | `start-text` | Start text displayed above the field.                        |
-| `suffix`     | Content at the inline-end of the field, inside the border.   |
+| `top`        | Content above the input, inside the border, with a divider.  |
 
 #### CSS variables
 
@@ -541,7 +541,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |
@@ -747,6 +747,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: the [affix](#affix) slots are `start` and `end` instead of `prefix` and `suffix`, and [`top` and `bottom`](#top-and-bottom) instead of `header` and `footer`.
 - Small and x-small fields set their text in `--ui-font-size-small` and `--ui-font-size-caption`, like buttons.
 - The field border, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.

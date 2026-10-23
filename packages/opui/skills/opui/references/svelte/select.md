@@ -4,7 +4,7 @@ Leverages the [List component](https://open-props-ui.netlify.app/svelte/componen
 
 ## Anatomy
 
-Label Start text Option one (1) ¤ EUR Header Footer Supporting text
+Label Start text Option one (1) ¤ EUR Top Bottom Supporting text
 
 - `<Select>`
 
@@ -22,11 +22,11 @@ Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
   The boxed select area.
 
-- `header`
+- `top`
 
   Content above the select, inside the border, with a divider.
 
-- `prefix`
+- `start`
 
   Content at the inline-start of the field, inside the border.
 
@@ -34,11 +34,11 @@ Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
   The select. Its options are in a popover list.
 
-- `suffix`
+- `end`
 
   Content at the inline-end of the field, inside the border.
 
-- `footer`
+- `bottom`
 
   Content below the select, inside the border, with a divider.
 
@@ -146,7 +146,7 @@ Use `endText` for supporting text below the select.
 
 ## Affix
 
-Use the `prefix` and `suffix` snippets to affix icons or short text alongside the select inside the field's border.
+Use the `start` and `end` snippets to affix icons or short text alongside the select inside the field's border.
 
 ```svelte
 <script lang="ts">
@@ -154,7 +154,7 @@ Use the `prefix` and `suffix` snippets to affix icons or short text alongside th
 </script>
 
 <Select label="Currency">
-  {#snippet prefix()}¤{/snippet}
+  {#snippet start()}¤{/snippet}
   <option value="">-</option>
   <option>EUR</option>
   <option>SEK</option>
@@ -162,7 +162,7 @@ Use the `prefix` and `suffix` snippets to affix icons or short text alongside th
 </Select>
 
 <Select label="Country">
-  {#snippet prefix()}<svg
+  {#snippet start()}<svg
       aria-hidden="true"
       width="16"
       height="16"
@@ -186,16 +186,16 @@ Use the `prefix` and `suffix` snippets to affix icons or short text alongside th
 </Select>
 
 <Select label="Delivery time">
-  {#snippet suffix()}days{/snippet}
+  {#snippet end()}days{/snippet}
   <option>1</option>
   <option>3</option>
   <option>5</option>
 </Select>
 ```
 
-## Header and footer
+## Top and bottom
 
-Use the `header` and `footer` snippets for short text or a link above and below the select, inside the field's border and set off by a divider.
+Use the `top` and `bottom` snippets for short text or a link above and below the select, inside the field's border and set off by a divider.
 
 They sit outside the list of options, so they can't filter it. Keep form controls out of them, since the select's `<label>` wraps them.
 
@@ -207,8 +207,8 @@ The select's `aria-describedby` points at them, so screen readers read them with
 </script>
 
 <Select label="Car">
-  {#snippet header()}Company cars only{/snippet}
-  {#snippet footer()}<a class="ui-link" href="#">Manage cars…</a>{/snippet}
+  {#snippet top()}Company cars only{/snippet}
+  {#snippet bottom()}<a class="ui-link" href="#">Manage cars…</a>{/snippet}
   <option value="">-</option>
   <option>Kia EV6</option>
   <option>Volkswagen ID.4</option>
@@ -230,9 +230,9 @@ Set `value` or `bind:value` to preselect an option, or `selected: true` on an it
 <Select
   label="Role"
   items={[
-    { text: "Designer", value: "designer" },
-    { text: "Developer", value: "developer" },
-    { text: "Manager", value: "manager" },
+    { label: "Designer", value: "designer" },
+    { label: "Developer", value: "developer" },
+    { label: "Manager", value: "manager" },
   ]}
   bind:value={role}
 />
@@ -240,9 +240,9 @@ Set `value` or `bind:value` to preselect an option, or `selected: true` on an it
 <Select
   label="Team"
   items={[
-    { text: "Design", value: "design" },
-    { selected: true, text: "Engineering", value: "engineering" },
-    { text: "Sales", value: "sales" },
+    { label: "Design", value: "design" },
+    { label: "Engineering", selected: true, value: "engineering" },
+    { label: "Sales", value: "sales" },
   ]}
 />
 ```
@@ -371,7 +371,7 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 <Select spread>
   {#snippet label()}Time zone{/snippet}
   {#snippet startText()}Used for reminders and due dates{/snippet}
-  {#snippet prefix()}UTC{/snippet}
+  {#snippet start()}UTC{/snippet}
   <option>-03:00</option>
   <option>+00:00</option>
   <option>+01:00</option>
@@ -382,7 +382,7 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 <Select spread variant="filled">
   {#snippet label()}Region{/snippet}
   {#snippet startText()}Affects data residency and latency{/snippet}
-  {#snippet prefix()}
+  {#snippet start()}
     <svg
       aria-hidden="true"
       width="16"
@@ -430,20 +430,20 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | Prop                                                                                                                                                                           | Type                                             | Default      | Description                                                              |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ | ------------ | ------------------------------------------------------------------------ |
 | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number` , `(string \| number)[]`     | -            | The selected value, or values with `multiple`.                           |
+| `bottom`                                                                                                                                                                       | `Snippet` , `string`                             | -            | Content below the select, inside the border, with a divider.             |
 | `children`                                                                                                                                                                     | `Snippet`                                        | -            | Extra `<option>` and `<optgroup>` elements.                              |
 | `dense`                                                                                                                                                                        | `boolean`                                        | `false`      | Packs the items tighter.                                                 |
+| `end`                                                                                                                                                                          | `Snippet` , `string`                             | -            | Content at the inline-end of the field, inside the border.               |
 | `endText`                                                                                                                                                                      | `Snippet` , `string`                             | -            | Supporting text displayed below the field.                               |
 | `error`                                                                                                                                                                        | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                        |
-| `footer`                                                                                                                                                                       | `Snippet` , `string`                             | -            | Content below the select, inside the border, with a divider.             |
-| `header`                                                                                                                                                                       | `Snippet` , `string`                             | -            | Content above the select, inside the border, with a divider.             |
 | `id`                                                                                                                                                                           | `string`                                         | -            | The id of the `<select>`.                                                |
-| `items`                                                                                                                                                                        | `SelectItem[]`                                   | `[]`         | The options, as `{ selected, text, value }` objects.                     |
+| `items`                                                                                                                                                                        | `SelectItem[]`                                   | `[]`         | The options, as `{ label, selected, value }` objects.                    |
 | `label`                                                                                                                                                                        | `Snippet` , `string`                             | -            | The label for the field.                                                 |
-| `prefix`                                                                                                                                                                       | `Snippet` , `string`                             | -            | Content at the inline-start of the field, inside the border.             |
 | `size`                                                                                                                                                                         | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                 |
 | `spread`                                                                                                                                                                       | `boolean`                                        | `false`      | Pushes the label and start text to one side and the select to the other. |
+| `start`                                                                                                                                                                        | `Snippet` , `string`                             | -            | Content at the inline-start of the field, inside the border.             |
 | `startText`                                                                                                                                                                    | `Snippet` , `string`                             | -            | Start text displayed above the field.                                    |
-| `suffix`                                                                                                                                                                       | `Snippet` , `string`                             | -            | Content at the inline-end of the field, inside the border.               |
+| `top`                                                                                                                                                                          | `Snippet` , `string`                             | -            | Content above the select, inside the border, with a divider.             |
 | `variant`                                                                                                                                                                      | `"filled"` , `"outlined"`                        | `"outlined"` | The variant to use.                                                      |
 
 #### CSS variables
@@ -539,7 +539,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |

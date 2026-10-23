@@ -16,7 +16,7 @@ Supporting text
 
   Container element. Spaces its fieldsets and fields.
 
-- `<FieldSet>`
+- `<Fieldset>`
 
   Groups related fields.
 
@@ -44,14 +44,14 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend><!-- --></FieldLegend>
       <FieldDescription><!-- --></FieldDescription>
       <FieldGroup>
@@ -60,7 +60,7 @@ import {
       <FieldGroup>
         <!-- -->
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>
 ```
@@ -75,13 +75,13 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/vue"
 </script>
 
 <template>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Favorite Pet</FieldLegend>
     <FieldDescription
       >Please select your favorite type of pet.</FieldDescription
@@ -91,7 +91,7 @@ import {
       <Radio value="dog">Dog</Radio>
       <Radio value="hamster">Hamster</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </template>
 ```
 
@@ -106,7 +106,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Radio,
 } from "opui-css/vue"
@@ -114,7 +114,7 @@ import {
 
 <template>
   <Form>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Choose your favorite Radiohead album</FieldLegend>
       <FieldDescription>There are no wrong answers.</FieldDescription>
       <FieldGroup name="albums">
@@ -123,9 +123,9 @@ import {
         <Radio value="in-rainbows">In Rainbows</Radio>
         <Radio value="king-of-limbs">The King of Limbs</Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Which side projects do you follow?</FieldLegend>
       <FieldDescription>Some are better than others.</FieldDescription>
       <FieldGroup name="projects">
@@ -152,7 +152,7 @@ import {
           >
         </Checkbox>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>
 ```
@@ -163,19 +163,19 @@ Set `orientation="horizontal"` to lay out fields horizontally.
 
 ```vue
 <script setup lang="ts">
-import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
+import { Checkbox, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Options</FieldLegend>
       <FieldGroup orientation="horizontal">
         <Checkbox>Option 1</Checkbox>
         <Checkbox>Option 2</Checkbox>
         <Checkbox>Option 3</Checkbox>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>
 ```
@@ -184,7 +184,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 
 ### Disabled
 
-Set `disabled` on `FieldSet` to disable every field inside.
+Set `disabled` on `Fieldset` to disable every field inside.
 
 ```vue
 <script setup lang="ts">
@@ -193,25 +193,25 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
 } from "opui-css/vue"
 </script>
 
 <template>
-  <FieldSet disabled>
+  <Fieldset disabled>
     <FieldLegend>Pet dating</FieldLegend>
     <FieldDescription>You can't change these settings</FieldDescription>
     <FieldGroup name="notifications">
       <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
       <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </template>
 ```
 
 ### Invalid
 
-Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end-text` directly inside it. The end text turns red when a field has `error` set.
+Set `error` on each field in the `Fieldset`, and explain the error in a `.ui-end-text` directly inside it. The end text turns red when a field has `error` set.
 
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
@@ -222,12 +222,12 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
 } from "opui-css/vue"
 </script>
 
 <template>
-  <FieldSet aria-describedby="form-fieldset-invalid-1-error">
+  <Fieldset aria-describedby="form-fieldset-invalid-1-error">
     <FieldLegend>Pet food</FieldLegend>
     <FieldDescription>Pick at least one.</FieldDescription>
     <FieldGroup name="food">
@@ -237,7 +237,7 @@ import {
     <span class="ui-end-text" id="form-fieldset-invalid-1-error"
       >Your pet is hungry.</span
     >
-  </FieldSet>
+  </Fieldset>
 </template>
 ```
 
@@ -251,21 +251,21 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Textarea,
   TextField,
 } from "opui-css/vue"
 </script>
 
 <template>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Pet info</FieldLegend>
     <FieldDescription>We must know your pet's information.</FieldDescription>
     <FieldGroup>
       <TextField label="Name" name="name" />
       <Textarea label="Life story" name="story" required />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </template>
 ```
 
@@ -280,7 +280,7 @@ import {
   Divider,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   TextField,
 } from "opui-css/vue"
@@ -288,12 +288,12 @@ import {
 
 <template>
   <Form>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Post Content</FieldLegend>
       <FieldGroup>
         <TextField label="Title" placeholder="My new post" />
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
@@ -320,21 +320,21 @@ import { Button, FieldGroup } from "opui-css/vue"
 
 ## Without fieldset
 
-Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `FieldSet` and `FieldLegend`. A `div` doesn't pick up its name from the legend, so give the legend an `id` and point `aria-labelledby` on the field set at it.
+Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `Fieldset` and `FieldLegend`. A `div` doesn't pick up its name from the legend, so give the legend an `id` and point `aria-labelledby` on the field set at it.
 
 ```vue
 <script setup lang="ts">
-import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/vue"
+import { FieldDescription, FieldLegend, Fieldset, Form } from "opui-css/vue"
 </script>
 
 <template>
   <Form as="div">
-    <FieldSet aria-labelledby="form-adaptive-output-1-legend" as="div">
+    <Fieldset aria-labelledby="form-adaptive-output-1-legend" as="div">
       <FieldLegend as="p" id="form-adaptive-output-1-legend"
         >Delivery</FieldLegend
       >
       <FieldDescription>Rendered as div and p elements.</FieldDescription>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>
 ```
@@ -352,7 +352,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Radio,
   Range,
@@ -363,15 +363,15 @@ import {
 } from "opui-css/vue"
 
 const roleItems = [
-  { text: "Designer", value: "design" },
-  { text: "Developer", value: "dev" },
-  { text: "Manager", value: "manager" },
+  { label: "Designer", value: "design" },
+  { label: "Developer", value: "dev" },
+  { label: "Manager", value: "manager" },
 ]
 </script>
 
 <template>
   <Form id="form-kitchen-sink-1">
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>User Profile</FieldLegend>
       <FieldDescription>
         Please provide your basic contact details.
@@ -392,11 +392,11 @@ const roleItems = [
         />
         <Select label="Role" :items="roleItems" />
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Notifications</FieldLegend>
       <FieldDescription>
         Configure how you want to receive updates.
@@ -405,11 +405,11 @@ const roleItems = [
         <Switch name="email_notifs" checked>Email Notifications</Switch>
         <Switch name="sms_notifs">SMS Notifications</Switch>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Theme Preference</FieldLegend>
       <FieldDescription>Select your preferred visual style.</FieldDescription>
       <FieldGroup name="theme">
@@ -417,11 +417,11 @@ const roleItems = [
         <Radio value="dark">Dark Theme</Radio>
         <Radio value="system">System Default</Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Experience Level</FieldLegend>
       <FieldDescription>
         How many years of experience do you have?
@@ -436,11 +436,11 @@ const roleItems = [
           startText="Drag the slider to match your total tenure."
         />
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Additional Info</FieldLegend>
       <FieldDescription>Anything else we should know?</FieldDescription>
       <FieldGroup>
@@ -451,11 +451,11 @@ const roleItems = [
           :rows="4"
         />
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Legal</FieldLegend>
       <FieldGroup>
         <Checkbox name="terms" required>
@@ -463,7 +463,7 @@ const roleItems = [
           <template #end-text>Support this text</template>
         </Checkbox>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
@@ -513,7 +513,7 @@ const roleItems = [
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-### Field set API
+### Fieldset API
 
 | Prop       | Type                   | Default      | Description                                                                                                            |
 | ---------- | ---------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
@@ -824,7 +824,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
-- Breaking: [`FieldGroup`](#field-group) no longer sets `role="group"`. Wrap it in a `FieldSet` to group and name the fields.
-- Breaking: set `error` on each field instead of `data-invalid` on the `FieldSet` ([Invalid](#fieldset-invalid)).
-- `Form`, `FieldSet` and `FieldLegend` type [`as`](#without-fieldset) as `"div" | "form"`, `"div" | "fieldset"` and `"legend" | "p"`.
+- Breaking: `FieldSet` is [`Fieldset`](#fieldset).
+- Breaking: [`FieldGroup`](#field-group) no longer sets `role="group"`. Wrap it in a `Fieldset` to group and name the fields.
+- Breaking: set `error` on each field instead of `data-invalid` on the `Fieldset` ([Invalid](#fieldset-invalid)).
+- `Form`, `Fieldset` and `FieldLegend` type [`as`](#without-fieldset) as `"div" | "form"`, `"div" | "fieldset"` and `"legend" | "p"`.
 - Breaking: [`FieldGroup`](#field-group-horizontal) `direction` is `orientation` (`"auto"`, the default, `"horizontal"`, `"vertical"`), like `ButtonGroup`.

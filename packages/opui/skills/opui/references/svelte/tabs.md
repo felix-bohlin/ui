@@ -16,7 +16,7 @@ General account settings.
 
   A visually hidden radio input that holds a tab's state. The tab is its label.
 
-- `<TabsTab>`
+- `<TabsLabel>`
 
   A tab.
 
@@ -30,20 +30,20 @@ The default `variant` is `tonal`: the tabs sit on a tonal track and the selected
 
 ```svelte
 <script lang="ts">
-  import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/svelte"
+  import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"
 </script>
 
 <Tabs name="basic-tabs">
   <TabsItem checked>
-    <TabsTab>Profile</TabsTab>
+    <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Settings</TabsTab>
+    <TabsLabel>Settings</TabsLabel>
     <TabsPanel>General account settings.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Notifications</TabsTab>
+    <TabsLabel>Notifications</TabsLabel>
     <TabsPanel>Manage your notifications.</TabsPanel>
   </TabsItem>
 </Tabs>
@@ -55,20 +55,20 @@ Use `variant="filled"` to fill the selected tab with the primary color.
 
 ```svelte
 <script lang="ts">
-  import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/svelte"
+  import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"
 </script>
 
 <Tabs name="filled-tabs" variant="filled">
   <TabsItem checked>
-    <TabsTab>Profile</TabsTab>
+    <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Settings</TabsTab>
+    <TabsLabel>Settings</TabsLabel>
     <TabsPanel>General account settings.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Notifications</TabsTab>
+    <TabsLabel>Notifications</TabsLabel>
     <TabsPanel>Manage your notifications.</TabsPanel>
   </TabsItem>
 </Tabs>
@@ -80,20 +80,20 @@ Use `variant="line"` for tabs without a background, marking the selected tab wit
 
 ```svelte
 <script lang="ts">
-  import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/svelte"
+  import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"
 </script>
 
 <Tabs name="line-tabs" variant="line">
   <TabsItem checked>
-    <TabsTab>Profile</TabsTab>
+    <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Settings</TabsTab>
+    <TabsLabel>Settings</TabsLabel>
     <TabsPanel>General account settings.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Notifications</TabsTab>
+    <TabsLabel>Notifications</TabsLabel>
     <TabsPanel>Manage your notifications.</TabsPanel>
   </TabsItem>
 </Tabs>
@@ -105,20 +105,20 @@ Use `variant="outlined"` for a bordered track without a background.
 
 ```svelte
 <script lang="ts">
-  import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/svelte"
+  import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"
 </script>
 
 <Tabs name="outlined-tabs" variant="outlined">
   <TabsItem checked>
-    <TabsTab>Profile</TabsTab>
+    <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Settings</TabsTab>
+    <TabsLabel>Settings</TabsLabel>
     <TabsPanel>General account settings.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Notifications</TabsTab>
+    <TabsLabel>Notifications</TabsLabel>
     <TabsPanel>Manage your notifications.</TabsPanel>
   </TabsItem>
 </Tabs>
@@ -130,40 +130,40 @@ Tabs wrap onto more rows when they don't fit. Use `overflow="scroll"` to keep th
 
 ```svelte
 <script lang="ts">
-  import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/svelte"
+  import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/svelte"
 </script>
 
 <Tabs name="overflow-tabs" overflow="scroll">
   <TabsItem checked>
-    <TabsTab>Profile</TabsTab>
+    <TabsLabel>Profile</TabsLabel>
     <TabsPanel>Profile settings and information.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Settings</TabsTab>
+    <TabsLabel>Settings</TabsLabel>
     <TabsPanel>General account settings.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Notifications</TabsTab>
+    <TabsLabel>Notifications</TabsLabel>
     <TabsPanel>Manage your notifications.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Billing</TabsTab>
+    <TabsLabel>Billing</TabsLabel>
     <TabsPanel>Plans, invoices and payment methods.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Security</TabsTab>
+    <TabsLabel>Security</TabsLabel>
     <TabsPanel>Passwords, sessions and two-factor authentication.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Integrations</TabsTab>
+    <TabsLabel>Integrations</TabsLabel>
     <TabsPanel>Connected apps and webhooks.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Team</TabsTab>
+    <TabsLabel>Team</TabsLabel>
     <TabsPanel>Members and roles.</TabsPanel>
   </TabsItem>
   <TabsItem>
-    <TabsTab>Advanced</TabsTab>
+    <TabsLabel>Advanced</TabsLabel>
     <TabsPanel>Export data or delete the account.</TabsPanel>
   </TabsItem>
 </Tabs>
@@ -281,7 +281,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-### Tabs tab API
+### Tabs label API
 
 | Prop       | Type      | Default | Description                                     |
 | ---------- | --------- | ------- | ----------------------------------------------- |
@@ -564,6 +564,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The selected pill has a border, `--ui-control-border-color` or the field border, so it reaches 3:1 against the track without the shadow.
 - The outlined track reads [`--ui-control-border-color`](#api) for its border, like outlined buttons.
 - Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`.
+- Breaking: `TabsTab` is [`TabsLabel`](#api).
 - Tabs that [scroll](#overflow) with `overflow="scroll"`.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with the `variant` prop.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

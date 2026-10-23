@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Start text  € EUR Header Footer Supporting text
+Label Start text  € EUR Top Bottom Supporting text
 
 - `label.ui-textarea`
 
@@ -20,11 +20,11 @@ Label Start text  € EUR Header Footer Supporting text
 
   The boxed textarea area.
 
-- `.ui-header`
+- `.ui-field > .ui-top`
 
   Content above the textarea, inside the border, with a divider.
 
-- `.ui-prefix`
+- `.ui-field > .ui-start`
 
   Content at the inline-start of the field, inside the border.
 
@@ -32,11 +32,11 @@ Label Start text  € EUR Header Footer Supporting text
 
   The textarea element.
 
-- `.ui-suffix`
+- `.ui-field > .ui-end`
 
   Content at the inline-end of the field, inside the border.
 
-- `.ui-footer`
+- `.ui-field > .ui-bottom`
 
   Content below the textarea, inside the border, with a divider.
 
@@ -136,14 +136,14 @@ Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the 
 
 ## Affix
 
-Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.ui-field` to affix content inside the textarea's border.
+Add `.ui-start`, `.ui-end`, `.ui-top`, or `.ui-bottom` elements inside `.ui-field` to affix content inside the textarea's border.
 
 ```html
 <label class="ui-textarea">
   <span class="ui-label">Notes</span>
   <span class="ui-field">
     <textarea placeholder="Add a note..."></textarea>
-    <span class="ui-prefix">
+    <span class="ui-start">
       <svg
         aria-hidden="true"
         width="16"
@@ -170,19 +170,19 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
   <span class="ui-label">Comment</span>
   <span class="ui-field">
     <textarea placeholder="Write a comment..."></textarea>
-    <span class="ui-suffix">Markdown</span>
+    <span class="ui-end">Markdown</span>
   </span>
 </label>
 ```
 
-### Headers and footers
+### Top and bottom
 
 ```html
 <label class="ui-textarea">
   <span class="ui-label">Code</span>
   <span class="ui-field">
     <textarea placeholder="console.log('Hello, world!')"></textarea>
-    <span class="ui-header">script.js</span>
+    <span class="ui-top">script.js</span>
   </span>
 </label>
 
@@ -190,7 +190,7 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
   <span class="ui-label">Comment</span>
   <span class="ui-field">
     <textarea placeholder="Write a comment..."></textarea>
-    <span class="ui-footer">0 / 280</span>
+    <span class="ui-bottom">0 / 280</span>
   </span>
 </label>
 ```
@@ -293,7 +293,7 @@ Add the `.ui-spread` class to display the label and start text on the left with 
   <span class="ui-start-text">Shown on your public profile</span>
   <span class="ui-field">
     <textarea placeholder="Tell us about yourself..."></textarea>
-    <span class="ui-prefix">
+    <span class="ui-start">
       <svg
         aria-hidden="true"
         width="16"
@@ -313,7 +313,7 @@ Add the `.ui-spread` class to display the label and start text on the left with 
         ></path>
       </svg>
     </span>
-    <span class="ui-footer">280 characters left</span>
+    <span class="ui-bottom">280 characters left</span>
   </span>
 </label>
 
@@ -322,8 +322,8 @@ Add the `.ui-spread` class to display the label and start text on the left with 
   <span class="ui-start-text">Shown on the changelog page</span>
   <span class="ui-field">
     <textarea placeholder="Markdown supported..."></textarea>
-    <span class="ui-header">v1.4.0</span>
-    <span class="ui-footer">Saved 2 minutes ago</span>
+    <span class="ui-top">v1.4.0</span>
+    <span class="ui-bottom">Saved 2 minutes ago</span>
   </span>
   <span class="ui-end-text">Drafts are auto-saved</span>
 </label>
@@ -348,7 +348,7 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 
 | Type       | Modifiers                                        | Default | Description                                                                |
 | ---------- | ------------------------------------------------ | ------- | -------------------------------------------------------------------------- |
-| Auto-fit   | `.ui-auto-fit`                                   | -       | Lets the width follow the content and allows resizing in both directions.  |
+| Auto fit   | `.ui-auto-fit`                                   | -       | Lets the width follow the content and allows resizing in both directions.  |
 | Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                   |
 | Spread     | `.ui-spread`                                     | -       | Pushes the label and start text to one side and the textarea to the other. |
 | Validation | `textarea[aria-invalid="true"]`                  | -       | Marks the control invalid and shows error styles.                          |
@@ -356,18 +356,18 @@ Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`).
 
 #### Parts
 
-| Part                | Description                                                    |
-| ------------------- | -------------------------------------------------------------- |
-| `label.ui-textarea` | Container element.                                             |
-| `.ui-label`         | The label for the field.                                       |
-| `.ui-start-text`    | Start text displayed above the field.                          |
-| `.ui-field`         | The boxed textarea area.                                       |
-| `.ui-header`        | Content above the textarea, inside the border, with a divider. |
-| `.ui-prefix`        | Content at the inline-start of the field, inside the border.   |
-| `<textarea>`        | The textarea element.                                          |
-| `.ui-suffix`        | Content at the inline-end of the field, inside the border.     |
-| `.ui-footer`        | Content below the textarea, inside the border, with a divider. |
-| `.ui-end-text`      | Supporting text displayed below the field.                     |
+| Part                     | Description                                                    |
+| ------------------------ | -------------------------------------------------------------- |
+| `label.ui-textarea`      | Container element.                                             |
+| `.ui-label`              | The label for the field.                                       |
+| `.ui-start-text`         | Start text displayed above the field.                          |
+| `.ui-field`              | The boxed textarea area.                                       |
+| `.ui-field > .ui-top`    | Content above the textarea, inside the border, with a divider. |
+| `.ui-field > .ui-start`  | Content at the inline-start of the field, inside the border.   |
+| `<textarea>`             | The textarea element.                                          |
+| `.ui-field > .ui-end`    | Content at the inline-end of the field, inside the border.     |
+| `.ui-field > .ui-bottom` | Content below the textarea, inside the border, with a divider. |
+| `.ui-end-text`           | Supporting text displayed below the field.                     |
 
 #### CSS variables
 
@@ -430,7 +430,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |
@@ -595,6 +595,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`.ui-start` and `.ui-end`](#affix) replace `.ui-prefix` and `.ui-suffix`, and [`.ui-top` and `.ui-bottom`](#top-and-bottom) replace `.ui-header` and `.ui-footer`.
 - Small and x-small fields set their text in `--ui-font-size-small` and `--ui-font-size-caption`, like buttons.
 - The field border, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.

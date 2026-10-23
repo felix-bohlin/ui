@@ -16,7 +16,7 @@ Chip
 
 - `label`
 
-  The label.
+  The label, text or rich content.
 
 - `end`
 
@@ -94,6 +94,7 @@ export default function Icon() {
   return (
     <>
       <Chip
+        label="Tonal"
         variant="tonal"
         start={
           <svg
@@ -109,10 +110,9 @@ export default function Icon() {
             ></path>
           </svg>
         }
-      >
-        <span className="ui-text">Tonal</span>
-      </Chip>
+      />
       <Chip
+        label="Outlined"
         variant="outlined"
         end={
           <svg
@@ -128,9 +128,7 @@ export default function Icon() {
             ></path>
           </svg>
         }
-      >
-        <span className="ui-text">Outlined</span>
-      </Chip>
+      />
     </>
   )
 }
@@ -212,6 +210,7 @@ export default function Button() {
       </div>
       <div className="example-row">
         <Chip
+          label="Open now"
           as="button"
           variant="tonal"
           start={
@@ -228,10 +227,9 @@ export default function Button() {
               ></path>
             </svg>
           }
-        >
-          <span className="ui-text">Open now</span>
-        </Chip>
+        />
         <Chip
+          label="Sort by"
           as="button"
           variant="outlined"
           end={
@@ -248,9 +246,7 @@ export default function Button() {
               ></path>
             </svg>
           }
-        >
-          <span className="ui-text">Sort by</span>
-        </Chip>
+        />
       </div>
     </>
   )
@@ -269,6 +265,7 @@ export default function Link() {
     <>
       <Chip href="#" variant="tonal" label="Tonal link" />
       <Chip
+        label="Outlined link"
         href="#"
         variant="outlined"
         end={
@@ -285,9 +282,7 @@ export default function Link() {
             ></path>
           </svg>
         }
-      >
-        <span className="ui-text">Outlined link</span>
-      </Chip>
+      />
     </>
   )
 }
@@ -295,7 +290,7 @@ export default function Link() {
 
 ## Disabled
 
-Disable a button or link chip with the `disabled` prop. A link chip drops its `href` and gets `aria-disabled="true"` instead. A static chip can't be disabled, so `className="ui-disabled"` only dims it a little and keeps its text readable.
+Disable a button or link chip with the `disabled` prop. A link chip drops its `href` and gets `aria-disabled="true"` instead. A static chip can't be disabled, so `aria-disabled="true"` only dims it a little and keeps its text readable.
 
 ```tsx
 import { Chip } from "opui-css/react"
@@ -306,7 +301,7 @@ export default function Disabled() {
       <Chip as="button" variant="tonal" label="Tonal" disabled />
       <Chip as="button" variant="outlined" label="Outlined" disabled />
       <Chip disabled href="#" label="Tonal link" />
-      <Chip className="ui-disabled" label="Archived" />
+      <Chip aria-disabled="true" label="Archived" />
     </>
   )
 }
@@ -319,12 +314,11 @@ export default function Disabled() {
 | Prop        | Type                                                              | Default    | Description                                                                                   |
 | ----------- | ----------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------- |
 | `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`    | The element to render. Defaults to `"a"` with `href`.                                         |
-| `children`  | `ReactNode`                                                       | -          | Content placed before the label.                                                              |
 | `disabled`  | `boolean`                                                         | `false`    | Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead. |
 | `dot`       | `boolean`                                                         | `false`    | Adds a leading dot in the chip's color. Its shape follows the severity.                       |
 | `end`       | `ReactNode`                                                       | -          | Optional content at the end, such as an icon.                                                 |
 | `href`      | `string`                                                          | -          | The link to use. Renders an `<a>`.                                                            |
-| `label`     | `string`                                                          | -          | The label.                                                                                    |
+| `label`     | `ReactNode`                                                       | -          | The label, text or rich content.                                                              |
 | `multiline` | `boolean`                                                         | `false`    | Lets the label wrap to multiple lines.                                                        |
 | `severity`  | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -          | The severity of a status chip. It tints the chip, and colors and shapes its dot.              |
 | `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"`                  | `"medium"` | The size of the element.                                                                      |
@@ -522,7 +516,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - [Severities](#severities) for statuses with `severity`, and a shape-coded [`dot`](#dot).
-- [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
+- [Disabled](#disabled) chips: `aria-disabled="true"` on a link chip, and on a static chip to dim it.
 - Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
 - [`disabled`](#disabled) works on button and link chips. A link chip gets `aria-disabled="true"`.
 - Breaking: a button chip needs `as="button"`, and a link chip needs `href` ([types](#api)).

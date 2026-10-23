@@ -322,7 +322,7 @@ import {
   DialogHeader,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/astro"
 ---
@@ -340,14 +340,14 @@ import {
     <h2 class="ui-h4">How to close</h2>
   </DialogHeader>
   <DialogContent>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Choose a closing behavior:</FieldLegend>
       <FieldGroup name="closedby-demo">
         <Radio value="any" checked>any</Radio>
         <Radio value="closerequest">closerequest</Radio>
         <Radio value="none">none</Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </DialogContent>
   <DialogActions>
     <Button commandfor="dialog-close-behaviors-1" command="close">

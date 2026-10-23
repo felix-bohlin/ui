@@ -31,21 +31,21 @@ The `name` prop will get passed down to each radio button in the group.
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="radio-group">
       <Radio value="1" checked>Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -112,7 +112,7 @@ The `children` snippet is the label. Without a visible label, keep the text in i
 
 ### Label position
 
-Set `stack` to put the label under the radio.
+Set `orientation="vertical"` to put the label under the radio.
 
 ```svelte
 <script lang="ts">
@@ -120,7 +120,9 @@ Set `stack` to put the label under the radio.
 </script>
 
 <Radio name="radio-label-position" value="default" checked>Default</Radio>
-<Radio name="radio-label-position" value="stack" stack>Stack</Radio>
+<Radio name="radio-label-position" value="stack" orientation="vertical"
+  >Stack</Radio
+>
 ```
 
 ### End text
@@ -135,7 +137,12 @@ Use the `endText` prop for supporting text under a single radio's label, or an `
 <Radio name="radio-end-text" value="default" checked endText="Supporting text">
   Default
 </Radio>
-<Radio name="radio-end-text" value="stack" stack endText="Supporting text">
+<Radio
+  name="radio-end-text"
+  value="stack"
+  orientation="vertical"
+  endText="Supporting text"
+>
   Stack
 </Radio>
 ```
@@ -149,14 +156,14 @@ Use the `spread` prop to push the label to the left and the radio to the right. 
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Delivery</FieldLegend>
     <FieldGroup name="radio-spread">
       <Radio value="standard" checked spread>
@@ -172,7 +179,7 @@ Use the `spread` prop to push the label to the left and the radio to the right. 
         {#snippet endText()}Not available in your area.{/snippet}
       </Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -199,21 +206,21 @@ Radios stack vertically by default. Set `orientation="horizontal"` on the `Field
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="radio-group-orientation" orientation="horizontal">
       <Radio value="1" checked>Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -227,14 +234,14 @@ Can be placed above and below the fields.
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
     <FieldGroup orientation="horizontal" name="radio-group-field-description-1">
@@ -242,9 +249,9 @@ Can be placed above and below the fields.
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="radio-group-field-description-2">
       <Radio value="1" checked>Radio 1</Radio>
@@ -252,13 +259,13 @@ Can be placed above and below the fields.
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
     <FieldDescription>Field description below fields</FieldDescription>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
 ## Disabled
 
-Set `disabled` on the `FieldSet` to disable every radio in it, or on a single `Radio`.
+Set `disabled` on the `Fieldset` to disable every radio in it, or on a single `Radio`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the radio focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
@@ -267,21 +274,21 @@ Set `disabled` on the `FieldSet` to disable every radio in it, or on a single `R
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet disabled>
+  <Fieldset disabled>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="radio-group-disabled">
       <Radio value="1" checked>Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -294,27 +301,27 @@ Set the `required` prop on at least one `Radio`. It is forwarded to the underlyi
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>These are required!</FieldLegend>
     <FieldGroup orientation="horizontal" name="radio-group-required">
       <Radio value="1" required>Radio 1</Radio>
       <Radio value="2" required>Radio 2</Radio>
       <Radio value="3" required>Radio 3</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
 ## Validation
 
-Set `error` on each `Radio` in the group. The end text of the `FieldSet` turns red with them.
+Set `error` on each `Radio` in the group. The end text of the `Fieldset` turns red with them.
 
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
@@ -323,14 +330,14 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet aria-describedby="radio-field-group-validation-1-error">
+  <Fieldset aria-describedby="radio-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="radio-group-validation">
       <Radio checked error value="1">Radio 1</Radio>
@@ -340,7 +347,7 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
     <span class="ui-end-text" id="radio-field-group-validation-1-error"
       >Something went wrong!</span
     >
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -354,7 +361,7 @@ Bind the selected value with `bind:group` on each `Radio`. It holds the `value` 
     Button,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Radio,
   } from "opui-css/svelte"
 
@@ -365,14 +372,14 @@ Bind the selected value with `bind:group` on each `Radio`. It holds the `value` 
   }
 </script>
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Plan</FieldLegend>
   <FieldGroup name="radio-binding">
     <Radio bind:group={plan} value="free">Free</Radio>
     <Radio bind:group={plan} value="pro">Pro</Radio>
     <Radio bind:group={plan} value="team">Team</Radio>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 <p class="radio-binding-text">Selected: {plan}</p>
 <Button class="radio-binding-reset" onclick={reset}>Reset</Button>
 ```
@@ -391,16 +398,16 @@ Bind the selected value with `bind:group` on each `Radio`. It holds the `value` 
 
 ### Radio API
 
-| Prop                                                                                                                                                                           | Type                                             | Default    | Description                                                     |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ | ---------- | --------------------------------------------------------------- |
-| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number` , `boolean`                  | -          | The selected value of the group.                                |
-| `children`                                                                                                                                                                     | `Snippet`                                        | -          | The label.                                                      |
-| `endText`                                                                                                                                                                      | `Snippet` , `string`                             | -          | Supporting text displayed below the label.                      |
-| `error`                                                                                                                                                                        | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.               |
-| `hideLabel`                                                                                                                                                                    | `boolean`                                        | `false`    | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. |
-| `size`                                                                                                                                                                         | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                        |
-| `spread`                                                                                                                                                                       | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.                |
-| `stack`                                                                                                                                                                        | `boolean`                                        | `false`    | Stacks the label under the input.                               |
+| Prop                                                                                                                                                                           | Type                                             | Default        | Description                                                                  |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ | -------------- | ---------------------------------------------------------------------------- |
+| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number` , `boolean`                  | -              | The selected value of the group.                                             |
+| `children`                                                                                                                                                                     | `Snippet`                                        | -              | The label.                                                                   |
+| `endText`                                                                                                                                                                      | `Snippet` , `string`                             | -              | Supporting text displayed below the label.                                   |
+| `error`                                                                                                                                                                        | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                            |
+| `hideLabel`                                                                                                                                                                    | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.              |
+| `orientation`                                                                                                                                                                  | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the input. |
+| `size`                                                                                                                                                                         | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                     |
+| `spread`                                                                                                                                                                       | `boolean`                                        | `false`        | Pushes the label and the input to opposite ends.                             |
 
 #### CSS variables
 

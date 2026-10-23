@@ -4,7 +4,7 @@ Leverages the [List component](https://open-props-ui.netlify.app/react/component
 
 ## Anatomy
 
-Label Start text Option one (1) ¤ EUR Header Footer Supporting text
+Label Start text Option one (1) ¤ EUR Top Bottom Supporting text
 
 - `<Select>`
 
@@ -22,11 +22,11 @@ Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
   The boxed select area.
 
-- `header`
+- `top`
 
   Content above the select, inside the border, with a divider.
 
-- `prefix`
+- `start`
 
   Content at the inline-start of the field, inside the border.
 
@@ -34,11 +34,11 @@ Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
   The select. Its options are in a popover list.
 
-- `suffix`
+- `end`
 
   Content at the inline-end of the field, inside the border.
 
-- `footer`
+- `bottom`
 
   Content below the select, inside the border, with a divider.
 
@@ -160,7 +160,7 @@ export default function EndText() {
 
 ## Affix
 
-Use the `prefix` and `suffix` props to affix icons or short text alongside the select inside the field's border.
+Use the `start` and `end` props to affix icons or short text alongside the select inside the field's border.
 
 ```tsx
 import { Select } from "opui-css/react"
@@ -168,7 +168,7 @@ import { Select } from "opui-css/react"
 export default function Affix() {
   return (
     <>
-      <Select label="Currency" prefix="¤">
+      <Select label="Currency" start="¤">
         <option value="">-</option>
         <option>EUR</option>
         <option>SEK</option>
@@ -177,7 +177,7 @@ export default function Affix() {
 
       <Select
         label="Country"
-        prefix={
+        start={
           <svg
             aria-hidden="true"
             width="16"
@@ -201,7 +201,7 @@ export default function Affix() {
         <option>Sweden</option>
       </Select>
 
-      <Select label="Delivery time" suffix="days">
+      <Select label="Delivery time" end="days">
         <option>1</option>
         <option>3</option>
         <option>5</option>
@@ -211,9 +211,9 @@ export default function Affix() {
 }
 ```
 
-## Header and footer
+## Top and bottom
 
-Use the `header` and `footer` props for short text or a link above and below the select, inside the field's border and set off by a divider.
+Use the `top` and `bottom` props for short text or a link above and below the select, inside the field's border and set off by a divider.
 
 They sit outside the list of options, so they can't filter it. Keep form controls out of them, since the select's `<label>` wraps them.
 
@@ -222,12 +222,12 @@ The select's `aria-describedby` points at them, so screen readers read them with
 ```tsx
 import { Select } from "opui-css/react"
 
-export default function HeaderFooter() {
+export default function TopAndBottom() {
   return (
     <Select
       label="Car"
-      header="Company cars only"
-      footer={
+      top="Company cars only"
+      bottom={
         <a className="ui-link" href="#">
           Manage cars…
         </a>
@@ -260,9 +260,9 @@ export default function Preselected() {
       <Select
         label="Role"
         items={[
-          { text: "Designer", value: "designer" },
-          { text: "Developer", value: "developer" },
-          { text: "Manager", value: "manager" },
+          { label: "Designer", value: "designer" },
+          { label: "Developer", value: "developer" },
+          { label: "Manager", value: "manager" },
         ]}
         value={role}
         onChange={(event) => setRole(event.currentTarget.value)}
@@ -271,9 +271,9 @@ export default function Preselected() {
       <Select
         label="Team"
         items={[
-          { text: "Design", value: "design" },
-          { selected: true, text: "Engineering", value: "engineering" },
-          { text: "Sales", value: "sales" },
+          { label: "Design", value: "design" },
+          { label: "Engineering", selected: true, value: "engineering" },
+          { label: "Sales", value: "sales" },
         ]}
       />
     </>
@@ -438,7 +438,7 @@ export default function Spread() {
         spread
         label="Time zone"
         startText="Used for reminders and due dates"
-        prefix="UTC"
+        start="UTC"
       >
         <option>-03:00</option>
         <option>+00:00</option>
@@ -452,7 +452,7 @@ export default function Spread() {
         variant="filled"
         label="Region"
         startText="Affects data residency and latency"
-        prefix={
+        start={
           <svg
             aria-hidden="true"
             width="16"
@@ -501,20 +501,20 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 | Prop        | Type                                             | Default      | Description                                                              |
 | ----------- | ------------------------------------------------ | ------------ | ------------------------------------------------------------------------ |
+| `bottom`    | `ReactNode`                                      | -            | Content below the select, inside the border, with a divider.             |
 | `children`  | `ReactNode`                                      | -            | Extra `<option>` and `<optgroup>` elements.                              |
 | `dense`     | `boolean`                                        | `false`      | Packs the items tighter.                                                 |
+| `end`       | `ReactNode`                                      | -            | Content at the inline-end of the field, inside the border.               |
 | `endText`   | `ReactNode`                                      | -            | Supporting text displayed below the field.                               |
 | `error`     | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                        |
-| `footer`    | `ReactNode`                                      | -            | Content below the select, inside the border, with a divider.             |
-| `header`    | `ReactNode`                                      | -            | Content above the select, inside the border, with a divider.             |
 | `id`        | `string`                                         | -            | The id of the `<select>`.                                                |
-| `items`     | `SelectItem[]`                                   | `[]`         | The options, as `{ selected, text, value }` objects.                     |
+| `items`     | `SelectItem[]`                                   | `[]`         | The options, as `{ label, selected, value }` objects.                    |
 | `label`     | `ReactNode`                                      | -            | The label for the field.                                                 |
-| `prefix`    | `ReactNode`                                      | -            | Content at the inline-start of the field, inside the border.             |
 | `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                 |
 | `spread`    | `boolean`                                        | `false`      | Pushes the label and start text to one side and the select to the other. |
+| `start`     | `ReactNode`                                      | -            | Content at the inline-start of the field, inside the border.             |
 | `startText` | `ReactNode`                                      | -            | Start text displayed above the field.                                    |
-| `suffix`    | `ReactNode`                                      | -            | Content at the inline-end of the field, inside the border.               |
+| `top`       | `ReactNode`                                      | -            | Content above the select, inside the border, with a divider.             |
 | `variant`   | `"filled"` , `"outlined"`                        | `"outlined"` | The variant to use.                                                      |
 
 #### CSS variables
@@ -610,7 +610,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |

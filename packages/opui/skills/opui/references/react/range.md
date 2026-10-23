@@ -8,7 +8,7 @@ Label 50 Start text End text
 
   Container element.
 
-- `label / children`
+- `label`
 
   The label for the range.
 
@@ -24,7 +24,7 @@ Label 50 Start text End text
 
   The range input.
 
-- `list / options / datalist`
+- `items / list / datalist`
 
   Tick marks and their labels, under the input.
 
@@ -52,16 +52,30 @@ import { Range } from "opui-css/react"
 export default function Surfaces() {
   return (
     <>
-      <Range>
-        <code>outlined</code> (default) ={" "}
-        <code>var(--ui-field-border-color)</code>
-      </Range>
-      <Range variant="filled">
-        <code>filled</code> = <code>var(--ui-surface-filled)</code>
-      </Range>
-      <Range variant="tonal">
-        <code>tonal</code> = <code>var(--ui-surface-tonal)</code>
-      </Range>
+      <Range
+        label={
+          <>
+            <code>outlined</code> (default) ={" "}
+            <code>var(--ui-field-border-color)</code>
+          </>
+        }
+      />
+      <Range
+        label={
+          <>
+            <code>filled</code> = <code>var(--ui-surface-filled)</code>
+          </>
+        }
+        variant="filled"
+      />
+      <Range
+        label={
+          <>
+            <code>tonal</code> = <code>var(--ui-surface-tonal)</code>
+          </>
+        }
+        variant="tonal"
+      />
     </>
   )
 }
@@ -118,7 +132,7 @@ export default function ValueText() {
 
 ## Tick marks
 
-Pass an `options` array - `options=[{ value, label }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id, and pass your own `<option>` elements to the `datalist` prop.
+Pass an `items` array - `items=[{ label, value }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id, and pass your own `<option>` elements to the `datalist` prop.
 
 ```tsx
 import { Range } from "opui-css/react"
@@ -128,7 +142,7 @@ export default function TickMarksLabels() {
     <>
       <Range
         label="Tick marks with labels"
-        options={[
+        items={[
           { value: 0, label: "0%" },
           { value: 25, label: "25%" },
           { value: 50, label: "50%" },
@@ -190,27 +204,33 @@ import { Range } from "opui-css/react"
 export default function Spread() {
   return (
     <>
-      <Range spread startText="Start text" endText="End text">
-        Spread Layout
-      </Range>
-
-      <Range spread disabled startText="Start text" endText="End text">
-        Disabled
-      </Range>
+      <Range
+        label="Spread Layout"
+        spread
+        startText="Start text"
+        endText="End text"
+      />
 
       <Range
+        label="Disabled"
+        spread
+        disabled
+        startText="Start text"
+        endText="End text"
+      />
+
+      <Range
+        label="Invalid Range"
         spread
         error
         endText="This value is incorrect."
         startText="Start text"
-      >
-        Invalid Range
-      </Range>
+      />
 
       <Range
         label="Tick marks with labels"
         spread
-        options={[
+        items={[
           { value: 0, label: "0%" },
           { value: 25, label: "25%" },
           { value: 50, label: "50%" },
@@ -237,14 +257,13 @@ export default function Spread() {
 
 | Prop                                                                                                                                                                                                | Type                                  | Default      | Description                                                                                                                        |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `children`                                                                                                                                                                                          | `ReactNode`                           | -            | The label for the range.                                                                                                           |
 | `datalist`                                                                                                                                                                                          | `ReactNode`                           | -            | Tick marks and their labels, under the input.                                                                                      |
 | `endText`                                                                                                                                                                                           | `ReactNode`                           | -            | Supporting text displayed below the input.                                                                                         |
 | `error`                                                                                                                                                                                             | `boolean`                             | `false`      | Marks the control invalid and shows error styles.                                                                                  |
 | `id`                                                                                                                                                                                                | `string`                              | -            | The id of the `<input>`. Generated when omitted and the value is shown.                                                            |
-| `label`                                                                                                                                                                                             | `string`                              | -            | The label for the range.                                                                                                           |
-| `list`                                                                                                                                                                                              | `string`                              | -            | The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.                                               |
-| `options`                                                                                                                                                                                           | `RangeOption[]`                       | -            | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                                                     |
+| `items`                                                                                                                                                                                             | `RangeItem[]`                         | -            | Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. |
+| `label`                                                                                                                                                                                             | `ReactNode`                           | -            | The label for the range.                                                                                                           |
+| `list`                                                                                                                                                                                              | `string`                              | -            | The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.                                                 |
 | `spread`                                                                                                                                                                                            | `boolean`                             | `false`      | Pushes the label and start text to one side and the input to the other.                                                            |
 | `startText`                                                                                                                                                                                         | `ReactNode`                           | -            | Description text displayed above the input.                                                                                        |
 | `value`                                                                                                                                                                                             | `number` , `string`                   | -            | The current value.                                                                                                                 |
@@ -578,7 +597,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
-- `options` is typed as [`RangeOption[]`](#tick-marks), exported from every framework.
+- [`items`](#tick-marks) is typed as `RangeItem[]`, exported from every framework.
 - [`options`](#tick-marks) renders a linked `<datalist>` without a `list` id.
 - [`valueText`](#value) takes a function that gets the current value and follows the thumb.
 - The thumb, its halo and the track fill follow `--_accent` on `.ui-range` ([Under the hood](#under-the-hood)).

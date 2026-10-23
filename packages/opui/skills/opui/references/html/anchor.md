@@ -14,7 +14,7 @@ Floating content
 
   The content the floating content is anchored to.
 
-- `.ui-anchor-floating`
+- `.ui-floating`
 
   The floating content.
 
@@ -25,7 +25,7 @@ Floating content that is always shown, like a coach mark beside a button. Set `-
 ```html
 <span class="ui-anchor" style="--ui-anchor-position-area: inline-end">
   <button type="button" class="ui-button ui-outlined">Export</button>
-  <span class="ui-anchor-floating">
+  <span class="ui-floating">
     <div class="ui-card ui-tonal coach-mark">
       <div class="ui-content">
         <strong>New</strong> Export to PDF and CSV from the same menu.
@@ -45,7 +45,7 @@ Floating content that is always shown, like a coach mark beside a button. Set `-
 
 ## Hover trigger
 
-Add `popover="hint"` and an id to `.ui-anchor-floating`, and `interestfor` with that id on the trigger.
+Add `popover="hint"` and an id to `.ui-floating`, and `interestfor` with that id on the trigger.
 
 [Under the hood](#under-the-hood) shows how hover, focus and tap open the card.
 
@@ -64,7 +64,7 @@ Put a [Card](https://open-props-ui.netlify.app/html/components/card.md) in the f
       interestfor="anchor-repo-card-1"
       >felix-bohlin/ui</a
     >
-    <span class="ui-anchor-floating" id="anchor-repo-card-1" popover="hint">
+    <span class="ui-floating" id="anchor-repo-card-1" popover="hint">
       <div class="ui-card ui-elevated repo-card">
         <div class="ui-content">
           <div class="repo-card-identity">
@@ -134,7 +134,7 @@ Preview where a link goes before following it.
       interestfor="anchor-link-preview-1"
       >CSS anchor positioning</a
     >
-    <span class="ui-anchor-floating" id="anchor-link-preview-1" popover="hint">
+    <span class="ui-floating" id="anchor-link-preview-1" popover="hint">
       <div class="ui-card ui-elevated link-preview">
         <img src="https://picsum.photos/id/1018/800/450" alt="" />
         <hgroup>
@@ -177,29 +177,29 @@ Preview where a link goes before following it.
 
 ### Anchor API
 
-| Type     | Modifiers                                      | Default               | Description                                                                                                                                                                                                        |
-| -------- | ---------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Position | `--ui-anchor-position-area`                    | `self-start self-end` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
-| Trigger  | default, `.ui-anchor-floating[popover="hint"]` | default               | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                                                                                                    |
+| Type     | Modifiers                      | Default               | Description                                                                                                                                                                                                        |
+| -------- | ------------------------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Position | `--ui-anchor-position-area`    | `self-start self-end` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
+| Trigger  | `.ui-floating[popover="hint"]` | -                     | Shows the floating content on hover and focus with `popover="hint"`. Without it, the content always shows.                                                                                                         |
 
 #### Parts
 
-| Part                  | Description                                          |
-| --------------------- | ---------------------------------------------------- |
-| `.ui-anchor`          | Container element. Scopes the anchor to its content. |
-| `& > :first-child`    | The content the floating content is anchored to.     |
-| `.ui-anchor-floating` | The floating content.                                |
+| Part               | Description                                          |
+| ------------------ | ---------------------------------------------------- |
+| `.ui-anchor`       | Container element. Scopes the anchor to its content. |
+| `& > :first-child` | The content the floating content is anchored to.     |
+| `.ui-floating`     | The floating content.                                |
 
-To show on hover, give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.
+To show on hover, give `.ui-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.
 
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property       | Kind  | Description                                                 |
-| -------------- | ----- | ----------------------------------------------------------- |
-| `--_anchor-tx` | Input | Horizontal shift of `.ui-anchor-floating`. Defaults to `0`. |
-| `--_anchor-ty` | Input | Vertical shift of `.ui-anchor-floating`. Defaults to `0`.   |
+| Property       | Kind  | Description                                          |
+| -------------- | ----- | ---------------------------------------------------- |
+| `--_anchor-tx` | Input | Horizontal shift of `.ui-floating`. Defaults to `0`. |
+| `--_anchor-ty` | Input | Vertical shift of `.ui-floating`. Defaults to `0`.   |
 
 ## Under the hood
 
@@ -309,3 +309,9 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md).
 
 - `opui-css/css/components/anchor.css`
+
+## Changelog
+
+### What's new
+
+- Breaking: the floating content is [`.ui-floating`](#api) instead of `.ui-anchor-floating`.

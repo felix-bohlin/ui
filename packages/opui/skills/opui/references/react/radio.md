@@ -27,12 +27,12 @@ Label End text
 The `name` prop will get passed down to each radio button in the group.
 
 ```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"
 
 export default function Basics() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="radio-group">
           <Radio value="1" defaultChecked>
@@ -41,7 +41,7 @@ export default function Basics() {
           <Radio value="2">Radio 2</Radio>
           <Radio value="3">Radio 3</Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -143,7 +143,7 @@ export default function VisibleLabel() {
 
 ### Label position
 
-Set `stack` to put the label under the radio.
+Set `orientation="vertical"` to put the label under the radio.
 
 ```tsx
 import { Radio } from "opui-css/react"
@@ -154,7 +154,7 @@ export default function LabelPosition() {
       <Radio name="radio-label-position" value="default" defaultChecked>
         Default
       </Radio>
-      <Radio name="radio-label-position" value="stack" stack>
+      <Radio name="radio-label-position" value="stack" orientation="vertical">
         Stack
       </Radio>
     </>
@@ -183,7 +183,7 @@ export default function EndText() {
       <Radio
         name="radio-end-text"
         value="stack"
-        stack
+        orientation="vertical"
         endText="Supporting text"
       >
         Stack
@@ -198,12 +198,12 @@ export default function EndText() {
 Use the `spread` prop to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
 
 ```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"
 
 export default function Spread() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Delivery</FieldLegend>
         <FieldGroup name="radio-spread">
           <Radio
@@ -226,7 +226,7 @@ export default function Spread() {
             Pickup
           </Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -251,12 +251,12 @@ Use `RadioInput` without the label for a custom layout, such as the end of a lis
 Radios stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
 
 ```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"
 
 export default function FieldGroupOrientation() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="radio-group-orientation" orientation="horizontal">
           <Radio value="1" defaultChecked>
@@ -265,7 +265,7 @@ export default function FieldGroupOrientation() {
           <Radio value="2">Radio 2</Radio>
           <Radio value="3">Radio 3</Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -280,7 +280,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Radio,
 } from "opui-css/react"
@@ -288,7 +288,7 @@ import {
 export default function FieldGroupFieldDescription() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
         <FieldGroup
@@ -301,9 +301,9 @@ export default function FieldGroupFieldDescription() {
           <Radio value="2">Radio 2</Radio>
           <Radio value="3">Radio 3</Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup
           orientation="horizontal"
@@ -316,7 +316,7 @@ export default function FieldGroupFieldDescription() {
           <Radio value="3">Radio 3</Radio>
         </FieldGroup>
         <FieldDescription>Field description below fields</FieldDescription>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -324,17 +324,17 @@ export default function FieldGroupFieldDescription() {
 
 ## Disabled
 
-Set `disabled` on the `FieldSet` to disable every radio in it, or on a single `Radio`.
+Set `disabled` on the `Fieldset` to disable every radio in it, or on a single `Radio`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the radio focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
 ```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"
 
 export default function FieldGroupDisabled() {
   return (
     <Form>
-      <FieldSet disabled>
+      <Fieldset disabled>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup orientation="horizontal" name="radio-group-disabled">
           <Radio value="1" defaultChecked>
@@ -343,7 +343,7 @@ export default function FieldGroupDisabled() {
           <Radio value="2">Radio 2</Radio>
           <Radio value="3">Radio 3</Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -354,12 +354,12 @@ export default function FieldGroupDisabled() {
 Set the `required` prop on at least one `Radio`. It is forwarded to the underlying `<input>`.
 
 ```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"
 
 export default function FieldGroupRequired() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>These are required!</FieldLegend>
         <FieldGroup orientation="horizontal" name="radio-group-required">
           <Radio value="1" required>
@@ -372,7 +372,7 @@ export default function FieldGroupRequired() {
             Radio 3
           </Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -380,17 +380,17 @@ export default function FieldGroupRequired() {
 
 ## Validation
 
-Set `error` on each `Radio` in the group. The end text of the `FieldSet` turns red with them.
+Set `error` on each `Radio` in the group. The end text of the `Fieldset` turns red with them.
 
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
 ```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"
 
 export default function FieldGroupValidation() {
   return (
     <Form>
-      <FieldSet aria-describedby="radio-field-group-validation-1-error">
+      <Fieldset aria-describedby="radio-field-group-validation-1-error">
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup orientation="horizontal" name="radio-group-validation">
           <Radio defaultChecked error value="1">
@@ -406,7 +406,7 @@ export default function FieldGroupValidation() {
         <span className="ui-end-text" id="radio-field-group-validation-1-error">
           Something went wrong!
         </span>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -424,7 +424,7 @@ import {
   Button,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/react"
 
@@ -437,7 +437,7 @@ export default function FieldGroupBinding() {
 
   return (
     <>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Plan</FieldLegend>
         <FieldGroup name="radio-binding">
           <Radio
@@ -462,7 +462,7 @@ export default function FieldGroupBinding() {
             Team
           </Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
       <p className="radio-binding-text">Selected: {plan}</p>
       <Button className="radio-binding-reset" onClick={reset}>
         Reset
@@ -486,15 +486,15 @@ export default function FieldGroupBinding() {
 
 ### Radio API
 
-| Prop        | Type                                             | Default    | Description                                                     |
-| ----------- | ------------------------------------------------ | ---------- | --------------------------------------------------------------- |
-| `children`  | `ReactNode`                                      | -          | The label.                                                      |
-| `endText`   | `ReactNode`                                      | -          | Supporting text displayed below the label.                      |
-| `error`     | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.               |
-| `hideLabel` | `boolean`                                        | `false`    | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. |
-| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                        |
-| `spread`    | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.                |
-| `stack`     | `boolean`                                        | `false`    | Stacks the label under the input.                               |
+| Prop          | Type                                             | Default        | Description                                                                  |
+| ------------- | ------------------------------------------------ | -------------- | ---------------------------------------------------------------------------- |
+| `children`    | `ReactNode`                                      | -              | The label.                                                                   |
+| `endText`     | `ReactNode`                                      | -              | Supporting text displayed below the label.                                   |
+| `error`       | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                            |
+| `hideLabel`   | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.              |
+| `orientation` | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the input. |
+| `size`        | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                     |
+| `spread`      | `boolean`                                        | `false`        | Pushes the label and the input to opposite ends.                             |
 
 #### CSS variables
 

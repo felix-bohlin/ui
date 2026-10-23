@@ -4,7 +4,7 @@ Leverages the [List component](https://open-props-ui.netlify.app/vue/components/
 
 ## Anatomy
 
-Label Start text Option one (1) ¤ EUR Header Footer Supporting text
+Label Start text Option one (1) ¤ EUR Top Bottom Supporting text
 
 - `<Select>`
 
@@ -22,11 +22,11 @@ Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
   The boxed select area.
 
-- `v-slot:header`
+- `v-slot:top`
 
   Content above the select, inside the border, with a divider.
 
-- `v-slot:prefix`
+- `v-slot:start`
 
   Content at the inline-start of the field, inside the border.
 
@@ -34,11 +34,11 @@ Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
   The select. Its options are in a popover list.
 
-- `v-slot:suffix`
+- `v-slot:end`
 
   Content at the inline-end of the field, inside the border.
 
-- `v-slot:footer`
+- `v-slot:bottom`
 
   Content below the select, inside the border, with a divider.
 
@@ -154,7 +154,7 @@ import { Select } from "opui-css/vue"
 
 ## Affix
 
-Use the `prefix` and `suffix` slots to affix icons or short text alongside the select inside the field's border.
+Use the `start` and `end` slots to affix icons or short text alongside the select inside the field's border.
 
 ```vue
 <script setup lang="ts">
@@ -163,7 +163,7 @@ import { Select } from "opui-css/vue"
 
 <template>
   <Select label="Currency">
-    <template #prefix>¤</template>
+    <template #start>¤</template>
     <option value="">-</option>
     <option>EUR</option>
     <option>SEK</option>
@@ -171,7 +171,7 @@ import { Select } from "opui-css/vue"
   </Select>
 
   <Select label="Country">
-    <template #prefix
+    <template #start
       ><svg
         aria-hidden="true"
         width="16"
@@ -196,7 +196,7 @@ import { Select } from "opui-css/vue"
   </Select>
 
   <Select label="Delivery time">
-    <template #suffix>days</template>
+    <template #end>days</template>
     <option>1</option>
     <option>3</option>
     <option>5</option>
@@ -204,9 +204,9 @@ import { Select } from "opui-css/vue"
 </template>
 ```
 
-## Header and footer
+## Top and bottom
 
-Use the `header` and `footer` slots for short text or a link above and below the select, inside the field's border and set off by a divider.
+Use the `top` and `bottom` slots for short text or a link above and below the select, inside the field's border and set off by a divider.
 
 They sit outside the list of options, so they can't filter it. Keep form controls out of them, since the select's `<label>` wraps them.
 
@@ -219,8 +219,8 @@ import { Select } from "opui-css/vue"
 
 <template>
   <Select label="Car">
-    <template #header>Company cars only</template>
-    <template #footer><a class="ui-link" href="#">Manage cars…</a></template>
+    <template #top>Company cars only</template>
+    <template #bottom><a class="ui-link" href="#">Manage cars…</a></template>
     <option value="">-</option>
     <option>Kia EV6</option>
     <option>Volkswagen ID.4</option>
@@ -245,9 +245,9 @@ const role = ref("developer")
   <Select
     label="Role"
     :items="[
-      { text: 'Designer', value: 'designer' },
-      { text: 'Developer', value: 'developer' },
-      { text: 'Manager', value: 'manager' },
+      { label: 'Designer', value: 'designer' },
+      { label: 'Developer', value: 'developer' },
+      { label: 'Manager', value: 'manager' },
     ]"
     v-model="role"
   />
@@ -255,9 +255,9 @@ const role = ref("developer")
   <Select
     label="Team"
     :items="[
-      { text: 'Design', value: 'design' },
-      { selected: true, text: 'Engineering', value: 'engineering' },
-      { text: 'Sales', value: 'sales' },
+      { label: 'Design', value: 'design' },
+      { label: 'Engineering', selected: true, value: 'engineering' },
+      { label: 'Sales', value: 'sales' },
     ]"
   />
 </template>
@@ -392,7 +392,7 @@ import { Select } from "opui-css/vue"
   <Select spread>
     <template #label>Time zone</template>
     <template #start-text>Used for reminders and due dates</template>
-    <template #prefix>UTC</template>
+    <template #start>UTC</template>
     <option>-03:00</option>
     <option>+00:00</option>
     <option>+01:00</option>
@@ -403,7 +403,7 @@ import { Select } from "opui-css/vue"
   <Select spread variant="filled">
     <template #label>Region</template>
     <template #start-text>Affects data residency and latency</template>
-    <template #prefix>
+    <template #start>
       <svg
         aria-hidden="true"
         width="16"
@@ -455,7 +455,7 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `endText`                                                                                                                                                                   | `string`                                         | -            | Supporting text displayed below the field.                               |
 | `error`                                                                                                                                                                     | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                        |
 | `id`                                                                                                                                                                        | `string`                                         | -            | The id of the `<select>`.                                                |
-| `items`                                                                                                                                                                     | `SelectItem[]`                                   | `[]`         | The options, as `{ selected, text, value }` objects.                     |
+| `items`                                                                                                                                                                     | `SelectItem[]`                                   | `[]`         | The options, as `{ label, selected, value }` objects.                    |
 | `label`                                                                                                                                                                     | `string`                                         | -            | The label for the field.                                                 |
 | `size`                                                                                                                                                                      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                 |
 | `spread`                                                                                                                                                                    | `boolean`                                        | `false`      | Pushes the label and start text to one side and the select to the other. |
@@ -468,14 +468,14 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 | Slot         | Description                                                  |
 | ------------ | ------------------------------------------------------------ |
+| `bottom`     | Content below the select, inside the border, with a divider. |
 | `default`    | Extra `<option>` and `<optgroup>` elements.                  |
+| `end`        | Content at the inline-end of the field, inside the border.   |
 | `end-text`   | Supporting text displayed below the field.                   |
-| `footer`     | Content below the select, inside the border, with a divider. |
-| `header`     | Content above the select, inside the border, with a divider. |
 | `label`      | The label for the field.                                     |
-| `prefix`     | Content at the inline-start of the field, inside the border. |
+| `start`      | Content at the inline-start of the field, inside the border. |
 | `start-text` | Start text displayed above the field.                        |
-| `suffix`     | Content at the inline-end of the field, inside the border.   |
+| `top`        | Content above the select, inside the border, with a divider. |
 
 #### CSS variables
 
@@ -570,7 +570,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |
@@ -794,6 +794,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`items`](#api) take `label` instead of `text`.
+- Breaking: the [affix](#affix) slots are `start` and `end` instead of `prefix` and `suffix`, and [`top` and `bottom`](#top-and-bottom) instead of `header` and `footer`.
 - Small and x-small fields set their text in `--ui-font-size-small` and `--ui-font-size-caption`, like buttons.
 - The field border reaches 3:1 against the page by default, and the picker keeps the browser's checkmark on the selected option.
 - [Group labels](#option-groups) take a shade of the picker's surface and `--ui-text-muted` instead of fixed grays.

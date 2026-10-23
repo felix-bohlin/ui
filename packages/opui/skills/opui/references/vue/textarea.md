@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Start text  € EUR Header Footer Supporting text
+Label Start text  € EUR Top Bottom Supporting text
 
 - `<Textarea>`
 
@@ -20,11 +20,11 @@ Label Start text  € EUR Header Footer Supporting text
 
   The boxed textarea area.
 
-- `v-slot:header`
+- `v-slot:top`
 
   Content above the textarea, inside the border, with a divider.
 
-- `v-slot:prefix`
+- `v-slot:start`
 
   Content at the inline-start of the field, inside the border.
 
@@ -32,11 +32,11 @@ Label Start text  € EUR Header Footer Supporting text
 
   The textarea element.
 
-- `v-slot:suffix`
+- `v-slot:end`
 
   Content at the inline-end of the field, inside the border.
 
-- `v-slot:footer`
+- `v-slot:bottom`
 
   Content below the textarea, inside the border, with a divider.
 
@@ -112,7 +112,7 @@ import { Textarea } from "opui-css/vue"
 
 ## Affix
 
-Use the `prefix`, `suffix`, `header`, and `footer` slots to affix content inside the textarea's border. Header and footer are particularly useful for filenames and character counters.
+Use the `start`, `end`, `top`, and `bottom` slots to affix content inside the textarea's border. Top and bottom are particularly useful for filenames and character counters.
 
 ```vue
 <script setup lang="ts">
@@ -121,7 +121,7 @@ import { Textarea } from "opui-css/vue"
 
 <template>
   <Textarea label="Notes" placeholder="Add a note...">
-    <template #prefix
+    <template #start
       ><svg
         aria-hidden="true"
         width="16"
@@ -143,12 +143,12 @@ import { Textarea } from "opui-css/vue"
   </Textarea>
 
   <Textarea label="Comment" placeholder="Write a comment...">
-    <template #suffix>Markdown</template>
+    <template #end>Markdown</template>
   </Textarea>
 </template>
 ```
 
-### Headers and footers
+### Top and bottom
 
 ```vue
 <script setup lang="ts">
@@ -157,11 +157,11 @@ import { Textarea } from "opui-css/vue"
 
 <template>
   <Textarea label="Code" placeholder="console.log('Hello, world!')">
-    <template #header>script.js</template>
+    <template #top>script.js</template>
   </Textarea>
 
   <Textarea label="Comment" placeholder="Write a comment...">
-    <template #footer>0 / 280</template>
+    <template #bottom>0 / 280</template>
   </Textarea>
 </template>
 ```
@@ -242,7 +242,7 @@ import { Textarea } from "opui-css/vue"
 
   <Textarea spread label="Bio" placeholder="Tell us about yourself...">
     <template #start-text>Shown on your public profile</template>
-    <template #prefix>
+    <template #start>
       <svg
         aria-hidden="true"
         width="16"
@@ -262,7 +262,7 @@ import { Textarea } from "opui-css/vue"
         ></path>
       </svg>
     </template>
-    <template #footer>280 characters left</template>
+    <template #bottom>280 characters left</template>
   </Textarea>
 
   <Textarea
@@ -272,8 +272,8 @@ import { Textarea } from "opui-css/vue"
     placeholder="Markdown supported..."
   >
     <template #start-text>Shown on the changelog page</template>
-    <template #header>v1.4.0</template>
-    <template #footer>Saved 2 minutes ago</template>
+    <template #top>v1.4.0</template>
+    <template #bottom>Saved 2 minutes ago</template>
     <template #end-text>Drafts are auto-saved</template>
   </Textarea>
 </template>
@@ -315,14 +315,14 @@ import { Textarea } from "opui-css/vue"
 
 | Slot         | Description                                                    |
 | ------------ | -------------------------------------------------------------- |
+| `bottom`     | Content below the textarea, inside the border, with a divider. |
 | `default`    | Extra content inside the root.                                 |
+| `end`        | Content at the inline-end of the field, inside the border.     |
 | `end-text`   | Supporting text displayed below the field.                     |
-| `footer`     | Content below the textarea, inside the border, with a divider. |
-| `header`     | Content above the textarea, inside the border, with a divider. |
 | `label`      | The label for the field.                                       |
-| `prefix`     | Content at the inline-start of the field, inside the border.   |
+| `start`      | Content at the inline-start of the field, inside the border.   |
 | `start-text` | Start text displayed above the field.                          |
-| `suffix`     | Content at the inline-end of the field, inside the border.     |
+| `top`        | Content above the textarea, inside the border, with a divider. |
 
 #### CSS variables
 
@@ -387,7 +387,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |
@@ -554,6 +554,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: the [affix](#affix) slots are `start` and `end` instead of `prefix` and `suffix`, and [`top` and `bottom`](#top-and-bottom) instead of `header` and `footer`.
 - Small and x-small fields set their text in `--ui-font-size-small` and `--ui-font-size-caption`, like buttons.
 - The field border, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.

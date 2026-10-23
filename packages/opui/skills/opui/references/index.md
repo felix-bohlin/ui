@@ -20,7 +20,7 @@ Each component has one reference per listed framework: `html/<file>`, `astro/<fi
 | Divider | `divider.md` | html, astro, react, svelte, vue | It's just a line. |
 | Drawer | `drawer.md` | html, astro, react, svelte, vue | Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a Dialog. |
 | Form | `form.md` | html, astro, react, svelte, vue | Spacing and grouping for form fields. |
-| Layout | `layout.md` | html, astro, react, svelte, vue | Four classes for the space between components: .ui-l-column, .ui-l-row, .ui-l-grid and .ui-l-container. The l- marks a layout class. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale. |
+| Layout | `layout.md` | html, astro, react, svelte, vue | Four classes for the space between components: .ui-layout-column, .ui-layout-row, .ui-layout-grid and .ui-layout-container. The l- marks a layout class. Put them on wrapper elements, such as div, section or ul. They sit in the utils layer, so on a component they replace its own layout. Their gaps come from the --ui-space-* scale, so they follow --ui-space-scale. |
 | List | `list.md` | html, astro, react, svelte, vue | Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it. |
 | Menu | `menu.md` | html, astro, react, svelte, vue | A popover list of actions or links. |
 | Progress | `progress.md` | html, astro, react, svelte, vue | See also: Spinner. |
@@ -58,14 +58,14 @@ Components documented on another component's page:
 | DialogActions | `dialog.md` |
 | DialogContent | `dialog.md` |
 | DialogHeader | `dialog.md` |
+| DrawerActions | `drawer.md` |
 | DrawerContent | `drawer.md` |
-| DrawerFooter | `drawer.md` |
 | DrawerHeader | `drawer.md` |
 | DrawerTitle | `drawer.md` |
 | FieldDescription | `form.md` |
 | FieldGroup | `form.md` |
 | FieldLegend | `form.md` |
-| FieldSet | `form.md` |
+| Fieldset | `form.md` |
 | ListItem | `list.md` |
 | RadioInput | `radio.md` |
 | SwitchInput | `switch.md` |
@@ -79,8 +79,8 @@ Components documented on another component's page:
 | TableHeaderCell | `table.md` |
 | TableRow | `table.md` |
 | TabsItem | `tabs.md` |
+| TabsLabel | `tabs.md` |
 | TabsPanel | `tabs.md` |
-| TabsTab | `tabs.md` |
 | ToggleButton | `toggle.md` |
 | ToggleGroup | `toggle.md` |
 | TooltipContent | `tooltip.md` |

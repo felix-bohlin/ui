@@ -12,15 +12,15 @@ General account settings.
 
   Container element.
 
-- `.ui-tab-input`
+- `.ui-input`
 
   A visually hidden radio input that holds a tab's state. The tab is its label.
 
-- `.ui-tab-label`
+- `.ui-label`
 
   A tab.
 
-- `.ui-tab-panel`
+- `.ui-panel`
 
   The panel of the selected tab.
 
@@ -32,29 +32,19 @@ General account settings.
     type="radio"
     name="basic-tabs"
     id="tabs-basics-1"
-    class="ui-tab-input"
+    class="ui-input"
     checked
   />
-  <label for="tabs-basics-1" class="ui-tab-label">Profile</label>
-  <div class="ui-tab-panel">Profile settings and information.</div>
+  <label for="tabs-basics-1" class="ui-label">Profile</label>
+  <div class="ui-panel">Profile settings and information.</div>
 
-  <input
-    type="radio"
-    name="basic-tabs"
-    id="tabs-basics-2"
-    class="ui-tab-input"
-  />
-  <label for="tabs-basics-2" class="ui-tab-label">Settings</label>
-  <div class="ui-tab-panel">General account settings.</div>
+  <input type="radio" name="basic-tabs" id="tabs-basics-2" class="ui-input" />
+  <label for="tabs-basics-2" class="ui-label">Settings</label>
+  <div class="ui-panel">General account settings.</div>
 
-  <input
-    type="radio"
-    name="basic-tabs"
-    id="tabs-basics-3"
-    class="ui-tab-input"
-  />
-  <label for="tabs-basics-3" class="ui-tab-label">Notifications</label>
-  <div class="ui-tab-panel">Manage your notifications.</div>
+  <input type="radio" name="basic-tabs" id="tabs-basics-3" class="ui-input" />
+  <label for="tabs-basics-3" class="ui-label">Notifications</label>
+  <div class="ui-panel">Manage your notifications.</div>
 </div>
 ```
 
@@ -68,29 +58,19 @@ Use `.ui-filled` to fill the selected tab with the primary color.
     type="radio"
     name="filled-tabs"
     id="tabs-filled-1"
-    class="ui-tab-input"
+    class="ui-input"
     checked
   />
-  <label for="tabs-filled-1" class="ui-tab-label">Profile</label>
-  <div class="ui-tab-panel">Profile settings and information.</div>
+  <label for="tabs-filled-1" class="ui-label">Profile</label>
+  <div class="ui-panel">Profile settings and information.</div>
 
-  <input
-    type="radio"
-    name="filled-tabs"
-    id="tabs-filled-2"
-    class="ui-tab-input"
-  />
-  <label for="tabs-filled-2" class="ui-tab-label">Settings</label>
-  <div class="ui-tab-panel">General account settings.</div>
+  <input type="radio" name="filled-tabs" id="tabs-filled-2" class="ui-input" />
+  <label for="tabs-filled-2" class="ui-label">Settings</label>
+  <div class="ui-panel">General account settings.</div>
 
-  <input
-    type="radio"
-    name="filled-tabs"
-    id="tabs-filled-3"
-    class="ui-tab-input"
-  />
-  <label for="tabs-filled-3" class="ui-tab-label">Notifications</label>
-  <div class="ui-tab-panel">Manage your notifications.</div>
+  <input type="radio" name="filled-tabs" id="tabs-filled-3" class="ui-input" />
+  <label for="tabs-filled-3" class="ui-label">Notifications</label>
+  <div class="ui-panel">Manage your notifications.</div>
 </div>
 ```
 
@@ -104,19 +84,19 @@ Use `.ui-line` for tabs without a background, marking the selected tab with a li
     type="radio"
     name="line-tabs"
     id="tabs-line-1"
-    class="ui-tab-input"
+    class="ui-input"
     checked
   />
-  <label for="tabs-line-1" class="ui-tab-label">Profile</label>
-  <div class="ui-tab-panel">Profile settings and information.</div>
+  <label for="tabs-line-1" class="ui-label">Profile</label>
+  <div class="ui-panel">Profile settings and information.</div>
 
-  <input type="radio" name="line-tabs" id="tabs-line-2" class="ui-tab-input" />
-  <label for="tabs-line-2" class="ui-tab-label">Settings</label>
-  <div class="ui-tab-panel">General account settings.</div>
+  <input type="radio" name="line-tabs" id="tabs-line-2" class="ui-input" />
+  <label for="tabs-line-2" class="ui-label">Settings</label>
+  <div class="ui-panel">General account settings.</div>
 
-  <input type="radio" name="line-tabs" id="tabs-line-3" class="ui-tab-input" />
-  <label for="tabs-line-3" class="ui-tab-label">Notifications</label>
-  <div class="ui-tab-panel">Manage your notifications.</div>
+  <input type="radio" name="line-tabs" id="tabs-line-3" class="ui-input" />
+  <label for="tabs-line-3" class="ui-label">Notifications</label>
+  <div class="ui-panel">Manage your notifications.</div>
 </div>
 ```
 
@@ -130,29 +110,29 @@ Use `.ui-outlined` for a bordered track without a background.
     type="radio"
     name="outlined-tabs"
     id="tabs-outlined-1"
-    class="ui-tab-input"
+    class="ui-input"
     checked
   />
-  <label for="tabs-outlined-1" class="ui-tab-label">Profile</label>
-  <div class="ui-tab-panel">Profile settings and information.</div>
+  <label for="tabs-outlined-1" class="ui-label">Profile</label>
+  <div class="ui-panel">Profile settings and information.</div>
 
   <input
     type="radio"
     name="outlined-tabs"
     id="tabs-outlined-2"
-    class="ui-tab-input"
+    class="ui-input"
   />
-  <label for="tabs-outlined-2" class="ui-tab-label">Settings</label>
-  <div class="ui-tab-panel">General account settings.</div>
+  <label for="tabs-outlined-2" class="ui-label">Settings</label>
+  <div class="ui-panel">General account settings.</div>
 
   <input
     type="radio"
     name="outlined-tabs"
     id="tabs-outlined-3"
-    class="ui-tab-input"
+    class="ui-input"
   />
-  <label for="tabs-outlined-3" class="ui-tab-label">Notifications</label>
-  <div class="ui-tab-panel">Manage your notifications.</div>
+  <label for="tabs-outlined-3" class="ui-label">Notifications</label>
+  <div class="ui-panel">Manage your notifications.</div>
 </div>
 ```
 
@@ -166,76 +146,74 @@ Tabs wrap onto more rows when they don't fit. Use `.ui-overflow-scroll` to keep 
     type="radio"
     name="overflow-tabs"
     id="tabs-overflow-1"
-    class="ui-tab-input"
+    class="ui-input"
     checked
   />
-  <label for="tabs-overflow-1" class="ui-tab-label">Profile</label>
-  <div class="ui-tab-panel">Profile settings and information.</div>
+  <label for="tabs-overflow-1" class="ui-label">Profile</label>
+  <div class="ui-panel">Profile settings and information.</div>
 
   <input
     type="radio"
     name="overflow-tabs"
     id="tabs-overflow-2"
-    class="ui-tab-input"
+    class="ui-input"
   />
-  <label for="tabs-overflow-2" class="ui-tab-label">Settings</label>
-  <div class="ui-tab-panel">General account settings.</div>
+  <label for="tabs-overflow-2" class="ui-label">Settings</label>
+  <div class="ui-panel">General account settings.</div>
 
   <input
     type="radio"
     name="overflow-tabs"
     id="tabs-overflow-3"
-    class="ui-tab-input"
+    class="ui-input"
   />
-  <label for="tabs-overflow-3" class="ui-tab-label">Notifications</label>
-  <div class="ui-tab-panel">Manage your notifications.</div>
+  <label for="tabs-overflow-3" class="ui-label">Notifications</label>
+  <div class="ui-panel">Manage your notifications.</div>
 
   <input
     type="radio"
     name="overflow-tabs"
     id="tabs-overflow-4"
-    class="ui-tab-input"
+    class="ui-input"
   />
-  <label for="tabs-overflow-4" class="ui-tab-label">Billing</label>
-  <div class="ui-tab-panel">Plans, invoices and payment methods.</div>
+  <label for="tabs-overflow-4" class="ui-label">Billing</label>
+  <div class="ui-panel">Plans, invoices and payment methods.</div>
 
   <input
     type="radio"
     name="overflow-tabs"
     id="tabs-overflow-5"
-    class="ui-tab-input"
+    class="ui-input"
   />
-  <label for="tabs-overflow-5" class="ui-tab-label">Security</label>
-  <div class="ui-tab-panel">
-    Passwords, sessions and two-factor authentication.
-  </div>
+  <label for="tabs-overflow-5" class="ui-label">Security</label>
+  <div class="ui-panel">Passwords, sessions and two-factor authentication.</div>
 
   <input
     type="radio"
     name="overflow-tabs"
     id="tabs-overflow-6"
-    class="ui-tab-input"
+    class="ui-input"
   />
-  <label for="tabs-overflow-6" class="ui-tab-label">Integrations</label>
-  <div class="ui-tab-panel">Connected apps and webhooks.</div>
+  <label for="tabs-overflow-6" class="ui-label">Integrations</label>
+  <div class="ui-panel">Connected apps and webhooks.</div>
 
   <input
     type="radio"
     name="overflow-tabs"
     id="tabs-overflow-7"
-    class="ui-tab-input"
+    class="ui-input"
   />
-  <label for="tabs-overflow-7" class="ui-tab-label">Team</label>
-  <div class="ui-tab-panel">Members and roles.</div>
+  <label for="tabs-overflow-7" class="ui-label">Team</label>
+  <div class="ui-panel">Members and roles.</div>
 
   <input
     type="radio"
     name="overflow-tabs"
     id="tabs-overflow-8"
-    class="ui-tab-input"
+    class="ui-input"
   />
-  <label for="tabs-overflow-8" class="ui-tab-label">Advanced</label>
-  <div class="ui-tab-panel">Export data or delete the account.</div>
+  <label for="tabs-overflow-8" class="ui-label">Advanced</label>
+  <div class="ui-panel">Export data or delete the account.</div>
 </div>
 ```
 
@@ -265,18 +243,18 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 | Type     | Modifiers                                         | Default | Description                                                                                                                             |
 | -------- | ------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| Group    | `.ui-tab-input[name]`                             | -       | The name shared by the tab inputs.                                                                                                      |
+| Group    | `.ui-input[name]`                                 | -       | The name shared by the tab inputs.                                                                                                      |
 | Overflow | default, `.ui-overflow-scroll`                    | default | What the tabs do when they don't fit. `"wrap"` wraps them onto more rows, and `"scroll"` keeps them on one row and scrolls it sideways. |
 | Variants | default, `.ui-filled`, `.ui-line`, `.ui-outlined` | default | The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.                                |
 
 #### Parts
 
-| Part            | Description                                                                   |
-| --------------- | ----------------------------------------------------------------------------- |
-| `.ui-tabs`      | Container element.                                                            |
-| `.ui-tab-input` | A visually hidden radio input that holds a tab's state. The tab is its label. |
-| `.ui-tab-label` | A tab.                                                                        |
-| `.ui-tab-panel` | The panel of the selected tab.                                                |
+| Part        | Description                                                                   |
+| ----------- | ----------------------------------------------------------------------------- |
+| `.ui-tabs`  | Container element.                                                            |
+| `.ui-input` | A visually hidden radio input that holds a tab's state. The tab is its label. |
+| `.ui-label` | A tab.                                                                        |
+| `.ui-panel` | The panel of the selected tab.                                                |
 
 #### CSS variables
 
@@ -314,20 +292,20 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-Each tab is three elements, in this order: `input.ui-tab-input[type="radio"]`, `label.ui-tab-label` and `.ui-tab-panel`.
+Each tab is three elements, in this order: `input.ui-input[type="radio"]`, `label.ui-label` and `.ui-panel`.
 
 ### Tabs item API
 
 | Type    | Modifiers   | Default | Description                |
 | ------- | ----------- | ------- | -------------------------- |
 | Checked | `[checked]` | -       | Selects the tab initially. |
-| Id      | `[id]`      | -       | The id of the input.       |
+| Tab id  | `[id]`      | -       | The id of the input.       |
 
 #### Parts
 
-| Part                 | Description                                                   |
-| -------------------- | ------------------------------------------------------------- |
-| `input.ui-tab-input` | The radio input for a tab, followed by the tab and the panel. |
+| Part             | Description                                                   |
+| ---------------- | ------------------------------------------------------------- |
+| `input.ui-input` | The radio input for a tab, followed by the tab and the panel. |
 
 #### CSS variables
 
@@ -365,17 +343,17 @@ Each tab is three elements, in this order: `input.ui-tab-input[type="radio"]`, `
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-### Tabs tab API
+### Tabs label API
 
-| Type | Modifiers | Default | Description                    |
-| ---- | --------- | ------- | ------------------------------ |
-| For  | `[for]`   | -       | The id of the input it labels. |
+| Type   | Modifiers | Default | Description                    |
+| ------ | --------- | ------- | ------------------------------ |
+| Tab id | `[for]`   | -       | The id of the input it labels. |
 
 #### Parts
 
-| Part                 | Description |
-| -------------------- | ----------- |
-| `label.ui-tab-label` | The tab.    |
+| Part             | Description |
+| ---------------- | ----------- |
+| `label.ui-label` | The tab.    |
 
 #### CSS variables
 
@@ -417,9 +395,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 #### Parts
 
-| Part            | Description |
-| --------------- | ----------- |
-| `.ui-tab-panel` | The panel.  |
+| Part        | Description |
+| ----------- | ----------- |
+| `.ui-panel` | The panel.  |
 
 #### CSS variables
 
@@ -653,7 +631,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The selected pill has a border, `--ui-control-border-color` or the field border, so it reaches 3:1 against the track without the shadow.
 - The outlined track reads [`--ui-control-border-color`](#api) for its border, like outlined buttons.
 - Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`.
-- Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. Style `.ui-tab-label` and `.ui-tab-panel` instead of `[role="tab"]` and `[role="tabpanel"]`.
+- Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. Style `.ui-label` and `.ui-panel` instead of `[role="tab"]` and `[role="tabpanel"]`.
+- Breaking: the parts are [`.ui-input`](#api), `.ui-label` and `.ui-panel` instead of `.ui-tab-input`, `.ui-tab-label` and `.ui-tab-panel`.
 - Tabs that [scroll](#overflow) with `.ui-overflow-scroll`.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with `.ui-filled`, `.ui-line` and `.ui-outlined`.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

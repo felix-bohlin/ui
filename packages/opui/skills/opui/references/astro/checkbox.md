@@ -89,7 +89,7 @@ import { Checkbox } from "opui-css/astro"
 
 ### Label position
 
-Use `stack` to put the label under the checkbox.
+Use `orientation="vertical"` to put the label under the checkbox.
 
 ```astro
 ---
@@ -97,7 +97,7 @@ import { Checkbox } from "opui-css/astro"
 ---
 
 <Checkbox name="checkbox-label-position">Default</Checkbox>
-<Checkbox stack name="checkbox-label-position">Stack</Checkbox>
+<Checkbox orientation="vertical" name="checkbox-label-position">Stack</Checkbox>
 ```
 
 ### End text
@@ -112,7 +112,11 @@ import { Checkbox } from "opui-css/astro"
 <Checkbox name="checkbox-end-text" endText="Supporting text">
   Default
 </Checkbox>
-<Checkbox stack name="checkbox-end-text" endText="Supporting text">
+<Checkbox
+  orientation="vertical"
+  name="checkbox-end-text"
+  endText="Supporting text"
+>
   Stack
 </Checkbox>
 ```
@@ -130,14 +134,16 @@ import { Checkbox } from "opui-css/astro"
 
 <div class="example-row ui-spacious">
   <Checkbox required name="checkbox-validation">Default</Checkbox>
-  <Checkbox stack required name="checkbox-validation">Stack</Checkbox>
+  <Checkbox orientation="vertical" required name="checkbox-validation"
+    >Stack</Checkbox
+  >
 </div>
 <div class="example-row ui-spacious">
   <Checkbox error checked name="checkbox-validation">
     Default
     <Fragment slot="end-text">Check yourself</Fragment>
   </Checkbox>
-  <Checkbox stack error name="checkbox-validation">
+  <Checkbox orientation="vertical" error name="checkbox-validation">
     Stack
     <Fragment slot="end-text">Before you wreck yourself</Fragment>
   </Checkbox>
@@ -154,10 +160,10 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
 
 ```astro
 ---
-import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/astro"
+import { Checkbox, FieldGroup, FieldLegend, Fieldset } from "opui-css/astro"
 ---
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>
     <Checkbox indeterminate>Select all</Checkbox>
   </FieldLegend>
@@ -166,7 +172,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/astro"
     <Checkbox>Bananas</Checkbox>
     <Checkbox>Cherries</Checkbox>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 
 <script>
   document
@@ -251,20 +257,20 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="checkbox-group">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -278,20 +284,20 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="checkbox-group-orientation" orientation="horizontal">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -306,13 +312,13 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
     <FieldGroup
@@ -323,9 +329,9 @@ import {
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup
       orientation="horizontal"
@@ -336,13 +342,13 @@ import {
       <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
     <FieldDescription>Field description below fields</FieldDescription>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
 ### Disabled
 
-Set `disabled` on the `FieldSet` to disable every checkbox in it, or on a single `Checkbox`.
+Set `disabled` on the `Fieldset` to disable every checkbox in it, or on a single `Checkbox`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the checkbox focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
@@ -352,20 +358,20 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet disabled>
+  <Fieldset disabled>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="checkbox-group-disabled">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -379,26 +385,26 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>These are required!</FieldLegend>
     <FieldGroup orientation="horizontal" name="checkbox-group-required">
       <Checkbox required>Checkbox 1</Checkbox>
       <Checkbox required>Checkbox 2</Checkbox>
       <Checkbox required>Checkbox 3</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
 ### Validation
 
-Set `error` on each `Checkbox` in the group. The end text of the `FieldSet` turns red with them.
+Set `error` on each `Checkbox` in the group. The end text of the `Fieldset` turns red with them.
 
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
@@ -408,13 +414,13 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
+  <Fieldset aria-describedby="checkbox-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="checkbox-group-validation">
       <Checkbox checked error>Checkbox 1</Checkbox>
@@ -424,7 +430,7 @@ import {
     <span class="ui-end-text" id="checkbox-field-group-validation-1-error"
       >Something went wrong!</span
     >
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -439,18 +445,18 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
 } from "opui-css/astro"
 ---
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Fruit</FieldLegend>
   <FieldGroup name="checkbox-binding">
     <Checkbox checked value="apples">Apples</Checkbox>
     <Checkbox value="bananas">Bananas</Checkbox>
     <Checkbox value="cherries">Cherries</Checkbox>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 <p class="checkbox-binding-text">Selected: apples</p>
 <Button class="checkbox-binding-reset">Reset</Button>
 
@@ -502,15 +508,15 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Prop            | Type                                             | Default    | Description                                                                          |
-| --------------- | ------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------ |
-| `endText`       | `string`                                         | -          | Supporting text displayed below the label.                                           |
-| `error`         | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.                                    |
-| `hideLabel`     | `boolean`                                        | `false`    | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
-| `indeterminate` | `boolean`                                        | `false`    | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| `size`          | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                                             |
-| `spread`        | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.                                     |
-| `stack`         | `boolean`                                        | `false`    | Stacks the label under the input.                                                    |
+| Prop            | Type                                             | Default        | Description                                                                          |
+| --------------- | ------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------ |
+| `endText`       | `string`                                         | -              | Supporting text displayed below the label.                                           |
+| `error`         | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                                    |
+| `hideLabel`     | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
+| `indeterminate` | `boolean`                                        | `false`        | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| `orientation`   | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the input.         |
+| `size`          | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                             |
+| `spread`        | `boolean`                                        | `false`        | Pushes the label and the input to opposite ends.                                     |
 
 #### Slots
 
@@ -866,6 +872,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`orientation="vertical"`](#label-position) replaces `stack`.
 - The unchecked border, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The checked fill and mark read [`--ui-choice-accent`](#api) and `--ui-choice-on-accent` when a theme sets them.
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.

@@ -425,9 +425,9 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Dialog API
 
-| Type           | Modifiers    | Default | Description                                                              |
-| -------------- | ------------ | ------- | ------------------------------------------------------------------------ |
-| Close behavior | `[closedby]` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
+| Type     | Modifiers    | Default | Description                                                              |
+| -------- | ------------ | ------- | ------------------------------------------------------------------------ |
+| Behavior | `[closedby]` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
 
 #### Parts
 

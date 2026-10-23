@@ -20,15 +20,15 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
   The scrollable content.
 
-- `.ui-footer`
+- `.ui-actions`
 
-  The footer.
+  The actions, at the end.
 
 ## Basics
 
 A drawer opens from the inline start by default. Change the side with the `.ui-inline-end`, `.ui-block-start` and `.ui-block-end` classes.
 
-`.ui-header` and `.ui-footer` stay put while `.ui-content` scrolls, with a shadow on the scrolled edge.
+`.ui-header` and `.ui-actions` stay put while `.ui-content` scrolls, with a shadow on the scrolled edge. The actions sit at the end, and `.ui-align-start` lines them up with the content.
 
 The backdrop dims and blurs the page by default. Use the `.ui-backdrop-transparent` class to keep the page behind it fully visible.
 
@@ -117,7 +117,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
       inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
     </p>
   </div>
-  <div class="ui-footer">
+  <div class="ui-actions">
     <button
       type="button"
       class="ui-button ui-small"
@@ -176,7 +176,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
       inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
     </p>
   </div>
-  <div class="ui-footer">
+  <div class="ui-actions">
     <button
       type="button"
       class="ui-button ui-small"
@@ -230,7 +230,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
   </div>
-  <div class="ui-footer">
+  <div class="ui-actions">
     <button
       type="button"
       class="ui-button ui-small"
@@ -284,7 +284,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
   </div>
-  <div class="ui-footer">
+  <div class="ui-actions">
     <button
       type="button"
       class="ui-button ui-small"
@@ -367,7 +367,7 @@ Without `closedby`, the browser picks: a modal drawer, opened with `command="sho
       </div>
     </fieldset>
   </div>
-  <div class="ui-footer">
+  <div class="ui-actions">
     <button
       type="button"
       class="ui-button ui-small"
@@ -421,12 +421,12 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 
 ### Drawer API
 
-| Type           | Modifiers                                                     | Default | Description                                                                                                                               |
-| -------------- | ------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Backdrop       | default, `.ui-backdrop-transparent`                           | default | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
-| Close behavior | `[closedby]`                                                  | -       | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
-| Position       | default, `.ui-block-end`, `.ui-block-start`, `.ui-inline-end` | default | The side it opens from.                                                                                                                   |
-| Scroll lock    | `.ui-scroll-lock`                                             | -       | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
+| Type        | Modifiers                                                     | Default | Description                                                                                                                               |
+| ----------- | ------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Backdrop    | default, `.ui-backdrop-transparent`                           | default | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
+| Behavior    | `[closedby]`                                                  | -       | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
+| Position    | default, `.ui-block-end`, `.ui-block-start`, `.ui-inline-end` | default | The side it opens from.                                                                                                                   |
+| Scroll lock | `.ui-scroll-lock`                                             | -       | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
 
 #### Parts
 
@@ -436,7 +436,7 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 | `.ui-header`       | The header, with a close button.                       |
 | `<h2>`             | The title. Names the drawer through `aria-labelledby`. |
 | `.ui-content`      | The scrollable content.                                |
-| `.ui-footer`       | The footer.                                            |
+| `.ui-actions`      | The actions, at the end.                               |
 
 #### CSS variables
 
@@ -495,13 +495,17 @@ Add `autofocus` to the element that gets focus on open. It can be the root or an
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-### Drawer footer API
+### Drawer actions API
+
+| Type      | Modifiers                  | Default | Description                |
+| --------- | -------------------------- | ------- | -------------------------- |
+| Alignment | default, `.ui-align-start` | default | Alignment for the actions. |
 
 #### Parts
 
-| Part         | Description                                                                                                      |
-| ------------ | ---------------------------------------------------------------------------------------------------------------- |
-| `.ui-footer` | Container element. Lays out its content in a row, aligned to the end, or to the start in an `inline-end` drawer. |
+| Part          | Description                          |
+| ------------- | ------------------------------------ |
+| `.ui-actions` | A group of actions, such as buttons. |
 
 #### CSS variables
 
@@ -532,18 +536,18 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property               | Kind   | Description                                                                                          |
 | ---------------------- | ------ | ---------------------------------------------------------------------------------------------------- |
+| `--_actions-gap`       | Input  | Gap between items in `.ui-actions`.                                                                  |
+| `--_actions-padding`   | Input  | Padding of `.ui-actions`.                                                                            |
 | `--_backdrop-bg-color` | Input  | The backdrop color. Defaults to `--ui-backdrop-color`, `.ui-backdrop-transparent` clears it.         |
 | `--_backdrop-blur`     | Input  | The backdrop filter. Defaults to a `--ui-backdrop-blur` blur, `.ui-backdrop-transparent` removes it. |
 | `--_bg-color`          | Input  | The background. Defaults to `--ui-surface-elevated`.                                                 |
 | `--_block-size`        | Input  | Height of `.ui-block-start` and `.ui-block-end` drawers.                                             |
-| `--_border-color`      | Input  | Color of the inner edge border and the `.ui-header` and `.ui-footer` dividers.                       |
-| `--_border-width`      | Input  | Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.                       |
+| `--_border-color`      | Input  | Color of the inner edge border and the `.ui-header` and `.ui-actions` dividers.                      |
+| `--_border-width`      | Input  | Width of the inner edge border and the `.ui-header` and `.ui-actions` dividers.                      |
 | `--_content-padding`   | Input  | Padding of `.ui-content`.                                                                            |
 | `--_dir`               | Output | Direction of the inline slide, `-1` in right-to-left.                                                |
 | `--_duration`          | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                      |
 | `--_ease`              | Input  | Easing of the slide and backdrop fade. Defaults to `--ui-ease-enter`.                                |
-| `--_footer-gap`        | Input  | Gap between items in `.ui-footer`.                                                                   |
-| `--_footer-padding`    | Input  | Padding of `.ui-footer`.                                                                             |
 | `--_header-font-size`  | Input  | Font size of headings in `.ui-header`.                                                               |
 | `--_header-padding`    | Input  | Padding of `.ui-header`.                                                                             |
 | `--_inline-size`       | Input  | Width of drawers that open from the inline start or end.                                             |
@@ -806,11 +810,12 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Basics](#basics)).
+- Breaking: [`.ui-actions`](#basics) replaces `.ui-footer`. The actions sit at the end on every side, and `.ui-align-start` lines them up with the content.
 - Name it with [`aria-labelledby`](#accessibility) pointing at the header heading.
 - The [backdrop](#basics) dims and blurs like `Dialog`, through `--ui-backdrop-color` and `--ui-backdrop-blur`.
 - Breaking: `--_color` is `--_text-color`, and `--_transition-duration` and `--_transition-timing` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
 - The drawer shadow is [`--ui-shadow-overlay`](#api), shared with menus and select pickers. Padding reads the `--ui-space-*` scale.
-- Content padding is `--ui-space-3`, like the header and footer ([Basics](#basics)).
+- Content padding is `--ui-space-3`, like the header and the actions ([Basics](#basics)).
 - The scroll shadow reads [`--ui-shadow-scroll`](#api).
 - The panel sits on [`--ui-surface-elevated`](#api), like Dialog and Menu.
 - A drawer opens from the [inline start](#basics) without `.ui-inline-start`.

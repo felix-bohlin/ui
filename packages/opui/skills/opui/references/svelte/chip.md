@@ -16,7 +16,7 @@ Chip
 
 - `label`
 
-  The label.
+  The label, text or rich content.
 
 - `end`
 
@@ -80,7 +80,7 @@ The icon can be placed before or after the text using the `start` and `end` snip
   import { Chip } from "opui-css/svelte"
 </script>
 
-<Chip variant="tonal">
+<Chip variant="tonal" label="Tonal">
   {#snippet start()}<svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -93,10 +93,8 @@ The icon can be placed before or after the text using the `start` and `end` snip
         d="M16.25 3A3.75 3.75 0 0 1 20 6.75v9a3.75 3.75 0 0 1-2.89 3.651l2.462 1.172a.75.75 0 0 1-.55 1.392l-.095-.038L13.83 19.5h-3.661l-5.097 2.427a.75.75 0 1 1-.645-1.354L6.89 19.4A3.75 3.75 0 0 1 4 15.75v-9A3.75 3.75 0 0 1 7.75 3zM8 15a1 1 0 1 0 0 2a1 1 0 0 0 0-2m8 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2m.25-10.5h-8.5A2.25 2.25 0 0 0 5.5 6.75v5.75h13V6.75a2.25 2.25 0 0 0-2.25-2.25m-3 1.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1 0-1.5z"
       ></path></svg
     >{/snippet}
-  <span class="ui-text">Tonal</span>
 </Chip>
-<Chip variant="outlined">
-  <span class="ui-text">Outlined</span>
+<Chip variant="outlined" label="Outlined">
   {#snippet end()}<svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +174,7 @@ Use `as="button"` for a chip that runs an action.
   <Chip as="button" variant="outlined" label="Outlined button" />
 </div>
 <div class="example-row">
-  <Chip as="button" variant="tonal">
+  <Chip as="button" variant="tonal" label="Open now">
     {#snippet start()}<svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -189,10 +187,8 @@ Use `as="button"` for a chip that runs an action.
           d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
         ></path></svg
       >{/snippet}
-    <span class="ui-text">Open now</span>
   </Chip>
-  <Chip as="button" variant="outlined">
-    <span class="ui-text">Sort by</span>
+  <Chip as="button" variant="outlined" label="Sort by">
     {#snippet end()}<svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -219,8 +215,7 @@ Use `href` for a chip that goes to another page.
 </script>
 
 <Chip href="#" variant="tonal" label="Tonal link" />
-<Chip href="#" variant="outlined">
-  <span class="ui-text">Outlined link</span>
+<Chip href="#" variant="outlined" label="Outlined link">
   {#snippet end()}<svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -238,7 +233,7 @@ Use `href` for a chip that goes to another page.
 
 ## Disabled
 
-Disable a button or link chip with the `disabled` prop. A link chip drops its `href` and gets `aria-disabled="true"` instead. A static chip can't be disabled, so `class="ui-disabled"` only dims it a little and keeps its text readable.
+Disable a button or link chip with the `disabled` prop. A link chip drops its `href` and gets `aria-disabled="true"` instead. A static chip can't be disabled, so `aria-disabled="true"` only dims it a little and keeps its text readable.
 
 ```svelte
 <script lang="ts">
@@ -248,7 +243,7 @@ Disable a button or link chip with the `disabled` prop. A link chip drops its `h
 <Chip as="button" variant="tonal" label="Tonal" disabled />
 <Chip as="button" variant="outlined" label="Outlined" disabled />
 <Chip disabled href="#" label="Tonal link" />
-<Chip class="ui-disabled" label="Archived" />
+<Chip aria-disabled="true" label="Archived" />
 ```
 
 ## API
@@ -258,12 +253,11 @@ Disable a button or link chip with the `disabled` prop. A link chip drops its `h
 | Prop        | Type                                                              | Default    | Description                                                                                   |
 | ----------- | ----------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------- |
 | `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`    | The element to render. Defaults to `"a"` with `href`.                                         |
-| `children`  | `Snippet`                                                         | -          | Content placed before the label.                                                              |
 | `disabled`  | `boolean`                                                         | `false`    | Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead. |
 | `dot`       | `boolean`                                                         | `false`    | Adds a leading dot in the chip's color. Its shape follows the severity.                       |
 | `end`       | `Snippet`                                                         | -          | Optional content at the end, such as an icon.                                                 |
 | `href`      | `string`                                                          | -          | The link to use. Renders an `<a>`.                                                            |
-| `label`     | `string`                                                          | -          | The label.                                                                                    |
+| `label`     | `Snippet` , `string`                                              | -          | The label, text or rich content.                                                              |
 | `multiline` | `boolean`                                                         | `false`    | Lets the label wrap to multiple lines.                                                        |
 | `severity`  | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -          | The severity of a status chip. It tints the chip, and colors and shapes its dot.              |
 | `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"`                  | `"medium"` | The size of the element.                                                                      |
@@ -461,7 +455,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - [Severities](#severities) for statuses with `severity`, and a shape-coded [`dot`](#dot).
-- [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
+- [Disabled](#disabled) chips: `aria-disabled="true"` on a link chip, and on a static chip to dim it.
 - Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
 - [`disabled`](#disabled) works on button and link chips. A link chip gets `aria-disabled="true"`.
 - Breaking: a button chip needs `as="button"`, and a link chip needs `href` ([types](#api)).

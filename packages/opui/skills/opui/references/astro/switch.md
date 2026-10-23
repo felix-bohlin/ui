@@ -87,7 +87,7 @@ import { Switch } from "opui-css/astro"
 
 ### Label position
 
-Set `stack` to put the label under the switch.
+Set `orientation="vertical"` to put the label under the switch.
 
 ```astro
 ---
@@ -95,7 +95,7 @@ import { Switch } from "opui-css/astro"
 ---
 
 <Switch name="switch-label-position">Default</Switch>
-<Switch name="switch-label-position" stack>Stack</Switch>
+<Switch name="switch-label-position" orientation="vertical">Stack</Switch>
 ```
 
 ### End text
@@ -106,7 +106,9 @@ import { Switch } from "opui-css/astro"
 ---
 
 <Switch name="switch-end-text" endText="Supporting text"> Default </Switch>
-<Switch name="switch-end-text" stack endText="Supporting text"> Stack </Switch>
+<Switch name="switch-end-text" orientation="vertical" endText="Supporting text">
+  Stack
+</Switch>
 ```
 
 ## Icons
@@ -184,7 +186,8 @@ import { Switch } from "opui-css/astro"
 
 <div class="example-row ui-spacious">
   <Switch name="switch-validation" required>Default</Switch>
-  <Switch name="switch-validation" required stack>Stack</Switch>
+  <Switch name="switch-validation" required orientation="vertical">Stack</Switch
+  >
 </div>
 
 <div class="example-row ui-spacious">
@@ -192,7 +195,7 @@ import { Switch } from "opui-css/astro"
     Default
     <Fragment slot="end-text">Supporting text</Fragment>
   </Switch>
-  <Switch name="switch-validation" error stack>
+  <Switch name="switch-validation" error orientation="vertical">
     Stack
     <Fragment slot="end-text">Supporting text</Fragment>
   </Switch>
@@ -253,18 +256,18 @@ See also: [Form documentation](https://open-props-ui.netlify.app/astro/component
 
 ```astro
 ---
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="switch-group">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -274,18 +277,18 @@ Switches stack vertically by default. Set `orientation="horizontal"` on the `Fie
 
 ```astro
 ---
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="switch-group-orientation" orientation="horizontal">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -299,14 +302,14 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Switch,
 } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
     <FieldGroup
@@ -317,9 +320,9 @@ import {
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup
       orientation="horizontal"
@@ -330,30 +333,30 @@ import {
       <Switch>Switch 3</Switch>
     </FieldGroup>
     <FieldDescription>Field description below fields</FieldDescription>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
 ### Disabled
 
-Set `disabled` on the `FieldSet` to disable every switch in it, or on a single `Switch`.
+Set `disabled` on the `Fieldset` to disable every switch in it, or on a single `Switch`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the switch focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
 ```astro
 ---
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet disabled>
+  <Fieldset disabled>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="switch-group-disabled">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -363,34 +366,34 @@ Each switch with `required` must be on before the form submits. There's no nativ
 
 ```astro
 ---
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>These are required!</FieldLegend>
     <FieldGroup orientation="horizontal" name="switch-group-required">
       <Switch required>Switch 1</Switch>
       <Switch required>Switch 2</Switch>
       <Switch required>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
 ### Validation
 
-Set `error` on each `Switch` in the group. The end text of the `FieldSet` turns red with them.
+Set `error` on each `Switch` in the group. The end text of the `Fieldset` turns red with them.
 
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
 ```astro
 ---
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet aria-describedby="switch-field-group-validation-1-error">
+  <Fieldset aria-describedby="switch-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="switch-field-group-validation">
       <Switch error>Switch 1</Switch>
@@ -400,7 +403,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
     <span class="ui-end-text" id="switch-field-group-validation-1-error"
       >Something went wrong!</span
     >
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -414,19 +417,19 @@ import {
   Button,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Switch,
 } from "opui-css/astro"
 ---
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Notifications</FieldLegend>
   <FieldGroup name="switch-binding">
     <Switch checked value="email">Email</Switch>
     <Switch value="push">Push</Switch>
     <Switch value="sms">SMS</Switch>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 <p class="switch-binding-text">Selected: email</p>
 <Button class="switch-binding-reset">Reset</Button>
 
@@ -484,14 +487,14 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Switch API
 
-| Prop        | Type                                             | Default    | Description                                                     |
-| ----------- | ------------------------------------------------ | ---------- | --------------------------------------------------------------- |
-| `endText`   | `string`                                         | -          | Supporting text displayed below the label.                      |
-| `error`     | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.               |
-| `hideLabel` | `boolean`                                        | `false`    | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. |
-| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                        |
-| `spread`    | `boolean`                                        | `false`    | Pushes the label and the switch to opposite ends.               |
-| `stack`     | `boolean`                                        | `false`    | Stacks the label under the switch.                              |
+| Prop          | Type                                             | Default        | Description                                                                   |
+| ------------- | ------------------------------------------------ | -------------- | ----------------------------------------------------------------------------- |
+| `endText`     | `string`                                         | -              | Supporting text displayed below the label.                                    |
+| `error`       | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                             |
+| `hideLabel`   | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.               |
+| `orientation` | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the switch. |
+| `size`        | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                      |
+| `spread`      | `boolean`                                        | `false`        | Pushes the label and the switch to opposite ends.                             |
 
 #### Slots
 
@@ -891,6 +894,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`orientation="vertical"`](#label-position) replaces `stack`.
 - The unchecked thumb and track read [`--ui-switch-thumb-color`](#api) and `--ui-switch-track-color`.
 - The unchecked track border is [`--ui-field-border-color`](#api), like the checkbox and radio borders.
 - The checked track reads [`--ui-choice-accent`](#api) and the unchecked track `--ui-track-color` when a theme sets them.

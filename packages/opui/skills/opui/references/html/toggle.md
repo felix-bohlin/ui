@@ -18,7 +18,7 @@ Day Week Month
 
 ```html
 <label class="ui-toggle-button">
-  <input type="checkbox" name="standalone-demo-1" value="Toggle me" />
+  <input type="checkbox" name="standalone-demo-1" />
   Toggle me
 </label>
 <label class="ui-toggle-button">
@@ -397,12 +397,12 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-over
 
 ### Toggle group API
 
-| Type        | Modifiers                                             | Default          | Description                                                                                                                                                                                                                                       |
-| ----------- | ----------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Orientation | default, `.ui-vertical`                               | default          | The orientation of the element.                                                                                                                                                                                                                   |
-| Overflow    | default, `.ui-overflow-scroll`, `.ui-overflow-shrink` | default          | What the items do when they don't fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. |
-| Selection   | `[role="group"]`, `[role="radiogroup"]`               | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                                                                                                                                                     |
-| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small`      | default          | The size of the buttons.                                                                                                                                                                                                                          |
+| Type        | Modifiers                                             | Default | Description                                                                                                                                                                                                                                       |
+| ----------- | ----------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Multiple    | `[role="group"]`                                      | -       | Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role="radiogroup"]`.                                                                                                 |
+| Orientation | default, `.ui-vertical`                               | default | The orientation of the element.                                                                                                                                                                                                                   |
+| Overflow    | default, `.ui-overflow-scroll`, `.ui-overflow-shrink` | default | What the items do when they don't fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. |
+| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small`      | default | The size of the buttons.                                                                                                                                                                                                                          |
 
 #### Parts
 

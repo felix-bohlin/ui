@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Start text  € EUR Header Footer Supporting text
+Label Start text  € EUR Top Bottom Supporting text
 
 - `<Textarea>`
 
@@ -20,11 +20,11 @@ Label Start text  € EUR Header Footer Supporting text
 
   The boxed textarea area.
 
-- `header`
+- `top`
 
   Content above the textarea, inside the border, with a divider.
 
-- `prefix`
+- `start`
 
   Content at the inline-start of the field, inside the border.
 
@@ -32,11 +32,11 @@ Label Start text  € EUR Header Footer Supporting text
 
   The textarea element.
 
-- `suffix`
+- `end`
 
   Content at the inline-end of the field, inside the border.
 
-- `footer`
+- `bottom`
 
   Content below the textarea, inside the border, with a divider.
 
@@ -116,7 +116,7 @@ export default function EndText() {
 
 ## Affix
 
-Use the `prefix`, `suffix`, `header`, and `footer` props to affix content inside the textarea's border. Header and footer are particularly useful for filenames and character counters.
+Use the `start`, `end`, `top`, and `bottom` props to affix content inside the textarea's border. Top and bottom are particularly useful for filenames and character counters.
 
 ```tsx
 import { Textarea } from "opui-css/react"
@@ -127,7 +127,7 @@ export default function Affix() {
       <Textarea
         label="Notes"
         placeholder="Add a note..."
-        prefix={
+        start={
           <svg
             aria-hidden="true"
             width="16"
@@ -148,31 +148,31 @@ export default function Affix() {
       <Textarea
         label="Comment"
         placeholder="Write a comment..."
-        suffix="Markdown"
+        end="Markdown"
       />
     </>
   )
 }
 ```
 
-### Headers and footers
+### Top and bottom
 
 ```tsx
 import { Textarea } from "opui-css/react"
 
-export default function Headers() {
+export default function TopAndBottom() {
   return (
     <>
       <Textarea
         label="Code"
         placeholder="console.log('Hello, world!')"
-        header="script.js"
+        top="script.js"
       />
 
       <Textarea
         label="Comment"
         placeholder="Write a comment..."
-        footer="0 / 280"
+        bottom="0 / 280"
       />
     </>
   )
@@ -276,7 +276,7 @@ export default function Spread() {
         label="Bio"
         placeholder="Tell us about yourself..."
         startText="Shown on your public profile"
-        prefix={
+        start={
           <svg
             aria-hidden="true"
             width="16"
@@ -292,7 +292,7 @@ export default function Spread() {
             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
           </svg>
         }
-        footer="280 characters left"
+        bottom="280 characters left"
       />
 
       <Textarea
@@ -301,8 +301,8 @@ export default function Spread() {
         label="Release notes"
         placeholder="Markdown supported..."
         startText="Shown on the changelog page"
-        header="v1.4.0"
-        footer="Saved 2 minutes ago"
+        top="v1.4.0"
+        bottom="Saved 2 minutes ago"
         endText="Drafts are auto-saved"
       />
     </>
@@ -329,18 +329,18 @@ export default function AutoFit() {
 | Prop        | Type                                             | Default      | Description                                                                |
 | ----------- | ------------------------------------------------ | ------------ | -------------------------------------------------------------------------- |
 | `autoFit`   | `boolean`                                        | `false`      | Lets the width follow the content and allows resizing in both directions.  |
+| `bottom`    | `ReactNode`                                      | -            | Content below the textarea, inside the border, with a divider.             |
 | `children`  | `ReactNode`                                      | -            | Extra content inside the root.                                             |
+| `end`       | `ReactNode`                                      | -            | Content at the inline-end of the field, inside the border.                 |
 | `endText`   | `ReactNode`                                      | -            | Supporting text displayed below the field.                                 |
 | `error`     | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                          |
-| `footer`    | `ReactNode`                                      | -            | Content below the textarea, inside the border, with a divider.             |
-| `header`    | `ReactNode`                                      | -            | Content above the textarea, inside the border, with a divider.             |
 | `id`        | `string`                                         | -            | The id of the `<textarea>`.                                                |
 | `label`     | `ReactNode`                                      | -            | The label for the field.                                                   |
-| `prefix`    | `ReactNode`                                      | -            | Content at the inline-start of the field, inside the border.               |
 | `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                   |
 | `spread`    | `boolean`                                        | `false`      | Pushes the label and start text to one side and the textarea to the other. |
+| `start`     | `ReactNode`                                      | -            | Content at the inline-start of the field, inside the border.               |
 | `startText` | `ReactNode`                                      | -            | Start text displayed above the field.                                      |
-| `suffix`    | `ReactNode`                                      | -            | Content at the inline-end of the field, inside the border.                 |
+| `top`       | `ReactNode`                                      | -            | Content above the textarea, inside the border, with a divider.             |
 | `variant`   | `"filled"` , `"outlined"`                        | `"outlined"` | The variant to use.                                                        |
 
 #### CSS variables
@@ -406,7 +406,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |

@@ -59,12 +59,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
   <ToggleButton size="small"> small </ToggleButton>
   <ToggleButton> default </ToggleButton>
   <ToggleButton size="large"> large </ToggleButton>
-  <ToggleGroup
-    aria-label="View"
-    name="toggle-sizes"
-    selection="single"
-    size="small"
-  >
+  <ToggleGroup aria-label="View" name="toggle-sizes" size="small">
     <ToggleButton value="day"> Day </ToggleButton>
     <ToggleButton value="week"> Week </ToggleButton>
     <ToggleButton value="month"> Month </ToggleButton>
@@ -78,7 +73,7 @@ Group toggle buttons by wrapping them in a `ToggleGroup` component.
 
 ### Multi-select
 
-Use `selection="multiple"` for multi-select groups.
+Set `multiple` for multi-select groups.
 
 ```vue
 <script setup lang="ts">
@@ -86,7 +81,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <ToggleGroup name="text-style">
+  <ToggleGroup multiple name="text-style">
     <ToggleButton value="bold" aria-label="Bold"
       ><strong>B</strong></ToggleButton
     >
@@ -100,7 +95,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 
 ### Single-select
 
-Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `checked` on the starting button, or `defaultChecked` in React.
+A group without `multiple` is single-select. Every button is a radio then, and a `type` on a button is ignored. Set `checked` on the starting button, or `defaultChecked` in React.
 
 ```vue
 <script setup lang="ts">
@@ -108,7 +103,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <ToggleGroup selection="single" name="alignment">
+  <ToggleGroup name="alignment">
     <ToggleButton value="left" aria-label="Align left">
       <svg
         aria-hidden="true"
@@ -157,7 +152,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 
 ### Binding
 
-Bind the selection with `v-model` on the `ToggleGroup`. The value is a string with `selection="single"` and an array of strings with `selection="multiple"`. A button is checked when its `value` is in it, and setting the ref updates the buttons.
+Bind the selection with `v-model` on the `ToggleGroup`. The value is a string, and an array of strings with `multiple`. A button is checked when its `value` is in it, and setting the ref updates the buttons.
 
 ```vue
 <script setup lang="ts">
@@ -174,17 +169,17 @@ function reset() {
 </script>
 
 <template>
-  <ToggleGroup
-    aria-label="View"
-    name="calendar-view"
-    selection="single"
-    v-model="view"
-  >
+  <ToggleGroup aria-label="View" name="calendar-view" v-model="view">
     <ToggleButton value="day"> Day </ToggleButton>
     <ToggleButton value="week"> Week </ToggleButton>
     <ToggleButton value="month"> Month </ToggleButton>
   </ToggleGroup>
-  <ToggleGroup aria-label="Text format" name="text-format" v-model="format">
+  <ToggleGroup
+    aria-label="Text format"
+    multiple
+    name="text-format"
+    v-model="format"
+  >
     <ToggleButton value="bold"> Bold </ToggleButton>
     <ToggleButton value="italic"> Italic </ToggleButton>
     <ToggleButton value="underline"> Underline </ToggleButton>
@@ -206,7 +201,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <ToggleGroup selection="single" name="transport">
+  <ToggleGroup name="transport">
     <ToggleButton value="walking" checked>
       <svg
         aria-hidden="true"
@@ -266,7 +261,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <ToggleGroup selection="single" name="view" orientation="vertical">
+  <ToggleGroup name="view" orientation="vertical">
     <ToggleButton value="day"> Day </ToggleButton>
     <ToggleButton value="week" checked> Week </ToggleButton>
     <ToggleButton value="month"> Month </ToggleButton>
@@ -284,17 +279,17 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 </script>
 
 <template>
-  <ToggleGroup name="overflow-wrap">
+  <ToggleGroup multiple name="overflow-wrap">
     <ToggleButton value="all"> Everything </ToggleButton>
     <ToggleButton value="mentions"> Mentions </ToggleButton>
     <ToggleButton value="none"> Nothing at all </ToggleButton>
   </ToggleGroup>
-  <ToggleGroup name="overflow-scroll" overflow="scroll">
+  <ToggleGroup multiple name="overflow-scroll" overflow="scroll">
     <ToggleButton value="all"> Everything </ToggleButton>
     <ToggleButton value="mentions"> Mentions </ToggleButton>
     <ToggleButton value="none"> Nothing at all </ToggleButton>
   </ToggleGroup>
-  <ToggleGroup name="overflow-shrink" overflow="shrink">
+  <ToggleGroup multiple name="overflow-shrink" overflow="shrink">
     <ToggleButton value="all"> Everything </ToggleButton>
     <ToggleButton value="mentions"> Mentions </ToggleButton>
     <ToggleButton value="none"> Nothing at all </ToggleButton>
@@ -325,12 +320,12 @@ import { ToggleButton } from "opui-css/vue"
 
 | Prop                                                                                                                                                                        | Type                                             | Default        | Description                                                                                                                                                                                                                                       |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `multiple`                                                                                                                                                                  | `boolean`                                        | `false`        | Lets several buttons be checked, with checkbox inputs. Without it, one button is checked at a time, with radio inputs in a `[role="radiogroup"]`.                                                                                                 |
 | `name`                                                                                                                                                                      | `string`                                         | -              | The name shared by the inputs. Generated when omitted.                                                                                                                                                                                            |
 | `orientation`                                                                                                                                                               | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element.                                                                                                                                                                                                                   |
 | `overflow`                                                                                                                                                                  | `"scroll"` , `"shrink"` , `"wrap"`               | `"wrap"`       | What the items do when they don't fit. `"wrap"` wraps them onto more rows, `"scroll"` keeps them on one row and scrolls it sideways, and `"shrink"` keeps them on one row and truncates labels with an ellipsis. Icon-only items keep their size. |
-| `selection`                                                                                                                                                                 | `"multiple"` , `"single"`                        | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                                                                                                                                                     |
 | `size`                                                                                                                                                                      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons.                                                                                                                                                                                                                          |
-| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `string[]`                            | -              | The value of the checked button with `selection="single"`, or the values of the checked buttons.                                                                                                                                                  |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `string[]`                            | -              | The value of the checked button, or the values of the checked buttons with `multiple`.                                                                                                                                                            |
 
 #### Slots
 
@@ -381,16 +376,16 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Toggle button API
 
-| Prop       | Type                                             | Default      | Description                                                                                  |
-| ---------- | ------------------------------------------------ | ------------ | -------------------------------------------------------------------------------------------- |
-| `checked`  | `boolean`                                        | `false`      | Selects the button.                                                                          |
-| `disabled` | `boolean`                                        | `false`      | Disables the button.                                                                         |
-| `id`       | `string`                                         | -            | The id of the `<input>`.                                                                     |
-| `label`    | `string`                                         | -            | The button text when there is no child content, and the input value when `value` is omitted. |
-| `name`     | `string`                                         | -            | The name of the input. Set by the group.                                                     |
-| `size`     | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                                     |
-| `type`     | `"checkbox"` , `"radio"`                         | `"checkbox"` | The input type. `"radio"` allows one selection in a group.                                   |
-| `value`    | `string`                                         | -            | The value of the input.                                                                      |
+| Prop       | Type                                             | Default      | Description                                                |
+| ---------- | ------------------------------------------------ | ------------ | ---------------------------------------------------------- |
+| `checked`  | `boolean`                                        | `false`      | Selects the button.                                        |
+| `disabled` | `boolean`                                        | `false`      | Disables the button.                                       |
+| `id`       | `string`                                         | -            | The id of the `<input>`.                                   |
+| `label`    | `string`                                         | -            | The button text when there is no child content.            |
+| `name`     | `string`                                         | -            | The name of the input. Set by the group.                   |
+| `size`     | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                   |
+| `type`     | `"checkbox"` , `"radio"`                         | `"checkbox"` | The input type. `"radio"` allows one selection in a group. |
+| `value`    | `string`                                         | -            | The value of the input.                                    |
 
 #### Slots
 
@@ -638,3 +633,5 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The default size reads [`--ui-font-size-control`](#sizes) for its font size, like buttons.
 - [Sizes](#sizes) name the default: `size="medium"`.
 - Breaking: `ToggleButton` `pressed` is [`checked`](#single-select).
+- Breaking: `ToggleGroup` `selection` is [`multiple`](#multi-select), and a group is [single-select](#single-select) by default.
+- Breaking: `ToggleButton` [`value`](#api) no longer falls back to `label`.

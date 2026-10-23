@@ -320,7 +320,7 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
     DialogHeader,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Radio,
   } from "opui-css/svelte"
 
@@ -340,14 +340,14 @@ Without `closedby`, the browser picks: a modal dialog, opened with `command="sho
     <h2 class="ui-h4">How to close</h2>
   </DialogHeader>
   <DialogContent>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Choose a closing behavior:</FieldLegend>
       <FieldGroup name="closedby-demo">
         <Radio bind:group={closedby} value="any">any</Radio>
         <Radio bind:group={closedby} value="closerequest">closerequest</Radio>
         <Radio bind:group={closedby} value="none">none</Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </DialogContent>
   <DialogActions>
     <Button commandfor="dialog-close-behaviors-1" command="close">

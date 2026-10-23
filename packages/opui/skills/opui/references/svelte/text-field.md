@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Start text € EUR Header Footer Supporting text
+Label Start text € EUR Top Bottom Supporting text
 
 - `<TextField>`
 
@@ -20,11 +20,11 @@ Label Start text € EUR Header Footer Supporting text
 
   The boxed input area.
 
-- `header`
+- `top`
 
   Content above the input, inside the border, with a divider.
 
-- `prefix`
+- `start`
 
   Content at the inline-start of the field, inside the border.
 
@@ -32,11 +32,11 @@ Label Start text € EUR Header Footer Supporting text
 
   The input element.
 
-- `suffix`
+- `end`
 
   Content at the inline-end of the field, inside the border.
 
-- `footer`
+- `bottom`
 
   Content below the input, inside the border, with a divider.
 
@@ -98,7 +98,7 @@ Use the `startText` prop or snippet for text between the label and the input.
 
 ## Affix
 
-Use the `prefix`, `suffix`, `header`, and `footer` snippets to affix content inside the field's border. Prefix and suffix sit beside the input, while header and footer span the field's full width with a divider.
+Use the `start`, `end`, `top`, and `bottom` snippets to affix content inside the field's border. Start and end sit beside the input, while top and bottom span the field's full width with a divider.
 
 ```svelte
 <script lang="ts">
@@ -106,20 +106,20 @@ Use the `prefix`, `suffix`, `header`, and `footer` snippets to affix content ins
 </script>
 
 <TextField label="Amount" placeholder="0.00">
-  {#snippet prefix()}€{/snippet}
-  {#snippet suffix()}EUR{/snippet}
+  {#snippet start()}€{/snippet}
+  {#snippet end()}EUR{/snippet}
 </TextField>
 
 <TextField label="Website" placeholder="example.com">
-  {#snippet prefix()}https://{/snippet}
+  {#snippet start()}https://{/snippet}
 </TextField>
 
 <TextField label="Weight" type="numeric" placeholder="0">
-  {#snippet suffix()}kg{/snippet}
+  {#snippet end()}kg{/snippet}
 </TextField>
 
 <TextField label="Search" placeholder="Search...">
-  {#snippet prefix()}<svg
+  {#snippet start()}<svg
       aria-hidden="true"
       width="16"
       height="16"
@@ -136,9 +136,9 @@ Use the `prefix`, `suffix`, `header`, and `footer` snippets to affix content ins
 </TextField>
 ```
 
-### Headers and footers
+### Top and bottom
 
-Use the header for inside-field captions (filenames, categories) and the footer for counters and hints.
+Use the top for inside-field captions (filenames, categories) and the bottom for counters and hints.
 
 ```svelte
 <script lang="ts">
@@ -146,11 +146,11 @@ Use the header for inside-field captions (filenames, categories) and the footer 
 </script>
 
 <TextField label="Name" placeholder="Ada Lovelace">
-  {#snippet header()}Shown on your profile{/snippet}
+  {#snippet top()}Shown on your profile{/snippet}
 </TextField>
 
 <TextField label="Tagline" placeholder="A short description">
-  {#snippet footer()}0 / 80{/snippet}
+  {#snippet bottom()}0 / 80{/snippet}
 </TextField>
 ```
 
@@ -229,20 +229,20 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 
 <TextField spread label="Amount" placeholder="0.00">
   {#snippet startText()}Daily spending limit{/snippet}
-  {#snippet prefix()}€{/snippet}
-  {#snippet suffix()}EUR{/snippet}
+  {#snippet start()}€{/snippet}
+  {#snippet end()}EUR{/snippet}
 </TextField>
 
 <TextField spread label="Website" placeholder="example.com" variant="filled">
   {#snippet startText()}Your public profile URL{/snippet}
-  {#snippet prefix()}https://{/snippet}
+  {#snippet start()}https://{/snippet}
   {#snippet endText()}Must include a valid domain{/snippet}
 </TextField>
 
 <TextField spread label="Project name" placeholder="my-project">
   {#snippet startText()}Used to generate the project URL{/snippet}
-  {#snippet header()}acme.dev/{/snippet}
-  {#snippet footer()}Lowercase letters and dashes only{/snippet}
+  {#snippet top()}acme.dev/{/snippet}
+  {#snippet bottom()}Lowercase letters and dashes only{/snippet}
 </TextField>
 
 <TextField
@@ -253,7 +253,7 @@ Use the `spread` boolean prop to display the label and start text on the left wi
   type="password"
 >
   {#snippet startText()}Stored encrypted at rest{/snippet}
-  {#snippet prefix()}
+  {#snippet start()}
     <svg
       aria-hidden="true"
       width="16"
@@ -269,8 +269,8 @@ Use the `spread` boolean prop to display the label and start text on the left wi
       <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
     </svg>
   {/snippet}
-  {#snippet header()}Secret{/snippet}
-  {#snippet footer()}Rotates every 90 days{/snippet}
+  {#snippet top()}Secret{/snippet}
+  {#snippet bottom()}Rotates every 90 days{/snippet}
   {#snippet endText()}Treat like a password{/snippet}
 </TextField>
 ```
@@ -427,18 +427,18 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ | ------------ | ------------------------------------------------------------------------- |
 | `autoFit`                                                                                                                                                                      | `boolean`                                        | `false`      | Lets the width follow the content, from `25ch`.                           |
 | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number`                              | -            | The input value.                                                          |
+| `bottom`                                                                                                                                                                       | `Snippet` , `string`                             | -            | Content below the input, inside the border, with a divider.               |
 | `children`                                                                                                                                                                     | `Snippet`                                        | -            | Extra content inside the root, such as a `<datalist>`.                    |
+| `end`                                                                                                                                                                          | `Snippet` , `string`                             | -            | Content at the inline-end of the field, inside the border.                |
 | `endText`                                                                                                                                                                      | `Snippet` , `string`                             | -            | Supporting text displayed below the field.                                |
 | `error`                                                                                                                                                                        | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                         |
-| `footer`                                                                                                                                                                       | `Snippet` , `string`                             | -            | Content below the input, inside the border, with a divider.               |
-| `header`                                                                                                                                                                       | `Snippet` , `string`                             | -            | Content above the input, inside the border, with a divider.               |
 | `id`                                                                                                                                                                           | `string`                                         | -            | The id of the `<input>`.                                                  |
 | `label`                                                                                                                                                                        | `Snippet` , `string`                             | -            | The label for the field.                                                  |
-| `prefix`                                                                                                                                                                       | `Snippet` , `string`                             | -            | Content at the inline-start of the field, inside the border.              |
 | `size`                                                                                                                                                                         | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                  |
 | `spread`                                                                                                                                                                       | `boolean`                                        | `false`      | Pushes the label and start text to one side and the input to the other.   |
+| `start`                                                                                                                                                                        | `Snippet` , `string`                             | -            | Content at the inline-start of the field, inside the border.              |
 | `startText`                                                                                                                                                                    | `Snippet` , `string`                             | -            | Start text displayed above the field.                                     |
-| `suffix`                                                                                                                                                                       | `Snippet` , `string`                             | -            | Content at the inline-end of the field, inside the border.                |
+| `top`                                                                                                                                                                          | `Snippet` , `string`                             | -            | Content above the input, inside the border, with a divider.               |
 | `type`                                                                                                                                                                         | `"numeric"` , `string`                           | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
 | `variant`                                                                                                                                                                      | `"filled"` , `"outlined"`                        | `"outlined"` | The variant to use.                                                       |
 
@@ -503,7 +503,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |

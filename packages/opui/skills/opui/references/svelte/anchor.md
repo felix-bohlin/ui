@@ -209,21 +209,21 @@ Preview where a link goes before following it.
 
 ### Anchor API
 
-| Prop           | Type                   | Default                 | Description                                                                                                                                                                                                        |
-| -------------- | ---------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `children`     | `Snippet`              | -                       | The content to anchor to, followed by `AnchorContent`.                                                                                                                                                             |
-| `id`           | `string`               | -                       | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.                                                                                          |
-| `positionArea` | `string`               | `"self-start self-end"` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
-| `trigger`      | `"always"` , `"hover"` | `"always"`              | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                                                                                                    |
+| Prop           | Type      | Default                 | Description                                                                                                                                                                                                        |
+| -------------- | --------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `children`     | `Snippet` | -                       | The content to anchor to, followed by `AnchorContent`.                                                                                                                                                             |
+| `id`           | `string`  | -                       | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.                                                                                          |
+| `positionArea` | `string`  | `"self-start self-end"` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
+| `trigger`      | `"hover"` | -                       | Shows the floating content on hover and focus with `popover="hint"`. Without it, the content always shows.                                                                                                         |
 
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
 
-| Property       | Kind  | Description                                                 |
-| -------------- | ----- | ----------------------------------------------------------- |
-| `--_anchor-tx` | Input | Horizontal shift of `.ui-anchor-floating`. Defaults to `0`. |
-| `--_anchor-ty` | Input | Vertical shift of `.ui-anchor-floating`. Defaults to `0`.   |
+| Property       | Kind  | Description                                          |
+| -------------- | ----- | ---------------------------------------------------- |
+| `--_anchor-tx` | Input | Horizontal shift of `.ui-floating`. Defaults to `0`. |
+| `--_anchor-ty` | Input | Vertical shift of `.ui-floating`. Defaults to `0`.   |
 
 ## Under the hood
 

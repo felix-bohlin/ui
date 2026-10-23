@@ -125,7 +125,7 @@ Render the label text inside an element with a `.ui-label` class. Without a visi
 
 ### Label position
 
-Add `.ui-stack` to the `<label class="ui-radio">` to put the label under the radio.
+Add `.ui-vertical` to the `<label class="ui-radio">` to put the label under the radio.
 
 ```html
 <label class="ui-radio">
@@ -133,7 +133,7 @@ Add `.ui-stack` to the `<label class="ui-radio">` to put the label under the rad
   <span class="ui-label">Default</span>
 </label>
 
-<label class="ui-radio ui-stack">
+<label class="ui-radio ui-vertical">
   <input name="radio-label-position" type="radio" value="stack" />
   <span class="ui-label">Stack</span>
 </label>
@@ -150,7 +150,7 @@ Add a `.ui-end-text` element after the label for supporting text under a single 
   <span class="ui-end-text">Supporting text</span>
 </label>
 
-<label class="ui-radio ui-stack">
+<label class="ui-radio ui-vertical">
   <input name="radio-end-text" type="radio" value="stack" />
   <span class="ui-label">Stack</span>
   <span class="ui-end-text">Supporting text</span>
@@ -234,7 +234,7 @@ Can be placed above and below the fields.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <p class="ui-field-description">Field description above fields</p>
+    <p class="ui-description">Field description above fields</p>
     <div class="ui-field-group ui-horizontal">
       <label class="ui-radio">
         <input
@@ -277,7 +277,7 @@ Can be placed above and below the fields.
         <span class="ui-label">Radio 3</span>
       </label>
     </div>
-    <p class="ui-field-description">Field description below fields</p>
+    <p class="ui-description">Field description below fields</p>
   </fieldset>
 </form>
 ```
@@ -450,15 +450,15 @@ The selected value lives in the inputs, which share a `name`. Submit them with a
 
 ### Radio API
 
-| Type       | Modifiers                                        | Default | Description                                                     |
-| ---------- | ------------------------------------------------ | ------- | --------------------------------------------------------------- |
-| Disabled   | `input[disabled]`                                | -       | Dims the radio and shows a not-allowed cursor.                  |
-| Label      | `.ui-label.ui-sr-only`                           | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. |
-| Required   | `input[required]`                                | -       | Adds a required mark after the label.                           |
-| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                        |
-| Spread     | `.ui-spread`                                     | -       | Pushes the label and the input to opposite ends.                |
-| Stack      | `.ui-stack`                                      | -       | Stacks the label under the input.                               |
-| Validation | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles.               |
+| Type        | Modifiers                                        | Default | Description                                                                  |
+| ----------- | ------------------------------------------------ | ------- | ---------------------------------------------------------------------------- |
+| Disabled    | `input[disabled]`                                | -       | Dims the radio and shows a not-allowed cursor.                               |
+| Label       | `.ui-label.ui-sr-only`                           | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.              |
+| Orientation | default, `.ui-vertical`                          | default | The orientation of the element. `vertical` stacks the label under the input. |
+| Required    | `input[required]`                                | -       | Adds a required mark after the label.                                        |
+| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                     |
+| Spread      | `.ui-spread`                                     | -       | Pushes the label and the input to opposite ends.                             |
+| Validation  | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles.                            |
 
 #### Parts
 
@@ -766,6 +766,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`.ui-vertical`](#label-position) replaces `.ui-stack`.
 - The unchecked ring, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The checked fill and dot read [`--ui-choice-accent`](#api) and `--ui-choice-on-accent` when a theme sets them.
 - [Radios](#sizes) are 20px, the same `--ui-choice-size` as Checkbox.

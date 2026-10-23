@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Start text € EUR Header Footer Supporting text
+Label Start text € EUR Top Bottom Supporting text
 
 - `<TextField>`
 
@@ -20,11 +20,11 @@ Label Start text € EUR Header Footer Supporting text
 
   The boxed input area.
 
-- `header`
+- `top`
 
   Content above the input, inside the border, with a divider.
 
-- `prefix`
+- `start`
 
   Content at the inline-start of the field, inside the border.
 
@@ -32,11 +32,11 @@ Label Start text € EUR Header Footer Supporting text
 
   The input element.
 
-- `suffix`
+- `end`
 
   Content at the inline-end of the field, inside the border.
 
-- `footer`
+- `bottom`
 
   Content below the input, inside the border, with a divider.
 
@@ -108,7 +108,7 @@ export default function EndText() {
 
 ## Affix
 
-Use the `prefix`, `suffix`, `header`, and `footer` props to affix content inside the field's border. Prefix and suffix sit beside the input, while header and footer span the field's full width with a divider.
+Use the `start`, `end`, `top`, and `bottom` props to affix content inside the field's border. Start and end sit beside the input, while top and bottom span the field's full width with a divider.
 
 ```tsx
 import { TextField } from "opui-css/react"
@@ -116,13 +116,13 @@ import { TextField } from "opui-css/react"
 export default function Affix() {
   return (
     <>
-      <TextField label="Amount" placeholder="0.00" prefix="€" suffix="EUR" />
-      <TextField label="Website" placeholder="example.com" prefix="https://" />
-      <TextField label="Weight" type="numeric" placeholder="0" suffix="kg" />
+      <TextField label="Amount" placeholder="0.00" start="€" end="EUR" />
+      <TextField label="Website" placeholder="example.com" start="https://" />
+      <TextField label="Weight" type="numeric" placeholder="0" end="kg" />
       <TextField
         label="Search"
         placeholder="Search..."
-        prefix={
+        start={
           <svg
             aria-hidden="true"
             width="16"
@@ -144,26 +144,26 @@ export default function Affix() {
 }
 ```
 
-### Headers and footers
+### Top and bottom
 
-Use the header for inside-field captions (filenames, categories) and the footer for counters and hints.
+Use the top for inside-field captions (filenames, categories) and the bottom for counters and hints.
 
 ```tsx
 import { TextField } from "opui-css/react"
 
-export default function Headers() {
+export default function TopAndBottom() {
   return (
     <>
       <TextField
         label="Name"
         placeholder="Ada Lovelace"
-        header="Shown on your profile"
+        top="Shown on your profile"
       />
 
       <TextField
         label="Tagline"
         placeholder="A short description"
-        footer="0 / 80"
+        bottom="0 / 80"
       />
     </>
   )
@@ -268,8 +268,8 @@ export default function Spread() {
         label="Amount"
         placeholder="0.00"
         startText="Daily spending limit"
-        prefix="€"
-        suffix="EUR"
+        start="€"
+        end="EUR"
       />
 
       <TextField
@@ -278,7 +278,7 @@ export default function Spread() {
         placeholder="example.com"
         variant="filled"
         startText="Your public profile URL"
-        prefix="https://"
+        start="https://"
         endText="Must include a valid domain"
       />
 
@@ -287,8 +287,8 @@ export default function Spread() {
         label="Project name"
         placeholder="my-project"
         startText="Used to generate the project URL"
-        header="acme.dev/"
-        footer="Lowercase letters and dashes only"
+        top="acme.dev/"
+        bottom="Lowercase letters and dashes only"
       />
 
       <TextField
@@ -298,7 +298,7 @@ export default function Spread() {
         placeholder="Paste your key"
         type="password"
         startText="Stored encrypted at rest"
-        prefix={
+        start={
           <svg
             aria-hidden="true"
             width="16"
@@ -314,8 +314,8 @@ export default function Spread() {
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
         }
-        header="Secret"
-        footer="Rotates every 90 days"
+        top="Secret"
+        bottom="Rotates every 90 days"
         endText="Treat like a password"
       />
     </>
@@ -486,18 +486,18 @@ export default function NoLabel() {
 | Prop        | Type                                             | Default      | Description                                                               |
 | ----------- | ------------------------------------------------ | ------------ | ------------------------------------------------------------------------- |
 | `autoFit`   | `boolean`                                        | `false`      | Lets the width follow the content, from `25ch`.                           |
+| `bottom`    | `ReactNode`                                      | -            | Content below the input, inside the border, with a divider.               |
 | `children`  | `ReactNode`                                      | -            | Extra content inside the root, such as a `<datalist>`.                    |
+| `end`       | `ReactNode`                                      | -            | Content at the inline-end of the field, inside the border.                |
 | `endText`   | `ReactNode`                                      | -            | Supporting text displayed below the field.                                |
 | `error`     | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                         |
-| `footer`    | `ReactNode`                                      | -            | Content below the input, inside the border, with a divider.               |
-| `header`    | `ReactNode`                                      | -            | Content above the input, inside the border, with a divider.               |
 | `id`        | `string`                                         | -            | The id of the `<input>`.                                                  |
 | `label`     | `ReactNode`                                      | -            | The label for the field.                                                  |
-| `prefix`    | `ReactNode`                                      | -            | Content at the inline-start of the field, inside the border.              |
 | `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                  |
 | `spread`    | `boolean`                                        | `false`      | Pushes the label and start text to one side and the input to the other.   |
+| `start`     | `ReactNode`                                      | -            | Content at the inline-start of the field, inside the border.              |
 | `startText` | `ReactNode`                                      | -            | Start text displayed above the field.                                     |
-| `suffix`    | `ReactNode`                                      | -            | Content at the inline-end of the field, inside the border.                |
+| `top`       | `ReactNode`                                      | -            | Content above the input, inside the border, with a divider.               |
 | `type`      | `"numeric"` , `string`                           | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
 | `variant`   | `"filled"` , `"outlined"`                        | `"outlined"` | The variant to use.                                                       |
 
@@ -562,7 +562,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |

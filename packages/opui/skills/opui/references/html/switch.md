@@ -133,7 +133,7 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 ### Label position
 
-Add `.ui-stack` to the `<label class="ui-switch">` to put the label under the switch.
+Add `.ui-vertical` to the `<label class="ui-switch">` to put the label under the switch.
 
 ```html
 <label class="ui-switch">
@@ -141,7 +141,7 @@ Add `.ui-stack` to the `<label class="ui-switch">` to put the label under the sw
   <span class="ui-label">Default</span>
 </label>
 
-<label class="ui-switch ui-stack">
+<label class="ui-switch ui-vertical">
   <input name="switch-label-position" type="checkbox" role="switch" />
   <span class="ui-label">Stack</span>
 </label>
@@ -156,7 +156,7 @@ Add `.ui-stack` to the `<label class="ui-switch">` to put the label under the sw
   <span class="ui-end-text">Supporting text</span>
 </label>
 
-<label class="ui-switch ui-stack">
+<label class="ui-switch ui-vertical">
   <input name="switch-end-text" type="checkbox" role="switch" />
   <span class="ui-label">Stack</span>
   <span class="ui-end-text">Supporting text</span>
@@ -244,7 +244,7 @@ Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hi
     <span class="ui-label">Default</span>
   </label>
 
-  <label class="ui-switch ui-stack">
+  <label class="ui-switch ui-vertical">
     <input name="switch-validation" type="checkbox" role="switch" required />
     <span class="ui-label">Stack</span>
   </label>
@@ -263,7 +263,7 @@ Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hi
     <span class="ui-end-text">Supporting text</span>
   </label>
 
-  <label class="ui-switch ui-stack">
+  <label class="ui-switch ui-vertical">
     <input
       aria-invalid="true"
       name="switch-validation"
@@ -389,7 +389,7 @@ Can be placed above and below the fields.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <p class="ui-field-description">Field description above fields</p>
+    <p class="ui-description">Field description above fields</p>
     <div class="ui-field-group ui-horizontal">
       <label class="ui-switch">
         <input
@@ -446,7 +446,7 @@ Can be placed above and below the fields.
         <span class="ui-label">Switch 3</span>
       </label>
     </div>
-    <p class="ui-field-description">Field description below fields</p>
+    <p class="ui-description">Field description below fields</p>
   </fieldset>
 </form>
 ```
@@ -656,15 +656,15 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Switch API
 
-| Type       | Modifiers                                        | Default | Description                                                     |
-| ---------- | ------------------------------------------------ | ------- | --------------------------------------------------------------- |
-| Disabled   | `input[disabled]`                                | -       | Dims the switch and shows a not-allowed cursor.                 |
-| Label      | `.ui-label.ui-sr-only`                           | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. |
-| Required   | `input[required]`                                | -       | Adds a required mark after the label.                           |
-| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                        |
-| Spread     | `.ui-spread`                                     | -       | Pushes the label and the switch to opposite ends.               |
-| Stack      | `.ui-stack`                                      | -       | Stacks the label under the switch.                              |
-| Validation | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles.               |
+| Type        | Modifiers                                        | Default | Description                                                                   |
+| ----------- | ------------------------------------------------ | ------- | ----------------------------------------------------------------------------- |
+| Disabled    | `input[disabled]`                                | -       | Dims the switch and shows a not-allowed cursor.                               |
+| Label       | `.ui-label.ui-sr-only`                           | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.               |
+| Orientation | default, `.ui-vertical`                          | default | The orientation of the element. `vertical` stacks the label under the switch. |
+| Required    | `input[required]`                                | -       | Adds a required mark after the label.                                         |
+| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                      |
+| Spread      | `.ui-spread`                                     | -       | Pushes the label and the switch to opposite ends.                             |
+| Validation  | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles.                             |
 
 #### Parts
 
@@ -1069,6 +1069,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`.ui-vertical`](#label-position) replaces `.ui-stack`.
 - The unchecked thumb and track read [`--ui-switch-thumb-color`](#api) and `--ui-switch-track-color`.
 - The unchecked track border is [`--ui-field-border-color`](#api), like the checkbox and radio borders.
 - The checked track reads [`--ui-choice-accent`](#api) and the unchecked track `--ui-track-color` when a theme sets them.

@@ -20,13 +20,13 @@
 
   Optional content at the start, such as an icon or avatar.
 
-* `text`
+* `.ui-text`
 
   The text content.
 
-* `headline`
+* `label`
 
-  The headline, the first paragraph.
+  The label, the first paragraph.
 
 * `description`
 
@@ -44,12 +44,12 @@
 </script>
 
 <List>
-  <ListItem headline="Headline" />
+  <ListItem label="Headline" />
   <ListItem
-    headline="Headline"
+    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
   />
-  <ListItem headline="Trailing supporting text">
+  <ListItem label="Trailing supporting text">
     {#snippet end()}100+{/snippet}
   </ListItem>
 </List>
@@ -81,18 +81,18 @@ Without a variant the list uses the filled surface, because lists usually sit in
 </script>
 
 <List>
-  <ListItem headline="Filled (default)" />
-  <ListItem headline="Second item" />
+  <ListItem label="Filled (default)" />
+  <ListItem label="Second item" />
 </List>
 
 <List variant="tonal">
-  <ListItem headline="Tonal" />
-  <ListItem headline="Second item" />
+  <ListItem label="Tonal" />
+  <ListItem label="Second item" />
 </List>
 
 <List variant="transparent">
-  <ListItem headline="Transparent" />
-  <ListItem headline="Second item" />
+  <ListItem label="Transparent" />
+  <ListItem label="Second item" />
 </List>
 ```
 
@@ -108,10 +108,10 @@ Wrap the elements of your List item with an `a`, `button` or `label` depending o
 </script>
 
 <List>
-  <ListItem as="button" headline="Button list item" />
-  <ListItem as="button" disabled headline="Archived" />
-  <ListItem href="#clickable-list-item" headline="Link list item" />
-  <ListItem type="checkbox" headline="Checkbox list item">
+  <ListItem as="button" label="Button list item" />
+  <ListItem as="button" disabled label="Archived" />
+  <ListItem href="#clickable-list-item" label="Link list item" />
+  <ListItem type="checkbox" label="Checkbox list item">
     {#snippet end()}<CheckboxInput />{/snippet}
   </ListItem>
 </List>
@@ -130,16 +130,16 @@ Add `aria-current="page"` to the link inside the `ListItem`.
   <ListItem
     href="#"
     aria-current="page"
-    headline="Selected item"
+    label="Selected item"
     description={'This item has aria-current="page" on its link'}
   />
-  <ListItem href="#" headline="Normal item" />
+  <ListItem href="#" label="Normal item" />
 </List>
 ```
 
 ## Text
 
-Main text lives in the `text` snippet, or pass `headline` and `description` props directly on `ListItem`.
+Pass `label` and `description` on `ListItem`, as text or as snippets for rich content. `children` adds more content after them.
 
 ```svelte
 <script lang="ts">
@@ -147,12 +147,12 @@ Main text lives in the `text` snippet, or pass `headline` and `description` prop
 </script>
 
 <List>
-  <ListItem headline="Headline" />
+  <ListItem label="Headline" />
   <ListItem
-    headline="Headline"
+    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
   />
-  <ListItem headline="Headline">
+  <ListItem label="Headline">
     <p>Supporting text</p>
     <p>Even more supporting text</p>
   </ListItem>
@@ -171,7 +171,7 @@ Authored via the `start` snippet on `ListItem`.
 </script>
 
 <List>
-  <ListItem headline="Headline">
+  <ListItem label="Headline">
     {#snippet start()}<svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +185,7 @@ Authored via the `start` snippet on `ListItem`.
         ></path></svg
       >{/snippet}
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     {#snippet start()}<svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -212,10 +212,10 @@ Read more: [Avatar](https://open-props-ui.netlify.app/svelte/components/avatar.m
 </script>
 
 <List>
-  <ListItem headline="Headline">
+  <ListItem label="Headline">
     {#snippet start()}<Avatar aria-hidden="true">AB</Avatar>{/snippet}
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     {#snippet start()}<Avatar>
         <img
           src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -236,7 +236,7 @@ Read more: [Avatar](https://open-props-ui.netlify.app/svelte/components/avatar.m
 </script>
 
 <List>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     {#snippet start()}<img
         src="https://images.unsplash.com/photo-1504579264001-833438f93df2?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt=""
@@ -244,7 +244,7 @@ Read more: [Avatar](https://open-props-ui.netlify.app/svelte/components/avatar.m
         loading="lazy"
       />{/snippet}
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     {#snippet start()}<img
         src="https://images.unsplash.com/photo-1504579264001-833438f93df2?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt=""
@@ -263,7 +263,7 @@ Read more: [Avatar](https://open-props-ui.netlify.app/svelte/components/avatar.m
 </script>
 
 <List>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     {#snippet start()}<video controls muted>
         <source
           src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
@@ -272,7 +272,7 @@ Read more: [Avatar](https://open-props-ui.netlify.app/svelte/components/avatar.m
       >{/snippet}
     {#snippet end()}13:37{/snippet}
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     {#snippet start()}<video controls muted>
         <source
           src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
@@ -296,14 +296,14 @@ Authored via the `end` snippet on `ListItem`.
 </script>
 
 <List>
-  <ListItem headline="Headline">
+  <ListItem label="Headline">
     {#snippet end()}30kB{/snippet}
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     {#snippet end()}99%{/snippet}
   </ListItem>
   <ListItem
-    headline="Headline"
+    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
   >
     {#snippet end()}100+{/snippet}
@@ -319,10 +319,10 @@ Authored via the `end` snippet on `ListItem`.
 </script>
 
 <List>
-  <ListItem headline="Save all">
+  <ListItem label="Save all">
     {#snippet end()}<kbd>Ctrl+Shift+S</kbd>{/snippet}
   </ListItem>
-  <ListItem headline="Save">
+  <ListItem label="Save">
     {#snippet end()}<kbd>Ctrl+S</kbd>{/snippet}
   </ListItem>
 </List>
@@ -341,11 +341,11 @@ Read more: [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkb
 
 <List>
   <ListItem type="checkbox">
-    {#snippet text()}Checkbox 1{/snippet}
+    {#snippet label()}Checkbox 1{/snippet}
     {#snippet end()}<CheckboxInput />{/snippet}
   </ListItem>
   <ListItem type="checkbox">
-    {#snippet text()}Checkbox 2{/snippet}
+    {#snippet label()}Checkbox 2{/snippet}
     {#snippet end()}<CheckboxInput />{/snippet}
   </ListItem>
 </List>
@@ -366,14 +366,14 @@ Read more: [Radio](https://open-props-ui.netlify.app/svelte/components/radio.md)
 
 <List>
   <ListItem type="radio">
-    {#snippet text()}Radio 1{/snippet}
+    {#snippet label()}Radio 1{/snippet}
     {#snippet end()}<RadioInput
         name="radio-example-group"
         value="1"
       />{/snippet}
   </ListItem>
   <ListItem type="radio">
-    {#snippet text()}Radio 2{/snippet}
+    {#snippet label()}Radio 2{/snippet}
     {#snippet end()}<RadioInput
         name="radio-example-group"
         value="2"
@@ -393,11 +393,11 @@ Read more: [Switch](https://open-props-ui.netlify.app/svelte/components/switch.m
 
 <List>
   <ListItem type="switch">
-    {#snippet text()}Switch 1{/snippet}
+    {#snippet label()}Switch 1{/snippet}
     {#snippet end()}<SwitchInput />{/snippet}
   </ListItem>
   <ListItem type="switch">
-    {#snippet text()}Switch 2{/snippet}
+    {#snippet label()}Switch 2{/snippet}
     {#snippet end()}<SwitchInput />{/snippet}
   </ListItem>
 </List>
@@ -413,7 +413,7 @@ Set `inset` on an item without start content to align its text with items that h
 </script>
 
 <List>
-  <ListItem headline="No inset">
+  <ListItem label="No inset">
     {#snippet start()}<svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -427,27 +427,27 @@ Set `inset` on an item without start content to align its text with items that h
         ></path></svg
       >{/snippet}
   </ListItem>
-  <ListItem inset headline="Inset class">
+  <ListItem inset label="Inset class">
     <p>Makes the text line up nicely</p>
   </ListItem>
-  <ListItem inset headline="Inset class">
+  <ListItem inset label="Inset class">
     {#snippet start()}Hidden{/snippet}
     <p>Any <code>div.ui-start</code> will be hidden when inset</p>
   </ListItem>
 </List>
 ```
 
-## Gutterless
+## Flush
 
-Add the `gutterless` prop to the `List` to remove the inline padding on the list items.
+Add the `flush` prop to the `List` to remove the inline padding on the list items.
 
 ```svelte
 <script lang="ts">
   import { Button, List, ListItem } from "opui-css/svelte"
 </script>
 
-<List gutterless>
-  <ListItem headline="Gutterless list item">
+<List flush>
+  <ListItem label="Gutterless list item">
     {#snippet end()}
       <Button aria-label="Delete" round size="small">
         <svg
@@ -465,7 +465,7 @@ Add the `gutterless` prop to the `List` to remove the inline padding on the list
       </Button>
     {/snippet}
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     {#snippet start()}<svg
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
@@ -495,9 +495,9 @@ Add the `bordered` prop to the `List` to give all list items a border.
 </script>
 
 <List bordered>
-  <ListItem headline="So" />
-  <ListItem headline="Many" />
-  <ListItem headline="Borders" />
+  <ListItem label="So" />
+  <ListItem label="Many" />
+  <ListItem label="Borders" />
 </List>
 ```
 
@@ -511,9 +511,9 @@ Add the `borderTop` prop to a `ListItem` to give it an upper border.
 </script>
 
 <List>
-  <ListItem headline="I need borders" />
-  <ListItem headline="Help" />
-  <ListItem borderTop headline="Thanks" />
+  <ListItem label="I need borders" />
+  <ListItem label="Help" />
+  <ListItem borderTop label="Thanks" />
 </List>
 ```
 
@@ -527,12 +527,12 @@ Just add the `dense` prop to the `List`!
 </script>
 
 <List dense>
-  <ListItem headline="Headline" />
+  <ListItem label="Headline" />
   <ListItem
-    headline="Headline"
+    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
   />
-  <ListItem headline="Trailing supporting text">
+  <ListItem label="Trailing supporting text">
     {#snippet end()}100+{/snippet}
   </ListItem>
 </List>
@@ -542,13 +542,13 @@ Just add the `dense` prop to the `List`!
 
 ### List API
 
-| Prop         | Type                                     | Default    | Description                                                            |
-| ------------ | ---------------------------------------- | ---------- | ---------------------------------------------------------------------- |
-| `bordered`   | `boolean`                                | `false`    | Adds a border between list items.                                      |
-| `children`   | `Snippet`                                | -          | The list items.                                                        |
-| `dense`      | `boolean`                                | `false`    | Packs the items tighter.                                               |
-| `gutterless` | `boolean`                                | `false`    | Removes the inline padding.                                            |
-| `variant`    | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. The default `filled` list uses the filled surface. |
+| Prop       | Type                                     | Default    | Description                                                            |
+| ---------- | ---------------------------------------- | ---------- | ---------------------------------------------------------------------- |
+| `bordered` | `boolean`                                | `false`    | Adds a border between list items.                                      |
+| `children` | `Snippet`                                | -          | The list items.                                                        |
+| `dense`    | `boolean`                                | `false`    | Packs the items tighter.                                               |
+| `flush`    | `boolean`                                | `false`    | Removes the inline padding.                                            |
+| `variant`  | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. The default `filled` list uses the filled surface. |
 
 #### CSS variables
 
@@ -592,23 +592,22 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### List item API
 
-| Prop          | Type                                  | Default | Description                                                                                                                                     |
-| ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`          | `"a"` , `"button"` , `"div"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`. |
-| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                   |
-| `children`    | `Snippet`                             | -       | Extra content inside `.ui-text`, or all the content when there's no text.                                                                       |
-| `color`       | `"critical"`                          | -       | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/svelte/components/menu.md).                  |
-| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
-| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
-| `end`         | `Snippet`                             | -       | Optional content at the end, such as a value or an action.                                                                                      |
-| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                        |
-| `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                                                              |
-| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                            |
-| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                             |
-| `start`       | `Snippet`                             | -       | Optional content at the start, such as an icon or avatar.                                                                                       |
-| `submenu`     | `Snippet`                             | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                                                     |
-| `text`        | `Snippet`                             | -       | The text content.                                                                                                                               |
-| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                        |
+| Prop          | Type                                  | Default | Description                                                                                                                                                                                                  |
+| ------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `as`          | `"a"` , `"button"` , `"div"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`. |
+| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                                                                                |
+| `children`    | `Snippet`                             | -       | More content inside `.ui-text`, after the label and description, or all the content when there's neither.                                                                                                    |
+| `color`       | `"critical"`                          | -       | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/svelte/components/menu.md).                                                                               |
+| `description` | `Snippet` , `string`                  | -       | Supporting text, the second paragraph.                                                                                                                                                                       |
+| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                                                                                   |
+| `end`         | `Snippet`                             | -       | Optional content at the end, such as a value or an action.                                                                                                                                                   |
+| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                                                                                     |
+| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                                                                                         |
+| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                                                                                          |
+| `label`       | `Snippet` , `string`                  | -       | The label, the first paragraph.                                                                                                                                                                              |
+| `start`       | `Snippet`                             | -       | Optional content at the start, such as an icon or avatar.                                                                                                                                                    |
+| `submenu`     | `Snippet`                             | -       | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                                                                                                                                  |
+| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                                                                                     |
 
 #### CSS variables
 

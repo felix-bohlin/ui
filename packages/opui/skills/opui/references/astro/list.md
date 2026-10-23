@@ -20,15 +20,15 @@
 
   Optional content at the start, such as an icon or avatar.
 
-* `slot="text"`
+* `.ui-text`
 
   The text content.
 
-* `headline`
+* `label / slot="label"`
 
-  The headline, the first paragraph.
+  The label, the first paragraph.
 
-* `description`
+* `description / slot="description"`
 
   Supporting text, the second paragraph.
 
@@ -44,12 +44,12 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="Headline" />
+  <ListItem label="Headline" />
   <ListItem
-    headline="Headline"
+    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
   />
-  <ListItem headline="Trailing supporting text">
+  <ListItem label="Trailing supporting text">
     <Fragment slot="end">100+</Fragment>
   </ListItem>
 </List>
@@ -81,18 +81,18 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="Filled (default)" />
-  <ListItem headline="Second item" />
+  <ListItem label="Filled (default)" />
+  <ListItem label="Second item" />
 </List>
 
 <List variant="tonal">
-  <ListItem headline="Tonal" />
-  <ListItem headline="Second item" />
+  <ListItem label="Tonal" />
+  <ListItem label="Second item" />
 </List>
 
 <List variant="transparent">
-  <ListItem headline="Transparent" />
-  <ListItem headline="Second item" />
+  <ListItem label="Transparent" />
+  <ListItem label="Second item" />
 </List>
 ```
 
@@ -108,10 +108,10 @@ import { CheckboxInput, List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem as="button" headline="Button list item" />
-  <ListItem as="button" disabled headline="Archived" />
-  <ListItem href="#clickable-list-item" headline="Link list item" />
-  <ListItem type="checkbox" headline="Checkbox list item">
+  <ListItem as="button" label="Button list item" />
+  <ListItem as="button" disabled label="Archived" />
+  <ListItem href="#clickable-list-item" label="Link list item" />
+  <ListItem type="checkbox" label="Checkbox list item">
     <CheckboxInput slot="end" />
   </ListItem>
 </List>
@@ -130,16 +130,16 @@ import { List, ListItem } from "opui-css/astro"
   <ListItem
     href="#"
     aria-current="page"
-    headline="Selected item"
+    label="Selected item"
     description='This item has aria-current="page" on its link'
   />
-  <ListItem href="#" headline="Normal item" />
+  <ListItem href="#" label="Normal item" />
 </List>
 ```
 
 ## Text
 
-Main text lives in the `text` slot, or pass `headline` and `description` props directly on `ListItem`.
+Pass `label` and `description` on `ListItem`, as props or as slots of the same name for rich content. The default slot adds more content after them.
 
 ```astro
 ---
@@ -147,12 +147,12 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="Headline" />
+  <ListItem label="Headline" />
   <ListItem
-    headline="Headline"
+    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
   />
-  <ListItem headline="Headline">
+  <ListItem label="Headline">
     <p>Supporting text</p>
     <p>Even more supporting text</p>
   </ListItem>
@@ -171,7 +171,7 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="Headline">
+  <ListItem label="Headline">
     <svg
       slot="start"
       aria-hidden="true"
@@ -186,7 +186,7 @@ import { List, ListItem } from "opui-css/astro"
       ></path>
     </svg>
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     <svg
       slot="start"
       aria-hidden="true"
@@ -214,10 +214,10 @@ import { Avatar, List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="Headline">
+  <ListItem label="Headline">
     <Avatar aria-hidden="true" slot="start">AB</Avatar>
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     <Avatar slot="start">
       <img
         src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -238,7 +238,7 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     <img
       slot="start"
       src="https://images.unsplash.com/photo-1504579264001-833438f93df2?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -247,7 +247,7 @@ import { List, ListItem } from "opui-css/astro"
       loading="lazy"
     />
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     <img
       slot="start"
       src="https://images.unsplash.com/photo-1504579264001-833438f93df2?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -267,7 +267,7 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     <video slot="start" controls muted>
       <source
         src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
@@ -276,7 +276,7 @@ import { List, ListItem } from "opui-css/astro"
     </video>
     <Fragment slot="end">13:37</Fragment>
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     <video slot="start" controls muted>
       <source
         src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
@@ -300,14 +300,14 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="Headline">
+  <ListItem label="Headline">
     <Fragment slot="end">30kB</Fragment>
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     <Fragment slot="end">99%</Fragment>
   </ListItem>
   <ListItem
-    headline="Headline"
+    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
   >
     <Fragment slot="end">100+</Fragment>
@@ -323,10 +323,10 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="Save all">
+  <ListItem label="Save all">
     <kbd slot="end">Ctrl+Shift+S</kbd>
   </ListItem>
-  <ListItem headline="Save">
+  <ListItem label="Save">
     <kbd slot="end">Ctrl+S</kbd>
   </ListItem>
 </List>
@@ -345,11 +345,11 @@ import { CheckboxInput, List, ListItem } from "opui-css/astro"
 
 <List>
   <ListItem type="checkbox">
-    <Fragment slot="text">Checkbox 1</Fragment>
+    <Fragment slot="label">Checkbox 1</Fragment>
     <CheckboxInput slot="end" />
   </ListItem>
   <ListItem type="checkbox">
-    <Fragment slot="text">Checkbox 2</Fragment>
+    <Fragment slot="label">Checkbox 2</Fragment>
     <CheckboxInput slot="end" />
   </ListItem>
 </List>
@@ -370,11 +370,11 @@ import { List, ListItem, RadioInput } from "opui-css/astro"
 
 <List>
   <ListItem type="radio">
-    <Fragment slot="text">Radio 1</Fragment>
+    <Fragment slot="label">Radio 1</Fragment>
     <RadioInput slot="end" name="radio-example-group" value="1" />
   </ListItem>
   <ListItem type="radio">
-    <Fragment slot="text">Radio 2</Fragment>
+    <Fragment slot="label">Radio 2</Fragment>
     <RadioInput slot="end" name="radio-example-group" value="2" />
   </ListItem>
 </List>
@@ -391,11 +391,11 @@ import { List, ListItem, SwitchInput } from "opui-css/astro"
 
 <List>
   <ListItem type="switch">
-    <Fragment slot="text">Switch 1</Fragment>
+    <Fragment slot="label">Switch 1</Fragment>
     <SwitchInput slot="end" />
   </ListItem>
   <ListItem type="switch">
-    <Fragment slot="text">Switch 2</Fragment>
+    <Fragment slot="label">Switch 2</Fragment>
     <SwitchInput slot="end" />
   </ListItem>
 </List>
@@ -411,7 +411,7 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="No inset">
+  <ListItem label="No inset">
     <svg
       slot="start"
       aria-hidden="true"
@@ -426,27 +426,27 @@ import { List, ListItem } from "opui-css/astro"
       ></path>
     </svg>
   </ListItem>
-  <ListItem inset headline="Inset class">
+  <ListItem inset label="Inset class">
     <p>Makes the text line up nicely</p>
   </ListItem>
-  <ListItem inset headline="Inset class">
+  <ListItem inset label="Inset class">
     <Fragment slot="start">Hidden</Fragment>
     <p>Any <code>div.ui-start</code> will be hidden when inset</p>
   </ListItem>
 </List>
 ```
 
-## Gutterless
+## Flush
 
-Add the `gutterless` prop to the `List` to remove the inline padding on the list items.
+Add the `flush` prop to the `List` to remove the inline padding on the list items.
 
 ```astro
 ---
 import { Button, List, ListItem } from "opui-css/astro"
 ---
 
-<List gutterless>
-  <ListItem headline="Gutterless list item">
+<List flush>
+  <ListItem label="Gutterless list item">
     <Button aria-label="Delete" round size="small" slot="end">
       <svg
         aria-hidden="true"
@@ -462,7 +462,7 @@ import { Button, List, ListItem } from "opui-css/astro"
       </svg>
     </Button>
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem label="Headline" description="Supporting text">
     <svg
       slot="start"
       aria-hidden="true"
@@ -493,9 +493,9 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List bordered>
-  <ListItem headline="So" />
-  <ListItem headline="Many" />
-  <ListItem headline="Borders" />
+  <ListItem label="So" />
+  <ListItem label="Many" />
+  <ListItem label="Borders" />
 </List>
 ```
 
@@ -509,9 +509,9 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List>
-  <ListItem headline="I need borders" />
-  <ListItem headline="Help" />
-  <ListItem borderTop headline="Thanks" />
+  <ListItem label="I need borders" />
+  <ListItem label="Help" />
+  <ListItem borderTop label="Thanks" />
 </List>
 ```
 
@@ -525,12 +525,12 @@ import { List, ListItem } from "opui-css/astro"
 ---
 
 <List dense>
-  <ListItem headline="Headline" />
+  <ListItem label="Headline" />
   <ListItem
-    headline="Headline"
+    label="Headline"
     description="Supporting text that truly is quite long enough to fill up multiple lines."
   />
-  <ListItem headline="Trailing supporting text">
+  <ListItem label="Trailing supporting text">
     <Fragment slot="end">100+</Fragment>
   </ListItem>
 </List>
@@ -540,12 +540,12 @@ import { List, ListItem } from "opui-css/astro"
 
 ### List API
 
-| Prop         | Type                                     | Default    | Description                                                            |
-| ------------ | ---------------------------------------- | ---------- | ---------------------------------------------------------------------- |
-| `bordered`   | `boolean`                                | `false`    | Adds a border between list items.                                      |
-| `dense`      | `boolean`                                | `false`    | Packs the items tighter.                                               |
-| `gutterless` | `boolean`                                | `false`    | Removes the inline padding.                                            |
-| `variant`    | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. The default `filled` list uses the filled surface. |
+| Prop       | Type                                     | Default    | Description                                                            |
+| ---------- | ---------------------------------------- | ---------- | ---------------------------------------------------------------------- |
+| `bordered` | `boolean`                                | `false`    | Adds a border between list items.                                      |
+| `dense`    | `boolean`                                | `false`    | Packs the items tighter.                                               |
+| `flush`    | `boolean`                                | `false`    | Removes the inline padding.                                            |
+| `variant`  | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. The default `filled` list uses the filled surface. |
 
 #### Slots
 
@@ -595,28 +595,29 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### List item API
 
-| Prop          | Type                                  | Default | Description                                                                                                                                     |
-| ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`          | `"a"` , `"button"` , `"div"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`. |
-| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                   |
-| `color`       | `"critical"`                          | -       | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/astro/components/menu.md).                   |
-| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
-| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
-| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                        |
-| `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                                                              |
-| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                            |
-| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                             |
-| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                        |
+| Prop          | Type                                  | Default | Description                                                                                                                                                                                                  |
+| ------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `as`          | `"a"` , `"button"` , `"div"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`. |
+| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                                                                                |
+| `color`       | `"critical"`                          | -       | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/astro/components/menu.md).                                                                                |
+| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                                                                                       |
+| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                                                                                   |
+| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                                                                                     |
+| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                                                                                         |
+| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                                                                                          |
+| `label`       | `string`                              | -       | The label, the first paragraph.                                                                                                                                                                              |
+| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                                                                                     |
 
 #### Slots
 
-| Slot      | Description                                                                 |
-| --------- | --------------------------------------------------------------------------- |
-| `default` | Extra content inside `.ui-text`, or all the content when there's no text.   |
-| `end`     | Optional content at the end, such as a value or an action.                  |
-| `start`   | Optional content at the start, such as an icon or avatar.                   |
-| `submenu` | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`. |
-| `text`    | The text content.                                                           |
+| Slot          | Description                                                                                               |
+| ------------- | --------------------------------------------------------------------------------------------------------- |
+| `default`     | More content inside `.ui-text`, after the label and description, or all the content when there's neither. |
+| `description` | Supporting text, the second paragraph.                                                                    |
+| `end`         | Optional content at the end, such as a value or an action.                                                |
+| `label`       | The label, the first paragraph.                                                                           |
+| `start`       | Optional content at the start, such as an icon or avatar.                                                 |
+| `submenu`     | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                               |
 
 #### CSS variables
 
@@ -829,6 +830,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: `ListItem` [`label`](#text) replaces `headline`, and the `label` and `description` slots replace the `text` slot.
+- Breaking: [`flush`](#flush) replaces `gutterless`.
 - Selected and current items read [`--ui-selected`](#api) and `--ui-on-selected` when a theme sets them.
 - Smaller [start](#icon) and end icons.
 - Breaking: `divided` is removed. Use [`bordered`](#on-every-item).

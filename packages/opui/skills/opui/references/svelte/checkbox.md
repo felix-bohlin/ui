@@ -89,7 +89,7 @@ The `children` snippet is the label. Also, don't miss the info on label [accessi
 
 ### Label position
 
-Use `stack` to put the label under the checkbox.
+Use `orientation="vertical"` to put the label under the checkbox.
 
 ```svelte
 <script lang="ts">
@@ -97,7 +97,7 @@ Use `stack` to put the label under the checkbox.
 </script>
 
 <Checkbox name="checkbox-label-position">Default</Checkbox>
-<Checkbox stack name="checkbox-label-position">Stack</Checkbox>
+<Checkbox orientation="vertical" name="checkbox-label-position">Stack</Checkbox>
 ```
 
 ### End text
@@ -110,7 +110,11 @@ Use the `endText` prop for supporting text under the label. It sits inside the `
 </script>
 
 <Checkbox name="checkbox-end-text" endText="Supporting text">Default</Checkbox>
-<Checkbox stack name="checkbox-end-text" endText="Supporting text">
+<Checkbox
+  orientation="vertical"
+  name="checkbox-end-text"
+  endText="Supporting text"
+>
   Stack
 </Checkbox>
 ```
@@ -128,14 +132,16 @@ Use the `endText` prop for supporting text under the label. It sits inside the `
 
 <div class="example-row ui-spacious">
   <Checkbox required name="checkbox-validation">Default</Checkbox>
-  <Checkbox stack required name="checkbox-validation">Stack</Checkbox>
+  <Checkbox orientation="vertical" required name="checkbox-validation"
+    >Stack</Checkbox
+  >
 </div>
 <div class="example-row ui-spacious">
   <Checkbox error checked name="checkbox-validation">
     Default
     {#snippet endText()}Check yourself{/snippet}
   </Checkbox>
-  <Checkbox stack error name="checkbox-validation">
+  <Checkbox orientation="vertical" error name="checkbox-validation">
     Stack
     {#snippet endText()}Before you wreck yourself{/snippet}
   </Checkbox>
@@ -148,7 +154,7 @@ Set the `indeterminate` prop to render a partially-selected state. `indeterminat
 
 ```svelte
 <script lang="ts">
-  import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/svelte"
+  import { Checkbox, FieldGroup, FieldLegend, Fieldset } from "opui-css/svelte"
 
   const items = ["Apples", "Bananas", "Cherries"]
   let checked = $state([true, false, false])
@@ -163,7 +169,7 @@ Set the `indeterminate` prop to render a partially-selected state. `indeterminat
   }
 </script>
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>
     <Checkbox bind:checked={() => allChecked, toggleAll} {indeterminate}
       >Select all</Checkbox
@@ -174,7 +180,7 @@ Set the `indeterminate` prop to render a partially-selected state. `indeterminat
       <Checkbox bind:checked={checked[index]}>{item}</Checkbox>
     {/each}
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 ```
 
 ## Spread
@@ -231,20 +237,20 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
     Checkbox,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="checkbox-group">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -258,20 +264,20 @@ Checkboxes stack vertically by default. Set `orientation="horizontal"` on the `F
     Checkbox,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="checkbox-group-orientation" orientation="horizontal">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -286,13 +292,13 @@ Can be placed above and below the fields.
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
     <FieldGroup
@@ -303,9 +309,9 @@ Can be placed above and below the fields.
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup
       orientation="horizontal"
@@ -316,13 +322,13 @@ Can be placed above and below the fields.
       <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
     <FieldDescription>Field description below fields</FieldDescription>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
 ### Disabled
 
-Set `disabled` on the `FieldSet` to disable every checkbox in it, or on a single `Checkbox`.
+Set `disabled` on the `Fieldset` to disable every checkbox in it, or on a single `Checkbox`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the checkbox focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
@@ -332,20 +338,20 @@ Set `disabled` on the `FieldSet` to disable every checkbox in it, or on a single
     Checkbox,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet disabled>
+  <Fieldset disabled>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="checkbox-group-disabled">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -359,26 +365,26 @@ Each checkbox with `required` must be checked before the form submits. There's n
     Checkbox,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>These are required!</FieldLegend>
     <FieldGroup orientation="horizontal" name="checkbox-group-required">
       <Checkbox required>Checkbox 1</Checkbox>
       <Checkbox required>Checkbox 2</Checkbox>
       <Checkbox required>Checkbox 3</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
 ### Validation
 
-Set `error` on each `Checkbox` in the group. The end text of the `FieldSet` turns red with them.
+Set `error` on each `Checkbox` in the group. The end text of the `Fieldset` turns red with them.
 
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
@@ -388,13 +394,13 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
     Checkbox,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
+  <Fieldset aria-describedby="checkbox-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="checkbox-group-validation">
       <Checkbox checked error>Checkbox 1</Checkbox>
@@ -404,7 +410,7 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
     <span class="ui-end-text" id="checkbox-field-group-validation-1-error"
       >Something went wrong!</span
     >
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -419,7 +425,7 @@ Bind the checked values with `bind:group` on each `Checkbox`. The array holds th
     Checkbox,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
   } from "opui-css/svelte"
 
   let fruit = $state(["apples"])
@@ -429,14 +435,14 @@ Bind the checked values with `bind:group` on each `Checkbox`. The array holds th
   }
 </script>
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Fruit</FieldLegend>
   <FieldGroup name="checkbox-binding">
     <Checkbox bind:group={fruit} value="apples">Apples</Checkbox>
     <Checkbox bind:group={fruit} value="bananas">Bananas</Checkbox>
     <Checkbox bind:group={fruit} value="cherries">Cherries</Checkbox>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 <p class="checkbox-binding-text">Selected: {fruit.join(", ") || "none"}</p>
 <Button class="checkbox-binding-reset" onclick={reset}>Reset</Button>
 ```
@@ -463,18 +469,18 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Prop                                                                                                                                                                                                                                | Type                                             | Default    | Description                                                                          |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------ |
-| `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                    | `boolean`                                        | -          | The checked state.                                                                   |
-| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                      | `(string \| number)[]`                           | -          | The checked values of a group.                                                       |
-| `children`                                                                                                                                                                                                                          | `Snippet`                                        | -          | The label.                                                                           |
-| `endText`                                                                                                                                                                                                                           | `Snippet` , `string`                             | -          | Supporting text displayed below the label.                                           |
-| `error`                                                                                                                                                                                                                             | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.                                    |
-| `hideLabel`                                                                                                                                                                                                                         | `boolean`                                        | `false`    | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
-| `indeterminate` **Needs hydration** A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`                                        | `false`    | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| `size`                                                                                                                                                                                                                              | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                                             |
-| `spread`                                                                                                                                                                                                                            | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.                                     |
-| `stack`                                                                                                                                                                                                                             | `boolean`                                        | `false`    | Stacks the label under the input.                                                    |
+| Prop                                                                                                                                                                                                                                | Type                                             | Default        | Description                                                                          |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------ |
+| `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                    | `boolean`                                        | -              | The checked state.                                                                   |
+| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                      | `(string \| number)[]`                           | -              | The checked values of a group.                                                       |
+| `children`                                                                                                                                                                                                                          | `Snippet`                                        | -              | The label.                                                                           |
+| `endText`                                                                                                                                                                                                                           | `Snippet` , `string`                             | -              | Supporting text displayed below the label.                                           |
+| `error`                                                                                                                                                                                                                             | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                                    |
+| `hideLabel`                                                                                                                                                                                                                         | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
+| `indeterminate` **Needs hydration** A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`                                        | `false`        | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| `orientation`                                                                                                                                                                                                                       | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the input.         |
+| `size`                                                                                                                                                                                                                              | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                             |
+| `spread`                                                                                                                                                                                                                            | `boolean`                                        | `false`        | Pushes the label and the input to opposite ends.                                     |
 
 #### CSS variables
 

@@ -28,18 +28,18 @@ The `name` prop will get passed down to each radio button in the group.
 
 ```astro
 ---
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="radio-group">
       <Radio value="1" checked>Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -106,7 +106,7 @@ import { Radio } from "opui-css/astro"
 
 ### Label position
 
-Set `stack` to put the label under the radio.
+Set `orientation="vertical"` to put the label under the radio.
 
 ```astro
 ---
@@ -114,7 +114,9 @@ import { Radio } from "opui-css/astro"
 ---
 
 <Radio name="radio-label-position" value="default" checked>Default</Radio>
-<Radio name="radio-label-position" value="stack" stack>Stack</Radio>
+<Radio name="radio-label-position" value="stack" orientation="vertical"
+  >Stack</Radio
+>
 ```
 
 ### End text
@@ -129,7 +131,12 @@ import { Radio } from "opui-css/astro"
 <Radio name="radio-end-text" value="default" checked endText="Supporting text">
   Default
 </Radio>
-<Radio name="radio-end-text" value="stack" stack endText="Supporting text">
+<Radio
+  name="radio-end-text"
+  value="stack"
+  orientation="vertical"
+  endText="Supporting text"
+>
   Stack
 </Radio>
 ```
@@ -140,11 +147,11 @@ Use the `spread` prop to push the label to the left and the radio to the right. 
 
 ```astro
 ---
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Delivery</FieldLegend>
     <FieldGroup name="radio-spread">
       <Radio value="standard" checked spread>
@@ -160,7 +167,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
         <Fragment slot="end-text">Not available in your area.</Fragment>
       </Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -184,18 +191,18 @@ Radios stack vertically by default. Set `orientation="horizontal"` on the `Field
 
 ```astro
 ---
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="radio-group-orientation" orientation="horizontal">
       <Radio value="1" checked>Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -209,14 +216,14 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Radio,
 } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
     <FieldGroup orientation="horizontal" name="radio-group-field-description-1">
@@ -224,9 +231,9 @@ import {
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="radio-group-field-description-2">
       <Radio value="1" checked>Radio 1</Radio>
@@ -234,30 +241,30 @@ import {
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
     <FieldDescription>Field description below fields</FieldDescription>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
 ## Disabled
 
-Set `disabled` on the `FieldSet` to disable every radio in it, or on a single `Radio`.
+Set `disabled` on the `Fieldset` to disable every radio in it, or on a single `Radio`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the radio focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
 ```astro
 ---
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet disabled>
+  <Fieldset disabled>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="radio-group-disabled">
       <Radio value="1" checked>Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -267,34 +274,34 @@ Set the `required` prop on at least one `Radio`. It is forwarded to the underlyi
 
 ```astro
 ---
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>These are required!</FieldLegend>
     <FieldGroup orientation="horizontal" name="radio-group-required">
       <Radio value="1" required>Radio 1</Radio>
       <Radio value="2" required>Radio 2</Radio>
       <Radio value="3" required>Radio 3</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
 ## Validation
 
-Set `error` on each `Radio` in the group. The end text of the `FieldSet` turns red with them.
+Set `error` on each `Radio` in the group. The end text of the `Fieldset` turns red with them.
 
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
 ```astro
 ---
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet aria-describedby="radio-field-group-validation-1-error">
+  <Fieldset aria-describedby="radio-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="radio-group-validation">
       <Radio checked error value="1">Radio 1</Radio>
@@ -304,7 +311,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
     <span class="ui-end-text" id="radio-field-group-validation-1-error"
       >Something went wrong!</span
     >
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -318,19 +325,19 @@ import {
   Button,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/astro"
 ---
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Plan</FieldLegend>
   <FieldGroup name="radio-binding">
     <Radio checked value="free">Free</Radio>
     <Radio value="pro">Pro</Radio>
     <Radio value="team">Team</Radio>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 <p class="radio-binding-text">Selected: free</p>
 <Button class="radio-binding-reset">Reset</Button>
 
@@ -371,14 +378,14 @@ import {
 
 ### Radio API
 
-| Prop        | Type                                             | Default    | Description                                                     |
-| ----------- | ------------------------------------------------ | ---------- | --------------------------------------------------------------- |
-| `endText`   | `string`                                         | -          | Supporting text displayed below the label.                      |
-| `error`     | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.               |
-| `hideLabel` | `boolean`                                        | `false`    | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. |
-| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                        |
-| `spread`    | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.                |
-| `stack`     | `boolean`                                        | `false`    | Stacks the label under the input.                               |
+| Prop          | Type                                             | Default        | Description                                                                  |
+| ------------- | ------------------------------------------------ | -------------- | ---------------------------------------------------------------------------- |
+| `endText`     | `string`                                         | -              | Supporting text displayed below the label.                                   |
+| `error`       | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                            |
+| `hideLabel`   | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.              |
+| `orientation` | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the input. |
+| `size`        | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                     |
+| `spread`      | `boolean`                                        | `false`        | Pushes the label and the input to opposite ends.                             |
 
 #### Slots
 
@@ -683,6 +690,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`orientation="vertical"`](#label-position) replaces `stack`.
 - The unchecked ring, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The checked fill and dot read [`--ui-choice-accent`](#api) and `--ui-choice-on-accent` when a theme sets them.
 - [Radios](#sizes) are 20px, the same `--ui-choice-size` as Checkbox.
@@ -690,7 +698,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: `--highlight-size` is `--_ripple-size` and `--thumb-scale` is `--_thumb-scale`. `--isLTR` and `--isRTL` are gone, the halo centers itself ([Under the hood](#under-the-hood)).
 - Without a visible label, radios [center](#label-alignment) in table cells and lines of text, and stay a 24px click target at every size.
 - [Spread](#spread) with the `spread` prop, like Checkbox and Switch.
-- Breaking: set `error` on each `Radio` in an invalid group instead of `data-invalid` on the `FieldSet` ([Validation](#field-group-validation)).
+- Breaking: set `error` on each `Radio` in an invalid group instead of `data-invalid` on the `Fieldset` ([Validation](#field-group-validation)).
 - `size` takes `"x-small"`. [Sizes](#sizes)
 - A radio without a [label](#visible-label), `aria-label` or `aria-labelledby` warns in development.
 - [`endText`](#end-text) takes a string, like the `end-text` slot.

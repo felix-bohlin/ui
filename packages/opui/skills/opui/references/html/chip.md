@@ -16,7 +16,7 @@ Chip
 
 - `.ui-chip > .ui-text`
 
-  The label.
+  The label, text or rich content.
 
 - `<svg>`
 
@@ -252,7 +252,7 @@ Use `<a class="ui-chip">` for a chip that goes to another page.
 
 ## Disabled
 
-Disable a button chip with the `disabled` attribute. On a link chip, remove the `href` and add `aria-disabled="true"`. A static `<div class="ui-chip">` can't be disabled, so the `.ui-disabled` class only dims it a little and keeps its text readable.
+Disable a button chip with the `disabled` attribute. On a link chip, remove the `href` and add `aria-disabled="true"`. A static `<div class="ui-chip">` can't be disabled, so `aria-disabled="true"` only dims it a little and keeps its text readable.
 
 ```html
 <button type="button" class="ui-chip" disabled>
@@ -264,7 +264,7 @@ Disable a button chip with the `disabled` attribute. On a link chip, remove the 
 <a class="ui-chip" aria-disabled="true">
   <span class="ui-text">Tonal link</span>
 </a>
-<div class="ui-chip ui-disabled">
+<div class="ui-chip" aria-disabled="true">
   <span class="ui-text">Archived</span>
 </div>
 ```
@@ -273,15 +273,14 @@ Disable a button chip with the `disabled` attribute. On a link chip, remove the 
 
 ### Chip API
 
-| Type       | Modifiers                                                               | Default | Description                                                                                                                  |
-| ---------- | ----------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Disabled   | `a[aria-disabled="true"]`, `button[disabled]`                           | -       | Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |
-| Dot        | `.ui-dot`                                                               | -       | Adds a leading dot in the chip's color. Its shape follows the severity.                                                      |
-| Layout     | `.ui-multiline`                                                         | -       | Lets the label wrap to multiple lines.                                                                                       |
-| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | The severity of a status chip. It tints the chip, and colors and shapes its dot.                                             |
-| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small`                        | default | The size of the element.                                                                                                     |
-| State      | `.ui-disabled`                                                          | -       | Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips.              |
-| Variants   | default, `.ui-outlined`                                                 | default | The variant to use.                                                                                                          |
+| Type       | Modifiers                                                                  | Default | Description                                                                                                                                                                                                              |
+| ---------- | -------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Dot        | `.ui-dot`                                                                  | -       | Adds a leading dot in the chip's color. Its shape follows the severity.                                                                                                                                                  |
+| Layout     | `.ui-multiline`                                                            | -       | Lets the label wrap to multiple lines.                                                                                                                                                                                   |
+| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`    | -       | The severity of a status chip. It tints the chip, and colors and shapes its dot.                                                                                                                                         |
+| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small`                           | default | The size of the element.                                                                                                                                                                                                 |
+| State      | `a[aria-disabled="true"]`, `button[disabled]`, `div[aria-disabled="true"]` | -       | Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. On a static chip, `aria-disabled="true"` only dims it a little and keeps its text readable. |
+| Variants   | default, `.ui-outlined`                                                    | default | The variant to use.                                                                                                                                                                                                      |
 
 #### Parts
 
@@ -289,7 +288,7 @@ Disable a button chip with the `disabled` attribute. On a link chip, remove the 
 | --------------------- | --------------------------------------------------------- |
 | `.ui-chip`            | Container element. Can be a `<div>`, `<a>` or `<button>`. |
 | `<svg>`               | Optional content at the start, such as an icon.           |
-| `.ui-chip > .ui-text` | The label.                                                |
+| `.ui-chip > .ui-text` | The label, text or rich content.                          |
 | `<svg>`               | Optional content at the end, such as an icon.             |
 
 #### CSS variables
@@ -481,7 +480,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
 - Takes `.ui-x-small`. [Sizes](#sizes)
 - [Severities](#severities) for statuses with `.ui-success`, `.ui-warning` and more, and a shape-coded [`.ui-dot`](#dot).
-- [Disabled](#disabled) chips: `aria-disabled="true"` on a button or link chip, and `.ui-disabled` to dim a static chip.
+- [Disabled](#disabled) chips: `aria-disabled="true"` on a link chip, and on a static chip to dim it.
 - Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
 - Breaking: [disabled link chips](#disabled) have no `href`, so they can't be focused or followed.
 - [Button](#button) and [link](#link) chips hover with `--ui-surface-tonal-hover`, like filled fields.

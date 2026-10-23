@@ -4,7 +4,7 @@ Leverages the [List component](https://open-props-ui.netlify.app/html/components
 
 ## Anatomy
 
-Label Start text Option one (1) ¤ EUR Header Footer Supporting text
+Label Start text Option one (1) ¤ EUR Top Bottom Supporting text
 
 - `label.ui-select`
 
@@ -22,11 +22,11 @@ Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
   The boxed select area.
 
-- `.ui-header`
+- `.ui-field > .ui-top`
 
   Content above the select, inside the border, with a divider.
 
-- `.ui-prefix`
+- `.ui-field > .ui-start`
 
   Content at the inline-start of the field, inside the border.
 
@@ -34,11 +34,11 @@ Label Start text Option one (1) ¤ EUR Header Footer Supporting text
 
   The select. Its options are in a popover list.
 
-- `.ui-suffix`
+- `.ui-field > .ui-end`
 
   Content at the inline-end of the field, inside the border.
 
-- `.ui-footer`
+- `.ui-field > .ui-bottom`
 
   Content below the select, inside the border, with a divider.
 
@@ -235,7 +235,7 @@ Use `.ui-end-text` for supporting text below the select.
 
 ## Affix
 
-Add a `.ui-prefix` or `.ui-suffix` element inside `.ui-field` to affix content alongside the select.
+Add a `.ui-start` or `.ui-end` element inside `.ui-field` to affix content alongside the select.
 
 ```html
 <label class="ui-select">
@@ -252,7 +252,7 @@ Add a `.ui-prefix` or `.ui-suffix` element inside `.ui-field` to affix content a
         <option>USD</option>
       </div>
     </select>
-    <span class="ui-prefix">¤</span>
+    <span class="ui-start">¤</span>
   </span>
 </label>
 
@@ -270,7 +270,7 @@ Add a `.ui-prefix` or `.ui-suffix` element inside `.ui-field` to affix content a
         <option>Sweden</option>
       </div>
     </select>
-    <span class="ui-prefix">
+    <span class="ui-start">
       <svg
         aria-hidden="true"
         width="16"
@@ -305,14 +305,14 @@ Add a `.ui-prefix` or `.ui-suffix` element inside `.ui-field` to affix content a
         <option>5</option>
       </div>
     </select>
-    <span class="ui-suffix">days</span>
+    <span class="ui-end">days</span>
   </span>
 </label>
 ```
 
-## Header and footer
+## Top and bottom
 
-Add a `.ui-header` or `.ui-footer` element inside `.ui-field` for short text or a link above and below the select, inside the field's border and set off by a divider.
+Add a `.ui-top` or `.ui-bottom` element inside `.ui-field` for short text or a link above and below the select, inside the field's border and set off by a divider.
 
 They sit outside the list of options, so they can't filter it. Keep form controls out of them, since the select's `<label>` wraps them.
 
@@ -320,11 +320,11 @@ Give them an `id` and list them in the select's `aria-describedby`, so screen re
 
 ```html
 <label class="ui-select">
-  <span class="ui-label" id="select-header-footer-1-label">Car</span>
+  <span class="ui-label" id="select-top-and-bottom-1-label">Car</span>
   <span class="ui-field">
     <select
-      aria-describedby="select-header-footer-1-header select-header-footer-1-footer"
-      aria-labelledby="select-header-footer-1-label"
+      aria-describedby="select-top-and-bottom-1-top select-top-and-bottom-1-bottom"
+      aria-labelledby="select-top-and-bottom-1-label"
     >
       <button>
         <selectedcontent></selectedcontent>
@@ -336,10 +336,10 @@ Give them an `id` and list them in the select's `aria-describedby`, so screen re
         <option>Volvo EX30</option>
       </div>
     </select>
-    <span class="ui-header" id="select-header-footer-1-header"
+    <span class="ui-top" id="select-top-and-bottom-1-top"
       >Company cars only</span
     >
-    <span class="ui-footer" id="select-header-footer-1-footer"
+    <span class="ui-bottom" id="select-top-and-bottom-1-bottom"
       ><a class="ui-link" href="#">Manage cars…</a></span
     >
   </span>
@@ -655,7 +655,7 @@ Add the `.ui-spread` class to display the label and start text on the left with 
         <option>+09:00</option>
       </div>
     </select>
-    <span class="ui-prefix">UTC</span>
+    <span class="ui-start">UTC</span>
   </span>
 </label>
 
@@ -679,7 +679,7 @@ Add the `.ui-spread` class to display the label and start text on the left with 
         <option>us-east-1</option>
       </div>
     </select>
-    <span class="ui-prefix">
+    <span class="ui-start">
       <svg
         aria-hidden="true"
         width="16"
@@ -733,18 +733,18 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 #### Parts
 
-| Part              | Description                                                  |
-| ----------------- | ------------------------------------------------------------ |
-| `label.ui-select` | Container element.                                           |
-| `.ui-label`       | The label for the field.                                     |
-| `.ui-start-text`  | Start text displayed above the field.                        |
-| `.ui-field`       | The boxed select area.                                       |
-| `.ui-header`      | Content above the select, inside the border, with a divider. |
-| `.ui-prefix`      | Content at the inline-start of the field, inside the border. |
-| `<select>`        | The select. Its options are in a popover list.               |
-| `.ui-suffix`      | Content at the inline-end of the field, inside the border.   |
-| `.ui-footer`      | Content below the select, inside the border, with a divider. |
-| `.ui-end-text`    | Supporting text displayed below the field.                   |
+| Part                     | Description                                                  |
+| ------------------------ | ------------------------------------------------------------ |
+| `label.ui-select`        | Container element.                                           |
+| `.ui-label`              | The label for the field.                                     |
+| `.ui-start-text`         | Start text displayed above the field.                        |
+| `.ui-field`              | The boxed select area.                                       |
+| `.ui-field > .ui-top`    | Content above the select, inside the border, with a divider. |
+| `.ui-field > .ui-start`  | Content at the inline-start of the field, inside the border. |
+| `<select>`               | The select. Its options are in a popover list.               |
+| `.ui-field > .ui-end`    | Content at the inline-end of the field, inside the border.   |
+| `.ui-field > .ui-bottom` | Content below the select, inside the border, with a divider. |
+| `.ui-end-text`           | Supporting text displayed below the field.                   |
 
 #### CSS variables
 
@@ -839,7 +839,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |
@@ -1061,6 +1061,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`.ui-start` and `.ui-end`](#affix) replace `.ui-prefix` and `.ui-suffix`, and [`.ui-top` and `.ui-bottom`](#top-and-bottom) replace `.ui-header` and `.ui-footer`.
 - Small and x-small fields set their text in `--ui-font-size-small` and `--ui-font-size-caption`, like buttons.
 - The field border reaches 3:1 against the page by default, and the picker keeps the browser's checkmark on the selected option.
 - [Group labels](#option-groups) take a shade of the picker's surface and `--ui-text-muted` instead of fixed grays.

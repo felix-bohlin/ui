@@ -339,7 +339,7 @@ import {
   DialogHeader,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/vue"
 import { ref } from "vue"
@@ -361,14 +361,14 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
       <h2 class="ui-h4">How to close</h2>
     </DialogHeader>
     <DialogContent>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Choose a closing behavior:</FieldLegend>
         <FieldGroup name="closedby-demo">
           <Radio v-model="closedby" value="any">any</Radio>
           <Radio v-model="closedby" value="closerequest">closerequest</Radio>
           <Radio v-model="closedby" value="none">none</Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </DialogContent>
     <DialogActions>
       <Button commandfor="dialog-close-behaviors-1" command="close">

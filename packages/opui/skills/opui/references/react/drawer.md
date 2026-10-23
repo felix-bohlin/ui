@@ -20,28 +20,28 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
   The scrollable content.
 
-- `<DrawerFooter>`
+- `<DrawerActions>`
 
-  The footer.
+  The actions, at the end.
 
 ## Basics
 
 Change the opening side with the `side` prop. The default is `inline-start`.
 
-Build it from `DrawerHeader`, `DrawerContent` and `DrawerFooter`. The `DrawerHeader` adds a close button. Put a `DrawerTitle` in it for the heading, which names the drawer.
+Build it from `DrawerHeader`, `DrawerContent` and `DrawerActions`. The `DrawerHeader` adds a close button. Put a `DrawerTitle` in it for the heading, which names the drawer. Give the drawer an `id`, which the trigger's `commandfor` points at.
 
-The header and footer stay put while the content scrolls, with a shadow on the scrolled edge.
+The header and the actions stay put while the content scrolls, with a shadow on the scrolled edge. The actions sit at the end, and `align="start"` on `DrawerActions` lines them up with the content.
 
 The backdrop dims and blurs the page by default. Use `backdrop="transparent"` to keep the page behind it fully visible.
 
-Page scrolling is locked by default when the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. Use the `scrollLock={false}` prop to allow scrolling on every screen.
+Set `scrollLock` to lock page scrolling while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px.
 
 ```tsx
 import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerFooter,
+  DrawerActions,
   DrawerHeader,
   DrawerTitle,
 } from "opui-css/react"
@@ -64,7 +64,7 @@ export default function Basics() {
         </Button>
       </div>
 
-      <Drawer id="drawer-basics-1" side="inline-start">
+      <Drawer id="drawer-basics-1" scrollLock side="inline-start">
         <DrawerHeader>
           <DrawerTitle>Inline Start</DrawerTitle>
         </DrawerHeader>
@@ -88,14 +88,14 @@ export default function Basics() {
             dicta sunt explicabo.
           </p>
         </DrawerContent>
-        <DrawerFooter>
+        <DrawerActions>
           <Button size="small" commandfor="drawer-basics-1" command="close">
             Close
           </Button>
-        </DrawerFooter>
+        </DrawerActions>
       </Drawer>
 
-      <Drawer id="drawer-basics-2" side="inline-end">
+      <Drawer id="drawer-basics-2" scrollLock side="inline-end">
         <DrawerHeader>
           <DrawerTitle>Inline End</DrawerTitle>
         </DrawerHeader>
@@ -119,14 +119,14 @@ export default function Basics() {
             dicta sunt explicabo.
           </p>
         </DrawerContent>
-        <DrawerFooter>
+        <DrawerActions>
           <Button size="small" commandfor="drawer-basics-2" command="close">
             Close
           </Button>
-        </DrawerFooter>
+        </DrawerActions>
       </Drawer>
 
-      <Drawer id="drawer-basics-3" side="block-start">
+      <Drawer id="drawer-basics-3" scrollLock side="block-start">
         <DrawerHeader>
           <DrawerTitle>Block Start</DrawerTitle>
         </DrawerHeader>
@@ -144,14 +144,14 @@ export default function Basics() {
             anim id est laborum.
           </p>
         </DrawerContent>
-        <DrawerFooter>
+        <DrawerActions>
           <Button size="small" commandfor="drawer-basics-3" command="close">
             Close
           </Button>
-        </DrawerFooter>
+        </DrawerActions>
       </Drawer>
 
-      <Drawer id="drawer-basics-4" side="block-end">
+      <Drawer id="drawer-basics-4" scrollLock side="block-end">
         <DrawerHeader>
           <DrawerTitle>Block End</DrawerTitle>
         </DrawerHeader>
@@ -169,11 +169,11 @@ export default function Basics() {
             anim id est laborum.
           </p>
         </DrawerContent>
-        <DrawerFooter>
+        <DrawerActions>
           <Button size="small" commandfor="drawer-basics-4" command="close">
             Close
           </Button>
-        </DrawerFooter>
+        </DrawerActions>
       </Drawer>
     </>
   )
@@ -200,12 +200,12 @@ import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerFooter,
+  DrawerActions,
   DrawerHeader,
   DrawerTitle,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/react"
 
@@ -223,12 +223,12 @@ export default function CloseBehaviors() {
       >
         Open drawer
       </Button>
-      <Drawer id="drawer-close-behaviors-1" closedby={closedby}>
+      <Drawer id="drawer-close-behaviors-1" scrollLock closedby={closedby}>
         <DrawerHeader>
           <DrawerTitle>How to close</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <FieldSet>
+          <Fieldset>
             <FieldLegend>Choose a closing behavior:</FieldLegend>
             <FieldGroup name="closedby-demo">
               {options.map((option) => (
@@ -242,9 +242,9 @@ export default function CloseBehaviors() {
                 </Radio>
               ))}
             </FieldGroup>
-          </FieldSet>
+          </Fieldset>
         </DrawerContent>
-        <DrawerFooter>
+        <DrawerActions>
           <Button
             size="small"
             commandfor="drawer-close-behaviors-1"
@@ -252,7 +252,7 @@ export default function CloseBehaviors() {
           >
             Close manually
           </Button>
-        </DrawerFooter>
+        </DrawerActions>
       </Drawer>
     </>
   )
@@ -292,8 +292,8 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 | `backdrop`   | `"blurred"` , `"transparent"`                                       | `"blurred"`      | The backdrop style. `"transparent"` keeps the page behind it fully visible.                                                               |
 | `children`   | `ReactNode`                                                         | -                | The drawer parts, and any other content.                                                                                                  |
 | `closedby`   | `"any"` , `"closerequest"` , `"none"`                               | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside.                                                                  |
-| `id`         | `string`                                                            | -                | The id of the `<dialog>`. Generated when omitted.                                                                                         |
-| `scrollLock` | `boolean`                                                           | `true`           | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
+| `id`         | `string`                                                            | -                | The id of the `<dialog>`, which the trigger's `commandfor` points at. Required.                                                           |
+| `scrollLock` | `boolean`                                                           | `false`          | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
 | `side`       | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"inline-start"` | The side it opens from.                                                                                                                   |
 
 #### CSS variables
@@ -352,11 +352,12 @@ Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-### Drawer footer API
+### Drawer actions API
 
-| Prop       | Type        | Default | Description                              |
-| ---------- | ----------- | ------- | ---------------------------------------- |
-| `children` | `ReactNode` | -       | The footer content, for example actions. |
+| Prop       | Type                | Default | Description                   |
+| ---------- | ------------------- | ------- | ----------------------------- |
+| `align`    | `"end"` , `"start"` | `"end"` | Alignment for the actions.    |
+| `children` | `ReactNode`         | -       | The actions, such as buttons. |
 
 #### CSS variables
 
@@ -387,18 +388,18 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property               | Kind   | Description                                                                                          |
 | ---------------------- | ------ | ---------------------------------------------------------------------------------------------------- |
+| `--_actions-gap`       | Input  | Gap between items in `.ui-actions`.                                                                  |
+| `--_actions-padding`   | Input  | Padding of `.ui-actions`.                                                                            |
 | `--_backdrop-bg-color` | Input  | The backdrop color. Defaults to `--ui-backdrop-color`, `.ui-backdrop-transparent` clears it.         |
 | `--_backdrop-blur`     | Input  | The backdrop filter. Defaults to a `--ui-backdrop-blur` blur, `.ui-backdrop-transparent` removes it. |
 | `--_bg-color`          | Input  | The background. Defaults to `--ui-surface-elevated`.                                                 |
 | `--_block-size`        | Input  | Height of `.ui-block-start` and `.ui-block-end` drawers.                                             |
-| `--_border-color`      | Input  | Color of the inner edge border and the `.ui-header` and `.ui-footer` dividers.                       |
-| `--_border-width`      | Input  | Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.                       |
+| `--_border-color`      | Input  | Color of the inner edge border and the `.ui-header` and `.ui-actions` dividers.                      |
+| `--_border-width`      | Input  | Width of the inner edge border and the `.ui-header` and `.ui-actions` dividers.                      |
 | `--_content-padding`   | Input  | Padding of `.ui-content`.                                                                            |
 | `--_dir`               | Output | Direction of the inline slide, `-1` in right-to-left.                                                |
 | `--_duration`          | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                      |
 | `--_ease`              | Input  | Easing of the slide and backdrop fade. Defaults to `--ui-ease-enter`.                                |
-| `--_footer-gap`        | Input  | Gap between items in `.ui-footer`.                                                                   |
-| `--_footer-padding`    | Input  | Padding of `.ui-footer`.                                                                             |
 | `--_header-font-size`  | Input  | Font size of headings in `.ui-header`.                                                               |
 | `--_header-padding`    | Input  | Padding of `.ui-header`.                                                                             |
 | `--_inline-size`       | Input  | Width of drawers that open from the inline start or end.                                             |
@@ -663,11 +664,12 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls ([Basics](#basics)).
+- [`DrawerActions`](#api) take `align`, and sit at the end on every side.
 - Named by [`DrawerTitle`](#accessibility) through `aria-labelledby`.
 - The [backdrop](#basics) dims and blurs like `Dialog`, through `--ui-backdrop-color` and `--ui-backdrop-blur`.
 - Breaking: `--_color` is `--_text-color`, and `--_transition-duration` and `--_transition-timing` are `--_duration` and `--_ease` ([Under the hood](#under-the-hood)).
 - The drawer shadow is [`--ui-shadow-overlay`](#api), shared with menus and select pickers. Padding reads the `--ui-space-*` scale.
-- Content padding is `--ui-space-3`, like the header and footer ([Basics](#basics)).
+- Content padding is `--ui-space-3`, like the header and the actions ([Basics](#basics)).
 - The scroll shadow reads [`--ui-shadow-scroll`](#api).
 - The panel sits on [`--ui-surface-elevated`](#api), like Dialog and Menu.
 - `DrawerTitle` warns in development when the drawer's generated id replaces its own `id`. Pass `aria-labelledby` on the `Drawer` to keep it ([API](#api)).

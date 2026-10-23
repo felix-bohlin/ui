@@ -16,7 +16,7 @@ Supporting text
 
   Container element. Spaces its fieldsets and fields.
 
-- `<FieldSet>`
+- `<Fieldset>`
 
   Groups related fields.
 
@@ -43,19 +43,19 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/react"
 
 export default function Basics() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>{/* */}</FieldLegend>
         <FieldDescription>{/* */}</FieldDescription>
         <FieldGroup>{/* */}</FieldGroup>
         <FieldGroup>{/* */}</FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -70,13 +70,13 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/react"
 
 export default function FieldsetStacked() {
   return (
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Favorite Pet</FieldLegend>
       <FieldDescription>
         Please select your favorite type of pet.
@@ -86,7 +86,7 @@ export default function FieldsetStacked() {
         <Radio value="dog">Dog</Radio>
         <Radio value="hamster">Hamster</Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   )
 }
 ```
@@ -101,7 +101,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Radio,
 } from "opui-css/react"
@@ -109,7 +109,7 @@ import {
 export default function FieldGroupExample() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Choose your favorite Radiohead album</FieldLegend>
         <FieldDescription>There are no wrong answers.</FieldDescription>
         <FieldGroup name="albums">
@@ -118,9 +118,9 @@ export default function FieldGroupExample() {
           <Radio value="in-rainbows">In Rainbows</Radio>
           <Radio value="king-of-limbs">The King of Limbs</Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Which side projects do you follow?</FieldLegend>
         <FieldDescription>Some are better than others.</FieldDescription>
         <FieldGroup name="projects">
@@ -149,7 +149,7 @@ export default function FieldGroupExample() {
             The Smile
           </Checkbox>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -164,21 +164,21 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/react"
 
 export default function FieldGroupHorizontal() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Options</FieldLegend>
         <FieldGroup orientation="horizontal">
           <Checkbox>Option 1</Checkbox>
           <Checkbox>Option 2</Checkbox>
           <Checkbox>Option 3</Checkbox>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -188,7 +188,7 @@ export default function FieldGroupHorizontal() {
 
 ### Disabled
 
-Set `disabled` on `FieldSet` to disable every field inside.
+Set `disabled` on `Fieldset` to disable every field inside.
 
 ```tsx
 import {
@@ -196,12 +196,12 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
 } from "opui-css/react"
 
 export default function FieldsetDisabled() {
   return (
-    <FieldSet disabled>
+    <Fieldset disabled>
       <FieldLegend>Pet dating</FieldLegend>
       <FieldDescription>You can't change these settings</FieldDescription>
       <FieldGroup name="notifications">
@@ -212,14 +212,14 @@ export default function FieldsetDisabled() {
           OnlyHorseFans
         </Checkbox>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   )
 }
 ```
 
 ### Invalid
 
-Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end-text` directly inside it. The end text turns red when a field has `error` set.
+Set `error` on each field in the `Fieldset`, and explain the error in a `.ui-end-text` directly inside it. The end text turns red when a field has `error` set.
 
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
@@ -229,12 +229,12 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
 } from "opui-css/react"
 
 export default function FieldsetInvalid() {
   return (
-    <FieldSet aria-describedby="form-fieldset-invalid-1-error">
+    <Fieldset aria-describedby="form-fieldset-invalid-1-error">
       <FieldLegend>Pet food</FieldLegend>
       <FieldDescription>Pick at least one.</FieldDescription>
       <FieldGroup name="food">
@@ -248,7 +248,7 @@ export default function FieldsetInvalid() {
       <span className="ui-end-text" id="form-fieldset-invalid-1-error">
         Your pet is hungry.
       </span>
-    </FieldSet>
+    </Fieldset>
   )
 }
 ```
@@ -262,21 +262,21 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Textarea,
   TextField,
 } from "opui-css/react"
 
 export default function FieldsetRequired() {
   return (
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Pet info</FieldLegend>
       <FieldDescription>We must know your pet's information.</FieldDescription>
       <FieldGroup>
         <TextField label="Name" name="name" />
         <Textarea label="Life story" name="story" required />
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   )
 }
 ```
@@ -291,7 +291,7 @@ import {
   Divider,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   TextField,
 } from "opui-css/react"
@@ -299,12 +299,12 @@ import {
 export default function DividerExample() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Post Content</FieldLegend>
         <FieldGroup>
           <TextField label="Title" placeholder="My new post" />
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
       <Divider />
 
@@ -332,20 +332,20 @@ export default function ActionsColumn() {
 
 ## Without fieldset
 
-Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `FieldSet` and `FieldLegend`. A `div` doesn't pick up its name from the legend, so give the legend an `id` and point `aria-labelledby` on the field set at it.
+Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `Fieldset` and `FieldLegend`. A `div` doesn't pick up its name from the legend, so give the legend an `id` and point `aria-labelledby` on the field set at it.
 
 ```tsx
-import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/react"
+import { FieldDescription, FieldLegend, Fieldset, Form } from "opui-css/react"
 
 export default function AdaptiveOutput() {
   return (
     <Form as="div">
-      <FieldSet aria-labelledby="form-adaptive-output-1-legend" as="div">
+      <Fieldset aria-labelledby="form-adaptive-output-1-legend" as="div">
         <FieldLegend as="p" id="form-adaptive-output-1-legend">
           Delivery
         </FieldLegend>
         <FieldDescription>Rendered as div and p elements.</FieldDescription>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -363,7 +363,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Radio,
   Range,
@@ -374,15 +374,15 @@ import {
 } from "opui-css/react"
 
 const roleItems = [
-  { text: "Designer", value: "design" },
-  { text: "Developer", value: "dev" },
-  { text: "Manager", value: "manager" },
+  { label: "Designer", value: "design" },
+  { label: "Developer", value: "dev" },
+  { label: "Manager", value: "manager" },
 ]
 
 export default function KitchenSink() {
   return (
     <Form id="form-kitchen-sink-1">
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>User Profile</FieldLegend>
         <FieldDescription>
           Please provide your basic contact details.
@@ -403,11 +403,11 @@ export default function KitchenSink() {
           />
           <Select label="Role" items={roleItems} />
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
       <Divider />
 
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Notifications</FieldLegend>
         <FieldDescription>
           Configure how you want to receive updates.
@@ -418,11 +418,11 @@ export default function KitchenSink() {
           </Switch>
           <Switch name="sms_notifs">SMS Notifications</Switch>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
       <Divider />
 
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Theme Preference</FieldLegend>
         <FieldDescription>Select your preferred visual style.</FieldDescription>
         <FieldGroup name="theme">
@@ -432,11 +432,11 @@ export default function KitchenSink() {
           <Radio value="dark">Dark Theme</Radio>
           <Radio value="system">System Default</Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
       <Divider />
 
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Experience Level</FieldLegend>
         <FieldDescription>
           How many years of experience do you have?
@@ -451,11 +451,11 @@ export default function KitchenSink() {
             startText="Drag the slider to match your total tenure."
           />
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
       <Divider />
 
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Additional Info</FieldLegend>
         <FieldDescription>Anything else we should know?</FieldDescription>
         <FieldGroup>
@@ -466,18 +466,18 @@ export default function KitchenSink() {
             rows={4}
           />
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
       <Divider />
 
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legal</FieldLegend>
         <FieldGroup>
           <Checkbox name="terms" required endText="Support this text">
             I agree to the terms and conditions
           </Checkbox>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
       <Divider />
 
@@ -525,7 +525,7 @@ export default function KitchenSink() {
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-### Field set API
+### Fieldset API
 
 | Prop       | Type                   | Default      | Description                                                                                                            |
 | ---------- | ---------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
@@ -814,3 +814,9 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Select](https://open-props-ui.netlify.app/react/components/select.md)
 - [Text Field](https://open-props-ui.netlify.app/react/components/text-field.md)
 - [Textarea](https://open-props-ui.netlify.app/react/components/textarea.md)
+
+## Changelog
+
+### What's new
+
+- Breaking: `FieldSet` is [`Fieldset`](#fieldset).

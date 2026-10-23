@@ -99,7 +99,7 @@ If you want to decide yourself what goes into your list.
   <li class="ui-heading">Document</li>
   <ListItem
     as="button"
-    headline="Rename"
+    label="Rename"
     commandfor="menu-custom-1"
     command="hide-popover"
   >
@@ -119,7 +119,7 @@ If you want to decide yourself what goes into your list.
   </ListItem>
   <ListItem
     as="button"
-    headline="Copy"
+    label="Copy"
     commandfor="menu-custom-1"
     command="hide-popover"
   >
@@ -137,7 +137,7 @@ If you want to decide yourself what goes into your list.
     {/snippet}
     {#snippet end()}<kbd>Ctrl+C</kbd>{/snippet}
   </ListItem>
-  <ListItem headline="Open in new tab" href="#menu">
+  <ListItem label="Open in new tab" href="#menu">
     {#snippet start()}
       <svg
         aria-hidden="true"
@@ -153,7 +153,7 @@ If you want to decide yourself what goes into your list.
   </ListItem>
   <ListItem
     as="button"
-    headline="Delete"
+    label="Delete"
     borderTop
     color="critical"
     commandfor="menu-custom-1"
@@ -249,7 +249,7 @@ Pass a `Menu` to the `submenu` snippet of a `ListItem`. Mark the item with an ic
 <Menu id="menu-submenu-1" items={[{ label: "New" }, { label: "Open" }]}>
   <ListItem
     as="button"
-    headline="Export"
+    label="Export"
     commandfor="menu-submenu-2"
     command="toggle-popover"
   >
@@ -323,7 +323,7 @@ A menu is a `<menu>` of buttons and links, not an ARIA menu. It has no `role="me
 | `bordered` | `boolean`                                                           | `false`       | Adds a border between the items.                                                                                                                                                                                                                                                                             |
 | `children` | `Snippet`                                                           | -             | The items, such as `ListItem`s.                                                                                                                                                                                                                                                                              |
 | `dense`    | `boolean`                                                           | `false`       | Packs the items tighter.                                                                                                                                                                                                                                                                                     |
-| `id`       | `string`                                                            | -             | The id of the menu, which the trigger's `commandfor` points at. Generated when omitted.                                                                                                                                                                                                                      |
+| `id`       | `string`                                                            | -             | The id of the menu, which the trigger's `commandfor` points at. Required.                                                                                                                                                                                                                                    |
 | `items`    | `MenuItem[]`                                                        | -             | The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item's `<a>` or `<button>`. |
 | `popover`  | `"auto"` , `"manual"`                                               | `"auto"`      | The popover type. With `"manual"`, Esc and a click outside don't close the menu, and opening another menu doesn't either.                                                                                                                                                                                    |
 | `side`     | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"block-end"` | The side of the trigger the menu opens on.                                                                                                                                                                                                                                                                   |

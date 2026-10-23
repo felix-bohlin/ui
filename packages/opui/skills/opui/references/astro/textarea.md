@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Start text  € EUR Header Footer Supporting text
+Label Start text  € EUR Top Bottom Supporting text
 
 - `<Textarea>`
 
@@ -20,11 +20,11 @@ Label Start text  € EUR Header Footer Supporting text
 
   The boxed textarea area.
 
-- `slot="header"`
+- `slot="top"`
 
   Content above the textarea, inside the border, with a divider.
 
-- `slot="prefix"`
+- `slot="start"`
 
   Content at the inline-start of the field, inside the border.
 
@@ -32,11 +32,11 @@ Label Start text  € EUR Header Footer Supporting text
 
   The textarea element.
 
-- `slot="suffix"`
+- `slot="end"`
 
   Content at the inline-end of the field, inside the border.
 
-- `slot="footer"`
+- `slot="bottom"`
 
   Content below the textarea, inside the border, with a divider.
 
@@ -104,7 +104,7 @@ import { Textarea } from "opui-css/astro"
 
 ## Affix
 
-Use the `prefix`, `suffix`, `header`, and `footer` slots to affix content inside the textarea's border. Header and footer are particularly useful for filenames and character counters.
+Use the `start`, `end`, `top`, and `bottom` slots to affix content inside the textarea's border. Top and bottom are particularly useful for filenames and character counters.
 
 ```astro
 ---
@@ -114,7 +114,7 @@ import { Textarea } from "opui-css/astro"
 <Textarea label="Notes" placeholder="Add a note...">
   <svg
     aria-hidden="true"
-    slot="prefix"
+    slot="start"
     width="16"
     height="16"
     viewBox="0 0 24 24"
@@ -130,11 +130,11 @@ import { Textarea } from "opui-css/astro"
 </Textarea>
 
 <Textarea label="Comment" placeholder="Write a comment...">
-  <Fragment slot="suffix">Markdown</Fragment>
+  <Fragment slot="end">Markdown</Fragment>
 </Textarea>
 ```
 
-### Headers and footers
+### Top and bottom
 
 ```astro
 ---
@@ -142,11 +142,11 @@ import { Textarea } from "opui-css/astro"
 ---
 
 <Textarea label="Code" placeholder="console.log('Hello, world!')">
-  <Fragment slot="header">script.js</Fragment>
+  <Fragment slot="top">script.js</Fragment>
 </Textarea>
 
 <Textarea label="Comment" placeholder="Write a comment...">
-  <Fragment slot="footer">0 / 280</Fragment>
+  <Fragment slot="bottom">0 / 280</Fragment>
 </Textarea>
 ```
 
@@ -223,7 +223,7 @@ import { Textarea } from "opui-css/astro"
 
 <Textarea spread label="Bio" placeholder="Tell us about yourself...">
   <Fragment slot="start-text">Shown on your public profile</Fragment>
-  <Fragment slot="prefix">
+  <Fragment slot="start">
     <svg
       aria-hidden="true"
       width="16"
@@ -240,7 +240,7 @@ import { Textarea } from "opui-css/astro"
       <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
     </svg>
   </Fragment>
-  <Fragment slot="footer">280 characters left</Fragment>
+  <Fragment slot="bottom">280 characters left</Fragment>
 </Textarea>
 
 <Textarea
@@ -250,8 +250,8 @@ import { Textarea } from "opui-css/astro"
   placeholder="Markdown supported..."
 >
   <Fragment slot="start-text">Shown on the changelog page</Fragment>
-  <Fragment slot="header">v1.4.0</Fragment>
-  <Fragment slot="footer">Saved 2 minutes ago</Fragment>
+  <Fragment slot="top">v1.4.0</Fragment>
+  <Fragment slot="bottom">Saved 2 minutes ago</Fragment>
   <Fragment slot="end-text">Drafts are auto-saved</Fragment>
 </Textarea>
 ```
@@ -288,14 +288,14 @@ import { Textarea } from "opui-css/astro"
 
 | Slot         | Description                                                    |
 | ------------ | -------------------------------------------------------------- |
+| `bottom`     | Content below the textarea, inside the border, with a divider. |
 | `default`    | Extra content inside the root.                                 |
+| `end`        | Content at the inline-end of the field, inside the border.     |
 | `end-text`   | Supporting text displayed below the field.                     |
-| `footer`     | Content below the textarea, inside the border, with a divider. |
-| `header`     | Content above the textarea, inside the border, with a divider. |
 | `label`      | The label for the field.                                       |
-| `prefix`     | Content at the inline-start of the field, inside the border.   |
+| `start`      | Content at the inline-start of the field, inside the border.   |
 | `start-text` | Start text displayed above the field.                          |
-| `suffix`     | Content at the inline-end of the field, inside the border.     |
+| `top`        | Content above the textarea, inside the border, with a divider. |
 
 #### CSS variables
 
@@ -360,7 +360,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |
@@ -527,6 +527,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: the [affix](#affix) slots are `start` and `end` instead of `prefix` and `suffix`, and [`top` and `bottom`](#top-and-bottom) instead of `header` and `footer`.
 - Small and x-small fields set their text in `--ui-font-size-small` and `--ui-font-size-caption`, like buttons.
 - The field border, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.

@@ -14,7 +14,7 @@
 
 - `.ui-indicator`
 
-  The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`.
+  The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.
 
 ## Dot
 
@@ -34,7 +34,7 @@ Use `.ui-dot` to show a dot instead of the label.
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating">
+  <span class="ui-floating">
     <span class="ui-indicator"
       ><span aria-hidden="true">5</span
       ><span class="ui-sr-only">5 unread messages</span></span
@@ -55,7 +55,7 @@ Use `.ui-dot` to show a dot instead of the label.
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating">
+  <span class="ui-floating">
     <span class="ui-indicator"
       ><span class="ui-sr-only">New messages</span></span
     >
@@ -81,7 +81,7 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating"
+  <span class="ui-floating"
     ><span class="ui-indicator"
       ><span aria-hidden="true">5</span
       ><span class="ui-sr-only">5 unread messages</span></span
@@ -102,7 +102,7 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating"
+  <span class="ui-floating"
     ><span class="ui-indicator"
       ><span aria-hidden="true">5</span
       ><span class="ui-sr-only">5 unread messages</span></span
@@ -123,7 +123,7 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating"
+  <span class="ui-floating"
     ><span class="ui-indicator"
       ><span aria-hidden="true">5</span
       ><span class="ui-sr-only">5 unread messages</span></span
@@ -144,7 +144,7 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating"
+  <span class="ui-floating"
     ><span class="ui-indicator"
       ><span aria-hidden="true">5</span
       ><span class="ui-sr-only">5 unread messages</span></span
@@ -165,7 +165,7 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating"
+  <span class="ui-floating"
     ><span class="ui-indicator"
       ><span aria-hidden="true">5</span
       ><span class="ui-sr-only">5 unread messages</span></span
@@ -176,7 +176,7 @@ Color the indicator with `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success
 
 ## Indicator
 
-Put the indicator text inside `.ui-indicator`. When the visible text is short, like a count, give it `aria-hidden="true"` and put the whole sentence, such as "5 unread messages", in a `.ui-sr-only` element next to it. The anchored element is the badge's direct child before `.ui-anchor-floating`.
+Put the indicator text inside `.ui-indicator`. When the visible text is short, like a count, give it `aria-hidden="true"` and put the whole sentence, such as "5 unread messages", in a `.ui-sr-only` element next to it. The anchored element is the badge's direct child before `.ui-floating`.
 
 The badge never joins the number and the words, so a translation can put the number wherever its language needs it, and the visible text can differ from the sentence ("99+" and "More than 99 unread messages").
 
@@ -194,7 +194,7 @@ The badge never joins the number and the words, so a translation can put the num
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating">
+  <span class="ui-floating">
     <span class="ui-indicator"
       ><span aria-hidden="true">5</span
       ><span class="ui-sr-only">5 unread messages</span></span
@@ -215,7 +215,7 @@ The badge never joins the number and the words, so a translation can put the num
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating">
+  <span class="ui-floating">
     <span class="ui-indicator"
       ><span aria-hidden="true">99+</span
       ><span class="ui-sr-only">More than 99 unread messages</span></span
@@ -231,7 +231,7 @@ Change the badge's visibility using the `.ui-invisible` class.
 ```html
 <span class="ui-anchor ui-badge ui-invisible">
   <!-- -->
-  <span class="ui-anchor-floating">
+  <span class="ui-floating">
     <span class="ui-indicator"
       ><span aria-hidden="true">5</span
       ><span class="ui-sr-only">5 unread messages</span></span
@@ -260,7 +260,7 @@ The corner of the child the badge sits on.
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating">
+  <span class="ui-floating">
     <span class="ui-indicator"
       ><span aria-hidden="true">35</span
       ><span class="ui-sr-only">35 unread messages</span></span
@@ -281,7 +281,7 @@ The corner of the child the badge sits on.
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating">
+  <span class="ui-floating">
     <span class="ui-indicator"
       ><span aria-hidden="true">99+</span
       ><span class="ui-sr-only">More than 99 unread messages</span></span
@@ -302,7 +302,7 @@ The corner of the child the badge sits on.
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating">
+  <span class="ui-floating">
     <span class="ui-indicator"
       ><span aria-hidden="true">OK!</span
       ><span class="ui-sr-only">Inbox synced</span></span
@@ -323,7 +323,7 @@ The corner of the child the badge sits on.
       d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
     ></path>
   </svg>
-  <span class="ui-anchor-floating">
+  <span class="ui-floating">
     <span class="ui-indicator"
       ><span aria-hidden="true">3K</span
       ><span class="ui-sr-only">About 3,000 unread messages</span></span
@@ -351,11 +351,11 @@ The corner of the child the badge sits on.
 
 #### Parts
 
-| Part               | Description                                                                                       |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| `.ui-badge`        | Container element. Also takes `.ui-anchor`.                                                       |
-| `& > :first-child` | The element the badge is anchored to.                                                             |
-| `.ui-indicator`    | The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`. |
+| Part               | Description                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------ |
+| `.ui-badge`        | Container element. Also takes `.ui-anchor`.                                                |
+| `& > :first-child` | The element the badge is anchored to.                                                      |
+| `.ui-indicator`    | The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`. |
 
 #### CSS variables
 
@@ -547,7 +547,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Severity text reads `--ui-on-accent` and `--ui-palette-strong` instead of fixed grays.
 - Badges on round avatars sit on the avatar's edge ([Corners](#corners)), and in an avatar group on the start side.
 - [Indicator](#indicator) text for screen readers with `.ui-sr-only`, next to the visible text with `aria-hidden="true"`.
-- Breaking: the indicator is [`.ui-indicator`](#indicator) instead of `.ui-badge-indicator`.
+- Breaking: the indicator is [`.ui-indicator`](#indicator) instead of `.ui-badge-indicator`, inside `.ui-floating` instead of `.ui-anchor-floating`.
 - Breaking: `--_badge-inset` is `--_inset-block` and `--_inset-inline` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - The indicator border reads [`--ui-border-width-thick`](#api).

@@ -126,7 +126,7 @@ export default function VisibleLabel() {
 
 ### Label position
 
-Set `stack` to put the label under the switch.
+Set `orientation="vertical"` to put the label under the switch.
 
 ```tsx
 import { Switch } from "opui-css/react"
@@ -135,7 +135,7 @@ export default function LabelPosition() {
   return (
     <>
       <Switch name="switch-label-position">Default</Switch>
-      <Switch name="switch-label-position" stack>
+      <Switch name="switch-label-position" orientation="vertical">
         Stack
       </Switch>
     </>
@@ -154,7 +154,11 @@ export default function EndText() {
       <Switch name="switch-end-text" endText="Supporting text">
         Default
       </Switch>
-      <Switch name="switch-end-text" stack endText="Supporting text">
+      <Switch
+        name="switch-end-text"
+        orientation="vertical"
+        endText="Supporting text"
+      >
         Stack
       </Switch>
     </>
@@ -260,7 +264,7 @@ export default function Validation() {
         <Switch name="switch-validation" required>
           Default
         </Switch>
-        <Switch name="switch-validation" required stack>
+        <Switch name="switch-validation" required orientation="vertical">
           Stack
         </Switch>
       </div>
@@ -274,7 +278,12 @@ export default function Validation() {
         >
           Default
         </Switch>
-        <Switch name="switch-validation" error stack endText="Supporting text">
+        <Switch
+          name="switch-validation"
+          error
+          orientation="vertical"
+          endText="Supporting text"
+        >
           Stack
         </Switch>
       </div>
@@ -355,19 +364,19 @@ The `name` prop will get passed down to each switch in the group.
 See also: [Form documentation](https://open-props-ui.netlify.app/react/components/form.md).
 
 ```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/react"
 
 export default function FieldGroupExample() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="switch-group">
           <Switch>Switch 1</Switch>
           <Switch>Switch 2</Switch>
           <Switch>Switch 3</Switch>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -378,19 +387,19 @@ export default function FieldGroupExample() {
 Switches stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
 
 ```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/react"
 
 export default function FieldGroupOrientation() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="switch-group-orientation" orientation="horizontal">
           <Switch>Switch 1</Switch>
           <Switch>Switch 2</Switch>
           <Switch>Switch 3</Switch>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -405,7 +414,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Switch,
 } from "opui-css/react"
@@ -413,7 +422,7 @@ import {
 export default function FieldGroupFieldDescription() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
         <FieldGroup
@@ -424,9 +433,9 @@ export default function FieldGroupFieldDescription() {
           <Switch>Switch 2</Switch>
           <Switch>Switch 3</Switch>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup
           orientation="horizontal"
@@ -437,7 +446,7 @@ export default function FieldGroupFieldDescription() {
           <Switch>Switch 3</Switch>
         </FieldGroup>
         <FieldDescription>Field description below fields</FieldDescription>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -445,24 +454,24 @@ export default function FieldGroupFieldDescription() {
 
 ### Disabled
 
-Set `disabled` on the `FieldSet` to disable every switch in it, or on a single `Switch`.
+Set `disabled` on the `Fieldset` to disable every switch in it, or on a single `Switch`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the switch focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
 ```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/react"
 
 export default function FieldGroupDisabled() {
   return (
     <Form>
-      <FieldSet disabled>
+      <Fieldset disabled>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup orientation="horizontal" name="switch-group-disabled">
           <Switch>Switch 1</Switch>
           <Switch>Switch 2</Switch>
           <Switch>Switch 3</Switch>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -473,19 +482,19 @@ export default function FieldGroupDisabled() {
 Each switch with `required` must be on before the form submits. There's no native "at least one" for switches.
 
 ```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/react"
 
 export default function FieldGroupRequired() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>These are required!</FieldLegend>
         <FieldGroup orientation="horizontal" name="switch-group-required">
           <Switch required>Switch 1</Switch>
           <Switch required>Switch 2</Switch>
           <Switch required>Switch 3</Switch>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -493,17 +502,17 @@ export default function FieldGroupRequired() {
 
 ### Validation
 
-Set `error` on each `Switch` in the group. The end text of the `FieldSet` turns red with them.
+Set `error` on each `Switch` in the group. The end text of the `Fieldset` turns red with them.
 
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
 ```tsx
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/react"
 
 export default function FieldGroupValidation() {
   return (
     <Form>
-      <FieldSet aria-describedby="switch-field-group-validation-1-error">
+      <Fieldset aria-describedby="switch-field-group-validation-1-error">
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup
           orientation="horizontal"
@@ -519,7 +528,7 @@ export default function FieldGroupValidation() {
         >
           Something went wrong!
         </span>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -537,7 +546,7 @@ import {
   Button,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Switch,
 } from "opui-css/react"
 
@@ -557,7 +566,7 @@ export default function FieldGroupBinding() {
 
   return (
     <>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Notifications</FieldLegend>
         <FieldGroup name="switch-binding">
           <Switch
@@ -582,7 +591,7 @@ export default function FieldGroupBinding() {
             SMS
           </Switch>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
       <p className="switch-binding-text">
         Selected: {notifications.join(", ") || "none"}
       </p>
@@ -622,17 +631,17 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Switch API
 
-| Prop            | Type                                             | Default    | Description                                                     |
-| --------------- | ------------------------------------------------ | ---------- | --------------------------------------------------------------- |
-| `children`      | `ReactNode`                                      | -          | The label.                                                      |
-| `endText`       | `ReactNode`                                      | -          | Supporting text displayed below the label.                      |
-| `error`         | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.               |
-| `hideLabel`     | `boolean`                                        | `false`    | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. |
-| `iconChecked`   | `ReactNode`                                      | -          | An optional icon in the thumb when checked.                     |
-| `iconUnchecked` | `ReactNode`                                      | -          | An optional icon in the thumb when unchecked.                   |
-| `size`          | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                        |
-| `spread`        | `boolean`                                        | `false`    | Pushes the label and the switch to opposite ends.               |
-| `stack`         | `boolean`                                        | `false`    | Stacks the label under the switch.                              |
+| Prop            | Type                                             | Default        | Description                                                                   |
+| --------------- | ------------------------------------------------ | -------------- | ----------------------------------------------------------------------------- |
+| `children`      | `ReactNode`                                      | -              | The label.                                                                    |
+| `endText`       | `ReactNode`                                      | -              | Supporting text displayed below the label.                                    |
+| `error`         | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                             |
+| `hideLabel`     | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.               |
+| `iconChecked`   | `ReactNode`                                      | -              | An optional icon in the thumb when checked.                                   |
+| `iconUnchecked` | `ReactNode`                                      | -              | An optional icon in the thumb when unchecked.                                 |
+| `orientation`   | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the switch. |
+| `size`          | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                      |
+| `spread`        | `boolean`                                        | `false`        | Pushes the label and the switch to opposite ends.                             |
 
 #### CSS variables
 

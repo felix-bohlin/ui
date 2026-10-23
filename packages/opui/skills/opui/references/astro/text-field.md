@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Start text € EUR Header Footer Supporting text
+Label Start text € EUR Top Bottom Supporting text
 
 - `<TextField>`
 
@@ -20,11 +20,11 @@ Label Start text € EUR Header Footer Supporting text
 
   The boxed input area.
 
-- `slot="header"`
+- `slot="top"`
 
   Content above the input, inside the border, with a divider.
 
-- `slot="prefix"`
+- `slot="start"`
 
   Content at the inline-start of the field, inside the border.
 
@@ -32,11 +32,11 @@ Label Start text € EUR Header Footer Supporting text
 
   The input element.
 
-- `slot="suffix"`
+- `slot="end"`
 
   Content at the inline-end of the field, inside the border.
 
-- `slot="footer"`
+- `slot="bottom"`
 
   Content below the input, inside the border, with a divider.
 
@@ -98,7 +98,7 @@ import { TextField } from "opui-css/astro"
 
 ## Affix
 
-Use the `prefix`, `suffix`, `header`, and `footer` slots to affix content inside the field's border. Prefix and suffix sit beside the input, while header and footer span the field's full width with a divider.
+Use the `start`, `end`, `top`, and `bottom` slots to affix content inside the field's border. Start and end sit beside the input, while top and bottom span the field's full width with a divider.
 
 ```astro
 ---
@@ -106,22 +106,22 @@ import { TextField } from "opui-css/astro"
 ---
 
 <TextField label="Amount" placeholder="0.00">
-  <Fragment slot="prefix">€</Fragment>
-  <Fragment slot="suffix">EUR</Fragment>
+  <Fragment slot="start">€</Fragment>
+  <Fragment slot="end">EUR</Fragment>
 </TextField>
 
 <TextField label="Website" placeholder="example.com">
-  <Fragment slot="prefix">https://</Fragment>
+  <Fragment slot="start">https://</Fragment>
 </TextField>
 
 <TextField label="Weight" type="numeric" placeholder="0">
-  <Fragment slot="suffix">kg</Fragment>
+  <Fragment slot="end">kg</Fragment>
 </TextField>
 
 <TextField label="Search" placeholder="Search...">
   <svg
     aria-hidden="true"
-    slot="prefix"
+    slot="start"
     width="16"
     height="16"
     viewBox="0 0 24 24"
@@ -137,9 +137,9 @@ import { TextField } from "opui-css/astro"
 </TextField>
 ```
 
-### Headers and footers
+### Top and bottom
 
-Use the header for inside-field captions (filenames, categories) and the footer for counters and hints.
+Use the top for inside-field captions (filenames, categories) and the bottom for counters and hints.
 
 ```astro
 ---
@@ -147,11 +147,11 @@ import { TextField } from "opui-css/astro"
 ---
 
 <TextField label="Name" placeholder="Ada Lovelace">
-  <Fragment slot="header">Shown on your profile</Fragment>
+  <Fragment slot="top">Shown on your profile</Fragment>
 </TextField>
 
 <TextField label="Tagline" placeholder="A short description">
-  <Fragment slot="footer">0 / 80</Fragment>
+  <Fragment slot="bottom">0 / 80</Fragment>
 </TextField>
 ```
 
@@ -232,20 +232,20 @@ import { TextField } from "opui-css/astro"
 
 <TextField spread label="Amount" placeholder="0.00">
   <Fragment slot="start-text">Daily spending limit</Fragment>
-  <Fragment slot="prefix">€</Fragment>
-  <Fragment slot="suffix">EUR</Fragment>
+  <Fragment slot="start">€</Fragment>
+  <Fragment slot="end">EUR</Fragment>
 </TextField>
 
 <TextField spread label="Website" placeholder="example.com" variant="filled">
   <Fragment slot="start-text">Your public profile URL</Fragment>
-  <Fragment slot="prefix">https://</Fragment>
+  <Fragment slot="start">https://</Fragment>
   <Fragment slot="end-text">Must include a valid domain</Fragment>
 </TextField>
 
 <TextField spread label="Project name" placeholder="my-project">
   <Fragment slot="start-text">Used to generate the project URL</Fragment>
-  <Fragment slot="header">acme.dev/</Fragment>
-  <Fragment slot="footer">Lowercase letters and dashes only</Fragment>
+  <Fragment slot="top">acme.dev/</Fragment>
+  <Fragment slot="bottom">Lowercase letters and dashes only</Fragment>
 </TextField>
 
 <TextField
@@ -256,7 +256,7 @@ import { TextField } from "opui-css/astro"
   type="password"
 >
   <Fragment slot="start-text">Stored encrypted at rest</Fragment>
-  <Fragment slot="prefix">
+  <Fragment slot="start">
     <svg
       aria-hidden="true"
       width="16"
@@ -272,8 +272,8 @@ import { TextField } from "opui-css/astro"
       <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
     </svg>
   </Fragment>
-  <Fragment slot="header">Secret</Fragment>
-  <Fragment slot="footer">Rotates every 90 days</Fragment>
+  <Fragment slot="top">Secret</Fragment>
+  <Fragment slot="bottom">Rotates every 90 days</Fragment>
   <Fragment slot="end-text">Treat like a password</Fragment>
 </TextField>
 ```
@@ -443,14 +443,14 @@ import { TextField } from "opui-css/astro"
 
 | Slot         | Description                                                  |
 | ------------ | ------------------------------------------------------------ |
+| `bottom`     | Content below the input, inside the border, with a divider.  |
 | `default`    | Extra content inside the root, such as a `<datalist>`.       |
+| `end`        | Content at the inline-end of the field, inside the border.   |
 | `end-text`   | Supporting text displayed below the field.                   |
-| `footer`     | Content below the input, inside the border, with a divider.  |
-| `header`     | Content above the input, inside the border, with a divider.  |
 | `label`      | The label for the field.                                     |
-| `prefix`     | Content at the inline-start of the field, inside the border. |
+| `start`      | Content at the inline-start of the field, inside the border. |
 | `start-text` | Start text displayed above the field.                        |
-| `suffix`     | Content at the inline-end of the field, inside the border.   |
+| `top`        | Content above the input, inside the border, with a divider.  |
 
 #### CSS variables
 
@@ -513,7 +513,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |
@@ -719,6 +719,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: the [affix](#affix) slots are `start` and `end` instead of `prefix` and `suffix`, and [`top` and `bottom`](#top-and-bottom) instead of `header` and `footer`.
 - Small and x-small fields set their text in `--ui-font-size-small` and `--ui-font-size-caption`, like buttons.
 - The field border, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.

@@ -139,7 +139,7 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 ### Label position
 
-Use `.ui-stack` to put the label under the checkbox.
+Use `.ui-vertical` to put the label under the checkbox.
 
 ```html
 <label class="ui-checkbox">
@@ -147,7 +147,7 @@ Use `.ui-stack` to put the label under the checkbox.
   <span class="ui-label">Default</span>
 </label>
 
-<label class="ui-checkbox ui-stack">
+<label class="ui-checkbox ui-vertical">
   <input name="checkbox-label-position" type="checkbox" />
   <span class="ui-label">Stack</span>
 </label>
@@ -164,7 +164,7 @@ Add a `<span class="ui-end-text">` after the `.ui-label` for supporting text und
   <span class="ui-end-text">Supporting text</span>
 </label>
 
-<label class="ui-checkbox ui-stack">
+<label class="ui-checkbox ui-vertical">
   <input name="checkbox-end-text" type="checkbox" />
   <span class="ui-label">Stack</span>
   <span class="ui-end-text">Supporting text</span>
@@ -184,7 +184,7 @@ Add a `<span class="ui-end-text">` after the `.ui-label` for supporting text und
     <span class="ui-label">Default</span>
   </label>
 
-  <label class="ui-checkbox ui-stack">
+  <label class="ui-checkbox ui-vertical">
     <input name="checkbox-validation" type="checkbox" required />
     <span class="ui-label">Stack</span>
   </label>
@@ -202,7 +202,7 @@ Add a `<span class="ui-end-text">` after the `.ui-label` for supporting text und
     <span class="ui-end-text">Check yourself</span>
   </label>
 
-  <label class="ui-checkbox ui-stack">
+  <label class="ui-checkbox ui-vertical">
     <input aria-invalid="true" name="checkbox-validation" type="checkbox" />
     <span class="ui-label">Stack</span>
     <span class="ui-end-text">Before you wreck yourself</span>
@@ -373,7 +373,7 @@ Can be placed above and below the fields.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <p class="ui-field-description">Field description above fields</p>
+    <p class="ui-description">Field description above fields</p>
     <div class="ui-field-group ui-horizontal">
       <label class="ui-checkbox">
         <input
@@ -414,7 +414,7 @@ Can be placed above and below the fields.
         <span class="ui-label">Checkbox 3</span>
       </label>
     </div>
-    <p class="ui-field-description">Field description below fields</p>
+    <p class="ui-description">Field description below fields</p>
   </fieldset>
 </form>
 ```
@@ -595,16 +595,16 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Type       | Modifiers                                        | Default | Description                                                                          |
-| ---------- | ------------------------------------------------ | ------- | ------------------------------------------------------------------------------------ |
-| Disabled   | `input[disabled]`                                | -       | Dims the checkbox and shows a not-allowed cursor.                                    |
-| Label      | `.ui-label.ui-sr-only`                           | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
-| Required   | `input[required]`                                | -       | Adds a required mark after the label.                                                |
-| Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                             |
-| Spread     | `.ui-spread`                                     | -       | Pushes the label and the input to opposite ends.                                     |
-| Stack      | `.ui-stack`                                      | -       | Stacks the label under the input.                                                    |
-| State      | `input[data-indeterminate]`                      | -       | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| Validation | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles.                                    |
+| Type        | Modifiers                                        | Default | Description                                                                          |
+| ----------- | ------------------------------------------------ | ------- | ------------------------------------------------------------------------------------ |
+| Disabled    | `input[disabled]`                                | -       | Dims the checkbox and shows a not-allowed cursor.                                    |
+| Label       | `.ui-label.ui-sr-only`                           | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
+| Orientation | default, `.ui-vertical`                          | default | The orientation of the element. `vertical` stacks the label under the input.         |
+| Required    | `input[required]`                                | -       | Adds a required mark after the label.                                                |
+| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                             |
+| Spread      | `.ui-spread`                                     | -       | Pushes the label and the input to opposite ends.                                     |
+| State       | `input[data-indeterminate]`                      | -       | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| Validation  | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles.                                    |
 
 #### Parts
 
@@ -965,6 +965,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`.ui-vertical`](#label-position) replaces `.ui-stack`.
 - Call `syncIndeterminate(input)` from `checkbox.js` after you change `data-indeterminate` ([Indeterminate](#indeterminate)).
 - The unchecked border, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The checked fill and mark read [`--ui-choice-accent`](#api) and `--ui-choice-on-accent` when a theme sets them.

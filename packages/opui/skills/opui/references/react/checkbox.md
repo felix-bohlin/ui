@@ -126,7 +126,7 @@ export default function VisibleLabel() {
 
 ### Label position
 
-Use `stack` to put the label under the checkbox.
+Use `orientation="vertical"` to put the label under the checkbox.
 
 ```tsx
 import { Checkbox } from "opui-css/react"
@@ -135,7 +135,7 @@ export default function LabelPosition() {
   return (
     <>
       <Checkbox name="checkbox-label-position">Default</Checkbox>
-      <Checkbox stack name="checkbox-label-position">
+      <Checkbox orientation="vertical" name="checkbox-label-position">
         Stack
       </Checkbox>
     </>
@@ -156,7 +156,11 @@ export default function EndText() {
       <Checkbox name="checkbox-end-text" endText="Supporting text">
         Default
       </Checkbox>
-      <Checkbox stack name="checkbox-end-text" endText="Supporting text">
+      <Checkbox
+        orientation="vertical"
+        name="checkbox-end-text"
+        endText="Supporting text"
+      >
         Stack
       </Checkbox>
     </>
@@ -180,7 +184,7 @@ export default function Validation() {
         <Checkbox required name="checkbox-validation">
           Default
         </Checkbox>
-        <Checkbox stack required name="checkbox-validation">
+        <Checkbox orientation="vertical" required name="checkbox-validation">
           Stack
         </Checkbox>
       </div>
@@ -194,7 +198,7 @@ export default function Validation() {
           Default
         </Checkbox>
         <Checkbox
-          stack
+          orientation="vertical"
           error
           name="checkbox-validation"
           endText="Before you wreck yourself"
@@ -215,7 +219,7 @@ Set the `indeterminate` prop to render a partially-selected state. `indeterminat
 "use client"
 
 import { useState } from "react"
-import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/react"
+import { Checkbox, FieldGroup, FieldLegend, Fieldset } from "opui-css/react"
 
 const items = ["Apples", "Bananas", "Cherries"]
 
@@ -232,7 +236,7 @@ export default function Indeterminate() {
   }
 
   return (
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>
         <Checkbox
           checked={allChecked}
@@ -255,7 +259,7 @@ export default function Indeterminate() {
           </Checkbox>
         ))}
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   )
 }
 ```
@@ -332,21 +336,21 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/react"
 
 export default function FieldGroupExample() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="checkbox-group">
           <Checkbox defaultChecked>Checkbox 1</Checkbox>
           <Checkbox>Checkbox 2</Checkbox>
           <Checkbox>Checkbox 3</Checkbox>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -361,21 +365,21 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/react"
 
 export default function FieldGroupOrientation() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="checkbox-group-orientation" orientation="horizontal">
           <Checkbox defaultChecked>Checkbox 1</Checkbox>
           <Checkbox>Checkbox 2</Checkbox>
           <Checkbox>Checkbox 3</Checkbox>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -391,14 +395,14 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/react"
 
 export default function FieldGroupFieldDescription() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
         <FieldGroup
@@ -409,9 +413,9 @@ export default function FieldGroupFieldDescription() {
           <Checkbox>Checkbox 2</Checkbox>
           <Checkbox>Checkbox 3</Checkbox>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup
           orientation="horizontal"
@@ -422,7 +426,7 @@ export default function FieldGroupFieldDescription() {
           <Checkbox>Checkbox 3</Checkbox>
         </FieldGroup>
         <FieldDescription>Field description below fields</FieldDescription>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -430,7 +434,7 @@ export default function FieldGroupFieldDescription() {
 
 ### Disabled
 
-Set `disabled` on the `FieldSet` to disable every checkbox in it, or on a single `Checkbox`.
+Set `disabled` on the `Fieldset` to disable every checkbox in it, or on a single `Checkbox`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the checkbox focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
@@ -439,21 +443,21 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/react"
 
 export default function FieldGroupDisabled() {
   return (
     <Form>
-      <FieldSet disabled>
+      <Fieldset disabled>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup orientation="horizontal" name="checkbox-group-disabled">
           <Checkbox defaultChecked>Checkbox 1</Checkbox>
           <Checkbox>Checkbox 2</Checkbox>
           <Checkbox>Checkbox 3</Checkbox>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -468,21 +472,21 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/react"
 
 export default function FieldGroupRequired() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>These are required!</FieldLegend>
         <FieldGroup orientation="horizontal" name="checkbox-group-required">
           <Checkbox required>Checkbox 1</Checkbox>
           <Checkbox required>Checkbox 2</Checkbox>
           <Checkbox required>Checkbox 3</Checkbox>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -490,7 +494,7 @@ export default function FieldGroupRequired() {
 
 ### Validation
 
-Set `error` on each `Checkbox` in the group. The end text of the `FieldSet` turns red with them.
+Set `error` on each `Checkbox` in the group. The end text of the `Fieldset` turns red with them.
 
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
@@ -499,14 +503,14 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/react"
 
 export default function FieldGroupValidation() {
   return (
     <Form>
-      <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
+      <Fieldset aria-describedby="checkbox-field-group-validation-1-error">
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup orientation="horizontal" name="checkbox-group-validation">
           <Checkbox defaultChecked error>
@@ -521,7 +525,7 @@ export default function FieldGroupValidation() {
         >
           Something went wrong!
         </span>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }
@@ -540,7 +544,7 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
 } from "opui-css/react"
 
 export default function FieldGroupBinding() {
@@ -559,7 +563,7 @@ export default function FieldGroupBinding() {
 
   return (
     <>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Fruit</FieldLegend>
         <FieldGroup name="checkbox-binding">
           <Checkbox
@@ -584,7 +588,7 @@ export default function FieldGroupBinding() {
             Cherries
           </Checkbox>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
       <p className="checkbox-binding-text">
         Selected: {fruit.join(", ") || "none"}
       </p>
@@ -618,16 +622,16 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Prop                                                                                                                                                                                                                                 | Type                                             | Default    | Description                                                                          |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------ |
-| `children`                                                                                                                                                                                                                           | `ReactNode`                                      | -          | The label.                                                                           |
-| `endText`                                                                                                                                                                                                                            | `ReactNode`                                      | -          | Supporting text displayed below the label.                                           |
-| `error`                                                                                                                                                                                                                              | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.                                    |
-| `hideLabel`                                                                                                                                                                                                                          | `boolean`                                        | `false`    | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
-| `indeterminate` **Needs hydration** A DOM property, set in a layout effect. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`                                        | `false`    | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| `size`                                                                                                                                                                                                                               | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                                             |
-| `spread`                                                                                                                                                                                                                             | `boolean`                                        | `false`    | Pushes the label and the input to opposite ends.                                     |
-| `stack`                                                                                                                                                                                                                              | `boolean`                                        | `false`    | Stacks the label under the input.                                                    |
+| Prop                                                                                                                                                                                                                                 | Type                                             | Default        | Description                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------ |
+| `children`                                                                                                                                                                                                                           | `ReactNode`                                      | -              | The label.                                                                           |
+| `endText`                                                                                                                                                                                                                            | `ReactNode`                                      | -              | Supporting text displayed below the label.                                           |
+| `error`                                                                                                                                                                                                                              | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                                    |
+| `hideLabel`                                                                                                                                                                                                                          | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
+| `indeterminate` **Needs hydration** A DOM property, set in a layout effect. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`                                        | `false`        | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| `orientation`                                                                                                                                                                                                                        | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the input.         |
+| `size`                                                                                                                                                                                                                               | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                             |
+| `spread`                                                                                                                                                                                                                             | `boolean`                                        | `false`        | Pushes the label and the input to opposite ends.                                     |
 
 #### CSS variables
 

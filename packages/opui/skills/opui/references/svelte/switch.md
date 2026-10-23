@@ -87,7 +87,7 @@ The `children` snippet is the label. Also, don't miss the info on label [accessi
 
 ### Label position
 
-Set `stack` to put the label under the switch.
+Set `orientation="vertical"` to put the label under the switch.
 
 ```svelte
 <script lang="ts">
@@ -95,7 +95,7 @@ Set `stack` to put the label under the switch.
 </script>
 
 <Switch name="switch-label-position">Default</Switch>
-<Switch name="switch-label-position" stack>Stack</Switch>
+<Switch name="switch-label-position" orientation="vertical">Stack</Switch>
 ```
 
 ### End text
@@ -106,7 +106,9 @@ Set `stack` to put the label under the switch.
 </script>
 
 <Switch name="switch-end-text" endText="Supporting text">Default</Switch>
-<Switch name="switch-end-text" stack endText="Supporting text">Stack</Switch>
+<Switch name="switch-end-text" orientation="vertical" endText="Supporting text"
+  >Stack</Switch
+>
 ```
 
 ## Icons
@@ -184,7 +186,8 @@ Put an icon in the `iconUnchecked` and `iconChecked` snippets to show it in the 
 
 <div class="example-row ui-spacious">
   <Switch name="switch-validation" required>Default</Switch>
-  <Switch name="switch-validation" required stack>Stack</Switch>
+  <Switch name="switch-validation" required orientation="vertical">Stack</Switch
+  >
 </div>
 
 <div class="example-row ui-spacious">
@@ -192,7 +195,7 @@ Put an icon in the `iconUnchecked` and `iconChecked` snippets to show it in the 
     Default
     {#snippet endText()}Supporting text{/snippet}
   </Switch>
-  <Switch name="switch-validation" error stack>
+  <Switch name="switch-validation" error orientation="vertical">
     Stack
     {#snippet endText()}Supporting text{/snippet}
   </Switch>
@@ -256,21 +259,21 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Switch,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="switch-group">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -283,21 +286,21 @@ Switches stack vertically by default. Set `orientation="horizontal"` on the `Fie
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Switch,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="switch-group-orientation" orientation="horizontal">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -311,14 +314,14 @@ Can be placed above and below the fields.
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Switch,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
     <FieldGroup
@@ -329,9 +332,9 @@ Can be placed above and below the fields.
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup
       orientation="horizontal"
@@ -342,13 +345,13 @@ Can be placed above and below the fields.
       <Switch>Switch 3</Switch>
     </FieldGroup>
     <FieldDescription>Field description below fields</FieldDescription>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
 ### Disabled
 
-Set `disabled` on the `FieldSet` to disable every switch in it, or on a single `Switch`.
+Set `disabled` on the `Fieldset` to disable every switch in it, or on a single `Switch`.
 
 `aria-disabled="true"` on the `<input>` looks the same, but keeps the switch focusable and its value in the form. It doesn't stop the change, so block it with a script.
 
@@ -357,21 +360,21 @@ Set `disabled` on the `FieldSet` to disable every switch in it, or on a single `
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Switch,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet disabled>
+  <Fieldset disabled>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="switch-group-disabled">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -384,27 +387,27 @@ Each switch with `required` must be on before the form submits. There's no nativ
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Switch,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>These are required!</FieldLegend>
     <FieldGroup orientation="horizontal" name="switch-group-required">
       <Switch required>Switch 1</Switch>
       <Switch required>Switch 2</Switch>
       <Switch required>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
 ### Validation
 
-Set `error` on each `Switch` in the group. The end text of the `FieldSet` turns red with them.
+Set `error` on each `Switch` in the group. The end text of the `Fieldset` turns red with them.
 
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
@@ -413,14 +416,14 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Switch,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet aria-describedby="switch-field-group-validation-1-error">
+  <Fieldset aria-describedby="switch-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="switch-field-group-validation">
       <Switch error>Switch 1</Switch>
@@ -430,7 +433,7 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
     <span class="ui-end-text" id="switch-field-group-validation-1-error"
       >Something went wrong!</span
     >
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -444,7 +447,7 @@ Bind the checked values with `bind:group` on each `Switch`. The array holds the 
     Button,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Switch,
   } from "opui-css/svelte"
 
@@ -455,14 +458,14 @@ Bind the checked values with `bind:group` on each `Switch`. The array holds the 
   }
 </script>
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Notifications</FieldLegend>
   <FieldGroup name="switch-binding">
     <Switch bind:group={notifications} value="email">Email</Switch>
     <Switch bind:group={notifications} value="push">Push</Switch>
     <Switch bind:group={notifications} value="sms">SMS</Switch>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 <p class="switch-binding-text">
   Selected: {notifications.join(", ") || "none"}
 </p>
@@ -497,19 +500,19 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Switch API
 
-| Prop                                                                                                                                                                             | Type                                             | Default    | Description                                                     |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ---------- | --------------------------------------------------------------- |
-| `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `boolean`                                        | -          | The checked state.                                              |
-| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.   | `(string \| number)[]`                           | -          | The checked values of a group.                                  |
-| `children`                                                                                                                                                                       | `Snippet`                                        | -          | The label.                                                      |
-| `endText`                                                                                                                                                                        | `Snippet` , `string`                             | -          | Supporting text displayed below the label.                      |
-| `error`                                                                                                                                                                          | `boolean`                                        | `false`    | Marks the control invalid and shows error styles.               |
-| `hideLabel`                                                                                                                                                                      | `boolean`                                        | `false`    | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. |
-| `iconChecked`                                                                                                                                                                    | `Snippet`                                        | -          | An optional icon in the thumb when checked.                     |
-| `iconUnchecked`                                                                                                                                                                  | `Snippet`                                        | -          | An optional icon in the thumb when unchecked.                   |
-| `size`                                                                                                                                                                           | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element.                                        |
-| `spread`                                                                                                                                                                         | `boolean`                                        | `false`    | Pushes the label and the switch to opposite ends.               |
-| `stack`                                                                                                                                                                          | `boolean`                                        | `false`    | Stacks the label under the switch.                              |
+| Prop                                                                                                                                                                             | Type                                             | Default        | Description                                                                   |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | -------------- | ----------------------------------------------------------------------------- |
+| `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `boolean`                                        | -              | The checked state.                                                            |
+| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.   | `(string \| number)[]`                           | -              | The checked values of a group.                                                |
+| `children`                                                                                                                                                                       | `Snippet`                                        | -              | The label.                                                                    |
+| `endText`                                                                                                                                                                        | `Snippet` , `string`                             | -              | Supporting text displayed below the label.                                    |
+| `error`                                                                                                                                                                          | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                             |
+| `hideLabel`                                                                                                                                                                      | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.               |
+| `iconChecked`                                                                                                                                                                    | `Snippet`                                        | -              | An optional icon in the thumb when checked.                                   |
+| `iconUnchecked`                                                                                                                                                                  | `Snippet`                                        | -              | An optional icon in the thumb when unchecked.                                 |
+| `orientation`                                                                                                                                                                    | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the switch. |
+| `size`                                                                                                                                                                           | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                      |
+| `spread`                                                                                                                                                                         | `boolean`                                        | `false`        | Pushes the label and the switch to opposite ends.                             |
 
 #### CSS variables
 

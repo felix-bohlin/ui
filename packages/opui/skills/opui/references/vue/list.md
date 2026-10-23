@@ -20,15 +20,15 @@
 
   Optional content at the start, such as an icon or avatar.
 
-* `v-slot:text`
+* `.ui-text`
 
   The text content.
 
-* `headline`
+* `label / v-slot:label`
 
-  The headline, the first paragraph.
+  The label, the first paragraph.
 
-* `description`
+* `description / v-slot:description`
 
   Supporting text, the second paragraph.
 
@@ -45,12 +45,12 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="Headline" />
+    <ListItem label="Headline" />
     <ListItem
-      headline="Headline"
+      label="Headline"
       description="Supporting text that truly is quite long enough to fill up multiple lines."
     />
-    <ListItem headline="Trailing supporting text">
+    <ListItem label="Trailing supporting text">
       <template #end>100+</template>
     </ListItem>
   </List>
@@ -84,18 +84,18 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="Filled (default)" />
-    <ListItem headline="Second item" />
+    <ListItem label="Filled (default)" />
+    <ListItem label="Second item" />
   </List>
 
   <List variant="tonal">
-    <ListItem headline="Tonal" />
-    <ListItem headline="Second item" />
+    <ListItem label="Tonal" />
+    <ListItem label="Second item" />
   </List>
 
   <List variant="transparent">
-    <ListItem headline="Transparent" />
-    <ListItem headline="Second item" />
+    <ListItem label="Transparent" />
+    <ListItem label="Second item" />
   </List>
 </template>
 ```
@@ -113,10 +113,10 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem as="button" headline="Button list item" />
-    <ListItem as="button" disabled headline="Archived" />
-    <ListItem href="#clickable-list-item" headline="Link list item" />
-    <ListItem type="checkbox" headline="Checkbox list item">
+    <ListItem as="button" label="Button list item" />
+    <ListItem as="button" disabled label="Archived" />
+    <ListItem href="#clickable-list-item" label="Link list item" />
+    <ListItem type="checkbox" label="Checkbox list item">
       <template #end><CheckboxInput /></template>
     </ListItem>
   </List>
@@ -137,17 +137,17 @@ import { List, ListItem } from "opui-css/vue"
     <ListItem
       href="#"
       aria-current="page"
-      headline="Selected item"
+      label="Selected item"
       description='This item has aria-current="page" on its link'
     />
-    <ListItem href="#" headline="Normal item" />
+    <ListItem href="#" label="Normal item" />
   </List>
 </template>
 ```
 
 ## Text
 
-Main text lives in the `text` slot, or pass `headline` and `description` props directly on `ListItem`.
+Pass `label` and `description` on `ListItem`, as props or as slots of the same name for rich content. The default slot adds more content after them.
 
 ```vue
 <script setup lang="ts">
@@ -156,12 +156,12 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="Headline" />
+    <ListItem label="Headline" />
     <ListItem
-      headline="Headline"
+      label="Headline"
       description="Supporting text that truly is quite long enough to fill up multiple lines."
     />
-    <ListItem headline="Headline">
+    <ListItem label="Headline">
       <p>Supporting text</p>
       <p>Even more supporting text</p>
     </ListItem>
@@ -182,7 +182,7 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="Headline">
+    <ListItem label="Headline">
       <template #start
         ><svg
           aria-hidden="true"
@@ -197,7 +197,7 @@ import { List, ListItem } from "opui-css/vue"
           ></path></svg
       ></template>
     </ListItem>
-    <ListItem headline="Headline" description="Supporting text">
+    <ListItem label="Headline" description="Supporting text">
       <template #start
         ><svg
           aria-hidden="true"
@@ -227,10 +227,10 @@ import { Avatar, List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="Headline">
+    <ListItem label="Headline">
       <template #start><Avatar aria-hidden="true">AB</Avatar></template>
     </ListItem>
-    <ListItem headline="Headline" description="Supporting text">
+    <ListItem label="Headline" description="Supporting text">
       <template #start
         ><Avatar>
           <img
@@ -254,7 +254,7 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="Headline" description="Supporting text">
+    <ListItem label="Headline" description="Supporting text">
       <template #start
         ><img
           src="https://images.unsplash.com/photo-1504579264001-833438f93df2?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -263,7 +263,7 @@ import { List, ListItem } from "opui-css/vue"
           loading="lazy"
       /></template>
     </ListItem>
-    <ListItem headline="Headline" description="Supporting text">
+    <ListItem label="Headline" description="Supporting text">
       <template #start
         ><img
           src="https://images.unsplash.com/photo-1504579264001-833438f93df2?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -285,7 +285,7 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="Headline" description="Supporting text">
+    <ListItem label="Headline" description="Supporting text">
       <template #start
         ><video controls muted>
           <source
@@ -295,7 +295,7 @@ import { List, ListItem } from "opui-css/vue"
       ></template>
       <template #end>13:37</template>
     </ListItem>
-    <ListItem headline="Headline" description="Supporting text">
+    <ListItem label="Headline" description="Supporting text">
       <template #start
         ><video controls muted>
           <source
@@ -322,14 +322,14 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="Headline">
+    <ListItem label="Headline">
       <template #end>30kB</template>
     </ListItem>
-    <ListItem headline="Headline" description="Supporting text">
+    <ListItem label="Headline" description="Supporting text">
       <template #end>99%</template>
     </ListItem>
     <ListItem
-      headline="Headline"
+      label="Headline"
       description="Supporting text that truly is quite long enough to fill up multiple lines."
     >
       <template #end>100+</template>
@@ -347,10 +347,10 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="Save all">
+    <ListItem label="Save all">
       <template #end><kbd>Ctrl+Shift+S</kbd></template>
     </ListItem>
-    <ListItem headline="Save">
+    <ListItem label="Save">
       <template #end><kbd>Ctrl+S</kbd></template>
     </ListItem>
   </List>
@@ -371,11 +371,11 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
 <template>
   <List>
     <ListItem type="checkbox">
-      <template #text>Checkbox 1</template>
+      <template #label>Checkbox 1</template>
       <template #end><CheckboxInput /></template>
     </ListItem>
     <ListItem type="checkbox">
-      <template #text>Checkbox 2</template>
+      <template #label>Checkbox 2</template>
       <template #end><CheckboxInput /></template>
     </ListItem>
   </List>
@@ -398,13 +398,13 @@ import { List, ListItem, RadioInput } from "opui-css/vue"
 <template>
   <List>
     <ListItem type="radio">
-      <template #text>Radio 1</template>
+      <template #label>Radio 1</template>
       <template #end
         ><RadioInput name="radio-example-group" value="1"
       /></template>
     </ListItem>
     <ListItem type="radio">
-      <template #text>Radio 2</template>
+      <template #label>Radio 2</template>
       <template #end
         ><RadioInput name="radio-example-group" value="2"
       /></template>
@@ -425,11 +425,11 @@ import { List, ListItem, SwitchInput } from "opui-css/vue"
 <template>
   <List>
     <ListItem type="switch">
-      <template #text>Switch 1</template>
+      <template #label>Switch 1</template>
       <template #end><SwitchInput /></template>
     </ListItem>
     <ListItem type="switch">
-      <template #text>Switch 2</template>
+      <template #label>Switch 2</template>
       <template #end><SwitchInput /></template>
     </ListItem>
   </List>
@@ -447,7 +447,7 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="No inset">
+    <ListItem label="No inset">
       <template #start
         ><svg
           aria-hidden="true"
@@ -462,10 +462,10 @@ import { List, ListItem } from "opui-css/vue"
           ></path></svg
       ></template>
     </ListItem>
-    <ListItem inset headline="Inset class">
+    <ListItem inset label="Inset class">
       <p>Makes the text line up nicely</p>
     </ListItem>
-    <ListItem inset headline="Inset class">
+    <ListItem inset label="Inset class">
       <template #start>Hidden</template>
       <p>Any <code>div.ui-start</code> will be hidden when inset</p>
     </ListItem>
@@ -473,9 +473,9 @@ import { List, ListItem } from "opui-css/vue"
 </template>
 ```
 
-## Gutterless
+## Flush
 
-Add the `gutterless` prop to the `List` to remove the inline padding on the list items.
+Add the `flush` prop to the `List` to remove the inline padding on the list items.
 
 ```vue
 <script setup lang="ts">
@@ -483,8 +483,8 @@ import { Button, List, ListItem } from "opui-css/vue"
 </script>
 
 <template>
-  <List gutterless>
-    <ListItem headline="Gutterless list item">
+  <List flush>
+    <ListItem label="Gutterless list item">
       <template #end>
         <Button aria-label="Delete" round size="small">
           <svg
@@ -502,7 +502,7 @@ import { Button, List, ListItem } from "opui-css/vue"
         </Button>
       </template>
     </ListItem>
-    <ListItem headline="Headline" description="Supporting text">
+    <ListItem label="Headline" description="Supporting text">
       <template #start
         ><svg
           aria-hidden="true"
@@ -535,9 +535,9 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List bordered>
-    <ListItem headline="So" />
-    <ListItem headline="Many" />
-    <ListItem headline="Borders" />
+    <ListItem label="So" />
+    <ListItem label="Many" />
+    <ListItem label="Borders" />
   </List>
 </template>
 ```
@@ -553,9 +553,9 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem headline="I need borders" />
-    <ListItem headline="Help" />
-    <ListItem borderTop headline="Thanks" />
+    <ListItem label="I need borders" />
+    <ListItem label="Help" />
+    <ListItem borderTop label="Thanks" />
   </List>
 </template>
 ```
@@ -571,12 +571,12 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List dense>
-    <ListItem headline="Headline" />
+    <ListItem label="Headline" />
     <ListItem
-      headline="Headline"
+      label="Headline"
       description="Supporting text that truly is quite long enough to fill up multiple lines."
     />
-    <ListItem headline="Trailing supporting text">
+    <ListItem label="Trailing supporting text">
       <template #end>100+</template>
     </ListItem>
   </List>
@@ -587,12 +587,12 @@ import { List, ListItem } from "opui-css/vue"
 
 ### List API
 
-| Prop         | Type                                     | Default    | Description                                                            |
-| ------------ | ---------------------------------------- | ---------- | ---------------------------------------------------------------------- |
-| `bordered`   | `boolean`                                | `false`    | Adds a border between list items.                                      |
-| `dense`      | `boolean`                                | `false`    | Packs the items tighter.                                               |
-| `gutterless` | `boolean`                                | `false`    | Removes the inline padding.                                            |
-| `variant`    | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. The default `filled` list uses the filled surface. |
+| Prop       | Type                                     | Default    | Description                                                            |
+| ---------- | ---------------------------------------- | ---------- | ---------------------------------------------------------------------- |
+| `bordered` | `boolean`                                | `false`    | Adds a border between list items.                                      |
+| `dense`    | `boolean`                                | `false`    | Packs the items tighter.                                               |
+| `flush`    | `boolean`                                | `false`    | Removes the inline padding.                                            |
+| `variant`  | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. The default `filled` list uses the filled surface. |
 
 #### Slots
 
@@ -642,28 +642,29 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### List item API
 
-| Prop          | Type                                  | Default | Description                                                                                                                                     |
-| ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`          | `"a"` , `"button"` , `"div"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. A `<button>` gets `type="button"`. |
-| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                   |
-| `color`       | `"critical"`                          | -       | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/vue/components/menu.md).                     |
-| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                          |
-| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                      |
-| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                        |
-| `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                                                              |
-| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                            |
-| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                             |
-| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                        |
+| Prop          | Type                                  | Default | Description                                                                                                                                                                                                  |
+| ------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `as`          | `"a"` , `"button"` , `"div"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`. |
+| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                                                                                |
+| `color`       | `"critical"`                          | -       | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/vue/components/menu.md).                                                                                  |
+| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                                                                                       |
+| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                                                                                                                   |
+| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                                                                                     |
+| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                                                                                         |
+| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                                                                                          |
+| `label`       | `string`                              | -       | The label, the first paragraph.                                                                                                                                                                              |
+| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                                                                                     |
 
 #### Slots
 
-| Slot      | Description                                                                 |
-| --------- | --------------------------------------------------------------------------- |
-| `default` | Extra content inside `.ui-text`, or all the content when there's no text.   |
-| `end`     | Optional content at the end, such as a value or an action.                  |
-| `start`   | Optional content at the start, such as an icon or avatar.                   |
-| `submenu` | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`. |
-| `text`    | The text content.                                                           |
+| Slot          | Description                                                                                               |
+| ------------- | --------------------------------------------------------------------------------------------------------- |
+| `default`     | More content inside `.ui-text`, after the label and description, or all the content when there's neither. |
+| `description` | Supporting text, the second paragraph.                                                                    |
+| `end`         | Optional content at the end, such as a value or an action.                                                |
+| `label`       | The label, the first paragraph.                                                                           |
+| `start`       | Optional content at the start, such as an icon or avatar.                                                 |
+| `submenu`     | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                               |
 
 #### CSS variables
 
@@ -876,6 +877,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: `ListItem` [`label`](#text) replaces `headline`, and the `label` and `description` slots replace the `text` slot.
+- Breaking: [`flush`](#flush) replaces `gutterless`.
 - Selected and current items read [`--ui-selected`](#api) and `--ui-on-selected` when a theme sets them.
 - Smaller [start](#icon) and end icons.
 - Breaking: `divided` is removed. Use [`bordered`](#on-every-item).

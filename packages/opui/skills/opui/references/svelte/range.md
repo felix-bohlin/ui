@@ -8,7 +8,7 @@ Label 50 Start text End text
 
   Container element.
 
-- `label / children`
+- `label`
 
   The label for the range.
 
@@ -24,7 +24,7 @@ Label 50 Start text End text
 
   The range input.
 
-- `list / options / datalist`
+- `items / list / datalist`
 
   Tick marks and their labels, under the input.
 
@@ -51,15 +51,17 @@ Use the `variant` prop to swap the track surface for better contrast on differen
   import { Range } from "opui-css/svelte"
 </script>
 
-<Range
-  ><code>outlined</code> (default) =
-  <code>var(--ui-field-border-color)</code></Range
->
+<Range>
+  {#snippet label()}<code>outlined</code> (default) =
+    <code>var(--ui-field-border-color)</code>{/snippet}
+</Range>
 <Range variant="filled">
-  <code>filled</code> = <code>var(--ui-surface-filled)</code>
+  {#snippet label()}<code>filled</code> =
+    <code>var(--ui-surface-filled)</code>{/snippet}
 </Range>
 <Range variant="tonal">
-  <code>tonal</code> = <code>var(--ui-surface-tonal)</code>
+  {#snippet label()}<code>tonal</code> =
+    <code>var(--ui-surface-tonal)</code>{/snippet}
 </Range>
 ```
 
@@ -97,7 +99,7 @@ Pass the `valueSuffix` prop to render a live readout of the slider's current val
 
 ## Tick marks
 
-Pass an `options` array - `options=[{ value, label }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id, and put your own `<option>` elements in the `datalist` snippet.
+Pass an `items` array - `items=[{ label, value }]` - and the component renders a `<datalist>` and links it to the input. Set `list` to choose its id, and put your own `<option>` elements in the `datalist` snippet.
 
 ```svelte
 <script lang="ts">
@@ -106,7 +108,7 @@ Pass an `options` array - `options=[{ value, label }]` - and the component rende
 
 <Range
   label="Tick marks with labels"
-  options={[
+  items={[
     { value: 0, label: "0%" },
     { value: 25, label: "25%" },
     { value: 50, label: "50%" },
@@ -158,27 +160,24 @@ Use the `spread` boolean prop to display the label and start text on the left wi
   import { Range } from "opui-css/svelte"
 </script>
 
-<Range spread>
-  Spread Layout
+<Range label="Spread Layout" spread>
   {#snippet startText()}Start text{/snippet}
   {#snippet endText()}End text{/snippet}
 </Range>
 
-<Range spread disabled>
-  Disabled
+<Range label="Disabled" spread disabled>
   {#snippet startText()}Start text{/snippet}
   {#snippet endText()}End text{/snippet}
 </Range>
 
-<Range spread error endText="This value is incorrect.">
-  Invalid Range
+<Range label="Invalid Range" spread error endText="This value is incorrect.">
   {#snippet startText()}Start text{/snippet}
 </Range>
 
 <Range
   label="Tick marks with labels"
   spread
-  options={[
+  items={[
     { value: 0, label: "0%" },
     { value: 25, label: "25%" },
     { value: 50, label: "50%" },
@@ -203,14 +202,13 @@ Use the `spread` boolean prop to display the label and start text on the left wi
 | Prop                                                                                                                                                                                                | Type                                  | Default      | Description                                                                                                                        |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                      | `number` , `string`                   | -            | The current value.                                                                                                                 |
-| `children`                                                                                                                                                                                          | `Snippet`                             | -            | The label for the range.                                                                                                           |
 | `datalist`                                                                                                                                                                                          | `Snippet`                             | -            | Tick marks and their labels, under the input.                                                                                      |
 | `endText`                                                                                                                                                                                           | `Snippet` , `string`                  | -            | Supporting text displayed below the input.                                                                                         |
 | `error`                                                                                                                                                                                             | `boolean`                             | `false`      | Marks the control invalid and shows error styles.                                                                                  |
 | `id`                                                                                                                                                                                                | `string`                              | -            | The id of the `<input>`. Generated when omitted and the value is shown.                                                            |
-| `label`                                                                                                                                                                                             | `string`                              | -            | The label for the range.                                                                                                           |
-| `list`                                                                                                                                                                                              | `string`                              | -            | The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.                                               |
-| `options`                                                                                                                                                                                           | `RangeOption[]`                       | -            | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                                                     |
+| `items`                                                                                                                                                                                             | `RangeItem[]`                         | -            | Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. |
+| `label`                                                                                                                                                                                             | `Snippet` , `string`                  | -            | The label for the range.                                                                                                           |
+| `list`                                                                                                                                                                                              | `string`                              | -            | The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.                                                 |
 | `spread`                                                                                                                                                                                            | `boolean`                             | `false`      | Pushes the label and start text to one side and the input to the other.                                                            |
 | `startText`                                                                                                                                                                                         | `Snippet` , `string`                  | -            | Description text displayed above the input.                                                                                        |
 | `valueSuffix` **Needs hydration** The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Update the `<output>` text on `input` yourself. | `string`                              | -            | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`.                                      |
@@ -543,7 +541,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
 - [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
-- `options` is typed as [`RangeOption[]`](#tick-marks), exported from every framework.
+- [`items`](#tick-marks) is typed as `RangeItem[]`, exported from every framework.
 - [`options`](#tick-marks) renders a linked `<datalist>` without a `list` id.
 - The [`valueText`](#value) snippet gets the current value and follows the thumb.
 - The thumb, its halo and the track fill follow `--_accent` on `.ui-range` ([Under the hood](#under-the-hood)).

@@ -14,7 +14,7 @@
 
 - `label / v-slot:indicator`
 
-  The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`.
+  The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.
 
 ## Dot
 
@@ -301,14 +301,14 @@ import { Badge } from "opui-css/vue"
 | `dot`       | `boolean`                                                         | `false`       | Renders the indicator as a dot, without a label.                                                                                                                                     |
 | `hideLabel` | `boolean`                                                         | `false`       | Hides `label` visually, for the whole sentence screen readers read, such as "5 unread messages". The `indicator` slot then holds the visible text and is hidden from screen readers. |
 | `invisible` | `boolean`                                                         | `false`       | Hides the indicator.                                                                                                                                                                 |
-| `label`     | `string`                                                          | -             | The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`.                                                                                    |
+| `label`     | `string`                                                          | -             | The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.                                                                                           |
 
 #### Slots
 
-| Slot        | Description                                                                                       |
-| ----------- | ------------------------------------------------------------------------------------------------- |
-| `default`   | The element the badge is anchored to.                                                             |
-| `indicator` | The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`. |
+| Slot        | Description                                                                                |
+| ----------- | ------------------------------------------------------------------------------------------ |
+| `default`   | The element the badge is anchored to.                                                      |
+| `indicator` | The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`. |
 
 #### CSS variables
 

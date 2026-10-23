@@ -2,7 +2,7 @@
 
 ## Anatomy
 
-Label Start text € EUR Header Footer Supporting text
+Label Start text € EUR Top Bottom Supporting text
 
 - `label.ui-text-field`
 
@@ -20,11 +20,11 @@ Label Start text € EUR Header Footer Supporting text
 
   The boxed input area.
 
-- `.ui-header`
+- `.ui-field > .ui-top`
 
   Content above the input, inside the border, with a divider.
 
-- `.ui-prefix`
+- `.ui-field > .ui-start`
 
   Content at the inline-start of the field, inside the border.
 
@@ -32,11 +32,11 @@ Label Start text € EUR Header Footer Supporting text
 
   The input element.
 
-- `.ui-suffix`
+- `.ui-field > .ui-end`
 
   Content at the inline-end of the field, inside the border.
 
-- `.ui-footer`
+- `.ui-field > .ui-bottom`
 
   Content below the input, inside the border, with a divider.
 
@@ -128,15 +128,15 @@ Add a `.ui-start-text` between `.ui-label` and `.ui-field` for text between the 
 
 ## Affix
 
-Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.ui-field` to affix content inside the field's border. Prefix and suffix sit beside the input, while header and footer span the field's full width with a divider.
+Add `.ui-start`, `.ui-end`, `.ui-top`, or `.ui-bottom` elements inside `.ui-field` to affix content inside the field's border. Start and end sit beside the input, while top and bottom span the field's full width with a divider.
 
 ```html
 <label class="ui-text-field">
   <span class="ui-label">Amount</span>
   <span class="ui-field">
     <input type="text" placeholder="0.00" />
-    <span class="ui-prefix">€</span>
-    <span class="ui-suffix">EUR</span>
+    <span class="ui-start">€</span>
+    <span class="ui-end">EUR</span>
   </span>
 </label>
 
@@ -144,7 +144,7 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
   <span class="ui-label">Website</span>
   <span class="ui-field">
     <input type="text" placeholder="example.com" />
-    <span class="ui-prefix">https://</span>
+    <span class="ui-start">https://</span>
   </span>
 </label>
 
@@ -152,7 +152,7 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
   <span class="ui-label">Weight</span>
   <span class="ui-field">
     <input type="text" inputmode="numeric" pattern="[0-9]*" placeholder="0" />
-    <span class="ui-suffix">kg</span>
+    <span class="ui-end">kg</span>
   </span>
 </label>
 
@@ -160,7 +160,7 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
   <span class="ui-label">Search</span>
   <span class="ui-field">
     <input type="text" placeholder="Search..." />
-    <span class="ui-prefix">
+    <span class="ui-start">
       <svg
         aria-hidden="true"
         width="16"
@@ -180,16 +180,16 @@ Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.
 </label>
 ```
 
-### Headers and footers
+### Top and bottom
 
-Use the header for inside-field captions (filenames, categories) and the footer for counters and hints.
+Use the top for inside-field captions (filenames, categories) and the bottom for counters and hints.
 
 ```html
 <label class="ui-text-field">
   <span class="ui-label">Name</span>
   <span class="ui-field">
     <input type="text" placeholder="Ada Lovelace" />
-    <span class="ui-header">Shown on your profile</span>
+    <span class="ui-top">Shown on your profile</span>
   </span>
 </label>
 
@@ -197,7 +197,7 @@ Use the header for inside-field captions (filenames, categories) and the footer 
   <span class="ui-label">Tagline</span>
   <span class="ui-field">
     <input type="text" placeholder="A short description" />
-    <span class="ui-footer">0 / 80</span>
+    <span class="ui-bottom">0 / 80</span>
   </span>
 </label>
 ```
@@ -306,8 +306,8 @@ Add the `.ui-spread` class to display the label and start text on the left with 
   <span class="ui-start-text">Daily spending limit</span>
   <span class="ui-field">
     <input type="text" placeholder="0.00" />
-    <span class="ui-prefix">€</span>
-    <span class="ui-suffix">EUR</span>
+    <span class="ui-start">€</span>
+    <span class="ui-end">EUR</span>
   </span>
 </label>
 
@@ -316,7 +316,7 @@ Add the `.ui-spread` class to display the label and start text on the left with 
   <span class="ui-start-text">Your public profile URL</span>
   <span class="ui-field">
     <input type="text" placeholder="example.com" />
-    <span class="ui-prefix">https://</span>
+    <span class="ui-start">https://</span>
   </span>
   <span class="ui-end-text">Must include a valid domain</span>
 </label>
@@ -326,8 +326,8 @@ Add the `.ui-spread` class to display the label and start text on the left with 
   <span class="ui-start-text">Used to generate the project URL</span>
   <span class="ui-field">
     <input type="text" placeholder="my-project" />
-    <span class="ui-header">acme.dev/</span>
-    <span class="ui-footer">Lowercase letters and dashes only</span>
+    <span class="ui-top">acme.dev/</span>
+    <span class="ui-bottom">Lowercase letters and dashes only</span>
   </span>
 </label>
 
@@ -336,7 +336,7 @@ Add the `.ui-spread` class to display the label and start text on the left with 
   <span class="ui-start-text">Stored encrypted at rest</span>
   <span class="ui-field">
     <input type="password" placeholder="Paste your key" />
-    <span class="ui-prefix">
+    <span class="ui-start">
       <svg
         aria-hidden="true"
         width="16"
@@ -352,8 +352,8 @@ Add the `.ui-spread` class to display the label and start text on the left with 
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </svg>
     </span>
-    <span class="ui-header">Secret</span>
-    <span class="ui-footer">Rotates every 90 days</span>
+    <span class="ui-top">Secret</span>
+    <span class="ui-bottom">Rotates every 90 days</span>
   </span>
   <span class="ui-end-text">Treat like a password</span>
 </label>
@@ -561,7 +561,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 | Type       | Modifiers                                        | Default | Description                                                             |
 | ---------- | ------------------------------------------------ | ------- | ----------------------------------------------------------------------- |
-| Auto-fit   | `.ui-auto-fit`                                   | -       | Lets the width follow the content, from `25ch`.                         |
+| Auto fit   | `.ui-auto-fit`                                   | -       | Lets the width follow the content, from `25ch`.                         |
 | Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                |
 | Spread     | `.ui-spread`                                     | -       | Pushes the label and start text to one side and the input to the other. |
 | Validation | `input[aria-invalid="true"]`                     | -       | Marks the control invalid and shows error styles.                       |
@@ -569,18 +569,18 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 #### Parts
 
-| Part                  | Description                                                  |
-| --------------------- | ------------------------------------------------------------ |
-| `label.ui-text-field` | Container element.                                           |
-| `.ui-label`           | The label for the field.                                     |
-| `.ui-start-text`      | Start text displayed above the field.                        |
-| `.ui-field`           | The boxed input area.                                        |
-| `.ui-header`          | Content above the input, inside the border, with a divider.  |
-| `.ui-prefix`          | Content at the inline-start of the field, inside the border. |
-| `<input>`             | The input element.                                           |
-| `.ui-suffix`          | Content at the inline-end of the field, inside the border.   |
-| `.ui-footer`          | Content below the input, inside the border, with a divider.  |
-| `.ui-end-text`        | Supporting text displayed below the field.                   |
+| Part                     | Description                                                  |
+| ------------------------ | ------------------------------------------------------------ |
+| `label.ui-text-field`    | Container element.                                           |
+| `.ui-label`              | The label for the field.                                     |
+| `.ui-start-text`         | Start text displayed above the field.                        |
+| `.ui-field`              | The boxed input area.                                        |
+| `.ui-field > .ui-top`    | Content above the input, inside the border, with a divider.  |
+| `.ui-field > .ui-start`  | Content at the inline-start of the field, inside the border. |
+| `<input>`                | The input element.                                           |
+| `.ui-field > .ui-end`    | Content at the inline-end of the field, inside the border.   |
+| `.ui-field > .ui-bottom` | Content below the input, inside the border, with a divider.  |
+| `.ui-end-text`           | Supporting text displayed below the field.                   |
 
 #### CSS variables
 
@@ -643,7 +643,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-prefix`, `.ui-suffix`, `.ui-header` and `.ui-footer`. Defaults to `--ui-text-muted`, set by the invalid state.                       |
+| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text-muted`, set by the invalid state.                              |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
 | `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |
@@ -847,6 +847,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`.ui-start` and `.ui-end`](#affix) replace `.ui-prefix` and `.ui-suffix`, and [`.ui-top` and `.ui-bottom`](#top-and-bottom) replace `.ui-header` and `.ui-footer`.
 - Small and x-small fields set their text in `--ui-font-size-small` and `--ui-font-size-caption`, like buttons.
 - The field border, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.

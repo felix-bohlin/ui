@@ -16,7 +16,7 @@ Supporting text
 
   Container element. Spaces its fieldsets and fields.
 
-- `<FieldSet>`
+- `<Fieldset>`
 
   Groups related fields.
 
@@ -44,13 +44,13 @@ Supporting text
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend><!-- --></FieldLegend>
     <FieldDescription><!-- --></FieldDescription>
     <FieldGroup>
@@ -59,7 +59,7 @@ Supporting text
     <FieldGroup>
       <!-- -->
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -73,12 +73,12 @@ Groups related fields. Label it with `FieldLegend` and add an optional `FieldDes
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Radio,
   } from "opui-css/svelte"
 </script>
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Favorite Pet</FieldLegend>
   <FieldDescription>Please select your favorite type of pet.</FieldDescription>
   <FieldGroup name="pet">
@@ -86,7 +86,7 @@ Groups related fields. Label it with `FieldLegend` and add an optional `FieldDes
     <Radio value="dog">Dog</Radio>
     <Radio value="hamster">Hamster</Radio>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 ```
 
 ## Field group
@@ -100,14 +100,14 @@ Lays out related fields and passes a shared `name` to the OPUI fields inside. Wr
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Choose your favorite Radiohead album</FieldLegend>
     <FieldDescription>There are no wrong answers.</FieldDescription>
     <FieldGroup name="albums">
@@ -116,9 +116,9 @@ Lays out related fields and passes a shared `name` to the OPUI fields inside. Wr
       <Radio value="in-rainbows">In Rainbows</Radio>
       <Radio value="king-of-limbs">The King of Limbs</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Which side projects do you follow?</FieldLegend>
     <FieldDescription>Some are better than others.</FieldDescription>
     <FieldGroup name="projects">
@@ -143,7 +143,7 @@ Lays out related fields and passes a shared `name` to the OPUI fields inside. Wr
         {#snippet endText()}Thom Yorke, Jonny Greenwood, Tom Skinner{/snippet}
       </Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -157,20 +157,20 @@ Set `orientation="horizontal"` to lay out fields horizontally.
     Checkbox,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Options</FieldLegend>
     <FieldGroup orientation="horizontal">
       <Checkbox>Option 1</Checkbox>
       <Checkbox>Option 2</Checkbox>
       <Checkbox>Option 3</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -178,7 +178,7 @@ Set `orientation="horizontal"` to lay out fields horizontally.
 
 ### Disabled
 
-Set `disabled` on `FieldSet` to disable every field inside.
+Set `disabled` on `Fieldset` to disable every field inside.
 
 ```svelte
 <script lang="ts">
@@ -187,23 +187,23 @@ Set `disabled` on `FieldSet` to disable every field inside.
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
   } from "opui-css/svelte"
 </script>
 
-<FieldSet disabled>
+<Fieldset disabled>
   <FieldLegend>Pet dating</FieldLegend>
   <FieldDescription>You can't change these settings</FieldDescription>
   <FieldGroup name="notifications">
     <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
     <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 ```
 
 ### Invalid
 
-Set `error` on each field in the `FieldSet`, and explain the error in a `.ui-end-text` directly inside it. The end text turns red when a field has `error` set.
+Set `error` on each field in the `Fieldset`, and explain the error in a `.ui-end-text` directly inside it. The end text turns red when a field has `error` set.
 
 Give the end text an `id` and point `aria-describedby` on the fieldset at it, so screen readers read the error with the group.
 
@@ -214,11 +214,11 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
   } from "opui-css/svelte"
 </script>
 
-<FieldSet aria-describedby="form-fieldset-invalid-1-error">
+<Fieldset aria-describedby="form-fieldset-invalid-1-error">
   <FieldLegend>Pet food</FieldLegend>
   <FieldDescription>Pick at least one.</FieldDescription>
   <FieldGroup name="food">
@@ -228,7 +228,7 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
   <span class="ui-end-text" id="form-fieldset-invalid-1-error"
     >Your pet is hungry.</span
   >
-</FieldSet>
+</Fieldset>
 ```
 
 ### Required
@@ -241,20 +241,20 @@ The legend gets an asterisk when a field inside is required.
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Textarea,
     TextField,
   } from "opui-css/svelte"
 </script>
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Pet info</FieldLegend>
   <FieldDescription>We must know your pet's information.</FieldDescription>
   <FieldGroup>
     <TextField label="Name" name="name" />
     <Textarea label="Life story" name="story" required />
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 ```
 
 ## Actions
@@ -268,19 +268,19 @@ A field group with only buttons lines up in a row. Set `orientation="vertical"` 
     Divider,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     TextField,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Post Content</FieldLegend>
     <FieldGroup>
       <TextField label="Title" placeholder="My new post" />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
@@ -304,24 +304,24 @@ A field group with only buttons lines up in a row. Set `orientation="vertical"` 
 
 ## Without fieldset
 
-Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `FieldSet` and `FieldLegend`. A `div` doesn't pick up its name from the legend, so give the legend an `id` and point `aria-labelledby` on the field set at it.
+Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `Fieldset` and `FieldLegend`. A `div` doesn't pick up its name from the legend, so give the legend an `id` and point `aria-labelledby` on the field set at it.
 
 ```svelte
 <script lang="ts">
   import {
     FieldDescription,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
   } from "opui-css/svelte"
 </script>
 
 <Form as="div">
-  <FieldSet aria-labelledby="form-adaptive-output-1-legend" as="div">
+  <Fieldset aria-labelledby="form-adaptive-output-1-legend" as="div">
     <FieldLegend as="p" id="form-adaptive-output-1-legend">Delivery</FieldLegend
     >
     <FieldDescription>Rendered as div and p elements.</FieldDescription>
-  </FieldSet>
+  </Fieldset>
 </Form>
 ```
 
@@ -338,7 +338,7 @@ Everything at once.
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
     Range,
@@ -349,14 +349,14 @@ Everything at once.
   } from "opui-css/svelte"
 
   const roleItems = [
-    { text: "Designer", value: "design" },
-    { text: "Developer", value: "dev" },
-    { text: "Manager", value: "manager" },
+    { label: "Designer", value: "design" },
+    { label: "Developer", value: "dev" },
+    { label: "Manager", value: "manager" },
   ]
 </script>
 
 <Form id="form-kitchen-sink-1">
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>User Profile</FieldLegend>
     <FieldDescription>
       Please provide your basic contact details.
@@ -377,11 +377,11 @@ Everything at once.
       />
       <Select label="Role" items={roleItems} />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Notifications</FieldLegend>
     <FieldDescription>
       Configure how you want to receive updates.
@@ -390,11 +390,11 @@ Everything at once.
       <Switch name="email_notifs" checked>Email Notifications</Switch>
       <Switch name="sms_notifs">SMS Notifications</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Theme Preference</FieldLegend>
     <FieldDescription>Select your preferred visual style.</FieldDescription>
     <FieldGroup name="theme">
@@ -402,11 +402,11 @@ Everything at once.
       <Radio value="dark">Dark Theme</Radio>
       <Radio value="system">System Default</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Experience Level</FieldLegend>
     <FieldDescription>
       How many years of experience do you have?
@@ -421,11 +421,11 @@ Everything at once.
         startText="Drag the slider to match your total tenure."
       />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Additional Info</FieldLegend>
     <FieldDescription>Anything else we should know?</FieldDescription>
     <FieldGroup>
@@ -436,11 +436,11 @@ Everything at once.
         rows={4}
       />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legal</FieldLegend>
     <FieldGroup>
       <Checkbox name="terms" required>
@@ -448,7 +448,7 @@ Everything at once.
         {#snippet endText()}Support this text{/snippet}
       </Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
@@ -492,7 +492,7 @@ Everything at once.
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-### Field set API
+### Fieldset API
 
 | Prop       | Type                   | Default      | Description                                                                                                            |
 | ---------- | ---------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
@@ -781,3 +781,9 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Select](https://open-props-ui.netlify.app/svelte/components/select.md)
 - [Text Field](https://open-props-ui.netlify.app/svelte/components/text-field.md)
 - [Textarea](https://open-props-ui.netlify.app/svelte/components/textarea.md)
+
+## Changelog
+
+### What's new
+
+- Breaking: `FieldSet` is [`Fieldset`](#fieldset).

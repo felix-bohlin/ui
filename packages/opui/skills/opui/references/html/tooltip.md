@@ -2,13 +2,13 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md).
 
-Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Give the `.ui-anchor-floating` element `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
+Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Give the `.ui-floating` element `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
 
 ## Basics
 
 ### Text only...
 
-Set the tooltip text inside `.ui-anchor-floating[popover="hint"]`.
+Set the tooltip text inside `.ui-floating[popover="hint"]`.
 
 ```html
 <span class="ui-anchor ui-tooltip">
@@ -21,7 +21,7 @@ Set the tooltip text inside `.ui-anchor-floating[popover="hint"]`.
   >
     Save
   </button>
-  <span class="ui-anchor-floating" id="tooltip-basics-1" popover="hint"
+  <span class="ui-floating" id="tooltip-basics-1" popover="hint"
     >Save your changes</span
   >
 </span>
@@ -29,7 +29,7 @@ Set the tooltip text inside `.ui-anchor-floating[popover="hint"]`.
 
 ### ... or any markup you want
 
-You can place any markup you want (famous last words) inside `.ui-anchor-floating[popover="hint"]`, not only text.
+You can place any markup you want (famous last words) inside `.ui-floating[popover="hint"]`, not only text.
 
 ```html
 <span class="ui-anchor ui-tooltip">
@@ -42,7 +42,7 @@ You can place any markup you want (famous last words) inside `.ui-anchor-floatin
   >
     Keyboard shortcuts
   </button>
-  <span class="ui-anchor-floating" id="tooltip-rich-content-1" popover="hint">
+  <span class="ui-floating" id="tooltip-rich-content-1" popover="hint">
     Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
   </span>
 </span>
@@ -67,7 +67,7 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
     >
       Top
     </button>
-    <span class="ui-anchor-floating" id="tooltip-position-1" popover="hint"
+    <span class="ui-floating" id="tooltip-position-1" popover="hint"
       >Above</span
     >
   </span>
@@ -84,7 +84,7 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
     >
       Start
     </button>
-    <span class="ui-anchor-floating" id="tooltip-position-2" popover="hint"
+    <span class="ui-floating" id="tooltip-position-2" popover="hint"
       >Before</span
     >
   </span>
@@ -101,7 +101,7 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
     >
       End
     </button>
-    <span class="ui-anchor-floating" id="tooltip-position-3" popover="hint"
+    <span class="ui-floating" id="tooltip-position-3" popover="hint"
       >After</span
     >
   </span>
@@ -118,7 +118,7 @@ Set `--ui-anchor-position-area` on the parent with your preferred `position-area
     >
       Bottom
     </button>
-    <span class="ui-anchor-floating" id="tooltip-position-4" popover="hint"
+    <span class="ui-floating" id="tooltip-position-4" popover="hint"
       >Below</span
     >
   </span>
@@ -140,7 +140,7 @@ Add the `.ui-arrow` class on the `.ui-tooltip`. This would be cool to solve with
   >
     Save
   </button>
-  <span class="ui-anchor-floating" id="tooltip-arrow-1" popover="hint"
+  <span class="ui-floating" id="tooltip-arrow-1" popover="hint"
     >Save your changes</span
   >
 </span>
@@ -157,11 +157,11 @@ Add the `.ui-arrow` class on the `.ui-tooltip`. This would be cool to solve with
 
 #### Parts
 
-| Part                  | Description                                            |
-| --------------------- | ------------------------------------------------------ |
-| `.ui-tooltip`         | Container element.                                     |
-| `& > :first-child`    | The trigger that shows the tooltip on hover and focus. |
-| `.ui-anchor-floating` | The tooltip, a `popover="hint"`.                       |
+| Part               | Description                                            |
+| ------------------ | ------------------------------------------------------ |
+| `.ui-tooltip`      | Container element.                                     |
+| `& > :first-child` | The trigger that shows the tooltip on hover and focus. |
+| `.ui-floating`     | The tooltip, a `popover="hint"`.                       |
 
 #### CSS variables
 
@@ -182,7 +182,7 @@ Add the `.ui-arrow` class on the `.ui-tooltip`. This would be cool to solve with
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-Add `.ui-anchor` to the root too. Give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
+Add `.ui-anchor` to the root too. Give `.ui-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
 
 ## Component properties
 
@@ -393,6 +393,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: the floating content is [`.ui-floating`](#api) instead of `.ui-anchor-floating`.
 - The [arrow](#arrow) points at the trigger in every position, also after a flip.
 - Breaking: `--_tooltip-bg` and `--_tooltip-color` are `--_bg-color` and `--_text-color`, and `--_tooltip-offset` is `--_offset` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

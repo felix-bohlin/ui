@@ -26,7 +26,7 @@
 
 * `<p>`
 
-  The headline, the first paragraph.
+  The label, the first paragraph.
 
 * `<p>`
 
@@ -192,7 +192,7 @@ Add `aria-current="page"` to the link inside the `li`.
 
 ## Text
 
-Main text lives in `div.ui-text`.
+Main text lives in `div.ui-text`: the label is the first `<p>` and the description the second.
 
 ```html
 <ul class="ui-list">
@@ -442,7 +442,7 @@ Read more: [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox
 <ul class="ui-list">
   <li>
     <label class="ui-checkbox">
-      <div class="ui-text">Checkbox 1</div>
+      <div class="ui-text"><p>Checkbox 1</p></div>
       <div class="ui-end">
         <input type="checkbox" />
       </div>
@@ -450,7 +450,7 @@ Read more: [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox
   </li>
   <li>
     <label class="ui-checkbox">
-      <div class="ui-text">Checkbox 2</div>
+      <div class="ui-text"><p>Checkbox 2</p></div>
       <div class="ui-end">
         <input type="checkbox" />
       </div>
@@ -471,7 +471,7 @@ Read more: [Radio](https://open-props-ui.netlify.app/html/components/radio.md)
 <ul class="ui-list">
   <li>
     <label class="ui-radio">
-      <div class="ui-text">Radio 1</div>
+      <div class="ui-text"><p>Radio 1</p></div>
       <div class="ui-end">
         <input value="1" name="radio-example-group" type="radio" />
       </div>
@@ -479,7 +479,7 @@ Read more: [Radio](https://open-props-ui.netlify.app/html/components/radio.md)
   </li>
   <li>
     <label class="ui-radio">
-      <div class="ui-text">Radio 2</div>
+      <div class="ui-text"><p>Radio 2</p></div>
       <div class="ui-end">
         <input value="2" name="radio-example-group" type="radio" />
       </div>
@@ -496,7 +496,7 @@ Read more: [Switch](https://open-props-ui.netlify.app/html/components/switch.md)
 <ul class="ui-list">
   <li>
     <label class="ui-switch">
-      <div class="ui-text">Switch 1</div>
+      <div class="ui-text"><p>Switch 1</p></div>
       <div class="ui-end">
         <input type="checkbox" role="switch" />
       </div>
@@ -504,7 +504,7 @@ Read more: [Switch](https://open-props-ui.netlify.app/html/components/switch.md)
   </li>
   <li>
     <label class="ui-switch">
-      <div class="ui-text">Switch 2</div>
+      <div class="ui-text"><p>Switch 2</p></div>
       <div class="ui-end">
         <input type="checkbox" role="switch" />
       </div>
@@ -554,12 +554,12 @@ Set `.ui-inset` on an item without start content to align its text with items th
 </ul>
 ```
 
-## Gutterless
+## Flush
 
-Apply the `.ui-gutterless` class on the `ul.ui-list` element to remove the inline padding on the list items.
+Apply the `.ui-flush` class on the `ul.ui-list` element to remove the inline padding on the list items.
 
 ```html
-<ul class="ui-list ui-gutterless">
+<ul class="ui-list ui-flush">
   <li>
     <div class="ui-text">
       <p>Gutterless list item</p>
@@ -692,12 +692,12 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 
 ### List API
 
-| Type       | Modifiers                               | Default | Description                                                            |
-| ---------- | --------------------------------------- | ------- | ---------------------------------------------------------------------- |
-| Bordered   | `.ui-bordered`                          | -       | Adds a border between list items.                                      |
-| Dense      | `.ui-dense`                             | -       | Packs the items tighter.                                               |
-| Gutterless | `.ui-gutterless`                        | -       | Removes the inline padding.                                            |
-| Variants   | default, `.ui-tonal`, `.ui-transparent` | default | The variant to use. The default `filled` list uses the filled surface. |
+| Type     | Modifiers                               | Default | Description                                                            |
+| -------- | --------------------------------------- | ------- | ---------------------------------------------------------------------- |
+| Bordered | `.ui-bordered`                          | -       | Adds a border between list items.                                      |
+| Dense    | `.ui-dense`                             | -       | Packs the items tighter.                                               |
+| Flush    | `.ui-flush`                             | -       | Removes the inline padding.                                            |
+| Variants | default, `.ui-tonal`, `.ui-transparent` | default | The variant to use. The default `filled` list uses the filled surface. |
 
 #### Parts
 
@@ -752,9 +752,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | ---------- | --------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | Border top | `.ui-border-top`                                                | -       | Adds a border above the item.                                                                                                |
 | Colors     | `.ui-critical`                                                  | -       | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/html/components/menu.md). |
-| Controls   | `label.ui-checkbox`, `label.ui-radio`, `label.ui-switch`        | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                     |
 | Inset      | `.ui-inset`                                                     | -       | Aligns the text with items that have start content.                                                                          |
 | State      | `[aria-current="page"]`, `[aria-disabled="true"]`, `[disabled]` | -       | Highlights the current item, or dims a disabled one. Set it on the `<a>`, `<button>` or `<label>`.                           |
+| Type       | `label.ui-checkbox`, `label.ui-radio`, `label.ui-switch`        | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                     |
 
 #### Parts
 
@@ -764,7 +764,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `<a>, <button>, <label>` | The clickable row, rendered by `as`, `href` or `type`.     |
 | `.ui-start`              | Optional content at the start, such as an icon or avatar.  |
 | `.ui-text`               | The text content.                                          |
-| `<p>`                    | The headline, the first paragraph.                         |
+| `<p>`                    | The label, the first paragraph.                            |
 | `<p>`                    | Supporting text, the second paragraph.                     |
 | `.ui-end`                | Optional content at the end, such as a value or an action. |
 
@@ -979,6 +979,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`.ui-flush`](#flush) replaces `.ui-gutterless`.
 - Selected and current items read [`--ui-selected`](#api) and `--ui-on-selected` when a theme sets them.
 - Smaller [start](#icon) and end icons.
 - Breaking: `.ui-divided` is removed. Use [`.ui-bordered`](#on-every-item).

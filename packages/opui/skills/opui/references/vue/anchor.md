@@ -205,11 +205,11 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/vue"
 
 ### Anchor API
 
-| Prop           | Type                   | Default                 | Description                                                                                                                                                                                                        |
-| -------------- | ---------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `id`           | `string`               | -                       | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.                                                                                          |
-| `positionArea` | `string`               | `"self-start self-end"` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
-| `trigger`      | `"always"` , `"hover"` | `"always"`              | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                                                                                                    |
+| Prop           | Type      | Default                 | Description                                                                                                                                                                                                        |
+| -------------- | --------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`           | `string`  | -                       | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.                                                                                          |
+| `positionArea` | `string`  | `"self-start self-end"` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
+| `trigger`      | `"hover"` | -                       | Shows the floating content on hover and focus with `popover="hint"`. Without it, the content always shows.                                                                                                         |
 
 #### Slots
 
@@ -221,10 +221,10 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/vue"
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
 
-| Property       | Kind  | Description                                                 |
-| -------------- | ----- | ----------------------------------------------------------- |
-| `--_anchor-tx` | Input | Horizontal shift of `.ui-anchor-floating`. Defaults to `0`. |
-| `--_anchor-ty` | Input | Vertical shift of `.ui-anchor-floating`. Defaults to `0`.   |
+| Property       | Kind  | Description                                          |
+| -------------- | ----- | ---------------------------------------------------- |
+| `--_anchor-tx` | Input | Horizontal shift of `.ui-floating`. Defaults to `0`. |
+| `--_anchor-ty` | Input | Vertical shift of `.ui-floating`. Defaults to `0`.   |
 
 ## Under the hood
 
@@ -341,6 +341,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: [`trigger`](#hover-trigger) only takes `"hover"`. Leave it out instead of `trigger="always"`.
 - Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.
 - Breaking: [hover anchors](#hover-trigger) no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and put `interestfor` on the trigger.
 - Breaking: `alignment` is [`positionArea`](#always-visible).

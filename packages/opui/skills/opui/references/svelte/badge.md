@@ -14,7 +14,7 @@
 
 - `label / indicator`
 
-  The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`.
+  The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.
 
 ## Dot
 
@@ -286,9 +286,9 @@ Set `corner` to `start-start`, `start-end` (the default), `end-start` or `end-en
 | `corner`    | `"end-end"` , `"end-start"` , `"start-end"` , `"start-start"`     | `"start-end"` | The corner the indicator sits on.                                                                                                                                                    |
 | `dot`       | `boolean`                                                         | `false`       | Renders the indicator as a dot, without a label.                                                                                                                                     |
 | `hideLabel` | `boolean`                                                         | `false`       | Hides `label` visually, for the whole sentence screen readers read, such as "5 unread messages". The `indicator` slot then holds the visible text and is hidden from screen readers. |
-| `indicator` | `Snippet`                                                         | -             | The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`.                                                                                    |
+| `indicator` | `Snippet`                                                         | -             | The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.                                                                                           |
 | `invisible` | `boolean`                                                         | `false`       | Hides the indicator.                                                                                                                                                                 |
-| `label`     | `string`                                                          | -             | The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`.                                                                                    |
+| `label`     | `string`                                                          | -             | The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.                                                                                           |
 
 #### CSS variables
 

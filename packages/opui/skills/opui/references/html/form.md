@@ -24,7 +24,7 @@ Supporting text
 
   The label of the fieldset.
 
-- `.ui-field-description`
+- `.ui-fieldset > .ui-description`
 
   Supporting text displayed below the legend.
 
@@ -42,7 +42,7 @@ Supporting text
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend><!-- --></legend>
-    <p class="ui-field-description"><!-- --></p>
+    <p class="ui-description"><!-- --></p>
 
     <div class="ui-field-group">
       <!-- -->
@@ -57,12 +57,12 @@ Supporting text
 
 ## Fieldset
 
-Groups related fields. Label it with `<legend>` and add an optional `.ui-field-description`.
+Groups related fields. Label it with `<legend>` and add an optional `.ui-description`.
 
 ```html
 <fieldset class="ui-fieldset">
   <legend>Favorite Pet</legend>
-  <p class="ui-field-description">Please select your favorite type of pet.</p>
+  <p class="ui-description">Please select your favorite type of pet.</p>
   <div class="ui-field-group">
     <label class="ui-radio">
       <input name="pet" type="radio" value="cat" />
@@ -88,7 +88,7 @@ Lays out related fields. Wrap it in a fieldset to group them for screen readers.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Choose your favorite Radiohead album</legend>
-    <p class="ui-field-description">There are no wrong answers.</p>
+    <p class="ui-description">There are no wrong answers.</p>
     <div class="ui-field-group">
       <label class="ui-radio">
         <input type="radio" name="albums" value="ok-computer" />
@@ -111,7 +111,7 @@ Lays out related fields. Wrap it in a fieldset to group them for screen readers.
 
   <fieldset class="ui-fieldset">
     <legend>Which side projects do you follow?</legend>
-    <p class="ui-field-description">Some are better than others.</p>
+    <p class="ui-description">Some are better than others.</p>
     <div class="ui-field-group">
       <label class="ui-checkbox">
         <input type="checkbox" name="projects" value="atoms-for-peace" />
@@ -180,7 +180,7 @@ Add `disabled` to the `<fieldset>` to disable every field inside.
 ```html
 <fieldset class="ui-fieldset" disabled>
   <legend>Pet dating</legend>
-  <p class="ui-field-description">You can't change these settings</p>
+  <p class="ui-description">You can't change these settings</p>
   <div class="ui-field-group">
     <label class="ui-checkbox">
       <input
@@ -213,7 +213,7 @@ Give the end text an `id` and point `aria-describedby` on the fieldset at it, so
 ```html
 <fieldset aria-describedby="form-fieldset-invalid-1-error" class="ui-fieldset">
   <legend>Pet food</legend>
-  <p class="ui-field-description">Pick at least one.</p>
+  <p class="ui-description">Pick at least one.</p>
   <div class="ui-field-group">
     <label class="ui-checkbox">
       <input aria-invalid="true" name="food" type="checkbox" value="kibble" />
@@ -237,7 +237,7 @@ The legend gets an asterisk when a field inside is required.
 ```html
 <fieldset class="ui-fieldset">
   <legend>Pet info</legend>
-  <p class="ui-field-description">We must know your pet's information.</p>
+  <p class="ui-description">We must know your pet's information.</p>
   <div class="ui-field-group">
     <label class="ui-text-field">
       <span class="ui-label">Name</span>
@@ -291,7 +291,7 @@ A field group with only buttons lines up in a row. Add `.ui-vertical` to stack t
 
 ## Without fieldset
 
-Can't use `<form>`, `<fieldset>` or `<legend>`? Use `.ui-form`, `.ui-fieldset` with `role="group"` and `.ui-legend` on other elements. A `div` doesn't pick up its name from the legend, so give the legend an `id` and point `aria-labelledby` on the field set at it.
+Can't use `<form>`, `<fieldset>` or `<legend>`? Use `.ui-form`, `.ui-fieldset` with `role="group"` and `.ui-legend` on other elements. A `div` doesn't pick up its name from the legend, so give the legend an `id` and point `aria-labelledby` on the fieldset at it.
 
 ```html
 <div class="ui-form">
@@ -301,7 +301,7 @@ Can't use `<form>`, `<fieldset>` or `<legend>`? Use `.ui-form`, `.ui-fieldset` w
     aria-labelledby="form-adaptive-output-1-legend"
   >
     <p class="ui-legend" id="form-adaptive-output-1-legend">Delivery</p>
-    <p class="ui-field-description">Rendered as div and p elements.</p>
+    <p class="ui-description">Rendered as div and p elements.</p>
   </div>
 </div>
 ```
@@ -314,9 +314,7 @@ Everything at once.
 <form class="ui-form" id="form-kitchen-sink-1">
   <fieldset class="ui-fieldset">
     <legend>User Profile</legend>
-    <p class="ui-field-description">
-      Please provide your basic contact details.
-    </p>
+    <p class="ui-description">Please provide your basic contact details.</p>
     <div class="ui-field-group">
       <label class="ui-text-field">
         <span class="ui-label">Full Name</span>
@@ -362,9 +360,7 @@ Everything at once.
 
   <fieldset class="ui-fieldset">
     <legend>Notifications</legend>
-    <p class="ui-field-description">
-      Configure how you want to receive updates.
-    </p>
+    <p class="ui-description">Configure how you want to receive updates.</p>
     <div class="ui-field-group">
       <label class="ui-switch">
         <input type="checkbox" role="switch" name="email_notifs" checked />
@@ -381,7 +377,7 @@ Everything at once.
 
   <fieldset class="ui-fieldset">
     <legend>Theme Preference</legend>
-    <p class="ui-field-description">Select your preferred visual style.</p>
+    <p class="ui-description">Select your preferred visual style.</p>
     <div class="ui-field-group">
       <label class="ui-radio">
         <input type="radio" name="theme" value="light" checked />
@@ -402,9 +398,7 @@ Everything at once.
 
   <fieldset class="ui-fieldset">
     <legend>Experience Level</legend>
-    <p class="ui-field-description">
-      How many years of experience do you have?
-    </p>
+    <p class="ui-description">How many years of experience do you have?</p>
     <div class="ui-field-group">
       <label class="ui-range">
         <span class="ui-label" id="form-kitchen-sink-3-label"
@@ -430,7 +424,7 @@ Everything at once.
 
   <fieldset class="ui-fieldset">
     <legend>Additional Info</legend>
-    <p class="ui-field-description">Anything else we should know?</p>
+    <p class="ui-description">Anything else we should know?</p>
     <div class="ui-field-group">
       <label class="ui-textarea">
         <span class="ui-label">Biography</span>
@@ -501,22 +495,20 @@ Everything at once.
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
-### Field set API
+### Fieldset API
 
-| Type       | Modifiers                                    | Default | Description                                                            |
-| ---------- | -------------------------------------------- | ------- | ---------------------------------------------------------------------- |
-| Required   | `:has(:required)`                            | -       | Adds a required mark after the legend when a field inside is required. |
-| State      | `[disabled]`                                 | -       | Disables every field inside. Only on a `<fieldset>`.                   |
-| Validation | `:has([aria-invalid="true"], :user-invalid)` | -       | Colors the end text when a field inside is invalid.                    |
+| Type  | Modifiers                                                                     | Default | Description                                                                                                                                                                                                             |
+| ----- | ----------------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| State | `:has(:required)`, `:has([aria-invalid="true"], :user-invalid)`, `[disabled]` | -       | `disabled` disables every field inside, only on a `<fieldset>`. A field inside with `aria-invalid="true"`, or that is `:user-invalid`, colors the end text, and a required field adds a required mark after the legend. |
 
 #### Parts
 
-| Part                          | Description                                                     |
-| ----------------------------- | --------------------------------------------------------------- |
-| `.ui-fieldset`                | Container element.                                              |
-| `<legend>`                    | The label of the fieldset.                                      |
-| `.ui-field-description`       | Supporting text displayed below the legend.                     |
-| `.ui-fieldset > .ui-end-text` | Supporting or error text for the whole group, after the fields. |
+| Part                             | Description                                                     |
+| -------------------------------- | --------------------------------------------------------------- |
+| `.ui-fieldset`                   | Container element.                                              |
+| `<legend>`                       | The label of the fieldset.                                      |
+| `.ui-fieldset > .ui-description` | Supporting text displayed below the legend.                     |
+| `.ui-fieldset > .ui-end-text`    | Supporting or error text for the whole group, after the fields. |
 
 #### CSS variables
 
@@ -578,9 +570,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 #### Parts
 
-| Part                    | Description                     |
-| ----------------------- | ------------------------------- |
-| `.ui-field-description` | Supporting text for a fieldset. |
+| Part              | Description                     |
+| ----------------- | ------------------------------- |
+| `.ui-description` | Supporting text for a fieldset. |
 
 #### CSS variables
 
@@ -811,6 +803,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: the [fieldset](#fieldset) description is `.ui-description` instead of `.ui-field-description`.
 - Drop `role="group"` from a [`.ui-field-group`](#field-group) inside a fieldset, which already groups the fields.
 - Breaking: an invalid `.ui-fieldset` takes `aria-invalid="true"` on each control instead of `data-invalid` on the fieldset ([Invalid](#fieldset-invalid)).
 - Breaking: [`.ui-row` and `.ui-column`](#field-group-horizontal) on a field group are `.ui-horizontal` and `.ui-vertical`.

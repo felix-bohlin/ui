@@ -45,8 +45,8 @@
   popover={popover === "auto" ? "" : popover}
   {...rest}
 >
-  {#each items ?? [] as { borderTop, closeOnClick = true, color, disabled, href, shortcut, text, ...itemRest }, index (index)}
-    {@const closes = !href && closeOnClick && !disabled}
+  {#each items ?? [] as { borderTop, color, disabled, href, keepOpen, label, shortcut, ...itemRest }, index (index)}
+    {@const closes = !href && !keepOpen && !disabled}
     <li class={[{ "ui-border-top": borderTop }, color && `ui-${color}`]}>
       <svelte:element
         this={href ? "a" : "button"}
@@ -59,7 +59,7 @@
         {...itemRest}
       >
         <div class="ui-text">
-          <p>{text}</p>
+          <p>{label}</p>
         </div>
         {#if shortcut}
           <div class="ui-end">

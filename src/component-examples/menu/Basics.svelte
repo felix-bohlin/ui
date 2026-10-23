@@ -8,10 +8,10 @@
 <Menu
   id="menu-basics-1"
   items={[
-    { text: "Edit", shortcut: "Ctrl+E" },
-    { text: "Duplicate", shortcut: "Ctrl+D" },
-    { text: "Archive", disabled: true },
-    { text: "Help", href: "#basics" },
-    { text: "Delete", borderTop: true, color: "critical" },
+    { label: "Edit", shortcut: "Ctrl+E" },
+    { label: "Duplicate", shortcut: "Ctrl+D" },
+    { disabled: true, label: "Archive" },
+    { href: "#basics", label: "Help" },
+    { borderTop: true, color: "critical", label: "Delete" },
   ]}
 />

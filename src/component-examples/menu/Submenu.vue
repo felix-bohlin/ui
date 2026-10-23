@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Button, ListItem, Menu } from "opui-css/vue"
 
-const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
+const formats = [{ label: "PDF" }, { label: "PNG" }, { label: "SVG" }]
 </script>
 
 <template>
@@ -12,7 +12,7 @@ const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
   >
     File
   </Button>
-  <Menu id="menu-submenu-1" :items="[{ text: 'New' }, { text: 'Open' }]">
+  <Menu id="menu-submenu-1" :items="[{ label: 'New' }, { label: 'Open' }]">
     <ListItem
       as="button"
       headline="Export"

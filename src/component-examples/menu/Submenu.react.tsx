@@ -1,6 +1,6 @@
 import { Button, ListItem, Menu } from "opui-css/react"
 
-const formats = [{ text: "PDF" }, { text: "PNG" }, { text: "SVG" }]
+const formats = [{ label: "PDF" }, { label: "PNG" }, { label: "SVG" }]
 
 export default function Submenu() {
   return (
@@ -12,7 +12,7 @@ export default function Submenu() {
       >
         File
       </Button>
-      <Menu id="menu-submenu-1" items={[{ text: "New" }, { text: "Open" }]}>
+      <Menu id="menu-submenu-1" items={[{ label: "New" }, { label: "Open" }]}>
         <ListItem
           as="button"
           headline="Export"

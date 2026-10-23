@@ -42,18 +42,18 @@ export default function Menu({
         (
           {
             borderTop,
-            closeOnClick = true,
             color,
             disabled,
             href,
+            keepOpen,
+            label,
             shortcut,
-            text,
             ...itemRest
           },
           index,
         ) => {
           const Tag = href ? "a" : "button"
-          const closes = !href && closeOnClick && !disabled
+          const closes = !href && !keepOpen && !disabled
 
           return (
             <li
@@ -73,7 +73,7 @@ export default function Menu({
                 {...itemRest}
               >
                 <div className="ui-text">
-                  <p>{text}</p>
+                  <p>{label}</p>
                 </div>
                 {shortcut && (
                   <div className="ui-end">

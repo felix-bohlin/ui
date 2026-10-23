@@ -155,7 +155,7 @@
     }
 
     /* Group label */
-    :where(li.ui-label) {
+    :where(li.ui-heading) {
       color: var(--ui-text-muted);
       font-size: var(--ui-font-size-caption);
       font-weight: var(--ui-font-weight-bold);

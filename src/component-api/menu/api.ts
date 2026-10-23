@@ -32,36 +32,11 @@ export default {
       prop: "anchorPositionArea",
     },
     {
+      class: ".ui-bordered",
       default: "false",
       description: "Adds a border between the items.",
-      prop: "bordered",
-    },
-    {
-      description:
-        "A border between every item (`bordered`), or above one item (`borderTop` on an item).",
-      frameworks: ["html"],
       group: "Borders",
-      prop: "borders",
-      values: { borderTop: "li.ui-border-top", bordered: ".ui-bordered" },
-    },
-    {
-      attribute: '[command="hide-popover"]',
-      description:
-        "Closes the whole menu on click, also from a submenu. Button items only.",
-      frameworks: ["html"],
-      group: "Close on click",
-      part: "li > button",
-      prop: "closeOnClick",
-    },
-    {
-      description: 'A destructive item (`color: "critical"` on an item).',
-      frameworks: ["html"],
-      group: "Colors",
-      prop: "critical",
-      values: {
-        control: "li > :is(a, button).ui-critical",
-        item: "li.ui-critical",
-      },
+      prop: "bordered",
     },
     {
       class: ".ui-dense",
@@ -72,24 +47,26 @@ export default {
     },
     {
       description:
-        "Disables an item (`disabled` on an item). A disabled link has no `href`.",
-      frameworks: ["html"],
-      group: "State",
-      prop: "disabled",
-      values: {
-        button: "li > button[disabled]",
-        link: 'li > a[aria-disabled="true"]',
-      },
-    },
-    {
-      description:
         "The id of the menu, which the trigger's `commandfor` points at. Generated when omitted.",
       prop: "id",
     },
     {
       description:
-        "The items, as `{ borderTop, closeOnClick, color, disabled, href, shortcut, text }` objects. Other keys go to the item's `<a>` or `<button>`.",
+        'The items, as `{ borderTop, color, disabled, href, keepOpen, label, shortcut }` objects. `borderTop` adds a border above the item, `color: "critical"` marks a destructive one, a disabled link has no `href`, and `keepOpen` keeps the menu open on click. Other keys go to the item\'s `<a>` or `<button>`.',
       prop: "items",
+    },
+    {
+      description:
+        "The item states. `close` closes the whole menu on click, also from a submenu, and only button items take it. A disabled link has no `href`.",
+      frameworks: ["html"],
+      group: "Items",
+      prop: "items",
+      values: {
+        borderTop: "li.ui-border-top",
+        close: 'li > button[command="hide-popover"]',
+        critical: "li.ui-critical",
+        disabled: 'li > button[disabled], li > a[aria-disabled="true"]',
+      },
     },
     {
       default: '"auto"',
@@ -122,9 +99,9 @@ export default {
   ],
   parts: [
     {
-      code: "li.ui-label",
-      description: "A group label. HTML and CSS only.",
-      selector: ".ui-menu > li.ui-label",
+      code: "li.ui-heading",
+      description: "A group heading. HTML and CSS only.",
+      selector: ".ui-menu > li.ui-heading",
     },
     {
       code: "<li>",

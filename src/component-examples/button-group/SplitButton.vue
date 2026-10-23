@@ -26,7 +26,7 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
     <Menu
       id="button-group-split-button-1"
       align="end"
-      :items="[{ text: 'Save as draft' }, { text: 'Save and publish' }]"
+      :items="[{ label: 'Save as draft' }, { label: 'Save and publish' }]"
     />
   </ButtonGroup>
 </template>

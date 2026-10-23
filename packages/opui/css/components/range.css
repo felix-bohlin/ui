@@ -230,8 +230,13 @@
       );
       --_thumb-bg-color: var(--_accent);
       --_thumb-border-width: 3px;
-      --_thumb-highlight-bg-color: oklch(
-        from var(--_accent) 70% 100% h / var(--ui-state-active-alpha)
+      --_thumb-highlight-bg-color: light-dark(
+        oklch(
+          from var(--_accent) 70% 100% h / var(--ui-state-active-alpha-light)
+        ),
+        oklch(
+          from var(--_accent) 70% 100% h / var(--ui-state-active-alpha-dark)
+        )
       );
       --_thumb-highlight-size: 0px;
       --_thumb-offset: calc(

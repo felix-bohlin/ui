@@ -7,6 +7,7 @@ export default function Switch({
   className,
   error,
   hideLabel,
+  label,
   orientation,
   size,
   spread,
@@ -19,7 +20,7 @@ export default function Switch({
 }: Props) {
   warnUnnamed(
     "Switch",
-    children || rest["aria-label"] || rest["aria-labelledby"],
+    label || children || rest["aria-label"] || rest["aria-labelledby"],
   )
 
   return (
@@ -49,8 +50,9 @@ export default function Switch({
         {...rest}
         aria-invalid={error ? "true" : rest["aria-invalid"]}
       />
-      {children && (
+      {(label || children) && (
         <span className={hideLabel ? "ui-sr-only" : "ui-label"}>
+          {label}
           {children}
         </span>
       )}

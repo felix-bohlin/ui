@@ -27,7 +27,8 @@ export default {
       values: { critical: ".ui-critical" },
     },
     {
-      description: 'Disables the item when `as` is `"button"`.',
+      description:
+        'Disables a button item. A link item drops its `href` and gets `aria-disabled="true"` instead.',
       prop: "disabled",
     },
     {

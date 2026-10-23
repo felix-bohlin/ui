@@ -5,8 +5,8 @@
     --_border-color: var(--ui-border-color-on-raised);
     --_border-width: var(--ui-border-width);
     --_divider-border-color: var(--_border-color);
-    --_duration: calc(var(--ui-duration) * var(--_motion));
-    --_ease: var(--ui-ease-enter);
+    --_duration: calc(var(--ui-duration-slow) * var(--_motion));
+    --_ease: var(--ui-ease-exit);
     --_margin-block: var(--_offset);
     --_margin-inline: 0;
     --_max-block-size: 60dvb;
@@ -66,6 +66,8 @@
       }
 
       &:popover-open {
+        --_ease: var(--ui-ease-enter);
+
         opacity: 1;
         scale: 1;
 

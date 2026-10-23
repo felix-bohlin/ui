@@ -129,6 +129,9 @@
 
 ### Added
 
+- `TextField`, `Textarea`, `Select` and `Range` take `hideLabel`, which renders the label as `.ui-sr-only` instead of `.ui-label`, so the field keeps its accessible name without a visible label.
+- `Checkbox`, `Radio` and `Switch` take a `label` string, a shorthand for the default slot.
+- `Avatar` and `ListItem` links take `disabled`, like `Button` and `Chip`: the link drops its `href` and gets `aria-disabled="true"`.
 - `Carousel` takes an `aspectRatio` prop that crops media, like `--_media-aspect-ratio`.
 - `Progress` has a `--_loop-duration` property for the length of its indeterminate loop.
 - `opui-css/svelte` exports Svelte 5 components for every Astro and Vue component. Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are snippets (`children`, and camelCased names such as `endText`), `TextField`, `Textarea`, `Select`, `Range` and `ToggleGroup` support `bind:value`, `Checkbox` and `Switch` support `bind:checked` and `bind:group`, `ToggleButton` supports `bind:checked`, and `Radio` supports `bind:group`. `svelte` `^5.29` is an optional peer dependency.
@@ -160,7 +163,7 @@
 - `theme.css` adds icon tokens: `--ui-icon-size-small`, `--ui-icon-size` and `--ui-icon-size-large`.
 - `theme.css` adds choice control tokens: `--ui-choice-size-small`, `--ui-choice-size`, `--ui-choice-size-large`, `--ui-switch-thumb-size-x-small`, `--ui-switch-thumb-size-small`, `--ui-switch-thumb-size`, `--ui-switch-thumb-size-large`, `--ui-switch-track-block-size-x-small`, `--ui-switch-track-block-size-small`, `--ui-switch-track-block-size`, `--ui-switch-track-block-size-large`, `--ui-switch-track-inline-size-x-small`, `--ui-switch-track-inline-size-small`, `--ui-switch-track-inline-size` and `--ui-switch-track-inline-size-large`. They are multiplied by `--ui-density`.
 - `theme.css` adds overlay tokens, `--ui-backdrop-bg-color` and `--ui-backdrop-blur`, read by `Dialog` and `Drawer`, and inverse surface tokens, `--ui-surface-inverse` and `--ui-on-inverse`.
-- `theme.css` adds state and text tokens: `--ui-disabled-opacity`, `--ui-state-hover-alpha`, `--ui-state-hover-alpha-dark`, `--ui-state-active-alpha`, `--ui-state-active-alpha-dark`, `--ui-state-hover-alpha-accent`, `--ui-state-active-alpha-accent`, `--ui-text-disabled`, `--ui-invalid`, `--ui-font-weight-normal`, `--ui-font-weight-medium`, `--ui-font-weight-semibold` and `--ui-font-weight-bold`.
+- `theme.css` adds state and text tokens: `--ui-disabled-opacity`, `--ui-state-hover-alpha-light`, `--ui-state-hover-alpha-dark`, `--ui-state-active-alpha-light`, `--ui-state-active-alpha-dark`, `--ui-state-hover-alpha-accent`, `--ui-state-active-alpha-accent`, `--ui-text-disabled`, `--ui-invalid`, `--ui-font-weight-normal`, `--ui-font-weight-medium`, `--ui-font-weight-semibold` and `--ui-font-weight-bold`.
 - `theme.css` adds field text tokens: `--ui-field-label-text-color`, `--ui-field-label-font-size`, `--ui-field-label-font-weight`, `--ui-field-helper-text-color`, `--ui-field-helper-font-size`, `--ui-field-helper-line-height` and `--ui-field-required-text-color`, read by `Checkbox`, `Form`, `Radio`, `Range`, `Switch` and `TextField`.
 - `theme.css` re-derives every color token (`--ui-primary`, `--ui-surface-*`, `--ui-text-*`, `--ui-border-color`, `--ui-field-border-color` and the named and intent colors, the code block colors and the unchecked switch colors) inside `.ui-palette` from its own palette. A subtree with `class="ui-palette" style="--ui-palette-hue: 30"` is a complete second theme.
 - `theme.css` adds `--ui-density`, a multiplier for `--ui-control-size-x-small`, `--ui-control-size-small`, `--ui-control-size` and `--ui-control-size-large`. Defaults to `1`. `Button`, `Select`, `Textarea` and `TextField` padding shrinks to fit a smaller control size, down to the height of the text.
@@ -231,6 +234,7 @@
 
 ### Changed
 
+- `Dialog`, `Drawer` and `Menu` open over `--ui-duration-slow` (`0.3s`, was `--ui-duration`) with `--ui-ease-enter`, and `Drawer` and `Menu` close with `--ui-ease-exit`, as the tokens describe.
 - `--ui-field-border-color` is a 50% mix of the text color into the page (3:1 or more) instead of `--ui-border-color`, so fields, checkboxes, radios, switches and the range track have a visible boundary without more contrast. Inside filled surfaces it mixes into `--ui-surface-filled` the same way. The example themes keep their own.
 - `Progress` outlines its track with `--ui-field-border-color`, so the empty part is visible.
 - `Range` with more contrast draws its empty track in the page color with an inset `--ui-field-border-color` edge, so the fill stands out from it.
@@ -318,7 +322,7 @@
 - `Button`, `Divider` and `Typography` borders read `--ui-border-width` instead of `--border-size-1`.
 - `ButtonGroup` sizes and variants are Button's own rules, and icon-only buttons in a group use Button's icon size, the same as buttons with a label.
 - `List` checked `option` uses `--ui-state-active-alpha-accent`.
-- `ToggleButton` disabled state uses `--ui-disabled-opacity` like `Button`, and `--ui-text-disabled` when unchecked (a checked one keeps its selected text color), its hover uses `--ui-state-hover-alpha`, and `ToggleButton` and `ToggleGroup` read `--ui-button-size*` instead of `--ui-field-size*`.
+- `ToggleButton` disabled state uses `--ui-disabled-opacity` like `Button`, and `--ui-text-disabled` when unchecked (a checked one keeps its selected text color), its hover uses `--ui-state-hover-alpha-light`, and `ToggleButton` and `ToggleGroup` read `--ui-button-size*` instead of `--ui-field-size*`.
 - `Accordion`, `Drawer` and rich text use `overflow-inline`/`overflow-block` instead of `overflow-x`/`overflow-y`, so scrolling follows the writing mode. Browsers older than Chrome 135, Firefox 69 and Safari 26 ignore them, so those containers don't scroll there, and neither do `Dialog` content and `ButtonGroup`, `Tabs` and `ToggleGroup` with `overflow="scroll"`.
 - `Range` generates the `<datalist>` id when `items` or the `datalist` slot is used, so `list` is optional.
 - `Range` in Vue scopes the `value-text` slot with the current `value`, so custom readout content follows the thumb.
@@ -342,6 +346,8 @@
 
 ### Fixed
 
+- `.ui-neutral` derives its palette from `--ui-neutral`, like the other severities from theirs, so a theme recolors neutral badges, chips and callouts by setting `--ui-neutral`.
+- `Tabs` and `Range` read the dark state alpha in dark mode: the selected tab pill takes `--ui-state-hover-alpha-dark` and the pressed thumb ring `--ui-state-active-alpha-dark`.
 - `Button` `kbd` uses the button's text color, also on hover, instead of 80% of it, so it passes contrast on colored buttons.
 - `Typography` rich text inline `code`, `kbd` and `var` no longer make their line taller than the line height.
 - `Anchor` with `trigger="hover"` and `Tooltip` stay visible on a scrolled page in Chrome 141. `normalize.css` gives `html` `min-block-size: 100%` instead of `block-size: 100%`, and `body` `min-block-size: 100svb` instead of `100%`, because `position-visibility: anchors-visible` hid every popover whose trigger was below the first screen.

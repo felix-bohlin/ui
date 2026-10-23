@@ -8,6 +8,7 @@ export default function Textarea({
   autoFit,
   className,
   error,
+  hideLabel,
   id,
   name,
   size,
@@ -40,7 +41,9 @@ export default function Textarea({
       ])}
       style={style}
     >
-      {label && <span className="ui-label">{label}</span>}
+      {label && (
+        <span className={hideLabel ? "ui-sr-only" : "ui-label"}>{label}</span>
+      )}
       {startText && <span className="ui-start-text">{startText}</span>}
       <span className="ui-field">
         <textarea

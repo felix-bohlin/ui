@@ -3,6 +3,7 @@ export type Props = {
   error?: boolean
   hideLabel?: boolean
   indeterminate?: boolean
+  label?: string
   orientation?: "horizontal" | "vertical"
   size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean

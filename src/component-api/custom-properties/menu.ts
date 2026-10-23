@@ -20,12 +20,12 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the transitions, `--ui-duration` times `--_motion`.",
+      "Duration of the transitions, `--ui-duration-slow` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {
     description:
-      "Easing of the open transition. Defaults to `--ui-ease-enter`.",
+      "Easing of the open and close transitions. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing.",
     kind: "input",
   },
   "--_hover-bg-color": {

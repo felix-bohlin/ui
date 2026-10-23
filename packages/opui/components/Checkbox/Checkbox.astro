@@ -11,6 +11,7 @@ const {
   endText,
   error,
   hideLabel,
+  label,
   orientation,
   size,
   spread,
@@ -20,7 +21,8 @@ const {
 
 warnUnnamed(
   "Checkbox",
-  Astro.slots.has("default") ||
+  label ||
+    Astro.slots.has("default") ||
     Astro.props["aria-label"] ||
     Astro.props["aria-labelledby"],
 )
@@ -40,8 +42,9 @@ warnUnnamed(
 >
   <CheckboxInput {...rest} aria-invalid={error ? "true" : ariaInvalid} />
   {
-    Astro.slots.has("default") && (
+    (label || Astro.slots.has("default")) && (
       <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+        {label}
         <slot />
       </span>
     )

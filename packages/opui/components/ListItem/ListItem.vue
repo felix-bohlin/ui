@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs } from "vue"
+import { tagAttrs } from "../tag"
 import type { Props, Slots } from "./types.d.vue"
 
 const {
@@ -29,15 +30,10 @@ const Tag = computed(() =>
 )
 
 const liAttrs = computed(() => (hasControl.value || !Tag.value ? attrs : {}))
-const tagAttrs = computed(() =>
+const tagProps = computed(() =>
   hasControl.value
     ? { class: `ui-${type}`, for: htmlFor }
-    : {
-        disabled: Tag.value === "button" ? disabled : undefined,
-        href,
-        type: Tag.value === "button" ? "button" : undefined,
-        ...attrs,
-      },
+    : { ...attrs, ...tagAttrs(Tag.value ?? "", disabled, href) },
 )
 </script>
 
@@ -53,7 +49,7 @@ const tagAttrs = computed(() =>
     ]"
     v-bind="liAttrs"
   >
-    <component :is="Tag" v-if="Tag" v-bind="tagAttrs">
+    <component :is="Tag" v-if="Tag" v-bind="tagProps">
       <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>

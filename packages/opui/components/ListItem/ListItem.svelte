@@ -1,5 +1,6 @@
 <script lang="ts">
   import { content } from "../content.svelte"
+  import { tagAttrs } from "../tag"
   import type { Props } from "./types.svelte"
   import type { HTMLAttributes } from "svelte/elements"
 
@@ -8,6 +9,7 @@
     borderTop,
     class: className,
     color,
+    disabled,
     for: htmlFor,
     href,
     inset,
@@ -30,7 +32,7 @@
   const tagProps = $derived(
     hasControl
       ? { class: `ui-${type}`, for: htmlFor }
-      : { href, type: Tag === "button" ? "button" : undefined, ...rest },
+      : { ...rest, ...tagAttrs(Tag ?? "", disabled, href) },
   )
 </script>
 

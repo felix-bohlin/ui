@@ -186,13 +186,12 @@
 
     /* State */
     --ui-disabled-opacity: 0.64;
-    --ui-choice-ripple-bg-color: oklch(0.6 0 0 / 0.2);
     /* --ui-selected: var(--ui-primary); */
     /* --ui-on-selected: var(--ui-on-primary); */
-    --ui-state-active-alpha: 20%;
+    --ui-state-active-alpha-light: 20%;
     --ui-state-active-alpha-accent: 25%;
     --ui-state-active-alpha-dark: 30%;
-    --ui-state-hover-alpha: 10%;
+    --ui-state-hover-alpha-light: 10%;
     --ui-state-hover-alpha-accent: 15%;
     --ui-state-hover-alpha-dark: 20%;
 
@@ -205,6 +204,7 @@
     /* --ui-choice-accent: var(--ui-primary); */
     /* --ui-choice-on-accent: var(--ui-on-primary); */
     --ui-choice-label-offset: 0px;
+    --ui-choice-ripple-bg-color: oklch(0.6 0 0 / 0.2);
     --ui-choice-size-x-small: calc(0.875rem * var(--ui-density));
     --ui-choice-size-small: calc(var(--size-3) * var(--ui-density));
     --ui-choice-size: calc(var(--size-4) * var(--ui-density));
@@ -472,7 +472,7 @@
   }
 
   :where(.ui-neutral) {
-    --ui-palette-source: oklch(0.58 var(--ui-gray-chroma) var(--ui-gray-hue));
+    --ui-palette-source: oklch(from var(--ui-neutral) 0.58 c h);
     --ui-palette-hue-rotate-by: 0;
   }
 

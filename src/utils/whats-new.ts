@@ -72,6 +72,9 @@ const whatsNew = {
     ),
   ],
   avatar: [
+    components(
+      `A link avatar takes <a href="#api"><code>disabled</code></a>: it drops its <code>href</code> and gets <code>aria-disabled="true"</code>.`,
+    ),
     `Initials read the type roles: <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code> and <code>--ui-font-size-large</code> by size.`,
     `A badge on a <a href="#grouped">grouped</a> avatar sits on its start side, the part the next avatar doesn't cover, with the same ring as the avatars.`,
     slots(
@@ -279,6 +282,9 @@ const whatsNew = {
     `Markers are rings in <code>--ui-text</code>, which keep their contrast in every theme, and the current marker is a larger dot in <a href="#api"><code>--ui-selected-strong</code></a>.`,
   ],
   checkbox: [
+    components(
+      `<a href="#api"><code>label</code></a> takes the label text, a shorthand for the default slot.`,
+    ),
     {
       ...slots(
         `Breaking: <a href="#label-position"><code>orientation="vertical"</code></a> replaces <code>stack</code>.`,
@@ -404,6 +410,7 @@ const whatsNew = {
     },
   ],
   dialog: [
+    `Opens over <a href="#api"><code>--ui-duration-slow</code></a>, the overlay duration.`,
     {
       html: `Breaking: <code>.ui-card</code> is no longer needed on <a href="#usage"><code>.ui-dialog</code></a>, which <code>card.css</code> styles itself.`,
     },
@@ -450,6 +457,7 @@ const whatsNew = {
     },
   ],
   drawer: [
+    `Opens over <a href="#api"><code>--ui-duration-slow</code></a> with <code>--ui-ease-enter</code> and closes with <code>--ui-ease-exit</code>.`,
     slots(
       `Breaking: <a href="#basics"><code>DrawerTitle</code> and <code>DrawerContent</code></a> replace the <code>heading</code> prop and the slots. <code>DrawerTitle</code> names the drawer; without it, pass <code>aria-label</code>. The <code>DrawerHeader</code> close button uses <code>command="close"</code>.`,
     ),
@@ -519,6 +527,9 @@ const whatsNew = {
     `New: <a href="#column"><code>.ui-layout-column</code></a>, <a href="#row"><code>.ui-layout-row</code></a>, <a href="#grid"><code>.ui-layout-grid</code></a> and <a href="#container"><code>.ui-layout-container</code></a> lay out the space between components.`,
   ],
   list: [
+    components(
+      `A link <a href="#api"><code>ListItem</code></a> takes <code>disabled</code>: it drops its <code>href</code> and gets <code>aria-disabled="true"</code>.`,
+    ),
     slots(
       `Breaking: <code>ListItem</code> <a href="#text"><code>label</code></a> replaces <code>headline</code>, and the <code>label</code> and <code>description</code> slots replace the <code>text</code> slot.`,
     ),
@@ -614,6 +625,9 @@ const whatsNew = {
     },
   ],
   radio: [
+    components(
+      `<a href="#api"><code>label</code></a> takes the label text, a shorthand for the default slot.`,
+    ),
     {
       ...slots(
         `Breaking: <a href="#label-position"><code>orientation="vertical"</code></a> replaces <code>stack</code>.`,
@@ -665,6 +679,9 @@ const whatsNew = {
     ),
   ],
   range: [
+    components(
+      `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
+    ),
     `Breaking: <code>--_thumb-highlight-color</code>, <code>--_track-color</code>, <code>--_track-fill-color</code>, <code>--_track-fill</code> and <code>--_track-height</code> are <code>--_thumb-highlight-bg-color</code>, <code>--_track-bg-color</code>, <code>--_track-fill-bg-color</code>, <code>--_track-fill-fraction</code> and <code>--_track-block-size</code> (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
       `Breaking: <a href="#tick-marks"><code>items</code></a> replaces <code>options</code>, the label goes in the <code>label</code> slot, and the readout slot is <a href="#value"><code>value-text</code></a>.`,
@@ -720,6 +737,9 @@ const whatsNew = {
     },
   ],
   select: [
+    components(
+      `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
+    ),
     slots(
       `Breaking: <a href="#api"><code>items</code></a> take <code>label</code> instead of <code>text</code>.`,
     ),
@@ -782,6 +802,9 @@ const whatsNew = {
     `The <a href="#sizes">ring</a> grows with the spinner and is at least <code>--ui-border-width-thick</code>.`,
   ],
   switch: [
+    components(
+      `<a href="#api"><code>label</code></a> takes the label text, a shorthand for the default slot.`,
+    ),
     `Breaking: <code>--_track-height</code> and <code>--_track-width</code> are <code>--_track-block-size</code> and <code>--_track-inline-size</code> (<a href="#under-the-hood">Under the hood</a>).`,
     {
       ...slots(
@@ -906,6 +929,9 @@ const whatsNew = {
     ),
   ],
   "text-field": [
+    components(
+      `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
+    ),
     {
       ...slots(
         `Breaking: the <a href="#affix">affix</a> slots are <code>start</code> and <code>end</code> instead of <code>prefix</code> and <code>suffix</code>, and <a href="#top-and-bottom"><code>top</code> and <code>bottom</code></a> instead of <code>header</code> and <code>footer</code>.`,
@@ -955,6 +981,9 @@ const whatsNew = {
     ),
   ],
   textarea: [
+    components(
+      `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
+    ),
     {
       ...slots(
         `Breaking: the <a href="#affix">affix</a> slots are <code>start</code> and <code>end</code> instead of <code>prefix</code> and <code>suffix</code>, and <a href="#top-and-bottom"><code>top</code> and <code>bottom</code></a> instead of <code>header</code> and <code>footer</code>.`,

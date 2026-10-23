@@ -8,8 +8,16 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const { endText, error, hideLabel, indeterminate, orientation, size, spread } =
-  defineProps<Props>()
+const {
+  endText,
+  error,
+  hideLabel,
+  label,
+  indeterminate,
+  orientation,
+  size,
+  spread,
+} = defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
 const inputAttrs = computed(() =>
@@ -21,7 +29,7 @@ const modelValue = defineModel<boolean | (string | number)[] | undefined>({
 
 warnUnnamed(
   "Checkbox",
-  slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
+  label || slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
 )
 </script>
 
@@ -44,8 +52,10 @@ warnUnnamed(
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       :indeterminate="indeterminate"
     />
-    <span v-if="$slots.default" :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
-      ><slot></slot
+    <span
+      v-if="label || $slots.default"
+      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      >{{ label }}<slot></slot
     ></span>
     <span v-if="endText || $slots['end-text']" class="ui-end-text">
       {{ endText }}<slot name="end-text"></slot>

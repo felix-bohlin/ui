@@ -11,6 +11,7 @@ const {
   autoFit,
   endText,
   error,
+  hideLabel,
   id,
   label,
   size,
@@ -50,7 +51,10 @@ const field = inject(FieldGroupKey, undefined)
     ]"
     :style="$attrs.style"
   >
-    <span v-if="label || $slots.label" class="ui-label">
+    <span
+      v-if="label || $slots.label"
+      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+    >
       {{ label }}<slot name="label"></slot>
     </span>
 

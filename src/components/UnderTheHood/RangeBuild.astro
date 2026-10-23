@@ -155,19 +155,19 @@ const steps = [
 
 .range::-webkit-slider-thumb {
   box-shadow: 0 0 0 var(--halo)
-    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha));
+    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha-light));
   transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
 }
 
 .range::-moz-range-thumb {
   box-shadow: 0 0 0 var(--halo)
-    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha));
+    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha-light));
   transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
 }`,
     features: ["relative-color"],
     notes: [
       "A <code>box-shadow</code> spread draws the ring, no extra element",
-      "Relative color: the primary hue at a fixed lightness, with the theme's <code>--ui-state-active-alpha</code>",
+      "Relative color: the primary hue at a fixed lightness, with the theme's <code>--ui-state-active-alpha-light</code>",
       "The pseudo-elements inherit <code>--halo</code> from the input's <code>:hover</code> and <code>:active</code>",
       "<code>:not([disabled])</code>: no halo on a disabled slider",
       "Hover and drag the thumb",

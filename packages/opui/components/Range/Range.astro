@@ -12,6 +12,7 @@ const {
   class: className,
   endText,
   error,
+  hideLabel,
   id,
   items,
   label,
@@ -70,7 +71,7 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
 >
   {
     hasLabel && (
-      <span class="ui-label" id={labelId}>
+      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
         {label}
         <slot name="label" />
       </span>

@@ -7,6 +7,7 @@ export default function Checkbox({
   className,
   error,
   hideLabel,
+  label,
   orientation,
   size,
   spread,
@@ -17,7 +18,7 @@ export default function Checkbox({
 }: Props) {
   warnUnnamed(
     "Checkbox",
-    children || rest["aria-label"] || rest["aria-labelledby"],
+    label || children || rest["aria-label"] || rest["aria-labelledby"],
   )
 
   return (
@@ -37,8 +38,9 @@ export default function Checkbox({
         {...rest}
         aria-invalid={error ? "true" : rest["aria-invalid"]}
       />
-      {children && (
+      {(label || children) && (
         <span className={hideLabel ? "ui-sr-only" : "ui-label"}>
+          {label}
           {children}
         </span>
       )}

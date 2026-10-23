@@ -10,6 +10,7 @@
     error,
     group = $bindable(),
     hideLabel,
+    label,
     orientation,
     size,
     spread,
@@ -24,7 +25,7 @@
   untrack(() =>
     warnUnnamed(
       "Radio",
-      children || rest["aria-label"] || rest["aria-labelledby"],
+      label || children || rest["aria-label"] || rest["aria-labelledby"],
     ),
   )
 </script>
@@ -46,9 +47,9 @@
     aria-invalid={error ? "true" : rest["aria-invalid"]}
     bind:group
   />
-  {#if children}
+  {#if label || children}
     <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
-      {@render children()}
+      {label}{@render children?.()}
     </span>
   {/if}
   {#if endText}

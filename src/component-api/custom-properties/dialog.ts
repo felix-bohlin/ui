@@ -12,7 +12,7 @@ export default {
   },
   "--_duration": {
     description:
-      "Duration of the open transition and scroll shadows, `--ui-duration` times `--_motion`.",
+      "Duration of the open transition and scroll shadows, `--ui-duration-slow` times `--_motion`.",
     kind: "output",
   },
   "--_ease": {

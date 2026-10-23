@@ -34,6 +34,15 @@ export default {
       prop: "error",
     },
     {
+      class: ".ui-sr-only",
+      default: "false",
+      description:
+        "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
+      group: "Label",
+      part: ".ui-label",
+      prop: "hideLabel",
+    },
+    {
       description: "The id of the `<input>`.",
       inherited: true,
       prop: "id",

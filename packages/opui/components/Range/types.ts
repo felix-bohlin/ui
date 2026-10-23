@@ -4,6 +4,7 @@ export type RangeItem =
 export type Props = {
   endText?: string
   error?: boolean
+  hideLabel?: boolean
   items?: RangeItem[]
   label?: string
   list?: string

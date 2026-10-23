@@ -134,7 +134,7 @@ const problems = apis.flatMap((api) => {
     if (option.prop === "open" && !option.inherited) {
       report(option, "use checked")
     }
-    if (/^(no|non|un)[A-Z]/.test(option.prop) || /less$/.test(option.prop)) {
+    if (/^(no|non|un)[A-Z]/.test(option.prop) || option.prop.endsWith("less")) {
       report(option, "names what turning it on turns off")
     }
     if (option.default === "true") {

@@ -1,6 +1,12 @@
 import { existsSync, readdirSync } from "node:fs"
 import type AxeBuilder from "@axe-core/playwright"
-import { expect, type Locator, type Page, type Request } from "@playwright/test"
+import {
+  expect,
+  test,
+  type Locator,
+  type Page,
+  type Request,
+} from "@playwright/test"
 import {
   exampleExtension,
   FRAMEWORK_IDS,
@@ -105,7 +111,22 @@ export const openFixture = async (
       framework,
     )
   }
-  await page.evaluate(() => document.fonts.ready)
+  const fonts = await page.evaluate(() =>
+    Promise.race([
+      document.fonts.ready.then(() => document.fonts.status),
+      new Promise<string>((resolve) =>
+        setTimeout(
+          () => resolve(`${document.fonts.status}, ${document.readyState}`),
+          5_000,
+        ),
+      ),
+    ]),
+  )
+  if (fonts !== "loaded") {
+    test
+      .info()
+      .annotations.push({ description: fonts, type: "fonts not settled" })
+  }
   await page.evaluate(() =>
     Promise.all(
       [...document.images].map((image) => {

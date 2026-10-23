@@ -2,14 +2,14 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/react"
 
 export default function FieldGroupValidation() {
   return (
     <Form>
-      <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
+      <Fieldset aria-describedby="checkbox-field-group-validation-1-error">
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup orientation="horizontal" name="checkbox-group-validation">
           <Checkbox defaultChecked error>
@@ -24,7 +24,7 @@ export default function FieldGroupValidation() {
         >
           Something went wrong!
         </span>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }

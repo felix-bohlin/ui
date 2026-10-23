@@ -5,7 +5,7 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
 } from "opui-css/vue"
 
 const fruit = ref(["apples"])
@@ -16,14 +16,14 @@ function reset() {
 </script>
 
 <template>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Fruit</FieldLegend>
     <FieldGroup name="checkbox-binding">
       <Checkbox v-model="fruit" value="apples">Apples</Checkbox>
       <Checkbox v-model="fruit" value="bananas">Bananas</Checkbox>
       <Checkbox v-model="fruit" value="cherries">Cherries</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
   <p class="checkbox-binding-text">
     Selected: {{ fruit.join(", ") || "none" }}
   </p>

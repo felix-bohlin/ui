@@ -2,14 +2,14 @@
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Delivery</FieldLegend>
     <FieldGroup name="radio-spread">
       <Radio value="standard" checked spread>
@@ -25,5 +25,5 @@
         {#snippet endText()}Not available in your area.{/snippet}
       </Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>

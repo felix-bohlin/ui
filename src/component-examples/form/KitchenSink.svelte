@@ -6,7 +6,7 @@
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
     Range,
@@ -24,7 +24,7 @@
 </script>
 
 <Form id="form-kitchen-sink-1">
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>User Profile</FieldLegend>
     <FieldDescription>
       Please provide your basic contact details.
@@ -45,11 +45,11 @@
       />
       <Select label="Role" items={roleItems} />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Notifications</FieldLegend>
     <FieldDescription>
       Configure how you want to receive updates.
@@ -58,11 +58,11 @@
       <Switch name="email_notifs" checked>Email Notifications</Switch>
       <Switch name="sms_notifs">SMS Notifications</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Theme Preference</FieldLegend>
     <FieldDescription>Select your preferred visual style.</FieldDescription>
     <FieldGroup name="theme">
@@ -70,11 +70,11 @@
       <Radio value="dark">Dark Theme</Radio>
       <Radio value="system">System Default</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Experience Level</FieldLegend>
     <FieldDescription>
       How many years of experience do you have?
@@ -89,11 +89,11 @@
         startText="Drag the slider to match your total tenure."
       />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Additional Info</FieldLegend>
     <FieldDescription>Anything else we should know?</FieldDescription>
     <FieldGroup>
@@ -104,11 +104,11 @@
         rows={4}
       />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legal</FieldLegend>
     <FieldGroup>
       <Checkbox name="terms" required>
@@ -116,7 +116,7 @@
         {#snippet endText()}Support this text{/snippet}
       </Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 

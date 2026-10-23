@@ -2,7 +2,7 @@ import type { ElementType } from "react"
 import { cx } from "../cx"
 import type { Props } from "./types.react"
 
-export default function FieldSet({ as, className, ...rest }: Props) {
+export default function Fieldset({ as, className, ...rest }: Props) {
   const Tag: ElementType = as || "fieldset"
 
   return (

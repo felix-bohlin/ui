@@ -4,18 +4,18 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
 } from "opui-css/astro"
 ---
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Fruit</FieldLegend>
   <FieldGroup name="checkbox-binding">
     <Checkbox checked value="apples">Apples</Checkbox>
     <Checkbox value="bananas">Bananas</Checkbox>
     <Checkbox value="cherries">Cherries</Checkbox>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 <p class="checkbox-binding-text">Selected: apples</p>
 <Button class="checkbox-binding-reset">Reset</Button>
 

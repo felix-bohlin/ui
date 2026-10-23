@@ -1,9 +1,9 @@
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"
 
 export default function FieldGroupRequired() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>These are required!</FieldLegend>
         <FieldGroup orientation="horizontal" name="radio-group-required">
           <Radio value="1" required>
@@ -16,7 +16,7 @@ export default function FieldGroupRequired() {
             Radio 3
           </Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }

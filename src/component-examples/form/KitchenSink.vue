@@ -6,7 +6,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Radio,
   Range,
@@ -25,7 +25,7 @@ const roleItems = [
 
 <template>
   <Form id="form-kitchen-sink-1">
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>User Profile</FieldLegend>
       <FieldDescription>
         Please provide your basic contact details.
@@ -46,11 +46,11 @@ const roleItems = [
         />
         <Select label="Role" :items="roleItems" />
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Notifications</FieldLegend>
       <FieldDescription>
         Configure how you want to receive updates.
@@ -59,11 +59,11 @@ const roleItems = [
         <Switch name="email_notifs" checked>Email Notifications</Switch>
         <Switch name="sms_notifs">SMS Notifications</Switch>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Theme Preference</FieldLegend>
       <FieldDescription>Select your preferred visual style.</FieldDescription>
       <FieldGroup name="theme">
@@ -71,11 +71,11 @@ const roleItems = [
         <Radio value="dark">Dark Theme</Radio>
         <Radio value="system">System Default</Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Experience Level</FieldLegend>
       <FieldDescription>
         How many years of experience do you have?
@@ -90,11 +90,11 @@ const roleItems = [
           startText="Drag the slider to match your total tenure."
         />
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Additional Info</FieldLegend>
       <FieldDescription>Anything else we should know?</FieldDescription>
       <FieldGroup>
@@ -105,11 +105,11 @@ const roleItems = [
           :rows="4"
         />
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Legal</FieldLegend>
       <FieldGroup>
         <Checkbox name="terms" required>
@@ -117,7 +117,7 @@ const roleItems = [
           <template #end-text>Support this text</template>
         </Checkbox>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
     <Divider />
 

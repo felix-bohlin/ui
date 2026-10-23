@@ -2,19 +2,19 @@
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Switch,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup name="switch-group">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>

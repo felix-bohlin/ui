@@ -2,14 +2,14 @@
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet aria-describedby="radio-field-group-validation-1-error">
+  <Fieldset aria-describedby="radio-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="radio-group-validation">
       <Radio checked error value="1">Radio 1</Radio>
@@ -19,5 +19,5 @@
     <span class="ui-end-text" id="radio-field-group-validation-1-error"
       >Something went wrong!</span
     >
-  </FieldSet>
+  </Fieldset>
 </Form>

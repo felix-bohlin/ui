@@ -3,13 +3,13 @@
     Checkbox,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet aria-describedby="checkbox-field-group-validation-1-error">
+  <Fieldset aria-describedby="checkbox-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="checkbox-group-validation">
       <Checkbox checked error>Checkbox 1</Checkbox>
@@ -19,5 +19,5 @@
     <span class="ui-end-text" id="checkbox-field-group-validation-1-error"
       >Something went wrong!</span
     >
-  </FieldSet>
+  </Fieldset>
 </Form>

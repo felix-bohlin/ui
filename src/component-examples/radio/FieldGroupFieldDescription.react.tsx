@@ -2,7 +2,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Radio,
 } from "opui-css/react"
@@ -10,7 +10,7 @@ import {
 export default function FieldGroupFieldDescription() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
         <FieldGroup
@@ -23,9 +23,9 @@ export default function FieldGroupFieldDescription() {
           <Radio value="2">Radio 2</Radio>
           <Radio value="3">Radio 3</Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup
           orientation="horizontal"
@@ -38,7 +38,7 @@ export default function FieldGroupFieldDescription() {
           <Radio value="3">Radio 3</Radio>
         </FieldGroup>
         <FieldDescription>Field description below fields</FieldDescription>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }

@@ -9,7 +9,7 @@ import {
   DialogHeader,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/react"
 
@@ -32,7 +32,7 @@ export default function CloseBehaviors() {
           <h2 className="ui-h4">How to close</h2>
         </DialogHeader>
         <DialogContent>
-          <FieldSet>
+          <Fieldset>
             <FieldLegend>Choose a closing behavior:</FieldLegend>
             <FieldGroup name="closedby-demo">
               {options.map((option) => (
@@ -46,7 +46,7 @@ export default function CloseBehaviors() {
                 </Radio>
               ))}
             </FieldGroup>
-          </FieldSet>
+          </Fieldset>
         </DialogContent>
         <DialogActions>
           <Button commandfor="dialog-close-behaviors-1" command="close">

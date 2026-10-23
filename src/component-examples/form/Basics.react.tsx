@@ -2,19 +2,19 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/react"
 
 export default function Basics() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>{/* */}</FieldLegend>
         <FieldDescription>{/* */}</FieldDescription>
         <FieldGroup>{/* */}</FieldGroup>
         <FieldGroup>{/* */}</FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }

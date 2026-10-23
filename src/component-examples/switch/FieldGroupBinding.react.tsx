@@ -5,7 +5,7 @@ import {
   Button,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Switch,
 } from "opui-css/react"
 
@@ -25,7 +25,7 @@ export default function FieldGroupBinding() {
 
   return (
     <>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Notifications</FieldLegend>
         <FieldGroup name="switch-binding">
           <Switch
@@ -50,7 +50,7 @@ export default function FieldGroupBinding() {
             SMS
           </Switch>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
       <p className="switch-binding-text">
         Selected: {notifications.join(", ") || "none"}
       </p>

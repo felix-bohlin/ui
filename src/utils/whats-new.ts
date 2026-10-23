@@ -472,20 +472,26 @@ const whatsNew = {
   ],
   form: [
     {
+      ...components(
+        `Breaking: <code>FieldSet</code> is <a href="#fieldset"><code>Fieldset</code></a>.`,
+      ),
+      html: `Breaking: the <a href="#fieldset">fieldset</a> description is <code>.ui-description</code> instead of <code>.ui-field-description</code>.`,
+    },
+    {
       ...slots(
-        `Breaking: <a href="#field-group"><code>FieldGroup</code></a> no longer sets <code>role="group"</code>. Wrap it in a <code>FieldSet</code> to group and name the fields.`,
+        `Breaking: <a href="#field-group"><code>FieldGroup</code></a> no longer sets <code>role="group"</code>. Wrap it in a <code>Fieldset</code> to group and name the fields.`,
       ),
       html: `Drop <code>role="group"</code> from a <a href="#field-group"><code>.ui-field-group</code></a> inside a fieldset, which already groups the fields.`,
     },
     {
       ...slots(
-        `Breaking: set <code>error</code> on each field instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#fieldset-invalid">Invalid</a>).`,
+        `Breaking: set <code>error</code> on each field instead of <code>data-invalid</code> on the <code>Fieldset</code> (<a href="#fieldset-invalid">Invalid</a>).`,
       ),
       html: `Breaking: an invalid <code>.ui-fieldset</code> takes <code>aria-invalid="true"</code> on each control instead of <code>data-invalid</code> on the fieldset (<a href="#fieldset-invalid">Invalid</a>).`,
     },
     {
       astro: `<a href="#field-group"><code>FieldGroup</code></a> names its inputs through context, so a bare <code>input</code>, <code>select</code> or <code>textarea</code> no longer gets the group <code>name</code>, like in React, Svelte and Vue.`,
-      vue: `<code>Form</code>, <code>FieldSet</code> and <code>FieldLegend</code> type <a href="#without-fieldset"><code>as</code></a> as <code>"div" | "form"</code>, <code>"div" | "fieldset"</code> and <code>"legend" | "p"</code>.`,
+      vue: `<code>Form</code>, <code>Fieldset</code> and <code>FieldLegend</code> type <a href="#without-fieldset"><code>as</code></a> as <code>"div" | "form"</code>, <code>"div" | "fieldset"</code> and <code>"legend" | "p"</code>.`,
     },
     {
       ...slots(
@@ -608,7 +614,7 @@ const whatsNew = {
     },
     {
       ...slots(
-        `Breaking: set <code>error</code> on each <code>Radio</code> in an invalid group instead of <code>data-invalid</code> on the <code>FieldSet</code> (<a href="#field-group-validation">Validation</a>).`,
+        `Breaking: set <code>error</code> on each <code>Radio</code> in an invalid group instead of <code>data-invalid</code> on the <code>Fieldset</code> (<a href="#field-group-validation">Validation</a>).`,
       ),
       html: `Breaking: mark an invalid group with <code>aria-invalid="true"</code> on each radio instead of <code>data-invalid</code> on the fieldset (<a href="#field-group-validation">Validation</a>).`,
     },

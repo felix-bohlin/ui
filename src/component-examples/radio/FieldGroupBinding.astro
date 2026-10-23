@@ -3,19 +3,19 @@ import {
   Button,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/astro"
 ---
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Plan</FieldLegend>
   <FieldGroup name="radio-binding">
     <Radio checked value="free">Free</Radio>
     <Radio value="pro">Pro</Radio>
     <Radio value="team">Team</Radio>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 <p class="radio-binding-text">Selected: free</p>
 <Button class="radio-binding-reset">Reset</Button>
 

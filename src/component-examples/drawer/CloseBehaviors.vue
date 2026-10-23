@@ -8,7 +8,7 @@ import {
   DrawerTitle,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/vue"
 import { ref } from "vue"
@@ -30,14 +30,14 @@ const closedby = ref<"any" | "closerequest" | "none">("any")
       <DrawerTitle>How to close</DrawerTitle>
     </DrawerHeader>
     <DrawerContent>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Choose a closing behavior:</FieldLegend>
         <FieldGroup name="closedby-demo">
           <Radio v-model="closedby" value="any">any</Radio>
           <Radio v-model="closedby" value="closerequest">closerequest</Radio>
           <Radio v-model="closedby" value="none">none</Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </DrawerContent>
     <DrawerActions>
       <Button

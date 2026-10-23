@@ -8,7 +8,7 @@ export default {
   parts: [],
   root: {
     description: "Supporting text for a fieldset.",
-    selector: ".ui-field-description",
+    selector: ".ui-description",
   },
   slots: [
     {

@@ -8,7 +8,7 @@
     DrawerTitle,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Radio,
   } from "opui-css/svelte"
 
@@ -28,14 +28,14 @@
     <DrawerTitle>How to close</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Choose a closing behavior:</FieldLegend>
       <FieldGroup name="closedby-demo">
         <Radio bind:group={closedby} value="any">any</Radio>
         <Radio bind:group={closedby} value="closerequest">closerequest</Radio>
         <Radio bind:group={closedby} value="none">none</Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </DrawerContent>
   <DrawerActions>
     <Button size="small" commandfor="drawer-close-behaviors-1" command="close">

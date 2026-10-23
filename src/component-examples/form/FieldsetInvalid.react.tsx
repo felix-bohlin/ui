@@ -3,12 +3,12 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
 } from "opui-css/react"
 
 export default function FieldsetInvalid() {
   return (
-    <FieldSet aria-describedby="form-fieldset-invalid-1-error">
+    <Fieldset aria-describedby="form-fieldset-invalid-1-error">
       <FieldLegend>Pet food</FieldLegend>
       <FieldDescription>Pick at least one.</FieldDescription>
       <FieldGroup name="food">
@@ -22,6 +22,6 @@ export default function FieldsetInvalid() {
       <span className="ui-end-text" id="form-fieldset-invalid-1-error">
         Your pet is hungry.
       </span>
-    </FieldSet>
+    </Fieldset>
   )
 }

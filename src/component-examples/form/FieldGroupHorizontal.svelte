@@ -3,18 +3,18 @@
     Checkbox,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Options</FieldLegend>
     <FieldGroup orientation="horizontal">
       <Checkbox>Option 1</Checkbox>
       <Checkbox>Option 2</Checkbox>
       <Checkbox>Option 3</Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>

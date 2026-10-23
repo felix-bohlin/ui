@@ -1,9 +1,9 @@
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"
 
 export default function FieldGroupDisabled() {
   return (
     <Form>
-      <FieldSet disabled>
+      <Fieldset disabled>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup orientation="horizontal" name="radio-group-disabled">
           <Radio value="1" defaultChecked>
@@ -12,7 +12,7 @@ export default function FieldGroupDisabled() {
           <Radio value="2">Radio 2</Radio>
           <Radio value="3">Radio 3</Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }

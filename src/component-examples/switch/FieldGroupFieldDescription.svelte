@@ -3,14 +3,14 @@
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Switch,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
     <FieldGroup
@@ -21,9 +21,9 @@
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup
       orientation="horizontal"
@@ -34,5 +34,5 @@
       <Switch>Switch 3</Switch>
     </FieldGroup>
     <FieldDescription>Field description below fields</FieldDescription>
-  </FieldSet>
+  </Fieldset>
 </Form>

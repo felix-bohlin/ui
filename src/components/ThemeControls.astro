@@ -3,7 +3,7 @@ import {
   Divider,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Range,
   Switch,
   TextField,
@@ -22,7 +22,7 @@ import { radiusOptions, tokenDefaults } from "../utils/theme-store"
 const defaults = tokenDefaults("light")
 ---
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Example theme</FieldLegend>
   <FieldGroup>
     <ToggleGroup aria-label="Example theme" name="example-theme" size="small">
@@ -34,11 +34,11 @@ const defaults = tokenDefaults("light")
       }
     </ToggleGroup>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 
 <Divider />
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Color palette</FieldLegend>
   <FieldGroup>
     <TextField
@@ -63,11 +63,11 @@ const defaults = tokenDefaults("light")
       ))
     }
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 
 <Divider />
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Grays</FieldLegend>
   <FieldGroup>
     <Switch name="enable-grays" checked spread>Enable</Switch>
@@ -85,11 +85,11 @@ const defaults = tokenDefaults("light")
       ))
     }
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 
 <Divider />
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Border radii</FieldLegend>
   {
     RADIUS_FIELDS.map((field) => (
@@ -111,7 +111,7 @@ const defaults = tokenDefaults("light")
       </FieldGroup>
     ))
   }
-</FieldSet>
+</Fieldset>
 
 <style>
   .radius-field {

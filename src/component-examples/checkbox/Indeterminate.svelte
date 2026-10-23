@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/svelte"
+  import { Checkbox, FieldGroup, FieldLegend, Fieldset } from "opui-css/svelte"
 
   const items = ["Apples", "Bananas", "Cherries"]
   let checked = $state([true, false, false])
@@ -14,7 +14,7 @@
   }
 </script>
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>
     <Checkbox bind:checked={() => allChecked, toggleAll} {indeterminate}
       >Select all</Checkbox
@@ -25,4 +25,4 @@
       <Checkbox bind:checked={checked[index]}>{item}</Checkbox>
     {/each}
   </FieldGroup>
-</FieldSet>
+</Fieldset>

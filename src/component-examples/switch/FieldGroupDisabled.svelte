@@ -2,19 +2,19 @@
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Switch,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet disabled>
+  <Fieldset disabled>
     <FieldLegend>Legend</FieldLegend>
     <FieldGroup orientation="horizontal" name="switch-group-disabled">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>

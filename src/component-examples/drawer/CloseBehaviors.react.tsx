@@ -10,7 +10,7 @@ import {
   DrawerTitle,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/react"
 
@@ -33,7 +33,7 @@ export default function CloseBehaviors() {
           <DrawerTitle>How to close</DrawerTitle>
         </DrawerHeader>
         <DrawerContent>
-          <FieldSet>
+          <Fieldset>
             <FieldLegend>Choose a closing behavior:</FieldLegend>
             <FieldGroup name="closedby-demo">
               {options.map((option) => (
@@ -47,7 +47,7 @@ export default function CloseBehaviors() {
                 </Radio>
               ))}
             </FieldGroup>
-          </FieldSet>
+          </Fieldset>
         </DrawerContent>
         <DrawerActions>
           <Button

@@ -3,13 +3,13 @@
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend><!-- --></FieldLegend>
     <FieldDescription><!-- --></FieldDescription>
     <FieldGroup>
@@ -18,5 +18,5 @@
     <FieldGroup>
       <!-- -->
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>

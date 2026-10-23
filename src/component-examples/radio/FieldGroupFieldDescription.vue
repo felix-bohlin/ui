@@ -3,7 +3,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Radio,
 } from "opui-css/vue"
@@ -11,7 +11,7 @@ import {
 
 <template>
   <Form>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Legend</FieldLegend>
       <FieldDescription>Field description above fields</FieldDescription>
       <FieldGroup
@@ -22,9 +22,9 @@ import {
         <Radio value="2">Radio 2</Radio>
         <Radio value="3">Radio 3</Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup
         orientation="horizontal"
@@ -35,6 +35,6 @@ import {
         <Radio value="3">Radio 3</Radio>
       </FieldGroup>
       <FieldDescription>Field description below fields</FieldDescription>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>

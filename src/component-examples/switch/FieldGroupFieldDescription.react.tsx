@@ -2,7 +2,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Switch,
 } from "opui-css/react"
@@ -10,7 +10,7 @@ import {
 export default function FieldGroupFieldDescription() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
         <FieldGroup
@@ -21,9 +21,9 @@ export default function FieldGroupFieldDescription() {
           <Switch>Switch 2</Switch>
           <Switch>Switch 3</Switch>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup
           orientation="horizontal"
@@ -34,7 +34,7 @@ export default function FieldGroupFieldDescription() {
           <Switch>Switch 3</Switch>
         </FieldGroup>
         <FieldDescription>Field description below fields</FieldDescription>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }

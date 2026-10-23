@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/react"
+import { Checkbox, FieldGroup, FieldLegend, Fieldset } from "opui-css/react"
 
 const items = ["Apples", "Bananas", "Cherries"]
 
@@ -18,7 +18,7 @@ export default function Indeterminate() {
   }
 
   return (
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>
         <Checkbox
           checked={allChecked}
@@ -41,6 +41,6 @@ export default function Indeterminate() {
           </Checkbox>
         ))}
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   )
 }

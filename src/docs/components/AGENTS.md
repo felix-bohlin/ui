@@ -31,7 +31,7 @@ Before creating or refactoring a page, perform the following research:
     - If not, create it from the props, parts and slots identified in steps 1 and 2, following [src/component-api/AGENTS.md](../../component-api/AGENTS.md). Props and slots are read from the component source, so `pnpm test` and the build fail when `api.ts` and the source disagree.
 4.  **Identify Dependencies**: Determine if the component relies on other components.
     - **Field-based components** (`TextField`, `Select`, `Textarea`): Usually depend on `text-field.css`.
-    - **Field groups** (`Checkbox`, `Radio`, `Switch` inside `FieldSet`/`FieldGroup`): Depend on `form.css`.
+    - **Field groups** (`Checkbox`, `Radio`, `Switch` inside `Fieldset`/`FieldGroup`): Depend on `form.css`.
     - **Popover-based components** (`Select`): Usually depend on `list.css`.
 5.  **Examine Patterns**: Read a similar existing module (e.g., `src/docs/components/accordion.astro`) to ensure UI and content parity.
 

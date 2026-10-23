@@ -1,7 +1,7 @@
 import type { ComponentApi } from "../types"
 
 export default {
-  component: "FieldSet",
+  component: "Fieldset",
   css: ["form"],
   options: [
     {
@@ -11,28 +11,23 @@ export default {
       prop: "as",
     },
     {
-      attribute: ':has([aria-invalid="true"], :user-invalid)',
-      description: "Colors the end text when a field inside is invalid.",
-      frameworks: ["html"],
-      group: "Validation",
-      prop: "aria-invalid",
-    },
-    {
-      attribute: "[disabled]",
       default: "false",
       description: "Disables every field inside. Only on a `<fieldset>`.",
-      group: "State",
       inherited: true,
       prop: "disabled",
       type: "boolean",
     },
     {
-      attribute: ":has(:required)",
       description:
-        "Adds a required mark after the legend when a field inside is required.",
+        '`disabled` disables every field inside, only on a `<fieldset>`. A field inside with `aria-invalid="true"`, or that is `:user-invalid`, colors the end text, and a required field adds a required mark after the legend.',
       frameworks: ["html"],
-      group: "Required",
-      prop: "required",
+      group: "State",
+      prop: "state",
+      values: {
+        disabled: "[disabled]",
+        invalid: ':has([aria-invalid="true"], :user-invalid)',
+        required: ":has(:required)",
+      },
     },
   ],
   page: "form",
@@ -46,7 +41,7 @@ export default {
     {
       component: "FieldDescription",
       description: "Supporting text displayed below the legend.",
-      selector: ".ui-field-description",
+      selector: ".ui-fieldset > .ui-description",
     },
     {
       description:
@@ -64,5 +59,5 @@ export default {
       name: "default",
     },
   ],
-  source: "FieldSet",
+  source: "Fieldset",
 } satisfies ComponentApi

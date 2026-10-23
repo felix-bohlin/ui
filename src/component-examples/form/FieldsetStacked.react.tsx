@@ -2,13 +2,13 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/react"
 
 export default function FieldsetStacked() {
   return (
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Favorite Pet</FieldLegend>
       <FieldDescription>
         Please select your favorite type of pet.
@@ -18,6 +18,6 @@ export default function FieldsetStacked() {
         <Radio value="dog">Dog</Radio>
         <Radio value="hamster">Hamster</Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   )
 }

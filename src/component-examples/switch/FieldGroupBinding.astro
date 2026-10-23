@@ -3,19 +3,19 @@ import {
   Button,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Switch,
 } from "opui-css/astro"
 ---
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Notifications</FieldLegend>
   <FieldGroup name="switch-binding">
     <Switch checked value="email">Email</Switch>
     <Switch value="push">Push</Switch>
     <Switch value="sms">SMS</Switch>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 <p class="switch-binding-text">Selected: email</p>
 <Button class="switch-binding-reset">Reset</Button>
 

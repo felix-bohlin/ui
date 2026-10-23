@@ -2,19 +2,19 @@
   import {
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>These are required!</FieldLegend>
     <FieldGroup orientation="horizontal" name="radio-group-required">
       <Radio value="1" required>Radio 1</Radio>
       <Radio value="2" required>Radio 2</Radio>
       <Radio value="3" required>Radio 3</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>

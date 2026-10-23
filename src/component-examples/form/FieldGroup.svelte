@@ -4,14 +4,14 @@
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     Radio,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Choose your favorite Radiohead album</FieldLegend>
     <FieldDescription>There are no wrong answers.</FieldDescription>
     <FieldGroup name="albums">
@@ -20,9 +20,9 @@
       <Radio value="in-rainbows">In Rainbows</Radio>
       <Radio value="king-of-limbs">The King of Limbs</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Which side projects do you follow?</FieldLegend>
     <FieldDescription>Some are better than others.</FieldDescription>
     <FieldGroup name="projects">
@@ -47,5 +47,5 @@
         {#snippet endText()}Thom Yorke, Jonny Greenwood, Tom Skinner{/snippet}
       </Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>

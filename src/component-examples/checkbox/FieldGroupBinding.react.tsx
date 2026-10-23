@@ -6,7 +6,7 @@ import {
   Checkbox,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
 } from "opui-css/react"
 
 export default function FieldGroupBinding() {
@@ -25,7 +25,7 @@ export default function FieldGroupBinding() {
 
   return (
     <>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Fruit</FieldLegend>
         <FieldGroup name="checkbox-binding">
           <Checkbox
@@ -50,7 +50,7 @@ export default function FieldGroupBinding() {
             Cherries
           </Checkbox>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
       <p className="checkbox-binding-text">
         Selected: {fruit.join(", ") || "none"}
       </p>

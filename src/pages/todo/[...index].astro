@@ -8,7 +8,7 @@ import {
   Chip,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
   ToggleButton,
 } from "opui-css/astro"
@@ -175,7 +175,7 @@ const count = itemCount(sections)
                 </Accordion>
               )}
               <CommentField text={item.text} />
-              <FieldSet class="todo-actions-field">
+              <Fieldset class="todo-actions-field">
                 <FieldLegend class="ui-sr-only">
                   {`Actions for: ${plainText(item.text)}`}
                 </FieldLegend>
@@ -201,7 +201,7 @@ const count = itemCount(sections)
                     ))}
                 </FieldGroup>
                 {item.options.length > 0 && (
-                  <FieldSet class="todo-fix-options">
+                  <Fieldset class="todo-fix-options">
                     <FieldLegend>{item.legend}</FieldLegend>
                     <FieldGroup
                       name={`todo-action-${slugify(section.title)}-${index}`}
@@ -225,9 +225,9 @@ const count = itemCount(sections)
                         </div>
                       ))}
                     </FieldGroup>
-                  </FieldSet>
+                  </Fieldset>
                 )}
-              </FieldSet>
+              </Fieldset>
             </li>
           ))}
         </ol>

@@ -5,7 +5,7 @@ import {
   Button,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/react"
 
@@ -18,7 +18,7 @@ export default function FieldGroupBinding() {
 
   return (
     <>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Plan</FieldLegend>
         <FieldGroup name="radio-binding">
           <Radio
@@ -43,7 +43,7 @@ export default function FieldGroupBinding() {
             Team
           </Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
       <p className="radio-binding-text">Selected: {plan}</p>
       <Button className="radio-binding-reset" onClick={reset}>
         Reset

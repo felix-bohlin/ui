@@ -1,9 +1,9 @@
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"
 
 export default function Spread() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Delivery</FieldLegend>
         <FieldGroup name="radio-spread">
           <Radio
@@ -26,7 +26,7 @@ export default function Spread() {
             Pickup
           </Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }

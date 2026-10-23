@@ -4,11 +4,11 @@
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
   } from "opui-css/svelte"
 </script>
 
-<FieldSet aria-describedby="form-fieldset-invalid-1-error">
+<Fieldset aria-describedby="form-fieldset-invalid-1-error">
   <FieldLegend>Pet food</FieldLegend>
   <FieldDescription>Pick at least one.</FieldDescription>
   <FieldGroup name="food">
@@ -18,4 +18,4 @@
   <span class="ui-end-text" id="form-fieldset-invalid-1-error"
     >Your pet is hungry.</span
   >
-</FieldSet>
+</Fieldset>

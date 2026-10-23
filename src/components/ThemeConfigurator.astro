@@ -9,7 +9,7 @@ import {
   DrawerTitle,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Switch,
 } from "opui-css/astro"
 import ThemeControls from "./ThemeControls.astro"
@@ -29,7 +29,7 @@ const { link } = Astro.locals
   <DrawerContent>
     <div class="configurator-content">
       <form class="ui-form" id="theme-configurator-form">
-        <FieldSet>
+        <Fieldset>
           <FieldLegend>Theme mode</FieldLegend>
           <FieldGroup orientation="horizontal">
             <Switch spread id="theme-switcher">
@@ -84,7 +84,7 @@ const { link } = Astro.locals
               >
             </Switch>
           </FieldGroup>
-        </FieldSet>
+        </Fieldset>
 
         <Divider />
 

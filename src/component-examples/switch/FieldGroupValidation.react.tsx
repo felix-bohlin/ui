@@ -1,9 +1,9 @@
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/react"
 
 export default function FieldGroupValidation() {
   return (
     <Form>
-      <FieldSet aria-describedby="switch-field-group-validation-1-error">
+      <Fieldset aria-describedby="switch-field-group-validation-1-error">
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup
           orientation="horizontal"
@@ -19,7 +19,7 @@ export default function FieldGroupValidation() {
         >
           Something went wrong!
         </span>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }

@@ -380,9 +380,9 @@ Native input attributes (`disabled`, `name`, `value`, …) come from the framewo
 
 For complex inputs (like `Checkbox` with custom visuals), split the component into a wrapper (`Checkbox.astro`) and a raw input (`CheckboxInput.astro`) to keep the root element clean. The raw input is a public part too: it is exported from the barrels and documented in its own `api.ts` (`checkbox-input`), for layouts where the label sits elsewhere, such as the end of a list item.
 
-### Form Structure: FieldSet, FieldLegend, FieldDescription, FieldGroup
+### Form Structure: Fieldset, FieldLegend, FieldDescription, FieldGroup
 
-When building forms, follow this nesting order inside a `FieldSet`:
+When building forms, follow this nesting order inside a `Fieldset`:
 
 1. `FieldLegend` - The heading/label for the fieldset
 2. `FieldDescription` - Optional helper text
@@ -392,20 +392,20 @@ When building forms, follow this nesting order inside a `FieldSet`:
 
 ```astro
 <!-- ✅ Correct -->
-<FieldSet>
+<Fieldset>
   <FieldLegend>Username</FieldLegend>
   <FieldDescription>Enter your preferred username.</FieldDescription>
   <FieldGroup>
     <TextField placeholder="e.g. jdoe" />
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 
 <!-- ❌ Incorrect - TextField directly after FieldDescription -->
-<FieldSet>
+<Fieldset>
   <FieldLegend>Username</FieldLegend>
   <FieldDescription>Enter your preferred username.</FieldDescription>
   <TextField placeholder="e.g. jdoe" />
-</FieldSet>
+</Fieldset>
 ```
 
 ---

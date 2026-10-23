@@ -3,14 +3,14 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend><!-- --></FieldLegend>
       <FieldDescription><!-- --></FieldDescription>
       <FieldGroup>
@@ -19,6 +19,6 @@ import {
       <FieldGroup>
         <!-- -->
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>

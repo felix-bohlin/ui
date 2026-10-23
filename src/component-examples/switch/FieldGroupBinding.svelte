@@ -3,7 +3,7 @@
     Button,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Switch,
   } from "opui-css/svelte"
 
@@ -14,14 +14,14 @@
   }
 </script>
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Notifications</FieldLegend>
   <FieldGroup name="switch-binding">
     <Switch bind:group={notifications} value="email">Email</Switch>
     <Switch bind:group={notifications} value="push">Push</Switch>
     <Switch bind:group={notifications} value="sms">SMS</Switch>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 <p class="switch-binding-text">
   Selected: {notifications.join(", ") || "none"}
 </p>

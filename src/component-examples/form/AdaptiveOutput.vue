@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/vue"
+import { FieldDescription, FieldLegend, Fieldset, Form } from "opui-css/vue"
 </script>
 
 <template>
   <Form as="div">
-    <FieldSet aria-labelledby="form-adaptive-output-1-legend" as="div">
+    <Fieldset aria-labelledby="form-adaptive-output-1-legend" as="div">
       <FieldLegend as="p" id="form-adaptive-output-1-legend"
         >Delivery</FieldLegend
       >
       <FieldDescription>Rendered as div and p elements.</FieldDescription>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>

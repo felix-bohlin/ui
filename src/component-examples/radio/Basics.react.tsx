@@ -1,9 +1,9 @@
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/react"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"
 
 export default function Basics() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup name="radio-group">
           <Radio value="1" defaultChecked>
@@ -12,7 +12,7 @@ export default function Basics() {
           <Radio value="2">Radio 2</Radio>
           <Radio value="3">Radio 3</Radio>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }

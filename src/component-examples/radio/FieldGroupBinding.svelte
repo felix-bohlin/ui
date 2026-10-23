@@ -3,7 +3,7 @@
     Button,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Radio,
   } from "opui-css/svelte"
 
@@ -14,13 +14,13 @@
   }
 </script>
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Plan</FieldLegend>
   <FieldGroup name="radio-binding">
     <Radio bind:group={plan} value="free">Free</Radio>
     <Radio bind:group={plan} value="pro">Pro</Radio>
     <Radio bind:group={plan} value="team">Team</Radio>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 <p class="radio-binding-text">Selected: {plan}</p>
 <Button class="radio-binding-reset" onclick={reset}>Reset</Button>

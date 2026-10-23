@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from "vue"
-import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "opui-css/vue"
+import { Checkbox, FieldGroup, FieldLegend, Fieldset } from "opui-css/vue"
 
 const items = ["Apples", "Bananas", "Cherries"]
 const checked = ref([true, false, false])
@@ -16,7 +16,7 @@ function toggleAll() {
 </script>
 
 <template>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>
       <Checkbox
         :modelValue="allChecked"
@@ -33,5 +33,5 @@ function toggleAll() {
         >{{ item }}</Checkbox
       >
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </template>

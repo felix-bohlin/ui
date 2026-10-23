@@ -3,14 +3,14 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/react"
 
 export default function FieldGroupFieldDescription() {
   return (
     <Form>
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
         <FieldGroup
@@ -21,9 +21,9 @@ export default function FieldGroupFieldDescription() {
           <Checkbox>Checkbox 2</Checkbox>
           <Checkbox>Checkbox 3</Checkbox>
         </FieldGroup>
-      </FieldSet>
+      </Fieldset>
 
-      <FieldSet>
+      <Fieldset>
         <FieldLegend>Legend</FieldLegend>
         <FieldGroup
           orientation="horizontal"
@@ -34,7 +34,7 @@ export default function FieldGroupFieldDescription() {
           <Checkbox>Checkbox 3</Checkbox>
         </FieldGroup>
         <FieldDescription>Field description below fields</FieldDescription>
-      </FieldSet>
+      </Fieldset>
     </Form>
   )
 }

@@ -4,14 +4,14 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
 } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Legend</FieldLegend>
       <FieldDescription>Field description above fields</FieldDescription>
       <FieldGroup
@@ -22,9 +22,9 @@ import {
         <Checkbox>Checkbox 2</Checkbox>
         <Checkbox>Checkbox 3</Checkbox>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup
         orientation="horizontal"
@@ -35,6 +35,6 @@ import {
         <Checkbox>Checkbox 3</Checkbox>
       </FieldGroup>
       <FieldDescription>Field description below fields</FieldDescription>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>

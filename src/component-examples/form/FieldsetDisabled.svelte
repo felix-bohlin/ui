@@ -4,15 +4,15 @@
     FieldDescription,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
   } from "opui-css/svelte"
 </script>
 
-<FieldSet disabled>
+<Fieldset disabled>
   <FieldLegend>Pet dating</FieldLegend>
   <FieldDescription>You can't change these settings</FieldDescription>
   <FieldGroup name="notifications">
     <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
     <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
   </FieldGroup>
-</FieldSet>
+</Fieldset>

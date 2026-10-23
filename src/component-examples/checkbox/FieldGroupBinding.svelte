@@ -4,7 +4,7 @@
     Checkbox,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
   } from "opui-css/svelte"
 
   let fruit = $state(["apples"])
@@ -14,13 +14,13 @@
   }
 </script>
 
-<FieldSet>
+<Fieldset>
   <FieldLegend>Fruit</FieldLegend>
   <FieldGroup name="checkbox-binding">
     <Checkbox bind:group={fruit} value="apples">Apples</Checkbox>
     <Checkbox bind:group={fruit} value="bananas">Bananas</Checkbox>
     <Checkbox bind:group={fruit} value="cherries">Cherries</Checkbox>
   </FieldGroup>
-</FieldSet>
+</Fieldset>
 <p class="checkbox-binding-text">Selected: {fruit.join(", ") || "none"}</p>
 <Button class="checkbox-binding-reset" onclick={reset}>Reset</Button>

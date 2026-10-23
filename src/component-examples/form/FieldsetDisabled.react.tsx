@@ -3,12 +3,12 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
 } from "opui-css/react"
 
 export default function FieldsetDisabled() {
   return (
-    <FieldSet disabled>
+    <Fieldset disabled>
       <FieldLegend>Pet dating</FieldLegend>
       <FieldDescription>You can't change these settings</FieldDescription>
       <FieldGroup name="notifications">
@@ -19,6 +19,6 @@ export default function FieldsetDisabled() {
           OnlyHorseFans
         </Checkbox>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   )
 }

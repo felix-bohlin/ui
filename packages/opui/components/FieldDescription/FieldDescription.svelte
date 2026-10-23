@@ -10,6 +10,6 @@
   }: Props = $props()
 </script>
 
-<p class={["ui-field-description", className]} {...rest}>
+<p class={["ui-description", className]} {...rest}>
   {@render children?.()}
 </p>

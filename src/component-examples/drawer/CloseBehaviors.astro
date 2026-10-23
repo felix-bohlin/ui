@@ -8,7 +8,7 @@ import {
   DrawerTitle,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Radio,
 } from "opui-css/astro"
 ---
@@ -26,14 +26,14 @@ import {
     <DrawerTitle>How to close</DrawerTitle>
   </DrawerHeader>
   <DrawerContent>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Choose a closing behavior:</FieldLegend>
       <FieldGroup name="closedby-demo">
         <Radio value="any" checked>any</Radio>
         <Radio value="closerequest">closerequest</Radio>
         <Radio value="none">none</Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </DrawerContent>
   <DrawerActions>
     <Button size="small" commandfor="drawer-close-behaviors-1" command="close">

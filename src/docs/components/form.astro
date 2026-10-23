@@ -13,7 +13,7 @@ import ExampleBasicsHTMLCode from "../../component-examples/form/Basics.html?raw
 import fieldDescriptionApi from "../../component-api/field-description/api"
 import fieldGroupApi from "../../component-api/field-group/api"
 import fieldLegendApi from "../../component-api/field-legend/api"
-import fieldSetApi from "../../component-api/field-set/api"
+import fieldsetApi from "../../component-api/fieldset/api"
 import formApi from "../../component-api/form/api"
 import FormBuild from "../../components/UnderTheHood/FormBuild.astro"
 
@@ -22,7 +22,7 @@ import {
   FieldDescription as UIFieldDescription,
   FieldGroup as UIFieldGroup,
   FieldLegend as UIFieldLegend,
-  FieldSet as UIFieldSet,
+  Fieldset as UIFieldset,
   Form as UIForm,
   Radio as UIRadio,
   Switch as UISwitch,
@@ -31,14 +31,14 @@ import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import Code from "../../components/Code.astro"
 
-const [legendPart, descriptionPart, endTextPart] = fieldSetApi.parts
+const [legendPart, descriptionPart, endTextPart] = fieldsetApi.parts
 
 const anatomyApi = {
   ...formApi,
   parts: [
     {
       code: "<fieldset>",
-      component: "FieldSet",
+      component: "Fieldset",
       description: "Groups related fields.",
       selector: ".ui-fieldset",
     },
@@ -70,7 +70,7 @@ const anatomyApi = {
   ]}
   apis={[
     { title: "Form API", api: formApi },
-    { title: "Field set API", api: fieldSetApi },
+    { title: "Fieldset API", api: fieldsetApi },
     { title: "Field legend API", api: fieldLegendApi },
     { title: "Field description API", api: fieldDescriptionApi },
     { title: "Field group API", api: fieldGroupApi },
@@ -112,7 +112,7 @@ const anatomyApi = {
       </Fragment>
       <Fragment slot="html">
         Groups related fields. Label it with <code>&lt;legend&gt;</code> and add an
-        optional <code>.ui-field-description</code>.
+        optional <code>.ui-description</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="FieldsetStacked" />
@@ -152,7 +152,7 @@ const anatomyApi = {
     <h3 id="fieldset-disabled">Disabled</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>disabled</code> on <code>FieldSet</code> to disable every field
+        Set <code>disabled</code> on <code>Fieldset</code> to disable every field
         inside.
       </Fragment>
       <Fragment slot="html">
@@ -165,7 +165,7 @@ const anatomyApi = {
     <h3 id="fieldset-invalid">Invalid</h3>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>error</code> on each field in the <code>FieldSet</code>, and
+        Set <code>error</code> on each field in the <code>Fieldset</code>, and
         explain the error in a <code>.ui-end-text</code> directly inside it. The end
         text turns red when a field has <code>error</code> set.
       </Fragment>
@@ -217,7 +217,7 @@ const anatomyApi = {
       <Fragment slot="components">
         Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
           >&lt;legend&gt;</code
-        >? Set <code>as</code> on <code>Form</code>, <code>FieldSet</code> and <code
+        >? Set <code>as</code> on <code>Form</code>, <code>Fieldset</code> and <code
           >FieldLegend</code
         >. A <code>div</code> doesn't pick up its name from the legend, so give the
         legend an <code>id</code> and point <code>aria-labelledby</code> on the field
@@ -230,7 +230,7 @@ const anatomyApi = {
           >role="group"</code
         > and <code>.ui-legend</code> on other elements. A <code>div</code> doesn't
         pick up its name from the legend, so give the legend an <code>id</code> and
-        point <code>aria-labelledby</code> on the field set at it.
+        point <code>aria-labelledby</code> on the fieldset at it.
       </Fragment>
     </Conditional>
     <AutoExample name="AdaptiveOutput" />
@@ -271,7 +271,7 @@ const anatomyApi = {
   <Fragment slot="anatomy">
     <Anatomy api={anatomyApi}>
       <UIForm style="inline-size: 18rem">
-        <UIFieldSet>
+        <UIFieldset>
           <UIFieldLegend>Favorite pet</UIFieldLegend>
           <UIFieldDescription>Pick one.</UIFieldDescription>
           <UIFieldGroup name="form-anatomy">
@@ -279,7 +279,7 @@ const anatomyApi = {
             <UIRadio value="dog">Dog</UIRadio>
           </UIFieldGroup>
           <span class="ui-end-text">Supporting text</span>
-        </UIFieldSet>
+        </UIFieldset>
         <UIFieldGroup>
           <UIButton variant="filled">Save</UIButton>
         </UIFieldGroup>

@@ -23,13 +23,13 @@
       font-weight: var(--ui-field-label-font-weight);
       margin-block-end: var(--ui-space-3);
 
-      &:has(+ :where(.ui-field-description)) {
+      &:has(+ :where(.ui-description)) {
         margin-block-end: 0;
       }
     }
 
     /* Field description / supporting text */
-    :where(.ui-field-description) {
+    & > :where(.ui-description) {
       color: var(--ui-text-muted);
       font-size: var(--ui-font-size-small);
       line-height: var(--ui-line-height);

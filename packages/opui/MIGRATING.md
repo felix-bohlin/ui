@@ -459,7 +459,7 @@ In Astro and Vue, a drawer that opens from the inline start no longer renders `.
 + .ui-drawer:not(.ui-block-end, .ui-block-start, .ui-inline-end) { --_inline-size: 20rem; }
 ```
 
-## Field group and field set
+## Field group and fieldset
 
 `FieldGroup` no longer sets `role="group"`. Inside a fieldset nothing changes. A `FieldGroup` without a fieldset can take `role` and `aria-label` itself. In HTML, drop `role="group"` from `.ui-field-group`.
 
@@ -471,7 +471,19 @@ In Astro and Vue, a drawer that opens from the inline start no longer renders `.
   </fieldset>
 ```
 
-`FieldSet` with another element in `as` gets `role="group"`.
+`Fieldset` with another element in `as` gets `role="group"`.
+
+`FieldSet` is `Fieldset`, and `FieldDescription` renders `.ui-description` instead of `.ui-field-description`.
+
+```diff
+- <FieldSet>
++ <Fieldset>
+```
+
+```diff
+- <p class="ui-field-description">There are no wrong answers.</p>
++ <p class="ui-description">There are no wrong answers.</p>
+```
 
 `data-invalid` on `.ui-fieldset` no longer colors the fields inside. Put `aria-invalid="true"` on each control (Astro and Vue: `error` on each `Checkbox`, `Radio` or `Switch`). The fieldset's own `.ui-end-text` (a direct child) turns red when a control inside has `aria-invalid="true"` or is `:user-invalid`. A checked invalid switch turns its track red, like Checkbox and Radio.
 

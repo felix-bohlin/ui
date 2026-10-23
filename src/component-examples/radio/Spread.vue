@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Delivery</FieldLegend>
       <FieldGroup name="radio-spread">
         <Radio value="standard" checked spread>
@@ -20,6 +20,6 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
           <template #end-text>Not available in your area.</template>
         </Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>

@@ -4,19 +4,19 @@
     Divider,
     FieldGroup,
     FieldLegend,
-    FieldSet,
+    Fieldset,
     Form,
     TextField,
   } from "opui-css/svelte"
 </script>
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Post Content</FieldLegend>
     <FieldGroup>
       <TextField label="Title" placeholder="My new post" />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 

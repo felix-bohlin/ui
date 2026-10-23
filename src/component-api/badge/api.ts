@@ -63,7 +63,7 @@ export default {
     },
     {
       description:
-        "The indicator, inside `.ui-anchor-floating`. Holds `label`, or the visible text with `hideLabel`.",
+        "The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.",
       props: ["label"],
       selector: ".ui-indicator",
       slots: ["indicator"],

@@ -3,7 +3,7 @@ import { computed, provide, reactive } from "vue"
 import { AnchorKey } from "./context.vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { id: idProp, positionArea, trigger = "always" } = defineProps<Props>()
+const { id: idProp, positionArea, trigger } = defineProps<Props>()
 defineSlots<Slots>()
 
 const isHover = computed(() => trigger === "hover")

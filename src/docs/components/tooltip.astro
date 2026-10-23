@@ -64,7 +64,7 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-tooltip</code> class alongside <code>.ui-anchor</code> on
-        the wrapper. Give the <code>.ui-anchor-floating</code> element <code
+        the wrapper. Give the <code>.ui-floating</code> element <code
           >popover="hint"</code
         > and an id. Add <code>interestfor</code>, plus <code>commandfor</code> and
         {" "}<code>command="toggle-popover"</code> for touch, with that id to the
@@ -81,9 +81,7 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
         Put plain text in <code>TooltipContent</code>.
       </Fragment>
       <Fragment slot="html">
-        Set the tooltip text inside <code
-          >.ui-anchor-floating[popover="hint"]</code
-        >.
+        Set the tooltip text inside <code>.ui-floating[popover="hint"]</code>.
       </Fragment>
     </Conditional>
 
@@ -96,7 +94,7 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
       </Fragment>
       <Fragment slot="html">
         You can place any markup you want (famous last words) inside <code
-          >.ui-anchor-floating[popover="hint"]</code
+          >.ui-floating[popover="hint"]</code
         >, not only text.
       </Fragment>
     </Conditional>

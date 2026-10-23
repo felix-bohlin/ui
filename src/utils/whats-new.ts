@@ -50,6 +50,12 @@ const whatsNew = {
     },
   ],
   anchor: [
+    {
+      html: `Breaking: the floating content is <a href="#api"><code>.ui-floating</code></a> instead of <code>.ui-anchor-floating</code>.`,
+    },
+    slots(
+      `Breaking: <a href="#hover-trigger"><code>trigger</code></a> only takes <code>"hover"</code>. Leave it out instead of <code>trigger="always"</code>.`,
+    ),
     slots(
       `Breaking: <a href="#api"><code>AnchorContent</code></a> replaces the <code>anchored</code> slot.`,
     ),
@@ -100,7 +106,7 @@ const whatsNew = {
       html: `<a href="#indicator">Indicator</a> text for screen readers with <code>.ui-sr-only</code>, next to the visible text with <code>aria-hidden="true"</code>.`,
     },
     {
-      html: `Breaking: the indicator is <a href="#indicator"><code>.ui-indicator</code></a> instead of <code>.ui-badge-indicator</code>.`,
+      html: `Breaking: the indicator is <a href="#indicator"><code>.ui-indicator</code></a> instead of <code>.ui-badge-indicator</code>, inside <code>.ui-floating</code> instead of <code>.ui-anchor-floating</code>.`,
     },
     slots(`Breaking: <a href="#indicator"><code>label</code></a> is a string.`),
     components(
@@ -995,6 +1001,9 @@ const whatsNew = {
     ),
   ],
   tooltip: [
+    {
+      html: `Breaking: the floating content is <a href="#api"><code>.ui-floating</code></a> instead of <code>.ui-anchor-floating</code>.`,
+    },
     slots(
       `Breaking: <a href="#api"><code>TooltipContent</code></a> replaces <code>label</code> and the <code>content</code> slot.`,
     ),

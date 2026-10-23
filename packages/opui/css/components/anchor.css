@@ -9,7 +9,7 @@
     inline-size: fit-content;
 
     /* Always-visible */
-    & > .ui-anchor-floating:not([popover]) {
+    & > .ui-floating:not([popover]) {
       block-size: max-content;
       inline-size: max-content;
       position: absolute;
@@ -19,7 +19,7 @@
     }
 
     /* Hover-triggered */
-    & > .ui-anchor-floating[popover] {
+    & > .ui-floating[popover] {
       background-color: transparent;
       border: 0;
       color: inherit;

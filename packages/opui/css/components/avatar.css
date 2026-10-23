@@ -94,7 +94,7 @@
       margin-inline-start: calc(-1 * var(--_margin));
     }
 
-    & > .ui-badge > .ui-anchor-floating {
+    & > .ui-badge > .ui-floating {
       z-index: 1;
     }
 

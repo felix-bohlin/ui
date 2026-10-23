@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Anchor",
   notes: {
-    html: 'To show on hover, give `.ui-anchor-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.',
+    html: 'To show on hover, give `.ui-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.',
   },
   options: [
     {
@@ -20,13 +20,12 @@ export default {
       prop: "positionArea",
     },
     {
-      default: '"always"',
       description:
-        'Shows the floating content always, or on hover and focus with `popover="hint"`.',
+        'Shows the floating content on hover and focus with `popover="hint"`. Without it, the content always shows.',
       group: "Trigger",
-      part: ".ui-anchor-floating",
+      part: ".ui-floating",
       prop: "trigger",
-      values: { always: null, hover: '[popover="hint"]' },
+      values: { hover: '[popover="hint"]' },
     },
   ],
   parts: [
@@ -38,7 +37,7 @@ export default {
     {
       component: "AnchorContent",
       description: "The floating content.",
-      selector: ".ui-anchor-floating",
+      selector: ".ui-floating",
     },
   ],
   root: {

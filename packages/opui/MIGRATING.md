@@ -81,6 +81,13 @@ With `trigger="hover"`, `id` is required and no longer generated. Pass the same 
 + <Anchor positionArea="inline-end">
 ```
 
+The floating content is `.ui-floating` instead of `.ui-anchor-floating`, also inside `Badge` and `Tooltip`. `trigger` only takes `"hover"`, so leave it out instead of `trigger="always"`.
+
+```diff
+- <span class="ui-anchor-floating">
++ <span class="ui-floating">
+```
+
 ## Avatar
 
 `alt` is required when `src` is set (types). Use `alt=""` for decorative images.

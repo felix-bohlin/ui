@@ -9,7 +9,7 @@ export default function AnchorContent({ className, ...rest }: Props) {
 
   return (
     <span
-      className={cx(["ui-anchor-floating", className])}
+      className={cx(["ui-floating", className])}
       id={anchor?.floatingId}
       popover={anchor?.popover}
       {...rest}

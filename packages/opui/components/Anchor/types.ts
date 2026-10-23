@@ -2,7 +2,7 @@ export type Props = {
   positionArea?: string
 } & (
   | {
-      trigger?: "always"
+      trigger?: never
     }
   | {
       id: string

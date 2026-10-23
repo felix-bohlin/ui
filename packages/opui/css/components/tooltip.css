@@ -10,7 +10,7 @@
     --_shift: var(--ui-space-4);
     --_text-color: var(--ui-on-inverse);
 
-    & > .ui-anchor-floating {
+    & > .ui-floating {
       background-color: var(--_bg-color);
       border-radius: var(--ui-radius-small);
       color: var(--_text-color);
@@ -44,7 +44,7 @@
     }
 
     @container style(--ui-anchor-position-area: inline-start) or style(--ui-anchor-position-area: inline-end) or style(--ui-anchor-position-area: self-inline-start) or style(--ui-anchor-position-area: self-inline-end) {
-      & > .ui-anchor-floating {
+      & > .ui-floating {
         position-try-fallbacks:
           flip-inline,
           --ui-tooltip-shift-start,
@@ -58,7 +58,7 @@
     &.ui-arrow {
       --_arrow-size: var(--ui-space-2);
 
-      & > .ui-anchor-floating {
+      & > .ui-floating {
         /* Offset so the arrow doesn't overlap the trigger. */
         --_offset: calc(var(--ui-space-2) + var(--_arrow-size) / 2);
 
@@ -67,7 +67,7 @@
         translate: none;
       }
 
-      & > .ui-anchor-floating::before {
+      & > .ui-floating::before {
         background-color: var(--_bg-color);
         block-size: var(--_arrow-size);
         content: "";
@@ -94,7 +94,7 @@
     }
 
     /* Fade */
-    & > .ui-anchor-floating[popover] {
+    & > .ui-floating[popover] {
       opacity: 0;
       transition:
         display var(--_duration) allow-discrete,

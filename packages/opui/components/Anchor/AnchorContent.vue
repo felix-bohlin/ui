@@ -11,7 +11,7 @@ const anchor = inject(AnchorKey, undefined)
 
 <template>
   <span
-    :class="['ui-anchor-floating', $props.class]"
+    :class="['ui-floating', $props.class]"
     :id="anchor?.floatingId"
     :popover="anchor?.popover"
   >

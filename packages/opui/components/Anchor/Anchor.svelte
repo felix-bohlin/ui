@@ -8,7 +8,7 @@
     id: idProp,
     positionArea,
     style,
-    trigger = "always",
+    trigger,
 
     // Snippets
     children,

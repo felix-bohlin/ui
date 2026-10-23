@@ -9,7 +9,7 @@ export default function Anchor({
   id: idProp,
   positionArea,
   style,
-  trigger = "always",
+  trigger,
   ...rest
 }: Props) {
   const isHover = trigger === "hover"

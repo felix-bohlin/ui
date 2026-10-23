@@ -76,6 +76,7 @@ const optionalModifiers = new Set([
   "bordered",
   "color",
   "severity",
+  "trigger",
   "type",
 ])
 const prefixed = new Set(["align", "overflow"])

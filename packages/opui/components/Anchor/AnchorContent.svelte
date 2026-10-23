@@ -14,7 +14,7 @@
 </script>
 
 <span
-  class={["ui-anchor-floating", className]}
+  class={["ui-floating", className]}
   id={anchor?.floatingId}
   popover={anchor?.popover}
   {...rest}

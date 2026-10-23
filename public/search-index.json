@@ -1963,7 +1963,7 @@
     "id": "guide-theming-html",
     "title": "Theming",
     "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
-    "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Fluid headings Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/theming"
@@ -1972,7 +1972,7 @@
     "id": "guide-theming-astro",
     "title": "Theming",
     "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
-    "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Fluid headings Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/theming"
@@ -1981,7 +1981,7 @@
     "id": "guide-theming-react",
     "title": "Theming",
     "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
-    "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Fluid headings Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "react",
     "url": "/react/guide/theming"
@@ -1990,7 +1990,7 @@
     "id": "guide-theming-svelte",
     "title": "Theming",
     "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
-    "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Fluid headings Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "svelte",
     "url": "/svelte/guide/theming"
@@ -1999,7 +1999,7 @@
     "id": "guide-theming-vue",
     "title": "Theming",
     "description": "The knobs and roles behind colors, density, spacing, corners, fonts,\n    elevation, motion and contrast, and the classes that scope them.",
-    "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
+    "headings": "Palette Scopes Surfaces Density Spacing Corners Fonts Fluid headings Elevation Motion Global classes Local overrides Contrast Classes Custom values Forced colors",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/theming"

@@ -1215,7 +1215,7 @@ Rich text (`.ui-rich-text`) only styles headings without a class, like lists. Ad
 + <h2 class="intro ui-h2">Title</h2>
 ```
 
-`--ui-font-size-h3` is fluid with a higher minimum (`--ui-font-size-500`), `--ui-font-size-h4` scales between `--ui-font-size-400` and `--ui-font-size-500` instead of a fixed size, and `--ui-font-size-h6` is `--ui-font-size-300`, so check pages that rely on the old heading sizes.
+`--ui-font-size-h1` to `--ui-font-size-h4` grow over one shared viewport window, `--ui-fluid-min-inline-size` (20rem) to `--ui-fluid-max-inline-size` (48rem), with `progress()`. `--ui-font-size-h3` has a higher minimum (`--ui-font-size-500`), `--ui-font-size-h4` scales between `--ui-font-size-400` and `--ui-font-size-500` instead of a fixed size, and `--ui-font-size-h6` is `--ui-font-size-300`, so check pages that rely on the old heading sizes. Set the two window tokens to move the breakpoints, or pin a heading to a step.
 
 Rich text styles live in a new `components.prose` layer, below `components.root`, so component styles inside rich text win over prose styles. If you declare the layer order yourself, add it:
 

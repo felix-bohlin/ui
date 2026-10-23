@@ -125,6 +125,12 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-field-size-x-small": "Field height with `.ui-x-small`.",
   "--ui-fill-max-lightness":
     "The highest OKLCH lightness of an intent color used as a fill under light text: the critical, info, neutral and success `Badge`, and the fills of critical `Button`s, also in a critical `ButtonGroup`. Borders keep the intent color. `0.48`, and `0.45` with more contrast.",
+  "--ui-fluid-max-inline-size":
+    "Viewport inline size where `--ui-fluid-progress` reaches 1 and the fluid heading sizes their maximum, 48rem.",
+  "--ui-fluid-min-inline-size":
+    "Viewport inline size where `--ui-fluid-progress` starts at 0 and the fluid heading sizes at their minimum, 20rem.",
+  "--ui-fluid-progress":
+    "Position of the viewport inline size in the `--ui-fluid-min-inline-size` to `--ui-fluid-max-inline-size` window, 0 to 1, from `progress()`. `--ui-font-size-h1` to `--ui-font-size-h4` grow with it, and a theme can ramp other values on the same window.",
   "--ui-focus-ring-color":
     "Color of the keyboard focus ring. Black on surfaces lighter than OKLCH 0.6 and white on darker ones, so it reaches 3:1 on any `--ui-surface`.",
   "--ui-focus-ring-inset":
@@ -163,13 +169,13 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-font-size-control":
     "Font size of the default `Button`, `Select`, `Tabs`, `TextField`, `Textarea` and `ToggleButton`. Small and x-small sizes read `--ui-font-size-small` and `--ui-font-size-caption`. Defaults to `--ui-font-size-300`.",
   "--ui-font-size-h1":
-    "Font size for `h1` and `.ui-h1`. Fluid between `--ui-font-size-700` and `--ui-font-size-900`.",
+    "Font size for `h1` and `.ui-h1`. Grows from `--ui-font-size-700` to `--ui-font-size-900` with `--ui-fluid-progress`.",
   "--ui-font-size-h2":
-    "Font size for `h2` and `.ui-h2`. Fluid between `--ui-font-size-600` and `--ui-font-size-800`.",
+    "Font size for `h2` and `.ui-h2`. Grows from `--ui-font-size-600` to `--ui-font-size-800` with `--ui-fluid-progress`.",
   "--ui-font-size-h3":
-    "Font size for `h3` and `.ui-h3`. Fluid between `--ui-font-size-500` and `--ui-font-size-600`.",
+    "Font size for `h3` and `.ui-h3`. Grows from `--ui-font-size-500` to `--ui-font-size-600` with `--ui-fluid-progress`.",
   "--ui-font-size-h4":
-    "Font size for `h4` and `.ui-h4`. Fluid between `--ui-font-size-400` and `--ui-font-size-500`.",
+    "Font size for `h4` and `.ui-h4`. Grows from `--ui-font-size-400` to `--ui-font-size-500` with `--ui-fluid-progress`.",
   "--ui-font-size-h5":
     "Font size for `h5` and `.ui-h5`. Defaults to `--ui-font-size-400`.",
   "--ui-font-size-h6":

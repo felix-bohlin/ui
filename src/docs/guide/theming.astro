@@ -275,6 +275,37 @@ import Example from "../../components/Example/index"
 }`}
       lang="css"
     />
+    <h3 id="fluid-headings">Fluid headings</h3>
+    <p>
+      <code>--ui-font-size-h1</code> to <code>--ui-font-size-h4</code> grow from one
+      step to the next as the viewport widens, together, over one window: <code
+        >--ui-fluid-min-inline-size</code
+      > (20rem) to <code>--ui-fluid-max-inline-size</code> (48rem). <code
+        >--ui-fluid-progress</code
+      > is the position in that window, 0 to 1, from <code>progress()</code>, so
+      a theme can ramp other values on the same window. Move the window, reuse
+      the ramp, or pin a heading to a step:
+    </p>
+    <Code
+      code={`:where(html) {
+  /* Headings reach full size on wider screens */
+  --ui-fluid-min-inline-size: 24rem;
+  --ui-fluid-max-inline-size: 64rem;
+
+  /* Tighter spacing on narrow screens, on the same ramp */
+  --ui-space-scale: calc(0.875 + 0.125 * var(--ui-fluid-progress));
+
+  /* Or pin a heading */
+  --ui-font-size-h1: var(--ui-font-size-800);
+}`}
+      lang="css"
+    />
+    <p>
+      Browsers without <code>progress()</code> (before Firefox 155 and Safari 26)
+      keep <code>clamp()</code> heading sizes and have no <code
+        >--ui-fluid-progress</code
+      >.
+    </p>
   </section>
 
   <section>

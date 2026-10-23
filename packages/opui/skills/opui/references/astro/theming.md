@@ -131,6 +131,26 @@ The type scale, `--ui-font-size-100` to `--ui-font-size-900` (12px to 56px), is 
 }
 ```
 
+### Fluid headings
+
+`--ui-font-size-h1` to `--ui-font-size-h4` grow from one step to the next as the viewport widens, together, over one window: `--ui-fluid-min-inline-size` (20rem) to `--ui-fluid-max-inline-size` (48rem). `--ui-fluid-progress` is the position in that window, 0 to 1, from `progress()`, so a theme can ramp other values on the same window. Move the window, reuse the ramp, or pin a heading to a step:
+
+```css
+:where(html) {
+  /* Headings reach full size on wider screens */
+  --ui-fluid-min-inline-size: 24rem;
+  --ui-fluid-max-inline-size: 64rem;
+
+  /* Tighter spacing on narrow screens, on the same ramp */
+  --ui-space-scale: calc(0.875 + 0.125 * var(--ui-fluid-progress));
+
+  /* Or pin a heading */
+  --ui-font-size-h1: var(--ui-font-size-800);
+}
+```
+
+Browsers without `progress()` (before Firefox 155 and Safari 26) keep `clamp()` heading sizes and have no `--ui-fluid-progress`.
+
 ## Elevation
 
 - `--ui-shadow-control`: buttons with a variant, chips, toggle buttons and fields. `none` until a theme sets it, and the optional `--ui-shadow-field` splits off the fields.

@@ -31,6 +31,7 @@ const patterns = [
   { id: "field-sizing", pattern: /field-sizing:/ },
   { id: "has", pattern: /:has\(/ },
   { id: "light-dark", pattern: /light-dark\(/ },
+  { id: "progress-function", pattern: /\bprogress\(/ },
   { id: "relative-color", pattern: /\(\s*from\s/ },
   { id: "scrollbar-gutter", pattern: /scrollbar-gutter:/ },
   { id: "user-pseudos", pattern: /:user-(?:in)?valid\b/ },

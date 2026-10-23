@@ -59,6 +59,9 @@
     --ui-font-size-800: 2.5rem;
     --ui-font-size-900: 3.5rem;
 
+    --ui-fluid-min-inline-size: 20rem;
+    --ui-fluid-max-inline-size: 48rem;
+
     --ui-font-weight-normal: var(--font-weight-4);
     --ui-font-weight-medium: var(--font-weight-5);
     --ui-font-weight-semibold: var(--font-weight-6);
@@ -219,28 +222,56 @@
     --ui-font-size-control: var(--ui-font-size-300);
     --ui-font-size-large: var(--ui-font-size-500);
 
-    --ui-font-size-h1: clamp(
-      var(--ui-font-size-700),
-      9vi,
-      var(--ui-font-size-900)
+    --ui-fluid-progress: progress(
+      100vi,
+      var(--ui-fluid-min-inline-size),
+      var(--ui-fluid-max-inline-size)
     );
-    --ui-font-size-h2: clamp(
-      var(--ui-font-size-600),
-      6vi,
-      var(--ui-font-size-800)
+    --ui-font-size-h1: calc(
+      var(--ui-font-size-700) +
+        (var(--ui-font-size-900) - var(--ui-font-size-700)) *
+        var(--ui-fluid-progress)
     );
-    --ui-font-size-h3: clamp(
-      var(--ui-font-size-500),
-      4vi,
-      var(--ui-font-size-600)
+    --ui-font-size-h2: calc(
+      var(--ui-font-size-600) +
+        (var(--ui-font-size-800) - var(--ui-font-size-600)) *
+        var(--ui-fluid-progress)
     );
-    --ui-font-size-h4: clamp(
-      var(--ui-font-size-400),
-      3vi,
-      var(--ui-font-size-500)
+    --ui-font-size-h3: calc(
+      var(--ui-font-size-500) +
+        (var(--ui-font-size-600) - var(--ui-font-size-500)) *
+        var(--ui-fluid-progress)
+    );
+    --ui-font-size-h4: calc(
+      var(--ui-font-size-400) +
+        (var(--ui-font-size-500) - var(--ui-font-size-400)) *
+        var(--ui-fluid-progress)
     );
     --ui-font-size-h5: var(--ui-font-size-400);
     --ui-font-size-h6: var(--ui-font-size-300);
+
+    @supports not (font-size: calc(1rem * progress(1, 0, 1))) {
+      --ui-font-size-h1: clamp(
+        var(--ui-font-size-700),
+        9vi,
+        var(--ui-font-size-900)
+      );
+      --ui-font-size-h2: clamp(
+        var(--ui-font-size-600),
+        6vi,
+        var(--ui-font-size-800)
+      );
+      --ui-font-size-h3: clamp(
+        var(--ui-font-size-500),
+        4vi,
+        var(--ui-font-size-600)
+      );
+      --ui-font-size-h4: clamp(
+        var(--ui-font-size-400),
+        3vi,
+        var(--ui-font-size-500)
+      );
+    }
 
     --ui-code-block-bg-color: var(--ui-color-15);
     --ui-code-block-text-color: var(--ui-color-1);

@@ -6,7 +6,7 @@ export default {
   notes: {
     default:
       'Build it from `AccordionSummary`, `AccordionContent` and `AccordionActions`. To group accordions, wrap them in a `<Card role="group">`. Its `variant` styles every accordion in it.',
-    html: 'Add `.ui-card` to the root for card styles. To group accordions, wrap them in a `.ui-card[role="group"]`. A variant on the group styles every accordion in it.',
+    html: 'To group accordions, wrap them in a `.ui-card[role="group"]`. A variant on the group styles every accordion in it.',
   },
   options: [
     {

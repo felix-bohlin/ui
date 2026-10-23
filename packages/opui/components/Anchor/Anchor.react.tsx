@@ -2,6 +2,7 @@
 
 import { cx } from "../cx"
 import { AnchorContext } from "./context.react"
+import { extendsAnchor } from "./root"
 import type { Props } from "./types.react"
 
 export default function Anchor({
@@ -23,7 +24,7 @@ export default function Anchor({
       value={{ floatingId: id, popover: isHover ? "hint" : undefined }}
     >
       <span
-        className={cx(["ui-anchor", className])}
+        className={cx([!extendsAnchor(className) && "ui-anchor", className])}
         id={isHover ? undefined : idProp}
         style={positionStyle ? { ...positionStyle, ...style } : style}
         {...rest}

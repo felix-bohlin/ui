@@ -30,7 +30,6 @@
 <menu
   class={[
     "ui-menu",
-    "ui-list",
     {
       "ui-align-end": align === "end",
       "ui-bordered": bordered,

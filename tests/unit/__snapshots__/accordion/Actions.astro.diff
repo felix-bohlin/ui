@@ -2,7 +2,7 @@
 --- html
 +++ astro
 @@ -1,5 +1,5 @@
- <details class="ui-accordion ui-card ui-elevated" open>
+ <details class="ui-accordion ui-elevated" open>
    <summary>
 -    Accordion with actions␣
 +    Accordion with actions

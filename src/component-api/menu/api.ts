@@ -129,7 +129,7 @@ export default {
   root: {
     anchorName: "--ui-menu-root",
     description: "The menu surface, a popover anchored to its trigger.",
-    selector: "menu.ui-menu.ui-list[popover]",
+    selector: "menu.ui-menu[popover]",
   },
   slots: [{ description: "The items, such as `ListItem`s.", name: "default" }],
   source: "Menu",

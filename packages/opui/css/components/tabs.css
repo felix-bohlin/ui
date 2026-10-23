@@ -191,7 +191,7 @@
       --_track-color: transparent;
     }
 
-    :where(.ui-card) > & {
+    :where(.ui-accordion, .ui-card, .ui-dialog) > & {
       & > .ui-input:focus-visible + .ui-label::before {
         outline-offset: var(--ui-focus-ring-inset);
       }

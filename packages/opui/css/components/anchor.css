@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.ui-anchor) {
+  :where(.ui-anchor, .ui-badge, .ui-tooltip) {
     --_anchor-tx: 0;
     --_anchor-ty: 0;
 

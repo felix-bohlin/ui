@@ -6,7 +6,7 @@ Lists meant to be used stand-alone or as part of Select elements
   - ul.ui-list > li
   - .ui-select > .ui-list > option
 */
-  :where(.ui-list) {
+  :where(.ui-list, .ui-menu) {
     --_bg-color: var(--ui-surface-filled);
     --_divider-color: var(--ui-border-color);
     --_hover-bg-color: oklch(
@@ -391,8 +391,8 @@ Lists meant to be used stand-alone or as part of Select elements
 
 @layer components.root {
   :where(
-    .ui-list.ui-dense > :where(li, option),
-    .ui-list.ui-dense > [role="group"] > :where(label, option)
+    :is(.ui-list, .ui-menu).ui-dense > :where(li, option),
+    :is(.ui-list, .ui-menu).ui-dense > [role="group"] > :where(label, option)
   ) {
     & > :where(label.ui-checkbox, label.ui-radio),
     & > :where(.ui-start, .ui-end) :where(.ui-checkbox, .ui-radio),
@@ -406,8 +406,8 @@ Lists meant to be used stand-alone or as part of Select elements
 
   /* Switches look comically big in lists, so it's better to use a smaller variant  */
   :where(
-      .ui-list > :where(li, option),
-      .ui-list > [role="group"] > :where(label, option)
+      :is(.ui-list, .ui-menu) > :where(li, option),
+      :is(.ui-list, .ui-menu) > [role="group"] > :where(label, option)
     )
     > :where(label.ui-switch) {
     --ui-switch-thumb-size: var(--ui-switch-thumb-size-small);

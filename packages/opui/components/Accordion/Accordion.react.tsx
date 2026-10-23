@@ -11,7 +11,6 @@ export default function Accordion({
     <details
       className={cx([
         "ui-accordion",
-        "ui-card",
         markerAnimation &&
           markerAnimation !== "rotate" &&
           `ui-marker-animation-${markerAnimation}`,

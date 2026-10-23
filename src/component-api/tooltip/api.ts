@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Tooltip",
   notes: {
-    html: 'Add `.ui-anchor` to the root too. Give `.ui-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.',
+    html: 'Give `.ui-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.',
   },
   options: [
     {

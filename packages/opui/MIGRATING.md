@@ -4,6 +4,13 @@ v6 has breaking changes for most components. If you only use the Astro or Vue co
 
 ## Accordion
 
+`.ui-card` is no longer needed on `.ui-accordion`, and Astro and Vue no longer render it. `card.css` styles the accordion itself. Style accordions with `.ui-accordion`.
+
+```diff
+- <details class="ui-accordion ui-card">
++ <details class="ui-accordion">
+```
+
 Only the `svg` with `.ui-marker` is the marker. Add `.ui-marker` to the chevron to keep it rotating, or add `.ui-marker-animation-flip` or `.ui-marker-animation-turn` to `details` for another animation (`markerAnimation` in Astro and Vue). Other icons in the `summary` no longer rotate.
 
 ```diff
@@ -114,6 +121,13 @@ Text uses `--ui-on-primary`, and sizes follow `--ui-control-size` and `--ui-butt
 ```
 
 ## Badge
+
+`.ui-anchor` is no longer needed on `.ui-badge`, and the components no longer render it. `anchor.css` positions the badge itself.
+
+```diff
+- <span class="ui-anchor ui-badge">
++ <span class="ui-badge">
+```
 
 Text uses `--ui-on-primary`.
 
@@ -375,6 +389,13 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Dialog
+
+`.ui-card` is no longer needed on `.ui-dialog`, and the components no longer render it. `card.css` styles the dialog itself. Style dialogs with `.ui-dialog`.
+
+```diff
+- <dialog class="ui-dialog ui-card ui-elevated">
++ <dialog class="ui-dialog ui-elevated">
+```
 
 Dialogs have a maximum height. The header and actions stay in place and the content scrolls. Dialogs also get a border in the page background color.
 
@@ -973,6 +994,13 @@ In Astro and Vue, `style` on a `ToggleButton` goes to the root `<label>` instead
 ```
 
 ## Tooltip
+
+`.ui-anchor` is no longer needed on `.ui-tooltip`, and the components no longer render it. `anchor.css` positions the tooltip itself.
+
+```diff
+- <span class="ui-anchor ui-tooltip">
++ <span class="ui-tooltip">
+```
 
 `Tooltip` no longer wraps the trigger in a `<span interestfor>`. Give the tooltip an `id` (now required in the types) and add `interestfor` with that id to the trigger.
 

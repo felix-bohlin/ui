@@ -67,7 +67,7 @@
     }
   }
 
-  :where(.ui-card) > :where(.ui-divider) {
+  :where(.ui-accordion, .ui-card, .ui-dialog) > :where(.ui-divider) {
     margin-block: 0;
   }
 }

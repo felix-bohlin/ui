@@ -9,7 +9,6 @@ defineSlots<Slots>()
   <details
     :class="[
       'ui-accordion',
-      'ui-card',
       markerAnimation &&
         markerAnimation !== 'rotate' &&
         `ui-marker-animation-${markerAnimation}`,

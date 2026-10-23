@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, provide, reactive } from "vue"
 import { AnchorKey } from "./context.vue"
+import { extendsAnchor } from "./root"
 import type { Props, Slots } from "./types.d.vue"
 
 const { id: idProp, positionArea, trigger } = defineProps<Props>()
@@ -25,7 +26,7 @@ provide(
 <template>
   <span
     :id="isHover ? undefined : idProp"
-    :class="['ui-anchor', $props.class]"
+    :class="[!extendsAnchor($props.class) && 'ui-anchor', $props.class]"
     v-bind="positionStyle && { style: positionStyle }"
   >
     <slot></slot>

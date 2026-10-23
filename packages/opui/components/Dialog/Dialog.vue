@@ -17,7 +17,7 @@ provide(DialogKey, reactive({ headerId: labelledBy }))
 <template>
   <dialog
     :aria-labelledby="labelledBy"
-    :class="['ui-dialog', 'ui-card', 'ui-elevated', $props.class]"
+    :class="['ui-dialog', 'ui-elevated', $props.class]"
     :closedby="closedby"
   >
     <slot></slot>

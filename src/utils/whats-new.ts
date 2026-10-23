@@ -13,6 +13,9 @@ const slots = (note: string) => ({ astro: note, vue: note })
 
 const whatsNew = {
   accordion: [
+    {
+      html: `Breaking: <code>.ui-card</code> is no longer needed on <a href="#basics"><code>.ui-accordion</code></a>, which <code>card.css</code> styles itself.`,
+    },
     `Tonal and elevated <a href="#variants">accordions</a> have a border in the page background color, like cards, so they stay visible on tonal surfaces.`,
     `The inset focus ring sits at <code>--ui-focus-ring-inset</code> like every other inset ring, and elevated and tonal accordions keep a border in forced colors.`,
     slots(
@@ -99,6 +102,9 @@ const whatsNew = {
     ),
   ],
   badge: [
+    {
+      html: `Breaking: <code>.ui-anchor</code> is no longer needed on <a href="#api"><code>.ui-badge</code></a>, which <code>anchor.css</code> positions itself.`,
+    },
     `Severity text reads <code>--ui-on-accent</code> and <code>--ui-palette-strong</code> instead of fixed grays.`,
     `Badges on round avatars sit on the avatar's edge (<a href="#corners">Corners</a>), and in an avatar group on the start side.`,
     {
@@ -392,6 +398,9 @@ const whatsNew = {
     },
   ],
   dialog: [
+    {
+      html: `Breaking: <code>.ui-card</code> is no longer needed on <a href="#usage"><code>.ui-dialog</code></a>, which <code>card.css</code> styles itself.`,
+    },
     `The dialog shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, like Drawer and Menu.`,
     slots(
       `Breaking: <a href="#api"><code>DialogHeader</code>, <code>DialogContent</code> and <code>DialogActions</code></a> replace the slots, and <code>align</code> on <code>DialogActions</code> replaces <code>actionsAlign</code>.`,
@@ -1034,6 +1043,9 @@ const whatsNew = {
     ),
   ],
   tooltip: [
+    {
+      html: `Breaking: <code>.ui-anchor</code> is no longer needed on <a href="#basics"><code>.ui-tooltip</code></a>, which <code>anchor.css</code> positions itself.`,
+    },
     {
       html: `Breaking: the floating content is <a href="#api"><code>.ui-floating</code></a> instead of <code>.ui-anchor-floating</code>.`,
     },

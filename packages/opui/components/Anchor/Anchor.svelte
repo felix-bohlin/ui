@@ -1,6 +1,7 @@
 <script lang="ts">
   import { mergeStyle } from "../style"
   import { setAnchorContext } from "./context.svelte"
+  import { extendsAnchor } from "./root"
   import type { Props } from "./types.svelte"
 
   let {
@@ -29,7 +30,7 @@
 </script>
 
 <span
-  class={["ui-anchor", className]}
+  class={[!extendsAnchor(className) && "ui-anchor", className]}
   id={isHover ? undefined : idProp}
   style={mergeStyle({ "--ui-anchor-position-area": positionArea }, style)}
   {...rest}

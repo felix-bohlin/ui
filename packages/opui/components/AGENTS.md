@@ -147,13 +147,12 @@ const { as: Tag = Astro.props.href ? "a" : "button", ...rest } = Astro.props
 
 ### Styling Inheritance
 
-Components should often inherit styles from others (e.g., `Accordion` and `Dialog` looking like a `Card`). Add the inherited base class next to the component's own, and the variant class it styles. All library classes are prefixed with `ui-`.
+Components often share another component's styles (`Accordion` and `Dialog` look like a `Card`, `Menu` like a `List`, `Badge` and `Tooltip` position like an `Anchor`). The shared stylesheet lists every root it styles (`card.css` targets `:where(.ui-accordion, .ui-card, .ui-dialog)`, `list.css` `:where(.ui-list, .ui-menu)` and `anchor.css` `:where(.ui-anchor, .ui-badge, .ui-tooltip)`), so a component renders only its own root class and the variant class it styles. All library classes are prefixed with `ui-`.
 
 ```astro
 <details
   class:list={[
     "ui-accordion",
-    "ui-card",
     variant && variant !== "plain" && `ui-${variant}`,
     className,
   ]}

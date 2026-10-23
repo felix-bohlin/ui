@@ -25,7 +25,7 @@
 
 <dialog
   aria-labelledby={labelledBy}
-  class={["ui-dialog", "ui-card", "ui-elevated", className]}
+  class={["ui-dialog", "ui-elevated", className]}
   {closedby}
   {...rest}
 >

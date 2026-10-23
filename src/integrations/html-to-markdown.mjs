@@ -242,7 +242,7 @@ export function pageMeta(tree) {
   const description = select("meta[name='description']", tree)
   const h1 = select("#main-content h1", tree) ?? select("h1", tree)
   const title = h1 && structuredClone(h1)
-  if (title) prune(title, new Set(selectAll(".ui-anchor-floating", title)))
+  if (title) prune(title, new Set(selectAll(".ui-floating", title)))
   return {
     description: String(description?.properties?.content ?? "")
       .replace(/\s+/g, " ")

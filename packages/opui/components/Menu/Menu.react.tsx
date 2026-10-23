@@ -22,7 +22,6 @@ export default function Menu({
     <menu
       className={cx([
         "ui-menu",
-        "ui-list",
         {
           "ui-align-end": align === "end",
           "ui-bordered": bordered,

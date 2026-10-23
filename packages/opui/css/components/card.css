@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.ui-card) {
+  :where(.ui-accordion, .ui-card, .ui-dialog) {
     --_motion: var(--ui-motion);
     --_bg-color: var(--_surface-bg-color);
     --_border-color: transparent;
@@ -140,7 +140,9 @@
     }
 
     @media (hover: hover) {
-      &:has(.ui-card-link:hover):not(:has(.ui-card .ui-card-link:hover)) {
+      &:has(.ui-card-link:hover):not(
+          :has(:is(.ui-accordion, .ui-card, .ui-dialog) .ui-card-link:hover)
+        ) {
         --_border-color: var(--ui-text);
 
         @media (forced-colors: active) {
@@ -150,7 +152,9 @@
     }
 
     &:has(.ui-card-link:focus-visible):not(
-        :has(.ui-card .ui-card-link:focus-visible)
+        :has(
+          :is(.ui-accordion, .ui-card, .ui-dialog) .ui-card-link:focus-visible
+        )
       ) {
       animation: ui-focus-ring var(--_duration) var(--_ease);
       outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
@@ -160,7 +164,7 @@
   }
 
   :where(
-    .ui-card:has(.ui-card-link)
+    :is(.ui-accordion, .ui-card, .ui-dialog):has(.ui-card-link)
       :is(
         a[href],
         button,
@@ -193,7 +197,7 @@
     }
   }
 
-  :where(.ui-card) .ui-card-link:focus-visible {
+  :where(.ui-accordion, .ui-card, .ui-dialog) .ui-card-link:focus-visible {
     outline: none;
   }
 }

@@ -71,7 +71,7 @@ export default {
   ],
   root: {
     anchorName: "--anchor",
-    description: "Container element. Also takes `.ui-anchor`.",
+    description: "Container element.",
     selector: ".ui-badge",
   },
   source: "Badge",

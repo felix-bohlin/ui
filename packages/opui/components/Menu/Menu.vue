@@ -24,7 +24,6 @@ provide(MenuKey, reactive({ rootId }))
     :id="id"
     :class="[
       'ui-menu',
-      'ui-list',
       {
         'ui-align-end': align === 'end',
         'ui-bordered': bordered,

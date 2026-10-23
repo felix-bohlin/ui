@@ -16,7 +16,7 @@ Explain more about the topic shown in the headline and subhead through supportin
 
   Container element.
 
-- `<hgroup>`
+- `hgroup.ui-header`
 
   The card header.
 
@@ -60,11 +60,11 @@ On the page you won't see a difference. Put a card on a tonal surface or in a di
 
 ## Header
 
-Using the `<hgroup>`.
+Using an `<hgroup class="ui-header">`.
 
 ```html
 <div class="ui-card ui-outlined">
-  <hgroup>
+  <hgroup class="ui-header">
     <p>Blog</p>
     <h3>My ultra-great blog post</h3>
     <p>Please read it.</p>
@@ -210,14 +210,14 @@ Add `.ui-card-link` to a link in the card, usually the one in the heading, and t
 
 ```html
 <div class="ui-card ui-outlined">
-  <hgroup>
+  <hgroup class="ui-header">
     <h3><a class="ui-card-link" href="#clickable">Pricing</a></h3>
   </hgroup>
   <div class="ui-content">Plans for any team. Click anywhere on the card.</div>
 </div>
 
 <div class="ui-card ui-outlined">
-  <hgroup>
+  <hgroup class="ui-header">
     <h3><a class="ui-card-link" href="#clickable">Changelog</a></h3>
   </hgroup>
   <div class="ui-content">Every release in one place.</div>
@@ -239,12 +239,12 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 #### Parts
 
-| Part          | Description                          |
-| ------------- | ------------------------------------ |
-| `.ui-card`    | Container element.                   |
-| `<hgroup>`    | The card header.                     |
-| `.ui-content` | The card content.                    |
-| `.ui-actions` | A group of actions, such as buttons. |
+| Part               | Description                          |
+| ------------------ | ------------------------------------ |
+| `.ui-card`         | Container element.                   |
+| `hgroup.ui-header` | The card header.                     |
+| `.ui-content`      | The card content.                    |
+| `.ui-actions`      | A group of actions, such as buttons. |
 
 #### CSS variables
 
@@ -474,6 +474,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- The [header](#header) takes `.ui-header` on its `hgroup`, like the `Drawer` header.
 - Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.

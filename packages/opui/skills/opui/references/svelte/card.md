@@ -473,6 +473,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- [`CardHeader`](#header) renders `hgroup.ui-header`.
 - Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
 - [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.

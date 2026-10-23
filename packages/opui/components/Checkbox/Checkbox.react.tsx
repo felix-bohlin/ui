@@ -7,9 +7,9 @@ export default function Checkbox({
   className,
   error,
   hideLabel,
+  orientation,
   size,
   spread,
-  stack,
   style,
   children,
   endText,
@@ -26,8 +26,8 @@ export default function Checkbox({
         "ui-checkbox",
         {
           "ui-spread": spread,
-          "ui-stack": stack,
         },
+        orientation && orientation !== "horizontal" && `ui-${orientation}`,
         size && size !== "medium" && `ui-${size}`,
         className,
       ])}

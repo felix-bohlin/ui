@@ -8,7 +8,8 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const { endText, error, hideLabel, size, spread, stack } = defineProps<Props>()
+const { endText, error, hideLabel, orientation, size, spread } =
+  defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
 const inputAttrs = computed(() =>
@@ -30,8 +31,8 @@ warnUnnamed(
       'ui-radio',
       {
         'ui-spread': spread,
-        'ui-stack': stack,
       },
+      orientation && orientation !== 'horizontal' && `ui-${orientation}`,
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"

@@ -6,7 +6,7 @@ export default function LabelPosition() {
       <Radio name="radio-label-position" value="default" defaultChecked>
         Default
       </Radio>
-      <Radio name="radio-label-position" value="stack" stack>
+      <Radio name="radio-label-position" value="stack" orientation="vertical">
         Stack
       </Radio>
     </>

@@ -272,6 +272,13 @@ In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, l
 
 Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
+`stack` (`.ui-stack`) is `orientation="vertical"` (`.ui-vertical`).
+
+```diff
+- <Checkbox stack>Label</Checkbox>
++ <Checkbox orientation="vertical">Label</Checkbox>
+```
+
 ## Chip
 
 The hover and press ripple is removed. Delete any `--ripple` overrides.
@@ -569,6 +576,13 @@ In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, l
 
 Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
+`stack` (`.ui-stack`) is `orientation="vertical"` (`.ui-vertical`).
+
+```diff
+- <Radio stack>Label</Radio>
++ <Radio orientation="vertical">Label</Radio>
+```
+
 ## Range
 
 Astro and Vue no longer set `--_track-fill` from script. The track fill is a scroll-driven animation in CSS, so remove any script that sets it.
@@ -661,6 +675,13 @@ In Astro, `type` is no longer a typed prop. Remove it, the component sets it.
 In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, like `class`. Set `--_` properties through `style`, and style the input itself with a class or CSS.
 
 Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
+
+`stack` (`.ui-stack`) is `orientation="vertical"` (`.ui-vertical`).
+
+```diff
+- <Switch stack>Label</Switch>
++ <Switch orientation="vertical">Label</Switch>
+```
 
 ## Table
 

@@ -6,7 +6,11 @@ import { Checkbox } from "opui-css/vue"
   <Checkbox name="checkbox-end-text" endText="Supporting text">
     Default
   </Checkbox>
-  <Checkbox stack name="checkbox-end-text" endText="Supporting text">
+  <Checkbox
+    orientation="vertical"
+    name="checkbox-end-text"
+    endText="Supporting text"
+  >
     Stack
   </Checkbox>
 </template>

@@ -4,5 +4,7 @@ import { Radio } from "opui-css/vue"
 
 <template>
   <Radio name="radio-label-position" value="default" checked>Default</Radio>
-  <Radio name="radio-label-position" value="stack" stack>Stack</Radio>
+  <Radio name="radio-label-position" value="stack" orientation="vertical"
+    >Stack</Radio
+  >
 </template>

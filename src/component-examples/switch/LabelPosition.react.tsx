@@ -4,7 +4,7 @@ export default function LabelPosition() {
   return (
     <>
       <Switch name="switch-label-position">Default</Switch>
-      <Switch name="switch-label-position" stack>
+      <Switch name="switch-label-position" orientation="vertical">
         Stack
       </Switch>
     </>

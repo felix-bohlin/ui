@@ -181,7 +181,7 @@
     }
 
     /* Stacked layout */
-    &.ui-stack {
+    &.ui-vertical {
       grid-auto-columns: unset;
       justify-items: center;
 

@@ -7,9 +7,9 @@ export default function Switch({
   className,
   error,
   hideLabel,
+  orientation,
   size,
   spread,
-  stack,
   style,
   children,
   endText,
@@ -28,8 +28,8 @@ export default function Switch({
         "ui-switch",
         {
           "ui-spread": spread,
-          "ui-stack": stack,
         },
+        orientation && orientation !== "horizontal" && `ui-${orientation}`,
         size && size !== "medium" && `ui-${size}`,
         className,
       ])}

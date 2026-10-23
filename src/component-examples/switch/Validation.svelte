@@ -4,7 +4,8 @@
 
 <div class="example-row ui-spacious">
   <Switch name="switch-validation" required>Default</Switch>
-  <Switch name="switch-validation" required stack>Stack</Switch>
+  <Switch name="switch-validation" required orientation="vertical">Stack</Switch
+  >
 </div>
 
 <div class="example-row ui-spacious">
@@ -12,7 +13,7 @@
     Default
     {#snippet endText()}Supporting text{/snippet}
   </Switch>
-  <Switch name="switch-validation" error stack>
+  <Switch name="switch-validation" error orientation="vertical">
     Stack
     {#snippet endText()}Supporting text{/snippet}
   </Switch>

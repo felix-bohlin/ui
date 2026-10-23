@@ -105,6 +105,14 @@ export default {
       prop: "required",
     },
     {
+      default: '"horizontal"',
+      description:
+        "The orientation of the element. `vertical` stacks the label under the input.",
+      group: "Orientation",
+      prop: "orientation",
+      values: { horizontal: null, vertical: ".ui-vertical" },
+    },
+    {
       default: '"medium"',
       description: "The size of the element.",
       group: "Sizes",
@@ -122,13 +130,6 @@ export default {
       description: "Pushes the label and the input to opposite ends.",
       group: "Spread",
       prop: "spread",
-    },
-    {
-      class: ".ui-stack",
-      default: "false",
-      description: "Stacks the label under the input.",
-      group: "Stack",
-      prop: "stack",
     },
   ],
   parts: [

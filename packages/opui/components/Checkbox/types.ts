@@ -3,9 +3,9 @@ export type Props = {
   error?: boolean
   hideLabel?: boolean
   indeterminate?: boolean
+  orientation?: "horizontal" | "vertical"
   size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
-  stack?: boolean
 }
 
 export type Slots<S> = {

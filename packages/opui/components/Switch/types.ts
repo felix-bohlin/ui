@@ -2,9 +2,9 @@ export type Props = {
   endText?: string
   error?: boolean
   hideLabel?: boolean
+  orientation?: "horizontal" | "vertical"
   size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
-  stack?: boolean
 }
 
 export type Slots<S> = {

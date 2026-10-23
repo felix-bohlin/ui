@@ -14,7 +14,7 @@ export default function EndText() {
       <Radio
         name="radio-end-text"
         value="stack"
-        stack
+        orientation="vertical"
         endText="Supporting text"
       >
         Stack

@@ -66,6 +66,7 @@ const replaced: Record<string, string> = {
   scrollable: "overflow",
   shrink: "overflow",
   srLabel: "hideLabel or aria-label",
+  stack: "orientation",
   text: "label",
   title: "label",
 }

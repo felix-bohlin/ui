@@ -4,7 +4,7 @@ export default function LabelPosition() {
   return (
     <>
       <Checkbox name="checkbox-label-position">Default</Checkbox>
-      <Checkbox stack name="checkbox-label-position">
+      <Checkbox orientation="vertical" name="checkbox-label-position">
         Stack
       </Checkbox>
     </>

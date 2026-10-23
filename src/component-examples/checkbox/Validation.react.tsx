@@ -7,7 +7,7 @@ export default function Validation() {
         <Checkbox required name="checkbox-validation">
           Default
         </Checkbox>
-        <Checkbox stack required name="checkbox-validation">
+        <Checkbox orientation="vertical" required name="checkbox-validation">
           Stack
         </Checkbox>
       </div>
@@ -21,7 +21,7 @@ export default function Validation() {
           Default
         </Checkbox>
         <Checkbox
-          stack
+          orientation="vertical"
           error
           name="checkbox-validation"
           endText="Before you wreck yourself"

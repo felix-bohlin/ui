@@ -10,9 +10,9 @@
     error,
     group = $bindable(),
     hideLabel,
+    orientation,
     size,
     spread,
-    stack,
     style,
 
     // Snippets
@@ -34,8 +34,8 @@
     "ui-radio",
     {
       "ui-spread": spread,
-      "ui-stack": stack,
     },
+    orientation && orientation !== "horizontal" && `ui-${orientation}`,
     size && size !== "medium" && `ui-${size}`,
     className,
   ]}

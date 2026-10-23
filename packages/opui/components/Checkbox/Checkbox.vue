@@ -8,7 +8,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const { endText, error, hideLabel, indeterminate, size, spread, stack } =
+const { endText, error, hideLabel, indeterminate, orientation, size, spread } =
   defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
@@ -31,8 +31,8 @@ warnUnnamed(
       'ui-checkbox',
       {
         'ui-spread': spread,
-        'ui-stack': stack,
       },
+      orientation && orientation !== 'horizontal' && `ui-${orientation}`,
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"

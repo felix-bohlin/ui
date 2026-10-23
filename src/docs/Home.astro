@@ -175,7 +175,10 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         </p>
       </div>
 
-      <figure class="drawing" aria-labelledby="drawing-caption">
+      <figure
+        class="drawing"
+        aria-label="A filled primary Button with its theme tokens"
+      >
         <div class="drawing-stage">
           <div class="drawing-subject">
             <button class="ui-button ui-filled ui-primary" inert type="button">
@@ -207,10 +210,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             }
           </dl>
         </div>
-        <figcaption id="drawing-caption">
-          A filled primary Button, drawn to the live theme tokens. The values
-          are read from the page, so a new theme redraws the figure.
-        </figcaption>
       </figure>
 
       <dl class="title-block" aria-label="Title block">
@@ -961,12 +960,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         overflow-wrap: anywhere;
       }
     }
-  }
-
-  .drawing figcaption {
-    color: var(--ui-text);
-    font-size: var(--ui-font-size-small);
-    text-wrap: pretty;
   }
 
   /* Specification bench */

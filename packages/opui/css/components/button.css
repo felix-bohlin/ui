@@ -25,6 +25,7 @@
     );
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_ease: var(--ui-ease);
+    /* Lightens accents darker than L 0.3, darkens the rest */
     --_filled-active-bg-color: light-dark(
       oklch(
         from var(--_accent-fill)
@@ -32,6 +33,7 @@
       ),
       oklch(from var(--_accent-fill) calc(l - 0.15) c h)
     );
+    /* Lightens accents darker than L 0.3, darkens the rest */
     --_filled-hover-bg-color: light-dark(
       oklch(
         from var(--_accent-fill)

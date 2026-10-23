@@ -306,6 +306,7 @@
       )
     );
     --ui-warning: var(--ui-orange);
+    /* Light text on fills darker than L 0.565, dark text on lighter ones */
     --ui-on-warning: oklch(
       from var(--ui-warning) clamp(0.15, (0.565 - l) * 1000, 0.98)
         calc(c * 0.15) h
@@ -320,6 +321,7 @@
 
     /* Primary */
     --ui-primary: light-dark(var(--ui-color-9), var(--ui-color-6));
+    /* Light text on fills darker than L 0.565, dark text on lighter ones */
     --ui-on-primary: oklch(
       from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98)
         calc(c * 0.15) h
@@ -584,6 +586,7 @@
       --ui-text-min-lightness: 0.9;
 
       --ui-primary: light-dark(var(--ui-color-12), var(--ui-color-3));
+      /* Light text on fills darker than L 0.565, dark text on lighter ones */
       --ui-on-primary: oklch(
         from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98)
           calc(c * 0.15) h

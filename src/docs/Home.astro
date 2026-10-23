@@ -378,9 +378,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           {
             materials.map((material, index) => (
               <TableRow>
-                <TableCell>
-                  <code>{String(index + 1).padStart(2, "0")}</code>
-                </TableCell>
+                <TableCell>{String(index + 1).padStart(2, "0")}</TableCell>
                 <TableCell>
                   <a class="ui-link" href={material.href}>
                     {material.item}
@@ -533,12 +531,12 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     --blueprint-ink: light-dark(var(--ui-color-11), var(--ui-color-5));
     --blueprint-ink-strong: light-dark(var(--ui-color-13), var(--ui-color-2));
     --blueprint-line: light-dark(
-      oklch(from var(--ui-color-9) l c h / 14%),
-      oklch(from var(--ui-color-5) l c h / 13%)
+      oklch(from var(--ui-color-9) l c h / 9%),
+      oklch(from var(--ui-color-5) l c h / 8%)
     );
     --blueprint-line-major: light-dark(
-      oklch(from var(--ui-color-9) l c h / 28%),
-      oklch(from var(--ui-color-5) l c h / 24%)
+      oklch(from var(--ui-color-9) l c h / 18%),
+      oklch(from var(--ui-color-5) l c h / 16%)
     );
     --blueprint-line-strong: light-dark(
       oklch(from var(--ui-color-9) l c h / 55%),
@@ -603,13 +601,11 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         background: none;
         color: var(--blueprint-ink);
         content: "Fig. " counter(figure);
-        font-family: var(--ui-font-code);
         font-size: var(--ui-font-size-caption);
+        font-weight: var(--ui-font-weight-medium);
         inset: var(--size-2) auto auto var(--size-3);
-        letter-spacing: var(--ui-letter-spacing-caps);
         mask-image: none;
         opacity: 1;
-        text-transform: uppercase;
       }
 
       &::after {
@@ -648,8 +644,8 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   .sheet {
     background-color: light-dark(
-      oklch(from var(--ui-surface) l c h / 55%),
-      oklch(from var(--ui-surface) l c h / 35%)
+      oklch(from var(--ui-surface) l c h / 88%),
+      oklch(from var(--ui-surface) l c h / 80%)
     );
     border: 1px solid var(--blueprint-line-strong);
     border-radius: var(--radius-1);
@@ -684,10 +680,8 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   .sheet-overline {
     color: var(--blueprint-ink);
-    font-family: var(--ui-font-code);
-    font-size: var(--ui-font-size-caption);
-    letter-spacing: var(--ui-letter-spacing-caps);
-    text-transform: uppercase;
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-medium);
   }
 
   /* Hero */
@@ -778,10 +772,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
     dt {
       color: var(--blueprint-ink);
-      font-family: var(--ui-font-code);
-      font-size: 0.65rem;
-      letter-spacing: var(--ui-letter-spacing-caps);
-      text-transform: uppercase;
+      font-size: var(--ui-font-size-caption);
     }
 
     dd {
@@ -921,7 +912,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       align-items: center;
       color: var(--blueprint-ink);
       display: flex;
-      font-family: var(--ui-font-code);
       font-size: var(--ui-font-size-caption);
       gap: var(--size-2);
       margin: 0;
@@ -1020,9 +1010,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   .figure-number {
     color: var(--blueprint-ink);
-    font-family: var(--ui-font-code);
-    letter-spacing: var(--ui-letter-spacing-caps);
-    text-transform: uppercase;
+    font-weight: var(--ui-font-weight-semibold);
   }
 
   /* Specification bench */
@@ -1092,12 +1080,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
   /* Bill of materials */
   .materials {
     inline-size: 100%;
-
-    code {
-      background: none;
-      color: var(--blueprint-ink);
-      padding: 0;
-    }
   }
 
   .materials-qty {

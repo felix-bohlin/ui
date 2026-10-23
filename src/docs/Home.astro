@@ -152,17 +152,17 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           </Button>
         </div>
 
-        <p class="framework-support">
-          <span class="ui-label">Works with</span>
+        <nav class="framework-support" aria-label="Framework">
           {
             FRAMEWORKS.map((framework) => {
               const branding = FRAMEWORK_BRANDING[framework.id]
               const Logo = branding.Logo
+              const isCurrent = framework.id === currentFramework
               return (
                 <Chip
                   href={hrefFor(framework.id, "/")}
-                  title={`${framework.label} support`}
-                  variant="outlined"
+                  aria-current={isCurrent ? "page" : undefined}
+                  variant={isCurrent ? "tonal" : "outlined"}
                   data-theme-color={branding.color ?? "default"}
                   data-framework={framework.id}
                 >
@@ -172,7 +172,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
               )
             })
           }
-        </p>
+        </nav>
       </div>
 
       <figure
@@ -695,17 +695,10 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   .framework-support {
     align-items: center;
-    color: var(--ui-text);
     display: flex;
     flex-wrap: wrap;
-    font-size: var(--font-size-0);
     gap: var(--size-2);
     margin-block-start: var(--size-5);
-
-    .ui-label {
-      font-weight: var(--font-weight-6);
-      letter-spacing: var(--font-letterspacing-3);
-    }
 
     & :global(.astro-logo) {
       color: currentColor;

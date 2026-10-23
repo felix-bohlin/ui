@@ -3,6 +3,6 @@ export type Props = {
   orientation?: "horizontal" | "vertical"
   scrollable?: boolean
   shrink?: boolean
-  size?: "x-small" | "small" | "large"
-  variant?: "outlined" | "tonal" | "filled"
+  size?: "x-small" | "small" | "medium" | "large"
+  variant?: "filled" | "outlined" | "tonal" | "transparent"
 }

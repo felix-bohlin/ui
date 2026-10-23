@@ -3,7 +3,7 @@ export type Props = {
   endText?: string
   error?: boolean
   label?: string
-  size?: "x-small" | "small" | "large"
+  size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
   startText?: string
   variant?: "outlined" | "filled"

@@ -94,10 +94,11 @@ export default {
       prop: "notRichText",
     },
     {
+      default: '"medium"',
       description: "Size modifiers on `.ui-p`.",
       group: "Sizes",
       prop: "size",
-      values: { large: ".ui-large", small: ".ui-small" },
+      values: { large: ".ui-large", medium: null, small: ".ui-small" },
     },
   ],
   parts: [],

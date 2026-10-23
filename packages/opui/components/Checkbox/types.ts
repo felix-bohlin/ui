@@ -3,7 +3,7 @@ export type Props = {
   error?: boolean
   hideLabel?: boolean
   indeterminate?: boolean
-  size?: "x-small" | "small" | "large"
+  size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
   stack?: boolean
 }

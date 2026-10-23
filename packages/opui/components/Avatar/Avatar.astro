@@ -23,7 +23,7 @@ const Tag = as || (href ? "a" : "div")
 <Tag
   class:list={[
     "ui-avatar",
-    size && `ui-${size}`,
+    size && size !== "medium" && `ui-${size}`,
     variant && `ui-${variant}`,
     className,
   ]}

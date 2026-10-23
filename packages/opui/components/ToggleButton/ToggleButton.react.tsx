@@ -29,7 +29,11 @@ export default function ToggleButton({
 
   return (
     <label
-      className={cx(["ui-toggle-button", size && `ui-${size}`, className])}
+      className={cx([
+        "ui-toggle-button",
+        size && size !== "medium" && `ui-${size}`,
+        className,
+      ])}
       style={style}
     >
       <input

@@ -29,8 +29,8 @@ const Tag = computed<"a" | "button" | "div">(() => as || (href ? "a" : "div"))
         'ui-multiline': multiline,
       },
       severity && `ui-${severity}`,
-      size && `ui-${size}`,
-      variant && `ui-${variant}`,
+      size && size !== 'medium' && `ui-${size}`,
+      variant !== 'tonal' && `ui-${variant}`,
       $props.class,
     ]"
     v-bind="tagAttrs(Tag, disabled, href)"

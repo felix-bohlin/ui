@@ -46,7 +46,7 @@
       "ui-shrink": shrink,
       "ui-vertical": orientation === "vertical",
     },
-    size && `ui-${size}`,
+    size && size !== "medium" && `ui-${size}`,
     className,
   ]}
   role={selection === "single" ? "radiogroup" : "group"}

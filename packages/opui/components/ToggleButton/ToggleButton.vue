@@ -32,7 +32,11 @@ const change = (event: Event) =>
 
 <template>
   <label
-    :class="['ui-toggle-button', size && `ui-${size}`, $props.class]"
+    :class="[
+      'ui-toggle-button',
+      size && size !== 'medium' && `ui-${size}`,
+      $props.class,
+    ]"
     :style="$attrs.style"
   >
     <input

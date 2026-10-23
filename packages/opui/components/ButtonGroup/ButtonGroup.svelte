@@ -25,8 +25,8 @@
       "ui-vertical": orientation === "vertical",
     },
     color && `ui-${color}`,
-    size && `ui-${size}`,
-    variant && `ui-${variant}`,
+    size && size !== "medium" && `ui-${size}`,
+    variant && variant !== "transparent" && `ui-${variant}`,
     className,
   ]}
   role="group"

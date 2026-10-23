@@ -33,7 +33,7 @@ provide(DrawerKey, reactive({ id: drawerId, titleId: labelledBy }))
         'ui-backdrop-transparent': backdrop === 'transparent',
         'ui-scroll-lock': scrollLock,
       },
-      side && `ui-${side}`,
+      side && side !== 'inline-start' && `ui-${side}`,
       $props.class,
     ]"
     :closedby="closedby"

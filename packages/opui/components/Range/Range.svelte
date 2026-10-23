@@ -63,7 +63,7 @@
   class={[
     "ui-range",
     { "ui-spread": spread },
-    variant && `ui-${variant}`,
+    variant && variant !== "outlined" && `ui-${variant}`,
     className,
   ]}
   for={hasValue ? inputId : undefined}

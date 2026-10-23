@@ -25,7 +25,11 @@ const finalType = group?.inputType === "radio" ? "radio" : (type ?? "checkbox")
 ---
 
 <label
-  class:list={["ui-toggle-button", size && `ui-${size}`, className]}
+  class:list={[
+    "ui-toggle-button",
+    size && size !== "medium" && `ui-${size}`,
+    className,
+  ]}
   style={style}
 >
   <input

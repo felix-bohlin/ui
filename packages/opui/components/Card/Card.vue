@@ -6,7 +6,13 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <div :class="['ui-card', variant && `ui-${variant}`, $props.class]">
+  <div
+    :class="[
+      'ui-card',
+      variant && variant !== 'plain' && `ui-${variant}`,
+      $props.class,
+    ]"
+  >
     <slot></slot>
   </div>
 </template>

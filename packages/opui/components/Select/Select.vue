@@ -81,7 +81,7 @@ const field = inject(FieldGroupKey, undefined)
         'ui-filled': variant === 'filled',
         'ui-spread': spread,
       },
-      size && `ui-${size}`,
+      size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
     :style="$attrs.style"

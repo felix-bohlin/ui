@@ -4,7 +4,7 @@ export type Props = {
   scrollable?: boolean
   selection?: "single" | "multiple"
   shrink?: boolean
-  size?: "x-small" | "small" | "large"
+  size?: "x-small" | "small" | "medium" | "large"
 }
 
 export type Context = {

@@ -1,7 +1,7 @@
 export type Props = {
   name?: string
   scrollable?: boolean
-  variant?: "filled" | "line" | "outlined"
+  variant?: "filled" | "line" | "outlined" | "tonal"
 }
 
 export type TabsItemProps = {

@@ -3,7 +3,7 @@ export type Props = {
   label?: string
   multiline?: boolean
   severity?: "critical" | "info" | "neutral" | "success" | "warning"
-  size?: "x-small" | "small" | "large"
+  size?: "x-small" | "small" | "medium" | "large"
   variant?: "outlined" | "tonal"
 } & (
   | {

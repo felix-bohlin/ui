@@ -17,7 +17,11 @@ const progressAttrs = computed(() =>
 
 <template>
   <div
-    :class="['ui-progress', variant && `ui-${variant}`, $props.class]"
+    :class="[
+      'ui-progress',
+      variant && variant !== 'tonal' && `ui-${variant}`,
+      $props.class,
+    ]"
     :style="$attrs.style"
   >
     <progress v-bind="progressAttrs" :max="max" :value="value">

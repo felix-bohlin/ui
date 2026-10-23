@@ -260,6 +260,30 @@ interaction(
 )
 
 interaction(
+  "avatar",
+  "Sizes",
+  "a small avatar on a span keeps its own font size",
+  async ({ root }) => {
+    const sizes = await root
+      .locator(".ui-avatar.ui-small")
+      .first()
+      .evaluate((avatar) => {
+        const span = document.createElement("span")
+        span.className = avatar.className
+        span.textContent = avatar.textContent
+        avatar.after(span)
+        const sizes = [avatar, span].map(
+          (element) => getComputedStyle(element).fontSize,
+        )
+        span.remove()
+        return sizes
+      })
+    expect(sizes[1]).toBe(sizes[0])
+  },
+  ["html"],
+)
+
+interaction(
   "list",
   "EndSwitch",
   "a size class on a switch in a list row wins over the list size",

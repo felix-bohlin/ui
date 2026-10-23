@@ -36,7 +36,7 @@
       "ui-spread": spread,
       "ui-stack": stack,
     },
-    size && `ui-${size}`,
+    size && size !== "medium" && `ui-${size}`,
     className,
   ]}
   {style}

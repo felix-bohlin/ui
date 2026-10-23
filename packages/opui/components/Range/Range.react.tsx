@@ -80,7 +80,7 @@ export default function Range({
       className={cx([
         "ui-range",
         { "ui-spread": spread },
-        variant && `ui-${variant}`,
+        variant && variant !== "outlined" && `ui-${variant}`,
         className,
       ])}
       htmlFor={hasValue ? inputId : undefined}

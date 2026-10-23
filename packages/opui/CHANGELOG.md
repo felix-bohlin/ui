@@ -32,7 +32,7 @@
 - `Tabs` render no `tablist`, `tab` or `tabpanel` roles and no `aria-controls`/`aria-labelledby`, so screen readers announce the radio group they are. `TabsItem` and `TabsPanel` no longer take `panelId`, and `TabsPanel` no longer takes `tabId`. `tabs.css` no longer matches `[role="tab"]` or `[role="tabpanel"]`, use `.ui-tab-label` and `.ui-tab-panel`.
 - `FieldGroup` no longer sets `role="group"`. Wrap it in a `FieldSet` (a `<fieldset>`, already a group) to group and name the fields. `FieldSet` with another element in `as` gets `role="group"`.
 - `Range` in Astro and Vue no longer sets `--_track-fill` from script. The track fill is a scroll-driven animation in CSS.
-- `List`, `Range` and `Progress` no longer take `variant="default"` (`.ui-default`, the page surface), because it wasn't the default look. Use no variant, `filled` or `tonal` on a `Range` or `Progress`, and no variant, `tonal` or `transparent` on a `List`.
+- `List`, `Range` and `Progress` no longer take `variant="default"` (`.ui-default`, the page surface), because it wasn't the default look. Use `outlined` (the default), `filled` or `tonal` on a `Range`, `tonal` (the default) or `filled` on a `Progress`, and `filled` (the default), `tonal` or `transparent` on a `List`.
 - `TextField` and `Textarea` take `variant="filled"` like `Select` instead of the boolean `filled`. Replace `filled` with `variant="filled"`.
 - `Divider` variants render `.ui-filled`, `.ui-primary` and `.ui-tonal` instead of `.ui-border-filled`, `.ui-border-primary` and `.ui-border-tonal`. The `variant` values are unchanged.
 - `Accordion`, `Avatar`, `Badge`, `Button`, `Callout`, `Card`, `Chip`, `Drawer`, `List`, `Progress`, `Range`, `Select`, `Switch`, `Table`, `TextField`, `Textarea`, `ToggleButton` and `Tooltip` private custom properties follow one scheme: `--_accent`, `--_text-color`, `--_bg-color`, `--_duration`/`--_ease`, `--_size` and `--_min-height`. MIGRATING lists every rename.
@@ -49,7 +49,7 @@
 - `Drawer` in Astro and Vue takes parts instead of slots: `DrawerHeader`, `DrawerTitle`, `DrawerContent` and `DrawerFooter`. `DrawerTitle` replaces the `DrawerHeader` `heading` prop and names the drawer. The drawer no longer looks for a heading: without a `DrawerTitle`, pass `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`, and a dev warning says when it is replaced. In Astro and Vue, `DrawerHeader` in a `Drawer` closes it with `command="close"` (Invoker Commands) instead of a click handler, so the Vue `DrawerHeader` closes the drawer without hydration, and browsers without Invoker Commands need a polyfill.
 - `Table` and `DescriptionList` part files are `components/Table/TableBody.*`, `TableCell.*`, `TableColumn.*`, `TableColumnGroup.*`, `TableHead.*`, `TableHeaderCell.*`, `TableRow.*` and `components/DescriptionList/DescriptionListDescription.*`, `DescriptionListItem.*`, `DescriptionListTerm.*`. The `opui-css/<framework>` exports are unchanged; update deep `./components/*` imports.
 - `TableColumn` `width` takes a CSS length. A declaration string (`width="min-width: 10rem"`) is no longer parsed; pass `style` instead.
-- `ToggleGroup` `size` and `Accordion` `variant` no longer accept `"default"`. Leave the prop out for the default.
+- `ToggleGroup` `size="default"` is `size="medium"`, and `Accordion` `variant="default"` is `variant="transparent"`, the names of their default looks.
 - `choice.css` holds the layout, label, end text, sizes and disabled styles shared by `Checkbox`, `Radio` and `Switch`, which moved out of `checkbox.css`, `radio.css` and `switch.css`. Import it with them, in any order, or use `components.css`.
 - `Anchor` requires `id` with `trigger="hover"` and no longer generates one. Pass the same `id` to `interestfor` on the trigger.
 - `Avatar`, `Button` and `Chip` types match the rendered element: a button `Avatar` or `Chip` needs `as="button"`, a link `Chip` needs `href`, `disabled` only goes with a button or a link, and `Button` takes link attributes only with `href` (types).
@@ -197,6 +197,7 @@
 - `theme.css` adds `--ui-underline-offset`, `--ui-underline-offset-small` and `--ui-underline-thickness-hover`, read by `Link`, rich text links and the underlined text elements.
 - `List` takes `--_selected-indicator-color`, `--_selected-indicator-size`, `--_start-image-size` and `--_start-video-size`, `Tooltip` takes `--_max-inline-size`, and `Carousel` takes `--_marker-active-padding` and `--_marker-border-color`.
 - `theme.css` adds `--ui-fill-max-lightness`, the highest lightness of an intent color filled under light text (`0.48`, and `0.45` with more contrast), read by the critical, info, neutral and success `Badge` and the fills of critical `Button`s. It also adds `--ui-surface-tonal-hover`, the hover fill of clickable `Chip`s without a `color` and filled `TextField`, `Select` and `Textarea` fields, and `--ui-code-bg-color`, the background of inline `code` in rich text (fainter with more contrast).
+- `Accordion`, `Avatar`, `Button`, `ButtonGroup`, `Card`, `Checkbox`, `Chip`, `List`, `Progress`, `Radio`, `Range`, `Select`, `Switch`, `Tabs`, `TextField`, `Textarea`, `ToggleButton` and `ToggleGroup` accept their default by name, which adds no class: `size="medium"` on every sized component (and in the `Layout` and `Typography` docs), `variant="transparent"` on `Accordion`, `Button` and `ButtonGroup`, `"plain"` on `Card`, `"filled"` on `List`, `"tonal"` on `Progress` and `Tabs`, and `"outlined"` on `Range`. `Chip` no longer renders a `ui-tonal` class for its default look, `.ui-tonal` on a `Progress` is the default and adds nothing, and a `Drawer` opens from the inline start without `.ui-inline-start`.
 
 ### Changed
 
@@ -547,6 +548,7 @@
 - `Dialog` and `Drawer` open without a focus ring around them. Safari focuses the `dialog` itself when nothing inside it is in the Tab order, and `normalize.css` drew its focus ring there. The ring stays on the controls inside, and the rule no longer needs `!important`.
 - `TextField` and `Select` keep the control height of buttons in Firefox and Safari. Single-line inputs and selects get a definite height, `1lh` plus their padding, so the engine's own input height and padding rounding no longer make the field up to 2px taller.
 - `Anchor` and `Tooltip` default to `self-` `position-area` keywords (`self-start self-end` and `self-block-start`), so floating content follows its own writing direction and mirrors in a right-to-left part of a left-to-right page. Before, it followed the page's direction while its margins followed its own.
+- `Typography` `.ui-small` on a `span` or `p` sits below the component layers, so a small `Avatar` or `Chip` rendered as a `span` keeps its own font size.
 
 ## 5.5.0 - 2026-09-28
 

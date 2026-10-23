@@ -38,7 +38,7 @@
       "ui-backdrop-transparent": backdrop === "transparent",
       "ui-scroll-lock": scrollLock,
     },
-    side && `ui-${side}`,
+    side && side !== "inline-start" && `ui-${side}`,
     className,
   ]}
   aria-labelledby={labelledBy}

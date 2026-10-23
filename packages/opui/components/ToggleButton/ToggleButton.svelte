@@ -30,7 +30,14 @@
   const checked = $derived(isSelected(group?.value, value || label) ?? pressed)
 </script>
 
-<label class={["ui-toggle-button", size && `ui-${size}`, className]} {style}>
+<label
+  class={[
+    "ui-toggle-button",
+    size && size !== "medium" && `ui-${size}`,
+    className,
+  ]}
+  {style}
+>
   <input
     {checked}
     name={finalName}

@@ -21,7 +21,7 @@ export default function Avatar({
     <Tag
       className={cx([
         "ui-avatar",
-        size && `ui-${size}`,
+        size && size !== "medium" && `ui-${size}`,
         variant && `ui-${variant}`,
         className,
       ])}

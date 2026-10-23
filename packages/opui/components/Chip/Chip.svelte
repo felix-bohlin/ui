@@ -33,8 +33,8 @@
       "ui-multiline": multiline,
     },
     severity && `ui-${severity}`,
-    size && `ui-${size}`,
-    variant && `ui-${variant}`,
+    size && size !== "medium" && `ui-${size}`,
+    variant !== "tonal" && `ui-${variant}`,
     className,
   ]}
   {...tagAttrs(Tag, disabled, href)}

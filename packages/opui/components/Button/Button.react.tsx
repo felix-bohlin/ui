@@ -23,8 +23,8 @@ export default function Button({
         "ui-button",
         { "ui-round": round },
         color && `ui-${color}`,
-        size && `ui-${size}`,
-        variant && `ui-${variant}`,
+        size && size !== "medium" && `ui-${size}`,
+        variant && variant !== "transparent" && `ui-${variant}`,
         className,
       ])}
       {...tagAttrs(Tag as string, disabled, href)}

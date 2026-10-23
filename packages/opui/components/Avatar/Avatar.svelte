@@ -24,7 +24,7 @@
   this={Tag}
   class={[
     "ui-avatar",
-    size && `ui-${size}`,
+    size && size !== "medium" && `ui-${size}`,
     variant && `ui-${variant}`,
     className,
   ]}

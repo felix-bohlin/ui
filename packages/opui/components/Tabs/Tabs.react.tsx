@@ -22,7 +22,7 @@ export default function Tabs({
         className={cx([
           "ui-tabs",
           { "ui-scrollable": scrollable },
-          variant && `ui-${variant}`,
+          variant && variant !== "tonal" && `ui-${variant}`,
           className,
         ])}
         {...rest}

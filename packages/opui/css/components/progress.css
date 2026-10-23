@@ -22,10 +22,6 @@
       --_bg-color: var(--ui-surface-filled);
     }
 
-    &.ui-tonal {
-      --_bg-color: var(--ui-track-color, var(--ui-surface-tonal));
-    }
-
     @media (forced-colors: active) {
       --_accent: SelectedItem;
 

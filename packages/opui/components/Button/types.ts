@@ -1,8 +1,8 @@
 export type SharedProps = {
   color?: "critical" | "primary"
   round?: boolean
-  size?: "x-small" | "small" | "large"
-  variant?: "outlined" | "tonal" | "filled"
+  size?: "x-small" | "small" | "medium" | "large"
+  variant?: "filled" | "outlined" | "tonal" | "transparent"
 } & (
   | {
       as?: "a"

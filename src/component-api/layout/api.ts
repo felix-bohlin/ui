@@ -35,14 +35,14 @@ export default {
       prop: "row",
     },
     {
-      default: '"default"',
+      default: '"medium"',
       description:
         "The space between children of `.ui-l-column`, `.ui-l-row` and `.ui-l-grid`.",
       group: "Sizes",
       prop: "size",
       values: {
-        default: null,
         large: ".ui-large",
+        medium: null,
         small: ".ui-small",
         "x-small": ".ui-x-small",
       },

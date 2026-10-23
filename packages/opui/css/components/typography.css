@@ -125,10 +125,6 @@
     vertical-align: baseline;
   }
 
-  :where(p:not(.ui-p), small, span).ui-small {
-    font-size: max(0.75em, var(--ui-font-size-caption));
-  }
-
   :where(.ui-cite) {
     font-style: italic;
   }
@@ -240,6 +236,10 @@
 }
 
 @layer components.prose {
+  :where(p:not(.ui-p), small, span).ui-small {
+    font-size: max(0.75em, var(--ui-font-size-caption));
+  }
+
   @scope (.ui-rich-text) to (.ui-not-rich-text) {
     :scope {
       --_flow-space: round(1.25em, var(--ui-rhythm-step));

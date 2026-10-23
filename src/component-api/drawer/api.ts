@@ -39,14 +39,13 @@ export default {
     {
       default: '"inline-start"',
       description: "The side it opens from.",
-      group: "Sides",
-      htmlDefault: null,
+      group: "Position",
       prop: "side",
       values: {
         "block-end": ".ui-block-end",
         "block-start": ".ui-block-start",
         "inline-end": ".ui-inline-end",
-        "inline-start": ".ui-inline-start",
+        "inline-start": null,
       },
     },
   ],

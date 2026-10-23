@@ -59,16 +59,19 @@ export default {
       prop: "round",
     },
     {
+      default: '"medium"',
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
       values: {
         large: ".ui-large",
+        medium: null,
         small: ".ui-small",
         "x-small": ".ui-x-small",
       },
     },
     {
+      default: '"transparent"',
       description: "The variant to use.",
       group: "Variants",
       prop: "variant",
@@ -76,6 +79,7 @@ export default {
         filled: ".ui-filled",
         outlined: ".ui-outlined",
         tonal: ".ui-tonal",
+        transparent: null,
       },
     },
   ],

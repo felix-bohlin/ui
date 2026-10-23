@@ -126,15 +126,14 @@
       padding: var(--_footer-padding);
     }
 
-    &.ui-inline-start,
-    &.ui-inline-end {
+    &:not(.ui-block-end, .ui-block-start) {
       block-size: 100dvb;
       inline-size: var(--_inline-size);
       inset-block: 0;
       max-block-size: 100%;
     }
 
-    &.ui-inline-start {
+    &:not(.ui-block-end, .ui-block-start, .ui-inline-end) {
       border-inline-end: var(--_border-width) solid var(--_border-color);
       inset-inline-end: auto;
       inset-inline-start: 0;
@@ -190,7 +189,7 @@
           opacity: 0;
         }
 
-        &.ui-inline-start {
+        &:not(.ui-block-end, .ui-block-start, .ui-inline-end) {
           translate: calc(-100% * var(--_dir)) 0;
         }
 

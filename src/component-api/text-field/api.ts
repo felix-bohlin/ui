@@ -40,11 +40,13 @@ export default {
       type: "string",
     },
     {
+      default: '"medium"',
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
       values: {
         large: ".ui-large",
+        medium: null,
         small: ".ui-small",
         "x-small": ".ui-x-small",
       },

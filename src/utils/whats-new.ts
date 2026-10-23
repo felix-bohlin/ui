@@ -35,6 +35,9 @@ const whatsNew = {
     ),
     `Elevated accordions use <a href="#api"><code>--ui-shadow-elevated</code></a>, the elevated card shadow, also in dark mode. Padding and gaps read the <code>--ui-space-*</code> scale.`,
     `<a href="#variants">Tonal and outlined</a> accordions read <a href="#api"><code>--ui-shadow-surface</code></a>, <code>none</code> unless a theme sets it, and tonal and elevated accordions <code>--ui-surface-border-color</code>.`,
+    components(
+      `<a href="#variants">Variants</a> name the default: <code>variant="transparent"</code>.`,
+    ),
   ],
   anchor: [
     slots(
@@ -69,6 +72,9 @@ const whatsNew = {
     ),
     `Rounded avatars never get rounder than <a href="#api"><code>--ui-radius</code></a>, so <code>0</code> squares them.`,
     `The ring around <a href="#grouped">grouped</a> avatars reads <code>--ui-border-width-thick</code>.`,
+    components(
+      `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
+    ),
   ],
   badge: [
     `Severity text reads <code>--ui-on-accent</code> and <code>--ui-palette-strong</code> instead of fixed grays.`,
@@ -124,6 +130,9 @@ const whatsNew = {
     `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-on-accent</code>, the border with <code>--ui-control-border-color</code> (outlined) and <code>--ui-control-border-color-filled</code> (filled and tonal), the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>, like the intent text roles.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code>, the same readable primary as links, and critical ones <code>--ui-critical-text</code>.`,
     `<a href="#colors">Critical</a> fills and their hover and pressed shades stay within <code>--ui-fill-max-lightness</code>, and the border keeps <code>--ui-critical</code>.`,
+    components(
+      `<a href="#sizes">Sizes</a> and <a href="#variants">variants</a> name their defaults: <code>size="medium"</code> and <code>variant="transparent"</code>.`,
+    ),
   ],
   "button-group": [
     `The inset focus ring sits at <code>--ui-focus-ring-inset</code>, and the dividers stay visible in forced colors.`,
@@ -153,6 +162,9 @@ const whatsNew = {
     `Themes set the color of groups without <code>.ui-primary</code> or <code>.ui-critical</code> with <a href="#api"><code>--ui-button-accent</code></a>, the edge and dividers of outlined groups with <code>--ui-control-border-color</code> and of filled and tonal groups with <code>--ui-control-border-color-filled</code>, and the font weight and size with <code>--ui-button-font-weight</code> and <code>--ui-font-size-control</code>, like buttons. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code>, the same readable primary as links.`,
     `<a href="#colors">Critical</a> fills stay within <code>--ui-fill-max-lightness</code>, like buttons, and with more contrast the outlined edge reads <code>--ui-critical-text</code>, like the dividers.`,
+    components(
+      `<a href="#sizes">Sizes</a> and <a href="#variants">variants</a> name their defaults: <code>size="medium"</code> and <code>variant="transparent"</code>.`,
+    ),
   ],
   callout: [
     `Severity fills, borders, icons and text read the <a href="#api"><code>--ui-palette-*</code></a> roles, so a theme restyles every severity at once.`,
@@ -179,6 +191,9 @@ const whatsNew = {
     `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--ui-shadow-elevated-light</code> and <code>--ui-shadow-elevated-dark</code></a> in your theme, or <a href="#component-properties"><code>--_elevated-shadow</code></a> on the card.`,
     `<a href="#variants">Tonal and outlined</a> cards read <a href="#api"><code>--ui-shadow-surface</code></a>, and tonal and elevated cards <code>--ui-surface-border-color</code>, when a theme sets them.`,
     `Borders inside <a href="#variants">tonal and elevated</a> cards read <code>--ui-border-color-on-raised</code> and <code>--ui-field-border-color-on-raised</code>, so a theme's borders reach inside.`,
+    components(
+      `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
+    ),
   ],
   carousel: [
     `The scroll buttons take <a href="#api"><code>--ui-shadow-overlay</code></a>, so a theme's shadows reach them.`,
@@ -247,6 +262,9 @@ const whatsNew = {
     slots(
       `Breaking: <code>style</code> goes to the root <code>&lt;label&gt;</code>, like <code>class</code>, so <code>--_</code> properties set through it apply (<a href="#api">API</a>).`,
     ),
+    components(
+      `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
+    ),
   ],
   chip: [
     `Outlined chips take <code>--ui-shadow-control</code> like outlined buttons.`,
@@ -282,6 +300,10 @@ const whatsNew = {
     ),
     `Breaking: <a href="#disabled">disabled link chips</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<a href="#button">Button</a> and <a href="#link">link</a> chips hover with <code>--ui-surface-tonal-hover</code>, like filled fields.`,
+    {
+      default: `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
+      html: `The default <a href="#variants">tonal</a> chip needs no <code>.ui-tonal</code>.`,
+    },
   ],
   "description-list": [
     {
@@ -362,6 +384,9 @@ const whatsNew = {
     components(
       `<code>DrawerTitle</code> warns in development when the drawer's generated id replaces its own <code>id</code>. Pass <code>aria-labelledby</code> on the <code>Drawer</code> to keep it (<a href="#api">API</a>).`,
     ),
+    {
+      html: `A drawer opens from the <a href="#basics">inline start</a> without <code>.ui-inline-start</code>.`,
+    },
   ],
   form: [
     {
@@ -411,6 +436,9 @@ const whatsNew = {
     ),
     `Breaking: rows no longer style <code>aria-selected="true"</code> on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with <a href="#selected"><code>aria-current="page"</code></a>.`,
     `<a href="#selected">Selected and current rows</a> have a bar on their start edge in <code>--ui-selected-strong</code> and a stronger fill than hover, so they don't rely on a tint alone.`,
+    components(
+      `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
+    ),
   ],
   menu: [
     `The border and dividers are <a href="#api"><code>--ui-border-color-on-raised</code></a>, like other elevated surfaces.`,
@@ -454,6 +482,10 @@ const whatsNew = {
       `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;progress&gt;</code> (<a href="#api">API</a>).`,
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
+    {
+      default: `<a href="#variants">Variants</a> name the default: <code>variant="tonal"</code>.`,
+      html: `The default <a href="#variants">tonal</a> track needs no <code>.ui-tonal</code>.`,
+    },
   ],
   radio: [
     `The unchecked ring, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
@@ -495,6 +527,9 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
       `Breaking: <code>style</code> goes to the root <code>&lt;label&gt;</code>, like <code>class</code>, so <code>--_</code> properties set through it apply (<a href="#api">API</a>).`,
+    ),
+    components(
+      `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
     ),
   ],
   range: [
@@ -543,6 +578,9 @@ const whatsNew = {
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `<a href="#component-properties"><code>--_track-base-color</code></a> sets the empty track at rest, so filled and tonal tracks darken on press and take the disabled color.`,
+    components(
+      `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
+    ),
   ],
   select: [
     `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons.`,
@@ -587,6 +625,9 @@ const whatsNew = {
     `The picker shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and drawers.`,
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
     `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
+    components(
+      `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
+    ),
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
@@ -632,6 +673,9 @@ const whatsNew = {
     ),
     slots(
       `Breaking: <code>style</code> goes to the root <code>&lt;label&gt;</code>, like <code>class</code>, so <code>--_</code> properties set through it apply (<a href="#api">API</a>).`,
+    ),
+    components(
+      `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
     ),
   ],
   table: [
@@ -692,6 +736,9 @@ const whatsNew = {
     `The selected tab's shadow reads <a href="#api"><code>--ui-shadow-tab</code></a>, so themes can change or remove it.`,
     `Labels read <a href="#api"><code>--ui-font-size-control</code></a> for their font size, like buttons.`,
     `The selected tab of <a href="#filled">filled</a> tabs reads <code>--ui-selected-strong</code> and <code>--ui-on-selected-strong</code>.`,
+    components(
+      `<a href="#basics">Variants</a> name the default: <code>variant="tonal"</code>.`,
+    ),
   ],
   "text-field": [
     `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons.`,
@@ -732,6 +779,9 @@ const whatsNew = {
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
     `With more contrast, <a href="#validation">invalid</a> fields keep the lighter <code>--ui-invalid</code> of dark mode, which every invalid control now shares.`,
     `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
+    components(
+      `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
+    ),
   ],
   textarea: [
     `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons.`,
@@ -770,6 +820,9 @@ const whatsNew = {
     `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-field-radius</code></a>, so one token squares or rounds every component.`,
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
     `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
+    components(
+      `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
+    ),
   ],
   toggle: [
     `A standalone toggle takes <code>--ui-shadow-control</code> like buttons, and corners are capped at half the height so a round radius doesn't clip groups.`,
@@ -810,6 +863,9 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-button-radius</code></a>, so one token squares or rounds every component.`,
     `The default size reads <a href="#sizes"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
+    components(
+      `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
+    ),
   ],
   tooltip: [
     slots(

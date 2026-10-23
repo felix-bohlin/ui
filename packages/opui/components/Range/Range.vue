@@ -86,7 +86,7 @@ const endTextId = `range-end-${uid}`
     :class="[
       'ui-range',
       { 'ui-spread': spread },
-      variant && `ui-${variant}`,
+      variant && variant !== 'outlined' && `ui-${variant}`,
       $props.class,
     ]"
     :for="hasValue ? inputId : undefined"

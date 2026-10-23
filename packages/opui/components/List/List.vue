@@ -14,7 +14,7 @@ defineSlots<Slots>()
         'ui-dense': dense,
         'ui-gutterless': gutterless,
       },
-      variant && `ui-${variant}`,
+      variant && variant !== 'filled' && `ui-${variant}`,
       $props.class,
     ]"
   >

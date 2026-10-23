@@ -4,7 +4,11 @@ import type { Props } from "./types.react"
 export default function Card({ className, variant, ...rest }: Props) {
   return (
     <div
-      className={cx(["ui-card", variant && `ui-${variant}`, className])}
+      className={cx([
+        "ui-card",
+        variant && variant !== "plain" && `ui-${variant}`,
+        className,
+      ])}
       {...rest}
     />
   )

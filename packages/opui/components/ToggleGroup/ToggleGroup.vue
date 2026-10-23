@@ -39,7 +39,7 @@ provide(
         'ui-shrink': shrink,
         'ui-vertical': orientation === 'vertical',
       },
-      size && `ui-${size}`,
+      size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
     :role="selection === 'single' ? 'radiogroup' : 'group'"

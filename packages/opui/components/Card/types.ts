@@ -1,5 +1,5 @@
 export type Props = {
-  variant?: "text" | "outlined" | "elevated" | "tonal"
+  variant?: "elevated" | "outlined" | "plain" | "text" | "tonal"
 }
 
 export type CardActionsProps = {

@@ -37,16 +37,19 @@ export default {
       prop: "shrink",
     },
     {
+      default: '"medium"',
       description: "The size of the buttons.",
       group: "Sizes",
       prop: "size",
       values: {
         large: ".ui-large",
+        medium: null,
         small: ".ui-small",
         "x-small": ".ui-x-small",
       },
     },
     {
+      default: '"transparent"',
       description: "The variant of the buttons.",
       group: "Variants",
       prop: "variant",
@@ -54,6 +57,7 @@ export default {
         filled: ".ui-filled",
         outlined: ".ui-outlined",
         tonal: ".ui-tonal",
+        transparent: null,
       },
     },
   ],

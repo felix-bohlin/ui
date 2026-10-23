@@ -13,7 +13,7 @@ export default function Accordion({
         "ui-accordion",
         "ui-card",
         markerAnimation && `ui-marker-${markerAnimation}`,
-        variant && `ui-${variant}`,
+        variant && variant !== "transparent" && `ui-${variant}`,
         className,
       ])}
       {...rest}

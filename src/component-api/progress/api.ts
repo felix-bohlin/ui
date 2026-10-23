@@ -24,13 +24,13 @@ export default {
       type: "number | string",
     },
     {
-      description:
-        "The variant to use. Without one, the track looks the same as `tonal`.",
+      default: '"tonal"',
+      description: "The variant to use.",
       group: "Variants",
       prop: "variant",
       values: {
         filled: ".ui-filled",
-        tonal: ".ui-tonal",
+        tonal: null,
       },
     },
   ],

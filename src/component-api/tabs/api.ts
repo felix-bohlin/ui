@@ -23,6 +23,7 @@ export default {
       prop: "scrollable",
     },
     {
+      default: '"tonal"',
       description:
         "The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill.",
       group: "Variants",
@@ -31,6 +32,7 @@ export default {
         filled: ".ui-filled",
         line: ".ui-line",
         outlined: ".ui-outlined",
+        tonal: null,
       },
     },
   ],

@@ -40,11 +40,11 @@ In Astro and Vue the regions are parts instead of slots. The root no longer wrap
 + </AccordionSummary>
 ```
 
-`variant` no longer accepts `"default"`. Leave it out for the default look.
+`variant` no longer accepts `"default"`. The default look is named `transparent`: write that, or leave the prop out.
 
 ```diff
 - <Accordion variant="default">
-+ <Accordion>
++ <Accordion variant="transparent">
 ```
 
 ## Anchor
@@ -376,7 +376,7 @@ Icons are smaller than before. Set `--_icon-size: var(--size-5)` to get the old 
 
 Only direct `li`/`option` children (and options in a `[role="group"]`) are styled as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin. Dense rows keep the default inline padding, sizes follow `--ui-control-size`, and rich text links in a list are `--ui-primary-dark` in light mode.
 
-`variant="default"` (`.ui-default`, the page surface) is gone. On the page, `transparent` looks the same. Without a variant a list is filled.
+`variant="default"` (`.ui-default`, the page surface) is gone. On the page, `transparent` looks the same. The default look is named `filled`.
 
 ```diff
 - <List variant="default" />
@@ -409,7 +409,7 @@ Without a visible label the progress bar aligns to the middle. Give it a hidden 
 
 In Astro and Vue, `style` goes to the root `<div>` instead of the `<progress>`, like `class`. Set `--_` properties through `style`, and style the `<progress>` itself with a class or CSS.
 
-`variant="default"` (`.ui-default`, the page surface) is gone. Use no variant, `filled` or `tonal`.
+`variant="default"` (`.ui-default`, the page surface) is gone. Use `tonal` (the default) or `filled`.
 
 ```diff
 - <Progress variant="default" />
@@ -449,7 +449,7 @@ Astro and Vue no longer set `--_track-fill` from script. The track fill is a scr
 
 With `spread`, the label and the range split the container into equal columns, and the fixed `25ch` minimum is gone. The invalid state uses `--ui-invalid`.
 
-`variant="default"` (`.ui-default`, the page surface) is gone. Use no variant, `filled` or `tonal`.
+`variant="default"` (`.ui-default`, the page surface) is gone. Use `outlined` (the default), `filled` or `tonal`.
 
 ```diff
 - <Range variant="default" />
@@ -658,11 +658,11 @@ In Astro and Vue, `style` on a `ToggleButton` goes to the root `<label>` instead
 + <label class="ui-toggle-button"><input type="checkbox" disabled />Bold</label>
 ```
 
-`ToggleGroup` `size` no longer accepts `"default"`. Leave it out for the default size.
+`ToggleGroup` `size="default"` is now `size="medium"`, like every sized component.
 
 ```diff
 - <ToggleGroup size="default">
-+ <ToggleGroup>
++ <ToggleGroup size="medium">
 ```
 
 `ToggleButton` icon styles only apply to a direct child `svg`, sized with `--_icon-size`. An `svg` nested in another element is no longer sized, so move it out of its wrapper:

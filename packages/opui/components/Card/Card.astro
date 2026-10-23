@@ -6,6 +6,13 @@ export const title = "Card"
 const { class: className, variant, ...rest } = Astro.props
 ---
 
-<div class:list={["ui-card", variant && `ui-${variant}`, className]} {...rest}>
+<div
+  class:list={[
+    "ui-card",
+    variant && variant !== "plain" && `ui-${variant}`,
+    className,
+  ]}
+  {...rest}
+>
   <slot />
 </div>

@@ -11,6 +11,13 @@
   }: Props = $props()
 </script>
 
-<div class={["ui-card", variant && `ui-${variant}`, className]} {...rest}>
+<div
+  class={[
+    "ui-card",
+    variant && variant !== "plain" && `ui-${variant}`,
+    className,
+  ]}
+  {...rest}
+>
   {@render children?.()}
 </div>

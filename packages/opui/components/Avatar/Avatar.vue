@@ -14,7 +14,7 @@ const Tag = computed(() => as || (href ? "a" : "div"))
     :is="Tag"
     :class="[
       'ui-avatar',
-      size && `ui-${size}`,
+      size && size !== 'medium' && `ui-${size}`,
       variant && `ui-${variant}`,
       $props.class,
     ]"

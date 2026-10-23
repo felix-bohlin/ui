@@ -1,5 +1,5 @@
 export type Props = {
-  size?: "x-small" | "small" | "large"
+  size?: "x-small" | "small" | "medium" | "large"
   variant?: "squared" | "rounded" | "squircle"
 } & (
   | {

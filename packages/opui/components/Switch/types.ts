@@ -2,7 +2,7 @@ export type Props = {
   endText?: string
   error?: boolean
   hideLabel?: boolean
-  size?: "x-small" | "small" | "large"
+  size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
   stack?: boolean
 }

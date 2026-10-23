@@ -64,7 +64,7 @@ export default function Select({
           "ui-filled": variant === "filled",
           "ui-spread": spread,
         },
-        size && `ui-${size}`,
+        size && size !== "medium" && `ui-${size}`,
         className,
       ])}
       style={style}

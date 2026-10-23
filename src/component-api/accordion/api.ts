@@ -40,6 +40,7 @@ export default {
       type: "boolean",
     },
     {
+      default: '"transparent"',
       description:
         "The variant to use. Without one the accordion has no background, border or shadow.",
       group: "Variants",
@@ -48,6 +49,7 @@ export default {
         elevated: ".ui-elevated",
         outlined: ".ui-outlined",
         tonal: ".ui-tonal",
+        transparent: null,
       },
     },
   ],

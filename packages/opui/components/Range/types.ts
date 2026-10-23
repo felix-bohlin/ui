@@ -11,7 +11,7 @@ export type Props = {
   startText?: string
   value?: number | string
   valueSuffix?: string
-  variant?: "filled" | "tonal"
+  variant?: "filled" | "outlined" | "tonal"
 }
 
 export type Slots<S> = {

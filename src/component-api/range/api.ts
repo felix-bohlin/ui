@@ -100,12 +100,14 @@ export default {
       prop: "valueSuffix",
     },
     {
+      default: '"outlined"',
       description:
         "The variant to use. Without one, the track uses `--ui-track-color`, or the field border color when the theme doesn't set it.",
       group: "Variants",
       prop: "variant",
       values: {
         filled: ".ui-filled",
+        outlined: null,
         tonal: ".ui-tonal",
       },
     },

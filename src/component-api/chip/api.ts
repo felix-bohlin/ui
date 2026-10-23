@@ -60,11 +60,13 @@ export default {
       },
     },
     {
+      default: '"medium"',
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
       values: {
         large: ".ui-large",
+        medium: null,
         small: ".ui-small",
         "x-small": ".ui-x-small",
       },
@@ -74,7 +76,7 @@ export default {
       description: "The variant to use.",
       group: "Variants",
       prop: "variant",
-      values: { outlined: ".ui-outlined", tonal: ".ui-tonal" },
+      values: { outlined: ".ui-outlined", tonal: null },
     },
   ],
   parts: [

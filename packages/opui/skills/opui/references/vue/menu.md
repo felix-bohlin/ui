@@ -415,27 +415,27 @@ Attributes that aren't props go to the `<menu>`. Item keys that aren't listed go
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
 
-| Property             | Kind   | Description                                                                                                                                                         |
-| -------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`        | Input  | The background. Defaults to `--ui-surface-elevated`.                                                                                                                |
-| `--_border-color`    | Input  | The border color. Defaults to `--ui-border-color-on-raised`, and `--_divider-color` follows it.                                                                     |
-| `--_border-radius`   | Input  | The corner radius. Defaults to `--ui-radius`.                                                                                                                       |
-| `--_border-width`    | Input  | The border width. Defaults to `--ui-border-width`.                                                                                                                  |
-| `--_divider-color`   | Input  | Color of the item separators. Defaults to `--_border-color`.                                                                                                        |
-| `--_duration`        | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                                                                                     |
-| `--_ease`            | Input  | Easing of the open transition. Defaults to `--ui-ease-enter`.                                                                                                       |
-| `--_hover-bg-color`  | Output | Hover background of `.ui-critical` items, from `--ui-critical`.                                                                                                     |
-| `--_margin-block`    | Output | Block margin of a popover menu, `--_offset` or `0` depending on the side.                                                                                           |
-| `--_margin-inline`   | Output | Inline margin of a popover menu, `--_offset` for `.ui-inline-start` and `.ui-inline-end`.                                                                           |
-| `--_max-block-size`  | Input  | Maximum height.                                                                                                                                                     |
-| `--_min-block-size`  | Input  | Height a popover menu keeps when space is tight, unless its content is shorter. Needs `calc-size()`.                                                                |
-| `--_min-inline-size` | Input  | Minimum width. A popover menu is also at least as wide as its invoker.                                                                                              |
-| `--_motion`          | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                                                          |
-| `--_offset`          | Input  | Gap between a popover menu and its invoker.                                                                                                                         |
-| `--_position-area`   | Output | The `position-area` of a popover menu, from `--_side` and `--_span`. `--ui-anchor-position-area` overrides it.                                                      |
-| `--_shadow`          | Input  | The shadow. Defaults to `--ui-shadow-overlay`.                                                                                                                      |
-| `--_side`            | Output | Side of the invoker the menu opens on, a `self-` keyword so it follows the menu's own direction. Set by `.ui-block-start`, `.ui-inline-start` and `.ui-inline-end`. |
-| `--_span`            | Output | Direction the menu extends along the invoker. Set by the side classes and `.ui-align-end`.                                                                          |
+| Property                  | Kind   | Description                                                                                                                                                         |
+| ------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_bg-color`             | Input  | The background. Defaults to `--ui-surface-elevated`.                                                                                                                |
+| `--_border-color`         | Input  | The border color. Defaults to `--ui-border-color-on-raised`, and `--_divider-border-color` follows it.                                                              |
+| `--_border-width`         | Input  | The border width. Defaults to `--ui-border-width`.                                                                                                                  |
+| `--_divider-border-color` | Input  | Color of the item separators. Defaults to `--_border-color`.                                                                                                        |
+| `--_duration`             | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                                                                                     |
+| `--_ease`                 | Input  | Easing of the open transition. Defaults to `--ui-ease-enter`.                                                                                                       |
+| `--_hover-bg-color`       | Output | Hover background of `.ui-critical` items, from `--ui-critical`.                                                                                                     |
+| `--_margin-block`         | Output | Block margin of a popover menu, `--_offset` or `0` depending on the side.                                                                                           |
+| `--_margin-inline`        | Output | Inline margin of a popover menu, `--_offset` for `.ui-inline-start` and `.ui-inline-end`.                                                                           |
+| `--_max-block-size`       | Input  | Maximum height.                                                                                                                                                     |
+| `--_min-block-size`       | Input  | Height a popover menu keeps when space is tight, unless its content is shorter. Needs `calc-size()`.                                                                |
+| `--_min-inline-size`      | Input  | Minimum width. A popover menu is also at least as wide as its invoker.                                                                                              |
+| `--_motion`               | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                                                          |
+| `--_offset`               | Input  | Gap between a popover menu and its invoker.                                                                                                                         |
+| `--_position-area`        | Output | The `position-area` of a popover menu, from `--_side` and `--_span`. `--ui-anchor-position-area` overrides it.                                                      |
+| `--_radius`               | Input  | The corner radius. Defaults to `--ui-radius`.                                                                                                                       |
+| `--_shadow`               | Input  | The shadow. Defaults to `--ui-shadow-overlay`.                                                                                                                      |
+| `--_side`                 | Output | Side of the invoker the menu opens on, a `self-` keyword so it follows the menu's own direction. Set by `.ui-block-start`, `.ui-inline-start` and `.ui-inline-end`. |
+| `--_span`                 | Output | Direction the menu extends along the invoker. Set by the side classes and `.ui-align-end`.                                                                          |
 
 ## Under the hood
 

@@ -464,11 +464,10 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_actions-padding-inline`      | Input  | Inline padding of `.ui-actions`. Defaults to `--_content-padding-inline`, and at least the focus ring's space.                                                         |
 | `--_bg-color`                    | Output | The background. `--ui-surface` by default, set by the other variants, and `transparent` in `.ui-transparent` and in groups.                                            |
 | `--_border-color`                | Output | The border color. In `.ui-elevated` and `.ui-tonal`, `--ui-border-color-raised` when a theme sets it, otherwise `--ui-surface`. `--ui-border-color` in `.ui-outlined`. |
-| `--_border-radius`               | Input  | The corner radius, also of the `summary` focus ring. Defaults to `--ui-radius`.                                                                                        |
 | `--_border-width`                | Output | The border width. Set by the variants.                                                                                                                                 |
 | `--_content-padding-block`       | Input  | Block padding of `.ui-content`.                                                                                                                                        |
 | `--_content-padding-inline`      | Input  | Inline padding of `.ui-content`. Defaults to `--_padding-inline`.                                                                                                      |
-| `--_divider-color`               | Input  | Color of the border between items in a group. Defaults to `--ui-border-color`.                                                                                         |
+| `--_divider-border-color`        | Input  | Color of the border between items in a group. Defaults to `--ui-border-color`.                                                                                         |
 | `--_duration`                    | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                                                                                        |
 | `--_ease`                        | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                                                    |
 | `--_focus-ring-offset`           | Input  | Offset of the `summary` focus ring. Inside the summary, except in `.ui-transparent`.                                                                                   |
@@ -479,6 +478,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_motion`                      | Input  | Motion multiplier for `--_duration`. `0` turns the transitions off.                                                                                                    |
 | `--_overflow`                    | Output | The overflow. `hidden`, except in `.ui-transparent` and in groups.                                                                                                     |
 | `--_padding-inline`              | Input  | Inline padding of `summary`, `.ui-content` and `.ui-actions`. `0` in `.ui-transparent`.                                                                                |
+| `--_radius`                      | Input  | The corner radius, also of the `summary` focus ring. Defaults to `--ui-radius`.                                                                                        |
 | `--_shadow`                      | Output | The shadow. `.ui-elevated` sets `--ui-shadow-elevated`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`.                                                      |
 | `--_summary-padding-block`       | Input  | Block padding of `summary`.                                                                                                                                            |
 | `--_summary-padding-inline`      | Input  | Inline padding of `summary`. Defaults to `--_padding-inline`.                                                                                                          |
@@ -615,6 +615,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: `--_border-radius` is `--_radius` ([Under the hood](#under-the-hood)).
 - Tonal and elevated [accordions](#variants) have a border in the page background color, like cards, so they stay visible on tonal surfaces.
 - The inset focus ring sits at `--ui-focus-ring-inset` like every other inset ring, and elevated and tonal accordions keep a border in forced colors.
 - Breaking: [`AccordionSummary`, `AccordionContent`](#basics) and [`AccordionActions`](#actions) replace the slots, and the root no longer wraps its children in `.ui-content`.
@@ -622,7 +623,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: a chevron marker by default. The [`marker` slot](#custom-marker) on `AccordionSummary` replaces it, so move a custom chevron there with `.ui-marker` or it shows twice.
 - [Actions](#actions) line up with the content and the chevron.
 - [`AccordionActions`](#actions) take `align="start"`.
-- Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron and the open and close transition use `--_duration` and `--_ease`, and the group's `--_gutter-color` is `--_divider-color` ([Under the hood](#under-the-hood)).
+- Breaking: `--_transition` is `--_duration`, and `--_svg-transition` is gone, the chevron and the open and close transition use `--_duration` and `--_ease`, and the group's `--_gutter-color` is `--_divider-border-color` ([Under the hood](#under-the-hood)).
 - Breaking: an accordion without a [variant](#variants) is `plain`, the page surface with padding, like a card. `variant="default"` is gone: use `variant="transparent"` for the previous look.
 - Elevated accordions use [`--ui-shadow-elevated`](#api), the elevated card shadow, also in dark mode. Padding and gaps read the `--ui-space-*` scale.
 - [Tonal and outlined](#variants) accordions read [`--ui-shadow-surface`](#api), `none` unless a theme sets it, and tonal and elevated accordions `--ui-border-color-raised`.

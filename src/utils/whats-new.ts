@@ -528,6 +528,9 @@ const whatsNew = {
       ),
       html: `Breaking: <a href="#flush"><code>.ui-flush</code></a> replaces <code>.ui-gutterless</code>.`,
     },
+    {
+      html: `Breaking: <a href="#start-items"><code>.ui-start</code></a> and <code>.ui-end</code> are only styled as direct children of a row, or of its <code>a</code>, <code>button</code>, <code>div</code> or <code>label</code>.`,
+    },
     `Selected and current items read <a href="#api"><code>--ui-selected</code></a> and <code>--ui-on-selected</code> when a theme sets them.`,
     `Smaller <a href="#icon">start</a> and end icons.`,
     {
@@ -692,12 +695,12 @@ const whatsNew = {
       `<a href="#tick-marks"><code>items</code></a> is typed as <code>RangeItem[]</code>, exported from every framework.`,
     ),
     components(
-      `<a href="#tick-marks"><code>options</code></a> renders a linked <code>&lt;datalist&gt;</code> without a <code>list</code> id.`,
+      `<a href="#tick-marks"><code>items</code></a> renders a linked <code>&lt;datalist&gt;</code> without a <code>list</code> id.`,
     ),
     {
       react: `<a href="#value"><code>valueText</code></a> takes a function that gets the current value and follows the thumb.`,
       svelte: `The <a href="#value"><code>valueText</code></a> snippet gets the current value and follows the thumb.`,
-      vue: `The <a href="#value"><code>value</code></a> slot is scoped with the current value and follows the thumb.`,
+      vue: `The <a href="#value"><code>value-text</code></a> slot is scoped with the current value and follows the thumb.`,
     },
     slots(
       `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;input&gt;</code> (<a href="#api">API</a>).`,
@@ -726,7 +729,7 @@ const whatsNew = {
       ),
       html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
     },
-    `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons.`,
+    `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On touch screens they keep <code>--ui-font-size-control</code>, so iOS Safari doesn't zoom in on focus.`,
     `The field border reaches 3:1 against the page by default, and the picker keeps the browser's checkmark on the selected option.`,
     `<a href="#option-groups">Group labels</a> take a shade of the picker's surface and <code>--ui-text</code> instead of fixed grays.`,
     `The selected option reads <a href="#api"><code>--ui-selected</code></a> and <code>--ui-on-selected</code> when a theme sets them.`,
@@ -909,7 +912,7 @@ const whatsNew = {
       ),
       html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
     },
-    `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons.`,
+    `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On touch screens they keep <code>--ui-font-size-control</code>, so iOS Safari doesn't zoom in on focus.`,
     `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     {
@@ -958,7 +961,7 @@ const whatsNew = {
       ),
       html: `Breaking: <a href="#affix"><code>.ui-start</code> and <code>.ui-end</code></a> replace <code>.ui-prefix</code> and <code>.ui-suffix</code>, and <a href="#top-and-bottom"><code>.ui-top</code> and <code>.ui-bottom</code></a> replace <code>.ui-header</code> and <code>.ui-footer</code>.`,
     },
-    `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons.`,
+    `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons. On touch screens they keep <code>--ui-font-size-control</code>, so iOS Safari doesn't zoom in on focus.`,
     `The field border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     {

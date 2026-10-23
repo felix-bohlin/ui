@@ -196,10 +196,10 @@ To show on hover, give `.ui-floating` `popover="hint"` and an id. Add `interestf
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property       | Kind  | Description                                          |
-| -------------- | ----- | ---------------------------------------------------- |
-| `--_anchor-tx` | Input | Horizontal shift of `.ui-floating`. Defaults to `0`. |
-| `--_anchor-ty` | Input | Vertical shift of `.ui-floating`. Defaults to `0`.   |
+| Property     | Kind  | Description                                          |
+| ------------ | ----- | ---------------------------------------------------- |
+| `--_shift-x` | Input | Horizontal shift of `.ui-floating`. Defaults to `0`. |
+| `--_shift-y` | Input | Vertical shift of `.ui-floating`. Defaults to `0`.   |
 
 ## Under the hood
 
@@ -314,4 +314,5 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: `--_anchor-tx` and `--_anchor-ty` are `--_shift-x` and `--_shift-y` ([Under the hood](#under-the-hood)).
 - Breaking: the floating content is [`.ui-floating`](#api) instead of `.ui-anchor-floating`.

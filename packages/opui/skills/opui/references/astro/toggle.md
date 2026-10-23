@@ -434,17 +434,17 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_ease`              | Input  | Easing of the focus ring animation. Defaults to `--ui-ease`.                                             |
 | `--_font-size`         | Input  | The font size. Defaults to `--ui-font-size-control`. Set by the size classes on the button or its group. |
 | `--_icon-size`         | Input  | Size of a direct child `svg`. Defaults to `--ui-icon-size`.                                              |
-| `--_min-height`        | Input  | Height and minimum width. Set by the size classes on the button or its group.                            |
+| `--_min-block-size`    | Input  | Height and minimum width. Set by the size classes on the button or its group.                            |
 | `--_motion`            | Input  | Motion multiplier for the focus ring animation. `0` turns it off.                                        |
 | `--_selected-bg-color` | Input  | Background of the checked button. `--ui-selected` when the theme sets it, otherwise `--ui-primary`.      |
 
 ### toggle-group.css
 
-| Property           | Kind  | Description                                                                                                                                                         |
-| ------------------ | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`      | Input | Background of the group. Defaults to `--ui-surface`.                                                                                                                |
-| `--_border-color`  | Input | Color of the outline around the group and the lines between buttons. Defaults to `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it. |
-| `--_border-radius` | Input | Corner radius of the group. Defaults to `--ui-button-radius`, capped at half a button height so a round radius doesn't clip the end items.                          |
+| Property          | Kind  | Description                                                                                                                                                         |
+| ----------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_bg-color`     | Input | Background of the group. Defaults to `--ui-surface`.                                                                                                                |
+| `--_border-color` | Input | Color of the outline around the group and the lines between buttons. Defaults to `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it. |
+| `--_radius`       | Input | Corner radius of the group. Defaults to `--ui-button-radius`, capped at half a button height so a round radius doesn't clip the end items.                          |
 
 ## Under the hood
 
@@ -597,6 +597,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: `--_border-radius` is `--_radius` on `ToggleGroup` ([Under the hood](#under-the-hood)).
 - A standalone toggle takes `--ui-shadow-control` like buttons, and corners are capped at half the height so a round radius doesn't clip groups.
 - A checked `ToggleButton` is filled with `--ui-primary` in every contrast mode, not only a tint.
 - A checked `ToggleButton` reads [`--ui-selected`](#api) and `--ui-on-selected` when a theme sets them.
@@ -607,7 +608,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Small and x-small](#sizes) toggles use smaller text, like `Button`.
 - [Groups wrap](#overflow) when they don't fit, or scrolls with `overflow="scroll"` or truncates with `overflow="shrink"`.
 - Breaking: no `.ui-disabled`. A [toggle](#toggle-button) looks disabled when its input is `disabled`.
-- Breaking: `ToggleButton` `--_button-bg-color` is `--_bg-color`, `--_size` is `--_min-height` and `--_svg-size` is `--_icon-size`, which sizes direct child `svg`s like Button ([Under the hood](#under-the-hood)).
+- Breaking: `ToggleButton` `--_button-bg-color` is `--_bg-color`, `--_size` is `--_min-block-size` and `--_svg-size` is `--_icon-size`, which sizes direct child `svg`s like Button ([Under the hood](#under-the-hood)).
 - Breaking: [`size="default"`](#sizes) is `size="medium"` on `ToggleGroup`, like every sized component.
 - A disabled [toggle](#disabled) dims like a disabled button, and hover uses the button hover strength.
 - Breaking: `style` on `ToggleButton` goes to the root, like `class`, instead of the `<input>` ([API](#api)).

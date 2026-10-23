@@ -116,7 +116,7 @@ export default {
     },
     {
       code: ".ui-text",
-      description: "The text (`text` on an item).",
+      description: "The label (`label` on an item).",
       selector: ".ui-menu > li > :is(a, button) > .ui-text",
     },
     {

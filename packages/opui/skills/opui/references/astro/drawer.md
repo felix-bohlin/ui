@@ -385,7 +385,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_border-color`      | Input  | Color of the inner edge border and the `.ui-header` and `.ui-actions` dividers.                      |
 | `--_border-width`      | Input  | Width of the inner edge border and the `.ui-header` and `.ui-actions` dividers.                      |
 | `--_content-padding`   | Input  | Padding of `.ui-content`.                                                                            |
-| `--_dir`               | Output | Direction of the inline slide, `-1` in right-to-left.                                                |
+| `--_direction`         | Output | Direction of the inline slide, `-1` in right-to-left.                                                |
 | `--_duration`          | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                      |
 | `--_ease`              | Input  | Easing of the slide and backdrop fade. Defaults to `--ui-ease-enter`.                                |
 | `--_header-font-size`  | Input  | Font size of headings in `.ui-header`.                                                               |

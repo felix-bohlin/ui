@@ -598,7 +598,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | Type        | Modifiers                                        | Default | Description                                                                          |
 | ----------- | ------------------------------------------------ | ------- | ------------------------------------------------------------------------------------ |
 | Disabled    | `input[disabled]`                                | -       | Dims the checkbox and shows a not-allowed cursor.                                    |
-| Label       | `.ui-label.ui-sr-only`                           | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
+| Label       | `.ui-checkbox > span.ui-sr-only`                 | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                      |
 | Orientation | default, `.ui-vertical`                          | default | The orientation of the element. `vertical` stacks the label under the input.         |
 | Required    | `input[required]`                                | -       | Adds a required mark after the label.                                                |
 | Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                             |

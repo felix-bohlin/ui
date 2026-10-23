@@ -612,7 +612,7 @@ Use `.ui-persistent-buttons` to keep both buttons visible at the ends. A disable
 
 ## Custom buttons
 
-`--_button-icon` takes any SVG, for example from your icon library. Draw a white glyph that points right. The previous button mirrors it, and a vertical carousel rotates it. Set `--_button-icon-size` to scale it.
+`--_button-image` takes any SVG, for example from your icon library. Draw a white glyph that points right. The previous button mirrors it, and a vertical carousel rotates it. Set `--_button-image-size` to scale it.
 
 ```html
 <ul
@@ -670,7 +670,7 @@ Use `.ui-persistent-buttons` to keep both buttons visible at the ends. A disable
 <style>
   .carousel-custom-buttons {
     --_button-bg-color: var(--ui-primary);
-    --_button-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 12h14m-6-6 6 6-6 6'/%3E%3C/svg%3E");
+    --_button-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 12h14m-6-6 6 6-6 6'/%3E%3C/svg%3E");
   }
 </style>
 ```
@@ -809,8 +809,8 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_button-disabled-opacity`      | Input  | Opacity of disabled scroll buttons. `0` hides them, `.ui-persistent-buttons` sets `1`.                                                             |
 | `--_button-end-flip`              | Output | Mirrors the inline-end button. `1`, or `-1` in right-to-left.                                                                                      |
 | `--_button-flip`                  | Output | Mirrors a scroll button, `1` or `-1`. From `--_button-start-flip` and `--_button-end-flip`.                                                        |
-| `--_button-icon`                  | Input  | Icon of the scroll buttons, pointing forward. The previous button mirrors it.                                                                      |
-| `--_button-icon-size`             | Input  | The icon size in the scroll buttons.                                                                                                               |
+| `--_button-image`                 | Input  | Icon of the scroll buttons, pointing forward. The previous button mirrors it.                                                                      |
+| `--_button-image-size`            | Input  | The icon size in the scroll buttons.                                                                                                               |
 | `--_button-inset`                 | Input  | Space between the scroll buttons and the carousel edge.                                                                                            |
 | `--_button-next-label`            | Input  | Accessible label of the next button.                                                                                                               |
 | `--_button-prev-label`            | Input  | Accessible label of the previous button.                                                                                                           |
@@ -832,7 +832,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_marker-size`                  | Input  | Size of the markers. The dot sits inside, inset by `--ui-space-2`.                                                                                 |
 | `--_markers-gap`                  | Input  | Space between the items and the markers.                                                                                                           |
 | `--_media-aspect-ratio`           | Input  | Aspect ratio of `img`, `video` and `iframe` in items.                                                                                              |
-| `--_media-border-radius`          | Input  | Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.                                                                  |
+| `--_media-radius`                 | Input  | Corner radius of `img`, `video` and `iframe` in items. Defaults to `--ui-radius`.                                                                  |
 | `--_motion`                       | Input  | Motion multiplier for the button and marker transitions. `0` turns them off.                                                                       |
 | `--_padding-block`                | Input  | Block padding of `.ui-vertical`, showing the neighboring items. Set by `.ui-peek`.                                                                 |
 | `--_padding-inline`               | Input  | The inline padding, showing the neighboring items. Set by `.ui-peek`.                                                                              |

@@ -345,28 +345,28 @@ Add a `<datalist aria-hidden="true">` after the input for tick marks.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property                   | Kind   | Description                                                                                                                                                                              |
-| -------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`                | Input  | Color of the thumb, its ring and the track fill. Defaults to `--ui-choice-accent`, or `--ui-primary` when the theme doesn't set it, and is set by the invalid state.                     |
-| `--_duration`              | Output | Duration of the thumb ring transition, `--ui-duration-fast` times `--_motion`.                                                                                                           |
-| `--_ease`                  | Input  | Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.                                                                                                             |
-| `--_focus-ring-duration`   | Output | Duration of the focus ring animation, `--ui-duration` times `--_motion`, slower than the `--_duration` of the transitions.                                                               |
-| `--_forced-fill-color`     | Output | Thumb and fill color in forced colors mode. `GrayText` when disabled.                                                                                                                    |
-| `--_forced-track-color`    | Output | Track color in forced colors mode. `GrayText` when disabled.                                                                                                                             |
-| `--_inset`                 | Output | Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`.                                                                          |
-| `--_motion`                | Input  | Motion multiplier for the thumb highlight and focus ring. `0` turns them off.                                                                                                            |
-| `--_thumb-bg-color`        | Output | The current thumb color. From `--_accent`, set by the disabled state.                                                                                                                    |
-| `--_thumb-border-width`    | Input  | Width of the page-colored ring between the thumb and the track. Set on the `<input>`.                                                                                                    |
-| `--_thumb-highlight-color` | Output | Color of the ring around the thumb, from `--_accent` and `--ui-state-active-alpha`.                                                                                                      |
-| `--_thumb-highlight-size`  | Output | Current width of the ring around the thumb. Set by the hover and active states.                                                                                                          |
-| `--_thumb-offset`          | Output | Vertical offset that centers the thumb on the track.                                                                                                                                     |
-| `--_thumb-size`            | Input  | Width and height of the thumb. Larger on touch screens.                                                                                                                                  |
-| `--_track-base-color`      | Input  | Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`. |
-| `--_track-color`           | Output | The current track color, from `--_track-base-color`; set by the active and disabled states.                                                                                              |
-| `--_track-fill`            | Output | How much of the track is filled, animated from the thumb position.                                                                                                                       |
-| `--_track-fill-color`      | Output | Color of the filled part of the track, from `--_accent`.                                                                                                                                 |
-| `--_track-height`          | Input  | Height of the track.                                                                                                                                                                     |
-| `--_track-radius`          | Input  | Corner radius of the track.                                                                                                                                                              |
+| Property                      | Kind   | Description                                                                                                                                                                              |
+| ----------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                   | Input  | Color of the thumb, its ring and the track fill. Defaults to `--ui-choice-accent`, or `--ui-primary` when the theme doesn't set it, and is set by the invalid state.                     |
+| `--_duration`                 | Output | Duration of the thumb ring transition, `--ui-duration-fast` times `--_motion`.                                                                                                           |
+| `--_ease`                     | Input  | Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.                                                                                                             |
+| `--_focus-ring-duration`      | Output | Duration of the focus ring animation, `--ui-duration` times `--_motion`, slower than the `--_duration` of the transitions.                                                               |
+| `--_forced-fill-bg-color`     | Output | Thumb and fill color in forced colors mode. `GrayText` when disabled.                                                                                                                    |
+| `--_forced-track-bg-color`    | Output | Track color in forced colors mode. `GrayText` when disabled.                                                                                                                             |
+| `--_inset`                    | Output | Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`.                                                                          |
+| `--_motion`                   | Input  | Motion multiplier for the thumb highlight and focus ring. `0` turns them off.                                                                                                            |
+| `--_thumb-bg-color`           | Output | The current thumb color. From `--_accent`, set by the disabled state.                                                                                                                    |
+| `--_thumb-border-width`       | Input  | Width of the page-colored ring between the thumb and the track. Set on the `<input>`.                                                                                                    |
+| `--_thumb-highlight-bg-color` | Output | Color of the ring around the thumb, from `--_accent` and `--ui-state-active-alpha`.                                                                                                      |
+| `--_thumb-highlight-size`     | Output | Current width of the ring around the thumb. Set by the hover and active states.                                                                                                          |
+| `--_thumb-offset`             | Output | Vertical offset that centers the thumb on the track.                                                                                                                                     |
+| `--_thumb-size`               | Input  | Width and height of the thumb. Larger on touch screens.                                                                                                                                  |
+| `--_track-base-bg-color`      | Input  | Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`. |
+| `--_track-bg-color`           | Output | The current track color, from `--_track-base-bg-color`; set by the active and disabled states.                                                                                           |
+| `--_track-block-size`         | Input  | Height of the track.                                                                                                                                                                     |
+| `--_track-fill-bg-color`      | Output | Color of the filled part of the track, from `--_accent`.                                                                                                                                 |
+| `--_track-fill-fraction`      | Output | How much of the track is filled, animated from the thumb position.                                                                                                                       |
+| `--_track-radius`             | Input  | Corner radius of the track.                                                                                                                                                              |
 
 ## Under the hood
 
@@ -623,6 +623,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: `--_thumb-highlight-color`, `--_track-color`, `--_track-fill-color`, `--_track-fill` and `--_track-height` are `--_thumb-highlight-bg-color`, `--_track-bg-color`, `--_track-fill-bg-color`, `--_track-fill-fraction` and `--_track-block-size` ([Under the hood](#under-the-hood)).
 - The empty track reaches 3:1 against the page by default, and with more contrast it takes the page color with an inset edge so the fill stands out.
 - The thumb and fill read [`--ui-choice-accent`](#api) and the empty track `--ui-track-bg-color` when a theme sets them.
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
@@ -632,4 +633,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
 - The thumb, its halo and the track fill follow `--_accent` on `.ui-range` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
-- [`--_track-base-color`](#component-properties) sets the empty track at rest, so filled and tonal tracks darken on press and take the disabled color.
+- [`--_track-base-bg-color`](#component-properties) sets the empty track at rest, so filled and tonal tracks darken on press and take the disabled color.

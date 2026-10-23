@@ -477,10 +477,10 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 | Property           | Kind   | Description                                                                                   |
 | ------------------ | ------ | --------------------------------------------------------------------------------------------- |
-| `--_border-radius` | Input  | Corner radius of the table and its corner cells. Defaults to `--ui-radius`.                   |
 | `--_duration`      | Output | Duration of the header shadow transition, `--ui-duration` times `--_motion`.                  |
 | `--_ease`          | Input  | Easing of the header shadow transition. Defaults to `--ui-ease`.                              |
 | `--_motion`        | Input  | Motion multiplier for the header shadow transition in `.ui-sticky-header`. `0` turns it off.  |
+| `--_radius`        | Input  | Corner radius of the table and its corner cells. Defaults to `--ui-radius`.                   |
 | `--_scroll-shadow` | Input  | Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--ui-shadow-scroll`.          |
 | `--_sticky-offset` | Input  | Distance from the top of the scroll container where the header of `.ui-sticky-header` sticks. |
 
@@ -658,7 +658,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Dense](#density) tables have less block padding.
 - Fields and selects in cells keep a `12ch` minimum width, in every [density](#density).
 - [Sticky header](#sticky-header) with the `stickyHeader` prop.
-- Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).
+- Breaking: `--_table-border-radius` is `--_radius` ([Under the hood](#under-the-hood)).
 - [`TableCaption` and `TableFoot`](#normal) render the caption and the footer rows.
 - [Every part](#api) has its own props type, such as `TableBodyProps` and `TableCellProps`, exported from every framework.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

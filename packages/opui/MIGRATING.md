@@ -141,8 +141,9 @@ Text uses `--ui-on-primary`.
 The indicator is `.ui-indicator` instead of `.ui-badge-indicator`. For a count with words for screen readers, put the whole sentence in a `.ui-sr-only` element and hide the short visible text, so a translation can put the number wherever its language needs it:
 
 ```diff
-  <span class="ui-anchor-floating">
+- <span class="ui-anchor-floating">
 -   <span class="ui-badge-indicator">5</span>
++ <span class="ui-floating">
 +   <span class="ui-indicator">
 +     <span aria-hidden="true">5</span>
 +     <span class="ui-sr-only">5 unread messages</span>
@@ -562,6 +563,15 @@ Only direct `li`/`option` children (and options in a `[role="group"]`) are style
 ```
 
 `.ui-end` only sizes an `svg` that is its direct child. An icon wrapped in another element inside `.ui-end` keeps its own size.
+
+`.ui-start` and `.ui-end` are only styled as direct children of a row, or of the `a`, `button`, `div` or `label` directly in it. Move one that sits deeper, such as inside your own wrapper, up to that level.
+
+```diff
+  <li>
+-   <div class="row-content"><span class="ui-start">…</span><span class="ui-text">Inbox</span></div>
++   <span class="ui-start">…</span><span class="ui-text">Inbox</span>
+  </li>
+```
 
 Rows are no longer styled by `aria-selected="true"` on a `li`, `a`, `button` or `label`, where ARIA doesn't allow it. Mark the current row with `aria-current="page"`. Options (`option` and `[role="option"]`) keep the selected style.
 

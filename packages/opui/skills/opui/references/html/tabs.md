@@ -445,18 +445,18 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_active-border-color` | Input  | Border color of the selected tab. `--ui-control-border-color`, or `--ui-field-border-color` when the theme doesn't set it, so the pill reaches 3:1 against the track; the variant classes set it to `transparent`. |
 | `--_active-shadow`       | Input  | Shadow of the selected tab. Defaults to `--ui-shadow-selected`. `.ui-line` and `.ui-outlined` remove it.                                                                                                           |
 | `--_active-text-color`   | Input  | Text color of the selected tab. Defaults to `--ui-text-strong`, `.ui-filled` sets it to `--ui-on-selected-strong`.                                                                                                 |
-| `--_border-radius`       | Input  | Corner radius of the track. The selected tab's radius is reduced by `--_inset` and `--_track-border-width`.                                                                                                        |
 | `--_duration`            | Output | Duration of the transitions, `--ui-duration-fast` times `--_motion`.                                                                                                                                               |
 | `--_ease`                | Input  | Easing of the transitions and focus ring. Defaults to `--ui-ease`.                                                                                                                                                 |
 | `--_focus-ring-duration` | Output | Duration of the focus ring animation, `--ui-duration` times `--_motion`, slower than the `--_duration` of the transitions.                                                                                         |
-| `--_indicator-color`     | Input  | Color of the line under the selected tab. `transparent` unless `.ui-line`.                                                                                                                                         |
+| `--_indicator-bg-color`  | Input  | Color of the line under the selected tab. `transparent` unless `.ui-line`.                                                                                                                                         |
 | `--_indicator-size`      | Input  | Thickness of the line under the selected tab.                                                                                                                                                                      |
 | `--_inset`               | Input  | Gap between the track edge and the selected tab's background. `0px` in `.ui-line`.                                                                                                                                 |
 | `--_motion`              | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                                                                                                         |
+| `--_radius`              | Input  | Corner radius of the track. The selected tab's radius is reduced by `--_inset` and `--_track-border-width`.                                                                                                        |
 | `--_text-color`          | Input  | Text color of the unselected tabs. Defaults to `--ui-text`.                                                                                                                                                        |
+| `--_track-bg-color`      | Input  | Background of the track behind the tabs. Defaults to `--ui-surface-tonal`.                                                                                                                                         |
 | `--_track-border-color`  | Input  | Border color of the track. `.ui-outlined` sets it to `--ui-control-border-color`, or `--ui-border-color` when the theme doesn't set it.                                                                            |
 | `--_track-border-width`  | Input  | Border width of the track. `0px` in `.ui-line`.                                                                                                                                                                    |
-| `--_track-color`         | Input  | Background of the track behind the tabs. Defaults to `--ui-surface-tonal`.                                                                                                                                         |
 
 ## Under the hood
 
@@ -630,7 +630,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - The selected pill has a border, `--ui-control-border-color` or the field border, so it reaches 3:1 against the track without the shadow.
 - The outlined track reads [`--ui-control-border-color`](#api) for its border, like outlined buttons.
-- Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`.
+- Breaking: [restyled](#basics) as a segmented control. `--_accent-color` and `--_bg-color` are gone, use a [variant](#filled) or `--_active-bg-color`, `--_active-text-color`, `--_indicator-bg-color` and `--_track-bg-color`.
 - Breaking: no `tablist`, `tab` or `tabpanel` roles, so screen readers announce the [radio group](#accessibility) they are. Style `.ui-label` and `.ui-panel` instead of `[role="tab"]` and `[role="tabpanel"]`.
 - Breaking: the parts are [`.ui-input`](#api), `.ui-label` and `.ui-panel` instead of `.ui-tab-input`, `.ui-tab-label` and `.ui-tab-panel`.
 - Tabs that [scroll](#overflow) with `.ui-overflow-scroll`.

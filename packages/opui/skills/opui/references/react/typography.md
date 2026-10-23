@@ -707,7 +707,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property          | Kind   | Description                                                                                                  |
 | ----------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
 | `--_count-digits` | Output | Digits reserved for the numbers of an `ol`, from its number of items.                                        |
-| `--_flow-space`   | Input  | Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it.             |
+| `--_flow-gap`     | Input  | Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it.             |
 | `--_font-scale`   | Output | Ratio of `1em` to `1rem` that scales heading sizes with the surrounding font size.                           |
 | `--_start-digits` | Output | Digits reserved for the numbers of an `ol`, from its `start` attribute.                                      |
 | `--_text-color`   | Input  | Text and underline color of links without a `ui-` class in `.ui-rich-text`. Defaults to `--ui-primary-text`. |

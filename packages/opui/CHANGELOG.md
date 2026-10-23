@@ -14,6 +14,7 @@
 - `ButtonGroup` variants apply to the whole group. A variant class on a single button inside a group is no longer supported.
 - `List` no longer takes `divided`. Use `bordered` (`.ui-bordered`) ([#395](https://github.com/felix-bohlin/ui/issues/395)).
 - `List` `gutterless` (`.ui-gutterless`) is `flush` (`.ui-flush`).
+- `List` styles `.ui-start` and `.ui-end` only as direct children of a row, or of the `a`, `button`, `div` or `label` directly in it. One inside another wrapper no longer gets the row layout.
 - `Button` no longer takes `.ui-icon-only`. A button whose only child is an `svg` is square, at every size and inside `ButtonGroup`, so remove the class.
 - `Button` in Astro and Vue no longer adds `.ui-disabled` to a disabled `<button>`. It sets `disabled`, and `aria-disabled="true"` on links. Target `:disabled` or `[aria-disabled="true"]` instead of `.ui-disabled`.
 - `Button` icon styles only apply to a direct child `svg` (`> svg`), sized with `--_icon-size`. An `svg` nested in another element is no longer sized. Padding scales with `--_padding-inline` (`1ex` x-small, `1.25ex` small, `1.5ex` default, `2.5ex` large; was `0.5ex`, `0.75ex`, `1.5ex` and `4ex`), and the icon side gets tighter padding when a direct child `svg` sits next to a wrapped label (`<span class="ui-text">`). Wrap the label when the button has an icon: text next to an `svg` without a wrapper renders as icon-only.
@@ -146,7 +147,7 @@
 - `Tabs` take `overflow="scroll"` (`.ui-overflow-scroll`). The tabs stay on one row and scroll sideways when they don't fit, and the open panel stays in view. Takes any number of tabs.
 - `layers.css` holds the `@layer` order, for importing single component files.
 - `skills/opui` is an agent skill shipped with the package, with a reference for every component and an index that maps every exported component and part to its reference.
-- `TextField`, `Textarea` and `Select` take `x-small` (`.ui-x-small`, 28px) and `large` (`.ui-large`, 46px) sizes, so every field size has a matching `Button` size. x-small fields set their text in `--ui-font-size-caption`, like x-small buttons. Their block padding follows `--ui-space-scale`, like the other sizes.
+- `TextField`, `Textarea` and `Select` take `x-small` (`.ui-x-small`, 28px) and `large` (`.ui-large`, 46px) sizes, so every field size has a matching `Button` size. x-small fields set their text in `--ui-font-size-caption`, like x-small buttons, and keep `--ui-font-size-control` on touch screens. Their block padding follows `--ui-space-scale`, like the other sizes.
 - `Chip` takes a `large` size (`.ui-large`, 40px) for chips next to default-size fields and buttons. Chip heights come from `--ui-chip-size-small`, `--ui-chip-size` and `--ui-chip-size-large`, which follow the control size scale.
 - `ButtonGroup` and `ToggleGroup` take `overflow`: `"wrap"`, the default, wraps their items onto more rows, `"scroll"` (`.ui-overflow-scroll`) keeps them on one row and scrolls sideways, and `"shrink"` (`.ui-overflow-shrink`) keeps them on one row and truncates labels with an ellipsis.
 - `theme.css` adds `--ui-choice-label-offset` to nudge `Checkbox`, `Radio` and `Switch` labels against their control for fonts with unusual metrics, and `--ui-invalid-text` for validation messages.
@@ -236,7 +237,7 @@
 - `Select` keeps the browser's checkmark at the end of the selected option instead of hiding it.
 - A checked `ToggleButton` is filled with `--ui-primary` (or `--ui-selected`) instead of a tint.
 - Tonal severity `Callout`s have a visible fill in light mode, 60% of the third palette step instead of 20% of the second.
-- `TextField`, `Select` and `Textarea` with `.ui-small` set their text in `--ui-font-size-small`, like small buttons, instead of the default size. Fields under 16px make iOS zoom in on focus.
+- `TextField`, `Select` and `Textarea` with `.ui-small` set their text in `--ui-font-size-small`, like small buttons, instead of the default size. On touch screens, small and x-small fields keep `--ui-font-size-control`, since iOS Safari zooms in on a focused field with text under 16px.
 - `Card` captions, `Tooltip` text and keyboard hints in buttons use `--ui-line-height-tight` (1.25) instead of 1.3 and 1.2.
 - Inline `code` in rich text is rounded with `--ui-radius-small` (5px by default) like `kbd` and `mark`, instead of the full `--ui-radius`.
 - The file input takes `--ui-shadow-field` like other fields instead of an inset Open Props shadow, so it's flat by default.
@@ -383,7 +384,6 @@
 - `TextField`, `Textarea` and `Select` with `spread` (`.ui-spread`) collapse to a column when narrower than 400px. Previously the field was squeezed next to the label.
 - `Select` with `spread` centers its arrow on the field.
 - `TextField` and `Select` small fields are `--ui-field-size-small` (32px) high, like a small `Button`. They were 38px.
-- `TextField`, `Textarea` and `Select` x-small and small fields keep the default `--ui-font-size-control` text on touch screens, so iOS Safari no longer zooms in when one is focused.
 - `TextField` date, time, week and month inputs no longer grow taller than the field, so small ones are 32px and time inputs are no longer 41px.
 - `TextField` file inputs are `--ui-field-size` high. They were 2px taller.
 - `ToggleGroup` is as high as a `ToggleButton` of the same size. The group border made it 2px taller.

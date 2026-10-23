@@ -43,7 +43,7 @@ The `--_*` private properties are each component's wiring, the last [tier](https
 - `--_bg-color` and `--_text-color`: the current background and text color.
 - `--_duration` and `--_ease`: the transition duration and easing.
 - `--_icon-size`: the size of a direct child `svg`.
-- `--_min-height`: the height, set by the size classes.
+- `--_min-block-size`: the height, set by the size classes.
 - `--_motion`: the motion multiplier, `0` turns transitions off.
 - `--_padding-inline`: the inline padding, set by the size classes.
 

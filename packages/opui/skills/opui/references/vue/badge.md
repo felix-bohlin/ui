@@ -344,12 +344,10 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property          | Kind   | Description                                                                                                               |
 | ----------------- | ------ | ------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`       | Input  | The color the indicator background is derived from. Set by `.ui-critical`, `.ui-info` and `.ui-success`.                  |
-| `--_anchor-tx`    | Output | Horizontal shift of the indicator, from `--_sign-x`. `.ui-dot` and round avatars change it.                               |
-| `--_anchor-ty`    | Output | Vertical shift of the indicator, from `--_sign-y`. `.ui-dot` and round avatars change it.                                 |
 | `--_bg-color`     | Output | Background of the indicator. Defaults to `--ui-primary`, set by the color classes.                                        |
 | `--_border-color` | Output | Border color of the indicator. Set by the color classes.                                                                  |
 | `--_border-width` | Input  | Border width of the indicator.                                                                                            |
-| `--_dir`          | Output | Direction flag that flips `--_anchor-tx`. `1`, or `-1` in right-to-left.                                                  |
+| `--_direction`    | Output | Direction flag that flips `--_shift-x`. `1`, or `-1` in right-to-left.                                                    |
 | `--_dot-size`     | Input  | Width and height of the indicator in `.ui-dot`.                                                                           |
 | `--_duration`     | Output | Duration of the indicator fade, `--ui-duration` times `--_motion`.                                                        |
 | `--_ease`         | Input  | Easing of the indicator fade. Defaults to `--ui-ease-enter`.                                                              |
@@ -357,6 +355,8 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_inset-block`  | Output | Block inset of the indicator, from `--_inset` and the corner classes.                                                     |
 | `--_inset-inline` | Output | Inline inset of the indicator, from `--_inset` and the corner classes.                                                    |
 | `--_motion`       | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                |
+| `--_shift-x`      | Output | Horizontal shift of the indicator, from `--_sign-x`. `.ui-dot` and round avatars change it.                               |
+| `--_shift-y`      | Output | Vertical shift of the indicator, from `--_sign-y`. `.ui-dot` and round avatars change it.                                 |
 | `--_sign-x`       | Output | Horizontal side of the indicator, `-1` or `1`. Set by the corner classes.                                                 |
 | `--_sign-y`       | Output | Vertical side of the indicator, `1` or `-1`. Set by the corner classes.                                                   |
 | `--_size`         | Input  | Height and minimum width of the indicator.                                                                                |
@@ -499,6 +499,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: `--_anchor-tx` and `--_anchor-ty` are `--_shift-x` and `--_shift-y` ([Under the hood](#under-the-hood)).
 - Severity text reads `--ui-on-accent` and `--ui-palette-strong` instead of fixed grays.
 - Badges on round avatars sit on the avatar's edge ([Corners](#corners)), and in an avatar group on the start side.
 - [Indicator](#indicator) text for screen readers with `hideLabel`: one translated `label`, and the short visible text in `indicator`.

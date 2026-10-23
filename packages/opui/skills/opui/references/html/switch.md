@@ -659,7 +659,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 | Type        | Modifiers                                        | Default | Description                                                                   |
 | ----------- | ------------------------------------------------ | ------- | ----------------------------------------------------------------------------- |
 | Disabled    | `input[disabled]`                                | -       | Dims the switch and shows a not-allowed cursor.                               |
-| Label       | `.ui-label.ui-sr-only`                           | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.               |
+| Label       | `.ui-switch > span.ui-sr-only`                   | -       | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.               |
 | Orientation | default, `.ui-vertical`                          | default | The orientation of the element. `vertical` stacks the label under the switch. |
 | Required    | `input[required]`                                | -       | Adds a required mark after the label.                                         |
 | Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default | The size of the element.                                                      |
@@ -851,17 +851,17 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_duration`           | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                                                                |
 | `--_ease`               | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                            |
 | `--_icon-size`          | Output | Size of the `.ui-icon-checked` and `.ui-icon-unchecked` icons, computed to fit beside the thumb.                                               |
-| `--_input-size`         | Output | Height the label centers on, `--_track-height`.                                                                                                |
+| `--_input-size`         | Output | Height the label centers on, `--_track-block-size`.                                                                                            |
 | `--_motion`             | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                                     |
 | `--_on-accent`          | Input  | Color of the checked thumb on `--_accent`. `SelectedItemText` in forced colors.                                                                |
 | `--_thumb-bg-color`     | Input  | Color of the unchecked thumb. Defaults to `--ui-switch-thumb-bg-color`. The checked thumb uses `--_on-accent`.                                 |
-| `--_thumb-inset`        | Output | Gap between the thumb and the track edge, computed from `--_track-height` and `--_thumb-size`.                                                 |
+| `--_thumb-inset`        | Output | Gap between the thumb and the track edge, computed from `--_track-block-size` and `--_thumb-size`.                                             |
 | `--_thumb-outline-size` | Output | Current outline width that grows the thumb. Set by the checked and active states.                                                              |
 | `--_thumb-size`         | Input  | Width and height of the thumb. Defaults to `--ui-switch-thumb-size`, set by the size classes.                                                  |
 | `--_track-bg-color`     | Input  | Background of the unchecked track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-switch-track-bg-color`.                       |
+| `--_track-block-size`   | Input  | Height of the track. Defaults to `--ui-switch-track-block-size`, set by the size classes.                                                      |
 | `--_track-border-color` | Input  | Border of the unchecked track. Defaults to `--ui-field-border-color`, like the checkbox and radio borders. The checked track uses `--_accent`. |
-| `--_track-height`       | Input  | Height of the track. Defaults to `--ui-switch-track-block-size`, set by the size classes.                                                      |
-| `--_track-width`        | Input  | Width of the track. Defaults to `--ui-switch-track-inline-size`, set by the size classes.                                                      |
+| `--_track-inline-size`  | Input  | Width of the track. Defaults to `--ui-switch-track-inline-size`, set by the size classes.                                                      |
 
 ## Under the hood
 
@@ -1069,6 +1069,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: `--_track-height` and `--_track-width` are `--_track-block-size` and `--_track-inline-size` ([Under the hood](#under-the-hood)).
 - Breaking: [`.ui-vertical`](#label-position) replaces `.ui-stack`.
 - The unchecked thumb and track read [`--ui-switch-thumb-bg-color`](#api) and `--ui-switch-track-bg-color`.
 - The unchecked track border is [`--ui-field-border-color`](#api), like the checkbox and radio borders.

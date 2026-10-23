@@ -360,21 +360,21 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | Property                     | Kind   | Description                                                                                                                                                    |
 | ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-color`             | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text`, set by the invalid state.                                    |
+| `--_affix-text-color`        | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text`, set by the invalid state.                                    |
 | `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
-| `--_arrow-space`             | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
+| `--_arrow-padding`           | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
 | `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |
 | `--_border-color`            | Output | The current border color of `.ui-field`, its header and footer. Set by the invalid state.                                                                      |
-| `--_chevron-icon`            | Input  | The select arrow, as an image used for a mask.                                                                                                                 |
+| `--_chevron-image`           | Input  | The select arrow, as an image used for a mask.                                                                                                                 |
 | `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                                          |
 | `--_duration`                | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                                       |
 | `--_ease`                    | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                                            |
 | `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                                                                           |
-| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-height`.                                                                              |
+| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-block-size`.                                                                          |
 | `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                                                                            |
 | `--_font-size`               | Input  | The font size of the control and affixes.                                                                                                                      |
-| `--_helper-color`            | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-text-color`, set by the invalid state.                                |
-| `--_min-height`              | Input  | The minimum height of `.ui-field`. Defaults to `--ui-field-size`, set by the size classes.                                                                     |
+| `--_helper-text-color`       | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-text-color`, set by the invalid state.                                |
+| `--_min-block-size`          | Input  | The minimum height of `.ui-field`. Defaults to `--ui-field-size`, set by the size classes.                                                                     |
 | `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                                                     |
 
 ### textarea.css
@@ -528,7 +528,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - Breaking: the [affix](#affix) slots are `start` and `end` instead of `prefix` and `suffix`, and [`top` and `bottom`](#top-and-bottom) instead of `header` and `footer`.
-- Small and x-small fields set their text in `--ui-font-size-small` and `--ui-font-size-caption`, like buttons.
+- Small and x-small fields set their text in `--ui-font-size-small` and `--ui-font-size-caption`, like buttons. On touch screens they keep `--ui-font-size-control`, so iOS Safari doesn't zoom in on focus.
 - The field border, [`--ui-field-border-color`](#api), reaches 3:1 against the page by default.
 - The default size reads [`--ui-font-size-control`](#api) for its font size, like buttons.
 - [x-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
@@ -538,7 +538,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
 - Breaking: no generated input `id`. Pass [`id`](#api) when something outside the component references the input.
 - Breaking: `error` only sets `aria-invalid="true"` on the textarea, no more `data-invalid` on the root ([Validation](#validation)).
-- Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-height`, `--_label-color` is `--_affix-color` and `--_end-text-color` is `--_helper-color` ([Under the hood](#under-the-hood)).
+- Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-block-size`, `--_label-color` is `--_affix-text-color` and `--_end-text-color` is `--_helper-text-color` ([Under the hood](#under-the-hood)).
 - Breaking: [`startText`](#start-text) replaces `description`, matching `endText`. `supportingText` is gone, use [`endText`](#end-text).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - Corners follow `--ui-radius` through [`--ui-field-radius`](#api), so one token squares or rounds every component.

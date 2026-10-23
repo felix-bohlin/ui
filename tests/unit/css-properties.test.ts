@@ -32,16 +32,16 @@ const problem = (name: string) => {
   if (
     /-(height|width)(-|$)/.test(name) &&
     !/(^--_|-)(border|outline)-width$/.test(name) &&
-    !/-line-height$/.test(name)
+    !name.endsWith("-line-height")
   ) {
     return "use -block-size or -inline-size"
   }
   if (/-space(-|$)/.test(name)) return "use -gap or -padding"
   if (/-(tx|ty)$/.test(name)) return "use -shift-x or -shift-y"
   if (/(^--_|-)dir$/.test(name)) return "use -direction"
-  if (/-border-radius$/.test(name)) return "use -radius"
+  if (name.endsWith("-border-radius")) return "use -radius"
   if (
-    /-color$/.test(name) &&
+    name.endsWith("-color") &&
     !/(^--_|-)(bg|text|border|outline)-color$/.test(name)
   ) {
     return "say what the color paints: -bg-color, -text-color or -border-color"

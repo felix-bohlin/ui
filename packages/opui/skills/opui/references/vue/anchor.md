@@ -221,10 +221,10 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/vue"
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
 
-| Property       | Kind  | Description                                          |
-| -------------- | ----- | ---------------------------------------------------- |
-| `--_anchor-tx` | Input | Horizontal shift of `.ui-floating`. Defaults to `0`. |
-| `--_anchor-ty` | Input | Vertical shift of `.ui-floating`. Defaults to `0`.   |
+| Property     | Kind  | Description                                          |
+| ------------ | ----- | ---------------------------------------------------- |
+| `--_shift-x` | Input | Horizontal shift of `.ui-floating`. Defaults to `0`. |
+| `--_shift-y` | Input | Vertical shift of `.ui-floating`. Defaults to `0`.   |
 
 ## Under the hood
 
@@ -341,6 +341,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: `--_anchor-tx` and `--_anchor-ty` are `--_shift-x` and `--_shift-y` ([Under the hood](#under-the-hood)).
 - Breaking: [`trigger`](#hover-trigger) only takes `"hover"`. Leave it out instead of `trigger="always"`.
 - Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.
 - Breaking: [hover anchors](#hover-trigger) no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and put `interestfor` on the trigger.

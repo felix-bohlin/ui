@@ -49,7 +49,7 @@ export default {
       description:
         "Visually hides the label, `.ui-sr-only` instead of `.ui-label`.",
       group: "Label",
-      part: ".ui-label",
+      part: ".ui-radio > span",
       prop: "hideLabel",
     },
     {

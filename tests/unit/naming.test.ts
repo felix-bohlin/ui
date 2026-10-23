@@ -11,6 +11,23 @@ const apis = Object.values(
   }),
 )
 
+const itemTypes = Object.values(
+  import.meta.glob<string>("../../packages/opui/components/*/types.ts", {
+    eager: true,
+    import: "default",
+    query: "?raw",
+  }),
+).flatMap((source) =>
+  [
+    ...source.matchAll(
+      /export type (\w+Item) =([\s\S]*?)(?=\nexport |(?![\s\S]))/g,
+    ),
+  ].map(([, name, body]) => ({
+    keys: [...body.matchAll(/(\w+)\??:/g)].map(([, key]) => key),
+    name,
+  })),
+)
+
 const vocabulary: Record<string, { group: string; values: string[] }> = {
   align: { group: "Alignment", values: ["center", "end", "start"] },
   color: {
@@ -286,6 +303,20 @@ test("component props follow the naming model", () => {
   expect(
     problems.filter((problem) => !allowlist.includes(problem)),
     "new naming problems",
+  ).toEqual([])
+})
+
+test("item keys follow the naming model", () => {
+  expect(itemTypes.map(({ name }) => name)).toEqual(
+    expect.arrayContaining(["MenuItem", "RangeItem", "SelectItem"]),
+  )
+  expect(
+    itemTypes.flatMap(({ keys, name }) =>
+      keys
+        .filter((key) => replaced[key])
+        .map((key) => `${name} ${key}: use ${replaced[key]}`),
+    ),
+    "item keys",
   ).toEqual([])
 })
 

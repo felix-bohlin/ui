@@ -43,7 +43,7 @@ export default {
       group: "Label",
       htmlDescription:
         'Hides the text visually, for the whole sentence screen readers read, such as "5 unread messages". Give the visible text `aria-hidden="true"`.',
-      part: ".ui-indicator",
+      part: ".ui-indicator > span",
       prop: "hideLabel",
     },
     {

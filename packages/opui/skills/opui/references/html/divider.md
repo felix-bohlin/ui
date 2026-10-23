@@ -102,9 +102,9 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property           | Kind  | Description                                                                                          |
-| ------------------ | ----- | ---------------------------------------------------------------------------------------------------- |
-| `--_divider-color` | Input | The line color. Defaults to `--ui-border-color`, `.ui-filled`, `.ui-primary` and `.ui-tonal` set it. |
+| Property                  | Kind  | Description                                                                                          |
+| ------------------------- | ----- | ---------------------------------------------------------------------------------------------------- |
+| `--_divider-border-color` | Input | The line color. Defaults to `--ui-border-color`, `.ui-filled`, `.ui-primary` and `.ui-tonal` set it. |
 
 ## Under the hood
 

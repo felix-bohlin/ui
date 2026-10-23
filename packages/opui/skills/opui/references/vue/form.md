@@ -157,7 +157,7 @@ import {
 </template>
 ```
 
-### Row
+### Horizontal
 
 Set `orientation="horizontal"` to lay out fields horizontally.
 
@@ -827,4 +827,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: [`FieldGroup`](#field-group) no longer sets `role="group"`. Wrap it in a `FieldSet` to group and name the fields.
 - Breaking: set `error` on each field instead of `data-invalid` on the `FieldSet` ([Invalid](#fieldset-invalid)).
 - `Form`, `FieldSet` and `FieldLegend` type [`as`](#without-fieldset) as `"div" | "form"`, `"div" | "fieldset"` and `"legend" | "p"`.
-- Breaking: [`FieldGroup`](#field-group-row) `direction` is `orientation` (`"horizontal"`, `"vertical"`), like `ButtonGroup`.
+- Breaking: [`FieldGroup`](#field-group-horizontal) `direction` is `orientation` (`"auto"`, the default, `"horizontal"`, `"vertical"`), like `ButtonGroup`.

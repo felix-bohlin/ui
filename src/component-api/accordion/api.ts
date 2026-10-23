@@ -42,7 +42,7 @@ export default {
     {
       default: '"transparent"',
       description:
-        "The variant to use. Without one the accordion has no background, border or shadow.",
+        "The variant to use. The default `transparent` accordion has no background, border or shadow.",
       group: "Variants",
       prop: "variant",
       values: {

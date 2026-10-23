@@ -49,7 +49,7 @@ export default function Basics() {
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```tsx
 import { Radio } from "opui-css/react"
@@ -77,7 +77,7 @@ export default function Sizes() {
           Selected
         </Radio>
         <Radio
-          name="radio-sizes-default"
+          name="radio-sizes-medium"
           value="selected"
           defaultChecked
           hideLabel
@@ -101,8 +101,8 @@ export default function Sizes() {
         <Radio name="radio-sizes-small" size="small" value="other">
           Small
         </Radio>
-        <Radio name="radio-sizes-default" value="other">
-          Default
+        <Radio name="radio-sizes-medium" value="other">
+          Medium
         </Radio>
         <Radio name="radio-sizes-large" size="large" value="other">
           Large
@@ -258,7 +258,7 @@ export default function FieldGroupOrientation() {
     <Form>
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup orientation="horizontal" name="radio-group-direction">
+        <FieldGroup name="radio-group-orientation" orientation="horizontal">
           <Radio value="1" defaultChecked>
             Radio 1
           </Radio>

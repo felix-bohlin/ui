@@ -23,7 +23,7 @@ export default function Sizes() {
           Selected
         </Radio>
         <Radio
-          name="radio-sizes-default"
+          name="radio-sizes-medium"
           value="selected"
           defaultChecked
           hideLabel
@@ -47,8 +47,8 @@ export default function Sizes() {
         <Radio name="radio-sizes-small" size="small" value="other">
           Small
         </Radio>
-        <Radio name="radio-sizes-default" value="other">
-          Default
+        <Radio name="radio-sizes-medium" value="other">
+          Medium
         </Radio>
         <Radio name="radio-sizes-large" size="large" value="other">
           Large

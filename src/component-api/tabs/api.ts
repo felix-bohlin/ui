@@ -25,7 +25,7 @@ export default {
     {
       default: '"tonal"',
       description:
-        "The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill.",
+        "The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill.",
       group: "Variants",
       prop: "variant",
       values: {

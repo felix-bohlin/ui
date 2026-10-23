@@ -104,7 +104,11 @@ export default function MyComponent({
 }: Props) {
   return (
     <div
-      className={cx(["ui-my-component", size && `ui-${size}`, className])}
+      className={cx([
+        "ui-my-component",
+        size && size !== "medium" && `ui-${size}`,
+        className,
+      ])}
       {...rest}
     >
       {children}
@@ -150,7 +154,7 @@ Components should often inherit styles from others (e.g., `Accordion` and `Dialo
   class:list={[
     "ui-accordion",
     "ui-card",
-    variant && `ui-${variant}`,
+    variant && variant !== "transparent" && `ui-${variant}`,
     className,
   ]}
   {...rest}
@@ -169,7 +173,7 @@ Follow this order for readability:
 
 1.  **Component Base Class**: The primary CSS class, prefixed (e.g., `"ui-button"`).
 2.  **State Objects**: Boolean flags as quoted prefixed keys (e.g., `{ "ui-dot": dot }`).
-3.  **Variant Props**: Interpolate the prefix from the prop value (e.g., `size && \`ui-${size}\``).
+3.  **Variant Props**: Interpolate the prefix from the prop value, and skip the default, which adds no class (e.g., `size && size !== "medium" && \`ui-${size}\``).
 4.  **External Class**: Always include `className` (Astro, React and Svelte) or `$props.class` (Vue) at the end to allow for overrides. Do not prefix it.
 
 Native states use native attributes, not classes: a disabled `<button>` gets `disabled`, a disabled link gets `aria-disabled="true"`.
@@ -230,8 +234,8 @@ One concept has one prop name and one set of values in every component. `tests/u
     {
       "ui-multiline": isMultiline,
     },
-    size && `ui-${size}`,
-    variant && `ui-${variant}`,
+    size && size !== "medium" && `ui-${size}`,
+    variant && variant !== "tonal" && `ui-${variant}`,
     className,
   ]}
 >
@@ -294,7 +298,11 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
 
 ```astro
 <label
-  class:list={["ui-text-field", size && `ui-${size}`, className]}
+  class:list={[
+    "ui-text-field",
+    size && size !== "medium" && `ui-${size}`,
+    className,
+  ]}
   style={style}
 >
   <span class="ui-label">{label}</span>

@@ -7,7 +7,7 @@
 </script>
 
 <Accordion>
-  <AccordionSummary>Default</AccordionSummary>
+  <AccordionSummary>Transparent</AccordionSummary>
   <AccordionContent>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,

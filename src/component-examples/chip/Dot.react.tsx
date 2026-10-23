@@ -4,46 +4,46 @@ export default function Dot() {
   return (
     <>
       <div className="example-row">
-        <Chip severity="critical" dot label="Past due" />
-        <Chip severity="info" dot label="Processing" />
-        <Chip severity="neutral" dot label="Refunded" />
-        <Chip severity="success" dot label="Paid" />
-        <Chip severity="warning" dot label="Due 15 Oct" />
+        <Chip dot label="Past due" severity="critical" />
+        <Chip dot label="Processing" severity="info" />
+        <Chip dot label="Refunded" severity="neutral" />
+        <Chip dot label="Paid" severity="success" />
+        <Chip dot label="Due 15 Oct" severity="warning" />
       </div>
 
       <div className="example-row">
         <Chip
-          severity="critical"
           dot
           label="Past due"
+          severity="critical"
           size="small"
           variant="outlined"
         />
         <Chip
-          severity="info"
           dot
           label="Processing"
+          severity="info"
           size="small"
           variant="outlined"
         />
         <Chip
-          severity="neutral"
           dot
           label="Refunded"
+          severity="neutral"
           size="small"
           variant="outlined"
         />
         <Chip
-          severity="success"
           dot
           label="Paid"
+          severity="success"
           size="small"
           variant="outlined"
         />
         <Chip
-          severity="warning"
           dot
           label="Due 15 Oct"
+          severity="warning"
           size="small"
           variant="outlined"
         />

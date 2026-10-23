@@ -27,7 +27,7 @@ Tonal
 
 ## Content
 
-Put text or any element in a `<div class="ui-divider">` or `<p class="ui-divider">` to place it in the middle of the line, since an `<hr>` can't have content. Screen readers read it in order. Add `.ui-align-start` or `.ui-align-end` to move it to one side. The lines follow the variant classes.
+Put text or any element in a `<div class="ui-divider">` or `<p class="ui-divider">` to place it in the middle of the line, since an `<hr>` can't have content. Screen readers read it in order. Add `.ui-align-start` or `.ui-align-end` to move it to one side. The lines follow the variant and color classes.
 
 ```html
 <div class="ui-divider">or continue with email</div>

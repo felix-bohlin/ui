@@ -6181,12 +6181,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
   > Fix
-- [ ] (2) Chip: the `variant` row maps `tonal` to `.ui-tonal`, the HTML table and the Variants prose present `.ui-tonal` as the default class, and every HTML example carries it, but `chip.css` has no `.ui-tonal` rule: the tonal look is the classless baseline. The guide says a value that adds no class maps to `null`, and that every class exists in the CSS (`src/component-api/chip/api.ts:71-77`, `packages/opui/css/components/chip.css:36-43`, `src/docs/components/chip.astro:56-57`, `src/component-examples/chip/Colors.html:1,5`)
+- [x] (2) Chip: the `variant` row maps `tonal` to `.ui-tonal`, the HTML table and the Variants prose present `.ui-tonal` as the default class, and every HTML example carries it, but `chip.css` has no `.ui-tonal` rule: the tonal look is the classless baseline. The guide says a value that adds no class maps to `null`, and that every class exists in the CSS (`src/component-api/chip/api.ts:71-77`, `packages/opui/css/components/chip.css:36-43`, `src/docs/components/chip.astro:56-57`, `src/component-examples/chip/Colors.html:1,5`)
   - Options:
     - A: add the modifier so the class the components render exists (`&.ui-tonal { --_bg-color: var(--ui-surface-tonal); }` next to `&.ui-outlined`), like Button, Card, Divider and List.
     - B: map `tonal: null`, stop rendering the class for the default and drop it from the HTML examples and prose.
   > Fix
   > Do the fix that’ll be most robust and consistent
+  - Fixed with option B, as every enum now names its default: `tonal` maps to `null`, the components skip the class, and the HTML examples and Variants prose drop `.ui-tonal`. A Breaking entry covers Astro and Vue no longer rendering it.
 - [x] (2) Dialog: the Width section says the dialog "keeps a `--size-2` margin on each side" on small screens, an Open Props primitive the CSS no longer reads. `dialog.css` caps the width at `100% - var(--ui-space-4)` (`src/docs/components/dialog.astro:199-204`, `packages/opui/css/components/dialog.css:16`)
   - Fix: "On small screens it keeps half of `--ui-space-4` on each side, whatever the width."
   - Fixed: "On small screens it keeps half of `--ui-space-4` on each side, whatever the width."
@@ -9575,10 +9576,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
       Omit<HTMLAttributes<"progress">, "max" | "value">
     ```
   - Fixed: the Astro types omit `id` and `popover` for Menu and `max` and `value` for Progress, like React and Svelte.
-- [ ] (1) Progress: the `.ui-tonal` rule sets `--_bg-color: var(--ui-track-color, var(--ui-surface-tonal))`, the same value as the root, so the variant is a no-op (`packages/opui/css/components/progress.css:5,25-27`)
+- [x] (1) Progress: the `.ui-tonal` rule sets `--_bg-color: var(--ui-track-color, var(--ui-surface-tonal))`, the same value as the root, so the variant is a no-op (`packages/opui/css/components/progress.css:5,25-27`)
   - Options:
     - A: remove the `&.ui-tonal` block.
     - B: give tonal a value that differs from the default if one is intended (see the Progress `variant` item in Docs).
+  - Fixed: the rule is gone. `tonal` is the classless default and maps to `null`, so the components no longer render `.ui-tonal`.
 - [ ] (1) Radio, Switch: the Disabled sections describe `aria-disabled="true"` on the input, but no example shows it, so the look it promises ("looks the same") can't be checked on the page (`src/docs/components/radio.astro:240-244`, `src/docs/components/switch.astro:292-296`, `packages/opui/css/components/choice.css:34`)
   - Options:
     - A: add one `aria-disabled="true"` item to `FieldGroupDisabled` in all five formats.

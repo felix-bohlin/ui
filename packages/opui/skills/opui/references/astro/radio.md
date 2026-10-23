@@ -45,7 +45,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```astro
 ---
@@ -67,7 +67,7 @@ import { Radio } from "opui-css/astro"
     checked
     hideLabel>Selected</Radio
   >
-  <Radio name="radio-sizes-default" value="selected" checked hideLabel
+  <Radio name="radio-sizes-medium" value="selected" checked hideLabel
     >Selected</Radio
   >
   <Radio
@@ -81,7 +81,7 @@ import { Radio } from "opui-css/astro"
 <div class="example-row">
   <Radio name="radio-sizes-x-small" size="x-small" value="other">X-small</Radio>
   <Radio name="radio-sizes-small" size="small" value="other">Small</Radio>
-  <Radio name="radio-sizes-default" value="other">Default</Radio>
+  <Radio name="radio-sizes-medium" value="other">Medium</Radio>
   <Radio name="radio-sizes-large" size="large" value="other">Large</Radio>
 </div>
 ```
@@ -190,7 +190,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/astro"
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup orientation="horizontal" name="radio-group-direction">
+    <FieldGroup name="radio-group-orientation" orientation="horizontal">
       <Radio value="1" checked>Radio 1</Radio>
       <Radio value="2">Radio 2</Radio>
       <Radio value="3">Radio 3</Radio>

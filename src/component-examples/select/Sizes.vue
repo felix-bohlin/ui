@@ -13,8 +13,8 @@ import { Select } from "opui-css/vue"
     <option>Option Two</option>
     <option>Option Three</option>
   </Select>
-  <Select label="Default">
-    <option value="">Default</option>
+  <Select label="Medium">
+    <option value="">Medium</option>
     <option>Option Two</option>
     <option>Option Three</option>
   </Select>

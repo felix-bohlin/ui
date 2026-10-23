@@ -20,7 +20,7 @@ import { Radio } from "opui-css/vue"
       hideLabel
       >Selected</Radio
     >
-    <Radio name="radio-sizes-default" value="selected" checked hideLabel
+    <Radio name="radio-sizes-medium" value="selected" checked hideLabel
       >Selected</Radio
     >
     <Radio
@@ -37,7 +37,7 @@ import { Radio } from "opui-css/vue"
       >X-small</Radio
     >
     <Radio name="radio-sizes-small" size="small" value="other">Small</Radio>
-    <Radio name="radio-sizes-default" value="other">Default</Radio>
+    <Radio name="radio-sizes-medium" value="other">Medium</Radio>
     <Radio name="radio-sizes-large" size="large" value="other">Large</Radio>
   </div>
 </template>

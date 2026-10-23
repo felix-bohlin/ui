@@ -6,7 +6,7 @@ import {
   Form,
 } from "opui-css/react"
 
-export default function FieldGroupRow() {
+export default function FieldGroupHorizontal() {
   return (
     <Form>
       <FieldSet>

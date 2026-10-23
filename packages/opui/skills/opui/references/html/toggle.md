@@ -121,7 +121,7 @@ Use `type="checkbox"` for multi-select groups.
 
 ### Single-select
 
-Use `type="radio"` for single-select groups. Add `checked` to the input that starts pressed.
+Use `type="radio"` for single-select groups. Add `checked` to the starting input.
 
 ```html
 <div role="radiogroup" class="ui-toggle-group">
@@ -403,7 +403,7 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scro
 | Scroll      | `.ui-scrollable`                                 | -                | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
 | Selection   | `[role="group"]`, `[role="radiogroup"]`          | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
 | Shrink      | `.ui-shrink`                                     | -                | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default          | The size of the buttons. Without one they are the default control size.                                           |
+| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default          | The size of the buttons.                                                                                          |
 
 #### Parts
 

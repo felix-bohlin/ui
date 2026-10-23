@@ -43,7 +43,7 @@ import { ToggleButton } from "opui-css/astro"
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`. Set it on a `ToggleButton`, or on a `ToggleGroup` to size all its buttons.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`. Set it on a `ToggleButton`, or on a `ToggleGroup` to size all its buttons.
 
 ```astro
 ---
@@ -88,7 +88,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/astro"
 
 ### Single-select
 
-Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `checked` on the button that starts pressed, or `defaultChecked` in React.
+Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `checked` on the starting button, or `defaultChecked` in React.
 
 ```astro
 ---
@@ -315,7 +315,7 @@ import { ToggleButton } from "opui-css/astro"
 | `scrollable`  | `boolean`                                        | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
 | `selection`   | `"multiple"` , `"single"`                        | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
 | `shrink`      | `boolean`                                        | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons. Without one they are the default control size.                                           |
+| `size`        | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons.                                                                                          |
 
 #### Slots
 

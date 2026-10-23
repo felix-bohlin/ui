@@ -28,9 +28,9 @@ Change the appearance of the entire group with the `.ui-outlined`, `.ui-tonal`, 
 
 ```html
 <div role="group" class="ui-button-group">
-  <button type="button" class="ui-button">Text</button>
-  <button type="button" class="ui-button">Text</button>
-  <a class="ui-button" href="#">Text</a>
+  <button type="button" class="ui-button">Transparent</button>
+  <button type="button" class="ui-button">Transparent</button>
+  <a class="ui-button" href="#">Transparent</a>
 </div>
 
 <div role="group" class="ui-button-group ui-outlined">
@@ -88,9 +88,9 @@ Adjust the size of all buttons in the group using the `.ui-x-small`, `.ui-small`
 </div>
 
 <div role="group" class="ui-button-group ui-outlined">
-  <button type="button" class="ui-button">Default</button>
-  <button type="button" class="ui-button">Default</button>
-  <button type="button" class="ui-button">Default</button>
+  <button type="button" class="ui-button">Medium</button>
+  <button type="button" class="ui-button">Medium</button>
+  <button type="button" class="ui-button">Medium</button>
 </div>
 
 <div role="group" class="ui-button-group ui-large ui-outlined">
@@ -565,7 +565,7 @@ The root needs `role="group"`.
 | Type     | Modifiers                                          | Default | Description                                                                                                                 |
 | -------- | -------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
 | Colors   | `.ui-critical`, `.ui-primary`                      | -       | Optional colors.                                                                                                            |
-| Current  | `[aria-current="page"]`                            | -       | Keeps the pressed background on a default (text) button link, for the current page in navigation.                           |
+| Current  | `[aria-current="page"]`                            | -       | Keeps the pressed background on a transparent (text) button link, for the current page in navigation.                       |
 | Shape    | `.ui-round`                                        | -       | Fully rounded corners, a circle when icon-only.                                                                             |
 | Sizes    | default, `.ui-large`, `.ui-small`, `.ui-x-small`   | default | The size of the element.                                                                                                    |
 | State    | `[disabled]`, `a[aria-disabled="true"]`            | -       | Disables the button. A link button, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |

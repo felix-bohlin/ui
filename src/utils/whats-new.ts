@@ -35,9 +35,10 @@ const whatsNew = {
     ),
     `Elevated accordions use <a href="#api"><code>--ui-shadow-elevated</code></a>, the elevated card shadow, also in dark mode. Padding and gaps read the <code>--ui-space-*</code> scale.`,
     `<a href="#variants">Tonal and outlined</a> accordions read <a href="#api"><code>--ui-shadow-surface</code></a>, <code>none</code> unless a theme sets it, and tonal and elevated accordions <code>--ui-surface-border-color</code>.`,
-    components(
-      `<a href="#variants">Variants</a> name the default: <code>variant="transparent"</code>.`,
-    ),
+    {
+      react: `<a href="#variants">Variants</a> name the default: <code>variant="transparent"</code>.`,
+      svelte: `<a href="#variants">Variants</a> name the default: <code>variant="transparent"</code>.`,
+    },
   ],
   anchor: [
     slots(
@@ -319,6 +320,9 @@ const whatsNew = {
       default: `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
       html: `The default <a href="#variants">tonal</a> chip needs no <code>.ui-tonal</code>.`,
     },
+    slots(
+      `Breaking: a tonal <a href="#variants">chip</a> no longer renders <code>.ui-tonal</code>. Target <code>.ui-chip:not(.ui-outlined)</code> in your CSS instead.`,
+    ),
   ],
   "description-list": [
     {
@@ -374,7 +378,10 @@ const whatsNew = {
       html: `Breaking: <a href="#variants"><code>.ui-filled</code>, <code>.ui-primary</code> and <code>.ui-tonal</code></a> replace the <code>.ui-border-*</code> classes.`,
     },
     slots(
-      `Breaking: <code>variant="primary"</code> is <a href="#variants"><code>color="primary"</code></a>, and the default line is named <code>outlined</code>.`,
+      `Breaking: <code>variant="primary"</code> is <a href="#variants"><code>color="primary"</code></a>.`,
+    ),
+    components(
+      `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
     ),
     {
       ...slots(
@@ -403,6 +410,9 @@ const whatsNew = {
       `<code>DrawerTitle</code> warns in development when the drawer's generated id replaces its own <code>id</code>. Pass <code>aria-labelledby</code> on the <code>Drawer</code> to keep it (<a href="#api">API</a>).`,
     ),
     {
+      ...slots(
+        `Breaking: a drawer that opens from the <a href="#basics">inline start</a> no longer renders <code>.ui-inline-start</code>. Target <code>.ui-drawer:not(.ui-block-end, .ui-block-start, .ui-inline-end)</code> in your CSS instead.`,
+      ),
       html: `A drawer opens from the <a href="#basics">inline start</a> without <code>.ui-inline-start</code>.`,
     },
   ],
@@ -425,9 +435,9 @@ const whatsNew = {
     },
     {
       ...slots(
-        `Breaking: <a href="#field-group-row"><code>FieldGroup</code></a> <code>direction</code> is <code>orientation</code> (<code>"horizontal"</code>, <code>"vertical"</code>), like <code>ButtonGroup</code>.`,
+        `Breaking: <a href="#field-group-horizontal"><code>FieldGroup</code></a> <code>direction</code> is <code>orientation</code> (<code>"auto"</code>, the default, <code>"horizontal"</code>, <code>"vertical"</code>), like <code>ButtonGroup</code>.`,
       ),
-      html: `Breaking: <a href="#field-group-row"><code>.ui-row</code> and <code>.ui-column</code></a> on a field group are <code>.ui-horizontal</code> and <code>.ui-vertical</code>.`,
+      html: `Breaking: <a href="#field-group-horizontal"><code>.ui-row</code> and <code>.ui-column</code></a> on a field group are <code>.ui-horizontal</code> and <code>.ui-vertical</code>.`,
     },
   ],
   layout: [
@@ -460,9 +470,10 @@ const whatsNew = {
     ),
     `Breaking: rows no longer style <code>aria-selected="true"</code> on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with <a href="#selected"><code>aria-current="page"</code></a>.`,
     `<a href="#selected">Selected and current rows</a> have a bar on their start edge in <code>--ui-selected-strong</code> and a stronger fill than hover, so they don't rely on a tint alone.`,
-    components(
-      `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
-    ),
+    {
+      react: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
+      svelte: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
+    },
   ],
   menu: [
     `The border and dividers are <a href="#api"><code>--ui-border-color-on-raised</code></a>, like other elevated surfaces.`,
@@ -507,8 +518,12 @@ const whatsNew = {
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     {
-      default: `<a href="#variants">Variants</a> name the default: <code>variant="tonal"</code>.`,
+      ...slots(
+        `Breaking: a tonal <a href="#variants">progress bar</a> no longer renders <code>.ui-tonal</code>. Target <code>.ui-progress:not(.ui-filled)</code> in your CSS instead.`,
+      ),
       html: `The default <a href="#variants">tonal</a> track needs no <code>.ui-tonal</code>.`,
+      react: `<a href="#variants">Variants</a> name the default: <code>variant="tonal"</code>.`,
+      svelte: `<a href="#variants">Variants</a> name the default: <code>variant="tonal"</code>.`,
     },
   ],
   radio: [
@@ -602,9 +617,10 @@ const whatsNew = {
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `<a href="#component-properties"><code>--_track-base-color</code></a> sets the empty track at rest, so filled and tonal tracks darken on press and take the disabled color.`,
-    components(
-      `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
-    ),
+    {
+      react: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
+      svelte: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
+    },
   ],
   select: [
     `Small and x-small fields set their text in <code>--ui-font-size-small</code> and <code>--ui-font-size-caption</code>, like buttons.`,
@@ -709,7 +725,7 @@ const whatsNew = {
     slots(
       `Breaking: the part files are <code>TableBody.*</code>, <code>TableCell.*</code>, <code>TableColumn.*</code>, <code>TableColumnGroup.*</code>, <code>TableHead.*</code>, <code>TableHeaderCell.*</code> and <code>TableRow.*</code>. Update deep <code>opui-css/components/*</code> imports (<a href="#api">API</a>).`,
     ),
-    `A checkbox alone in a cell is centered (<a href="#default">Default</a>).`,
+    `A checkbox alone in a cell is centered (<a href="#normal">Normal</a>).`,
     {
       default: `<a href="#density">Dense</a> tables have less block padding.`,
       html: `<a href="#density">Dense</a> tables (<code>.ui-dense</code>) have less block padding.`,
@@ -724,7 +740,7 @@ const whatsNew = {
       `Breaking: <a href="#api"><code>TableColumn</code> <code>width</code></a> takes a CSS length; a declaration string such as <code>"min-width: 10rem"</code> is no longer parsed, pass <code>style</code> instead.`,
     ),
     components(
-      `<a href="#default"><code>TableCaption</code> and <code>TableFoot</code></a> render the caption and the footer rows.`,
+      `<a href="#normal"><code>TableCaption</code> and <code>TableFoot</code></a> render the caption and the footer rows.`,
     ),
     components(
       `<a href="#api">Every part</a> has its own props type, such as <code>TableBodyProps</code> and <code>TableCellProps</code>, exported from every framework.`,

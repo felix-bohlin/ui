@@ -6,7 +6,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
   <Form>
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup orientation="horizontal" name="checkbox-group-direction">
+      <FieldGroup name="checkbox-group-orientation" orientation="horizontal">
         <Checkbox checked>Checkbox 1</Checkbox>
         <Checkbox>Checkbox 2</Checkbox>
         <Checkbox>Checkbox 3</Checkbox>

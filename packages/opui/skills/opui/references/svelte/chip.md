@@ -44,16 +44,16 @@ Set `severity` to `critical`, `info`, `neutral`, `success` or `warning` to tint 
   import { Chip } from "opui-css/svelte"
 </script>
 
-<Chip severity="critical" label="Past due" />
-<Chip severity="info" label="Processing" />
-<Chip severity="neutral" label="Refunded" />
-<Chip severity="success" label="Paid" />
-<Chip severity="warning" label="Due 15 Oct" />
+<Chip label="Past due" severity="critical" />
+<Chip label="Processing" severity="info" />
+<Chip label="Refunded" severity="neutral" />
+<Chip label="Paid" severity="success" />
+<Chip label="Due 15 Oct" severity="warning" />
 ```
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`. Labels truncate with an ellipsis. Set `multiline` to let them wrap.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`. Labels truncate with an ellipsis. Set `multiline` to let them wrap.
 
 ```svelte
 <script lang="ts">
@@ -62,7 +62,7 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 
 <Chip size="x-small" label="x-small" />
 <Chip size="small" label="Small" />
-<Chip label="Default" />
+<Chip label="Medium" />
 <Chip size="large" label="Large" />
 <Chip
   multiline
@@ -114,7 +114,7 @@ The icon can be placed before or after the text using the `start` and `end` snip
 
 ## Dot
 
-Set `dot` to add a leading dot in the chip's color. The shape follows the color: a diamond for `critical`, a triangle for `warning` and a ring for `neutral`, so the dots differ without color too. On an `outlined` chip only the dot is colored, which keeps a table of statuses calm.
+Set `dot` to add a leading dot in the chip's color. The shape follows the severity: a diamond for `critical`, a triangle for `warning` and a ring for `neutral`, so the dots differ without color too. On an `outlined` chip only the dot is colored, which keeps a table of statuses calm.
 
 ```svelte
 <script lang="ts">
@@ -122,40 +122,40 @@ Set `dot` to add a leading dot in the chip's color. The shape follows the color:
 </script>
 
 <div class="example-row">
-  <Chip severity="critical" dot label="Past due" />
-  <Chip severity="info" dot label="Processing" />
-  <Chip severity="neutral" dot label="Refunded" />
-  <Chip severity="success" dot label="Paid" />
-  <Chip severity="warning" dot label="Due 15 Oct" />
+  <Chip dot label="Past due" severity="critical" />
+  <Chip dot label="Processing" severity="info" />
+  <Chip dot label="Refunded" severity="neutral" />
+  <Chip dot label="Paid" severity="success" />
+  <Chip dot label="Due 15 Oct" severity="warning" />
 </div>
 
 <div class="example-row">
   <Chip
-    severity="critical"
     dot
     label="Past due"
+    severity="critical"
     size="small"
     variant="outlined"
   />
   <Chip
-    severity="info"
     dot
     label="Processing"
+    severity="info"
     size="small"
     variant="outlined"
   />
   <Chip
-    severity="neutral"
     dot
     label="Refunded"
+    severity="neutral"
     size="small"
     variant="outlined"
   />
-  <Chip severity="success" dot label="Paid" size="small" variant="outlined" />
+  <Chip dot label="Paid" severity="success" size="small" variant="outlined" />
   <Chip
-    severity="warning"
     dot
     label="Due 15 Oct"
+    severity="warning"
     size="small"
     variant="outlined"
   />
@@ -265,7 +265,7 @@ Disable a button or link chip with the `disabled` prop. A link chip drops its `h
 | `href`      | `string`                                                          | -          | The link to use. Renders an `<a>`.                                                            |
 | `label`     | `string`                                                          | -          | The label.                                                                                    |
 | `multiline` | `boolean`                                                         | `false`    | Lets the label wrap to multiple lines.                                                        |
-| `severity`  | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -          | The severity of a status chip. It tints the chip and shapes its dot.                          |
+| `severity`  | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -          | The severity of a status chip. It tints the chip, and colors and shapes its dot.              |
 | `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"`                  | `"medium"` | The size of the element.                                                                      |
 | `start`     | `Snippet`                                                         | -          | Optional content at the start, such as an icon.                                               |
 | `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"`  | The variant to use.                                                                           |
@@ -316,18 +316,18 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
 
-| Property                 | Kind   | Description                                                                                                                                                                                      |
-| ------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--_accent`              | Input  | The color the hover background of a colored button or link chip is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`.                              |
-| `--_bg-color`            | Output | The current background. Set by the variant, color classes and hover states.                                                                                                                      |
-| `--_border-color`        | Output | The current border color. Defaults to `--ui-control-border-color-filled`, and `.ui-outlined` to `--ui-control-border-color`, both falling back to `--ui-border-color`. The color classes set it. |
-| `--_dot-color`           | Output | The color of the `.ui-dot` marker. `currentColor`, or `--ui-palette-accent` with a color class.                                                                                                  |
-| `--_font-size`           | Input  | The font size. `.ui-large` sets it.                                                                                                                                                              |
-| `--_icon-padding-inline` | Input  | Inline padding on the side of a leading or trailing `svg`. `.ui-large` sets it.                                                                                                                  |
-| `--_icon-size`           | Input  | Width of an `svg`. `.ui-large` sets it.                                                                                                                                                          |
-| `--_padding-inline`      | Input  | The inline padding. `.ui-large` sets it.                                                                                                                                                         |
-| `--_size`                | Input  | The height. Defaults to `--ui-chip-size`, set by the size classes.                                                                                                                               |
-| `--_text-color`          | Output | The current text color. Set by the variant, color classes and disabled states.                                                                                                                   |
+| Property                 | Kind   | Description                                                                                                                                                                                         |
+| ------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`              | Input  | The color the hover background of a colored button or link chip is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`.                                 |
+| `--_bg-color`            | Output | The current background. Set by the variant, color classes and hover states.                                                                                                                         |
+| `--_border-color`        | Output | The current border color. Defaults to `--ui-control-border-color-filled`, and `.ui-outlined` to `--ui-control-border-color`, both falling back to `--ui-border-color`. The severity classes set it. |
+| `--_dot-color`           | Output | The color of the `.ui-dot` marker. `currentColor`, or `--ui-palette-accent` with a severity class.                                                                                                  |
+| `--_font-size`           | Input  | The font size. `.ui-large` sets it.                                                                                                                                                                 |
+| `--_icon-padding-inline` | Input  | Inline padding on the side of a leading or trailing `svg`. `.ui-large` sets it.                                                                                                                     |
+| `--_icon-size`           | Input  | Width of an `svg`. `.ui-large` sets it.                                                                                                                                                             |
+| `--_padding-inline`      | Input  | The inline padding. `.ui-large` sets it.                                                                                                                                                            |
+| `--_size`                | Input  | The height. Defaults to `--ui-chip-size`, set by the size classes.                                                                                                                                  |
+| `--_text-color`          | Output | The current text color. Set by the variant, color classes and disabled states.                                                                                                                      |
 
 ## Under the hood
 

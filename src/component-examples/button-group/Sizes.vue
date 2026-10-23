@@ -16,9 +16,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
   </ButtonGroup>
 
   <ButtonGroup variant="outlined">
-    <Button>Default</Button>
-    <Button>Default</Button>
-    <Button>Default</Button>
+    <Button>Medium</Button>
+    <Button>Medium</Button>
+    <Button>Medium</Button>
   </ButtonGroup>
 
   <ButtonGroup size="large" variant="outlined">

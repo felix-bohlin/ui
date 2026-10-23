@@ -13,12 +13,12 @@ export default {
   },
   "--_border-color": {
     description:
-      "The current border color. Defaults to `--ui-control-border-color-filled`, and `.ui-outlined` to `--ui-control-border-color`, both falling back to `--ui-border-color`. The color classes set it.",
+      "The current border color. Defaults to `--ui-control-border-color-filled`, and `.ui-outlined` to `--ui-control-border-color`, both falling back to `--ui-border-color`. The severity classes set it.",
     kind: "output",
   },
   "--_dot-color": {
     description:
-      "The color of the `.ui-dot` marker. `currentColor`, or `--ui-palette-accent` with a color class.",
+      "The color of the `.ui-dot` marker. `currentColor`, or `--ui-palette-accent` with a severity class.",
     kind: "output",
   },
   "--_font-size": {

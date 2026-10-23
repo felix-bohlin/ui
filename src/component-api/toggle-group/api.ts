@@ -5,7 +5,7 @@ export default {
   css: ["toggle-button", "toggle-group"],
   model: {
     description:
-      'The value of the pressed button with `selection="single"`, or the values of the pressed buttons.',
+      'The value of the checked button with `selection="single"`, or the values of the checked buttons.',
     prop: "value",
     type: "string | string[]",
   },
@@ -64,8 +64,7 @@ export default {
     },
     {
       default: '"medium"',
-      description:
-        "The size of the buttons. Without one they are the default control size.",
+      description: "The size of the buttons.",
       group: "Sizes",
       prop: "size",
       values: {
@@ -77,7 +76,7 @@ export default {
     },
     {
       description:
-        'The value of the pressed button with `selection="single"`, or the values of the pressed buttons.',
+        'The value of the checked button with `selection="single"`, or the values of the checked buttons.',
       frameworks: ["react"],
       prop: "value",
     },

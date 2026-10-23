@@ -88,9 +88,11 @@ export const description =
       <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
-        >, <code>small</code>, default and <code>large</code>. Set it on a <code
-          >ToggleButton</code
-        >, or on a <code>ToggleGroup</code> to size all its buttons.
+        >, <code>small</code>, <code>medium</code> (the default) and <code
+          >large</code
+        >. Set it on a <code>ToggleButton</code>, or on a <code
+          >ToggleGroup</code
+        > to size all its buttons.
       </Fragment>
       <Fragment slot="html">
         Choose between four sizes: <code>.ui-x-small</code>, <code
@@ -135,12 +137,12 @@ export const description =
         Use <code>selection="single"</code> for single-select groups. Every button
         is a radio then, and a <code>type</code> on a button is ignored. Set <code
           >checked</code
-        > on the button that starts pressed, or <code>defaultChecked</code> in React.
+        > on the starting button, or <code>defaultChecked</code> in React.
       </p>
       <p slot="html">
         Use <code>type="radio"</code> for single-select groups. Add <code
           >checked</code
-        > to the input that starts pressed.
+        > to the starting input.
       </p>
     </Conditional>
 
@@ -171,7 +173,7 @@ export const description =
         > on the <code>ToggleGroup</code>, or set the starting selection with <code
           >defaultValue</code
         >. The value is a string with <code>selection="single"</code> and an array
-        of strings with <code>selection="multiple"</code>. A button is pressed
+        of strings with <code>selection="multiple"</code>. A button is checked
         when its <code>value</code> is in it, so the buttons don't need <code
           >defaultChecked</code
         >.
@@ -180,7 +182,7 @@ export const description =
         Bind the selection with <code>bind:value</code> on the <code
           >ToggleGroup</code
         >. The value is a string with <code>selection="single"</code> and an array
-        of strings with <code>selection="multiple"</code>. A button is pressed
+        of strings with <code>selection="multiple"</code>. A button is checked
         when its <code>value</code> is in it, and setting the variable updates the
         buttons.
       </Fragment>
@@ -188,7 +190,7 @@ export const description =
         Bind the selection with <code>v-model</code> on the <code
           >ToggleGroup</code
         >. The value is a string with <code>selection="single"</code> and an array
-        of strings with <code>selection="multiple"</code>. A button is pressed
+        of strings with <code>selection="multiple"</code>. A button is checked
         when its <code>value</code> is in it, and setting the ref updates the buttons.
       </Fragment>
     </Conditional>

@@ -262,6 +262,13 @@ A button chip needs `as="button"` and a link chip needs `href` (types). `disable
 + <Chip as="button" disabled label="Archived" />
 ```
 
+In Astro and Vue, a tonal `Chip` no longer renders `.ui-tonal`. Target `.ui-chip:not(.ui-outlined)` in your CSS instead. In HTML the class adds nothing and can go.
+
+```diff
+- .ui-chip.ui-tonal { --_bg-color: var(--ui-primary-tonal); }
++ .ui-chip:not(.ui-outlined) { --_bg-color: var(--ui-primary-tonal); }
+```
+
 ## Classic select
 
 `ClassicSelect` is removed. Use `Select` with the same `label`, `items` (now `SelectItem[]`), `endText`, `size`, `variant` and `error`. Options passed as children go in Select's default slot. Browsers without customizable select show the native picker.
@@ -371,6 +378,13 @@ In Astro and Vue the regions are parts instead of slots. `DrawerTitle` replaces 
 
 `types.ts` no longer exports a `Slots` type, and the Vue types no longer export `DrawerHeadingIdKey`, `DrawerSlots`, `DrawerHeaderSlots` or `DrawerFooterSlots`.
 
+In Astro and Vue, a drawer that opens from the inline start no longer renders `.ui-inline-start`. Target `.ui-drawer:not(.ui-block-end, .ui-block-start, .ui-inline-end)` in your CSS instead. In HTML the class adds nothing and can go.
+
+```diff
+- .ui-drawer.ui-inline-start { --_inline-size: 20rem; }
++ .ui-drawer:not(.ui-block-end, .ui-block-start, .ui-inline-end) { --_inline-size: 20rem; }
+```
+
 ## Field group and field set
 
 `FieldGroup` no longer sets `role="group"`. Inside a fieldset nothing changes. A `FieldGroup` without a fieldset can take `role` and `aria-label` itself. In HTML, drop `role="group"` from `.ui-field-group`.
@@ -470,7 +484,14 @@ In Astro and Vue, `style` goes to the root `<div>` instead of the `<progress>`, 
 
 ```diff
 - <div class="ui-progress ui-default">
-+ <div class="ui-progress ui-tonal">
++ <div class="ui-progress">
+```
+
+In Astro and Vue, a tonal `Progress` no longer renders `.ui-tonal`. Target `.ui-progress:not(.ui-filled)` in your CSS instead. In HTML the class adds nothing and can go.
+
+```diff
+- .ui-progress.ui-tonal { --_bg-color: var(--ui-primary-tonal); }
++ .ui-progress:not(.ui-filled) { --_bg-color: var(--ui-primary-tonal); }
 ```
 
 ## Radio
@@ -631,7 +652,7 @@ Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`,
 
 Tabs that don't fit can stay on one row and scroll sideways with `scrollable` (`.ui-scrollable`).
 
-`TabsItem` `open` is `checked`, the attribute it sets on the radio. In React, use `defaultChecked` for the starting tab.
+`TabsItem` `open` is `checked`, the attribute it sets on the radio.
 
 ```diff
 - <TabsItem open>
@@ -738,7 +759,7 @@ In Astro and Vue, `style` on a `ToggleButton` goes to the root `<label>` instead
 + <label class="ui-toggle-button"><input type="checkbox" /><svg>…</svg></label>
 ```
 
-`ToggleButton` `pressed` is `checked`, the attribute it sets on the input. In React, use `defaultChecked` for the starting state, or `checked` with `onChange` to control it.
+`ToggleButton` `pressed` is `checked`, the attribute it sets on the input.
 
 ```diff
 - <ToggleButton pressed value="bold">

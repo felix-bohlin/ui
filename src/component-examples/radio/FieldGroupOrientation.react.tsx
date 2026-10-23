@@ -5,7 +5,7 @@ export default function FieldGroupOrientation() {
     <Form>
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup orientation="horizontal" name="radio-group-direction">
+        <FieldGroup name="radio-group-orientation" orientation="horizontal">
           <Radio value="1" defaultChecked>
             Radio 1
           </Radio>

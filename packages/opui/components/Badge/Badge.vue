@@ -15,8 +15,8 @@ defineSlots<Slots>()
         'ui-dot': dot,
         'ui-invisible': invisible,
       },
-      corner && corner !== 'start-end' && `ui-${corner}`,
       color && `ui-${color}`,
+      corner && corner !== 'start-end' && `ui-${corner}`,
       $props.class,
     ]"
   >

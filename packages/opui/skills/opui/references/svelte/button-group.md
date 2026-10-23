@@ -24,7 +24,7 @@ If you just need to group a bunch of "dumb" (uncontrolled) buttons - use Button 
 
 ## Variants
 
-Change the appearance of the entire group with the `variant` prop.
+Change the appearance of the entire group with the `variant` prop. The default is `transparent`.
 
 ```svelte
 <script lang="ts">
@@ -32,9 +32,9 @@ Change the appearance of the entire group with the `variant` prop.
 </script>
 
 <ButtonGroup>
-  <Button>Text</Button>
-  <Button>Text</Button>
-  <Button href="#">Text</Button>
+  <Button>Transparent</Button>
+  <Button>Transparent</Button>
+  <Button href="#">Transparent</Button>
 </ButtonGroup>
 
 <ButtonGroup variant="outlined">
@@ -80,7 +80,7 @@ Set the `color` prop to `critical` or `primary` to recolor the entire group. The
 
 ## Sizes
 
-Adjust the size of all buttons in the group using the `size` prop.
+Adjust the size of all buttons in the group using the `size` prop: `x-small`, `small`, `medium` (the default) or `large`.
 
 ```svelte
 <script lang="ts">
@@ -100,9 +100,9 @@ Adjust the size of all buttons in the group using the `size` prop.
 </ButtonGroup>
 
 <ButtonGroup variant="outlined">
-  <Button>Default</Button>
-  <Button>Default</Button>
-  <Button>Default</Button>
+  <Button>Medium</Button>
+  <Button>Medium</Button>
+  <Button>Medium</Button>
 </ButtonGroup>
 
 <ButtonGroup size="large" variant="outlined">

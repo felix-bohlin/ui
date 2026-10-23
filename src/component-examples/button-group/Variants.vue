@@ -4,9 +4,9 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 <template>
   <ButtonGroup>
-    <Button>Text</Button>
-    <Button>Text</Button>
-    <Button href="#">Text</Button>
+    <Button>Transparent</Button>
+    <Button>Transparent</Button>
+    <Button href="#">Transparent</Button>
   </ButtonGroup>
 
   <ButtonGroup variant="outlined">

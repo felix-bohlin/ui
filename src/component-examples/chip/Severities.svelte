@@ -2,8 +2,8 @@
   import { Chip } from "opui-css/svelte"
 </script>
 
-<Chip severity="critical" label="Past due" />
-<Chip severity="info" label="Processing" />
-<Chip severity="neutral" label="Refunded" />
-<Chip severity="success" label="Paid" />
-<Chip severity="warning" label="Due 15 Oct" />
+<Chip label="Past due" severity="critical" />
+<Chip label="Processing" severity="info" />
+<Chip label="Refunded" severity="neutral" />
+<Chip label="Paid" severity="success" />
+<Chip label="Due 15 Oct" severity="warning" />

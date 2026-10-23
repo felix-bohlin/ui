@@ -295,4 +295,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Progress bars](#indeterminate) center in table cells and lines of text.
 - Breaking: `style` goes to the root, like `class`, instead of the `<progress>` ([API](#api)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
-- [Variants](#variants) name the default: `variant="tonal"`.
+- Breaking: a tonal [progress bar](#variants) no longer renders `.ui-tonal`. Target `.ui-progress:not(.ui-filled)` in your CSS instead.

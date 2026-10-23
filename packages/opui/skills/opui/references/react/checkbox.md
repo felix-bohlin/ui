@@ -52,7 +52,7 @@ export default function Basics() {
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```tsx
 import { Checkbox } from "opui-css/react"
@@ -82,7 +82,7 @@ export default function Sizes() {
           Small
         </Checkbox>
         <Checkbox defaultChecked name="checkbox-sizes">
-          Default
+          Medium
         </Checkbox>
         <Checkbox size="large" defaultChecked name="checkbox-sizes">
           Large
@@ -354,6 +354,8 @@ export default function FieldGroupExample() {
 
 ### Orientation
 
+Checkboxes stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
+
 ```tsx
 import {
   Checkbox,
@@ -368,7 +370,7 @@ export default function FieldGroupOrientation() {
     <Form>
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup orientation="horizontal" name="checkbox-group-direction">
+        <FieldGroup name="checkbox-group-orientation" orientation="horizontal">
           <Checkbox defaultChecked>Checkbox 1</Checkbox>
           <Checkbox>Checkbox 2</Checkbox>
           <Checkbox>Checkbox 3</Checkbox>

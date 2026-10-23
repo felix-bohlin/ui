@@ -10,8 +10,9 @@ export default {
     {
       attribute: "[checked]",
       default: "false",
-      description: "Selects the tab initially.",
-      group: "State",
+      description: "Selects the tab.",
+      group: "Checked",
+      htmlDescription: "Selects the tab initially.",
       prop: "checked",
     },
     {

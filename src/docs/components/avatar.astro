@@ -63,13 +63,14 @@ export const description =
 
     <Conditional as="p">
       <Fragment slot="components">
-        Change the shape of the avatar with the <code>shape</code> prop. The default
-        is <code>circle</code>.
+        Set <code>shape</code> to <code>rounded</code>, <code>squared</code> or <code
+          >squircle</code
+        >. The default is <code>circle</code>.
       </Fragment>
       <Fragment slot="html">
         Change the shape of the avatar with the <code>.ui-rounded</code>, <code
           >.ui-squared</code
-        > and <code>.ui-squircle</code> classes.
+        > and <code>.ui-squircle</code> classes. Without one the avatar is a circle.
       </Fragment>
     </Conditional>
 
@@ -87,6 +88,11 @@ export const description =
       sizes, for example in dense lists, table rows and bylines. Letters and icons
       scale with the avatar.
     </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The default is <code>size="medium"</code>.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Sizes" row />
   </section>

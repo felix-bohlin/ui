@@ -26,7 +26,7 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
 ## Basics
 
-Change the opening side with the `side` prop.
+Change the opening side with the `side` prop. The default is `inline-start`.
 
 Build it from `DrawerHeader`, `DrawerContent` and `DrawerFooter`. The `DrawerHeader` adds a close button. Put a `DrawerTitle` in it for the heading, which names the drawer.
 
@@ -365,7 +365,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_footer-padding`    | Input  | Padding of `.ui-footer`.                                                                             |
 | `--_header-font-size`  | Input  | Font size of headings in `.ui-header`.                                                               |
 | `--_header-padding`    | Input  | Padding of `.ui-header`.                                                                             |
-| `--_inline-size`       | Input  | Width of `.ui-inline-start` and `.ui-inline-end` drawers.                                            |
+| `--_inline-size`       | Input  | Width of drawers that open from the inline start or end.                                             |
 | `--_motion`            | Input  | Motion multiplier for the transitions. `0` turns them off.                                           |
 | `--_scroll-shadow`     | Input  | Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.              |
 | `--_shadow`            | Input  | The shadow. Defaults to `--ui-shadow-overlay`.                                                       |

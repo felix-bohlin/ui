@@ -26,7 +26,7 @@ export default {
       cssVar: "--ui-anchor-position-area",
       default: '"self-block-end span-self-inline-end"',
       description:
-        "Any valid `position-area` value. Overrides the placement and alignment classes. The `self-` keywords follow the menu's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
+        "Any valid `position-area` value. Overrides the side and alignment classes. The `self-` keywords follow the menu's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
       frameworks: ["html"],
       group: "Position area",
       prop: "anchorPositionArea",

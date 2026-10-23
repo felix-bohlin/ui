@@ -15,8 +15,8 @@ export default function Callout({
       <article
         className={cx([
           "ui-callout",
-          variant && variant !== "tonal" && `ui-${variant}`,
           severity && `ui-${severity}`,
+          variant && variant !== "tonal" && `ui-${variant}`,
           className,
         ])}
         {...rest}

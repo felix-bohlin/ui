@@ -72,7 +72,7 @@ import { Select } from "opui-css/astro"
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```astro
 ---
@@ -89,8 +89,8 @@ import { Select } from "opui-css/astro"
   <option>Option Two</option>
   <option>Option Three</option>
 </Select>
-<Select label="Default">
-  <option value="">Default</option>
+<Select label="Medium">
+  <option value="">Medium</option>
   <option>Option Two</option>
   <option>Option Three</option>
 </Select>

@@ -50,7 +50,7 @@ Textareas are outlined by default. Add `.ui-filled` for a filled textarea.
 
 ```html
 <label class="ui-textarea">
-  <span class="ui-label">Default</span>
+  <span class="ui-label">Outlined</span>
   <span class="ui-field">
     <textarea placeholder="Placeholder"></textarea>
   </span>
@@ -84,7 +84,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 </label>
 
 <label class="ui-textarea">
-  <span class="ui-label">Default</span>
+  <span class="ui-label">Medium</span>
   <span class="ui-field">
     <textarea placeholder="Placeholder"></textarea>
   </span>

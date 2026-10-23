@@ -6,7 +6,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
   <Form>
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup orientation="horizontal" name="switch-group-direction">
+      <FieldGroup name="switch-group-orientation" orientation="horizontal">
         <Switch>Switch 1</Switch>
         <Switch>Switch 2</Switch>
         <Switch>Switch 3</Switch>

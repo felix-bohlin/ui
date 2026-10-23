@@ -14,8 +14,8 @@ const Tag = computed(() => as || (href ? "a" : "div"))
     :is="Tag"
     :class="[
       'ui-avatar',
-      size && size !== 'medium' && `ui-${size}`,
       shape && shape !== 'circle' && `ui-${shape}`,
+      size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
     v-bind="tagAttrs(Tag, disabled, href)"

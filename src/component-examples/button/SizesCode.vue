@@ -5,12 +5,12 @@ import { Button } from "opui-css/vue"
 <template>
   <Button size="x-small">X-small</Button>
   <Button size="small">Small</Button>
-  <Button>Default</Button>
+  <Button>Medium</Button>
   <Button size="large">Large</Button>
 
   <Button variant="filled" size="x-small">X-small</Button>
   <Button variant="filled" size="small">Small</Button>
-  <Button variant="filled">Default</Button>
+  <Button variant="filled">Medium</Button>
   <Button variant="filled" size="large">Large</Button>
 
   <Button size="x-small" variant="outlined">
@@ -22,7 +22,7 @@ import { Button } from "opui-css/vue"
     <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="outlined">
-    <span class="ui-text">Default</span>
+    <span class="ui-text">Medium</span>
     <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="outlined" size="large">

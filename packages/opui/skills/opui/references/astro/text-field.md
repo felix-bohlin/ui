@@ -59,7 +59,7 @@ import { TextField } from "opui-css/astro"
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```astro
 ---
@@ -68,7 +68,7 @@ import { TextField } from "opui-css/astro"
 
 <TextField label="x-small" placeholder="Placeholder" size="x-small" />
 <TextField label="Small" placeholder="Placeholder" size="small" />
-<TextField label="Default" placeholder="Placeholder" />
+<TextField label="Medium" placeholder="Placeholder" />
 <TextField label="Large" placeholder="Placeholder" size="large" />
 ```
 

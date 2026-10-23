@@ -2,14 +2,20 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ToggleButton",
+  model: {
+    description: "The checked state of a standalone button.",
+    frameworks: { vue: [] },
+    prop: "checked",
+    type: "boolean",
+  },
   notes: {
     astro:
       "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`.",
     react:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `className` and `style` go to the root `<label>`. `defaultChecked` sets the starting state, and `checked` with `onChange` controls it, like on any input. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value wins and a button's own `checked` is ignored.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `className` and `style` go to the root `<label>`. `defaultChecked` sets the starting state, and `checked` with `onChange` controls it, like on any input. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value wins and a button's own `checked` and `defaultChecked` are ignored.",
     svelte:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. `bind:checked` binds a standalone button. In a `ToggleGroup` with `bind:value`, the group's value wins.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. In a `ToggleGroup` with `v-model`, the group's value sets the state instead of `checked`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. `bind:checked` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `selection=\"single\"` and `bind:value`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one, so control it with `v-model` on the group.",
   },
   options: [
     {

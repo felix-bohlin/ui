@@ -3,12 +3,12 @@ import type { CustomProperties } from "../types"
 export default {
   "--_bg-color": {
     description:
-      "The current tint, drawn over `--_surface-bg-color`. Set by the color classes and `.ui-outlined`.",
+      "The current tint, drawn over `--_surface-bg-color`. Set by the severity classes and `.ui-outlined`.",
     kind: "output",
   },
   "--_border-color": {
     description:
-      "The current border color. `--ui-surface-border-color` when a theme sets it, otherwise `--ui-surface-tonal`. Set by the color classes and `.ui-outlined`.",
+      "The current border color. `--ui-surface-border-color` when a theme sets it, otherwise `--ui-surface-tonal`. Set by the severity classes and `.ui-outlined`.",
     kind: "output",
   },
   "--_border-radius": {
@@ -29,7 +29,7 @@ export default {
   },
   "--_icon-color": {
     description:
-      "The current color of a direct child `svg`. Set by the color classes and `.ui-outlined`.",
+      "The current color of a direct child `svg`. Set by the severity classes and `.ui-outlined`.",
     kind: "output",
   },
   "--_icon-size": {
@@ -48,15 +48,15 @@ export default {
   },
   "--_outlined-border-color": {
     description:
-      "Border color of `.ui-outlined`. Defaults to `--ui-border-color`, set by the color classes.",
+      "Border color of `.ui-outlined`. Defaults to `--ui-border-color`, set by the severity classes.",
     kind: "input",
   },
   "--_outlined-icon-color": {
-    description: "Icon color of `.ui-outlined`. Set by the color classes.",
+    description: "Icon color of `.ui-outlined`. Set by the severity classes.",
     kind: "input",
   },
   "--_outlined-text-color": {
-    description: "Text color of `.ui-outlined`. Set by the color classes.",
+    description: "Text color of `.ui-outlined`. Set by the severity classes.",
     kind: "input",
   },
   "--_padding": {
@@ -74,7 +74,7 @@ export default {
   },
   "--_text-color": {
     description:
-      "The current text color. Set by the color classes and `.ui-outlined`.",
+      "The current text color. Set by the severity classes and `.ui-outlined`.",
     kind: "output",
   },
   "--_title-font-size": {

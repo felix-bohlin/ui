@@ -45,7 +45,7 @@ Day Week Month
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`. Set it on a `ToggleButton`, or on a `ToggleGroup` to size all its buttons.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`. Set it on a `ToggleButton`, or on a `ToggleGroup` to size all its buttons.
 
 ```svelte
 <script lang="ts">
@@ -90,7 +90,7 @@ Use `selection="multiple"` for multi-select groups.
 
 ### Single-select
 
-Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `checked` on the button that starts pressed, or `defaultChecked` in React.
+Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `checked` on the starting button, or `defaultChecked` in React.
 
 ```svelte
 <script lang="ts">
@@ -145,7 +145,7 @@ Use `selection="single"` for single-select groups. Every button is a radio then,
 
 ### Binding
 
-Bind the selection with `bind:value` on the `ToggleGroup`. The value is a string with `selection="single"` and an array of strings with `selection="multiple"`. A button is pressed when its `value` is in it, and setting the variable updates the buttons.
+Bind the selection with `bind:value` on the `ToggleGroup`. The value is a string with `selection="single"` and an array of strings with `selection="multiple"`. A button is checked when its `value` is in it, and setting the variable updates the buttons.
 
 ```svelte
 <script lang="ts">
@@ -302,14 +302,14 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Use `scrollab
 
 | Prop                                                                                                                                                                           | Type                                             | Default        | Description                                                                                                       |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `string[]`                            | -              | The value of the pressed button with `selection="single"`, or the values of the pressed buttons.                  |
+| `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `string[]`                            | -              | The value of the checked button with `selection="single"`, or the values of the checked buttons.                  |
 | `children`                                                                                                                                                                     | `Snippet`                                        | -              | The toggle buttons.                                                                                               |
 | `name`                                                                                                                                                                         | `string`                                         | -              | The name shared by the inputs. Generated when omitted.                                                            |
 | `orientation`                                                                                                                                                                  | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element.                                                                                   |
 | `scrollable`                                                                                                                                                                   | `boolean`                                        | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
 | `selection`                                                                                                                                                                    | `"multiple"` , `"single"`                        | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
 | `shrink`                                                                                                                                                                       | `boolean`                                        | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`                                                                                                                                                                         | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons. Without one they are the default control size.                                           |
+| `size`                                                                                                                                                                         | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons.                                                                                          |
 
 #### CSS variables
 
@@ -354,17 +354,17 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 ### Toggle button API
 
-| Prop       | Type                                             | Default      | Description                                                                                  |
-| ---------- | ------------------------------------------------ | ------------ | -------------------------------------------------------------------------------------------- |
-| `checked`  | `boolean`                                        | `false`      | Selects the button.                                                                          |
-| `children` | `Snippet`                                        | -            | The label and an optional icon.                                                              |
-| `disabled` | `boolean`                                        | `false`      | Disables the button.                                                                         |
-| `id`       | `string`                                         | -            | The id of the `<input>`.                                                                     |
-| `label`    | `string`                                         | -            | The button text when there is no child content, and the input value when `value` is omitted. |
-| `name`     | `string`                                         | -            | The name of the input. Set by the group.                                                     |
-| `size`     | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                                     |
-| `type`     | `"checkbox"` , `"radio"`                         | `"checkbox"` | The input type. `"radio"` allows one selection in a group.                                   |
-| `value`    | `string`                                         | -            | The value of the input.                                                                      |
+| Prop                                                                                                                                                                             | Type                                             | Default      | Description                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ------------ | -------------------------------------------------------------------------------------------- |
+| `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `boolean`                                        | -            | The checked state of a standalone button.                                                    |
+| `children`                                                                                                                                                                       | `Snippet`                                        | -            | The label and an optional icon.                                                              |
+| `disabled`                                                                                                                                                                       | `boolean`                                        | `false`      | Disables the button.                                                                         |
+| `id`                                                                                                                                                                             | `string`                                         | -            | The id of the `<input>`.                                                                     |
+| `label`                                                                                                                                                                          | `string`                                         | -            | The button text when there is no child content, and the input value when `value` is omitted. |
+| `name`                                                                                                                                                                           | `string`                                         | -            | The name of the input. Set by the group.                                                     |
+| `size`                                                                                                                                                                           | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                                     |
+| `type`                                                                                                                                                                           | `"checkbox"` , `"radio"`                         | `"checkbox"` | The input type. `"radio"` allows one selection in a group.                                   |
+| `value`                                                                                                                                                                          | `string`                                         | -            | The value of the input.                                                                      |
 
 #### CSS variables
 
@@ -406,7 +406,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. `bind:checked` binds a standalone button. In a `ToggleGroup` with `bind:value`, the group's value wins.
+Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. `bind:checked` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `selection="single"` and `bind:value`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.
 
 ## Component properties
 

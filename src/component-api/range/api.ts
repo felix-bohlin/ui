@@ -102,7 +102,7 @@ export default {
     {
       default: '"outlined"',
       description:
-        "The variant to use. Without one, the track uses `--ui-track-color`, or the field border color when the theme doesn't set it.",
+        "The variant to use. The default `outlined` track uses `--ui-track-color`, or the field border color when the theme doesn't set it.",
       group: "Variants",
       prop: "variant",
       values: {

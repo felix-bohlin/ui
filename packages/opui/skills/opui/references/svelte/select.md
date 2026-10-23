@@ -72,7 +72,7 @@ The select is outlined by default. Use `variant="filled"` for a filled backgroun
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```svelte
 <script lang="ts">
@@ -89,8 +89,8 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
   <option>Option Two</option>
   <option>Option Three</option>
 </Select>
-<Select label="Default">
-  <option value="">Default</option>
+<Select label="Medium">
+  <option value="">Medium</option>
   <option>Option Two</option>
   <option>Option Three</option>
 </Select>

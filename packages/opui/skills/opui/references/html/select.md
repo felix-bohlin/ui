@@ -124,14 +124,14 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 </label>
 
 <label class="ui-select">
-  <span class="ui-label" id="select-sizes-3-label">Default</span>
+  <span class="ui-label" id="select-sizes-3-label">Medium</span>
   <span class="ui-field">
     <select aria-labelledby="select-sizes-3-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
-        <option value="">Default</option>
+        <option value="">Medium</option>
         <option>Option Two</option>
         <option>Option Three</option>
       </div>

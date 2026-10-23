@@ -212,5 +212,6 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - [Spacing](#spacing) comes from `--ui-divider-space`, which cards, callouts, dialogs and drawers make tighter.
-- Breaking: `variant="primary"` is [`color="primary"`](#variants), and the default line is named `outlined`.
+- Breaking: `variant="primary"` is [`color="primary"`](#variants).
+- [Variants](#variants) name the default: `variant="outlined"`.
 - [Content](#content) in the middle of the line through the default slot, aligned with `align`.

@@ -3,7 +3,7 @@
 </script>
 
 <div class="example-compass">
-  <Tooltip positionArea="block-start" id="tooltip-position-1">
+  <Tooltip id="tooltip-position-1" positionArea="block-start">
     <Button
       interestfor="tooltip-position-1"
       commandfor="tooltip-position-1"
@@ -11,7 +11,7 @@
     >
     <TooltipContent>Above</TooltipContent>
   </Tooltip>
-  <Tooltip positionArea="inline-start" id="tooltip-position-2">
+  <Tooltip id="tooltip-position-2" positionArea="inline-start">
     <Button
       interestfor="tooltip-position-2"
       commandfor="tooltip-position-2"
@@ -19,7 +19,7 @@
     >
     <TooltipContent>Before</TooltipContent>
   </Tooltip>
-  <Tooltip positionArea="inline-end" id="tooltip-position-3">
+  <Tooltip id="tooltip-position-3" positionArea="inline-end">
     <Button
       interestfor="tooltip-position-3"
       commandfor="tooltip-position-3"
@@ -27,7 +27,7 @@
     >
     <TooltipContent>After</TooltipContent>
   </Tooltip>
-  <Tooltip positionArea="block-end" id="tooltip-position-4">
+  <Tooltip id="tooltip-position-4" positionArea="block-end">
     <Button
       interestfor="tooltip-position-4"
       commandfor="tooltip-position-4"

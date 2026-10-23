@@ -49,7 +49,7 @@ import { Switch } from "opui-css/vue"
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```vue
 <script setup lang="ts">
@@ -62,13 +62,13 @@ import { Switch } from "opui-css/vue"
       >X-small</Switch
     >
     <Switch name="switch-sizes" size="small" checked hideLabel>Small</Switch>
-    <Switch name="switch-sizes" checked hideLabel>Default</Switch>
+    <Switch name="switch-sizes" checked hideLabel>Medium</Switch>
     <Switch name="switch-sizes" size="large" checked hideLabel>Large</Switch>
   </div>
   <div class="example-row">
     <Switch name="switch-sizes" size="x-small" checked>X-small</Switch>
     <Switch name="switch-sizes" size="small" checked>Small</Switch>
-    <Switch name="switch-sizes" checked>Default</Switch>
+    <Switch name="switch-sizes" checked>Medium</Switch>
     <Switch name="switch-sizes" size="large" checked>Large</Switch>
   </div>
 </template>
@@ -296,6 +296,8 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 
 ### Orientation
 
+Switches stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
+
 ```vue
 <script setup lang="ts">
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
@@ -305,7 +307,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
   <Form>
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup orientation="horizontal" name="switch-group-direction">
+      <FieldGroup name="switch-group-orientation" orientation="horizontal">
         <Switch>Switch 1</Switch>
         <Switch>Switch 2</Switch>
         <Switch>Switch 3</Switch>

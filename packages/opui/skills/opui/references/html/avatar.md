@@ -84,7 +84,7 @@
 
 ## Shapes
 
-Change the shape of the avatar with the `.ui-rounded`, `.ui-squared` and `.ui-squircle` classes.
+Change the shape of the avatar with the `.ui-rounded`, `.ui-squared` and `.ui-squircle` classes. Without one the avatar is a circle.
 
 ```html
 <div class="ui-avatar ui-rounded">

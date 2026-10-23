@@ -24,7 +24,7 @@ Chip
 
 ## Variants
 
-The Chip has two variants: `.ui-tonal` (default) and `.ui-outlined`.
+The Chip has two variants: tonal (the default, with no class) and `.ui-outlined`.
 
 ```html
 <div class="ui-chip">
@@ -76,7 +76,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`. 
 </div>
 
 <div class="ui-chip">
-  <span class="ui-text">Default</span>
+  <span class="ui-text">Medium</span>
 </div>
 
 <div class="ui-chip ui-large">
@@ -129,7 +129,7 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 
 ## Dot
 
-Add `.ui-dot` for a leading dot in the chip's color. The shape follows the color: a diamond for `.ui-critical`, a triangle for `.ui-warning` and a ring for `.ui-neutral`, so the dots differ without color too. On an `.ui-outlined` chip only the dot is colored, which keeps a table of statuses calm.
+Add `.ui-dot` for a leading dot in the chip's color. The shape follows the severity: a diamond for `.ui-critical`, a triangle for `.ui-warning` and a ring for `.ui-neutral`, so the dots differ without color too. On an `.ui-outlined` chip only the dot is colored, which keeps a table of statuses calm.
 
 ```html
 <div class="example-row">
@@ -278,7 +278,7 @@ Disable a button chip with the `disabled` attribute. On a link chip, remove the 
 | Disabled   | `a[aria-disabled="true"]`, `button[disabled]`                           | -       | Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |
 | Dot        | `.ui-dot`                                                               | -       | Adds a leading dot in the chip's color. Its shape follows the severity.                                                      |
 | Layout     | `.ui-multiline`                                                         | -       | Lets the label wrap to multiple lines.                                                                                       |
-| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | The severity of a status chip. It tints the chip and shapes its dot.                                                         |
+| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | The severity of a status chip. It tints the chip, and colors and shapes its dot.                                             |
 | Sizes      | default, `.ui-large`, `.ui-small`, `.ui-x-small`                        | default | The size of the element.                                                                                                     |
 | State      | `.ui-disabled`                                                          | -       | Dims a static chip a little and keeps its text readable. Only changes the look. Use `disabled` on button chips.              |
 | Variants   | default, `.ui-outlined`                                                 | default | The variant to use.                                                                                                          |
@@ -338,18 +338,18 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property                 | Kind   | Description                                                                                                                                                                                      |
-| ------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--_accent`              | Input  | The color the hover background of a colored button or link chip is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`.                              |
-| `--_bg-color`            | Output | The current background. Set by the variant, color classes and hover states.                                                                                                                      |
-| `--_border-color`        | Output | The current border color. Defaults to `--ui-control-border-color-filled`, and `.ui-outlined` to `--ui-control-border-color`, both falling back to `--ui-border-color`. The color classes set it. |
-| `--_dot-color`           | Output | The color of the `.ui-dot` marker. `currentColor`, or `--ui-palette-accent` with a color class.                                                                                                  |
-| `--_font-size`           | Input  | The font size. `.ui-large` sets it.                                                                                                                                                              |
-| `--_icon-padding-inline` | Input  | Inline padding on the side of a leading or trailing `svg`. `.ui-large` sets it.                                                                                                                  |
-| `--_icon-size`           | Input  | Width of an `svg`. `.ui-large` sets it.                                                                                                                                                          |
-| `--_padding-inline`      | Input  | The inline padding. `.ui-large` sets it.                                                                                                                                                         |
-| `--_size`                | Input  | The height. Defaults to `--ui-chip-size`, set by the size classes.                                                                                                                               |
-| `--_text-color`          | Output | The current text color. Set by the variant, color classes and disabled states.                                                                                                                   |
+| Property                 | Kind   | Description                                                                                                                                                                                         |
+| ------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`              | Input  | The color the hover background of a colored button or link chip is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`.                                 |
+| `--_bg-color`            | Output | The current background. Set by the variant, color classes and hover states.                                                                                                                         |
+| `--_border-color`        | Output | The current border color. Defaults to `--ui-control-border-color-filled`, and `.ui-outlined` to `--ui-control-border-color`, both falling back to `--ui-border-color`. The severity classes set it. |
+| `--_dot-color`           | Output | The color of the `.ui-dot` marker. `currentColor`, or `--ui-palette-accent` with a severity class.                                                                                                  |
+| `--_font-size`           | Input  | The font size. `.ui-large` sets it.                                                                                                                                                                 |
+| `--_icon-padding-inline` | Input  | Inline padding on the side of a leading or trailing `svg`. `.ui-large` sets it.                                                                                                                     |
+| `--_icon-size`           | Input  | Width of an `svg`. `.ui-large` sets it.                                                                                                                                                             |
+| `--_padding-inline`      | Input  | The inline padding. `.ui-large` sets it.                                                                                                                                                            |
+| `--_size`                | Input  | The height. Defaults to `--ui-chip-size`, set by the size classes.                                                                                                                                  |
+| `--_text-color`          | Output | The current text color. Set by the variant, color classes and disabled states.                                                                                                                      |
 
 ## Under the hood
 

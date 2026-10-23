@@ -47,7 +47,7 @@ import { Switch } from "opui-css/astro"
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```astro
 ---
@@ -57,13 +57,13 @@ import { Switch } from "opui-css/astro"
 <div class="example-row">
   <Switch name="switch-sizes" size="x-small" checked hideLabel>X-small</Switch>
   <Switch name="switch-sizes" size="small" checked hideLabel>Small</Switch>
-  <Switch name="switch-sizes" checked hideLabel>Default</Switch>
+  <Switch name="switch-sizes" checked hideLabel>Medium</Switch>
   <Switch name="switch-sizes" size="large" checked hideLabel>Large</Switch>
 </div>
 <div class="example-row">
   <Switch name="switch-sizes" size="x-small" checked>X-small</Switch>
   <Switch name="switch-sizes" size="small" checked>Small</Switch>
-  <Switch name="switch-sizes" checked>Default</Switch>
+  <Switch name="switch-sizes" checked>Medium</Switch>
   <Switch name="switch-sizes" size="large" checked>Large</Switch>
 </div>
 ```
@@ -270,6 +270,8 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
 
 ### Orientation
 
+Switches stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
+
 ```astro
 ---
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
@@ -278,7 +280,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/astro"
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup orientation="horizontal" name="switch-group-direction">
+    <FieldGroup name="switch-group-orientation" orientation="horizontal">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>

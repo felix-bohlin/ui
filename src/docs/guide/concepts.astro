@@ -12,7 +12,7 @@ import TokenTiers from "../../components/TokenTiers.astro"
   <Fragment slot="title">Concepts</Fragment>
   <Fragment slot="preamble">
     The architecture: cascade layers, token tiers, scopes, props and classes,
-    rich text, and where JavaScript is still needed.
+    naming, rich text, and where JavaScript is still needed.
   </Fragment>
 
   <section>
@@ -339,9 +339,11 @@ import TokenTiers from "../../components/TokenTiers.astro"
         >tonal</code
       > is the tonal surface, <code>outlined</code> a border with no fill, <code
         >elevated</code
-      > a raised surface with a shadow, and <code>transparent</code> no surface and
-      no border. <code>plain</code> is the page surface with no border, and only differs
-      from <code>transparent</code> on a tinted background:
+      > a raised surface with a shadow, <code>transparent</code> no surface and no
+      border at rest, and <code>line</code> an indicator with no track, on <DocLink
+        href="/components/tabs#line">Tabs</DocLink
+      >. <code>plain</code> is the page surface with no border, and only differs from
+      <code>transparent</code> on a tinted background:
     </p>
     <Example centered>
       <div class="concepts-ladder">
@@ -353,6 +355,9 @@ import TokenTiers from "../../components/TokenTiers.astro"
                 { "is-tonal": surface === "tonal" },
               ]}
             >
+              <span class="concepts-surface-label">
+                {surface === "tonal" ? "On a tonal surface" : "On the page"}
+              </span>
               {["plain", "transparent", "tonal", "outlined", "elevated"].map(
                 (variant) => (
                   <div
@@ -373,11 +378,13 @@ import TokenTiers from "../../components/TokenTiers.astro"
       </div>
     </Example>
     <p>
-      Every option names its default, which adds no class: <code
+      Every enum names its default, which adds no class: <code
         >size="medium"</code
       >, <code>variant="transparent"</code> on a Button, <code
         >variant="plain"</code
       > on a Card. Leaving the prop out and writing the default give the same result.
+      <code>color</code> and <code>severity</code> have no default: leaving them out
+      means none.
     </p>
 
     <h3 id="start-and-end">Start and end</h3>
@@ -536,19 +543,25 @@ import TokenTiers from "../../components/TokenTiers.astro"
   .concepts-ladder {
     display: grid;
     gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
     inline-size: 100%;
   }
 
   .concepts-surface {
     border-radius: var(--ui-radius);
     display: grid;
-    gap: var(--size-3);
-    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    grid-row: span 6;
+    grid-template-rows: subgrid;
     padding: var(--size-3);
 
     &.is-tonal {
       background-color: var(--ui-surface-tonal);
     }
+  }
+
+  .concepts-surface-label {
+    color: var(--ui-text-muted);
+    font-size: var(--ui-font-size-small);
   }
 
   .concepts-schemes {

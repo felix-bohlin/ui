@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "opui-css/react"
 
-export default function Default() {
+export default function Normal() {
   return (
     <Table>
       <TableCaption>Band Members</TableCaption>

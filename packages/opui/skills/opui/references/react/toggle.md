@@ -49,7 +49,7 @@ export default function Standalone() {
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`. Set it on a `ToggleButton`, or on a `ToggleGroup` to size all its buttons.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`. Set it on a `ToggleButton`, or on a `ToggleGroup` to size all its buttons.
 
 ```tsx
 import { ToggleButton, ToggleGroup } from "opui-css/react"
@@ -106,7 +106,7 @@ export default function MultiSelect() {
 
 ### Single-select
 
-Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `checked` on the button that starts pressed, or `defaultChecked` in React.
+Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `checked` on the starting button, or `defaultChecked` in React.
 
 ```tsx
 import { ToggleButton, ToggleGroup } from "opui-css/react"
@@ -163,7 +163,7 @@ export default function Alignment() {
 
 ### Binding
 
-Control the selection with `value` and `onValueChange` on the `ToggleGroup`, or set the starting selection with `defaultValue`. The value is a string with `selection="single"` and an array of strings with `selection="multiple"`. A button is pressed when its `value` is in it, so the buttons don't need `defaultChecked`.
+Control the selection with `value` and `onValueChange` on the `ToggleGroup`, or set the starting selection with `defaultValue`. The value is a string with `selection="single"` and an array of strings with `selection="multiple"`. A button is checked when its `value` is in it, so the buttons don't need `defaultChecked`.
 
 ```tsx
 "use client"
@@ -359,8 +359,8 @@ export default function Disabled() {
 | `scrollable`    | `boolean`                                        | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
 | `selection`     | `"multiple"` , `"single"`                        | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
 | `shrink`        | `boolean`                                        | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`          | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons. Without one they are the default control size.                                           |
-| `value`         | `string` , `string[]`                            | -              | The value of the pressed button with `selection="single"`, or the values of the pressed buttons.                  |
+| `size`          | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons.                                                                                          |
+| `value`         | `string` , `string[]`                            | -              | The value of the checked button with `selection="single"`, or the values of the checked buttons.                  |
 
 #### CSS variables
 
@@ -459,7 +459,7 @@ Use `value` with `onValueChange`, or `defaultValue`. Without them the buttons ke
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `className` and `style` go to the root `<label>`. `defaultChecked` sets the starting state, and `checked` with `onChange` controls it, like on any input. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value wins and a button's own `checked` is ignored.
+Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `className` and `style` go to the root `<label>`. `defaultChecked` sets the starting state, and `checked` with `onChange` controls it, like on any input. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value wins and a button's own `checked` and `defaultChecked` are ignored.
 
 ## Component properties
 

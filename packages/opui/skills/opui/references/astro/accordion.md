@@ -51,7 +51,7 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 
 ## Variants
 
-Use the `variant` prop to change how it looks.
+Use the `variant` prop to change how it looks. The default is `transparent`.
 
 ```astro
 ---
@@ -59,7 +59,7 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 ---
 
 <Accordion>
-  <AccordionSummary>Default</AccordionSummary>
+  <AccordionSummary>Transparent</AccordionSummary>
   <AccordionContent>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
@@ -320,12 +320,12 @@ import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 
 ### Accordion API
 
-| Prop              | Type                                                      | Default         | Description                                                                        |
-| ----------------- | --------------------------------------------------------- | --------------- | ---------------------------------------------------------------------------------- |
-| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                          | `"rotate"`      | How the marker animates when the accordion opens.                                  |
-| `name`            | `string`                                                  | -               | Groups accordions so only one of them can be open at a time.                       |
-| `open`            | `boolean`                                                 | `false`         | Whether the accordion is open.                                                     |
-| `variant`         | `"elevated"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use. Without one the accordion has no background, border or shadow. |
+| Prop              | Type                                                      | Default         | Description                                                                                  |
+| ----------------- | --------------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------- |
+| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                          | `"rotate"`      | How the marker animates when the accordion opens.                                            |
+| `name`            | `string`                                                  | -               | Groups accordions so only one of them can be open at a time.                                 |
+| `open`            | `boolean`                                                 | `false`         | Whether the accordion is open.                                                               |
+| `variant`         | `"elevated"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use. The default `transparent` accordion has no background, border or shadow. |
 
 #### Slots
 
@@ -576,4 +576,3 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: [`variant="default"`](#variants) is `variant="transparent"`, the name of the default look.
 - Elevated accordions use [`--ui-shadow-elevated`](#api), the elevated card shadow, also in dark mode. Padding and gaps read the `--ui-space-*` scale.
 - [Tonal and outlined](#variants) accordions read [`--ui-shadow-surface`](#api), `none` unless a theme sets it, and tonal and elevated accordions `--ui-surface-border-color`.
-- [Variants](#variants) name the default: `variant="transparent"`.

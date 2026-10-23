@@ -67,7 +67,7 @@ Add one of the variant classes (`.ui-elevated`, `.ui-outlined`, `.ui-tonal`) to 
 ```html
 <details class="ui-accordion ui-card ui-marker-rotate">
   <summary>
-    Default
+    Transparent
     <svg
       aria-hidden="true"
       class="ui-marker"
@@ -469,12 +469,12 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 
 ### Accordion API
 
-| Type     | Modifiers                                                 | Default | Description                                                                        |
-| -------- | --------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
-| Grouping | `[name]`                                                  | -       | Groups accordions so only one of them can be open at a time.                       |
-| Marker   | `.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn` | -       | How the marker animates when the accordion opens.                                  |
-| State    | `[open]`                                                  | -       | Whether the accordion is open.                                                     |
-| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`      | default | The variant to use. Without one the accordion has no background, border or shadow. |
+| Type     | Modifiers                                                 | Default | Description                                                                                  |
+| -------- | --------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------- |
+| Grouping | `[name]`                                                  | -       | Groups accordions so only one of them can be open at a time.                                 |
+| Marker   | `.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn` | -       | How the marker animates when the accordion opens.                                            |
+| State    | `[open]`                                                  | -       | Whether the accordion is open.                                                               |
+| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`      | default | The variant to use. The default `transparent` accordion has no background, border or shadow. |
 
 #### Parts
 

@@ -22,8 +22,8 @@
 <article
   class={[
     "ui-callout",
-    variant && variant !== "tonal" && `ui-${variant}`,
     severity && `ui-${severity}`,
+    variant && variant !== "tonal" && `ui-${variant}`,
     className,
   ]}
   {...rest}

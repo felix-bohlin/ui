@@ -26,7 +26,7 @@ Change the button variant with the `.ui-outlined`, `.ui-tonal`, and `.ui-filled`
 
 ```html
 <div class="example-row">
-  <button type="button" class="ui-button">Text</button>
+  <button type="button" class="ui-button">Transparent</button>
   <button type="button" class="ui-button" disabled>Disabled</button>
   <a class="ui-button" href="#">Link</a>
   <a class="ui-button" href="#" aria-current="page">Current</a>
@@ -48,7 +48,7 @@ Change the button variant with the `.ui-outlined`, `.ui-tonal`, and `.ui-filled`
 </div>
 ```
 
-A default (text) button link with `aria-current="page"` keeps the pressed background, to mark the current page in navigation. Outlined, tonal and filled buttons don't change.
+A transparent (text) button link with `aria-current="page"` keeps the pressed background, to mark the current page in navigation. Outlined, tonal and filled buttons don't change.
 
 ## Colors
 
@@ -80,12 +80,12 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
 ```html
 <button type="button" class="ui-button ui-x-small">X-small</button>
 <button type="button" class="ui-button ui-small">Small</button>
-<button type="button" class="ui-button">Default</button>
+<button type="button" class="ui-button">Medium</button>
 <button type="button" class="ui-button ui-large">Large</button>
 
 <button type="button" class="ui-button ui-filled ui-x-small">X-small</button>
 <button type="button" class="ui-button ui-filled ui-small">Small</button>
-<button type="button" class="ui-button ui-filled">Default</button>
+<button type="button" class="ui-button ui-filled">Medium</button>
 <button type="button" class="ui-button ui-filled ui-large">Large</button>
 
 <button type="button" class="ui-button ui-outlined ui-x-small">
@@ -97,7 +97,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
   <svg aria-hidden="true"><!-- --></svg>
 </button>
 <button type="button" class="ui-button ui-outlined">
-  <span class="ui-text">Default</span>
+  <span class="ui-text">Medium</span>
   <svg aria-hidden="true"><!-- --></svg>
 </button>
 <button type="button" class="ui-button ui-outlined ui-large">
@@ -379,7 +379,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | Type     | Modifiers                                          | Default | Description                                                                                                                 |
 | -------- | -------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
 | Colors   | `.ui-critical`, `.ui-primary`                      | -       | Optional colors.                                                                                                            |
-| Current  | `[aria-current="page"]`                            | -       | Keeps the pressed background on a default (text) button link, for the current page in navigation.                           |
+| Current  | `[aria-current="page"]`                            | -       | Keeps the pressed background on a transparent (text) button link, for the current page in navigation.                       |
 | Shape    | `.ui-round`                                        | -       | Fully rounded corners, a circle when icon-only.                                                                             |
 | Sizes    | default, `.ui-large`, `.ui-small`, `.ui-x-small`   | default | The size of the element.                                                                                                    |
 | State    | `[disabled]`, `a[aria-disabled="true"]`            | -       | Disables the button. A link button, which can't take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. |

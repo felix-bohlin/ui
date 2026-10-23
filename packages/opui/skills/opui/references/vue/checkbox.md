@@ -44,7 +44,7 @@ import { Checkbox } from "opui-css/vue"
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```vue
 <script setup lang="ts">
@@ -67,7 +67,7 @@ import { Checkbox } from "opui-css/vue"
   <div class="example-row">
     <Checkbox size="x-small" checked name="checkbox-sizes">x-small</Checkbox>
     <Checkbox size="small" checked name="checkbox-sizes">Small</Checkbox>
-    <Checkbox checked name="checkbox-sizes">Default</Checkbox>
+    <Checkbox checked name="checkbox-sizes">Medium</Checkbox>
     <Checkbox size="large" checked name="checkbox-sizes">Large</Checkbox>
   </div>
 </template>
@@ -274,6 +274,8 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 
 ### Orientation
 
+Checkboxes stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
+
 ```vue
 <script setup lang="ts">
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
@@ -283,7 +285,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
   <Form>
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup orientation="horizontal" name="checkbox-group-direction">
+      <FieldGroup name="checkbox-group-orientation" orientation="horizontal">
         <Checkbox checked>Checkbox 1</Checkbox>
         <Checkbox>Checkbox 2</Checkbox>
         <Checkbox>Checkbox 3</Checkbox>

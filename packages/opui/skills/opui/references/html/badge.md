@@ -384,11 +384,11 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_duration`     | Output | Duration of the indicator fade, `--ui-duration` times `--_motion`.                                                        |
 | `--_ease`         | Input  | Easing of the indicator fade. Defaults to `--ui-ease-enter`.                                                              |
 | `--_inset`        | Input  | Distance of the indicator from the opposite edges. `100%` places it on the corner, round avatars move it onto the circle. |
-| `--_inset-block`  | Output | Block inset of the indicator, from `--_inset` and the alignment classes.                                                  |
-| `--_inset-inline` | Output | Inline inset of the indicator, from `--_inset` and the alignment classes.                                                 |
+| `--_inset-block`  | Output | Block inset of the indicator, from `--_inset` and the corner classes.                                                     |
+| `--_inset-inline` | Output | Inline inset of the indicator, from `--_inset` and the corner classes.                                                    |
 | `--_motion`       | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                |
-| `--_sign-x`       | Output | Horizontal side of the indicator, `-1` or `1`. Set by the alignment classes.                                              |
-| `--_sign-y`       | Output | Vertical side of the indicator, `1` or `-1`. Set by the alignment classes.                                                |
+| `--_sign-x`       | Output | Horizontal side of the indicator, `-1` or `1`. Set by the corner classes.                                                 |
+| `--_sign-y`       | Output | Vertical side of the indicator, `1` or `-1`. Set by the corner classes.                                                   |
 | `--_size`         | Input  | Height and minimum width of the indicator.                                                                                |
 | `--_text-color`   | Output | Text color of the indicator. Defaults to `--ui-on-primary`, set by the color classes.                                     |
 
@@ -410,13 +410,13 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
    - Logical insets flip in right-to-left, `translate` doesn't
    - `:dir(rtl)` sets `--dir: -1` and the offset follows
-   - Offsets follow `--sign-x` and `--sign-y`, so alignments only flip the signs
+   - Offsets follow `--sign-x` and `--sign-y`, so the corners only flip the signs
 
 4. Dot
 
    - Same indicator, emptied and shrunk
    - New `--tx` and `--ty` tuck it inside the corner, no new positioning rules
-   - Same signs, so it tucks in whichever corner it's aligned to
+   - Same signs, so it tucks in whichever corner it sits on
 
 Step 1 of 4: Indicator
 

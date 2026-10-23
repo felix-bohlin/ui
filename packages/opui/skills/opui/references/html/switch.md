@@ -74,7 +74,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
 
   <label class="ui-switch">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
-    <span class="ui-sr-only">Default</span>
+    <span class="ui-sr-only">Medium</span>
   </label>
 
   <label class="ui-switch ui-large">
@@ -96,7 +96,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
 
   <label class="ui-switch">
     <input name="switch-sizes" type="checkbox" role="switch" checked />
-    <span class="ui-label">Default</span>
+    <span class="ui-label">Medium</span>
   </label>
 
   <label class="ui-switch ui-large">
@@ -357,21 +357,23 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 
 ### Orientation
 
+Switches stack vertically by default. Add `.ui-horizontal` to the `.ui-field-group` to put them in a row.
+
 ```html
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
     <div class="ui-field-group ui-horizontal">
       <label class="ui-switch">
-        <input name="switch-group-direction" type="checkbox" role="switch" />
+        <input name="switch-group-orientation" type="checkbox" role="switch" />
         <span class="ui-label">Switch 1</span>
       </label>
       <label class="ui-switch">
-        <input name="switch-group-direction" type="checkbox" role="switch" />
+        <input name="switch-group-orientation" type="checkbox" role="switch" />
         <span class="ui-label">Switch 2</span>
       </label>
       <label class="ui-switch">
-        <input name="switch-group-direction" type="checkbox" role="switch" />
+        <input name="switch-group-orientation" type="checkbox" role="switch" />
         <span class="ui-label">Switch 3</span>
       </label>
     </div>

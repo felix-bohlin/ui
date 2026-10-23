@@ -65,7 +65,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
   </label>
 
   <label class="ui-radio">
-    <input name="radio-sizes-default" type="radio" value="selected" checked />
+    <input name="radio-sizes-medium" type="radio" value="selected" checked />
     <span class="ui-sr-only">Selected</span>
   </label>
 
@@ -87,8 +87,8 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
   </label>
 
   <label class="ui-radio">
-    <input name="radio-sizes-default" type="radio" value="other" />
-    <span class="ui-label">Default</span>
+    <input name="radio-sizes-medium" type="radio" value="other" />
+    <span class="ui-label">Medium</span>
   </label>
 
   <label class="ui-radio ui-large">
@@ -210,15 +210,15 @@ Radios stack vertically by default. Add `.ui-horizontal` to the `.ui-field-group
     <legend>Legend</legend>
     <div class="ui-field-group ui-horizontal">
       <label class="ui-radio">
-        <input name="radio-group-direction" type="radio" value="1" checked />
+        <input name="radio-group-orientation" type="radio" value="1" checked />
         <span class="ui-label">Radio 1</span>
       </label>
       <label class="ui-radio">
-        <input name="radio-group-direction" type="radio" value="2" />
+        <input name="radio-group-orientation" type="radio" value="2" />
         <span class="ui-label">Radio 2</span>
       </label>
       <label class="ui-radio">
-        <input name="radio-group-direction" type="radio" value="3" />
+        <input name="radio-group-orientation" type="radio" value="3" />
         <span class="ui-label">Radio 3</span>
       </label>
     </div>

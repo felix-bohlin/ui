@@ -73,7 +73,7 @@ Change background color with the `variant` prop.
 
 ### Filled by default
 
-Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `tonal`, or `transparent` to show the surface behind the list.
+Without a variant the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `tonal`, or `transparent` to show the surface behind the list.
 
 ```tsx
 import { List, ListItem } from "opui-css/react"
@@ -592,13 +592,13 @@ export default function Dense() {
 
 ### List API
 
-| Prop         | Type                                     | Default    | Description                                                        |
-| ------------ | ---------------------------------------- | ---------- | ------------------------------------------------------------------ |
-| `bordered`   | `boolean`                                | `false`    | Adds a border between list items.                                  |
-| `children`   | `ReactNode`                              | -          | The list items.                                                    |
-| `dense`      | `boolean`                                | `false`    | Packs the items tighter.                                           |
-| `gutterless` | `boolean`                                | `false`    | Removes the inline padding.                                        |
-| `variant`    | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. Without one, the list uses the filled surface. |
+| Prop         | Type                                     | Default    | Description                                                            |
+| ------------ | ---------------------------------------- | ---------- | ---------------------------------------------------------------------- |
+| `bordered`   | `boolean`                                | `false`    | Adds a border between list items.                                      |
+| `children`   | `ReactNode`                              | -          | The list items.                                                        |
+| `dense`      | `boolean`                                | `false`    | Packs the items tighter.                                               |
+| `gutterless` | `boolean`                                | `false`    | Removes the inline padding.                                            |
+| `variant`    | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. The default `filled` list uses the filled surface. |
 
 #### CSS variables
 

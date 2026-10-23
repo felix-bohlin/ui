@@ -5,7 +5,7 @@ export default function Sizes() {
     <>
       <Chip size="x-small" label="x-small" />
       <Chip size="small" label="Small" />
-      <Chip label="Default" />
+      <Chip label="Medium" />
       <Chip size="large" label="Large" />
       <Chip
         multiline

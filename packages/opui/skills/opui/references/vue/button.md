@@ -22,7 +22,7 @@ Buttons do things, like saving a form or opening a dialog. For filters, tags and
 
 ## Variants
 
-Change the button variant with the `variant` prop.
+Change the button variant with the `variant` prop. The default is `transparent`, a text button.
 
 ```vue
 <script setup lang="ts">
@@ -31,7 +31,7 @@ import { Button } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <Button>Text</Button>
+    <Button>Transparent</Button>
     <Button disabled>Disabled</Button>
     <Button href="#">Link</Button>
     <Button href="#" aria-current="page">Current</Button>
@@ -54,7 +54,7 @@ import { Button } from "opui-css/vue"
 </template>
 ```
 
-A default (text) button link with `aria-current="page"` keeps the pressed background, to mark the current page in navigation. Outlined, tonal and filled buttons don't change.
+A transparent (text) button link with `aria-current="page"` keeps the pressed background, to mark the current page in navigation. Outlined, tonal and filled buttons don't change.
 
 ## Colors
 
@@ -83,7 +83,7 @@ import { Button } from "opui-css/vue"
 
 ## Sizes
 
-Resize any button using the `size` prop: `x-small`, `small`, default and `large`.
+Resize any button using the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```vue
 <script setup lang="ts">
@@ -93,12 +93,12 @@ import { Button } from "opui-css/vue"
 <template>
   <Button size="x-small">X-small</Button>
   <Button size="small">Small</Button>
-  <Button>Default</Button>
+  <Button>Medium</Button>
   <Button size="large">Large</Button>
 
   <Button variant="filled" size="x-small">X-small</Button>
   <Button variant="filled" size="small">Small</Button>
-  <Button variant="filled">Default</Button>
+  <Button variant="filled">Medium</Button>
   <Button variant="filled" size="large">Large</Button>
 
   <Button size="x-small" variant="outlined">
@@ -110,7 +110,7 @@ import { Button } from "opui-css/vue"
     <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="outlined">
-    <span class="ui-text">Default</span>
+    <span class="ui-text">Medium</span>
     <svg aria-hidden="true"><!-- --></svg>
   </Button>
   <Button variant="outlined" size="large">

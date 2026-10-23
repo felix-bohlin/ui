@@ -54,12 +54,12 @@ export default {
   },
   "--_inset-block": {
     description:
-      "Block inset of the indicator, from `--_inset` and the alignment classes.",
+      "Block inset of the indicator, from `--_inset` and the corner classes.",
     kind: "output",
   },
   "--_inset-inline": {
     description:
-      "Inline inset of the indicator, from `--_inset` and the alignment classes.",
+      "Inline inset of the indicator, from `--_inset` and the corner classes.",
     kind: "output",
   },
   "--_motion": {
@@ -68,12 +68,12 @@ export default {
   },
   "--_sign-x": {
     description:
-      "Horizontal side of the indicator, `-1` or `1`. Set by the alignment classes.",
+      "Horizontal side of the indicator, `-1` or `1`. Set by the corner classes.",
     kind: "output",
   },
   "--_sign-y": {
     description:
-      "Vertical side of the indicator, `1` or `-1`. Set by the alignment classes.",
+      "Vertical side of the indicator, `1` or `-1`. Set by the corner classes.",
     kind: "output",
   },
   "--_size": {

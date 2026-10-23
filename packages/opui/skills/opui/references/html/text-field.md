@@ -84,7 +84,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 </label>
 
 <label class="ui-text-field">
-  <span class="ui-label">Default</span>
+  <span class="ui-label">Medium</span>
   <span class="ui-field">
     <input type="text" placeholder="Placeholder" />
   </span>

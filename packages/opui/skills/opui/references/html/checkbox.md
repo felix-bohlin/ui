@@ -97,7 +97,7 @@ Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`, 
 
   <label class="ui-checkbox">
     <input name="checkbox-sizes" type="checkbox" checked />
-    <span class="ui-label">Default</span>
+    <span class="ui-label">Medium</span>
   </label>
 
   <label class="ui-checkbox ui-large">
@@ -341,21 +341,23 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 
 ### Orientation
 
+Checkboxes stack vertically by default. Add `.ui-horizontal` to the `.ui-field-group` to put them in a row.
+
 ```html
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
     <div class="ui-field-group ui-horizontal">
       <label class="ui-checkbox">
-        <input name="checkbox-group-direction" type="checkbox" checked />
+        <input name="checkbox-group-orientation" type="checkbox" checked />
         <span class="ui-label">Checkbox 1</span>
       </label>
       <label class="ui-checkbox">
-        <input name="checkbox-group-direction" type="checkbox" />
+        <input name="checkbox-group-orientation" type="checkbox" />
         <span class="ui-label">Checkbox 2</span>
       </label>
       <label class="ui-checkbox">
-        <input name="checkbox-group-direction" type="checkbox" />
+        <input name="checkbox-group-orientation" type="checkbox" />
         <span class="ui-label">Checkbox 3</span>
       </label>
     </div>

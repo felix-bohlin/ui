@@ -44,7 +44,7 @@ import { Range } from "opui-css/astro"
 
 ## Variants
 
-Use the `variant` prop to swap the track surface for better contrast on different backgrounds. Without one, the track uses `--ui-track-color`, or the field border color when the theme doesn't set it.
+Use the `variant` prop to swap the track surface for better contrast on different backgrounds. The default `outlined` track uses `--ui-track-color`, or the field border color when the theme doesn't set it.
 
 ```astro
 ---
@@ -207,19 +207,19 @@ import { Range } from "opui-css/astro"
 
 ### Range API
 
-| Prop          | Type                                  | Default      | Description                                                                                                                  |
-| ------------- | ------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| `endText`     | `string`                              | -            | Supporting text displayed below the input.                                                                                   |
-| `error`       | `boolean`                             | `false`      | Marks the control invalid and shows error styles.                                                                            |
-| `id`          | `string`                              | -            | The id of the `<input>`. Generated when omitted and the value is shown.                                                      |
-| `label`       | `string`                              | -            | The label for the range.                                                                                                     |
-| `list`        | `string`                              | -            | The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.                                         |
-| `options`     | `RangeOption[]`                       | -            | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                                               |
-| `spread`      | `boolean`                             | `false`      | Pushes the label and start text to one side and the input to the other.                                                      |
-| `startText`   | `string`                              | -            | Description text displayed above the input.                                                                                  |
-| `value`       | `number` , `string`                   | -            | The current value.                                                                                                           |
-| `valueSuffix` | `string`                              | -            | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`.                                |
-| `variant`     | `"filled"` , `"outlined"` , `"tonal"` | `"outlined"` | The variant to use. Without one, the track uses `--ui-track-color`, or the field border color when the theme doesn't set it. |
+| Prop          | Type                                  | Default      | Description                                                                                                                        |
+| ------------- | ------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `endText`     | `string`                              | -            | Supporting text displayed below the input.                                                                                         |
+| `error`       | `boolean`                             | `false`      | Marks the control invalid and shows error styles.                                                                                  |
+| `id`          | `string`                              | -            | The id of the `<input>`. Generated when omitted and the value is shown.                                                            |
+| `label`       | `string`                              | -            | The label for the range.                                                                                                           |
+| `list`        | `string`                              | -            | The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.                                               |
+| `options`     | `RangeOption[]`                       | -            | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                                                     |
+| `spread`      | `boolean`                             | `false`      | Pushes the label and start text to one side and the input to the other.                                                            |
+| `startText`   | `string`                              | -            | Description text displayed above the input.                                                                                        |
+| `value`       | `number` , `string`                   | -            | The current value.                                                                                                                 |
+| `valueSuffix` | `string`                              | -            | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`.                                      |
+| `variant`     | `"filled"` , `"outlined"` , `"tonal"` | `"outlined"` | The variant to use. The default `outlined` track uses `--ui-track-color`, or the field border color when the theme doesn't set it. |
 
 #### Slots
 
@@ -567,4 +567,3 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: deep type imports from `components/Range/types` are named `Props` and `Slots` (was `RangeProps` and `RangeSlots`). Import [`RangeProps`](#api) from the framework entry instead.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - [`--_track-base-color`](#component-properties) sets the empty track at rest, so filled and tonal tracks darken on press and take the disabled color.
-- [Variants](#variants) name the default: `variant="outlined"`.

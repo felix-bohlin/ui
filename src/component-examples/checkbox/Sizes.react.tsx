@@ -25,7 +25,7 @@ export default function Sizes() {
           Small
         </Checkbox>
         <Checkbox defaultChecked name="checkbox-sizes">
-          Default
+          Medium
         </Checkbox>
         <Checkbox size="large" defaultChecked name="checkbox-sizes">
           Large

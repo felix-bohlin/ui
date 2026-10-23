@@ -11,7 +11,7 @@ export default function Sizes() {
           Small
         </Switch>
         <Switch name="switch-sizes" defaultChecked hideLabel>
-          Default
+          Medium
         </Switch>
         <Switch name="switch-sizes" size="large" defaultChecked hideLabel>
           Large
@@ -25,7 +25,7 @@ export default function Sizes() {
           Small
         </Switch>
         <Switch name="switch-sizes" defaultChecked>
-          Default
+          Medium
         </Switch>
         <Switch name="switch-sizes" size="large" defaultChecked>
           Large

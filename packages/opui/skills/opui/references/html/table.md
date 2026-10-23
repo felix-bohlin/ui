@@ -613,7 +613,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
-- A checkbox alone in a cell is centered ([Default](#default)).
+- A checkbox alone in a cell is centered ([Normal](#normal)).
 - [Dense](#density) tables (`.ui-dense`) have less block padding.
 - Fields and selects in cells keep a `12ch` minimum width, in every [density](#density).
 - [Sticky header](#sticky-header) with `.ui-sticky-header`.

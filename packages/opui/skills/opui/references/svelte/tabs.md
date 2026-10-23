@@ -26,6 +26,8 @@ General account settings.
 
 ## Basics
 
+The default `variant` is `tonal`: the tabs sit on a tonal track and the selected tab is a raised pill.
+
 ```svelte
 <script lang="ts">
   import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/svelte"
@@ -191,12 +193,12 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 ### Tabs API
 
-| Prop         | Type                                             | Default   | Description                                                                                          |
-| ------------ | ------------------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------- |
-| `children`   | `Snippet`                                        | -         | The tab items.                                                                                       |
-| `name`       | `string`                                         | -         | The name shared by the tab inputs. Generated when omitted.                                           |
-| `scrollable` | `boolean`                                        | `false`   | Keeps the tabs on one row and scrolls them sideways when they don't fit.                             |
-| `variant`    | `"filled"` , `"line"` , `"outlined"` , `"tonal"` | `"tonal"` | The variant to use. Without one the tabs sit on a tonal track and the selected tab is a raised pill. |
+| Prop         | Type                                             | Default   | Description                                                                                              |
+| ------------ | ------------------------------------------------ | --------- | -------------------------------------------------------------------------------------------------------- |
+| `children`   | `Snippet`                                        | -         | The tab items.                                                                                           |
+| `name`       | `string`                                         | -         | The name shared by the tab inputs. Generated when omitted.                                               |
+| `scrollable` | `boolean`                                        | `false`   | Keeps the tabs on one row and scrolls them sideways when they don't fit.                                 |
+| `variant`    | `"filled"` , `"line"` , `"outlined"` , `"tonal"` | `"tonal"` | The variant to use. The default `tonal` tabs sit on a tonal track and the selected tab is a raised pill. |
 
 #### CSS variables
 
@@ -238,7 +240,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 | Prop       | Type      | Default | Description                                  |
 | ---------- | --------- | ------- | -------------------------------------------- |
-| `checked`  | `boolean` | `false` | Selects the tab initially.                   |
+| `checked`  | `boolean` | `false` | Selects the tab.                             |
 | `children` | `Snippet` | -       | The tab and the panel.                       |
 | `name`     | `string`  | -       | Overrides the name shared by the tab inputs. |
 | `tabId`    | `string`  | -       | The id of the input. Generated when omitted. |

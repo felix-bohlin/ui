@@ -41,7 +41,7 @@ import { Checkbox } from "opui-css/astro"
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```astro
 ---
@@ -61,7 +61,7 @@ import { Checkbox } from "opui-css/astro"
 <div class="example-row">
   <Checkbox size="x-small" checked name="checkbox-sizes">x-small</Checkbox>
   <Checkbox size="small" checked name="checkbox-sizes">Small</Checkbox>
-  <Checkbox checked name="checkbox-sizes">Default</Checkbox>
+  <Checkbox checked name="checkbox-sizes">Medium</Checkbox>
   <Checkbox size="large" checked name="checkbox-sizes">Large</Checkbox>
 </div>
 ```
@@ -270,6 +270,8 @@ import {
 
 ### Orientation
 
+Checkboxes stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
+
 ```astro
 ---
 import {
@@ -284,7 +286,7 @@ import {
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup orientation="horizontal" name="checkbox-group-direction">
+    <FieldGroup name="checkbox-group-orientation" orientation="horizontal">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>

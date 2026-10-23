@@ -145,7 +145,7 @@ Lays out related fields. Wrap it in a fieldset to group them for screen readers.
 </form>
 ```
 
-### Row
+### Horizontal
 
 Add `.ui-horizontal` to lay out fields horizontally.
 
@@ -813,4 +813,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - Drop `role="group"` from a [`.ui-field-group`](#field-group) inside a fieldset, which already groups the fields.
 - Breaking: an invalid `.ui-fieldset` takes `aria-invalid="true"` on each control instead of `data-invalid` on the fieldset ([Invalid](#fieldset-invalid)).
-- Breaking: [`.ui-row` and `.ui-column`](#field-group-row) on a field group are `.ui-horizontal` and `.ui-vertical`.
+- Breaking: [`.ui-row` and `.ui-column`](#field-group-horizontal) on a field group are `.ui-horizontal` and `.ui-vertical`.

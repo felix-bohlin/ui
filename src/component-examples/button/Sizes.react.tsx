@@ -6,7 +6,7 @@ export default function Sizes() {
       <div className="example-row">
         <Button size="x-small">X-small</Button>
         <Button size="small">Small</Button>
-        <Button>Default</Button>
+        <Button>Medium</Button>
         <Button size="large">Large</Button>
       </div>
       <div className="example-row">
@@ -16,7 +16,7 @@ export default function Sizes() {
         <Button variant="filled" size="small">
           Small
         </Button>
-        <Button variant="filled">Default</Button>
+        <Button variant="filled">Medium</Button>
         <Button variant="filled" size="large">
           Large
         </Button>
@@ -54,7 +54,7 @@ export default function Sizes() {
           </svg>
         </Button>
         <Button variant="outlined">
-          <span className="ui-text">Default</span>
+          <span className="ui-text">Medium</span>
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"

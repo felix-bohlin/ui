@@ -155,7 +155,7 @@ export default function FieldGroupExample() {
 }
 ```
 
-### Row
+### Horizontal
 
 Set `orientation="horizontal"` to lay out fields horizontally.
 
@@ -168,7 +168,7 @@ import {
   Form,
 } from "opui-css/react"
 
-export default function FieldGroupRow() {
+export default function FieldGroupHorizontal() {
   return (
     <Form>
       <FieldSet>

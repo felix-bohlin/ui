@@ -90,7 +90,7 @@
 
 ## Shapes
 
-Change the shape of the avatar with the `shape` prop. The default is `circle`.
+Set `shape` to `rounded`, `squared` or `squircle`. The default is `circle`.
 
 ```svelte
 <script lang="ts">
@@ -115,6 +115,8 @@ Change the shape of the avatar with the `shape` prop. The default is `circle`.
 ## Sizes
 
 Use `size="x-small"`, `size="small"` or `size="large"` to match the control sizes, for example in dense lists, table rows and bylines. Letters and icons scale with the avatar.
+
+The default is `size="medium"`.
 
 ```svelte
 <script lang="ts">

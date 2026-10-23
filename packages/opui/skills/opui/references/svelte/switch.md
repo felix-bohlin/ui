@@ -47,7 +47,7 @@ All switches should have an accessible name. Put the label text inside the compo
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```svelte
 <script lang="ts">
@@ -57,13 +57,13 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <div class="example-row">
   <Switch name="switch-sizes" size="x-small" checked hideLabel>X-small</Switch>
   <Switch name="switch-sizes" size="small" checked hideLabel>Small</Switch>
-  <Switch name="switch-sizes" checked hideLabel>Default</Switch>
+  <Switch name="switch-sizes" checked hideLabel>Medium</Switch>
   <Switch name="switch-sizes" size="large" checked hideLabel>Large</Switch>
 </div>
 <div class="example-row">
   <Switch name="switch-sizes" size="x-small" checked>X-small</Switch>
   <Switch name="switch-sizes" size="small" checked>Small</Switch>
-  <Switch name="switch-sizes" checked>Default</Switch>
+  <Switch name="switch-sizes" checked>Medium</Switch>
   <Switch name="switch-sizes" size="large" checked>Large</Switch>
 </div>
 ```
@@ -276,6 +276,8 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
 
 ### Orientation
 
+Switches stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
+
 ```svelte
 <script lang="ts">
   import {
@@ -290,7 +292,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup orientation="horizontal" name="switch-group-direction">
+    <FieldGroup name="switch-group-orientation" orientation="horizontal">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>

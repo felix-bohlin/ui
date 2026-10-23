@@ -24,7 +24,7 @@ If you just need to group a bunch of "dumb" (uncontrolled) buttons - use Button 
 
 ## Variants
 
-Change the appearance of the entire group with the `variant` prop.
+Change the appearance of the entire group with the `variant` prop. The default is `transparent`.
 
 ```tsx
 import { Button, ButtonGroup } from "opui-css/react"
@@ -33,9 +33,9 @@ export default function Variants() {
   return (
     <>
       <ButtonGroup>
-        <Button>Text</Button>
-        <Button>Text</Button>
-        <Button href="#">Text</Button>
+        <Button>Transparent</Button>
+        <Button>Transparent</Button>
+        <Button href="#">Transparent</Button>
       </ButtonGroup>
 
       <ButtonGroup variant="outlined">
@@ -88,7 +88,7 @@ export default function Colors() {
 
 ## Sizes
 
-Adjust the size of all buttons in the group using the `size` prop.
+Adjust the size of all buttons in the group using the `size` prop: `x-small`, `small`, `medium` (the default) or `large`.
 
 ```tsx
 import { Button, ButtonGroup } from "opui-css/react"
@@ -109,9 +109,9 @@ export default function Sizes() {
       </ButtonGroup>
 
       <ButtonGroup variant="outlined">
-        <Button>Default</Button>
-        <Button>Default</Button>
-        <Button>Default</Button>
+        <Button>Medium</Button>
+        <Button>Medium</Button>
+        <Button>Medium</Button>
       </ButtonGroup>
 
       <ButtonGroup size="large" variant="outlined">

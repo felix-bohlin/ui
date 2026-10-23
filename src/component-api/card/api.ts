@@ -10,7 +10,7 @@ export default {
     {
       default: '"plain"',
       description:
-        "The variant to use. Without one the card has the page surface color and no border.",
+        "The variant to use. The default `plain` card has the page surface color and no border.",
       group: "Variants",
       prop: "variant",
       values: {

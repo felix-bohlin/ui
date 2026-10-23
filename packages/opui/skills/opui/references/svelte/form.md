@@ -147,7 +147,7 @@ Lays out related fields and passes a shared `name` to the OPUI fields inside. Wr
 </Form>
 ```
 
-### Row
+### Horizontal
 
 Set `orientation="horizontal"` to lay out fields horizontally.
 

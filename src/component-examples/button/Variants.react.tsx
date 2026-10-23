@@ -4,7 +4,7 @@ export default function Variants() {
   return (
     <>
       <div className="example-row">
-        <Button>Text</Button>
+        <Button>Transparent</Button>
         <Button disabled>Disabled</Button>
         <Button href="#">Link</Button>
         <Button href="#" aria-current="page">

@@ -73,7 +73,7 @@ Change background color with the `variant` prop.
 
 ### Filled by default
 
-Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `tonal`, or `transparent` to show the surface behind the list.
+Without a variant the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `tonal`, or `transparent` to show the surface behind the list.
 
 ```astro
 ---
@@ -540,12 +540,12 @@ import { List, ListItem } from "opui-css/astro"
 
 ### List API
 
-| Prop         | Type                                     | Default    | Description                                                        |
-| ------------ | ---------------------------------------- | ---------- | ------------------------------------------------------------------ |
-| `bordered`   | `boolean`                                | `false`    | Adds a border between list items.                                  |
-| `dense`      | `boolean`                                | `false`    | Packs the items tighter.                                           |
-| `gutterless` | `boolean`                                | `false`    | Removes the inline padding.                                        |
-| `variant`    | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. Without one, the list uses the filled surface. |
+| Prop         | Type                                     | Default    | Description                                                            |
+| ------------ | ---------------------------------------- | ---------- | ---------------------------------------------------------------------- |
+| `bordered`   | `boolean`                                | `false`    | Adds a border between list items.                                      |
+| `dense`      | `boolean`                                | `false`    | Packs the items tighter.                                               |
+| `gutterless` | `boolean`                                | `false`    | Removes the inline padding.                                            |
+| `variant`    | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. The default `filled` list uses the filled surface. |
 
 #### Slots
 
@@ -841,4 +841,3 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: [`type`](#checkbox) can't be combined with `as` or `href` (types).
 - Breaking: rows no longer style `aria-selected="true"` on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with [`aria-current="page"`](#selected).
 - [Selected and current rows](#selected) have a bar on their start edge in `--ui-selected-strong` and a stronger fill than hover, so they don't rely on a tint alone.
-- [Variants](#variants) name the default: `variant="filled"`.

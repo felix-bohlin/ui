@@ -54,7 +54,7 @@ export default function Basics() {
 
 ## Variants
 
-Use the `variant` prop to change how it looks.
+Use the `variant` prop to change how it looks. The default is `transparent`.
 
 ```tsx
 import { Accordion, AccordionContent, AccordionSummary } from "opui-css/react"
@@ -63,7 +63,7 @@ export default function Variants() {
   return (
     <>
       <Accordion>
-        <AccordionSummary>Default</AccordionSummary>
+        <AccordionSummary>Transparent</AccordionSummary>
         <AccordionContent>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
@@ -339,13 +339,13 @@ export default function MarkerAnimation() {
 
 ### Accordion API
 
-| Prop              | Type                                                      | Default         | Description                                                                        |
-| ----------------- | --------------------------------------------------------- | --------------- | ---------------------------------------------------------------------------------- |
-| `children`        | `ReactNode`                                               | -               | The accordion parts.                                                               |
-| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                          | `"rotate"`      | How the marker animates when the accordion opens.                                  |
-| `name`            | `string`                                                  | -               | Groups accordions so only one of them can be open at a time.                       |
-| `open`            | `boolean`                                                 | `false`         | Whether the accordion is open.                                                     |
-| `variant`         | `"elevated"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use. Without one the accordion has no background, border or shadow. |
+| Prop              | Type                                                      | Default         | Description                                                                                  |
+| ----------------- | --------------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------- |
+| `children`        | `ReactNode`                                               | -               | The accordion parts.                                                                         |
+| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                          | `"rotate"`      | How the marker animates when the accordion opens.                                            |
+| `name`            | `string`                                                  | -               | Groups accordions so only one of them can be open at a time.                                 |
+| `open`            | `boolean`                                                 | `false`         | Whether the accordion is open.                                                               |
+| `variant`         | `"elevated"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use. The default `transparent` accordion has no background, border or shadow. |
 
 #### CSS variables
 

@@ -64,7 +64,7 @@ export default {
     kind: "input",
   },
   "--_inline-size": {
-    description: "Width of `.ui-inline-start` and `.ui-inline-end` drawers.",
+    description: "Width of drawers that open from the inline start or end.",
     kind: "input",
   },
   "--_motion": {

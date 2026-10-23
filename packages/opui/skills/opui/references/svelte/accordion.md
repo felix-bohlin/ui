@@ -55,7 +55,7 @@ Put the header in `AccordionSummary` and the body in `AccordionContent`.
 
 ## Variants
 
-Use the `variant` prop to change how it looks.
+Use the `variant` prop to change how it looks. The default is `transparent`.
 
 ```svelte
 <script lang="ts">
@@ -67,7 +67,7 @@ Use the `variant` prop to change how it looks.
 </script>
 
 <Accordion>
-  <AccordionSummary>Default</AccordionSummary>
+  <AccordionSummary>Transparent</AccordionSummary>
   <AccordionContent>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
@@ -338,13 +338,13 @@ Set the `markerAnimation` prop to change how the marker animates when the accord
 
 ### Accordion API
 
-| Prop              | Type                                                      | Default         | Description                                                                        |
-| ----------------- | --------------------------------------------------------- | --------------- | ---------------------------------------------------------------------------------- |
-| `children`        | `Snippet`                                                 | -               | The accordion parts.                                                               |
-| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                          | `"rotate"`      | How the marker animates when the accordion opens.                                  |
-| `name`            | `string`                                                  | -               | Groups accordions so only one of them can be open at a time.                       |
-| `open`            | `boolean`                                                 | `false`         | Whether the accordion is open.                                                     |
-| `variant`         | `"elevated"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use. Without one the accordion has no background, border or shadow. |
+| Prop              | Type                                                      | Default         | Description                                                                                  |
+| ----------------- | --------------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------- |
+| `children`        | `Snippet`                                                 | -               | The accordion parts.                                                                         |
+| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                          | `"rotate"`      | How the marker animates when the accordion opens.                                            |
+| `name`            | `string`                                                  | -               | Groups accordions so only one of them can be open at a time.                                 |
+| `open`            | `boolean`                                                 | `false`         | Whether the accordion is open.                                                               |
+| `variant`         | `"elevated"` , `"outlined"` , `"tonal"` , `"transparent"` | `"transparent"` | The variant to use. The default `transparent` accordion has no background, border or shadow. |
 
 #### CSS variables
 

@@ -53,7 +53,7 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
         >.
       </Fragment>
       <Fragment slot="html">
-        The Chip has two variants: <code>.ui-tonal</code> (default) and <code
+        The Chip has two variants: tonal (the default, with no class) and <code
           >.ui-outlined</code
         >.
       </Fragment>
@@ -87,8 +87,10 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
       <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
-        >, <code>small</code>, default and <code>large</code>. Labels truncate
-        with an ellipsis. Set <code>multiline</code> to let them wrap.
+        >, <code>small</code>, <code>medium</code> (the default) and <code
+          >large</code
+        >. Labels truncate with an ellipsis. Set <code>multiline</code> to let them
+        wrap.
       </Fragment>
       <Fragment slot="html">
         Choose between four sizes: <code>.ui-x-small</code>, <code
@@ -139,17 +141,18 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <Conditional as="p">
       <Fragment slot="components">
         Set <code>dot</code> to add a leading dot in the chip's color. The shape follows
-        the color: a diamond for <code>critical</code>, a triangle for
+        the severity: a diamond for <code>critical</code>, a triangle for
         <code>warning</code> and a ring for <code>neutral</code>, so the dots
         differ without color too. On an <code>outlined</code> chip only the dot is
         colored, which keeps a table of statuses calm.
       </Fragment>
       <Fragment slot="html">
         Add <code>.ui-dot</code> for a leading dot in the chip's color. The shape
-        follows the color: a diamond for <code>.ui-critical</code>, a triangle
-        for <code>.ui-warning</code> and a ring for <code>.ui-neutral</code>, so
-        the dots differ without color too. On an <code>.ui-outlined</code> chip only
-        the dot is colored, which keeps a table of statuses calm.
+        follows the severity: a diamond for <code>.ui-critical</code>, a
+        triangle for <code>.ui-warning</code> and a ring for <code
+          >.ui-neutral</code
+        >, so the dots differ without color too. On an <code>.ui-outlined</code> chip
+        only the dot is colored, which keeps a table of statuses calm.
       </Fragment>
     </Conditional>
     <AutoExample name="Dot" column />

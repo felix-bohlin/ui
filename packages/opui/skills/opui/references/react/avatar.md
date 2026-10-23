@@ -108,7 +108,7 @@ export default function Icon() {
 
 ## Shapes
 
-Change the shape of the avatar with the `shape` prop. The default is `circle`.
+Set `shape` to `rounded`, `squared` or `squircle`. The default is `circle`.
 
 ```tsx
 import { Avatar } from "opui-css/react"
@@ -139,6 +139,8 @@ export default function Shapes() {
 ## Sizes
 
 Use `size="x-small"`, `size="small"` or `size="large"` to match the control sizes, for example in dense lists, table rows and bylines. Letters and icons scale with the avatar.
+
+The default is `size="medium"`.
 
 ```tsx
 import { Avatar } from "opui-css/react"

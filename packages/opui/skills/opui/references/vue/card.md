@@ -60,9 +60,9 @@ import { Card, CardContent } from "opui-css/vue"
 </template>
 ```
 
-### Why does a text variant exist?
+### Why does a transparent variant exist?
 
-On the page you won't see a difference. Put a card on a tonal surface or in a dialog, though, and the default one turns into a page-colored box. The text variant stays see-through.
+On the page you won't see a difference. Put a card on a tonal surface or in a dialog, though, and the default plain one turns into a page-colored box. The transparent variant stays see-through.
 
 ## Header
 
@@ -253,9 +253,9 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 ### Card API
 
-| Prop      | Type                                                                  | Default   | Description                                                                        |
-| --------- | --------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------- |
-| `variant` | `"elevated"` , `"outlined"` , `"plain"` , `"tonal"` , `"transparent"` | `"plain"` | The variant to use. Without one the card has the page surface color and no border. |
+| Prop      | Type                                                                  | Default   | Description                                                                            |
+| --------- | --------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------- |
+| `variant` | `"elevated"` , `"outlined"` , `"plain"` , `"tonal"` , `"transparent"` | `"plain"` | The variant to use. The default `plain` card has the page surface color and no border. |
 
 #### Slots
 

@@ -174,7 +174,7 @@ import { Button, ListItem, Menu } from "opui-css/astro"
 
 ## Placement
 
-`side`, or any `--ui-anchor-position-area`. `align="end"` to line up with the end edge.
+`side` (`block-end` by default), or any `--ui-anchor-position-area`. `align="end"` to line up with the end edge.
 
 ```astro
 ---
@@ -398,7 +398,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_duration`        | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                                                                                     |
 | `--_ease`            | Input  | Easing of the open transition. Defaults to `--ui-ease-enter`.                                                                                                       |
 | `--_hover-bg-color`  | Output | Hover background of `.ui-critical` items, from `--ui-critical`.                                                                                                     |
-| `--_margin-block`    | Output | Block margin of a popover menu, `--_offset` or `0` depending on the placement.                                                                                      |
+| `--_margin-block`    | Output | Block margin of a popover menu, `--_offset` or `0` depending on the side.                                                                                           |
 | `--_margin-inline`   | Output | Inline margin of a popover menu, `--_offset` for `.ui-inline-start` and `.ui-inline-end`.                                                                           |
 | `--_max-block-size`  | Input  | Maximum height.                                                                                                                                                     |
 | `--_min-block-size`  | Input  | Height a popover menu keeps when space is tight, unless its content is shorter. Needs `calc-size()`.                                                                |
@@ -408,7 +408,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_position-area`   | Output | The `position-area` of a popover menu, from `--_side` and `--_span`. `--ui-anchor-position-area` overrides it.                                                      |
 | `--_shadow`          | Input  | The shadow. Defaults to `--ui-shadow-overlay`.                                                                                                                      |
 | `--_side`            | Output | Side of the invoker the menu opens on, a `self-` keyword so it follows the menu's own direction. Set by `.ui-block-start`, `.ui-inline-start` and `.ui-inline-end`. |
-| `--_span`            | Output | Direction the menu extends along the invoker. Set by the placement classes and `.ui-align-end`.                                                                     |
+| `--_span`            | Output | Direction the menu extends along the invoker. Set by the side classes and `.ui-align-end`.                                                                          |
 
 ## Under the hood
 

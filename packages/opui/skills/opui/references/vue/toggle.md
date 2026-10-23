@@ -47,7 +47,7 @@ import { ToggleButton } from "opui-css/vue"
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`. Set it on a `ToggleButton`, or on a `ToggleGroup` to size all its buttons.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`. Set it on a `ToggleButton`, or on a `ToggleGroup` to size all its buttons.
 
 ```vue
 <script setup lang="ts">
@@ -100,7 +100,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 
 ### Single-select
 
-Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `checked` on the button that starts pressed, or `defaultChecked` in React.
+Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `checked` on the starting button, or `defaultChecked` in React.
 
 ```vue
 <script setup lang="ts">
@@ -157,7 +157,7 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
 
 ### Binding
 
-Bind the selection with `v-model` on the `ToggleGroup`. The value is a string with `selection="single"` and an array of strings with `selection="multiple"`. A button is pressed when its `value` is in it, and setting the ref updates the buttons.
+Bind the selection with `v-model` on the `ToggleGroup`. The value is a string with `selection="single"` and an array of strings with `selection="multiple"`. A button is checked when its `value` is in it, and setting the ref updates the buttons.
 
 ```vue
 <script setup lang="ts">
@@ -330,8 +330,8 @@ import { ToggleButton } from "opui-css/vue"
 | `scrollable`                                                                                                                                                                | `boolean`                                        | `false`        | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
 | `selection`                                                                                                                                                                 | `"multiple"` , `"single"`                        | `"multiple"`   | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
 | `shrink`                                                                                                                                                                    | `boolean`                                        | `false`        | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`                                                                                                                                                                      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons. Without one they are the default control size.                                           |
-| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `string[]`                            | -              | The value of the pressed button with `selection="single"`, or the values of the pressed buttons.                  |
+| `size`                                                                                                                                                                      | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the buttons.                                                                                          |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `string[]`                            | -              | The value of the checked button with `selection="single"`, or the values of the checked buttons.                  |
 
 #### Slots
 
@@ -439,7 +439,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 
 This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
-Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. In a `ToggleGroup` with `v-model`, the group's value sets the state instead of `checked`.
+Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one, so control it with `v-model` on the group.
 
 ## Component properties
 

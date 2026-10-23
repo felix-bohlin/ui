@@ -22,7 +22,7 @@ export default {
     {
       attribute: '[aria-current="page"]',
       description:
-        "Keeps the pressed background on a default (text) button link, for the current page in navigation.",
+        "Keeps the pressed background on a transparent (text) button link, for the current page in navigation.",
       frameworks: ["html"],
       group: "Current",
       prop: "current",

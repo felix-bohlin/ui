@@ -54,7 +54,8 @@ export const description =
     <h2 id="variants">Variants</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Change the button variant with the <code>variant</code> prop.
+        Change the button variant with the <code>variant</code> prop. The default
+        is <code>transparent</code>, a text button.
       </Fragment>
       <Fragment slot="html">
         Change the button variant with the <code>.ui-outlined</code>, <code
@@ -64,8 +65,8 @@ export const description =
     </Conditional>
     <AutoExample name="Variants" column spacious />
     <p>
-      A default (text) button link with <code>aria-current="page"</code> keeps the
-      pressed background, to mark the current page in navigation. Outlined, tonal
+      A transparent (text) button link with <code>aria-current="page"</code> keeps
+      the pressed background, to mark the current page in navigation. Outlined, tonal
       and filled buttons don't change.
     </p>
   </section>
@@ -92,7 +93,9 @@ export const description =
       <Fragment slot="components">
         Resize any button using the <code>size</code> prop: <code>x-small</code
         >,
-        <code>small</code>, default and <code>large</code>.
+        <code>small</code>, <code>medium</code> (the default) and <code
+          >large</code
+        >.
       </Fragment>
       <Fragment slot="html">
         Resize any button with the <code>.ui-x-small</code>, <code

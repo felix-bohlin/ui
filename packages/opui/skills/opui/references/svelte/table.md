@@ -654,12 +654,12 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
-- A checkbox alone in a cell is centered ([Default](#default)).
+- A checkbox alone in a cell is centered ([Normal](#normal)).
 - [Dense](#density) tables have less block padding.
 - Fields and selects in cells keep a `12ch` minimum width, in every [density](#density).
 - [Sticky header](#sticky-header) with the `stickyHeader` prop.
 - Breaking: `--_table-border-radius` is `--_border-radius` ([Under the hood](#under-the-hood)).
-- [`TableCaption` and `TableFoot`](#default) render the caption and the footer rows.
+- [`TableCaption` and `TableFoot`](#normal) render the caption and the footer rows.
 - [Every part](#api) has its own props type, such as `TableBodyProps` and `TableCellProps`, exported from every framework.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - The [sticky header](#sticky-header) shadow reads `--ui-shadow-scroll`.

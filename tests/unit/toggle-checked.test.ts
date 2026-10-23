@@ -9,6 +9,7 @@ import ToggleButtonSvelte from "../../packages/opui/components/ToggleButton/Togg
 import ToggleButtonVue from "../../packages/opui/components/ToggleButton/ToggleButton.vue"
 import ToggleGroupReact from "../../packages/opui/components/ToggleGroup/ToggleGroup.react"
 import ToggleGroupVue from "../../packages/opui/components/ToggleGroup/ToggleGroup.vue"
+import GroupedToggleSvelte from "./fixtures/GroupedToggle.svelte"
 
 const checkedInputs = (html: string) =>
   [...html.matchAll(/<input[^>]*>/g)]
@@ -63,6 +64,9 @@ describe("ToggleButton checked", () => {
         ),
       ),
     ).toEqual(["left"])
+    expect(checkedInputs(renderSvelte(GroupedToggleSvelte).body)).toEqual([
+      "left",
+    ])
     expect(
       checkedInputs(
         await renderVue(

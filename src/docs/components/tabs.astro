@@ -3,6 +3,7 @@ import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
 import TabsBuild from "../../components/UnderTheHood/TabsBuild.astro"
 import {
@@ -85,6 +86,12 @@ import tabsApi from "../../component-api/tabs/api"
 
   <section>
     <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The default <code>variant</code> is <code>tonal</code>: the tabs sit on
+        a tonal track and the selected tab is a raised pill.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Basics" />
   </section>
 

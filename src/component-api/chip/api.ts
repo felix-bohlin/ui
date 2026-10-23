@@ -48,7 +48,7 @@ export default {
     },
     {
       description:
-        "The severity of a status chip. It tints the chip and shapes its dot.",
+        "The severity of a status chip. It tints the chip, and colors and shapes its dot.",
       group: "Severities",
       prop: "severity",
       values: {

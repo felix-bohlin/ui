@@ -41,7 +41,7 @@ Label End text
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```svelte
 <script lang="ts">
@@ -61,7 +61,7 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 <div class="example-row">
   <Checkbox size="x-small" checked name="checkbox-sizes">x-small</Checkbox>
   <Checkbox size="small" checked name="checkbox-sizes">Small</Checkbox>
-  <Checkbox checked name="checkbox-sizes">Default</Checkbox>
+  <Checkbox checked name="checkbox-sizes">Medium</Checkbox>
   <Checkbox size="large" checked name="checkbox-sizes">Large</Checkbox>
 </div>
 ```
@@ -250,6 +250,8 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
 
 ### Orientation
 
+Checkboxes stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
+
 ```svelte
 <script lang="ts">
   import {
@@ -264,7 +266,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/svelte/componen
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup orientation="horizontal" name="checkbox-group-direction">
+    <FieldGroup name="checkbox-group-orientation" orientation="horizontal">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>

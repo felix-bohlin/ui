@@ -85,7 +85,9 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       <Fragment slot="components">
         Choose between four sizes with the <code>size</code> prop: <code
           >x-small</code
-        >, <code>small</code>, default and <code>large</code>.
+        >, <code>small</code>, <code>medium</code> (the default) and <code
+          >large</code
+        >.
       </Fragment>
       <Fragment slot="html">
         Choose between four sizes: <code>.ui-x-small</code>, <code
@@ -286,6 +288,19 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <AutoExample name="FieldGroup" centered column />
 
     <h3 id="field-group-orientation">Orientation</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Checkboxes stack vertically by default. Set <code
+          >orientation="horizontal"</code
+        > on the
+        <code>FieldGroup</code> to put them in a row.
+      </Fragment>
+      <Fragment slot="html">
+        Checkboxes stack vertically by default. Add <code>.ui-horizontal</code> to
+        the
+        <code>.ui-field-group</code> to put them in a row.
+      </Fragment>
+    </Conditional>
     <AutoExample name="FieldGroupOrientation" row />
 
     <h3 id="field-group-field-description">Field description</h3>

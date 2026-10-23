@@ -54,9 +54,9 @@ Change the card variant with the `.ui-transparent`, `.ui-outlined`, `.ui-tonal`,
 </div>
 ```
 
-### Why does a text variant exist?
+### Why does a transparent variant exist?
 
-On the page you won't see a difference. Put a card on a tonal surface or in a dialog, though, and the default one turns into a page-colored box. The text variant stays see-through.
+On the page you won't see a difference. Put a card on a tonal surface or in a dialog, though, and the default plain one turns into a page-colored box. The transparent variant stays see-through.
 
 ## Header
 
@@ -233,9 +233,9 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 ### Card API
 
-| Type     | Modifiers                                                               | Default | Description                                                                        |
-| -------- | ----------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
-| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.ui-transparent` | default | The variant to use. Without one the card has the page surface color and no border. |
+| Type     | Modifiers                                                               | Default | Description                                                                            |
+| -------- | ----------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------- |
+| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.ui-transparent` | default | The variant to use. The default `plain` card has the page surface color and no border. |
 
 #### Parts
 

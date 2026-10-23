@@ -81,7 +81,7 @@ Use `.ui-tonal` or `.ui-transparent` to change the background color.
 
 ### Filled by default
 
-Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `tonal`, or `transparent` to show the surface behind the list.
+Without a variant the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `tonal`, or `transparent` to show the surface behind the list.
 
 ```html
 <ul class="ui-list">
@@ -692,12 +692,12 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 
 ### List API
 
-| Type       | Modifiers                               | Default | Description                                                        |
-| ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------ |
-| Bordered   | `.ui-bordered`                          | -       | Adds a border between list items.                                  |
-| Dense      | `.ui-dense`                             | -       | Packs the items tighter.                                           |
-| Gutterless | `.ui-gutterless`                        | -       | Removes the inline padding.                                        |
-| Variants   | default, `.ui-tonal`, `.ui-transparent` | default | The variant to use. Without one, the list uses the filled surface. |
+| Type       | Modifiers                               | Default | Description                                                            |
+| ---------- | --------------------------------------- | ------- | ---------------------------------------------------------------------- |
+| Bordered   | `.ui-bordered`                          | -       | Adds a border between list items.                                      |
+| Dense      | `.ui-dense`                             | -       | Packs the items tighter.                                               |
+| Gutterless | `.ui-gutterless`                        | -       | Removes the inline padding.                                            |
+| Variants   | default, `.ui-tonal`, `.ui-transparent` | default | The variant to use. The default `filled` list uses the filled surface. |
 
 #### Parts
 

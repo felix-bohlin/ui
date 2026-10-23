@@ -39,7 +39,7 @@ export default {
   },
   "--_margin-block": {
     description:
-      "Block margin of a popover menu, `--_offset` or `0` depending on the placement.",
+      "Block margin of a popover menu, `--_offset` or `0` depending on the side.",
     kind: "output",
   },
   "--_margin-inline": {
@@ -85,7 +85,7 @@ export default {
   },
   "--_span": {
     description:
-      "Direction the menu extends along the invoker. Set by the placement classes and `.ui-align-end`.",
+      "Direction the menu extends along the invoker. Set by the side classes and `.ui-align-end`.",
     kind: "output",
   },
 } satisfies CustomProperties

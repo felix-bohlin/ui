@@ -53,13 +53,13 @@ Textareas are outlined by default. Set `variant="filled"` for a filled textarea.
   import { Textarea } from "opui-css/svelte"
 </script>
 
-<Textarea label="Default" placeholder="Placeholder" />
+<Textarea label="Outlined" placeholder="Placeholder" />
 <Textarea label="Filled" placeholder="Placeholder" variant="filled" />
 ```
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```svelte
 <script lang="ts">
@@ -68,7 +68,7 @@ Choose between four sizes with the `size` prop: `x-small`, `small`, default and 
 
 <Textarea label="x-small" placeholder="Placeholder" size="x-small" />
 <Textarea label="Small" placeholder="Placeholder" size="small" />
-<Textarea label="Default" placeholder="Placeholder" />
+<Textarea label="Medium" placeholder="Placeholder" />
 <Textarea label="Large" placeholder="Placeholder" size="large" />
 ```
 

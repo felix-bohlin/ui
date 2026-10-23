@@ -54,7 +54,7 @@ import { Textarea } from "opui-css/react"
 export default function Variants() {
   return (
     <>
-      <Textarea label="Default" placeholder="Placeholder" />
+      <Textarea label="Outlined" placeholder="Placeholder" />
       <Textarea label="Filled" placeholder="Placeholder" variant="filled" />
     </>
   )
@@ -63,7 +63,7 @@ export default function Variants() {
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```tsx
 import { Textarea } from "opui-css/react"
@@ -73,7 +73,7 @@ export default function Sizes() {
     <>
       <Textarea label="x-small" placeholder="Placeholder" size="x-small" />
       <Textarea label="Small" placeholder="Placeholder" size="small" />
-      <Textarea label="Default" placeholder="Placeholder" />
+      <Textarea label="Medium" placeholder="Placeholder" />
       <Textarea label="Large" placeholder="Placeholder" size="large" />
     </>
   )

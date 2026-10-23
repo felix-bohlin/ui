@@ -59,7 +59,7 @@ export default function Basics() {
 
 ## Sizes
 
-Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, `medium` (the default) and `large`.
 
 ```tsx
 import { Switch } from "opui-css/react"
@@ -75,7 +75,7 @@ export default function Sizes() {
           Small
         </Switch>
         <Switch name="switch-sizes" defaultChecked hideLabel>
-          Default
+          Medium
         </Switch>
         <Switch name="switch-sizes" size="large" defaultChecked hideLabel>
           Large
@@ -89,7 +89,7 @@ export default function Sizes() {
           Small
         </Switch>
         <Switch name="switch-sizes" defaultChecked>
-          Default
+          Medium
         </Switch>
         <Switch name="switch-sizes" size="large" defaultChecked>
           Large
@@ -375,6 +375,8 @@ export default function FieldGroupExample() {
 
 ### Orientation
 
+Switches stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
+
 ```tsx
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/react"
 
@@ -383,7 +385,7 @@ export default function FieldGroupOrientation() {
     <Form>
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup orientation="horizontal" name="switch-group-direction">
+        <FieldGroup name="switch-group-orientation" orientation="horizontal">
           <Switch>Switch 1</Switch>
           <Switch>Switch 2</Switch>
           <Switch>Switch 3</Switch>

@@ -24,8 +24,8 @@
   this={Tag}
   class={[
     "ui-avatar",
-    size && size !== "medium" && `ui-${size}`,
     shape && shape !== "circle" && `ui-${shape}`,
+    size && size !== "medium" && `ui-${size}`,
     className,
   ]}
   {...tagAttrs(Tag, disabled, href)}

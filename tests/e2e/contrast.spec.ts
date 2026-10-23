@@ -232,7 +232,7 @@ test.describe("forced-colors", () => {
 
   test("the selected tab uses SelectedItem", async ({ page }) => {
     await openFixture(page, "html", "tabs")
-    const label = page.locator(".ui-tab-input:checked + .ui-tab-label").first()
+    const label = page.locator(".ui-input:checked + .ui-label").first()
     expect(await computed(label, "background-color", "::before")).toBe(
       await resolveColor(label, "SelectedItem"),
     )

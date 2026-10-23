@@ -5,4 +5,4 @@ export type Props = Base.Props & SvelteHTMLElements["div"]
 export type TabsItemProps = Base.TabsItemProps &
   Omit<SvelteHTMLElements["input"], "type">
 export type TabsPanelProps = Base.TabsPanelProps & SvelteHTMLElements["div"]
-export type TabsTabProps = Base.TabsTabProps & SvelteHTMLElements["label"]
+export type TabsLabelProps = Base.TabsLabelProps & SvelteHTMLElements["label"]

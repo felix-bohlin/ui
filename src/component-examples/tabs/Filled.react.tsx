@@ -1,18 +1,18 @@
-import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/react"
+import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/react"
 
 export default function Filled() {
   return (
     <Tabs name="filled-tabs" variant="filled">
       <TabsItem defaultChecked>
-        <TabsTab>Profile</TabsTab>
+        <TabsLabel>Profile</TabsLabel>
         <TabsPanel>Profile settings and information.</TabsPanel>
       </TabsItem>
       <TabsItem>
-        <TabsTab>Settings</TabsTab>
+        <TabsLabel>Settings</TabsLabel>
         <TabsPanel>General account settings.</TabsPanel>
       </TabsItem>
       <TabsItem>
-        <TabsTab>Notifications</TabsTab>
+        <TabsLabel>Notifications</TabsLabel>
         <TabsPanel>Manage your notifications.</TabsPanel>
       </TabsItem>
     </Tabs>

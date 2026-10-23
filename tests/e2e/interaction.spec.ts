@@ -330,8 +330,8 @@ interaction(
   "Basics",
   "tabs switch panels with click and arrow keys",
   async ({ page, root }) => {
-    const tabs = root.locator(".ui-tab-label")
-    const panels = root.locator(".ui-tab-panel")
+    const tabs = root.locator(".ui-tabs > .ui-label")
+    const panels = root.locator(".ui-tabs > .ui-panel")
 
     await expect(panels.nth(0)).toBeVisible()
     await expect(panels.nth(1)).toBeHidden()

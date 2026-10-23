@@ -1,6 +1,6 @@
 ---
 import Code from "./Code.astro"
-import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
+import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
 
 type Tab = {
   title: string
@@ -20,7 +20,7 @@ const { tabs } = Astro.props
     {
       tabs.map((tab, index) => (
         <TabsItem checked={index === 0}>
-          <TabsTab>{tab.title}</TabsTab>
+          <TabsLabel>{tab.title}</TabsLabel>
           <TabsPanel>
             {tab.code && <Code code={tab.code} lang={tab.lang} />}
           </TabsPanel>
@@ -40,7 +40,7 @@ const { tabs } = Astro.props
 </style>
 
 <style is:global>
-  .ui-tab-panel {
+  .ui-panel {
     * {
       isolation: isolate;
     }

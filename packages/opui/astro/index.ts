@@ -61,8 +61,8 @@ export { default as TableHeaderCell } from "../components/Table/TableHeaderCell.
 export { default as TableRow } from "../components/Table/TableRow.astro"
 export { default as Tabs } from "../components/Tabs/Tabs.astro"
 export { default as TabsItem } from "../components/Tabs/TabsItem.astro"
+export { default as TabsLabel } from "../components/Tabs/TabsLabel.astro"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.astro"
-export { default as TabsTab } from "../components/Tabs/TabsTab.astro"
 export { default as Textarea } from "../components/Textarea/Textarea.astro"
 export { default as TextField } from "../components/TextField/TextField.astro"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.astro"
@@ -162,9 +162,9 @@ export type {
 } from "../components/Table/types.astro"
 export type {
   TabsItemProps,
+  TabsLabelProps,
   TabsPanelProps,
   Props as TabsProps,
-  TabsTabProps,
 } from "../components/Tabs/types.astro"
 export type { Props as TextareaProps } from "../components/Textarea/types.astro"
 export type { Props as TextFieldProps } from "../components/TextField/types.astro"

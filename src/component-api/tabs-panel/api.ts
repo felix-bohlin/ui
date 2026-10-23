@@ -7,7 +7,7 @@ export default {
   parts: [],
   root: {
     description: "The panel.",
-    selector: ".ui-tab-panel",
+    selector: ".ui-panel",
   },
   slots: [
     {

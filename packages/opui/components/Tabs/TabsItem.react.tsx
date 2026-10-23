@@ -20,7 +20,7 @@ export default function TabsItem({
   return (
     <TabsContext value={{ groupName, tabId: computedTabId }}>
       <input
-        className={cx(["ui-tab-input", className])}
+        className={cx(["ui-input", className])}
         id={computedTabId}
         name={groupName}
         type="radio"

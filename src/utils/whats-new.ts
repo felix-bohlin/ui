@@ -852,7 +852,13 @@ const whatsNew = {
       ...slots(
         `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. <code>TabsItem</code> and <code>TabsPanel</code> no longer take <code>panelId</code>, and <code>TabsPanel</code> no longer takes <code>tabId</code>.`,
       ),
-      html: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. Style <code>.ui-tab-label</code> and <code>.ui-tab-panel</code> instead of <code>[role="tab"]</code> and <code>[role="tabpanel"]</code>.`,
+      html: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. Style <code>.ui-label</code> and <code>.ui-panel</code> instead of <code>[role="tab"]</code> and <code>[role="tabpanel"]</code>.`,
+    },
+    {
+      ...components(
+        `Breaking: <code>TabsTab</code> is <a href="#api"><code>TabsLabel</code></a>.`,
+      ),
+      html: `Breaking: the parts are <a href="#api"><code>.ui-input</code></a>, <code>.ui-label</code> and <code>.ui-panel</code> instead of <code>.ui-tab-input</code>, <code>.ui-tab-label</code> and <code>.ui-tab-panel</code>.`,
     },
     {
       default: `Tabs that <a href="#overflow">scroll</a> with <code>overflow="scroll"</code>.`,

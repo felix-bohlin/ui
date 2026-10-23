@@ -32,7 +32,7 @@ export default {
   root: {
     description:
       "The radio input for a tab, followed by the tab and the panel.",
-    selector: "input.ui-tab-input",
+    selector: "input.ui-input",
   },
   slots: [
     {

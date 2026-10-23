@@ -30,7 +30,7 @@
 
 <input
   {checked}
-  class={["ui-tab-input", className]}
+  class={["ui-input", className]}
   id={computedTabId}
   name={groupName}
   type="radio"

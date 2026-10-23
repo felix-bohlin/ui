@@ -17,15 +17,15 @@ import {
   TableRow,
   Tabs as UITabs,
   TabsItem as UITabsItem,
+  TabsLabel as UITabsLabel,
   TabsPanel as UITabsPanel,
-  TabsTab as UITabsTab,
 } from "opui-css/astro"
 
 import TabsCSS from "@opui/css/components/tabs.css?raw"
 
 import tabsItemApi from "../../component-api/tabs-item/api"
+import tabsLabelApi from "../../component-api/tabs-label/api"
 import tabsPanelApi from "../../component-api/tabs-panel/api"
-import tabsTabApi from "../../component-api/tabs-tab/api"
 import tabsApi from "../../component-api/tabs/api"
 ---
 
@@ -35,7 +35,7 @@ import tabsApi from "../../component-api/tabs/api"
   apis={[
     { title: "Tabs API", api: tabsApi },
     { title: "Tabs item API", api: tabsItemApi },
-    { title: "Tabs tab API", api: tabsTabApi },
+    { title: "Tabs label API", api: tabsLabelApi },
     { title: "Tabs panel API", api: tabsPanelApi },
   ]}
   browserSupport={[
@@ -66,11 +66,11 @@ import tabsApi from "../../component-api/tabs/api"
     <Anatomy>
       <UITabs name="tabs-anatomy">
         <UITabsItem>
-          <UITabsTab>Profile</UITabsTab>
+          <UITabsLabel>Profile</UITabsLabel>
           <UITabsPanel>Profile settings and information.</UITabsPanel>
         </UITabsItem>
         <UITabsItem checked>
-          <UITabsTab>Settings</UITabsTab>
+          <UITabsLabel>Settings</UITabsLabel>
           <UITabsPanel>General account settings.</UITabsPanel>
         </UITabsItem>
       </UITabs>

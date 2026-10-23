@@ -62,8 +62,8 @@ export { default as TableHeaderCell } from "../components/Table/TableHeaderCell.
 export { default as TableRow } from "../components/Table/TableRow.react"
 export { default as Tabs } from "../components/Tabs/Tabs.react"
 export { default as TabsItem } from "../components/Tabs/TabsItem.react"
+export { default as TabsLabel } from "../components/Tabs/TabsLabel.react"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.react"
-export { default as TabsTab } from "../components/Tabs/TabsTab.react"
 export { default as Textarea } from "../components/Textarea/Textarea.react"
 export { default as TextField } from "../components/TextField/TextField.react"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.react"
@@ -163,9 +163,9 @@ export type {
 } from "../components/Table/types.react"
 export type {
   TabsItemProps,
+  TabsLabelProps,
   TabsPanelProps,
   Props as TabsProps,
-  TabsTabProps,
 } from "../components/Tabs/types.react"
 export type { Props as TextareaProps } from "../components/Textarea/types.react"
 export type { Props as TextFieldProps } from "../components/TextField/types.react"

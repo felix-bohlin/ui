@@ -29,12 +29,12 @@
     gap: 0;
     position: relative;
 
-    & > .ui-tab-input[type="radio"] {
+    & > .ui-input[type="radio"] {
       /* utils > .ui-sr-only */
       /* TODO: use mixin for this when available */
       &:checked {
         /* Checked Tab */
-        & + .ui-tab-label {
+        & + .ui-label {
           color: var(--_active-text-color);
 
           &::before {
@@ -48,14 +48,14 @@
           }
 
           /* Checked Panel */
-          & + .ui-tab-panel {
+          & + .ui-panel {
             display: block;
           }
         }
       }
 
       &:focus-visible {
-        & + .ui-tab-label {
+        & + .ui-label {
           z-index: 1;
 
           &::before {
@@ -69,7 +69,7 @@
     }
 
     /* Tab */
-    & > .ui-tab-label {
+    & > .ui-label {
       align-items: center;
       background-color: var(--_track-color);
       border-block: var(--_track-border-width) solid var(--_track-border-color);
@@ -119,7 +119,7 @@
         transition: opacity var(--_duration) var(--_ease);
       }
 
-      &:nth-child(1 of .ui-tab-label) {
+      &:nth-child(1 of .ui-label) {
         border-end-start-radius: var(--_border-radius);
         border-inline-start: var(--_track-border-width) solid
           var(--_track-border-color);
@@ -133,7 +133,7 @@
         }
       }
 
-      &:nth-last-child(1 of .ui-tab-label) {
+      &:nth-last-child(1 of .ui-label) {
         border-end-end-radius: var(--_border-radius);
         border-inline-end: var(--_track-border-width) solid
           var(--_track-border-color);
@@ -155,7 +155,7 @@
     }
 
     /* Tab Panel */
-    & > .ui-tab-panel {
+    & > .ui-panel {
       display: none;
       inline-size: 100%;
       margin-block-start: var(--ui-space-2);
@@ -192,7 +192,7 @@
     }
 
     :where(.ui-card) > & {
-      & > .ui-tab-input:focus-visible + .ui-tab-label::before {
+      & > .ui-input:focus-visible + .ui-label::before {
         outline-offset: var(--ui-focus-ring-inset);
       }
     }
@@ -206,7 +206,7 @@
       overscroll-behavior-inline: contain;
       scrollbar-width: thin;
 
-      & > .ui-tab-input[type="radio"] {
+      & > .ui-input[type="radio"] {
         grid-column: calc((sibling-index() + 2) / 3) / span 1;
         grid-row: 1 / span 1;
         inset-block-start: 50%;
@@ -214,17 +214,17 @@
         margin: 0;
 
         &:focus-visible {
-          & + .ui-tab-label::before {
+          & + .ui-label::before {
             outline-offset: var(--ui-focus-ring-inset);
           }
         }
       }
 
-      & > .ui-tab-label {
+      & > .ui-label {
         grid-row: 1;
       }
 
-      & > .ui-tab-panel {
+      & > .ui-panel {
         grid-column: 1 / span calc(sibling-count() / 3);
         grid-row: 2;
         inline-size: 100cqi;
@@ -234,8 +234,8 @@
       }
 
       &.ui-line {
-        & > .ui-tab-label {
-          &:not(:nth-last-child(1 of .ui-tab-label)) {
+        & > .ui-label {
+          &:not(:nth-last-child(1 of .ui-label)) {
             margin-inline-end: var(--ui-space-1);
           }
         }
@@ -243,11 +243,11 @@
     }
 
     @media (forced-colors: active) {
-      & > .ui-tab-label::before {
+      & > .ui-label::before {
         border-color: Canvas;
       }
 
-      & > .ui-tab-input:checked + .ui-tab-label {
+      & > .ui-input:checked + .ui-label {
         --_active-bg-color: SelectedItem;
         --_active-border-color: SelectedItem;
         --_active-text-color: SelectedItemText;

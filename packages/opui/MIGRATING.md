@@ -761,7 +761,7 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 ## Tabs
 
-In Astro, import the parts by their flat names: `TabsItem`, `TabsTab` and `TabsPanel` replace `Tabs.Item`, `Tabs.Tab` and `Tabs.Panel`.
+In Astro, import the parts by their flat names: `TabsItem`, `TabsLabel` and `TabsPanel` replace `Tabs.Item`, `Tabs.Tab` and `Tabs.Panel`.
 
 ```diff
 - <Tabs.Item>
@@ -775,7 +775,7 @@ Tabs look like segmented controls: the tabs sit on a rounded track and the selec
 + .ui-tabs { --_active-text-color: var(--ui-critical); }
 ```
 
-Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-controls` and `aria-labelledby` from HTML tabs, and `panelId` (and `tabId` on the panel) from Astro and Vue. Styles that target `[role="tab"]` or `[role="tabpanel"]` need `.ui-tab-label` and `.ui-tab-panel`.
+Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-controls` and `aria-labelledby` from HTML tabs, and `panelId` (and `tabId` on the panel) from Astro and Vue. Styles that target `[role="tab"]` or `[role="tabpanel"]` need `.ui-label` and `.ui-panel`.
 
 ```diff
 - <div class="ui-tabs" role="tablist">
@@ -783,9 +783,25 @@ Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`,
 -   <label for="tab-1" class="ui-tab-label" role="tab">Profile</label>
 -   <div id="panel-1" class="ui-tab-panel" role="tabpanel" aria-labelledby="tab-1">…</div>
 + <div class="ui-tabs">
-+   <input type="radio" name="tabs" id="tab-1" class="ui-tab-input" checked />
-+   <label for="tab-1" class="ui-tab-label">Profile</label>
-+   <div class="ui-tab-panel">…</div>
++   <input type="radio" name="tabs" id="tab-1" class="ui-input" checked />
++   <label for="tab-1" class="ui-label">Profile</label>
++   <div class="ui-panel">…</div>
+```
+
+The parts are `.ui-input`, `.ui-label` and `.ui-panel` instead of `.ui-tab-input`, `.ui-tab-label` and `.ui-tab-panel`, and `TabsTab` is `TabsLabel`.
+
+```diff
+- <input type="radio" name="tabs" id="tab-1" class="ui-tab-input" />
+- <label for="tab-1" class="ui-tab-label">Profile</label>
+- <div class="ui-tab-panel">…</div>
++ <input type="radio" name="tabs" id="tab-1" class="ui-input" />
++ <label for="tab-1" class="ui-label">Profile</label>
++ <div class="ui-panel">…</div>
+```
+
+```diff
+- <TabsTab>Profile</TabsTab>
++ <TabsLabel>Profile</TabsLabel>
 ```
 
 Tabs that don't fit can stay on one row and scroll sideways with `overflow="scroll"` (`.ui-overflow-scroll`).

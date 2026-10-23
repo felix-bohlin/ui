@@ -8,4 +8,4 @@ export type TabsItemProps = Base.TabsItemProps &
 
 export type TabsPanelProps = Base.TabsPanelProps & HTMLAttributes<"div">
 
-export type TabsTabProps = Base.TabsTabProps & HTMLAttributes<"label">
+export type TabsLabelProps = Base.TabsLabelProps & HTMLAttributes<"label">

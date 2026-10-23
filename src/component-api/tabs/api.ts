@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Tabs",
   notes: {
-    html: 'Each tab is three elements, in this order: `input.ui-tab-input[type="radio"]`, `label.ui-tab-label` and `.ui-tab-panel`.',
+    html: 'Each tab is three elements, in this order: `input.ui-input[type="radio"]`, `label.ui-label` and `.ui-panel`.',
   },
   options: [
     {
@@ -11,7 +11,7 @@ export default {
       description: "The name shared by the tab inputs. Generated when omitted.",
       group: "Group",
       htmlDescription: "The name shared by the tab inputs.",
-      part: ".ui-tab-input",
+      part: ".ui-input",
       prop: "name",
     },
     {
@@ -38,23 +38,23 @@ export default {
   ],
   parts: [
     {
-      code: ".ui-tab-input",
+      code: ".ui-input",
       component: "TabsItem",
       description:
         "A visually hidden radio input that holds a tab's state. The tab is its label.",
-      selector: ".ui-tab-input:not(:checked) + .ui-tab-label",
+      selector: ".ui-input:not(:checked) + .ui-label",
     },
     {
-      code: ".ui-tab-label",
-      component: "TabsTab",
+      code: ".ui-label",
+      component: "TabsLabel",
       description: "A tab.",
-      selector: ".ui-tab-input:checked + .ui-tab-label",
+      selector: ".ui-input:checked + .ui-label",
     },
     {
-      code: ".ui-tab-panel",
+      code: ".ui-panel",
       component: "TabsPanel",
       description: "The panel of the selected tab.",
-      selector: ".ui-tab-input:checked + .ui-tab-label + .ui-tab-panel",
+      selector: ".ui-input:checked + .ui-label + .ui-panel",
     },
   ],
   root: {

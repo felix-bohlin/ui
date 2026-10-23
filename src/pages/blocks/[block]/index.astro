@@ -47,13 +47,13 @@ const widths = [
     <div class="ui-tabs ui-line">
       <input
         checked
-        class="ui-tab-input"
+        class="ui-input"
         id={id("preview-tab")}
         name={id("view")}
         type="radio"
       />
-      <label class="ui-tab-label" for={id("preview-tab")}>Preview</label>
-      <div class="ui-tab-panel">
+      <label class="ui-label" for={id("preview-tab")}>Preview</label>
+      <div class="ui-panel">
         <div class="block-toolbar">
           <div
             aria-label="Preview width"
@@ -94,15 +94,15 @@ const widths = [
         codeTabs.map((tab) => (
           <>
             <input
-              class="ui-tab-input"
+              class="ui-input"
               id={id(`${tab.name}-tab`)}
               name={id("view")}
               type="radio"
             />
-            <label class="ui-tab-label" for={id(`${tab.name}-tab`)}>
+            <label class="ui-label" for={id(`${tab.name}-tab`)}>
               {tab.label}
             </label>
-            <div class="ui-tab-panel">
+            <div class="ui-panel">
               <Code code={tab.code} lang={tab.lang} />
             </div>
           </>

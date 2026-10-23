@@ -61,8 +61,8 @@ export { default as TableHeaderCell } from "../components/Table/TableHeaderCell.
 export { default as TableRow } from "../components/Table/TableRow.vue"
 export { default as Tabs } from "../components/Tabs/Tabs.vue"
 export { default as TabsItem } from "../components/Tabs/TabsItem.vue"
+export { default as TabsLabel } from "../components/Tabs/TabsLabel.vue"
 export { default as TabsPanel } from "../components/Tabs/TabsPanel.vue"
-export { default as TabsTab } from "../components/Tabs/TabsTab.vue"
 export { default as Textarea } from "../components/Textarea/Textarea.vue"
 export { default as TextField } from "../components/TextField/TextField.vue"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.vue"
@@ -162,9 +162,9 @@ export type {
 } from "../components/Table/types.d.vue"
 export type {
   TabsItemProps,
+  TabsLabelProps,
   TabsPanelProps,
   Props as TabsProps,
-  TabsTabProps,
 } from "../components/Tabs/types.d.vue"
 export type { Props as TextareaProps } from "../components/Textarea/types.d.vue"
 export type { Props as TextFieldProps } from "../components/TextField/types.d.vue"

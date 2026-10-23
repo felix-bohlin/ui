@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getTabsContext } from "./context.svelte"
-  import type { TabsTabProps as Props } from "./types.svelte"
+  import type { TabsLabelProps as Props } from "./types.svelte"
 
   let {
     class: className,
@@ -14,6 +14,6 @@
   const tabs = getTabsContext()
 </script>
 
-<label for={tabId || tabs?.tabId} class={["ui-tab-label", className]} {...rest}>
+<label for={tabId || tabs?.tabId} class={["ui-label", className]} {...rest}>
   {@render children?.()}
 </label>

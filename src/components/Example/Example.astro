@@ -5,7 +5,7 @@ import {
   type FrameworkId,
 } from "../../utils/framework"
 import Code from "../Code.astro"
-import { Chip, Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
+import { Chip, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
 import { format } from "prettier"
 import MountReactExamples from "./MountReactExamples.astro"
 import MountSvelteExamples from "./MountSvelteExamples.astro"
@@ -238,11 +238,11 @@ const outputId = `${groupName}-output`
         <template class="example-code">
           <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
             <TabsItem tabId={sourceId} name={groupName} checked>
-              <TabsTab tabId={sourceId} data-tab="source">
+              <TabsLabel tabId={sourceId} data-tab="source">
                 {codeLangLabel}
-              </TabsTab>
+              </TabsLabel>
               <TabsPanel data-panel="source">
-                <div class="ui-tab-panel">
+                <div class="ui-panel">
                   <Code
                     code={codeContent}
                     lang={codeLangId === "react" ? "tsx" : codeLangId}
@@ -253,11 +253,11 @@ const outputId = `${groupName}-output`
 
             {showOutput && (
               <TabsItem tabId={outputId} name={groupName}>
-                <TabsTab tabId={outputId} data-tab="output">
+                <TabsLabel tabId={outputId} data-tab="output">
                   Output
-                </TabsTab>
+                </TabsLabel>
                 <TabsPanel data-panel="output">
-                  <div class="ui-tab-panel">
+                  <div class="ui-panel">
                     <Code code={outputContent} lang="html" />
                   </div>
                 </TabsPanel>
@@ -391,7 +391,7 @@ const outputId = `${groupName}-output`
 </style>
 
 <style is:global>
-  .ui-tab-panel .code-block pre {
+  .ui-panel .code-block pre {
     border-radius: 0;
   }
 

@@ -1,7 +1,7 @@
 import type { ComponentApi } from "../types"
 
 export default {
-  component: "TabsTab",
+  component: "TabsLabel",
   options: [
     {
       attribute: "[for]",
@@ -15,7 +15,7 @@ export default {
   parts: [],
   root: {
     description: "The tab.",
-    selector: "label.ui-tab-label",
+    selector: "label.ui-label",
   },
   slots: [
     {

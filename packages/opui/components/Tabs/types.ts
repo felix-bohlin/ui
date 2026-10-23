@@ -12,7 +12,7 @@ export type TabsItemProps = {
 
 export type TabsPanelProps = {}
 
-export type TabsTabProps = {
+export type TabsLabelProps = {
   tabId?: string
 }
 

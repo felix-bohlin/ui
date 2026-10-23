@@ -1,39 +1,39 @@
 <script setup lang="ts">
-import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
+import { Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/vue"
 </script>
 
 <template>
   <Tabs name="overflow-tabs" overflow="scroll">
     <TabsItem checked>
-      <TabsTab>Profile</TabsTab>
+      <TabsLabel>Profile</TabsLabel>
       <TabsPanel>Profile settings and information.</TabsPanel>
     </TabsItem>
     <TabsItem>
-      <TabsTab>Settings</TabsTab>
+      <TabsLabel>Settings</TabsLabel>
       <TabsPanel>General account settings.</TabsPanel>
     </TabsItem>
     <TabsItem>
-      <TabsTab>Notifications</TabsTab>
+      <TabsLabel>Notifications</TabsLabel>
       <TabsPanel>Manage your notifications.</TabsPanel>
     </TabsItem>
     <TabsItem>
-      <TabsTab>Billing</TabsTab>
+      <TabsLabel>Billing</TabsLabel>
       <TabsPanel>Plans, invoices and payment methods.</TabsPanel>
     </TabsItem>
     <TabsItem>
-      <TabsTab>Security</TabsTab>
+      <TabsLabel>Security</TabsLabel>
       <TabsPanel>Passwords, sessions and two-factor authentication.</TabsPanel>
     </TabsItem>
     <TabsItem>
-      <TabsTab>Integrations</TabsTab>
+      <TabsLabel>Integrations</TabsLabel>
       <TabsPanel>Connected apps and webhooks.</TabsPanel>
     </TabsItem>
     <TabsItem>
-      <TabsTab>Team</TabsTab>
+      <TabsLabel>Team</TabsLabel>
       <TabsPanel>Members and roles.</TabsPanel>
     </TabsItem>
     <TabsItem>
-      <TabsTab>Advanced</TabsTab>
+      <TabsLabel>Advanced</TabsLabel>
       <TabsPanel>Export data or delete the account.</TabsPanel>
     </TabsItem>
   </Tabs>

@@ -23,8 +23,8 @@ const REMOVE_SELECTORS = [
   ".guide-footer",
   ".header-anchor",
   ".theme-generator",
-  ".ui-tab-label",
-  "h1 .ui-anchor-floating",
+  ".ui-tabs > .ui-label",
+  "h1 .ui-floating",
   "[data-panel='output']",
   "[data-tab='output']",
   "button",
@@ -131,7 +131,7 @@ const codeBlock = (node) => {
 
 /** @param {Element} node */
 const codeGroup = (node) => {
-  const labels = selectAll(".ui-tab-label", node).map((tab) =>
+  const labels = selectAll(".ui-tabs > .ui-label", node).map((tab) =>
     textContent(tab).trim(),
   )
   const blocks = selectAll(".code-block", node)
@@ -149,7 +149,7 @@ const codeGroup = (node) => {
 const installationGroup = (node) => {
   /** @type {Element[]} */
   const children = []
-  for (const tab of selectAll(".ui-tab-label", node)) {
+  for (const tab of selectAll(".ui-tabs > .ui-label", node)) {
     const label = textContent(tab).trim()
     if (!/^[\w-]+\.css$/.test(label)) {
       children.push(element("p", {}, [element("code", {}, [text(label)])]))

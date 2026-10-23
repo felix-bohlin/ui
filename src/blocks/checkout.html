@@ -38,7 +38,7 @@
       font-weight: var(--ui-font-weight-semibold);
     }
 
-    .checkout-payment .ui-tab-panel {
+    .checkout-payment .ui-panel {
       padding-block-start: var(--size-4);
     }
 
@@ -359,14 +359,14 @@
         <div class="ui-tabs checkout-payment">
           <input
             checked
-            class="ui-tab-input"
+            class="ui-input"
             id="checkout-pay-card"
             name="checkout-payment"
             type="radio"
             value="card"
           />
-          <label class="ui-tab-label" for="checkout-pay-card">Card</label>
-          <div class="ui-tab-panel">
+          <label class="ui-label" for="checkout-pay-card">Card</label>
+          <div class="ui-panel">
             <div class="ui-field-group">
               <label class="ui-text-field">
                 <span class="ui-label">Card number</span>
@@ -430,14 +430,14 @@
           </div>
 
           <input
-            class="ui-tab-input"
+            class="ui-input"
             id="checkout-pay-invoice"
             name="checkout-payment"
             type="radio"
             value="invoice"
           />
-          <label class="ui-tab-label" for="checkout-pay-invoice">Invoice</label>
-          <div class="ui-tab-panel">
+          <label class="ui-label" for="checkout-pay-invoice">Invoice</label>
+          <div class="ui-panel">
             <p class="checkout-alt-pay">
               Pay within 30 days of delivery. We'll email the invoice to
               astrid.lindqvist@example.com once your order ships.
@@ -445,14 +445,14 @@
           </div>
 
           <input
-            class="ui-tab-input"
+            class="ui-input"
             id="checkout-pay-wallet"
             name="checkout-payment"
             type="radio"
             value="wallet"
           />
-          <label class="ui-tab-label" for="checkout-pay-wallet">Wallet</label>
-          <div class="ui-tab-panel">
+          <label class="ui-label" for="checkout-pay-wallet">Wallet</label>
+          <div class="ui-panel">
             <p class="checkout-alt-pay">
               You'll confirm the payment in your wallet app after placing the
               order.

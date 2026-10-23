@@ -21,7 +21,7 @@ provide(TabsKey, reactive({ groupName, tabId: computedTabId }))
 <template>
   <input
     :checked="checked"
-    :class="['ui-tab-input', $props.class]"
+    :class="['ui-input', $props.class]"
     :id="computedTabId"
     :name="groupName"
     type="radio"

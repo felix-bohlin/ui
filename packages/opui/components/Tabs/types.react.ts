@@ -5,4 +5,4 @@ export type Props = Base.Props & ComponentProps<"div">
 export type TabsItemProps = Base.TabsItemProps &
   Omit<ComponentProps<"input">, "type">
 export type TabsPanelProps = Base.TabsPanelProps & ComponentProps<"div">
-export type TabsTabProps = Base.TabsTabProps & ComponentProps<"label">
+export type TabsLabelProps = Base.TabsLabelProps & ComponentProps<"label">

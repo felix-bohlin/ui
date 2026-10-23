@@ -3,7 +3,7 @@ import type {
   Props as BaseProps,
   TabsItemProps as BaseTabsItemProps,
   TabsPanelProps as BaseTabsPanelProps,
-  TabsTabProps as BaseTabsTabProps,
+  TabsLabelProps as BaseTabsLabelProps,
 } from "./types"
 
 export type Props = BaseProps & Class
@@ -12,6 +12,6 @@ export type TabsItemProps = BaseTabsItemProps & Class
 
 export type TabsPanelProps = BaseTabsPanelProps & Class
 
-export type TabsTabProps = BaseTabsTabProps & Class
+export type TabsLabelProps = BaseTabsLabelProps & Class
 
 export type Slots = DefaultSlots

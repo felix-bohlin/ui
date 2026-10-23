@@ -3,27 +3,33 @@ import { Range } from "opui-css/react"
 export default function Spread() {
   return (
     <>
-      <Range spread startText="Start text" endText="End text">
-        Spread Layout
-      </Range>
-
-      <Range spread disabled startText="Start text" endText="End text">
-        Disabled
-      </Range>
+      <Range
+        label="Spread Layout"
+        spread
+        startText="Start text"
+        endText="End text"
+      />
 
       <Range
+        label="Disabled"
+        spread
+        disabled
+        startText="Start text"
+        endText="End text"
+      />
+
+      <Range
+        label="Invalid Range"
         spread
         error
         endText="This value is incorrect."
         startText="Start text"
-      >
-        Invalid Range
-      </Range>
+      />
 
       <Range
         label="Tick marks with labels"
         spread
-        options={[
+        items={[
           { value: 0, label: "0%" },
           { value: 25, label: "25%" },
           { value: 50, label: "50%" },

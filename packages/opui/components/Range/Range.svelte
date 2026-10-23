@@ -9,12 +9,11 @@
     endText,
     error,
     id,
-    label,
+    items,
     list,
     max,
     min,
     name,
-    options,
     spread,
     startText,
     step,
@@ -24,8 +23,8 @@
     variant,
 
     // Snippets
-    children,
     datalist,
+    label,
     valueText,
     ...rest
   }: Props = $props()
@@ -33,9 +32,9 @@
   const uid = $props.id()
   const field = getFieldGroupContext()
 
-  const hasLabel = $derived(!!label || !!children)
+  const hasLabel = $derived(!!label)
   const hasValue = $derived(valueSuffix !== undefined || !!valueText)
-  const hasDatalist = $derived(!!options || !!datalist)
+  const hasDatalist = $derived(!!items || !!datalist)
   const defaultValue = $derived.by(() => {
     const minValue = Number(min ?? 0)
     const maxValue = Math.max(minValue, Number(max ?? 100))
@@ -69,10 +68,9 @@
   for={hasValue ? inputId : undefined}
   {style}
 >
-  {#if hasLabel}
+  {#if label}
     <span class="ui-label" id={labelId}>
-      {label}
-      {@render children?.()}
+      {@render content(label)}
     </span>
   {/if}
   {#if hasValue}
@@ -109,7 +107,7 @@
   />
   {#if hasDatalist}
     <datalist aria-hidden="true" id={listId}>
-      {#each options ?? [] as option (typeof option === "object" ? option.value : option)}
+      {#each items ?? [] as option (typeof option === "object" ? option.value : option)}
         {#if typeof option === "object"}
           <option value={option.value} label={option.label}></option>
         {:else}

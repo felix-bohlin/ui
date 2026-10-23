@@ -21,9 +21,9 @@ const {
   endText,
   error,
   id,
+  items,
   label,
   list,
-  options,
   spread,
   startText,
   value,
@@ -68,12 +68,14 @@ const defaultValue = computed(() => {
 
 const uid = useId()
 const field = inject(FieldGroupKey, undefined)
-const hasValue = computed(() => valueSuffix !== undefined || !!slots.value)
+const hasValue = computed(
+  () => valueSuffix !== undefined || !!slots["value-text"],
+)
 const inputId = computed(
   () => id || (hasValue.value ? `range-${uid}` : undefined),
 )
 const listId = computed(
-  () => list ?? (options || slots.datalist ? `range-list-${uid}` : undefined),
+  () => list ?? (items || slots.datalist ? `range-list-${uid}` : undefined),
 )
 
 const labelId = `range-label-${uid}`
@@ -92,16 +94,16 @@ const endTextId = `range-end-${uid}`
     :for="hasValue ? inputId : undefined"
     :style="$attrs.style"
   >
-    <span v-if="label || $slots.default" class="ui-label" :id="labelId">
-      {{ label }}<slot></slot>
+    <span v-if="label || $slots.label" class="ui-label" :id="labelId">
+      {{ label }}<slot name="label"></slot>
     </span>
     <output
-      v-if="valueSuffix !== undefined || $slots.value"
+      v-if="valueSuffix !== undefined || $slots['value-text']"
       class="ui-value"
       :for="inputId"
       :data-suffix="valueSuffix"
     >
-      <slot name="value" :value="Number(model ?? defaultValue)"
+      <slot name="value-text" :value="Number(model ?? defaultValue)"
         >{{ model ?? defaultValue }}{{ valueSuffix }}</slot
       >
     </output>
@@ -125,7 +127,7 @@ const endTextId = `range-end-${uid}`
       "
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       :aria-labelledby="
-        label || $slots.default ? labelId : attrs['aria-labelledby']
+        label || $slots.label ? labelId : attrs['aria-labelledby']
       "
       :id="inputId"
       :list="listId"
@@ -134,9 +136,9 @@ const endTextId = `range-end-${uid}`
       type="range"
     />
 
-    <datalist v-if="options || $slots.datalist" aria-hidden="true" :id="listId">
+    <datalist v-if="items || $slots.datalist" aria-hidden="true" :id="listId">
       <template
-        v-for="option in options"
+        v-for="option in items"
         :key="typeof option === 'object' ? option.value : option"
       >
         <option

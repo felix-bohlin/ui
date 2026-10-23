@@ -140,7 +140,7 @@ export type {
   RadioInputProps,
   Props as RadioProps,
 } from "../components/Radio/types.astro"
-export type { RangeOption } from "../components/Range/types"
+export type { RangeItem } from "../components/Range/types"
 export type { Props as RangeProps } from "../components/Range/types.astro"
 export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.astro"

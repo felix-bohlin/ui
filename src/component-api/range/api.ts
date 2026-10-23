@@ -73,13 +73,13 @@ export default {
     },
     {
       description:
-        "The id of the `<datalist>`. Generated when `options` or the `datalist` slot is used.",
-      prop: "list",
+        "Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick.",
+      prop: "items",
     },
     {
       description:
-        "Tick marks, rendered as `<option>` elements in a `<datalist>`.",
-      prop: "options",
+        "The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.",
+      prop: "list",
     },
     {
       class: ".ui-spread",
@@ -117,15 +117,14 @@ export default {
       description: "The label for the range.",
       props: ["label"],
       selector: ".ui-label",
-      slots: ["default"],
+      slots: ["label"],
     },
     {
       code: "<output>",
       description: "Shows the current value, with an optional `valueSuffix`.",
       props: ["valueSuffix"],
       selector: "output.ui-value",
-      slots: ["value"],
-      snippets: ["valueText"],
+      slots: ["value-text"],
     },
     {
       description: "Description text displayed above the input.",
@@ -142,7 +141,7 @@ export default {
     {
       code: "<datalist>",
       description: "Tick marks and their labels, under the input.",
-      props: ["list", "options"],
+      props: ["items", "list"],
       selector: "datalist",
       slots: ["datalist"],
     },

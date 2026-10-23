@@ -87,7 +87,7 @@ export const description =
         current value next to the label. The component wires up an <code
           >&lt;output&gt;</code
         > element and its script keeps the text in sync with the input. Content in
-        the <code>value</code> named slot replaces the readout. It renders once on
+        the <code>value-text</code> slot replaces the readout. It renders once on
         the server, and the script leaves it as it is.
       </p>
       <p slot="html">
@@ -122,8 +122,8 @@ export const description =
         current value next to the label. The component wires up an <code
           >&lt;output&gt;</code
         > element and keeps its text in sync with the input. For custom content, use
-        the scoped <code>value</code> slot: <code
-          >{'<template #value="{ value }">…</template>'}</code
+        the scoped <code>value-text</code> slot: <code
+          >{'<template #value-text="{ value }">…</template>'}</code
         > gets the current value as a number on every change.
       </p>
     </Conditional>
@@ -135,24 +135,24 @@ export const description =
     <h2 id="tick-marks">Tick marks</h2>
     <Conditional>
       <p slot="components">
-        Pass an <code>options</code> array - <code
-          >{"options=[{ value, label }]"}</code
+        Pass an <code>items</code> array - <code
+          >{"items=[{ label, value }]"}</code
         > - and the component renders a <code>&lt;datalist&gt;</code> and links it
         to the input. Set <code>list</code> to choose its id, and put your own <code
           >&lt;option&gt;</code
         > elements in the <code>datalist</code> slot.
       </p>
       <p slot="react">
-        Pass an <code>options</code> array - <code
-          >{"options=[{ value, label }]"}</code
+        Pass an <code>items</code> array - <code
+          >{"items=[{ label, value }]"}</code
         > - and the component renders a <code>&lt;datalist&gt;</code> and links it
         to the input. Set <code>list</code> to choose its id, and pass your own <code
           >&lt;option&gt;</code
         > elements to the <code>datalist</code> prop.
       </p>
       <p slot="svelte">
-        Pass an <code>options</code> array - <code
-          >{"options=[{ value, label }]"}</code
+        Pass an <code>items</code> array - <code
+          >{"items=[{ label, value }]"}</code
         > - and the component renders a <code>&lt;datalist&gt;</code> and links it
         to the input. Set <code>list</code> to choose its id, and put your own <code
           >&lt;option&gt;</code
@@ -224,7 +224,7 @@ export const description =
       <UIRange
         endText="End text"
         label="Label"
-        options={[
+        items={[
           { label: "0", value: 0 },
           { label: "100", value: 100 },
         ]}

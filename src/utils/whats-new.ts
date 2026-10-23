@@ -611,6 +611,9 @@ const whatsNew = {
     ),
   ],
   range: [
+    slots(
+      `Breaking: <a href="#tick-marks"><code>items</code></a> replaces <code>options</code>, the label goes in the <code>label</code> slot, and the readout slot is <a href="#value"><code>value-text</code></a>.`,
+    ),
     `The empty track reaches 3:1 against the page by default, and with more contrast it takes the page color with an inset edge so the fill stands out.`,
     `The thumb and fill read <a href="#api"><code>--ui-choice-accent</code></a> and the empty track <code>--ui-track-color</code> when a theme sets them.`,
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
@@ -634,7 +637,7 @@ const whatsNew = {
     },
     `Breaking: <code>--_thumb-bg</code> is <code>--_thumb-bg-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     components(
-      `<code>options</code> is typed as <a href="#tick-marks"><code>RangeOption[]</code></a>, exported from every framework.`,
+      `<a href="#tick-marks"><code>items</code></a> is typed as <code>RangeItem[]</code>, exported from every framework.`,
     ),
     components(
       `<a href="#tick-marks"><code>options</code></a> renders a linked <code>&lt;datalist&gt;</code> without a <code>list</code> id.`,

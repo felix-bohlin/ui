@@ -76,6 +76,7 @@
 - `Avatar` no longer takes `isGroup`. Wrap avatars in `AvatarGroup`, which renders `div.ui-avatar-group` with `role="group"`.
 - `Button` and `Chip` links with `disabled` (`aria-disabled="true"`) no longer render `href`, so they can't be focused or followed. `button.css` and `chip.css` no longer set `pointer-events: none` on disabled links, so remove `href` from them in HTML.
 - `TextField`, `Textarea` and `Select` take `startText` (the `start-text` slot) instead of `description`, matching `endText`, `Range` and the `.ui-start-text` class.
+- `Range` takes `items` instead of `options` for its tick marks (`RangeItem[]`). In Astro and Vue, the label goes in the `label` slot instead of the default slot, and the readout slot is `value-text` instead of `value`, the name React and Svelte use (`valueText`).
 - `TextField`, `Textarea` and `Select` slots inside the field's border are `start` and `end` (`.ui-start`, `.ui-end`) instead of `prefix` and `suffix` (`.ui-prefix`, `.ui-suffix`), and `top` and `bottom` (`.ui-top`, `.ui-bottom`) instead of `header` and `footer` (`.ui-header`, `.ui-footer`), so `start` and `end` mean the inline sides in every component and the container regions keep their own names.
 - `Checkbox`, `Progress`, `Radio`, `Range`, `Select`, `Switch` and `ToggleButton` in Astro and Vue put `style` on the root, like `class`, instead of the `<select>`, `<input>` or `<progress>`, so `--_` properties set through `style` apply.
 - `TextField` styles in `text-input.css` moved into `text-field.css`, and `text-input.css` is removed. Remove its import.
@@ -179,7 +180,7 @@
 - `Dialog` types `closedby` in every framework.
 - `CheckboxInput`, `RadioInput` and `SwitchInput` take `class` in Vue, and the Vue entry exports `DescriptionListDescriptionProps`, `DescriptionListItemProps` and `DescriptionListTermProps`.
 - `Chip` takes a `disabled` prop in Astro, React, Svelte and Vue. A button chip gets `disabled`, a link chip `aria-disabled="true"`.
-- `Select` and `Range` export `SelectItem` and `RangeOption` from every framework barrel.
+- `Select` and `Range` export `SelectItem` and `RangeItem` from every framework barrel.
 - `AvatarGroup` component (`div.ui-avatar-group[role="group"]`) in Astro, React, Svelte and Vue. It takes `class`, attributes such as `aria-label`, and avatars as children, and raises a focused avatar so the next one doesn't cover its focus ring.
 - `ListItem` takes `color="critical"` (`li.ui-critical`) for a destructive item in a `Menu`.
 - `ToggleGroup` takes a bindable `value`: `bind:value` in Svelte, `v-model` in Vue, and `value`, `defaultValue` and `onValueChange` in React. It is a string with `selection="single"` and an array of strings otherwise, and a `ToggleButton` in the group takes its checked state from it once the group has one. The button's own `checked` or `defaultChecked` is then ignored, and a dev warning says so.
@@ -308,8 +309,8 @@
 - `List` checked `option` uses `--ui-state-active-alpha-accent`.
 - `ToggleButton` disabled state uses `--ui-disabled-opacity` like `Button`, and `--ui-text-disabled` when unchecked (a checked one keeps its selected text color), its hover uses `--ui-state-hover-alpha`, and `ToggleButton` and `ToggleGroup` read `--ui-button-size*` instead of `--ui-field-size*`.
 - `Accordion`, `Drawer` and rich text use `overflow-inline`/`overflow-block` instead of `overflow-x`/`overflow-y`, so scrolling follows the writing mode. Browsers older than Chrome 135, Firefox 69 and Safari 26 ignore them, so those containers don't scroll there, and neither do `Dialog` content and `ButtonGroup`, `Tabs` and `ToggleGroup` with `overflow="scroll"`.
-- `Range` generates the `<datalist>` id when `options` or the `datalist` slot is used, so `list` is optional.
-- `Range` in Vue scopes the `value` slot with the current `value`, so custom readout content follows the thumb.
+- `Range` generates the `<datalist>` id when `items` or the `datalist` slot is used, so `list` is optional.
+- `Range` in Vue scopes the `value-text` slot with the current `value`, so custom readout content follows the thumb.
 - `ToggleButton` grows from `--ui-button-size` with its content instead of having a fixed height.
 - `Range` thumb, halo and track fill follow `--_accent` on `.ui-range`.
 - `Switch` turns its checked track red when invalid, like `Checkbox` and `Radio`, with a `--ui-on-accent` thumb.

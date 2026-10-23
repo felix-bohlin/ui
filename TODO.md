@@ -9672,8 +9672,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) DescriptionList: `bordered` is `boolean | "dotted"`, a toggle and a line style in one prop (`packages/opui/components/DescriptionList/types.ts`, `src/component-api/description-list/api.ts`)
   - Fix: `bordered` stays a boolean and the line style becomes its own enum, or `bordered` becomes `"dotted" | "none" | "solid"`.
   - Fixed: `bordered` is `"dotted" | "solid"` with no default (`.ui-bordered-dotted`, `.ui-bordered-solid`), `inline` is `orientation="horizontal"` (`.ui-horizontal`), and items are plain `div`s without `.ui-item`.
-- [ ] (1) Range: options take `{ value, label }`, while Menu and Select items take `text` for the same job, the key decided for item text (`packages/opui/components/Range/types.ts:2`)
+- [x] (1) Range: options take `{ value, label }`, while Menu and Select items take `text` for the same job, the key decided for item text (`packages/opui/components/Range/types.ts:2`)
   - Fix: `text` on Range options, or keep `label` because it mirrors the native `<option label>`, and say so in the naming model.
+  - Fixed: the decision went the other way: item objects take `label` everywhere, so Range keeps `{ label, value }`, Menu and Select items moved to `label`, and `options` is `items` (`RangeItem[]`).
 - [ ] (1) TabsItem, TabsTab: the id prop is `tabId`, where every other component takes `id` (`packages/opui/components/Tabs/types.ts`)
   - Fix: `id`, unless the input and the label need separate ids, then say why in the API description.
 - [ ] (1) ToggleButton: Vue has no `v-model:checked` for a standalone toggle, while Svelte has `bind:checked` and React `checked` with `onChange` (`packages/opui/components/ToggleButton/ToggleButton.vue`)

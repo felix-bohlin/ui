@@ -2,27 +2,24 @@
   import { Range } from "opui-css/svelte"
 </script>
 
-<Range spread>
-  Spread Layout
+<Range label="Spread Layout" spread>
   {#snippet startText()}Start text{/snippet}
   {#snippet endText()}End text{/snippet}
 </Range>
 
-<Range spread disabled>
-  Disabled
+<Range label="Disabled" spread disabled>
   {#snippet startText()}Start text{/snippet}
   {#snippet endText()}End text{/snippet}
 </Range>
 
-<Range spread error endText="This value is incorrect.">
-  Invalid Range
+<Range label="Invalid Range" spread error endText="This value is incorrect.">
   {#snippet startText()}Start text{/snippet}
 </Range>
 
 <Range
   label="Tick marks with labels"
   spread
-  options={[
+  items={[
     { value: 0, label: "0%" },
     { value: 25, label: "25%" },
     { value: 50, label: "50%" },

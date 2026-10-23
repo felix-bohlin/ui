@@ -175,9 +175,7 @@ export const partLabel = (
   const syntax = frameworks[framework]
   const handles = new Set([
     ...(part.props ?? []),
-    ...(syntax.slotsAreProps && part.snippets
-      ? part.snippets
-      : (part.slots ?? []).map(syntax.slot)),
+    ...(part.slots ?? []).map(syntax.slot),
     ...(part.model && syntax.model
       ? modelsFor(api, framework).map((entry) => syntax.model!(entry.prop))
       : []),

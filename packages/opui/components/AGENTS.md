@@ -233,7 +233,7 @@ One concept has one prop name and one set of values in every component. `tests/u
 - **`align` has one default per part,** wherever the part appears. `.ui-actions` lines up at the end in every container that has it.
 - **Text:**
   - The primary text of anything is `label`, a string prop with a slot of the same name for rich content. Secondary text is `description`. Never `headline`, `text` or `title`.
-  - Item objects (`MenuItem`, `SelectItem`, `RangeOption`) use `label`, `value` and `description`, and a list of them is `items`.
+  - Item objects (`MenuItem`, `RangeItem`, `SelectItem`) use `label`, `value` and `description`, and a list of them is `items`.
   - The default slot is the main content, never the label. On a choice control (Checkbox, Radio, Switch, ToggleButton) the label is the main content, so there the default slot is the label and `label` is its string shorthand.
 - **Accessible names:**
   - When the visible label can be hidden, the prop is `hideLabel`, which renders `.ui-sr-only` on the label.

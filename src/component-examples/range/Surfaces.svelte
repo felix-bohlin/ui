@@ -2,13 +2,15 @@
   import { Range } from "opui-css/svelte"
 </script>
 
-<Range
-  ><code>outlined</code> (default) =
-  <code>var(--ui-field-border-color)</code></Range
->
+<Range>
+  {#snippet label()}<code>outlined</code> (default) =
+    <code>var(--ui-field-border-color)</code>{/snippet}
+</Range>
 <Range variant="filled">
-  <code>filled</code> = <code>var(--ui-surface-filled)</code>
+  {#snippet label()}<code>filled</code> =
+    <code>var(--ui-surface-filled)</code>{/snippet}
 </Range>
 <Range variant="tonal">
-  <code>tonal</code> = <code>var(--ui-surface-tonal)</code>
+  {#snippet label()}<code>tonal</code> =
+    <code>var(--ui-surface-tonal)</code>{/snippet}
 </Range>

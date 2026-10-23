@@ -3,27 +3,24 @@ import { Range } from "opui-css/vue"
 </script>
 
 <template>
-  <Range spread>
-    Spread Layout
+  <Range label="Spread Layout" spread>
     <template #start-text>Start text</template>
     <template #end-text>End text</template>
   </Range>
 
-  <Range spread disabled>
-    Disabled
+  <Range label="Disabled" spread disabled>
     <template #start-text>Start text</template>
     <template #end-text>End text</template>
   </Range>
 
-  <Range spread error endText="This value is incorrect.">
-    Invalid Range
+  <Range label="Invalid Range" spread error endText="This value is incorrect.">
     <template #start-text>Start text</template>
   </Range>
 
   <Range
     label="Tick marks with labels"
     spread
-    :options="[
+    :items="[
       { value: 0, label: '0%' },
       { value: 25, label: '25%' },
       { value: 50, label: '50%' },

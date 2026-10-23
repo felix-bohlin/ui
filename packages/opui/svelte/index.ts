@@ -142,7 +142,7 @@ export type {
   RadioInputProps,
   Props as RadioProps,
 } from "../components/Radio/types.svelte"
-export type { RangeOption } from "../components/Range/types"
+export type { RangeItem } from "../components/Range/types"
 export type { Props as RangeProps } from "../components/Range/types.svelte"
 export type { SelectItem } from "../components/Select/types"
 export type { Props as SelectProps } from "../components/Select/types.svelte"

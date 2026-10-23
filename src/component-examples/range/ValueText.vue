@@ -10,7 +10,7 @@ import { Range } from "opui-css/vue"
     min="10"
     value="21"
   >
-    <template #value="{ value }"
+    <template #value-text="{ value }"
       ><b>{{ value }}°</b></template
     >
   </Range>

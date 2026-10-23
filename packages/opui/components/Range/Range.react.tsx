@@ -12,13 +12,13 @@ export default function Range({
   endText,
   error,
   id,
+  items,
   label,
   list,
   max,
   min,
   name,
   onChange,
-  options,
   spread,
   startText,
   step,
@@ -26,7 +26,6 @@ export default function Range({
   value,
   valueSuffix,
   variant,
-  children,
   datalist,
   valueText,
   ref,
@@ -54,9 +53,9 @@ export default function Range({
     [ref],
   )
 
-  const hasLabel = !!label || !!children
+  const hasLabel = !!label
   const hasValue = valueSuffix !== undefined || !!valueText
-  const hasDatalist = !!options || !!datalist
+  const hasDatalist = !!items || !!datalist
   const middle = () => {
     const minValue = Number(min ?? 0)
     const maxValue = Math.max(minValue, Number(max ?? 100))
@@ -89,7 +88,6 @@ export default function Range({
       {hasLabel && (
         <span className="ui-label" id={labelId}>
           {label}
-          {children}
         </span>
       )}
       {hasValue && (
@@ -130,7 +128,7 @@ export default function Range({
       />
       {hasDatalist && (
         <datalist aria-hidden="true" id={listId}>
-          {options?.map((option) =>
+          {items?.map((option) =>
             typeof option === "object" ? (
               <option
                 key={option.value}

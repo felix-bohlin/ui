@@ -5,7 +5,7 @@ export default function TickMarksLabels() {
     <>
       <Range
         label="Tick marks with labels"
-        options={[
+        items={[
           { value: 0, label: "0%" },
           { value: 25, label: "25%" },
           { value: 50, label: "50%" },

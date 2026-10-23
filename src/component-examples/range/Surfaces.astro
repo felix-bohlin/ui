@@ -2,13 +2,19 @@
 import { Range } from "opui-css/astro"
 ---
 
-<Range
-  ><code>outlined</code> (default) = <code>var(--ui-field-border-color)</code
-  ></Range
->
+<Range>
+  <Fragment slot="label"
+    ><code>outlined</code> (default) = <code>var(--ui-field-border-color)</code
+    ></Fragment
+  >
+</Range>
 <Range variant="filled">
-  <code>filled</code> = <code>var(--ui-surface-filled)</code>
+  <Fragment slot="label"
+    ><code>filled</code> = <code>var(--ui-surface-filled)</code></Fragment
+  >
 </Range>
 <Range variant="tonal">
-  <code>tonal</code> = <code>var(--ui-surface-tonal)</code>
+  <Fragment slot="label"
+    ><code>tonal</code> = <code>var(--ui-surface-tonal)</code></Fragment
+  >
 </Range>

@@ -8,4 +8,7 @@ type Snippets = Base.Slots<Snippet> & {
 
 export type Props = Omit<Base.Props, keyof Snippets> &
   Snippets &
-  Omit<SvelteHTMLElements["input"], keyof Base.Props | keyof Snippets>
+  Omit<
+    SvelteHTMLElements["input"],
+    keyof Base.Props | keyof Snippets | "children"
+  >

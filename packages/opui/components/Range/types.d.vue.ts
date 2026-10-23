@@ -9,8 +9,8 @@ export type Props = BaseProps &
 
 export type Slots = {
   datalist?: Slot
-  default?: Slot
   "end-text"?: Slot
+  label?: Slot
   "start-text"?: Slot
-  value?: Slot<{ value: number }>
+  "value-text"?: Slot<{ value: number }>
 }

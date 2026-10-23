@@ -10,7 +10,6 @@ export type ApiPart = {
   props?: string[]
   selector: string
   slots?: string[]
-  snippets?: string[]
 }
 
 export type ApiHydration = {

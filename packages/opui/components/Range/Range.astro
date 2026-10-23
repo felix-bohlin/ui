@@ -13,12 +13,12 @@ const {
   endText,
   error,
   id,
+  items,
   label,
   list,
   max,
   min,
   name,
-  options,
   spread,
   startText,
   step,
@@ -32,11 +32,11 @@ const {
 const field = fieldGroupContext.get()
 const $id = createId(Astro.locals)
 
-const hasLabel = !!label || Astro.slots.has("default")
+const hasLabel = !!label || Astro.slots.has("label")
 const hasStartText = !!startText || Astro.slots.has("start-text")
 const hasEndText = !!endText || Astro.slots.has("end-text")
-const hasValue = valueSuffix !== undefined || Astro.slots.has("value")
-const hasDatalist = !!options || Astro.slots.has("datalist")
+const hasValue = valueSuffix !== undefined || Astro.slots.has("value-text")
+const hasDatalist = !!items || Astro.slots.has("datalist")
 const defaultValue = () => {
   const minValue = Number(min ?? 0)
   const maxValue = Math.max(minValue, Number(max ?? 100))
@@ -72,7 +72,7 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
     hasLabel && (
       <span class="ui-label" id={labelId}>
         {label}
-        <slot />
+        <slot name="label" />
       </span>
     )
   }
@@ -80,11 +80,11 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
     hasValue && (
       <output
         class="ui-value"
-        data-live={Astro.slots.has("value") ? undefined : ""}
+        data-live={Astro.slots.has("value-text") ? undefined : ""}
         for={inputId}
         data-suffix={valueSuffix}
       >
-        <slot name="value">{valueText}</slot>
+        <slot name="value-text">{valueText}</slot>
       </output>
     )
   }
@@ -113,7 +113,7 @@ const describedBy = idRefs(startTextId, endTextId, ariaDescribedBy)
   {
     hasDatalist && (
       <datalist aria-hidden="true" id={listId}>
-        {options?.map((option) =>
+        {items?.map((option) =>
           typeof option === "object" ? (
             <option value={option.value} label={option.label} />
           ) : (

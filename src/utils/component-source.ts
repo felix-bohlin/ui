@@ -217,9 +217,6 @@ export const describe = (
     if (kind === "prop" && part.legacy?.props?.includes(name)) {
       return legacyOf(part.props?.[0] ?? "")
     }
-    if (kind === "prop" && part.snippets?.includes(name)) {
-      return part.description
-    }
     if (part.slots?.some(matches)) return part.description
     if (part.legacy?.slots?.some(matches)) {
       const primary = part.slots?.[0] ?? ""
@@ -354,17 +351,13 @@ export const checkApi = (api: ComponentApi) => {
     if (frameworks[framework].slotsAreProps) {
       ;[
         ...(api.slots ?? []).map((slot) => slot.name),
-        ...api.parts.flatMap((part) =>
-          part.snippets
-            ? []
-            : [...(part.slots ?? []), ...(part.legacy?.slots ?? [])],
-        ),
+        ...api.parts.flatMap((part) => [
+          ...(part.slots ?? []),
+          ...(part.legacy?.slots ?? []),
+        ]),
       ]
         .filter((slot) => slot !== "default")
         .forEach((slot) => exists("slot prop", slotProp(slot)))
-      api.parts
-        .flatMap((part) => part.snippets ?? [])
-        .forEach((snippet) => exists("snippet", snippet))
       return
     }
 

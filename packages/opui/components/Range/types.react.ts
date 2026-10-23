@@ -7,4 +7,4 @@ type Slots = Base.Slots<ReactNode> & {
 
 export type Props = Omit<Base.Props, keyof Slots> &
   Slots &
-  Omit<ComponentProps<"input">, keyof Base.Props | keyof Slots>
+  Omit<ComponentProps<"input">, keyof Base.Props | keyof Slots | "children">

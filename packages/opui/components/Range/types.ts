@@ -1,12 +1,12 @@
-export type RangeOption =
+export type RangeItem =
   string | number | { value: string | number; label?: string }
 
 export type Props = {
   endText?: string
   error?: boolean
+  items?: RangeItem[]
   label?: string
   list?: string
-  options?: RangeOption[]
   spread?: boolean
   startText?: string
   value?: number | string
@@ -17,5 +17,6 @@ export type Props = {
 export type Slots<S> = {
   datalist?: S
   endText?: string | S
+  label?: string | S
   startText?: string | S
 }

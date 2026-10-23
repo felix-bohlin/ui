@@ -593,6 +593,18 @@ In Astro and Vue, `style` goes to the root `<label>` instead of the `<input>`, l
 
 In Astro, extra attributes are typed as `<input>` attributes only, since they go to the input.
 
+`options` is `items`, typed as `RangeItem[]`. In Astro and Vue, the label goes in the `label` prop or slot instead of the default slot, and the readout slot is `value-text` instead of `value`.
+
+```diff
+- <Range options={ticks} valueSuffix="%">Volume</Range>
++ <Range items={ticks} label="Volume" valueSuffix="%" />
+```
+
+```diff
+- <b slot="value">21°</b>
++ <b slot="value-text">21°</b>
+```
+
 Deep type imports from `opui-css/components/*` are renamed, see [Package and imports](#package-and-imports).
 
 ## Select

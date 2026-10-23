@@ -58,6 +58,7 @@ const replaced: Record<string, string> = {
   alignment: "corner or positionArea",
   direction: "orientation",
   iconOnly: "aria-label",
+  options: "items",
   perView: "itemsPerView",
   placement: "side",
   inline: "orientation",

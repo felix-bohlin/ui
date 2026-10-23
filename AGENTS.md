@@ -56,6 +56,11 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 - A fallback is fine only when it costs nothing: an `@supports` block that turns a feature on, with the browser default as the fallback, or a declaration that changes no API and does nothing in Chromium (like the cap in the Menu's last-resort `@position-try` options). Vendor pseudo-elements that are the only way to style a native control (`::-moz-range-track`, `::-webkit-slider-thumb`) aren't workarounds.
 - The one kept workaround is the iOS Safari submenu anchor in `menu.css`.
 
+## TODO.md
+
+- Items and notes follow `.claude/skills/audit/findings-format.md`. That includes notes you add later, such as a `Still open:` answer.
+- When a note offers more than one fix, write the choices as an `Options:` list with lettered items (`- A (recommended): …`, `- B: …`), never as "do this, or that" in one sentence. The `/todo` page turns the list into a radio group.
+
 ## Testing
 
 - ALWAYS run `pnpm check` before finishing a change. It runs formatting, linting, CSS declaration order, component checks, custom property references, type checks, unit tests and the build. `pnpm check:fast` runs everything except the build while iterating.

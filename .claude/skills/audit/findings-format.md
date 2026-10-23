@@ -9,6 +9,7 @@ Every audit agent reports findings in this format, so `/audit` can merge them an
 - Cite every file with a line or line range, `path/to/file.css:12-18`.
 - Severity is 1-10, 10 is the most severe. Most findings are 1-3. Use 4 and up for broken behavior, inaccessible components or wrong docs that users copy.
 - Keep each finding to what is wrong and where. Put the fix in a `Fix:` note, with a code block when the fix is code.
+- When there's more than one way to fix it, give the choices as an `Options:` list (see below), never as "do this, or that" or `A: … B: …` in one sentence. The `/todo` page turns the list into a radio group to pick from.
 - Report only. Never edit, create or delete files.
 - If you find nothing, say so in one line.
 
@@ -24,6 +25,21 @@ One finding per item, in the `TODO.md` item format. `Component:` is the componen
       color: var(--ui-text-strong);
     }
     ```
+````
+
+With several fixes, `Fix:` keeps what applies to all of them, such as what to confirm first, and each choice is a lettered item under `Options:`. Mark at most one `(recommended)`, and put a choice's code block under its own item:
+
+````md
+- [ ] (2) Component: what is wrong (`path/to/file.css:12-18`)
+  - Fix: confirm first on `/html/components/example/` (Basics).
+  - Options:
+    - A (recommended): what to change.
+      ```css
+      .ui-example {
+        color: var(--ui-text-strong);
+      }
+      ```
+    - B: the other way to fix it.
 ````
 
 ## Report

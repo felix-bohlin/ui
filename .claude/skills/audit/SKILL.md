@@ -42,8 +42,9 @@ Names and slugs can be mixed: `/audit css button` runs `css` on Button only.
 
 1. Drop duplicates. When two agents report the same problem, keep the clearer item and add the other's file references.
 2. Check every finding of severity 4 or more yourself by opening the cited lines. Drop it, or lower it, when it doesn't hold.
-3. Group the findings by `TODO.md` section, sorted by severity, lowest first.
-4. A finding that asks for a new theme token is a design question, not a bug: name the role it would fill and which example theme needs it, and point to section 9 of `packages/opui/components/AGENTS.md`, which says when a token is warranted. The reader first, the token second.
+3. Parse every finding for multiple choice: a `Fix:` note that offers alternatives ("do this, or that", "either", `A: … B: …` in a sentence) becomes an `Options:` list with lettered items, as in `findings-format.md`.
+4. Group the findings by `TODO.md` section, sorted by severity, lowest first.
+5. A finding that asks for a new theme token is a design question, not a bug: name the role it would fill and which example theme needs it, and point to section 9 of `packages/opui/components/AGENTS.md`, which says when a token is warranted. The reader first, the token second.
 
 ## Report
 

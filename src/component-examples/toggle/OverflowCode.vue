@@ -8,12 +8,12 @@ import { ToggleButton, ToggleGroup } from "opui-css/vue"
     <ToggleButton value="mentions"> Mentions </ToggleButton>
     <ToggleButton value="none"> Nothing at all </ToggleButton>
   </ToggleGroup>
-  <ToggleGroup name="overflow-scrollable" scrollable>
+  <ToggleGroup name="overflow-scroll" overflow="scroll">
     <ToggleButton value="all"> Everything </ToggleButton>
     <ToggleButton value="mentions"> Mentions </ToggleButton>
     <ToggleButton value="none"> Nothing at all </ToggleButton>
   </ToggleGroup>
-  <ToggleGroup name="overflow-shrink" shrink>
+  <ToggleGroup name="overflow-shrink" overflow="shrink">
     <ToggleButton value="all"> Everything </ToggleButton>
     <ToggleButton value="mentions"> Mentions </ToggleButton>
     <ToggleButton value="none"> Nothing at all </ToggleButton>

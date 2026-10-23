@@ -37,7 +37,7 @@
     }
 
     /* Overflow */
-    &.ui-scrollable {
+    &.ui-overflow-scroll {
       flex-wrap: nowrap;
       overflow-block: hidden;
       overflow-inline: auto;
@@ -49,7 +49,7 @@
       }
     }
 
-    &.ui-shrink {
+    &.ui-overflow-shrink {
       flex-wrap: nowrap;
 
       & > .ui-toggle-button {

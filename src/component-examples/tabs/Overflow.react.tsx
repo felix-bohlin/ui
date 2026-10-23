@@ -1,8 +1,8 @@
 import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/react"
 
-export default function Scrollable() {
+export default function Overflow() {
   return (
-    <Tabs name="scrollable-tabs" scrollable>
+    <Tabs name="overflow-tabs" overflow="scroll">
       <TabsItem defaultChecked>
         <TabsTab>Profile</TabsTab>
         <TabsPanel>Profile settings and information.</TabsPanel>

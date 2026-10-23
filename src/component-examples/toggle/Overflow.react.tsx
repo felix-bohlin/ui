@@ -19,7 +19,7 @@ export default function Overflow() {
       </div>
       <div style={{ display: "grid", gap: "var(--ui-space-1)" }}>
         <p>Scroll</p>
-        <ToggleGroup name="overflow-scrollable" scrollable>
+        <ToggleGroup name="overflow-scroll" overflow="scroll">
           <ToggleButton value="all">Everything</ToggleButton>
           <ToggleButton value="mentions">Mentions</ToggleButton>
           <ToggleButton value="none">Nothing at all</ToggleButton>
@@ -27,7 +27,7 @@ export default function Overflow() {
       </div>
       <div style={{ display: "grid", gap: "var(--ui-space-1)" }}>
         <p>Shrink</p>
-        <ToggleGroup name="overflow-shrink" shrink>
+        <ToggleGroup name="overflow-shrink" overflow="shrink">
           <ToggleButton value="all">Everything</ToggleButton>
           <ToggleButton value="mentions">Mentions</ToggleButton>
           <ToggleButton value="none">Nothing at all</ToggleButton>

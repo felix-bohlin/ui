@@ -197,7 +197,7 @@
       }
     }
 
-    &.ui-scrollable {
+    &.ui-overflow-scroll {
       column-gap: 0;
       container-type: inline-size;
       display: grid;

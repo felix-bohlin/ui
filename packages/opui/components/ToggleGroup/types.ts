@@ -1,9 +1,8 @@
 export type Props = {
   name?: string
   orientation?: "horizontal" | "vertical"
-  scrollable?: boolean
+  overflow?: "scroll" | "shrink" | "wrap"
   selection?: "single" | "multiple"
-  shrink?: boolean
   size?: "x-small" | "small" | "medium" | "large"
 }
 

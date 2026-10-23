@@ -9,9 +9,8 @@ const {
   class: className,
   name,
   orientation,
-  scrollable,
+  overflow,
   selection = "multiple",
-  shrink,
   size,
   ...rest
 } = Astro.props
@@ -28,10 +27,9 @@ const html = await toggleGroupContext.provide({ groupName, inputType }, () =>
   class:list={[
     "ui-toggle-group",
     {
-      "ui-scrollable": scrollable,
-      "ui-shrink": shrink,
       "ui-vertical": orientation === "vertical",
     },
+    overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
     size && size !== "medium" && `ui-${size}`,
     className,
   ]}

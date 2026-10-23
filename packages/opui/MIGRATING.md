@@ -183,7 +183,7 @@ Variants apply to the whole group. Move a variant from a button inside a group t
 +   <button class="ui-button">One</button>
 ```
 
-Groups wrap onto more rows when they don't fit, instead of overflowing. Use `scrollable` (`.ui-scrollable`) or `shrink` (`.ui-shrink`) to keep them on one row. Small buttons are `--ui-button-size-small` (32px) instead of 30px.
+Groups wrap onto more rows when they don't fit, instead of overflowing. Use `overflow="scroll"` (`.ui-overflow-scroll`) or `overflow="shrink"` (`.ui-overflow-shrink`) to keep them on one row. Small buttons are `--ui-button-size-small` (32px) instead of 30px.
 
 ## Callout
 
@@ -663,7 +663,7 @@ Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`,
 +   <div class="ui-tab-panel">…</div>
 ```
 
-Tabs that don't fit can stay on one row and scroll sideways with `scrollable` (`.ui-scrollable`).
+Tabs that don't fit can stay on one row and scroll sideways with `overflow="scroll"` (`.ui-overflow-scroll`).
 
 `TabsItem` `open` is `checked`, the attribute it sets on the radio.
 
@@ -743,7 +743,7 @@ Same as Text field: `aria-invalid="true"` on the `<textarea>` replaces `data-inv
 
 ## Toggle button and toggle group
 
-Text shrinks with the size like `Button`: `--ui-font-size-small` when small and `--ui-font-size-caption` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
+Text shrinks with the size like `Button`: `--ui-font-size-small` when small and `--ui-font-size-caption` when x-small. Groups wrap onto more rows when they don't fit; use `overflow="scroll"` or `overflow="shrink"` to keep them on one row.
 
 `ToggleButton` in Astro and Vue no longer generates an input `id`. Pass `id` when something outside the component references the input.
 

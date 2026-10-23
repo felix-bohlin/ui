@@ -7,9 +7,8 @@ import type { Props, Slots } from "./types.d.vue"
 const {
   name,
   orientation,
-  scrollable,
+  overflow,
   selection = "multiple",
-  shrink,
   size,
 } = defineProps<Props>()
 defineSlots<Slots>()
@@ -35,10 +34,9 @@ provide(
     :class="[
       'ui-toggle-group',
       {
-        'ui-scrollable': scrollable,
-        'ui-shrink': shrink,
         'ui-vertical': orientation === 'vertical',
       },
+      overflow && overflow !== 'wrap' && `ui-overflow-${overflow}`,
       size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"

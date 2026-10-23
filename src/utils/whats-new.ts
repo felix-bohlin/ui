@@ -163,8 +163,8 @@ const whatsNew = {
     },
     `<a href="#sizes">Small</a> groups use the same text size as a small <code>Button</code>.`,
     {
-      default: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>scrollable</code> or truncates with <code>shrink</code>.`,
-      html: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>.ui-scrollable</code> or truncates with <code>.ui-shrink</code>.`,
+      default: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>overflow="scroll"</code> or truncates with <code>overflow="shrink"</code>.`,
+      html: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>.ui-overflow-scroll</code> or truncates with <code>.ui-overflow-shrink</code>.`,
     },
     {
       default: `Button links (<code>href</code>) get the group styles too, see <a href="#variants">Variants</a>.`,
@@ -773,8 +773,8 @@ const whatsNew = {
       html: `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. Style <code>.ui-tab-label</code> and <code>.ui-tab-panel</code> instead of <code>[role="tab"]</code> and <code>[role="tabpanel"]</code>.`,
     },
     {
-      default: `<a href="#scrollable">Scrollable</a> tabs with the <code>scrollable</code> prop.`,
-      html: `<a href="#scrollable">Scrollable</a> tabs with <code>.ui-scrollable</code>.`,
+      default: `Tabs that <a href="#overflow">scroll</a> with <code>overflow="scroll"</code>.`,
+      html: `Tabs that <a href="#overflow">scroll</a> with <code>.ui-overflow-scroll</code>.`,
     },
     {
       default: `<a href="#filled">Filled</a>, <a href="#line">line</a> and <a href="#outlined">outlined</a> variants with the <code>variant</code> prop.`,
@@ -890,8 +890,8 @@ const whatsNew = {
     },
     `<a href="#sizes">Small and x-small</a> toggles use smaller text, like <code>Button</code>.`,
     {
-      default: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>scrollable</code> or truncates with <code>shrink</code>.`,
-      html: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>.ui-scrollable</code> or truncates with <code>.ui-shrink</code>.`,
+      default: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>overflow="scroll"</code> or truncates with <code>overflow="shrink"</code>.`,
+      html: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>.ui-overflow-scroll</code> or truncates with <code>.ui-overflow-shrink</code>.`,
     },
     `Breaking: no <code>.ui-disabled</code>. A <a href="#toggle-button">toggle</a> looks disabled when its input is <code>disabled</code>.`,
     `Breaking: <code>ToggleButton</code> <code>--_button-bg-color</code> is <code>--_bg-color</code>, <code>--_size</code> is <code>--_min-height</code> and <code>--_svg-size</code> is <code>--_icon-size</code>, which sizes direct child <code>svg</code>s like Button (<a href="#under-the-hood">Under the hood</a>).`,

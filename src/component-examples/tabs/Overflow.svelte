@@ -1,8 +1,8 @@
----
-import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
----
+<script lang="ts">
+  import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/svelte"
+</script>
 
-<Tabs name="scrollable-tabs" scrollable>
+<Tabs name="overflow-tabs" overflow="scroll">
   <TabsItem checked>
     <TabsTab>Profile</TabsTab>
     <TabsPanel>Profile settings and information.</TabsPanel>

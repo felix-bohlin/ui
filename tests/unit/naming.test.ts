@@ -26,6 +26,7 @@ const vocabulary: Record<string, { group: string; values: string[] }> = {
     group: "Orientation",
     values: ["auto", "horizontal", "vertical"],
   },
+  overflow: { group: "Overflow", values: ["scroll", "shrink", "wrap"] },
   severity: {
     group: "Severities",
     values: ["critical", "info", "neutral", "success", "warning"],
@@ -60,6 +61,8 @@ const replaced: Record<string, string> = {
   perView: "itemsPerView",
   placement: "side",
   pressed: "checked",
+  scrollable: "overflow",
+  shrink: "overflow",
   srLabel: "hideLabel or aria-label",
   text: "label",
   title: "label",

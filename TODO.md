@@ -9458,8 +9458,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   > Do what’s best and smart
   - Measured: List no longer resets `font-size` on every child, so `inbox.html`'s `time` with `.ui-caption` and no block rule renders 12px, muted, with a 19.2px line height, and that rule can go. `notification-settings.html`'s `th.notif-group` with `.ui-caption` still renders 14px in the strong text color, because the table header styles win, so the block rule stays there.
-- [ ] (1) AccordionActions: it has no `align` prop. Its actions are end-aligned, while CardActions (start by default) and DialogActions (end by default) take `align` with `.ui-align-*`, so accordion actions can't be start-aligned (`packages/opui/css/components/accordion.css:154-161`, `packages/opui/components/Accordion/types.ts:6`)
+- [x] (1) AccordionActions: it has no `align` prop. Its actions are end-aligned, while CardActions (start by default) and DialogActions (end by default) take `align` with `.ui-align-*`, so accordion actions can't be start-aligned (`packages/opui/css/components/accordion.css:154-161`, `packages/opui/components/Accordion/types.ts:6`)
   - Fix: give `AccordionActions` DialogActions' API: `align?: "start" | "end"`, default `"end"`, `.ui-align-start`, and an `accordion-actions/api.ts`.
+  - Fixed: `AccordionActions` takes `align` like `CardActions` and `DialogActions`. Every `.ui-actions` sits at the end by default and takes `.ui-align-start`, Card included.
 - [ ] (1) Avatar: avatars in a group overlap by a fixed `--ui-space-3` (16px) whatever their size, so only 56 to 60% of each shows and the second initial is cut off (default and shadcn) (`packages/opui/css/components/avatar.css:83,93-95`)
   - Fix: `--_margin: var(--ui-space-2)` keeps the initials whole at the default size. The amount is the choice.
 - [x] (1) Carousel: the scroll buttons read Open Props `--shadow-2` and a border derived from `--ui-surface-inverse`, both redeclared on `.ui-carousel`, so no theme can restyle them (brutalist keeps a soft shadow next to hard-shadowed cards) (`packages/opui/css/components/carousel.css:5-9,21,132-134`)

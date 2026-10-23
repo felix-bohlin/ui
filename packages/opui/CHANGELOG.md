@@ -52,6 +52,7 @@
 - `Card` `variant="text"` is `variant="transparent"` (`.ui-transparent` instead of `.ui-text`), so `.ui-text` only names the text part of a component. The default card is named `plain`.
 - `Chip`, `Drawer` and `Progress` in Astro and Vue no longer render the class of their default look: no `.ui-tonal` on a tonal `Chip` or `Progress`, and no `.ui-inline-start` on a `Drawer` that opens from the inline start. In HTML these classes add nothing and can go. CSS that targets them can use `.ui-chip:not(.ui-outlined)`, `.ui-progress:not(.ui-filled)` and `.ui-drawer:not(.ui-block-end, .ui-block-start, .ui-inline-end)` instead.
 - `Card` in Astro and Vue takes parts instead of slots: `CardHeader`, `CardContent` and `CardActions`. `actionsAlign` is `align` on `CardActions`.
+- `Card` actions sit at the end, like in `Dialog`, `Accordion` and `Drawer`. `CardActions` `align="start"` (`.ui-align-start`) lines them up with the content, and `.ui-align-end` no longer does anything on them.
 - `Dialog` in Astro and Vue takes parts instead of slots: `DialogHeader`, `DialogContent` and `DialogActions`. `actionsAlign` is `align` on `DialogActions`. `aria-labelledby` points at the `DialogHeader` unless you pass `aria-label` or `aria-labelledby`, so a dialog without a `DialogHeader` needs `aria-label`. An `id` on `DialogHeader` only applies when the dialog has `aria-label` or `aria-labelledby`, and a dev warning says when it is replaced.
 - `Tabs`, `Table` and `DescriptionList` in Astro no longer have dot aliases such as `Tabs.Item`, `Table.Head` and `DescriptionList.Item`. Import the flat names, such as `TabsItem`, `TableHead` and `DescriptionListItem`, like React, Svelte and Vue. The `components/{Tabs,Table,DescriptionList}/index.ts` files that held the aliases are gone.
 - `Accordion` in Astro and Vue takes parts instead of slots: `AccordionSummary`, `AccordionContent` and `AccordionActions`. The root no longer wraps its children in `.ui-content`, and the `marker` slot moves to `AccordionSummary`.
@@ -280,6 +281,7 @@
 - `Divider` that is a direct child of a card has no margin, since the card's gap spaces it.
 - `Drawer` content padding is `--ui-space-3`, like its header and footer and `Dialog`. It was `--ui-space-4`, so the title and the body text didn't line up.
 - `DialogActions` only renders a class for `align="start"` (`.ui-align-start`). `align="end"` is the default look and no longer adds `.ui-align-end`.
+- `AccordionActions` takes `align` (`.ui-align-start`), like `CardActions` and `DialogActions`.
 - `Accordion` with `variant="tonal"` or `variant="elevated"` has a border in the page background color unless a theme sets `--ui-surface-border-color`, like tonal and elevated cards, so it stays visible on tonal surfaces.
 - `Drawer` header headings take the free space and the header has a gap, so several actions line up at the end. Without a heading, the first icon-only button is pushed to the end.
 - `Link` (`.ui-link`) and rich text links darken in light mode and lighten in dark mode on hover and focus, from their own color so they keep the contrast of `--ui-primary-text`, and their underline gets `--ui-underline-thickness-hover` (`3px`) thick. Rich text links in a `List` read `--ui-primary-text` like other links, since it keeps 4.5:1 on the filled background.
@@ -459,7 +461,7 @@
 - `List` `.ui-dense` also shrinks group labels in grouped lists, such as a dense Select.
 - `ListItem` with `as="button"` renders `type="button"`, so it no longer submits a surrounding form.
 - `Callout` links in a tonal callout take the hover color on keyboard focus too.
-- `Card` actions aligned to the end line up a plain last button with the content, and no longer pull a filled or outlined last button to the edge.
+- `Card` actions line up a plain last button with the content, and no longer pull a filled or outlined last button to the edge.
 - `Accordion` content in a group without a variant lines up with the summary.
 - `Radio` dot stays centered at every zoom level and screen scale. It's a `radial-gradient()` on the input's background instead of a separate `::after` box.
 - `Range` with `spread`, a value and tick marks no longer draws the value over the tick labels, and the end text of a narrow spread range no longer overlaps the slider or the tick labels.

@@ -14,7 +14,7 @@
 <div
   class={[
     "ui-actions",
-    align && align !== "start" && `ui-align-${align}`,
+    align && align !== "end" && `ui-align-${align}`,
     className,
   ]}
   {...rest}

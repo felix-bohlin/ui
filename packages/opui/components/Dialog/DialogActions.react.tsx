@@ -6,7 +6,7 @@ export default function DialogActions({ align, className, ...rest }: Props) {
     <div
       className={cx([
         "ui-actions",
-        { "ui-align-start": align === "start" },
+        align && align !== "end" && `ui-align-${align}`,
         className,
       ])}
       {...rest}

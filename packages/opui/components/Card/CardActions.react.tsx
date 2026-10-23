@@ -6,7 +6,7 @@ export default function CardActions({ align, className, ...rest }: Props) {
     <div
       className={cx([
         "ui-actions",
-        align && align !== "start" && `ui-align-${align}`,
+        align && align !== "end" && `ui-align-${align}`,
         className,
       ])}
       {...rest}

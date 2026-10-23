@@ -17,6 +17,7 @@ import Conditional from "../../components/Conditional.astro"
 import AccordionBuild from "../../components/UnderTheHood/AccordionBuild.astro"
 
 import accordionApi from "../../component-api/accordion/api"
+import accordionActionsApi from "../../component-api/accordion-actions/api"
 import accordionSummaryApi from "../../component-api/accordion-summary/api"
 export const description =
   "Lets you show and hide content, on its own or as a group."
@@ -29,6 +30,7 @@ export const description =
   apis={[
     { title: "Accordion API", api: accordionApi },
     { title: "Accordion summary API", api: accordionSummaryApi },
+    { title: "Accordion actions API", api: accordionActionsApi },
   ]}
   browserSupport={[
     "container-style-queries",
@@ -146,12 +148,16 @@ export const description =
       <Fragment slot="components">
         Add buttons or other interactive elements below the content with <code
           >AccordionActions</code
-        >, after <code>AccordionContent</code>.
+        >, after <code>AccordionContent</code>. They sit at the end, and <code
+          >align="start"</code
+        > lines them up with the content.
       </Fragment>
       <Fragment slot="html">
         Add buttons or other interactive elements below the content in a <code
           >.ui-actions</code
-        > element, after <code>.ui-content</code>.
+        > element, after <code>.ui-content</code>. They sit at the end, and <code
+          >.ui-align-start</code
+        > lines them up with the content.
       </Fragment>
     </Conditional>
 

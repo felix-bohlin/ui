@@ -29,6 +29,12 @@ const whatsNew = {
       html: `Breaking: only the <a href="#custom-marker"><code>svg.ui-marker</code></a> animates. Add <code>.ui-marker</code> to the chevron.`,
     },
     `<a href="#actions">Actions</a> line up with the content and the chevron.`,
+    {
+      ...components(
+        `<a href="#actions"><code>AccordionActions</code></a> take <code>align="start"</code>.`,
+      ),
+      html: `<a href="#actions">Actions</a> take <code>.ui-align-start</code>.`,
+    },
     `Breaking: <code>--_transition</code> is <code>--_duration</code>, and <code>--_svg-transition</code> is gone, the chevron and the open and close transition use <code>--_duration</code> and <code>--_ease</code>, and the group's <code>--_gutter-color</code> is <code>--_divider-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
       `Breaking: <a href="#variants"><code>variant="default"</code></a> is <code>variant="transparent"</code>, the name of the default look.`,
@@ -200,6 +206,14 @@ const whatsNew = {
     `Add <code>.ui-card-link</code> to a link to make the <a href="#clickable">whole card clickable</a>.`,
     `<a href="#variants">Tonal and elevated</a> cards have a border in the page background color, so they stay visible on tonal surfaces.`,
     `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
+    {
+      ...slots(
+        `Breaking: <a href="#actions-alignment">actions</a> sit at the end by default. Set <code>align="start"</code> on <code>CardActions</code> to line them up with the content.`,
+      ),
+      html: `Breaking: <a href="#actions-alignment">actions</a> sit at the end by default. Add <code>.ui-align-start</code> to line them up with the content.`,
+      react: `<a href="#actions-alignment">Actions</a> sit at the end by default, and <code>align="start"</code> lines them up with the content.`,
+      svelte: `<a href="#actions-alignment">Actions</a> sit at the end by default, and <code>align="start"</code> lines them up with the content.`,
+    },
     `Breaking: <code>--_card-bg-color</code>, <code>--_card-border-color</code>, <code>--_card-border-width</code> and <code>--_card-shadow</code> drop the <code>card-</code> prefix, the outlined <code>--_border-color</code> is <code>--_outlined-border-color</code>, and <code>--_bg-surface</code>, <code>--_bg-tonal</code> and <code>--_bg-elevated</code> are <code>--_surface-bg-color</code>, <code>--_tonal-bg-color</code> and <code>--_elevated-bg-color</code>, and <code>--_shadow-elevated</code> is <code>--_elevated-shadow</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Elevated cards use <a href="#api"><code>--ui-shadow-elevated</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,

@@ -220,8 +220,15 @@ In Astro and Vue the regions are parts instead of slots. `actionsAlign` is `alig
 + <Card>
 +   <CardHeader><h3>Title</h3></CardHeader>
 +   <CardContent><p>Text</p></CardContent>
-+   <CardActions align="end"><Button>Open</Button></CardActions>
++   <CardActions><Button>Open</Button></CardActions>
 + </Card>
+```
+
+Actions sit at the end, like in `Dialog`, `Accordion` and `Drawer`. Drop `.ui-align-end` from `.ui-actions` in a card, and add `.ui-align-start` (`align="start"` on `CardActions`) to keep actions lined up with the content.
+
+```diff
+- <div class="ui-actions">
++ <div class="ui-actions ui-align-start">
 ```
 
 `types.ts` no longer exports a `Slots` type.

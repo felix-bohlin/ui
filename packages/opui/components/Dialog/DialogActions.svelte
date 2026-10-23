@@ -12,7 +12,11 @@
 </script>
 
 <div
-  class={["ui-actions", { "ui-align-start": align === "start" }, className]}
+  class={[
+    "ui-actions",
+    align && align !== "end" && `ui-align-${align}`,
+    className,
+  ]}
   {...rest}
 >
   {@render children?.()}

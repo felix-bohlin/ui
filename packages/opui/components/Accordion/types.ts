@@ -3,7 +3,9 @@ export type Props = {
   variant?: "elevated" | "outlined" | "tonal" | "transparent"
 }
 
-export type AccordionActionsProps = {}
+export type AccordionActionsProps = {
+  align?: "start" | "end"
+}
 
 export type AccordionContentProps = {}
 

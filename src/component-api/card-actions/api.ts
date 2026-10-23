@@ -4,11 +4,11 @@ export default {
   component: "CardActions",
   options: [
     {
-      default: '"start"',
+      default: '"end"',
       description: "Alignment for the actions.",
       group: "Alignment",
       prop: "align",
-      values: { end: ".ui-align-end", start: null },
+      values: { end: null, start: ".ui-align-start" },
     },
   ],
   page: "card",

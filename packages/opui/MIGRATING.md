@@ -55,7 +55,7 @@ An accordion without a variant has the page surface with padding and no border, 
 
 ```diff
 - <details class="ui-accordion ui-card">
-+ <details class="ui-accordion ui-card ui-transparent">
++ <details class="ui-accordion ui-transparent">
 ```
 
 ## Anchor
@@ -89,6 +89,11 @@ With `trigger="hover"`, `id` is required and no longer generated. Pass the same 
 ```
 
 The floating content is `.ui-floating` instead of `.ui-anchor-floating`, also inside `Badge` and `Tooltip`. `trigger` only takes `"hover"`, so leave it out instead of `trigger="always"`.
+
+```diff
+- <Anchor trigger="always">
++ <Anchor>
+```
 
 ```diff
 - <span class="ui-anchor-floating">
@@ -548,7 +553,7 @@ Icons are smaller than before. Set `--_icon-size: var(--size-5)` to get the old 
 + <List bordered>
 ```
 
-Only direct `li`/`option` children (and options in a `[role="group"]`) are styled as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin. Dense rows keep the default inline padding, sizes follow `--ui-control-size`, and rich text links in a list are `--ui-primary-dark` in light mode.
+Only direct `li`/`option` children (and options in a `[role="group"]`) are styled as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin. Dense rows keep the default inline padding, sizes follow `--ui-control-size`, and rich text links in a list read `--ui-primary-text`.
 
 `variant="default"` (`.ui-default`, the page surface) is gone. On the page, `transparent` looks the same. The default look is named `filled`.
 
@@ -1038,7 +1043,7 @@ Tooltips use `--ui-surface-inverse` and `--ui-on-inverse`, and shift along the v
 
 ```diff
 - <span class="ui-anchor ui-tooltip ui-with-arrow">
-+ <span class="ui-anchor ui-tooltip ui-arrow">
++ <span class="ui-tooltip ui-arrow">
 ```
 
 ## Theme and tokens
@@ -1119,65 +1124,68 @@ Links (`.ui-link` and rich text links) darken in light mode and lighten in dark 
 
 Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size`, `--_radius` and `--_min-block-size` for sizes. A color says what it paints (`-bg-color`, `-text-color`, `-border-color`), sizes are logical (`-block-size`, `-inline-size`) and names aren't abbreviated. Rename them where you set them:
 
-| Component                   | Old                                               | New                                                                                                            |
-| --------------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| Accordion                   | `--_transition`                                   | `--_duration`                                                                                                  |
-| Accordion                   | `--_svg-transition`                               | removed, the chevron uses `--_duration` and `--_ease`                                                          |
-| Accordion                   | `--_gutter-color` (group)                         | `--_divider-border-color`                                                                                      |
-| Accordion                   | `--_border-radius`                                | `--_radius`                                                                                                    |
-| Anchor                      | `--_anchor-tx`, `--_anchor-ty`                    | `--_shift-x`, `--_shift-y`                                                                                     |
-| Avatar                      | `--_color`                                        | `--_text-color`                                                                                                |
-| Avatar                      | `--_width`                                        | `--_size`                                                                                                      |
-| Badge                       | `--_badge-inset`                                  | `--_inset-block`, `--_inset-inline`                                                                            |
-| Badge                       | `--_anchor-tx`, `--_anchor-ty`                    | `--_shift-x`, `--_shift-y`                                                                                     |
-| Button                      | `--_color`, `--_color-contrast`, `--_color-tonal` | `--_accent`, `--_on-accent`, `--_accent-tonal`                                                                 |
-| Button                      | `--_border-radius`                                | `--_radius`                                                                                                    |
-| Button                      | `--_min-height`                                   | `--_min-block-size`                                                                                            |
-| ButtonGroup                 | `--_border-radius`, `--_min-height`               | `--_radius`, `--_min-block-size`                                                                               |
-| ButtonGroup                 | `--_divider-color`                                | `--_divider-border-color`                                                                                      |
-| Callout                     | `--_color`                                        | `--_text-color`                                                                                                |
-| Callout                     | `--_outlined-color`                               | `--_outlined-text-color`                                                                                       |
-| Callout                     | `--_surface-bg`                                   | `--_surface-bg-color`                                                                                          |
-| Callout                     | `--_border-radius`                                | `--_radius`                                                                                                    |
-| Callout                     | `--_icon-color`, `--_outlined-icon-color`         | `--_icon-text-color`, `--_outlined-icon-text-color`                                                            |
-| Callout                     | `--_link-hover-color`                             | `--_link-hover-text-color`                                                                                     |
-| Card                        | `--_card-bg-color`                                | `--_bg-color`                                                                                                  |
-| Card                        | `--_card-border-color`                            | `--_border-color`                                                                                              |
-| Card                        | `--_card-border-width`                            | `--_border-width`                                                                                              |
-| Card                        | `--_card-shadow`                                  | `--_shadow`                                                                                                    |
-| Card                        | `--_border-color` (outlined border)               | `--_outlined-border-color`                                                                                     |
-| Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`  | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                             |
-| Card                        | `--_shadow-elevated`                              | `--_elevated-shadow`                                                                                           |
-| Card                        | `--_shadow-light`, `--_shadow-dark`               | removed, set `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark`, or `--_elevated-shadow` on the card |
-| Chip                        | `--_color`                                        | `--_text-color`                                                                                                |
-| Drawer                      | `--_color`                                        | `--_text-color`                                                                                                |
-| Drawer                      | `--_transition-duration`, `--_transition-timing`  | `--_duration`, `--_ease`                                                                                       |
-| List                        | `--_bg-color-hover`                               | `--_hover-bg-color`                                                                                            |
-| normalize.css               | `--_page-bg-color`                                | removed, `html` reads `--ui-surface`                                                                           |
-| Progress                    | `--_accent-color`                                 | `--_accent`                                                                                                    |
-| Range                       | `--_thumb-bg`                                     | `--_thumb-bg-color`                                                                                            |
-| Range                       | `--_thumb-highlight-color`                        | `--_thumb-highlight-bg-color`                                                                                  |
-| Range                       | `--_track-color`, `--_track-fill-color`           | `--_track-bg-color`, `--_track-fill-bg-color`                                                                  |
-| Range                       | `--_track-fill`                                   | `--_track-fill-fraction`                                                                                       |
-| Range                       | `--_track-height`                                 | `--_track-block-size`                                                                                          |
-| Switch                      | `--_accent-color`                                 | `--_accent`                                                                                                    |
-| Switch                      | `--_transition-time`, `--_transition-tf`          | `--_duration`, `--_ease`                                                                                       |
-| Switch                      | `--_track-height`, `--_track-width`               | `--_track-block-size`, `--_track-inline-size`                                                                  |
-| Table                       | `--_table-border-radius`                          | `--_radius`                                                                                                    |
-| TextField, Textarea, Select | `--_accent-color`                                 | `--_accent`                                                                                                    |
-| TextField, Textarea, Select | `--_height`                                       | `--_min-block-size`                                                                                            |
-| TextField, Textarea, Select | `--_label-color`                                  | `--_affix-text-color`                                                                                          |
-| TextField, Textarea, Select | `--_end-text-color`                               | `--_helper-text-color`                                                                                         |
-| ToggleButton                | `--_button-bg-color`                              | `--_bg-color`                                                                                                  |
-| ToggleButton                | `--_size`                                         | `--_min-block-size` (a minimum height)                                                                         |
-| ToggleButton                | `--_svg-size`                                     | `--_icon-size` (direct child `svg`s only)                                                                      |
-| ToggleGroup                 | `--_border-radius`                                | `--_radius`                                                                                                    |
-| Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`               | `--_bg-color`, `--_text-color`                                                                                 |
-| Tooltip                     | `--_tooltip-offset`                               | `--_offset`                                                                                                    |
+| Component                   | Old                                                                     | New                                                                                                            |
+| --------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Accordion                   | `--_transition`                                                         | `--_duration`                                                                                                  |
+| Accordion                   | `--_svg-transition`                                                     | removed, the chevron uses `--_duration` and `--_ease`                                                          |
+| Accordion                   | `--_gutter-color` (group)                                               | `--_divider-border-color`                                                                                      |
+| Accordion                   | `--_border-radius`                                                      | `--_radius`                                                                                                    |
+| Anchor                      | `--_anchor-tx`, `--_anchor-ty`                                          | `--_shift-x`, `--_shift-y`                                                                                     |
+| Avatar                      | `--_color`                                                              | `--_text-color`                                                                                                |
+| Avatar                      | `--_width`                                                              | `--_size`                                                                                                      |
+| Badge                       | `--_badge-inset`                                                        | `--_inset-block`, `--_inset-inline`                                                                            |
+| Badge                       | `--_anchor-tx`, `--_anchor-ty`                                          | `--_shift-x`, `--_shift-y`                                                                                     |
+| Button                      | `--_color`, `--_color-contrast`, `--_color-tonal`                       | `--_accent`, `--_on-accent`, `--_accent-tonal`                                                                 |
+| Button                      | `--_border-radius`                                                      | `--_radius`                                                                                                    |
+| Button                      | `--_min-height`                                                         | `--_min-block-size`                                                                                            |
+| Button                      | `--_accent-contrast`, `--_accent-tonal-contrast`                        | `--_on-accent`, `--_on-accent-tonal`                                                                           |
+| ButtonGroup                 | `--_border-radius`, `--_min-height`                                     | `--_radius`, `--_min-block-size`                                                                               |
+| ButtonGroup                 | `--_divider-color`                                                      | `--_divider-border-color`                                                                                      |
+| Callout                     | `--_color`                                                              | `--_text-color`                                                                                                |
+| Callout                     | `--_outlined-color`                                                     | `--_outlined-text-color`                                                                                       |
+| Callout                     | `--_surface-bg`                                                         | `--_surface-bg-color`                                                                                          |
+| Callout                     | `--_border-radius`                                                      | `--_radius`                                                                                                    |
+| Callout                     | `--_icon-color`, `--_outlined-icon-color`                               | `--_icon-text-color`, `--_outlined-icon-text-color`                                                            |
+| Callout                     | `--_link-hover-color`                                                   | `--_link-hover-text-color`                                                                                     |
+| Card                        | `--_card-bg-color`                                                      | `--_bg-color`                                                                                                  |
+| Card                        | `--_card-border-color`                                                  | `--_border-color`                                                                                              |
+| Card                        | `--_card-border-width`                                                  | `--_border-width`                                                                                              |
+| Card                        | `--_card-shadow`                                                        | `--_shadow`                                                                                                    |
+| Card                        | `--_border-color` (outlined border)                                     | `--_outlined-border-color`                                                                                     |
+| Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`                        | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                             |
+| Card                        | `--_shadow-elevated`                                                    | `--_elevated-shadow`                                                                                           |
+| Card                        | `--_shadow-light`, `--_shadow-dark`                                     | removed, set `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark`, or `--_elevated-shadow` on the card |
+| Chip                        | `--_color`                                                              | `--_text-color`                                                                                                |
+| Drawer                      | `--_color`                                                              | `--_text-color`                                                                                                |
+| Drawer                      | `--_transition-duration`, `--_transition-timing`                        | `--_duration`, `--_ease`                                                                                       |
+| List                        | `--_bg-color-hover`                                                     | `--_hover-bg-color`                                                                                            |
+| normalize.css               | `--_page-bg-color`                                                      | removed, `html` reads `--ui-surface`                                                                           |
+| Progress                    | `--_accent-color`                                                       | `--_accent`                                                                                                    |
+| Range                       | `--_thumb-bg`                                                           | `--_thumb-bg-color`                                                                                            |
+| Range                       | `--_thumb-highlight-color`                                              | `--_thumb-highlight-bg-color`                                                                                  |
+| Range                       | `--_track-color`, `--_track-fill-color`                                 | `--_track-bg-color`, `--_track-fill-bg-color`                                                                  |
+| Range                       | `--_track-fill`                                                         | `--_track-fill-fraction`                                                                                       |
+| Range                       | `--_track-height`                                                       | `--_track-block-size`                                                                                          |
+| Switch                      | `--_accent-color`                                                       | `--_accent`                                                                                                    |
+| Switch                      | `--_transition-time`, `--_transition-tf`                                | `--_duration`, `--_ease`                                                                                       |
+| Switch                      | `--_track-height`, `--_track-width`                                     | `--_track-block-size`, `--_track-inline-size`                                                                  |
+| Switch                      | `--_accent-contrast`                                                    | `--_on-accent`                                                                                                 |
+| Switch                      | `--_dot-bg-color`, `--_dot-inset`, `--_dot-outline-size`, `--_dot-size` | `--_thumb-bg-color`, `--_thumb-inset`, `--_thumb-outline-size`, `--_thumb-size`                                |
+| Table                       | `--_table-border-radius`                                                | `--_radius`                                                                                                    |
+| TextField, Textarea, Select | `--_accent-color`                                                       | `--_accent`                                                                                                    |
+| TextField, Textarea, Select | `--_height`                                                             | `--_min-block-size`                                                                                            |
+| TextField, Textarea, Select | `--_label-color`                                                        | `--_affix-text-color`                                                                                          |
+| TextField, Textarea, Select | `--_end-text-color`                                                     | `--_helper-text-color`                                                                                         |
+| ToggleButton                | `--_button-bg-color`                                                    | `--_bg-color`                                                                                                  |
+| ToggleButton                | `--_size`                                                               | `--_min-block-size` (a minimum height)                                                                         |
+| ToggleButton                | `--_svg-size`                                                           | `--_icon-size` (direct child `svg`s only)                                                                      |
+| ToggleGroup                 | `--_border-radius`                                                      | `--_radius`                                                                                                    |
+| Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`                                     | `--_bg-color`, `--_text-color`                                                                                 |
+| Tooltip                     | `--_tooltip-offset`                                                     | `--_offset`                                                                                                    |
 
 `--ui-info` and `--ui-blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette, so info badges and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--ui-blue` in your theme.
 
-Dark mode shadows are darker: `theme.css` sets `--shadow-color: 220 40% 2%` and `--shadow-strength: 20%` under `.ui-dark` and the OS dark preference. Override both on `html` to change them. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
+Dark mode shadows are darker: `theme.css` sets `--ui-shadow-color: 220 40% 2%` and `--ui-shadow-strength: 20%` under `.ui-dark` and the OS dark preference, and they set the Open Props `--shadow-color` and `--shadow-strength`. Override the `--ui-` tokens on `html` to change them. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
 
 Components read roles, not palette steps or Open Props values, and the roles are computed on `html`. Overriding a step such as `--ui-gray-4` or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the role, or add `.ui-palette` so the part derives its roles again from its own palette:
 

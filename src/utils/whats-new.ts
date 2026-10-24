@@ -55,6 +55,8 @@ const whatsNew = {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="plain"</code>.`,
     },
+    `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `Open <a href="#basics">content</a> scrolls with <code>overflow-inline</code> and <code>overflow-block</code>, so it follows the writing mode. Browsers older than Chrome 135, Firefox 69 and Safari 26 ignore them and don't scroll it.`,
   ],
   anchor: [
     `Breaking: <code>--_anchor-tx</code> and <code>--_anchor-ty</code> are <code>--_shift-x</code> and <code>--_shift-y</code> (<a href="#under-the-hood">Under the hood</a>).`,
@@ -112,6 +114,8 @@ const whatsNew = {
       `Breaking: <code>variant</code> is <a href="#shapes"><code>shape</code></a>, with <code>circle</code> as the default.`,
     ),
     `<a href="#grouped">Grouped</a> avatars overlap by <code>--ui-space-2</code>, so the initials stay whole.`,
+    `Text on a <a href="#letter">letter</a> avatar reads <code>--ui-on-primary</code>.`,
+    `<a href="#sizes">Sizes</a> follow <code>--ui-control-size</code> and the <code>--ui-button-size-*</code> scale, like buttons.`,
   ],
   badge: [
     `Breaking: <code>--_anchor-tx</code> and <code>--_anchor-ty</code> are <code>--_shift-x</code> and <code>--_shift-y</code> (<a href="#under-the-hood">Under the hood</a>).`,
@@ -145,6 +149,7 @@ const whatsNew = {
     slots(
       `Breaking: <code>alignment</code> is <a href="#corners"><code>corner</code></a>.`,
     ),
+    `Text on a primary <a href="#colors">badge</a> reads <code>--ui-on-primary</code>.`,
   ],
   button: [
     `Themes can set <a href="#api"><code>--ui-button-accent-filled</code></a> and <code>--ui-button-on-accent-filled</code> to give filled buttons a color of their own.`,
@@ -183,18 +188,20 @@ const whatsNew = {
     `Breaking: <code>--_color</code>, <code>--_color-contrast</code> and <code>--_color-tonal</code> are <code>--_accent</code>, <code>--_on-accent</code> and <code>--_accent-tonal</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-button-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-button-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
     `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-on-accent</code>, the border with <code>--ui-control-border-color</code> (outlined) and <code>--ui-control-border-color-filled</code> (filled and tonal), the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>, like the intent text roles.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code>, the same readable primary as links, and critical ones <code>--ui-critical-text</code>.`,
     `<a href="#colors">Critical</a> fills and their hover and pressed shades stay within <code>--ui-accent-fill-max-lightness</code>, and the border keeps <code>--ui-critical</code>.`,
     components(
       `<a href="#sizes">Sizes</a> and <a href="#variants">variants</a> name their defaults: <code>size="medium"</code> and <code>variant="transparent"</code>.`,
     ),
+    `<a href="#keyboard">Keyboard hints</a> use <code>--ui-line-height-tight</code> (1.25), shared with card captions and tooltips.`,
+    `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of <code>--border-size-1</code>.`,
   ],
   "button-group": [
     `Breaking: <code>--_border-radius</code> and <code>--_divider-color</code> are <code>--_radius</code> and <code>--_divider-border-color</code>, and <code>--_min-height</code> is gone: set <code>--_size</code> on the buttons (<a href="#under-the-hood">Under the hood</a>).`,
     `The inset focus ring sits at <code>--ui-focus-ring-inset</code>, and the dividers stay visible in forced colors.`,
-    `Buttons in a group draw their focus ring with <code>--ui-focus-ring-color</code>, and filled groups keep <code>currentColor</code> dividers whatever the theme sets.`,
+    `Buttons in a group draw their focus ring with <code>--ui-focus-ring-color</code>.`,
     `Primary tonal groups read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-on-primary-tonal</code> when a theme sets them.`,
     `<a href="#icons">Icon-only buttons</a> stay square and use the same icon size as buttons with a label.`,
     `The focus ring shows on every <a href="#variants">variant</a>, inside the button.`,
@@ -216,13 +223,15 @@ const whatsNew = {
     components(
       `<a href="#vertical-orientation"><code>orientation</code></a> takes <code>"horizontal"</code>, the default, like <code>Carousel</code>.`,
     ),
-    `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-button-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-button-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
     `Themes set the color of groups without <code>.ui-primary</code> or <code>.ui-critical</code> with <a href="#api"><code>--ui-button-accent</code></a>, the edge and dividers of outlined groups with <code>--ui-control-border-color</code> and of filled and tonal groups with <code>--ui-control-border-color-filled</code>, and the font weight and size with <code>--ui-button-font-weight</code> and <code>--ui-font-size-control</code>, like buttons. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code>, the same readable primary as links.`,
     `<a href="#colors">Critical</a> fills stay within <code>--ui-accent-fill-max-lightness</code>, like buttons, and with more contrast the outlined edge reads <code>--ui-critical-text</code>, like the dividers.`,
     components(
       `<a href="#sizes">Sizes</a> and <a href="#variants">variants</a> name their defaults: <code>size="medium"</code> and <code>variant="transparent"</code>.`,
     ),
+    `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `<a href="#sizes">Sizes</a> follow <code>--ui-control-size</code> and <code>--ui-button-size-*</code>, like buttons.`,
   ],
   callout: [
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code>, and <code>--_icon-color</code>, <code>--_outlined-icon-color</code> and <code>--_link-hover-color</code> are <code>--_icon-text-color</code>, <code>--_outlined-icon-text-color</code> and <code>--_link-hover-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
@@ -236,6 +245,8 @@ const whatsNew = {
     ),
     `Breaking: <code>--_color</code> is <code>--_text-color</code>, <code>--_outlined-color</code> is <code>--_outlined-text-color</code> and <code>--_surface-bg</code> is <code>--_surface-bg-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<a href="#variants">Callouts</a> read <a href="#api"><code>--ui-shadow-surface</code></a>, and callouts without a severity <code>--ui-border-color-raised</code>, when a theme sets them.`,
+    `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `<a href="#severities">Links</a> in a callout only show hover styles on devices that can hover, so they no longer stick after a tap.`,
   ],
   card: [
     `Themes can set <a href="#api"><code>--ui-card-padding</code></a>.`,
@@ -274,6 +285,9 @@ const whatsNew = {
       ),
       html: `Breaking: <code>.ui-text</code> on a card is <a href="#variants"><code>.ui-transparent</code></a>.`,
     },
+    `Captions use <a href="#api"><code>--ui-line-height-tight</code></a> (1.25), shared with tooltip text and keyboard hints.`,
+    `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `<a href="#clickable">Card links</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,
   ],
   carousel: [
     `The scroll buttons take <a href="#api"><code>--ui-shadow-overlay</code></a>, so a theme's shadows reach them.`,
@@ -301,6 +315,7 @@ const whatsNew = {
     `The <a href="#buttons-outside">scroll buttons</a> draw one glyph as the inverse of the button face, so it follows <code>.ui-dark</code>, <code>.ui-light</code> and forced colors in every browser.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Markers are rings in <code>--ui-text</code>, which keep their contrast in every theme, and the current marker is a larger dot in <a href="#api"><code>--ui-selected-strong</code></a>.`,
+    `<a href="#component-properties"><code>--_marker-selected-padding</code></a> and <code>--_marker-border-color</code> style the markers.`,
   ],
   checkbox: [
     {
@@ -358,6 +373,10 @@ const whatsNew = {
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
     ),
+    `In dark mode the checked <a href="#basics">mark</a> stays light on a fill darkened to keep 3:1 contrast.`,
+    `Borders read <a href="#api"><code>--ui-field-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `The root selector is wrapped in <code>:where()</code>, like other components, so your own selectors win (<a href="#under-the-hood">Under the hood</a>).`,
+    `The hover <a href="#basics">halo</a> only shows on devices that can hover, so it no longer sticks after a tap.`,
   ],
   chip: [
     slots(
@@ -404,6 +423,9 @@ const whatsNew = {
       `Breaking: a tonal <a href="#variants">chip</a> no longer renders <code>.ui-tonal</code>. Target <code>.ui-chip:not(.ui-outlined)</code> in your CSS instead.`,
     ),
     `<a href="#pressed">Pressed</a> button chips (<code>aria-pressed="true"</code>) are filled with <code>--ui-selected</code>, or <code>--ui-primary</code>, like a checked toggle button.`,
+    `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `Corners are <a href="#api"><code>--ui-radius</code></a> (8px) instead of Open Props <code>--radius-2</code> (5px).`,
+    `<a href="#button">Button</a> and <a href="#link">link</a> chips only show hover styles on devices that can hover, so they no longer stick after a tap.`,
   ],
   "description-list": [
     {
@@ -437,6 +459,8 @@ const whatsNew = {
     {
       astro: `Breaking: deep type imports from <code>components/DescriptionList/types.astro</code> are named <a href="#api"><code>DescriptionListTermProps</code></a>, <code>DescriptionListDescriptionProps</code> and <code>DescriptionListItemProps</code> (was <code>TermProps</code>, <code>DescriptionProps</code> and <code>ItemProps</code>), like the framework entry.`,
     },
+    `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `The container query reads <code>inline-size</code>, so the <a href="#orientation">orientation</a> follows the writing mode.`,
   ],
   dialog: [
     {
@@ -475,6 +499,7 @@ const whatsNew = {
     components(
       `<code>DialogHeader</code> warns in development when the dialog's generated id replaces its own <code>id</code>. Pass <code>aria-labelledby</code> on the <code>Dialog</code> to keep it (<a href="#api">API</a>).`,
     ),
+    `Styles use logical properties only, so the <a href="#usage">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
   divider: [
     `<a href="#spacing">Spacing</a> comes from <code>--ui-divider-gap</code>, which cards, callouts, dialogs and drawers make tighter.`,
@@ -494,6 +519,7 @@ const whatsNew = {
       default: `<a href="#content">Content</a> in the middle of the line as children, aligned with <code>align</code>.`,
       html: `<a href="#content">Content</a> in the middle of the line in a <code>div.ui-divider</code>, aligned with <code>.ui-align-start</code> or <code>.ui-align-end</code>.`,
     },
+    `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of <code>--border-size-1</code>.`,
   ],
   drawer: [
     `Opens over <a href="#api"><code>--ui-duration-slow</code></a> with <code>--ui-ease-enter</code> and closes with <code>--ui-ease-exit</code>.`,
@@ -531,6 +557,8 @@ const whatsNew = {
       ),
       html: `A drawer opens from the <a href="#basics">inline start</a> without <code>.ui-inline-start</code>.`,
     },
+    `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
+    `<a href="#basics">Content</a> scrolls with <code>overflow-inline</code> and <code>overflow-block</code>, so it follows the writing mode. Browsers older than Chrome 135, Firefox 69 and Safari 26 ignore them and don't scroll it.`,
   ],
   form: [
     {
@@ -614,6 +642,11 @@ const whatsNew = {
     },
     `Lists are <a href="#variants">rounded</a> with <code>--_radius</code> (<code>--ui-radius</code>) and clip their rows to the corners, except as a direct child of a card.`,
     `<a href="#dense">Dense</a> rows are <code>--ui-control-size-small</code> tall, so they follow <code>--ui-density</code>.`,
+    `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `<a href="#configurations">Row heights</a> follow <code>--ui-control-size</code> and the <code>--ui-button-size-*</code> scale.`,
+    `<a href="#clickable-list-item">Clickable rows</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,
+    `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
+    `<a href="#selected"><code>--_selected-indicator-bg-color</code></a> and <code>--_selected-indicator-size</code> style the bar on a selected row, and <code>--_start-image-size</code> and <code>--_start-video-size</code> size the <a href="#image">start media</a>.`,
   ],
   menu: [
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>.`,
@@ -724,6 +757,10 @@ const whatsNew = {
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
     ),
+    `In dark mode the checked <a href="#basics">dot</a> stays light on a fill darkened to keep 3:1 contrast.`,
+    `Borders read <a href="#api"><code>--ui-field-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `The root selector is wrapped in <code>:where()</code>, like other components, so your own selectors win (<a href="#under-the-hood">Under the hood</a>).`,
+    `The hover <a href="#basics">halo</a> only shows on devices that can hover, so it no longer sticks after a tap.`,
   ],
   range: [
     components(
@@ -788,6 +825,8 @@ const whatsNew = {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="outlined"</code>.`,
     },
+    `The <a href="#basics">thumb</a> and its ring only show hover styles on devices that can hover, so they no longer stick after a tap.`,
+    `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
   ],
   select: [
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>, options take <code>--ui-list-item-padding-inline</code>.`,
@@ -841,7 +880,7 @@ const whatsNew = {
     slots(
       `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;select&gt;</code> (<a href="#api">API</a>).`,
     ),
-    `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-field-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-field-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
     `The picker shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with menus and drawers.`,
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
     `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
@@ -853,12 +892,14 @@ const whatsNew = {
       html: `<a href="#auto-fit"><code>.ui-auto-fit</code></a> lets the width follow the selected option, from <code>25ch</code>.`,
     },
     `<a href="#optgroup"><code>&lt;optgroup&gt;</code></a> groups get the heading styles, with a <code>&lt;legend&gt;</code> as the heading.`,
+    `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
     `With more contrast the <a href="#buttons">ring</a> is opaque, so it stands out on filled buttons and links.`,
     `The spinner styles have no specificity (<code>:where()</code>), so your own <code>::before</code> rules override them (<a href="#api">API</a>).`,
     `The <a href="#sizes">ring</a> grows with the spinner and is at least <code>--ui-border-width-thick</code>.`,
+    `Styles use logical properties only, so the <a href="#sizes">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
   switch: [
     {
@@ -917,6 +958,9 @@ const whatsNew = {
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
     ),
+    `In dark mode the <a href="#basics">thumb</a> stays light on a checked track darkened to keep 3:1 contrast.`,
+    `Borders read <a href="#api"><code>--ui-field-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
   table: [
     `The caption reads <a href="#api"><code>--ui-text-subtle</code></a>.`,
@@ -954,6 +998,9 @@ const whatsNew = {
     slots(
       `Breaking: <code>variant</code> is <a href="#density"><code>density</code></a>, with <code>normal</code> as the default.`,
     ),
+    `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `<a href="#normal">Rows</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,
+    `Styles use logical properties only, so the <a href="#normal">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
   tabs: [
     `Unselected labels read <a href="#api"><code>--ui-text-subtle</code></a>.`,
@@ -1003,6 +1050,8 @@ const whatsNew = {
       svelte: `Bind the selected tab with <code>bind:value</code> on <code>Tabs</code> (<a href="#binding">Binding</a>).`,
       vue: `Bind the selected tab with <code>v-model</code> on <code>Tabs</code> (<a href="#binding">Binding</a>).`,
     },
+    `The focus ring sits at <a href="#api"><code>--ui-focus-ring-inset</code></a>, like every other inset ring.`,
+    `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
   "text-field": [
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
@@ -1049,13 +1098,16 @@ const whatsNew = {
     ),
     `Breaking: the <a href="#autosuggest">autosuggest</a> and other input styles are in <code>text-field.css</code>, and <code>text-input.css</code> is gone. Remove its import.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-field-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-field-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
     `With more contrast, <a href="#validation">invalid</a> fields keep the lighter <code>--ui-invalid</code> of dark mode, which every invalid control now shares.`,
     `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
     ),
+    `Borders read <a href="#api"><code>--ui-field-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `<a href="#variants">Filled fields</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,
+    `The container query reads <code>inline-size</code>, so <a href="#spread">spread</a> layouts follow the writing mode.`,
   ],
   textarea: [
     `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
@@ -1101,12 +1153,13 @@ const whatsNew = {
       `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
     ),
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-field-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-field-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
     `The field reads <a href="#api"><code>--ui-shadow-field</code></a>, or <code>--ui-shadow-control</code> when a theme leaves it unset.`,
     `The <a href="#variants">filled</a> hover reads <code>--ui-surface-tonal-hover</code>, shared with clickable chips.`,
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
     ),
+    `Styles use logical properties only, so the <a href="#variants">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
   toggle: [
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code> on <code>ToggleGroup</code> (<a href="#under-the-hood">Under the hood</a>).`,
@@ -1149,7 +1202,7 @@ const whatsNew = {
     ),
     `A <a href="#toggle-button">toggle button</a> grows with its content from <code>--ui-button-size</code> instead of having a fixed height.`,
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
-    `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-button-radius</code></a>, so one token squares or rounds every component.`,
+    `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-button-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
     `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
@@ -1163,6 +1216,9 @@ const whatsNew = {
     slots(
       `Breaking: <code>ToggleButton</code> <a href="#api"><code>value</code></a> no longer falls back to <code>label</code>.`,
     ),
+    `The <a href="#toggle-button">toggle button</a> focus ring sits at <code>--ui-focus-ring-inset</code>, like every other inset ring.`,
+    `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of a hardcoded <code>1px</code>.`,
+    `<code>ToggleGroup</code> styles sit in the <code>components.extended</code> layer, like <code>ButtonGroup</code> (<a href="#toggle-group">Toggle group</a>).`,
   ],
   tooltip: [
     {
@@ -1195,6 +1251,9 @@ const whatsNew = {
       ),
       html: `Breaking: <code>.ui-with-arrow</code> is <a href="#arrow"><code>.ui-arrow</code></a>.`,
     },
+    `<a href="#text-only">Tooltip text</a> uses <code>--ui-line-height-tight</code> (1.25), shared with card captions and keyboard hints.`,
+    `The tooltip sits on <a href="#api"><code>--ui-surface-inverse</code></a> with <code>--ui-on-inverse</code> text, like <code>kbd</code>.`,
+    `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
   ],
   typography: [
     `<a href="#inline-text-elements"><code>kbd</code> and <code>var</code></a> sit on <code>--ui-surface-inverse</code> with <code>--ui-on-inverse</code> text, like tooltips.`,
@@ -1214,6 +1273,10 @@ const whatsNew = {
     `<a href="#link">Links</a> read <code>--ui-primary-text</code>, which keeps 4.5:1 on every surface, in a List too.`,
     `<a href="#link">Links</a> and <a href="#inline-text-elements">underlined text</a> read <code>--ui-underline-offset</code>, <code>--ui-underline-offset-small</code> and <code>--ui-underline-thickness-hover</code>.`,
     `<a href="#link">Rich text links</a> are styled by <code>link.css</code>, with one rule for <code>.ui-link</code> and classless links. Install it next to <code>typography.css</code>.`,
+    `Borders read <a href="#api"><code>--ui-border-width</code></a> instead of <code>--border-size-1</code>.`,
+    `<a href="#link">Links</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,
+    `Styles use logical properties only, so the <a href="#classless">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
+    `<a href="#rich-text-showcase">Rich text</a> with tables and code blocks scrolls with <code>overflow-inline</code> and <code>overflow-block</code>, so it follows the writing mode. Browsers older than Chrome 135, Firefox 69 and Safari 26 ignore them and don't scroll it.`,
   ],
 } satisfies Record<string, Note[]>
 

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
-import { FRAMEWORKS, hasExample, openFixture } from "./fixtures"
+import { computed, FRAMEWORKS, hasExample, openFixture } from "./fixtures"
 import type { Framework } from "./fixtures"
 
 type Interaction = (context: {
@@ -476,5 +476,183 @@ interaction(
     await expect(tooltip).toBeHidden()
     await trigger.click()
     await expect(tooltip).toBeVisible()
+  },
+)
+
+interaction(
+  "badge",
+  "Indicator",
+  "the badge label is only for screen readers",
+  async ({ root }) => {
+    const label = root.locator(".ui-sr-only").first()
+
+    await expect(label).toHaveText("5 unread messages")
+    const box = await label.boundingBox()
+    expect(box?.width).toBeLessThanOrEqual(1)
+    expect(box?.height).toBeLessThanOrEqual(1)
+  },
+)
+
+interaction(
+  "button-group",
+  "SplitButton",
+  "split button opens its menu",
+  async ({ root }) => {
+    const menu = root.locator("menu.ui-menu")
+
+    await expect(menu).toBeHidden()
+    await root.getByRole("button", { name: "More save options" }).click()
+    await expect(menu).toBeVisible()
+    await menu.getByRole("button", { name: "Save as draft" }).click()
+    await expect(menu).toBeHidden()
+  },
+)
+
+interaction(
+  "carousel",
+  "Basics",
+  "the next button scrolls the carousel",
+  async ({ page, root }) => {
+    const carousel = root.locator(".ui-carousel")
+
+    const supportsScrollButtons = await page.evaluate(() =>
+      CSS.supports("selector(::scroll-button(*))"),
+    )
+    test.skip(!supportsScrollButtons, "needs ::scroll-button()")
+
+    await carousel.scrollIntoViewIfNeeded()
+    const point = await carousel.evaluate((element) => {
+      const style = getComputedStyle(element, "::scroll-button(inline-end)")
+      let block = element.parentElement
+      while (block && getComputedStyle(block).position === "static") {
+        block = block.parentElement
+      }
+      const edge = (block ?? document.documentElement).getBoundingClientRect()
+      const box = element.getBoundingClientRect()
+      return {
+        x: edge.right - parseFloat(style.right) - parseFloat(style.width) / 2,
+        y: box.top + box.height / 2,
+      }
+    })
+    await page.mouse.click(point.x, point.y)
+    await expect
+      .poll(() => carousel.evaluate((element) => element.scrollLeft))
+      .toBeGreaterThan(0)
+  },
+)
+
+interaction(
+  "chip",
+  "Disabled",
+  "a disabled link chip has no href",
+  async ({ root }) => {
+    const chip = root.locator("a.ui-chip")
+
+    await expect(chip).toHaveText("Tonal link")
+    await expect(chip).toHaveAttribute("aria-disabled", "true")
+    await expect(chip).not.toHaveAttribute("href")
+  },
+)
+
+interaction(
+  "form",
+  "FieldsetRequired",
+  "a fieldset with a required field shows the required mark",
+  async ({ root }) => {
+    const legend = root.locator("legend, .ui-legend").first()
+
+    await expect(legend).toHaveText("Pet info")
+    expect(await computed(legend, "content", "::after")).toContain('"*"')
+  },
+)
+
+interaction(
+  "menu",
+  "Basics",
+  "menu opens from its trigger and closes on an item",
+  async ({ root }) => {
+    const trigger = root.getByRole("button", { name: "Options" })
+    const menu = root.locator("menu.ui-menu")
+
+    await expect(menu).toBeHidden()
+    await trigger.click()
+    await expect(menu).toBeVisible()
+    await menu.getByRole("button", { name: "Delete" }).click()
+    await expect(menu).toBeHidden()
+  },
+)
+
+interaction(
+  "menu",
+  "Basics",
+  "menu closes with Escape and returns focus to the trigger",
+  async ({ page, root }) => {
+    const trigger = root.getByRole("button", { name: "Options" })
+    const menu = root.locator("menu.ui-menu")
+
+    await trigger.click()
+    await expect(menu).toBeVisible()
+    await page.keyboard.press("Tab")
+    await expectFocusWithin(menu)
+    await page.keyboard.press("Escape")
+    await expect(menu).toBeHidden()
+    await expect(trigger).toBeFocused()
+  },
+)
+
+interaction(
+  "menu",
+  "Submenu",
+  "submenu opens from its item",
+  async ({ root }) => {
+    const menu = root.locator("menu.ui-menu").first()
+    const submenu = menu.locator("menu.ui-menu")
+
+    await root.getByRole("button", { name: "File" }).click()
+    await expect(menu).toBeVisible()
+    await expect(submenu).toBeHidden()
+    await menu.getByRole("button", { name: "Export" }).click()
+    await expect(submenu).toBeVisible()
+    await expect(submenu.getByRole("button", { name: "PDF" })).toBeVisible()
+  },
+)
+
+interaction(
+  "table",
+  "StickyHeader",
+  "the sticky header stays while the body scrolls",
+  async ({ root }) => {
+    const region = root.locator('[role="region"]')
+    const header = region.locator("th").first()
+    const cell = region.locator("td").first()
+
+    await region.evaluate((element) => {
+      element.scrollTop = element.scrollHeight
+    })
+    await expect
+      .poll(() => region.evaluate((element) => element.scrollTop))
+      .toBeGreaterThan(0)
+    const [regionBox, headerBox, cellBox] = await Promise.all([
+      region.boundingBox(),
+      header.boundingBox(),
+      cell.boundingBox(),
+    ])
+    expect(headerBox?.y).toBeCloseTo(regionBox?.y ?? 0, 0)
+    expect(cellBox?.y).toBeLessThan(regionBox?.y ?? 0)
+  },
+)
+
+interaction(
+  "text-field",
+  "Autosuggest",
+  "autosuggest lists its options",
+  async ({ root }) => {
+    const input = root.locator("input[list]").first()
+
+    expect(
+      await input.evaluate((element: HTMLInputElement) =>
+        [...(element.list?.options ?? [])].map((option) => option.value),
+      ),
+    ).toEqual(["Jonny Greenwood", "Marika Hackman", "Ray Manzarek"])
   },
 )

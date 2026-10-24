@@ -1,9 +1,9 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
-import CodeGroup from "../../../components/CodeGroup.astro"
-import DocLink from "../../../components/DocLink.astro"
 import Code from "../../../components/Code.astro"
-import { pickAndChooseCss } from "../../../utils/getting-started"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
 ---
 
 <Guide overline="Guide">
@@ -15,21 +15,11 @@ import { pickAndChooseCss } from "../../../utils/getting-started"
 
   <section>
     <h2 id="installation">Install via NPM</h2>
-
-    <CodeGroup
-      tabs={[
-        {
-          title: "pnpm",
-          code: "pnpm add opui-css open-props astro -S",
-          lang: "sh",
-        },
-        {
-          title: "npm",
-          code: "npm install opui-css open-props astro -S",
-          lang: "sh",
-        },
-      ]}
-    />
+    <p>
+      The components ship as uncompiled <code>.astro</code> files, which Astro compiles
+      as they are. They need Astro 7 or later.
+    </p>
+    <InstallCommand />
   </section>
 
   <section>
@@ -50,10 +40,7 @@ import "opui-css/css/imports.css"
       Or pick and choose in a CSS file, and import that file in the layout
       instead:
     </p>
-    <Code
-      code={`/* src/styles/global.css */\n${pickAndChooseCss}`}
-      lang="css"
-    />
+    <PickAndChoose file="src/styles/global.css" />
     <Code
       code={`---
 // src/layouts/Layout.astro
@@ -61,15 +48,6 @@ import "../styles/global.css"
 ---`}
       lang="astro"
     />
-    <p>
-      Import <code>layers.css</code> first and <code>utils.css</code> last, it holds
-      <code>.ui-sr-only</code> and the motion classes. Add <code
-        >choice.css</code
-      > with <code>checkbox.css</code>, <code>radio.css</code> or <code
-        >switch.css</code
-      >. Import <code>opui-css/css/components.css</code> instead of single component
-      files to get every component.
-    </p>
   </section>
 
   <section>
@@ -89,12 +67,46 @@ import { Button } from "opui-css/astro"
         >end-text</code
       > on a <code>TextField</code>.
     </p>
+    <NextSteps />
+  </section>
+
+  <section>
+    <h2 id="server-runtime">Server runtime</h2>
     <p>
-      <DocLink href="/guide/concepts">Concepts</DocLink> explains how props map to
-      classes, the cascade layers and what needs JavaScript. Then browse the <DocLink
-        href="/components">components</DocLink
-      >. <DocLink href="/guide/theming">Theming</DocLink> covers colors, density,
-      motion and contrast.
+      The components pass settings to their parts with <code
+        >AsyncLocalStorage</code
+      > from <code>node:async_hooks</code>, so they run on Node, Deno and Bun.
+      On Cloudflare, enable the <code>nodejs_compat</code> compatibility flag.
+    </p>
+
+    <h3 id="ids">Ids</h3>
+    <p>
+      Components that link elements with ids (form fields, Tabs, Drawer, Menu)
+      read <code>Astro.locals.$id</code> when it exists and otherwise generate a random
+      id per render. For stable, per-request ids, useful for snapshot tests, define
+      it in a middleware:
+    </p>
+    <Code
+      code={`// src/middleware.ts
+import { defineMiddleware } from "astro:middleware"
+
+export const onRequest = defineMiddleware((context, next) => {
+  const counts = new Map<string, number>()
+  context.locals.$id = (prefix) => {
+    const count = (counts.get(prefix) ?? 0) + 1
+    counts.set(prefix, count)
+    return \`\${prefix}-\${count}\`
+  }
+  return next()
+})`}
+      lang="ts"
+    />
+    <p>
+      Add <code>/// &lt;reference types="opui-css/env.d.ts" /&gt;</code> to your
+      <code>env.d.ts</code> to type <code>$id</code> and the <code
+        >interestfor</code
+      >
+      attribute on <code>a</code> and <code>button</code>.
     </p>
   </section>
 </Guide>

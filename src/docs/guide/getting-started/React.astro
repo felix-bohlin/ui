@@ -1,9 +1,18 @@
 ---
 import Guide from "../../../layouts/Guide.astro"
-import CodeGroup from "../../../components/CodeGroup.astro"
-import DocLink from "../../../components/DocLink.astro"
 import Code from "../../../components/Code.astro"
-import { pickAndChooseCss } from "../../../utils/getting-started"
+import DocLink from "../../../components/DocLink.astro"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
+import {
+  clientParts,
+  clientRoots,
+  joinNames,
+} from "../../../utils/react-client-components"
+
+const codes = (names: string[]) => names.map((name) => `<code>${name}</code>`)
+const clientList = `${joinNames(codes(clientRoots))}, and the ${joinNames(codes(clientParts))} parts`
 ---
 
 <Guide overline="Guide">
@@ -18,27 +27,15 @@ import { pickAndChooseCss } from "../../../utils/getting-started"
     <p>
       The components ship as uncompiled TypeScript (<code>.tsx</code> and <code
         >.ts</code
-      >), so your build has to compile them. They need React 19 or later. Vite
-      with <code>@vitejs/plugin-react</code> and Astro with <code
+      >), so your build has to compile them. They need React 19 or later, so add
+      <code>react</code> and <code>react-dom</code> if they aren't installed yet.
+      Vite with <code>@vitejs/plugin-react</code> and Astro with <code
         >@astrojs/react</code
       > compile them as they are. In Next.js, add <code
         >transpilePackages: ["opui-css"]</code
       > to <code>next.config</code>.
     </p>
-    <CodeGroup
-      tabs={[
-        {
-          title: "pnpm",
-          code: "pnpm add opui-css open-props react react-dom -S",
-          lang: "sh",
-        },
-        {
-          title: "npm",
-          code: "npm install opui-css open-props react react-dom -S",
-          lang: "sh",
-        },
-      ]}
-    />
+    <InstallCommand />
   </section>
 
   <section>
@@ -57,21 +54,12 @@ import "opui-css/css/imports.css"`}
       Or pick and choose in a CSS file, and import that file in your entry
       instead:
     </p>
-    <Code code={`/* src/styles/main.css */\n${pickAndChooseCss}`} lang="css" />
+    <PickAndChoose file="src/styles/main.css" />
     <Code
       code={`// src/main.tsx
 import "./styles/main.css"`}
       lang="tsx"
     />
-    <p>
-      Import <code>layers.css</code> first and <code>utils.css</code> last, it holds
-      <code>.ui-sr-only</code> and the motion classes. Add <code
-        >choice.css</code
-      > with <code>checkbox.css</code>, <code>radio.css</code> or <code
-        >switch.css</code
-      >. Import <code>opui-css/css/components.css</code> instead of single component
-      files to get every component.
-    </p>
   </section>
 
   <section>
@@ -94,29 +82,16 @@ export default function App() {
         >defaultChecked</code
       >, and <code>onChange</code> props.
     </p>
-    <p>
-      <DocLink href="/guide/concepts">Concepts</DocLink> explains how props map to
-      classes, the cascade layers and what needs JavaScript. Then browse the <DocLink
-        href="/components">components</DocLink
-      >. <DocLink href="/guide/theming">Theming</DocLink> covers colors, density,
-      motion and contrast.
-    </p>
+    <NextSteps />
   </section>
 
   <section>
     <h2 id="ssr">Server rendering</h2>
     <p>
-      Components that need context, state or effects (<DocLink
-        href="/components/anchor">Anchor</DocLink
-      >, <DocLink href="/components/callout">Callout</DocLink>, <DocLink
-        href="/components/dialog">Dialog</DocLink
-      >, <DocLink href="/components/drawer">Drawer</DocLink>, <DocLink
-        href="/components/form">Field group</DocLink
-      >, <DocLink href="/components/tabs">Tabs</DocLink>, <DocLink
-        href="/components/toggle">Toggle group</DocLink
-      >, <DocLink href="/components/tooltip">Tooltip</DocLink> and the form controls)
-      are marked <code>"use client"</code>. The rest also render as React Server
-      Components.
+      Components that need context, state or effects are marked <code
+        >"use client"</code
+      >: <Fragment set:html={clientList} />. The rest also render as React
+      Server Components. This list is read from the component sources.
     </p>
     <p>
       Without hydration (Astro with <code>@astrojs/react</code> and no <code

@@ -2,16 +2,18 @@
 import Guide from "../../../layouts/Guide.astro"
 import { Callout, CalloutContent } from "opui-css/astro"
 import Code from "../../../components/Code.astro"
-import CodeGroup from "../../../components/CodeGroup.astro"
 import DocLink from "../../../components/DocLink.astro"
 import Example from "../../../components/Example/index"
-import { pickAndChooseCss } from "../../../utils/getting-started"
+import InstallCommand from "./partials/InstallCommand.astro"
+import NextSteps from "./partials/NextSteps.astro"
+import PickAndChoose from "./partials/PickAndChoose.astro"
 ---
 
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
   <Fragment slot="preamble">
-    Design system. Components. Modern HTML & CSS.
+    Add the CSS from the CDN, from npm or by copying the files, then write the
+    class names.
   </Fragment>
 
   <div class="ui-not-rich-text">
@@ -61,49 +63,25 @@ import { pickAndChooseCss } from "../../../utils/getting-started"
       <code>node_modules</code>, like Vite or webpack. No bundler? Use the CDN
       or install manually.
     </p>
-
-    <CodeGroup
-      tabs={[
-        {
-          title: "pnpm",
-          code: "pnpm add opui-css open-props",
-          lang: "sh",
-        },
-        {
-          title: "npm",
-          code: "npm install opui-css open-props",
-          lang: "sh",
-        },
-      ]}
-    />
+    <InstallCommand />
 
     <h3 id="css">Import the CSS</h3>
     <p>Either import everything in your main CSS file:</p>
     <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
 
     <p>Or pick and choose the parts you want to include:</p>
-    <Code code={pickAndChooseCss} lang="css" />
-    <p>
-      Import <code>layers.css</code> first and <code>utils.css</code> last, it holds
-      <code>.ui-sr-only</code> and the motion classes. Add <code
-        >choice.css</code
-      > with <code>checkbox.css</code>, <code>radio.css</code> or <code
-        >switch.css</code
-      >. Import <code>opui-css/css/components.css</code> instead of single component
-      files to get every component.
-    </p>
+    <PickAndChoose />
   </section>
 
   <section>
     <h2 id="manual-setup">Install manually</h2>
     <p>
       The most flexible way to use OPUI, and it works without a build step.
-      Download these files from the <a
+      Download the package (<code>npm pack opui-css</code>, or browse it on <a
         class="ui-link"
         target="_blank"
-        href="https://github.com/felix-bohlin/ui/tree/main/packages/opui"
-        ><code>packages/opui/</code> folder on GitHub</a
-      > and drop them into your project.
+        href="https://cdn.jsdelivr.net/npm/opui-css@6/">jsDelivr</a
+      >) and drop these files into your project:
     </p>
 
     <Code
@@ -117,36 +95,45 @@ import { pickAndChooseCss } from "../../../utils/getting-started"
 │  │  ├─ accordion.css
 │  │  └─ ...
 │  ├─ js
-│  │  └─ checkbox.js
+│  │  ├─ checkbox.js
+│  │  └─ range.js
 │  ├─ components.css
+│  ├─ imports.css
 │  ├─ layers.css
 │  └─ theme.css
-└─ op.css`}
+├─ dist
+│  ├─ op.css
+│  ├─ opui.components.css
+│  └─ opui.css
+├─ themes
+│  ├─ bootstrap.css
+│  ├─ brutalist.css
+│  ├─ m3.css
+│  └─ shadcn.css
+├─ open-props.css
+└─ tokens.json`}
       lang="text"
     />
 
     <p>
-      <code>op.css</code> is Open Props, pre-bundled in the <code
+      <code>dist/op.css</code> is Open Props, pre-bundled in the <code
         >openprops</code
-      > layer. It isn't in the repo, so grab it from <a
-        class="ui-link"
-        target="_blank"
-        href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/op.css">the CDN</a
-      > (or <code>dist/op.css</code> in the npm package). The package's <code
-        >open-props.css</code
-      > imports Open Props from <code>node_modules</code>, which only works with
-      a bundler.
+      > layer, and <code>open-props.css</code> imports it from <code
+        >node_modules</code
+      > for bundlers. <code>dist/opui.css</code> is the CDN file. <code
+        >themes/</code
+      > holds the <DocLink href="/guide/customizing#example-themes"
+        >example themes</DocLink
+      > and <code>tokens.json</code> the <DocLink
+        href="/guide/theme-tokens#tokens-json">design tokens</DocLink
+      >.
     </p>
 
-    <p>
-      Put it all together something like this in your main CSS. If you have your
-      files in a different folder structure you'd of course need to change the
-      paths.
-    </p>
+    <p>Then import the files in your main CSS, in this order:</p>
     <Code
       code={`@import "./opui/css/layers.css";
 
-@import "./opui/op.css";
+@import "./opui/dist/op.css";
 @import "./opui/core/palette.css";
 @import "./opui/css/theme.css";
 @import "./opui/core/normalize.css";
@@ -170,17 +157,13 @@ import { pickAndChooseCss } from "../../../utils/getting-started"
     </Example>
 
     <p>
-      A few components need a bit of JavaScript in plain HTML, such as
-      indeterminate checkboxes in <code>css/js/checkbox.js</code>. Import them
-      in a <code>&lt;script type="module"&gt;</code>, from <code
+      Two things need a bit of JavaScript in plain HTML: indeterminate
+      checkboxes (<code>css/js/checkbox.js</code>) and the Range value (<code
+        >css/js/range.js</code
+      >). Import them in a <code>&lt;script type="module"&gt;</code>, from <code
         >https://cdn.jsdelivr.net/npm/opui-css@6/css/js/</code
-      > without a bundler. <DocLink href="/guide/concepts#javascript"
-        >Concepts</DocLink
-      > shows the imports and explains the class names, the cascade layers and what
-      needs JavaScript. Then browse the <DocLink href="/components"
-        >components</DocLink
-      >. <DocLink href="/guide/theming">Theming</DocLink> covers colors, density,
-      motion and contrast.
+      > without a bundler.
     </p>
+    <NextSteps />
   </section>
 </Guide>

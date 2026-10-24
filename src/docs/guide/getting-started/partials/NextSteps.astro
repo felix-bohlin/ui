@@ -1,0 +1,20 @@
+---
+import Conditional from "../../../../components/Conditional.astro"
+import DocLink from "../../../../components/DocLink.astro"
+---
+
+<p>
+  <Conditional>
+    <Fragment slot="html">
+      <DocLink href="/guide/concepts#javascript">Concepts</DocLink> shows the imports
+      and explains the class names, the cascade layers and what needs JavaScript.
+    </Fragment>
+    <Fragment slot="components">
+      <DocLink href="/guide/concepts">Concepts</DocLink> explains how props map to
+      classes, the cascade layers and what needs JavaScript.
+    </Fragment>
+  </Conditional>
+  Then browse the <DocLink href="/components">components</DocLink>. <DocLink
+    href="/guide/theming">Theming</DocLink
+  > covers colors, density, motion and contrast.
+</p>

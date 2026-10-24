@@ -7,6 +7,7 @@
 
   let {
     checked = $bindable(),
+    card,
     class: className,
     error,
     group = $bindable(),
@@ -15,6 +16,7 @@
     orientation,
     size,
     spread,
+    variant,
     style,
 
     // Snippets
@@ -37,8 +39,10 @@
   class={[
     "ui-switch",
     {
+      "ui-card": card,
       "ui-spread": spread,
     },
+    card && variant && variant !== "outlined" && `ui-${variant}`,
     orientation && orientation !== "horizontal" && `ui-${orientation}`,
     size && size !== "medium" && `ui-${size}`,
     className,

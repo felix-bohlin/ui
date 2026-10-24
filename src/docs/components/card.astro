@@ -28,7 +28,7 @@ import cardActionsApi from "../../component-api/card-actions/api"
     { title: "Card API", api: cardApi },
     { title: "Card actions API", api: cardActionsApi },
   ]}
-  browserSupport={["container-style-queries", "has"]}
+  browserSupport={["has"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Card/Card.astro",
@@ -91,7 +91,7 @@ import cardActionsApi from "../../component-api/card-actions/api"
     <Conditional as="p">
       <Fragment slot="components"> Using <code>CardHeader</code>. </Fragment>
       <Fragment slot="html">
-        Using the <code>&lt;hgroup&gt;</code>.
+        Using an <code>&lt;hgroup class="ui-header"&gt;</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Header" column />

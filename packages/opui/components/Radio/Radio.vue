@@ -8,8 +8,17 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const { endText, error, hideLabel, label, orientation, size, spread } =
-  defineProps<Props>()
+const {
+  card,
+  endText,
+  error,
+  hideLabel,
+  label,
+  orientation,
+  size,
+  spread,
+  variant,
+} = defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
 const inputAttrs = computed(() =>
@@ -30,8 +39,10 @@ warnUnnamed(
     :class="[
       'ui-radio',
       {
+        'ui-card': card,
         'ui-spread': spread,
       },
+      card && variant && variant !== 'outlined' && `ui-${variant}`,
       orientation && orientation !== 'horizontal' && `ui-${orientation}`,
       size && size !== 'medium' && `ui-${size}`,
       $props.class,

@@ -396,6 +396,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("toolbar-dialog-tip-align-left"),
   },
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "tooltip on an aria-disabled rounded button in a dialog",
     steps: [open("toolbar-dialog"), hover("toolbar-dialog-tip-clear")],
     top: id("toolbar-dialog-tip-clear"),
@@ -407,6 +408,7 @@ export const SCENARIOS: Scenario[] = [
     top: id("toolbar-drawer-tip-edit"),
   },
   {
+    failingIn: { webkit: WEBKIT_SCROLLED_ANCHOR },
     name: "tooltip on an aria-disabled button in a drawer header",
     steps: [open("toolbar-drawer"), hover("toolbar-drawer-tip-share")],
     top: id("toolbar-drawer-tip-share"),

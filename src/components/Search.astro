@@ -51,8 +51,8 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       as="button"
       size="small"
       type="button"
-      variant="tonal"
-      class="filter-chip active"
+      variant="outlined"
+      class="filter-chip"
       data-filter="all"
       label="All"
     />
@@ -166,12 +166,8 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
 
     if (filterChip) {
       filterGroup.querySelectorAll(".filter-chip").forEach((c) => {
-        c.classList.remove("active", "ui-tonal")
-        c.classList.add("ui-outlined")
         c.setAttribute("aria-pressed", "false")
       })
-      filterChip.classList.add("active", "ui-tonal")
-      filterChip.classList.remove("ui-outlined")
       filterChip.setAttribute("aria-pressed", "true")
       activeFilter = (filterChip as HTMLElement).dataset.filter || "all"
       updateResults()
@@ -463,12 +459,8 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
       e.preventDefault()
       // Update UI (same logic as click handler)
       chips.forEach((c) => {
-        c.classList.remove("active", "ui-tonal")
-        c.classList.add("ui-outlined")
         c.setAttribute("aria-pressed", "false")
       })
-      targetChip.classList.add("active", "ui-tonal")
-      targetChip.classList.remove("ui-outlined")
       targetChip.setAttribute("aria-pressed", "true")
       activeFilter = targetChip.dataset.filter || "all"
       updateResults()
@@ -630,11 +622,6 @@ import { SEARCH_CATEGORIES } from "../utils/search-categories"
         cursor: pointer;
         flex-shrink: 0;
         user-select: none;
-
-        &.active {
-          background-color: var(--ui-surface-tonal);
-          color: var(--ui-text-strong);
-        }
       }
     }
 

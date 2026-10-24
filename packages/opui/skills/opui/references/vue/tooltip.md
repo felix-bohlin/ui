@@ -132,7 +132,7 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 | Prop           | Type      | Default              | Description                                                                                                                                                                                               |
 | -------------- | --------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `arrow`        | `boolean` | `false`              | Adds an arrow that points to the trigger.                                                                                                                                                                 |
-| `id`           | `string`  | -                    | The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger.                                                                    |
+| `id`           | `string`  | -                    | The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger. Required.                                                          |
 | `positionArea` | `string`  | `"self-block-start"` | Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
 
 #### Slots
@@ -141,13 +141,13 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 | --------- | ------------------------------------------ |
 | `default` | The trigger, followed by `TooltipContent`. |
 
-#### CSS variables
+### CSS variables
 
 | Variable                 | Default                                           | Description                                                                                                                                                                                             |
 | ------------------------ | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--ui-border-width`      | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                 |
 | `--ui-duration`          | `0.2s`                                            | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                               |
-| `--ui-ease-enter`        | `var(--ease-out-3)`                               | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`.                                                                                                                         |
+| `--ui-ease-enter`        | `var(--ease-out-3)`                               | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`, and the `Badge`, `Progress` and `Tooltip` transitions.                                                                  |
 | `--ui-font-size-small`   | `var(--ui-font-size-200)`                         | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                 |
 | `--ui-line-height-tight` | `1.25`                                            | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                            |
 | `--ui-motion`            | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
@@ -156,9 +156,9 @@ import { Button, Tooltip, TooltipContent } from "opui-css/vue"
 | `--ui-space-1`           | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                         |
 | `--ui-space-2`           | `calc(var(--size-2) * var(--ui-space-scale))`     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                         |
 | `--ui-space-4`           | `calc(var(--size-4) * var(--ui-space-scale))`     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                         |
-| `--ui-surface-inverse`   | `light-dark(var(--ui-gray-15), var(--ui-gray-2))` | Background of `Tooltip`, inverted against the page.                                                                                                                                                     |
+| `--ui-surface-inverse`   | `light-dark(var(--ui-gray-15), var(--ui-gray-2))` | Background of `Tooltip` and the `Carousel` buttons, inverted against the page.                                                                                                                          |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 ## Component properties
 
@@ -371,6 +371,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- Breaking: `Tooltip` no longer renders `.ui-anchor`. Style [`.ui-tooltip`](#basics) instead.
+- Breaking: the floating content is [`.ui-floating`](#api) instead of `.ui-anchor-floating`.
 - Breaking: [`TooltipContent`](#api) replaces `label` and the `content` slot.
 - Breaking: [`id`](#api) is required.
 - Breaking: no `<span interestfor>` around the trigger. Put `interestfor` with the tooltip `id` on the [trigger](#basics).

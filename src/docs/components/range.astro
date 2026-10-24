@@ -75,6 +75,27 @@ export const description =
   </section>
 
   <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, <code>medium</code> (the default) and <code
+          >large</code
+        >. The thumb and the track scale with the size, the label and the texts
+        keep theirs.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>. The thumb and the track scale
+        with the size, the label and the texts keep theirs.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Sizes" column />
+  </section>
+
+  <section>
     <h2 id="start-end-text">Start and end text</h2>
     <AutoExample name="StartEndText" column />
   </section>

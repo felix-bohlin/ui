@@ -19,11 +19,11 @@ export default {
   ],
   parts: [
     {
-      code: "<hgroup>",
+      code: "hgroup.ui-header",
       component: "DialogHeader",
       description:
         "The dialog header. Names the dialog through `aria-labelledby`.",
-      selector: "hgroup",
+      selector: "hgroup.ui-header",
     },
     {
       anchorName: "--ui-dialog-content",

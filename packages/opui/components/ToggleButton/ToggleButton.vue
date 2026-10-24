@@ -15,6 +15,7 @@ const {
   value,
 } = defineProps<Props>()
 defineSlots<Slots>()
+const model = defineModel<boolean | undefined>({ default: undefined })
 
 defineOptions({
   inheritAttrs: false,
@@ -32,10 +33,13 @@ const finalType = computed(() =>
   group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
 )
 const grouped = computed(() => isSelected(group?.value, value))
-warnGroupedChecked("ToggleButton", grouped.value, checkedProp)
-const checked = computed(() => grouped.value ?? checkedProp)
-const change = (event: Event) =>
-  group?.change(event.currentTarget as HTMLInputElement)
+warnGroupedChecked("ToggleButton", grouped.value, checkedProp ?? model.value)
+const checked = computed(() => grouped.value ?? model.value ?? checkedProp)
+const change = (event: Event) => {
+  const input = event.currentTarget as HTMLInputElement
+  if (grouped.value === undefined) model.value = input.checked
+  group?.change(input)
+}
 </script>
 
 <template>

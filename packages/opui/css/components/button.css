@@ -11,6 +11,14 @@
       )
     );
     --_accent-tonal: var(--ui-surface-tonal);
+    --_actions-shift: min(
+      var(--_padding-inline) + var(--_border-width),
+      var(--ui-space-3) -
+        max(
+          var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
+          var(--ui-space-1)
+        )
+    );
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-width: var(--ui-border-width);
@@ -42,14 +50,54 @@
     );
     --_font-size: var(--ui-font-size-control);
     --_icon-size: 0.7lh;
-    --_min-block-size: var(--ui-button-size);
     --_on-accent: var(--ui-button-on-accent, var(--ui-palette-on-strong));
     --_on-accent-tonal: var(--_accent);
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
-    --_padding-inline: 1.5ex;
+    --_outlined-active-border-color: var(--_outlined-active-bg-color);
+    --_outlined-active-text-color: var(--_on-accent);
+    --_outlined-hover-bg-color: var(--_accent-fill);
+    --_outlined-hover-border-color: var(--_accent-fill);
+    --_outlined-hover-text-color: var(--_on-accent);
+    --_padding-inline: var(--ui-button-padding-inline, 1.5ex);
     --_radius: var(--ui-button-radius, var(--ui-radius));
     --_shadow: none;
+    --_size: var(--ui-button-size);
     --_text-color: var(--_accent-text);
+    --_tonal-active-bg-color: var(--_outlined-active-bg-color);
+    --_tonal-active-text-color: var(--_on-accent);
+    --_tonal-hover-bg-color: var(--_accent-fill);
+    --_tonal-hover-text-color: var(--_on-accent);
+
+    @container style(--ui-button-hover: layer) {
+      --_filled-active-bg-color: color-mix(
+        in oklch,
+        var(--_accent-fill),
+        var(--_on-accent) var(--ui-state-active-alpha-accent)
+      );
+      --_filled-hover-bg-color: color-mix(
+        in oklch,
+        var(--_accent-fill),
+        var(--_on-accent) var(--ui-state-hover-alpha-accent)
+      );
+      --_outlined-active-bg-color: var(--_default-active-bg-color);
+      --_outlined-active-border-color: var(--_accent);
+      --_outlined-active-text-color: var(--_accent-text);
+      --_outlined-hover-bg-color: var(--_default-hover-bg-color);
+      --_outlined-hover-border-color: var(--_accent);
+      --_outlined-hover-text-color: var(--_accent-text);
+      --_tonal-active-bg-color: color-mix(
+        in oklch,
+        var(--_accent-tonal),
+        var(--_on-accent-tonal) var(--ui-state-active-alpha-accent)
+      );
+      --_tonal-active-text-color: var(--_on-accent-tonal);
+      --_tonal-hover-bg-color: color-mix(
+        in oklch,
+        var(--_accent-tonal),
+        var(--_on-accent-tonal) var(--ui-state-hover-alpha-accent)
+      );
+      --_tonal-hover-text-color: var(--_on-accent-tonal);
+    }
 
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
@@ -64,10 +112,10 @@
     font-weight: var(--ui-button-font-weight, var(--ui-font-weight-bold));
     gap: var(--ui-space-2);
     justify-content: center;
-    min-block-size: var(--_min-block-size);
+    min-block-size: var(--_size);
     padding-block: min(
       0.5ex,
-      max(0px, (var(--_min-block-size) - 1lh - var(--_border-width) * 2) / 2)
+      max(0px, (var(--_size) - 1lh - var(--_border-width) * 2) / 2)
     );
     padding-inline: var(--_padding-inline);
     text-align: center;
@@ -91,16 +139,14 @@
       --_default-hover-bg-color: oklch(
         from var(--_accent) l c h / var(--ui-state-hover-alpha-accent)
       );
-      --_filled-active-bg-color: oklch(
-        from var(--_accent-fill) calc(l - 0.15) c h
-      );
-      --_filled-hover-bg-color: oklch(
-        from var(--_accent-fill) calc(l - 0.1) c h
-      );
       --_on-accent-tonal: var(--ui-palette-on-tint);
       --_outlined-active-bg-color: oklch(
         from var(--_accent-fill) calc(l - 0.1) c h
       );
+
+      @container style(--ui-button-hover: layer) {
+        --_outlined-active-bg-color: var(--_default-active-bg-color);
+      }
     }
 
     &.ui-critical,
@@ -175,29 +221,52 @@
     &.ui-x-small,
     :where(.ui-button-group.ui-x-small) > & {
       --_font-size: var(--ui-font-size-caption);
-      --_min-block-size: var(--ui-button-size-x-small);
-      --_padding-inline: 1ex;
+      --_padding-inline: var(--ui-button-padding-inline-x-small, 1ex);
+      --_size: var(--ui-button-size-x-small);
       padding-block: 0;
     }
 
     &.ui-small,
     :where(.ui-button-group.ui-small) > & {
       --_font-size: var(--ui-font-size-small);
-      --_min-block-size: var(--ui-button-size-small);
-      --_padding-inline: 1.25ex;
+      --_padding-inline: var(--ui-button-padding-inline-small, 1.25ex);
+      --_size: var(--ui-button-size-small);
       padding-block: 0;
     }
 
     &.ui-large,
     :where(.ui-button-group.ui-large) > & {
-      --_min-block-size: var(--ui-button-size-large);
-      --_padding-inline: 2.5ex;
+      --_padding-inline: var(--ui-button-padding-inline-large, 2.5ex);
+      --_size: var(--ui-button-size-large);
     }
 
     &:where(:has(> svg:only-child)) {
-      --_icon-size: calc(var(--_min-block-size) * 0.6);
-      min-inline-size: var(--_min-block-size);
+      --_icon-size: calc(var(--_size) * 0.6);
+      min-inline-size: var(--_size);
       padding-inline: 0;
+    }
+
+    /* Card, Accordion and Dialog actions */
+    :where(
+        :is(.ui-accordion, .ui-card, .ui-dialog):not(
+            .ui-accordion.ui-transparent,
+            .ui-card.ui-transparent > .ui-accordion
+          )
+          > .ui-actions.ui-align-start
+      )
+      > &:where(:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
+      margin-inline-start: calc(-1 * var(--_actions-shift));
+    }
+
+    :where(
+        :is(.ui-accordion, .ui-card, .ui-dialog):not(
+            .ui-accordion.ui-transparent,
+            .ui-card.ui-transparent > .ui-accordion
+          )
+          > .ui-actions:not(.ui-align-start)
+      )
+      > &:where(:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
+      margin-inline-end: calc(-1 * var(--_actions-shift));
     }
 
     /* Variants */
@@ -214,12 +283,12 @@
       &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
-            --_bg-color: var(--_accent-fill);
+            --_bg-color: var(--_outlined-hover-bg-color);
             --_border-color: var(
               --ui-control-border-color,
-              var(--_accent-fill)
+              var(--_outlined-hover-border-color)
             );
-            --_text-color: var(--_on-accent);
+            --_text-color: var(--_outlined-hover-text-color);
           }
         }
 
@@ -227,9 +296,9 @@
           --_bg-color: var(--_outlined-active-bg-color);
           --_border-color: var(
             --ui-control-border-color,
-            var(--_outlined-active-bg-color)
+            var(--_outlined-active-border-color)
           );
-          --_text-color: var(--_on-accent);
+          --_text-color: var(--_outlined-active-text-color);
         }
       }
     }
@@ -259,14 +328,14 @@
       &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
-            --_bg-color: var(--_accent-fill);
-            --_text-color: var(--_on-accent);
+            --_bg-color: var(--_tonal-hover-bg-color);
+            --_text-color: var(--_tonal-hover-text-color);
           }
         }
 
         &:where(:active) {
-          --_bg-color: var(--_outlined-active-bg-color);
-          --_text-color: var(--_on-accent);
+          --_bg-color: var(--_tonal-active-bg-color);
+          --_text-color: var(--_tonal-active-text-color);
         }
       }
     }
@@ -292,7 +361,14 @@
     /* Disabled */
     &:is([disabled], [aria-disabled="true"]) {
       cursor: not-allowed;
-      opacity: var(--ui-disabled-opacity);
+
+      &:is(
+        .ui-filled,
+        .ui-tonal,
+        :where(.ui-button-group.ui-filled, .ui-button-group.ui-tonal) > *
+      ) {
+        opacity: var(--ui-disabled-opacity);
+      }
 
       &:not(
         .ui-filled,
@@ -300,6 +376,10 @@
         :where(.ui-button-group.ui-filled, .ui-button-group.ui-tonal) > *
       ) {
         --_text-color: var(--ui-text-disabled);
+      }
+
+      &:is(.ui-outlined, :where(.ui-button-group.ui-outlined) > *) {
+        --_border-color: var(--ui-text-disabled);
       }
     }
 

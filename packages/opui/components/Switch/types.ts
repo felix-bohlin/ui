@@ -1,4 +1,5 @@
 export type Props = {
+  card?: boolean
   endText?: string
   error?: boolean
   hideLabel?: boolean
@@ -6,6 +7,7 @@ export type Props = {
   orientation?: "horizontal" | "vertical"
   size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
+  variant?: "elevated" | "outlined" | "tonal"
 }
 
 export type Slots<S> = {

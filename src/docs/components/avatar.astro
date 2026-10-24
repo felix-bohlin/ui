@@ -98,6 +98,25 @@ export const description =
   </section>
 
   <section>
+    <h2 id="disabled">Disabled</h2>
+
+    <Conditional as="p">
+      <Fragment slot="components">
+        Disable a button avatar with <code>disabled</code>. A link avatar drops
+        its <code>href</code> and gets <code>aria-disabled="true"</code> instead.
+      </Fragment>
+      <Fragment slot="html">
+        Disable a button avatar with the <code>disabled</code> attribute. On a link
+        avatar, remove the <code>href</code> and add <code
+          >aria-disabled="true"</code
+        >.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Disabled" row />
+  </section>
+
+  <section>
     <h2 id="grouped">Grouped</h2>
 
     <Conditional as="p">

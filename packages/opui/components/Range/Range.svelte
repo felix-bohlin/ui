@@ -15,6 +15,7 @@
     max,
     min,
     name,
+    size,
     spread,
     startText,
     step,
@@ -63,6 +64,7 @@
   class={[
     "ui-range",
     { "ui-spread": spread },
+    size && size !== "medium" && `ui-${size}`,
     variant && variant !== "outlined" && `ui-${variant}`,
     className,
   ]}

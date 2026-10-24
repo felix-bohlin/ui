@@ -10,21 +10,21 @@ const slug = (title: string) =>
 
 const TYPES: [RegExp, string][] = [
   [
-    /-(alpha-accent|alpha-dark|alpha-light|chroma|hue|hue-rotate-by|lightness|opacity|scale)$|^--ui-(density|motion)$|line-height/,
+    /-(alpha-accent|alpha-dark|alpha-light|chroma|hue|hue-rotate-by|lightness|opacity|scale|strength|strength-dark|strength-light)$|^--ui-(density|fluid-progress|motion)$|line-height/,
     "number",
   ],
   [/^--ui-font-(body|code|heading)$/, "fontFamily"],
   [/font-weight/, "fontWeight"],
   [/^--ui-duration/, "duration"],
   [/^--ui-ease/, "cubicBezier"],
-  [/shadow/, "shadow"],
+  [/shadow(?!-color$)/, "shadow"],
   [/-style$/, "strokeStyle"],
   [
-    /-accent$|-color(-|$)|^--ui-(blue|critical|green|info|invalid|neutral|on|orange|palette|primary|red|selected|success|surface|text|warning)(-|$)/,
+    /-accent$|^(?!--ui-shadow-color$).*-color(-|$)|^--ui-(blue|critical|green|info|invalid|neutral|on|orange|palette|primary|red|selected|success|surface|text|warning)(-|$)/,
     "color",
   ],
   [
-    /blur|gap|height|inset|offset|radius|size|space|spacing|step|thickness|width/,
+    /blur|gap|height|inset|offset|padding|radius|size|space|spacing|step|thickness|width/,
     "dimension",
   ],
 ]

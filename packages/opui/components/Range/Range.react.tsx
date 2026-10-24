@@ -20,6 +20,7 @@ export default function Range({
   min,
   name,
   onChange,
+  size,
   spread,
   startText,
   step,
@@ -80,6 +81,7 @@ export default function Range({
       className={cx([
         "ui-range",
         { "ui-spread": spread },
+        size && size !== "medium" && `ui-${size}`,
         variant && variant !== "outlined" && `ui-${variant}`,
         className,
       ])}

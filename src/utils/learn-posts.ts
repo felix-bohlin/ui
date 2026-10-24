@@ -355,6 +355,23 @@ export const posts = [
     topics: ["popups"],
   },
   {
+    before:
+      "A clamp() per heading with a hand-tuned vi slope, so every heading grew over a different range of viewport widths.",
+    category: "under-the-hood",
+    component: "typography",
+    date: "2026-10-23",
+    description:
+      "progress() turns the viewport width into one 0 to 1 ramp that every heading size shares.",
+    features: ["progress-function"],
+    level: "intermediate",
+    navLabel: "Typography: fluid type",
+    now: "`progress(100vi, start, end)` is one shared ramp, and each heading mixes its two steps with it.",
+    slug: "fluid-type-progress",
+    technique: "progress()",
+    title: "Fluid type with progress()",
+    topics: ["layout", "typography"],
+  },
+  {
     before: "A Sass function per font size, which breaks once sizes are fluid.",
     category: "under-the-hood",
     component: "typography",
@@ -362,6 +379,7 @@ export const posts = [
     description: "round() snaps line heights and font sizes to a rhythm step.",
     features: ["lh", "round-mod-rem"],
     level: "advanced",
+    navLabel: "Typography: rhythm",
     now: "`round(up, value, step)` snaps every line height to the grid at computed time.",
     slug: "vertical-rhythm-round",
     technique: "round()",

@@ -63,6 +63,28 @@ export default function Surfaces() {
 }
 ```
 
+## Inline
+
+The bar is an `inline-block` aligned to the middle of the line, so it sits in a line of text or a table cell. Set an `inline-size` to keep it short.
+
+```tsx
+import { Progress } from "opui-css/react"
+
+export default function Inline() {
+  return (
+    <div>
+      Uploading 3 of 8 files{" "}
+      <Progress
+        aria-label="Uploading"
+        max="8"
+        style={{ inlineSize: "12rem" }}
+        value="3"
+      />
+    </div>
+  )
+}
+```
+
 ## Accessibility
 
 Name the bar with `aria-label`, or `aria-labelledby` pointing at visible text.
@@ -100,38 +122,38 @@ export default function AriaBusy() {
 | `value`    | `number` , `string`    | -         | The current value. Omit it for an indeterminate state. |
 | `variant`  | `"filled"` , `"tonal"` | `"tonal"` | The variant to use.                                    |
 
-#### CSS variables
-
-| Variable                  | Default                                                               | Description                                                                                                                                                                                                                                                                                                              |
-| ------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--ui-border-width`       | `1px`                                                                 | Default border width for components that draw a border.                                                                                                                                                                                                                                                                  |
-| `--ui-duration`           | `0.2s`                                                                | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                                                                                                |
-| `--ui-ease-enter`         | `var(--ease-out-3)`                                                   | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`.                                                                                                                                                                                                                                          |
-| `--ui-field-border-color` | `color-mix( in oklch, var(--ui-text-strong) 50%, var(--ui-surface) )` | Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch`, the `Range` track and the `Progress` outline. A 50% mix of the text color into the page, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make. |
-| `--ui-motion`             | `1`                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion).                                                                                                                |
-| `--ui-primary`            | `light-dark(var(--ui-color-9), var(--ui-color-6))`                    | Brand color for primary actions and accents.                                                                                                                                                                                                                                                                             |
-| `--ui-radius`             | `var(--size-2)`                                                       | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                                                                         |
-| `--ui-space-1`            | `calc(var(--size-1) * var(--ui-space-scale))`                         | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                                                                          |
-| `--ui-surface-filled`     | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                     | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                                                                                                    |
-| `--ui-surface-tonal`      | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                     | Background of tonal variants.                                                                                                                                                                                                                                                                                            |
-| `--ui-track-bg-color`     | Unset                                                                 | The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch a fixed gray.                                                                                                   |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
-
 Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `className` and `style` go to the root `<div>`.
+
+### CSS variables
+
+| Variable                  | Default                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                          |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-width`       | `1px`                                                                                                                                                                                                                    | Default border width for components that draw a border.                                                                                                                                                                                                                                                                                                                                              |
+| `--ui-duration`           | `0.2s`                                                                                                                                                                                                                   | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                                                                                                                                                                            |
+| `--ui-ease-enter`         | `var(--ease-out-3)`                                                                                                                                                                                                      | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`, and the `Badge`, `Progress` and `Tooltip` transitions.                                                                                                                                                                                                                                                               |
+| `--ui-field-border-color` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )`                                                                                                                        | Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make. |
+| `--ui-motion`             | `1`                                                                                                                                                                                                                      | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion).                                                                                                                                                                                            |
+| `--ui-primary`            | `light-dark( oklch( from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c h ), oklch( from var(--ui-primary-source) max(l, var(--ui-primary-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )` | Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color.                                                                                                                                                       |
+| `--ui-radius`             | `var(--size-2)`                                                                                                                                                                                                          | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                                                                                                                                                     |
+| `--ui-space-1`            | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
+| `--ui-surface-filled`     | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                                                                                                                                                        | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                                                                                                                                                                                |
+| `--ui-surface-tonal`      | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                        | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                        |
+| `--ui-track-bg-color`     | Unset                                                                                                                                                                                                                    | The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch `--ui-switch-track-bg-color`.                                                                                                                                                               |
+
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/react/guide/customizing.md#component-properties) has examples.
 
-| Property           | Kind   | Description                                                                                                                                      |
-| ------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--_accent`        | Input  | Color of the bar. Defaults to `--ui-primary`.                                                                                                    |
-| `--_bg-color`      | Input  | Color of the track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-surface-tonal`; `.ui-filled` sets it to `--ui-surface-filled`. |
-| `--_duration`      | Output | Duration of the value transition, `--ui-duration` times `--_motion`.                                                                             |
-| `--_ease`          | Input  | Easing of the value transition. Defaults to `--ui-ease-enter`.                                                                                   |
-| `--_loop-duration` | Input  | One cycle of the indeterminate animation, `--_loop-duration` times `--_motion`, and of the pulse that replaces it when `--_motion` is `0`.       |
-| `--_motion`        | Input  | Motion multiplier for the value transition and the indeterminate animation.                                                                      |
+| Property           | Kind   | Description                                                                                                                                                |
+| ------------------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`        | Input  | Color of the bar. Defaults to `--ui-primary`.                                                                                                              |
+| `--_bg-color`      | Input  | Color of the track. `--ui-track-bg-color` when the theme sets it, otherwise `--ui-surface-tonal`; `.ui-filled` sets it to `--ui-surface-filled`.           |
+| `--_duration`      | Output | Duration of the value transition, `--ui-duration` times `--_motion`.                                                                                       |
+| `--_ease`          | Input  | Easing of the value transition. Defaults to `--ui-ease-enter`.                                                                                             |
+| `--_loop-duration` | Input  | Length of one cycle of the indeterminate animation, and of the pulse that replaces it when `--_motion` is `0`. `2s` by default, multiplied by `--_motion`. |
+| `--_motion`        | Input  | Motion multiplier for the value transition and the indeterminate animation.                                                                                |
 
 ## Under the hood
 
@@ -293,6 +315,6 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The track is always outlined with `--ui-field-border-color`, so the empty part is visible.
 - The track reads [`--ui-track-bg-color`](#api) when a theme sets it.
 - Breaking: `--_accent-color` is `--_accent` ([Under the hood](#under-the-hood)).
-- [Progress bars](#indeterminate) center in table cells and lines of text.
+- [Progress bars](#inline) center in table cells and lines of text.
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
 - [Variants](#variants) name the default: `variant="tonal"`.

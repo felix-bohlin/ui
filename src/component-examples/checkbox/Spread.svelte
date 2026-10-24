@@ -19,5 +19,5 @@
 
 <Checkbox name="checkbox-spread" spread error>
   Invalid Checkbox
-  {#snippet endText()}There is an error with this checkbox.{/snippet}
+  {#snippet endText()}Check this box to continue.{/snippet}
 </Checkbox>

@@ -15,7 +15,7 @@ export default {
     },
     {
       description:
-        'The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger.',
+        'The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger. Required.',
       prop: "id",
     },
     {

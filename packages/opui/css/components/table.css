@@ -38,6 +38,9 @@
     }
 
     th {
+      --ui-border-color: var(--ui-border-color-on-filled);
+      --ui-field-border-color: var(--ui-field-border-color-on-filled);
+
       background-color: var(--ui-surface-filled);
       color: var(--ui-text-strong);
       font-weight: var(--ui-font-weight-semibold);

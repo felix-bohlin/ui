@@ -134,8 +134,8 @@ import DocLink from "../../components/DocLink.astro"
     <p>
       Every focusable element gets a <code>:focus-visible</code> ring from <code
         >normalize.css</code
-      >. By default it's the inverted page color, so it shows up on any
-      background. Tune it with theme tokens:
+      >. By default it's black on light surfaces and white on dark ones, so it
+      shows up on any page background. Tune it with theme tokens:
     </p>
     <Code
       code={`:where(html) {

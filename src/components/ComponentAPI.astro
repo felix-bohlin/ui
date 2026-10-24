@@ -1,7 +1,12 @@
 ---
+import { TableCell, TableRow } from "opui-css/astro"
 import ApiTables from "./ApiTables.astro"
+import DocLink from "./DocLink.astro"
+import DocsTable from "./DocsTable.astro"
 import type { AstroInstance } from "astro"
+import { cssVarRows } from "../component-api/rows"
 import type { ComponentApi } from "../component-api/types"
+import { formatInline } from "../utils/format-inline"
 import {
   DEFAULT_FRAMEWORK,
   FRAMEWORKS,
@@ -45,6 +50,11 @@ const pickFrameworkVariant = (value: FrameworkApis) =>
 
 const hasFrameworkSpecificApi =
   !!apis && !Array.isArray(apis) && isFrameworkKeyedApi(apis)
+
+const cssVars = cssVarRows(
+  ...apiList.flatMap((entry) => ("api" in entry ? [entry.api] : [])),
+)
+const { link } = Astro.locals
 ---
 
 {
@@ -88,6 +98,41 @@ const hasFrameworkSpecificApi =
               </Fragment>
             )
           })}
+          {cssVars.length > 0 && (
+            <Fragment>
+              <h3 id="css-variables">CSS variables</h3>
+              <DocsTable
+                columns={[
+                  { label: "Variable", width: "30%" },
+                  { label: "Default", width: "30%" },
+                  { label: "Description" },
+                ]}
+              >
+                {cssVars.map((row) => (
+                  <TableRow>
+                    <TableCell>
+                      <code>{row.name}</code>
+                    </TableCell>
+                    <TableCell>
+                      {row.default ? <code>{row.default}</code> : "Unset"}
+                      {row.dark && (
+                        <Fragment>
+                          <br />
+                          <code>{row.dark}</code> in dark mode
+                        </Fragment>
+                      )}
+                    </TableCell>
+                    <TableCell set:html={formatInline(row.description, link)} />
+                  </TableRow>
+                ))}
+              </DocsTable>
+              <p>
+                The stylesheets on this page read these theme tokens. Override
+                them on <code>html</code> or on a wrapper. See all{" "}
+                <DocLink href="/guide/theme-tokens">theme tokens</DocLink>.
+              </p>
+            </Fragment>
+          )}
         </section>
       )
 }

@@ -85,15 +85,6 @@ export const references = {
       label: "Using relative colors",
     },
   ],
-  card: [
-    { code: true, href: mdn("Web/CSS/:has"), label: ":has()" },
-    { code: true, href: mdn("Web/CSS/:not"), label: ":not()" },
-    {
-      code: false,
-      href: mdn("Web/CSS/Using_CSS_custom_properties"),
-      label: "Using CSS custom properties",
-    },
-  ],
   carousel: [
     {
       code: true,
@@ -270,6 +261,13 @@ export const references = {
       label: "transition-behavior",
     },
     { code: true, href: mdn("Web/CSS/translate"), label: "translate" },
+  ],
+  fluid: [
+    { code: true, href: mdn("Web/CSS/@supports"), label: "@supports" },
+    { code: true, href: mdn("Web/CSS/calc"), label: "calc()" },
+    { code: true, href: mdn("Web/CSS/clamp"), label: "clamp()" },
+    { code: true, href: mdn("Web/CSS/progress"), label: "progress()" },
+    { code: true, href: mdn("Web/CSS/length#vi"), label: "vi" },
   ],
   form: [
     { code: true, href: mdn("Web/CSS/:has"), label: ":has()" },
@@ -452,10 +450,6 @@ export const references = {
       href: mdn("Web/CSS/transform-function/rotate"),
       label: "rotate()",
     },
-  ],
-  stepper: [
-    { code: true, href: mdn("Web/CSS/:checked"), label: ":checked" },
-    { code: true, href: mdn("Web/CSS/:has"), label: ":has()" },
   ],
   switch: [
     { code: true, href: mdn("Web/CSS/::after"), label: "::after" },

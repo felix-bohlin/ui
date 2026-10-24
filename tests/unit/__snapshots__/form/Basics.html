@@ -1,8 +1,23 @@
 <form class="ui-form">
   <fieldset class="ui-fieldset">
-    <legend></legend>
-    <p class="ui-description"></p>
-    <div class="ui-field-group"></div>
-    <div class="ui-field-group"></div>
+    <legend>Contact</legend>
+    <p class="ui-description">How can we reach you?</p>
+    <div class="ui-field-group">
+      <label class="ui-text-field">
+        <span class="ui-label">Name</span>
+        <span class="ui-field">
+          <input autocomplete="name" type="text">
+        </span>
+      </label>
+      <label class="ui-text-field">
+        <span class="ui-label">Email</span>
+        <span class="ui-field">
+          <input autocomplete="email" type="email">
+        </span>
+      </label>
+    </div>
   </fieldset>
+  <div class="ui-field-group">
+    <button class="ui-button ui-filled" type="submit">Send</button>
+  </div>
 </form>

@@ -86,7 +86,7 @@ import buttonGroupApi from "../../component-api/button-group/api"
 
 The `--_` custom properties a stylesheet declares are documented per stylesheet, not per `api.ts`, since several APIs share one stylesheet. `src/component-api/custom-properties/<stylesheet>.ts` default-exports a `CustomProperties` record ([types.ts](types.ts)) with a short `description` and a `kind` per property:
 
-- `input`: a knob to set on the component, such as `--_accent`, `--_min-block-size` or `--_motion`.
+- `input`: a knob to set on the component, such as `--_accent`, `--_size` or `--_motion`.
 - `output`: derived from the inputs, the variant or the state, such as `--_bg-color`. Overriding it freezes it in every state.
 
 Keys are sorted. `tests/unit/custom-properties.test.ts` fails when a stylesheet declares a `--_` property that isn't documented, documents one it doesn't declare, or isn't shown on any page. The Component layout renders the table for the page's stylesheet (`pageStylesheets` in [custom-properties.ts](custom-properties.ts) maps the pages whose stylesheets have other names, such as `toggle`).

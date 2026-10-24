@@ -21,6 +21,11 @@ export default {
       "Background of `.ui-tonal`. `--ui-surface-tonal`, a palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`.",
     kind: "input",
   },
+  "--_actions-shift": {
+    description:
+      "How far a text button at the start or end of `Card`, `Accordion` and `Dialog` actions pulls itself out, so its label lines up with the content: its padding and border, capped so the focus ring stays inside the card.",
+    kind: "output",
+  },
   "--_bg-color": {
     description:
       "The current background. Set by the variant, hover and active states.",
@@ -66,11 +71,7 @@ export default {
   },
   "--_icon-size": {
     description:
-      "The size of a direct child `svg`. Icon-only buttons scale it with `--_min-block-size`.",
-    kind: "input",
-  },
-  "--_min-block-size": {
-    description: "The height. Set by the size classes.",
+      "The size of a direct child `svg`. Icon-only buttons scale it with `--_size`.",
     kind: "input",
   },
   "--_motion": {
@@ -88,16 +89,42 @@ export default {
   },
   "--_outlined-active-bg-color": {
     description:
-      "Pressed background of outlined and tonal buttons, from `--_accent`.",
+      "Pressed background of outlined and tonal buttons, from `--_accent`. The pressed state layer with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_outlined-active-border-color": {
+    description:
+      "Pressed border of outlined buttons. The pressed background, or `--_accent` with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_outlined-active-text-color": {
+    description:
+      "Pressed text color of outlined buttons. `--_on-accent`, or `--_accent-text` with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_outlined-hover-bg-color": {
+    description:
+      "Hover background of outlined buttons. `--_accent-fill`, or the hover state layer with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_outlined-hover-border-color": {
+    description:
+      "Hover border of outlined buttons. `--_accent-fill`, or `--_accent` with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_outlined-hover-text-color": {
+    description:
+      "Hover text color of outlined buttons. `--_on-accent`, or `--_accent-text` with `--ui-button-hover: layer`.",
     kind: "output",
   },
   "--_padding-inline": {
-    description: "The inline padding. Set by the size classes.",
+    description:
+      "The inline padding. Set by the size classes from `--ui-button-padding-inline` and its size variants.",
     kind: "input",
   },
   "--_radius": {
     description:
-      "The corner radius. Defaults to `--ui-button-radius`, `.ui-round` makes it round.",
+      "The corner radius. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it. `.ui-round` makes it round.",
     kind: "input",
   },
   "--_shadow": {
@@ -105,9 +132,34 @@ export default {
       "The shadow. `--ui-shadow-control` on `.ui-filled`, `.ui-outlined` and `.ui-tonal`, `--ui-button-hover-shadow` on hover when a theme sets it, none on text buttons.",
     kind: "output",
   },
+  "--_size": {
+    description:
+      "The height, and the width of an icon-only button. Defaults to `--ui-button-size`, set by the size classes.",
+    kind: "input",
+  },
   "--_text-color": {
     description:
       "The current text color. Set by the variant, hover, active and disabled states.",
+    kind: "output",
+  },
+  "--_tonal-active-bg-color": {
+    description:
+      "Pressed background of tonal buttons. `--_outlined-active-bg-color`, or the pressed state layer over `--_accent-tonal` with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_tonal-active-text-color": {
+    description:
+      "Pressed text color of tonal buttons. `--_on-accent`, or `--_on-accent-tonal` with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_tonal-hover-bg-color": {
+    description:
+      "Hover background of tonal buttons. `--_accent-fill`, or the hover state layer over `--_accent-tonal` with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_tonal-hover-text-color": {
+    description:
+      "Hover text color of tonal buttons. `--_on-accent`, or `--_on-accent-tonal` with `--ui-button-hover: layer`.",
     kind: "output",
   },
 } satisfies CustomProperties

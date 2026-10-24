@@ -31,7 +31,8 @@ export default {
     {
       class: ".ui-dot",
       default: "false",
-      description: "Renders the indicator as a dot, without a label.",
+      description:
+        "Renders the indicator as a dot. `label` stays as screen reader text, and the `indicator` slot isn't shown.",
       group: "Dot",
       prop: "dot",
     },
@@ -63,7 +64,7 @@ export default {
     },
     {
       description:
-        "The indicator, inside `.ui-floating`. Holds `label`, or the visible text with `hideLabel`.",
+        "The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`.",
       props: ["label"],
       selector: ".ui-indicator",
       slots: ["indicator"],

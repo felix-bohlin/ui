@@ -13,7 +13,7 @@ export default {
   "--_edge-accent": {
     description:
       "Outline color of `.ui-outlined`. Defaults to `--ui-button-accent` when a theme sets it. `.ui-primary` and `.ui-critical` set it.",
-    kind: "input",
+    kind: "output",
   },
   "--_edge-outline-color": {
     description:
@@ -27,7 +27,7 @@ export default {
   },
   "--_radius": {
     description:
-      "Corner radius of the group. Defaults to `--ui-button-radius`.",
+      "Corner radius of the group. Defaults to `--ui-button-radius`, or `--ui-radius` when the theme doesn't set it.",
     kind: "input",
   },
 } satisfies CustomProperties

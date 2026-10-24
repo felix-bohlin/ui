@@ -1,14 +1,12 @@
 ---
 import { TableCell, TableRow } from "opui-css/astro"
 import {
-  cssVarRows,
   htmlRows,
   hydrationRows,
   partLabel,
   propRows,
   slotRows,
 } from "../component-api/rows"
-import DocLink from "./DocLink.astro"
 import DocsTable from "./DocsTable.astro"
 import HydrationMarker from "./HydrationMarker.astro"
 import type { ComponentApi } from "../component-api/types"
@@ -59,7 +57,6 @@ if (!api.source && framework !== "html") {
     [notes.pop(), `There is no ${label} component.`].filter(Boolean).join(" "),
   )
 }
-const cssVars = cssVarRows(api)
 ---
 
 {
@@ -164,44 +161,6 @@ const cssVars = cssVarRows(api)
         </DocsTable>
       </Fragment>
     ))
-}
-
-{
-  cssVars.length > 0 && (
-    <Fragment>
-      <SlotsHeading>CSS variables</SlotsHeading>
-      <DocsTable
-        columns={[
-          { label: "Variable", width: "30%" },
-          { label: "Default", width: "30%" },
-          { label: "Description" },
-        ]}
-      >
-        {cssVars.map((row) => (
-          <TableRow>
-            <TableCell>
-              <code>{row.name}</code>
-            </TableCell>
-            <TableCell>
-              {row.default ? <code>{row.default}</code> : "Unset"}
-              {row.dark && (
-                <Fragment>
-                  <br />
-                  <code>{row.dark}</code> in dark mode
-                </Fragment>
-              )}
-            </TableCell>
-            <TableCell set:html={formatInline(row.description, link)} />
-          </TableRow>
-        ))}
-      </DocsTable>
-      <p>
-        This component uses these theme tokens. Override them on{" "}
-        <code>html</code> or on a wrapper. See all{" "}
-        <DocLink href="/guide/theme-tokens">theme tokens</DocLink>.
-      </p>
-    </Fragment>
-  )
 }
 
 {notes.map((note) => <p set:html={formatInline(note, link)} />)}

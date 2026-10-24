@@ -14,5 +14,4 @@ export type Props =
     | ({ as?: never; href?: never } & SvelteHTMLElements["li"])
     | ({ as?: "a"; href: string } & SvelteHTMLElements["a"])
     | ({ as: "button" } & SvelteHTMLElements["button"])
-    | ({ as: "div" } & SvelteHTMLElements["div"])
   )

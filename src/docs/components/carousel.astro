@@ -25,8 +25,8 @@ const photos = [
   { alt: "A deep blue fjord between steep mountains", id: 1015 },
   { alt: "Red rock cliffs lit by the setting sun", id: 1016 },
   { alt: "Green cliffs and a winding road under a cloudy sky", id: 1018 },
-  { alt: "A snowy mountain ridge above the clouds", id: 1036 },
-  { alt: "A lake with a wooden pier at dawn", id: 1039 },
+  { alt: "Yellow tents in a snowy mountain camp", id: 1036 },
+  { alt: "A waterfall in a green forest valley", id: 1039 },
   { alt: "A forest path covered in autumn leaves", id: 1043 },
 ]
 
@@ -369,7 +369,11 @@ export const description =
     </div>
     <p>
       Screen readers announce the position of each item. The buttons and markers
-      have accessible names.
+      have accessible names: "Previous", "Next" and "Slide" followed by the
+      number. Translate them with <code>--_button-prev-label</code>, <code
+        >--_button-next-label</code
+      > and <code>--_marker-label</code>. The number always follows the marker
+      word.
     </p>
     <p>
       The buttons and markers get the library's focus ring. In forced colors

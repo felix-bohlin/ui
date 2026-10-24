@@ -15,6 +15,7 @@ import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import RadioCSS from "@opui/css/components/radio.css?raw"
 import ChoiceCSS from "@opui/css/components/choice.css?raw"
+import CardCSS from "@opui/css/components/card.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import fieldGroupApi from "../../component-api/field-group/api"
@@ -65,6 +66,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
     { title: "radio.css", code: RadioCSS, lang: "css" },
     { title: "choice.css", code: ChoiceCSS, lang: "css" },
     { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
+    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
   ]}
 >
   <Fragment slot="title">Radio</Fragment>
@@ -137,6 +139,13 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
 
     <AutoExample name="VisibleLabel" column centered />
 
+    <h3 id="hidden-label">Hidden label</h3>
+    <p>
+      A radio with a hidden label centers in a table cell or a line of text, and
+      keeps a 24px click target.
+    </p>
+    <AutoExample name="HiddenLabel" column centered />
+
     <h3 id="label-position">Label position</h3>
     <Conditional as="p">
       <Fragment slot="components"
@@ -195,6 +204,32 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
     </Conditional>
 
     <AutoExample name="Spread" column />
+  </section>
+
+  <section>
+    <h2 id="cards">Cards</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>card</code> renders the radio as a card that tints when hovered and
+        when checked. Combine it with <code>spread</code> for the radio at the end,
+        and <code>variant="tonal"</code> or
+        <code>variant="elevated"</code> for the surface, like a <DocLink
+          href="/components/card"
+          class="ui-link">Card</DocLink
+        >. In a horizontal <code>FieldGroup</code> the cards share the row.
+      </Fragment>
+      <Fragment slot="html">
+        <code>.ui-card</code> renders the radio as a card that tints when hovered
+        and when checked. Combine it with <code>.ui-spread</code> for the radio at
+        the end, and <code>.ui-tonal</code> or
+        <code>.ui-elevated</code> for the surface, like a <DocLink
+          href="/components/card"
+          class="ui-link">Card</DocLink
+        >. In a <code>.ui-field-group.ui-horizontal</code> the cards share the row.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="CardsMatrix" column />
   </section>
 
   <section>
@@ -335,6 +370,31 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
       </Fragment>
     </Conditional>
     <AutoExample name="FieldGroupBinding" centered column />
+    <Conditional as="div">
+      <Fragment slot="svelte">
+        <p>
+          Without <code>bind:group</code>, a radio follows <code>checked</code>.
+          Keep the selected value in your own state, and pass each <code
+            >Radio</code
+          > a <code>checked</code> and an <code>onchange</code> that stores its <code
+            >value</code
+          >. Setting the state updates the radios.
+        </p>
+        <AutoExample name="FieldGroupControlled" centered column />
+      </Fragment>
+      <Fragment slot="vue">
+        <p>
+          Without <code>v-model</code>, a radio follows <code>checked</code>.
+          Keep the selected value in your own state, and pass each <code
+            >Radio</code
+          > a
+          <code>:checked</code> and a <code>@change</code> that stores its <code
+            >value</code
+          >. Setting the state updates the radios.
+        </p>
+        <AutoExample name="FieldGroupControlled" centered column />
+      </Fragment>
+    </Conditional>
   </section>
 
   <Fragment slot="accessibility">

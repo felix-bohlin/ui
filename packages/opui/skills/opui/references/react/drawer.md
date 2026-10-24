@@ -28,7 +28,7 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
 Change the opening side with the `side` prop. The default is `inline-start`.
 
-Build it from `DrawerHeader`, `DrawerContent` and `DrawerActions`. The `DrawerHeader` adds a close button. Put a `DrawerTitle` in it for the heading, which names the drawer. Give the drawer an `id`, which the trigger's `commandfor` points at.
+Build it from `DrawerHeader`, `DrawerContent` and `DrawerActions`. The `DrawerHeader` adds a close button. Put a `DrawerTitle` in it for the heading, which names the drawer, and more actions before the close button, which line up at the end. Give the drawer an `id`, which the trigger's `commandfor` points at.
 
 The header and the actions stay put while the content scrolls, with a shadow on the scrolled edge. The actions sit at the end, and `align="start"` on `DrawerActions` lines them up with the content.
 
@@ -67,6 +67,20 @@ export default function Basics() {
       <Drawer id="drawer-basics-1" scrollLock side="inline-start">
         <DrawerHeader>
           <DrawerTitle>Inline Start</DrawerTitle>
+          <Button aria-label="Edit" round size="small">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+              />
+            </svg>
+          </Button>
         </DrawerHeader>
         <DrawerContent>
           <p>
@@ -86,6 +100,36 @@ export default function Basics() {
             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
             quae ab illo inventore veritatis et quasi architecto beatae vitae
             dicta sunt explicabo.
+          </p>
+          <p>
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+            fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt.
+          </p>
+          <p>
+            Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
+            consectetur, adipisci velit, sed quia non numquam eius modi tempora
+            incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+          </p>
+          <p>
+            Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
+            suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.
+          </p>
+          <p>
+            Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse
+            quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat
+            quo voluptas nulla pariatur.
+          </p>
+          <p>
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui
+            blanditiis praesentium voluptatum deleniti atque corrupti quos
+            dolores et quas molestias excepturi sint occaecati cupiditate non
+            provident.
+          </p>
+          <p>
+            Similique sunt in culpa qui officia deserunt mollitia animi, id est
+            laborum et dolorum fuga. Et harum quidem rerum facilis est et
+            expedita distinctio.
           </p>
         </DrawerContent>
         <DrawerActions>
@@ -296,30 +340,6 @@ The `<dialog>` element has the dialog role, and opening it with `command="show-m
 | `scrollLock` | `boolean`                                                           | `false`          | Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px. |
 | `side`       | `"block-end"` , `"block-start"` , `"inline-end"` , `"inline-start"` | `"inline-start"` | The side it opens from.                                                                                                                   |
 
-#### CSS variables
-
-| Variable                 | Default                                           | Description                                                                                                                                                                                               |
-| ------------------------ | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-backdrop-bg-color` | `rgb(0 0 0 / 0.5)`                                | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
-| `--ui-backdrop-blur`     | `1px`                                             | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                          |
-| `--ui-border-color`      | `light-dark(var(--ui-gray-4), var(--ui-gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
-| `--ui-border-width`      | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                   |
-| `--ui-duration-slow`     | `0.3s`                                            | Transition duration for entering and leaving overlays: `Dialog`, `Drawer` and `Menu`.                                                                                                                     |
-| `--ui-ease-enter`        | `var(--ease-out-3)`                               | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`.                                                                                                                           |
-| `--ui-ease-exit`         | `var(--ease-in-3)`                                | Easing for elements leaving the screen: closing `Drawer` and `Menu`.                                                                                                                                      |
-| `--ui-font-size-large`   | `var(--ui-font-size-500)`                         | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.                                                                         |
-| `--ui-motion`            | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion). |
-| `--ui-shadow-overlay`    | `var(--shadow-3)`                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers and `Drawer`.                                                                                                                        |
-| `--ui-shadow-scroll`     | `var(--shadow-4)`                                 | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                  |
-| `--ui-space-1`           | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                           |
-| `--ui-space-2`           | `calc(var(--size-2) * var(--ui-space-scale))`     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                           |
-| `--ui-space-3`           | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                           |
-| `--ui-space-6`           | `calc(var(--size-6) * var(--ui-space-scale))`     | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                           |
-| `--ui-surface-elevated`  | `light-dark(var(--ui-gray-1), var(--ui-gray-12))` | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                         |
-| `--ui-text-strong`       | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                          |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
-
 Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.
 
 ### Drawer header API
@@ -330,30 +350,6 @@ Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria
 | `closeLabel`                                                                                                                                                                                                        | `string`    | `"Close"` | The accessible name of the close button.                                                                                                |
 | `commandfor` **Needs hydration** Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration. Set `commandfor` to the dialog's id. | `string`    | -         | The id of the drawer to close with the `close` command. Without it, the button closes its `Drawer`, or the nearest `<dialog>` on click. |
 
-#### CSS variables
-
-| Variable                 | Default                                           | Description                                                                                                                                                                                               |
-| ------------------------ | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-backdrop-bg-color` | `rgb(0 0 0 / 0.5)`                                | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
-| `--ui-backdrop-blur`     | `1px`                                             | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                          |
-| `--ui-border-color`      | `light-dark(var(--ui-gray-4), var(--ui-gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
-| `--ui-border-width`      | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                   |
-| `--ui-duration-slow`     | `0.3s`                                            | Transition duration for entering and leaving overlays: `Dialog`, `Drawer` and `Menu`.                                                                                                                     |
-| `--ui-ease-enter`        | `var(--ease-out-3)`                               | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`.                                                                                                                           |
-| `--ui-ease-exit`         | `var(--ease-in-3)`                                | Easing for elements leaving the screen: closing `Drawer` and `Menu`.                                                                                                                                      |
-| `--ui-font-size-large`   | `var(--ui-font-size-500)`                         | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.                                                                         |
-| `--ui-motion`            | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion). |
-| `--ui-shadow-overlay`    | `var(--shadow-3)`                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers and `Drawer`.                                                                                                                        |
-| `--ui-shadow-scroll`     | `var(--shadow-4)`                                 | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                  |
-| `--ui-space-1`           | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                           |
-| `--ui-space-2`           | `calc(var(--size-2) * var(--ui-space-scale))`     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                           |
-| `--ui-space-3`           | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                           |
-| `--ui-space-6`           | `calc(var(--size-6) * var(--ui-space-scale))`     | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                           |
-| `--ui-surface-elevated`  | `light-dark(var(--ui-gray-1), var(--ui-gray-12))` | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                         |
-| `--ui-text-strong`       | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                          |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
-
 ### Drawer actions API
 
 | Prop       | Type                | Default | Description                   |
@@ -361,29 +357,31 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `align`    | `"end"` , `"start"` | `"end"` | Alignment for the actions.    |
 | `children` | `ReactNode`         | -       | The actions, such as buttons. |
 
-#### CSS variables
+### CSS variables
 
-| Variable                 | Default                                           | Description                                                                                                                                                                                               |
-| ------------------------ | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-backdrop-bg-color` | `rgb(0 0 0 / 0.5)`                                | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                        |
-| `--ui-backdrop-blur`     | `1px`                                             | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                          |
-| `--ui-border-color`      | `light-dark(var(--ui-gray-4), var(--ui-gray-12))` | Default border color for cards, lists, tables and dividers.                                                                                                                                               |
-| `--ui-border-width`      | `1px`                                             | Default border width for components that draw a border.                                                                                                                                                   |
-| `--ui-duration-slow`     | `0.3s`                                            | Transition duration for entering and leaving overlays: `Dialog`, `Drawer` and `Menu`.                                                                                                                     |
-| `--ui-ease-enter`        | `var(--ease-out-3)`                               | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`.                                                                                                                           |
-| `--ui-ease-exit`         | `var(--ease-in-3)`                                | Easing for elements leaving the screen: closing `Drawer` and `Menu`.                                                                                                                                      |
-| `--ui-font-size-large`   | `var(--ui-font-size-500)`                         | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.                                                                         |
-| `--ui-motion`            | `1`                                               | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion). |
-| `--ui-shadow-overlay`    | `var(--shadow-3)`                                 | Shadow of layers that float above the page: `Menu`, `Select` pickers and `Drawer`.                                                                                                                        |
-| `--ui-shadow-scroll`     | `var(--shadow-4)`                                 | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                  |
-| `--ui-space-1`           | `calc(var(--size-1) * var(--ui-space-scale))`     | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                           |
-| `--ui-space-2`           | `calc(var(--size-2) * var(--ui-space-scale))`     | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                           |
-| `--ui-space-3`           | `calc(var(--size-3) * var(--ui-space-scale))`     | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                           |
-| `--ui-space-6`           | `calc(var(--size-6) * var(--ui-space-scale))`     | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                           |
-| `--ui-surface-elevated`  | `light-dark(var(--ui-gray-1), var(--ui-gray-12))` | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                         |
-| `--ui-text-strong`       | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                          |
+| Variable                            | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                                                                             |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-backdrop-bg-color`            | `rgb(0 0 0 / 0.5)`                                                                                                                                                                                              | Overlay color behind an open `Dialog` or `Drawer`.                                                                                                                                                                                                                                      |
+| `--ui-backdrop-blur`                | `1px`                                                                                                                                                                                                           | Blur radius behind an open `Dialog` or `Drawer`.                                                                                                                                                                                                                                        |
+| `--ui-border-color`                 | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                                                                                |
+| `--ui-border-color-on-raised`       | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), var(--ui-surface) )`                                                                              | Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. The light border mix in light mode and the page background in dark mode. Each raised component sets `--ui-border-color` to it on its root. |
+| `--ui-border-width`                 | `1px`                                                                                                                                                                                                           | Default border width for components that draw a border.                                                                                                                                                                                                                                 |
+| `--ui-duration-slow`                | `0.3s`                                                                                                                                                                                                          | Transition duration for entering and leaving overlays: `Dialog`, `Drawer` and `Menu`.                                                                                                                                                                                                   |
+| `--ui-ease-enter`                   | `var(--ease-out-3)`                                                                                                                                                                                             | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`, and the `Badge`, `Progress` and `Tooltip` transitions.                                                                                                                                                  |
+| `--ui-ease-exit`                    | `var(--ease-in-3)`                                                                                                                                                                                              | Easing for elements leaving the screen: closing `Drawer` and `Menu`.                                                                                                                                                                                                                    |
+| `--ui-field-border-color-on-raised` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )`                                                                                                               | Field border color inside raised surfaces. The same mix as `--ui-field-border-color` by default. Each raised component sets `--ui-field-border-color` to it on its root.                                                                                                                |
+| `--ui-font-size-large`              | `var(--ui-font-size-500)`                                                                                                                                                                                       | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.                                                                                                                                                       |
+| `--ui-motion`                       | `1`                                                                                                                                                                                                             | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion).                                                                               |
+| `--ui-shadow-overlay`               | `var(--shadow-3)`                                                                                                                                                                                               | Shadow of layers that float above the page: `Dialog`, `Drawer`, `Menu`, `Select` pickers and the `Carousel` buttons.                                                                                                                                                                    |
+| `--ui-shadow-scroll`                | `var(--shadow-4)`                                                                                                                                                                                               | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                                                                                                |
+| `--ui-space-1`                      | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                                         |
+| `--ui-space-2`                      | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                                         |
+| `--ui-space-3`                      | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                                         |
+| `--ui-space-6`                      | `calc(var(--size-6) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                                                                                                         |
+| `--ui-surface-elevated`             | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                                                                                                                                               | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                       |
+| `--ui-text-strong`                  | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                                                                        |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
 ## Component properties
 
@@ -402,7 +400,7 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 | `--_content-padding`   | Input  | Padding of `.ui-content`.                                                                                  |
 | `--_direction`         | Output | Direction of the inline slide, `-1` in right-to-left.                                                      |
 | `--_duration`          | Output | Duration of the transitions, `--ui-duration-slow` times `--_motion`.                                       |
-| `--_ease`              | Input  | Easing of the slide and backdrop fade. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing. |
+| `--_ease`              | Output | Easing of the slide and backdrop fade. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing. |
 | `--_header-font-size`  | Input  | Font size of headings in `.ui-header`.                                                                     |
 | `--_header-padding`    | Input  | Padding of `.ui-header`.                                                                                   |
 | `--_inline-size`       | Input  | Width of drawers that open from the inline start or end.                                                   |

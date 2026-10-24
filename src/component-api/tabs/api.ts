@@ -2,10 +2,28 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Tabs",
+  model: {
+    description: "The `value` of the selected tab.",
+    prop: "value",
+    type: "string",
+  },
   notes: {
+    astro:
+      "`value` selects the item whose `value` matches on the server. After that the selection lives in the inputs: read it from the form, or listen for `change` in a script.",
     html: 'Each tab is three elements, in this order: `input.ui-input[type="radio"]`, `label.ui-label` and `.ui-panel`.',
+    react:
+      "Use `value` with `onValueChange`, or `defaultValue`. Without them the items keep their own state, and `onValueChange` still reports changes.",
+    svelte:
+      "Bind `value` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.",
+    vue: "Bind `v-model` with a starting value to control the selection. Without it, or bound to `undefined`, the items keep their own state.",
   },
   options: [
+    {
+      description:
+        "The `value` of the tab selected at the start, when `value` is omitted.",
+      frameworks: ["react"],
+      prop: "defaultValue",
+    },
     {
       attribute: "[name]",
       description: "The name shared by the tab inputs. Generated when omitted.",
@@ -13,6 +31,12 @@ export default {
       htmlDescription: "The name shared by the tab inputs.",
       part: ".ui-input",
       prop: "name",
+    },
+    {
+      description: "Called with the `value` of the tab when one is selected.",
+      frameworks: ["react"],
+      prop: "onValueChange",
+      type: "(value: string) => void",
     },
     {
       default: '"wrap"',
@@ -34,6 +58,12 @@ export default {
         outlined: ".ui-outlined",
         tonal: null,
       },
+    },
+    {
+      description:
+        "The `value` of the selected tab. The item whose `value` matches is checked, and the items' own `checked` is ignored.",
+      frameworks: ["astro", "react"],
+      prop: "value",
     },
   ],
   parts: [

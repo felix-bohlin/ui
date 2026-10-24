@@ -7,16 +7,15 @@ export type Props = {
 export type TabsItemProps = {
   checked?: boolean
   name?: string
-  tabId?: string
 }
 
 export type TabsPanelProps = {}
 
-export type TabsLabelProps = {
-  tabId?: string
-}
+export type TabsLabelProps = {}
 
 export type Context = {
+  change?: (input: HTMLInputElement) => void
   groupName?: string
   tabId?: string
+  value?: string
 }

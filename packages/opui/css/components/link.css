@@ -1,15 +1,19 @@
 @layer components.root {
-  :where(.ui-link) {
-    --_text-color: var(--ui-primary-text);
+  @scope (.ui-link, .ui-rich-text) to (.ui-not-rich-text) {
+    :where(:scope.ui-link),
+    a[href]:where(:not([class*="ui-"])) {
+      --_text-color: var(--ui-primary-text);
 
-    color: var(--_text-color);
-    cursor: pointer;
-    font-weight: var(--ui-font-weight-bold);
-    text-decoration: underline;
-    text-decoration-color: var(--_text-color);
-    text-underline-offset: var(--ui-underline-offset);
+      color: var(--_text-color);
+      cursor: pointer;
+      font-weight: var(--ui-font-weight-bold);
+      text-decoration: underline;
+      text-decoration-color: var(--_text-color);
+      text-underline-offset: var(--ui-underline-offset);
+    }
 
-    &[href] {
+    :where(:scope.ui-link)[href],
+    a[href]:where(:not([class*="ui-"])) {
       @media (hover: hover) {
         &:hover {
           color: light-dark(
@@ -28,6 +32,15 @@
         );
         text-decoration-color: currentColor;
         text-decoration-thickness: var(--ui-underline-thickness-hover);
+      }
+    }
+
+    mark a[href]:where(:not([class*="ui-"])) {
+      &,
+      &:hover,
+      &:focus-visible {
+        color: inherit;
+        text-decoration-color: currentColor;
       }
     }
   }

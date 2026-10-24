@@ -21,14 +21,7 @@ export const description =
   slug="badge"
   heroAnatomy
   apis={[{ title: "Badge API", api: badgeApi }]}
-  browserSupport={[
-    "container-style-queries",
-    "dir-pseudo",
-    "has",
-    "light-dark",
-    "relative-color",
-    "trig-functions",
-  ]}
+  browserSupport={["dir-pseudo", "has", "relative-color", "trig-functions"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Badge/Badge.astro",
@@ -50,13 +43,13 @@ export const description =
   <Fragment slot="title">Badge</Fragment>
 
   <section>
-    <h2 id="dot">Dot</h2>
+    <h2 id="basics">Basics</h2>
     <p>
       Use <PropOrClass prop="dot" class=".ui-dot" /> to show a dot instead of the
       label.
     </p>
 
-    <AutoExample name="Variants" row />
+    <AutoExample name="Basics" row />
   </section>
 
   <section>

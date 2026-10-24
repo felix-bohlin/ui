@@ -1,26 +1,28 @@
 ---
 import type { TabsItemProps as Props } from "./types.astro"
 import { createId } from "../id"
+import { isSelected } from "../ToggleGroup/selection"
 import { tabsContext } from "./context.astro"
 
 const $id = createId(Astro.locals)
-const { checked, class: className, name, tabId, ...rest } = Astro.props
+const { checked, class: className, id, name, value, ...rest } = Astro.props
 
 const parent = tabsContext.get()
 const groupName = name || parent?.groupName || $id("tabs")
-const computedTabId = tabId || $id("tab")
-const html = await tabsContext.provide(
-  { groupName, tabId: computedTabId },
-  () => Astro.slots.render("default"),
+const tabId = id || $id("tab")
+const grouped = isSelected(parent?.value, value)
+const html = await tabsContext.provide({ groupName, tabId }, () =>
+  Astro.slots.render("default"),
 )
 ---
 
 <input
-  checked={checked}
+  checked={grouped ?? checked}
   class:list={["ui-input", className]}
-  id={computedTabId}
+  id={tabId}
   name={groupName}
   type="radio"
+  value={value}
   {...rest}
 />
 <Fragment set:html={html} />

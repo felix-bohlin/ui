@@ -15,6 +15,7 @@ defineOptions({
 })
 
 const {
+  autoFit,
   dense,
   endText,
   error,
@@ -79,6 +80,7 @@ const field = inject(FieldGroupKey, undefined)
     :class="[
       'ui-select',
       {
+        'ui-auto-fit': autoFit,
         'ui-filled': variant === 'filled',
         'ui-spread': spread,
       },

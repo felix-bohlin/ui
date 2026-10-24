@@ -18,6 +18,6 @@
   untrack(() => warnReplacedId("DialogHeader", "Dialog", id, dialog?.headerId))
 </script>
 
-<hgroup class={[className]} id={dialog?.headerId ?? id} {...rest}>
+<hgroup class={["ui-header", className]} id={dialog?.headerId ?? id} {...rest}>
   {@render children?.()}
 </hgroup>

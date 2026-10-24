@@ -178,6 +178,8 @@ export default function Composition() {
 | -------------------------------------------------------------------------- | --------------------------------------------- |
 | `.ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-container` | Any element. The classes only set its layout. |
 
+Add the classes to elements in your markup. There is no React component.
+
 ### CSS variables
 
 | Variable       | Default                                       | Description                                                     |
@@ -188,9 +190,7 @@ export default function Composition() {
 | `--ui-space-4` | `calc(var(--size-4) * var(--ui-space-scale))` | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`. |
 | `--ui-space-5` | `calc(var(--size-5) * var(--ui-space-scale))` | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`. |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
-
-Add the classes to elements in your markup. There is no React component.
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
 ## Component properties
 

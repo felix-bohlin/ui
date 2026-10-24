@@ -165,6 +165,8 @@ import { Button, Card, CardContent } from "opui-css/vue"
 | -------------------------------------------------------------------------- | --------------------------------------------- |
 | `.ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-container` | Any element. The classes only set its layout. |
 
+Add the classes to elements in your templates. There is no Vue component.
+
 ### CSS variables
 
 | Variable       | Default                                       | Description                                                     |
@@ -175,9 +177,7 @@ import { Button, Card, CardContent } from "opui-css/vue"
 | `--ui-space-4` | `calc(var(--size-4) * var(--ui-space-scale))` | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`. |
 | `--ui-space-5` | `calc(var(--size-5) * var(--ui-space-scale))` | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`. |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
-
-Add the classes to elements in your templates. There is no Vue component.
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 ## Component properties
 

@@ -78,8 +78,8 @@
         box-shadow: none;
         margin-block-start: calc(-1 * var(--ui-border-width));
         margin-inline-start: calc(-1 * var(--ui-border-width));
-        min-block-size: calc(var(--_min-block-size) + var(--ui-border-width));
-        min-inline-size: calc(var(--_min-block-size) + var(--ui-border-width));
+        min-block-size: calc(var(--_size) + var(--ui-border-width));
+        min-inline-size: calc(var(--_size) + var(--ui-border-width));
       }
     }
   }

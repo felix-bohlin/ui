@@ -23,7 +23,7 @@
 
   setToggleGroupContext({
     change(input) {
-      value = selectionOf(input, multiple)
+      if (value !== undefined) value = selectionOf(input, multiple)
     },
     get groupName() {
       return groupName

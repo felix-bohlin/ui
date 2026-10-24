@@ -19,6 +19,11 @@ export default {
     description: "Gap between the content of an item. Smaller in `.ui-dense`.",
     kind: "input",
   },
+  "--_radius": {
+    description:
+      "The corner radius of a `.ui-list`. Defaults to `--ui-radius`, and `0` when the list is a direct child of a `Card`, `Accordion` or `Dialog`, which round and clip it themselves.",
+    kind: "input",
+  },
   "--_selected-bg-color": {
     description:
       "Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`, stronger than `--_hover-bg-color`. With more contrast it is `--_hover-bg-color`, so the text keeps 7:1, and the bar marks the row.",

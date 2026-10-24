@@ -6,5 +6,4 @@ export type Props = Base.Props &
     | ({ as?: never; href?: never } & HTMLAttributes<"li">)
     | ({ as?: "a"; href: string } & HTMLAttributes<"a">)
     | ({ as: "button" } & HTMLAttributes<"button">)
-    | ({ as: "div" } & HTMLAttributes<"div">)
   )

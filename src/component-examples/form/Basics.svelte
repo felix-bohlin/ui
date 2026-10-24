@@ -1,22 +1,25 @@
 <script lang="ts">
   import {
+    Button,
     FieldDescription,
     FieldGroup,
     FieldLegend,
     Fieldset,
     Form,
+    TextField,
   } from "opui-css/svelte"
 </script>
 
 <Form>
   <Fieldset>
-    <FieldLegend><!-- --></FieldLegend>
-    <FieldDescription><!-- --></FieldDescription>
+    <FieldLegend>Contact</FieldLegend>
+    <FieldDescription>How can we reach you?</FieldDescription>
     <FieldGroup>
-      <!-- -->
-    </FieldGroup>
-    <FieldGroup>
-      <!-- -->
+      <TextField autocomplete="name" label="Name" />
+      <TextField autocomplete="email" label="Email" type="email" />
     </FieldGroup>
   </Fieldset>
+  <FieldGroup>
+    <Button type="submit" variant="filled">Send</Button>
+  </FieldGroup>
 </Form>

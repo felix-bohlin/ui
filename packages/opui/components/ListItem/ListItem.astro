@@ -27,7 +27,7 @@ const hasLabel = !!label || Astro.slots.has("label")
 const hasDescription = !!description || Astro.slots.has("description")
 const tagProps = hasControl
   ? { class: `ui-${type}`, for: htmlFor }
-  : { ...rest, ...tagAttrs(Tag ?? "", disabled, href) }
+  : { ...tagAttrs(Tag ?? "", disabled, href), ...rest }
 ---
 
 <li

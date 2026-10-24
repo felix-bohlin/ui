@@ -12,6 +12,7 @@
     --_shadow: none;
     --_surface-bg-color: var(--ui-surface);
     --_tonal-bg-color: var(--ui-surface-tonal);
+    --ui-divider-gap: var(--ui-space-3);
 
     background-color: var(--_bg-color);
     border-color: var(--_border-color);
@@ -41,6 +42,8 @@
       --_border-color: var(--ui-border-color-raised, var(--_surface-bg-color));
       --_border-width: var(--ui-border-width);
       --_shadow: var(--ui-shadow-surface);
+      --ui-border-color: var(--ui-border-color-on-raised);
+      --ui-field-border-color: var(--ui-field-border-color-on-raised);
     }
 
     &.ui-elevated {
@@ -48,6 +51,8 @@
       --_border-color: var(--ui-border-color-raised, var(--_surface-bg-color));
       --_border-width: var(--ui-border-width);
       --_shadow: var(--_elevated-shadow);
+      --ui-border-color: var(--ui-border-color-on-raised);
+      --ui-field-border-color: var(--ui-field-border-color-on-raised);
     }
 
     &.ui-outlined {
@@ -57,7 +62,7 @@
       --_shadow: var(--ui-shadow-surface);
     }
 
-    & > :where(hgroup, .ui-content) {
+    & > :where(hgroup, .ui-content, .ui-header) {
       margin-block: 0;
       padding-inline: var(--ui-space-3);
 
@@ -67,7 +72,7 @@
     }
 
     /* Header */
-    & > hgroup {
+    & > :where(hgroup, .ui-header) {
       padding-block: var(--ui-space-3) 0;
 
       & > :where(h1, h2, h3, h4, h5, h6, p) {
@@ -109,33 +114,9 @@
       padding-block: var(--ui-space-2);
       padding-inline: var(--ui-space-3);
 
-      &:has(> .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
-        padding-inline: var(--ui-space-3)
-          max(
-            var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
-            var(--ui-space-1)
-          );
-      }
-
       /* Alignment */
       &.ui-align-start {
         justify-content: start;
-
-        &:has(
-          > .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)
-        ) {
-          padding-inline: var(--ui-space-3);
-        }
-
-        &:has(
-          > .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)
-        ) {
-          padding-inline: max(
-              var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
-              var(--ui-space-1)
-            )
-            var(--ui-space-3);
-        }
       }
     }
 

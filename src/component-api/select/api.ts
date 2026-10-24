@@ -20,6 +20,13 @@ export default {
   },
   options: [
     {
+      class: ".ui-auto-fit",
+      default: "false",
+      description: "Lets the width follow the selected option, from `25ch`.",
+      group: "Auto fit",
+      prop: "autoFit",
+    },
+    {
       class: ".ui-dense",
       default: "false",
       description: "Packs the items tighter.",

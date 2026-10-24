@@ -39,7 +39,7 @@ export default function Spread() {
         error
         label="Invalid Name"
         startText="This field has an error"
-        endText="This value is too short."
+        endText="Enter at least two characters."
       />
 
       <TextField

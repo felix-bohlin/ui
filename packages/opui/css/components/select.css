@@ -78,8 +78,8 @@
       border-radius: var(--ui-field-radius, var(--ui-radius));
 
       /* Groups */
-      [role="group"] {
-        label {
+      :is([role="group"], optgroup) {
+        :is(label, legend) {
           background-color: color-mix(
             in oklch,
             var(--_bg-color) 94%,
@@ -161,9 +161,7 @@
       &.ui-spread::after {
         align-self: start;
         grid-row: 1 / span 3;
-        margin-block-start: calc(
-          (var(--_min-block-size) - var(--_chevron-size)) / 2
-        );
+        margin-block-start: calc((var(--_size) - var(--_chevron-size)) / 2);
       }
 
       @container (inline-size < 400px) {

@@ -1,26 +1,6 @@
 import type { CustomProperties } from "../types"
 
 export default {
-  "--_active-bg-color": {
-    description:
-      "Background of the selected tab. Defaults to `--ui-surface`, a translucent white in dark mode; the variant classes set it.",
-    kind: "input",
-  },
-  "--_active-border-color": {
-    description:
-      "Border color of the selected tab. `--ui-control-border-color`, or `--ui-field-border-color` when the theme doesn't set it, so the pill reaches 3:1 against the track; the variant classes set it to `transparent`.",
-    kind: "input",
-  },
-  "--_active-shadow": {
-    description:
-      "Shadow of the selected tab. Defaults to `--ui-shadow-selected`. `.ui-line` and `.ui-outlined` remove it.",
-    kind: "input",
-  },
-  "--_active-text-color": {
-    description:
-      "Text color of the selected tab. Defaults to `--ui-text-strong`, `.ui-filled` sets it to `--ui-on-selected-strong`.",
-    kind: "input",
-  },
   "--_duration": {
     description:
       "Duration of the transitions, `--ui-duration-fast` times `--_motion`.",
@@ -57,6 +37,26 @@ export default {
   "--_radius": {
     description:
       "Corner radius of the track. The selected tab's radius is reduced by `--_inset` and `--_track-border-width`.",
+    kind: "input",
+  },
+  "--_selected-bg-color": {
+    description:
+      "Background of the selected tab. Defaults to `--ui-surface`, a translucent white in dark mode; the variant classes set it.",
+    kind: "input",
+  },
+  "--_selected-border-color": {
+    description:
+      "Border color of the selected tab. `--ui-control-border-color`, or `--ui-field-border-color` when the theme doesn't set it, so the pill reaches 3:1 against the track; the variant classes set it to `transparent`.",
+    kind: "input",
+  },
+  "--_selected-shadow": {
+    description:
+      "Shadow of the selected tab. Defaults to `--ui-shadow-selected`. `.ui-line` and `.ui-outlined` remove it.",
+    kind: "input",
+  },
+  "--_selected-text-color": {
+    description:
+      "Text color of the selected tab. Defaults to `--ui-text-strong`, `.ui-filled` sets it to `--ui-on-selected-strong`.",
     kind: "input",
   },
   "--_text-color": {

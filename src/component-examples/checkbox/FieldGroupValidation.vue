@@ -12,7 +12,7 @@ import { Checkbox, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
         <Checkbox error>Checkbox 3</Checkbox>
       </FieldGroup>
       <span class="ui-end-text" id="checkbox-field-group-validation-1-error"
-        >Something went wrong!</span
+        >Pick at least two to continue.</span
       >
     </Fieldset>
   </Form>

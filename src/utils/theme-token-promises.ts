@@ -1,5 +1,6 @@
 export type TokenPromise = {
   against: string[]
+  fallback?: string
   ratio: 3 | 4.5
 }
 
@@ -11,6 +12,11 @@ const SURFACES = [
 ]
 
 export const themeTokenPromises: Record<string, TokenPromise> = {
+  "--ui-choice-border-color": {
+    against: ["--ui-surface"],
+    fallback: "--ui-field-border-color",
+    ratio: 3,
+  },
   "--ui-critical-text": { against: SURFACES, ratio: 4.5 },
   "--ui-field-border-color": { against: ["--ui-surface"], ratio: 3 },
   "--ui-focus-ring-color": { against: ["--ui-surface"], ratio: 3 },

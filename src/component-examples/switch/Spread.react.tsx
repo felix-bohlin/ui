@@ -33,7 +33,7 @@ export default function Spread() {
         name="switch-spread"
         spread
         error
-        endText="There is an error with this switch."
+        endText="Turn this on to continue."
       >
         Invalid Switch
       </Switch>

@@ -6,7 +6,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <hgroup :class="[$props.class]">
+  <hgroup :class="['ui-header', $props.class]">
     <slot></slot>
   </hgroup>
 </template>

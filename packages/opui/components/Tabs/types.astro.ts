@@ -1,7 +1,9 @@
 import type * as Base from "./types"
 import type { HTMLAttributes } from "astro/types"
 
-export type Props = Base.Props & HTMLAttributes<"div">
+export type Props = Base.Props & {
+  value?: string
+} & HTMLAttributes<"div">
 
 export type TabsItemProps = Base.TabsItemProps &
   Omit<HTMLAttributes<"input">, "type">

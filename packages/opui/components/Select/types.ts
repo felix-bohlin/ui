@@ -1,4 +1,5 @@
 export type Props = {
+  autoFit?: boolean
   dense?: boolean
   endText?: string
   error?: boolean

@@ -16,22 +16,10 @@ export default {
       prop: "disabled",
     },
     {
-      description:
-        'Disables a button chip. A link chip, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead. On a static chip, `aria-disabled="true"` only dims it a little and keeps its text readable.',
-      frameworks: ["html"],
-      group: "State",
-      prop: "state",
-      values: {
-        button: "button[disabled]",
-        link: 'a[aria-disabled="true"]',
-        static: 'div[aria-disabled="true"]',
-      },
-    },
-    {
       class: ".ui-dot",
       default: "false",
       description:
-        "Adds a leading dot in the chip's color. Its shape follows the severity.",
+        "Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it.",
       group: "Dot",
       prop: "dot",
     },
@@ -45,6 +33,14 @@ export default {
       description: "Lets the label wrap to multiple lines.",
       group: "Layout",
       prop: "multiline",
+    },
+    {
+      attribute: '[aria-pressed="true"]',
+      description:
+        "Fills a pressed button chip with `--ui-selected`, or `--ui-primary`, for a filter or a choice.",
+      frameworks: ["html"],
+      group: "Pressed",
+      prop: "pressed",
     },
     {
       description:
@@ -69,6 +65,18 @@ export default {
         medium: null,
         small: ".ui-small",
         "x-small": ".ui-x-small",
+      },
+    },
+    {
+      description:
+        "Disables a button chip. A link chip, which can't take `disabled`, drops its `href` and takes `aria-disabled=\"true\"` instead. A static chip can't be disabled; `.ui-disabled` gives it an inactive look without announcing a state.",
+      frameworks: ["html"],
+      group: "State",
+      prop: "state",
+      values: {
+        button: "button[disabled]",
+        link: 'a[aria-disabled="true"]',
+        static: ".ui-disabled",
       },
     },
     {

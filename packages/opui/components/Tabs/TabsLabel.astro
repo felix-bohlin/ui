@@ -2,13 +2,13 @@
 import type { TabsLabelProps as Props } from "./types.astro"
 import { tabsContext } from "./context.astro"
 
-const { class: className, tabId, ...rest } = Astro.props
+const { class: className, for: htmlFor, ...rest } = Astro.props
 
 const tabs = tabsContext.get()
 ---
 
 <label
-  for={tabId || tabs?.tabId}
+  for={htmlFor || tabs?.tabId}
   class:list={["ui-label", className]}
   {...rest}
 >

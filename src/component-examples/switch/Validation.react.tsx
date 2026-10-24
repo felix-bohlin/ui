@@ -3,7 +3,7 @@ import { Switch } from "opui-css/react"
 export default function Validation() {
   return (
     <>
-      <div className="example-row ui-spacious">
+      <div className="example-row">
         <Switch name="switch-validation" required>
           Default
         </Switch>
@@ -12,7 +12,7 @@ export default function Validation() {
         </Switch>
       </div>
 
-      <div className="example-row ui-spacious">
+      <div className="example-row">
         <Switch
           name="switch-validation"
           error

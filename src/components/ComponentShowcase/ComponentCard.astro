@@ -15,7 +15,12 @@ const { link } = Astro.locals
   <div class="showcase-preview">
     <slot />
   </div>
-  <Button href={link(href)} variant="tonal" size="small" class="showcase-link">
+  <Button
+    href={link(href)}
+    variant="outlined"
+    size="small"
+    class="showcase-link"
+  >
     <span>{name}</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"

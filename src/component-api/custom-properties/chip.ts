@@ -4,7 +4,7 @@ export default {
   "--_accent": {
     description:
       "The color the hover background of a colored button or link chip is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`.",
-    kind: "input",
+    kind: "output",
   },
   "--_bg-color": {
     description:
@@ -36,6 +36,11 @@ export default {
   },
   "--_padding-inline": {
     description: "The inline padding. `.ui-large` sets it.",
+    kind: "input",
+  },
+  "--_pressed-bg-color": {
+    description:
+      'Background of a button chip with `aria-pressed="true"`. `--ui-selected` when the theme sets it, otherwise `--ui-primary`.',
     kind: "input",
   },
   "--_size": {

@@ -17,7 +17,7 @@ export default function FieldGroupValidation() {
           className="ui-end-text"
           id="switch-field-group-validation-1-error"
         >
-          Something went wrong!
+          Turn on at least one to continue.
         </span>
       </Fieldset>
     </Form>

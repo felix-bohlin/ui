@@ -6,6 +6,7 @@
     class: className,
     name,
     overflow,
+    value = $bindable(),
     variant,
 
     // Snippets
@@ -17,8 +18,14 @@
   const groupName = $derived(name || `tabs-${uid}`)
 
   setTabsContext({
+    change(input) {
+      if (value !== undefined) value = input.value
+    },
     get groupName() {
       return groupName
+    },
+    get value() {
+      return value
     },
   })
 </script>

@@ -13,6 +13,7 @@ Lists meant to be used stand-alone or as part of Select elements
       from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
     );
     --_item-gap: var(--ui-space-3);
+    --_radius: var(--ui-radius);
     --_selected-bg-color: var(
       --ui-selected,
       oklch(from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent))
@@ -38,14 +39,27 @@ Lists meant to be used stand-alone or as part of Select elements
     padding-block: var(--ui-space-2);
     padding-inline: 0;
 
+    &:not(.ui-menu, .ui-tonal, .ui-transparent) {
+      --ui-border-color: var(--ui-border-color-on-filled);
+      --ui-field-border-color: var(--ui-field-border-color-on-filled);
+    }
+
+    &.ui-list {
+      border-radius: var(--_radius);
+      overflow: clip;
+
+      :where(.ui-accordion, .ui-card, .ui-dialog) > & {
+        --_radius: 0;
+      }
+    }
+
     &:dir(rtl) {
       --_selected-shadow: inset calc(-1 * var(--_selected-indicator-size)) 0 0
         var(--_selected-indicator-bg-color);
     }
 
     @media (pointer: coarse) {
-      &,
-      * {
+      & > :where(li, option) > :where(a, button, label) {
         user-select: none;
       }
     }
@@ -67,9 +81,11 @@ Lists meant to be used stand-alone or as part of Select elements
     /* Borders on all list items */
     /* Border between list items */
     &.ui-bordered > :where(li + li, option + option),
-    &.ui-bordered > :where([role="group"]) > :where(option + option),
+    &.ui-bordered > :where([role="group"], optgroup) > :where(option + option),
     & > :where(li, option).ui-border-top,
-    & > :where([role="group"]) > :where(label, option).ui-border-top {
+    &
+      > :where([role="group"], optgroup)
+      > :where(label, legend, option).ui-border-top {
       margin-block-start: var(--_separator-gap);
 
       &::before {
@@ -92,8 +108,8 @@ Lists meant to be used stand-alone or as part of Select elements
       --_start-size: var(--ui-icon-size-small);
 
       & > :where(li, option),
-      & > :where([role="group"]) > :where(label, option) {
-        min-block-size: var(--ui-space-7);
+      & > :where([role="group"], optgroup) > :where(label, legend, option) {
+        min-block-size: var(--ui-control-size-small);
         padding-block: var(--ui-space-1);
         padding-inline: var(--ui-space-3);
 
@@ -104,7 +120,7 @@ Lists meant to be used stand-alone or as part of Select elements
         }
 
         & > :where(a, button, label) {
-          min-block-size: var(--ui-space-7);
+          min-block-size: var(--ui-control-size-small);
           padding-block: var(--ui-space-1);
           padding-inline: var(--ui-space-3);
         }
@@ -116,7 +132,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         /* Leading and trailing content */
         & > :is(.ui-start, .ui-end),
-        & > :where(a, button, div, label) > :is(.ui-start, .ui-end) {
+        & > :where(a, button, label) > :is(.ui-start, .ui-end) {
           .ui-avatar {
             max-inline-size: var(--ui-space-6);
           }
@@ -132,7 +148,7 @@ Lists meant to be used stand-alone or as part of Select elements
     /* Gutterless */
     &.ui-flush {
       & > :where(li, option),
-      & > :where([role="group"]) > :where(option) {
+      & > :where([role="group"], optgroup) > :where(option) {
         padding-inline: 0;
 
         & > :where(a, button, label) {
@@ -143,7 +159,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
     /* List item */
     & > :where(li, option),
-    & > :where([role="group"]) > :where(label, option) {
+    & > :where([role="group"], optgroup) > :where(label, legend, option) {
       align-items: center;
       background-color: var(--_bg-color);
       display: flex;
@@ -301,7 +317,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
       /* Leading content */
       & > .ui-start,
-      & > :where(a, button, div, label) > .ui-start {
+      & > :where(a, button, label) > .ui-start {
         align-items: center;
         align-self: center;
         display: grid;
@@ -330,7 +346,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
       /* Trailing content */
       & > .ui-end,
-      & > :where(a, button, div, label) > .ui-end {
+      & > :where(a, button, label) > .ui-end {
         align-items: center;
         display: flex;
         font-size: var(--ui-font-size-caption);
@@ -371,7 +387,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         /* Safety measure so it won't look bad if there for some reason should exist a leading element inside. */
         & > .ui-start,
-        & > :where(a, button, div, label) > .ui-start {
+        & > :where(a, button, label) > .ui-start {
           display: none;
         }
       }
@@ -393,7 +409,9 @@ Lists meant to be used stand-alone or as part of Select elements
 @layer components.root {
   :where(
     :is(.ui-list, .ui-menu).ui-dense > :where(li, option),
-    :is(.ui-list, .ui-menu).ui-dense > [role="group"] > :where(label, option)
+    :is(.ui-list, .ui-menu).ui-dense
+      > :where([role="group"], optgroup)
+      > :where(label, legend, option)
   ) {
     & > :where(label.ui-checkbox, label.ui-radio),
     & > :where(.ui-start, .ui-end) :where(.ui-checkbox, .ui-radio),
@@ -408,7 +426,9 @@ Lists meant to be used stand-alone or as part of Select elements
   /* Switches look comically big in lists, so it's better to use a smaller variant  */
   :where(
       :is(.ui-list, .ui-menu) > :where(li, option),
-      :is(.ui-list, .ui-menu) > [role="group"] > :where(label, option)
+      :is(.ui-list, .ui-menu)
+        > :where([role="group"], optgroup)
+        > :where(label, legend, option)
     )
     > :where(label.ui-switch) {
     --ui-switch-thumb-size: var(--ui-switch-thumb-size-small);

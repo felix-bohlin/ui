@@ -237,8 +237,8 @@ const outputId = `${groupName}-output`
       <div class="example-code-area">
         <template class="example-code">
           <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
-            <TabsItem tabId={sourceId} name={groupName} checked>
-              <TabsLabel tabId={sourceId} data-tab="source">
+            <TabsItem id={sourceId} name={groupName} checked>
+              <TabsLabel for={sourceId} data-tab="source">
                 {codeLangLabel}
               </TabsLabel>
               <TabsPanel data-panel="source">
@@ -252,8 +252,8 @@ const outputId = `${groupName}-output`
             </TabsItem>
 
             {showOutput && (
-              <TabsItem tabId={outputId} name={groupName}>
-                <TabsLabel tabId={outputId} data-tab="output">
+              <TabsItem id={outputId} name={groupName}>
+                <TabsLabel for={outputId} data-tab="output">
                   Output
                 </TabsLabel>
                 <TabsPanel data-panel="output">
@@ -328,7 +328,6 @@ const outputId = `${groupName}-output`
 
     .example-preview {
       anchor-name: --example-preview;
-      display: grid;
       gap: var(--size-3);
       isolation: isolate;
       min-block-size: var(--size-10);
@@ -336,12 +335,8 @@ const outputId = `${groupName}-output`
       padding: var(--size-4);
       position: relative;
 
-      &.example-row {
-        align-items: start;
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--size-3);
-        justify-content: center;
+      &:not(.example-row) {
+        display: grid;
       }
 
       &.has-show-code {
@@ -354,6 +349,10 @@ const outputId = `${groupName}-output`
 
       &.ui-spacious {
         gap: var(--size-8);
+
+        .example-row {
+          gap: var(--size-6);
+        }
       }
 
       &:before {
@@ -406,10 +405,6 @@ const outputId = `${groupName}-output`
     flex-wrap: wrap;
     gap: var(--size-3);
     justify-content: center;
-  }
-
-  .example-row.ui-spacious {
-    gap: var(--size-6);
   }
 
   .example-compass {
@@ -478,9 +473,14 @@ const outputId = `${groupName}-output`
       const { toggleClass, toggleTarget } =
         input.closest<HTMLElement>("[data-toggle-class]")?.dataset ?? {}
       if (!toggleClass || !toggleTarget) return
-      container
-        .querySelectorAll(`.example-preview :is(${toggleTarget})`)
-        .forEach((el) => el.classList.toggle(toggleClass, input.checked))
+      const targets = toggleTarget.split(";")
+      toggleClass.split(";").forEach((className, index) => {
+        const target = targets[index]?.trim()
+        if (!className.trim() || !target) return
+        container
+          .querySelectorAll(`.example-preview :is(${target})`)
+          .forEach((el) => el.classList.toggle(className.trim(), input.checked))
+      })
     }
 
     container

@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Checkbox",
-  css: ["checkbox", "choice"],
+  css: ["card", "checkbox", "choice"],
   hydration: {
     react: [
       {
@@ -53,22 +53,34 @@ export default {
   },
   notes: {
     astro:
-      "Attributes that aren't props go to the `<input>`, like `checked`, `disabled`, `name` and `required`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in the slot.",
+      "Attributes that aren't props go to the `<input>`, like `checked`, `disabled`, `name` and `required`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
     html: "`data-indeterminate` needs `checkbox.js`. It sets the `indeterminate` property.",
     react:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`. For a group, keep the checked values in your own state.",
     svelte:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `children`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in the slot.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
   },
   options: [
     {
-      attribute: "[disabled]",
-      description: "Dims the checkbox and shows a not-allowed cursor.",
+      class: ".ui-card",
+      default: "false",
+      description:
+        "Renders the checkbox as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface.",
+      group: "Card",
+      prop: "card",
+    },
+    {
+      description:
+        'Dims the checkbox and shows a not-allowed cursor. `aria-disabled="true"` looks the same, but keeps the checkbox focusable and its value in the form, and doesn\'t stop the change, so block it with a script.',
       frameworks: ["html"],
       group: "Disabled",
       part: "input",
       prop: "disabled",
+      values: {
+        "aria-disabled": '[aria-disabled="true"]',
+        disabled: "[disabled]",
+      },
     },
     {
       attribute: '[aria-invalid="true"]',
@@ -97,20 +109,20 @@ export default {
       prop: "indeterminate",
     },
     {
-      attribute: "[required]",
-      description: "Adds a required mark after the label.",
-      frameworks: ["html"],
-      group: "Required",
-      part: "input",
-      prop: "required",
-    },
-    {
       default: '"horizontal"',
       description:
         "The orientation of the element. `vertical` stacks the label under the input.",
       group: "Orientation",
       prop: "orientation",
       values: { horizontal: null, vertical: ".ui-vertical" },
+    },
+    {
+      attribute: "[required]",
+      description: "Adds a required mark after the label.",
+      frameworks: ["html"],
+      group: "Required",
+      part: "input",
+      prop: "required",
     },
     {
       default: '"medium"',
@@ -130,6 +142,14 @@ export default {
       description: "Pushes the label and the input to opposite ends.",
       group: "Spread",
       prop: "spread",
+    },
+    {
+      default: '"outlined"',
+      description:
+        "The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+      group: "Variants",
+      prop: "variant",
+      values: { elevated: ".ui-elevated", outlined: null, tonal: ".ui-tonal" },
     },
   ],
   parts: [

@@ -20,10 +20,6 @@ export default {
       "Size of the `.ui-icon-checked` and `.ui-icon-unchecked` icons, computed to fit beside the thumb.",
     kind: "output",
   },
-  "--_input-size": {
-    description: "Height the label centers on, `--_track-block-size`.",
-    kind: "output",
-  },
   "--_motion": {
     description: "Motion multiplier for the transitions. `0` turns them off.",
     kind: "input",
@@ -32,6 +28,11 @@ export default {
     description:
       "Color of the checked thumb on `--_accent`. `SelectedItemText` in forced colors.",
     kind: "input",
+  },
+  "--_size": {
+    description:
+      "Height the label in `choice.css` centers on, `--_track-block-size`.",
+    kind: "output",
   },
   "--_thumb-bg-color": {
     description:
@@ -65,7 +66,7 @@ export default {
   },
   "--_track-border-color": {
     description:
-      "Border of the unchecked track. Defaults to `--ui-field-border-color`, like the checkbox and radio borders. The checked track uses `--_accent`.",
+      "Border of the unchecked track. Defaults to `--ui-choice-border-color`, or `--ui-field-border-color` when the theme leaves it unset, like the checkbox and radio borders. The checked track uses `--_accent`.",
     kind: "input",
   },
   "--_track-inline-size": {

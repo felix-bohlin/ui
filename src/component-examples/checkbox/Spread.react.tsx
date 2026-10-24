@@ -33,7 +33,7 @@ export default function Spread() {
         name="checkbox-spread"
         spread
         error
-        endText="There is an error with this checkbox."
+        endText="Check this box to continue."
       >
         Invalid Checkbox
       </Checkbox>

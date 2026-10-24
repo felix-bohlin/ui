@@ -12,5 +12,13 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/vue"
         <Switch>Switch 3</Switch>
       </FieldGroup>
     </Fieldset>
+    <Fieldset>
+      <FieldLegend>One by one</FieldLegend>
+      <FieldGroup orientation="horizontal" name="switch-group-disabled-single">
+        <Switch checked>Enabled</Switch>
+        <Switch disabled>Disabled</Switch>
+        <Switch aria-disabled="true">Aria-disabled</Switch>
+      </FieldGroup>
+    </Fieldset>
   </Form>
 </template>

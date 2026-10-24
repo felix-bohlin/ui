@@ -183,6 +183,7 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | `opui-css/core/palette.css`         | OKLCH palette (required by the components)                                                                             |
 | `opui-css/core/utils.css`           | Utility classes                                                                                                        |
 | `opui-css/css/js/checkbox.js`       | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework |
+| `opui-css/css/js/range.js`          | `initRange()` keeps a `.ui-range` `<output data-live>` in sync with its slider without a framework                     |
 | `opui-css/astro`                    | All Astro components                                                                                                   |
 | `opui-css/react`                    | All React components                                                                                                   |
 | `opui-css/svelte`                   | All Svelte components                                                                                                  |

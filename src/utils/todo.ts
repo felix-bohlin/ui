@@ -2,11 +2,23 @@ export type TodoNote =
   | { code: string; kind: "code"; level: number }
   | { kind: "comment" | "item" | "text"; level: number; text: string }
 
+export const actionValues = [
+  "Explain further",
+  "Explain further and provide an example",
+  "Fix",
+  "Remove issue",
+] as const
+
 type TodoItem = {
+  component?: string
+  files: string[]
+  headline: string
   line: string
   notes: TodoNote[]
+  recommended?: { action: string; reason?: string }
   severity?: number
   status: string
+  summary?: string
   text: string
 }
 
@@ -46,8 +58,9 @@ export const parseTodo = (source: string) => {
         indented.pop()
       }
       section.items.push({
+        ...splitHeadline(item[3]),
+        ...triage(parseNotes(indented.map((note) => note.slice(2)))),
         line,
-        notes: parseNotes(indented.map((note) => note.slice(2))),
         severity: item[2] ? Number(item[2]) : undefined,
         status: item[1],
         text: item[3],
@@ -71,6 +84,50 @@ export const parseTodo = (source: string) => {
     intro,
     sections: byStatus(false),
   }
+}
+
+const componentPattern = /^[A-Z][A-Za-z0-9]*(?:(?:, | )[A-Za-z0-9]+)*$/
+const filePattern = /^`[\w./-]+(?::[\d,-]+)?`$/
+
+const splitHeadline = (text: string) => {
+  const colon = text.indexOf(": ")
+  const prefix = colon > 0 && colon <= 40 ? text.slice(0, colon) : undefined
+  const component = prefix && componentPattern.test(prefix) ? prefix : undefined
+  let headline = component ? text.slice(colon + 2) : text
+
+  const refs = headline.match(/ \(([^()]+)\)$/)
+  const entries = refs ? refs[1].split(", ") : []
+  const files =
+    entries.length && entries.every((entry) => filePattern.test(entry))
+      ? entries.map((entry) => entry.slice(1, -1))
+      : []
+  if (files.length) headline = headline.slice(0, -refs![0].length)
+  if (component) headline = headline.charAt(0).toUpperCase() + headline.slice(1)
+
+  return { component, files, headline }
+}
+
+const recommendedPattern =
+  /^Recommended: (Explain further and provide an example|Explain further|Fix with option [A-Z0-9]+|Fix|Remove issue)(?:\. (.+))?$/
+
+const triage = (notes: TodoNote[]) => {
+  let recommended: TodoItem["recommended"]
+  let summary: string | undefined
+  const rest = notes.filter((note) => {
+    if (note.kind !== "item" || note.level) return true
+    const summaryMatch = note.text.match(/^Summary: (.+)$/)
+    if (summaryMatch && !summary) {
+      summary = summaryMatch[1]
+      return false
+    }
+    const match = note.text.match(recommendedPattern)
+    if (match && !recommended) {
+      recommended = { action: match[1], reason: match[2] }
+      return false
+    }
+    return true
+  })
+  return { notes: rest, recommended, summary }
 }
 
 const indentOf = (line: string) => line.length - line.trimStart().length

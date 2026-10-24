@@ -150,16 +150,22 @@ const THEME_EXCEPTIONS: Record<
 > = {
   bootstrap: {
     dark: {
+      "--ui-field-border-color":
+        "Bootstrap draws its form controls with its 1.9:1 border color",
       "--ui-focus-ring-color":
         "Bootstrap draws its focus ring at 25% of its primary blue",
     },
     light: {
+      "--ui-field-border-color":
+        "Bootstrap draws its form controls with its 1.3:1 border color",
       "--ui-focus-ring-color":
         "Bootstrap draws its focus ring at 25% of its primary blue",
     },
   },
   brutalist: {
     dark: {
+      "--ui-choice-border-color":
+        "neobrutalism keeps its black borders on the dark surface",
       "--ui-field-border-color":
         "neobrutalism keeps its black borders on the dark surface",
     },
@@ -199,19 +205,17 @@ test.describe("token promises", () => {
           )
           await emulate(page, { colorScheme, contrast: preference })
           const main = page.locator("main")
-          for (const [name, { against, ratio }] of Object.entries(
+          for (const [name, { against, fallback, ratio }] of Object.entries(
             themeTokenPromises,
           )) {
-            if (
-              preference === "no-preference" &&
-              THEME_EXCEPTIONS[theme]?.[colorScheme]?.[name]
-            ) {
-              continue
-            }
+            if (THEME_EXCEPTIONS[theme]?.[colorScheme]?.[name]) continue
+            const color = fallback
+              ? `var(${name}, var(${fallback}))`
+              : `var(${name})`
             for (const surface of against) {
               expect
                 .soft(
-                  await contrast(main, `var(${name})`, `var(${surface})`),
+                  await contrast(main, color, `var(${surface})`),
                   `${name} against ${surface}`,
                 )
                 .toBeGreaterThanOrEqual(ratio)

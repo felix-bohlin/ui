@@ -10,7 +10,7 @@ When implementing or updating a component, ensure:
 
 - [ ] **All Frameworks**: Every `.astro` file has a matching `.react.tsx`, `.svelte` and `.vue` file in the same folder (`pnpm check-components` fails otherwise).
 - [ ] **Title Export**: `export const title = "Component Name"` is present in `<Name>.astro`.
-- [ ] **Props Type**: Astro imports `Props` from `./types.astro`, React imports `Props` from `./types.react`, Svelte imports `Props` from `./types.svelte`, Vue imports `Props` and `Slots` from `./types.d.vue` (use `type`, never `interface`). Every type file names the root's props `Props` and its slots `Slots` (`Slots<S>` in `types.ts`), and each part's props after the part, `<Root><Part>Props` (`CardActionsProps`, `TableCellProps`).
+- [ ] **Props Type**: Astro imports `Props` from `./types.astro`, React imports `Props` from `./types.react`, Svelte imports `Props` from `./types.svelte`, Vue imports `Props` and `Slots` from `./types.d.vue` (use `type`, never `interface`). Every type file names the root's props `Props`, and each part's props after the part, `<Root><Part>Props` (`CardActionsProps`, `TableCellProps`). `types.ts` names the named slots `Slots<S>` (`Badge`, `Range`) and declares no type for the default slot alone: `children` comes from `ComponentProps` and `SvelteHTMLElements`, and `types.d.vue.ts` names its slots `Slots` (`DefaultSlots` from `../vue` when the default slot is the only one).
 - [ ] **Sorting**: Props and destructuring are sorted alphabetically, slots last. Classes follow section 3 (base, states, variants, `className`), in the same order in every framework. `pnpm check-components` checks the keys of the object types in the type files, `className` last, and the root class order against Astro.
 - [ ] **Rest Props**: `...rest` is captured and spread onto the root element in Astro, React and Svelte. Vue falls through attributes by default.
 - [ ] **Class Management**: Used `class:list` in Astro, a `cx([...])` array in React, a `class` array in Svelte and a `:class` array in Vue, in the same order.
@@ -28,8 +28,8 @@ Every component uses layered type files:
 - `types.ts` - shared, framework-agnostic props (component-specific only; no `HTMLAttributes`), and the `Context` shape for components with context
 - `types.astro.ts` - Astro props = base + `HTMLAttributes<element>`
 - `types.d.vue.ts` - Vue props = base + `Class` from `../vue`, plus the `Slots` type for `defineSlots` (`DefaultSlots` from `../vue` when the default slot is the only one). It imports the base types by name (`Props as BaseProps`), because the Vue compiler can't resolve `defineProps` types through `import type * as Base`
-- `types.react.ts` - React props = base + slot props (`ReactNode`) + `ComponentProps<element>`
-- `types.svelte.ts` - Svelte props = base + snippets + `SvelteHTMLElements[element]`
+- `types.react.ts` - React props = base + named slot props (`Base.Slots<ReactNode>`, when there are any) + `ComponentProps<element>`, which brings `children`
+- `types.svelte.ts` - Svelte props = base + named snippets (`Base.Slots<Snippet>`, when there are any) + `SvelteHTMLElements[element]`, which brings `children`
 
 Every component folder has all five files; `pnpm check-components` fails when one is missing.
 
@@ -309,10 +309,10 @@ Form controls (TextField, Textarea, Select, Range, Checkbox, Radio, Switch), Lis
 ```astro
 <div class="ui-component">
   {
-    (label || Astro.slots.has("default")) && (
-      <span class="ui-text">
+    (label || Astro.slots.has("label")) && (
+      <span class="ui-label">
         {label}
-        <slot />
+        <slot name="label" />
       </span>
     )
   }
@@ -442,12 +442,12 @@ For repetitive structures (Menu, Select), prefer an `items` prop alongside stand
 
 ```astro
 ---
-type Item = { selected?: boolean; text: string; value: number | string }
+type Item = { label: string; selected?: boolean; value: number | string }
 type Props = { items?: Item[] }
 ---
 
 <select>
-  {items.map((item) => <option value={item.value}>{item.text}</option>)}
+  {items.map((item) => <option value={item.value}>{item.label}</option>)}
   <slot />
   <!-- Still allow manual entries -->
 </select>
@@ -490,11 +490,15 @@ A new token follows the naming model, so each word means one thing:
 Private `--_*` properties follow the same suffixes as component tokens, so one word means one thing in every stylesheet:
 
 - `--_radius`, never `--_border-radius`.
-- Logical sizes only: `--_min-block-size`, `--_inline-size`, never `--_min-height` or `--_width`.
+- Logical sizes only: `--_block-size`, `--_inline-size`, never `--_height` or `--_width`.
+- `--_size` is a control's size, the private side of the `--ui-*-size` tokens the size classes set: the height, and the width of a square control (`Avatar`, `Button`, `Checkbox`, `Radio`, `ToggleButton`). The CSS property it feeds (`block-size`, `min-block-size`, `inline-size`) doesn't change the name, and a part's size takes the part's prefix (`--_icon-size`, `--_thumb-size`, `--_track-block-size`). A box that isn't a control names its axis like the CSS property: `--_block-size` and `--_inline-size` (`Carousel`, `Drawer`), `--_max-inline-size` (`Dialog`, `Tooltip`), `--_min-block-size` (`Menu`). Never `--_input-size` or `--_min-height`.
+- `selected` names the chosen item (a selected tab, row, option or marker, a checked toggle button): `--_selected-bg-color`, `--_marker-selected-bg-color`. `active` only names the `:active` press, next to `hover`: `--_filled-active-bg-color`, `--_filled-hover-bg-color`.
+- A stylesheet that styles several components declares their shared properties once, and a component it styles sets them in its own file instead of declaring a second property for the same job: `card.css` declares `--_elevated-shadow` for `.ui-accordion`, `.ui-card` and `.ui-dialog`, and `dialog.css` sets it to `--ui-shadow-overlay`; `choice.css` declares `--_size` for `.ui-checkbox`, `.ui-radio` and `.ui-switch`, and `switch.css` sets it to the track height. Both `custom-properties` files document the property.
 - `-gap` is the distance between siblings, `-padding` an inset and `-margin` an outside offset. Never `-space`.
 - No abbreviations: `--_shift-x` and `--_direction`, never `--_tx` or `--_dir`.
 - A value that is neither a length nor a color is named by its type: `--_<part>-image`, `--_<part>-label`, `--_<part>-fraction`.
 - Role names carry no suffix, like the role tokens: `--_accent`, `--_on-accent`.
+- A line that stands in for a border keeps the border name even when a background draws it: the `Divider` line is `--_divider-border-color`, like the dividers in `Accordion`, `List` and `Menu`.
 
 `tests/unit/css-properties.test.ts` checks every `--_*` property and every component token in the stylesheets against these rules, with no allowlist.
 
@@ -507,10 +511,10 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Button`: the browser styles `button` with `ButtonFace`, `ButtonText` and `ButtonBorder`; the variants only change colors, which are forced anyway.
 - `Link`, `Typography`: text and underlines, forced to `LinkText` and `CanvasText`. Code blocks lose their fill and keep their text.
 - `Spinner`: in forced colors a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
-- `Choice` (the shared checkbox, radio and switch root): the blocks live in `checkbox.css`, `radio.css` and `switch.css`.
+- `Choice` (the shared checkbox, radio and switch root): the blocks live in `checkbox.css`, `radio.css` and `switch.css`, except the checked `.ui-card` border, which is a tint and gets `SelectedItem` in `choice.css`.
 
 `Accordion` (the elevated and tonal variants have a shadow-only edge) and `ButtonGroup` (the dividers are box shadows) have blocks for that reason. `TextField` and `Textarea`, which shares `text-field.css`, have blocks too, although the field border is real: they only recolor the focus outline and the autosuggest mask chevron. When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
 
 ### More contrast
 
-`theme.css` raises the roles under `@container style(--ui-contrast: more)` and resets the optional contrast-bearing tokens so the library's values win. A component only adds its own more-contrast block when the shape changes (an outline added, a translucent fill made solid) or to swap a private property to another role. It never re-tunes numbers: lightness, chroma and alpha limits are tokens in `theme.css` (`--ui-text-max-lightness`, `--ui-text-min-lightness`, `--ui-text-max-chroma`, `--ui-fill-max-lightness`), which the contrast block raises once for every component. A block that only swaps one role for a stronger one belongs in `theme.css`.
+`theme.css` sets no color for more contrast. It tightens the knobs the roles are derived from (the `--ui-*-strength-*` mixes, the `*-max-lightness`, `*-min-lightness` and `*-max-chroma` limits, `--ui-focus-ring-width`) on `html` under `prefers-contrast: more` and on `.ui-contrast-more`, which is a scope, and every role follows. A component only adds its own `@container style(--ui-contrast: more)` block when the shape changes (an outline added, a translucent fill made solid) or to swap a private property to another role. It never re-tunes numbers: a limit it needs is a knob in `theme.css`, set in both contrast rules. A role that has to get stronger with more contrast is a formula of a knob, never a second value in a contrast block.

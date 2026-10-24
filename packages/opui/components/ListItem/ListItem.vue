@@ -33,7 +33,7 @@ const liAttrs = computed(() => (hasControl.value || !Tag.value ? attrs : {}))
 const tagProps = computed(() =>
   hasControl.value
     ? { class: `ui-${type}`, for: htmlFor }
-    : { ...attrs, ...tagAttrs(Tag.value ?? "", disabled, href) },
+    : { ...tagAttrs(Tag.value ?? "", disabled, href), ...attrs },
 )
 </script>
 

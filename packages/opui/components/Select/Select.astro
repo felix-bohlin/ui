@@ -10,6 +10,7 @@ const {
   "aria-describedby": ariaDescribedBy,
   "aria-invalid": ariaInvalid,
   "aria-labelledby": ariaLabelledBy,
+  autoFit,
   class: className,
   dense,
   endText,
@@ -56,6 +57,7 @@ const isSelected = (item: SelectItem) =>
   class:list={[
     "ui-select",
     {
+      "ui-auto-fit": autoFit,
       "ui-filled": variant === "filled",
       "ui-spread": spread,
     },

@@ -17,6 +17,7 @@ import {
 } from "opui-css/astro"
 import CheckboxCSS from "@opui/css/components/checkbox.css?raw"
 import ChoiceCSS from "@opui/css/components/choice.css?raw"
+import CardCSS from "@opui/css/components/card.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import checkboxApi from "../../component-api/checkbox/api"
@@ -61,6 +62,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     { title: "checkbox.css", code: CheckboxCSS, lang: "css" },
     { title: "choice.css", code: ChoiceCSS, lang: "css" },
     { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
+    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
   ]}
 >
   <Fragment slot="title">Checkbox</Fragment>
@@ -130,6 +132,21 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     </Conditional>
 
     <AutoExample name="VisibleLabel" column centered />
+
+    <h3 id="hidden-label">Hidden label</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>hideLabel</code> to keep the label for screen readers only. The
+        checkbox then centers in a table cell or a line of text, and keeps a 24px
+        click target.
+      </Fragment>
+      <Fragment slot="html">
+        Use <code>.ui-sr-only</code> instead of <code>.ui-label</code> to keep the
+        label for screen readers only. The checkbox then centers in a table cell or
+        a line of text, and keeps a 24px click target.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="HiddenLabel" column centered />
 
     <h3 id="label-position">Label position</h3>
     <p>
@@ -260,6 +277,32 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     </Conditional>
 
     <AutoExample name="Spread" column />
+  </section>
+
+  <section>
+    <h2 id="cards">Cards</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>card</code> renders the checkbox as a card that tints when hovered and
+        when checked. Combine it with <code>spread</code> for the checkbox at the
+        end, and <code>variant="tonal"</code> or
+        <code>variant="elevated"</code> for the surface, like a <DocLink
+          href="/components/card"
+          class="ui-link">Card</DocLink
+        >. In a horizontal <code>FieldGroup</code> the cards share the row.
+      </Fragment>
+      <Fragment slot="html">
+        <code>.ui-card</code> renders the checkbox as a card that tints when hovered
+        and when checked. Combine it with <code>.ui-spread</code> for the checkbox
+        at the end, and <code>.ui-tonal</code> or
+        <code>.ui-elevated</code> for the surface, like a <DocLink
+          href="/components/card"
+          class="ui-link">Card</DocLink
+        >. In a <code>.ui-field-group.ui-horizontal</code> the cards share the row.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="CardsMatrix" column />
   </section>
 
   <section>

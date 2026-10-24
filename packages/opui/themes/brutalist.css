@@ -2,44 +2,84 @@
 @layer theme.palette, theme.base, theme.custom;
 
 @layer theme.custom {
-  :where(html) {
+  :where(html, .ui-palette, .ui-contrast-more) {
     --ui-backdrop-bg-color: oklch(0 0 0 / 0.8);
+    --ui-backdrop-blur: 0px;
     --ui-border-color: oklch(0 0 0);
     --ui-border-color-on-filled: var(--ui-border-color);
     --ui-border-color-on-raised: var(--ui-border-color);
     --ui-radius: 5px;
+    --ui-radius-x-small: var(--ui-radius);
     --ui-border-width: 2px;
     --ui-control-border-color: var(--ui-border-color);
     --ui-control-border-color-filled: var(--ui-border-color);
-    --ui-button-font-weight: var(--font-weight-6);
+    --ui-control-size-large: calc(44px * var(--ui-density));
+    --ui-control-size-small: calc(36px * var(--ui-density));
+    --ui-button-font-weight: var(--font-weight-5);
+    --ui-button-hover: layer;
     --ui-button-hover-shadow: none;
     --ui-button-hover-translate: 4px 4px;
+    --ui-button-padding-inline: 1rem;
+    --ui-button-padding-inline-large: 2rem;
+    --ui-button-padding-inline-small: 0.75rem;
+    --ui-button-padding-inline-x-small: 0.5rem;
+    --ui-choice-accent: var(--ui-primary);
+    --ui-choice-on-accent: var(--ui-on-primary);
+    --ui-choice-ripple-bg-color: transparent;
+    --ui-choice-size: calc(16px * var(--ui-density));
+    --ui-disabled-opacity: 0.5;
+    --ui-duration-fast: 0.15s;
+    --ui-field-bg-color: var(--ui-surface-elevated);
     --ui-field-border-color: var(--ui-border-color);
+    --ui-field-border-color-on-filled: var(--ui-border-color);
     --ui-field-border-color-on-raised: var(--ui-field-border-color);
     --ui-field-border-width: 2px;
+    --ui-field-padding-inline: 0.75rem;
+    --ui-field-placeholder-text-color: color-mix(
+      in oklch,
+      var(--ui-text) 60%,
+      transparent
+    );
+    --ui-field-label-font-weight: var(--font-weight-7);
     --ui-focus-ring-color: light-dark(oklch(0 0 0), oklch(1 0 0));
     --ui-font-body: "DM Sans", var(--font-geometric-humanist);
-    --ui-font-weight-bold: var(--font-weight-8);
+    --ui-font-size-control: 0.875rem;
+    --ui-font-weight-bold: var(--font-weight-7);
+    --ui-font-weight-normal: var(--font-weight-5);
+    --ui-font-weight-semibold: var(--font-weight-7);
     --ui-gray-chroma: 0.03;
     --ui-gray-hue: 260;
+    --ui-letter-spacing-display: 0;
+    --ui-letter-spacing-heading: 0;
+    --ui-line-height: 1.5;
+    --ui-line-height-relaxed: 1.5;
+    --ui-on-inverse: var(--ui-on-primary);
     --ui-palette-source: hsl(217 100% 66%);
     --ui-primary: hsl(217 100% 66%);
     --ui-on-primary: oklch(0 0 0);
-    --ui-primary-text: light-dark(oklch(0.45 0.2 264), hsl(217 100% 76%));
+    --ui-primary-text: var(--ui-text);
     --ui-shadow-control: 4px 4px 0 0 oklch(0 0 0);
     --ui-shadow-field: none;
-    --ui-shadow-overlay: none;
+    --ui-shadow-overlay: var(--ui-shadow-control);
     --ui-shadow-elevated-dark: var(--ui-shadow-control);
     --ui-shadow-elevated-light: var(--ui-shadow-control);
     --ui-shadow-scroll: 0 2px 0 0 oklch(0 0 0);
     --ui-shadow-surface: var(--ui-shadow-control);
     --ui-shadow-selected: none;
     --ui-border-color-raised: var(--ui-border-color);
-    --ui-surface: light-dark(hsl(214 95% 93%), oklch(0.29 0.06 270));
-    --ui-surface-elevated: light-dark(oklch(1 0 0), oklch(0.24 0 0));
-    --ui-surface-filled: light-dark(oklch(1 0 0), oklch(0.24 0 0));
-    --ui-surface-tonal: light-dark(hsl(217 100% 85%), oklch(0.36 0.1 265));
-    --ui-text: light-dark(oklch(0 0 0), oklch(0.92 0 0));
-    --ui-text-strong: light-dark(oklch(0 0 0), oklch(0.98 0 0));
+    --ui-surface: light-dark(#dfe5f2, #272933);
+    --ui-surface-elevated: light-dark(oklch(1 0 0), #212121);
+    --ui-surface-filled: light-dark(oklch(1 0 0), #212121);
+    --ui-surface-inverse: var(--ui-primary);
+    --ui-surface-tonal: light-dark(hsl(217 100% 85%), oklch(0.34 0.04 270));
+    --ui-switch-thumb-bg-color: var(--ui-text);
+    --ui-text: light-dark(oklch(0 0 0), #e6e6e6);
+    --ui-text-strong: var(--ui-text);
+    --ui-track-bg-color: var(--ui-surface-elevated);
+    --ui-underline-thickness-hover: auto;
+  }
+
+  :where(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
+    --ui-palette-border: var(--ui-border-color);
   }
 }

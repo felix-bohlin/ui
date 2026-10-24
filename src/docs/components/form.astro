@@ -4,12 +4,6 @@ import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import FormCSS from "@opui/css/components/form.css?raw"
 
-import ExampleBasicsAstroCode from "../../component-examples/form/Basics.astro?raw"
-import ExampleBasicsReactCode from "../../component-examples/form/Basics.react.tsx?raw"
-import ExampleBasicsSvelteCode from "../../component-examples/form/Basics.svelte?raw"
-import ExampleBasicsVueCode from "../../component-examples/form/Basics.vue?raw"
-import ExampleBasicsHTMLCode from "../../component-examples/form/Basics.html?raw"
-
 import fieldDescriptionApi from "../../component-api/field-description/api"
 import fieldGroupApi from "../../component-api/field-group/api"
 import fieldLegendApi from "../../component-api/field-legend/api"
@@ -29,7 +23,6 @@ import {
 } from "opui-css/astro"
 import Conditional from "../../components/Conditional.astro"
 import PropOrClass from "../../components/PropOrClass.astro"
-import Code from "../../components/Code.astro"
 
 const [legendPart, descriptionPart, endTextPart] = fieldsetApi.parts
 
@@ -94,13 +87,7 @@ const anatomyApi = {
 
   <section>
     <h2 id="basics">Basics</h2>
-    <Conditional>
-      <Code slot="astro" lang="astro" code={ExampleBasicsAstroCode} />
-      <Code slot="react" lang="tsx" code={ExampleBasicsReactCode} />
-      <Code slot="svelte" lang="svelte" code={ExampleBasicsSvelteCode} />
-      <Code slot="vue" lang="vue" code={ExampleBasicsVueCode} />
-      <Code slot="html" lang="html" code={ExampleBasicsHTMLCode} />
-    </Conditional>
+    <AutoExample name="Basics" />
   </section>
 
   <section>
@@ -246,10 +233,15 @@ const anatomyApi = {
           data-toggle-target=".ui-text-field, .ui-textarea, .ui-select, .ui-radio, .ui-checkbox, .ui-switch, .ui-button, .ui-range"
           ><PropOrClass prop='size="small"' class=".ui-small" /></UISwitch
         >
-        <UISwitch id="kitchen-sink-spread-toggle"
+        <UISwitch
+          data-toggle-class="ui-spread; ui-horizontal"
+          data-toggle-target=".ui-text-field, .ui-textarea, .ui-select, .ui-checkbox, .ui-switch, .ui-range; .ui-field-group:has(> .ui-radio)"
           ><PropOrClass prop="spread" class=".ui-spread" /></UISwitch
         >
-        <UISwitch id="kitchen-sink-divider-toggle">
+        <UISwitch
+          data-toggle-class="kitchen-sink-dividers"
+          data-toggle-target="#form-kitchen-sink-1"
+        >
           <Conditional>
             <Fragment slot="components"
               >Show <code>&lt;Divider&gt;</code></Fragment
@@ -288,69 +280,16 @@ const anatomyApi = {
   </Fragment>
 </Component>
 
-<script>
-  function setupKitchenSinkControls() {
-    document
-      .querySelectorAll<HTMLElement>(".example-container")
-      .forEach((container) => {
-        if (!container.querySelector("#form-kitchen-sink-1")) return
-        if (container.dataset.kitchenSinkSetup) return
-        container.dataset.kitchenSinkSetup = "true"
-
-        const spreadToggle = container.querySelector<HTMLInputElement>(
-          "#kitchen-sink-spread-toggle",
-        )
-        const dividerToggle = container.querySelector<HTMLInputElement>(
-          "#kitchen-sink-divider-toggle",
-        )
-
-        const updateFields = () => {
-          const example = container.querySelector("#form-kitchen-sink-1")
-          if (!example) return
-
-          if (spreadToggle) {
-            example
-              .querySelectorAll(
-                ".ui-text-field, .ui-textarea, .ui-select, .ui-checkbox, .ui-switch, .ui-range",
-              )
-              .forEach((field) => {
-                field.classList.toggle("ui-spread", spreadToggle.checked)
-              })
-            example
-              .querySelectorAll(".ui-field-group:has(> .ui-radio)")
-              .forEach((group) => {
-                group.classList.toggle("ui-horizontal", spreadToggle.checked)
-              })
-          }
-
-          if (dividerToggle) {
-            example.querySelectorAll("hr.ui-divider").forEach((divider) => {
-              if (divider instanceof HTMLElement) {
-                divider.style.display = dividerToggle.checked ? "" : "none"
-              }
-            })
-          }
-        }
-
-        container.addEventListener("change", (event) => {
-          const input = event.target
-          if (!(input instanceof HTMLInputElement)) return
-          if (![spreadToggle, dividerToggle].includes(input)) return
-          updateFields()
-        })
-
-        updateFields()
-      })
-  }
-
-  setupKitchenSinkControls()
-</script>
-
 <style is:global>
   /* This is here because the examples don't remove the hr, they just put display none. In real life though they wouldn't be there so it will look right at least. */
+  #form-kitchen-sink-1:not(.kitchen-sink-dividers) > hr.ui-divider {
+    display: none;
+  }
+
   .ui-field-group {
     &:has(.ui-button):not(:has(*:not(.ui-button))) {
-      &:not(hr:not([style*="display: none"]) + &) {
+      &:not(hr + &),
+      #form-kitchen-sink-1:not(.kitchen-sink-dividers) > & {
         margin-block-start: var(--size-4);
       }
     }

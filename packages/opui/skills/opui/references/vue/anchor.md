@@ -207,7 +207,7 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/vue"
 
 | Prop           | Type      | Default                 | Description                                                                                                                                                                                                        |
 | -------------- | --------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `id`           | `string`  | -                       | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger.                                                                                          |
+| `id`           | `string`  | -                       | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. Required with `trigger="hover"`.                                                         |
 | `positionArea` | `string`  | `"self-start self-end"` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
 | `trigger`      | `"hover"` | -                       | Shows the floating content on hover and focus with `popover="hint"`. Without it, the content always shows.                                                                                                         |
 
@@ -342,6 +342,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - Breaking: `--_anchor-tx` and `--_anchor-ty` are `--_shift-x` and `--_shift-y` ([Under the hood](#under-the-hood)).
+- Breaking: the floating content is [`.ui-floating`](#api) instead of `.ui-anchor-floating`.
 - Breaking: [`trigger`](#hover-trigger) only takes `"hover"`. Leave it out instead of `trigger="always"`.
 - Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.
 - Breaking: [hover anchors](#hover-trigger) no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and put `interestfor` on the trigger.

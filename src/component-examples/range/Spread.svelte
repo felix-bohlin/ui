@@ -12,7 +12,7 @@
   {#snippet endText()}End text{/snippet}
 </Range>
 
-<Range label="Invalid Range" spread error endText="This value is incorrect.">
+<Range label="Invalid Range" spread error endText="Pick a value below 50.">
   {#snippet startText()}Start text{/snippet}
 </Range>
 

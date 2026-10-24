@@ -30,7 +30,3 @@ export type Props = {
   )
 
 export type AvatarGroupProps = {}
-
-export type Slots<S> = {
-  children?: S
-}

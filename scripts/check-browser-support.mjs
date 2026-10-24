@@ -239,6 +239,7 @@ const usesFeature = ({ rules, source }, pattern, elements) => {
 const missing = []
 const unused = []
 const ignore = { badge: ["anchor-positioning"] }
+const viaTheme = { typography: ["progress-function"] }
 
 for (const [comp, ids] of Object.entries(components)) {
   const elements = await exampleElements(comp)
@@ -250,7 +251,12 @@ for (const [comp, ids] of Object.entries(components)) {
     if (used && !ids.includes(id) && !ignore[comp]?.includes(id)) {
       missing.push(`${comp}: "${id}"`)
     }
-    if (ids.includes(id) && !used && !pattern.test(shared)) {
+    if (
+      ids.includes(id) &&
+      !used &&
+      !pattern.test(shared) &&
+      !viaTheme[comp]?.includes(id)
+    ) {
       unused.push(`${comp}: "${id}"`)
     }
   }

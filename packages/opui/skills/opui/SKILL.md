@@ -60,7 +60,7 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 
 Example themes ship in `opui-css/themes/` (`bootstrap.css`, a Bootstrap 5 look, `brutalist.css`, a neobrutalism look, `m3.css`, a Material 3 look, and `shadcn.css`, a shadcn/ui look), to import or copy as a starting point. They name their fonts (DM Sans, Roboto, Geist) but don't load them. They start with the layer order, so they work wherever they load. A theme file you write should load after the library, or start with the two `@layer` statements from `css/layers.css`.
 
-`references/tokens.json` lists every theme token in the W3C design tokens format: its `$type`, description and default as `$value`, and under `$extensions.opui` its CSS variable, tier, contrast promise and dark and more-contrast values. Unset tokens have no `$value`, only an `example`.
+`tokens.json` at the package root (`node_modules/opui-css/tokens.json`, or `import tokens from "opui-css/tokens.json"`) lists every theme token in the W3C design tokens format: its `$type`, description and default as `$value`, and under `$extensions.opui` its CSS variable, tier, contrast promise and dark and more-contrast values. Unset tokens have no `$value`, only an `example`.
 
 ## References
 
@@ -68,7 +68,7 @@ Pick the folder matching the project: `references/html/`, `references/astro/`, `
 
 1. Read `references/<framework>/getting-started.md` for setup, `references/<framework>/theming.md` for colors, scopes, density, spacing, corners, fonts, elevation, motion and contrast, and `references/<framework>/customizing.md` for the `theme.custom` layer and component properties.
 2. Find the component in `references/index.md`.
-3. Read `references/<framework>/<component>.md` before writing markup. Each reference has examples, the full class or prop API, and the CSS files it needs.
+3. Read `references/<framework>/<component>.md` before writing markup. Each reference has examples, the full class or prop API, and the CSS files it needs. After the first icon in a reference, repeated icon SVGs in the examples are shortened to `<svg aria-hidden="true" viewBox="..."></svg>`: put any inline SVG icon there. The Under the hood walkthrough, browser support and changelog are only on the docs site.
 4. The Component properties table in each reference lists the component's `--_` custom properties. Set inputs (like `--_accent`) on the component itself. Don't override outputs (like `--_bg-color`): states set them, so an override freezes them. For exact selectors, read `node_modules/opui-css/css/components/<component>.css`.
 
 Full docs: https://open-props-ui.netlify.app/llms.txt

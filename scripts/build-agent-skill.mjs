@@ -10,6 +10,7 @@ import {
   FRAMEWORK_IDS,
   FRAMEWORKS,
 } from "../src/utils/framework.js"
+import { barrelExports } from "../src/utils/package-source.js"
 
 const DIST = path.resolve(process.cwd(), "dist")
 const REFERENCES = path.resolve(
@@ -40,16 +41,10 @@ async function readParts(pages) {
     ),
     ...apis.map(({ api, page }) => [api.component, page]),
   ])
-  return [
-    ...fs
-      .readFileSync(BARREL, "utf-8")
-      .matchAll(
-        /^export \{ default as (\w+) \} from "\.\.\/components\/(\w+)\//gm,
-      ),
-  ]
-    .map(([, component, folder]) => ({
-      component,
-      page: pageOf.get(component) ?? kebab(folder),
+  return barrelExports(fs.readFileSync(BARREL, "utf-8"))
+    .map(({ folder, name }) => ({
+      component: name,
+      page: pageOf.get(name) ?? kebab(folder),
     }))
     .filter(
       ({ component, page }) => pages.has(page) && kebab(component) !== page,
@@ -76,11 +71,62 @@ const pageDirs = (dir) =>
     .map((entry) => entry.name)
     .sort()
 
+const OMITTED_SECTIONS = ["Browser support", "Changelog", "Under the hood"]
+const CODE_BLOCK = /(^[ \t]*```[^\n]*\n[\s\S]*?\n[ \t]*```$)/m
+const SVG = /<svg\b([^>]*)>[\s\S]*?<\/svg>/g
+const DROPPED_ATTRIBUTES = /\s(?:height|width|xmlns)="[^"]*"/g
+
+const stripSections = (markdown) =>
+  markdown
+    .split(/^(?=## )/m)
+    .filter(
+      (section) =>
+        !OMITTED_SECTIONS.some((title) => section.startsWith(`## ${title}\n`)),
+    )
+    .join("")
+    .trimEnd()
+
+const placeholder = (attributes) =>
+  `<svg${attributes.replace(DROPPED_ATTRIBUTES, "").replace(/\s+/g, " ").trimEnd()}></svg>`
+
+const compactTables = (text) =>
+  text
+    .split("\n")
+    .map((line) =>
+      line.startsWith("|")
+        ? line
+            .replace(/ {2,}\|/g, " |")
+            .replace(/\| {2,}/g, "| ")
+            .replace(/^(\|(?: :?-{3,}:? \|)+)$/, (row) =>
+              row.replace(/-{3,}/g, "---"),
+            )
+        : line,
+    )
+    .join("\n")
+
+function compact(markdown) {
+  let seen = false
+  const collapseIcons = (code) =>
+    code.replace(SVG, (match, attributes) => {
+      const short = placeholder(attributes)
+      if (match.length <= short.length) return match
+      if (seen) return short
+      seen = true
+      return match
+    })
+  return markdown
+    .split(CODE_BLOCK)
+    .map((segment, index) =>
+      index % 2 ? collapseIcons(segment) : compactTables(segment),
+    )
+    .join("")
+}
+
 async function writeReference(pathname, to, rewriteHref) {
   const html = fs.readFileSync(path.join(DIST, pathname, "index.html"), "utf-8")
   const page = await pageFrom(parseHtml(html), pathname, rewriteHref)
   if (!page?.full) return
-  fs.writeFileSync(to, `${page.full}\n`)
+  fs.writeFileSync(to, `${compact(stripSections(page.full))}\n`)
 }
 
 async function buildSkill() {
@@ -146,10 +192,6 @@ async function buildSkill() {
 
   fs.writeFileSync(path.join(REFERENCES, "index.md"), index)
   fs.copyFileSync(path.join(DIST, "tokens.json"), TOKENS)
-  fs.copyFileSync(
-    path.join(DIST, "tokens.json"),
-    path.join(REFERENCES, "tokens.json"),
-  )
   console.log(
     `Wrote ${components.length} components × ${FRAMEWORKS.length} frameworks to ${REFERENCES}`,
   )

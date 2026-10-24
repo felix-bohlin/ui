@@ -1,6 +1,6 @@
 import { Badge } from "opui-css/react"
 
-export default function Variants() {
+export default function Basics() {
   return (
     <>
       <Badge hideLabel indicator="5" label="5 unread messages">

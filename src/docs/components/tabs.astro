@@ -135,6 +135,59 @@ import tabsApi from "../../component-api/tabs/api"
     <AutoExample name="Overflow" />
   </section>
 
+  <section>
+    <h2 id="binding">Binding</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Astro renders the tabs on the server, so they have no bound value. Give
+        each <code>TabsItem</code> a <code>value</code> and set <code
+          >value</code
+        >
+        on <code>Tabs</code> to select the matching tab. After that the selection
+        lives in the radio inputs, which share the <code>name</code>: submit
+        them with a form, where <code>FormData.get()</code> reads the selected tab,
+        or read the checked input in a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the starting tab.
+      </Fragment>
+      <Fragment slot="html">
+        The selection lives in the radio inputs, which share a <code>name</code
+        >. Give each one a <code>value</code> and submit them with a form, where <code
+          >FormData.get()</code
+        > reads the selected tab, or read the checked input in a script on <code
+          >change</code
+        >. Set <code>input.checked = input.defaultChecked</code> to go back to the
+        <code>checked</code> input in the markup.
+      </Fragment>
+      <Fragment slot="react">
+        Give each <code>TabsItem</code> a <code>value</code> and control the selection
+        with <code>value</code> and <code>onValueChange</code> on <code
+          >Tabs</code
+        >, or set the starting tab with <code>defaultValue</code>. A tab is
+        checked when its <code>value</code> matches, so the items don't need <code
+          >defaultChecked</code
+        >. A tab that loses its check to another one fires no <code
+          >onChange</code
+        > of its own, which is why the value lives on <code>Tabs</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Give each <code>TabsItem</code> a <code>value</code> and bind the selection
+        with <code>bind:value</code> on <code>Tabs</code>. A tab is checked when
+        its <code>value</code> matches, and setting the variable switches tabs. A
+        tab that loses its check to another one fires no <code>change</code> of its
+        own, which is why the value lives on <code>Tabs</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Give each <code>TabsItem</code> a <code>value</code> and bind the selection
+        with <code>v-model</code> on <code>Tabs</code>. A tab is checked when
+        its <code>value</code> matches, and setting the ref switches tabs. A tab that
+        loses its check to another one fires no <code>change</code> of its own, which
+        is why the value lives on <code>Tabs</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Binding" column />
+  </section>
+
   <Fragment slot="accessibility">
     <p>
       Tabs are radio buttons. Each tab is a radio input with a label, and the

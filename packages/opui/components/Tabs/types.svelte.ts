@@ -1,7 +1,9 @@
 import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 
-export type Props = Base.Props & SvelteHTMLElements["div"]
+export type Props = Base.Props & {
+  value?: string
+} & SvelteHTMLElements["div"]
 export type TabsItemProps = Base.TabsItemProps &
   Omit<SvelteHTMLElements["input"], "type">
 export type TabsPanelProps = Base.TabsPanelProps & SvelteHTMLElements["div"]

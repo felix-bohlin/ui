@@ -38,6 +38,11 @@ export default {
     description: "The inline padding. `.ui-large` sets it.",
     kind: "input",
   },
+  "--_pressed-bg-color": {
+    description:
+      'Background of a button chip with `aria-pressed="true"`. `--ui-selected` when the theme sets it, otherwise `--ui-primary`.',
+    kind: "input",
+  },
   "--_size": {
     description:
       "The height. Defaults to `--ui-chip-size`, set by the size classes.",

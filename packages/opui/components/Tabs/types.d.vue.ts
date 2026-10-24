@@ -1,3 +1,4 @@
+import type { InputHTMLAttributes, LabelHTMLAttributes } from "vue"
 import type { Class, DefaultSlots } from "../vue"
 import type {
   Props as BaseProps,
@@ -8,10 +9,17 @@ import type {
 
 export type Props = BaseProps & Class
 
-export type TabsItemProps = BaseTabsItemProps & Class
+export type TabsItemProps = BaseTabsItemProps &
+  Class & {
+    id?: InputHTMLAttributes["id"]
+    value?: InputHTMLAttributes["value"]
+  }
 
 export type TabsPanelProps = BaseTabsPanelProps & Class
 
-export type TabsLabelProps = BaseTabsLabelProps & Class
+export type TabsLabelProps = BaseTabsLabelProps &
+  Class & {
+    for?: LabelHTMLAttributes["for"]
+  }
 
 export type Slots = DefaultSlots

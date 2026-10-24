@@ -139,6 +139,13 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
 
     <AutoExample name="VisibleLabel" column centered />
 
+    <h3 id="hidden-label">Hidden label</h3>
+    <p>
+      A radio with a hidden label centers in a table cell or a line of text, and
+      keeps a 24px click target.
+    </p>
+    <AutoExample name="HiddenLabel" column centered />
+
     <h3 id="label-position">Label position</h3>
     <Conditional as="p">
       <Fragment slot="components"
@@ -371,6 +378,31 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
       </Fragment>
     </Conditional>
     <AutoExample name="FieldGroupBinding" centered column />
+    <Conditional as="div">
+      <Fragment slot="svelte">
+        <p>
+          Without <code>bind:group</code>, a radio follows <code>checked</code>.
+          Keep the selected value in your own state, and pass each <code
+            >Radio</code
+          > a <code>checked</code> and an <code>onchange</code> that stores its <code
+            >value</code
+          >. Setting the state updates the radios.
+        </p>
+        <AutoExample name="FieldGroupControlled" centered column />
+      </Fragment>
+      <Fragment slot="vue">
+        <p>
+          Without <code>v-model</code>, a radio follows <code>checked</code>.
+          Keep the selected value in your own state, and pass each <code
+            >Radio</code
+          > a
+          <code>:checked</code> and a <code>@change</code> that stores its <code
+            >value</code
+          >. Setting the state updates the radios.
+        </p>
+        <AutoExample name="FieldGroupControlled" centered column />
+      </Fragment>
+    </Conditional>
   </section>
 
   <Fragment slot="accessibility">

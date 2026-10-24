@@ -8,6 +8,7 @@ export type Props = {
   items?: RangeItem[]
   label?: string
   list?: string
+  size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
   startText?: string
   value?: number | string

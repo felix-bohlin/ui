@@ -65,7 +65,8 @@ export default {
     kind: "output",
   },
   "--_thumb-size": {
-    description: "Width and height of the thumb. Larger on touch screens.",
+    description:
+      "Width and height of the thumb. Set by the sizes, and larger on touch screens at the default size.",
     kind: "input",
   },
   "--_track-base-bg-color": {
@@ -79,7 +80,7 @@ export default {
     kind: "output",
   },
   "--_track-block-size": {
-    description: "Height of the track.",
+    description: "Height of the track. Set by the sizes.",
     kind: "input",
   },
   "--_track-fill-bg-color": {

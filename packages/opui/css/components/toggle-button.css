@@ -7,6 +7,7 @@
     --_font-size: var(--ui-font-size-control);
     --_icon-size: var(--ui-icon-size);
     --_min-block-size: var(--ui-button-size);
+    --_selected-bg-color: var(--ui-selected, var(--ui-primary));
 
     align-items: center;
     background-color: var(--_bg-color);
@@ -74,7 +75,6 @@
     /* Selected */
     &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
       --_bg-color: var(--_selected-bg-color);
-      --_selected-bg-color: var(--ui-selected, var(--ui-primary));
       --ui-focus-ring-color: var(--ui-on-selected, var(--ui-on-primary));
 
       border-color: var(

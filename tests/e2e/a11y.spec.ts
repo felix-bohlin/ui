@@ -29,6 +29,11 @@ if (RECORD) test.describe.configure({ mode: "serial" })
 
 const TARGETS = [...BLOCKS, ...COMPONENTS, ...STRESS_TESTS].toSorted()
 
+const OPENED: Record<string, string[]> = {
+  dialog: ["dialog-alert-dialog-1"],
+  drawer: ["drawer-close-behaviors-1"],
+}
+
 for (const component of TARGETS) {
   test(`html/${component} has no new axe violations`, async ({
     page,
@@ -47,6 +52,21 @@ for (const component of TARGETS) {
       .exclude('iframe[src*="youtube"]')
       .analyze()
     const nodes = axeNodes(violations)
+    for (const id of OPENED[component] ?? []) {
+      const overlay = page.locator(`#${id}`)
+      await overlay.evaluate((dialog) =>
+        (dialog as HTMLDialogElement).showModal(),
+      )
+      await page.evaluate(() =>
+        Promise.allSettled(
+          document.getAnimations().map((animation) => animation.finished),
+        ),
+      )
+      await expect(overlay).toBeVisible()
+      const opened = await new AxeBuilder({ page }).include(`#${id}`).analyze()
+      nodes.push(...axeNodes(opened.violations))
+      await overlay.evaluate((dialog) => (dialog as HTMLDialogElement).close())
+    }
     const examples = await page.evaluate(
       (targets) =>
         targets.map((target) => {

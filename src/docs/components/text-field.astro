@@ -349,6 +349,16 @@ export const description =
         >&lt;label&gt;</code
       >. It's recommended to label your inputs somehow.
     </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The component renders a <code>&lt;label&gt;</code>, so name the input
+        with <code>aria-label</code> when it has no visible label.
+      </Fragment>
+      <Fragment slot="html">
+        Put <code>.ui-text-field</code> on a <code>&lt;div&gt;</code> and name the
+        input with <code>aria-label</code>.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="NoLabel" />
   </section>

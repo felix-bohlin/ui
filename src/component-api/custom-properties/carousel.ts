@@ -1,6 +1,11 @@
 import type { CustomProperties } from "../types"
 
 export default {
+  "--_block-room": {
+    description:
+      "Shadow room on the block axis. `--_shadow-room`, and in `.ui-vertical` the part of it that the peek doesn't give, at most `--_gap` so the next item stays hidden.",
+    kind: "output",
+  },
   "--_block-size": {
     description: "The height of `.ui-vertical`.",
     kind: "input",
@@ -88,6 +93,12 @@ export default {
     description: "Space between items.",
     kind: "input",
   },
+  "--_inline-room": {
+    description:
+      "Shadow room on the inline axis. The part of `--_shadow-room` that the peek doesn't give, at most `--_gap` so the next item stays hidden, and all of it in `.ui-vertical`.",
+    kind: "output",
+  },
+
   "--_item-size": {
     description:
       "The size of each item, from `--_items-per-view` and `--_gap`.",
@@ -163,6 +174,13 @@ export default {
       "Duration of the scroll buttons' press scale, `--ui-duration-fast` times `--_motion`.",
     kind: "output",
   },
+  "--_shadow-room": {
+    description:
+      "Room around the items for their box shadows, so the scroll container doesn't clip them: padding that a negative margin cancels, so the layout stays the same. On the scroll axis it is capped by `--_block-room` and `--_inline-room`. Defaults to `--ui-space-3`.",
+
+    kind: "input",
+  },
+
   "--_snap-align": {
     description: "Snap alignment of items. `.ui-align-center` sets `center`.",
     kind: "input",

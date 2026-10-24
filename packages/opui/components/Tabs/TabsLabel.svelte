@@ -4,7 +4,7 @@
 
   let {
     class: className,
-    tabId,
+    for: htmlFor,
 
     // Snippets
     children,
@@ -14,6 +14,6 @@
   const tabs = getTabsContext()
 </script>
 
-<label for={tabId || tabs?.tabId} class={["ui-label", className]} {...rest}>
+<label for={htmlFor || tabs?.tabId} class={["ui-label", className]} {...rest}>
   {@render children?.()}
 </label>

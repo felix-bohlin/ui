@@ -140,19 +140,27 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <h2 id="dot">Dot</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set <code>dot</code> to add a leading dot in the chip's color. The shape follows
-        the severity: a diamond for <code>critical</code>, a triangle for
-        <code>warning</code> and a ring for <code>neutral</code>, so the dots
-        differ without color too. On an <code>outlined</code> chip only the dot is
-        colored, which keeps a table of statuses calm.
+        Set <code>dot</code> to add a leading dot in the chip's color. <code
+          >critical</code
+        > (a diamond), <code>warning</code> (a triangle) and <code>neutral</code
+        >
+        (a ring) have their own shapes; <code>info</code> and <code
+          >success</code
+        >
+        are round, so keep the status in the label. On an <code>outlined</code> chip
+        only the dot is colored, which keeps a table of statuses calm.
       </Fragment>
       <Fragment slot="html">
-        Add <code>.ui-dot</code> for a leading dot in the chip's color. The shape
-        follows the severity: a diamond for <code>.ui-critical</code>, a
-        triangle for <code>.ui-warning</code> and a ring for <code
+        Add <code>.ui-dot</code> for a leading dot in the chip's color. <code
+          >.ui-critical</code
+        > (a diamond), <code>.ui-warning</code> (a triangle) and <code
           >.ui-neutral</code
-        >, so the dots differ without color too. On an <code>.ui-outlined</code> chip
-        only the dot is colored, which keeps a table of statuses calm.
+        > (a ring) have their own shapes; <code>.ui-info</code> and <code
+          >.ui-success</code
+        > are round, so keep the status in the label. On an <code
+          >.ui-outlined</code
+        >
+        chip only the dot is colored, which keeps a table of statuses calm.
       </Fragment>
     </Conditional>
     <AutoExample name="Dot" column />
@@ -174,6 +182,19 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
       goes to another page.
     </p>
     <AutoExample name="Link" row />
+  </section>
+
+  <section>
+    <h2 id="pressed">Pressed</h2>
+    <p>
+      Set <code>aria-pressed="true"</code> on a button chip to mark it as pressed,
+      for a filter or a choice. The chip fills with <code>--ui-selected</code>,
+      or <code>--ui-primary</code> when the theme sets none, like a checked <DocLink
+        href="/components/toggle">ToggleButton</DocLink
+      >. Give the other chips <code>aria-pressed="false"</code>, so every chip
+      announces as a toggle, and switch the values in a script.
+    </p>
+    <AutoExample name="Pressed" column centered />
   </section>
 
   <section>

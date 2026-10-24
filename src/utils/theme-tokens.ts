@@ -212,6 +212,7 @@ const COMPONENT_PREFIXES = [
 const ROLE_EXCEPTIONS = new Set([
   "--ui-button-radius",
   "--ui-choice-accent",
+  "--ui-choice-border-color",
   "--ui-choice-on-accent",
   "--ui-field-border-color",
   "--ui-field-border-color-on-raised",

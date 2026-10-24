@@ -2,12 +2,16 @@
   import { Callout, CalloutContent, CalloutIcon } from "opui-css/svelte"
 </script>
 
-<Callout severity="neutral">
-  <CalloutContent>This is a tonal neutral Callout</CalloutContent>
+<Callout severity="critical">
+  <CalloutIcon />
+  <CalloutContent>This is a tonal critical Callout</CalloutContent>
 </Callout>
 <Callout severity="info">
   <CalloutIcon />
   <CalloutContent>This is a tonal info Callout</CalloutContent>
+</Callout>
+<Callout severity="neutral">
+  <CalloutContent>This is a tonal neutral Callout</CalloutContent>
 </Callout>
 <Callout severity="success">
   <CalloutIcon />
@@ -17,16 +21,16 @@
   <CalloutIcon />
   <CalloutContent>This is a tonal warning Callout</CalloutContent>
 </Callout>
-<Callout severity="critical">
+<Callout severity="critical" variant="outlined">
   <CalloutIcon />
-  <CalloutContent>This is a tonal critical Callout</CalloutContent>
-</Callout>
-<Callout severity="neutral" variant="outlined">
-  <CalloutContent>This is an outlined neutral Callout</CalloutContent>
+  <CalloutContent>This is an outlined critical Callout</CalloutContent>
 </Callout>
 <Callout severity="info" variant="outlined">
   <CalloutIcon />
   <CalloutContent>This is an outlined info Callout</CalloutContent>
+</Callout>
+<Callout severity="neutral" variant="outlined">
+  <CalloutContent>This is an outlined neutral Callout</CalloutContent>
 </Callout>
 <Callout severity="success" variant="outlined">
   <CalloutIcon />
@@ -35,8 +39,4 @@
 <Callout severity="warning" variant="outlined">
   <CalloutIcon />
   <CalloutContent>This is an outlined warning Callout</CalloutContent>
-</Callout>
-<Callout severity="critical" variant="outlined">
-  <CalloutIcon />
-  <CalloutContent>This is an outlined critical Callout</CalloutContent>
 </Callout>

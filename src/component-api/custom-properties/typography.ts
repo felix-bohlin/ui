@@ -21,9 +21,4 @@ export default {
       "Digits reserved for the numbers of an `ol`, from its `start` attribute.",
     kind: "output",
   },
-  "--_text-color": {
-    description:
-      "Text and underline color of links without a `ui-` class in `.ui-rich-text`. Defaults to `--ui-primary-text`.",
-    kind: "input",
-  },
 } satisfies CustomProperties

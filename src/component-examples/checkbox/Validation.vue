@@ -3,13 +3,13 @@ import { Checkbox } from "opui-css/vue"
 </script>
 
 <template>
-  <div class="example-row ui-spacious">
+  <div class="example-row">
     <Checkbox required name="checkbox-validation">Default</Checkbox>
     <Checkbox orientation="vertical" required name="checkbox-validation"
       >Stack</Checkbox
     >
   </div>
-  <div class="example-row ui-spacious">
+  <div class="example-row">
     <Checkbox error checked name="checkbox-validation">
       Default
       <template #end-text>Check yourself</template>

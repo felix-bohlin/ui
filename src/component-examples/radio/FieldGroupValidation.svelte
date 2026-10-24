@@ -17,7 +17,7 @@
       <Radio error value="3">Radio 3</Radio>
     </FieldGroup>
     <span class="ui-end-text" id="radio-field-group-validation-1-error"
-      >Something went wrong!</span
+      >Radio 1 is sold out, pick another.</span
     >
   </Fieldset>
 </Form>

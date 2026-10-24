@@ -19,12 +19,6 @@ export type Props = {
       type?: never
     }
   | {
-      as: "div"
-      disabled?: never
-      href?: never
-      type?: never
-    }
-  | {
       as?: never
       disabled?: never
       href?: never

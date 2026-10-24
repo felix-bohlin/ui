@@ -12,6 +12,7 @@
     --ui-button-font-weight: var(--font-weight-5);
     --ui-choice-accent: var(--ui-primary);
     --ui-choice-on-accent: var(--ui-on-primary);
+    --ui-choice-border-color: var(--ui-primary);
     --ui-control-border-color: var(--ui-field-border-color);
     --ui-density: 0.9;
     --ui-field-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 0.15));

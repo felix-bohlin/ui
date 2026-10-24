@@ -353,7 +353,7 @@
         inline-size: auto;
       }
 
-      :where(& input, & textarea) {
+      :where(& input, & select, & textarea) {
         field-sizing: content;
         inline-size: auto;
         min-inline-size: 25ch;

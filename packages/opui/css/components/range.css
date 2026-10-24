@@ -119,6 +119,22 @@
       --_track-base-bg-color: var(--ui-track-bg-color, var(--ui-surface-tonal));
     }
 
+    /* Sizes */
+    &.ui-x-small {
+      --_thumb-size: 2ex;
+      --_track-block-size: 0.5ex;
+    }
+
+    &.ui-small {
+      --_thumb-size: 2.5ex;
+      --_track-block-size: 0.625ex;
+    }
+
+    &.ui-large {
+      --_thumb-size: 3.5ex;
+      --_track-block-size: 1ex;
+    }
+
     /* Orientation */
     &.ui-spread {
       align-items: center;
@@ -260,7 +276,10 @@
       grid-row: 3;
       inline-size: 100%;
       margin: calc(var(--_inset) * -1);
-      outline-offset: calc(1ex - var(--_inset));
+      outline-offset: calc(
+        max(0px, (var(--_thumb-size) - var(--ui-space-4)) / 2) +
+          var(--ui-focus-ring-offset) - var(--_inset)
+      );
       overflow: hidden;
       padding: var(--_inset);
       timeline-scope: --ui-range-thumb;

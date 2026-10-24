@@ -17,7 +17,7 @@ export default function FieldGroupValidation() {
           </Radio>
         </FieldGroup>
         <span className="ui-end-text" id="radio-field-group-validation-1-error">
-          Something went wrong!
+          Radio 1 is sold out, pick another.
         </span>
       </Fieldset>
     </Form>

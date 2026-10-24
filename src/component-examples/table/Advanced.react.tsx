@@ -84,7 +84,7 @@ export default function Advanced() {
       </TableBody>
       <TableFoot>
         <TableRow>
-          <TableCell colSpan={6}>Scandinavia != The Nordics</TableCell>
+          <TableCell colSpan={6}>5 countries</TableCell>
         </TableRow>
       </TableFoot>
     </Table>

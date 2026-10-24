@@ -10,9 +10,6 @@ export const todoExamples = {
   "dialog-scrollbar-gutter": {
     match: "Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable`",
   },
-  "list-item-as-div": {
-    match: 'ListItem: `as="div"` renders',
-  },
   "tabs-rtl": {
     match: "Tabs: the Keyboard support list says Right and Left Arrow",
   },

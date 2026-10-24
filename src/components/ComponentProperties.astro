@@ -4,6 +4,7 @@ import {
   customPropertyRows,
   pageStylesheets,
 } from "../component-api/custom-properties"
+import { components, dependenciesOf } from "../utils/components"
 import { formatInline } from "../utils/format-inline"
 import DocLink from "./DocLink.astro"
 import DocsTable from "./DocsTable.astro"
@@ -15,8 +16,15 @@ type Props = {
 const { slug } = Astro.props
 const { link } = Astro.locals
 
+const dependencies = dependenciesOf(slug)
 const stylesheets = pageStylesheets(slug)
-  .map((stylesheet) => ({ rows: customPropertyRows(stylesheet), stylesheet }))
+  .map((stylesheet) => ({
+    dependency: dependencies.includes(stylesheet)
+      ? components.find((component) => component.slug === stylesheet)
+      : undefined,
+    rows: customPropertyRows(stylesheet),
+    stylesheet,
+  }))
   .filter(({ rows }) => rows.length > 0)
 ---
 
@@ -34,9 +42,15 @@ const stylesheets = pageStylesheets(slug)
         />{" "}
         has examples.
       </p>
-      {stylesheets.map(({ rows, stylesheet }) => (
+      {stylesheets.map(({ dependency, rows, stylesheet }) => (
         <Fragment>
           {stylesheets.length > 1 && <h3>{stylesheet}.css</h3>}
+          {dependency && (
+            <p>
+              A dependency, from{" "}
+              <DocLink href={dependency.href}>{dependency.name}</DocLink>.
+            </p>
+          )}
           <DocsTable
             columns={[
               { label: "Property", width: "30%" },

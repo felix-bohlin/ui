@@ -80,7 +80,7 @@
   </TableBody>
   <TableFoot>
     <TableRow>
-      <TableCell colspan={6}>Scandinavia != The Nordics</TableCell>
+      <TableCell colspan={6}>5 countries</TableCell>
     </TableRow>
   </TableFoot>
 </Table>

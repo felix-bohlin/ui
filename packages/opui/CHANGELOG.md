@@ -58,11 +58,11 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `FieldSet` is `Fieldset` (`components/Fieldset/Fieldset.*`), and `FieldDescription` renders `.ui-description` instead of `.ui-field-description`.
 - `List` no longer takes `divided`. Use `bordered` (`.ui-bordered`) ([#395](https://github.com/felix-bohlin/ui/issues/395)).
 - `List` `gutterless` (`.ui-gutterless`) is `flush` (`.ui-flush`).
-- `List` styles `.ui-start` and `.ui-end` only as direct children of a row, or of the `a`, `button`, `div` or `label` directly in it. One inside another wrapper no longer gets the row layout.
+- `List` styles `.ui-start` and `.ui-end` only as direct children of a row, or of the `a`, `button` or `label` directly in it. One inside another wrapper no longer gets the row layout.
 - `List`, `Range` and `Progress` no longer take `variant="default"` (`.ui-default`, the page surface), because it wasn't the default look. Use `outlined` (the default), `filled` or `tonal` on a `Range`, `tonal` (the default) or `filled` on a `Progress`, and `filled` (the default), `tonal` or `transparent` on a `List`.
 - `List` no longer styles `[aria-selected="true"]` on a row's `li`, `a`, `button` or `label`, where ARIA doesn't allow it. Mark the current row with `aria-current="page"`. Options (`option` and `[role="option"]`) keep the selected style.
 - `ListItem` `headline` is `label`, and the `text` slot is gone: `label` and `description` take a string or, as slots of the same name, rich content, rendered as the two paragraphs in `.ui-text`. The default slot adds more content after them.
-- `ListItem` `as` only accepts `"a"`, `"button"` or `"div"` (types).
+- `ListItem` `as` only accepts `"a"` or `"button"` (types). A static item leaves `as` out and renders its content straight in the `<li>`.
 - `ListItem` `type` can't be combined with `as` or `href` (types).
 - `Range` in Astro and Vue no longer sets `--_track-fill` from script. The track fill is a scroll-driven animation in CSS.
 - `Range` takes `items` instead of `options` for its tick marks (`RangeItem[]`). In Astro and Vue, the label goes in the `label` slot instead of the default slot, and the readout slot is `value-text` instead of `value`, the name React and Svelte use (`valueText`).
@@ -77,6 +77,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Tabs` parts are `.ui-input`, `.ui-label` and `.ui-panel` instead of `.ui-tab-input`, `.ui-tab-label` and `.ui-tab-panel`, and `TabsTab` is `TabsLabel` (`components/Tabs/TabsLabel.*`).
 - `Tabs`, `Table` and `DescriptionList` in Astro no longer have dot aliases such as `Tabs.Item`, `Table.Head` and `DescriptionList.Item`. Import the flat names, such as `TabsItem`, `TableHead` and `DescriptionListItem`, like React, Svelte and Vue. The `components/{Tabs,Table,DescriptionList}/index.ts` files that held the aliases are gone.
 - `TabsItem` `open` and `ToggleButton` `pressed` are `checked`, the native attribute they set.
+- `TabsItem` takes `id` instead of `tabId`, and `TabsLabel` takes `for` (`htmlFor` in React) instead of `tabId`, the native names of the attributes they set. The item still generates the id and passes it to its label when both are omitted.
 - `TextField`, `Textarea` and `Select` in Astro and Vue no longer generate an input `id`. Pass `id` when something outside the component needs to reference the input.
 - `TextField` and `Textarea` take a `size` prop instead of `small`. Replace `small` with `size="small"`.
 - `TextField` and `Textarea` in Astro pass extra attributes to the `<input>`/`<textarea>` instead of the `<label>`. `class` and `style` stay on the label. In Vue, `style` now goes to the label instead of the input.
@@ -163,12 +164,14 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Checkbox` and `Radio` take `size="x-small"` (`.ui-x-small`), 14px from the new `--ui-choice-size-x-small` token.
 - `Checkbox`, `Radio` and `Switch` take an `endText` string in Astro and Vue, like `TextField`.
 - `Checkbox`, `Radio`, `Switch` and `Range` read the optional `--ui-choice-accent` and `--ui-choice-on-accent` for their checked fill, thumb and mark. When unset, they keep `--ui-primary` with the dark mode lightness cap. m3 and shadcn set them to the plain primary.
+- `Checkbox`, `Radio` and `Switch` read the optional `--ui-choice-border-color` for their unchecked border and track edge. When unset, they keep `--ui-field-border-color`, and the token promises 3:1 against `--ui-surface`. shadcn sets it to its primary, like shadcn/ui, so its faint field border no longer draws the choices.
 - `CheckboxInput`, `RadioInput` and `SwitchInput` take `class` in Vue, and the Vue entry exports `DescriptionListDescriptionProps`, `DescriptionListItemProps` and `DescriptionListTermProps`.
 - `Chip` supports `aria-disabled="true"` on a link chip. A static chip takes `.ui-disabled` for an inactive look, since a `div` can't carry a disabled state.
 - `Chip` takes a `large` size (`.ui-large`, 40px) for chips next to default-size fields and buttons. Chip heights come from `--ui-chip-size-small`, `--ui-chip-size` and `--ui-chip-size-large`, which follow the control size scale.
 - `Chip` takes `size="x-small"` (`.ui-x-small`), 24px tall from the new `--ui-chip-size-x-small` token.
 - `Chip` takes a `severity` prop (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) that tints a tonal chip, and `dot` (`.ui-dot`) for a leading dot in that color. The dot is a diamond for critical, a triangle for warning and a ring for neutral, and stays visible in forced colors mode. On an outlined chip only the dot is colored. The tint, border, text and dot read the `--ui-palette-*` roles, like `Callout`.
 - `Chip` takes a `disabled` prop in Astro, React, Svelte and Vue. A button chip gets `disabled`, a link chip `aria-disabled="true"`.
+- `Chip` styles a button chip with `aria-pressed="true"` as pressed, for filters and choices: filled with `--ui-selected`, or `--ui-primary`, under `--ui-on-selected` text like a checked `ToggleButton`, darker on hover, dimmed with `--ui-disabled-opacity` when disabled and `SelectedItem` in forced colors. `--_pressed-bg-color` sets the fill.
 - `DescriptionList` takes `orientation="horizontal"` (`.ui-horizontal`), which keeps the term and the description side by side at any width. The default, `auto`, stacks them when the list is `45ch` or narrower.
 - `Dialog` and `Drawer` show a subtle scroll shadow under the header and above the actions while the content scrolls (scroll-state container queries).
 - `Dialog` types `closedby` in every framework.
@@ -183,9 +186,12 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Progress` has a `--_loop-duration` property for the length of its indeterminate loop.
 - `Radio` takes a `spread` prop (`.ui-spread`), like `Checkbox` and `Switch`.
 - `Range` takes an `error` prop (`aria-invalid="true"` on the input) for the invalid state, like the other fields.
+- `Range` takes a `size` prop (`.ui-x-small`, `.ui-small`, `.ui-large`), like the other form controls. The thumb and the track scale with it.
 - `Range` has a `--_track-base-bg-color` property for the empty track at rest. The pressed and disabled states override it.
 - `Select` items take `selected`, and `value` preselects options in Astro, Svelte and Vue, and `defaultValue` or `value` in React (an array with `multiple`). Options render `selected` on the server.
 - `Select` and `Range` export `SelectItem` and `RangeItem` from every framework barrel.
+- `Select` takes `autoFit` (`.ui-auto-fit`), like `TextField`: the field's width follows the selected option, from `25ch`.
+- `Select` styles `<optgroup>` groups like `<div role="group">` ones. A `<legend>` first in the group is the heading, and the `label` attribute names the group and shows in browsers without customizable select.
 - `Switch` takes `size="x-small"` and `size="large"` (`.ui-x-small`, `.ui-large`), from the new `--ui-switch-thumb-size-*`, `--ui-switch-track-block-size-*` and `--ui-switch-track-inline-size-*` x-small and large tokens. The dot inset follows the track and dot size, so custom `--ui-switch-*` values stay centered.
 - `Switch`, `Progress` and `Range` read the optional `--ui-track-bg-color` for the empty part of their track. When unset, they keep their current colors. shadcn sets it to its field border.
 - `Table` takes `stickyHeader` (`.ui-sticky-header`), which keeps the header rows at the top of the nearest scroll container and shows a shadow once they are stuck (scroll-state container queries). Offset it with `--_sticky-offset`.
@@ -193,12 +199,14 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Table` exports a props type for every part from `opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue`: `TableBodyProps`, `TableCaptionProps`, `TableCellProps`, `TableColumnGroupProps`, `TableFootProps`, `TableHeadProps`, `TableHeaderCellProps` and `TableRowProps`.
 - `Tabs` take a `variant` prop. `filled` (`.ui-filled`) fills the selected tab with `--ui-selected-strong`, the primary color unless a theme sets it, `line` (`.ui-line`) drops the track and marks the selected tab with a line, and `outlined` (`.ui-outlined`) uses a bordered track without a background.
 - `Tabs` take `overflow="scroll"` (`.ui-overflow-scroll`). The tabs stay on one row and scroll sideways when they don't fit, and the open panel stays in view. Takes any number of tabs.
+- `Tabs` take a bindable `value`: `bind:value` in Svelte, `v-model` in Vue, `value`, `defaultValue` and `onValueChange` in React, and in Astro the `value` of the tab to select on the server. A `TabsItem` with a `value` takes its checked state from it once the tabs have one, so a tab that loses its check to another one no longer drifts from the state. The item's own `checked` or `defaultChecked` is then ignored, and a dev warning says so.
 - `TextField`, `Textarea`, `Select` and `Range` take `hideLabel`, which renders the label as `.ui-sr-only` instead of `.ui-label`, so the field keeps its accessible name without a visible label.
 - `TextField`, `Textarea` and `Select` take `x-small` (`.ui-x-small`, 28px) and `large` (`.ui-large`, 46px) sizes, so every field size has a matching `Button` size. x-small fields set their text in `--ui-font-size-caption`, like x-small buttons, and keep `--ui-font-size-control` on touch screens. Their block padding follows `--ui-space-scale`, like the other sizes.
 - `ToggleButton` and `ToggleGroup` take a `large` size (`.ui-large`), and `ButtonGroup` takes `x-small` (`.ui-x-small`).
 - `ToggleButton`, `ToggleGroup`, outlined `Chip` and the outlined `Tabs` track read `--ui-control-border-color` for their border, like outlined buttons, so one token outlines every unfilled control. They keep their current border when a theme doesn't set it.
 - `ToggleButton` when checked, `Chip` without `.ui-outlined` and the `Carousel` buttons read `--ui-control-border-color-filled` for their border, like filled buttons.
 - `ToggleButton` when checked, the selected `ToggleGroup` item, and selected or current `List` items and `Select` options read the optional `--ui-selected` and `--ui-on-selected`. When unset, toggles are filled with `--ui-primary` and List items and Select options get a primary tint. m3 and shadcn set them to their tonal surface.
+- `ToggleButton` in Vue binds a standalone button's checked state with `v-model`, like `bind:checked` in Svelte and `checked` with `onChange` in React. In a `ToggleGroup` the group's `v-model` still wins.
 - `ToggleGroup` takes a bindable `value`: `bind:value` in Svelte, `v-model` in Vue, and `value`, `defaultValue` and `onValueChange` in React. It is a string, and an array of strings with `multiple`, and a `ToggleButton` in the group takes its checked state from it once the group has one. The button's own `checked` or `defaultChecked` is then ignored, and a dev warning says so.
 - `Typography` reads a `--ui-rhythm-step` theme token (`0.25rem`). Heading font sizes snap to half a step and heading line heights to a full step with `round()`.
 - `Typography` rich text styles `hr`, tables (which scroll sideways in a narrow column), `pre > samp` and preformatted text without `code`.
@@ -252,6 +260,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Avatar` and `Badge` text uses `--ui-on-primary`.
 - `Avatar`, `List` and `ButtonGroup` sizes follow `--ui-control-size` and `--ui-button-size-*`.
 - `Avatar` no longer declares `command`, `commandfor` and `interestfor` as props. They pass through as attributes.
+- `AvatarGroup` avatars overlap by `--ui-space-2` instead of `--ui-space-3`, so the initials stay whole at every size.
 - `Badge` on a round `Avatar` sits on the avatar's edge instead of the corner of its box.
 - `Badge` in an `Avatar` group sits on the avatar's start side, the part the next avatar doesn't cover, with the same ring as the avatars (the group's `--_outline-color`).
 - `Button` critical keeps light text on a fill that, like its hover and pressed fills, stays within `--ui-fill-max-lightness` (`0.48`), a little darker than `--ui-critical`, while its border keeps `--ui-critical`, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode.
@@ -296,6 +305,8 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `List` only styles direct `li`/`option` children (and options in a `[role="group"]`) as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin.
 - `List` checked `option` uses `--ui-state-active-alpha-accent`.
 - `List` selected and current rows and options have a bar on their start edge in `--ui-selected-strong`, and a stronger fill than hover (`--ui-state-active-alpha-accent`, the hover tint with more contrast), so they no longer differ from a hovered row by a tint alone. Selected `Select` options read `--ui-primary-text`. Images and videos in `.ui-start` are `3.5rem` and `4rem` instead of `56px` and `64px`.
+- `List` has rounded corners (`--_radius`, `--ui-radius`) and clips its rows to them. As a direct child of a `Card`, `Accordion` or `Dialog` it stays square, since they round and clip it.
+- `List` dense rows are `--ui-control-size-small` tall instead of a fixed `--ui-space-7`, so they follow `--ui-density`.
 - `Progress` outlines its track with `--ui-field-border-color`, so the empty part is visible.
 - `Radio` is `--ui-choice-size` (20px) like `Checkbox`, instead of 18px.
 - `Range` pressed thumb ring reads `--ui-state-active-alpha-light` and `--ui-state-active-alpha-dark`, so it is 30% in dark mode (was 20%).
@@ -339,6 +350,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Typography` headings share one line height, `1em + 0.5rem` rounded to `--ui-rhythm-step`, in rich text and in the `.ui-h1`–`.ui-h6` classes.
 - `Typography` rich text headings, `pre` and `small` scale with the inherited font size.
 - `Typography` `.ui-small` is at least `0.75em` of the surrounding text instead of `0.5em`, like rich text `small`, so it stays in proportion in headings.
+- `Typography` styles `.ui-overline`, `.ui-hgroup` and rich text `hgroup`, and `.ui-code-block` and rich text `pre`, with one rule per pair in `@scope (…) to (.ui-not-rich-text)` blocks, and `link.css` styles `.ui-link` and rich text links the same way, so the class and the classless version can't drift. Rich text links need `link.css` next to `typography.css`.
 - `Typography` rich text `var` uses the monospace font and wraps long names, like `.ui-var`.
 - `--ui-field-border-color` is a 50% mix of the text color into the page (3:1 or more) instead of `--ui-border-color`, so fields, checkboxes, radios, switches and the range track have a visible boundary without more contrast. Inside filled surfaces it mixes into `--ui-surface-filled` the same way. The example themes keep their own.
 - `--ui-invalid` is lighter in dark mode with more contrast, so invalid fields, checkboxes, radios, switches and ranges keep a visible edge. `TextField` no longer swaps it for `--ui-invalid-text` itself.
@@ -354,6 +366,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 
 ### Fixed
 
+- `Range` focus ring sits `--ui-focus-ring-offset` outside the thumb instead of `1ex` outside the track, also at every size.
 - `Accordion`, `Avatar`, `Divider`, `List`, `Progress`, `Range`, `Select`, `Switch`, `Tabs`, `Textarea`, `TextField` and `ToggleButton` keep their state visible in forced colors mode: selected tabs, toggles and list items use `SelectedItem`, switches, ranges, progress bars and dividers are drawn with system colors, focused fields get a `Highlight` outline, elevated and tonal accordions get a `CanvasText` border, and letter avatars an outline.
 - `Accordion` focus ring is drawn inside the summary of `.ui-elevated`, `.ui-outlined`, `.ui-tonal` and grouped accordions, so the card no longer clips it, and outside the summary of a transparent accordion, so it no longer cuts through the text and marker.
 - `Accordion` content in a transparent group lines up with the summary.
@@ -405,8 +418,10 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Card` actions line up a plain last button with the content, and no longer pull a filled or outlined last button to the edge.
 - `Card` actions keep the edge padding for a text button with extra classes.
 - `Card`, `ToggleButton`, `Checkbox`, `Radio`, `Switch` and the busy spinner read the local `--_motion`, so `style="--_motion: 0"` turns off their focus ring animation, hover halo and spin speed-up like other components.
-- `Card` actions keep room for the focus ring of a text button at their start or end.
+- `Card`, `Accordion` and `Dialog` actions line up the label of a text button at their start or end with the content: the button pulls itself out by its padding and border (`--_actions-shift`), as far as the focus ring stays inside the card. Accordion actions had no compensation, so the label sat 14px inside the content edge.
 - `Card` content followed by a divider has no bottom padding, so the divider sits evenly between the two contents.
+- `Carousel` leaves room around the items for their box shadows (`--_shadow-room`, `--ui-space-3`), so the scroll container no longer clips a card's shadow at the bottom or at the scroll end. It is padding that a negative margin cancels, so the layout and the button and marker positions stay the same. On the scroll axis the room is at most `--_gap` and shrinks by the peek, so the next item stays hidden.
+
 - `Checkbox`, `Radio`, `Switch` and `ToggleButton` style `aria-disabled="true"` on the input like `disabled`: dimmed, a `not-allowed` cursor and no hover tint on toggle buttons. The browser doesn't block the change, so a script has to.
 - `Checkbox` and `Radio` show a red border when invalid and unchecked (`aria-invalid="true"` or `:user-invalid`), like Switch and TextField. Before, only a checked control turned red.
 - `Checkbox`, `Radio`, `Switch`, `Range`, `TextField`, `Textarea` and `Select` validation messages and invalid labels use `--ui-invalid-text`, which is darker in light mode and lighter in dark mode. They failed contrast on dark and tinted surfaces.
@@ -460,6 +475,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `List` without a variant sets the field border to its own border, so checkbox and radio rings show on the filled row.
 - `List` `.ui-end` passes clicks to a `label`, `select`, `summary`, `textarea` or `[tabindex]` element inside it, not only to links, buttons and inputs.
 - `List` rows no longer force every element inside them to the row's font size, so a `Chip`, `Badge` or `Button` in `.ui-start` or `.ui-end` keeps its own size.
+- `List` on touch screens only stops text selection in clickable rows (`a`, `button` and `label`), so end text and `Select` options can be selected and copied.
 - `ListItem` with `href` and no `as` renders a link in Astro and Vue.
 - `ListItem` with `as="button"` renders `type="button"`, so it no longer submits a surrounding form.
 - `ListItem` `inset` no longer indents the label of a Chip or Button placed in `.ui-end`.
@@ -546,6 +562,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `ToggleButton` only grows inside a `ToggleGroup`. On its own in a flex container it stretched to fill the row.
 - `ToggleButton` in Vue is a radio in a single-selection `ToggleGroup`, like Astro, even with a `type`.
 - `ToggleButton` keeps its selected tint on hover, also in a `ToggleGroup`, and a disabled selected button no longer changes on hover.
+- `ToggleButton` declares `--_selected-bg-color` on the root with its other inputs, so an override on `.ui-toggle-button` reaches the checked button instead of losing to the checked rule.
 - `ToggleGroup` in Svelte and Vue leaves each button's own `checked` alone when no `value` is bound, like React.
 - `ToggleGroup` keeps its control size in forced colors instead of being one border width short, and the selected item no longer shows a gray divider there.
 - `ToggleGroup` `.ui-vertical` items stretch to the group's width, like `ButtonGroup`, so dividers and the checked background line up.
@@ -557,6 +574,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Tooltip` keeps its edge in forced colors with a `CanvasText` border, and the arrow stays visible.
 - `Tooltip` aligned to a span switches inline sides before it jumps to the other block side.
 - `Typography` rich text inline `code`, `kbd` and `var` no longer make their line taller than the line height.
+- `Typography` `kbd`, `var`, `.ui-kbd` and `.ui-var` no longer draw a border in their own background color. The border width is folded into the padding, so the box keeps its size.
 - `Typography` rich text removes the top margin of the first child and the bottom margin of the last child in a component's `.ui-content`.
 - `Typography` rich text lists after a heading or `hr` no longer get a top margin, and nested lists get their smaller margins.
 - `Typography` rich text no longer overflows grid and flex parents with long words, URLs or code lines, and list items, figure content and table cells no longer push it wider than its container on narrow viewports.

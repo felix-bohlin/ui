@@ -22,11 +22,11 @@ export const components = Array.from(slugs)
   }))
   .sort((a, b) => a.name.localeCompare(b.name))
 
-const dependenciesOf = (slug: string) =>
+export const dependenciesOf = (slug: string) =>
   [
-    ...docSources[`../docs/components/${slug}.astro`].matchAll(
+    ...(docSources[`../docs/components/${slug}.astro`]?.matchAll(
       /\{[^{}]*\bisDependency: true[^{}]*\}/g,
-    ),
+    ) ?? []),
   ].flatMap(([tab]) => tab.match(/title: "([\w-]+)\.css"/)?.[1] ?? [])
 
 export const dependentsOf = (slug: string) =>

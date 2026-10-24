@@ -231,8 +231,18 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <p>
       Wrap options in a <code>&lt;div role="group"&gt;</code> and start it with a
       {" "}<code>&lt;label class="ui-text"&gt;</code> to group them under a heading.
+      The heading takes any content, but it doesn't name the group for screen readers.
     </p>
     <AutoExample name="Grouped" row spacious />
+    <h3 id="optgroup">Optgroup</h3>
+    <p>
+      An <code>&lt;optgroup&gt;</code> names its group natively through its
+      {" "}<code>label</code> attribute. Give it a <code>&lt;legend&gt;</code> with
+      the same text first in the group: it gets the heading styles in a customizable
+      select, while browsers without one show the <code>label</code>
+      {" "}in their own picker.
+    </p>
+    <AutoExample name="GroupedOptgroup" row spacious />
   </section>
 
   <section>
@@ -258,6 +268,15 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     </Conditional>
 
     <AutoExample name="Spread" column spacious />
+  </section>
+
+  <section>
+    <h2 id="auto-fit">Auto-fit</h2>
+    <p>
+      Use <PropOrClass prop="autoFit" class=".ui-auto-fit" /> to let the field's width
+      follow the selected option, from <code>25ch</code>.
+    </p>
+    <AutoExample name="AutoFit" class="flex" />
   </section>
 
   <Fragment slot="accessibility">

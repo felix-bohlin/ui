@@ -24,7 +24,10 @@
       var(--ui-switch-track-bg-color)
     );
     --_track-block-size: round(var(--ui-switch-track-block-size), 1px);
-    --_track-border-color: var(--ui-field-border-color);
+    --_track-border-color: var(
+      --ui-choice-border-color,
+      var(--ui-field-border-color)
+    );
     --_track-inline-size: round(var(--ui-switch-track-inline-size), 1px);
 
     :where(input[type="checkbox"][role="switch"]) {

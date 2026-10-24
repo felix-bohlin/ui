@@ -25,6 +25,7 @@ const {
   items,
   label,
   list,
+  size,
   spread,
   startText,
   value,
@@ -89,6 +90,7 @@ const endTextId = `range-end-${uid}`
     :class="[
       'ui-range',
       { 'ui-spread': spread },
+      size && size !== 'medium' && `ui-${size}`,
       variant && variant !== 'outlined' && `ui-${variant}`,
       $props.class,
     ]"

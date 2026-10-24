@@ -1,6 +1,7 @@
 @layer components.root {
   :where(.ui-carousel) {
     --_motion: var(--ui-motion);
+    --_block-room: var(--_shadow-room);
     --_block-size: 24rem;
     --_button-bg-color: var(--ui-surface-inverse);
     --_button-border-color: var(
@@ -27,6 +28,10 @@
     --_duration: calc(var(--ui-duration) * var(--_motion));
     --_ease: var(--ui-ease);
     --_gap: var(--ui-space-3);
+    --_inline-room: min(
+      var(--_gap),
+      max(0px, var(--_shadow-room) - var(--_padding-inline))
+    );
     --_item-size: calc(
       (100% - (var(--_items-per-view) - 1) * var(--_gap)) /
         var(--_items-per-view)
@@ -45,6 +50,7 @@
     --_padding-block: 0px;
     --_padding-inline: 0px;
     --_scale-duration: calc(var(--ui-duration-fast) * var(--_motion));
+    --_shadow-room: var(--ui-space-3);
     --_snap-align: start;
 
     counter-reset: ui-carousel-item;
@@ -53,14 +59,15 @@
     grid-auto-columns: var(--_item-size);
     grid-auto-flow: column;
     list-style: none;
-    margin: 0;
+    margin-block: calc(-1 * var(--_block-room));
+    margin-inline: calc(-1 * var(--_inline-room));
     overflow-inline: auto;
     overscroll-behavior-inline: contain;
-    padding-block: 0;
-    padding-inline: var(--_padding-inline);
+    padding-block: var(--_block-room);
+    padding-inline: calc(var(--_padding-inline) + var(--_inline-room));
 
     scroll-behavior: smooth;
-    scroll-padding-inline: var(--_padding-inline);
+    scroll-padding-inline: calc(var(--_padding-inline) + var(--_inline-room));
     scroll-snap-type: x mandatory;
 
     @container style(--ui-motion: 0) {
@@ -103,16 +110,22 @@
 
     /* Vertical */
     &.ui-vertical {
-      block-size: var(--_block-size);
+      --_block-room: min(
+        var(--_gap),
+        max(0px, var(--_shadow-room) - var(--_padding-block))
+      );
+      --_inline-room: var(--_shadow-room);
+
+      block-size: calc(var(--_block-size) + 2 * var(--_block-room));
       grid-auto-columns: auto;
       grid-auto-flow: row;
       grid-auto-rows: var(--_item-size);
       overflow-block: auto;
       overflow-inline: hidden;
       overscroll-behavior-block: contain;
-      padding-block: var(--_padding-block);
-      padding-inline: 0;
-      scroll-padding-block: var(--_padding-block);
+      padding-block: calc(var(--_padding-block) + var(--_block-room));
+      padding-inline: var(--_inline-room);
+      scroll-padding-block: calc(var(--_padding-block) + var(--_block-room));
       scroll-padding-inline: 0;
       scroll-snap-type: y mandatory;
 
@@ -158,14 +171,18 @@
         --_button-flip: var(--_button-start-flip);
 
         content: "" / var(--_button-prev-label);
-        inset-inline-start: calc(anchor(self-start) + var(--_button-inset));
+        inset-inline-start: calc(
+          anchor(self-start) + var(--_button-inset) + var(--_inline-room)
+        );
       }
 
       &::scroll-button(inline-end) {
         --_button-flip: var(--_button-end-flip);
 
         content: "" / var(--_button-next-label);
-        inset-inline-end: calc(anchor(self-end) + var(--_button-inset));
+        inset-inline-end: calc(
+          anchor(self-end) + var(--_button-inset) + var(--_inline-room)
+        );
       }
 
       &:dir(rtl) {
@@ -190,39 +207,47 @@
           --_button-flip: -1;
 
           content: "" / var(--_button-prev-label);
-          inset-block-start: calc(anchor(self-start) + var(--_button-inset));
+          inset-block-start: calc(
+            anchor(self-start) + var(--_button-inset) + var(--_block-room)
+          );
         }
 
         &::scroll-button(block-end) {
           --_button-flip: 1;
 
           content: "" / var(--_button-next-label);
-          inset-block-end: calc(anchor(self-end) + var(--_button-inset));
+          inset-block-end: calc(
+            anchor(self-end) + var(--_button-inset) + var(--_block-room)
+          );
           inset-block-start: auto;
         }
 
         &.ui-buttons-outside {
           /* Firefox and Safari fallback */
           @supports selector(::scroll-button(*)) {
-            margin-block: calc(var(--_button-size) + var(--_button-inset));
-            margin-inline: 0;
+            margin-block: calc(
+              var(--_button-size) + var(--_button-inset) - var(--_block-room)
+            );
+            margin-inline: calc(-1 * var(--_inline-room));
 
             &.ui-markers {
               margin-inline-end: calc(
-                var(--_marker-size) + var(--_markers-gap)
+                var(--_marker-size) + var(--_markers-gap) - var(--_inline-room)
               );
             }
           }
 
           &::scroll-button(block-start) {
             inset-block-start: calc(
-              anchor(self-start) - var(--_button-size) - var(--_button-inset)
+              anchor(self-start) - var(--_button-size) - var(--_button-inset) +
+                var(--_block-room)
             );
           }
 
           &::scroll-button(block-end) {
             inset-block-end: calc(
-              anchor(self-end) - var(--_button-size) - var(--_button-inset)
+              anchor(self-end) - var(--_button-size) - var(--_button-inset) +
+                var(--_block-room)
             );
           }
         }
@@ -259,18 +284,22 @@
       &.ui-buttons-outside {
         /* Firefox and Safari fallback */
         @supports selector(::scroll-button(*)) {
-          margin-inline: calc(var(--_button-size) + var(--_button-inset));
+          margin-inline: calc(
+            var(--_button-size) + var(--_button-inset) - var(--_inline-room)
+          );
         }
 
         &::scroll-button(inline-start) {
           inset-inline-start: calc(
-            anchor(self-start) - var(--_button-size) - var(--_button-inset)
+            anchor(self-start) - var(--_button-size) - var(--_button-inset) +
+              var(--_inline-room)
           );
         }
 
         &::scroll-button(inline-end) {
           inset-inline-end: calc(
-            anchor(self-end) - var(--_button-size) - var(--_button-inset)
+            anchor(self-end) - var(--_button-size) - var(--_button-inset) +
+              var(--_inline-room)
           );
         }
       }
@@ -342,15 +371,18 @@
       anchor-scope: --ui-carousel;
 
       @supports selector(::scroll-marker) {
-        margin-inline-end: calc(var(--_marker-size) + var(--_markers-gap));
+        margin-inline-end: calc(
+          var(--_marker-size) + var(--_markers-gap) - var(--_inline-room)
+        );
       }
 
       &::scroll-marker-group {
         flex-direction: column;
         inset-block-start: anchor(--ui-carousel center);
         inset-inline-start: calc(
-          anchor(--ui-carousel end) + var(--_markers-gap)
+          anchor(--ui-carousel end) + var(--_markers-gap) - var(--_inline-room)
         );
+
         margin: 0;
         position: absolute;
         translate: 0 -50%;

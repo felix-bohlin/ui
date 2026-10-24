@@ -78,8 +78,8 @@
       border-radius: var(--ui-field-radius, var(--ui-radius));
 
       /* Groups */
-      [role="group"] {
-        label {
+      :is([role="group"], optgroup) {
+        :is(label, legend) {
           background-color: color-mix(
             in oklch,
             var(--_bg-color) 94%,

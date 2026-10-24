@@ -23,7 +23,7 @@ export default function Validation() {
         <Select
           label="Label"
           error
-          endText="Supporting text"
+          endText="Pick another option."
           defaultValue="Wrong option"
         >
           <option value="">-</option>
@@ -36,7 +36,7 @@ export default function Validation() {
           label="Label"
           variant="filled"
           error
-          endText="Supporting text"
+          endText="Pick another option."
           defaultValue="Wrong option"
         >
           <option value="">-</option>

@@ -7,6 +7,7 @@ import { idRefs } from "../id"
 import type { Props } from "./types.react"
 
 export default function Select({
+  autoFit,
   className,
   defaultValue,
   dense,
@@ -62,6 +63,7 @@ export default function Select({
       className={cx([
         "ui-select",
         {
+          "ui-auto-fit": autoFit,
           "ui-filled": variant === "filled",
           "ui-spread": spread,
         },

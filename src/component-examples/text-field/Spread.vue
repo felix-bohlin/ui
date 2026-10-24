@@ -24,7 +24,7 @@ import { TextField } from "opui-css/vue"
 
   <TextField spread error label="Invalid Name">
     <template #start-text>This field has an error</template>
-    <template #end-text>This value is too short.</template>
+    <template #end-text>Enter at least two characters.</template>
   </TextField>
 
   <TextField spread label="Amount" placeholder="0.00">

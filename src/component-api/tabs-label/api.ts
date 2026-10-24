@@ -6,9 +6,20 @@ export default {
     {
       attribute: "[for]",
       description: "The id of the input it labels. Set by the item.",
-      group: "Tab id",
+      frameworks: ["astro", "svelte", "vue"],
+      group: "For",
       htmlDescription: "The id of the input it labels.",
-      prop: "tabId",
+      inherited: true,
+      prop: "for",
+      type: "string",
+    },
+    {
+      description:
+        "The id of the input it labels, as `htmlFor` like on the element. Set by the item.",
+      frameworks: ["react"],
+      inherited: true,
+      prop: "htmlFor",
+      type: "string",
     },
   ],
   page: "tabs",

@@ -5,10 +5,15 @@ import type { Props, Slots } from "./types.d.vue"
 
 const { name, overflow, variant } = defineProps<Props>()
 defineSlots<Slots>()
+const model = defineModel<string>()
 
 const uid = useId()
 const groupName = computed(() => name || `tabs-${uid}`)
-provide(TabsKey, reactive({ groupName }))
+const change = (input: HTMLInputElement) => {
+  if (model.value !== undefined) model.value = input.value
+}
+
+provide(TabsKey, reactive({ change, groupName, value: model }))
 </script>
 
 <template>

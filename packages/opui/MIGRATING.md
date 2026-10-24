@@ -594,7 +594,7 @@ Rows are no longer styled by `aria-selected="true"` on a `li`, `a`, `button` or 
 
 ## List item
 
-`as` only accepts `"a"`, `"button"` or `"div"` (types).
+`as` only accepts `"a"` or `"button"` (types). A static item leaves `as` out and renders its content straight in the `<li>`.
 
 `type` can't be combined with `as` or `href` (types).
 
@@ -828,6 +828,8 @@ Tabs look like segmented controls: the tabs sit on a rounded track and the selec
 - .ui-tabs { --_accent-color: var(--ui-critical); }
 + .ui-tabs { --_active-text-color: var(--ui-critical); }
 ```
+
+`TabsItem` takes `id` and `TabsLabel` takes `for` (`htmlFor` in React) instead of `tabId`; when both are omitted the item still generates the id and hands it to its label.
 
 Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-controls` and `aria-labelledby` from HTML tabs, and `panelId` (and `tabId` on the panel) from Astro and Vue. Styles that target `[role="tab"]` or `[role="tabpanel"]` need `.ui-label` and `.ui-panel`.
 

@@ -13,7 +13,7 @@ import { Range } from "opui-css/vue"
     <template #end-text>End text</template>
   </Range>
 
-  <Range label="Invalid Range" spread error endText="This value is incorrect.">
+  <Range label="Invalid Range" spread error endText="Pick a value below 50.">
     <template #start-text>Start text</template>
   </Range>
 

@@ -11,6 +11,14 @@
       )
     );
     --_accent-tonal: var(--ui-surface-tonal);
+    --_actions-shift: min(
+      var(--_padding-inline) + var(--_border-width),
+      var(--ui-space-3) -
+        max(
+          var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
+          var(--ui-space-1)
+        )
+    );
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-width: var(--ui-border-width);
@@ -198,6 +206,29 @@
       --_icon-size: calc(var(--_min-block-size) * 0.6);
       min-inline-size: var(--_min-block-size);
       padding-inline: 0;
+    }
+
+    /* Card, Accordion and Dialog actions */
+    :where(
+        :is(.ui-accordion, .ui-card, .ui-dialog):not(
+            .ui-accordion.ui-transparent,
+            .ui-card.ui-transparent > .ui-accordion
+          )
+          > .ui-actions.ui-align-start
+      )
+      > &:where(:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
+      margin-inline-start: calc(-1 * var(--_actions-shift));
+    }
+
+    :where(
+        :is(.ui-accordion, .ui-card, .ui-dialog):not(
+            .ui-accordion.ui-transparent,
+            .ui-card.ui-transparent > .ui-accordion
+          )
+          > .ui-actions:not(.ui-align-start)
+      )
+      > &:where(:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
+      margin-inline-end: calc(-1 * var(--_actions-shift));
     }
 
     /* Variants */

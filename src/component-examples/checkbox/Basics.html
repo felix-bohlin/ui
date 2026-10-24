@@ -23,8 +23,8 @@
   <span class="ui-sr-only">Checked and disabled</span>
 </label>
 
-<script>
-  document
-    .querySelectorAll('input[type="checkbox"][data-indeterminate]')
-    .forEach((input) => (input.indeterminate = true))
+<script type="module">
+  import { activateIndeterminate } from "opui-css/css/js/checkbox.js"
+
+  activateIndeterminate()
 </script>

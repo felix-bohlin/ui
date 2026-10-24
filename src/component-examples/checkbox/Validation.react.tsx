@@ -3,7 +3,7 @@ import { Checkbox } from "opui-css/react"
 export default function Validation() {
   return (
     <>
-      <div className="example-row ui-spacious">
+      <div className="example-row">
         <Checkbox required name="checkbox-validation">
           Default
         </Checkbox>
@@ -11,7 +11,7 @@ export default function Validation() {
           Stack
         </Checkbox>
       </div>
-      <div className="example-row ui-spacious">
+      <div className="example-row">
         <Checkbox
           error
           defaultChecked

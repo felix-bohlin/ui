@@ -7,6 +7,7 @@
   import { untrack } from "svelte"
 
   let {
+    autoFit,
     class: className,
     dense,
     error,
@@ -60,6 +61,7 @@
   class={[
     "ui-select",
     {
+      "ui-auto-fit": autoFit,
       "ui-filled": variant === "filled",
       "ui-spread": spread,
     },

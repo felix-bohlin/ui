@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro"
 import { Font } from "astro:assets"
 import { frameworkVariantsOf } from "../utils/framework"
 import { markdownPath } from "../utils/markdown.js"
+import checkboxJs from "@opui/css/js/checkbox.js?url"
 
 type Props = {
   title?: string
@@ -70,6 +71,13 @@ const markdownUrl = hasMarkdown
         ))
     }
     <meta name="generator" content={Astro.generator} />
+    <script
+      is:inline
+      type="importmap"
+      set:html={JSON.stringify({
+        imports: { "opui-css/css/js/checkbox.js": checkboxJs },
+      })}
+    />
   </head>
   <body>
     <slot />

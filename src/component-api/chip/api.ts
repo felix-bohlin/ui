@@ -19,7 +19,7 @@ export default {
       class: ".ui-dot",
       default: "false",
       description:
-        "Adds a leading dot in the chip's color. Its shape follows the severity.",
+        "Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it.",
       group: "Dot",
       prop: "dot",
     },
@@ -33,6 +33,14 @@ export default {
       description: "Lets the label wrap to multiple lines.",
       group: "Layout",
       prop: "multiline",
+    },
+    {
+      attribute: '[aria-pressed="true"]',
+      description:
+        "Fills a pressed button chip with `--ui-selected`, or `--ui-primary`, for a filter or a choice.",
+      frameworks: ["html"],
+      group: "Pressed",
+      prop: "pressed",
     },
     {
       description:

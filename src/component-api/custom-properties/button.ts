@@ -21,6 +21,12 @@ export default {
       "Background of `.ui-tonal`. `--ui-surface-tonal`, a palette tint in `.ui-critical`, and `--ui-primary-tonal` or the tint in `.ui-primary`.",
     kind: "input",
   },
+  "--_actions-shift": {
+    description:
+      "How far a text button at the start or end of `Card`, `Accordion` and `Dialog` actions pulls itself out, so its label lines up with the content: its padding and border, capped so the focus ring stays inside the card.",
+    kind: "output",
+  },
+
   "--_bg-color": {
     description:
       "The current background. Set by the variant, hover and active states.",

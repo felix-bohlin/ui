@@ -141,15 +141,19 @@ export const stylesheets = (api: ComponentApi) =>
     path.resolve("packages/opui/css/components", `${file}.css`),
   )
 
-export const cssVarRows = (api: ComponentApi) => {
+export const cssVarRows = (...apis: ComponentApi[]) => {
   const reads = new Set(
-    stylesheets(api).flatMap((file) =>
-      existsSync(file)
-        ? [
-            ...readFileSync(file, "utf8").matchAll(/var\(\s*(--[a-z][\w-]*)/g),
-          ].map((match) => match[1])
-        : [],
-    ),
+    apis
+      .flatMap(stylesheets)
+      .flatMap((file) =>
+        existsSync(file)
+          ? [
+              ...readFileSync(file, "utf8").matchAll(
+                /var\(\s*(--[a-z][\w-]*)/g,
+              ),
+            ].map((match) => match[1])
+          : [],
+      ),
   )
   return THEME_TOKENS.filter((token) => reads.has(token.name))
     .map((token) => ({

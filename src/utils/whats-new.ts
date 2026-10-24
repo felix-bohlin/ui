@@ -79,7 +79,7 @@ const whatsNew = {
   ],
   avatar: [
     components(
-      `A link avatar takes <a href="#api"><code>disabled</code></a>: it drops its <code>href</code> and gets <code>aria-disabled="true"</code>.`,
+      `A link avatar takes <a href="#disabled"><code>disabled</code></a>: it drops its <code>href</code> and gets <code>aria-disabled="true"</code>.`,
     ),
     `Initials read the type roles: <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code> and <code>--ui-font-size-large</code> by size.`,
     `A badge on a <a href="#grouped">grouped</a> avatar sits on its start side, the part the next avatar doesn't cover, with the same ring as the avatars.`,
@@ -111,6 +111,7 @@ const whatsNew = {
     slots(
       `Breaking: <code>variant</code> is <a href="#shapes"><code>shape</code></a>, with <code>circle</code> as the default.`,
     ),
+    `<a href="#grouped">Grouped</a> avatars overlap by <code>--ui-space-2</code>, so the initials stay whole.`,
   ],
   badge: [
     `Breaking: <code>--_anchor-tx</code> and <code>--_anchor-ty</code> are <code>--_shift-x</code> and <code>--_shift-y</code> (<a href="#under-the-hood">Under the hood</a>).`,
@@ -316,11 +317,11 @@ const whatsNew = {
     {
       html: `Call <code>syncIndeterminate(input)</code> from <code>checkbox.js</code> after you change <code>data-indeterminate</code> (<a href="#indeterminate">Indeterminate</a>).`,
     },
-    `The unchecked border, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
+    `The unchecked border reads <a href="#api"><code>--ui-choice-border-color</code></a> when a theme sets it, and <code>--ui-field-border-color</code>, which reaches 3:1 against the page by default, when it doesn't.`,
     `The checked fill and mark read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code> when a theme sets them.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code> and <code>--thumb-scale</code> is <code>--_thumb-scale</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
-    `Without a <a href="#visible-label">visible label</a>, checkboxes center in table cells and lines of text, and stay a 24px click target at every size.`,
+    `Without a <a href="#hidden-label">visible label</a>, checkboxes center in table cells and lines of text, and stay a 24px click target at every size.`,
     {
       ...slots(
         `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each checkbox in an invalid <a href="#field-group-validation">group</a>.`,
@@ -400,6 +401,7 @@ const whatsNew = {
     slots(
       `Breaking: a tonal <a href="#variants">chip</a> no longer renders <code>.ui-tonal</code>. Target <code>.ui-chip:not(.ui-outlined)</code> in your CSS instead.`,
     ),
+    `<a href="#pressed">Pressed</a> button chips (<code>aria-pressed="true"</code>) are filled with <code>--ui-selected</code>, or <code>--ui-primary</code>, like a checked toggle button.`,
   ],
   "description-list": [
     {
@@ -574,7 +576,7 @@ const whatsNew = {
       html: `Breaking: <a href="#flush"><code>.ui-flush</code></a> replaces <code>.ui-gutterless</code>.`,
     },
     {
-      html: `Breaking: <a href="#start-items"><code>.ui-start</code></a> and <code>.ui-end</code> are only styled as direct children of a row, or of its <code>a</code>, <code>button</code>, <code>div</code> or <code>label</code>.`,
+      html: `Breaking: <a href="#start-items"><code>.ui-start</code></a> and <code>.ui-end</code> are only styled as direct children of a row, or of its <code>a</code>, <code>button</code> or <code>label</code>.`,
     },
     `Selected and current items read <a href="#api"><code>--ui-selected</code></a> and <code>--ui-on-selected</code> when a theme sets them.`,
     `Smaller <a href="#icon">start</a> and end icons.`,
@@ -593,7 +595,7 @@ const whatsNew = {
       html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
     },
     slots(
-      `Breaking: <a href="#list-item-api"><code>ListItem</code> <code>as</code></a> only accepts <code>"a"</code>, <code>"button"</code> or <code>"div"</code>.`,
+      `Breaking: <a href="#list-item-api"><code>ListItem</code> <code>as</code></a> only accepts <code>"a"</code> or <code>"button"</code>. A static item leaves it out.`,
     ),
     `Breaking: <code>--_bg-color-hover</code> is <code>--_hover-bg-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `A checked <a href="#radio">option</a> uses <code>--ui-state-active-alpha-accent</code>.`,
@@ -606,6 +608,8 @@ const whatsNew = {
       react: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
       svelte: `<a href="#variants">Variants</a> name the default: <code>variant="filled"</code>.`,
     },
+    `Lists are <a href="#variants">rounded</a> with <code>--_radius</code> (<code>--ui-radius</code>) and clip their rows to the corners, except as a direct child of a card.`,
+    `<a href="#dense">Dense</a> rows are <code>--ui-control-size-small</code> tall, so they follow <code>--ui-density</code>.`,
   ],
   menu: [
     `The border and dividers are <a href="#api"><code>--ui-border-color-on-raised</code></a>, like other elevated surfaces.`,
@@ -644,7 +648,7 @@ const whatsNew = {
       html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
     },
     `Breaking: <code>--_accent-color</code> is <code>--_accent</code> (<a href="#under-the-hood">Under the hood</a>).`,
-    `<a href="#indeterminate">Progress bars</a> center in table cells and lines of text.`,
+    `<a href="#inline">Progress bars</a> center in table cells and lines of text.`,
     slots(
       `Breaking: <code>style</code> goes to the root, like <code>class</code>, instead of the <code>&lt;progress&gt;</code> (<a href="#api">API</a>).`,
     ),
@@ -672,12 +676,12 @@ const whatsNew = {
       ),
       html: `Breaking: <a href="#label-position"><code>.ui-vertical</code></a> replaces <code>.ui-stack</code>.`,
     },
-    `The unchecked ring, <a href="#api"><code>--ui-field-border-color</code></a>, reaches 3:1 against the page by default.`,
+    `The unchecked ring reads <a href="#api"><code>--ui-choice-border-color</code></a> when a theme sets it, and <code>--ui-field-border-color</code>, which reaches 3:1 against the page by default, when it doesn't.`,
     `The checked fill and dot read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code> when a theme sets them.`,
     `<a href="#sizes">Radios</a> are 20px, the same <code>--ui-choice-size</code> as Checkbox.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code> and <code>--thumb-scale</code> is <code>--_thumb-scale</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
-    `Without a visible label, radios <a href="#label-alignment">center</a> in table cells and lines of text, and stay a 24px click target at every size.`,
+    `Without a <a href="#hidden-label">visible label</a>, radios center in table cells and lines of text, and stay a 24px click target at every size.`,
     {
       default: `<a href="#spread">Spread</a> with the <code>spread</code> prop, like Checkbox and Switch.`,
       html: `<a href="#spread">Spread</a> with <code>.ui-spread</code>, like Checkbox and Switch.`,
@@ -742,6 +746,12 @@ const whatsNew = {
     components(
       `<a href="#validation">Validation</a> with the <code>error</code> prop, which sets <code>aria-invalid="true"</code> on the input.`,
     ),
+    {
+      ...components(
+        `<a href="#sizes">Sizes</a> with the <code>size</code> prop, like the other form controls. The focus ring hugs the thumb.`,
+      ),
+      html: `<a href="#sizes">Sizes</a> with <code>.ui-x-small</code>, <code>.ui-small</code> and <code>.ui-large</code>, like the other form controls. The focus ring hugs the thumb.`,
+    },
     {
       html: `Breaking: mark an invalid range with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
@@ -832,6 +842,11 @@ const whatsNew = {
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
     ),
+    {
+      default: `<a href="#auto-fit"><code>autoFit</code></a> lets the width follow the selected option, from <code>25ch</code>.`,
+      html: `<a href="#auto-fit"><code>.ui-auto-fit</code></a> lets the width follow the selected option, from <code>25ch</code>.`,
+    },
+    `<a href="#optgroup"><code>&lt;optgroup&gt;</code></a> groups get the heading styles, with a <code>&lt;legend&gt;</code> as the heading.`,
   ],
   spinner: [
     `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
@@ -855,13 +870,13 @@ const whatsNew = {
       html: `Breaking: <a href="#label-position"><code>.ui-vertical</code></a> replaces <code>.ui-stack</code>.`,
     },
     `The unchecked thumb and track read <a href="#api"><code>--ui-switch-thumb-bg-color</code></a> and <code>--ui-switch-track-bg-color</code>.`,
-    `The unchecked track border is <a href="#api"><code>--ui-field-border-color</code></a>, like the checkbox and radio borders.`,
+    `The unchecked track border reads <a href="#api"><code>--ui-choice-border-color</code></a> when a theme sets it, and <code>--ui-field-border-color</code> when it doesn't, like the checkbox and radio borders.`,
     `The checked track reads <a href="#api"><code>--ui-choice-accent</code></a> and the unchecked track <code>--ui-track-bg-color</code> when a theme sets them.`,
     slots(
       `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
     ),
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
-    `Without a <a href="#visible-label">visible label</a>, switches center in table cells and lines of text, and stay a 24px click target at every size.`,
+    `Without a <a href="#hidden-label">visible label</a>, switches center in table cells and lines of text, and stay a 24px click target at every size.`,
     {
       ...slots(
         `Breaking: <code>error</code> only sets <code>aria-invalid="true"</code> on the input. Set <code>error</code> on each switch in an invalid <a href="#field-group-validation">group</a>.`,
@@ -908,7 +923,7 @@ const whatsNew = {
       default: `<a href="#density">Dense</a> tables have less block padding.`,
       html: `<a href="#density">Dense</a> tables (<code>.ui-dense</code>) have less block padding.`,
     },
-    `Fields and selects in cells keep a <code>12ch</code> minimum width, in every <a href="#density">density</a>.`,
+    `<a href="#controls-in-cells">Fields and selects in cells</a> keep a <code>12ch</code> minimum width, in every density.`,
     {
       default: `<a href="#sticky-header">Sticky header</a> with the <code>stickyHeader</code> prop.`,
       html: `<a href="#sticky-header">Sticky header</a> with <code>.ui-sticky-header</code>.`,
@@ -969,6 +984,15 @@ const whatsNew = {
     slots(
       `Breaking: <code>TabsItem</code> <code>open</code> is <a href="#basics"><code>checked</code></a>.`,
     ),
+    components(
+      `Breaking: <code>TabsItem</code> <code>tabId</code> is <a href="#api"><code>id</code></a>, and <code>TabsLabel</code> <code>tabId</code> is <code>for</code> (<code>htmlFor</code> in React), the native names.`,
+    ),
+    {
+      astro: `<code>value</code> on <code>Tabs</code> selects the item whose <code>value</code> matches (<a href="#binding">Binding</a>).`,
+      react: `<code>Tabs</code> take <code>value</code>, <code>defaultValue</code> and <code>onValueChange</code> to control the selected tab (<a href="#binding">Binding</a>).`,
+      svelte: `Bind the selected tab with <code>bind:value</code> on <code>Tabs</code> (<a href="#binding">Binding</a>).`,
+      vue: `Bind the selected tab with <code>v-model</code> on <code>Tabs</code> (<a href="#binding">Binding</a>).`,
+    },
   ],
   "text-field": [
     components(
@@ -1102,6 +1126,9 @@ const whatsNew = {
       svelte: `Bind the selection with <code>bind:value</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,
       vue: `Bind the selection with <code>v-model</code> on <code>ToggleGroup</code> (<a href="#binding">Binding</a>).`,
     },
+    {
+      vue: `A standalone <code>ToggleButton</code> binds its checked state with <code>v-model</code> (<a href="#binding">Binding</a>).`,
+    },
     slots(
       `Breaking: <code>style</code> on <code>ToggleButton</code> goes to the root, like <code>class</code>, instead of the <code>&lt;input&gt;</code> (<a href="#api">API</a>).`,
     ),
@@ -1111,7 +1138,7 @@ const whatsNew = {
     `A <a href="#toggle-button">toggle button</a> grows with its content from <code>--ui-button-size</code> instead of having a fixed height.`,
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-button-radius</code></a>, so one token squares or rounds every component.`,
-    `The default size reads <a href="#sizes"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
+    `The default size reads <a href="#api"><code>--ui-font-size-control</code></a> for its font size, like buttons.`,
     components(
       `<a href="#sizes">Sizes</a> name the default: <code>size="medium"</code>.`,
     ),
@@ -1172,6 +1199,7 @@ const whatsNew = {
     `Headings read <a href="#api"><code>--ui-font-heading</code></a>, and code, <code>kbd</code>, <code>samp</code> and <code>.ui-var</code> read <code>--ui-font-code</code>. Rich text margins read the <code>--ui-space-*</code> scale.`,
     `<a href="#link">Links</a> read <code>--ui-primary-text</code>, which keeps 4.5:1 on every surface, in a List too.`,
     `<a href="#link">Links</a> and <a href="#inline-text-elements">underlined text</a> read <code>--ui-underline-offset</code>, <code>--ui-underline-offset-small</code> and <code>--ui-underline-thickness-hover</code>.`,
+    `<a href="#link">Rich text links</a> are styled by <code>link.css</code>, with one rule for <code>.ui-link</code> and classless links. Install it next to <code>typography.css</code>.`,
   ],
 } satisfies Record<string, Note[]>
 

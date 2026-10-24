@@ -1,5 +1,5 @@
 import type * as Base from "./types"
-import type { ComponentProps, ReactNode } from "react"
+import type { ComponentProps } from "react"
 
 type Model<T> = {
   defaultValue?: T
@@ -9,5 +9,4 @@ type Model<T> = {
 
 export type Props = Base.Props &
   Base.Selection<Model<string>, Model<string[]>> &
-  Base.Slots<ReactNode> &
   Omit<ComponentProps<"div">, "defaultValue" | "size">

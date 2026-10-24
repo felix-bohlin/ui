@@ -15,7 +15,3 @@ export type Context = {
 
 export type Selection<Single, Multiple> =
   ({ multiple?: false } & Single) | ({ multiple: true } & Multiple)
-
-export type Slots<S> = {
-  children?: S
-}

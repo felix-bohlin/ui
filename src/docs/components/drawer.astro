@@ -90,8 +90,9 @@ import PropOrClass from "../../components/PropOrClass.astro"
         <p>
           Build it from <code>DrawerHeader</code>, <code>DrawerContent</code> and
           <code>DrawerActions</code>. The <code>DrawerHeader</code> adds a close button.
-          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer.
-          Give the drawer an <code>id</code>, which the trigger's <code
+          Put a <code>DrawerTitle</code> in it for the heading, which names the drawer,
+          and more actions before the close button, which line up at the end. Give
+          the drawer an <code>id</code>, which the trigger's <code
             >commandfor</code
           > points at.
         </p>
@@ -120,10 +121,13 @@ import PropOrClass from "../../components/PropOrClass.astro"
           > classes.
         </p>
         <p>
-          <code>.ui-header</code> and <code>.ui-actions</code> stay put while <code
-            >.ui-content</code
-          > scrolls, with a shadow on the scrolled edge. The actions sit at the end,
-          and <code>.ui-align-start</code> lines them up with the content.
+          Put more actions before the close button in <code>.ui-header</code>;
+          they line up at the end. <code>.ui-header</code> and <code
+            >.ui-actions</code
+          > stay put while <code>.ui-content</code> scrolls, with a shadow on the
+          scrolled edge. The actions sit at the end, and <code
+            >.ui-align-start</code
+          > lines them up with the content.
         </p>
         <p>
           The backdrop dims and blurs the page by default. Use the <code

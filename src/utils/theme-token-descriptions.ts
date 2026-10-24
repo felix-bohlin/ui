@@ -47,6 +47,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-chip-size-x-small": "`Chip` height with `.ui-x-small`.",
   "--ui-choice-accent":
     "Fill of a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of `Range`. When unset, `--ui-primary`, with its lightness capped in dark mode for the choice controls. Set it to `--ui-primary` for the plain primary, like Material and shadcn.",
+  "--ui-choice-border-color":
+    "Border of the unchecked `Checkbox`, `Radio` and `Switch` track. When unset, `--ui-field-border-color`. Set it for themes whose field border is fainter than 3:1, like shadcn, which outlines its choices with `--ui-primary` like shadcn/ui does.",
   "--ui-choice-fill-max-lightness":
     "The highest OKLCH lightness of a checked `Checkbox`, `Radio` and `Switch` fill in dark mode, so the light mark keeps 3:1. `0.62`.",
   "--ui-choice-label-offset":
@@ -97,7 +99,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-ease-exit":
     "Easing for elements leaving the screen: closing `Drawer` and `Menu`.",
   "--ui-field-border-color":
-    "Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch`, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
+    "Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
   "--ui-field-border-color-on-filled":
     "Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.",
   "--ui-field-border-color-on-raised":

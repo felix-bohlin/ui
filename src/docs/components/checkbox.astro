@@ -133,6 +133,21 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
     <AutoExample name="VisibleLabel" column centered />
 
+    <h3 id="hidden-label">Hidden label</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>hideLabel</code> to keep the label for screen readers only. The
+        checkbox then centers in a table cell or a line of text, and keeps a 24px
+        click target.
+      </Fragment>
+      <Fragment slot="html">
+        Use <code>.ui-sr-only</code> instead of <code>.ui-label</code> to keep the
+        label for screen readers only. The checkbox then centers in a table cell or
+        a line of text, and keeps a 24px click target.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="HiddenLabel" column centered />
+
     <h3 id="label-position">Label position</h3>
     <p>
       Use <PropOrClass prop='orientation="vertical"' class=".ui-vertical" /> to put

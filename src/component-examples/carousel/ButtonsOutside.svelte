@@ -13,13 +13,13 @@
       description: "For personal projects.",
       title: "Basic",
     },
+    { action: "Choose Pro", description: "For growing teams.", title: "Pro" },
+    { action: "Choose Team", description: "For small teams.", title: "Team" },
     {
       action: "Contact sales",
       description: "For large organisations.",
       title: "Enterprise",
     },
-    { action: "Choose Pro", description: "For growing teams.", title: "Pro" },
-    { action: "Choose Team", description: "For small teams.", title: "Team" },
   ]
 </script>
 

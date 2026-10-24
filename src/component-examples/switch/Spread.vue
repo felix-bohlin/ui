@@ -20,6 +20,6 @@ import { Switch } from "opui-css/vue"
 
   <Switch name="switch-spread" spread error>
     Invalid Switch
-    <template #end-text>There is an error with this switch.</template>
+    <template #end-text>Turn this on to continue.</template>
   </Switch>
 </template>

@@ -19,14 +19,14 @@
 </div>
 
 <div class="example-row">
-  <Select label="Label" error endText="Supporting text">
+  <Select label="Label" error endText="Pick another option.">
     <option value="">-</option>
     <option selected>Wrong option</option>
     <option>Also wrong!</option>
     <option>Nothing's right!</option>
   </Select>
 
-  <Select label="Label" variant="filled" error endText="Supporting text">
+  <Select label="Label" variant="filled" error endText="Pick another option.">
     <option value="">-</option>
     <option selected>Wrong option</option>
     <option>Also wrong!</option>

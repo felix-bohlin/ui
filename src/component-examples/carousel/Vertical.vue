@@ -13,6 +13,7 @@ const places = [
 <template>
   <Carousel
     aria-label="Destinations"
+    :itemsPerView="2"
     markers
     orientation="vertical"
     style="--_block-size: 16rem"

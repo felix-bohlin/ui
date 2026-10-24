@@ -114,33 +114,9 @@
       padding-block: var(--ui-space-2);
       padding-inline: var(--ui-space-3);
 
-      &:has(> .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
-        padding-inline: var(--ui-space-3)
-          max(
-            var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
-            var(--ui-space-1)
-          );
-      }
-
       /* Alignment */
       &.ui-align-start {
         justify-content: start;
-
-        &:has(
-          > .ui-button:last-child:not(.ui-filled, .ui-outlined, .ui-tonal)
-        ) {
-          padding-inline: var(--ui-space-3);
-        }
-
-        &:has(
-          > .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)
-        ) {
-          padding-inline: max(
-              var(--ui-focus-ring-offset) + var(--ui-focus-ring-width),
-              var(--ui-space-1)
-            )
-            var(--ui-space-3);
-        }
       }
     }
 

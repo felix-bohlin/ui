@@ -22,7 +22,7 @@ export default function Spread() {
         label="Invalid Range"
         spread
         error
-        endText="This value is incorrect."
+        endText="Pick a value below 50."
         startText="Start text"
       />
 

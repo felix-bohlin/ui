@@ -36,12 +36,16 @@ export default {
       prop: "card",
     },
     {
-      attribute: "[disabled]",
-      description: "Dims the radio and shows a not-allowed cursor.",
+      description:
+        'Dims the radio and shows a not-allowed cursor. `aria-disabled="true"` looks the same, but keeps the radio focusable and its value in the form, and doesn\'t stop the change, so block it with a script.',
       frameworks: ["html"],
       group: "Disabled",
       part: "input",
       prop: "disabled",
+      values: {
+        "aria-disabled": '[aria-disabled="true"]',
+        disabled: "[disabled]",
+      },
     },
     {
       attribute: '[aria-invalid="true"]',

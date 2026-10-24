@@ -1,8 +1,7 @@
 import type * as Base from "./types"
-import type { ComponentProps, ReactNode } from "react"
+import type { ComponentProps } from "react"
 
 export type Props = Base.Props &
-  Base.Slots<ReactNode> &
   (
     | ({ as?: "div" } & ComponentProps<"div">)
     | ({ as: "button" } & ComponentProps<"button">)

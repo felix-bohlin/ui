@@ -194,6 +194,30 @@ interaction(
 )
 
 interaction(
+  "radio",
+  "FieldGroupControlled",
+  "checked-driven radios follow the state and reset",
+  async ({ root }) => {
+    const standard = root.getByRole("radio", { name: "Standard" })
+    const express = root.getByRole("radio", { name: "Express" })
+    const selection = root.getByText(/Selected:/)
+
+    await expect(standard).toBeChecked()
+    for (const name of ["Express", "Standard", "Express"]) {
+      await root.getByText(name, { exact: true }).click()
+    }
+    await expect(express).toBeChecked()
+    await expect(standard).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: express")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(standard).toBeChecked()
+    await expect(express).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: standard")
+  },
+)
+
+interaction(
   "range",
   "Value",
   "range moves with the keyboard and shows its value",
@@ -344,6 +368,29 @@ interaction(
     await page.keyboard.press("ArrowRight")
     await expect(panels.nth(2)).toBeVisible()
     await expect(panels.nth(1)).toBeHidden()
+  },
+)
+
+interaction(
+  "tabs",
+  "Binding",
+  "bound tabs report the selected tab and reset",
+  async ({ root }) => {
+    const profile = root.getByRole("radio", { name: "Profile" })
+    const settings = root.getByRole("radio", { name: "Settings" })
+    const selection = root.getByText(/Selected:/)
+
+    await expect(settings).toBeChecked()
+    await expect(selection).toHaveText("Selected: settings")
+    await root.getByText("Profile", { exact: true }).click()
+    await expect(profile).toBeChecked()
+    await expect(settings).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: profile")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(settings).toBeChecked()
+    await expect(profile).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: settings")
   },
 )
 

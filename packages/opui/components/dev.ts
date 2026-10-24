@@ -2,6 +2,7 @@ export const warnGroupedChecked = (
   component: string,
   grouped: unknown,
   checked: unknown,
+  group = "ToggleGroup",
 ) => {
   if (
     (import.meta as { env?: { DEV?: boolean } }).env?.DEV &&
@@ -9,7 +10,7 @@ export const warnGroupedChecked = (
     checked !== undefined
   ) {
     console.warn(
-      `[OPUI ${component}] \`checked\` is ignored inside a ToggleGroup that has a \`value\`. Set the group's \`value\` instead.`,
+      `[OPUI ${component}] \`checked\` is ignored inside a ${group} that has a \`value\`. Set the group's \`value\` instead.`,
     )
   }
 }

@@ -175,7 +175,11 @@ export const description =
         >. The value is a string, and an array of strings with <code
           >multiple</code
         >. A button is checked when its <code>value</code> is in it, so the buttons
-        don't need <code>defaultChecked</code>.
+        don't need <code>defaultChecked</code>. A standalone <code
+          >ToggleButton</code
+        > takes <code>checked</code> with <code>onChange</code>, or <code
+          >defaultChecked</code
+        >, like any input.
       </Fragment>
       <Fragment slot="svelte">
         Bind the selection with <code>bind:value</code> on the <code
@@ -183,7 +187,8 @@ export const description =
         >. The value is a string, and an array of strings with <code
           >multiple</code
         >. A button is checked when its <code>value</code> is in it, and setting the
-        variable updates the buttons.
+        variable updates the buttons. A standalone <code>ToggleButton</code> binds
+        its checked state with <code>bind:checked</code>.
       </Fragment>
       <Fragment slot="vue">
         Bind the selection with <code>v-model</code> on the <code
@@ -191,7 +196,8 @@ export const description =
         >. The value is a string, and an array of strings with <code
           >multiple</code
         >. A button is checked when its <code>value</code> is in it, and setting the
-        ref updates the buttons.
+        ref updates the buttons. A standalone <code>ToggleButton</code> binds its
+        checked state with <code>v-model</code>.
       </Fragment>
     </Conditional>
 
@@ -255,8 +261,10 @@ export const description =
       </Fragment>
     </Conditional>
     <AutoExample name="Overflow" />
+  </section>
 
-    <h3 id="disabled">Disabled</h3>
+  <section>
+    <h2 id="disabled">Disabled</h2>
     <p>
       <code>disabled</code> on a toggle button dims it and skips it with Tab and the
       arrow keys. <code>aria-disabled="true"</code> on the <code

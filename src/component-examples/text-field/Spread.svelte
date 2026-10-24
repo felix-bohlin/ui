@@ -23,7 +23,7 @@
 
 <TextField spread error label="Invalid Name">
   {#snippet startText()}This field has an error{/snippet}
-  {#snippet endText()}This value is too short.{/snippet}
+  {#snippet endText()}Enter at least two characters.{/snippet}
 </TextField>
 
 <TextField spread label="Amount" placeholder="0.00">

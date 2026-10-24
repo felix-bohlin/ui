@@ -19,5 +19,5 @@
 
 <Switch name="switch-spread" spread error>
   Invalid Switch
-  {#snippet endText()}There is an error with this switch.{/snippet}
+  {#snippet endText()}Turn this on to continue.{/snippet}
 </Switch>

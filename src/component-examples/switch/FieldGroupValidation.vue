@@ -12,7 +12,7 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/vue"
         <Switch error>Switch 3</Switch>
       </FieldGroup>
       <span class="ui-end-text" id="switch-field-group-validation-1-error"
-        >Something went wrong!</span
+        >Turn on at least one to continue.</span
       >
     </Fieldset>
   </Form>

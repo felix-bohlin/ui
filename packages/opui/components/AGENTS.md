@@ -10,7 +10,7 @@ When implementing or updating a component, ensure:
 
 - [ ] **All Frameworks**: Every `.astro` file has a matching `.react.tsx`, `.svelte` and `.vue` file in the same folder (`pnpm check-components` fails otherwise).
 - [ ] **Title Export**: `export const title = "Component Name"` is present in `<Name>.astro`.
-- [ ] **Props Type**: Astro imports `Props` from `./types.astro`, React imports `Props` from `./types.react`, Svelte imports `Props` from `./types.svelte`, Vue imports `Props` and `Slots` from `./types.d.vue` (use `type`, never `interface`). Every type file names the root's props `Props` and its slots `Slots` (`Slots<S>` in `types.ts`), and each part's props after the part, `<Root><Part>Props` (`CardActionsProps`, `TableCellProps`).
+- [ ] **Props Type**: Astro imports `Props` from `./types.astro`, React imports `Props` from `./types.react`, Svelte imports `Props` from `./types.svelte`, Vue imports `Props` and `Slots` from `./types.d.vue` (use `type`, never `interface`). Every type file names the root's props `Props`, and each part's props after the part, `<Root><Part>Props` (`CardActionsProps`, `TableCellProps`). `types.ts` names the named slots `Slots<S>` (`Badge`, `Range`) and declares no type for the default slot alone: `children` comes from `ComponentProps` and `SvelteHTMLElements`, and `types.d.vue.ts` names its slots `Slots` (`DefaultSlots` from `../vue` when the default slot is the only one).
 - [ ] **Sorting**: Props and destructuring are sorted alphabetically, slots last. Classes follow section 3 (base, states, variants, `className`), in the same order in every framework. `pnpm check-components` checks the keys of the object types in the type files, `className` last, and the root class order against Astro.
 - [ ] **Rest Props**: `...rest` is captured and spread onto the root element in Astro, React and Svelte. Vue falls through attributes by default.
 - [ ] **Class Management**: Used `class:list` in Astro, a `cx([...])` array in React, a `class` array in Svelte and a `:class` array in Vue, in the same order.
@@ -28,8 +28,8 @@ Every component uses layered type files:
 - `types.ts` - shared, framework-agnostic props (component-specific only; no `HTMLAttributes`), and the `Context` shape for components with context
 - `types.astro.ts` - Astro props = base + `HTMLAttributes<element>`
 - `types.d.vue.ts` - Vue props = base + `Class` from `../vue`, plus the `Slots` type for `defineSlots` (`DefaultSlots` from `../vue` when the default slot is the only one). It imports the base types by name (`Props as BaseProps`), because the Vue compiler can't resolve `defineProps` types through `import type * as Base`
-- `types.react.ts` - React props = base + slot props (`ReactNode`) + `ComponentProps<element>`
-- `types.svelte.ts` - Svelte props = base + snippets + `SvelteHTMLElements[element]`
+- `types.react.ts` - React props = base + named slot props (`Base.Slots<ReactNode>`, when there are any) + `ComponentProps<element>`, which brings `children`
+- `types.svelte.ts` - Svelte props = base + named snippets (`Base.Slots<Snippet>`, when there are any) + `SvelteHTMLElements[element]`, which brings `children`
 
 Every component folder has all five files; `pnpm check-components` fails when one is missing.
 

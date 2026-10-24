@@ -115,6 +115,27 @@ export const description =
   </section>
 
   <section>
+    <h2 id="controls-in-cells">Controls in cells</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A <code>TextField</code> or <code>Select</code> in a cell keeps a <code
+          >12ch</code
+        > minimum width, in every density. Set <code>hideLabel</code> and name the
+        row in <code>label</code>, since the column header isn't part of the
+        control's name.
+      </Fragment>
+      <Fragment slot="html">
+        A <code>.ui-text-field</code> or <code>.ui-select</code> in a cell keeps a
+        <code>12ch</code> minimum width, in every density. Hide the label with
+        <code>.ui-sr-only</code> and name the row in it, since the column header isn't
+        part of the control's name.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Controls" />
+  </section>
+
+  <section>
     <h2 id="sticky-header">Sticky header</h2>
     <Conditional as="p">
       <Fragment slot="components">

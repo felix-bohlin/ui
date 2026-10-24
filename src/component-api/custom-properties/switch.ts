@@ -65,7 +65,7 @@ export default {
   },
   "--_track-border-color": {
     description:
-      "Border of the unchecked track. Defaults to `--ui-field-border-color`, like the checkbox and radio borders. The checked track uses `--_accent`.",
+      "Border of the unchecked track. Defaults to `--ui-choice-border-color`, or `--ui-field-border-color` when the theme leaves it unset, like the checkbox and radio borders. The checked track uses `--_accent`.",
     kind: "input",
   },
   "--_track-inline-size": {

@@ -9,7 +9,3 @@ export type Props = {
   persistentButtons?: boolean
   stretch?: boolean
 }
-
-export type Slots<S> = {
-  children?: S
-}

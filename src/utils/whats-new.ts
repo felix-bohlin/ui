@@ -300,6 +300,10 @@ const whatsNew = {
     `Markers are rings in <code>--ui-text</code>, which keep their contrast in every theme, and the current marker is a larger dot in <a href="#api"><code>--ui-selected-strong</code></a>.`,
   ],
   checkbox: [
+    {
+      default: `<a href="#cards">Cards</a> with the <code>card</code> prop, <code>spread</code> for the input at the end, and <code>variant="tonal"</code> or <code>"elevated"</code>.`,
+      html: `<a href="#cards">Cards</a> with <code>.ui-card</code> on the label, plus <code>.ui-spread</code>, <code>.ui-tonal</code> or <code>.ui-elevated</code>.`,
+    },
     components(
       `<a href="#api"><code>label</code></a> takes the label text, a shorthand for the default slot.`,
     ),
@@ -655,6 +659,10 @@ const whatsNew = {
     },
   ],
   radio: [
+    {
+      default: `<a href="#cards">Cards</a> with the <code>card</code> prop, <code>spread</code> for the input at the end, and <code>variant="tonal"</code> or <code>"elevated"</code>.`,
+      html: `<a href="#cards">Cards</a> with <code>.ui-card</code> on the label, plus <code>.ui-spread</code>, <code>.ui-tonal</code> or <code>.ui-elevated</code>.`,
+    },
     components(
       `<a href="#api"><code>label</code></a> takes the label text, a shorthand for the default slot.`,
     ),
@@ -832,6 +840,10 @@ const whatsNew = {
     `The <a href="#sizes">ring</a> grows with the spinner and is at least <code>--ui-border-width-thick</code>.`,
   ],
   switch: [
+    {
+      default: `<a href="#cards">Cards</a> with the <code>card</code> prop, <code>spread</code> for the input at the end, and <code>variant="tonal"</code> or <code>"elevated"</code>.`,
+      html: `<a href="#cards">Cards</a> with <code>.ui-card</code> on the label, plus <code>.ui-spread</code>, <code>.ui-tonal</code> or <code>.ui-elevated</code>.`,
+    },
     components(
       `<a href="#api"><code>label</code></a> takes the label text, a shorthand for the default slot.`,
     ),

@@ -2501,6 +2501,226 @@ Line five</textarea>
     </div>
   </div>
 </section>
+
+<section class="stress" data-example="ChoiceCards">
+  <h2>Choice cards</h2>
+  <p>
+    Radio, checkbox and switch cards: outlined by default, spread, tonal and
+    elevated, checked, disabled, invalid and small, plus a horizontal group in a
+    wide and a narrow container. The narrow one wraps.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-stack stress-wide-column">
+      <fieldset class="ui-fieldset">
+        <legend>Plan</legend>
+        <div class="ui-field-group">
+          <label class="ui-radio ui-card"
+            ><input
+              name="stress-card-plan"
+              type="radio"
+              value="starter"
+              checked
+            /><span class="ui-label">Starter</span
+            ><span class="ui-end-text">For one person.</span></label
+          >
+          <label class="ui-radio ui-card"
+            ><input name="stress-card-plan" type="radio" value="team" /><span
+              class="ui-label"
+              >Team</span
+            ><span class="ui-end-text"
+              >Up to ten seats and shared folders.</span
+            ></label
+          >
+          <label class="ui-radio ui-card"
+            ><input
+              name="stress-card-plan"
+              type="radio"
+              value="enterprise"
+              disabled
+            /><span class="ui-label">Enterprise</span
+            ><span class="ui-end-text">Talk to sales.</span></label
+          >
+        </div>
+      </fieldset>
+      <fieldset class="ui-fieldset">
+        <legend>Plan, spread</legend>
+        <div class="ui-field-group">
+          <label class="ui-radio ui-card ui-spread"
+            ><input
+              name="stress-card-plan-spread"
+              type="radio"
+              value="starter"
+              checked
+            /><span class="ui-label">Starter</span
+            ><span class="ui-end-text">For one person.</span></label
+          >
+          <label class="ui-radio ui-card ui-spread"
+            ><input
+              name="stress-card-plan-spread"
+              type="radio"
+              value="team"
+            /><span class="ui-label">Team</span
+            ><span class="ui-end-text"
+              >Up to ten seats and shared folders.</span
+            ></label
+          >
+          <label class="ui-radio ui-card ui-spread"
+            ><input
+              name="stress-card-plan-spread"
+              type="radio"
+              value="enterprise"
+              aria-invalid="true"
+            /><span class="ui-label">Enterprise</span
+            ><span class="ui-end-text">Talk to sales.</span></label
+          >
+        </div>
+      </fieldset>
+      <fieldset class="ui-fieldset">
+        <legend>Add-ons, tonal</legend>
+        <div class="ui-field-group">
+          <label class="ui-checkbox ui-card ui-tonal ui-spread"
+            ><input
+              name="stress-card-addons"
+              type="checkbox"
+              value="support"
+              checked
+            /><span class="ui-label">Priority support</span
+            ><span class="ui-end-text">Answers within a day.</span></label
+          >
+          <label class="ui-checkbox ui-card ui-tonal ui-spread"
+            ><input
+              name="stress-card-addons"
+              type="checkbox"
+              value="storage"
+            /><span class="ui-label">Extra storage</span
+            ><span class="ui-end-text">Another 100 GB.</span></label
+          >
+          <label class="ui-checkbox ui-card ui-tonal ui-spread"
+            ><input
+              name="stress-card-addons"
+              type="checkbox"
+              value="domain"
+              disabled
+            /><span class="ui-label">Custom domain</span
+            ><span class="ui-end-text">Not available on this plan.</span></label
+          >
+        </div>
+      </fieldset>
+      <fieldset class="ui-fieldset">
+        <legend>Notifications, elevated</legend>
+        <div class="ui-field-group">
+          <label class="ui-switch ui-card ui-elevated ui-spread"
+            ><input
+              name="stress-card-notify"
+              type="checkbox"
+              role="switch"
+              value="email"
+              checked
+            /><span class="ui-label">Email</span
+            ><span class="ui-end-text">A summary of each day.</span></label
+          >
+          <label class="ui-switch ui-card ui-elevated ui-spread"
+            ><input
+              name="stress-card-notify"
+              type="checkbox"
+              role="switch"
+              value="push"
+            /><span class="ui-label">Push</span
+            ><span class="ui-end-text"
+              >Right when something happens.</span
+            ></label
+          >
+        </div>
+      </fieldset>
+      <fieldset class="ui-fieldset">
+        <legend>Small</legend>
+        <div class="ui-field-group">
+          <label class="ui-radio ui-card ui-small"
+            ><input
+              name="stress-card-small"
+              type="radio"
+              value="a"
+              checked
+            /><span class="ui-label">Starter</span
+            ><span class="ui-end-text">For one person.</span></label
+          >
+          <label class="ui-radio ui-card ui-small"
+            ><input name="stress-card-small" type="radio" value="b" /><span
+              class="ui-label"
+              >Team</span
+            ><span class="ui-end-text">Up to ten seats.</span></label
+          >
+        </div>
+      </fieldset>
+      <fieldset class="ui-fieldset">
+        <legend>Horizontal</legend>
+        <div class="ui-field-group ui-horizontal">
+          <label class="ui-radio ui-card"
+            ><input
+              name="stress-card-row"
+              type="radio"
+              value="starter"
+              checked
+            /><span class="ui-label">Starter</span
+            ><span class="ui-end-text">For one person.</span></label
+          >
+          <label class="ui-radio ui-card"
+            ><input name="stress-card-row" type="radio" value="team" /><span
+              class="ui-label"
+              >Team</span
+            ><span class="ui-end-text"
+              >Up to ten seats and shared folders.</span
+            ></label
+          >
+          <label class="ui-radio ui-card"
+            ><input
+              name="stress-card-row"
+              type="radio"
+              value="enterprise"
+              disabled
+            /><span class="ui-label">Enterprise</span
+            ><span class="ui-end-text">Talk to sales.</span></label
+          >
+        </div>
+      </fieldset>
+    </div>
+    <div class="stress-narrow">
+      <fieldset class="ui-fieldset">
+        <legend>Horizontal, narrow</legend>
+        <div class="ui-field-group ui-horizontal">
+          <label class="ui-radio ui-card"
+            ><input
+              name="stress-card-row-narrow"
+              type="radio"
+              value="starter"
+              checked
+            /><span class="ui-label">Starter</span
+            ><span class="ui-end-text">For one person.</span></label
+          >
+          <label class="ui-radio ui-card"
+            ><input
+              name="stress-card-row-narrow"
+              type="radio"
+              value="team"
+            /><span class="ui-label">Team</span
+            ><span class="ui-end-text"
+              >Up to ten seats and shared folders.</span
+            ></label
+          >
+          <label class="ui-radio ui-card"
+            ><input
+              name="stress-card-row-narrow"
+              type="radio"
+              value="enterprise"
+              disabled
+            /><span class="ui-label">Enterprise</span
+            ><span class="ui-end-text">Talk to sales.</span></label
+          >
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</section>
 <section class="stress" data-example="ChoicesAndFields">
   <h2>Choices next to fields</h2>
   <p>

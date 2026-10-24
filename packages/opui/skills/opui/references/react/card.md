@@ -495,7 +495,10 @@ Import the components from `opui-css/react`:
 ### Used by
 
 - [Accordion](https://open-props-ui.netlify.app/react/components/accordion.md)
+- [Checkbox](https://open-props-ui.netlify.app/react/components/checkbox.md)
 - [Dialog](https://open-props-ui.netlify.app/react/components/dialog.md)
+- [Radio](https://open-props-ui.netlify.app/react/components/radio.md)
+- [Switch](https://open-props-ui.netlify.app/react/components/switch.md)
 
 Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/react/guide/getting-started.md).
 

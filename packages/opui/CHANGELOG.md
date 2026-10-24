@@ -131,6 +131,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 
 ### Added
 
+- `Checkbox`, `Radio` and `Switch` take `card` (`.ui-card`), which renders the control as a card styled by `card.css`: outlined by default, tinted when hovered and when checked, with the focus ring on the card. `variant` (`outlined`, `tonal` or `elevated`) changes the surface. Cards in a horizontal `FieldGroup` share the row equally. `--_card-padding`, `--_checked-bg-color` and `--_hover-bg-color` are the knobs.
 - `Accordion` takes a `markerAnimation` prop (`rotate`, `flip`, `turn`) that sets how the marker animates when it opens. Defaults to `rotate`, which needs no class; `.ui-marker-animation-flip` mirrors the chevron and `.ui-marker-animation-turn` points it to the inline end when closed and down when open, also in right-to-left.
 - `Accordion`, `Avatar`, `Button`, `ButtonGroup`, `Card`, `Checkbox`, `Chip`, `Divider`, `List`, `Progress`, `Radio`, `Range`, `Select`, `Switch`, `Tabs`, `TextField`, `Textarea`, `ToggleButton` and `ToggleGroup` accept their default by name, which adds no class: `size="medium"` on every sized component, `variant="plain"` on `Accordion` and `Card`, `"transparent"` on `Button` and `ButtonGroup`, `"outlined"` on `Divider` and `Range`, `"filled"` on `List`, and `"tonal"` on `Progress` and `Tabs`. In HTML, a `Drawer` opens from the inline start without `.ui-inline-start`.
 - `AccordionActions` takes `align` (`.ui-align-start`), like `CardActions` and `DialogActions`.

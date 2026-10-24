@@ -2,7 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Radio",
-  css: ["choice", "radio"],
+  css: ["card", "choice", "radio"],
   model: {
     description: "The selected value of the group.",
     frameworks: {
@@ -27,6 +27,14 @@ export default {
     vue: "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
   },
   options: [
+    {
+      class: ".ui-card",
+      default: "false",
+      description:
+        "Renders the radio as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface.",
+      group: "Card",
+      prop: "card",
+    },
     {
       attribute: "[disabled]",
       description: "Dims the radio and shows a not-allowed cursor.",
@@ -86,6 +94,14 @@ export default {
       description: "Pushes the label and the input to opposite ends.",
       group: "Spread",
       prop: "spread",
+    },
+    {
+      default: '"outlined"',
+      description:
+        "The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.",
+      group: "Variants",
+      prop: "variant",
+      values: { elevated: ".ui-elevated", outlined: null, tonal: ".ui-tonal" },
     },
   ],
   parts: [

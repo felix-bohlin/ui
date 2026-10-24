@@ -467,7 +467,10 @@ Import the components from `opui-css/svelte`:
 ### Used by
 
 - [Accordion](https://open-props-ui.netlify.app/svelte/components/accordion.md)
+- [Checkbox](https://open-props-ui.netlify.app/svelte/components/checkbox.md)
 - [Dialog](https://open-props-ui.netlify.app/svelte/components/dialog.md)
+- [Radio](https://open-props-ui.netlify.app/svelte/components/radio.md)
+- [Switch](https://open-props-ui.netlify.app/svelte/components/switch.md)
 
 Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/svelte/guide/getting-started.md).
 

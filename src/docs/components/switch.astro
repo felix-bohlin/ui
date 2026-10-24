@@ -15,6 +15,7 @@ import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import SwitchCSS from "@opui/css/components/switch.css?raw"
 import ChoiceCSS from "@opui/css/components/choice.css?raw"
+import CardCSS from "@opui/css/components/card.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import fieldGroupApi from "../../component-api/field-group/api"
@@ -66,6 +67,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     { title: "switch.css", code: SwitchCSS, lang: "css" },
     { title: "choice.css", code: ChoiceCSS, lang: "css" },
     { title: "form.css", code: FormCSS, lang: "css", isDependency: true },
+    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
   ]}
 >
   <Fragment slot="title">Switch</Fragment>
@@ -229,6 +231,40 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     </Conditional>
 
     <AutoExample name="Spread" column />
+  </section>
+
+  <section>
+    <h2 id="cards">Cards</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set the <code>card</code> prop to render the switch as a card: an outlined
+        surface that holds the label and <code>endText</code>, tints when
+        hovered and when checked, and shows the focus ring on its edge. The
+        switch sits at the start; add <code>spread</code> to move it to the end.
+        <code>variant="tonal"</code> and <code>variant="elevated"</code> change the
+        surface like a <DocLink href="/components/card" class="ui-link"
+          >Card</DocLink
+        >. In a <code>FieldGroup</code> with <code
+          >orientation="horizontal"</code
+        >
+        the cards share the row equally and wrap.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.ui-card</code> class to the <code
+          >&lt;label class="ui-switch"&gt;</code
+        >
+        {" "}to render the switch as a card: an outlined surface that holds the
+        label and <code>.ui-end-text</code>, tints when hovered and when
+        checked, and shows the focus ring on its edge. The switch sits at the
+        start; add <code>.ui-spread</code> to move it to the end.
+        <code>.ui-tonal</code> and <code>.ui-elevated</code> change the surface like
+        a <DocLink href="/components/card" class="ui-link">Card</DocLink>. In a <code
+          >.ui-field-group.ui-horizontal</code
+        > the cards share the row equally and wrap.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Cards" column />
   </section>
 
   <section>

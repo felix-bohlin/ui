@@ -475,7 +475,10 @@ Import the components from `opui-css/astro`:
 ### Used by
 
 - [Accordion](https://open-props-ui.netlify.app/astro/components/accordion.md)
+- [Checkbox](https://open-props-ui.netlify.app/astro/components/checkbox.md)
 - [Dialog](https://open-props-ui.netlify.app/astro/components/dialog.md)
+- [Radio](https://open-props-ui.netlify.app/astro/components/radio.md)
+- [Switch](https://open-props-ui.netlify.app/astro/components/switch.md)
 
 Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md).
 

@@ -339,6 +339,7 @@ const count = itemCount(sections)
                           ]}
                         >
                           <Radio
+                            card
                             class="todo-action"
                             size="small"
                             spread
@@ -926,32 +927,15 @@ const count = itemCount(sections)
   }
 
   .todo-fix-option {
-    border: var(--ui-border-width) solid var(--ui-border-color);
-    border-radius: var(--ui-radius);
     display: grid;
+    gap: var(--size-2);
 
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(--ui-surface-tonal-hover);
-      }
-    }
-
-    &.is-recommended {
-      border-color: var(--ui-primary);
-    }
-
-    &:has(:checked) {
-      background-color: var(--ui-primary-tonal);
-      border-color: var(--ui-primary);
-    }
-
-    :global(.ui-radio) {
-      cursor: pointer;
-      padding: var(--size-3);
+    &.is-recommended > :global(.ui-radio) {
+      --_border-color: var(--ui-primary);
     }
 
     :global(.todo-notes) {
-      padding: 0 var(--size-3) var(--size-3);
+      padding-inline: var(--size-3);
     }
   }
 

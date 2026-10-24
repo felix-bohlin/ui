@@ -1,0 +1,23 @@
+---
+import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
+---
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Notifications</FieldLegend>
+    <FieldGroup name="switch-cards">
+      <Switch value="email" checked card spread>
+        Email
+        <Fragment slot="end-text">A summary of each day.</Fragment>
+      </Switch>
+      <Switch value="push" card spread>
+        Push
+        <Fragment slot="end-text">Right when something happens.</Fragment>
+      </Switch>
+      <Switch value="digest" card spread>
+        Weekly digest
+        <Fragment slot="end-text">Every Monday morning.</Fragment>
+      </Switch>
+    </FieldGroup>
+  </Fieldset>
+</Form>

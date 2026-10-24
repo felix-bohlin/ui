@@ -7,6 +7,7 @@ export const title = "Checkbox"
 
 const {
   "aria-invalid": ariaInvalid,
+  card,
   class: className,
   endText,
   error,
@@ -15,6 +16,7 @@ const {
   orientation,
   size,
   spread,
+  variant,
   style,
   ...rest
 } = Astro.props
@@ -32,8 +34,10 @@ warnUnnamed(
   class:list={[
     "ui-checkbox",
     {
+      "ui-card": card,
       "ui-spread": spread,
     },
+    card && variant && variant !== "outlined" && `ui-${variant}`,
     orientation && orientation !== "horizontal" && `ui-${orientation}`,
     size && size !== "medium" && `ui-${size}`,
     className,

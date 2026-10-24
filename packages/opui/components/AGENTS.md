@@ -508,7 +508,7 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `Button`: the browser styles `button` with `ButtonFace`, `ButtonText` and `ButtonBorder`; the variants only change colors, which are forced anyway.
 - `Link`, `Typography`: text and underlines, forced to `LinkText` and `CanvasText`. Code blocks lose their fill and keep their text.
 - `Spinner`: in forced colors a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
-- `Choice` (the shared checkbox, radio and switch root): the blocks live in `checkbox.css`, `radio.css` and `switch.css`.
+- `Choice` (the shared checkbox, radio and switch root): the blocks live in `checkbox.css`, `radio.css` and `switch.css`, except the checked `.ui-card` border, which is a tint and gets `SelectedItem` in `choice.css`.
 
 `Accordion` (the elevated and tonal variants have a shadow-only edge) and `ButtonGroup` (the dividers are box shadows) have blocks for that reason. `TextField` and `Textarea`, which shares `text-field.css`, have blocks too, although the field border is real: they only recolor the focus outline and the autosuggest mask chevron. When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
 

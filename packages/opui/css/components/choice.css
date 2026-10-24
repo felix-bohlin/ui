@@ -88,6 +88,10 @@
 
       transform: translateZ(0);
 
+      &.ui-card input:is([type="checkbox"], [type="radio"])::before {
+        content: none;
+      }
+
       /* Hover and active effect */
       input:is([type="checkbox"], [type="radio"]) {
         --_ripple-size: 175%;
@@ -199,6 +203,70 @@
       .ui-end-text {
         grid-column: 1/-1;
         grid-row: 3;
+      }
+    }
+
+    /* Card */
+    &.ui-card {
+      --_card-padding: var(--ui-space-3);
+      --_checked-bg-color: var(
+        --ui-primary-tonal,
+        oklch(
+          from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent)
+        )
+      );
+      --_hover-bg-color: var(--ui-surface-tonal-hover);
+
+      inline-size: 100%;
+      overflow: visible;
+      padding: var(--_card-padding);
+      transition:
+        background-color var(--_duration) var(--_ease),
+        border-color var(--_duration) var(--_ease);
+
+      &:not(.ui-spread) {
+        column-gap: var(--ui-space-3);
+        grid-template-columns: auto 1fr;
+      }
+
+      &:is(.ui-small, .ui-x-small) {
+        --_card-padding: var(--ui-space-2);
+      }
+
+      &:not(.ui-elevated, .ui-tonal) {
+        --_border-color: var(--ui-border-color);
+        --_border-width: var(--ui-border-width);
+        --_shadow: var(--ui-shadow-surface);
+      }
+
+      @media (hover: hover) {
+        &:hover:not(:has(:checked, [disabled], input[aria-disabled="true"])) {
+          --_bg-color: var(--_hover-bg-color);
+        }
+      }
+
+      &:has(input:checked) {
+        --_bg-color: var(--_checked-bg-color);
+        --_border-color: var(--_accent);
+
+        @media (forced-colors: active) {
+          --_border-color: SelectedItem;
+        }
+      }
+
+      &:has([aria-invalid="true"], :user-invalid) {
+        --_border-color: var(--ui-invalid);
+      }
+
+      &:has(input:focus-visible) {
+        animation: ui-focus-ring var(--_duration) var(--_ease);
+        outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+          var(--ui-focus-ring-color);
+        outline-offset: var(--ui-focus-ring-offset);
+      }
+
+      input:focus-visible {
+        outline: none;
       }
     }
   }

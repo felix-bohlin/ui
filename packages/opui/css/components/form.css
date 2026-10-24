@@ -120,6 +120,11 @@
       &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)) {
         gap: var(--ui-space-4);
       }
+
+      &:has(> .ui-card:is(.ui-checkbox, .ui-radio, .ui-switch)) {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(24ch, 100%), 1fr));
+      }
     }
   }
 }

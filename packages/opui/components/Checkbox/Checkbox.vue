@@ -9,6 +9,7 @@ defineOptions({
 })
 
 const {
+  card,
   endText,
   error,
   hideLabel,
@@ -17,6 +18,7 @@ const {
   orientation,
   size,
   spread,
+  variant,
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
@@ -38,8 +40,10 @@ warnUnnamed(
     :class="[
       'ui-checkbox',
       {
+        'ui-card': card,
         'ui-spread': spread,
       },
+      card && variant && variant !== 'outlined' && `ui-${variant}`,
       orientation && orientation !== 'horizontal' && `ui-${orientation}`,
       size && size !== 'medium' && `ui-${size}`,
       $props.class,

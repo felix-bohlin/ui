@@ -1,5 +1,4 @@
 ---
-import Code from "../../components/Code.astro"
 import { TableCell, TableRow } from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
 import DocsTable from "../../components/DocsTable.astro"
@@ -54,20 +53,21 @@ const slug = (title: string) =>
   <section>
     <h2 id="overriding">Overriding tokens</h2>
     <p>
-      Set them on <code>html</code>, or on an element to theme a subtree. The <DocLink
+      Set them in <code>@layer theme.custom</code>, see <DocLink
+        href="/guide/customizing#your-theme">Your theme</DocLink
+      >. Roles work on <code>html</code> and on any element, for the subtree inside
+      it. Knobs (<code>--ui-density</code>, <code>--ui-space-scale</code> and the
+      <code>--ui-palette-*</code> inputs) are only read on <code>html</code> and inside
+      a <DocLink href="/guide/theming#scopes"
+        ><code>.ui-palette</code> scope</DocLink
+      >, so a knob on a form does nothing. The <DocLink
         href="/guide/theme-generator">Theme generator</DocLink
       > writes the ones you change to a <code>custom-theme.css</code>.
     </p>
-    <Code
-      code={`@layer theme.custom {
-  :where(html) {
-    --ui-radius: var(--radius-3);
-    --ui-duration: 0.15s;
-    --ui-palette-hue: 30;
-  }
-}`}
-      lang="css"
-    />
+  </section>
+
+  <section>
+    <h2 id="tokens-json">tokens.json</h2>
     <p>
       The same list ships as <code>opui-css/tokens.json</code> (also at <a
         href="/tokens.json"

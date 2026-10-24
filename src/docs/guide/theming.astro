@@ -3,6 +3,23 @@ import Guide from "../../layouts/Guide.astro"
 import Code from "../../components/Code.astro"
 import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example/index"
+import RoleSwatches from "../../components/RoleSwatches.astro"
+import TokenFlow from "../../components/TokenFlow.astro"
+
+const surfaceRoles = [
+  { name: "--ui-surface", note: "The page" },
+  {
+    name: "--ui-surface-elevated",
+    note: "Elevated cards and accordions, dialogs, drawers, menus",
+  },
+  { name: "--ui-surface-tonal", note: "Tonal variants" },
+  { name: "--ui-surface-filled", note: "Lists, tracks, table headers" },
+  { name: "--ui-surface-inverse", note: "Tooltips" },
+  { name: "--ui-text-strong", note: "Headings, labels, values" },
+  { name: "--ui-text", note: "Body copy" },
+  { name: "--ui-border-color", note: "Dividers, outlined variants" },
+  { name: "--ui-field-border-color", note: "Fields" },
+]
 ---
 
 <Guide overline="Guide">
@@ -14,22 +31,19 @@ import Example from "../../components/Example/index"
 
   <section>
     <p>
+      A theme sets <DocLink href="/guide/concepts#token-tiers"
+        >knobs and roles</DocLink
+      >, and every component reads the roles:
+    </p>
+    <TokenFlow />
+    <p>
       Snippets on this page belong in <code>@layer theme.custom</code>, see <DocLink
-        href="/guide/customizing">Customizing</DocLink
+        href="/guide/customizing#your-theme">Your theme</DocLink
       >. Every token and its default is on <DocLink href="/guide/theme-tokens"
         >Theme tokens</DocLink
       >, and the <DocLink href="/guide/theme-generator">Theme generator</DocLink
       >
       writes a theme for you.
-    </p>
-    <p>
-      v6 renames every token: <code>--primary</code> is <code>--ui-primary</code
-      >,
-      <code>--text-primary</code> is <code>--ui-text-strong</code>, <code
-        >--surface-default</code
-      > is <code>--ui-surface</code>. The full table is in <DocLink
-        href="/guide/migrating#theme-and-tokens">Migrating</DocLink
-      >.
     </p>
   </section>
 
@@ -96,58 +110,73 @@ import Example from "../../components/Example/index"
 
   <section>
     <h2 id="scopes">Scopes</h2>
-    <p>A scope class re-themes an element and everything inside it.</p>
+    <p>
+      A scope class re-themes an element and everything inside it, so one page
+      can carry several brands, a dark panel or one red for every critical
+      component:
+    </p>
+    <Example centered row>
+      <section class="ui-palette scope-demo" style="--ui-palette-hue: 30">
+        <p class="ui-caption">.ui-palette with --ui-palette-hue: 30</p>
+        <button class="ui-button ui-filled ui-primary" type="button">
+          Primary
+        </button>
+        <button class="ui-button ui-tonal ui-primary" type="button">
+          Tonal
+        </button>
+      </section>
+      <aside class="ui-dark scope-demo">
+        <p class="ui-caption">.ui-dark</p>
+        <button class="ui-button ui-filled ui-primary" type="button">
+          Primary
+        </button>
+        <button class="ui-button ui-tonal ui-primary" type="button">
+          Tonal
+        </button>
+      </aside>
+      <section class="scope-demo">
+        <p class="ui-caption">.ui-critical on each</p>
+        <article class="ui-callout ui-critical">
+          <div class="ui-content">Card declined</div>
+        </article>
+        <button class="ui-button ui-tonal ui-critical" type="button">
+          Remove card
+        </button>
+      </section>
+    </Example>
     <ul>
+      <li>
+        <code>.ui-palette</code> re-derives the palette and every derived token (colors,
+        control sizes, spacing, type roles and radii) from the knobs the element sets
+        or inherits, <code>--ui-primary</code> and the intent colors included. <code
+          >.ui-contrast-more</code
+        > does the same with the contrast knobs tightened.
+      </li>
       <li>
         <code>.ui-critical</code>, <code>.ui-info</code>, <code
           >.ui-neutral</code
         >, <code>.ui-success</code> and <code>.ui-warning</code> swap the palette
-        steps, see <DocLink href="/guide/concepts#palette-scopes"
-          >Palette scopes</DocLink
-        >.
+        steps for the intent color and leave <code>--ui-primary</code> and the text
+        colors alone. <DocLink href="/guide/concepts#palette-scopes"
+          >Concepts</DocLink
+        > shows the steps of each one.
       </li>
       <li>
-        <code>.ui-light</code> and <code>.ui-dark</code> force a color scheme.
-      </li>
-      <li>
-        <code>.ui-palette</code> re-derives the palette and every derived token (colors,
-        control sizes, spacing, type roles and radii) from the knobs the element sets
-        or inherits. <code>.ui-contrast-more</code> does the same with the contrast
-        knobs tightened.
+        <code>.ui-light</code> and <code>.ui-dark</code> force a color scheme. On
+        an element they only pick the other side of <code>light-dark()</code>:
+        the surface and text colors and <code>--ui-shadow-elevated</code> switch,
+        while the shadow color and strength still come from the page.
       </li>
     </ul>
-    <p>
-      On an element, <code>.ui-dark</code> and <code>.ui-light</code> only pick the
-      other side of <code>light-dark()</code>. The shadow color and strength
-      still come from the page; <code>--ui-shadow-elevated</code> and the surface
-      and text colors switch with the scheme. Add <code>.ui-palette</code> with your
-      own knobs to give a part of the page its own palette:
-    </p>
-    <Code
-      code={`<aside class="ui-dark">
-  Always dark
-</aside>
-
-<section class="ui-palette" style="--ui-palette-hue: 30">
-  <button class="ui-button ui-primary ui-filled" type="button">
-    Orange brand
-  </button>
-</section>`}
-      lang="html"
-    />
   </section>
 
   <section>
     <h2 id="surfaces">Surfaces</h2>
     <p>
-      <code>--ui-surface</code> is the page, <code>--ui-surface-elevated</code> the
-      raised layers (elevated cards and accordions, dialogs, drawers, menus), <code
-        >--ui-surface-tonal</code
-      > the tinted variants, <code>--ui-surface-filled</code> lists, tracks and table
-      headers, and <code>--ui-surface-inverse</code> tooltips. <code
-        >--ui-text-strong</code
-      > is for headings, labels and values, <code>--ui-text</code> for body copy.
+      Five surfaces, two text colors and two border colors paint everything that
+      isn't an accent:
     </p>
+    <RoleSwatches roles={surfaceRoles} />
     <p>
       A raised component (tonal and elevated <code>Card</code> and <code
         >Accordion</code
@@ -517,6 +546,18 @@ import Example from "../../components/Example/index"
 </Guide>
 
 <style>
+  .scope-demo {
+    align-items: start;
+    border-radius: var(--ui-radius);
+    display: grid;
+    gap: var(--ui-space-3);
+    padding: var(--ui-space-4);
+
+    .ui-caption {
+      margin: 0;
+    }
+  }
+
   .contrast-demo {
     display: grid;
     gap: var(--ui-space-4);

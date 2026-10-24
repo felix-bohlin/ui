@@ -1,0 +1,250 @@
+---
+import { Range } from "opui-css/astro"
+
+const knobs = [
+  { max: 360, name: "--ui-palette-hue", step: 1, value: 145 },
+  { max: 1, name: "--ui-palette-chroma", step: 0.05, value: 0.5 },
+]
+
+const roles = [
+  { name: "--ui-primary", note: "Filled buttons, links, focus ring" },
+  { name: "--ui-palette-tint", note: "Tonal fills" },
+  { name: "--ui-palette-text", note: "Tinted text" },
+  { name: "--ui-palette-border", note: "Tinted borders" },
+]
+---
+
+<figure class="token-flow ui-palette ui-not-rich-text" id="token-flow">
+  <ol>
+    <li>
+      <span class="step">Knobs</span>
+      <div class="knobs">
+        {
+          knobs.map((knob) => (
+            <Range
+              max={knob.max}
+              min={0}
+              name={knob.name}
+              size="small"
+              step={knob.step}
+              value={knob.value}
+              valueSuffix=""
+            >
+              <code slot="label">{knob.name}</code>
+            </Range>
+          ))
+        }
+      </div>
+    </li>
+    <li>
+      <span class="step">Palette</span>
+      <span class="swatches" aria-hidden="true">
+        {
+          Array.from({ length: 16 }, (_, i) => (
+            <span style={`background-color: var(--ui-color-${i + 1})`} />
+          ))
+        }
+      </span>
+      <span><code>--ui-color-1</code> to <code>--ui-color-16</code></span>
+    </li>
+    <li>
+      <span class="step">Roles</span>
+      <ul class="roles">
+        {
+          roles.map((role) => (
+            <li>
+              <span
+                class="swatch"
+                style={`background-color: var(${role.name})`}
+                aria-hidden="true"
+              />
+              <code>{role.name}</code>
+              <span class="note">{role.note}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </li>
+    <li>
+      <span class="step">Components</span>
+      <div class="components">
+        <button class="ui-button ui-filled ui-primary" type="button">
+          Save
+        </button>
+        <button class="ui-button ui-tonal ui-primary" type="button">
+          Cancel
+        </button>
+        <button class="ui-button ui-outlined ui-primary" type="button">
+          Edit
+        </button>
+        <a class="ui-link" href="#token-flow">A link</a>
+      </div>
+    </li>
+  </ol>
+  <figcaption>
+    Drag a knob: the palette is derived again, the roles that read it follow,
+    and so does every component. A theme sets the knobs once on <code>html</code
+    >; this figure is a <code>.ui-palette</code> scope with its own.
+  </figcaption>
+</figure>
+
+<script>
+  const figure = document.getElementById("token-flow")
+  const inputs = figure?.querySelectorAll<HTMLInputElement>(
+    'input[type="range"]',
+  )
+  if (figure && inputs) {
+    const style = getComputedStyle(figure)
+    for (const input of inputs) {
+      const current = parseFloat(style.getPropertyValue(input.name))
+      if (!Number.isNaN(current)) {
+        input.value = String(current)
+        const output = figure.querySelector(`output[for="${input.id}"]`)
+        if (output) output.textContent = input.value
+      }
+      input.addEventListener("input", () => {
+        figure.style.setProperty(input.name, input.value)
+        figure.style.setProperty(
+          "--ui-palette-source",
+          "oklch(58% calc(0.21 * var(--ui-palette-chroma)) var(--ui-palette-hue))",
+        )
+      })
+    }
+  }
+</script>
+
+<style>
+  .token-flow {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-3);
+    margin-block: var(--ui-space-5);
+  }
+
+  ol,
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .token-flow > ol {
+    display: grid;
+    gap: var(--ui-space-6);
+    grid-template-columns: 1.25fr 1fr 1.25fr 1fr;
+
+    > li {
+      align-content: start;
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius);
+      display: grid;
+      gap: var(--ui-space-3);
+      padding: var(--ui-space-3);
+      position: relative;
+    }
+
+    > li + li::before {
+      color: var(--ui-text);
+      content: "\2192" / "";
+      font-size: var(--ui-font-size-h4);
+      inline-size: var(--ui-space-6);
+      inset-block-start: 50%;
+      inset-inline-start: calc(-1 * var(--ui-space-6));
+      line-height: 1;
+      position: absolute;
+      text-align: center;
+      translate: 0 -50%;
+    }
+  }
+
+  .step {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-medium);
+    letter-spacing: var(--ui-letter-spacing-caps);
+    text-transform: uppercase;
+  }
+
+  .knobs {
+    display: grid;
+    gap: var(--ui-space-3);
+
+    :global(.ui-range) {
+      column-gap: var(--ui-space-2);
+    }
+
+    code {
+      font-size: var(--ui-font-size-caption);
+    }
+  }
+
+  .swatches {
+    border: var(--ui-border-width) solid currentColor;
+    border-radius: var(--ui-radius-small);
+    display: grid;
+    forced-color-adjust: none;
+    overflow: hidden;
+
+    > span {
+      block-size: var(--ui-space-2);
+    }
+  }
+
+  .roles {
+    display: grid;
+    gap: var(--ui-space-2);
+
+    li {
+      align-items: center;
+      column-gap: var(--ui-space-2);
+      display: grid;
+      grid-template-columns: auto 1fr;
+    }
+
+    .note {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-caption);
+      grid-column: 2;
+    }
+  }
+
+  .swatch {
+    block-size: var(--ui-space-4);
+    border: var(--ui-border-width) solid currentColor;
+    border-radius: var(--ui-radius-small);
+    forced-color-adjust: none;
+    inline-size: var(--ui-space-4);
+  }
+
+  code {
+    font-size: var(--ui-font-size-small);
+  }
+
+  .components {
+    align-content: start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2);
+  }
+
+  figcaption {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    text-align: start;
+  }
+
+  @container (width < 44rem) {
+    .token-flow > ol {
+      grid-template-columns: 1fr;
+
+      > li + li::before {
+        block-size: var(--ui-space-6);
+        content: "\2193" / "";
+        inline-size: auto;
+        inset-block-start: calc(-1 * var(--ui-space-6));
+        inset-inline-start: 50%;
+        translate: -50% 0;
+      }
+    }
+  }
+</style>

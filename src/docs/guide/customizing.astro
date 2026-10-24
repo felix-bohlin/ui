@@ -8,8 +8,9 @@ import Example from "../../components/Example/index"
 <Guide overline="Guide">
   <Fragment slot="title">Customizing</Fragment>
   <Fragment slot="preamble">
-    Theme tokens change the whole library. To change one component, or one
-    instance of it, set its <code>--_*</code> properties.
+    Where your CSS goes: a theme in <code>theme.custom</code> changes the whole library,
+    a component's <code>--_*</code> properties change one component or one instance,
+    and your own layer holds the rest.
   </Fragment>
 
   <section>
@@ -23,7 +24,6 @@ import Example from "../../components/Example/index"
     <Code
       code={`@layer theme.custom {
   :where(html) {
-    --ui-radius: 4px;
     --ui-density: 0.9;
     --ui-font-body: "Inter", var(--font-sans);
     --ui-font-heading: "Fraunces", var(--font-serif);
@@ -38,7 +38,8 @@ import Example from "../../components/Example/index"
         >@layer</code
       > statements from there, like the example themes do. The <DocLink
         href="/guide/theme-generator">Theme generator</DocLink
-      > writes one for you.
+      > writes one for you, and <DocLink href="/guide/theming">Theming</DocLink> walks
+      through the knobs.
     </p>
     <p>
       Knobs inherit, so <code>html</code> is enough for them. A role you pin, such

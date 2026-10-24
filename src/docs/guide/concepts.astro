@@ -33,8 +33,10 @@ import TokenTiers from "../../components/TokenTiers.astro"
       > or heavier selectors. <code>components.prose</code> is the lowest component
       layer, so a component inside rich text keeps its own styles. Import <code
         >layers.css</code
-      > first when you import single files. More in <DocLink
-        href="/guide/customizing">Customizing</DocLink
+      > first when you import single files. Where your CSS goes: <DocLink
+        href="/guide/customizing#your-theme">Your theme</DocLink
+      > and <DocLink href="/guide/customizing#unlayered-or-your-own-layer"
+        >Unlayered or your own layer</DocLink
       >.
     </p>
   </section>
@@ -46,64 +48,44 @@ import TokenTiers from "../../components/TokenTiers.astro"
       component tokens, and component CSS starts reading at the roles:
     </p>
     <TokenTiers />
-    <ul>
-      <li>
-        <strong>Knobs</strong> like <code>--ui-palette-hue</code>, <code
-          >--ui-density</code
-        > and <code>--ui-space-scale</code> are the inputs. Change the primitives
-        through them, not by name.
-      </li>
-      <li>
-        <strong>Primitives</strong> are the palette steps <code
-          >--ui-color-1</code
-        > to <code>--ui-color-16</code> and <code>--ui-gray-1</code> to <code
-          >--ui-gray-16</code
-        >, the type scale <code>--ui-font-size-100</code> to <code
-          >--ui-font-size-900</code
-        > and the Open Props scales. Component CSS never reads them, and a check in
-        the repo keeps it that way.
-      </li>
-      <li>
-        <strong>Roles</strong> are the contract: the tokens such as <code
-          >--ui-primary</code
-        >, <code>--ui-space-3</code> and <code>--ui-shadow-elevated</code>, each
-        described on <DocLink href="/guide/theme-tokens">Theme tokens</DocLink>
-        with the contrast it promises. Roles alone recreate Bootstrap, Material and
-        shadcn in the <DocLink href="/guide/customizing#example-themes"
-          >example themes</DocLink
-        >. A theme that has to reach into component CSS points at a missing
-        role, and that is worth an issue. A few roles are hooks, unset until a
-        theme sets them: <code>--ui-selected</code>, <code
-          >--ui-on-selected</code
-        >, <code>--ui-track-bg-color</code>, <code
-          >--ui-control-border-color</code
-        > and the others marked <em>hook</em> on the tokens page. Every component
-        with that job reads the hook, and each keeps a default of its own until a
-        theme sets one value for all of them.
-      </li>
-      <li>
-        <strong>Component tokens</strong> like <code>--ui-button-size</code> cover
-        a job only one component has, and default to a role or a fixed size.
-      </li>
-      <li>
-        <strong>Private properties</strong> like <code>--_accent</code> are each component's
-        wiring, for one element, never for a theme. See <DocLink
-          href="/guide/customizing#component-properties"
-          >Component properties</DocLink
-        >.
-      </li>
-    </ul>
+    <p>
+      <strong>Knobs</strong> like <code>--ui-palette-hue</code> and <code
+        >--ui-density</code
+      > are the inputs. <strong>Primitives</strong>, the palette steps <code
+        >--ui-color-1</code
+      > to <code>--ui-color-16</code>, the type scale and the Open Props scales,
+      derive from them, and component CSS never reads them. <strong
+        >Roles</strong
+      >
+      such as <code>--ui-primary</code> and <code>--ui-space-3</code> are the contract
+      every component reads, each listed on <DocLink href="/guide/theme-tokens"
+        >Theme tokens</DocLink
+      > with the contrast it promises; a few are hooks, unset until a theme sets one
+      value for every component with that job. Roles plus a few component tokens recreate
+      Bootstrap, Material and shadcn in the <DocLink
+        href="/guide/customizing#example-themes">example themes</DocLink
+      >, and a theme that has to reach into component CSS points at a missing
+      role.
+      <strong>Component tokens</strong> like <code>--ui-button-size</code> cover a
+      job only one component has. <strong>Private properties</strong> like <code
+        >--_accent</code
+      > are one component's wiring for one element, see <DocLink
+        href="/guide/customizing#component-properties"
+        >Component properties</DocLink
+      >. <DocLink href="/guide/theming">Theming</DocLink> walks through the knobs.
+    </p>
   </section>
 
   <section>
     <h2 id="light-and-dark">Light and dark</h2>
     <p>
-      The color tokens use <code>light-dark()</code> under <code
-        >color-scheme: light dark</code
-      >, so the OS setting drives them and there is no class to toggle. <code
-        >.ui-light</code
-      > and <code>.ui-dark</code> force a scheme on <code>html</code> or any element.
-      The default palette is green in both schemes.
+      Every color token holds both schemes in one <code>light-dark()</code> under
+      <code>color-scheme: light dark</code>, so the OS setting drives them and
+      there is no class to toggle. <code>.ui-light</code> and <code
+        >.ui-dark</code
+      > pick a side for <code>html</code> or one element, see <DocLink
+        href="/guide/theming#scopes">Scopes</DocLink
+      >.
     </p>
     <Example>
       <div class="concepts-schemes">
@@ -124,10 +106,14 @@ import TokenTiers from "../../components/TokenTiers.astro"
   <section>
     <h2 id="palette-scopes">Palette scopes</h2>
     <p>
-      Every color comes from one 16-step palette. A scope class re-derives it
-      for an element and everything inside, so one class gives a Callout and a
-      tonal Button the same red. <code>--ui-primary</code> and the text colors keep
-      the page values.
+      Every color comes from one 16-step palette. A severity class re-derives it
+      from the intent color for an element and everything inside, so one class
+      gives a Callout and a tonal Button the same red, while <code
+        >--ui-primary</code
+      > and the text colors keep the page values. <code>.ui-palette</code> does the
+      same from your own knobs. The classes and a live demo are on <DocLink
+        href="/guide/theming#scopes">Theming</DocLink
+      >.
     </p>
     <figure class="concepts-palettes ui-not-rich-text">
       {
@@ -154,21 +140,6 @@ import TokenTiers from "../../components/TokenTiers.astro"
         each scope, live with the current theme.
       </figcaption>
     </figure>
-    <Example centered>
-      <article class="ui-callout ui-critical">
-        <div class="ui-content">Your card was declined.</div>
-      </article>
-      <button class="ui-button ui-tonal ui-critical" type="button">
-        Remove card
-      </button>
-    </Example>
-    <p>
-      <code>.ui-palette</code> with your own <code>--ui-palette-hue</code> builds
-      a new palette for a subtree and recolors <code>--ui-primary</code> and the intent
-      colors too, so one page can carry several brands. See <DocLink
-        href="/guide/theming#scopes">Theming</DocLink
-      >.
-    </p>
   </section>
 
   <section>
@@ -481,8 +452,10 @@ import TokenTiers from "../../components/TokenTiers.astro"
       </li>
       <li>
         <strong>Range value</strong>: the <code>output</code> has to be updated on
-        <code>input</code>. The Astro component ships a tiny script, and React,
-        Svelte and Vue do it reactively.
+        <code>input</code>. Mark it with <code>data-live</code> and call <code
+          >initRange()</code
+        > from <code>css/js/range.js</code>. The Astro component does that for
+        you, and React, Svelte and Vue update it reactively.
       </li>
     </ul>
     <CodeGroup
@@ -491,8 +464,10 @@ import TokenTiers from "../../components/TokenTiers.astro"
           title: "CDN",
           code: `<script type="module">
   import { activateIndeterminate } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
+  import { initRange } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/range.js"
 
   activateIndeterminate()
+  initRange()
 </script>`,
           lang: "html",
         },
@@ -500,8 +475,10 @@ import TokenTiers from "../../components/TokenTiers.astro"
           title: "Bundler",
           code: `<script type="module">
   import { activateIndeterminate } from "opui-css/css/js/checkbox.js"
+  import { initRange } from "opui-css/css/js/range.js"
 
   activateIndeterminate()
+  initRange()
 </script>`,
           lang: "html",
         },
@@ -537,8 +514,10 @@ import TokenTiers from "../../components/TokenTiers.astro"
   }
 
   .swatches {
+    border: var(--ui-border-width) solid currentColor;
     border-radius: var(--ui-radius-small);
     display: grid;
+    forced-color-adjust: none;
     grid-template-columns: repeat(16, 1fr);
     overflow: hidden;
 

@@ -217,6 +217,15 @@
       );
       --_hover-bg-color: var(--ui-surface-tonal-hover);
 
+      @container style(--ui-contrast: more) {
+        --_checked-bg-color: var(
+          --ui-primary-tonal,
+          oklch(
+            from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
+          )
+        );
+      }
+
       inline-size: 100%;
       overflow: visible;
       padding: var(--_card-padding);

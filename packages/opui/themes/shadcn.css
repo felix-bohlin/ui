@@ -45,10 +45,7 @@
     --ui-field-placeholder-text-color: var(--ui-field-helper-text-color);
     --ui-field-radius: 0.5rem;
     --ui-field-helper-font-size: var(--ui-font-size-small);
-    --ui-field-helper-text-color: light-dark(
-      oklch(0.556 0 0),
-      oklch(0.708 0 0)
-    );
+    --ui-field-helper-text-color: light-dark(oklch(0.52 0 0), oklch(0.708 0 0));
     --ui-field-label-font-weight: var(--font-weight-5);
     --ui-focus-ring-color: light-dark(
       oklch(0.708 0 0 / 0.5),

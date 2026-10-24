@@ -58,6 +58,10 @@ Only the fixture pages at `/<framework>/test/<component>` need `OPUI_TEST_PAGES=
 
 Record intended parity drift with `pnpm test:record-drift` and known accessibility violations with `pnpm test:e2e:record-a11y`.
 
+### Releasing
+
+[RELEASING.md](RELEASING.md) has the steps: `node scripts/release.mjs <version>` dates the CHANGELOG, bumps `packages/opui/package.json`, publishes, tags and pushes, and the guards in `tests/unit/released-*.json` are regenerated afterwards. The one-off checks of a major release live in `docs/releases/`.
+
 ### Adding New Components
 
 1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `.react.tsx`, `.svelte`, `.vue` and the six `types*.ts` files (see `packages/opui/components/AGENTS.md`).

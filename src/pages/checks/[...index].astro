@@ -7,7 +7,7 @@ import TodoNotes from "../../components/Todo/TodoNotes.astro"
 import Document from "../../layouts/Document.astro"
 import { parseTodo, slugify } from "../../utils/todo"
 import { testPagesEnabled } from "../../utils/test-pages"
-import source from "../../../CHECKS.md?raw"
+import source from "../../../docs/releases/6.0.0.md?raw"
 
 export function getStaticPaths() {
   if (!testPagesEnabled()) return []
@@ -28,9 +28,10 @@ const count = sections.reduce(
 >
   <Fragment slot="title">Checks</Fragment>
   <p slot="preamble">
-    {count} manual checks from <code>CHECKS.md</code>. Check them off as you go,
-    and comment on anything that needs a fix, then copy the comments at the
-    bottom of the page. Checks and comments are saved in this browser.
+    {count} manual checks from <code>docs/releases/6.0.0.md</code>. Check them
+    off as you go, and comment on anything that needs a fix, then copy the
+    comments at the bottom of the page. Checks and comments are saved in this
+    browser.
   </p>
 
   {
@@ -196,7 +197,9 @@ const count = sections.reduce(
 
     return {
       commented,
-      text: ["CHECKS.md with my comments", "", ...blocks].join("\n").trim(),
+      text: ["docs/releases/6.0.0.md with my comments", "", ...blocks]
+        .join("\n")
+        .trim(),
     }
   }
 

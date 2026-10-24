@@ -52,6 +52,7 @@
     "vue",
     "CHANGELOG.md",
     "LICENSE",
+    "MIGRATING-legacy.md",
     "MIGRATING.md",
     "README.md"
   ],
@@ -80,9 +81,9 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "prepack": "node scripts/build.mjs",
-    "release": "pnpm version patch && pnpm publish && git push --follow-tags",
-    "release:minor": "pnpm version minor && pnpm publish && git push --follow-tags",
-    "release:major": "pnpm version major && pnpm publish && git push --follow-tags"
+    "release": "node ../../scripts/release.mjs patch",
+    "release:major": "node ../../scripts/release.mjs major",
+    "release:minor": "node ../../scripts/release.mjs minor"
   },
   "devDependencies": {
     "open-props": "^1.7.23",

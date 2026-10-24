@@ -98,6 +98,36 @@ const paletteFromSource = (hex: string) => {
   ] as const
 }
 
+const EXTRA_OPTION = "data-extra-option"
+
+const syncExtraOption = (
+  fields: HTMLInputElement[],
+  value: string,
+  text: string,
+) => {
+  const extra = fields.find((field) => field.hasAttribute(EXTRA_OPTION))
+  const known = fields.some(
+    (field) => !field.hasAttribute(EXTRA_OPTION) && field.value === value,
+  )
+  if (known) {
+    extra?.closest("label")?.remove()
+    return
+  }
+  const label = extra?.closest("label") ?? cloneOption(fields[0])
+  const input = label.querySelector("input")!
+  input.setAttribute(EXTRA_OPTION, "")
+  input.value = value
+  label.title = value
+  label.lastChild!.textContent = text
+}
+
+const cloneOption = (field: HTMLInputElement) => {
+  const template = field.closest("label")!
+  const label = template.cloneNode(true) as HTMLLabelElement
+  template.before(label)
+  return label
+}
+
 type Handlers = {
   setGrays: (enabled: boolean) => void
   setExampleTheme: (name: string | null) => void
@@ -154,15 +184,21 @@ export const themeForm = (
 
     for (const token of TOKENS) {
       const value = config[token] ?? defaults[token]
-      for (const field of form.querySelectorAll<HTMLInputElement>(
-        `[name="${token}"]`,
-      )) {
-        if (field.type === "radio") {
+      const fields = [
+        ...form.querySelectorAll<HTMLInputElement>(`[name="${token}"]`),
+      ]
+      if (fields[0]?.type === "radio") {
+        syncExtraOption(fields, value, example ? "Theme" : "Custom")
+        for (const field of form.querySelectorAll<HTMLInputElement>(
+          `[name="${token}"]`,
+        )) {
           field.checked = field.value === value
-        } else {
-          field.value = value
-          field.dispatchEvent(new Event("input"))
         }
+        continue
+      }
+      for (const field of fields) {
+        field.value = value
+        field.dispatchEvent(new Event("input"))
       }
     }
 

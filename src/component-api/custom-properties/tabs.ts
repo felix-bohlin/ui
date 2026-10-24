@@ -60,7 +60,8 @@ export default {
     kind: "input",
   },
   "--_text-color": {
-    description: "Text color of the unselected tabs. Defaults to `--ui-text`.",
+    description:
+      "Text color of the unselected tabs. Defaults to `--ui-text-subtle`.",
     kind: "input",
   },
   "--_track-bg-color": {

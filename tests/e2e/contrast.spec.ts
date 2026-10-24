@@ -150,12 +150,16 @@ const THEME_EXCEPTIONS: Record<
 > = {
   bootstrap: {
     dark: {
+      "--ui-choice-border-color":
+        "Bootstrap draws its checks with its 1.9:1 border color",
       "--ui-field-border-color":
         "Bootstrap draws its form controls with its 1.9:1 border color",
       "--ui-focus-ring-color":
         "Bootstrap draws its focus ring at 25% of its primary blue",
     },
     light: {
+      "--ui-choice-border-color":
+        "Bootstrap draws its checks with its 1.3:1 border color",
       "--ui-field-border-color":
         "Bootstrap draws its form controls with its 1.3:1 border color",
       "--ui-focus-ring-color":

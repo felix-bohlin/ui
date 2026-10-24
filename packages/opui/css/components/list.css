@@ -8,11 +8,16 @@ Lists meant to be used stand-alone or as part of Select elements
 */
   :where(.ui-list, .ui-menu) {
     --_bg-color: var(--ui-surface-filled);
+    --_description-text-color: var(--ui-text-subtle);
     --_divider-border-color: var(--ui-border-color);
     --_hover-bg-color: oklch(
       from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
     );
     --_item-gap: var(--ui-space-3);
+    --_item-padding-inline: var(
+      --ui-list-item-padding-inline,
+      var(--ui-space-3)
+    );
     --_radius: var(--ui-radius);
     --_selected-bg-color: var(
       --ui-selected,
@@ -111,7 +116,7 @@ Lists meant to be used stand-alone or as part of Select elements
       & > :where([role="group"], optgroup) > :where(label, legend, option) {
         min-block-size: var(--ui-control-size-small);
         padding-block: var(--ui-space-1);
-        padding-inline: var(--ui-space-3);
+        padding-inline: var(--_item-padding-inline);
 
         /* Clickable list item */
         &:has(> a, > button, > label) {
@@ -122,7 +127,7 @@ Lists meant to be used stand-alone or as part of Select elements
         & > :where(a, button, label) {
           min-block-size: var(--ui-control-size-small);
           padding-block: var(--ui-space-1);
-          padding-inline: var(--ui-space-3);
+          padding-inline: var(--_item-padding-inline);
         }
 
         /* Checkbox / Radio */
@@ -168,7 +173,7 @@ Lists meant to be used stand-alone or as part of Select elements
       isolation: isolate;
       min-block-size: var(--ui-control-size);
       padding-block: var(--ui-space-2);
-      padding-inline: var(--ui-space-3);
+      padding-inline: var(--_item-padding-inline);
       position: relative;
 
       &::before {
@@ -190,6 +195,10 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: var(--_selected-bg-color);
           box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);
+          --_description-text-color: var(
+            --ui-on-selected,
+            var(--ui-text-subtle)
+          );
         }
       }
 
@@ -205,7 +214,7 @@ Lists meant to be used stand-alone or as part of Select elements
         margin: 0;
         min-block-size: var(--ui-control-size);
         padding-block: var(--ui-space-2);
-        padding-inline: var(--ui-space-3);
+        padding-inline: var(--_item-padding-inline);
         text-align: start;
         text-decoration: none;
         z-index: 0;
@@ -220,12 +229,20 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: var(--_selected-bg-color);
           box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, var(--ui-primary-text));
+          --_description-text-color: var(
+            --ui-on-selected,
+            var(--ui-text-subtle)
+          );
         }
 
         &:checked {
           background-color: var(--_selected-bg-color);
           box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);
+          --_description-text-color: var(
+            --ui-on-selected,
+            var(--ui-text-subtle)
+          );
         }
       }
 
@@ -244,7 +261,7 @@ Lists meant to be used stand-alone or as part of Select elements
         min-block-size: var(--ui-control-size);
         outline-offset: var(--ui-focus-ring-inset);
         padding-block: var(--ui-space-2);
-        padding-inline: var(--ui-space-3);
+        padding-inline: var(--_item-padding-inline);
         text-align: start;
         text-decoration: none;
         z-index: 0;
@@ -259,6 +276,10 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: var(--_selected-bg-color);
           box-shadow: var(--_selected-shadow);
           color: var(--ui-on-selected, currentColor);
+          --_description-text-color: var(
+            --ui-on-selected,
+            var(--ui-text-subtle)
+          );
         }
       }
 
@@ -310,7 +331,7 @@ Lists meant to be used stand-alone or as part of Select elements
         }
 
         p + p {
-          color: var(--ui-text);
+          color: var(--_description-text-color);
           font-size: var(--ui-font-size-caption);
         }
       }

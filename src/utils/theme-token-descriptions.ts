@@ -26,6 +26,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar.",
   "--ui-button-accent":
     "Color of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, the darkest palette color in light mode and the lightest in dark mode.",
+  "--ui-button-accent-filled":
+    "Fill of `Button` and `ButtonGroup` with `.ui-filled` and no `.ui-primary` or `.ui-critical`, and of hovered outlined and tonal ones. When unset, `--ui-button-accent`, so text, outlined and filled buttons share one color.",
   "--ui-button-font-weight":
     "Font weight of `Button`. When unset, buttons follow `--ui-font-weight-bold`.",
   "--ui-button-hover":
@@ -36,6 +38,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Moves `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover, as a `translate` value. Pair it with `--ui-button-hover-shadow` to press buttons into their shadow. `none` when unset.",
   "--ui-button-on-accent":
     "Text color on a filled `--ui-button-accent` button. Set it with `--ui-button-accent`.",
+  "--ui-button-on-accent-filled":
+    "Text color on a `--ui-button-accent-filled` fill. Set it with `--ui-button-accent-filled`.",
   "--ui-button-padding-inline":
     "Horizontal padding of `Button`. When unset, `1.5ex`, which scales with the font.",
   "--ui-button-padding-inline-large":
@@ -51,6 +55,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-size-small": "`Button` height with `.ui-small`.",
   "--ui-button-size-x-small":
     "`Button` and `ButtonGroup` height with `.ui-x-small`.",
+  "--ui-card-padding":
+    "Padding of `Card`, `Dialog` and `Accordion` content, headers and actions. When unset, `--ui-space-3`.",
   "--ui-chip-radius":
     "Corner radius for `Chip`. When unset, chips follow `--ui-radius`.",
   "--ui-chip-size": "Default `Chip` height.",
@@ -137,7 +143,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-field-padding-inline":
     "Horizontal padding inside `TextField`, `Textarea` and `Select` fields. When unset, `--ui-space-2`.",
   "--ui-field-placeholder-text-color":
-    "Color of placeholder text in fields. When unset, `--ui-text`.",
+    "Color of placeholder text in fields. When unset, `--ui-text-subtle`.",
   "--ui-field-radius":
     "Corner radius for fields. When unset, they follow `--ui-radius`, also where it's set on a part of the page.",
   "--ui-field-required-text-color": "Color of the required asterisk.",
@@ -247,6 +253,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Line height of the page text set on `html`, and of `Tabs` labels.",
   "--ui-line-height-tight":
     "Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.",
+  "--ui-list-item-padding-inline":
+    "Horizontal padding of `List` and `Menu` items, headings and `Select` options. When unset, `--ui-space-3`.",
   "--ui-menu-radius":
     "Corner radius for `Menu`. When unset, menus follow `--ui-radius`.",
   "--ui-motion":
@@ -444,6 +452,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "How much of `--ui-text-strong` is mixed into `--ui-surface` for `--ui-text` in light mode. `87%`, and `90%` with more contrast.",
   "--ui-text-strong":
     "Strongest text color, for headings, labels and values. Body text is `--ui-text`.",
+  "--ui-text-subtle":
+    "Secondary text: placeholders, field helper text, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. When unset, `--ui-text`.",
   "--ui-track-bg-color":
     "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch `--ui-switch-track-bg-color`.",
   "--ui-underline-offset":

@@ -2,7 +2,7 @@
   :where(.ui-button) {
     --_motion: var(--ui-motion);
     --_accent: var(--ui-button-accent, var(--ui-palette-strong));
-    --_accent-fill: var(--_accent);
+    --_accent-fill: var(--ui-button-accent-filled, var(--_accent));
     --_accent-text: light-dark(
       var(--_accent),
       oklch(
@@ -51,33 +51,34 @@
     --_font-size: var(--ui-font-size-control);
     --_icon-size: 0.7lh;
     --_on-accent: var(--ui-button-on-accent, var(--ui-palette-on-strong));
+    --_on-accent-fill: var(--ui-button-on-accent-filled, var(--_on-accent));
     --_on-accent-tonal: var(--_accent);
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
     --_outlined-active-border-color: var(--_outlined-active-bg-color);
-    --_outlined-active-text-color: var(--_on-accent);
+    --_outlined-active-text-color: var(--_on-accent-fill);
     --_outlined-hover-bg-color: var(--_accent-fill);
     --_outlined-hover-border-color: var(--_accent-fill);
-    --_outlined-hover-text-color: var(--_on-accent);
+    --_outlined-hover-text-color: var(--_on-accent-fill);
     --_padding-inline: var(--ui-button-padding-inline, 1.5ex);
     --_radius: var(--ui-button-radius, var(--ui-radius));
     --_shadow: none;
     --_size: var(--ui-button-size);
     --_text-color: var(--_accent-text);
     --_tonal-active-bg-color: var(--_outlined-active-bg-color);
-    --_tonal-active-text-color: var(--_on-accent);
+    --_tonal-active-text-color: var(--_on-accent-fill);
     --_tonal-hover-bg-color: var(--_accent-fill);
-    --_tonal-hover-text-color: var(--_on-accent);
+    --_tonal-hover-text-color: var(--_on-accent-fill);
 
     @container style(--ui-button-hover: layer) {
       --_filled-active-bg-color: color-mix(
         in oklch,
         var(--_accent-fill),
-        var(--_on-accent) var(--ui-state-active-alpha-accent)
+        var(--_on-accent-fill) var(--ui-state-active-alpha-accent)
       );
       --_filled-hover-bg-color: color-mix(
         in oklch,
         var(--_accent-fill),
-        var(--_on-accent) var(--ui-state-hover-alpha-accent)
+        var(--_on-accent-fill) var(--ui-state-hover-alpha-accent)
       );
       --_outlined-active-bg-color: var(--_default-active-bg-color);
       --_outlined-active-border-color: var(--_accent);
@@ -157,14 +158,17 @@
       );
       --_accent-text: var(--ui-critical-text);
       --_on-accent: var(--ui-on-accent);
+      --_on-accent-fill: var(--_on-accent);
     }
 
     &.ui-primary,
     :where(.ui-button-group.ui-primary) > & {
       --_accent: var(--ui-primary);
+      --_accent-fill: var(--_accent);
       --_accent-text: var(--ui-primary-text);
       --_accent-tonal: var(--ui-primary-tonal, var(--ui-palette-tint));
       --_on-accent: var(--ui-on-primary);
+      --_on-accent-fill: var(--_on-accent);
       --_on-accent-tonal: var(--ui-on-primary-tonal, var(--ui-palette-on-tint));
     }
 
@@ -343,7 +347,7 @@
     &.ui-filled,
     :where(.ui-button-group.ui-filled) > & {
       --_bg-color: var(--_accent-fill);
-      --_text-color: var(--_on-accent);
+      --_text-color: var(--_on-accent-fill);
 
       &:where(:not(:disabled, [aria-disabled="true"])) {
         @media (hover: hover) {

@@ -18,7 +18,7 @@
     );
     --_selected-shadow: var(--ui-shadow-selected);
     --_selected-text-color: var(--ui-tabs-accent, var(--ui-text-strong));
-    --_text-color: var(--ui-text);
+    --_text-color: var(--ui-text-subtle);
     --_track-bg-color: var(--ui-surface-tonal);
     --_track-border-color: transparent;
     --_track-border-width: var(--ui-border-width);

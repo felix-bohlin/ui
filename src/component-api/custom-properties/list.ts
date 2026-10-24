@@ -6,6 +6,11 @@ export default {
       "Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.",
     kind: "input",
   },
+  "--_description-text-color": {
+    description:
+      "Text color of the description paragraph in an item. `--ui-text-subtle`, and `--ui-on-selected` on a selected or current row when a theme sets it.",
+    kind: "input",
+  },
   "--_divider-border-color": {
     description:
       "Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-strong` in `.ui-tonal`.",
@@ -17,6 +22,11 @@ export default {
   },
   "--_item-gap": {
     description: "Gap between the content of an item. Smaller in `.ui-dense`.",
+    kind: "input",
+  },
+  "--_item-padding-inline": {
+    description:
+      "Horizontal padding of items, headings and options. `--ui-list-item-padding-inline`, or `--ui-space-3` when a theme leaves it unset.",
     kind: "input",
   },
   "--_radius": {

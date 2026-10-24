@@ -89,6 +89,8 @@
 
     /* Spacing - gaps, padding and margins inside and between components. */
     --ui-space-scale: 1;
+    /* --ui-card-padding: var(--ui-space-3); */
+    /* --ui-list-item-padding-inline: var(--ui-space-3); */
 
     /* Control sizes - shared scale for fields and buttons so they line up. */
     --ui-density: 1;
@@ -97,12 +99,14 @@
     /* --ui-field-radius: var(--ui-radius); */
     /* --ui-field-bg-color: var(--ui-surface); */
     /* --ui-field-padding-inline: var(--ui-space-2); */
-    /* --ui-field-placeholder-text-color: var(--ui-text); */
+    /* --ui-field-placeholder-text-color: var(--ui-text-subtle); */
     --ui-field-border-width: 1px;
 
     /* Button */
     /* --ui-button-accent: light-dark(var(--ui-color-16), var(--ui-color-1)); */
     /* --ui-button-on-accent: light-dark(var(--ui-color-1), var(--ui-color-16)); */
+    /* --ui-button-accent-filled: var(--ui-button-accent); */
+    /* --ui-button-on-accent-filled: var(--ui-button-on-accent); */
     /* --ui-button-radius: var(--ui-radius); */
     /* --ui-button-font-weight: var(--ui-font-weight-bold); */
     /* --ui-button-hover: shade; */
@@ -321,7 +325,7 @@
     --ui-chip-size-large: var(--ui-control-size);
 
     /* Field / input */
-    --ui-field-helper-text-color: var(--ui-text);
+    --ui-field-helper-text-color: var(--ui-text-subtle);
     --ui-field-helper-font-size: var(--ui-font-size-caption);
     --ui-field-helper-line-height: var(--ui-line-height-control);
     --ui-field-label-text-color: var(--ui-text-strong);
@@ -505,6 +509,7 @@
         var(--ui-surface)
       )
     );
+    --ui-text-subtle: var(--ui-text);
     --ui-text-disabled: color-mix(
       in oklch,
       var(--ui-text) var(--ui-text-disabled-strength),

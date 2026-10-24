@@ -43,6 +43,11 @@ export default {
       "Border color of `.ui-outlined`. Defaults to `--ui-border-color`.",
     kind: "input",
   },
+  "--_padding": {
+    description:
+      "Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.",
+    kind: "input",
+  },
   "--_shadow": {
     description:
       "The current shadow. `.ui-elevated` sets `--_elevated-shadow`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`.",

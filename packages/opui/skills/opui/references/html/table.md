@@ -488,8 +488,8 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 | `--ui-space-6`                      | `calc(var(--size-6) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                                                  |
 | `--ui-surface`                      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                               | Page and card background.                                                                                                                                                                                                        |
 | `--ui-surface-filled`               | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                                                                                                                                               | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
-| `--ui-text`                         | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`     | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                        |
 | `--ui-text-strong`                  | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                 |
+| `--ui-text-subtle`                  | `var(--ui-text)`                                                                                                                                                                                                | Secondary text: placeholders, field helper text, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. When unset, `--ui-text`.                                                                |
 
 The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -674,6 +674,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 ### What's new
 
+- The caption reads [`--ui-text-subtle`](#api).
 - A checkbox alone in a cell is centered ([Normal](#normal)).
 - [Dense](#density) tables (`.ui-dense`) have less block padding.
 - [Fields and selects in cells](#controls-in-cells) keep a `12ch` minimum width, in every density.

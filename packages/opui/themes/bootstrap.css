@@ -37,7 +37,6 @@
     --ui-field-label-font-size: 1rem;
     --ui-field-label-font-weight: var(--font-weight-4);
     --ui-field-padding-inline: 0.75rem;
-    --ui-field-placeholder-text-color: var(--ui-field-helper-text-color);
     --ui-focus-ring-color: rgb(13 110 253 / 0.25);
     --ui-focus-ring-offset: 0px;
     --ui-focus-ring-width: 0.25rem;
@@ -65,6 +64,8 @@
     --ui-primary: #0d6efd;
     --ui-on-primary: #fff;
     --ui-primary-text: light-dark(#0a58ca, #6ea8fe);
+    --ui-selected: #0d6efd;
+    --ui-on-selected: #fff;
     --ui-shadow-overlay: none;
     --ui-shadow-elevated-dark: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
     --ui-shadow-elevated-light: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
@@ -86,6 +87,7 @@
     --ui-switch-track-inline-size: 2rem;
     --ui-text: light-dark(#212529, #dee2e6);
     --ui-text-strong: light-dark(#212529, #fff);
+    --ui-text-subtle: light-dark(#595c5f, #afb3b7);
     --ui-underline-offset: auto;
     --ui-underline-thickness-hover: auto;
     --ui-warning: #ffc107;

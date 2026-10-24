@@ -9,6 +9,7 @@
     --_elevated-bg-color: var(--ui-surface-elevated);
     --_elevated-shadow: var(--ui-shadow-elevated);
     --_outlined-border-color: var(--ui-border-color);
+    --_padding: var(--ui-card-padding, var(--ui-space-3));
     --_shadow: none;
     --_surface-bg-color: var(--ui-surface);
     --_tonal-bg-color: var(--ui-surface-tonal);
@@ -64,16 +65,16 @@
 
     & > :where(hgroup, .ui-content, .ui-header) {
       margin-block: 0;
-      padding-inline: var(--ui-space-3);
+      padding-inline: var(--_padding);
 
       &:last-child {
-        padding-block-end: var(--ui-space-3);
+        padding-block-end: var(--_padding);
       }
     }
 
     /* Header */
     & > :where(hgroup, .ui-header) {
-      padding-block: var(--ui-space-3) 0;
+      padding-block: var(--_padding) 0;
 
       & > :where(h1, h2, h3, h4, h5, h6, p) {
         margin-block: 0;
@@ -97,7 +98,7 @@
 
     /* Content */
     & > .ui-content:where(:only-child, :first-child) {
-      padding-block: var(--ui-space-3) var(--ui-space-4);
+      padding-block: var(--_padding) calc(var(--_padding) + var(--ui-space-1));
     }
 
     & > .ui-content:has(+ .ui-divider) {
@@ -112,7 +113,7 @@
       justify-content: end;
       margin-block-start: auto;
       padding-block: var(--ui-space-2);
-      padding-inline: var(--ui-space-3);
+      padding-inline: var(--_padding);
 
       /* Alignment */
       &.ui-align-start {

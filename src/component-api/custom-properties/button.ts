@@ -8,7 +8,7 @@ export default {
   },
   "--_accent-fill": {
     description:
-      "Fill of filled buttons and of hovered outlined and tonal buttons, and the base of the filled hover and pressed shades. `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`.",
+      "Fill of filled buttons and of hovered outlined and tonal buttons, and the base of the filled hover and pressed shades. `--ui-button-accent-filled` when a theme sets it, else `--_accent`, and in `.ui-critical` `--ui-critical` kept within `--ui-fill-max-lightness`, so the light text stays readable while the border keeps `--ui-critical`.",
     kind: "input",
   },
   "--_accent-text": {
@@ -81,6 +81,11 @@ export default {
   "--_on-accent": {
     description:
       "Text color on a fill of `--_accent`. Defaults to `--ui-button-on-accent` when a theme sets it. `.ui-primary` sets `--ui-on-primary`, `.ui-critical` `--ui-on-accent`.",
+    kind: "input",
+  },
+  "--_on-accent-fill": {
+    description:
+      "Text color on `--_accent-fill`: filled buttons, and hovered outlined and tonal ones. `--ui-button-on-accent-filled` when a theme sets it, else `--_on-accent`.",
     kind: "input",
   },
   "--_on-accent-tonal": {

@@ -15,6 +15,8 @@
     --ui-control-border-color-filled: var(--ui-border-color);
     --ui-control-size-large: calc(44px * var(--ui-density));
     --ui-control-size-small: calc(36px * var(--ui-density));
+    --ui-button-accent-filled: var(--ui-primary);
+    --ui-button-on-accent-filled: var(--ui-on-primary);
     --ui-button-font-weight: var(--font-weight-5);
     --ui-button-hover: layer;
     --ui-button-hover-shadow: none;
@@ -23,6 +25,7 @@
     --ui-button-padding-inline-large: 2rem;
     --ui-button-padding-inline-small: 0.75rem;
     --ui-button-padding-inline-x-small: 0.5rem;
+    --ui-card-padding: 1.5rem;
     --ui-choice-accent: var(--ui-primary);
     --ui-choice-on-accent: var(--ui-on-primary);
     --ui-choice-ripple-bg-color: transparent;
@@ -53,11 +56,14 @@
     --ui-letter-spacing-heading: 0;
     --ui-line-height: 1.5;
     --ui-line-height-relaxed: 1.5;
+    --ui-list-item-padding-inline: 0.5rem;
     --ui-on-inverse: var(--ui-on-primary);
     --ui-palette-source: hsl(217 100% 66%);
     --ui-primary: hsl(217 100% 66%);
     --ui-on-primary: oklch(0 0 0);
     --ui-primary-text: var(--ui-text);
+    --ui-selected: var(--ui-primary);
+    --ui-on-selected: var(--ui-on-primary);
     --ui-shadow-control: 4px 4px 0 0 oklch(0 0 0);
     --ui-shadow-field: none;
     --ui-shadow-overlay: var(--ui-shadow-control);

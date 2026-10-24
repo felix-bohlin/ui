@@ -147,6 +147,7 @@ const whatsNew = {
     ),
   ],
   button: [
+    `Themes can set <a href="#api"><code>--ui-button-accent-filled</code></a> and <code>--ui-button-on-accent-filled</code> to give filled buttons a color of their own.`,
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code> and <code>--_min-height</code> is <code>--_size</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `The file input takes <code>--ui-shadow-field</code> and <code>--ui-radius-small</code> like other fields.`,
     `Primary tonal buttons read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-on-primary-tonal</code> when a theme sets them.`,
@@ -237,6 +238,7 @@ const whatsNew = {
     `<a href="#variants">Callouts</a> read <a href="#api"><code>--ui-shadow-surface</code></a>, and callouts without a severity <code>--ui-border-color-raised</code>, when a theme sets them.`,
   ],
   card: [
+    `Themes can set <a href="#api"><code>--ui-card-padding</code></a>.`,
     {
       ...components(
         `<a href="#header"><code>CardHeader</code></a> renders <code>hgroup.ui-header</code>.`,
@@ -564,6 +566,7 @@ const whatsNew = {
     `New: <a href="#column"><code>.ui-layout-column</code></a>, <a href="#row"><code>.ui-layout-row</code></a>, <a href="#grid"><code>.ui-layout-grid</code></a> and <a href="#container"><code>.ui-layout-container</code></a> lay out the space between components.`,
   ],
   list: [
+    `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>, and <code>--ui-on-selected</code> on a selected row.`,
     components(
       `A link <a href="#api"><code>ListItem</code></a> takes <code>disabled</code>: it drops its <code>href</code> and gets <code>aria-disabled="true"</code>.`,
     ),
@@ -613,6 +616,7 @@ const whatsNew = {
     `<a href="#dense">Dense</a> rows are <code>--ui-control-size-small</code> tall, so they follow <code>--ui-density</code>.`,
   ],
   menu: [
+    `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>.`,
     `The border and dividers are <a href="#api"><code>--ui-border-color-on-raised</code></a>, like other elevated surfaces.`,
     `Items are built like <code>List</code> items, with start and end icons, text and shortcuts (<a href="#basics">Basics</a>).`,
     {
@@ -786,6 +790,7 @@ const whatsNew = {
     },
   ],
   select: [
+    `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>, options take <code>--ui-list-item-padding-inline</code>.`,
     components(
       `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
     ),
@@ -913,6 +918,7 @@ const whatsNew = {
     ),
   ],
   table: [
+    `The caption reads <a href="#api"><code>--ui-text-subtle</code></a>.`,
     {
       astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>TableHead</code></a>. The <code>Table.Head</code> aliases are gone.`,
     },
@@ -949,6 +955,7 @@ const whatsNew = {
     ),
   ],
   tabs: [
+    `Unselected labels read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     `Themes can set <a href="#api"><code>--ui-tabs-accent</code></a> for the selected label and the <a href="#variants">line</a> indicator.`,
     `The selected pill has a border, <code>--ui-control-border-color</code> or the field border, so it reaches 3:1 against the track without the shadow.`,
     `The outlined track reads <a href="#api"><code>--ui-control-border-color</code></a> for its border, like outlined buttons.`,
@@ -997,6 +1004,7 @@ const whatsNew = {
     },
   ],
   "text-field": [
+    `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     components(
       `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
     ),
@@ -1049,6 +1057,7 @@ const whatsNew = {
     ),
   ],
   textarea: [
+    `Placeholders and helper text read <a href="#api"><code>--ui-text-subtle</code></a>.`,
     components(
       `<a href="#api"><code>hideLabel</code></a> hides the label visually and keeps it as the accessible name.`,
     ),

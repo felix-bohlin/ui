@@ -93,8 +93,9 @@
     --ui-tabs-accent: var(--ui-primary-text);
     --ui-switch-track-block-size: calc(2rem * var(--ui-density));
     --ui-switch-track-inline-size: calc(3.25rem * var(--ui-density));
-    --ui-text: light-dark(#49454f, #cac4d0);
+    --ui-text: light-dark(#1d1b20, #e6e0e9);
     --ui-text-strong: light-dark(#1d1b20, #e6e0e9);
+    --ui-text-subtle: light-dark(#49454f, #cac4d0);
     --ui-track-bg-color: light-dark(#e6e0e9, #36343b);
   }
 }

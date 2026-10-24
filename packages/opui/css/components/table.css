@@ -115,7 +115,7 @@
     /* Caption */
     caption {
       caption-side: bottom;
-      color: var(--ui-text);
+      color: var(--ui-text-subtle);
       font-size: var(--ui-font-size-small);
       margin-inline-start: var(--ui-space-2);
       padding-block: var(--ui-space-2);

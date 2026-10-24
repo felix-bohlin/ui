@@ -20,6 +20,7 @@
     --ui-button-padding-inline-large: 1.5rem;
     --ui-button-padding-inline-small: 0.75rem;
     --ui-button-padding-inline-x-small: 0.5rem;
+    --ui-card-padding: 1.5rem;
     --ui-chip-radius: 0.5rem;
     --ui-choice-accent: var(--ui-primary);
     --ui-choice-on-accent: var(--ui-on-primary);
@@ -42,10 +43,8 @@
     --ui-field-border-color-on-filled: var(--ui-field-border-color);
     --ui-field-border-color-on-raised: var(--ui-field-border-color);
     --ui-field-padding-inline: 0.75rem;
-    --ui-field-placeholder-text-color: var(--ui-field-helper-text-color);
     --ui-field-radius: 0.5rem;
     --ui-field-helper-font-size: var(--ui-font-size-small);
-    --ui-field-helper-text-color: light-dark(oklch(0.52 0 0), oklch(0.708 0 0));
     --ui-field-label-font-weight: var(--font-weight-5);
     --ui-focus-ring-color: light-dark(
       oklch(0.708 0 0 / 0.5),
@@ -63,6 +62,7 @@
     --ui-letter-spacing-heading: -0.025em;
     --ui-line-height: 1.5;
     --ui-line-height-relaxed: 1.5;
+    --ui-list-item-padding-inline: 0.5rem;
     --ui-menu-radius: 0.5rem;
     --ui-on-inverse: var(--ui-on-primary);
     --ui-palette-chroma: 0;
@@ -100,6 +100,7 @@
     --ui-switch-track-inline-size: 2rem;
     --ui-text: light-dark(oklch(0.269 0 0), oklch(0.922 0 0));
     --ui-text-disabled: var(--ui-text-strong);
+    --ui-text-subtle: light-dark(oklch(0.52 0 0), oklch(0.708 0 0));
     --ui-text-strong: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
     --ui-track-bg-color: var(--ui-field-border-color);
     --ui-underline-offset: 4px;

@@ -92,7 +92,7 @@
   }
 
   ::placeholder {
-    color: var(--ui-field-placeholder-text-color, var(--ui-text));
+    color: var(--ui-field-placeholder-text-color, var(--ui-text-subtle));
   }
 
   :focus-visible {

@@ -752,7 +752,7 @@ Step 3 of 3: Label
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Radio.md).

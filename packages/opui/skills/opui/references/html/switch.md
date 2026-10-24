@@ -1195,7 +1195,7 @@ Step 4 of 4: Icons
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Switch.md).

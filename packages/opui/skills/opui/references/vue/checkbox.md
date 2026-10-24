@@ -922,7 +922,7 @@ Step 5 of 5: Forced colors
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
+- Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Checkbox.md).

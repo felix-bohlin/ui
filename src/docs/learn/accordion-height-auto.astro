@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import AccordionBuild from "../../components/UnderTheHood/AccordionBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Basics from "../../component-examples/accordion/Basics.astro"
 ---
 
 <TechniquePost slug="accordion-height-auto">
@@ -59,7 +61,11 @@ details[open]::details-content {
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <AccordionBuild />
+    <p>Open and close it. The content animates to its own height.</p>
+    <Example column showCode={false}>
+      <Basics />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

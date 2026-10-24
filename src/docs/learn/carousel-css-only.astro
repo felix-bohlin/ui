@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import CarouselBuild from "../../components/UnderTheHood/CarouselBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Basics from "../../component-examples/carousel/Basics.astro"
 ---
 
 <TechniquePost slug="carousel-css-only">
@@ -32,9 +34,11 @@ import Code from "../../components/Code.astro"
         the track and disable themselves at the ends
       </li>
       <li>
-        <code>::scroll-marker</code> gives every item a dot inside a <code
-          >::scroll-marker-group</code
-        >, and <code>:target-current</code> styles the active one
+        The dots are opt-in. With <code>.markers</code>, <code
+          >::scroll-marker</code
+        > gives every item a dot inside a <code>::scroll-marker-group</code>,
+        and
+        {" "}<code>:target-current</code> styles the active one
       </li>
       <li>
         The alt text in <code>content: "" / "Next"</code> names the buttons, a CSS
@@ -46,8 +50,11 @@ import Code from "../../components/Code.astro"
       lang="css"
       code={`.carousel {
   counter-reset: item;
-  scroll-marker-group: after;
   scroll-snap-type: x mandatory;
+}
+
+.carousel.markers {
+  scroll-marker-group: after;
 }
 
 .carousel::scroll-button(inline-end) {
@@ -63,7 +70,7 @@ import Code from "../../components/Code.astro"
   scroll-snap-align: start;
 }
 
-.carousel > *::scroll-marker {
+.carousel.markers > *::scroll-marker {
   content: "" / "Slide " counter(item);
 }`}
     />
@@ -71,7 +78,11 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <CarouselBuild />
+    <p>Scroll, use the buttons or the dots. No JavaScript runs here.</p>
+    <Example showCode={false}>
+      <Basics />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

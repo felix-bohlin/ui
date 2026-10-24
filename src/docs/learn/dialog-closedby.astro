@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import DialogBuild from "../../components/UnderTheHood/DialogBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import CloseBehaviors from "../../component-examples/dialog/CloseBehaviors.astro"
 ---
 
 <TechniquePost slug="dialog-closedby">
@@ -63,7 +65,14 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <DialogBuild />
+    <p>
+      Open the dialog, pick a closing behavior, then try <kbd>Esc</kbd> and a click
+      outside.
+    </p>
+    <Example row showCode={false}>
+      <CloseBehaviors />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

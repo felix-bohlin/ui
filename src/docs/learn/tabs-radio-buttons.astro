@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import TabsBuild from "../../components/UnderTheHood/TabsBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Basics from "../../component-examples/tabs/Basics.astro"
 ---
 
 <TechniquePost slug="tabs-radio-buttons">
@@ -70,7 +72,11 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <TabsBuild />
+    <p>Click a tab, or focus one and use the arrow keys.</p>
+    <Example showCode={false}>
+      <Basics />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

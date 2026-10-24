@@ -1,0 +1,25 @@
+---
+import { componentHref, componentName } from "../../utils/learn"
+
+type Props = {
+  component?: string
+}
+
+const component = Astro.props.component ?? Astro.locals.componentSlug
+
+if (!component) {
+  throw new Error(
+    `<BuildUpLink> requires a "component" prop or Astro.locals.componentSlug ` +
+      `(set by <TechniquePost slug="..."> in the post frontmatter).`,
+  )
+}
+
+const href = `${componentHref(Astro.locals.framework, component)}#under-the-hood`
+---
+
+<p>
+  The <a href={href}>Under the hood</a> section on the {
+    componentName(component)
+  }
+  page builds this up one step at a time, and shows the code that runs at each step.
+</p>

@@ -1,7 +1,8 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
 ---
 
 <TechniquePost slug="vertical-rhythm-round" topic="rhythm">
@@ -27,8 +28,8 @@ import Code from "../../components/Code.astro"
         > at computed time, whatever the value is
       </li>
       <li>
-        <code>1em + 0.5rem</code> is tight for large headings and roomy for small
-        ones, rounded up so it never clips
+        <code>1em + 2 * var(--ui-rhythm-step)</code> is two steps of leading: tight
+        for large headings and roomy for small ones, rounded up so it never clips
       </li>
       <li>Font sizes snap to half a step, so fluid sizes move in steps</li>
       <li>
@@ -44,11 +45,11 @@ import Code from "../../components/Code.astro"
     <Code
       lang="css"
       code={`h1, h2, h3 {
-  line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step, 0.25rem));
+  line-height: round(up, 1em + 2 * var(--ui-rhythm-step), var(--ui-rhythm-step));
 }
 
 h2 {
-  font-size: round(var(--ui-font-size-h2), var(--ui-rhythm-step, 0.25rem) / 2);
+  font-size: round(var(--ui-font-size-h2), var(--ui-rhythm-step) / 2);
 }
 
 @property --flow-space {
@@ -58,14 +59,26 @@ h2 {
 }
 
 .rich-text {
-  --flow-space: round(1.25em, var(--ui-rhythm-step, 0.25rem));
+  --flow-space: round(1.25em, var(--ui-rhythm-step));
 }`}
     />
   </section>
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <RhythmBuild />
+    <p>
+      The lines mark every <code>--ui-rhythm-step</code>. Each heading and
+      paragraph ends on one of them.
+    </p>
+    <Example showCode={false}>
+      <div class="rhythm-demo ui-rich-text">
+        <h2 class="ui-h2">A heading that wraps onto two lines</h2>
+        <p>Body text sets the flow space for everything around it.</p>
+        <h3 class="ui-h3">A smaller heading</h3>
+        <p>Text that follows the heading it belongs to.</p>
+      </div>
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>
@@ -89,3 +102,15 @@ h2 {
     </ul>
   </section>
 </TechniquePost>
+
+<style>
+  .rhythm-demo {
+    background-image: linear-gradient(
+      to bottom,
+      oklch(from var(--ui-primary) l c h / 35%) var(--ui-border-width),
+      transparent var(--ui-border-width)
+    );
+    background-size: 100% var(--ui-rhythm-step);
+    inline-size: min(100%, 28rem);
+  }
+</style>

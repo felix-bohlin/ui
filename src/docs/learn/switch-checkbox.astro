@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Basics from "../../component-examples/switch/Basics.astro"
 ---
 
 <TechniquePost slug="switch-checkbox">
@@ -73,7 +75,11 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <SwitchBuild />
+    <p>Each switch is a checkbox with <code>role=&quot;switch&quot;</code>.</p>
+    <Example row showCode={false}>
+      <Basics />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

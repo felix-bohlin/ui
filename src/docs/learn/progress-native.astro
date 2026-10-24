@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import ProgressBuild from "../../components/UnderTheHood/ProgressBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Indeterminate from "../../component-examples/progress/Indeterminate.astro"
 ---
 
 <TechniquePost slug="progress-native">
@@ -75,7 +77,11 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <ProgressBuild />
+    <p>A native <code>&lt;progress&gt;</code> without a <code>value</code>.</p>
+    <Example showCode={false}>
+      <Indeterminate />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

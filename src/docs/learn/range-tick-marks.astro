@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import RangeBuild from "../../components/UnderTheHood/RangeBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import TickMarksLabels from "../../component-examples/range/TickMarksLabels.astro"
 ---
 
 <TechniquePost slug="range-tick-marks">
@@ -133,7 +135,11 @@ datalist > option {
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <RangeBuild />
+    <p>Drag a thumb. The fill follows it, and the labels sit on their steps.</p>
+    <Example column showCode={false}>
+      <TickMarksLabels />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

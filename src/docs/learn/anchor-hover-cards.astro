@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import RepoCard from "../../component-examples/anchor/RepoCard.astro"
 ---
 
 <TechniquePost slug="anchor-hover-cards">
@@ -53,7 +55,7 @@ import Code from "../../components/Code.astro"
   inset: unset;
   margin: 0;
   position: fixed;
-  position-area: var(--ui-anchor-position-area, start end);
+  position-area: var(--ui-anchor-position-area, self-start self-end);
   position-try-fallbacks:
     flip-block,
     flip-inline,
@@ -65,7 +67,14 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <AnchorBuild />
+    <p>
+      Hover or focus the link. The card opens next to it, and flips when there
+      is no room.
+    </p>
+    <Example showCode={false}>
+      <RepoCard />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

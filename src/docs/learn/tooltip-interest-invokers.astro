@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Position from "../../component-examples/tooltip/Position.astro"
 ---
 
 <TechniquePost slug="tooltip-interest-invokers">
@@ -32,7 +34,9 @@ import Code from "../../components/Code.astro"
         ids to wire up in CSS
       </li>
       <li>
-        <code>position-area: block-start</code> centers it above the trigger
+        <code>position-area: self-block-start</code> centers it above the trigger.
+        The <code>self-</code> keywords read the tooltip's own writing mode, so a
+        vertical tooltip or one in a right-to-left page still sits on its block start
       </li>
     </ul>
     <Code
@@ -79,7 +83,14 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <TooltipBuild />
+    <p>
+      Hover or focus a button. Scroll it near an edge and the tooltip moves to
+      stay on screen.
+    </p>
+    <Example row spacious showCode={false}>
+      <Position />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

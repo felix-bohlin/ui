@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Bordered from "../../component-examples/description-list/Bordered.astro"
 ---
 
 <TechniquePost slug="description-list-leader-lines">
@@ -28,14 +30,19 @@ import Code from "../../components/Code.astro"
         {" "}<code>&lt;dl&gt;</code>, so every pair is its own grid
       </li>
       <li>
-        Term and description share a row by default. The pair's
+        The plain list is two columns with <code
+          >justify-content: space-between</code
+        >: term at the start, description at the end, nothing in between
+      </li>
+      <li>
+        The bordered variants add a third column. The pair's
         {" "}<code>::after</code> is a grid item too. <code>order: 1</code> puts it
         between the term and the description, and the <code>1fr</code> column stretches
         it
       </li>
       <li>
-        Its bottom border is the line. The dotted variant only swaps the border
-        style and width
+        Its bottom border is the line. <code>bordered-dotted</code> only swaps the
+        border style and width
       </li>
       <li>
         <code>container-type: inline-size</code> on the list: at
@@ -49,29 +56,40 @@ import Code from "../../components/Code.astro"
   container-type: inline-size;
 }
 
-.item {
+.list > .item {
   align-items: baseline;
   display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+}
+
+.list.bordered-dotted {
+  --border-style: dotted;
+  --border-width: var(--ui-border-width-thick);
+}
+
+.list:is(.bordered-solid, .bordered-dotted) > .item {
   grid-template-columns: auto 1fr auto;
 }
 
-.item::after {
-  block-size: 2px;
-  border-block-end: 2px dotted var(--ui-border-color);
+.list:is(.bordered-solid, .bordered-dotted) > .item::after {
+  block-size: var(--ui-border-width-thick);
+  border-block-end: var(--border-width, var(--ui-border-width))
+    var(--border-style, solid) var(--ui-border-color);
   content: "";
   order: 1;
 }
 
-.item dd {
+.list:is(.bordered-solid, .bordered-dotted) > .item dd {
   order: 2;
 }
 
 @container (inline-size <= 45ch) {
-  .item {
+  .list > .item {
     grid-template-columns: none;
   }
 
-  .item::after {
+  .list > .item::after {
     content: none;
   }
 }`}
@@ -80,7 +98,13 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <DescriptionListBuild />
+    <p>
+      The solid and the dotted variant. Narrow the window and the pairs stack.
+    </p>
+    <Example column spacious showCode={false}>
+      <Bordered />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>
@@ -88,7 +112,7 @@ import Code from "../../components/Code.astro"
     <ul>
       <li>
         Without container queries the <code>@container</code> block is skipped: every
-        pair keeps its row and line at any width
+        pair keeps its row, and the bordered variants their line, at any width
       </li>
       <li>
         The line is an empty pseudo-element, so assistive tech still reads term,

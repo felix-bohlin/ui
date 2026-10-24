@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import IconOnly from "../../component-examples/button/IconOnly.astro"
 ---
 
 <TechniquePost slug="button-icon-only-has">
@@ -59,7 +61,11 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <ButtonBuild />
+    <p>Every button here holds only an icon, so every one is square.</p>
+    <Example column spacious showCode={false}>
+      <IconOnly />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Severities from "../../component-examples/callout/Severities.astro"
 ---
 
 <TechniquePost slug="callout-relative-colors">
@@ -23,12 +25,15 @@ import Code from "../../components/Code.astro"
     <h2 id="the-trick">The trick</h2>
     <ul>
       <li>
-        Each severity class sets a single <code>--ui-palette-source</code> color
+        Each severity class sets a single <code>--ui-palette-source</code> color.
+        It takes its hue from the severity role, so a theme that changes <code
+          >--ui-info</code
+        > recolors every info shade
       </li>
       <li>
         The palette derives 16 shades from it with <code>oklch(from …)</code>: a
         fixed lightness per step, chroma scaled from the source, the hue nudged
-        a degree per step
+        {" "}<code>--ui-palette-hue-rotate-by</code> degrees per step
       </li>
       <li>
         The theme picks the shades for each role with <code>light-dark()</code>,
@@ -42,9 +47,10 @@ import Code from "../../components/Code.astro"
     <Code
       lang="css"
       code={`.info {
-  --ui-palette-source: oklch(0.58 0.21 var(--hue-blue));
-  --ui-color-3: oklch(from var(--ui-palette-source) 93% calc(0.1 * c / 0.21) calc(h + 2));
-  --ui-color-6: oklch(from var(--ui-palette-source) 71% calc(0.19 * c / 0.21) calc(h + 5));
+  --ui-palette-source: oklch(from var(--ui-info) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
+  --ui-color-3: oklch(from var(--ui-palette-source) 93% calc(0.1 * (c / 0.21)) calc(h + (2 * var(--ui-palette-hue-rotate-by))));
+  --ui-color-6: oklch(from var(--ui-palette-source) 71% calc(0.19 * (c / 0.21)) calc(h + (5 * var(--ui-palette-hue-rotate-by))));
   --ui-palette-tint-subtle: light-dark(
     oklch(from var(--ui-color-3) l c h / 60%),
     oklch(from var(--ui-color-6) l c h / 5%)
@@ -62,7 +68,14 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <CalloutBuild />
+    <p>
+      Every severity is one source color. Switch the color scheme and the shades
+      follow.
+    </p>
+    <Example column showCode={false}>
+      <Severities />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

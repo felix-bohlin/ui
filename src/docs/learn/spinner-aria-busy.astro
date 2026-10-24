@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import SpinnerBuild from "../../components/UnderTheHood/SpinnerBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Buttons from "../../component-examples/spinner/Buttons.astro"
 ---
 
 <TechniquePost slug="spinner-aria-busy">
@@ -29,7 +31,8 @@ import Code from "../../components/Code.astro"
       </li>
       <li>
         <code>1em</code> sizes it from the font and <code>currentColor</code> colors
-        it from the text
+        it from the text. The ring is at least the thick border width and grows with
+        the font
       </li>
       <li>
         <code>:not(…)</code> skips form fields, <code>&lt;progress&gt;</code>,
@@ -37,7 +40,10 @@ import Code from "../../components/Code.astro"
           >aria-describedby</code
         >, such as a section pointing to its progress bar
       </li>
-      <li><code>:not(:empty)</code> adds a gap only next to text</li>
+      <li>
+        <code>:not(:empty)</code> adds a gap only next to text, and skips the library's
+        button, which has its own gap
+      </li>
     </ul>
     <Code
       lang="css"
@@ -45,10 +51,11 @@ import Code from "../../components/Code.astro"
   &::before {
     animation: spin 0.7s linear infinite;
     block-size: 1em;
-    border: 3px solid;
     border-block-color: transparent currentColor;
     border-inline-color: currentColor;
     border-radius: 50%;
+    border-style: solid;
+    border-width: max(var(--ui-border-width-thick), 0.1875em);
     content: "";
     display: inline-block;
     inline-size: 1em;
@@ -56,7 +63,7 @@ import Code from "../../components/Code.astro"
     vertical-align: -0.14em;
   }
 
-  &:not(:empty)::before {
+  &:not(button.button):not(:empty)::before {
     margin-inline-end: 0.5em;
   }
 }
@@ -71,7 +78,14 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <SpinnerBuild />
+    <p>
+      Buttons with <code>aria-busy=&quot;true&quot;</code>, with and without a
+      visible label.
+    </p>
+    <Example column showCode={false}>
+      <Buttons />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

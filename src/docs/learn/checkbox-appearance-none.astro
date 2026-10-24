@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Basics from "../../component-examples/checkbox/Basics.astro"
 ---
 
 <TechniquePost slug="checkbox-appearance-none">
@@ -80,7 +82,11 @@ input:checked::after {
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <CheckboxBuild />
+    <p>The real input draws the box, the check and the dash.</p>
+    <Example row showCode={false}>
+      <Basics />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

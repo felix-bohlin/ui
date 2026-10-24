@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Basics from "../../component-examples/menu/Basics.astro"
 ---
 
 <TechniquePost slug="menu-popover-anchor">
@@ -32,7 +34,10 @@ import Code from "../../components/Code.astro"
       </li>
       <li>
         <code>position-area</code> places it below the trigger, and
-        {" "}<code>anchor-size(inline)</code> keeps it at least as wide
+        {" "}<code>anchor-size(inline)</code> keeps it at least as wide. The <code
+          >self-</code
+        > keywords read the menu's own writing mode and direction, not the containing
+        block's
       </li>
       <li>
         <code>max-block-size</code> with <code>100%</code> caps it to the space on
@@ -53,7 +58,7 @@ import Code from "../../components/Code.astro"
   inset: auto;
   margin: 0.25rem 0;
   min-inline-size: max(12rem, anchor-size(inline));
-  position-area: block-end span-inline-end;
+  position-area: self-block-end span-self-inline-end;
   position-try-fallbacks:
     flip-block,
     flip-inline,
@@ -64,14 +69,21 @@ import Code from "../../components/Code.astro"
 
 @position-try --menu-block-end {
   margin: 0.25rem 0;
-  position-area: block-end span-all;
+  position-area: self-block-end span-all;
 }`}
     />
   </section>
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <MenuBuild />
+    <p>
+      Open the menu, then scroll until the button is near an edge and open it
+      again.
+    </p>
+    <Example centered row showCode={false}>
+      <Basics />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

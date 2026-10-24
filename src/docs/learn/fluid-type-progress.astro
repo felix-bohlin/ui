@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import FluidTypeBuild from "../../components/UnderTheHood/FluidTypeBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Variants from "../../component-examples/typography/Variants.astro"
 ---
 
 <TechniquePost slug="fluid-type-progress" topic="fluid">
@@ -90,7 +92,11 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <FluidTypeBuild />
+    <p>Resize the window. Every heading moves along the same ramp.</p>
+    <Example column showCode={false}>
+      <Variants />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

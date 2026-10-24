@@ -17,12 +17,12 @@ const steps = [
   {
     css: `
 .prose :is(h1, h2, h3, h4, h5, h6) {
-  line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
+  line-height: round(up, 1em + 2 * var(--ui-rhythm-step), var(--ui-rhythm-step));
 }`,
     features: ["round-mod-rem"],
     notes: [
       "<code>round(up, …, step)</code> snaps the line height to the next step",
-      "<code>1em + 0.5rem</code>: tight for large headings, roomy for small ones",
+      "<code>1em + 2 * var(--ui-rhythm-step)</code>: two steps of leading, tight for large headings and roomy for small ones",
       "One rule for every heading level",
     ],
     title: "Snap line height",

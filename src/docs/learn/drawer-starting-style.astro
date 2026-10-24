@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Basics from "../../component-examples/drawer/Basics.astro"
 ---
 
 <TechniquePost slug="drawer-starting-style">
@@ -73,7 +75,11 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <DrawerBuild />
+    <p>Open a drawer from each edge and watch it slide out again.</p>
+    <Example column showCode={false}>
+      <Basics />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import AvatarBuild from "../../components/UnderTheHood/AvatarBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Shapes from "../../component-examples/avatar/Shapes.astro"
 ---
 
 <TechniquePost slug="avatar-squircles">
@@ -60,7 +62,14 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <AvatarBuild />
+    <p>
+      Rounded, squared and squircle. The radius is the same, only the corner
+      shape changes.
+    </p>
+    <Example row showCode={false}>
+      <Shapes />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

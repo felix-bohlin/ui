@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import Validation from "../../component-examples/text-field/Validation.astro"
 ---
 
 <TechniquePost slug="text-field-user-invalid">
@@ -63,7 +65,14 @@ import Code from "../../components/Code.astro"
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <TextFieldBuild />
+    <p>
+      Focus a required field and leave it empty. The error only shows once you
+      leave.
+    </p>
+    <Example column spacious showCode={false}>
+      <Validation />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>

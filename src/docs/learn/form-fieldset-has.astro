@@ -1,7 +1,9 @@
 ---
 import TechniquePost from "../../layouts/TechniquePost.astro"
-import FormBuild from "../../components/UnderTheHood/FormBuild.astro"
+import BuildUpLink from "../../components/UnderTheHood/BuildUpLink.astro"
 import Code from "../../components/Code.astro"
+import Example from "../../components/Example/index"
+import FieldsetRequired from "../../component-examples/form/FieldsetRequired.astro"
 ---
 
 <TechniquePost slug="form-fieldset-has">
@@ -36,7 +38,9 @@ import Code from "../../components/Code.astro"
       </li>
       <li>The same pattern turns a group of only buttons into a row</li>
       <li>
-        <code>fieldset:has(:required)</code> adds an asterisk to the legend
+        <code>fieldset:has(:required)</code> adds an asterisk to the legend. The empty
+        alternative text in <code>content: "*" / ""</code> keeps it visual, so screen
+        readers don't announce a star
       </li>
     </ul>
     <Code
@@ -59,13 +63,24 @@ import Code from "../../components/Code.astro"
 .fieldset:has(:required) legend::after {
   color: var(--ui-field-required-text-color);
   content: "*";
+
+  @supports (content: "*" / "") {
+    content: "*" / "";
+  }
 }`}
     />
   </section>
 
   <section>
     <h2 id="try-it">Try it</h2>
-    <FormBuild />
+    <p>
+      The legend takes its asterisk from the required field, and leaves the
+      spacing to the description.
+    </p>
+    <Example showCode={false}>
+      <FieldsetRequired />
+    </Example>
+    <BuildUpLink />
   </section>
 
   <section>
@@ -80,8 +95,8 @@ import Code from "../../components/Code.astro"
         buttons stack and the asterisk is gone
       </li>
       <li>
-        The <code>required</code> attribute still tells assistive tech, the asterisk
-        is only visual
+        The <code>required</code> attribute tells assistive tech. Without the alternative
+        text syntax the asterisk is announced too, as a star
       </li>
     </ul>
   </section>

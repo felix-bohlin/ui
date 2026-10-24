@@ -1,7 +1,8 @@
 // @ts-check
-/** @typedef {import("./framework.js").FrameworkId} FrameworkId */
+import { navItems } from "./nav.js"
 
-/** @typedef {"API" | "Blocks" | "Component" | "Guide" | "Learn"} SearchCategoryId */
+/** @typedef {import("./framework.js").FrameworkId} FrameworkId */
+/** @typedef {import("./nav.js").SearchCategoryId} SearchCategoryId */
 
 /**
  * @typedef {object} SearchItem
@@ -15,11 +16,7 @@
  * @property {string} url
  */
 
-/** @type {{ id: SearchCategoryId, label: string }[]} */
-export const SEARCH_CATEGORIES = [
-  { id: "API", label: "API" },
-  { id: "Blocks", label: "Blocks" },
-  { id: "Component", label: "Components" },
-  { id: "Guide", label: "Guides" },
-  { id: "Learn", label: "Learn" },
-]
+export const SEARCH_CATEGORIES = navItems.map(({ category, label }) => ({
+  id: category,
+  label,
+}))

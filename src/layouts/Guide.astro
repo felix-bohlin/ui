@@ -1,6 +1,7 @@
 ---
 import Document from "./Document.astro"
 import { canonicalPath, hrefFor } from "../utils/framework"
+import { guidePages } from "../utils/guide"
 import FrameworkPicker from "../components/FrameworkPicker.astro"
 import Pagination from "../components/Pagination.astro"
 import { Divider } from "opui-css/astro"
@@ -23,21 +24,9 @@ const {
 
 const currentFramework = Astro.locals.framework
 
-const links = [
-  { href: "/guide/why-opui", label: "Why Open Props UI?" },
-  { href: "/guide/getting-started", label: "Getting started" },
-  { href: "/guide/concepts", label: "Concepts" },
-  { href: "/guide/theming", label: "Theming" },
-  { href: "/guide/theme-tokens", label: "Theme tokens" },
-  { href: "/guide/theme-generator", label: "Theme generator" },
-  { href: "/guide/customizing", label: "Customizing" },
-  { href: "/guide/accessibility", label: "Accessibility" },
-  { href: "/guide/browser-support", label: "Browser support" },
-  { href: "/guide/migrating", label: "Migrating to v6" },
-  { href: "/guide/acknowledgments", label: "Acknowledgments" },
-].map((link) => ({
-  ...link,
-  href: hrefFor(currentFramework, link.href),
+const links = guidePages.map(({ label, slug }) => ({
+  href: hrefFor(currentFramework, `/guide/${slug}`),
+  label,
 }))
 
 const current = canonicalPath(Astro.url.pathname)

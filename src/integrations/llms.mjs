@@ -10,6 +10,7 @@ import {
   FRAMEWORKS,
   isFrameworkFree,
 } from "../utils/framework.js"
+import { guideIndex } from "../utils/guide.ts"
 import { markdownPath } from "../utils/markdown.js"
 import { articleToMarkdown, pageMeta, parseHtml } from "./html-to-markdown.mjs"
 
@@ -31,6 +32,16 @@ const { description: SUMMARY } = JSON.parse(
  * @param {{ title: string }} b
  */
 const byTitle = (a, b) => a.title.localeCompare(b.title)
+
+/** @param {Page} page */
+const guideSlug = (page) => page.pathname.split("/")[3]
+
+/**
+ * @param {Page} a
+ * @param {Page} b
+ */
+const byGuideOrder = (a, b) =>
+  guideIndex(guideSlug(a)) - guideIndex(guideSlug(b)) || byTitle(a, b)
 
 /** @param {string} dir */
 function htmlFiles(dir) {
@@ -72,7 +83,7 @@ function llmsTxt({ framework, pages, site, isRoot }) {
   const section = (title, entries) =>
     entries.length ? [`## ${title}`, "", ...entries, ""] : []
 
-  const guide = pages.filter((p) => p.kind === "guide").sort(byTitle)
+  const guide = pages.filter((p) => p.kind === "guide").sort(byGuideOrder)
   const components = pages.filter((p) => p.kind === "component").sort(byTitle)
   const optional = pages.filter((p) => p.kind === "api").map(link)
   optional.push(
@@ -165,7 +176,7 @@ function fullTxt({ framework, pages, site }) {
     .sort(
       (a, b) =>
         (a.kind === "guide" ? 0 : 1) - (b.kind === "guide" ? 0 : 1) ||
-        byTitle(a, b),
+        (a.kind === "guide" ? byGuideOrder(a, b) : byTitle(a, b)),
     )
     .map((p) => `Source: ${new URL(p.pathname, site)}\n\n${p.full}`)
     .join("\n\n---\n\n")

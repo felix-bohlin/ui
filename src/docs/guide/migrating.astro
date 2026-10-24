@@ -2,18 +2,12 @@
 import Code from "../../components/Code.astro"
 import Guide from "../../layouts/Guide.astro"
 import { compiledContent } from "../../../packages/opui/MIGRATING.md"
+import { parseMigrating } from "../../utils/migrating"
 
-const html = await compiledContent()
-const start = html.indexOf("<h1")
-if (start === -1) throw new Error("MIGRATING.md has no h1")
-const end = html.indexOf("<h1", start + 1)
-const [intro, ...sections] = html
-  .slice(start, end === -1 ? undefined : end)
-  .replace(/^<h1[^>]*>[\s\S]*?<\/h1>/, "")
-  .split(/(?=<h2 id=")/)
+const { intro, sections, title } = parseMigrating(await compiledContent())
 const content = [
   intro,
-  ...sections.map((section) => `<section>${section.trim()}</section>`),
+  ...sections.map((section) => `<section>${section}</section>`),
 ].join("\n")
 
 const CODE_BLOCK =
@@ -32,7 +26,7 @@ const segments = content.split(CODE_BLOCK)
 ---
 
 <Guide overline="Guide">
-  <Fragment slot="title">Migrating to v6</Fragment>
+  <Fragment slot="title">{title}</Fragment>
   <Fragment slot="preamble">
     The breaking changes in v6 and how to update your code, component by
     component.

@@ -280,7 +280,7 @@ export default function EndText() {
 
 ## Spread
 
-Use the `spread` prop to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
+Use the `spread` prop to push the label to the left and the radio to the right. Handy for settings lists, and for [cards](#cards).
 
 ```tsx
 import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/react"

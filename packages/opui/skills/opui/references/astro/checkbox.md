@@ -275,7 +275,7 @@ import { Checkbox, FieldGroup, FieldLegend, Fieldset } from "opui-css/astro"
 
 ## Spread
 
-Use the `spread` prop to push the label to the left and the checkbox to the right. This is useful for full-width items like lists and menus.
+Use the `spread` prop to push the label to the left and the checkbox to the right. Handy for full-width items like lists and menus, and for [cards](#cards).
 
 ```astro
 ---

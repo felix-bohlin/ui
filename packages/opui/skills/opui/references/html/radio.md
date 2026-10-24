@@ -226,7 +226,7 @@ Add a `.ui-end-text` element after the label for supporting text under a single 
 
 ## Spread
 
-Add the `.ui-spread` class to the `<label class="ui-radio">` to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
+Add the `.ui-spread` class to the `<label class="ui-radio">` to push the label to the left and the radio to the right. Handy for settings lists, and for [cards](#cards).
 
 ```html
 <form class="ui-form">

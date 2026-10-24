@@ -367,7 +367,7 @@ Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hi
 
 ## Spread
 
-Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label to the left and the switch to the right. This is useful for full-width items like lists and menus.
+Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label to the left and the switch to the right. Handy for full-width items like lists and menus, and for [cards](#cards).
 
 ```html
 <label class="ui-switch ui-spread">

@@ -14,8 +14,9 @@
  *    `prefers-color-scheme: dark` block.
  *  - An example theme's tokens come first, and the other tokens only when
  *    they differ from it.
- *  - With grays disabled, the text, surface and border mappings go in
- *    `:where(html, .ui-palette, .ui-contrast-more)`, like in theme.css.
+ *  - With grays disabled, every role theme.css derives from a gray step goes
+ *    in `:where(html, .ui-palette, .ui-contrast-more)` with the palette step
+ *    of the same number instead.
  */
 
 import {
@@ -24,33 +25,46 @@ import {
   type ModeConfig,
   type Token,
 } from "../../utils/theme-store"
+import { themeTokens } from "../../utils/theme-tokens"
 
 type Snapshot = Record<Token, string>
 
-type Ramp = { gray: [string, string]; color: [string, string] }
+const GRAY_STEP = /--ui-gray-(\d+)/g
 
-const RAMPS = {
-  "--ui-text-strong": { gray: ["15", "1"], color: ["15", "1"] },
-  "--ui-on-inverse": { gray: ["1", "15"], color: ["1", "15"] },
-  "--ui-text": { gray: ["13", "4"], color: ["13", "4"] },
-  "--ui-surface": { gray: ["1", "13"], color: ["1", "14"] },
-  "--ui-surface-filled": { gray: ["4", "15"], color: ["5", "16"] },
-  "--ui-surface-tonal": { gray: ["3", "12"], color: ["4", "12"] },
-  "--ui-surface-elevated": { gray: ["1", "12"], color: ["1", "12"] },
-  "--ui-border-color": { gray: ["4", "12"], color: ["4", "12"] },
-  "--ui-neutral": { gray: ["9", "9"], color: ["9", "9"] },
-} satisfies Record<string, Ramp>
+const splitLightDark = (value: string): [string, string] => {
+  const match = value.match(/^light-dark\(([\s\S]*)\)$/)
+  if (!match) return [value, value]
+  let depth = 0
+  for (let index = 0; index < match[1].length; index++) {
+    const char = match[1][index]
+    if (char === "(") depth++
+    if (char === ")") depth--
+    if (char === "," && depth === 0) {
+      return [match[1].slice(0, index).trim(), match[1].slice(index + 1).trim()]
+    }
+  }
+  return [value, value]
+}
 
-function rampValue(ramp: Ramp, grays: { light: boolean; dark: boolean }) {
-  const light = grays.light
-    ? `--ui-gray-${ramp.gray[0]}`
-    : `--ui-color-${ramp.color[0]}`
-  const dark = grays.dark
-    ? `--ui-gray-${ramp.gray[1]}`
-    : `--ui-color-${ramp.color[1]}`
-  return light === dark
-    ? `var(${light})`
-    : `light-dark(var(${light}), var(${dark}))`
+const GRAY_ROLES = themeTokens()
+  .filter((token) => !token.optional && /--ui-gray-\d+/.test(token.value))
+  .map((token) => ({
+    name: token.name,
+    parts: splitLightDark(
+      token.value.replace(/\(\s+/g, "(").replace(/\s+\)/g, ")"),
+    ),
+  }))
+
+const paletteSteps = (value: string) =>
+  value.replace(GRAY_STEP, "--ui-color-$1")
+
+function rampValue(
+  [lightPart, darkPart]: [string, string],
+  grays: { light: boolean; dark: boolean },
+) {
+  const light = grays.light ? lightPart : paletteSteps(lightPart)
+  const dark = grays.dark ? darkPart : paletteSteps(darkPart)
+  return light === dark ? light : `light-dark(${light}, ${dark})`
 }
 
 function snapshotFor(
@@ -130,8 +144,8 @@ export function generateCss({
   const rampTokens =
     grays.light && grays.dark
       ? []
-      : Object.entries(RAMPS).map(
-          ([name, ramp]) => [name, rampValue(ramp, grays)] as const,
+      : GRAY_ROLES.map(
+          ({ name, parts }) => [name, rampValue(parts, grays)] as const,
         )
 
   const darkPairs = darkTokens.map((token) => [token, darkSnap[token]] as const)

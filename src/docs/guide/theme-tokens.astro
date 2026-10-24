@@ -75,11 +75,24 @@ const slug = (title: string) =>
       >) in the <a href="https://www.designtokens.org/" class="ui-link"
         >W3C design tokens</a
       > format: each token has a <code>$type</code>, a <code>$description</code>
-      and its CSS value as <code>$value</code>, and <code>$extensions.opui</code
-      >
-      holds its variable, tier, promise and its dark and more-contrast values. Values
-      are CSS expressions, not resolved colors. Tokens that are unset by default have
-      no <code>$value</code>, only an <code>example</code>.
+      and a <code>$value</code>, and <code>$extensions.opui</code> holds its variable,
+      tier, promise and its dark and more-contrast values. A plain number, a <code
+        >px</code
+      > or <code>rem</code> length and a token that aliases another are native values
+      (<code>0.41</code>, <code>{"{"}"unit": "px", "value": 1{"}"}</code>, <code
+        >{"{"}typography.ui-font-size-100{"}"}</code
+      >), with the CSS beside them as <code>$extensions.opui.css</code>. Every
+      other value is the CSS expression itself, since a color or a size that
+      follows another token or the color scheme has no resolved value, so a
+      design tool resolves it first. Tokens that are unset by default have no <code
+        >$value</code
+      >, only an <code>example</code>.
+    </p>
+    <p>
+      The tier is <code>role</code>, <code>component</code> (read by one component)
+      or <code>hook</code>: an optional role such as <code>--ui-selected</code> that
+      every component with that job reads, each with a default of its own until a
+      theme sets it.
     </p>
   </section>
 
@@ -95,7 +108,10 @@ const slug = (title: string) =>
           >--ui-on-primary</code
         > on <code>--ui-primary</code>, <code>--ui-on-inverse</code> on <code
           >--ui-surface-inverse</code
-        >.
+        >. The one fill without a token of its own is the accent fill, an intent
+        color kept within <code>--ui-accent-fill-max-lightness</code>, and <code
+          >--ui-on-accent</code
+        > is the text on every one of them.
       </li>
       <li>
         <code>-text</code> after a color is that color tuned for reading, such as
@@ -142,10 +158,10 @@ const slug = (title: string) =>
             <TableRow>
               <TableCell>
                 <code>{token.name}</code>
-                {tokenTier(token.name) === "component" && (
+                {tokenTier(token.name) !== "role" && (
                   <Fragment>
                     {" "}
-                    <em>component</em>
+                    <em>{tokenTier(token.name)}</em>
                   </Fragment>
                 )}
               </TableCell>

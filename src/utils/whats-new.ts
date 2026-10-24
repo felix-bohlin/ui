@@ -141,7 +141,7 @@ const whatsNew = {
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `The indicator border reads <a href="#api"><code>--ui-border-width-thick</code></a>.`,
     `<a href="#colors">Warning</a> badges read <code>--ui-on-warning</code>, the text color on a warning fill.`,
-    `<a href="#colors">Critical, info, neutral and success</a> fills stay below <code>--ui-fill-max-lightness</code>, so their text keeps its contrast.`,
+    `<a href="#colors">Critical, info, neutral and success</a> fills stay below <code>--ui-accent-fill-max-lightness</code>, so their text keeps its contrast.`,
     slots(
       `Breaking: <code>alignment</code> is <a href="#corners"><code>corner</code></a>.`,
     ),
@@ -186,7 +186,7 @@ const whatsNew = {
     `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-button-radius</code></a>, so one token squares or rounds every component.`,
     `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-on-accent</code>, the border with <code>--ui-control-border-color</code> (outlined) and <code>--ui-control-border-color-filled</code> (filled and tonal), the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>, like the intent text roles.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code>, the same readable primary as links, and critical ones <code>--ui-critical-text</code>.`,
-    `<a href="#colors">Critical</a> fills and their hover and pressed shades stay within <code>--ui-fill-max-lightness</code>, and the border keeps <code>--ui-critical</code>.`,
+    `<a href="#colors">Critical</a> fills and their hover and pressed shades stay within <code>--ui-accent-fill-max-lightness</code>, and the border keeps <code>--ui-critical</code>.`,
     components(
       `<a href="#sizes">Sizes</a> and <a href="#variants">variants</a> name their defaults: <code>size="medium"</code> and <code>variant="transparent"</code>.`,
     ),
@@ -219,7 +219,7 @@ const whatsNew = {
     `Corners follow <code>--ui-radius</code> through <a href="#api"><code>--ui-button-radius</code></a>, so one token squares or rounds every component.`,
     `Themes set the color of groups without <code>.ui-primary</code> or <code>.ui-critical</code> with <a href="#api"><code>--ui-button-accent</code></a>, the edge and dividers of outlined groups with <code>--ui-control-border-color</code> and of filled and tonal groups with <code>--ui-control-border-color-filled</code>, and the font weight and size with <code>--ui-button-font-weight</code> and <code>--ui-font-size-control</code>, like buttons. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code>, the same readable primary as links.`,
-    `<a href="#colors">Critical</a> fills stay within <code>--ui-fill-max-lightness</code>, like buttons, and with more contrast the outlined edge reads <code>--ui-critical-text</code>, like the dividers.`,
+    `<a href="#colors">Critical</a> fills stay within <code>--ui-accent-fill-max-lightness</code>, like buttons, and with more contrast the outlined edge reads <code>--ui-critical-text</code>, like the dividers.`,
     components(
       `<a href="#sizes">Sizes</a> and <a href="#variants">variants</a> name their defaults: <code>size="medium"</code> and <code>variant="transparent"</code>.`,
     ),
@@ -878,6 +878,7 @@ const whatsNew = {
     `The unchecked thumb and track read <a href="#api"><code>--ui-switch-thumb-bg-color</code></a> and <code>--ui-switch-track-bg-color</code>.`,
     `The unchecked track border reads <a href="#api"><code>--ui-choice-border-color</code></a> when a theme sets it, and <code>--ui-field-border-color</code> when it doesn't, like the checkbox and radio borders.`,
     `The checked track reads <a href="#api"><code>--ui-choice-accent</code></a> and the unchecked track <code>--ui-track-bg-color</code> when a theme sets them.`,
+    `Each <a href="#api">track width</a> is twice its track height until a theme sets it.`,
     slots(
       `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
     ),
@@ -1197,7 +1198,8 @@ const whatsNew = {
   ],
   typography: [
     `<a href="#inline-text-elements"><code>kbd</code> and <code>var</code></a> sit on <code>--ui-surface-inverse</code> with <code>--ui-on-inverse</code> text, like tooltips.`,
-    `<a href="#rich-text-showcase">Inline <code>code</code></a> reads <code>--ui-code-bg-color</code>, code blocks read <code>--ui-code-block-bg-color</code> and <code>--ui-code-block-text-color</code>, and <code>del</code>, <code>ins</code> and <code>abbr</code> read the <code>--ui-palette-*</code> roles.`,
+    `<a href="#rich-text-showcase">Inline <code>code</code></a> reads <code>--ui-code-bg-color</code>, code blocks read <code>--ui-code-block-bg-color</code> and <code>--ui-code-block-text-color</code>, and <code>del</code>, <code>ins</code> and <code>abbr</code> read <code>--ui-critical-text</code>, <code>--ui-success-text</code> and <code>--ui-info</code>.`,
+    `Breaking: <a href="#inline-text-elements"><code>del</code>, <code>ins</code>, <code>abbr</code> and <code>dfn</code></a> and their classes are no longer severity scopes, so content inside them keeps the page palette.`,
     `Inline <code>code</code>, <code>kbd</code>, <code>mark</code> and <code>var</code> are rounded with <code>--ui-radius-small</code>, and the blockquote bar and table rules follow <code>--ui-border-width-thick</code>.`,
     `Text sizes follow the type roles <code>--ui-font-size-caption</code>, <code>--ui-font-size-small</code>, <code>--ui-font-size-body</code> and <code>--ui-font-size-large</code> on the <code>--ui-font-size-100</code> to <code>900</code> scale, with <code>--ui-line-height-*</code> and <code>--ui-letter-spacing-*</code> roles for the rest, so a theme reshapes the type in a few lines.`,
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,

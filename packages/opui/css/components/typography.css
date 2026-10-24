@@ -114,7 +114,7 @@
 
   :where(.ui-abbr, .ui-dfn) {
     font-style: normal;
-    text-decoration: var(--ui-palette-accent) underline dotted;
+    text-decoration: var(--ui-info) underline dotted;
 
     &[title] {
       cursor: help;
@@ -167,13 +167,13 @@
   }
 
   :where(.ui-del) {
-    color: var(--ui-palette-text);
+    color: var(--ui-critical-text);
 
     text-decoration: line-through;
   }
 
   :where(.ui-ins) {
-    color: var(--ui-palette-text);
+    color: var(--ui-success-text);
 
     text-decoration: underline;
     text-underline-offset: var(--ui-underline-offset-small);
@@ -660,7 +660,7 @@
 
     :where(abbr, dfn) {
       font-style: normal;
-      text-decoration: var(--ui-palette-accent) underline dotted;
+      text-decoration: var(--ui-info) underline dotted;
 
       &[title] {
         cursor: help;
@@ -675,8 +675,12 @@
       vertical-align: baseline;
     }
 
-    :where(del, ins) {
-      color: var(--ui-palette-text);
+    del {
+      color: var(--ui-critical-text);
+    }
+
+    ins {
+      color: var(--ui-success-text);
     }
 
     small {

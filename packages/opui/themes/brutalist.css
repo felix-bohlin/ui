@@ -59,8 +59,7 @@
     --ui-list-item-padding-inline: 0.5rem;
     --ui-on-inverse: var(--ui-on-primary);
     --ui-palette-source: hsl(217 100% 66%);
-    --ui-primary: hsl(217 100% 66%);
-    --ui-on-primary: oklch(0 0 0);
+    --ui-primary-source: hsl(217 100% 66%);
     --ui-primary-text: var(--ui-text);
     --ui-selected: var(--ui-primary);
     --ui-on-selected: var(--ui-on-primary);

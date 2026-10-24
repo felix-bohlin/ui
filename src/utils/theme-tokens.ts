@@ -220,13 +220,26 @@ const ROLE_EXCEPTIONS = new Set([
   "--ui-field-border-width",
 ])
 
-export type TokenTier = "component" | "role"
+export const OVERRIDE_HOOKS = [
+  "--ui-border-color-raised",
+  "--ui-choice-accent",
+  "--ui-control-border-color",
+  "--ui-control-border-color-filled",
+  "--ui-on-selected",
+  "--ui-primary-tonal",
+  "--ui-selected",
+  "--ui-track-bg-color",
+] as const
+
+export type TokenTier = "component" | "hook" | "role"
 
 export const tokenTier = (name: string): TokenTier =>
-  !ROLE_EXCEPTIONS.has(name) &&
-  COMPONENT_PREFIXES.some((prefix) => name.startsWith(prefix))
-    ? "component"
-    : "role"
+  (OVERRIDE_HOOKS as readonly string[]).includes(name)
+    ? "hook"
+    : !ROLE_EXCEPTIONS.has(name) &&
+        COMPONENT_PREFIXES.some((prefix) => name.startsWith(prefix))
+      ? "component"
+      : "role"
 
 const themeTokensIn = (sections: ThemeSection[]) =>
   sections.flatMap((section) => section.tokens)

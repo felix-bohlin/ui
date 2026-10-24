@@ -1107,7 +1107,15 @@ These tokens also have a new name, so adding the prefix isn't enough:
 }
 ```
 
-A theme pins a role by setting it, and the scope classes `.ui-palette` and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-palette, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`.
+A theme pins a role by setting it, and the scope classes `.ui-palette` and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-palette, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`. The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it:
+
+```css
+@layer theme.custom {
+  :where(html, .ui-palette, .ui-contrast-more) {
+    --ui-primary-source: #0d6efd;
+  }
+}
+```
 
 The default palette is green in both color schemes. v5 switched it to blue in dark mode; to keep that, set the hue for dark mode yourself:
 
@@ -1229,6 +1237,8 @@ Components read roles, not palette steps or Open Props values, and the roles are
 ```
 
 ## Typography and rich text
+
+`del`, `ins`, `abbr`, `dfn` and the `.ui-del`, `.ui-ins`, `.ui-abbr` and `.ui-dfn` classes are no longer severity scopes. `del` text reads `--ui-critical-text`, `ins` text `--ui-success-text` and the `abbr` and `dfn` underline `--ui-info`, and content inside them keeps the page palette. Wrap content that read a `--ui-palette-*` role inside them in `.ui-critical`, `.ui-success` or `.ui-info`.
 
 Rich text (`.ui-rich-text`) only styles headings without a class, like lists. Add a `.ui-h1`–`.ui-h6` class to a heading that has another class. Component parts such as the `Callout` title keep their own styles.
 

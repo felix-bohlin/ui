@@ -414,8 +414,9 @@ import Example from "../../components/Example/index"
       >, <code>--ui-text-min-lightness</code> and <code
         >--ui-text-max-chroma</code
       >
-      for the <code>-text</code> roles, <code>--ui-fill-max-lightness</code> for intent
-      fills, <code>--ui-primary-max-lightness</code> and <code
+      for the <code>-text</code> roles, <code
+        >--ui-accent-fill-max-lightness</code
+      > for intent fills, <code>--ui-primary-max-lightness</code> and <code
         >--ui-primary-min-lightness</code
       > for the primary, the <code>--ui-palette-*-lightness</code> limits for the
       palette roles, and <code>--ui-focus-ring-width</code>. Their values in
@@ -426,10 +427,12 @@ import Example from "../../components/Example/index"
     </p>
     <p>
       A theme that sets a knob or <code>--ui-primary-source</code> keeps working with
-      more contrast. A theme that pins a role directly, such as <code
-        >--ui-text: #333</code
-      >, owns that role in every contrast mode. Set the knob instead, or give
-      the role its own value under <code>@media (prefers-contrast: more)</code>.
+      more contrast. The example themes set their brand color that way and let
+      <code>--ui-on-primary</code> and <code>--ui-primary-text</code> derive from
+      it, so Bootstrap's blue darkens under more contrast and its text follows. A
+      theme that pins a role directly, such as <code>--ui-text: #333</code>,
+      owns that role in every contrast mode. Set the knob instead, or give the
+      role its own value under <code>@media (prefers-contrast: more)</code>.
     </p>
 
     <Example row showCode={false}>

@@ -61,7 +61,7 @@
     /* Colors */
     &:is(.ui-critical, .ui-info, .ui-neutral, .ui-success) {
       --_bg-color: oklch(
-        from var(--_accent) min(l, var(--ui-fill-max-lightness)) c h
+        from var(--_accent) min(l, var(--ui-accent-fill-max-lightness)) c h
       );
       --_border-color: var(--_bg-color);
       --_text-color: var(--ui-on-accent);

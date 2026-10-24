@@ -17,17 +17,17 @@ import Conditional from "../../components/Conditional.astro"
 import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
 
 const ThemeCSS = `/* ... */
-:where(.ui-critical, .ui-del, del) {
+:where(.ui-critical) {
   --ui-palette-source: oklch(from var(--ui-critical) 0.58 0.21 h);
   --ui-palette-hue-rotate-by: 1;
 }
 
-:where(.ui-info, abbr, dfn, .ui-abbr, .ui-dfn) {
+:where(.ui-info) {
   --ui-palette-source: oklch(from var(--ui-info) 0.58 0.21 h);
   --ui-palette-hue-rotate-by: 1;
 }
 
-:where(.ui-success, .ui-ins, ins) {
+:where(.ui-success) {
   --ui-palette-source: oklch(from var(--ui-success) 0.58 0.21 h);
   --ui-palette-hue-rotate-by: 1;
 }

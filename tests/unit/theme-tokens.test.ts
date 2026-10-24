@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs"
+import { existsSync, readFileSync, readdirSync } from "node:fs"
 import paletteSource from "@opui/core/palette.css?raw"
 import themeSource from "@opui/css/theme.css?raw"
 import { describe, expect, test } from "vitest"
@@ -12,11 +12,13 @@ import { TOKENS, tokenDefaults } from "../../src/utils/theme-store"
 import { themeTokenDescriptions } from "../../src/utils/theme-token-descriptions"
 import { themeTokenPromises } from "../../src/utils/theme-token-promises"
 import {
+  OVERRIDE_HOOKS,
   parseThemeTokens,
   setThemeToken,
   themeTokens,
+  tokenTier,
 } from "../../src/utils/theme-tokens"
-import { tokenType } from "../../src/utils/tokens-json"
+import { tokenType, tokensJson } from "../../src/utils/tokens-json"
 
 const sections = parseThemeTokens()
 const tokens = themeTokens()
@@ -33,6 +35,42 @@ const selectorList = (selector: string) => {
     else parts[parts.length - 1] += char
   }
   return parts.map((part) => part.replaceAll(/\s+/g, ""))
+}
+
+const componentCss = [
+  ...readdirSync("packages/opui/css/components").map(
+    (file) => `packages/opui/css/components/${file}`,
+  ),
+  ...readdirSync("packages/opui/core").map(
+    (file) => `packages/opui/core/${file}`,
+  ),
+]
+  .filter((file) => file.endsWith(".css"))
+  .map((file) => readFileSync(file, "utf8"))
+  .join("\n")
+  .replaceAll(/\s+/g, " ")
+  .replaceAll(/\( /g, "(")
+
+const fallbacksOf = (name: string) => {
+  const fallbacks = new Set<string>()
+  const needle = `var(${name},`
+  let from = componentCss.indexOf(needle)
+  while (from >= 0) {
+    let depth = 1
+    let index = from + needle.length
+    for (; depth > 0 && index < componentCss.length; index++) {
+      if (componentCss[index] === "(") depth++
+      if (componentCss[index] === ")") depth--
+    }
+    fallbacks.add(
+      componentCss
+        .slice(from + needle.length, index - 1)
+        .replaceAll(/\s+/g, " ")
+        .trim(),
+    )
+    from = componentCss.indexOf(needle, index)
+  }
+  return [...fallbacks]
 }
 
 const paletteSourceScopes = (css: string) =>
@@ -172,6 +210,59 @@ describe("theme tokens", () => {
     expect(bodies[0]).not.toMatch(/var\(--(?:ui-|_)/)
   })
 
+  test("an optional token has one fallback, unless it is a hook with a default per component", () => {
+    const optional = tokens.filter((token) => token.optional)
+    for (const token of optional) {
+      const fallbacks = fallbacksOf(token.name)
+      if (tokenTier(token.name) === "hook") {
+        expect(fallbacks.length, token.name).toBeGreaterThan(1)
+      } else {
+        expect(fallbacks.length, token.name).toBeLessThanOrEqual(1)
+      }
+    }
+    for (const name of OVERRIDE_HOOKS) {
+      expect(find(name)?.optional, name).toBe(true)
+    }
+    expect([...OVERRIDE_HOOKS]).toEqual([...OVERRIDE_HOOKS].toSorted())
+  })
+
+  test("a declared token is read without a fallback", () => {
+    const declared = tokens.filter((token) => !token.optional)
+    const withFallback = declared
+      .filter((token) => fallbacksOf(token.name).length > 0)
+      .map((token) => token.name)
+    expect(withFallback).toEqual([])
+  })
+
+  test("tokens.json holds native values where the CSS allows and the CSS beside them", () => {
+    const json = tokensJson()
+    expect(json.contrast["ui-text-max-lightness"]).toMatchObject({
+      $type: "number",
+      $value: 0.41,
+    })
+    expect(
+      json.contrast["ui-text-max-lightness"].$extensions.opui,
+    ).toMatchObject({ css: "0.41", modes: { "more-contrast": "0.3" } })
+    expect(json.borders["ui-border-width"]).toMatchObject({
+      $type: "dimension",
+      $value: { unit: "px", value: 1 },
+    })
+    expect(json.typography["ui-font-size-caption"]).toMatchObject({
+      $type: "dimension",
+      $value: "{typography.ui-font-size-100}",
+    })
+    expect(json.contrast["ui-text-strength-light"]).toMatchObject({
+      $value: "87%",
+    })
+    expect(
+      json.contrast["ui-text-strength-light"].$extensions.opui.css,
+    ).toBeUndefined()
+    expect(json.state["ui-selected"]).toMatchObject({
+      $extensions: { opui: { optional: true, tier: "hook" } },
+    })
+    expect(json.state["ui-selected"].$value).toBeUndefined()
+  })
+
   test("every scope that sets --ui-palette-source re-derives the palette", () => {
     const derived = paletteSourceScopes(paletteSource).find(({ body }) =>
       /--ui-color-1\s*:/.test(body),
@@ -277,9 +368,16 @@ describe("generateCss", () => {
     })
     expect(css).toContain(":where(html, .ui-palette, .ui-contrast-more) {")
     expect(css).toContain(
-      "--ui-surface: light-dark(var(--ui-color-1), var(--ui-color-14));",
+      "--ui-surface: light-dark(var(--ui-color-1), var(--ui-color-13));",
     )
-    expect(css).toContain("--ui-neutral: var(--ui-color-9);")
+    expect(css).toContain(
+      "--ui-neutral: light-dark(oklch(from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) c h), var(--ui-color-9));",
+    )
+    expect(css).toContain(
+      "--ui-surface-inverse: light-dark(var(--ui-color-15), var(--ui-color-2));",
+    )
+    expect(css).not.toContain("--ui-text:")
+    expect(css).not.toContain("--ui-border-color:")
   })
 
   test("mixes gray and palette steps when only one mode disables grays", () => {
@@ -288,7 +386,7 @@ describe("generateCss", () => {
       "--ui-surface: light-dark(var(--ui-color-1), var(--ui-gray-13));",
     )
     expect(css).toContain(
-      "--ui-neutral: light-dark(var(--ui-color-9), var(--ui-gray-9));",
+      "--ui-neutral: light-dark(oklch(from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) c h), var(--ui-gray-9));",
     )
   })
 })

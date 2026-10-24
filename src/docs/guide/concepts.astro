@@ -72,7 +72,14 @@ import TokenTiers from "../../components/TokenTiers.astro"
         shadcn in the <DocLink href="/guide/customizing#example-themes"
           >example themes</DocLink
         >. A theme that has to reach into component CSS points at a missing
-        role, and that is worth an issue.
+        role, and that is worth an issue. A few roles are hooks, unset until a
+        theme sets them: <code>--ui-selected</code>, <code
+          >--ui-on-selected</code
+        >, <code>--ui-track-bg-color</code>, <code
+          >--ui-control-border-color</code
+        > and the others marked <em>hook</em> on the tokens page. Every component
+        with that job reads the hook, and each keeps a default of its own until a
+        theme sets one value for all of them.
       </li>
       <li>
         <strong>Component tokens</strong> like <code>--ui-button-size</code> cover

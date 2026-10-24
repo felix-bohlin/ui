@@ -62,9 +62,7 @@
     --ui-menu-radius: 0.25rem;
     --ui-on-inverse: light-dark(#f5eff7, #322f35);
     --ui-palette-source: #6750a4;
-    --ui-primary: light-dark(#6750a4, #d0bcff);
-    --ui-on-primary: light-dark(#fff, #381e72);
-    --ui-primary-text: light-dark(#6750a4, #d0bcff);
+    --ui-primary-source: light-dark(#6750a4, #d0bcff);
     --ui-primary-tonal: light-dark(#eaddff, #4f378b);
     --ui-on-primary-tonal: light-dark(#21005d, #eaddff);
     --ui-selected: var(--ui-surface-tonal);

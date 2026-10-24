@@ -61,11 +61,9 @@
     --ui-neutral: #6c757d;
     --ui-on-inverse: light-dark(#fff, #212529);
     --ui-palette-source: #0d6efd;
-    --ui-primary: #0d6efd;
-    --ui-on-primary: #fff;
-    --ui-primary-text: light-dark(#0a58ca, #6ea8fe);
-    --ui-selected: #0d6efd;
-    --ui-on-selected: #fff;
+    --ui-primary-source: #0d6efd;
+    --ui-selected: var(--ui-primary);
+    --ui-on-selected: var(--ui-on-primary);
     --ui-shadow-overlay: none;
     --ui-shadow-elevated-dark: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
     --ui-shadow-elevated-light: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);

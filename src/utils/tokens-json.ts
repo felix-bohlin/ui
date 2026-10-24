@@ -32,43 +32,73 @@ const TYPES: [RegExp, string][] = [
 export const tokenType = (name: string) =>
   TYPES.find(([pattern]) => pattern.test(name))?.[1]
 
-export const tokensJson = () =>
-  Object.fromEntries(
-    parseThemeTokens()
-      .filter((section) => section.tokens.length > 0)
-      .map((section) => [
-        slug(section.title),
-        Object.fromEntries(
-          section.tokens.map((token) => {
-            const type = tokenType(token.name)
-            const modes = {
-              ...(token.dark && { dark: token.dark }),
-              ...(token.moreContrast &&
-                token.moreContrast !== token.value && {
-                  "more-contrast": token.moreContrast,
-                }),
-            }
-            return [
-              token.name.replace(/^--/, ""),
-              {
-                $description: themeTokenDescriptions[token.name] ?? "",
-                $extensions: {
-                  opui: {
-                    cssVar: token.name,
-                    ...(token.optional && { example: token.value }),
-                    ...(Object.keys(modes).length > 0 && { modes }),
-                    ...(token.optional && { optional: true }),
-                    ...(themeTokenPromises[token.name] && {
-                      promise: themeTokenPromises[token.name],
-                    }),
-                    tier: tokenTier(token.name),
-                  },
-                },
-                ...(type && { $type: type }),
-                ...(!token.optional && { $value: token.value }),
-              },
-            ]
-          }),
-        ),
-      ]),
+const NUMBER = /^-?\d*\.?\d+$/
+const LENGTH = /^(-?\d*\.?\d+)(px|rem)$/
+const ALIAS = /^var\((--ui-[\w-]+)\)$/
+
+export const tokenValue = (
+  value: string,
+  type: string | undefined,
+  paths: Map<string, string>,
+) => {
+  if (type === "number" && NUMBER.test(value)) return Number(value)
+  const length = type === "dimension" ? value.match(LENGTH) : null
+  if (length) return { unit: length[2], value: Number(length[1]) }
+  const alias = value.match(ALIAS)
+  if (alias && paths.has(alias[1])) return `{${paths.get(alias[1])}}`
+  return value
+}
+
+export const tokensJson = () => {
+  const sections = parseThemeTokens().filter(
+    (section) => section.tokens.length > 0,
   )
+  const paths = new Map(
+    sections.flatMap((section) =>
+      section.tokens.map((token) => [
+        token.name,
+        `${slug(section.title)}.${token.name.replace(/^--/, "")}`,
+      ]),
+    ),
+  )
+  return Object.fromEntries(
+    sections.map((section) => [
+      slug(section.title),
+      Object.fromEntries(
+        section.tokens.map((token) => {
+          const type = tokenType(token.name)
+          const value = tokenValue(token.value, type, paths)
+          const modes = {
+            ...(token.dark && { dark: token.dark }),
+            ...(token.moreContrast &&
+              token.moreContrast !== token.value && {
+                "more-contrast": token.moreContrast,
+              }),
+          }
+          return [
+            token.name.replace(/^--/, ""),
+            {
+              $description: themeTokenDescriptions[token.name] ?? "",
+              $extensions: {
+                opui: {
+                  ...(!token.optional &&
+                    value !== token.value && { css: token.value }),
+                  cssVar: token.name,
+                  ...(token.optional && { example: token.value }),
+                  ...(Object.keys(modes).length > 0 && { modes }),
+                  ...(token.optional && { optional: true }),
+                  ...(themeTokenPromises[token.name] && {
+                    promise: themeTokenPromises[token.name],
+                  }),
+                  tier: tokenTier(token.name),
+                },
+              },
+              ...(type && { $type: type }),
+              ...(!token.optional && { $value: value }),
+            },
+          ]
+        }),
+      ),
+    ]),
+  )
+}

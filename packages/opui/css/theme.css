@@ -131,12 +131,12 @@
 
     /* Contrast */
     --ui-contrast: normal;
+    --ui-accent-fill-max-lightness: 0.48;
     --ui-accent-max-chroma: 1;
     --ui-accent-max-lightness: 1;
     --ui-border-strength-dark: 11%;
     --ui-border-strength-light: 17%;
     --ui-field-border-strength: 50%;
-    --ui-fill-max-lightness: 0.48;
     --ui-invalid-min-lightness: 0;
     --ui-palette-accent-min-lightness: 0;
     --ui-palette-border-max-lightness: 1;
@@ -367,11 +367,15 @@
     --ui-switch-track-block-size: calc(var(--size-5) * var(--ui-density));
     --ui-switch-track-block-size-large: calc(var(--size-6) * var(--ui-density));
     --ui-switch-track-inline-size-x-small: calc(
-      var(--size-7) * var(--ui-density)
+      2 * var(--ui-switch-track-block-size-x-small)
     );
-    --ui-switch-track-inline-size-small: calc(2.5rem * var(--ui-density));
-    --ui-switch-track-inline-size: calc(var(--size-8) * var(--ui-density));
-    --ui-switch-track-inline-size-large: calc(3.5rem * var(--ui-density));
+    --ui-switch-track-inline-size-small: calc(
+      2 * var(--ui-switch-track-block-size-small)
+    );
+    --ui-switch-track-inline-size: calc(2 * var(--ui-switch-track-block-size));
+    --ui-switch-track-inline-size-large: calc(
+      2 * var(--ui-switch-track-block-size-large)
+    );
     --ui-switch-thumb-bg-color: light-dark(
       var(--ui-gray-11),
       var(--ui-gray-14)
@@ -453,10 +457,12 @@
       )
     );
     --ui-warning: var(--ui-orange);
-    /* Light text on fills darker than L 0.565, dark text on lighter ones */
-    --ui-on-warning: oklch(
-      from var(--ui-warning) clamp(0.15, (0.565 - l) * 1000, 0.98)
-        calc(c * 0.15) h
+    /* White on fills below 0.182 relative luminance (xyz y), near-black on lighter ones, so either side keeps 4.5:1 */
+    --ui-on-warning: color(
+      from var(--ui-warning) xyz-d65
+        calc(0.9505 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)))
+        calc(0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))
+        calc(1.089 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)))
     );
     --ui-warning-text: light-dark(
       oklch(from var(--ui-warning) min(l, var(--ui-text-max-lightness)) c h),
@@ -478,10 +484,12 @@
           min(c, var(--ui-accent-max-chroma)) h
       )
     );
-    /* Light text on fills darker than L 0.565, dark text on lighter ones */
-    --ui-on-primary: oklch(
-      from var(--ui-primary) clamp(0.15, (0.565 - l) * 1000, 0.98)
-        calc(c * 0.15) h
+    /* White on fills below 0.182 relative luminance (xyz y), near-black on lighter ones, so either side keeps 4.5:1 */
+    --ui-on-primary: color(
+      from var(--ui-primary) xyz-d65
+        calc(0.9505 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)))
+        calc(0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))
+        calc(1.089 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)))
     );
     --ui-primary-text: light-dark(
       oklch(from var(--ui-primary) min(l, var(--ui-text-max-lightness)) c h),
@@ -569,13 +577,13 @@
   @media (prefers-contrast: more) {
     :where(html:not(.ui-contrast-normal)) {
       --ui-contrast: more;
+      --ui-accent-fill-max-lightness: 0.45;
       --ui-accent-max-chroma: 0.1;
       --ui-accent-max-lightness: 0.42;
       --ui-border-strength-dark: 55%;
       --ui-border-strength-light: 55%;
       --ui-code-bg-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 6%));
       --ui-field-border-strength: 70%;
-      --ui-fill-max-lightness: 0.45;
       --ui-focus-ring-width: 3px;
       --ui-invalid-min-lightness: 0.85;
       --ui-palette-accent-min-lightness: 0.71;
@@ -599,13 +607,13 @@
   /* Higher contrast */
   :where(.ui-contrast-more) {
     --ui-contrast: more;
+    --ui-accent-fill-max-lightness: 0.45;
     --ui-accent-max-chroma: 0.1;
     --ui-accent-max-lightness: 0.42;
     --ui-border-strength-dark: 55%;
     --ui-border-strength-light: 55%;
     --ui-code-bg-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 6%));
     --ui-field-border-strength: 70%;
-    --ui-fill-max-lightness: 0.45;
     --ui-focus-ring-width: 3px;
     --ui-invalid-min-lightness: 0.85;
     --ui-palette-accent-min-lightness: 0.71;
@@ -639,15 +647,7 @@
     .ui-info,
     .ui-neutral,
     .ui-success,
-    .ui-warning,
-    .ui-del,
-    .ui-ins,
-    del,
-    ins,
-    abbr,
-    dfn,
-    .ui-abbr,
-    .ui-dfn
+    .ui-warning
   ) {
     /* Palette roles - shades of the current palette, re-derived inside the severity scopes */
     --ui-palette-accent: light-dark(
@@ -694,17 +694,17 @@
   }
 
   /* Severity scope classes */
-  :where(.ui-critical, .ui-del, del) {
+  :where(.ui-critical) {
     --ui-palette-source: oklch(from var(--ui-critical) 0.58 0.21 h);
     --ui-palette-hue-rotate-by: 1;
   }
 
-  :where(.ui-info, abbr, dfn, .ui-abbr, .ui-dfn) {
+  :where(.ui-info) {
     --ui-palette-source: oklch(from var(--ui-info) 0.58 0.21 h);
     --ui-palette-hue-rotate-by: 1;
   }
 
-  :where(.ui-success, .ui-ins, ins) {
+  :where(.ui-success) {
     --ui-palette-source: oklch(from var(--ui-success) 0.58 0.21 h);
     --ui-palette-hue-rotate-by: 1;
   }

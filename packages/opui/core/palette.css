@@ -6,14 +6,6 @@
     .ui-info,
     .ui-success,
     .ui-neutral,
-    .ui-del,
-    .ui-ins,
-    del,
-    ins,
-    abbr,
-    dfn,
-    .ui-abbr,
-    .ui-dfn,
     .ui-palette
   ) {
     --ui-palette-source: oklch(

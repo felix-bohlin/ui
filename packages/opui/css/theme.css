@@ -38,6 +38,9 @@
     --ui-border-width: 1px;
     --ui-border-width-thick: var(--border-size-2);
     --ui-radius-round: var(--radius-round);
+    /* --ui-chip-radius: var(--ui-radius); */
+    /* --ui-dialog-radius: var(--ui-radius); */
+    /* --ui-menu-radius: var(--ui-radius); */
 
     /* Focus ring */
     --ui-focus-ring-offset: 2px;
@@ -92,6 +95,9 @@
 
     /* Field / input */
     /* --ui-field-radius: var(--ui-radius); */
+    /* --ui-field-bg-color: var(--ui-surface); */
+    /* --ui-field-padding-inline: var(--ui-space-2); */
+    /* --ui-field-placeholder-text-color: var(--ui-text); */
     --ui-field-border-width: 1px;
 
     /* Button */
@@ -99,8 +105,13 @@
     /* --ui-button-on-accent: light-dark(var(--ui-color-1), var(--ui-color-16)); */
     /* --ui-button-radius: var(--ui-radius); */
     /* --ui-button-font-weight: var(--ui-font-weight-bold); */
+    /* --ui-button-hover: shade; */
     /* --ui-button-hover-shadow: var(--ui-shadow-control); */
     /* --ui-button-hover-translate: none; */
+    /* --ui-button-padding-inline-x-small: 1ex; */
+    /* --ui-button-padding-inline-small: 1.25ex; */
+    /* --ui-button-padding-inline: 1.5ex; */
+    /* --ui-button-padding-inline-large: 2.5ex; */
 
     /* Motion */
     --ui-duration-fast: 0.1s;

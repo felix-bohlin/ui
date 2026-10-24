@@ -94,11 +94,37 @@ export default {
   },
   "--_outlined-active-bg-color": {
     description:
-      "Pressed background of outlined and tonal buttons, from `--_accent`.",
+      "Pressed background of outlined and tonal buttons, from `--_accent`. The pressed state layer with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_outlined-active-border-color": {
+    description:
+      "Pressed border of outlined buttons. The pressed background, or `--_accent` with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_outlined-active-text-color": {
+    description:
+      "Pressed text color of outlined buttons. `--_on-accent`, or `--_accent-text` with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_outlined-hover-bg-color": {
+    description:
+      "Hover background of outlined buttons. `--_accent-fill`, or the hover state layer with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_outlined-hover-border-color": {
+    description:
+      "Hover border of outlined buttons. `--_accent-fill`, or `--_accent` with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_outlined-hover-text-color": {
+    description:
+      "Hover text color of outlined buttons. `--_on-accent`, or `--_accent-text` with `--ui-button-hover: layer`.",
     kind: "output",
   },
   "--_padding-inline": {
-    description: "The inline padding. Set by the size classes.",
+    description:
+      "The inline padding. Set by the size classes from `--ui-button-padding-inline` and its size variants.",
     kind: "input",
   },
   "--_radius": {
@@ -114,6 +140,26 @@ export default {
   "--_text-color": {
     description:
       "The current text color. Set by the variant, hover, active and disabled states.",
+    kind: "output",
+  },
+  "--_tonal-active-bg-color": {
+    description:
+      "Pressed background of tonal buttons. `--_outlined-active-bg-color`, or the pressed state layer over `--_accent-tonal` with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_tonal-active-text-color": {
+    description:
+      "Pressed text color of tonal buttons. `--_on-accent`, or `--_on-accent-tonal` with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_tonal-hover-bg-color": {
+    description:
+      "Hover background of tonal buttons. `--_accent-fill`, or the hover state layer over `--_accent-tonal` with `--ui-button-hover: layer`.",
+    kind: "output",
+  },
+  "--_tonal-hover-text-color": {
+    description:
+      "Hover text color of tonal buttons. `--_on-accent`, or `--_on-accent-tonal` with `--ui-button-hover: layer`.",
     kind: "output",
   },
 } satisfies CustomProperties

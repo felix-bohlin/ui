@@ -11,7 +11,7 @@
     --_arrow-padding: calc(
       var(--_arrow-inset) + var(--_chevron-size) + var(--ui-space-3)
     );
-    --_bg-color: var(--ui-surface);
+    --_bg-color: var(--ui-field-bg-color, var(--ui-surface));
     --_border-color: var(--ui-field-border-color);
     --_chevron-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414'/%3E%3C/svg%3E");
     --_chevron-size: var(--ui-icon-size-small);
@@ -25,7 +25,7 @@
         (var(--_min-block-size) - 1lh - var(--ui-field-border-width) * 2) / 2
       )
     );
-    --_field-padding-inline: var(--ui-space-2);
+    --_field-padding-inline: var(--ui-field-padding-inline, var(--ui-space-2));
     --_font-size: var(--ui-font-size-control);
     --_helper-text-color: var(--ui-field-helper-text-color);
     --_min-block-size: var(--ui-field-size);

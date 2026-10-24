@@ -3,12 +3,14 @@ import Learn from "./Learn.astro"
 import ReadMore from "../components/UnderTheHood/ReadMore.astro"
 import { references } from "../components/UnderTheHood/references"
 import { formatInline } from "../utils/format-inline"
-import { componentName, formatDate, posts } from "../utils/learn"
 import {
-  componentHasFramework,
-  DEFAULT_FRAMEWORK,
-  hrefFor,
-} from "../utils/framework"
+  componentHref,
+  componentName,
+  formatDate,
+  posts,
+  seriesOf,
+} from "../utils/learn"
+import { hrefFor } from "../utils/framework"
 
 type Props = {
   slug: string
@@ -26,14 +28,13 @@ const { link } = Astro.locals
 
 const currentFramework = Astro.locals.framework
 
-const docsHref = hrefFor(
-  componentHasFramework(currentFramework, component)
-    ? currentFramework
-    : DEFAULT_FRAMEWORK,
-  `/components/${component}`,
-)
+Astro.locals.componentSlug = component
+
+const docsHref = componentHref(currentFramework, component)
 
 const name = componentName(component)
+
+const series = seriesOf(slug)
 
 const topic =
   topicProp ??
@@ -47,6 +48,35 @@ const topic =
 >
   <Fragment slot="title">{post.title}</Fragment>
   <Fragment slot="preamble">{post.description}</Fragment>
+
+  {
+    series && (
+      <nav aria-label="Series" class="learn-series ui-not-rich-text">
+        <p>
+          Part {series.part} of {series.total} in{" "}
+          <a href={link(`/learn#${series.id}`)}>{series.label}</a>
+        </p>
+        <ul>
+          {series.previous && (
+            <li>
+              <a href={link(`/learn/${series.previous.slug}`)} rel="prev">
+                <span class="ui-caption">Previous</span>
+                {series.previous.title}
+              </a>
+            </li>
+          )}
+          {series.next && (
+            <li>
+              <a href={link(`/learn/${series.next.slug}`)} rel="next">
+                <span class="ui-caption">Next</span>
+                {series.next.title}
+              </a>
+            </li>
+          )}
+        </ul>
+      </nav>
+    )
+  }
 
   <slot />
 
@@ -65,6 +95,9 @@ const topic =
     <ul>
       <li><a href={docsHref}>{name} docs</a></li>
       <li>
+        <a href={`${docsHref}#under-the-hood`}>{name}, under the hood</a>
+      </li>
+      <li>
         <a href={hrefFor(currentFramework, "/learn/under-the-hood")}
           >Every component, under the hood</a
         >
@@ -73,3 +106,47 @@ const topic =
     {topic && <ReadMore topic={topic} />}
   </section>
 </Learn>
+
+<style>
+  .learn-series {
+    display: grid;
+    font-size: var(--ui-font-size-small);
+    gap: var(--ui-space-2);
+    margin-block-start: var(--ui-space-3);
+
+    & p {
+      margin: 0;
+    }
+
+    & ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ui-space-2);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    & li a {
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-radius);
+      color: var(--ui-text-strong);
+      display: grid;
+      padding-block: var(--ui-space-1);
+      padding-inline: var(--ui-space-3);
+      text-decoration: none;
+
+      &:hover {
+        border-color: var(--ui-primary);
+      }
+    }
+
+    & li:has([rel="next"]) a {
+      text-align: end;
+    }
+
+    & .ui-caption {
+      color: var(--ui-text);
+    }
+  }
+</style>

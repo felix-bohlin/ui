@@ -1,7 +1,7 @@
 ---
 import Document from "./Document.astro"
 import { canonicalPath, hrefFor } from "../utils/framework"
-import { categories, componentName, posts } from "../utils/learn"
+import { categories, componentName, posts, walkthroughs } from "../utils/learn"
 
 type Props = {
   description?: string
@@ -49,6 +49,12 @@ const groups = [
         ),
       ),
   })),
+  {
+    label: "Walkthrough only",
+    links: walkthroughs.map((slug) =>
+      linkTo(`/learn/under-the-hood#${slug}`, componentName(slug)),
+    ),
+  },
 ]
 ---
 

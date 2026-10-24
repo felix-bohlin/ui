@@ -1,7 +1,19 @@
-import { readFileSync } from "node:fs"
+import { readFileSync, writeFileSync } from "node:fs"
 import { expect, test } from "vitest"
+import opui from "../../packages/opui/package.json"
 import { themeTokens } from "../../src/utils/theme-tokens"
 import released from "./released-tokens.json"
+
+if (process.env.RELEASED_RECORD) {
+  released.version = opui.version
+  released.tokens = themeTokens()
+    .map((token) => token.name)
+    .toSorted()
+  writeFileSync(
+    "tests/unit/released-tokens.json",
+    `${JSON.stringify(released, null, 2)}\n`,
+  )
+}
 
 const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
 const unreleased = changelog.slice(

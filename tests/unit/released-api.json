@@ -149,7 +149,7 @@
       "Accordion": ["name", "open", "variant"]
     },
     "Anchor": {
-      "Anchor": ["alignment", "id", "trigger"]
+      "Anchor": ["alignment", "trigger"]
     },
     "Avatar": {
       "Avatar": [
@@ -239,7 +239,7 @@
       "IconButton": ["as", "color", "disabled", "href", "size", "variant"]
     },
     "List": {
-      "List": ["bordered", "dense", "gutterless", "variant"]
+      "List": ["bordered", "dense", "divided", "gutterless", "variant"]
     },
     "ListItem": {
       "ListItem": [
@@ -272,7 +272,6 @@
     "Range": {
       "Range": [
         "endText",
-        "error",
         "id",
         "label",
         "list",
@@ -290,7 +289,6 @@
         "description",
         "endText",
         "error",
-        "id",
         "items",
         "label",
         "size",
@@ -340,16 +338,7 @@
       ]
     },
     "ToggleButton": {
-      "ToggleButton": [
-        "disabled",
-        "id",
-        "label",
-        "name",
-        "pressed",
-        "size",
-        "type",
-        "value"
-      ]
+      "ToggleButton": ["label", "pressed", "size", "type"]
     },
     "ToggleGroup": {
       "ToggleGroup": ["name", "orientation", "selection", "size"]
@@ -358,5 +347,5 @@
       "Tooltip": ["alignment", "arrow", "id", "label"]
     }
   },
-  "version": "5.5.0"
+  "version": "5.4.3"
 }

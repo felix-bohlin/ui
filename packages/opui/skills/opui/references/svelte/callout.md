@@ -58,7 +58,7 @@ Tonal (default) and outlined variants are available via the `variant` prop. Put 
 
 ## Severities
 
-The `severity` prop accepts `info`, `success`, `warning`, and `critical`, plus a non-severity `neutral` tone for brand-tinted attention. The default is a plain surface.
+The `severity` prop accepts `critical`, `info`, `neutral`, `success` and `warning`. `neutral` is a non-severity tone for brand-tinted attention. The default is a plain surface.
 
 ### Icons and accessibility
 
@@ -69,12 +69,16 @@ Omitting an icon is possible. However, it helps having one if you need to convey
   import { Callout, CalloutContent, CalloutIcon } from "opui-css/svelte"
 </script>
 
-<Callout severity="neutral">
-  <CalloutContent>This is a tonal neutral Callout</CalloutContent>
+<Callout severity="critical">
+  <CalloutIcon />
+  <CalloutContent>This is a tonal critical Callout</CalloutContent>
 </Callout>
 <Callout severity="info">
   <CalloutIcon />
   <CalloutContent>This is a tonal info Callout</CalloutContent>
+</Callout>
+<Callout severity="neutral">
+  <CalloutContent>This is a tonal neutral Callout</CalloutContent>
 </Callout>
 <Callout severity="success">
   <CalloutIcon />
@@ -84,16 +88,16 @@ Omitting an icon is possible. However, it helps having one if you need to convey
   <CalloutIcon />
   <CalloutContent>This is a tonal warning Callout</CalloutContent>
 </Callout>
-<Callout severity="critical">
+<Callout severity="critical" variant="outlined">
   <CalloutIcon />
-  <CalloutContent>This is a tonal critical Callout</CalloutContent>
-</Callout>
-<Callout severity="neutral" variant="outlined">
-  <CalloutContent>This is an outlined neutral Callout</CalloutContent>
+  <CalloutContent>This is an outlined critical Callout</CalloutContent>
 </Callout>
 <Callout severity="info" variant="outlined">
   <CalloutIcon />
   <CalloutContent>This is an outlined info Callout</CalloutContent>
+</Callout>
+<Callout severity="neutral" variant="outlined">
+  <CalloutContent>This is an outlined neutral Callout</CalloutContent>
 </Callout>
 <Callout severity="success" variant="outlined">
   <CalloutIcon />
@@ -102,10 +106,6 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 <Callout severity="warning" variant="outlined">
   <CalloutIcon />
   <CalloutContent>This is an outlined warning Callout</CalloutContent>
-</Callout>
-<Callout severity="critical" variant="outlined">
-  <CalloutIcon />
-  <CalloutContent>This is an outlined critical Callout</CalloutContent>
 </Callout>
 ```
 
@@ -151,7 +151,9 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 | `severity` | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color, and in Astro, React, Svelte and Vue the icon `CalloutIcon` renders. |
 | `variant`  | `"outlined"` , `"tonal"`                                          | `"tonal"` | The variant to use.                                                                               |
 
-#### CSS variables
+For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.
+
+### CSS variables
 
 | Variable                            | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                                                                                                                                                                                                          |
 | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -177,9 +179,7 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 | `--ui-surface-tonal`                | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                               | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                                        |
 | `--ui-text-strong`                  | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                                                                                                                                                                                                     |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
-
-For a custom icon, put your own `<svg aria-hidden="true">` in the Callout instead of `CalloutIcon`, before `CalloutContent`.
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
 ## Component properties
 

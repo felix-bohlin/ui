@@ -20,15 +20,12 @@
     --_field-padding-block: var(--ui-space-2);
     --_field-padding-block-fit: min(
       var(--_field-padding-block),
-      max(
-        0px,
-        (var(--_min-block-size) - 1lh - var(--ui-field-border-width) * 2) / 2
-      )
+      max(0px, (var(--_size) - 1lh - var(--ui-field-border-width) * 2) / 2)
     );
     --_field-padding-inline: var(--ui-field-padding-inline, var(--ui-space-2));
     --_font-size: var(--ui-font-size-control);
     --_helper-text-color: var(--ui-field-helper-text-color);
-    --_min-block-size: var(--ui-field-size);
+    --_size: var(--ui-field-size);
 
     align-content: start;
     display: grid;
@@ -48,7 +45,7 @@
         "start input end"
         "bottom bottom bottom";
       grid-template-columns: auto 1fr auto;
-      min-block-size: var(--_min-block-size);
+      min-block-size: var(--_size);
 
       transition: border-color var(--_duration) var(--_ease);
     }
@@ -166,9 +163,7 @@
 
       input {
         align-self: flex-start;
-        block-size: calc(
-          var(--_min-block-size) - var(--ui-field-border-width) * 2
-        );
+        block-size: calc(var(--_size) - var(--ui-field-border-width) * 2);
         box-shadow: none;
         color: var(--ui-text-strong);
         cursor: inherit;
@@ -232,8 +227,8 @@
     /* Input - color */
     &:has(input[type="color"]) {
       .ui-field {
-        block-size: var(--_min-block-size);
-        inline-size: var(--_min-block-size);
+        block-size: var(--_size);
+        inline-size: var(--_size);
         min-block-size: 0;
         overflow: hidden;
       }
@@ -241,8 +236,8 @@
       input {
         appearance: none;
         background: none;
-        block-size: var(--_min-block-size);
-        inline-size: var(--_min-block-size);
+        block-size: var(--_size);
+        inline-size: var(--_size);
         overflow: hidden;
         padding: 0;
 
@@ -431,19 +426,19 @@
     &.ui-x-small {
       --_field-padding-block: calc(var(--ui-space-1) * 0.75);
       --_font-size: var(--ui-font-size-caption);
-      --_min-block-size: var(--ui-field-size-x-small);
+      --_size: var(--ui-field-size-x-small);
     }
 
     &.ui-small {
       --_field-padding-block: var(--ui-space-1);
       --_font-size: var(--ui-font-size-small);
-      --_min-block-size: var(--ui-field-size-small);
+      --_size: var(--ui-field-size-small);
     }
 
     &.ui-large {
       --_field-padding-block: calc(var(--ui-space-2) * 1.5);
       --_field-padding-inline: var(--ui-space-3);
-      --_min-block-size: var(--ui-field-size-large);
+      --_size: var(--ui-field-size-large);
     }
 
     &.ui-small,

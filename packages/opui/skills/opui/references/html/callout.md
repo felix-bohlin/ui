@@ -55,15 +55,27 @@ Tonal (default) and `.ui-outlined` variants. Put the text in `.ui-content`, with
 
 ## Severities
 
-Severity modifiers - `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical` - plus the non-severity `.ui-neutral` tone for brand-tinted attention. The default is a plain surface.
+Severity modifiers: `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`. `.ui-neutral` is a non-severity tone for brand-tinted attention. The default is a plain surface.
 
 ### Icons and accessibility
 
 Omitting an icon is possible. However, it helps having one if you need to convey a specific kind of severity in your Callout message. For instance, colorblind users might be left confused if there's not enough visual guidance.
 
 ```html
-<article class="ui-callout ui-neutral">
-  <div class="ui-content">This is a tonal neutral Callout</div>
+<article class="ui-callout ui-critical">
+  <svg
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 48 48"
+  >
+    <path
+      fill="currentColor"
+      d="M24 13c.69 0 1.25.56 1.25 1.25v12.5a1.25 1.25 0 1 1-2.5 0v-12.5c0-.69.56-1.25 1.25-1.25m0 21a2 2 0 1 0 0-4a2 2 0 0 0 0 4M4 24C4 12.954 12.954 4 24 4s20 8.954 20 20s-8.954 20-20 20S4 35.046 4 24M24 6.5C14.335 6.5 6.5 14.335 6.5 24S14.335 41.5 24 41.5S41.5 33.665 41.5 24S33.665 6.5 24 6.5"
+    ></path>
+  </svg>
+  <div class="ui-content">This is a tonal critical Callout</div>
 </article>
 
 <article class="ui-callout ui-info">
@@ -80,6 +92,10 @@ Omitting an icon is possible. However, it helps having one if you need to convey
     ></path>
   </svg>
   <div class="ui-content">This is a tonal info Callout</div>
+</article>
+
+<article class="ui-callout ui-neutral">
+  <div class="ui-content">This is a tonal neutral Callout</div>
 </article>
 
 <article class="ui-callout ui-success">
@@ -114,7 +130,7 @@ Omitting an icon is possible. However, it helps having one if you need to convey
   <div class="ui-content">This is a tonal warning Callout</div>
 </article>
 
-<article class="ui-callout ui-critical">
+<article class="ui-callout ui-outlined ui-critical">
   <svg
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
@@ -127,11 +143,7 @@ Omitting an icon is possible. However, it helps having one if you need to convey
       d="M24 13c.69 0 1.25.56 1.25 1.25v12.5a1.25 1.25 0 1 1-2.5 0v-12.5c0-.69.56-1.25 1.25-1.25m0 21a2 2 0 1 0 0-4a2 2 0 0 0 0 4M4 24C4 12.954 12.954 4 24 4s20 8.954 20 20s-8.954 20-20 20S4 35.046 4 24M24 6.5C14.335 6.5 6.5 14.335 6.5 24S14.335 41.5 24 41.5S41.5 33.665 41.5 24S33.665 6.5 24 6.5"
     ></path>
   </svg>
-  <div class="ui-content">This is a tonal critical Callout</div>
-</article>
-
-<article class="ui-callout ui-outlined ui-neutral">
-  <div class="ui-content">This is an outlined neutral Callout</div>
+  <div class="ui-content">This is an outlined critical Callout</div>
 </article>
 
 <article class="ui-callout ui-outlined ui-info">
@@ -148,6 +160,10 @@ Omitting an icon is possible. However, it helps having one if you need to convey
     ></path>
   </svg>
   <div class="ui-content">This is an outlined info Callout</div>
+</article>
+
+<article class="ui-callout ui-outlined ui-neutral">
+  <div class="ui-content">This is an outlined neutral Callout</div>
 </article>
 
 <article class="ui-callout ui-outlined ui-success">
@@ -180,22 +196,6 @@ Omitting an icon is possible. However, it helps having one if you need to convey
     ></path>
   </svg>
   <div class="ui-content">This is an outlined warning Callout</div>
-</article>
-
-<article class="ui-callout ui-outlined ui-critical">
-  <svg
-    aria-hidden="true"
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 48 48"
-  >
-    <path
-      fill="currentColor"
-      d="M24 13c.69 0 1.25.56 1.25 1.25v12.5a1.25 1.25 0 1 1-2.5 0v-12.5c0-.69.56-1.25 1.25-1.25m0 21a2 2 0 1 0 0-4a2 2 0 0 0 0 4M4 24C4 12.954 12.954 4 24 4s20 8.954 20 20s-8.954 20-20 20S4 35.046 4 24M24 6.5C14.335 6.5 6.5 14.335 6.5 24S14.335 41.5 24 41.5S41.5 33.665 41.5 24S33.665 6.5 24 6.5"
-    ></path>
-  </svg>
-  <div class="ui-content">This is an outlined critical Callout</div>
 </article>
 ```
 
@@ -244,7 +244,7 @@ There are no default icons in HTML: put an `<svg aria-hidden="true">` before `.u
 | `<svg>`       | An optional icon before the content. In Astro, React, Svelte and Vue, `CalloutIcon` renders the default one for info, success, warning and critical. |
 | `.ui-content` | The content, with an optional heading first.                                                                                                         |
 
-#### CSS variables
+### CSS variables
 
 | Variable                            | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                                                                                                                                                                                                          |
 | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -270,7 +270,7 @@ There are no default icons in HTML: put an `<svg aria-hidden="true">` before `.u
 | `--ui-surface-tonal`                | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                               | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                                        |
 | `--ui-text-strong`                  | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                                                                                                                                                                                                     |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Component properties
 

@@ -37,12 +37,12 @@
         var(--_items-per-view)
     );
     --_items-per-view: 1;
-    --_marker-active-bg-color: var(--ui-selected-strong);
-    --_marker-active-padding: var(--ui-space-1);
     --_marker-bg-color: transparent;
     --_marker-border-color: var(--ui-text);
     --_marker-gap: 0px;
     --_marker-label: "Slide ";
+    --_marker-selected-bg-color: var(--ui-selected-strong);
+    --_marker-selected-padding: var(--ui-space-1);
     --_marker-size: var(--ui-space-5);
     --_markers-gap: var(--ui-space-3);
     --_media-aspect-ratio: 16 / 9;
@@ -336,12 +336,12 @@
       }
 
       & > *::scroll-marker:target-current {
-        background-color: var(--_marker-active-bg-color);
-        outline-color: var(--_marker-active-bg-color);
+        background-color: var(--_marker-selected-bg-color);
+        outline-color: var(--_marker-selected-bg-color);
         outline-offset: calc(
-          -1 * (var(--_marker-active-padding) + var(--ui-border-width))
+          -1 * (var(--_marker-selected-padding) + var(--ui-border-width))
         );
-        padding: var(--_marker-active-padding);
+        padding: var(--_marker-selected-padding);
       }
 
       & > *::scroll-marker:focus-visible {

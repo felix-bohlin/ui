@@ -16,7 +16,7 @@
 
   The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`.
 
-## Dot
+## Basics
 
 Use `dot` to show a dot instead of the label.
 
@@ -310,7 +310,7 @@ import { Badge } from "opui-css/vue"
 | `default`   | The element the badge is anchored to.                                                                                          |
 | `indicator` | The indicator, inside `.ui-floating`. Holds `label`, the visible text with `hideLabel`, or only screen reader text with `dot`. |
 
-#### CSS variables
+### CSS variables
 
 | Variable                  | Default                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                                                                                 |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -335,7 +335,7 @@ import { Badge } from "opui-css/vue"
 | `--ui-success`            | `var(--ui-green)`                                                                                                                                                                                                        | Severity color for success messages.                                                                                                                                                                                                                                                                        |
 | `--ui-warning`            | `var(--ui-orange)`                                                                                                                                                                                                       | Severity color for warnings. Unlike the other severities it keeps its lightness with more contrast: the fill is light and takes dark `--ui-on-warning` text, and `--ui-warning-text` gets the stricter lightness limits instead.                                                                            |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 ## Component properties
 

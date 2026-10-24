@@ -45,11 +45,6 @@ export default {
       "Background of a hovered `.ui-card`. Defaults to `--ui-surface-tonal-hover`.",
     kind: "input",
   },
-  "--_input-size": {
-    description:
-      "Width and height of the checkbox and radio input, which the label centers on. Defaults to `--ui-choice-size`, set by the size classes.",
-    kind: "input",
-  },
   "--_motion": {
     description: "Motion multiplier for the transitions. `0` turns them off.",
     kind: "input",
@@ -68,6 +63,11 @@ export default {
     description:
       "Shadow of `.ui-card`, read by `card.css`. `--ui-shadow-surface` unless `.ui-tonal` or `.ui-elevated` set their own.",
     kind: "output",
+  },
+  "--_size": {
+    description:
+      "Width and height of the checkbox and radio input, which the label centers on. Defaults to `--ui-choice-size`, set by the size classes. `switch.css` sets it to the track height.",
+    kind: "input",
   },
   "--_thumb-scale": {
     description:

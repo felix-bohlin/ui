@@ -67,7 +67,7 @@
       grid-column: 2;
       grid-row: 1;
       margin-block-start: calc(
-        (var(--_input-size) - 1lh) / 2 + var(--ui-choice-label-offset)
+        (var(--_size) - 1lh) / 2 + var(--ui-choice-label-offset)
       );
       padding-inline: 0 1ex;
       position: relative;
@@ -84,7 +84,7 @@
     }
 
     &:where(.ui-checkbox, .ui-radio) {
-      --_input-size: var(--ui-choice-size);
+      --_size: var(--ui-choice-size);
 
       transform: translateZ(0);
 

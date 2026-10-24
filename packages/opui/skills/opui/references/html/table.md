@@ -53,6 +53,12 @@ Change the cell padding with the `.ui-dense` or `.ui-spacious` class.
   </caption>
   <thead>
     <tr>
+      <th>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-sr-only">Select all</span>
+        </label>
+      </th>
       <th>Band</th>
       <th>Name</th>
       <th>Instrument</th>
@@ -60,21 +66,45 @@ Change the cell padding with the `.ui-dense` or `.ui-spacious` class.
   </thead>
   <tbody>
     <tr>
+      <td>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-sr-only">Select James Mercer</span>
+        </label>
+      </td>
       <td>Broken Bells</td>
       <td>James Mercer</td>
       <td>Vocals/Guitar</td>
     </tr>
     <tr>
+      <td>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-sr-only">Select Jonathan Davis</span>
+        </label>
+      </td>
       <td>Korn</td>
       <td>Jonathan Davis</td>
       <td>Vocals</td>
     </tr>
     <tr>
+      <td>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-sr-only">Select David Gilmour</span>
+        </label>
+      </td>
       <td>Pink Floyd</td>
       <td>David Gilmour</td>
       <td>Guitar/Vocals</td>
     </tr>
     <tr>
+      <td>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-sr-only">Select Ed O'Brien</span>
+        </label>
+      </td>
       <td>Radiohead</td>
       <td>Ed O'Brien</td>
       <td>Guitar/Vocals</td>
@@ -82,7 +112,7 @@ Change the cell padding with the `.ui-dense` or `.ui-spacious` class.
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="3">All great bands!</td>
+      <td colspan="4">4 members</td>
     </tr>
   </tfoot>
 </table>
@@ -141,6 +171,89 @@ Change the cell padding with the `.ui-dense` or `.ui-spacious` class.
       <td>Radiohead</td>
       <td>Ed O'Brien</td>
       <td>Guitar/Vocals</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+## Controls in cells
+
+A `.ui-text-field` or `.ui-select` in a cell keeps a `12ch` minimum width, in every density. Hide the label with `.ui-sr-only` and name the row in it, since the column header isn't part of the control's name.
+
+```html
+<table class="ui-table ui-dense">
+  <caption>
+    Band Members
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Instrument</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Jonathan Davis</td>
+      <td>
+        <label class="ui-select">
+          <span class="ui-sr-only" id="table-controls-1-label"
+            >Instrument for Jonathan Davis</span
+          >
+          <span class="ui-field">
+            <select aria-labelledby="table-controls-1-label">
+              <button>
+                <selectedcontent></selectedcontent>
+              </button>
+              <div class="ui-list">
+                <option value="bass">Bass</option>
+                <option value="drums">Drums</option>
+                <option value="guitar">Guitar</option>
+                <option selected value="vocals">Vocals</option>
+              </div>
+            </select>
+          </span>
+        </label>
+      </td>
+      <td>
+        <label class="ui-text-field">
+          <span class="ui-sr-only">Notes for Jonathan Davis</span>
+          <span class="ui-field">
+            <input type="text" placeholder="Add a note" />
+          </span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>Ed O'Brien</td>
+      <td>
+        <label class="ui-select">
+          <span class="ui-sr-only" id="table-controls-2-label"
+            >Instrument for Ed O'Brien</span
+          >
+          <span class="ui-field">
+            <select aria-labelledby="table-controls-2-label">
+              <button>
+                <selectedcontent></selectedcontent>
+              </button>
+              <div class="ui-list">
+                <option value="bass">Bass</option>
+                <option value="drums">Drums</option>
+                <option selected value="guitar">Guitar</option>
+                <option value="vocals">Vocals</option>
+              </div>
+            </select>
+          </span>
+        </label>
+      </td>
+      <td>
+        <label class="ui-text-field">
+          <span class="ui-sr-only">Notes for Ed O'Brien</span>
+          <span class="ui-field">
+            <input type="text" placeholder="Add a note" />
+          </span>
+        </label>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -297,7 +410,7 @@ The first cell of each row is a row header, `<th scope="row">`. Row headers keep
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="6">Scandinavia != The Nordics</td>
+      <td colspan="6">5 countries</td>
     </tr>
   </tfoot>
 </table>
@@ -331,35 +444,6 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 | `<tfoot>`        | Optional footer rows, such as totals. |
 | `<caption>`      | An optional title for the table.      |
 
-#### CSS variables
-
-| Variable                            | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                      |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-color`                 | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                         |
-| `--ui-border-color-on-filled`       | `light-dark( var(--ui-gray-6), var(--ui-gray-12) )`                                                                                                                                                             | Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.                                                                                 |
-| `--ui-border-width`                 | `1px`                                                                                                                                                                                                           | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--ui-duration`                     | `0.2s`                                                                                                                                                                                                          | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                        |
-| `--ui-ease`                         | `ease`                                                                                                                                                                                                          | Default easing for transitions.                                                                                                                                                                                                  |
-| `--ui-field-border-color-on-filled` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface-filled) )`                                                                                                        | Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.                                                       |
-| `--ui-focus-ring-offset`            | `2px`                                                                                                                                                                                                           | Distance between a control and its focus ring.                                                                                                                                                                                   |
-| `--ui-focus-ring-width`             | `2px`                                                                                                                                                                                                           | Width of the focus ring.                                                                                                                                                                                                         |
-| `--ui-font-size-small`              | `var(--ui-font-size-200)`                                                                                                                                                                                       | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                          |
-| `--ui-font-weight-semibold`         | `var(--font-weight-6)`                                                                                                                                                                                          | Font weight for labels, table headers and titles.                                                                                                                                                                                |
-| `--ui-line-height-tight`            | `1.25`                                                                                                                                                                                                          | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                                                     |
-| `--ui-motion`                       | `1`                                                                                                                                                                                                             | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
-| `--ui-radius`                       | `var(--size-2)`                                                                                                                                                                                                 | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--ui-shadow-scroll`                | `var(--shadow-4)`                                                                                                                                                                                               | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                                         |
-| `--ui-space-1`                      | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-2`                      | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-3`                      | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-6`                      | `calc(var(--size-6) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-surface`                      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                               | Page and card background.                                                                                                                                                                                                        |
-| `--ui-surface-filled`               | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                                                                                                                                               | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
-| `--ui-text`                         | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`     | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                        |
-| `--ui-text-strong`                  | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                 |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
-
 ### Table column group API
 
 #### Parts
@@ -367,35 +451,6 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | Part         | Description                                |
 | ------------ | ------------------------------------------ |
 | `<colgroup>` | A group of columns, before the table head. |
-
-#### CSS variables
-
-| Variable                            | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                      |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-color`                 | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                         |
-| `--ui-border-color-on-filled`       | `light-dark( var(--ui-gray-6), var(--ui-gray-12) )`                                                                                                                                                             | Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.                                                                                 |
-| `--ui-border-width`                 | `1px`                                                                                                                                                                                                           | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--ui-duration`                     | `0.2s`                                                                                                                                                                                                          | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                        |
-| `--ui-ease`                         | `ease`                                                                                                                                                                                                          | Default easing for transitions.                                                                                                                                                                                                  |
-| `--ui-field-border-color-on-filled` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface-filled) )`                                                                                                        | Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.                                                       |
-| `--ui-focus-ring-offset`            | `2px`                                                                                                                                                                                                           | Distance between a control and its focus ring.                                                                                                                                                                                   |
-| `--ui-focus-ring-width`             | `2px`                                                                                                                                                                                                           | Width of the focus ring.                                                                                                                                                                                                         |
-| `--ui-font-size-small`              | `var(--ui-font-size-200)`                                                                                                                                                                                       | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                          |
-| `--ui-font-weight-semibold`         | `var(--font-weight-6)`                                                                                                                                                                                          | Font weight for labels, table headers and titles.                                                                                                                                                                                |
-| `--ui-line-height-tight`            | `1.25`                                                                                                                                                                                                          | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                                                     |
-| `--ui-motion`                       | `1`                                                                                                                                                                                                             | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
-| `--ui-radius`                       | `var(--size-2)`                                                                                                                                                                                                 | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--ui-shadow-scroll`                | `var(--shadow-4)`                                                                                                                                                                                               | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                                         |
-| `--ui-space-1`                      | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-2`                      | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-3`                      | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-6`                      | `calc(var(--size-6) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-surface`                      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                               | Page and card background.                                                                                                                                                                                                        |
-| `--ui-surface-filled`               | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                                                                                                                                               | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
-| `--ui-text`                         | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`     | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                        |
-| `--ui-text-strong`                  | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                 |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ### Table column API
 
@@ -409,7 +464,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | ------- | ------------------------------------ |
 | `<col>` | A column, inside `TableColumnGroup`. |
 
-#### CSS variables
+### CSS variables
 
 | Variable                            | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                      |
 | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -436,7 +491,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-text`                         | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`     | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                        |
 | `--ui-text-strong`                  | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                 |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Component properties
 
@@ -621,7 +676,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - A checkbox alone in a cell is centered ([Normal](#normal)).
 - [Dense](#density) tables (`.ui-dense`) have less block padding.
-- Fields and selects in cells keep a `12ch` minimum width, in every [density](#density).
+- [Fields and selects in cells](#controls-in-cells) keep a `12ch` minimum width, in every density.
 - [Sticky header](#sticky-header) with `.ui-sticky-header`.
 - Breaking: `--_table-border-radius` is `--_radius` ([Under the hood](#under-the-hood)).
 - `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).

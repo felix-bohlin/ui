@@ -5,15 +5,15 @@
       appearance: none;
       aspect-ratio: 1;
       background-color: var(--ui-surface);
-      block-size: var(--_input-size);
+      block-size: var(--_size);
       border: var(--ui-field-border-width) solid
         var(--ui-choice-border-color, var(--ui-field-border-color));
       border-radius: var(--ui-radius-x-small);
       box-sizing: border-box;
       cursor: pointer;
       display: grid;
-      font-size: var(--_input-size);
-      inline-size: var(--_input-size);
+      font-size: var(--_size);
+      inline-size: var(--_size);
       margin: 0;
       padding: 0;
       place-items: center;

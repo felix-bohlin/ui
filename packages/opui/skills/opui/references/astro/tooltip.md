@@ -126,7 +126,7 @@ import { Button, Tooltip, TooltipContent } from "opui-css/astro"
 | --------- | ------------------------------------------ |
 | `default` | The trigger, followed by `TooltipContent`. |
 
-#### CSS variables
+### CSS variables
 
 | Variable                 | Default                                           | Description                                                                                                                                                                                               |
 | ------------------------ | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -143,7 +143,7 @@ import { Button, Tooltip, TooltipContent } from "opui-css/astro"
 | `--ui-space-4`           | `calc(var(--size-4) * var(--ui-space-scale))`     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                           |
 | `--ui-surface-inverse`   | `light-dark(var(--ui-gray-15), var(--ui-gray-2))` | Background of `Tooltip` and the `Carousel` buttons, inverted against the page.                                                                                                                            |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ## Component properties
 

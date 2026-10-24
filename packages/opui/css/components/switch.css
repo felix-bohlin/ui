@@ -10,7 +10,7 @@
         var(--_track-inline-size) - var(--_thumb-size) - var(--_thumb-inset) * 3
       )
     );
-    --_input-size: var(--_track-block-size);
+    --_size: var(--_track-block-size);
     --_thumb-bg-color: var(--ui-switch-thumb-bg-color);
     --_thumb-inset: round(
       down,

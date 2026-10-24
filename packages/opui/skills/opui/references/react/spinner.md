@@ -104,18 +104,18 @@ See [progress accessibility](https://open-props-ui.netlify.app/react/components/
 | -------------------- | ---------------------------------------------------------------------- |
 | `[aria-busy="true"]` | Renders a spinner pseudo-element on the element. Always indeterminate. |
 
-#### CSS variables
+These never show a spinner: `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>`. Neither do elements with `aria-describedby`, except buttons and links.
+
+Set `aria-busy="true"` on any element to show a spinner. There is no React component.
+
+### CSS variables
 
 | Variable                  | Default                | Description                                                                                                                                                                                                                                                                                                 |
 | ------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--ui-border-width-thick` | `var(--border-size-2)` | Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar. |
 | `--ui-motion`             | `1`                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/react/guide/theming.md#motion).                                                                                                   |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
-
-These never show a spinner: `<html>`, `<input>`, `<progress>`, `<select>` and `<textarea>`. Neither do elements with `aria-describedby`, except buttons and links.
-
-Set `aria-busy="true"` on any element to show a spinner. There is no React component.
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
 ## Component properties
 

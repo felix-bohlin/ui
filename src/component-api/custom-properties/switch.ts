@@ -20,10 +20,6 @@ export default {
       "Size of the `.ui-icon-checked` and `.ui-icon-unchecked` icons, computed to fit beside the thumb.",
     kind: "output",
   },
-  "--_input-size": {
-    description: "Height the label centers on, `--_track-block-size`.",
-    kind: "output",
-  },
   "--_motion": {
     description: "Motion multiplier for the transitions. `0` turns them off.",
     kind: "input",
@@ -32,6 +28,11 @@ export default {
     description:
       "Color of the checked thumb on `--_accent`. `SelectedItemText` in forced colors.",
     kind: "input",
+  },
+  "--_size": {
+    description:
+      "Height the label in `choice.css` centers on, `--_track-block-size`.",
+    kind: "output",
   },
   "--_thumb-bg-color": {
     description:

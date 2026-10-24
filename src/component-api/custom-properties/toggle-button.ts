@@ -24,11 +24,6 @@ export default {
     description: "Size of a direct child `svg`. Defaults to `--ui-icon-size`.",
     kind: "input",
   },
-  "--_min-block-size": {
-    description:
-      "Height and minimum width. Set by the size classes on the button or its group.",
-    kind: "input",
-  },
   "--_motion": {
     description:
       "Motion multiplier for the focus ring animation. `0` turns it off.",
@@ -37,6 +32,11 @@ export default {
   "--_selected-bg-color": {
     description:
       "Background of the checked button. `--ui-selected` when the theme sets it, otherwise `--ui-primary`.",
+    kind: "input",
+  },
+  "--_size": {
+    description:
+      "Height and minimum width. Defaults to `--ui-button-size`, set by the size classes on the button or its group.",
     kind: "input",
   },
 } satisfies CustomProperties

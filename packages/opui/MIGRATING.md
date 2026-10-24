@@ -286,6 +286,7 @@ Internal variables are private. Rename any overrides:
 | `--isLTR`, `--isRTL` | removed, the halo centers itself |
 | `--highlight-size`   | `--_ripple-size`                 |
 | `--thumb-scale`      | `--_thumb-scale`                 |
+| `--_input-size`      | `--_size`                        |
 
 The root selector is wrapped in `:where()`, like other components, so your own selectors win more easily. The input lines up with the first line of the label. In dark mode the marker stays light on a darkened fill.
 
@@ -528,7 +529,7 @@ In Astro and Vue, a drawer that opens from the inline start no longer renders `.
 
 ## Icon button
 
-`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `round` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-block-size: var(--size-4)`.
+`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `round` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_size: var(--size-4)`.
 
 ```diff
 - <IconButton aria-label="Edit">
@@ -646,6 +647,7 @@ Internal variables are private. Rename any overrides:
 | `--isLTR`, `--isRTL` | removed, the halo centers itself |
 | `--highlight-size`   | `--_ripple-size`                 |
 | `--thumb-scale`      | `--_thumb-scale`                 |
+| `--_input-size`      | `--_size`                        |
 
 Radios are `--ui-choice-size` (20px) like `Checkbox`, instead of 18px. The root selector is wrapped in `:where()`, the input lines up with the first line of the label, and the marker stays light on a darkened fill in dark mode.
 
@@ -822,11 +824,11 @@ In Astro, import the parts by their flat names: `TabsItem`, `TabsLabel` and `Tab
 + <TabsItem>
 ```
 
-Tabs look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone: use `--_active-bg-color`, `--_active-text-color`, `--_indicator-bg-color` and `--_track-bg-color`, or a `variant` (`filled`, `line`, `outlined`). The open panel has a `--ui-space-2` top margin, so remove any spacing you added above it.
+Tabs look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone: use `--_selected-bg-color`, `--_selected-text-color`, `--_indicator-bg-color` and `--_track-bg-color`, or a `variant` (`filled`, `line`, `outlined`). The open panel has a `--ui-space-2` top margin, so remove any spacing you added above it.
 
 ```diff
 - .ui-tabs { --_accent-color: var(--ui-critical); }
-+ .ui-tabs { --_active-text-color: var(--ui-critical); }
++ .ui-tabs { --_selected-text-color: var(--ui-critical); }
 ```
 
 `TabsItem` takes `id` and `TabsLabel` takes `for` (`htmlFor` in React) instead of `tabId`; when both are omitted the item still generates the id and hands it to its label.
@@ -1136,7 +1138,7 @@ Component borders read `--ui-border-width` (`Accordion`, `ButtonGroup`, `Callout
 
 Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick.
 
-Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size`, `--_radius` and `--_min-block-size` for sizes. A color says what it paints (`-bg-color`, `-text-color`, `-border-color`), sizes are logical (`-block-size`, `-inline-size`) and names aren't abbreviated. Rename them where you set them:
+Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size` for a control's size (the height, and the width of a square control), `--_radius` for corners, and `--_block-size` and `--_inline-size` for one axis of a box that isn't a control. A color says what it paints (`-bg-color`, `-text-color`, `-border-color`), sizes are logical (`-block-size`, `-inline-size`) and names aren't abbreviated. Rename them where you set them:
 
 | Component                   | Old                                                                     | New                                                                                                            |
 | --------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
@@ -1151,9 +1153,10 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Badge                       | `--_anchor-tx`, `--_anchor-ty`                                          | `--_shift-x`, `--_shift-y`                                                                                     |
 | Button                      | `--_color`, `--_color-contrast`, `--_color-tonal`                       | `--_accent`, `--_on-accent`, `--_accent-tonal`                                                                 |
 | Button                      | `--_border-radius`                                                      | `--_radius`                                                                                                    |
-| Button                      | `--_min-height`                                                         | `--_min-block-size`                                                                                            |
+| Button                      | `--_min-height`                                                         | `--_size`                                                                                                      |
 | Button                      | `--_accent-contrast`, `--_accent-tonal-contrast`                        | `--_on-accent`, `--_on-accent-tonal`                                                                           |
-| ButtonGroup                 | `--_border-radius`, `--_min-height`                                     | `--_radius`, `--_min-block-size`                                                                               |
+| ButtonGroup                 | `--_border-radius`                                                      | `--_radius`                                                                                                    |
+| ButtonGroup                 | `--_min-height`                                                         | removed, set `--_size` on the buttons                                                                          |
 | ButtonGroup                 | `--_divider-color`                                                      | `--_divider-border-color`                                                                                      |
 | Callout                     | `--_color`                                                              | `--_text-color`                                                                                                |
 | Callout                     | `--_outlined-color`                                                     | `--_outlined-text-color`                                                                                       |
@@ -1169,12 +1172,14 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`                        | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                             |
 | Card                        | `--_shadow-elevated`                                                    | `--_elevated-shadow`                                                                                           |
 | Card                        | `--_shadow-light`, `--_shadow-dark`                                     | removed, set `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark`, or `--_elevated-shadow` on the card |
+| Checkbox                    | `--_input-size`                                                         | `--_size`                                                                                                      |
 | Chip                        | `--_color`                                                              | `--_text-color`                                                                                                |
 | Drawer                      | `--_color`                                                              | `--_text-color`                                                                                                |
 | Drawer                      | `--_transition-duration`, `--_transition-timing`                        | `--_duration`, `--_ease`                                                                                       |
 | List                        | `--_bg-color-hover`                                                     | `--_hover-bg-color`                                                                                            |
 | normalize.css               | `--_page-bg-color`                                                      | removed, `html` reads `--ui-surface`                                                                           |
 | Progress                    | `--_accent-color`                                                       | `--_accent`                                                                                                    |
+| Radio                       | `--_input-size`                                                         | `--_size`                                                                                                      |
 | Range                       | `--_thumb-bg`                                                           | `--_thumb-bg-color`                                                                                            |
 | Range                       | `--_thumb-highlight-color`                                              | `--_thumb-highlight-bg-color`                                                                                  |
 | Range                       | `--_track-color`, `--_track-fill-color`                                 | `--_track-bg-color`, `--_track-fill-bg-color`                                                                  |
@@ -1187,11 +1192,10 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Switch                      | `--_dot-bg-color`, `--_dot-inset`, `--_dot-outline-size`, `--_dot-size` | `--_thumb-bg-color`, `--_thumb-inset`, `--_thumb-outline-size`, `--_thumb-size`                                |
 | Table                       | `--_table-border-radius`                                                | `--_radius`                                                                                                    |
 | TextField, Textarea, Select | `--_accent-color`                                                       | `--_accent`                                                                                                    |
-| TextField, Textarea, Select | `--_height`                                                             | `--_min-block-size`                                                                                            |
+| TextField, Textarea, Select | `--_height`                                                             | `--_size`                                                                                                      |
 | TextField, Textarea, Select | `--_label-color`                                                        | `--_affix-text-color`                                                                                          |
 | TextField, Textarea, Select | `--_end-text-color`                                                     | `--_helper-text-color`                                                                                         |
 | ToggleButton                | `--_button-bg-color`                                                    | `--_bg-color`                                                                                                  |
-| ToggleButton                | `--_size`                                                               | `--_min-block-size` (a minimum height)                                                                         |
 | ToggleButton                | `--_svg-size`                                                           | `--_icon-size` (direct child `svg`s only)                                                                      |
 | ToggleGroup                 | `--_border-radius`                                                      | `--_radius`                                                                                                    |
 | Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`                                     | `--_bg-color`, `--_text-color`                                                                                 |

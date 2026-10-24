@@ -138,7 +138,7 @@ export default function Arrow() {
 | `id`           | `string`    | -                    | The id of the tooltip. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with the same id to the trigger. Required.                                                          |
 | `positionArea` | `string`    | `"self-block-start"` | Any valid `position-area` value. Controls where the tooltip is placed. The `self-` keywords follow the tooltip's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
 
-#### CSS variables
+### CSS variables
 
 | Variable                 | Default                                           | Description                                                                                                                                                                                               |
 | ------------------------ | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -155,7 +155,7 @@ export default function Arrow() {
 | `--ui-space-4`           | `calc(var(--size-4) * var(--ui-space-scale))`     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                           |
 | `--ui-surface-inverse`   | `light-dark(var(--ui-gray-15), var(--ui-gray-2))` | Background of `Tooltip` and the `Carousel` buttons, inverted against the page.                                                                                                                            |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
 ## Component properties
 

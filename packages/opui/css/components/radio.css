@@ -3,10 +3,10 @@
     /* Input */
     input[type="radio"] {
       --_dot-radius: calc(
-        var(--_input-size) / 2 - var(--ui-field-border-width) -
+        var(--_size) / 2 - var(--ui-field-border-width) -
           round(
             down,
-            (var(--_input-size) - 2 * var(--ui-field-border-width)) / 4,
+            (var(--_size) - 2 * var(--ui-field-border-width)) / 4,
             1px
           )
       );
@@ -14,13 +14,13 @@
       appearance: none;
       aspect-ratio: 1;
       background-color: var(--ui-surface);
-      block-size: var(--_input-size);
+      block-size: var(--_size);
       border: var(--ui-field-border-width) solid
         var(--ui-choice-border-color, var(--ui-field-border-color));
       border-radius: var(--ui-radius-round);
       box-sizing: border-box;
       cursor: pointer;
-      inline-size: var(--_input-size);
+      inline-size: var(--_size);
       margin: 0;
       padding: 0;
       position: relative;

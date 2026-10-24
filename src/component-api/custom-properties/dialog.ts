@@ -22,7 +22,7 @@ export default {
   },
   "--_elevated-shadow": {
     description:
-      "Shadow of the dialog, through its `.ui-elevated` surface. Defaults to `--ui-shadow-overlay`, like `Drawer` and `Menu`.",
+      "Shadow of the dialog. `card.css` declares it for `.ui-elevated` surfaces, and the dialog sets it to `--ui-shadow-overlay`, like `Drawer` and `Menu`.",
     kind: "input",
   },
   "--_max-inline-size": {

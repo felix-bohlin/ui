@@ -26,7 +26,6 @@ export default {
       "How far a text button at the start or end of `Card`, `Accordion` and `Dialog` actions pulls itself out, so its label lines up with the content: its padding and border, capped so the focus ring stays inside the card.",
     kind: "output",
   },
-
   "--_bg-color": {
     description:
       "The current background. Set by the variant, hover and active states.",
@@ -72,11 +71,7 @@ export default {
   },
   "--_icon-size": {
     description:
-      "The size of a direct child `svg`. Icon-only buttons scale it with `--_min-block-size`.",
-    kind: "input",
-  },
-  "--_min-block-size": {
-    description: "The height. Set by the size classes.",
+      "The size of a direct child `svg`. Icon-only buttons scale it with `--_size`.",
     kind: "input",
   },
   "--_motion": {
@@ -136,6 +131,11 @@ export default {
     description:
       "The shadow. `--ui-shadow-control` on `.ui-filled`, `.ui-outlined` and `.ui-tonal`, `--ui-button-hover-shadow` on hover when a theme sets it, none on text buttons.",
     kind: "output",
+  },
+  "--_size": {
+    description:
+      "The height, and the width of an icon-only button. Defaults to `--ui-button-size`, set by the size classes.",
+    kind: "input",
   },
   "--_text-color": {
     description:

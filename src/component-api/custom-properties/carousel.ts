@@ -98,7 +98,6 @@ export default {
       "Shadow room on the inline axis. The part of `--_shadow-room` that the peek doesn't give, at most `--_gap` so the next item stays hidden, and all of it in `.ui-vertical`.",
     kind: "output",
   },
-
   "--_item-size": {
     description:
       "The size of each item, from `--_items-per-view` and `--_gap`.",
@@ -106,16 +105,6 @@ export default {
   },
   "--_items-per-view": {
     description: "Number of items per view.",
-    kind: "input",
-  },
-  "--_marker-active-bg-color": {
-    description:
-      "Fill and ring of the current marker. Defaults to `--ui-selected-strong`.",
-    kind: "input",
-  },
-  "--_marker-active-padding": {
-    description:
-      "Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`.",
     kind: "input",
   },
   "--_marker-bg-color": {
@@ -134,6 +123,16 @@ export default {
   "--_marker-label": {
     description:
       "Accessible label of each marker, followed by the item number.",
+    kind: "input",
+  },
+  "--_marker-selected-bg-color": {
+    description:
+      "Fill and ring of the current marker. Defaults to `--ui-selected-strong`.",
+    kind: "input",
+  },
+  "--_marker-selected-padding": {
+    description:
+      "Inset of the current marker's dot, smaller than the `--ui-space-2` of the other markers, so the current dot is larger. Defaults to `--ui-space-1`.",
     kind: "input",
   },
   "--_marker-size": {
@@ -180,7 +179,6 @@ export default {
 
     kind: "input",
   },
-
   "--_snap-align": {
     description: "Snap alignment of items. `.ui-align-center` sets `center`.",
     kind: "input",

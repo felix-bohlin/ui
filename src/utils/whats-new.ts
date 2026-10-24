@@ -147,7 +147,7 @@ const whatsNew = {
     ),
   ],
   button: [
-    `Breaking: <code>--_border-radius</code> is <code>--_radius</code> and <code>--_min-height</code> is <code>--_min-block-size</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_border-radius</code> is <code>--_radius</code> and <code>--_min-height</code> is <code>--_size</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `The file input takes <code>--ui-shadow-field</code> and <code>--ui-radius-small</code> like other fields.`,
     `Primary tonal buttons read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-on-primary-tonal</code> when a theme sets them.`,
     {
@@ -191,7 +191,7 @@ const whatsNew = {
     ),
   ],
   "button-group": [
-    `Breaking: <code>--_border-radius</code>, <code>--_min-height</code> and <code>--_divider-color</code> are <code>--_radius</code>, <code>--_min-block-size</code> and <code>--_divider-border-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_border-radius</code> and <code>--_divider-color</code> are <code>--_radius</code> and <code>--_divider-border-color</code>, and <code>--_min-height</code> is gone: set <code>--_size</code> on the buttons (<a href="#under-the-hood">Under the hood</a>).`,
     `The inset focus ring sits at <code>--ui-focus-ring-inset</code>, and the dividers stay visible in forced colors.`,
     `Buttons in a group draw their focus ring with <code>--ui-focus-ring-color</code>, and filled groups keep <code>currentColor</code> dividers whatever the theme sets.`,
     `Primary tonal groups read <a href="#api"><code>--ui-primary-tonal</code></a> and <code>--ui-on-primary-tonal</code> when a theme sets them.`,
@@ -320,7 +320,7 @@ const whatsNew = {
     `The unchecked border reads <a href="#api"><code>--ui-choice-border-color</code></a> when a theme sets it, and <code>--ui-field-border-color</code>, which reaches 3:1 against the page by default, when it doesn't.`,
     `The checked fill and mark read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code> when a theme sets them.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
-    `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code> and <code>--thumb-scale</code> is <code>--_thumb-scale</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code> and <code>--_input-size</code> is <code>--_size</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
     `Without a <a href="#hidden-label">visible label</a>, checkboxes center in table cells and lines of text, and stay a 24px click target at every size.`,
     {
       ...slots(
@@ -681,7 +681,7 @@ const whatsNew = {
     `The checked fill and dot read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code> when a theme sets them.`,
     `<a href="#sizes">Radios</a> are 20px, the same <code>--ui-choice-size</code> as Checkbox.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
-    `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code> and <code>--thumb-scale</code> is <code>--_thumb-scale</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code> and <code>--_input-size</code> is <code>--_size</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
     `Without a <a href="#hidden-label">visible label</a>, radios center in table cells and lines of text, and stay a 24px click target at every size.`,
     {
       default: `<a href="#spread">Spread</a> with the <code>spread</code> prop, like Checkbox and Switch.`,
@@ -823,7 +823,7 @@ const whatsNew = {
       ),
       html: `Breaking: mark an invalid select with <code>aria-invalid="true"</code> on the <code>&lt;select&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
-    `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_min-block-size</code>, <code>--_label-color</code> is <code>--_affix-text-color</code> and <code>--_end-text-color</code> is <code>--_helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, <code>--_label-color</code> is <code>--_affix-text-color</code> and <code>--_end-text-color</code> is <code>--_helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     components(
       `Breaking: <a href="#preselected"><code>items</code></a> takes <code>SelectItem[]</code>, exported under that name.`,
     ),
@@ -954,7 +954,7 @@ const whatsNew = {
     {
       astro: `Breaking: import the parts by their flat names, such as <a href="#api"><code>TabsItem</code></a>. The <code>Tabs.Item</code> aliases are gone.`,
     },
-    `Breaking: <a href="#basics">restyled</a> as a segmented control. <code>--_accent-color</code> and <code>--_bg-color</code> are gone, use a <a href="#filled">variant</a> or <code>--_active-bg-color</code>, <code>--_active-text-color</code>, <code>--_indicator-bg-color</code> and <code>--_track-bg-color</code>.`,
+    `Breaking: <a href="#basics">restyled</a> as a segmented control. <code>--_accent-color</code> and <code>--_bg-color</code> are gone, use a <a href="#filled">variant</a> or <code>--_selected-bg-color</code>, <code>--_selected-text-color</code>, <code>--_indicator-bg-color</code> and <code>--_track-bg-color</code>.`,
     {
       ...slots(
         `Breaking: no <code>tablist</code>, <code>tab</code> or <code>tabpanel</code> roles, so screen readers announce the <a href="#accessibility">radio group</a> they are. <code>TabsItem</code> and <code>TabsPanel</code> no longer take <code>panelId</code>, and <code>TabsPanel</code> no longer takes <code>tabId</code>.`,
@@ -1033,7 +1033,7 @@ const whatsNew = {
       ),
       html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;input&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
-    `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_min-block-size</code>, <code>--_label-color</code> is <code>--_affix-text-color</code> and <code>--_end-text-color</code> is <code>--_helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, <code>--_label-color</code> is <code>--_affix-text-color</code> and <code>--_end-text-color</code> is <code>--_helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     components(
       `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
     ),
@@ -1085,7 +1085,7 @@ const whatsNew = {
       ),
       html: `Breaking: mark an invalid field with <code>aria-invalid="true"</code> on the <code>&lt;textarea&gt;</code> instead of <code>data-invalid</code> on the root (<a href="#validation">Validation</a>).`,
     },
-    `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_min-block-size</code>, <code>--_label-color</code> is <code>--_affix-text-color</code> and <code>--_end-text-color</code> is <code>--_helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>--_accent-color</code> is <code>--_accent</code>, <code>--_height</code> is <code>--_size</code>, <code>--_label-color</code> is <code>--_affix-text-color</code> and <code>--_end-text-color</code> is <code>--_helper-text-color</code> (<a href="#under-the-hood">Under the hood</a>).`,
     components(
       `Breaking: <a href="#start-text"><code>startText</code></a> replaces <code>description</code>, matching <code>endText</code>. <code>supportingText</code> is gone, use <a href="#end-text"><code>endText</code></a>.`,
     ),
@@ -1117,7 +1117,7 @@ const whatsNew = {
       html: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>.ui-overflow-scroll</code> or truncates with <code>.ui-overflow-shrink</code>.`,
     },
     `Breaking: no <code>.ui-disabled</code>. A <a href="#toggle-button">toggle</a> looks disabled when its input is <code>disabled</code>.`,
-    `Breaking: <code>ToggleButton</code> <code>--_button-bg-color</code> is <code>--_bg-color</code>, <code>--_size</code> is <code>--_min-block-size</code> and <code>--_svg-size</code> is <code>--_icon-size</code>, which sizes direct child <code>svg</code>s like Button (<a href="#under-the-hood">Under the hood</a>).`,
+    `Breaking: <code>ToggleButton</code> <code>--_button-bg-color</code> is <code>--_bg-color</code> and <code>--_svg-size</code> is <code>--_icon-size</code>, which sizes direct child <code>svg</code>s like Button (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
       `Breaking: <a href="#sizes"><code>size="default"</code></a> is <code>size="medium"</code> on <code>ToggleGroup</code>, like every sized component.`,
     ),

@@ -151,7 +151,9 @@ Add the `.ui-arrow` class on the `.ui-tooltip`. This would be cool to solve with
 | `& > :first-child` | The trigger that shows the tooltip on hover and focus. |
 | `.ui-floating`     | The tooltip, a `popover="hint"`.                       |
 
-#### CSS variables
+Give `.ui-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
+
+### CSS variables
 
 | Variable                 | Default                                           | Description                                                                                                                                                                                              |
 | ------------------------ | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -168,9 +170,7 @@ Add the `.ui-arrow` class on the `.ui-tooltip`. This would be cool to solve with
 | `--ui-space-4`           | `calc(var(--size-4) * var(--ui-space-scale))`     | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                          |
 | `--ui-surface-inverse`   | `light-dark(var(--ui-gray-15), var(--ui-gray-2))` | Background of `Tooltip` and the `Carousel` buttons, inverted against the page.                                                                                                                           |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
-
-Give `.ui-floating` `popover="hint"` and an id. Add `interestfor`, plus `commandfor` and `command="toggle-popover"` for touch, with that id to the trigger.
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Component properties
 

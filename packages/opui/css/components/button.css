@@ -50,7 +50,6 @@
     );
     --_font-size: var(--ui-font-size-control);
     --_icon-size: 0.7lh;
-    --_min-block-size: var(--ui-button-size);
     --_on-accent: var(--ui-button-on-accent, var(--ui-palette-on-strong));
     --_on-accent-tonal: var(--_accent);
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
@@ -62,6 +61,7 @@
     --_padding-inline: var(--ui-button-padding-inline, 1.5ex);
     --_radius: var(--ui-button-radius, var(--ui-radius));
     --_shadow: none;
+    --_size: var(--ui-button-size);
     --_text-color: var(--_accent-text);
     --_tonal-active-bg-color: var(--_outlined-active-bg-color);
     --_tonal-active-text-color: var(--_on-accent);
@@ -112,10 +112,10 @@
     font-weight: var(--ui-button-font-weight, var(--ui-font-weight-bold));
     gap: var(--ui-space-2);
     justify-content: center;
-    min-block-size: var(--_min-block-size);
+    min-block-size: var(--_size);
     padding-block: min(
       0.5ex,
-      max(0px, (var(--_min-block-size) - 1lh - var(--_border-width) * 2) / 2)
+      max(0px, (var(--_size) - 1lh - var(--_border-width) * 2) / 2)
     );
     padding-inline: var(--_padding-inline);
     text-align: center;
@@ -221,28 +221,28 @@
     &.ui-x-small,
     :where(.ui-button-group.ui-x-small) > & {
       --_font-size: var(--ui-font-size-caption);
-      --_min-block-size: var(--ui-button-size-x-small);
       --_padding-inline: var(--ui-button-padding-inline-x-small, 1ex);
+      --_size: var(--ui-button-size-x-small);
       padding-block: 0;
     }
 
     &.ui-small,
     :where(.ui-button-group.ui-small) > & {
       --_font-size: var(--ui-font-size-small);
-      --_min-block-size: var(--ui-button-size-small);
       --_padding-inline: var(--ui-button-padding-inline-small, 1.25ex);
+      --_size: var(--ui-button-size-small);
       padding-block: 0;
     }
 
     &.ui-large,
     :where(.ui-button-group.ui-large) > & {
-      --_min-block-size: var(--ui-button-size-large);
       --_padding-inline: var(--ui-button-padding-inline-large, 2.5ex);
+      --_size: var(--ui-button-size-large);
     }
 
     &:where(:has(> svg:only-child)) {
-      --_icon-size: calc(var(--_min-block-size) * 0.6);
-      min-inline-size: var(--_min-block-size);
+      --_icon-size: calc(var(--_size) * 0.6);
+      min-inline-size: var(--_size);
       padding-inline: 0;
     }
 

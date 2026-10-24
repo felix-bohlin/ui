@@ -610,7 +610,7 @@ cold-brew 1.0.0</samp></pre>
 | --------------- | --------------------------------------------------- |
 | `.ui-rich-text` | Classless typography for uncontrolled child markup. |
 
-#### CSS variables
+### CSS variables
 
 | Variable                         | Default                                                                                                                                                                                                               | Description                                                                                                                                                                                                                                                                                                                                                                                                          |
 | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -654,7 +654,7 @@ cold-brew 1.0.0</samp></pre>
 | `--ui-underline-offset-small`    | `1px`                                                                                                                                                                                                                 | Gap between text and the underline of `abbr`, `dfn`, `ins` and `u` and their classes. Firefox uses `--ui-underline-offset`.                                                                                                                                                                                                                                                                                          |
 | `--ui-underline-thickness-hover` | `3px`                                                                                                                                                                                                                 | Underline thickness of `Link` and rich text links on hover and keyboard focus. At rest they keep the font's own thickness.                                                                                                                                                                                                                                                                                           |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
 ## Component properties
 
@@ -662,19 +662,18 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 ### link.css
 
-| Property        | Kind  | Description                                                |
-| --------------- | ----- | ---------------------------------------------------------- |
-| `--_text-color` | Input | Text and underline color. Defaults to `--ui-primary-text`. |
+| Property        | Kind  | Description                                                                                                                    |
+| --------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `--_text-color` | Input | Text and underline color of `.ui-link` and of links without a `ui-` class in `.ui-rich-text`. Defaults to `--ui-primary-text`. |
 
 ### typography.css
 
-| Property          | Kind   | Description                                                                                                  |
-| ----------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
-| `--_count-digits` | Output | Digits reserved for the numbers of an `ol`, from its number of items.                                        |
-| `--_flow-gap`     | Input  | Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it.             |
-| `--_font-scale`   | Output | Ratio of `1em` to `1rem` that scales heading sizes with the surrounding font size.                           |
-| `--_start-digits` | Output | Digits reserved for the numbers of an `ol`, from its `start` attribute.                                      |
-| `--_text-color`   | Input  | Text and underline color of links without a `ui-` class in `.ui-rich-text`. Defaults to `--ui-primary-text`. |
+| Property          | Kind   | Description                                                                                      |
+| ----------------- | ------ | ------------------------------------------------------------------------------------------------ |
+| `--_count-digits` | Output | Digits reserved for the numbers of an `ol`, from its number of items.                            |
+| `--_flow-gap`     | Input  | Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it. |
+| `--_font-scale`   | Output | Ratio of `1em` to `1rem` that scales heading sizes with the surrounding font size.               |
+| `--_start-digits` | Output | Digits reserved for the numbers of an `ol`, from its `start` attribute.                          |
 
 ## Under the hood
 
@@ -858,3 +857,4 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Headings read [`--ui-font-heading`](#api), and code, `kbd`, `samp` and `.ui-var` read `--ui-font-code`. Rich text margins read the `--ui-space-*` scale.
 - [Links](#link) read `--ui-primary-text`, which keeps 4.5:1 on every surface, in a List too.
 - [Links](#link) and [underlined text](#inline-text-elements) read `--ui-underline-offset`, `--ui-underline-offset-small` and `--ui-underline-thickness-hover`.
+- [Rich text links](#link) are styled by `link.css`, with one rule for `.ui-link` and classless links. Install it next to `typography.css`.

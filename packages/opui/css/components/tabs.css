@@ -1,16 +1,6 @@
 @layer components.root {
   :where(.ui-tabs) {
     --_motion: var(--ui-motion);
-    --_active-bg-color: light-dark(
-      var(--ui-surface),
-      oklch(100% 0 0 / var(--ui-state-hover-alpha-dark))
-    );
-    --_active-border-color: var(
-      --ui-control-border-color,
-      var(--ui-field-border-color)
-    );
-    --_active-shadow: var(--ui-shadow-selected);
-    --_active-text-color: var(--ui-text-strong);
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_ease: var(--ui-ease);
     --_focus-ring-duration: calc(var(--ui-duration) * var(--_motion));
@@ -18,6 +8,16 @@
     --_indicator-size: var(--ui-border-width-thick);
     --_inset: calc(var(--ui-space-1) - var(--_track-border-width));
     --_radius: var(--ui-radius);
+    --_selected-bg-color: light-dark(
+      var(--ui-surface),
+      oklch(100% 0 0 / var(--ui-state-hover-alpha-dark))
+    );
+    --_selected-border-color: var(
+      --ui-control-border-color,
+      var(--ui-field-border-color)
+    );
+    --_selected-shadow: var(--ui-shadow-selected);
+    --_selected-text-color: var(--ui-text-strong);
     --_text-color: var(--ui-text);
     --_track-bg-color: var(--ui-surface-tonal);
     --_track-border-color: transparent;
@@ -35,12 +35,12 @@
       &:checked {
         /* Checked Tab */
         & + .ui-label {
-          color: var(--_active-text-color);
+          color: var(--_selected-text-color);
 
           &::before {
-            background-color: var(--_active-bg-color);
-            border-color: var(--_active-border-color);
-            box-shadow: var(--_active-shadow);
+            background-color: var(--_selected-bg-color);
+            border-color: var(--_selected-border-color);
+            box-shadow: var(--_selected-shadow);
           }
 
           &::after {
@@ -163,17 +163,17 @@
     }
 
     &.ui-filled {
-      --_active-bg-color: var(--ui-selected-strong);
-      --_active-border-color: transparent;
-      --_active-text-color: var(--ui-on-selected-strong);
+      --_selected-bg-color: var(--ui-selected-strong);
+      --_selected-border-color: transparent;
+      --_selected-text-color: var(--ui-on-selected-strong);
     }
 
     &.ui-line {
-      --_active-bg-color: transparent;
-      --_active-border-color: transparent;
-      --_active-shadow: none;
       --_indicator-bg-color: var(--ui-text-strong);
       --_inset: 0px;
+      --_selected-bg-color: transparent;
+      --_selected-border-color: transparent;
+      --_selected-shadow: none;
       --_track-bg-color: transparent;
       --_track-border-width: 0px;
 
@@ -181,9 +181,9 @@
     }
 
     &.ui-outlined {
-      --_active-bg-color: var(--ui-surface-tonal);
-      --_active-border-color: transparent;
-      --_active-shadow: none;
+      --_selected-bg-color: var(--ui-surface-tonal);
+      --_selected-border-color: transparent;
+      --_selected-shadow: none;
       --_track-bg-color: transparent;
       --_track-border-color: var(
         --ui-control-border-color,
@@ -248,10 +248,10 @@
       }
 
       & > .ui-input:checked + .ui-label {
-        --_active-bg-color: SelectedItem;
-        --_active-border-color: SelectedItem;
-        --_active-text-color: SelectedItemText;
         --_indicator-bg-color: SelectedItem;
+        --_selected-bg-color: SelectedItem;
+        --_selected-border-color: SelectedItem;
+        --_selected-text-color: SelectedItemText;
         --_track-bg-color: Canvas;
         --ui-focus-ring-color: CanvasText;
 

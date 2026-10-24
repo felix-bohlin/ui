@@ -49,6 +49,7 @@ Change the cell padding with `density="dense"` or `density="spacious"`. The defa
 ```astro
 ---
 import {
+  Checkbox,
   Table,
   TableBody,
   TableCaption,
@@ -64,6 +65,9 @@ import {
   <TableCaption>Band Members</TableCaption>
   <TableHead>
     <TableRow>
+      <TableHeaderCell>
+        <Checkbox hideLabel>Select all</Checkbox>
+      </TableHeaderCell>
       <TableHeaderCell>Band</TableHeaderCell>
       <TableHeaderCell>Name</TableHeaderCell>
       <TableHeaderCell>Instrument</TableHeaderCell>
@@ -71,21 +75,33 @@ import {
   </TableHead>
   <TableBody>
     <TableRow>
+      <TableCell>
+        <Checkbox hideLabel>Select James Mercer</Checkbox>
+      </TableCell>
       <TableCell>Broken Bells</TableCell>
       <TableCell>James Mercer</TableCell>
       <TableCell>Vocals/Guitar</TableCell>
     </TableRow>
     <TableRow>
+      <TableCell>
+        <Checkbox hideLabel>Select Jonathan Davis</Checkbox>
+      </TableCell>
       <TableCell>Korn</TableCell>
       <TableCell>Jonathan Davis</TableCell>
       <TableCell>Vocals</TableCell>
     </TableRow>
     <TableRow>
+      <TableCell>
+        <Checkbox hideLabel>Select David Gilmour</Checkbox>
+      </TableCell>
       <TableCell>Pink Floyd</TableCell>
       <TableCell>David Gilmour</TableCell>
       <TableCell>Guitar/Vocals</TableCell>
     </TableRow>
     <TableRow>
+      <TableCell>
+        <Checkbox hideLabel>Select Ed O'Brien</Checkbox>
+      </TableCell>
       <TableCell>Radiohead</TableCell>
       <TableCell>Ed O'Brien</TableCell>
       <TableCell>Guitar/Vocals</TableCell>
@@ -93,7 +109,7 @@ import {
   </TableBody>
   <TableFoot>
     <TableRow>
-      <TableCell colspan={3}>All great bands!</TableCell>
+      <TableCell colspan={4}>4 members</TableCell>
     </TableRow>
   </TableFoot>
 </Table>
@@ -172,6 +188,82 @@ import {
       <TableCell>Radiohead</TableCell>
       <TableCell>Ed O'Brien</TableCell>
       <TableCell>Guitar/Vocals</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+## Controls in cells
+
+A `TextField` or `Select` in a cell keeps a `12ch` minimum width, in every density. Set `hideLabel` and name the row in `label`, since the column header isn't part of the control's name.
+
+```astro
+---
+import {
+  Select,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  TextField,
+} from "opui-css/astro"
+
+const instruments = [
+  { label: "Bass", value: "bass" },
+  { label: "Drums", value: "drums" },
+  { label: "Guitar", value: "guitar" },
+  { label: "Vocals", value: "vocals" },
+]
+---
+
+<Table density="dense">
+  <TableCaption>Band Members</TableCaption>
+  <TableHead>
+    <TableRow>
+      <TableHeaderCell>Name</TableHeaderCell>
+      <TableHeaderCell>Instrument</TableHeaderCell>
+      <TableHeaderCell>Notes</TableHeaderCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell>Jonathan Davis</TableCell>
+      <TableCell>
+        <Select
+          hideLabel
+          items={instruments}
+          label="Instrument for Jonathan Davis"
+          value="vocals"
+        />
+      </TableCell>
+      <TableCell>
+        <TextField
+          hideLabel
+          label="Notes for Jonathan Davis"
+          placeholder="Add a note"
+        />
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Ed O'Brien</TableCell>
+      <TableCell>
+        <Select
+          hideLabel
+          items={instruments}
+          label="Instrument for Ed O'Brien"
+          value="guitar"
+        />
+      </TableCell>
+      <TableCell>
+        <TextField
+          hideLabel
+          label="Notes for Ed O'Brien"
+          placeholder="Add a note"
+        />
+      </TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -354,7 +446,7 @@ import {
   </TableBody>
   <TableFoot>
     <TableRow>
-      <TableCell colspan={6}>Scandinavia != The Nordics</TableCell>
+      <TableCell colspan={6}>5 countries</TableCell>
     </TableRow>
   </TableFoot>
 </Table>
@@ -381,35 +473,6 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 | --------- | ------------------- |
 | `default` | The table sections. |
 
-#### CSS variables
-
-| Variable                            | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                      |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-color`                 | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                         |
-| `--ui-border-color-on-filled`       | `light-dark( var(--ui-gray-6), var(--ui-gray-12) )`                                                                                                                                                             | Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.                                                                                 |
-| `--ui-border-width`                 | `1px`                                                                                                                                                                                                           | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--ui-duration`                     | `0.2s`                                                                                                                                                                                                          | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                        |
-| `--ui-ease`                         | `ease`                                                                                                                                                                                                          | Default easing for transitions.                                                                                                                                                                                                  |
-| `--ui-field-border-color-on-filled` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface-filled) )`                                                                                                        | Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.                                                       |
-| `--ui-focus-ring-offset`            | `2px`                                                                                                                                                                                                           | Distance between a control and its focus ring.                                                                                                                                                                                   |
-| `--ui-focus-ring-width`             | `2px`                                                                                                                                                                                                           | Width of the focus ring.                                                                                                                                                                                                         |
-| `--ui-font-size-small`              | `var(--ui-font-size-200)`                                                                                                                                                                                       | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                          |
-| `--ui-font-weight-semibold`         | `var(--font-weight-6)`                                                                                                                                                                                          | Font weight for labels, table headers and titles.                                                                                                                                                                                |
-| `--ui-line-height-tight`            | `1.25`                                                                                                                                                                                                          | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                                                     |
-| `--ui-motion`                       | `1`                                                                                                                                                                                                             | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).                        |
-| `--ui-radius`                       | `var(--size-2)`                                                                                                                                                                                                 | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--ui-shadow-scroll`                | `var(--shadow-4)`                                                                                                                                                                                               | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                                         |
-| `--ui-space-1`                      | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-2`                      | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-3`                      | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-6`                      | `calc(var(--size-6) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-surface`                      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                               | Page and card background.                                                                                                                                                                                                        |
-| `--ui-surface-filled`               | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                                                                                                                                               | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
-| `--ui-text`                         | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`     | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                        |
-| `--ui-text-strong`                  | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                 |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
-
 Set column widths with `TableColumnGroup` and `TableColumn`.
 
 ### Table column group API
@@ -420,42 +483,13 @@ Set column widths with `TableColumnGroup` and `TableColumn`.
 | --------- | ------------------- |
 | `default` | The `TableColumn`s. |
 
-#### CSS variables
-
-| Variable                            | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                      |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-color`                 | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                         |
-| `--ui-border-color-on-filled`       | `light-dark( var(--ui-gray-6), var(--ui-gray-12) )`                                                                                                                                                             | Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.                                                                                 |
-| `--ui-border-width`                 | `1px`                                                                                                                                                                                                           | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--ui-duration`                     | `0.2s`                                                                                                                                                                                                          | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                        |
-| `--ui-ease`                         | `ease`                                                                                                                                                                                                          | Default easing for transitions.                                                                                                                                                                                                  |
-| `--ui-field-border-color-on-filled` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface-filled) )`                                                                                                        | Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.                                                       |
-| `--ui-focus-ring-offset`            | `2px`                                                                                                                                                                                                           | Distance between a control and its focus ring.                                                                                                                                                                                   |
-| `--ui-focus-ring-width`             | `2px`                                                                                                                                                                                                           | Width of the focus ring.                                                                                                                                                                                                         |
-| `--ui-font-size-small`              | `var(--ui-font-size-200)`                                                                                                                                                                                       | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                          |
-| `--ui-font-weight-semibold`         | `var(--font-weight-6)`                                                                                                                                                                                          | Font weight for labels, table headers and titles.                                                                                                                                                                                |
-| `--ui-line-height-tight`            | `1.25`                                                                                                                                                                                                          | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                                                     |
-| `--ui-motion`                       | `1`                                                                                                                                                                                                             | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).                        |
-| `--ui-radius`                       | `var(--size-2)`                                                                                                                                                                                                 | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--ui-shadow-scroll`                | `var(--shadow-4)`                                                                                                                                                                                               | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                                         |
-| `--ui-space-1`                      | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-2`                      | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-3`                      | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-6`                      | `calc(var(--size-6) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-surface`                      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                               | Page and card background.                                                                                                                                                                                                        |
-| `--ui-surface-filled`               | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                                                                                                                                               | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
-| `--ui-text`                         | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`     | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                        |
-| `--ui-text-strong`                  | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                 |
-
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
-
 ### Table column API
 
 | Prop    | Type     | Default | Description                            |
 | ------- | -------- | ------- | -------------------------------------- |
 | `width` | `string` | -       | The column width, merged into `style`. |
 
-#### CSS variables
+### CSS variables
 
 | Variable                            | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                      |
 | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -482,7 +516,7 @@ This component uses these theme tokens. Override them on `html` or on a wrapper.
 | `--ui-text`                         | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`     | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                        |
 | `--ui-text-strong`                  | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                 |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
 ## Component properties
 
@@ -671,7 +705,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: the part files are `TableBody.*`, `TableCell.*`, `TableColumn.*`, `TableColumnGroup.*`, `TableHead.*`, `TableHeaderCell.*` and `TableRow.*`. Update deep `opui-css/components/*` imports ([API](#api)).
 - A checkbox alone in a cell is centered ([Normal](#normal)).
 - [Dense](#density) tables have less block padding.
-- Fields and selects in cells keep a `12ch` minimum width, in every [density](#density).
+- [Fields and selects in cells](#controls-in-cells) keep a `12ch` minimum width, in every density.
 - [Sticky header](#sticky-header) with the `stickyHeader` prop.
 - Breaking: `--_table-border-radius` is `--_radius` ([Under the hood](#under-the-hood)).
 - Breaking: [`TableColumn` `width`](#api) takes a CSS length; a declaration string such as `"min-width: 10rem"` is no longer parsed, pass `style` instead.

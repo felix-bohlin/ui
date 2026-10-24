@@ -54,7 +54,7 @@ export default {
   },
   "--_field-padding-block-fit": {
     description:
-      "The block padding in use, `--_field-padding-block` capped to fit `--_min-block-size`.",
+      "The block padding in use, `--_field-padding-block` capped to fit `--_size`.",
     kind: "output",
   },
   "--_field-padding-inline": {
@@ -71,13 +71,13 @@ export default {
       "The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-text-color`, set by the invalid state.",
     kind: "output",
   },
-  "--_min-block-size": {
-    description:
-      "The minimum height of `.ui-field`. Defaults to `--ui-field-size`, set by the size classes.",
-    kind: "input",
-  },
   "--_motion": {
     description: "Motion multiplier for the transitions. `0` turns them off.",
+    kind: "input",
+  },
+  "--_size": {
+    description:
+      "The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes.",
     kind: "input",
   },
 } satisfies CustomProperties

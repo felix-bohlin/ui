@@ -103,7 +103,7 @@ import { Card, CardContent, Divider } from "opui-css/vue"
 | --------- | -------------------------------------------------------------- |
 | `default` | Optional content in the middle of the line. Renders a `<div>`. |
 
-#### CSS variables
+### CSS variables
 
 | Variable                 | Default                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                    |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -118,7 +118,7 @@ import { Card, CardContent, Divider } from "opui-css/vue"
 | `--ui-surface-tonal`     | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                        | Background of tonal variants.                                                                                                                                                                                                                  |
 | `--ui-text`              | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`              | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                                      |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
 ## Component properties
 

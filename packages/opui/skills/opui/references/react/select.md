@@ -283,7 +283,7 @@ export default function Preselected() {
 
 ## Option groups
 
-Wrap options in a `<div role="group">` and start it with a `<label class="ui-text">` to group them under a heading.
+Wrap options in a `<div role="group">` and start it with a `<label class="ui-text">` to group them under a heading. The heading takes any content, but it doesn't name the group for screen readers.
 
 ```tsx
 import { Select } from "opui-css/react"
@@ -302,6 +302,32 @@ export default function Grouped() {
         <option>Saab</option>
         <option>Volvo</option>
       </div>
+    </Select>
+  )
+}
+```
+
+### Optgroup
+
+An `<optgroup>` names its group natively through its `label` attribute. Give it a `<legend>` with the same text first in the group: it gets the heading styles in a customizable select, while browsers without one show the `label` in their own picker.
+
+```tsx
+import { Select } from "opui-css/react"
+
+export default function GroupedOptgroup() {
+  return (
+    <Select label="Car">
+      <option value="">Select car</option>
+      <optgroup label="French cars">
+        <legend>French cars</legend>
+        <option>Citroën</option>
+        <option>Renault</option>
+      </optgroup>
+      <optgroup label="Swedish cars">
+        <legend>Swedish cars</legend>
+        <option>Saab</option>
+        <option>Volvo</option>
+      </optgroup>
     </Select>
   )
 }
@@ -339,7 +365,7 @@ export default function Validation() {
         <Select
           label="Label"
           error
-          endText="Supporting text"
+          endText="Pick another option."
           defaultValue="Wrong option"
         >
           <option value="">-</option>
@@ -352,7 +378,7 @@ export default function Validation() {
           label="Label"
           variant="filled"
           error
-          endText="Supporting text"
+          endText="Pick another option."
           defaultValue="Wrong option"
         >
           <option value="">-</option>
@@ -481,6 +507,28 @@ export default function Spread() {
 }
 ```
 
+## Auto-fit
+
+Use `autoFit` to let the field's width follow the selected option, from `25ch`.
+
+```tsx
+import { Select } from "opui-css/react"
+
+export default function AutoFit() {
+  return (
+    <Select
+      autoFit
+      items={[
+        { label: "Citroën", value: "citroen" },
+        { label: "Renault", value: "renault" },
+        { label: "Volvo", value: "volvo" },
+      ]}
+      label="Car"
+    />
+  )
+}
+```
+
 ## Accessibility
 
 `appearance: base-select` only changes how the select looks. The browser keeps the behavior of a native `<select>`:
@@ -501,6 +549,7 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 
 | Prop        | Type                                             | Default      | Description                                                                                                |
 | ----------- | ------------------------------------------------ | ------------ | ---------------------------------------------------------------------------------------------------------- |
+| `autoFit`   | `boolean`                                        | `false`      | Lets the width follow the selected option, from `25ch`.                                                    |
 | `bottom`    | `ReactNode`                                      | -            | Content below the select, inside the border, with a divider.                                               |
 | `children`  | `ReactNode`                                      | -            | Extra `<option>` and `<optgroup>` elements.                                                                |
 | `dense`     | `boolean`                                        | `false`      | Packs the items tighter.                                                                                   |
@@ -518,7 +567,9 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `top`       | `ReactNode`                                      | -            | Content above the select, inside the border, with a divider.                                               |
 | `variant`   | `"filled"` , `"outlined"`                        | `"outlined"` | The variant to use.                                                                                        |
 
-#### CSS variables
+Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`.
+
+### CSS variables
 
 | Variable                              | Default                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                          |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -528,11 +579,12 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `--ui-border-width-thick`             | `var(--border-size-2)`                                                                                                                                                                                                   | Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar.                                                                                                          |
 | `--ui-choice-size-small`              | `calc(var(--size-3) * var(--ui-density))`                                                                                                                                                                                | `Checkbox` and `Radio` input size with `.ui-small`, and in dense `List` rows unless the control has a size class.                                                                                                                                                                                                                                                                                                    |
 | `--ui-control-size`                   | `calc(40px * var(--ui-density))`                                                                                                                                                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                                                                                                                                                                                                                        |
+| `--ui-control-size-small`             | `calc(32px * var(--ui-density))`                                                                                                                                                                                         | Shared small height for fields and buttons.                                                                                                                                                                                                                                                                                                                                                                          |
 | `--ui-disabled-opacity`               | `0.64`                                                                                                                                                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                                                                                                                                                                                                                |
 | `--ui-duration`                       | `0.2s`                                                                                                                                                                                                                   | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                                                                                                                                                                                            |
 | `--ui-ease`                           | `ease`                                                                                                                                                                                                                   | Default easing for transitions.                                                                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-field-bg-color`                 | Unset                                                                                                                                                                                                                    | Background of `TextField`, `Textarea` and `Select` fields. When unset, `--ui-surface`, the page color.                                                                                                                                                                                                                                                                                                               |
-| `--ui-field-border-color`             | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )`                                                                                                                        | Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch`, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.                                                          |
+| `--ui-field-border-color`             | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )`                                                                                                                        | Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.                 |
 | `--ui-field-border-color-on-filled`   | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface-filled) )`                                                                                                                 | Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.                                                                                                                                                                                                                                           |
 | `--ui-field-border-width`             | `1px`                                                                                                                                                                                                                    | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                                                                                                                                                                                                           |
 | `--ui-field-helper-font-size`         | `var(--ui-font-size-caption)`                                                                                                                                                                                            | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                                                                                                                     |
@@ -582,7 +634,6 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `--ui-space-3`                        | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-space-4`                        | `calc(var(--size-4) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-space-6`                        | `calc(var(--size-6) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-7`                        | `calc(var(--size-7) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 7: Open Props `--size-7` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-state-active-alpha-accent`      | `25%`                                                                                                                                                                                                                    | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                                    |
 | `--ui-state-hover-alpha-accent`       | `15%`                                                                                                                                                                                                                    | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-surface`                        | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                                        | Page and card background.                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -596,9 +647,7 @@ Browsers without customizable select drop the `<button>` and the list wrapper fr
 | `--ui-text`                           | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`              | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                                                                                                                                                                                                            |
 | `--ui-text-strong`                    | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                                        | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                                                                                                                                                                                                     |
 
-This component uses these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
-
-Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`.
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/react/guide/theme-tokens.md).
 
 ## Component properties
 
@@ -612,25 +661,27 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 ### text-field.css
 
-| Property                     | Kind   | Description                                                                                                                                                    |
-| ---------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid. |
-| `--_affix-text-color`        | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text`, set by the invalid state.                                    |
-| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                              |
-| `--_arrow-padding`           | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                      |
-| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                |
-| `--_border-color`            | Output | The current border color of `.ui-field` and the `.ui-top` and `.ui-bottom` dividers. Set by the invalid state.                                                 |
-| `--_chevron-image`           | Input  | The select arrow, as an image used for a mask.                                                                                                                 |
-| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                                          |
-| `--_duration`                | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                                       |
-| `--_ease`                    | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                                            |
-| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                                                                           |
-| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_min-block-size`.                                                                          |
-| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                                                                            |
-| `--_font-size`               | Input  | The font size of the control and affixes.                                                                                                                      |
-| `--_helper-text-color`       | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-text-color`, set by the invalid state.                                |
-| `--_min-block-size`          | Input  | The minimum height of `.ui-field`. Defaults to `--ui-field-size`, set by the size classes.                                                                     |
-| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                                                     |
+A dependency, from [Text Field](https://open-props-ui.netlify.app/react/components/text-field.md).
+
+| Property                     | Kind   | Description                                                                                                                                                     |
+| ---------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--_accent`                  | Input  | Border color of `.ui-field` when focused with a pointer; keyboard focus shows the focus ring instead. Defaults to `--ui-primary`, `--ui-invalid` when invalid.  |
+| `--_affix-text-color`        | Output | The current color of `.ui-start`, `.ui-end`, `.ui-top` and `.ui-bottom`. Defaults to `--ui-text`, set by the invalid state.                                     |
+| `--_arrow-inset`             | Input  | Distance of the select arrow from the inline end.                                                                                                               |
+| `--_arrow-padding`           | Output | Inline-end padding that keeps text clear of the select and `datalist` arrow, from `--_arrow-inset` and `--_chevron-size`.                                       |
+| `--_bg-color`                | Output | The current background of `.ui-field`. Set by `.ui-filled` and its hover state.                                                                                 |
+| `--_border-color`            | Output | The current border color of `.ui-field` and the `.ui-top` and `.ui-bottom` dividers. Set by the invalid state.                                                  |
+| `--_chevron-image`           | Input  | The select arrow, as an image used for a mask.                                                                                                                  |
+| `--_chevron-size`            | Input  | Width and height of the select arrow.                                                                                                                           |
+| `--_duration`                | Output | Duration of the transitions and focus ring animation, `--ui-duration` times `--_motion`.                                                                        |
+| `--_ease`                    | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                                             |
+| `--_field-padding-block`     | Input  | The preferred block padding of the control. Set by the size classes.                                                                                            |
+| `--_field-padding-block-fit` | Output | The block padding in use, `--_field-padding-block` capped to fit `--_size`.                                                                                     |
+| `--_field-padding-inline`    | Input  | The inline padding of the control and affixes. `.ui-large` sets it.                                                                                             |
+| `--_font-size`               | Input  | The font size of the control and affixes.                                                                                                                       |
+| `--_helper-text-color`       | Output | The current color of `.ui-start-text` and `.ui-end-text`. Defaults to `--ui-field-helper-text-color`, set by the invalid state.                                 |
+| `--_motion`                  | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                                                      |
+| `--_size`                    | Input  | The height of `.ui-field`, a minimum so a textarea can grow, and the width and height of a color field. Defaults to `--ui-field-size`, set by the size classes. |
 
 ## Under the hood
 
@@ -850,7 +901,7 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - [Spread](#spread) fields line up at one width.
 - [Preselect](#preselected) options with `value` or `selected` on an item.
 - The [arrow](#variants) is a chevron.
-- Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_min-block-size`, `--_label-color` is `--_affix-text-color` and `--_end-text-color` is `--_helper-text-color` ([Under the hood](#under-the-hood)).
+- Breaking: `--_accent-color` is `--_accent`, `--_height` is `--_size`, `--_label-color` is `--_affix-text-color` and `--_end-text-color` is `--_helper-text-color` ([Under the hood](#under-the-hood)).
 - Breaking: [`items`](#preselected) takes `SelectItem[]`, exported under that name.
 - Breaking: `ClassicSelect` is gone. Use `Select`, which falls back to the browser's own picker ([Fallback](#fallback)).
 - Breaking: `startText` replaces `description`, matching `endText` ([Spread](#spread)).
@@ -859,3 +910,5 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - The field reads [`--ui-shadow-field`](#api), or `--ui-shadow-control` when a theme leaves it unset.
 - The [filled](#variants) hover reads `--ui-surface-tonal-hover`, shared with clickable chips.
 - [Sizes](#sizes) name the default: `size="medium"`.
+- [`autoFit`](#auto-fit) lets the width follow the selected option, from `25ch`.
+- [`<optgroup>`](#optgroup) groups get the heading styles, with a `<legend>` as the heading.

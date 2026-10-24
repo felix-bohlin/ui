@@ -490,7 +490,10 @@ A new token follows the naming model, so each word means one thing:
 Private `--_*` properties follow the same suffixes as component tokens, so one word means one thing in every stylesheet:
 
 - `--_radius`, never `--_border-radius`.
-- Logical sizes only: `--_min-block-size`, `--_inline-size`, never `--_min-height` or `--_width`.
+- Logical sizes only: `--_block-size`, `--_inline-size`, never `--_height` or `--_width`.
+- `--_size` is a control's size, the private side of the `--ui-*-size` tokens the size classes set: the height, and the width of a square control (`Avatar`, `Button`, `Checkbox`, `Radio`, `ToggleButton`). The CSS property it feeds (`block-size`, `min-block-size`, `inline-size`) doesn't change the name, and a part's size takes the part's prefix (`--_icon-size`, `--_thumb-size`, `--_track-block-size`). A box that isn't a control names its axis like the CSS property: `--_block-size` and `--_inline-size` (`Carousel`, `Drawer`), `--_max-inline-size` (`Dialog`, `Tooltip`), `--_min-block-size` (`Menu`). Never `--_input-size` or `--_min-height`.
+- `selected` names the chosen item (a selected tab, row, option or marker, a checked toggle button): `--_selected-bg-color`, `--_marker-selected-bg-color`. `active` only names the `:active` press, next to `hover`: `--_filled-active-bg-color`, `--_filled-hover-bg-color`.
+- A stylesheet that styles several components declares their shared properties once, and a component it styles sets them in its own file instead of declaring a second property for the same job: `card.css` declares `--_elevated-shadow` for `.ui-accordion`, `.ui-card` and `.ui-dialog`, and `dialog.css` sets it to `--ui-shadow-overlay`; `choice.css` declares `--_size` for `.ui-checkbox`, `.ui-radio` and `.ui-switch`, and `switch.css` sets it to the track height. Both `custom-properties` files document the property.
 - `-gap` is the distance between siblings, `-padding` an inset and `-margin` an outside offset. Never `-space`.
 - No abbreviations: `--_shift-x` and `--_direction`, never `--_tx` or `--_dir`.
 - A value that is neither a length nor a color is named by its type: `--_<part>-image`, `--_<part>-label`, `--_<part>-fraction`.

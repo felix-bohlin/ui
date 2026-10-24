@@ -55,4 +55,14 @@
     --ui-text-strong: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
     --ui-track-bg-color: var(--ui-field-border-color);
   }
+
+  @media (prefers-contrast: more) {
+    :where(html:not(.ui-contrast-normal)) {
+      --ui-field-helper-text-color: var(--ui-text);
+    }
+  }
+
+  :where(.ui-contrast-more) {
+    --ui-field-helper-text-color: var(--ui-text);
+  }
 }

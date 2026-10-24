@@ -81,8 +81,12 @@ describe("theme tokens", () => {
   })
 
   test("dark overrides are read from the dark rules", () => {
+    expect(find("--ui-shadow-color")).toEqual({
+      dark: "220 40% 2%",
+      name: "--ui-shadow-color",
+      value: "220 3% 15%",
+    })
     expect(find("--ui-palette-hue")).toEqual({
-      dark: "var(--hue-blue)",
       name: "--ui-palette-hue",
       value: "var(--hue-green)",
     })
@@ -143,7 +147,7 @@ describe("theme tokens", () => {
   test("every store token exists in theme.css", () => {
     for (const token of TOKENS) expect(find(token)).toBeDefined()
     expect(tokenDefaults("light")["--ui-palette-hue"]).toBe("145")
-    expect(tokenDefaults("dark")["--ui-palette-hue"]).toBe("240")
+    expect(tokenDefaults("dark")["--ui-palette-hue"]).toBe("145")
     expect(tokenDefaults("light")["--ui-radius"]).toBe("var(--size-2)")
   })
 
@@ -227,7 +231,7 @@ describe("generateCss", () => {
 
   test("leaves out dark values that the light block and defaults already give", () => {
     const css = generateCss({
-      dark: { "--ui-radius": "0", "--ui-palette-hue": "240" },
+      dark: { "--ui-radius": "0", "--ui-palette-hue": "145" },
       light: { "--ui-radius": "0" },
     })
     expect(css).toContain("--ui-radius: 0;")

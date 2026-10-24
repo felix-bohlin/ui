@@ -135,9 +135,9 @@
 
   /* Code */
   :where(.ui-kbd, .ui-var) {
-    background-color: var(--ui-text);
+    background-color: var(--ui-surface-inverse);
     border-radius: var(--ui-radius-small);
-    color: var(--ui-text-subtle-on-inverse);
+    color: var(--ui-on-inverse);
     font-family: var(--ui-font-code);
     overflow-wrap: anywhere;
     padding-block: calc(0.1ex + var(--ui-border-width));
@@ -718,9 +718,9 @@
     }
 
     :where(kbd, var) {
-      background-color: var(--ui-text);
+      background-color: var(--ui-surface-inverse);
       border-radius: var(--ui-radius-small);
-      color: var(--ui-text-subtle-on-inverse);
+      color: var(--ui-on-inverse);
       padding-block: calc(0.1ex + var(--ui-border-width));
       padding-inline: calc(0.3ex + var(--ui-border-width));
     }

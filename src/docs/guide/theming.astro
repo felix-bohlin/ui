@@ -47,10 +47,6 @@ import Example from "../../components/Example/index"
   --ui-palette-chroma: 0.5;
   --ui-palette-hue: var(--hue-green);
   --ui-palette-hue-rotate-by: 0;
-}
-
-:where(html.ui-dark) {
-  --ui-palette-hue: var(--hue-blue);
 }`}
       lang="css"
     />
@@ -122,14 +118,13 @@ import Example from "../../components/Example/index"
     </ul>
     <p>
       On an element, <code>.ui-dark</code> and <code>.ui-light</code> only pick the
-      other side of <code>light-dark()</code>. The hue, and the shadow color and
-      strength, still come from the page, so a <code>.ui-dark</code> box on a light
-      page stays green; <code>--ui-shadow-elevated</code> and the surface and text
-      colors switch with the scheme. Add
-      <code>.ui-palette</code> with the dark hue to match dark mode:
+      other side of <code>light-dark()</code>. The shadow color and strength
+      still come from the page; <code>--ui-shadow-elevated</code> and the surface
+      and text colors switch with the scheme. Add <code>.ui-palette</code> with your
+      own knobs to give a part of the page its own palette:
     </p>
     <Code
-      code={`<aside class="ui-dark ui-palette" style="--ui-palette-hue: var(--hue-blue)">
+      code={`<aside class="ui-dark">
   Always dark
 </aside>
 

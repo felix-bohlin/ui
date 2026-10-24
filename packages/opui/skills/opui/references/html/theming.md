@@ -16,10 +16,6 @@ One hue and chroma in `theme.css` become a source color, `--ui-palette-source`, 
   --ui-palette-hue: var(--hue-green);
   --ui-palette-hue-rotate-by: 0;
 }
-
-:where(html.ui-dark) {
-  --ui-palette-hue: var(--hue-blue);
-}
 ```
 
 - `--ui-palette-chroma` scales the saturation, from `0` (gray) to `1`.
@@ -43,10 +39,10 @@ A scope class re-themes an element and everything inside it.
 - `.ui-light` and `.ui-dark` force a color scheme.
 - `.ui-palette` re-derives the palette and every derived token (colors, control sizes, spacing, type roles and radii) from the knobs the element sets or inherits. `.ui-contrast-more` does the same with the contrast knobs tightened.
 
-On an element, `.ui-dark` and `.ui-light` only pick the other side of `light-dark()`. The hue, and the shadow color and strength, still come from the page, so a `.ui-dark` box on a light page stays green; `--ui-shadow-elevated` and the surface and text colors switch with the scheme. Add `.ui-palette` with the dark hue to match dark mode:
+On an element, `.ui-dark` and `.ui-light` only pick the other side of `light-dark()`. The shadow color and strength still come from the page; `--ui-shadow-elevated` and the surface and text colors switch with the scheme. Add `.ui-palette` with your own knobs to give a part of the page its own palette:
 
 ```html
-<aside class="ui-dark ui-palette" style="--ui-palette-hue: var(--hue-blue)">
+<aside class="ui-dark">
   Always dark
 </aside>
 

@@ -199,7 +199,6 @@
   }
 
   :where(html.ui-dark) {
-    --ui-palette-hue: var(--hue-blue);
     --ui-shadow-color: 220 40% 2%;
     --ui-shadow-strength: 20%;
   }
@@ -210,7 +209,6 @@
     }
 
     :where(html:not(.ui-light)) {
-      --ui-palette-hue: var(--hue-blue);
       --ui-shadow-color: 220 40% 2%;
       --ui-shadow-elevated: var(--ui-shadow-elevated-dark);
       --ui-shadow-strength: 20%;
@@ -513,10 +511,6 @@
       var(--ui-surface)
     );
     --ui-on-inverse: light-dark(var(--ui-gray-1), var(--ui-gray-15));
-    --ui-text-subtle-on-inverse: light-dark(
-      var(--ui-gray-4),
-      var(--ui-gray-13)
-    );
     --ui-on-accent: var(--ui-gray-1);
 
     /* Surfaces */

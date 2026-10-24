@@ -1079,7 +1079,7 @@ These tokens also have a new name, so adding the prefix isn't enough:
 | `--primary-contrast`      | `--ui-on-primary`                                         |
 | `--surface-default`       | `--ui-surface`                                            |
 | `--text-muted`            | `--ui-text`                                               |
-| `--text-muted-contrast`   | `--ui-text-subtle-on-inverse`                             |
+| `--text-muted-contrast`   | removed, use `--ui-on-inverse` on `--ui-surface-inverse`  |
 | `--text-primary`          | `--ui-text-strong`                                        |
 | `--text-primary-contrast` | `--ui-on-inverse`                                         |
 
@@ -1108,6 +1108,22 @@ These tokens also have a new name, so adding the prefix isn't enough:
 ```
 
 A theme pins a role by setting it, and the scope classes `.ui-palette` and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-palette, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`.
+
+The default palette is green in both color schemes. v5 switched it to blue in dark mode; to keep that, set the hue for dark mode yourself:
+
+```css
+@layer theme.custom {
+  :where(html.ui-dark) {
+    --ui-palette-hue: var(--hue-blue);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :where(html:not(.ui-light)) {
+      --ui-palette-hue: var(--hue-blue);
+    }
+  }
+}
+```
 
 `theme.css` is in the `theme.base` layer, and `layers.css` adds an empty `theme.custom` layer after it for your own tokens. Overrides in `@layer theme` keep working and now beat the defaults wherever they load. If you copied a complete `theme.css` from the Theme generator, replace it with a new `custom-theme.css` from the generator: it only lists the tokens you changed, so it won't miss tokens added in later releases.
 

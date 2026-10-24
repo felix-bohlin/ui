@@ -32,7 +32,6 @@ export const themeTokenPromises: Record<string, TokenPromise> = {
   "--ui-success-text": { against: SURFACES, ratio: 4.5 },
   "--ui-text": { against: ["--ui-surface"], ratio: 4.5 },
   "--ui-text-strong": { against: ["--ui-surface"], ratio: 4.5 },
-  "--ui-text-subtle-on-inverse": { against: ["--ui-text"], ratio: 4.5 },
   "--ui-warning-text": { against: SURFACES, ratio: 4.5 },
 }
 

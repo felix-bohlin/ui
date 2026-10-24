@@ -53,7 +53,7 @@ export const TOKENS = [
 // Defaults must mirror what `packages/opui/css/theme.css` ships
 // so the configurators (drawer + generator) reflect the live site palette
 // before the user has tweaked anything. theme.css sets --ui-palette-hue to
-// Open Props' --hue-green (145) in light mode and --hue-blue (240) in dark.
+// Open Props' --hue-green (145) in both color schemes.
 const HUES = Object.fromEntries(
   [...huesSource.matchAll(/(--hue-[\w-]+):\s*([\d.]+)/g)].map(
     ([, name, value]) => [name, value],

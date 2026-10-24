@@ -283,7 +283,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-palette-chroma":
     "Chroma of the palette source color, as a multiplier of `0.21`.",
   "--ui-palette-hue":
-    "Hue of the palette source color in degrees. Green in light mode and blue in dark mode by default.",
+    "Hue of the palette source color in degrees. Open Props' `--hue-green` by default, in both color schemes.",
   "--ui-palette-hue-rotate-by":
     "Hue drift per palette step in degrees: each step rotates one more time than the last, so `1` spreads 15° across the ramp. The severity scopes use `1` for livelier tints, the brand palette `0`.",
   "--ui-palette-on-strong": "Text color on `--ui-palette-strong`.",
@@ -395,7 +395,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-surface-filled":
     "Background of filled areas such as progress tracks and table stripes.",
   "--ui-surface-inverse":
-    "Background of `Tooltip` and the `Carousel` buttons, inverted against the page.",
+    "Background of `Tooltip`, the `Carousel` buttons and `kbd`, `var`, `.ui-kbd` and `.ui-var`, inverted against the page.",
   "--ui-surface-tonal": "Background of tonal variants.",
   "--ui-surface-tonal-hover":
     "Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s and filled `TextField`, `Select` and `Textarea` fields. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.",
@@ -444,8 +444,6 @@ export const themeTokenDescriptions: Record<string, string> = {
     "How much of `--ui-text-strong` is mixed into `--ui-surface` for `--ui-text` in light mode. `87%`, and `90%` with more contrast.",
   "--ui-text-strong":
     "Strongest text color, for headings, labels and values. Body text is `--ui-text`.",
-  "--ui-text-subtle-on-inverse":
-    "Subtle text color on an inverted fill: `kbd` and `var`, drawn on `--ui-text`.",
   "--ui-track-bg-color":
     "The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch `--ui-switch-track-bg-color`.",
   "--ui-underline-offset":

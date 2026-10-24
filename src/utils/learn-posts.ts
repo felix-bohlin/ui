@@ -17,7 +17,6 @@ export const posts = [
     description:
       "interpolate-size and ::details-content let a details element transition to its natural height.",
     features: ["details-content", "interpolate-size"],
-    level: "intermediate",
     now: "`interpolate-size: allow-keywords` and `::details-content` transition a `<details>` to its natural height.",
     slug: "accordion-height-auto",
     technique: "interpolate-size",
@@ -33,7 +32,6 @@ export const posts = [
     description:
       "interestfor, popover=hint and anchor positioning open a hover card on hover and focus.",
     features: ["anchor-positioning", "interest-invokers", "popover-hint"],
-    level: "advanced",
     now: '`interestfor` and `popover="hint"` open it on hover and focus, and anchor positioning places it.',
     slug: "anchor-hover-cards",
     technique: "interestfor",
@@ -48,7 +46,6 @@ export const posts = [
     date: "2026-10-02",
     description: "aspect-ratio, :has(img) and corner-shape for avatars.",
     features: ["aspect-ratio", "corner-shape", "has"],
-    level: "beginner",
     now: "`corner-shape: squircle` draws the corner, and `aspect-ratio: 1` keeps the avatar square.",
     slug: "avatar-squircles",
     technique: "corner-shape",
@@ -63,7 +60,6 @@ export const posts = [
     date: "2026-10-02",
     description: ":has(> svg:only-child) turns any Button into an icon button.",
     features: ["has"],
-    level: "beginner",
     now: "`:has(> svg:only-child)` lets the button see that it only holds an icon.",
     slug: "button-icon-only-has",
     technique: ":has()",
@@ -79,7 +75,6 @@ export const posts = [
     description:
       "Relative colors and light-dark() derive every severity shade from one color.",
     features: ["light-dark", "relative-color"],
-    level: "intermediate",
     now: "One `--ui-palette-source` per severity, and `oklch(from …)` derives every shade.",
     slug: "callout-relative-colors",
     technique: "oklch(from …)",
@@ -95,7 +90,6 @@ export const posts = [
     description:
       "Scroll snap, ::scroll-button() and ::scroll-marker: a carousel without JavaScript.",
     features: ["scroll-buttons", "scroll-markers", "scroll-snap"],
-    level: "advanced",
     now: "`::scroll-button()` and `::scroll-marker` generate focusable buttons and dots.",
     slug: "carousel-css-only",
     technique: "::scroll-button()",
@@ -111,7 +105,6 @@ export const posts = [
     description:
       "appearance: none, a clip-path checkmark and system colors for a native checkbox.",
     features: ["appearance", "clip-path"],
-    level: "intermediate",
     now: "`appearance: none` lets the real input draw its own box and check.",
     slug: "checkbox-appearance-none",
     technique: "appearance: none",
@@ -127,7 +120,6 @@ export const posts = [
     description:
       "A container query and a grid pseudo-element draw dotted leader lines.",
     features: ["container-queries"],
-    level: "intermediate",
     now: "A grid per pair with a dotted `::after` between term and description, and a container query for the column.",
     slug: "description-list-leader-lines",
     technique: "@container",
@@ -143,7 +135,6 @@ export const posts = [
     description:
       "Invoker commands, closedby and @starting-style for modal dialogs.",
     features: ["dialog-closedby", "invoker-commands", "starting-style"],
-    level: "intermediate",
     now: "`commandfor`, `command` and `closedby` open and close it, and `@starting-style` fades it in.",
     slug: "dialog-closedby",
     technique: "closedby",
@@ -159,7 +150,6 @@ export const posts = [
     description:
       "A dialog that slides in from any edge, and out again with allow-discrete.",
     features: ["overlay", "starting-style", "transition-behavior"],
-    level: "intermediate",
     now: "A modal `<dialog>` that slides with `translate`, `@starting-style` and `allow-discrete`.",
     slug: "drawer-starting-style",
     technique: "@starting-style",
@@ -175,7 +165,6 @@ export const posts = [
     description:
       ":has() lets fieldsets and legends style themselves from what they contain.",
     features: ["has"],
-    level: "beginner",
     now: "`:has()` lets the fieldset and legend style themselves from their content.",
     slug: "form-fieldset-has",
     technique: ":has(:required)",
@@ -191,7 +180,6 @@ export const posts = [
     description:
       "Popover, invoker commands and anchor positioning: a menu with no JavaScript.",
     features: ["anchor-positioning", "invoker-commands", "popover"],
-    level: "intermediate",
     now: "`popover`, invoker commands and anchor positioning, with the trigger as the implicit anchor.",
     slug: "menu-popover-anchor",
     technique: "popover",
@@ -207,7 +195,6 @@ export const posts = [
     description:
       "appearance: none and :indeterminate on the native progress element.",
     features: ["appearance", "container-style-queries", "indeterminate"],
-    level: "intermediate",
     now: "The native `<progress>` with `appearance: none`, so the role and the value stay native.",
     slug: "progress-native",
     technique: ":indeterminate",
@@ -223,7 +210,6 @@ export const posts = [
     description:
       "A scroll-driven gradient fill and datalist tick marks for input range.",
     features: ["datalist", "input-range", "scroll-driven-animations"],
-    level: "intermediate",
     now: "A scroll-driven animation on the thumb fills the track, and `display: flex` brings the `<datalist>` labels back.",
     slug: "range-tick-marks",
     technique: "<datalist>",
@@ -239,7 +225,6 @@ export const posts = [
     description:
       "appearance: base-select, ::picker(select) and :open for a fully styled select.",
     features: ["customizable-select", "open-pseudo"],
-    level: "advanced",
     now: "`appearance: base-select` makes the real `<select>` stylable, with `<selectedcontent>` and `::picker(select)`.",
     slug: "select-base-select",
     technique: "base-select",
@@ -254,7 +239,6 @@ export const posts = [
     date: "2026-10-02",
     description: "aria-busy=true is all it takes to show a spinner.",
     features: ["animations-css", "not"],
-    level: "beginner",
     now: '`[aria-busy="true"]` is the only switch, and a `::before` ring spins.',
     slug: "spinner-aria-busy",
     technique: "aria-busy",
@@ -269,10 +253,9 @@ export const posts = [
     date: "2026-10-02",
     description: "A native checkbox, appearance: none and an outline trick.",
     features: ["appearance", "light-dark"],
-    level: "intermediate",
     now: '`<input type="checkbox" role="switch">` with `appearance: none` draws its own track and dot.',
     slug: "switch-checkbox",
-    technique: "light-dark()",
+    technique: "appearance: none",
     title: "A switch from a checkbox",
     topics: ["color", "forms"],
   },
@@ -285,11 +268,10 @@ export const posts = [
     description:
       "scroll-state() container queries give a stuck table header and a scrolled dialog their shadows.",
     features: ["anchor-positioning", "container-scroll-state-queries"],
-    level: "advanced",
     now: "`container-type: scroll-state` and `@container scroll-state(stuck: block-start)` show the shadow.",
     slug: "table-scroll-state",
     technique: "scroll-state()",
-    title: "A header that knows it’s stuck",
+    title: "A header that knows it's stuck",
     topics: ["layout"],
   },
   {
@@ -300,7 +282,6 @@ export const posts = [
     date: "2026-10-02",
     description: "Radio inputs, order and :nth-child(of S) for CSS-only tabs.",
     features: ["nth-child-of"],
-    level: "intermediate",
     now: "One radio group, and `:checked + label + panel` shows the right panel.",
     slug: "tabs-radio-buttons",
     technique: ":nth-child(of S)",
@@ -315,7 +296,6 @@ export const posts = [
     description:
       ":user-invalid shows errors after the user interacts, not on page load.",
     features: ["user-pseudos"],
-    level: "beginner",
     now: "`:user-invalid` only matches after the user has changed the field.",
     slug: "text-field-user-invalid",
     technique: ":user-invalid",
@@ -331,7 +311,6 @@ export const posts = [
     description:
       "field-sizing: content and lh units for auto-growing textareas.",
     features: ["field-sizing", "lh"],
-    level: "beginner",
     now: "`field-sizing: content` grows and shrinks the textarea with its text.",
     slug: "textarea-field-sizing",
     technique: "field-sizing",
@@ -346,11 +325,15 @@ export const posts = [
     date: "2026-10-02",
     description:
       "interestfor, calc-size() and @position-try for tooltips that stay on screen.",
-    features: ["calc-size", "interest-invokers", "popover-hint"],
-    level: "advanced",
-    now: '`interestfor`, `popover="hint"` and anchor positioning.',
+    features: [
+      "anchor-positioning",
+      "calc-size",
+      "interest-invokers",
+      "popover-hint",
+    ],
+    now: '`interestfor` and `popover="hint"` open it on hover and focus, and anchor positioning keeps it on screen.',
     slug: "tooltip-interest-invokers",
-    technique: "calc-size()",
+    technique: "interestfor",
     title: "Tooltips with interestfor",
     topics: ["popups"],
   },
@@ -363,7 +346,6 @@ export const posts = [
     description:
       "progress() turns the viewport width into one 0 to 1 ramp that every heading size shares.",
     features: ["progress-function"],
-    level: "intermediate",
     navLabel: "Typography: fluid type",
     now: "`progress(100vi, start, end)` is one shared ramp, and each heading mixes its two steps with it.",
     slug: "fluid-type-progress",
@@ -377,8 +359,7 @@ export const posts = [
     component: "typography",
     date: "2026-10-02",
     description: "round() snaps line heights and font sizes to a rhythm step.",
-    features: ["lh", "round-mod-rem"],
-    level: "advanced",
+    features: ["registered-custom-properties", "round-mod-rem"],
     navLabel: "Typography: rhythm",
     now: "`round(up, value, step)` snaps every line height to the grid at computed time.",
     slug: "vertical-rhythm-round",

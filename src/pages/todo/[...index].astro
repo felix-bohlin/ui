@@ -12,6 +12,7 @@ import {
   Radio,
   ToggleButton,
 } from "opui-css/astro"
+import { createHash } from "node:crypto"
 import CommentField from "../../components/Todo/CommentField.astro"
 import CopyFallback from "../../components/Todo/CopyFallback.astro"
 import InlineText from "../../components/Todo/InlineText.astro"
@@ -21,6 +22,7 @@ import {
   fixOptions,
   parseTodo,
   plainText,
+  replyOf,
   slugify,
   stressRefs,
 } from "../../utils/todo"
@@ -80,7 +82,12 @@ const todoSections = sections.map((section) => ({
   items: section.items.map((item) => ({
     ...item,
     ...fixOptions(item.notes),
+    ...replyOf(item.notes),
     examples: examplesFor(item.text),
+    version: createHash("sha1")
+      .update(JSON.stringify([item.line, item.notes]))
+      .digest("hex")
+      .slice(0, 12),
   })),
 }))
 
@@ -122,6 +129,9 @@ const count = itemCount(sections)
               class="todo-item"
               data-todo-key={slugify(item.text)}
               data-todo-line={item.line}
+              data-todo-reply={JSON.stringify(item.reply)}
+              data-todo-state={item.state}
+              data-todo-version={item.version}
             >
               <button class="todo-summary" type="button">
                 <span class="todo-summary-text">
@@ -134,6 +144,15 @@ const count = itemCount(sections)
                   <Chip
                     class="todo-severity"
                     label={`Severity ${item.severity}`}
+                    size="small"
+                    variant="tonal"
+                  />
+                )}
+                {!showDone && item.state === "follow-up" && (
+                  <Chip
+                    class="todo-follow-up"
+                    label="Follow-up"
+                    severity="info"
                     size="small"
                     variant="tonal"
                   />
@@ -259,6 +278,7 @@ const count = itemCount(sections)
 
   const storageKey = "opui-todo-comments"
   const actionsKey = "opui-todo-actions"
+  const versionsKey = "opui-todo-versions"
 
   const readActions = () => readStored<Record<string, string>>(actionsKey, {})
   const writeActions = (actions: Record<string, string>) =>
@@ -266,6 +286,43 @@ const count = itemCount(sections)
 
   const items = [...document.querySelectorAll<HTMLElement>(".todo-item")]
   const keyOf = (item: HTMLElement) => item.dataset.todoKey!
+  const replyOf = (item: HTMLElement): string[] =>
+    JSON.parse(item.dataset.todoReply!)
+
+  const readVersions = () => readStored<Record<string, string>>(versionsKey, {})
+  const answerLines = (lines: string[]) =>
+    lines
+      .map((line) =>
+        line
+          .trim()
+          .replace(/^(>\s?)?(- )?/, "")
+          .replace(/\s+/g, " "),
+      )
+      .filter(Boolean)
+
+  const dropRecorded = () => {
+    const comments = readStored<Record<string, string>>(storageKey, {})
+    const actions = readActions()
+    const versions = readVersions()
+    for (const item of items) {
+      const key = keyOf(item)
+      if (versions[key] === item.dataset.todoVersion) continue
+      const answer = answerLines([
+        ...(actions[key] ? [actions[key]] : []),
+        ...(comments[key]?.split("\n") ?? []),
+      ])
+      const reply = answerLines(replyOf(item))
+      if (!answer.length || answer.join("\n") !== reply.join("\n")) continue
+      delete comments[key]
+      delete actions[key]
+      delete versions[key]
+    }
+    writeStored(storageKey, comments)
+    writeActions(actions)
+    writeStored(versionsKey, versions)
+  }
+
+  dropRecorded()
   const actionsOf = (item: HTMLElement) => [
     ...item.querySelectorAll<HTMLInputElement>(".todo-action input"),
   ]
@@ -306,8 +363,19 @@ const count = itemCount(sections)
     if (!writeActions(actions)) notSaved()
   }
 
+  const saveVersion = (item: HTMLElement) => {
+    const versions = readVersions()
+    if (checkedAction(item) || comments.commentOf(item))
+      versions[keyOf(item)] = item.dataset.todoVersion!
+    else delete versions[keyOf(item)]
+    writeStored(versionsKey, versions)
+  }
+
   const answerOf = (item: HTMLElement) =>
-    [checkedAction(item), comments.commentOf(item)].filter(Boolean).join(": ")
+    [checkedAction(item), comments.commentOf(item)]
+      .filter(Boolean)
+      .join(": ") ||
+    (item.dataset.todoState === "waiting" ? replyOf(item).join(": ") : "")
 
   const answerCount = document.querySelector("#todo-count")!
   const countAnswered = () => {
@@ -342,9 +410,10 @@ const count = itemCount(sections)
     })
 
   for (const item of items)
-    item
-      .querySelector("textarea")!
-      .addEventListener("input", () => countAnswered())
+    item.querySelector("textarea")!.addEventListener("input", () => {
+      saveVersion(item)
+      countAnswered()
+    })
 
   const savedActions = readActions()
   for (const item of items) {
@@ -352,6 +421,7 @@ const count = itemCount(sections)
       input.checked = (savedActions[keyOf(item)] ?? "None") === input.value
       input.addEventListener("change", () => {
         saveActions(item)
+        saveVersion(item)
         countAnswered()
       })
     }
@@ -458,6 +528,7 @@ const count = itemCount(sections)
       for (const input of actionsOf(item))
         input.checked = input.value === "None"
     writeActions({})
+    writeStored(versionsKey, {})
     countAnswered()
     collapseAnswered()
     setStatus("Comments and actions cleared.")
@@ -481,6 +552,7 @@ const count = itemCount(sections)
   }
 
   .todo-text {
+    :global(.todo-follow-up),
     :global(.todo-severity) {
       margin-inline-end: var(--size-2);
     }

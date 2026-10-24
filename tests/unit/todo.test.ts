@@ -3,6 +3,7 @@ import { describe, expect, test } from "vitest"
 import {
   fixOptions,
   parseTodo,
+  replyOf,
   slugify,
   splitInlineCode,
   splitLinks,
@@ -344,6 +345,33 @@ describe("stressRefs", () => {
 
   test("ignores brackets without sections", () => {
     expect(stressRefs("Avatars shrink (no `flex-shrink: 0`)")).toEqual([])
+  })
+})
+
+describe("replyOf", () => {
+  const notes = (...lines: string[]) =>
+    parseTodo(["## Bugs", "- [ ] Item", ...lines].join("\n")).sections[0]
+      .items[0].notes
+
+  test("has no state without comments", () => {
+    expect(replyOf(notes("  - Fix: a"))).toEqual({
+      reply: [],
+      state: undefined,
+    })
+  })
+
+  test("waits when the last note is a comment", () => {
+    expect(
+      replyOf(
+        notes("  - Fix: a", "  > Fix", "  - Fixed: a", "  > Fix", "  > b"),
+      ),
+    ).toEqual({ reply: ["Fix", "b"], state: "waiting" })
+  })
+
+  test("follows up when a note comes after the last comment", () => {
+    expect(
+      replyOf(notes("  > Explain further", "  > why?", "  - Explained: a")),
+    ).toEqual({ reply: ["Explain further", "why?"], state: "follow-up" })
   })
 })
 

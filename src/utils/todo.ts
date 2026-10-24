@@ -115,6 +115,19 @@ const parseNotes = (lines: string[]) => {
   return notes
 }
 
+export const replyOf = (notes: TodoNote[]) => {
+  const last = notes.findLastIndex((note) => note.kind === "comment")
+  if (last < 0) return { reply: [], state: undefined }
+  let start = last
+  while (start > 0 && notes[start - 1].kind === "comment") start--
+  return {
+    reply: notes
+      .slice(start, last + 1)
+      .flatMap((note) => (note.kind === "comment" ? [note.text] : [])),
+    state: last === notes.length - 1 ? "waiting" : "follow-up",
+  }
+}
+
 const optionPattern = /^([A-Z])(?: \(([^)]+)\))?[:,] (.*)$/s
 
 const tidy = (text: string) => {

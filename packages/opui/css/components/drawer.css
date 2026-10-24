@@ -19,6 +19,9 @@
     --_scroll-shadow: var(--ui-shadow-scroll);
     --_shadow: var(--ui-shadow-overlay);
     --_text-color: var(--ui-text-strong);
+    --ui-border-color: var(--ui-border-color-on-raised);
+    --ui-divider-gap: var(--ui-space-3);
+    --ui-field-border-color: var(--ui-field-border-color-on-raised);
 
     background-color: var(--_bg-color);
     border: none;

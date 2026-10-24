@@ -136,9 +136,9 @@ const imports =
       }
     : undefined
 
-const learnPost = currentSlug
-  ? posts.find((post) => post.component === currentSlug)
-  : undefined
+const learnPosts = currentSlug
+  ? posts.filter((post) => post.component === currentSlug)
+  : []
 ---
 
 <Document
@@ -214,12 +214,12 @@ const learnPost = currentSlug
     Astro.slots.has("under-the-hood") && (
       <section>
         <h2 id="under-the-hood">Under the hood</h2>
-        {learnPost && (
+        {learnPosts.map((learnPost) => (
           <p>
             Read the post:
             <a href={link(`/learn/${learnPost.slug}`)}>{learnPost.title}</a>
           </p>
-        )}
+        ))}
         <slot name="under-the-hood" />
       </section>
     )

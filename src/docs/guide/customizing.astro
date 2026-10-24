@@ -40,6 +40,13 @@ import Example from "../../components/Example/index"
         href="/guide/theme-generator">Theme generator</DocLink
       > writes one for you.
     </p>
+    <p>
+      Knobs inherit, so <code>html</code> is enough for them. A role you pin, such
+      as
+      <code>--ui-surface</code> or <code>--ui-primary</code>, goes on <code
+        >:where(html, .ui-palette, .ui-contrast-more)</code
+      > so the scope classes keep it. The example themes do that for every token.
+    </p>
     <h3 id="example-themes">Example themes</h3>
     <p>
       Four themes ship with the package to show how far tokens go. Each is only

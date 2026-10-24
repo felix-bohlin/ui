@@ -17,13 +17,21 @@ const modules = import.meta.glob<{ default: any }>(
   { eager: true },
 )
 
+const postSlugs: Record<string, string> = {
+  FluidType: "fluid-type-progress",
+  Rhythm: "vertical-rhythm-round",
+}
+
 const builds = Object.entries(modules)
   .map(([path, module]) => {
     const fileName = path.split("/").pop()!.replace("Build.astro", "")
+    const buildPost =
+      fileName in postSlugs
+        ? posts.find((entry) => entry.slug === postSlugs[fileName])
+        : undefined
     const slug =
-      fileName === "Rhythm"
-        ? "typography"
-        : fileName.replace(/(?<!^)([A-Z])/g, "-$1").toLowerCase()
+      buildPost?.component ??
+      fileName.replace(/(?<!^)([A-Z])/g, "-$1").toLowerCase()
     const name = componentName(slug)
     return {
       Build: module.default,
@@ -33,12 +41,13 @@ const builds = Object.entries(modules)
           : DEFAULT_FRAMEWORK,
         `/components/${slug}`,
       ),
+      heading: buildPost ? `${name}: ${buildPost.title}` : name,
+      id: buildPost?.slug ?? slug,
       name,
-      post: posts.find((entry) => entry.component === slug),
-      slug,
+      post: buildPost ?? posts.find((entry) => entry.component === slug),
     }
   })
-  .toSorted((a, b) => a.name.localeCompare(b.name))
+  .toSorted((a, b) => a.heading.localeCompare(b.heading))
 ---
 
 <Learn
@@ -63,9 +72,9 @@ const builds = Object.entries(modules)
   </section>
 
   {
-    builds.map(({ Build, docsHref, name, post: buildPost, slug }) => (
+    builds.map(({ Build, docsHref, heading, id, name, post: buildPost }) => (
       <section>
-        <h2 id={slug}>{name}</h2>
+        <h2 id={id}>{heading}</h2>
         <ul class="build-links">
           <li>
             <a href={docsHref}>{name} docs</a>

@@ -22,6 +22,11 @@ export type Slots<S> =
       children?: S
     }
   | {
+      "aria-labelledby": string
+      children?: S
+    }
+  | {
       "aria-label"?: string
+      "aria-labelledby"?: string
       children: S
     }

@@ -1,0 +1,121 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import FluidTypeBuild from "../../components/UnderTheHood/FluidTypeBuild.astro"
+import Code from "../../components/Code.astro"
+---
+
+<TechniquePost slug="fluid-type-progress" topic="fluid">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      Fluid type used to be a <code>clamp()</code> per heading: a minimum, a slope
+      in <code>vi</code>, a maximum. The slope decides where the heading starts
+      and stops growing, and each heading ends up with its own range.
+    </p>
+    <ul>
+      <li>
+        <code>clamp(2rem, 9vi, 3.5rem)</code> grows between 356px and 622px
+      </li>
+      <li>
+        <code>clamp(1.1rem, 3vi, 1.25rem)</code> grows between 587px and 667px
+      </li>
+      <li>
+        At 600px the <code>h1</code> is almost full size while the <code
+          >h4</code
+        >
+        has barely started, so the scale compresses
+      </li>
+      <li>
+        Move a step of the type scale and the range moves with it, without
+        anyone asking for new breakpoints
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>progress(value, start, end)</code> returns where <code>value</code
+        >
+        sits between <code>start</code> and <code>end</code>: 0 at the start, 1
+        at the end, clamped in between
+      </li>
+      <li>
+        With <code>100vi</code> as the value, one window of viewport widths becomes
+        one ramp, computed on <code>html</code> and on every palette scope
+      </li>
+      <li>
+        Each heading mixes its two steps with the ramp: <code
+          >min + (max - min) * progress</code
+        >
+      </li>
+      <li>
+        The window is two tokens, so a theme moves the breakpoints without
+        touching a slope, and a step change keeps them where they are
+      </li>
+      <li>
+        Any other length can ride the same ramp, like a spacing scale that
+        tightens on narrow screens
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`:where(html) {
+  --ui-fluid-min-inline-size: 20rem;
+  --ui-fluid-max-inline-size: 48rem;
+}
+
+:where(html, .ui-palette, .ui-contrast-more) {
+  --ui-fluid-progress: progress(
+    100vi,
+    var(--ui-fluid-min-inline-size),
+    var(--ui-fluid-max-inline-size)
+  );
+  --ui-font-size-h1: calc(
+    var(--ui-font-size-700) +
+      (var(--ui-font-size-900) - var(--ui-font-size-700)) *
+      var(--ui-fluid-progress)
+  );
+}`}
+    />
+    <p>A theme can put other values on the ramp:</p>
+    <Code
+      lang="css"
+      code={`:where(html) {
+  --ui-space-scale: calc(0.875 + 0.125 * var(--ui-fluid-progress));
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <FluidTypeBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        <code>progress()</code> is Baseline newly available since September 2026:
+        Chrome 138, Safari 26 and Firefox 155
+      </li>
+      <li>
+        The arguments are separated by commas, like <code>clamp()</code>. An
+        earlier draft wrote <code>progress(value from start to end)</code>, the
+        shipped syntax is the comma one
+      </li>
+      <li>
+        The theme keeps the <code>clamp()</code> sizes in <code
+          >@supports not (font-size: calc(1rem * progress(1, 0, 1)))</code
+        >, so an older browser gets the old slopes instead of headings that fall
+        back to the body size
+      </li>
+      <li>
+        <code>--ui-fluid-progress</code> has no fallback of its own. In an older browser
+        a declaration that reads it is invalid at computed-value time, and the property
+        takes its inherited or initial value
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

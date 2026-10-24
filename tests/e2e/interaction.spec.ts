@@ -384,6 +384,20 @@ interaction(
 )
 
 interaction(
+  "toggle",
+  "Binding",
+  "bound toggle groups report the selection",
+  async ({ root }) => {
+    await root.getByText("Day", { exact: true }).click()
+    await root.getByText("Italic", { exact: true }).click()
+    await expect(root.locator(".toggle-binding-text")).toHaveText(
+      "View: day. Format: bold, italic.",
+    )
+  },
+  ["react", "svelte", "vue"],
+)
+
+interaction(
   "tooltip",
   "Basics",
   "tooltip shows on hover",

@@ -628,6 +628,8 @@ In Astro and Vue, `style` goes to the root `<div>` instead of the `<progress>`, 
 + <div class="ui-progress">
 ```
 
+No variant matches the page-surface track. `tonal` is the closest; set `--_bg-color: var(--ui-surface)` on the progress for the old look.
+
 In Astro and Vue, a tonal `Progress` no longer renders `.ui-tonal`. Target `.ui-progress:not(.ui-filled)` in your CSS instead. In HTML the class adds nothing and can go.
 
 ```diff
@@ -681,6 +683,8 @@ With `spread`, the label and the range split the container into equal columns, a
 - <label class="ui-range ui-default">
 + <label class="ui-range ui-tonal">
 ```
+
+No variant matches the page-surface track. `tonal` is the closest; set `--_track-bg-color: var(--ui-surface)` on the range for the old look.
 
 `aria-invalid="true"` on the `<input type="range">` replaces `data-invalid` on `.ui-range`.
 
@@ -744,6 +748,8 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 - <Select label="Price" prefix="€" items={items} />
 + <Select label="Price" start="€" items={items} />
 ```
+
+In Astro and Vue these are slots, such as `<span slot="start">€</span>`. The prop form is React and Svelte.
 
 ## Switch
 
@@ -916,6 +922,8 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 + <TextField label="Amount" start="€" end="EUR" />
 ```
 
+In Astro and Vue these are slots, such as `<span slot="start">€</span>`. The prop form is React and Svelte.
+
 ## Textarea
 
 `Textarea` takes a `size` prop instead of `small`, like `TextField`.
@@ -949,6 +957,8 @@ The slots inside the field's border are `start` and `end` instead of `prefix` an
 - <Textarea label="Bio" footer="0 / 160" />
 + <Textarea label="Bio" bottom="0 / 160" />
 ```
+
+In Astro and Vue these are slots, such as `<span slot="start">€</span>`. The prop form is React and Svelte.
 
 ## Toast
 
@@ -1048,7 +1058,7 @@ Tooltips use `--ui-surface-inverse` and `--ui-on-inverse`, and shift along the v
 
 ## Theme and tokens
 
-Every theme token has a `--ui-` prefix, like the classes: `--primary` is `--ui-primary`, `--space-3` is `--ui-space-3`, `--color-1` is `--ui-color-1` and `--gray-1` is `--ui-gray-1`. Open Props tokens keep their names: `--size-*`, `--font-size-0` to `--font-size-8`, `--shadow-1` to `--shadow-6`, `--hue-*`, `--shadow-color` and `--shadow-strength`. Add `ui-` to every token you set or read. `tokens.json` lists them all with their new names.
+Every theme token has a `--ui-` prefix, like the classes: `--primary` is `--ui-primary`, `--border-color` is `--ui-border-color`, `--color-1` is `--ui-color-1` and `--gray-1` is `--ui-gray-1`. Open Props tokens keep their names: `--size-*`, `--font-size-0` to `--font-size-8`, `--shadow-1` to `--shadow-6`, `--hue-*`, `--shadow-color` and `--shadow-strength`. Add `ui-` to every token you set or read. `tokens.json` lists them all with their new names.
 
 ```diff
 - .sidebar { --primary: var(--green); }
@@ -1057,17 +1067,17 @@ Every theme token has a `--ui-` prefix, like the classes: `--primary` is `--ui-p
 
 These tokens also have a new name, so adding the prefix isn't enough:
 
-| v5                        | v6                            |
-| ------------------------- | ----------------------------- |
-| `--border-radius`         | `--ui-radius`                 |
-| `--button-border-radius`  | `--ui-button-radius`          |
-| `--field-border-radius`   | `--ui-field-radius`           |
-| `--primary-contrast`      | `--ui-on-primary`             |
-| `--surface-default`       | `--ui-surface`                |
-| `--text-muted`            | `--ui-text`                   |
-| `--text-muted-contrast`   | `--ui-text-subtle-on-inverse` |
-| `--text-primary`          | `--ui-text-strong`            |
-| `--text-primary-contrast` | `--ui-on-inverse`             |
+| v5                        | v6                                                        |
+| ------------------------- | --------------------------------------------------------- |
+| `--border-radius`         | `--ui-radius`                                             |
+| `--button-border-radius`  | `--ui-button-radius` (unset, falls back to `--ui-radius`) |
+| `--field-border-radius`   | `--ui-field-radius` (unset, falls back to `--ui-radius`)  |
+| `--primary-contrast`      | `--ui-on-primary`                                         |
+| `--surface-default`       | `--ui-surface`                                            |
+| `--text-muted`            | `--ui-text`                                               |
+| `--text-muted-contrast`   | `--ui-text-subtle-on-inverse`                             |
+| `--text-primary`          | `--ui-text-strong`                                        |
+| `--text-primary-contrast` | `--ui-on-inverse`                                         |
 
 `--ui-on-*` is the text and icon color on a fill, so `--ui-on-primary` goes on `--ui-primary` and `--ui-on-inverse` on `--ui-surface-inverse`. `--primary-dark` and `--primary-light` are gone. Derive a shade from the primary instead, such as `oklch(from var(--ui-primary) calc(l * 0.75) c h)`.
 
@@ -1083,7 +1093,7 @@ These tokens also have a new name, so adding the prefix isn't enough:
 + .note { font-size: var(--ui-font-size-small); }
 ```
 
-`theme.css` sets `--ui-focus-ring-color` to the inverted page background instead of `var(--ui-primary)`, and the global focus ring and the component rings read it. To keep the old value, set it in your theme:
+`theme.css` sets `--ui-focus-ring-color` to black on light surfaces and white on dark ones instead of `var(--ui-primary)`, and the global focus ring and the component rings read it. To keep the old value, set it in your theme:
 
 ```css
 @layer theme.custom {
@@ -1092,6 +1102,8 @@ These tokens also have a new name, so adding the prefix isn't enough:
   }
 }
 ```
+
+A theme pins a role by setting it, and the scope classes `.ui-palette` and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-palette, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`.
 
 `theme.css` is in the `theme.base` layer, and `layers.css` adds an empty `theme.custom` layer after it for your own tokens. Overrides in `@layer theme` keep working and now beat the defaults wherever they load. If you copied a complete `theme.css` from the Theme generator, replace it with a new `custom-theme.css` from the generator: it only lists the tokens you changed, so it won't miss tokens added in later releases.
 
@@ -1203,7 +1215,7 @@ Rich text (`.ui-rich-text`) only styles headings without a class, like lists. Ad
 + <h2 class="intro ui-h2">Title</h2>
 ```
 
-`--ui-font-size-h3` is fluid with a higher minimum (`--ui-font-size-500`), `--ui-font-size-h4` scales between `--ui-font-size-400` and `--ui-font-size-500` instead of a fixed size, and `--ui-font-size-h6` is `--ui-font-size-300`, so check pages that rely on the old heading sizes.
+`--ui-font-size-h1` to `--ui-font-size-h4` grow over one shared viewport window, `--ui-fluid-min-inline-size` (20rem) to `--ui-fluid-max-inline-size` (48rem), with `progress()`. `--ui-font-size-h3` has a higher minimum (`--ui-font-size-500`), `--ui-font-size-h4` scales between `--ui-font-size-400` and `--ui-font-size-500` instead of a fixed size, and `--ui-font-size-h6` is `--ui-font-size-300`, so check pages that rely on the old heading sizes. Set the two window tokens to move the breakpoints, or pin a heading to a step.
 
 Rich text styles live in a new `components.prose` layer, below `components.root`, so component styles inside rich text win over prose styles. If you declare the layer order yourself, add it:
 
@@ -1248,7 +1260,7 @@ Deep type imports from `opui-css/components/*` follow one naming scheme: the roo
 
 `opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). If you load `op.css` on its own and read those properties, import `opui-css/core/palette.css` with `opui-css/css/theme.css`, which sets the palette knobs, and read the `--ui-` names (`--ui-palette-*` and `--ui-color-1` to `--ui-color-16`).
 
-The `types.solid.ts` files are gone, and so is the `solid-js` peer dependency. There are no Solid components; write your own prop types if you used them.
+The `types.solid.ts` files are gone. There are no Solid components; write your own prop types if you used them.
 
 # Migrating from v5.4 to v5.5
 
@@ -1285,7 +1297,7 @@ If you use raw HTML or write CSS that targets library classes, you must rename e
 
 The full list of renamed tokens is in [CHANGELOG.md](./CHANGELOG.md#500---2026-05-21). Run a project-wide find/replace per token, then visually smoke test.
 
-CSS custom properties (`--ui-primary`, `--ui-surface`, `--size-3`, …) are unchanged.
+CSS custom properties (`--primary`, `--surface-default`, `--size-3`, …) are unchanged in v5. They are renamed in v6, see Theme and tokens above.
 
 These changes in 5.0.0 and 5.0.1 need a code change too:
 

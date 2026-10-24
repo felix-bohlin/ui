@@ -5,9 +5,16 @@ export default {
   options: [
     {
       description:
-        "The accessible name, for a button without visible text. React and Svelte require it when there are no `children`.",
+        "The accessible name, for a button without visible text. React and Svelte require it, or `aria-labelledby`, when there are no `children`.",
       inherited: true,
       prop: "aria-label",
+      type: "string",
+    },
+    {
+      description:
+        "The id of the element that names a button without visible text, instead of `aria-label`.",
+      inherited: true,
+      prop: "aria-labelledby",
       type: "string",
     },
     {

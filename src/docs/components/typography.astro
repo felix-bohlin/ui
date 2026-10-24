@@ -3,6 +3,7 @@ import Code from "../../components/Code.astro"
 
 import Component from "../../layouts/Component.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import FluidTypeBuild from "../../components/UnderTheHood/FluidTypeBuild.astro"
 import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
 import {
   Table,
@@ -29,6 +30,7 @@ import typographyApi from "../../component-api/typography/api"
     "has",
     "light-dark",
     "marker",
+    "progress-function",
     "registered-custom-properties",
     "relative-color",
     "round-mod-rem",
@@ -219,5 +221,8 @@ import typographyApi from "../../component-api/typography/api"
     </p>
     <AutoExample name="Default" />
   </section>
-  <RhythmBuild slot="under-the-hood" />
+  <Fragment slot="under-the-hood">
+    <RhythmBuild />
+    <FluidTypeBuild />
+  </Fragment>
 </Component>

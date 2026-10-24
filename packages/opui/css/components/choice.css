@@ -5,7 +5,9 @@
       --ui-choice-accent,
       light-dark(
         var(--ui-primary),
-        oklch(from var(--ui-primary) min(l, 0.62) c h)
+        oklch(
+          from var(--ui-primary) min(l, var(--ui-choice-fill-max-lightness)) c h
+        )
       )
     );
     --_duration: calc(var(--ui-duration) * var(--_motion));
@@ -123,7 +125,9 @@
     &:has([aria-invalid="true"], :user-invalid) {
       --_accent: light-dark(
         var(--ui-invalid),
-        oklch(from var(--ui-invalid) min(l, 0.62) c h)
+        oklch(
+          from var(--ui-invalid) min(l, var(--ui-choice-fill-max-lightness)) c h
+        )
       );
       --_on-accent: var(--ui-on-accent);
 

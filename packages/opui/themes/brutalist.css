@@ -2,7 +2,7 @@
 @layer theme.palette, theme.base, theme.custom;
 
 @layer theme.custom {
-  :where(html) {
+  :where(html, .ui-palette, .ui-contrast-more) {
     --ui-backdrop-bg-color: oklch(0 0 0 / 0.8);
     --ui-border-color: oklch(0 0 0);
     --ui-border-color-on-filled: var(--ui-border-color);

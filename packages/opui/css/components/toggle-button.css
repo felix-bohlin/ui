@@ -53,9 +53,13 @@
     /* Disabled */
     &:has(input:is(:disabled, [aria-disabled="true"])) {
       cursor: not-allowed;
-      opacity: var(--ui-disabled-opacity);
+
+      &:has(input:checked) {
+        opacity: var(--ui-disabled-opacity);
+      }
 
       &:not(:has(input:checked)) {
+        border-color: var(--ui-text-disabled);
         color: var(--ui-text-disabled);
       }
     }
@@ -71,6 +75,7 @@
     &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
       --_bg-color: var(--_selected-bg-color);
       --_selected-bg-color: var(--ui-selected, var(--ui-primary));
+      --ui-focus-ring-color: var(--ui-on-selected, var(--ui-on-primary));
 
       border-color: var(
         --ui-control-border-color-filled,

@@ -35,7 +35,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Card` in Astro and Vue takes parts instead of slots: `CardHeader`, `CardContent` and `CardActions`. `actionsAlign` is `align` on `CardActions`.
 - `Card` actions sit at the end, like in `Dialog`, `Accordion` and `Drawer`. `CardActions` `align="start"` (`.ui-align-start`) lines them up with the content, and `.ui-align-end` no longer does anything on them.
 - `Card` no longer has `--_shadow-light` and `--_shadow-dark`. Set `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark` in your theme, or `--_elevated-shadow` on the card.
-- `Checkbox` and `Radio` internal variables are private (`--_` prefix): `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale` and `--_input-size` is `--_size`, the name every sized control uses. `--isLTR` and `--isRTL` are removed, the halo centers itself in both directions. Rename any overrides to the new names.
+- `Checkbox` and `Radio` internal variables are private (`--_` prefix): `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale` and `--_input-size` is `--_size`, the name every sized control uses. `--isLTR` and `--isRTL` are removed, the halo centers itself in both directions. `--_ripple-size` and `--_size` are inputs to override; `--_thumb-scale` is set by the hover and active states.
 - `Checkbox`, `Radio` and `Switch` take `orientation="vertical"` (`.ui-vertical`) instead of `stack` (`.ui-stack`) to put the label under the control, like the other components with a layout axis.
 - `Checkbox`, `Progress`, `Radio`, `Range`, `Select`, `Switch` and `ToggleButton` in Astro and Vue put `style` on the root, like `class`, instead of the `<select>`, `<input>` or `<progress>`, so `--_` properties set through `style` apply.
 - `Checkbox`, `Radio`, `Switch`, `Range`, `DescriptionList` and `Table` type files are named like the other components: `components/Checkbox/types*` export `Props` and `Slots` instead of `CheckboxProps` and `CheckboxSlots` (likewise `Radio`, `Switch` and `Range`), `DescriptionList` exports `DescriptionListTermProps`, `DescriptionListDescriptionProps` and `DescriptionListItemProps` instead of `TermProps`, `DescriptionProps` and `ItemProps`, and `Table` exports one type per part (`TableBodyProps`, `TableCellProps` and the rest) instead of `SectionProps`, and `TableColumnProps` instead of `ColumnProps`. Import the types from `opui-css/<framework>` instead.
@@ -102,7 +102,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `theme.css` and `core/palette.css` no longer make `del`, `ins`, `abbr`, `dfn`, `.ui-del`, `.ui-ins`, `.ui-abbr` and `.ui-dfn` severity scopes. `del` and `.ui-del` read `--ui-critical-text`, `ins` and `.ui-ins` read `--ui-success-text`, and the `abbr` and `dfn` underline reads `--ui-info`. Wrap content that read a `--ui-palette-*` role inside them in `.ui-critical`, `.ui-success` or `.ui-info`.
 - `theme.css` `--ui-focus-ring-color` is black on light surfaces and white on dark ones, by the surface's OKLCH lightness, instead of `var(--ui-primary)`, and the global `:focus-visible` ring and the component rings read it, with `--ui-focus-ring-width`, `--ui-focus-ring-style` and `--ui-focus-ring-offset`. Set `--ui-focus-ring-color: var(--ui-primary)` to keep the old value.
 - `theme.css` holds `--ui-motion` and its `prefers-reduced-motion` default, which moved from `core/normalize.css`. The `.ui-motion-*` classes moved to `core/utils.css`. If you import single files, import `theme.css` and `utils.css` too, or `--ui-motion` is undefined and the `.ui-motion-*` classes are missing.
-- `theme.css` no longer sets `--ui-button-radius` and `--ui-field-radius`. Components fall back to `--ui-radius` when they're unset. If your styles read them, add the fallback: `var(--ui-button-radius, var(--ui-radius))`.
+- `theme.css` no longer sets `--ui-button-radius` and `--ui-field-radius`. `Button`, `ButtonGroup`, `ToggleButton`, `ToggleGroup` and the fields fall back to `--ui-radius` when they're unset, also where it's set on a part of the page, so one token sets the corners of every component. If your styles read them, add the fallback: `var(--ui-button-radius, var(--ui-radius))`.
 - `theme.css`, `palette.css` and the components name every theme token with a `--ui-` prefix, like the classes: `--primary` is `--ui-primary`, `--border-color` is `--ui-border-color` and `--color-1` is `--ui-color-1`. Open Props tokens such as `--size-3` and `--shadow-color` keep their names. Add `ui-` to the tokens you set or read.
 - `theme.css` `--font-size-05` is `--ui-font-size-small`. Rename it where you set or read it.
 - `theme.css` tokens follow one naming model: `--ui-on-*` is the text and icon color on a fill, `-text` after a color is that color tuned for reading, and `light`, `dark`, `inverse` and `contrast` each mean one thing. Beyond the `--ui-` prefix, `--text-primary` is `--ui-text-strong`, `--primary-contrast` is `--ui-on-primary`, `--text-primary-contrast` is `--ui-on-inverse`, `--text-muted` is `--ui-text`, `--text-muted-contrast` is removed (`kbd` and `var` read `--ui-surface-inverse` and `--ui-on-inverse`), `--surface-default` is `--ui-surface`, `--border-radius` is `--ui-radius`, `--button-border-radius` is `--ui-button-radius` and `--field-border-radius` is `--ui-field-radius`. MIGRATING lists them.
@@ -122,7 +122,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Select` no longer hides `option::before`.
 - `TextField` and `Textarea` no longer take `supportingText` or the `supporting-text` slot. Use `endText` (`end-text`).
 - `TextField` no longer styles `::-webkit-file-upload-button`, only `::file-selector-button`.
-- `Toast`. `toast.css` with `.ui-toast` and its parts (`.ui-close-button`, `.ui-exiting`, `.ui-icon`, `.ui-title`), `css/js/toast.js` with `initToastManager()` and `showToast()`, and their types are gone.
+- `Toast`. The Astro and Vue components, `toast.css` with `.ui-toast` and its parts (`.ui-close-button`, `.ui-exiting`, `.ui-icon`, `.ui-title`), `css/js/toast.js` with `initToastManager()` and `showToast()`, and their types are gone.
 - `ToggleGroup` no longer exports the unused `ToggleContext` type.
 - `normalize.css` no longer includes `::-webkit-file-upload-button`, `:-webkit-autofill` and `::-moz-placeholder`.
 - `normalize.css` no longer falls back to `--text-color-2` when `--ui-text` is unset.
@@ -165,7 +165,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Checkbox`, `Radio` and `Switch` take a `label` string, a shorthand for the default slot.
 - `Checkbox` and `Radio` take `size="x-small"` (`.ui-x-small`), 14px from the new `--ui-choice-size-x-small` token.
 - `Checkbox`, `Radio` and `Switch` take an `endText` string in Astro and Vue, like `TextField`.
-- `Checkbox`, `Radio`, `Switch` and `Range` read the optional `--ui-choice-accent` and `--ui-choice-on-accent` for their checked fill, thumb and mark. When unset, they keep `--ui-primary` with the dark mode lightness cap. m3 and shadcn set them to the plain primary.
+- `Checkbox`, `Radio`, `Switch` and `Range` read the optional `--ui-choice-accent` and `--ui-choice-on-accent` for their checked fill, thumb and mark. When unset, they keep `--ui-primary` with the dark mode lightness cap. m3 and shadcn set them to the plain primary. A checked invalid `Checkbox` or `Radio` draws its check, dash or dot in `--ui-on-accent`, so it keeps its contrast on the red fill when a theme sets `--ui-choice-on-accent`.
 - `Checkbox`, `Radio` and `Switch` read the optional `--ui-choice-border-color` for their unchecked border and track edge. When unset, they keep `--ui-field-border-color`, and the token promises 3:1 against `--ui-surface`. shadcn sets it to its primary, like shadcn/ui, so its faint field border no longer draws the choices.
 - `CheckboxInput`, `RadioInput` and `SwitchInput` take `class` in Vue, and the Vue entry exports `DescriptionListDescriptionProps`, `DescriptionListItemProps` and `DescriptionListTermProps`.
 - `Chip` supports `aria-disabled="true"` on a link chip. A static chip takes `.ui-disabled` for an inactive look, since a `div` can't carry a disabled state.
@@ -223,7 +223,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `skills` references list each component's `--_` custom properties as inputs to set or outputs that states derive, like the Component properties tables on the docs pages.
 - `skills/opui` is an agent skill shipped with the package, with a reference for every component and an index that maps every exported component and part to its reference.
 - `theme.css` adds `--ui-icon-size-x-small` (`0.75rem`) and `--ui-radius-large` (`--ui-radius` times 1.5) to complete their families, and `--ui-shadow-color` and `--ui-shadow-strength` under Elevation, which set the Open Props `--shadow-color` and `--shadow-strength`.
-- `theme.css` adds `--ui-choice-label-offset` to nudge `Checkbox`, `Radio` and `Switch` labels against their control for fonts with unusual metrics, and `--ui-invalid-text` for validation messages.
+- `theme.css` adds `--ui-choice-label-offset` to nudge `Checkbox`, `Radio` and `Switch` labels against their control for fonts with unusual metrics, and `--ui-invalid-text` for validation messages, darker in light mode and lighter in dark mode so it keeps its contrast on dark and tinted surfaces. The validation messages and invalid labels of `Checkbox`, `Radio`, `Switch`, `Range`, `TextField`, `Textarea` and `Select` read it.
 - `theme.css` adds motion tokens: `--ui-duration-fast`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter` and `--ui-ease-exit`. Every component transition and animation reads them, multiplied by `--ui-motion`.
 - `theme.css` adds `--ui-focus-ring-inset` for focus rings drawn inside a control, read by `Accordion`, `ButtonGroup`, `List`, `Select`, `Tabs` and `ToggleButton`.
 - `theme.css` adds icon tokens: `--ui-icon-size-small`, `--ui-icon-size` and `--ui-icon-size-large`.
@@ -261,7 +261,6 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 
 ### Changed
 
-- `Accordion`, `Tabs` and `ToggleButton` focus rings sit at `--ui-focus-ring-inset`, like the other inset rings, instead of their own offsets.
 - `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup` borders read `--ui-border-width`, and `Checkbox`, `Radio`, `Switch` and `TextField` borders read `--ui-field-border-width`, instead of a hardcoded `1px`.
 - `Accordion` with `variant="tonal"` or `variant="elevated"` has a border in the page background color unless a theme sets `--ui-border-color-raised`, like tonal and elevated cards, so it stays visible on tonal surfaces.
 - `Accordion` actions line up with the content and the chevron, with the summary's block padding below them instead of a large gap above.
@@ -270,12 +269,12 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Avatar` and `Badge` text uses `--ui-on-primary`.
 - `Avatar`, `List` and `ButtonGroup` sizes follow `--ui-control-size` and `--ui-button-size-*`.
 - `Avatar` no longer declares `command`, `commandfor` and `interestfor` as props. They pass through as attributes.
+- `Avatar` (rounded), `Checkbox`, `Tooltip`, file inputs, `kbd`, `mark` and `var` never get rounder than `--ui-radius`.
 - `AvatarGroup` avatars overlap by `--ui-space-2` instead of `--ui-space-3`, so the initials stay whole at every size.
 - `Badge` on a round `Avatar` sits on the avatar's edge instead of the corner of its box.
 - `Badge` in an `Avatar` group sits on the avatar's start side, the part the next avatar doesn't cover, with the same ring as the avatars (the group's `--_outline-color`).
-- `Button` critical keeps light text on a fill that, like its hover and pressed fills, stays within `--ui-accent-fill-max-lightness` (`0.48`), a little darker than `--ui-critical`, while its border keeps `--ui-critical`, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode.
+- `Button` critical keeps light text on a fill a little darker than `--ui-critical`, while its border keeps `--ui-critical`, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode.
 - `Button`, `Divider` and `Typography` borders read `--ui-border-width` instead of `--border-size-1`.
-- `Button`, `ButtonGroup`, `ToggleButton`, `ToggleGroup` and the fields follow `--ui-radius`, also where it's set on a part of the page, so one token sets the corners of every component. Small radii (`kbd`, `mark`, `var`, `Tooltip`, `Checkbox`, file inputs and rounded `Avatar`) never get rounder than `--ui-radius`.
 - `ButtonGroup` buttons draw a `ButtonBorder` border under `forced-colors: active`, where their shadows disappear.
 - `ButtonGroup` focus ring sits inside the button with a gap and uses `--ui-focus-ring-color`, so it shows on every variant and isn't clipped by the group.
 - `ButtonGroup` and `ToggleGroup` wrap onto more rows when they don't fit, instead of overflowing. The group draws its outer edge and rounded corners, and dividers sit between items in every row.
@@ -309,7 +308,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Drawer` sits on `--ui-surface-elevated`, like `Dialog` and `Menu`, and borders and field borders inside it read `--ui-border-color-on-raised` and `--ui-field-border-color-on-raised`.
 - `FieldGroup` and `ToggleGroup` in Astro pass the group `name` and selection to their inputs through context instead of rewriting the slot HTML, so a bare `<input>`, `<select>` or `<textarea>` in a `FieldGroup` no longer gets the group `name`, like in React, Svelte and Vue.
 - `Form`, `Fieldset` and `FieldLegend` type `as` in Vue as `"div" | "form"`, `"div" | "fieldset"` and `"legend" | "p"`.
-- `Link` (`.ui-link`) and rich text links darken in light mode and lighten in dark mode on hover and focus, from their own color so they keep the contrast of `--ui-primary-text`, and their underline gets `--ui-underline-thickness-hover` (`3px`) thick. Rich text links in a `List` read `--ui-primary-text` like other links, since it keeps 4.5:1 on the filled background.
+- `Link` (`.ui-link`) and rich text links darken in light mode and lighten in dark mode on hover and focus, from their own color so they keep the contrast of `--ui-primary-text`, and their underline gets `--ui-underline-thickness-hover` (`3px`) thick.
 - `List` start and end icons are smaller: `--ui-icon-size` by default and `--ui-icon-size-small` in dense lists (were `--ui-icon-size-large` and `--ui-icon-size`).
 - `List` dense rows keep the default inline padding, so they line up with `Card` content.
 - `List` only styles direct `li`/`option` children (and options in a `[role="group"]`) as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin.
@@ -364,13 +363,13 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Typography` rich text `var` uses the monospace font and wraps long names, like `.ui-var`.
 - `Typography` `kbd`, `var`, `.ui-kbd` and `.ui-var` sit on `--ui-surface-inverse` with `--ui-on-inverse` text, like `Tooltip`, instead of on `--ui-text`.
 - `--ui-field-border-color` is a 50% mix of the text color into the page (3:1 or more) instead of `--ui-border-color`, so fields, checkboxes, radios, switches and the range track have a visible boundary without more contrast. Inside filled surfaces it mixes into `--ui-surface-filled` the same way. The example themes keep their own.
-- `--ui-invalid` is lighter in dark mode with more contrast, so invalid fields, checkboxes, radios, switches and ranges keep a visible edge. `TextField` no longer swaps it for `--ui-invalid-text` itself.
+- `--ui-invalid` is lighter in dark mode with more contrast, so invalid fields, checkboxes, radios, switches and ranges keep a visible edge.
 - `normalize.css` sets `box-shadow` instead of `-webkit-box-shadow` on autofilled fields, and font and color inheritance on `::file-selector-button`.
 - `normalize.css` reads `--ui-line-height-relaxed` for the page line height, `--ui-icon-size-large` for an `svg` without `width` (`1.5rem` instead of `2rem`) and `--ui-space-7` for the scroll margin of `:target`.
 - `open-props.css` imports the Open Props files one by one instead of `open-props/src/index.css`, so `dist/op.css` and `dist/opui.css` no longer contain Open Props' `@custom-media` rules. Import `open-props/media` yourself if a PostCSS plugin reads them.
 - `theme.css` severity scopes (`.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning`) take their hue from the intent tokens, so a theme's `--ui-success` reaches every success surface.
 - `theme.css` `--ui-primary` is `--ui-color-9` in light mode and `--ui-color-6` in dark mode, and `--ui-on-primary` is dark in dark mode, so text on primary and primary text both pass WCAG AA in light and dark.
-- `theme.css` declares `--ui-palette-hue-rotate-by`, `--ui-gray-hue` and `--ui-gray-chroma` so every theme knob lives in one file.
+- `theme.css` declares every palette knob, `--ui-palette-hue`, `--ui-palette-chroma`, `--ui-palette-hue-rotate-by`, `--ui-gray-hue` and `--ui-gray-chroma`, and `core/palette.css` no longer declares its own, which disagreed with `theme.css` and never applied. `.ui-palette` and the severity scopes inherit the knobs from their ancestors instead of resetting them to the defaults.
 - `theme.css` derives `--ui-on-primary` from `--ui-primary` and `--ui-on-warning` from `--ui-warning` with relative color, from the fill's relative luminance (the `y` of `xyz-d65`): white text on a fill below 0.182 and near-black above it, so either side keeps 4.5:1 and custom primaries get readable text.
 - `theme.css` named colors read Open Props' hue tokens instead of fixed angles: `--ui-blue`, `--ui-green`, `--ui-orange` and `--ui-red` follow `--hue-blue`, `--hue-green`, `--hue-orange` and `--hue-red`, like the severity scopes. `--ui-info` and `--ui-blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette. White text on an info `Badge` is 4.58:1.
 - `theme.css` is in the `theme.base` layer instead of `theme`, so overrides in `@layer theme` or `@layer theme.custom` beat the defaults wherever they load.
@@ -404,7 +403,6 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Badge` indicators mirror in RTL.
 - `Badge` dots sit in every corner, not only the default one.
 - `Badge` and `Anchor` no longer write the unused `--_anchor-inset`, and aligned badges no longer write `--ui-anchor-position-area`.
-- `Badge` critical, info, neutral and success fills cap their lightness at `--ui-accent-fill-max-lightness` (`0.48`), so white text passes 4.5:1 (success was 4.44:1).
 - `Badge` with `invisible` hides the indicator from screen readers too.
 - `Button` `kbd` uses the button's text color, also on hover, instead of 80% of it, so it passes contrast on colored buttons.
 - `Button` critical text buttons have readable text on tonal surfaces in dark mode.
@@ -424,8 +422,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Callout` only uses the icon layout for a direct child `svg`, keeps its content at the top when stretched, and no longer shows lighter corners.
 - `Callout` rich text inside `.ui-content` no longer gets doubled margins.
 - `Callout` icons take the severity color with `color`, so fill icons no longer get a colored outline.
-- `Callout` links in a tonal callout take the hover color on keyboard focus too.
-- `Callout` links use `--ui-primary-text` on hover and focus. They fell below 4.5:1 on the tonal background.
+- `Callout` links in a tonal callout take the hover color on keyboard focus too, and it keeps 4.5:1 on the tonal background.
 - `Callout` severity icons use a lighter palette step in dark mode, so they reach 3:1 against the callout.
 - `Callout` with `variant="tonal"` no longer renders `.ui-tonal`, a class without a rule.
 - `Callout` icon offset scales with the font size.
@@ -436,12 +433,8 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Card`, `Accordion` and `Dialog` actions line up the label of a text button at their start or end with the content: the button pulls itself out by its padding and border (`--_actions-shift`), as far as the focus ring stays inside the card. Accordion actions had no compensation, so the label sat 14px inside the content edge.
 - `Card` content followed by a divider has no bottom padding, so the divider sits evenly between the two contents.
 - `Carousel` leaves room around the items for their box shadows (`--_shadow-room`, `--ui-space-3`), so the scroll container no longer clips a card's shadow at the bottom or at the scroll end. It is padding that a negative margin cancels, so the layout and the button and marker positions stay the same. On the scroll axis the room is at most `--_gap` and shrinks by the peek, so the next item stays hidden.
-- `List` and `Menu` descriptions on a selected or current row, and `Select` options, read `--ui-on-selected` when a theme sets it, instead of keeping `--ui-text` on the selected fill.
-- `Range` focus ring sits `--ui-focus-ring-offset` outside the thumb instead of `1ex` outside the track, also at every size.
-
 - `Checkbox`, `Radio`, `Switch` and `ToggleButton` style `aria-disabled="true"` on the input like `disabled`: dimmed, a `not-allowed` cursor and no hover tint on toggle buttons. The browser doesn't block the change, so a script has to.
 - `Checkbox` and `Radio` show a red border when invalid and unchecked (`aria-invalid="true"` or `:user-invalid`), like Switch and TextField. Before, only a checked control turned red.
-- `Checkbox`, `Radio`, `Switch`, `Range`, `TextField`, `Textarea` and `Select` validation messages and invalid labels use `--ui-invalid-text`, which is darker in light mode and lighter in dark mode. They failed contrast on dark and tinted surfaces.
 - `Checkbox` forced-colors styles apply to checked and indeterminate boxes.
 - `Checkbox` and `Radio` required asterisks in stacked labels sit after the label in RTL.
 - `Checkbox` and `Radio` show their hover and press halo without `core/utils.css`, so `dist/opui.components.css` and single-file imports get it too.
@@ -449,13 +442,11 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Checkbox`, `Radio` and `Switch` required asterisks, and the `Fieldset` legend's, follow the last word of a wrapped label instead of jumping to the end of the row.
 - `Checkbox`, `Radio`, `Switch`, `TextField`, `Textarea`, `Select` and `Range` pass a user `aria-invalid` to the control when `error` isn't set.
 - `Checkbox` unchecked border reads `--ui-field-border-color` like Radio and the text fields.
-- `Checkbox`, `Radio` and `Switch` no longer need Vite's `import.meta.env` types or runtime for their dev-only missing name warning.
 - `Checkbox`, `Radio`, `Switch`, `TextField` and `Textarea` no longer point `aria-describedby` at the end text, so screen readers don't read it twice. The wrapping `<label>` already makes it part of the name.
 - `Checkbox` and `Radio` no longer set `--ui-primary` when invalid, so links and other content in their label keep the primary color.
 - `Checkbox`, `Radio`, `Switch`, `TextField`, `Textarea`, `Select` and `Fieldset` required asterisks are left out of the accessible name, so screen readers don't read "star".
 - `Checkbox`, `Radio`, `Range`, `Select`, `Switch`, `TextField` and `Textarea` in Vue render a text prop and its slot together, like Astro, instead of dropping the prop.
 - `Checkbox` draws a disabled box in `GrayText` in forced colors mode, like `Switch`, instead of the enabled colors at reduced opacity.
-- `Checkbox` and `Radio` draw the check, dash and dot of a checked invalid control in `--ui-on-accent`, so they keep their contrast on the red fill when a theme sets `--ui-choice-on-accent` or `--ui-on-primary`.
 - `Chip` with a start and an end icon gets the smaller padding on both sides, and an icon inside `.ui-text` no longer changes the padding.
 - `Chip` disabled text color applies to tonal and outlined chips.
 - `Chip` in Astro only renders `href` when the chip is an `a`.
@@ -477,7 +468,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Fieldset` no longer overrides the error color of an invalid `Checkbox`, `Radio` or `Switch` end text inside it. Its helper styles only apply to its own end text.
 - `Fieldset`, `FieldLegend`, `FieldDescription`, `FieldGroup` and `Form` in Vue no longer apply attributes and listeners twice.
 - `Form` only resets the margin of dividers that are its direct children, text dividers included, so dividers nested deeper keep `--ui-divider-gap`.
-- `Link` text stays readable on tonal and tinted surfaces: darker in light mode, lighter in dark mode.
+- `List` and `Menu` descriptions on a selected or current row, and `Select` options, read `--ui-on-selected` when a theme sets it, instead of keeping `--ui-text` on the selected fill.
 - `List` separators (`.ui-bordered`, `.ui-border-top`) are visible on tonal lists in dark mode.
 - `List` text can shrink below its longest word, and `.ui-inset` follows the dense gap.
 - `List` and `Table` borders on filled lists and table headers are visible in light mode.
@@ -505,6 +496,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Radio` dot is centered at every size. It was half a pixel off at small, default and large.
 - `Radio` dot stays centered at every zoom level and screen scale. It's a `radial-gradient()` on the input's background instead of a separate `::after` box.
 - `Radio` in Vue follows a passed `checked` without `v-model`.
+- `Range` focus ring sits `--ui-focus-ring-offset` outside the thumb instead of `1ex` outside the track, also at every size.
 - `Range` with `spread` (`.ui-spread`) collapses to a column when narrower than 400px, like `TextField`. The container query had no container, so it never applied, and the slider's minimum width could push its parent wider.
 - `Range` in Vue shows the default value without `value` or `v-model`, and `v-model` returns a number.
 - `Range` and `ToggleButton` in Vue take the `FieldGroup` name.
@@ -522,7 +514,6 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Range` declares `--_track-block-size` and `--_track-radius` on the root, so setting them on the component works.
 - `Range` with `variant="filled"` or `variant="tonal"` darkens its track on press and takes the disabled track color.
 - `Range` hides its tick mark `<datalist>` from assistive technology with `aria-hidden="true"`, so it isn't exposed as an unnamed listbox next to the slider.
-- `Range` keeps the edge of its empty track in Firefox with more contrast.
 - `Select` with `spread` centers its arrow on the field.
 - `Select` keeps its arrow and its space at the inline end in RTL. The arrow covered the text.
 - `Select` keeps its padding and the height of the other fields in browsers that keep the `<button>` inside the `<select>` but have no customizable select, like Firefox, and wherever React, Svelte or Vue render it in the browser. The button turned the padding off there.
@@ -533,11 +524,12 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Select` and `Range` merge a user `aria-describedby` with the end text id instead of overwriting it.
 - `Select` (Vue) keeps the browser's selection without `v-model`.
 - `Select` adds its top slot, start text (`.ui-start-text`), end text and bottom slot to `aria-describedby`, in that order.
-- `Select` `--_motion: 0` on the root also stops the picker and chevron animations.
+- `Select` `--_motion: 0` on the root also stops the picker animation.
 - `Select` and `Range` in Astro merge a passed `aria-labelledby` instead of rendering the attribute twice.
 - `Spinner` slows down to 1.5s per turn under reduced motion (`--ui-motion: 0`) instead of ignoring it.
 - `Spinner` no longer sets `position: relative` on dialogs and popovers, so a busy `Drawer` stays in place.
 - `Spinner` keeps the gap in its ring in forced colors, so the spin stays visible.
+- `Switch` no longer needs Vite's `import.meta.env` types or runtime for its dev-only missing name warning.
 - `Switch` icons shrink to fit beside the dot when the track is too narrow for both, instead of overlapping the dot.
 - `Switch` focus ring is rounded.
 - `Switch` draws its invalid ring as a `box-shadow`, so the focus ring shows outside it. In forced colors an invalid switch no longer looks focused.
@@ -606,15 +598,12 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Typography` overline and heading group overline text, `code` in dark mode, `code` in `del`/`ins`, linked `code` in light mode and links in `mark` pass contrast.
 - `Typography` inline `code` directly inside `.ui-rich-text` gets the same padding and radius as inline code in a paragraph.
 - `Typography` `.ui-small` also applies to `<small>`.
-- `Typography` links in rich text use the same text-safe primary as `.ui-link`.
 - `Typography` inline `code` in `del` and `ins` has no inline padding, so no gap shows before the next character.
 - `Typography` `abbr` and `dfn` with a `title` get the same underline offset as without one.
 - `Typography` linked `code` in rich text has no inline padding where its background is transparent, so the underline doesn't run past the text.
 - `Typography` `.ui-small` on a `span` or `p` sits below the component layers, so a small `Chip` rendered as a `span` keeps its own font size.
 - `button.css` gives file inputs outside a `TextField` readable text (`--ui-text`) and the field border tokens. The text used the inverse surface color.
 - `components/AGENTS.md`, the internal guide, no longer ships in the package.
-- `core/palette.css` lets `.ui-palette` and the severity scopes inherit `--ui-palette-hue`, `--ui-palette-chroma`, `--ui-palette-hue-rotate-by`, `--ui-gray-hue` and `--ui-gray-chroma` from their ancestors. It used to reset them to the defaults in every scope.
-- `core/palette.css` no longer declares palette and gray knobs of its own, which disagreed with `theme.css` and never applied. `theme.css` is the one place they are set.
 - `dist` source maps no longer embed the sources (`sourcesContent`) or `node_modules/.pnpm` paths. Open Props sources point to `../../open-props/`, and `opui.components.css.map` accounts for the `@layer` order line.
 - `dist/opui.components.css` starts with the `@layer` order statement.
 - `env.d.ts` is in the package `exports`, so `/// <reference types="opui-css/env.d.ts" />` resolves.
@@ -627,12 +616,6 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `package.json` peer dependency ranges are `astro` `^7`, `svelte` `^5.29` and `vue` `^3.5` instead of the versions used for development.
 - `theme.css` gives `.ui-light` and `.ui-dark` on an element other than `html` the page surface and text color. `--ui-color-scheme` follows the OS preference, so `Card` elevated shadows are correct in dark mode without a class.
 - `theme.css` sets `--ui-shadow-color` and `--ui-shadow-strength` for dark mode (`.ui-dark` and the OS preference), so `--shadow-1` to `--shadow-6` show on dark surfaces. They used the light values before, and a page forced to `.ui-light` keeps them.
-
-## 5.5.0 - 2026-09-28
-
-### Removed
-
-- `Toast` component from Astro and Vue. Toast is still available in HTML as an alpha, using `toast.css` and `toast.js`.
 
 ## 5.4.3 - 2026-09-18
 

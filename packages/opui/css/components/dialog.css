@@ -8,6 +8,7 @@
     --_elevated-shadow: var(--ui-shadow-overlay);
     --_max-inline-size: 60ch;
     --_scroll-shadow: var(--ui-shadow-scroll);
+    border-radius: var(--ui-dialog-radius, var(--ui-radius));
     inline-size: 100%;
     inset: 0;
     margin: auto;

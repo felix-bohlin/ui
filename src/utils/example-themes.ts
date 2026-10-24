@@ -12,9 +12,11 @@ export const EXAMPLE_THEMES = Object.entries(files)
       label: `${name[0].toUpperCase()}${name.slice(1)}`,
       name,
       tokens: Object.fromEntries(
-        [...css.matchAll(/^\s*(--[\w-]+):\s*([^;]+);/gm)].map(
-          ([, token, value]) => [token, value.trim()],
-        ),
+        [
+          ...(
+            css.match(/:where\(html[^)]*\)\s*\{([^}]*)\}/)?.[1] ?? ""
+          ).matchAll(/^\s*(--[\w-]+):\s*([^;]+);/gm),
+        ].map(([, token, value]) => [token, value.trim()]),
       ),
     }
   })

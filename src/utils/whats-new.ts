@@ -442,6 +442,7 @@ const whatsNew = {
       html: `The <a href="#usage">header</a> takes <code>.ui-header</code> on its <code>hgroup</code>, like the <code>Drawer</code> header.`,
     },
     `Opens over <a href="#api"><code>--ui-duration-slow</code></a>, the overlay duration.`,
+    `Themes can set <a href="#api"><code>--ui-dialog-radius</code></a> for a corner radius of its own.`,
     {
       ...slots(
         `Breaking: <code>Dialog</code> no longer renders <code>.ui-card</code>. Style <a href="#usage"><code>.ui-dialog</code></a> instead.`,

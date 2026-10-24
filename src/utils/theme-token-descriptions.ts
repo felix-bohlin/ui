@@ -28,12 +28,22 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Color of `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`: the fill of filled buttons, the text and border of outlined and text buttons. When unset, the darkest palette color in light mode and the lightest in dark mode.",
   "--ui-button-font-weight":
     "Font weight of `Button`. When unset, buttons follow `--ui-font-weight-bold`.",
+  "--ui-button-hover":
+    "How `Button` and `ButtonGroup` show hover and pressed states. `layer` draws a translucent state layer in `--ui-state-hover-alpha-accent` and `--ui-state-active-alpha-accent`: the text color over filled and tonal buttons, the accent over outlined ones, which keep their text and border. When unset (`shade`), filled buttons shade their fill and outlined and tonal buttons fill with the accent.",
   "--ui-button-hover-shadow":
     "Shadow of `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover. When unset, it keeps `--ui-shadow-control`.",
   "--ui-button-hover-translate":
     "Moves `Button` with `.ui-filled`, `.ui-outlined` or `.ui-tonal` on hover, as a `translate` value. Pair it with `--ui-button-hover-shadow` to press buttons into their shadow. `none` when unset.",
   "--ui-button-on-accent":
     "Text color on a filled `--ui-button-accent` button. Set it with `--ui-button-accent`.",
+  "--ui-button-padding-inline":
+    "Horizontal padding of `Button`. When unset, `1.5ex`, which scales with the font.",
+  "--ui-button-padding-inline-large":
+    "Horizontal padding of `Button` with `.ui-large`. When unset, `2.5ex`.",
+  "--ui-button-padding-inline-small":
+    "Horizontal padding of `Button` with `.ui-small`. When unset, `1.25ex`.",
+  "--ui-button-padding-inline-x-small":
+    "Horizontal padding of `Button` with `.ui-x-small`. When unset, `1ex`.",
   "--ui-button-radius":
     "Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`. When unset, they follow `--ui-radius`, also where it's set on a part of the page.",
   "--ui-button-size": "Default `Button` height.",
@@ -41,6 +51,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-button-size-small": "`Button` height with `.ui-small`.",
   "--ui-button-size-x-small":
     "`Button` and `ButtonGroup` height with `.ui-x-small`.",
+  "--ui-chip-radius":
+    "Corner radius for `Chip`. When unset, chips follow `--ui-radius`.",
   "--ui-chip-size": "Default `Chip` height.",
   "--ui-chip-size-large": "`Chip` height with `.ui-large`.",
   "--ui-chip-size-small": "`Chip` height with `.ui-small`.",
@@ -84,6 +96,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Critical as a text color: the `.ui-critical` items of a `Menu`, and a `.ui-critical` `Button` with no variant or `.ui-outlined`. `--ui-critical` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.",
   "--ui-density":
     "Multiplier for the control sizes: `--ui-control-size*`, `--ui-chip-size*`, `--ui-choice-size*` and the `Switch` thumb and track sizes. `0.875` is compact, `1.125` is comfortable. See [Density](/guide/theming#density).",
+  "--ui-dialog-radius":
+    "Corner radius for `Dialog`. When unset, dialogs follow `--ui-radius`.",
   "--ui-disabled-opacity": "Opacity applied to disabled controls.",
   "--ui-divider-gap":
     "Block margin around a `Divider`, times `--ui-space-scale`. Cards, callouts, dialogs and drawers set it to `--ui-space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
@@ -96,6 +110,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`, and the `Badge`, `Progress` and `Tooltip` transitions.",
   "--ui-ease-exit":
     "Easing for elements leaving the screen: closing `Drawer` and `Menu`.",
+  "--ui-field-bg-color":
+    "Background of `TextField`, `Textarea` and `Select` fields. When unset, `--ui-surface`, the page color.",
   "--ui-field-border-color":
     "Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch`, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make.",
   "--ui-field-border-color-on-filled":
@@ -116,6 +132,10 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-field-label-font-weight":
     "Font weight for emphasized field labels and legends.",
   "--ui-field-label-text-color": "Text color for field labels.",
+  "--ui-field-padding-inline":
+    "Horizontal padding inside `TextField`, `Textarea` and `Select` fields. When unset, `--ui-space-2`.",
+  "--ui-field-placeholder-text-color":
+    "Color of placeholder text in fields. When unset, `--ui-text`.",
   "--ui-field-radius":
     "Corner radius for fields. When unset, they follow `--ui-radius`, also where it's set on a part of the page.",
   "--ui-field-required-text-color": "Color of the required asterisk.",
@@ -225,6 +245,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Line height of the page text set on `html`, and of `Tabs` labels.",
   "--ui-line-height-tight":
     "Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.",
+  "--ui-menu-radius":
+    "Corner radius for `Menu`. When unset, menus follow `--ui-radius`.",
   "--ui-motion":
     "Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](/guide/theming#motion).",
   "--ui-neutral":

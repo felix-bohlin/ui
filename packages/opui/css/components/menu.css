@@ -14,7 +14,7 @@
     --_min-inline-size: 12rem;
     --_offset: var(--ui-space-1);
     --_position-area: var(--_side) var(--_span);
-    --_radius: var(--ui-radius);
+    --_radius: var(--ui-menu-radius, var(--ui-radius));
     --_shadow: var(--ui-shadow-overlay);
     --_side: self-block-end;
     --_span: span-self-inline-end;

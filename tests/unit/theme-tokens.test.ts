@@ -108,6 +108,7 @@ describe("theme tokens", () => {
         .map((token) => token.name)
         .toSorted(),
     ).toEqual([
+      "--ui-button-hover",
       "--ui-button-hover-translate",
       "--ui-contrast",
       "--ui-shadow-color",

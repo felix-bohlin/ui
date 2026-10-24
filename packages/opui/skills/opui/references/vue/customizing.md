@@ -25,12 +25,12 @@ Knobs inherit, so `html` is enough for them. A role you pin, such as `--ui-surfa
 
 ### Example themes
 
-Four themes ship with the package to show how far tokens go. Each is only tokens in `theme.custom`, no component CSS, and every stress test page runs with each of them in light and dark mode. They copy their originals faithfully, also where those fall short of WCAG contrast (the translucent focus rings of Bootstrap and shadcn, the bright blue of brutalist). They name their fonts (Geist, Roboto, DM Sans) but don't load them. Try them in the theme drawer in the header.
+Four themes ship with the package to show how far tokens go. Each is only tokens in `theme.custom`, on `html` and, for the colors of severity scopes such as `.ui-info`, on those classes. No component CSS. Every stress test page runs with each of them in light and dark mode. They copy their originals faithfully, also where those fall short of WCAG contrast (the translucent focus rings of Bootstrap and shadcn, the light field borders of Bootstrap and shadcn, the bright blue of brutalist). They name their fonts (Geist, Roboto, DM Sans) but don't load them. Try them in the theme drawer in the header.
 
-- `bootstrap`: Bootstrap 5. Its `#0d6efd` blue, grays, 38px controls, regular weight buttons and labels, heading scale and the wide translucent focus ring.
-- `brutalist`: neobrutalism. Black 2px borders, hard 4px shadows that buttons press into on hover, a bright blue on pale blue and heavy type.
-- `m3`: Material 3. The baseline purple scheme and its tinted surfaces, pill buttons in the primary purple that lift on hover, outlined ones in the outline gray, 12px cards, 4px outlined fields, Roboto, the type scale and the 3px focus ring.
-- `shadcn`: shadcn/ui. Neutral grays, a near-black primary, 36px controls with 14px text, light borders with a faint shadow, a 3px gray focus ring and rounder cards than controls.
+- `bootstrap`: Bootstrap 5. Its `#0d6efd` blue, gray secondary buttons, the danger, warning, info and success colors with the subtle alert palettes, `#dee2e6` borders, 38px controls, regular weight buttons and labels, 16px checks and 32px switches, the heading scale, 1.5 line height and the wide translucent focus ring. No shadow on dropdowns and modals.
+- `brutalist`: neobrutalism. Black 2px borders, hard 4px shadows on cards, dialogs and menus and on buttons that press into them on hover without changing color, white fields on the gray-blue page, a bright blue main color also behind tooltips and selected items, black links and 500 weight body text.
+- `m3`: Material 3. The baseline purple scheme and its tinted surfaces, the error red, pill buttons with 24px padding that show 8% state layers and lift on hover, outlined ones in the outline gray, 12px cards, 28px dialogs, 4px menus and outlined fields, 8px chips, 18px checkboxes, 52 by 32px switches, Roboto, the type scale, the emphasized easing and the 3px secondary focus ring over a 32% scrim.
+- `shadcn`: shadcn/ui. Neutral grays, a near-black primary also behind tooltips, 36px controls with 14px text and 16px padding, 32px small and 40px large buttons, light borders with a faint shadow, the accent tint on hover instead of a fill, a 3px gray focus ring, 16px checks with 4px corners, a 32px switch with a white thumb, 8px menus and chips, 10px dialogs and 14px cards.
 
 ```css
 @import "opui-css/css/imports.css";

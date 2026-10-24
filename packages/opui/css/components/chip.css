@@ -17,7 +17,7 @@
     background-color: var(--_bg-color);
     block-size: var(--_size);
     border: var(--ui-border-width) solid var(--_border-color);
-    border-radius: var(--ui-radius);
+    border-radius: var(--ui-chip-radius, var(--ui-radius));
     color: var(--_text-color);
     display: inline-flex;
     font-size: var(--_font-size);

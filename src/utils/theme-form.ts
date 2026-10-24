@@ -63,6 +63,13 @@ export const RADIUS_FIELDS = [
   { label: "Border radius", token: "--ui-radius" },
   { label: "Field border radius", token: "--ui-field-radius" },
   { label: "Button border radius", token: "--ui-button-radius" },
+  { label: "Chip border radius", token: "--ui-chip-radius" },
+  { label: "Dialog border radius", token: "--ui-dialog-radius" },
+  { label: "Menu border radius", token: "--ui-menu-radius" },
+] satisfies { label: string; token: Token }[]
+
+export const BUTTON_FIELDS = [
+  { label: "Button hover", token: "--ui-button-hover" },
 ] satisfies { label: string; token: Token }[]
 
 const TOKEN_SET = new Set<string>(TOKENS)

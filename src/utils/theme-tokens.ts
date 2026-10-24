@@ -37,6 +37,7 @@ const SECTION_ORDER = [
   "Spacing",
   "Control sizes",
   "Button",
+  "Tabs",
   "Divider",
   "Motion",
   "Contrast",

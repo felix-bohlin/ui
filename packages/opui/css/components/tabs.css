@@ -17,7 +17,7 @@
       var(--ui-field-border-color)
     );
     --_selected-shadow: var(--ui-shadow-selected);
-    --_selected-text-color: var(--ui-text-strong);
+    --_selected-text-color: var(--ui-tabs-accent, var(--ui-text-strong));
     --_text-color: var(--ui-text);
     --_track-bg-color: var(--ui-surface-tonal);
     --_track-border-color: transparent;
@@ -169,7 +169,7 @@
     }
 
     &.ui-line {
-      --_indicator-bg-color: var(--ui-text-strong);
+      --_indicator-bg-color: var(--ui-tabs-accent, var(--ui-text-strong));
       --_inset: 0px;
       --_selected-bg-color: transparent;
       --_selected-border-color: transparent;

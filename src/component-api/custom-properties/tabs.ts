@@ -18,7 +18,7 @@ export default {
   },
   "--_indicator-bg-color": {
     description:
-      "Color of the line under the selected tab. `transparent` unless `.ui-line`.",
+      "Color of the line under the selected tab. `transparent` unless `.ui-line`, which reads `--ui-tabs-accent` and falls back to `--ui-text-strong`.",
     kind: "input",
   },
   "--_indicator-size": {
@@ -56,7 +56,7 @@ export default {
   },
   "--_selected-text-color": {
     description:
-      "Text color of the selected tab. Defaults to `--ui-text-strong`, `.ui-filled` sets it to `--ui-on-selected-strong`.",
+      "Text color of the selected tab. Defaults to `--ui-tabs-accent`, or `--ui-text-strong` when a theme leaves it unset. `.ui-filled` sets it to `--ui-on-selected-strong`.",
     kind: "input",
   },
   "--_text-color": {

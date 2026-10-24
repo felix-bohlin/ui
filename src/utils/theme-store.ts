@@ -30,6 +30,10 @@ export type Token =
   | "--ui-radius"
   | "--ui-field-radius"
   | "--ui-button-radius"
+  | "--ui-chip-radius"
+  | "--ui-dialog-radius"
+  | "--ui-menu-radius"
+  | "--ui-button-hover"
 
 export const TOKENS = [
   "--ui-palette-hue",
@@ -40,6 +44,10 @@ export const TOKENS = [
   "--ui-radius",
   "--ui-field-radius",
   "--ui-button-radius",
+  "--ui-chip-radius",
+  "--ui-dialog-radius",
+  "--ui-menu-radius",
+  "--ui-button-hover",
 ] as const satisfies readonly Token[]
 
 // Defaults must mirror what `packages/opui/css/theme.css` ships
@@ -88,6 +96,11 @@ export const RADIUS_OPTIONS = [
   { text: "2", value: "var(--size-2)" },
   { text: "3", value: "var(--size-3)" },
   { text: "4", value: "var(--size-4)" },
+]
+
+export const BUTTON_HOVER_OPTIONS = [
+  { text: "Shade", value: "shade" },
+  { text: "Layer", value: "layer" },
 ]
 
 export const radiusOptions = (token: Token) =>

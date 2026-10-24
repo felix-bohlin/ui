@@ -90,6 +90,7 @@
     --ui-surface-inverse: light-dark(#322f35, #e6e0e9);
     --ui-surface-tonal: light-dark(#e8def8, #4a4458);
     --ui-switch-thumb-bg-color: light-dark(#79747e, #938f99);
+    --ui-tabs-accent: var(--ui-primary-text);
     --ui-switch-track-block-size: calc(2rem * var(--ui-density));
     --ui-switch-track-inline-size: calc(3.25rem * var(--ui-density));
     --ui-text: light-dark(#49454f, #cac4d0);

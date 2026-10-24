@@ -113,6 +113,9 @@
     /* --ui-button-padding-inline: 1.5ex; */
     /* --ui-button-padding-inline-large: 2.5ex; */
 
+    /* Tabs */
+    /* --ui-tabs-accent: var(--ui-text-strong); */
+
     /* Motion */
     --ui-duration-fast: 0.1s;
     --ui-duration: 0.2s;

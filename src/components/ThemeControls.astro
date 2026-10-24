@@ -12,12 +12,17 @@ import {
 } from "opui-css/astro"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
 import {
+  BUTTON_FIELDS,
   GRAY_FIELDS,
   PALETTE_FIELDS,
   RADIUS_FIELDS,
   sourceColor,
 } from "../utils/theme-form"
-import { radiusOptions, tokenDefaults } from "../utils/theme-store"
+import {
+  BUTTON_HOVER_OPTIONS,
+  radiusOptions,
+  tokenDefaults,
+} from "../utils/theme-store"
 
 const defaults = tokenDefaults("light")
 ---
@@ -98,6 +103,32 @@ const defaults = tokenDefaults("light")
           <span class="ui-label">{field.label}</span>
           <ToggleGroup aria-label={field.label} name={field.token} size="small">
             {radiusOptions(field.token).map((option) => (
+              <ToggleButton
+                checked={option.value === defaults[field.token]}
+                title={option.value}
+                value={option.value}
+              >
+                {option.text}
+              </ToggleButton>
+            ))}
+          </ToggleGroup>
+        </div>
+      </FieldGroup>
+    ))
+  }
+</Fieldset>
+
+<Divider />
+
+<Fieldset>
+  <FieldLegend>Buttons</FieldLegend>
+  {
+    BUTTON_FIELDS.map((field) => (
+      <FieldGroup>
+        <div class="radius-field">
+          <span class="ui-label">{field.label}</span>
+          <ToggleGroup aria-label={field.label} name={field.token} size="small">
+            {BUTTON_HOVER_OPTIONS.map((option) => (
               <ToggleButton
                 checked={option.value === defaults[field.token]}
                 title={option.value}

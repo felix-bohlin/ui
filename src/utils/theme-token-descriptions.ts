@@ -424,6 +424,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Width of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class.",
   "--ui-switch-track-inline-size-x-small":
     "Width of the `Switch` track with `.ui-x-small`.",
+  "--ui-tabs-accent":
+    "Color of the selected `Tabs` label, and of the indicator with `.ui-line`. When unset, `--ui-text-strong`. Filled tabs keep `--ui-on-selected-strong`.",
   "--ui-text":
     "Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.",
   "--ui-text-disabled":

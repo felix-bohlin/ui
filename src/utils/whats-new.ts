@@ -949,6 +949,7 @@ const whatsNew = {
     ),
   ],
   tabs: [
+    `Themes can set <a href="#api"><code>--ui-tabs-accent</code></a> for the selected label and the <a href="#variants">line</a> indicator.`,
     `The selected pill has a border, <code>--ui-control-border-color</code> or the field border, so it reaches 3:1 against the track without the shadow.`,
     `The outlined track reads <a href="#api"><code>--ui-control-border-color</code></a> for its border, like outlined buttons.`,
     {

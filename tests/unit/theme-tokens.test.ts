@@ -61,6 +61,7 @@ describe("theme tokens", () => {
       "Spacing",
       "Control sizes",
       "Button",
+      "Tabs",
       "Divider",
       "Motion",
       "Contrast",

@@ -402,101 +402,16 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
 
 ## Cards
 
-Add the `.ui-card` class to the `<label class="ui-switch">` to render the switch as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `.ui-spread` to put the switch at the end.
+`.ui-card` renders the switch as a card that tints when hovered and when checked. Combine it with `.ui-spread` for the switch at the end, and `.ui-tonal` or `.ui-elevated` for the surface, like a [Card](https://open-props-ui.netlify.app/html/components/card.md). In a `.ui-field-group.ui-horizontal` the cards share the row.
 
 ```html
 <form class="ui-form">
   <fieldset class="ui-fieldset">
-    <legend>Notifications</legend>
-    <div class="ui-field-group">
-      <label class="ui-switch ui-card ui-spread">
-        <input
-          name="switch-cards"
-          type="checkbox"
-          role="switch"
-          value="email"
-          checked
-        />
-        <span class="ui-label">Email</span>
-        <span class="ui-end-text">A summary of each day.</span>
-      </label>
-      <label class="ui-switch ui-card ui-spread">
-        <input name="switch-cards" type="checkbox" role="switch" value="push" />
-        <span class="ui-label">Push</span>
-        <span class="ui-end-text">Right when something happens.</span>
-      </label>
-      <label class="ui-switch ui-card ui-spread">
-        <input
-          name="switch-cards"
-          type="checkbox"
-          role="switch"
-          value="digest"
-        />
-        <span class="ui-label">Weekly digest</span>
-        <span class="ui-end-text">Every Monday morning.</span>
-      </label>
-    </div>
-  </fieldset>
-</form>
-```
-
-### Input at the start
-
-Without `.ui-spread` the switch sits at the start.
-
-```html
-<form class="ui-form">
-  <fieldset class="ui-fieldset">
-    <legend>Notifications</legend>
-    <div class="ui-field-group">
-      <label class="ui-switch ui-card">
-        <input
-          name="switch-cards-start"
-          type="checkbox"
-          role="switch"
-          value="email"
-          checked
-        />
-        <span class="ui-label">Email</span>
-        <span class="ui-end-text">A summary of each day.</span>
-      </label>
-      <label class="ui-switch ui-card">
-        <input
-          name="switch-cards-start"
-          type="checkbox"
-          role="switch"
-          value="push"
-        />
-        <span class="ui-label">Push</span>
-        <span class="ui-end-text">Right when something happens.</span>
-      </label>
-      <label class="ui-switch ui-card">
-        <input
-          name="switch-cards-start"
-          type="checkbox"
-          role="switch"
-          value="digest"
-        />
-        <span class="ui-label">Weekly digest</span>
-        <span class="ui-end-text">Every Monday morning.</span>
-      </label>
-    </div>
-  </fieldset>
-</form>
-```
-
-### Variants
-
-`.ui-tonal` and `.ui-elevated` change the surface like a [Card](https://open-props-ui.netlify.app/html/components/card.md). In a `.ui-field-group.ui-horizontal` the cards share the row and wrap.
-
-```html
-<form class="ui-form">
-  <fieldset class="ui-fieldset">
-    <legend>Variants</legend>
+    <legend>Input at the end</legend>
     <div class="ui-field-group ui-horizontal">
       <label class="ui-switch ui-card ui-spread">
         <input
-          name="switch-cards-variants"
+          name="switch-cards-end"
           type="checkbox"
           role="switch"
           value="outlined"
@@ -507,7 +422,7 @@ Without `.ui-spread` the switch sits at the start.
       </label>
       <label class="ui-switch ui-card ui-tonal ui-spread">
         <input
-          name="switch-cards-variants"
+          name="switch-cards-end"
           type="checkbox"
           role="switch"
           value="tonal"
@@ -517,7 +432,43 @@ Without `.ui-spread` the switch sits at the start.
       </label>
       <label class="ui-switch ui-card ui-elevated ui-spread">
         <input
-          name="switch-cards-variants"
+          name="switch-cards-end"
+          type="checkbox"
+          role="switch"
+          value="elevated"
+        />
+        <span class="ui-label">Elevated</span>
+        <span class="ui-end-text">A raised surface.</span>
+      </label>
+    </div>
+  </fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>Input at the start</legend>
+    <div class="ui-field-group ui-horizontal">
+      <label class="ui-switch ui-card">
+        <input
+          name="switch-cards-start"
+          type="checkbox"
+          role="switch"
+          value="outlined"
+          checked
+        />
+        <span class="ui-label">Outlined</span>
+        <span class="ui-end-text">The default surface.</span>
+      </label>
+      <label class="ui-switch ui-card ui-tonal">
+        <input
+          name="switch-cards-start"
+          type="checkbox"
+          role="switch"
+          value="tonal"
+        />
+        <span class="ui-label">Tonal</span>
+        <span class="ui-end-text">A tinted surface.</span>
+      </label>
+      <label class="ui-switch ui-card ui-elevated">
+        <input
+          name="switch-cards-start"
           type="checkbox"
           role="switch"
           value="elevated"
@@ -1012,6 +963,7 @@ To label the group, wrap it in a `.ui-fieldset` with a `<legend>`.
 | `--ui-space-5`                          | `calc(var(--size-5) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-space-8`                          | `calc(var(--size-8) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 8: Open Props `--size-8` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-state-active-alpha-accent`        | `25%`                                                                                                                                                                                                                    | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                    |
+| `--ui-state-hover-alpha-accent`         | `15%`                                                                                                                                                                                                                    | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-surface`                          | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                                        | Page and card background.                                                                                                                                                                                                                                                                                                                                                                            |
 | `--ui-surface-elevated`                 | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                                                                                                                                                        | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                                                                                                                                    |
 | `--ui-surface-tonal`                    | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                        | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                        |

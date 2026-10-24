@@ -253,7 +253,7 @@ Use the `spread` prop to push the label to the left and the radio to the right. 
 
 ## Cards
 
-Set the `card` prop to render the radio as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `spread` to put the radio at the end.
+`card` renders the radio as a card that tints when hovered and when checked. Combine it with `spread` for the radio at the end, and `variant="tonal"` or `variant="elevated"` for the surface, like a [Card](https://open-props-ui.netlify.app/svelte/components/card.md). In a horizontal `FieldGroup` the cards share the row.
 
 ```svelte
 <script lang="ts">
@@ -268,80 +268,8 @@ Set the `card` prop to render the radio as a card. It tints when hovered and whe
 
 <Form>
   <Fieldset>
-    <FieldLegend>Plan</FieldLegend>
-    <FieldGroup name="radio-cards">
-      <Radio value="starter" checked card spread>
-        Starter
-        {#snippet endText()}For one person.{/snippet}
-      </Radio>
-      <Radio value="team" card spread>
-        Team
-        {#snippet endText()}Up to ten seats and shared folders.{/snippet}
-      </Radio>
-      <Radio value="enterprise" disabled card spread>
-        Enterprise
-        {#snippet endText()}Talk to sales.{/snippet}
-      </Radio>
-    </FieldGroup>
-  </Fieldset>
-</Form>
-```
-
-### Input at the start
-
-Without `spread` the radio sits at the start.
-
-```svelte
-<script lang="ts">
-  import {
-    Radio,
-    FieldGroup,
-    FieldLegend,
-    Fieldset,
-    Form,
-  } from "opui-css/svelte"
-</script>
-
-<Form>
-  <Fieldset>
-    <FieldLegend>Plan</FieldLegend>
-    <FieldGroup name="radio-cards-start">
-      <Radio value="starter" checked card>
-        Starter
-        {#snippet endText()}For one person.{/snippet}
-      </Radio>
-      <Radio value="team" card>
-        Team
-        {#snippet endText()}Up to ten seats and shared folders.{/snippet}
-      </Radio>
-      <Radio value="enterprise" disabled card>
-        Enterprise
-        {#snippet endText()}Talk to sales.{/snippet}
-      </Radio>
-    </FieldGroup>
-  </Fieldset>
-</Form>
-```
-
-### Variants
-
-`variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/svelte/components/card.md). In a horizontal `FieldGroup` the cards share the row and wrap.
-
-```svelte
-<script lang="ts">
-  import {
-    Radio,
-    FieldGroup,
-    FieldLegend,
-    Fieldset,
-    Form,
-  } from "opui-css/svelte"
-</script>
-
-<Form>
-  <Fieldset>
-    <FieldLegend>Variants</FieldLegend>
-    <FieldGroup name="radio-cards-variants" orientation="horizontal">
+    <FieldLegend>Input at the end</FieldLegend>
+    <FieldGroup name="radio-cards-end" orientation="horizontal">
       <Radio value="outlined" checked card spread>
         Outlined
         {#snippet endText()}The default surface.{/snippet}
@@ -351,6 +279,23 @@ Without `spread` the radio sits at the start.
         {#snippet endText()}A tinted surface.{/snippet}
       </Radio>
       <Radio value="elevated" card variant="elevated" spread>
+        Elevated
+        {#snippet endText()}A raised surface.{/snippet}
+      </Radio>
+    </FieldGroup>
+  </Fieldset>
+  <Fieldset>
+    <FieldLegend>Input at the start</FieldLegend>
+    <FieldGroup name="radio-cards-start" orientation="horizontal">
+      <Radio value="outlined" checked card>
+        Outlined
+        {#snippet endText()}The default surface.{/snippet}
+      </Radio>
+      <Radio value="tonal" card variant="tonal">
+        Tonal
+        {#snippet endText()}A tinted surface.{/snippet}
+      </Radio>
+      <Radio value="elevated" card variant="elevated">
         Elevated
         {#snippet endText()}A raised surface.{/snippet}
       </Radio>
@@ -719,6 +664,7 @@ The radio `<input>` without the label, for a custom layout inside a `label.ui-ra
 | `--ui-space-5`                          | `calc(var(--size-5) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-space-8`                          | `calc(var(--size-8) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 8: Open Props `--size-8` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-state-active-alpha-accent`        | `25%`                                                                                                                                                                                                                    | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                    |
+| `--ui-state-hover-alpha-accent`         | `15%`                                                                                                                                                                                                                    | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-surface`                          | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                                        | Page and card background.                                                                                                                                                                                                                                                                                                                                                                            |
 | `--ui-surface-elevated`                 | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                                                                                                                                                        | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                                                                                                                                    |
 | `--ui-surface-tonal`                    | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                        | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                        |

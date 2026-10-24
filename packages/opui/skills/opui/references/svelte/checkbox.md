@@ -286,7 +286,7 @@ Use the `spread` prop to push the label to the left and the checkbox to the righ
 
 ## Cards
 
-Set the `card` prop to render the checkbox as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `spread` to put the checkbox at the end.
+`card` renders the checkbox as a card that tints when hovered and when checked. Combine it with `spread` for the checkbox at the end, and `variant="tonal"` or `variant="elevated"` for the surface, like a [Card](https://open-props-ui.netlify.app/svelte/components/card.md). In a horizontal `FieldGroup` the cards share the row.
 
 ```svelte
 <script lang="ts">
@@ -301,80 +301,8 @@ Set the `card` prop to render the checkbox as a card. It tints when hovered and 
 
 <Form>
   <Fieldset>
-    <FieldLegend>Add-ons</FieldLegend>
-    <FieldGroup name="checkbox-cards">
-      <Checkbox value="support" checked card spread>
-        Priority support
-        {#snippet endText()}Answers within a day.{/snippet}
-      </Checkbox>
-      <Checkbox value="storage" card spread>
-        Extra storage
-        {#snippet endText()}Another 100 GB.{/snippet}
-      </Checkbox>
-      <Checkbox value="domain" disabled card spread>
-        Custom domain
-        {#snippet endText()}Not available on this plan.{/snippet}
-      </Checkbox>
-    </FieldGroup>
-  </Fieldset>
-</Form>
-```
-
-### Input at the start
-
-Without `spread` the checkbox sits at the start.
-
-```svelte
-<script lang="ts">
-  import {
-    Checkbox,
-    FieldGroup,
-    FieldLegend,
-    Fieldset,
-    Form,
-  } from "opui-css/svelte"
-</script>
-
-<Form>
-  <Fieldset>
-    <FieldLegend>Add-ons</FieldLegend>
-    <FieldGroup name="checkbox-cards-start">
-      <Checkbox value="support" checked card>
-        Priority support
-        {#snippet endText()}Answers within a day.{/snippet}
-      </Checkbox>
-      <Checkbox value="storage" card>
-        Extra storage
-        {#snippet endText()}Another 100 GB.{/snippet}
-      </Checkbox>
-      <Checkbox value="domain" disabled card>
-        Custom domain
-        {#snippet endText()}Not available on this plan.{/snippet}
-      </Checkbox>
-    </FieldGroup>
-  </Fieldset>
-</Form>
-```
-
-### Variants
-
-`variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/svelte/components/card.md). In a horizontal `FieldGroup` the cards share the row and wrap.
-
-```svelte
-<script lang="ts">
-  import {
-    Checkbox,
-    FieldGroup,
-    FieldLegend,
-    Fieldset,
-    Form,
-  } from "opui-css/svelte"
-</script>
-
-<Form>
-  <Fieldset>
-    <FieldLegend>Variants</FieldLegend>
-    <FieldGroup name="checkbox-cards-variants" orientation="horizontal">
+    <FieldLegend>Input at the end</FieldLegend>
+    <FieldGroup name="checkbox-cards-end" orientation="horizontal">
       <Checkbox value="outlined" checked card spread>
         Outlined
         {#snippet endText()}The default surface.{/snippet}
@@ -384,6 +312,23 @@ Without `spread` the checkbox sits at the start.
         {#snippet endText()}A tinted surface.{/snippet}
       </Checkbox>
       <Checkbox value="elevated" card variant="elevated" spread>
+        Elevated
+        {#snippet endText()}A raised surface.{/snippet}
+      </Checkbox>
+    </FieldGroup>
+  </Fieldset>
+  <Fieldset>
+    <FieldLegend>Input at the start</FieldLegend>
+    <FieldGroup name="checkbox-cards-start" orientation="horizontal">
+      <Checkbox value="outlined" checked card>
+        Outlined
+        {#snippet endText()}The default surface.{/snippet}
+      </Checkbox>
+      <Checkbox value="tonal" card variant="tonal">
+        Tonal
+        {#snippet endText()}A tinted surface.{/snippet}
+      </Checkbox>
+      <Checkbox value="elevated" card variant="elevated">
         Elevated
         {#snippet endText()}A raised surface.{/snippet}
       </Checkbox>
@@ -742,6 +687,7 @@ The checkbox `<input>` without the label, for a custom layout inside a `label.ui
 | `--ui-space-5`                          | `calc(var(--size-5) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-space-8`                          | `calc(var(--size-8) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 8: Open Props `--size-8` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-state-active-alpha-accent`        | `25%`                                                                                                                                                                                                                    | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                    |
+| `--ui-state-hover-alpha-accent`         | `15%`                                                                                                                                                                                                                    | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-surface`                          | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                                        | Page and card background.                                                                                                                                                                                                                                                                                                                                                                            |
 | `--ui-surface-elevated`                 | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                                                                                                                                                        | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                                                                                                                                    |
 | `--ui-surface-tonal`                    | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                        | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                        |

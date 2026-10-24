@@ -319,96 +319,17 @@ export default function Spread() {
 
 ## Cards
 
-Set the `card` prop to render the radio as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `spread` to put the radio at the end.
+`card` renders the radio as a card that tints when hovered and when checked. Combine it with `spread` for the radio at the end, and `variant="tonal"` or `variant="elevated"` for the surface, like a [Card](https://open-props-ui.netlify.app/react/components/card.md). In a horizontal `FieldGroup` the cards share the row.
 
 ```tsx
 import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"
 
-export default function Cards() {
+export default function CardsMatrix() {
   return (
     <Form>
       <Fieldset>
-        <FieldLegend>Plan</FieldLegend>
-        <FieldGroup name="radio-cards">
-          <Radio
-            value="starter"
-            defaultChecked
-            card
-            spread
-            endText="For one person."
-          >
-            Starter
-          </Radio>
-          <Radio
-            value="team"
-            card
-            spread
-            endText="Up to ten seats and shared folders."
-          >
-            Team
-          </Radio>
-          <Radio
-            value="enterprise"
-            disabled
-            card
-            spread
-            endText="Talk to sales."
-          >
-            Enterprise
-          </Radio>
-        </FieldGroup>
-      </Fieldset>
-    </Form>
-  )
-}
-```
-
-### Input at the start
-
-Without `spread` the radio sits at the start.
-
-```tsx
-import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"
-
-export default function CardsStart() {
-  return (
-    <Form>
-      <Fieldset>
-        <FieldLegend>Plan</FieldLegend>
-        <FieldGroup name="radio-cards-start">
-          <Radio value="starter" defaultChecked card endText="For one person.">
-            Starter
-          </Radio>
-          <Radio
-            value="team"
-            card
-            endText="Up to ten seats and shared folders."
-          >
-            Team
-          </Radio>
-          <Radio value="enterprise" disabled card endText="Talk to sales.">
-            Enterprise
-          </Radio>
-        </FieldGroup>
-      </Fieldset>
-    </Form>
-  )
-}
-```
-
-### Variants
-
-`variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/react/components/card.md). In a horizontal `FieldGroup` the cards share the row and wrap.
-
-```tsx
-import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"
-
-export default function CardsVariants() {
-  return (
-    <Form>
-      <Fieldset>
-        <FieldLegend>Variants</FieldLegend>
-        <FieldGroup name="radio-cards-variants" orientation="horizontal">
+        <FieldLegend>Input at the end</FieldLegend>
+        <FieldGroup name="radio-cards-end" orientation="horizontal">
           <Radio
             value="outlined"
             defaultChecked
@@ -432,6 +353,30 @@ export default function CardsVariants() {
             card
             variant="elevated"
             spread
+            endText="A raised surface."
+          >
+            Elevated
+          </Radio>
+        </FieldGroup>
+      </Fieldset>
+      <Fieldset>
+        <FieldLegend>Input at the start</FieldLegend>
+        <FieldGroup name="radio-cards-start" orientation="horizontal">
+          <Radio
+            value="outlined"
+            defaultChecked
+            card
+            endText="The default surface."
+          >
+            Outlined
+          </Radio>
+          <Radio value="tonal" card variant="tonal" endText="A tinted surface.">
+            Tonal
+          </Radio>
+          <Radio
+            value="elevated"
+            card
+            variant="elevated"
             endText="A raised surface."
           >
             Elevated
@@ -796,6 +741,7 @@ The radio `<input>` without the label, for a custom layout inside a `label.ui-ra
 | `--ui-space-5`                          | `calc(var(--size-5) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-space-8`                          | `calc(var(--size-8) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 8: Open Props `--size-8` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-state-active-alpha-accent`        | `25%`                                                                                                                                                                                                                    | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                    |
+| `--ui-state-hover-alpha-accent`         | `15%`                                                                                                                                                                                                                    | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-surface`                          | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                                        | Page and card background.                                                                                                                                                                                                                                                                                                                                                                            |
 | `--ui-surface-elevated`                 | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                                                                                                                                                        | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                                                                                                                                    |
 | `--ui-surface-tonal`                    | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                        | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                        |

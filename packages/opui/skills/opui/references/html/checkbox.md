@@ -378,84 +378,16 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the labe
 
 ## Cards
 
-Add the `.ui-card` class to the `<label class="ui-checkbox">` to render the checkbox as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `.ui-spread` to put the checkbox at the end.
+`.ui-card` renders the checkbox as a card that tints when hovered and when checked. Combine it with `.ui-spread` for the checkbox at the end, and `.ui-tonal` or `.ui-elevated` for the surface, like a [Card](https://open-props-ui.netlify.app/html/components/card.md). In a `.ui-field-group.ui-horizontal` the cards share the row.
 
 ```html
 <form class="ui-form">
   <fieldset class="ui-fieldset">
-    <legend>Add-ons</legend>
-    <div class="ui-field-group">
-      <label class="ui-checkbox ui-card ui-spread">
-        <input name="checkbox-cards" type="checkbox" value="support" checked />
-        <span class="ui-label">Priority support</span>
-        <span class="ui-end-text">Answers within a day.</span>
-      </label>
-      <label class="ui-checkbox ui-card ui-spread">
-        <input name="checkbox-cards" type="checkbox" value="storage" />
-        <span class="ui-label">Extra storage</span>
-        <span class="ui-end-text">Another 100 GB.</span>
-      </label>
-      <label class="ui-checkbox ui-card ui-spread">
-        <input name="checkbox-cards" type="checkbox" value="domain" disabled />
-        <span class="ui-label">Custom domain</span>
-        <span class="ui-end-text">Not available on this plan.</span>
-      </label>
-    </div>
-  </fieldset>
-</form>
-```
-
-### Input at the start
-
-Without `.ui-spread` the checkbox sits at the start.
-
-```html
-<form class="ui-form">
-  <fieldset class="ui-fieldset">
-    <legend>Add-ons</legend>
-    <div class="ui-field-group">
-      <label class="ui-checkbox ui-card">
-        <input
-          name="checkbox-cards-start"
-          type="checkbox"
-          value="support"
-          checked
-        />
-        <span class="ui-label">Priority support</span>
-        <span class="ui-end-text">Answers within a day.</span>
-      </label>
-      <label class="ui-checkbox ui-card">
-        <input name="checkbox-cards-start" type="checkbox" value="storage" />
-        <span class="ui-label">Extra storage</span>
-        <span class="ui-end-text">Another 100 GB.</span>
-      </label>
-      <label class="ui-checkbox ui-card">
-        <input
-          name="checkbox-cards-start"
-          type="checkbox"
-          value="domain"
-          disabled
-        />
-        <span class="ui-label">Custom domain</span>
-        <span class="ui-end-text">Not available on this plan.</span>
-      </label>
-    </div>
-  </fieldset>
-</form>
-```
-
-### Variants
-
-`.ui-tonal` and `.ui-elevated` change the surface like a [Card](https://open-props-ui.netlify.app/html/components/card.md). In a `.ui-field-group.ui-horizontal` the cards share the row and wrap.
-
-```html
-<form class="ui-form">
-  <fieldset class="ui-fieldset">
-    <legend>Variants</legend>
+    <legend>Input at the end</legend>
     <div class="ui-field-group ui-horizontal">
       <label class="ui-checkbox ui-card ui-spread">
         <input
-          name="checkbox-cards-variants"
+          name="checkbox-cards-end"
           type="checkbox"
           value="outlined"
           checked
@@ -464,16 +396,37 @@ Without `.ui-spread` the checkbox sits at the start.
         <span class="ui-end-text">The default surface.</span>
       </label>
       <label class="ui-checkbox ui-card ui-tonal ui-spread">
-        <input name="checkbox-cards-variants" type="checkbox" value="tonal" />
+        <input name="checkbox-cards-end" type="checkbox" value="tonal" />
         <span class="ui-label">Tonal</span>
         <span class="ui-end-text">A tinted surface.</span>
       </label>
       <label class="ui-checkbox ui-card ui-elevated ui-spread">
+        <input name="checkbox-cards-end" type="checkbox" value="elevated" />
+        <span class="ui-label">Elevated</span>
+        <span class="ui-end-text">A raised surface.</span>
+      </label>
+    </div>
+  </fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>Input at the start</legend>
+    <div class="ui-field-group ui-horizontal">
+      <label class="ui-checkbox ui-card">
         <input
-          name="checkbox-cards-variants"
+          name="checkbox-cards-start"
           type="checkbox"
-          value="elevated"
+          value="outlined"
+          checked
         />
+        <span class="ui-label">Outlined</span>
+        <span class="ui-end-text">The default surface.</span>
+      </label>
+      <label class="ui-checkbox ui-card ui-tonal">
+        <input name="checkbox-cards-start" type="checkbox" value="tonal" />
+        <span class="ui-label">Tonal</span>
+        <span class="ui-end-text">A tinted surface.</span>
+      </label>
+      <label class="ui-checkbox ui-card ui-elevated">
+        <input name="checkbox-cards-start" type="checkbox" value="elevated" />
         <span class="ui-label">Elevated</span>
         <span class="ui-end-text">A raised surface.</span>
       </label>
@@ -886,6 +839,7 @@ To label the group, wrap it in a `.ui-fieldset` with a `<legend>`.
 | `--ui-space-5`                          | `calc(var(--size-5) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-space-8`                          | `calc(var(--size-8) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 8: Open Props `--size-8` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-state-active-alpha-accent`        | `25%`                                                                                                                                                                                                                    | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                    |
+| `--ui-state-hover-alpha-accent`         | `15%`                                                                                                                                                                                                                    | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-surface`                          | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                                        | Page and card background.                                                                                                                                                                                                                                                                                                                                                                            |
 | `--ui-surface-elevated`                 | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                                                                                                                                                        | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                                                                                                                                    |
 | `--ui-surface-tonal`                    | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                        | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                        |

@@ -297,7 +297,7 @@ import { Switch } from "opui-css/astro"
 
 ## Cards
 
-Set the `card` prop to render the switch as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `spread` to put the switch at the end.
+`card` renders the switch as a card that tints when hovered and when checked. Combine it with `spread` for the switch at the end, and `variant="tonal"` or `variant="elevated"` for the surface, like a [Card](https://open-props-ui.netlify.app/astro/components/card.md). In a horizontal `FieldGroup` the cards share the row.
 
 ```astro
 ---
@@ -306,68 +306,8 @@ import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
 
 <Form>
   <Fieldset>
-    <FieldLegend>Notifications</FieldLegend>
-    <FieldGroup name="switch-cards">
-      <Switch value="email" checked card spread>
-        Email
-        <Fragment slot="end-text">A summary of each day.</Fragment>
-      </Switch>
-      <Switch value="push" card spread>
-        Push
-        <Fragment slot="end-text">Right when something happens.</Fragment>
-      </Switch>
-      <Switch value="digest" card spread>
-        Weekly digest
-        <Fragment slot="end-text">Every Monday morning.</Fragment>
-      </Switch>
-    </FieldGroup>
-  </Fieldset>
-</Form>
-```
-
-### Input at the start
-
-Without `spread` the switch sits at the start.
-
-```astro
----
-import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
----
-
-<Form>
-  <Fieldset>
-    <FieldLegend>Notifications</FieldLegend>
-    <FieldGroup name="switch-cards-start">
-      <Switch value="email" checked card>
-        Email
-        <Fragment slot="end-text">A summary of each day.</Fragment>
-      </Switch>
-      <Switch value="push" card>
-        Push
-        <Fragment slot="end-text">Right when something happens.</Fragment>
-      </Switch>
-      <Switch value="digest" card>
-        Weekly digest
-        <Fragment slot="end-text">Every Monday morning.</Fragment>
-      </Switch>
-    </FieldGroup>
-  </Fieldset>
-</Form>
-```
-
-### Variants
-
-`variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/astro/components/card.md). In a horizontal `FieldGroup` the cards share the row and wrap.
-
-```astro
----
-import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
----
-
-<Form>
-  <Fieldset>
-    <FieldLegend>Variants</FieldLegend>
-    <FieldGroup name="switch-cards-variants" orientation="horizontal">
+    <FieldLegend>Input at the end</FieldLegend>
+    <FieldGroup name="switch-cards-end" orientation="horizontal">
       <Switch value="outlined" checked card spread>
         Outlined
         <Fragment slot="end-text">The default surface.</Fragment>
@@ -377,6 +317,23 @@ import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
         <Fragment slot="end-text">A tinted surface.</Fragment>
       </Switch>
       <Switch value="elevated" card variant="elevated" spread>
+        Elevated
+        <Fragment slot="end-text">A raised surface.</Fragment>
+      </Switch>
+    </FieldGroup>
+  </Fieldset>
+  <Fieldset>
+    <FieldLegend>Input at the start</FieldLegend>
+    <FieldGroup name="switch-cards-start" orientation="horizontal">
+      <Switch value="outlined" checked card>
+        Outlined
+        <Fragment slot="end-text">The default surface.</Fragment>
+      </Switch>
+      <Switch value="tonal" card variant="tonal">
+        Tonal
+        <Fragment slot="end-text">A tinted surface.</Fragment>
+      </Switch>
+      <Switch value="elevated" card variant="elevated">
         Elevated
         <Fragment slot="end-text">A raised surface.</Fragment>
       </Switch>
@@ -746,6 +703,7 @@ The switch `<input>` without the label, for a custom layout such as the end of a
 | `--ui-space-5`                          | `calc(var(--size-5) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-space-8`                          | `calc(var(--size-8) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 8: Open Props `--size-8` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-state-active-alpha-accent`        | `25%`                                                                                                                                                                                                                    | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                    |
+| `--ui-state-hover-alpha-accent`         | `15%`                                                                                                                                                                                                                    | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                      |
 | `--ui-surface`                          | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                                        | Page and card background.                                                                                                                                                                                                                                                                                                                                                                            |
 | `--ui-surface-elevated`                 | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                                                                                                                                                        | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                                                                                                                                    |
 | `--ui-surface-tonal`                    | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                        | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                        |

@@ -2,6 +2,7 @@ import { readdir, readFile, writeFile } from "node:fs/promises"
 import { basename, dirname, extname, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import postcss from "postcss"
+import { declaredProperties } from "../src/utils/package-source.js"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const opuiDir = join(root, "packages/opui")
@@ -30,7 +31,6 @@ const BASES = {
   "toggle-group.css": ["toggle-button.css"],
 }
 
-const DECLARATION = /(--[\w-]+)\s*:|["'`](--[\w-]+)["'`]/g
 const READ = /var\(\s*(--[\w-]+)/g
 const IMPORT = /@import\s+["']([^"']+)["']/g
 const STYLE = /<style\b[^>]*>([\s\S]*?)<\/style>/g
@@ -66,15 +66,12 @@ const collectImports = async (file, seen = new Set()) => {
   return seen
 }
 
-const declarations = (source) =>
-  [...source.matchAll(DECLARATION)].map(([, name, quoted]) => name ?? quoted)
-
 const scan = async (dir, extensions, css = (_, source) => source) =>
   Promise.all(
     (await listFiles(dir, extensions)).toSorted().map(async (file) => {
       const source = await readFile(file, "utf8")
       return {
-        declared: new Set(declarations(source)),
+        declared: new Set(declaredProperties(source)),
         file,
         read: new Set(
           [...css(file, source).matchAll(READ)].map(([, name]) => name),
@@ -90,7 +87,7 @@ const styles = (file, source) =>
 
 const openProps = await Promise.all(
   [...(await collectImports(openPropsEntry))].map(async (file) =>
-    declarations(await readFile(file, "utf8")),
+    declaredProperties(await readFile(file, "utf8")),
   ),
 )
 const packageFiles = await scan(opuiDir, [

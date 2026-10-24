@@ -8,6 +8,7 @@ import {
   FRAMEWORK_IDS,
   PACKAGE_FRAMEWORK_IDS,
 } from "../src/utils/framework.js"
+import { barrelExports } from "../src/utils/package-source.js"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const componentsDir = join(root, "packages/opui/components")
@@ -75,8 +76,8 @@ const barrels = Object.fromEntries(
 )
 
 const exportedNames = (source) =>
-  [...source.matchAll(/^export \{ default as (\w+) \}/gm)]
-    .map((match) => match[1])
+  barrelExports(source)
+    .map(({ name }) => name)
     .toSorted()
 
 const typeExports = (source) =>

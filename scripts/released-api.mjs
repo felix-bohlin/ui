@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process"
 import fs from "node:fs"
 import path from "node:path"
 import ts from "typescript"
+import { barrelExports, classNamesIn } from "../src/utils/package-source.js"
 
 const version = process.argv[2]
 if (!version) {
@@ -21,11 +22,9 @@ const exported = new Set(
   ["astro", "vue"].flatMap((framework) => {
     const barrel = path.join(cache, "packages/opui", framework, "index.ts")
     if (!fs.existsSync(barrel)) return []
-    return [
-      ...fs
-        .readFileSync(barrel, "utf8")
-        .matchAll(/^export \{ default as (\w+) \}/gm),
-    ].map(([, name]) => name)
+    return barrelExports(fs.readFileSync(barrel, "utf8")).map(
+      ({ name }) => name,
+    )
   }),
 )
 
@@ -81,21 +80,7 @@ for (const file of files) {
   }
 }
 
-const classes = new Set()
-const walk = (dir) => {
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const file = path.join(dir, entry.name)
-    if (entry.isDirectory()) walk(file)
-    else if (file.endsWith(".css")) {
-      for (const [, name] of fs
-        .readFileSync(file, "utf8")
-        .matchAll(/\.(ui-[a-z0-9-]+)/g)) {
-        classes.add(`.${name}`)
-      }
-    }
-  }
-}
-walk(path.join(cache, "packages/opui/css"))
+const classes = classNamesIn([path.join(cache, "packages/opui/css")])
 
 const sorted = (object) =>
   Object.fromEntries(

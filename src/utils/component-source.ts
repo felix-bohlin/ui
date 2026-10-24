@@ -9,6 +9,7 @@ import {
 } from "../component-api/frameworks"
 import type { ApiOption, ComponentApi } from "../component-api/types"
 import { isHydratedFramework } from "./framework"
+import { barrelExports } from "./package-source"
 
 const root = path.resolve("packages/opui/components")
 
@@ -250,15 +251,13 @@ export const checkExports = (apis: ComponentApi[]) => {
     ]),
   )
   return all.flatMap((framework) =>
-    [
-      ...fs
-        .readFileSync(
-          path.resolve("packages/opui", framework, "index.ts"),
-          "utf-8",
-        )
-        .matchAll(/^export \{ default as (\w+) \}/gm),
-    ]
-      .map(([, name]) => name)
+    barrelExports(
+      fs.readFileSync(
+        path.resolve("packages/opui", framework, "index.ts"),
+        "utf-8",
+      ),
+    )
+      .map(({ name }) => name)
       .filter((name) => !covered.has(name))
       .map((name) => `${name} (${framework}): exported but not documented`),
   )

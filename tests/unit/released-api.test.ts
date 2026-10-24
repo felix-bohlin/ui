@@ -1,6 +1,7 @@
-import { readFileSync, readdirSync } from "node:fs"
+import { readFileSync } from "node:fs"
 import { expect, test } from "vitest"
 import { frameworkProps } from "../../src/utils/component-source"
+import { classNamesIn } from "../../src/utils/package-source"
 import released from "./released-api.json"
 
 const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
@@ -25,25 +26,8 @@ const currentProps = (source: string, component: string) =>
     ]),
   )
 
-const currentClasses = () => {
-  const classes = new Set<string>()
-  const walk = (dir: string) => {
-    for (const entry of readdirSync(dir, { withFileTypes: true })) {
-      const file = `${dir}/${entry.name}`
-      if (entry.isDirectory()) walk(file)
-      else if (file.endsWith(".css")) {
-        for (const [, name] of readFileSync(file, "utf8").matchAll(
-          /\.(ui-[a-z0-9-]+)/g,
-        )) {
-          classes.add(`.${name}`)
-        }
-      }
-    }
-  }
-  walk("packages/opui/css")
-  walk("packages/opui/core")
-  return classes
-}
+const currentClasses = () =>
+  classNamesIn(["packages/opui/css", "packages/opui/core"])
 
 test("released props still exist or are logged as Breaking or Removed", () => {
   const unlogged = Object.entries(released.props).flatMap(

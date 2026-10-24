@@ -1,5 +1,9 @@
 import { readFileSync, readdirSync } from "node:fs"
 import { expect, test } from "vitest"
+import {
+  declaredProperties,
+  stripComments,
+} from "../../src/utils/package-source"
 
 const sheets = [
   ...readdirSync("packages/opui/css/components").map(
@@ -20,11 +24,9 @@ const components = [
 
 const names = new Set(
   sheets.flatMap((file) =>
-    [
-      ...readFileSync(file, "utf8")
-        .replaceAll(/\/\*[\s\S]*?\*\//g, "")
-        .matchAll(/(--(?:_|ui-)[a-z0-9-]+)\s*:/g),
-    ].map(([, name]) => name),
+    declaredProperties(stripComments(readFileSync(file, "utf8"))).filter(
+      (name) => /^--(?:_|ui-)[a-z0-9-]+$/.test(name),
+    ),
   ),
 )
 

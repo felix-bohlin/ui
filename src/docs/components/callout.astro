@@ -2,7 +2,11 @@
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
-import { Callout as UICallout } from "@opui/astro"
+import {
+  Callout as UICallout,
+  CalloutContent as UICalloutContent,
+  CalloutIcon as UICalloutIcon,
+} from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 import CalloutCSS from "@opui/css/components/callout.css?raw"
@@ -10,23 +14,32 @@ import CalloutCSS from "@opui/css/components/callout.css?raw"
 import calloutApi from "../../component-api/callout/api"
 
 import Conditional from "../../components/Conditional.astro"
+import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
 
 const ThemeCSS = `/* ... */
-.ui-critical {
-  --palette-source: oklch(0.58 0.21 var(--hue-red));
-  --palette-hue-rotate-by: 1;
+:where(.ui-critical, .ui-del, del) {
+  --ui-palette-source: oklch(from var(--ui-critical) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
 }
-.ui-info {
-  --palette-source: oklch(0.58 0.21 var(--hue-blue));
-  --palette-hue-rotate-by: 1;
+
+:where(.ui-info, abbr, dfn, .ui-abbr, .ui-dfn) {
+  --ui-palette-source: oklch(from var(--ui-info) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
 }
-.ui-success {
-  --palette-source: oklch(0.58 0.21 var(--hue-green));
-  --palette-hue-rotate-by: 1;
+
+:where(.ui-success, .ui-ins, ins) {
+  --ui-palette-source: oklch(from var(--ui-success) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
 }
-.ui-warning {
-  --palette-source: oklch(0.58 0.21 var(--hue-orange));
-  --palette-hue-rotate-by: 1;
+
+:where(.ui-warning) {
+  --ui-palette-source: oklch(from var(--ui-warning) 0.58 0.21 h);
+  --ui-palette-hue-rotate-by: 1;
+}
+
+:where(.ui-neutral) {
+  --ui-palette-source: oklch(0.58 var(--ui-gray-chroma) var(--ui-gray-hue));
+  --ui-palette-hue-rotate-by: 0;
 }
 /* ... */`
 ---
@@ -35,7 +48,7 @@ const ThemeCSS = `/* ... */
   slug="callout"
   heroAnatomy
   apis={[{ title: "Callout API", api: calloutApi }]}
-  browserSupport={["has", "light-dark", "relative-color"]}
+  browserSupport={["has", "relative-color", "scope"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Callout/Callout.astro",
@@ -64,7 +77,7 @@ const ThemeCSS = `/* ... */
   <div class="ui-not-rich-text">
     <UICallout>
       <svg
-        slot="icon"
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -74,36 +87,34 @@ const ThemeCSS = `/* ... */
           d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
         ></path></svg
       >
-      <h3>Alternatives</h3>
-      <p>You might want to check out:</p>
-      <ul>
-        <li>
-          <DocLink href="/components/dialog" class="ui-link">Dialog</DocLink>:
-          takes over completely
-        </li>
-        <li>
-          <DocLink href="/components/toast" class="ui-link">Toast</DocLink>:
-          informative but non-interruptive
-        </li>
-      </ul>
+      <UICalloutContent>
+        <h3>Alternatives</h3>
+        <p>You might want to check out:</p>
+        <ul>
+          <li>
+            <DocLink href="/components/dialog" class="ui-link">Dialog</DocLink>:
+            takes over completely
+          </li>
+        </ul>
+      </UICalloutContent>
     </UICallout>
   </div>
 
   <section>
     <h2 id="variants">Variants</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Tonal (default) and outlined variants are available via the <code
           >variant</code
-        > prop.
+        > prop. Put the text in <code>CalloutContent</code>, with an optional
+        heading such as an <code>&lt;h3&gt;</code> first. Every heading level gets
+        the same title style.
       </Fragment>
       <Fragment slot="html">
-        Tonal (default) and <code>.ui-outlined</code> variants.
-      </Fragment>
-      <Fragment slot="vue">
-        Tonal (default) and outlined variants are available via the <code
-          >variant</code
-        > prop.
+        Tonal (default) and <code>.ui-outlined</code> variants. Put the text in <code
+          >.ui-content</code
+        >, with an optional heading such as an <code>&lt;h3&gt;</code> first. Every
+        heading level gets the same title style.
       </Fragment>
     </Conditional>
 
@@ -111,101 +122,81 @@ const ThemeCSS = `/* ... */
   </section>
 
   <section>
-    <h2 id="icon">Icon</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Icons are placed in the <code>icon</code> slot. You can also modify the component
-        so you don't have to do it manually every time.
-      </Fragment>
-      <Fragment slot="html"> Icon must be placed before the content. </Fragment>
-      <Fragment slot="vue">
-        Icons are placed in the <code>icon</code> slot. You can also modify the component
-        so you don't have to do it manually every time.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Icon" column />
-  </section>
-
-  <section>
     <h2 id="severities">Severities</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        The <code>severity</code> prop accepts <code>info</code>, <code
-          >success</code
-        >, <code>warning</code>, and <code>critical</code>, plus a non-severity
-        <code>neutral</code> tone for brand-tinted attention. The default is a plain
-        surface.
+      <Fragment slot="components">
+        The <code>severity</code> prop accepts <code>critical</code>, <code
+          >info</code
+        >, <code>neutral</code>, <code>success</code> and <code>warning</code>.
+        {" "}<code>neutral</code> is a non-severity tone for brand-tinted attention.
+        The default is a plain surface.
       </Fragment>
       <Fragment slot="html">
-        Severity modifiers - <code>.ui-info</code>, <code>.ui-success</code>, <code
-          >.ui-warning</code
-        >, <code>.ui-critical</code> - plus the non-severity <code
+        Severity modifiers: <code>.ui-critical</code>, <code>.ui-info</code>, <code
           >.ui-neutral</code
-        >
-        tone for brand-tinted attention. The default is a plain surface.
-      </Fragment>
-      <Fragment slot="vue">
-        The <code>severity</code> prop accepts <code>info</code>, <code
-          >success</code
-        >, <code>warning</code>, and <code>critical</code>, plus a non-severity
-        <code>neutral</code> tone for brand-tinted attention. The default is a plain
-        surface.
+        >, <code>.ui-success</code> and <code>.ui-warning</code>.
+        {" "}<code>.ui-neutral</code> is a non-severity tone for brand-tinted attention.
+        The default is a plain surface.
       </Fragment>
     </Conditional>
 
     <div class="ui-not-rich-text">
       <UICallout severity="info">
-        <svg
-          slot="icon"
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 32 32"
-          ><path
-            fill="currentColor"
-            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
-          ></path></svg
-        >
-        <strong>Icons and accessibility</strong>
-        <p>
-          Omitting an icon is possible. However, it helps having one if you need
-          to convey a specific kind of severity in your Callout message. For
-          instance, colorblind users might be left confused if there's not
-          enough visual guidance.
-        </p>
+        <UICalloutIcon />
+        <UICalloutContent>
+          <h3>Icons and accessibility</h3>
+          <p>
+            Omitting an icon is possible. However, it helps having one if you
+            need to convey a specific kind of severity in your Callout message.
+            For instance, colorblind users might be left confused if there's not
+            enough visual guidance.
+          </p>
+        </UICalloutContent>
       </UICallout>
     </div>
 
     <AutoExample name="Severities" column />
   </section>
 
+  <section>
+    <h2 id="icon">Icon</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>CalloutIcon</code> renders the default icon for <code>info</code>,
+        <code>success</code>, <code>warning</code> and <code>critical</code>.
+        For a custom icon, put your own <code
+          >&lt;svg aria-hidden="true"&gt;</code
+        > in the <code>Callout</code> instead, before <code>CalloutContent</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        There are no default icons in HTML: put an <code
+          >&lt;svg aria-hidden="true"&gt;</code
+        > before <code>.ui-content</code>.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Icon" column />
+  </section>
+
+  <CalloutBuild slot="under-the-hood" />
+
   <Fragment slot="accessibility">
     <ul>
       <li>
-        <Conditional>
-          <Fragment slot="astro">
-            The <code>role="note"</code> attribute is automatically added to the Callout
-            container.
-          </Fragment>
-          <Fragment slot="html">
-            Add <code>role="note"</code> to the Callout container.
-          </Fragment>
-          <Fragment slot="vue">
-            The <code>role="note"</code> attribute is automatically added to the Callout
-            container.
-          </Fragment>
-        </Conditional>
+        The Callout is an <code>&lt;article&gt;</code>, so screen readers
+        announce it as self-contained content.
       </li>
       <li>
         Use both color and icon to help distinguish between Callout <a
           href="#severities">severities</a
-        >.
+        >. The icon is hidden from screen readers, so say the severity in the
+        text, for example with a title like Warning.
       </li>
       <li>
         Don't interrupt the user with a Callout. In that case, use <DocLink
           href="/components/dialog">Dialog</DocLink
-        > or <DocLink href="/components/toast">Toast</DocLink>.
+        >.
       </li>
     </ul>
   </Fragment>
@@ -213,8 +204,11 @@ const ThemeCSS = `/* ... */
   <Fragment slot="anatomy">
     <Anatomy>
       <UICallout severity="info" variant="outlined">
-        <Fragment slot="title">Title</Fragment>
-        <p>Supporting text that explains the callout in more detail.</p>
+        <UICalloutIcon />
+        <UICalloutContent>
+          <h3>Title</h3>
+          <p>Supporting text that explains the callout in more detail.</p>
+        </UICalloutContent>
       </UICallout>
     </Anatomy>
   </Fragment>

@@ -1,103 +1,144 @@
 ---
+import type { SelectItem } from "./types"
 import type { Props } from "./types.astro"
+import { createId, idRefs } from "../id"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
 
 export const title = "Select"
 
 const {
+  "aria-describedby": ariaDescribedBy,
+  "aria-invalid": ariaInvalid,
+  "aria-labelledby": ariaLabelledBy,
+  autoFit,
   class: className,
-  description,
-  error,
   dense,
+  endText,
+  error,
+  hideLabel,
   id,
   items = [],
   label,
   name,
-  spread,
   size,
-  endText,
+  spread,
+  startText,
+  style,
+  value,
   variant = "outlined",
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const field = fieldGroupContext.get()
+const $id = createId(Astro.locals)
 const labelId = $id("select-label")
+const startTextId =
+  startText || Astro.slots.has("start-text") ? $id("start-text") : undefined
+const endTextId =
+  endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
+const topId = Astro.slots.has("top") ? $id("top") : undefined
+const bottomId = Astro.slots.has("bottom") ? $id("bottom") : undefined
+const describedBy = idRefs(
+  topId,
+  startTextId,
+  endTextId,
+  bottomId,
+  ariaDescribedBy,
+)
+const isSelected = (item: SelectItem) =>
+  value === undefined
+    ? item.selected
+    : Array.isArray(value)
+      ? value.some((selected) => selected === item.value)
+      : item.value === value
 ---
 
 <label
   class:list={[
     "ui-select",
-    size && `ui-${size}`,
     {
+      "ui-auto-fit": autoFit,
       "ui-filled": variant === "filled",
       "ui-spread": spread,
     },
+    size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  data-invalid={error ? "" : undefined}
+  style={style}
 >
   {
     (label || Astro.slots.has("label")) && (
-      <span class="ui-label" id={labelId}>
+      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]} id={labelId}>
         {label}
         <slot name="label" />
       </span>
     )
   }
   {
-    (description || Astro.slots.has("description")) && (
-      <span class="ui-start-text">
-        {description}
-        <slot name="description" />
+    (startText || Astro.slots.has("start-text")) && (
+      <span class="ui-start-text" id={startTextId}>
+        {startText}
+        <slot name="start-text" />
       </span>
     )
   }
   <span class="ui-field">
     <select
-      aria-labelledby={label || Astro.slots.has("label") ? labelId : undefined}
-      id={id}
-      name={name}
       {...rest}
+      aria-describedby={describedBy}
+      aria-invalid={error ? "true" : ariaInvalid}
+      aria-labelledby={label || Astro.slots.has("label")
+        ? labelId
+        : ariaLabelledBy}
+      id={id}
+      name={name ?? field?.name}
     >
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class:list={["ui-list", { "ui-dense": dense }]}>
-        {items.map((item) => <option value={item.value}>{item.text}</option>)}
+        {
+          items.map((item) => (
+            <option selected={isSelected(item) || undefined} value={item.value}>
+              {item.label}
+            </option>
+          ))
+        }
         <slot />
       </div>
     </select>
     {
-      Astro.slots.has("prefix") && (
-        <span class="ui-prefix">
-          <slot name="prefix" />
+      Astro.slots.has("start") && (
+        <span class="ui-start">
+          <slot name="start" />
         </span>
       )
     }
     {
-      Astro.slots.has("suffix") && (
-        <span class="ui-suffix">
-          <slot name="suffix" />
+      Astro.slots.has("end") && (
+        <span class="ui-end">
+          <slot name="end" />
         </span>
       )
     }
     {
-      Astro.slots.has("header") && (
-        <span class="ui-header">
-          <slot name="header" />
+      Astro.slots.has("top") && (
+        <span class="ui-top" id={topId}>
+          <slot name="top" />
         </span>
       )
     }
     {
-      Astro.slots.has("footer") && (
-        <span class="ui-footer">
-          <slot name="footer" />
+      Astro.slots.has("bottom") && (
+        <span class="ui-bottom" id={bottomId}>
+          <slot name="bottom" />
         </span>
       )
     }
   </span>
   {
     (endText || Astro.slots.has("end-text")) && (
-      <span id={$id("end-text")} class="ui-end-text">
+      <span id={endTextId} class="ui-end-text">
         {endText}
         <slot name="end-text" />
       </span>

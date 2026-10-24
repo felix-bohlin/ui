@@ -1,0 +1,56 @@
+---
+import Conditional from "../../../components/Conditional.astro"
+import PropOrClass from "../../../components/PropOrClass.astro"
+
+type Props = {
+  element: "input" | "select" | "textarea"
+  named?: boolean
+  subject: "Checkboxes" | "Fields" | "Switches"
+}
+
+const { element, named, subject } = Astro.props
+---
+
+<ul>
+  <slot>
+    <li>
+      <PropOrClass prop="required" class="[required]" /> toggles the required styles
+      on the <code>&lt;{element}&gt;</code>.
+    </li>
+  </slot>
+  <li>
+    <PropOrClass prop="error" class='aria-invalid="true"' /> toggles the invalid styles,
+    and screen readers announce the <code>&lt;{element}&gt;</code> as invalid. Say
+    what's wrong in the end text.{
+      named ? (
+        <Conditional>
+          <Fragment slot="components">
+            The wrapping <code>&lt;label&gt;</code> makes it part of the field's
+            name.
+          </Fragment>
+          <Fragment slot="html">
+            Keep it inside the <code>&lt;label&gt;</code>, so it's part of the
+            field's name.
+          </Fragment>
+        </Conditional>
+      ) : (
+        <Conditional>
+          <Fragment slot="components">
+            The component points <code>aria-describedby</code> at it.
+          </Fragment>
+          <Fragment slot="html">
+            Point <code>aria-describedby</code> at it.
+          </Fragment>
+        </Conditional>
+      )
+    }
+  </li>
+  <li>
+    {subject} also get the invalid styles from the browser's own validation (<code
+      >:user-invalid</code
+    >), after the user has edited them. Use <PropOrClass
+      prop="error"
+      class='aria-invalid="true"'
+    /> for server-side errors.
+  </li>
+</ul>

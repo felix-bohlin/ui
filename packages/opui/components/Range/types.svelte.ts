@@ -2,8 +2,13 @@ import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 import type { Snippet } from "svelte"
 
-type Snippets = Base.RangeSlots<Snippet>
+type Snippets = Base.Slots<Snippet> & {
+  valueText?: Snippet<[number]>
+}
 
-export type RangeProps = Omit<Base.RangeProps, keyof Snippets> &
+export type Props = Omit<Base.Props, keyof Snippets> &
   Snippets &
-  SvelteHTMLElements["input"]
+  Omit<
+    SvelteHTMLElements["input"],
+    keyof Base.Props | keyof Snippets | "children"
+  >

@@ -2,11 +2,15 @@ import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 import type { Snippet } from "svelte"
 
-type Snippets = Base.CheckboxSlots<Snippet>
+type Snippets = Base.Slots<Snippet>
 
-export type CheckboxProps = Omit<Base.CheckboxProps, keyof Snippets> &
+type Group = { group?: (string | number)[] }
+
+export type Props = Omit<Base.Props, keyof Snippets> &
   Snippets &
-  Omit<SvelteHTMLElements["input"], "size">
+  Group &
+  Omit<SvelteHTMLElements["input"], "size" | "type">
 
 export type CheckboxInputProps = Base.CheckboxInputProps &
-  SvelteHTMLElements["input"]
+  Group &
+  Omit<SvelteHTMLElements["input"], "type">

@@ -1,10 +1,21 @@
-import type { HTMLAttributes, Slot } from "vue"
-import type { Props as BaseProps, Slots as BaseSlots } from "./types"
+import type { HTMLAttributes } from "vue"
+import type { Class, DefaultSlots } from "../vue"
+import type {
+  DialogActionsProps as BaseDialogActionsProps,
+  DialogContentProps as BaseDialogContentProps,
+  DialogHeaderProps as BaseDialogHeaderProps,
+  Props as BaseProps,
+} from "./types"
 
-export type Props = BaseProps & {
-  class?: HTMLAttributes["class"]
-}
+export type Props = BaseProps & Class
 
-export type Slots = BaseSlots<Slot> & {
-  default?: Slot
-}
+export type DialogActionsProps = BaseDialogActionsProps & Class
+
+export type DialogContentProps = BaseDialogContentProps & Class
+
+export type DialogHeaderProps = BaseDialogHeaderProps &
+  Class & {
+    id?: HTMLAttributes["id"]
+  }
+
+export type Slots = DefaultSlots

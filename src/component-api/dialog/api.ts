@@ -2,44 +2,39 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Dialog",
+  css: ["card", "dialog"],
   notes: {
-    html: "Add `.ui-card` and `.ui-elevated` to the root for card styles.",
-    vue: "Attributes that aren't props, such as `closedby` or `id`, go to the `<dialog>`.",
+    default:
+      "Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`. An `id` on `DialogHeader` only applies when the dialog has `aria-label` or `aria-labelledby`.",
+    html: "Add `.ui-elevated` to the root for the raised surface.",
   },
   options: [
-    {
-      description: "Alignment for the actions.",
-      group: "Alignment",
-      part: ".ui-actions",
-      prop: "actionsAlign",
-      values: { end: ".ui-align-end", start: null },
-    },
     {
       attribute: "[closedby]",
       description:
         'How the dialog can be closed. `"any"` also closes it on a click outside.',
-      frameworks: ["astro", "html", "vue"],
-      group: "Close behavior",
+      group: "Behavior",
       prop: "closedby",
-      type: '"any" | "closerequest" | "none"',
     },
   ],
   parts: [
     {
-      code: "<hgroup>",
-      description: "The dialog header.",
-      selector: "hgroup",
-      slots: ["header"],
+      code: "hgroup.ui-header",
+      component: "DialogHeader",
+      description:
+        "The dialog header. Names the dialog through `aria-labelledby`.",
+      selector: "hgroup.ui-header",
     },
     {
+      anchorName: "--ui-dialog-content",
+      component: "DialogContent",
       description: "The dialog content.",
       selector: ".ui-content",
-      slots: ["content"],
     },
     {
+      component: "DialogActions",
       description: "A group of actions, such as buttons.",
       selector: ".ui-actions",
-      slots: ["actions"],
     },
   ],
   root: {
@@ -48,7 +43,7 @@ export default {
   },
   slots: [
     {
-      description: "Raw content placed directly in the dialog.",
+      description: "The dialog parts, and any other content.",
       name: "default",
     },
   ],

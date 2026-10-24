@@ -11,36 +11,103 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build-test-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:e2e:build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist-test
+          path: dist-test/
+          retention-days: 1
+
   check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
+        env:
+          OPUI_TEST_PAGES: ${{ github.event_name == 'pull_request' && '1' || '' }}
+      - run: git add --intent-to-add -- public/search-index.json packages/opui/skills/opui/references packages/opui/tokens.json
+      - run: git diff --exit-code -- public/search-index.json packages/opui/skills/opui/references packages/opui/tokens.json
+      - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: pnpm --package=netlify-cli@27.11.2 dlx netlify deploy --prod --no-build --dir=dist --filter open-props-ui-docs --message "Deploy ${GITHUB_SHA::7}"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          url=$(pnpm --silent --package=netlify-cli@27.11.2 dlx netlify deploy --no-build --dir=dist --filter open-props-ui-docs --alias "pr-$PR" --message "PR #$PR ${SHA::7}" --json | jq -r .deploy_url)
+          test -n "$url"
+          test "$url" != null
+          gh pr comment "$PR" --edit-last --create-if-none --body "Preview: $url (${SHA::7})"
+          echo "Preview: $url" >> "$GITHUB_STEP_SUMMARY"
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
 
   e2e:
+    if: always()
+    needs: e2e-shard
+    runs-on: ubuntu-latest
+    steps:
+      - run: test "$RESULT" = success
+        env:
+          RESULT: ${{ needs.e2e-shard.result }}
+
+  e2e-shard:
+    name: e2e (${{ matrix.shard }}/3)
+    needs: build-test-site
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.63.0-noble
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm test:e2e
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist-test
+          path: dist-test
+      - run: pnpm test:e2e --shard=${{ matrix.shard }}/3
         env:
+          E2E_PREBUILT: "1"
           HOME: /root
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.shard }}
           path: |
             playwright-report/
             test-results/

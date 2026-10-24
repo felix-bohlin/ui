@@ -1,27 +1,30 @@
 export type Props = {
+  autoFit?: boolean
   dense?: boolean
-  description?: string
   endText?: string
   error?: boolean
-  items?: Item[]
+  hideLabel?: boolean
+  items?: SelectItem[]
   label?: string
-  size?: "small"
+  size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
+  startText?: string
   variant?: "outlined" | "filled"
 }
 
-export type Item = {
-  text: string
-  value: any
+export type SelectItem = {
+  label: string
+  selected?: boolean
+  value: number | string
 }
 
 export type Slots<S> = {
+  bottom?: string | S
   children?: S
-  description?: string | S
+  end?: string | S
   endText?: string | S
-  footer?: string | S
-  header?: string | S
   label?: string | S
-  prefix?: string | S
-  suffix?: string | S
+  start?: string | S
+  startText?: string | S
+  top?: string | S
 }

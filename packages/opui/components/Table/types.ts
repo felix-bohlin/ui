@@ -1,9 +1,8 @@
 export type Props = {
-  variant?: "dense" | "spacious"
+  density?: "dense" | "normal" | "spacious"
+  stickyHeader?: boolean
 }
 
-export type SectionProps = {}
-
-export type ColumnProps = {
+export type TableColumnProps = {
   width?: string
 }

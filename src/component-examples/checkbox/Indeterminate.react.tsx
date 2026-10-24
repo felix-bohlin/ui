@@ -1,0 +1,46 @@
+"use client"
+
+import { useState } from "react"
+import { Checkbox, FieldGroup, FieldLegend, Fieldset } from "opui-css/react"
+
+const items = ["Apples", "Bananas", "Cherries"]
+
+export default function Indeterminate() {
+  const [checked, setChecked] = useState([true, false, false])
+
+  const allChecked = checked.every(Boolean)
+  const someChecked = checked.some(Boolean)
+  const indeterminate = someChecked && !allChecked
+
+  function toggleAll() {
+    const next = !allChecked
+    setChecked(checked.map(() => next))
+  }
+
+  return (
+    <Fieldset>
+      <FieldLegend>
+        <Checkbox
+          checked={allChecked}
+          onChange={toggleAll}
+          indeterminate={indeterminate}
+        >
+          Select all
+        </Checkbox>
+      </FieldLegend>
+      <FieldGroup name="indeterminate-children">
+        {items.map((item, index) => (
+          <Checkbox
+            key={item}
+            checked={checked[index]}
+            onChange={(event) =>
+              setChecked(checked.with(index, event.currentTarget.checked))
+            }
+          >
+            {item}
+          </Checkbox>
+        ))}
+      </FieldGroup>
+    </Fieldset>
+  )
+}

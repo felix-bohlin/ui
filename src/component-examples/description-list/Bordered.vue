@@ -1,40 +1,40 @@
 <script setup lang="ts">
 import {
-  Description,
   DescriptionList,
+  DescriptionListDescription,
   DescriptionListItem,
   DescriptionListTerm,
 } from "opui-css/vue"
 </script>
 
 <template>
-  <DescriptionList bordered>
+  <DescriptionList bordered="solid">
     <DescriptionListItem>
       <DescriptionListTerm>Price</DescriptionListTerm>
-      <Description>6 950 000</Description>
+      <DescriptionListDescription>6 950 000</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
       <DescriptionListTerm>Size</DescriptionListTerm>
-      <Description>64 m²</Description>
+      <DescriptionListDescription>64 m²</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
       <DescriptionListTerm>Rooms</DescriptionListTerm>
-      <Description>3</Description>
+      <DescriptionListDescription>3</DescriptionListDescription>
     </DescriptionListItem>
   </DescriptionList>
 
   <DescriptionList bordered="dotted">
     <DescriptionListItem>
       <DescriptionListTerm>Price</DescriptionListTerm>
-      <Description>6 950 000</Description>
+      <DescriptionListDescription>6 950 000</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
       <DescriptionListTerm>Size</DescriptionListTerm>
-      <Description>64 m²</Description>
+      <DescriptionListDescription>64 m²</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
       <DescriptionListTerm>Rooms</DescriptionListTerm>
-      <Description>3</Description>
+      <DescriptionListDescription>3</DescriptionListDescription>
     </DescriptionListItem>
   </DescriptionList>
 </template>

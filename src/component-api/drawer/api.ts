@@ -3,13 +3,15 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Drawer",
   notes: {
-    html: "Add `autofocus` to the root, or to an element inside, to choose what gets focus when it opens.",
-    vue: "Attributes that aren't props go to the `<dialog>`.",
+    default:
+      "Attributes that aren't props go to the `<dialog>`. Without `aria-label` or `aria-labelledby`, the `DrawerTitle` names the drawer. A drawer without a `DrawerTitle` needs an `aria-label`. An `id` on `DrawerTitle` only applies when the drawer has `aria-label` or `aria-labelledby`.",
+    html: "Add `autofocus` to the element that gets focus on open. It can be the root or an element inside.",
   },
   options: [
     {
       default: '"blurred"',
-      description: "The backdrop style.",
+      description:
+        'The backdrop style. `"transparent"` keeps the page behind it fully visible.',
       group: "Backdrop",
       prop: "backdrop",
       values: { blurred: null, transparent: ".ui-backdrop-transparent" },
@@ -19,48 +21,57 @@ export default {
       default: '"any"',
       description:
         'How the drawer can be closed. `"any"` also closes it on a click outside.',
-      group: "Close behavior",
+      group: "Behavior",
       prop: "closedby",
     },
     {
-      description: "The id of the `<dialog>`. Generated when omitted.",
+      description:
+        "The id of the `<dialog>`, which the trigger's `commandfor` points at. Required.",
       prop: "id",
     },
     {
       class: ".ui-scroll-lock",
-      default: "true",
-      description: "Locks page scroll while the drawer is open.",
+      default: "false",
+      description:
+        "Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px.",
       group: "Scroll lock",
       prop: "scrollLock",
     },
     {
       default: '"inline-start"',
       description: "The side it opens from.",
-      group: "Sides",
+      group: "Position",
       prop: "side",
       values: {
         "block-end": ".ui-block-end",
         "block-start": ".ui-block-start",
         "inline-end": ".ui-inline-end",
-        "inline-start": ".ui-inline-start",
+        "inline-start": null,
       },
     },
   ],
   parts: [
     {
-      description: "The header. `DrawerHeader` renders it with a close button.",
+      component: "DrawerHeader",
+      description: "The header, with a close button.",
       selector: ".ui-header",
-      slots: ["header"],
     },
     {
+      code: "<h2>",
+      component: "DrawerTitle",
+      description: "The title. Names the drawer through `aria-labelledby`.",
+      selector: ".ui-header > h2",
+    },
+    {
+      anchorName: "--ui-drawer-content",
+      component: "DrawerContent",
       description: "The scrollable content.",
       selector: ".ui-content",
-      slots: ["content"],
     },
     {
-      description: "The footer. `DrawerFooter` renders it.",
-      selector: ".ui-footer",
-      slots: ["footer"],
+      component: "DrawerActions",
+      description: "The actions, at the end.",
+      selector: ".ui-actions",
     },
   ],
   root: {
@@ -69,7 +80,7 @@ export default {
   },
   slots: [
     {
-      description: "Raw content placed directly in the drawer.",
+      description: "The drawer parts, and any other content.",
       name: "default",
     },
   ],

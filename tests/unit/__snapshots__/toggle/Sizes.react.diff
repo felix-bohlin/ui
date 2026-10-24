@@ -1,0 +1,41 @@
+===================================================================
+--- astro
++++ react
+@@ -1,30 +1,30 @@
+ <label class="ui-toggle-button ui-x-small">
+   <input type="checkbox">
+-  ␣x-small
++  x-small
+ </label>
+ <label class="ui-small ui-toggle-button">
+   <input type="checkbox">
+-  ␣small
++  small
+ </label>
+ <label class="ui-toggle-button">
+   <input type="checkbox">
+-  ␣default
++  default
+ </label>
+ <label class="ui-large ui-toggle-button">
+   <input type="checkbox">
+-  ␣large
++  large
+ </label>
+ <div aria-label="View" class="ui-small ui-toggle-group" role="radiogroup">
+   <label class="ui-toggle-button">
+     <input name="toggle-sizes" type="radio" value="day">
+-    ␣Day
++    Day
+   </label>
+   <label class="ui-toggle-button">
+     <input name="toggle-sizes" type="radio" value="week">
+-    ␣Week
++    Week
+   </label>
+   <label class="ui-toggle-button">
+     <input name="toggle-sizes" type="radio" value="month">
+-    ␣Month
++    Month
+   </label>
+ </div>

@@ -6,18 +6,60 @@ Lists meant to be used stand-alone or as part of Select elements
   - ul.ui-list > li
   - .ui-select > .ui-list > option
 */
-  :where(.ui-list) {
-    --_bg-color: var(--surface-filled);
-    --_bg-color-hover: oklch(from var(--primary) l c h / 15%);
+  :where(.ui-list, .ui-menu) {
+    --_bg-color: var(--ui-surface-filled);
+    --_divider-border-color: var(--ui-border-color);
+    --_hover-bg-color: oklch(
+      from var(--ui-primary) l c h / var(--ui-state-hover-alpha-accent)
+    );
+    --_item-gap: var(--ui-space-3);
+    --_radius: var(--ui-radius);
+    --_selected-bg-color: var(
+      --ui-selected,
+      oklch(from var(--ui-primary) l c h / var(--ui-state-active-alpha-accent))
+    );
+
+    @container style(--ui-contrast: more) {
+      --_selected-bg-color: var(--ui-selected, var(--_hover-bg-color));
+    }
+
+    --_selected-indicator-bg-color: var(--ui-selected-strong);
+    --_selected-indicator-size: var(--ui-border-width-thick);
+    --_selected-shadow: inset var(--_selected-indicator-size) 0 0
+      var(--_selected-indicator-bg-color);
+    --_separator-gap: var(--ui-space-3);
+    --_start-image-size: 3.5rem;
+    --_start-size: var(--ui-icon-size);
+    --_start-video-size: 4rem;
 
     background-color: var(--_bg-color);
-    color: var(--text-primary);
+    color: var(--ui-text-strong);
+    font-weight: var(--ui-font-weight-normal);
     list-style: none;
-    padding: var(--size-2) 0;
+    padding-block: var(--ui-space-2);
+    padding-inline: 0;
+
+    &:not(.ui-menu, .ui-tonal, .ui-transparent) {
+      --ui-border-color: var(--ui-border-color-on-filled);
+      --ui-field-border-color: var(--ui-field-border-color-on-filled);
+    }
+
+    &.ui-list {
+      border-radius: var(--_radius);
+      overflow: clip;
+
+      :where(.ui-accordion, .ui-card, .ui-dialog) > & {
+        --_radius: 0;
+      }
+    }
+
+    &:dir(rtl) {
+      --_selected-shadow: inset calc(-1 * var(--_selected-indicator-size)) 0 0
+        var(--_selected-indicator-bg-color);
+    }
 
     @media (pointer: coarse) {
-      &,
-      * {
+      & > :where(li, option) > :where(a, button, label) {
         user-select: none;
       }
     }
@@ -27,47 +69,49 @@ Lists meant to be used stand-alone or as part of Select elements
       --_bg-color: transparent;
     }
 
-    &.ui-default {
-      --_bg-color: var(--surface-default);
-    }
-
     &.ui-tonal {
-      --_bg-color: var(--surface-tonal);
+      --_bg-color: var(--ui-surface-tonal);
+      --_divider-border-color: color-mix(
+        in oklch,
+        var(--ui-border-color),
+        var(--ui-text-strong) 20%
+      );
     }
 
     /* Borders on all list items */
-    &.ui-bordered {
-      :where(li + li, option + option) {
-        margin-block-start: var(--size-3);
+    /* Border between list items */
+    &.ui-bordered > :where(li + li, option + option),
+    &.ui-bordered > :where([role="group"], optgroup) > :where(option + option),
+    & > :where(li, option).ui-border-top,
+    &
+      > :where([role="group"], optgroup)
+      > :where(label, legend, option).ui-border-top {
+      margin-block-start: var(--_separator-gap);
 
-        &::before {
-          block-size: 1px;
-          border-block-start: 1px solid var(--border-color);
-          content: "";
-          display: block;
-          inline-size: 100%;
-          inset: calc(-1 * var(--size-2)) 0 auto 0;
-          position: absolute;
-          visibility: visible;
-          /* override select > option:before style */
-        }
+      &::before {
+        border-block-start: var(--ui-border-width) solid
+          var(--_divider-border-color);
+        content: "";
+        display: block;
+        inset-block: calc(var(--_separator-gap) / -2) auto;
+        inset-inline: 0;
+        position: absolute;
+        visibility: visible;
+        /* override select > option:before style */
       }
     }
 
     /* Dense - less gaps and spacing */
     &.ui-dense {
-      :where(li, option) {
-        gap: var(--size-2);
-        min-block-size: var(--size-7);
-        padding: var(--size-1) var(--size-2);
+      --_item-gap: var(--ui-space-2);
+      --_separator-gap: var(--ui-space-2);
+      --_start-size: var(--ui-icon-size-small);
 
-        &.ui-border-top {
-          margin-block-start: var(--size-2);
-
-          &::before {
-            inset: calc(-1 * var(--size-1)) 0 auto 0;
-          }
-        }
+      & > :where(li, option),
+      & > :where([role="group"], optgroup) > :where(label, legend, option) {
+        min-block-size: var(--ui-control-size-small);
+        padding-block: var(--ui-space-1);
+        padding-inline: var(--ui-space-3);
 
         /* Clickable list item */
         &:has(> a, > button, > label) {
@@ -76,45 +120,35 @@ Lists meant to be used stand-alone or as part of Select elements
         }
 
         & > :where(a, button, label) {
-          gap: var(--size-2);
-          min-block-size: var(--size-7);
-          padding: var(--size-1) var(--size-2);
+          min-block-size: var(--ui-control-size-small);
+          padding-block: var(--ui-space-1);
+          padding-inline: var(--ui-space-3);
         }
 
         /* Checkbox / Radio */
-        & > label {
-          .ui-end {
-            padding-inline-end: 0.125rem;
-          }
-
-          &:where(.ui-checkbox, .ui-radio) {
-            --_input-size: var(--size-3);
-          }
+        & > label > .ui-end {
+          padding-inline-end: calc(var(--ui-space-1) / 2);
         }
 
         /* Leading and trailing content */
-        .ui-start,
-        .ui-end {
+        & > :is(.ui-start, .ui-end),
+        & > :where(a, button, label) > :is(.ui-start, .ui-end) {
           .ui-avatar {
-            max-inline-size: var(--size-6);
+            max-inline-size: var(--ui-space-6);
           }
 
-          .ui-icon-button,
+          .ui-button:has(> svg:only-child),
           svg {
-            max-inline-size: var(--size-4);
-          }
-
-          .ui-checkbox,
-          .ui-radio {
-            --_input-size: var(--size-3);
+            max-inline-size: var(--_start-size);
           }
         }
       }
     }
 
     /* Gutterless */
-    &.ui-gutterless {
-      :where(li, option) {
+    &.ui-flush {
+      & > :where(li, option),
+      & > :where([role="group"], optgroup) > :where(option) {
         padding-inline: 0;
 
         & > :where(a, button, label) {
@@ -124,24 +158,22 @@ Lists meant to be used stand-alone or as part of Select elements
     }
 
     /* List item */
-    :where(li, option, [role="group"] > label) {
+    & > :where(li, option),
+    & > :where([role="group"], optgroup) > :where(label, legend, option) {
       align-items: center;
       background-color: var(--_bg-color);
       display: flex;
-      font-size: var(--font-size-05);
-      gap: var(--size-3);
+      font-size: var(--ui-font-size-small);
+      gap: var(--_item-gap);
       isolation: isolate;
-      min-block-size: 40px;
-      padding: var(--size-2) var(--size-3);
+      min-block-size: var(--ui-control-size);
+      padding-block: var(--ui-space-2);
+      padding-inline: var(--ui-space-3);
       position: relative;
 
       &::before {
         display: none;
         /* removing checkmark from option */
-      }
-
-      * {
-        font-size: inherit;
       }
 
       /* Clickable list item */
@@ -151,10 +183,13 @@ Lists meant to be used stand-alone or as part of Select elements
         min-block-size: auto;
         padding: 0;
 
-        &[aria-selected="true"] > :where(a, button, label),
-        &[aria-selected="true"],
+        &:where([role="option"])[aria-selected="true"]
+          > :where(a, button, label),
+        &:where([role="option"])[aria-selected="true"],
         &:has(> [aria-current="page"]) > :where(a, button, label) {
-          background-color: var(--_bg-color-hover);
+          background-color: var(--_selected-bg-color);
+          box-shadow: var(--_selected-shadow);
+          color: var(--ui-on-selected, currentColor);
         }
       }
 
@@ -165,26 +200,32 @@ Lists meant to be used stand-alone or as part of Select elements
         color: inherit;
         cursor: pointer;
         display: flex;
-        gap: var(--size-3);
+        gap: var(--_item-gap);
         inline-size: 100%;
         margin: 0;
-        min-block-size: 40px;
-        padding: var(--size-2) var(--size-3);
+        min-block-size: var(--ui-control-size);
+        padding-block: var(--ui-space-2);
+        padding-inline: var(--ui-space-3);
         text-align: start;
         text-decoration: none;
         z-index: 0;
 
-        &:hover {
-          background-color: var(--_bg-color-hover);
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--_hover-bg-color);
+          }
         }
 
         &[aria-selected="true"] {
-          background-color: var(--_bg-color-hover);
-          color: var(--primary);
+          background-color: var(--_selected-bg-color);
+          box-shadow: var(--_selected-shadow);
+          color: var(--ui-on-selected, var(--ui-primary-text));
         }
 
         &:checked {
-          background-color: oklch(from var(--primary) l c h / 30%);
+          background-color: var(--_selected-bg-color);
+          box-shadow: var(--_selected-shadow);
+          color: var(--ui-on-selected, currentColor);
         }
       }
 
@@ -196,23 +237,39 @@ Lists meant to be used stand-alone or as part of Select elements
         color: inherit;
         cursor: pointer;
         display: flex;
-        gap: var(--size-3);
+        font-weight: inherit;
+        gap: var(--_item-gap);
         inline-size: 100%;
         margin: 0;
-        min-block-size: 40px;
-        outline-offset: -3px;
-        padding: var(--size-2) var(--size-3);
+        min-block-size: var(--ui-control-size);
+        outline-offset: var(--ui-focus-ring-inset);
+        padding-block: var(--ui-space-2);
+        padding-inline: var(--ui-space-3);
         text-align: start;
         text-decoration: none;
         z-index: 0;
 
-        &:hover {
-          background-color: var(--_bg-color-hover);
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--_hover-bg-color);
+          }
         }
 
-        &[aria-selected="true"],
         &[aria-current="page"] {
-          background-color: var(--_bg-color-hover);
+          background-color: var(--_selected-bg-color);
+          box-shadow: var(--_selected-shadow);
+          color: var(--ui-on-selected, currentColor);
+        }
+      }
+
+      & > :where(a, button):is([disabled], [aria-disabled="true"]) {
+        cursor: not-allowed;
+        opacity: var(--ui-disabled-opacity);
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--_bg-color);
+          }
         }
       }
 
@@ -222,95 +279,83 @@ Lists meant to be used stand-alone or as part of Select elements
           display: flex;
         }
 
-        .ui-end {
-          padding-inline-end: var(--size-1);
+        & > .ui-end {
+          padding-inline-end: var(--ui-space-1);
         }
 
         &:where(.ui-checkbox, .ui-radio) {
           inline-size: 100%;
         }
-
-        /* Switches look comically big in lists, so it's better to use a smaller variant  */
-        &.ui-switch {
-          --_dot-size: 0.75rem;
-          --_track-height: var(--size-4);
-          --_track-width: 2.5rem;
-        }
       }
 
       /* Video */
       &:has(video) {
-        padding: 0.75rem var(--size-3) 0.75rem 0;
-      }
-
-      /* Border between list items */
-      &.ui-border-top {
-        margin-block-start: var(--size-3);
-
-        &::before {
-          block-size: 1px;
-          border-block-start: 1px solid var(--border-color);
-          content: "";
-          display: block;
-          inline-size: 100%;
-          inset: calc(-1 * var(--size-2)) 0 auto 0;
-          position: absolute;
-        }
+        padding-block: calc(var(--ui-space-2) * 1.5);
+        padding-inline: 0 var(--ui-space-3);
       }
 
       /* Text */
-      .ui-text {
+      & > .ui-text,
+      & > :where(a, button, label) > .ui-text {
         flex: 1;
-        line-height: 1.6;
+        font-size: inherit;
+        line-height: var(--ui-line-height);
+        min-inline-size: 0;
 
         :where(h1, h2, h3, h4, h5, h6, p, span) {
           color: inherit;
-          font-weight: 400;
+          font-size: inherit;
+          font-weight: inherit;
+          margin: 0;
         }
 
         p + p {
-          color: var(--text-muted);
-          font-size: var(--font-size-0);
+          color: var(--ui-text);
+          font-size: var(--ui-font-size-caption);
         }
       }
 
       /* Leading content */
-      .ui-start {
+      & > .ui-start,
+      & > :where(a, button, label) > .ui-start {
         align-items: center;
         align-self: center;
         display: grid;
         z-index: 1;
 
-        &:has(svg) {
-          max-inline-size: var(--size-5);
+        &:has(> svg) {
+          max-inline-size: var(--_start-size);
         }
 
-        svg {
-          padding-block-start: 0.125rem;
+        & > svg {
+          padding-block-start: calc(var(--ui-space-1) / 2);
         }
 
         img {
           aspect-ratio: 1;
-          inline-size: 56px;
+          inline-size: var(--_start-image-size);
           object-fit: cover;
         }
 
         video {
           aspect-ratio: 16/9;
-          block-size: 64px;
+          block-size: var(--_start-video-size);
           object-fit: cover;
         }
       }
 
       /* Trailing content */
-      .ui-end {
+      & > .ui-end,
+      & > :where(a, button, label) > .ui-end {
         align-items: center;
         display: flex;
-        font-size: var(--font-size-0);
+        font-size: var(--ui-font-size-caption);
         text-align: end;
         z-index: 1;
 
-        &:not(:has(a, button, input)) {
+        &:not(
+          :has(a, button, input, label, select, summary, textarea, [tabindex])
+        ) {
           pointer-events: none;
         }
 
@@ -318,26 +363,76 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: transparent;
           border: 0;
           color: inherit;
-          opacity: 0.6;
+          font-family: var(--ui-font-code);
+          opacity: 0.7;
+          padding: 0;
+
+          @container style(--ui-contrast: more) {
+            opacity: 1;
+          }
         }
 
-        svg {
+        & > svg {
           inline-size: 100%;
-          max-inline-size: var(--size-5);
+          max-inline-size: var(--_start-size);
         }
       }
 
       /* Inset */
       &.ui-inset {
-        .ui-text {
-          padding-inline-start: calc(var(--size-5) + var(--size-3));
+        & > .ui-text,
+        & > :where(a, button, label) > .ui-text {
+          padding-inline-start: calc(var(--_start-size) + var(--_item-gap));
         }
 
         /* Safety measure so it won't look bad if there for some reason should exist a leading element inside. */
-        .ui-start {
+        & > .ui-start,
+        & > :where(a, button, label) > .ui-start {
           display: none;
         }
       }
+
+      @media (forced-colors: active) {
+        &:where(option, [role="option"])[aria-selected="true"],
+        &:where([role="option"])[aria-selected="true"] > :is(a, button, label),
+        &:checked,
+        & > :is(a, button, label)[aria-current="page"] {
+          background-color: SelectedItem;
+          color: SelectedItemText;
+          forced-color-adjust: none;
+        }
+      }
     }
+  }
+}
+
+@layer components.root {
+  :where(
+    :is(.ui-list, .ui-menu).ui-dense > :where(li, option),
+    :is(.ui-list, .ui-menu).ui-dense
+      > :where([role="group"], optgroup)
+      > :where(label, legend, option)
+  ) {
+    & > :where(label.ui-checkbox, label.ui-radio),
+    & > :where(.ui-start, .ui-end) :where(.ui-checkbox, .ui-radio),
+    &
+      > :where(a, button, label)
+      > :where(.ui-start, .ui-end)
+      :where(.ui-checkbox, .ui-radio) {
+      --ui-choice-size: var(--ui-choice-size-small);
+    }
+  }
+
+  /* Switches look comically big in lists, so it's better to use a smaller variant  */
+  :where(
+      :is(.ui-list, .ui-menu) > :where(li, option),
+      :is(.ui-list, .ui-menu)
+        > :where([role="group"], optgroup)
+        > :where(label, legend, option)
+    )
+    > :where(label.ui-switch) {
+    --ui-switch-thumb-size: var(--ui-switch-thumb-size-small);
+    --ui-switch-track-block-size: var(--ui-switch-track-block-size-small);
+    --ui-switch-track-inline-size: var(--ui-switch-track-inline-size-small);
   }
 }

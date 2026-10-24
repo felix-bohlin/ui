@@ -1,0 +1,97 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
+import Code from "../../components/Code.astro"
+---
+
+<TechniquePost slug="drawer-starting-style">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      A slide-in panel used to be a fixed <code>&lt;div&gt;</code> with a transform,
+      plus JavaScript for the focus trap, <kbd>Esc</kbd>, backdrop clicks and an
+      inert page.
+    </p>
+    <p>
+      Animating it out was the hard part: <code>display: none</code> can't transition,
+      so a class had to be removed only after
+      {" "}<code>transitionend</code>.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        The drawer is a modal <code>&lt;dialog&gt;</code>, pinned to an edge
+        with <code>margin: 0</code> and logical insets
+      </li>
+      <li>
+        Closed, it waits just past its edge with <code>translate</code>. Open,
+        it sits at <code>translate: 0 0</code>
+      </li>
+      <li>
+        <code>@starting-style</code> repeats the closed position, so opening slides
+        in from there
+      </li>
+      <li>
+        <code>allow-discrete</code> on <code>display</code> and
+        {" "}<code>overlay</code> keeps it rendered and in the top layer until it
+        has slid out
+      </li>
+      <li>
+        <code>--dir</code> flips to <code>-1</code> under
+        {" "}<code>:dir(rtl)</code>, so the start edge works both ways
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.drawer {
+  transition:
+    display 0.2s allow-discrete,
+    overlay 0.2s allow-discrete,
+    translate 0.2s;
+}
+
+.drawer.inline-start {
+  inset-inline-end: auto;
+  inset-inline-start: 0;
+  translate: calc(-100% * var(--dir)) 0;
+}
+
+.drawer[open] {
+  translate: 0 0;
+
+  @starting-style {
+    &.inline-start {
+      translate: calc(-100% * var(--dir)) 0;
+    }
+  }
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <DrawerBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Without <code>@starting-style</code> and <code>allow-discrete</code> the drawer
+        opens and closes instantly, and still works as a modal
+      </li>
+      <li>
+        <code>overlay</code> is Chromium only. Elsewhere the drawer leaves the top
+        layer as soon as it closes, so the backdrop goes at once while the drawer
+        slides out
+      </li>
+      <li>
+        Without <code>closedby</code> it still closes on <kbd>Esc</kbd>, but not
+        on a click outside
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

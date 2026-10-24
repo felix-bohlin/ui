@@ -6,20 +6,29 @@ import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import {
   Anchor as UIAnchor,
+  AnchorContent as UIAnchorContent,
   Button as UIButton,
   Card as UICard,
-} from "@opui/astro"
+  CardContent as UICardContent,
+} from "opui-css/astro"
 
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
 
 import anchorApi from "../../component-api/anchor/api"
+import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
 ---
 
 <Component
   slug="anchor"
   heroAnatomy
   apis={[{ title: "Anchor API", api: anchorApi }]}
-  browserSupport={["anchor-positioning", "popover-hint"]}
+  browserSupport={[
+    "anchor-positioning",
+    "interest-invokers",
+    "invoker-commands",
+    "popover",
+    "popover-hint",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Anchor/Anchor.astro",
@@ -41,58 +50,74 @@ import anchorApi from "../../component-api/anchor/api"
   >
 
   <section>
-    <h2 id="always-visible">Always Visible</h2>
-    <p>Floating content that is always shown.</p>
+    <h2 id="always-visible">Always visible</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Floating content that is always shown, like a coach mark beside a
+        button. Put it in <code>AnchorContent</code>, and set <code
+          >positionArea</code
+        > to any <code>position-area</code> value to place it.
+      </Fragment>
+      <Fragment slot="html">
+        Floating content that is always shown, like a coach mark beside a
+        button. Set <code>--ui-anchor-position-area</code> on
+        {" "}<code>.ui-anchor</code> to any <code>position-area</code> value to place
+        it.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="AlwaysVisible" />
   </section>
 
   <section>
-    <h2 id="hover-trigger">Hover Trigger</h2>
+    <h2 id="hover-trigger">Hover trigger</h2>
     <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
+          >interestfor</code
+        > with that id to the trigger. <code>AnchorContent</code> gets the id and
+        <code>popover="hint"</code>.
+      </Fragment>
       <Fragment slot="html">
-        Add <code>interestfor</code> on the trigger element pointing to the
-        <code>.ui-anchor-floating</code> ID.
-      </Fragment>
-      <Fragment slot="astro">
-        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
-          >interestfor</code
-        > with that id to the trigger. The component adds <code
-          >popover="hint"</code
-        >.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
-          >interestfor</code
-        > with that id to the trigger. The component adds <code
-          >popover="hint"</code
-        >.
+        Add <code>popover="hint"</code> and an id to
+        {" "}<code>.ui-floating</code>, and <code>interestfor</code> with that id
+        on the trigger.
       </Fragment>
     </Conditional>
     <p>
-      Add <code>interestfor</code>, <code>commandfor</code>, and <code
-        >command="toggle-popover"</code
-      > to the anchor trigger so touch devices can tap to show the floating content.
+      <a href="#under-the-hood">Under the hood</a> shows how hover, focus and tap
+      open the card.
+    </p>
+    <p>
+      Put a <DocLink href="/components/card">Card</DocLink> in the floating content
+      for hover cards like GitHub's repository previews. Align the card below the
+      trigger with <code>block-end span-inline-end</code>. It flips to the other
+      side when there isn't room. The card keeps its interactive content
+      reachable, so the pointer can move from the link into the card without
+      closing it.
     </p>
 
-    <AutoExample name="Hover" />
+    <AutoExample name="RepoCard" />
   </section>
 
   <section>
-    <h2 id="used-by">Used By</h2>
-    <ul>
-      <li><DocLink href="/components/badge">Badge</DocLink></li>
-      <li><DocLink href="/components/tooltip">Tooltip</DocLink></li>
-    </ul>
+    <h2 id="link-preview">Link preview</h2>
+    <p>Preview where a link goes before following it.</p>
+
+    <AutoExample name="LinkPreview" />
   </section>
+
+  <AnchorBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy>
-      <UIAnchor alignment="start center">
+      <UIAnchor positionArea="start center">
         <UIButton variant="outlined">Anchor</UIButton>
-        <UICard slot="anchored" variant="tonal">
-          <div class="ui-content">Floating content</div>
-        </UICard>
+        <UIAnchorContent>
+          <UICard variant="tonal">
+            <UICardContent>Floating content</UICardContent>
+          </UICard>
+        </UIAnchorContent>
       </UIAnchor>
     </Anatomy>
   </Fragment>

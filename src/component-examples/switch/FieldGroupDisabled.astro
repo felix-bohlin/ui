@@ -1,18 +1,22 @@
 ---
-import { Switch } from "@opui/astro"
-import { FieldSet } from "@opui/astro"
-import { FieldLegend } from "@opui/astro"
-import { FieldGroup } from "@opui/astro"
-import { Form } from "@opui/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet disabled>
+  <Fieldset disabled>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="switch-group-disabled">
+    <FieldGroup orientation="horizontal" name="switch-group-disabled">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
+  <Fieldset>
+    <FieldLegend>One by one</FieldLegend>
+    <FieldGroup orientation="horizontal" name="switch-group-disabled-single">
+      <Switch checked>Enabled</Switch>
+      <Switch disabled>Disabled</Switch>
+      <Switch aria-disabled="true">Aria-disabled</Switch>
+    </FieldGroup>
+  </Fieldset>
 </Form>

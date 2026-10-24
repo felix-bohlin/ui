@@ -1,0 +1,158 @@
+---
+import { computeFeatureSupport } from "../../utils/browser-support"
+import Chrome from "../icons/browsers/Chrome.astro"
+import Edge from "../icons/browsers/Edge.astro"
+import Firefox from "../icons/browsers/Firefox.astro"
+import Safari from "../icons/browsers/Safari.astro"
+
+type Props = {
+  ids: string[]
+}
+
+const { ids } = Astro.props
+
+const ICONS = {
+  chrome: Chrome,
+  edge: Edge,
+  firefox: Firefox,
+  safari: Safari,
+}
+
+const STATUS = {
+  high: "Widely available",
+  low: "Newly available",
+  limited: "Limited availability",
+}
+
+const entries = ids.toSorted().map(computeFeatureSupport)
+const isCode = (name: string) => /^[:@]|\)$|^[a-z-]+$/.test(name)
+---
+
+<ul class="feature-support">
+  {
+    entries.map((entry) => {
+      const status = entry.baseline || "limited"
+      return (
+        <li data-status={status}>
+          <a
+            href={`https://webstatus.dev/features/${entry.id}`}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {isCode(entry.name) ? <code>{entry.name}</code> : entry.name}
+          </a>
+          <span class="feature-support-status">{STATUS[status]}</span>
+          <dl>
+            {entry.browsers.map((browser) => {
+              const Icon = ICONS[browser.browser]
+              return (
+                <div data-supported={browser.version ? "" : undefined}>
+                  <dt>
+                    <Icon />
+                    <span class="ui-sr-only">{browser.label}</span>
+                  </dt>
+                  <dd>{browser.version ?? "No"}</dd>
+                </div>
+              )
+            })}
+          </dl>
+        </li>
+      )
+    })
+  }
+</ul>
+
+<style>
+  .feature-support {
+    display: grid;
+    gap: var(--ui-space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      align-items: center;
+      background-color: var(--ui-surface-tonal);
+      border-radius: var(--ui-radius);
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--ui-font-size-caption);
+      gap: var(--ui-space-1) var(--ui-space-3);
+      padding: var(--ui-space-2) var(--ui-space-3);
+    }
+
+    & a {
+      color: var(--ui-text-strong);
+      font-weight: 600;
+    }
+  }
+
+  .feature-support-status {
+    align-items: center;
+    color: var(--ui-text);
+    display: inline-flex;
+    gap: var(--ui-space-1);
+    margin-inline-end: auto;
+
+    &:before {
+      background-color: var(--_status-color);
+      block-size: 0.5rem;
+      border-radius: var(--ui-radius-round);
+      content: "";
+      inline-size: 0.5rem;
+    }
+
+    [data-status="high"] > & {
+      --_status-color: var(--ui-success);
+    }
+
+    [data-status="low"] > & {
+      --_status-color: var(--ui-info);
+    }
+
+    [data-status="limited"] > & {
+      --_status-color: var(--ui-warning);
+    }
+  }
+
+  dl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-1) var(--ui-space-3);
+    margin: 0;
+
+    & div {
+      align-items: center;
+      display: flex;
+      gap: var(--ui-space-1);
+      inline-size: 3.75rem;
+    }
+
+    & dt {
+      display: flex;
+
+      & svg {
+        block-size: 1rem;
+        inline-size: 1rem;
+      }
+    }
+
+    & dd {
+      color: var(--ui-text);
+      font-variant-numeric: tabular-nums;
+      margin: 0;
+    }
+
+    & div:not([data-supported]) {
+      & dt {
+        filter: grayscale(1);
+        opacity: 0.6;
+      }
+
+      & dd {
+        color: var(--ui-text-strong);
+        font-weight: 700;
+      }
+    }
+  }
+</style>

@@ -4,5 +4,7 @@ import { Checkbox } from "opui-css/vue"
 
 <template>
   <Checkbox name="checkbox-label-position">Default</Checkbox>
-  <Checkbox stack name="checkbox-label-position">Stack</Checkbox>
+  <Checkbox orientation="vertical" name="checkbox-label-position"
+    >Stack</Checkbox
+  >
 </template>

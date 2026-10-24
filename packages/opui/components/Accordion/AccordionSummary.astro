@@ -1,0 +1,19 @@
+---
+import type { AccordionSummaryProps as Props } from "./types.astro"
+import { markerPath } from "./icons"
+
+const { class: className, ...rest } = Astro.props
+---
+
+<summary class:list={[className]} {...rest}
+  ><slot /><slot name="marker"
+    ><svg
+      aria-hidden="true"
+      class="ui-marker"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"><path fill="currentColor" d={markerPath}></path></svg
+    ></slot
+  ></summary
+>

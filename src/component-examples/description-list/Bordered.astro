@@ -1,33 +1,38 @@
 ---
-import { DescriptionList } from "@opui/astro"
+import {
+  DescriptionList,
+  DescriptionListDescription,
+  DescriptionListItem,
+  DescriptionListTerm,
+} from "opui-css/astro"
 ---
 
-<DescriptionList bordered>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Price</DescriptionList.Term>
-    <DescriptionList.Description>6 950 000</DescriptionList.Description>
-  </DescriptionList.Item>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Size</DescriptionList.Term>
-    <DescriptionList.Description>64 m²</DescriptionList.Description>
-  </DescriptionList.Item>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Rooms</DescriptionList.Term>
-    <DescriptionList.Description>3</DescriptionList.Description>
-  </DescriptionList.Item>
+<DescriptionList bordered="solid">
+  <DescriptionListItem>
+    <DescriptionListTerm>Price</DescriptionListTerm>
+    <DescriptionListDescription>6 950 000</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Size</DescriptionListTerm>
+    <DescriptionListDescription>64 m²</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Rooms</DescriptionListTerm>
+    <DescriptionListDescription>3</DescriptionListDescription>
+  </DescriptionListItem>
 </DescriptionList>
 
 <DescriptionList bordered="dotted">
-  <DescriptionList.Item>
-    <DescriptionList.Term>Price</DescriptionList.Term>
-    <DescriptionList.Description>6 950 000</DescriptionList.Description>
-  </DescriptionList.Item>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Size</DescriptionList.Term>
-    <DescriptionList.Description>64 m²</DescriptionList.Description>
-  </DescriptionList.Item>
-  <DescriptionList.Item>
-    <DescriptionList.Term>Rooms</DescriptionList.Term>
-    <DescriptionList.Description>3</DescriptionList.Description>
-  </DescriptionList.Item>
+  <DescriptionListItem>
+    <DescriptionListTerm>Price</DescriptionListTerm>
+    <DescriptionListDescription>6 950 000</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Size</DescriptionListTerm>
+    <DescriptionListDescription>64 m²</DescriptionListDescription>
+  </DescriptionListItem>
+  <DescriptionListItem>
+    <DescriptionListTerm>Rooms</DescriptionListTerm>
+    <DescriptionListDescription>3</DescriptionListDescription>
+  </DescriptionListItem>
 </DescriptionList>

@@ -2,52 +2,71 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ToggleButton",
+  model: {
+    description: "The checked state of a standalone button.",
+    prop: "checked",
+    type: "boolean",
+  },
   notes: {
-    html: "Set `disabled` on the input too. Checkbox inputs also need `aria-pressed`.",
+    astro:
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`.",
+    react:
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `className` and `style` go to the root `<label>`. `defaultChecked` sets the starting state, and `checked` with `onChange` controls it, like on any input. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value wins and a button's own `checked` and `defaultChecked` are ignored.",
+    svelte:
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. `bind:checked` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `bind:value`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. `v-model` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `v-model`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.",
   },
   options: [
-    {
-      class: ".ui-disabled",
-      default: "false",
-      description: "Disables the button.",
-      frameworks: ["astro", "html", "vue"],
-      group: "State",
-      prop: "disabled",
-      type: "boolean",
-    },
-    {
-      description: "The id of the `<input>`. Generated when omitted.",
-      frameworks: ["astro", "vue"],
-      prop: "id",
-      type: "string",
-    },
-    {
-      description: "The input value when `value` is omitted.",
-      prop: "label",
-    },
-    {
-      description: "The name of the input. Set by the group.",
-      frameworks: ["astro", "vue"],
-      prop: "name",
-      type: "string",
-    },
     {
       attribute: "[checked]",
       default: "false",
       description: "Selects the button.",
-      group: "State",
+      group: "Checked",
       part: "input",
-      prop: "pressed",
+      prop: "checked",
     },
     {
+      attribute: "[disabled]",
+      default: "false",
+      description: "Disables the button.",
+      group: "Disabled",
+      inherited: true,
+      part: "input",
+      prop: "disabled",
+      type: "boolean",
+    },
+    {
+      description: "The id of the `<input>`.",
+      inherited: true,
+      prop: "id",
+      type: "string",
+    },
+    {
+      description: "The button text when there is no child content.",
+      prop: "label",
+    },
+    {
+      description: "The name of the input. Set by the group.",
+      inherited: true,
+      prop: "name",
+      type: "string",
+    },
+    {
+      default: '"medium"',
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { small: ".ui-small", "x-small": ".ui-x-small" },
+      values: {
+        large: ".ui-large",
+        medium: null,
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       default: '"checkbox"',
-      description: 'The input type. `"radio"` allows one selection in a group.',
+      description:
+        'The input type. `"radio"` allows one selection in a group. A `ToggleGroup` without `multiple` makes every button a radio.',
       group: "Type",
       part: "input",
       prop: "type",
@@ -55,7 +74,7 @@ export default {
     },
     {
       description: "The value of the input.",
-      frameworks: ["astro", "vue"],
+      inherited: true,
       prop: "value",
       type: "string",
     },

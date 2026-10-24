@@ -1,5 +1,11 @@
 ---
 import Example from "./Example/index"
+import { examplePath, exampleModules, exampleSources } from "../utils/examples"
+import {
+  componentHasFramework,
+  FRAMEWORK_AGNOSTIC_EXAMPLES,
+  type FrameworkId,
+} from "../utils/framework"
 
 type Props = {
   /**
@@ -17,14 +23,9 @@ type Props = {
   centered?: boolean
   class?: string
   column?: boolean
-  exampleClass?: string
-  marks?: Record<string, any>
-  output?: "always-show" | "toggled"
-  richText?: "rich-text" | "not-rich-text"
   row?: boolean
   showCode?: boolean
   spacious?: boolean
-  wrapperClass?: string
 }
 
 const { name, slug: slugProp, ...rest } = Astro.props
@@ -37,46 +38,71 @@ if (!slug) {
   )
 }
 
-// Eager globs scoped to the component-examples tree. Vite resolves these at
-// build time, so missing files mean `undefined` rather than a runtime fetch.
-// Note: every matched file must be parseable; orphaned/broken example files
-// will fail the whole build.
-const previewModules = import.meta.glob("../component-examples/**/*.astro", {
-  eager: true,
-}) as Record<string, { default: any }>
+const astroPath = examplePath(slug, name, "astro")
+const htmlPath = examplePath(slug, name, "html")
+const reactPath = examplePath(slug, name, "react")
+const vuePath = examplePath(slug, name, "vue")
+const sveltePath = examplePath(slug, name, "svelte")
 
-const vuePreviewModules = import.meta.glob("../component-examples/**/*.vue", {
-  eager: true,
-}) as Record<string, { default: any }>
+const astroComponent = exampleModules[astroPath]?.default
+const reactComponent = exampleModules[reactPath]?.default
+const vueComponent = exampleModules[vuePath]?.default
+const svelteComponent = exampleModules[sveltePath]?.default
+const astroSource = exampleSources[astroPath]
+const htmlSource = exampleSources[htmlPath]
+const reactSource = exampleSources[reactPath]
+const vueSource = exampleSources[vuePath]
+const svelteSource = exampleSources[sveltePath]
+const codeSource = (framework: FrameworkId) =>
+  exampleSources[examplePath(slug, `${name}Code`, framework)] ??
+  exampleSources[examplePath(slug, name, framework)]
 
-const rawSources = import.meta.glob(
-  "../component-examples/**/*.{astro,html,vue}",
-  {
-    eager: true,
-    query: "?raw",
-    import: "default",
-  },
-) as Record<string, string>
+const frameworkAgnostic = FRAMEWORK_AGNOSTIC_EXAMPLES.includes(
+  `${slug}/${name}`,
+)
+const frameworkFiles = [astroSource, reactSource, svelteSource, vueSource]
 
-const astroPath = `../component-examples/${slug}/${name}.astro`
-const htmlPath = `../component-examples/${slug}/${name}.html`
-const vuePath = `../component-examples/${slug}/${name}.vue`
+if (frameworkAgnostic && (!htmlSource || frameworkFiles.some(Boolean))) {
+  throw new Error(
+    `<AutoExample slug="${slug}" name="${name}"> is listed in ` +
+      `FRAMEWORK_AGNOSTIC_EXAMPLES, so it needs ${htmlPath} and no other files.`,
+  )
+}
 
-const astroComponent = previewModules[astroPath]?.default
-const vueComponent = vuePreviewModules[vuePath]?.default
-const astroSource = rawSources[astroPath]
-const htmlSource = rawSources[htmlPath]
-const vueSource = rawSources[vuePath]
+const framework = Astro.locals.framework
+if (
+  !frameworkAgnostic &&
+  framework !== "html" &&
+  componentHasFramework(framework, slug) &&
+  !exampleSources[examplePath(slug, name, framework)]
+) {
+  throw new Error(
+    `<AutoExample slug="${slug}" name="${name}"> has no ${framework} file. ` +
+      `Add it, or list the example in FRAMEWORK_AGNOSTIC_EXAMPLES to show ` +
+      `${htmlPath} on every framework page.`,
+  )
+}
 
-if (!astroComponent && !htmlSource && !vueComponent) {
+if (
+  !astroComponent &&
+  !htmlSource &&
+  !reactComponent &&
+  !vueComponent &&
+  !svelteComponent
+) {
   throw new Error(
     `<AutoExample slug="${slug}" name="${name}"> found no example files at ` +
-      `${astroPath}, ${htmlPath}, or ${vuePath}.`,
+      `${astroPath}, ${htmlPath}, ${reactPath}, ${vuePath}, or ${sveltePath}.`,
   )
 }
 ---
 
-<Example {...rest} vueExampleId={vueComponent ? `${slug}/${name}` : undefined}>
+<Example
+  {...rest}
+  reactExampleId={reactComponent ? `${slug}/${name}` : undefined}
+  svelteExampleId={svelteComponent ? `${slug}/${name}` : undefined}
+  vueExampleId={vueComponent ? `${slug}/${name}` : undefined}
+>
   {
     Astro.slots.has("controls") && (
       <Fragment slot="controls">
@@ -89,9 +115,25 @@ if (!astroComponent && !htmlSource && !vueComponent) {
       <Example.Preview slot="preview-astro" code={astroComponent} />
     )
   }
+  {
+    reactComponent && (
+      <Example.Preview slot="preview-react" code={reactComponent} />
+    )
+  }
+  {
+    svelteComponent && (
+      <Example.Preview slot="preview-svelte" code={svelteComponent} />
+    )
+  }
   {htmlSource && <Example.Preview slot="preview-html" code={htmlSource} />}
   {vueComponent && <Example.Preview slot="preview-vue" code={vueComponent} />}
-  {astroSource && <Example.Code slot="code-astro" code={astroSource} />}
-  {htmlSource && <Example.Code slot="code-html" code={htmlSource} />}
-  {vueSource && <Example.Code slot="code-vue" code={vueSource} />}
+  {astroSource && <Example.Code slot="code-astro" code={codeSource("astro")} />}
+  {htmlSource && <Example.Code slot="code-html" code={codeSource("html")} />}
+  {reactSource && <Example.Code slot="code-react" code={codeSource("react")} />}
+  {
+    svelteSource && (
+      <Example.Code slot="code-svelte" code={codeSource("svelte")} />
+    )
+  }
+  {vueSource && <Example.Code slot="code-vue" code={codeSource("vue")} />}
 </Example>

@@ -2,7 +2,8 @@
 import Default from "./Default.astro"
 import TableOfContents from "../components/TableOfContents.astro"
 import LocalNav from "../components/LocalNav.astro"
-import { Button, Drawer, DrawerFooter } from "@opui/astro"
+import SidebarNav, { type SidebarGroup } from "../components/SidebarNav.astro"
+import { Button, Drawer, DrawerContent, DrawerActions } from "opui-css/astro"
 
 type Props = {
   title?: string
@@ -10,11 +11,23 @@ type Props = {
   image?: string
   overline?: string
   showToc?: boolean
+  sidebarGroups?: SidebarGroup[]
+  transitionName?: string
+  wide?: boolean
 }
 
-const { title, description, image, overline, showToc = true } = Astro.props
-const sidebar = await Astro.slots.render("sidebar")
-const hasSidebarDrawer = sidebar?.includes("<nav")
+const {
+  title,
+  description,
+  image,
+  overline,
+  showToc = true,
+  sidebarGroups = [],
+  transitionName,
+  wide,
+} = Astro.props
+const hasSidebarNav = sidebarGroups.length > 0
+const hasSidebar = hasSidebarNav || Astro.slots.has("sidebar")
 
 const preamble = Astro.slots.has("preamble")
   ? await Astro.slots.render("preamble")
@@ -38,38 +51,43 @@ const descText =
   description ?? (preamble ? preamble.replace(/<[^>]+>/g, "").trim() : "")
 ---
 
-<Default title={titleText} description={descText} image={image}>
+<Default title={titleText} description={descText} hasMarkdown image={image}>
   <Fragment slot="toolbar">
     <LocalNav
-      sidebarDrawerId={hasSidebarDrawer ? "sidebar-drawer" : undefined}
+      sidebarDrawerId={hasSidebarNav ? "sidebar-drawer" : undefined}
       showToc={showToc}
     />
   </Fragment>
-  <div id="document-page">
+  <div data-wide={wide ? "" : undefined} id="document-page">
     {
-      sidebar && (
+      hasSidebar && (
         <aside class="sidebar">
           <div class="ui-content">
-            <Fragment set:html={sidebar} />
+            <slot name="sidebar" />
+            {hasSidebarNav && <SidebarNav groups={sidebarGroups} />}
           </div>
         </aside>
       )
     }
 
     {
-      hasSidebarDrawer && (
+      hasSidebarNav && (
         <Drawer
+          aria-label="Sidebar"
           id="sidebar-drawer"
           backdrop="transparent"
+          scrollLock
           side="inline-start"
           closedby="any"
         >
-          <Fragment slot="content" set:html={sidebar} />
-          <DrawerFooter slot="footer">
+          <DrawerContent>
+            <SidebarNav groups={sidebarGroups} />
+          </DrawerContent>
+          <DrawerActions>
             <Button size="small" commandfor="sidebar-drawer" command="close">
               Close
             </Button>
-          </DrawerFooter>
+          </DrawerActions>
         </Drawer>
       )
     }
@@ -77,14 +95,39 @@ const descText =
     <main id="main-content">
       <article class="ui-rich-text">
         <hgroup id="main-heading">
-          {overline && <p>{overline}</p>}
-          <h1><slot name="title" /></h1>
+          {
+            overline && (
+              <p
+                class:list={{ "doc-transition": transitionName }}
+                style={
+                  transitionName &&
+                  `view-transition-name: ${transitionName}-date`
+                }
+              >
+                {overline}
+              </p>
+            )
+          }
+          <h1
+            class:list={{ "doc-transition": transitionName }}
+            style={transitionName &&
+              `view-transition-name: ${transitionName}-title`}
+          >
+            <slot name="title" />
+          </h1>
           {
             preamble &&
               (preambleHasBlockMarkup ? (
                 <Fragment set:html={preamble} />
               ) : (
-                <p set:html={preamble} />
+                <p
+                  class:list={{ "doc-transition": transitionName }}
+                  set:html={preamble}
+                  style={
+                    transitionName &&
+                    `view-transition-name: ${transitionName}-description`
+                  }
+                />
               ))
           }
         </hgroup>
@@ -138,26 +181,35 @@ const descText =
 </script>
 
 <style is:global>
+  .doc-transition {
+    inline-size: fit-content;
+    view-transition-class: doc-heading;
+  }
+
+  h1 + .doc-transition {
+    view-transition-class: doc-heading doc-reflow;
+  }
+
   #document-page {
     display: grid;
     grid-template-columns:
-      var(--_gap) 1fr 0 minmax(auto, 100%)
-      0 1fr var(--_gap);
+      var(--site-gap) 1fr 0 minmax(auto, 100%)
+      0 1fr var(--site-gap);
     margin: 0 auto;
-    max-inline-size: calc(var(--_content-lg) + var(--_page-gutters));
+    max-inline-size: calc(var(--site-content-lg) + var(--site-page-gutters));
 
     &:before {
       background: radial-gradient(
         100% 100% at 50% 0%,
-        var(--primary),
+        var(--ui-primary),
         transparent
       );
       content: "";
       inset: 0;
       opacity: 0.3;
+      pointer-events: none;
       position: fixed;
       z-index: -1;
-      pointer-events: none;
     }
 
     .sidebar,
@@ -175,8 +227,13 @@ const descText =
 
     @media (width >= 900px) {
       grid-template-columns:
-        var(--_gap) 1fr 200px minmax(auto, 100%)
-        0 1fr var(--_gap);
+        var(--site-gap) 1fr 200px minmax(auto, 100%)
+        0 1fr var(--site-gap);
+
+      &[data-wide] > #main-content {
+        grid-column: 4 / 6;
+        max-inline-size: none;
+      }
 
       .sidebar {
         display: block;
@@ -185,8 +242,8 @@ const descText =
 
     @media (width >=1140px) {
       grid-template-columns:
-        var(--_gap) 1fr 200px minmax(auto, 100%)
-        150px 1fr var(--_gap);
+        var(--site-gap) 1fr 200px minmax(auto, 100%)
+        150px 1fr var(--site-gap);
 
       .page-contents {
         display: block;
@@ -209,19 +266,23 @@ const descText =
           font-weight: 500;
 
           h3 {
-            font-size: var(--font-size-05);
+            font-size: var(--ui-font-size-small);
             margin-block-end: 0.5em;
           }
 
+          menu + h3 {
+            margin-block-start: var(--size-5);
+          }
+
           menu {
-            font-size: var(--font-size-05);
+            font-size: var(--ui-font-size-small);
             list-style-type: none;
             margin: 0;
             padding: 0;
 
             li {
               a {
-                color: var(--text-primary);
+                color: var(--ui-text-strong);
                 display: flex;
                 padding-block: var(--size-1);
                 text-decoration: none;
@@ -231,12 +292,21 @@ const descText =
                 }
 
                 &:hover {
-                  color: var(--primary);
+                  color: var(--ui-primary);
                 }
 
                 &[aria-current="page"] {
-                  color: var(--primary);
+                  color: var(--ui-primary);
                   font-weight: 700;
+                }
+
+                .new-dot {
+                  align-self: center;
+                  aspect-ratio: 1;
+                  background-color: var(--ui-primary);
+                  border-radius: var(--radius-round);
+                  inline-size: var(--size-2);
+                  margin-inline-start: var(--size-2);
                 }
               }
             }
@@ -246,6 +316,10 @@ const descText =
     }
 
     .sidebar:not(#sidebar-drawer) {
+      animation-fill-mode: none;
+
+      animation-name: sidebar-detect-scroll;
+      animation-timeline: --sidebar-scroll;
       /* Scroll-driven gradient shadows */
       scroll-timeline: --sidebar-scroll y;
 
@@ -264,43 +338,39 @@ const descText =
       }
 
       &::before {
-        inset-block-start: 0;
+        animation-fill-mode: both;
+        animation-name: sidebar-shadow-reveal;
+        animation-range: 0 150px;
+        animation-timeline: --sidebar-scroll;
         background: radial-gradient(
           farthest-side at 50% 0%,
           color-mix(
             in oklch,
-            var(--primary) 30%,
-            oklch(from var(--text-primary) l c h / 0.2)
+            var(--ui-primary) 30%,
+            oklch(from var(--ui-text-strong) l c h / 0.2)
           ),
           transparent
         );
-        animation-name: sidebar-shadow-reveal;
-        animation-timeline: --sidebar-scroll;
-        animation-fill-mode: both;
-        animation-range: 0 150px;
+        inset-block-start: 0;
       }
 
       &::after {
-        inset-block-end: 0;
+        animation-direction: reverse;
+        animation-fill-mode: both;
+        animation-name: sidebar-shadow-reveal;
+        animation-range: calc(100% - 150px) 100%;
+        animation-timeline: --sidebar-scroll;
         background: radial-gradient(
           farthest-side at 50% 100%,
           color-mix(
             in oklch,
-            var(--primary) 30%,
-            oklch(from var(--text-primary) l c h / 0.2)
+            var(--ui-primary) 30%,
+            oklch(from var(--ui-text-strong) l c h / 0.2)
           ),
           transparent
         );
-        animation-name: sidebar-shadow-reveal;
-        animation-timeline: --sidebar-scroll;
-        animation-fill-mode: both;
-        animation-direction: reverse;
-        animation-range: calc(100% - 150px) 100%;
+        inset-block-end: 0;
       }
-
-      animation-name: sidebar-detect-scroll;
-      animation-timeline: --sidebar-scroll;
-      animation-fill-mode: none;
 
       &::before,
       &::after {
@@ -317,26 +387,19 @@ const descText =
       }
     }
 
-    #sidebar-drawer {
-      .framework-picker,
-      hr {
-        display: none;
-      }
-    }
-
     .sidebar {
       align-self: start;
-      background-color: var(--surface-filled);
-      border-radius: var(--border-radius);
+      background-color: var(--ui-surface-filled);
+      border-radius: var(--ui-radius);
       grid-column: 3;
       grid-row: 2;
-      inset-block-start: calc(var(--size-10) + var(--_gap));
-      max-block-size: calc(100dvb - var(--size-10) - var(--_page-gutters));
+      inset-block-start: calc(var(--size-10) + var(--site-gap));
+      max-block-size: calc(100dvb - var(--size-10) - var(--site-page-gutters));
       overflow-y: auto;
       position: sticky;
 
       .ui-content {
-        padding: var(--_gap);
+        padding: var(--site-gap);
       }
 
       @supports (corner-shape: squircle) {
@@ -345,40 +408,42 @@ const descText =
       }
 
       @media (width >= 900px) and (width < 1140px) {
-        inset-block-start: calc(var(--size-10) + var(--size-8) + var(--_gap));
+        inset-block-start: calc(
+          var(--size-10) + var(--size-8) + var(--site-gap)
+        );
         max-block-size: calc(
-          100dvb - var(--size-10) - var(--size-8) - var(--_page-gutters)
+          100dvb - var(--size-10) - var(--size-8) - var(--site-page-gutters)
         );
       }
     }
 
     #main-heading {
       margin-block-end: var(--size-8);
-      max-inline-size: var(--_content-text);
+      max-inline-size: var(--site-content-text);
     }
 
     #main-content {
       grid-column: 4;
       grid-row: 2;
-      max-inline-size: var(--_content-document);
+      max-inline-size: var(--site-content-document);
       min-inline-size: 0;
 
       @media (width >= 900px) {
-        padding: var(--_gap);
+        padding: var(--site-gap);
       }
 
       & > .ui-rich-text section:last-of-type > div:last-of-type {
         margin-block-end: 0;
       }
 
-      @scope (&) to (.example-container) {
+      @scope (&) to (.example-container, .ui-card) {
         :where(h2, h3, h4, h5, h6) {
-          display: flex;
           align-items: center;
+          display: flex;
           gap: var(--size-2);
 
           .header-anchor {
-            color: var(--primary);
+            color: var(--ui-primary);
             display: flex;
             font-size: 0.8em;
             opacity: 0;
@@ -404,9 +469,30 @@ const descText =
             container-name: sticky-heading;
             container-type: scroll-state;
             inset-block-start: var(--size-4);
-            max-inline-size: 555px; /* TODO: fix this in a non-ugly way */
+            max-inline-size: calc(
+              min(
+                  100vw - var(--site-gap),
+                  (100vw + var(--site-content-lg)) / 2
+                ) -
+                var(--site-header-end-inline-size) -
+                max(
+                  0px,
+                  (100vw - var(--site-content-lg) - var(--site-page-gutters)) /
+                    2
+                ) -
+                var(--site-gap) * 2 - 200px - var(--size-5)
+            );
             position: sticky;
             z-index: 22;
+
+            @container sticky-heading scroll-state(stuck: top) {
+              & > span {
+                min-inline-size: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            }
           }
         }
       }
@@ -419,7 +505,7 @@ const descText =
       inset-block-start: var(--size-10);
       max-block-size: calc(100dvb - var(--size-10));
       overflow-y: auto;
-      padding: var(--_gap) 0 var(--_gap) var(--_gap);
+      padding: var(--site-gap) 0 var(--site-gap) var(--site-gap);
       position: sticky;
 
       @media (width >= 900px) and (width < 1140px) {

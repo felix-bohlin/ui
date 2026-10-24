@@ -1,17 +1,31 @@
 <label class="ui-range">
-  <span class="ui-label" id="range-tick-marks-1-label"
+  <span class="ui-label" id="range-tick-marks-labels-1-label"
     >Tick marks with labels</span
   >
   <input
-    aria-labelledby="range-tick-marks-1-label"
-    list="labeled-markers"
+    aria-labelledby="range-tick-marks-labels-1-label"
+    list="range-tick-marks-labels-1-list"
     type="range"
   />
-  <datalist id="labeled-markers">
+  <datalist aria-hidden="true" id="range-tick-marks-labels-1-list">
     <option value="0" label="0%"></option>
     <option value="25" label="25%"></option>
     <option value="50" label="50%"></option>
     <option value="75" label="75%"></option>
     <option value="100" label="100%"></option>
+  </datalist>
+</label>
+<label class="ui-range">
+  <span class="ui-label" id="range-tick-marks-labels-2-label">Quality</span>
+  <input
+    aria-labelledby="range-tick-marks-labels-2-label"
+    list="range-tick-marks-labels-2-list"
+    max="2"
+    type="range"
+  />
+  <datalist aria-hidden="true" id="range-tick-marks-labels-2-list">
+    <option value="0" label="Low"></option>
+    <option value="1" label="Medium"></option>
+    <option value="2" label="High"></option>
   </datalist>
 </label>

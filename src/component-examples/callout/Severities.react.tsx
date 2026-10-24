@@ -1,0 +1,46 @@
+import { Callout, CalloutContent, CalloutIcon } from "opui-css/react"
+
+export default function Severities() {
+  return (
+    <>
+      <Callout severity="critical">
+        <CalloutIcon />
+        <CalloutContent>This is a tonal critical Callout</CalloutContent>
+      </Callout>
+      <Callout severity="info">
+        <CalloutIcon />
+        <CalloutContent>This is a tonal info Callout</CalloutContent>
+      </Callout>
+      <Callout severity="neutral">
+        <CalloutContent>This is a tonal neutral Callout</CalloutContent>
+      </Callout>
+      <Callout severity="success">
+        <CalloutIcon />
+        <CalloutContent>This is a tonal success Callout</CalloutContent>
+      </Callout>
+      <Callout severity="warning">
+        <CalloutIcon />
+        <CalloutContent>This is a tonal warning Callout</CalloutContent>
+      </Callout>
+      <Callout severity="critical" variant="outlined">
+        <CalloutIcon />
+        <CalloutContent>This is an outlined critical Callout</CalloutContent>
+      </Callout>
+      <Callout severity="info" variant="outlined">
+        <CalloutIcon />
+        <CalloutContent>This is an outlined info Callout</CalloutContent>
+      </Callout>
+      <Callout severity="neutral" variant="outlined">
+        <CalloutContent>This is an outlined neutral Callout</CalloutContent>
+      </Callout>
+      <Callout severity="success" variant="outlined">
+        <CalloutIcon />
+        <CalloutContent>This is an outlined success Callout</CalloutContent>
+      </Callout>
+      <Callout severity="warning" variant="outlined">
+        <CalloutIcon />
+        <CalloutContent>This is an outlined warning Callout</CalloutContent>
+      </Callout>
+    </>
+  )
+}

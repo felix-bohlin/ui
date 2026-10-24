@@ -1,10 +1,14 @@
-import type { HTMLAttributes, Slot } from "vue"
-import type { Props as BaseProps, Slots as BaseSlots } from "./types"
+import type { Class, DefaultSlots } from "../vue"
+import type {
+  CalloutContentProps as BaseCalloutContentProps,
+  CalloutIconProps as BaseCalloutIconProps,
+  Props as BaseProps,
+} from "./types"
 
-export type Props = BaseProps & {
-  class?: HTMLAttributes["class"]
-}
+export type Props = BaseProps & Class
 
-export type Slots = BaseSlots<Slot> & {
-  default?: Slot
-}
+export type CalloutContentProps = BaseCalloutContentProps & Class
+
+export type CalloutIconProps = BaseCalloutIconProps & Class
+
+export type Slots = DefaultSlots

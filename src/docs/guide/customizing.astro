@@ -1,0 +1,206 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import Code from "../../components/Code.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example/index"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Customizing</Fragment>
+  <Fragment slot="preamble">
+    Theme tokens change the whole library. To change one component, or one
+    instance of it, set its <code>--_*</code> properties.
+  </Fragment>
+
+  <section>
+    <h2 id="your-theme">Your theme</h2>
+    <p>
+      A theme is the <DocLink href="/guide/concepts#token-tiers"
+        >knobs, roles and component tokens</DocLink
+      > you change, in the <code>theme.custom</code> layer, right after the defaults.
+      Tokens you leave out keep their defaults, also new ones in later releases.
+    </p>
+    <Code
+      code={`@layer theme.custom {
+  :where(html) {
+    --ui-radius: 4px;
+    --ui-density: 0.9;
+    --ui-font-body: "Inter", var(--font-sans);
+    --ui-font-heading: "Fraunces", var(--font-serif);
+    --ui-palette-chroma: 0.35;
+    --ui-palette-hue: 265;
+  }
+}`}
+      lang="css"
+    />
+    <p>
+      If it might load before <code>layers.css</code>, start it with the two <code
+        >@layer</code
+      > statements from there, like the example themes do. The <DocLink
+        href="/guide/theme-generator">Theme generator</DocLink
+      > writes one for you.
+    </p>
+    <p>
+      Knobs inherit, so <code>html</code> is enough for them. A role you pin, such
+      as
+      <code>--ui-surface</code> or <code>--ui-primary</code>, goes on <code
+        >:where(html, .ui-palette, .ui-contrast-more)</code
+      > so the scope classes keep it. The example themes do that for every token.
+    </p>
+    <h3 id="example-themes">Example themes</h3>
+    <p>
+      Four themes ship with the package to show how far tokens go. Each is only
+      tokens in <code>theme.custom</code>, on <code>html</code> and, for the colors
+      of severity scopes such as <code>.ui-info</code>, on those classes. No
+      component CSS. Every stress test page runs with each of them in light and
+      dark mode. They copy their originals faithfully, also where those fall
+      short of WCAG contrast (the translucent focus rings of Bootstrap and
+      shadcn, the light field borders of Bootstrap and shadcn, the bright blue
+      of brutalist). They name their fonts (Geist, Roboto, DM Sans) but don't
+      load them. Try them in the theme drawer in the header.
+    </p>
+    <ul>
+      <li>
+        <code>bootstrap</code>: Bootstrap 5. Its <code>#0d6efd</code> blue, gray secondary
+        buttons, the danger, warning, info and success colors with the subtle alert
+        palettes, <code>#dee2e6</code> borders, 38px controls, regular weight buttons
+        and labels, 16px checks and 32px switches, the heading scale, 1.5 line height
+        and the wide translucent focus ring. No shadow on dropdowns and modals.
+      </li>
+      <li>
+        <code>brutalist</code>: neobrutalism. Black 2px borders, hard 4px
+        shadows on cards, dialogs and menus and on buttons that press into them
+        on hover without changing color, white fields on the gray-blue page, a
+        bright blue main color also behind tooltips, black links and 500 weight
+        body text.
+      </li>
+      <li>
+        <code>m3</code>: Material 3. The baseline purple scheme and its tinted
+        surfaces, the error red, pill buttons with 24px padding that show 8%
+        state layers and lift on hover, outlined ones in the outline gray, 12px
+        cards, 28px dialogs, 4px menus and outlined fields, 8px chips, 18px
+        checkboxes, 52 by 32px switches, Roboto, the type scale, the emphasized
+        easing and the 3px secondary focus ring over a 32% scrim.
+      </li>
+      <li>
+        <code>shadcn</code>: shadcn/ui. Neutral grays, a near-black primary also
+        behind tooltips, 36px controls with 14px text and 16px padding, 32px
+        small and 40px large buttons, light borders with a faint shadow, the
+        accent tint on hover instead of a fill, a 3px gray focus ring, 16px
+        checks with 4px corners, a 32px switch with a white thumb, 8px menus and
+        chips, 10px dialogs and 14px cards.
+      </li>
+    </ul>
+    <Code
+      code={`@import "opui-css/css/imports.css";
+@import "opui-css/themes/brutalist.css";`}
+      lang="css"
+    />
+  </section>
+
+  <section>
+    <h2 id="component-properties">Component properties</h2>
+    <p>
+      The <code>--_*</code> private properties are each component's wiring, the last
+      <DocLink href="/guide/concepts#token-tiers">tier</DocLink> before its CSS. Every
+      component page lists its own under Component properties, marked as inputs or
+      outputs, and components share names where they mean the same thing. Button reads
+      these:
+    </p>
+    <ul>
+      <li>
+        <code>--_accent</code>: the accent color. Fills, borders, text, hover
+        and active states are all derived from it.
+      </li>
+      <li>
+        <code>--_bg-color</code> and <code>--_text-color</code>: the current
+        background and text color.
+      </li>
+      <li>
+        <code>--_duration</code> and <code>--_ease</code>: the transition
+        duration and easing.
+      </li>
+      <li>
+        <code>--_icon-size</code>: the size of a direct child <code>svg</code>.
+      </li>
+      <li>
+        <code>--_size</code>: the control size, set by the size classes: the
+        height, and the width when the control is square.
+      </li>
+      <li>
+        <code>--_motion</code>: the motion multiplier, <code>0</code> turns transitions
+        off.
+      </li>
+      <li>
+        <code>--_padding-inline</code>: the inline padding, set by the size
+        classes.
+      </li>
+    </ul>
+    <p>
+      The component declares them on itself, so set them on the component, not
+      on a parent. Theme tokens are the ones to set on a parent:
+    </p>
+    <Code
+      code={`/* Does nothing: every .ui-button declares its own --_icon-size */
+.toolbar {
+  --_icon-size: 1.25em;
+}
+
+/* Works */
+.toolbar .ui-button {
+  --_icon-size: 1.25em;
+}
+
+/* Theme tokens inherit, so a parent is fine */
+.toolbar {
+  --ui-button-radius: var(--radius-round);
+}`}
+      lang="css"
+    />
+    <Example centered>
+      <button
+        class="ui-button ui-filled"
+        style="--_accent: var(--ui-green)"
+        type="button"
+      >
+        Green filled
+      </button>
+      <button
+        class="ui-button ui-outlined"
+        style="--_accent: var(--ui-green)"
+        type="button"
+      >
+        Green outlined
+      </button>
+    </Example>
+    <p>
+      Prefer inputs like <code>--_accent</code> over outputs like <code
+        >--_bg-color</code
+      >. The states set the outputs, so a new <code>--_bg-color</code> freezes the
+      background in every state, while a new <code>--_accent</code> flows through
+      all of them.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="unlayered-or-your-own-layer">Unlayered or your own layer</h2>
+    <p>
+      Unlayered CSS beats every <DocLink href="/guide/concepts#cascade-layers"
+        >layer</DocLink
+      >, which is fine for most apps. If you use layers yourself, add one after <code
+        >utils</code
+      >: it beats the library and still loses to your unlayered one-off fixes.
+    </p>
+    <Code
+      code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils, overrides;
+@layer theme.palette, theme.base, theme.custom;
+
+@layer overrides {
+  .ui-badge {
+    --_size: var(--size-5);
+  }
+}`}
+      lang="css"
+    />
+  </section>
+</Guide>

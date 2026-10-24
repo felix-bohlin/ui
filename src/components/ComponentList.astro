@@ -1,14 +1,12 @@
 ---
-import { components, componentHrefFor } from "../utils/components"
-import { DEFAULT_FRAMEWORK, type FrameworkId } from "../utils/framework-routing"
+import { componentsFor, componentHrefFor } from "../utils/components"
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 ---
 
 <ul class="card-grid">
   {
-    components.map((component) => (
+    componentsFor(currentFramework).map((component) => (
       <li>
         <a
           class="ui-card ui-outlined"

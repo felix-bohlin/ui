@@ -1,0 +1,81 @@
+<button
+  type="button"
+  commandfor="drawer-close-behaviors-1"
+  command="show-modal"
+  class="ui-button ui-outlined"
+>
+  Open drawer
+</button>
+
+<dialog
+  class="ui-drawer ui-scroll-lock"
+  id="drawer-close-behaviors-1"
+  aria-labelledby="drawer-close-behaviors-1-heading"
+  closedby="any"
+>
+  <div class="ui-header">
+    <h2 id="drawer-close-behaviors-1-heading">How to close</h2>
+    <button
+      type="button"
+      class="ui-button ui-round ui-small"
+      aria-label="Close"
+      commandfor="drawer-close-behaviors-1"
+      command="close"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+        />
+      </svg>
+    </button>
+  </div>
+  <div class="ui-content">
+    <fieldset class="ui-fieldset">
+      <legend>Choose a closing behavior:</legend>
+      <div class="ui-field-group">
+        <label class="ui-radio">
+          <input type="radio" name="closedby-demo" value="any" checked />
+          <span class="ui-label">any</span>
+        </label>
+        <label class="ui-radio">
+          <input type="radio" name="closedby-demo" value="closerequest" />
+          <span class="ui-label">closerequest</span>
+        </label>
+        <label class="ui-radio">
+          <input type="radio" name="closedby-demo" value="none" />
+          <span class="ui-label">none</span>
+        </label>
+      </div>
+    </fieldset>
+  </div>
+  <div class="ui-actions">
+    <button
+      type="button"
+      class="ui-button ui-small"
+      commandfor="drawer-close-behaviors-1"
+      command="close"
+    >
+      Close manually
+    </button>
+  </div>
+</dialog>
+
+<script>
+  {
+    const drawer = document.getElementById("drawer-close-behaviors-1")
+    document
+      .querySelectorAll('input[name="closedby-demo"]')
+      .forEach((radio) => {
+        radio.addEventListener("change", () =>
+          drawer?.setAttribute("closedby", radio.value),
+        )
+      })
+  }
+</script>

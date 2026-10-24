@@ -1,10 +1,17 @@
-import type { HTMLAttributes, Slot } from "vue"
-import type { Props as BaseProps, Slots as BaseSlots } from "./types"
+import type { Class, DefaultSlots } from "../vue"
+import type {
+  CardActionsProps as BaseCardActionsProps,
+  CardContentProps as BaseCardContentProps,
+  CardHeaderProps as BaseCardHeaderProps,
+  Props as BaseProps,
+} from "./types"
 
-export type Props = BaseProps & {
-  class?: HTMLAttributes["class"]
-}
+export type Props = BaseProps & Class
 
-export type Slots = BaseSlots<Slot> & {
-  default?: Slot
-}
+export type CardActionsProps = BaseCardActionsProps & Class
+
+export type CardContentProps = BaseCardContentProps & Class
+
+export type CardHeaderProps = BaseCardHeaderProps & Class
+
+export type Slots = DefaultSlots

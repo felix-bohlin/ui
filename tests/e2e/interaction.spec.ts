@@ -38,6 +38,27 @@ const expectFocusWithin = (locator: Locator) =>
     .toBe(true)
 
 interaction(
+  "anchor",
+  "RepoCard",
+  "hover card shows on hover",
+  async ({ page, root }) => {
+    const trigger = root.getByRole("link", { name: "felix-bohlin/ui" })
+    const card = root.getByText("Public repository")
+
+    const supportsInterest = await page.evaluate(
+      () => "interestForElement" in HTMLAnchorElement.prototype,
+    )
+    test.skip(!supportsInterest, "needs interest invokers")
+
+    await expect(card).toBeHidden()
+    await trigger.hover()
+    await expect(card).toBeVisible()
+    await page.mouse.move(0, 0)
+    await expect(card).toBeHidden()
+  },
+)
+
+interaction(
   "accordion",
   "Basics",
   "accordion toggles with click and keyboard",
@@ -69,8 +90,33 @@ interaction(
 )
 
 interaction(
+  "checkbox",
+  "FieldGroupBinding",
+  "checkbox group binds the checked values",
+  async ({ root }) => {
+    const apples = root.getByRole("checkbox", { name: "Apples" })
+    const bananas = root.getByRole("checkbox", { name: "Bananas" })
+    const selection = root.getByText(/Selected:/)
+
+    await expect(apples).toBeChecked()
+    await expect(selection).toHaveText("Selected: apples")
+    await root.getByText("Bananas", { exact: true }).click()
+    await expect(bananas).toBeChecked()
+    await expect(selection).toHaveText("Selected: apples, bananas")
+    await root.getByText("Apples", { exact: true }).click()
+    await expect(apples).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: bananas")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(apples).toBeChecked()
+    await expect(bananas).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: apples")
+  },
+)
+
+interaction(
   "dialog",
-  "Usage",
+  "Basics",
   "dialog opens, traps focus and closes with Escape",
   async ({ page, root }) => {
     const trigger = root.getByRole("button", { name: "Open dialog" })
@@ -92,20 +138,20 @@ interaction(
 
 interaction(
   "dialog",
-  "Usage",
+  "Basics",
   "dialog closes from its actions",
   async ({ root }) => {
     const dialog = root.locator("dialog")
 
     await root.getByRole("button", { name: "Open dialog" }).click()
-    await dialog.getByRole("button", { name: "Cancel" }).click()
+    await dialog.getByRole("button", { name: "Not now" }).click()
     await expect(dialog).toBeHidden()
   },
 )
 
 interaction(
   "drawer",
-  "Usage",
+  "Basics",
   "drawer opens and closes with Escape",
   async ({ page, root }) => {
     const trigger = root.getByRole("button", { name: "Inline Start" })
@@ -118,6 +164,56 @@ interaction(
     await page.keyboard.press("Escape")
     await expect(drawer).toHaveCount(0)
     await expect(trigger).toBeFocused()
+  },
+)
+
+interaction(
+  "radio",
+  "FieldGroupBinding",
+  "radio group binds the selected value and resets",
+  async ({ root }) => {
+    const free = root.getByRole("radio", { name: "Free" })
+    const pro = root.getByRole("radio", { name: "Pro" })
+    const selection = root.getByText(/Selected:/)
+
+    await expect(free).toBeChecked()
+    await root.getByText("Pro", { exact: true }).click()
+    await expect(pro).toBeChecked()
+    await expect(selection).toHaveText("Selected: pro")
+    await root.getByText("Free", { exact: true }).click()
+    await expect(free).toBeChecked()
+    await expect(selection).toHaveText("Selected: free")
+    await root.getByText("Pro", { exact: true }).click()
+    await expect(pro).toBeChecked()
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(free).toBeChecked()
+    await expect(pro).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: free")
+  },
+)
+
+interaction(
+  "radio",
+  "FieldGroupControlled",
+  "checked-driven radios follow the state and reset",
+  async ({ root }) => {
+    const standard = root.getByRole("radio", { name: "Standard" })
+    const express = root.getByRole("radio", { name: "Express" })
+    const selection = root.getByText(/Selected:/)
+
+    await expect(standard).toBeChecked()
+    for (const name of ["Express", "Standard", "Express"]) {
+      await root.getByText(name, { exact: true }).click()
+    }
+    await expect(express).toBeChecked()
+    await expect(standard).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: express")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(standard).toBeChecked()
+    await expect(express).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: standard")
   },
 )
 
@@ -143,6 +239,11 @@ interaction(
   "Variants",
   "select picks an option with the keyboard",
   async ({ page, root }) => {
+    test.skip(
+      test.info().project.name === "firefox" &&
+        !(await page.evaluate(() => CSS.supports("appearance", "base-select"))),
+      "Firefox's native select picker ignores synthesized keys",
+    )
     const select = root.locator("select").first()
 
     await select.focus()
@@ -161,17 +262,106 @@ interaction(
 )
 
 interaction(
+  "select",
+  "Variants",
+  "select keeps its padding when a script adds the button",
+  async ({ root }) => {
+    const padding = await root
+      .locator("select")
+      .first()
+      .evaluate((select) => {
+        if (!select.querySelector("button")) {
+          select.prepend(document.createElement("button"))
+        }
+        const text = CSS.supports("appearance", "base-select")
+          ? select.querySelector("button")!
+          : select
+        return getComputedStyle(text).paddingInlineStart
+      })
+    expect(padding).not.toBe("0px")
+  },
+  ["html"],
+)
+
+interaction(
+  "avatar",
+  "Sizes",
+  "a small avatar on a span keeps its own font size",
+  async ({ root }) => {
+    const sizes = await root
+      .locator(".ui-avatar.ui-small")
+      .first()
+      .evaluate((avatar) => {
+        const span = document.createElement("span")
+        span.className = avatar.className
+        span.textContent = avatar.textContent
+        avatar.after(span)
+        const sizes = [avatar, span].map(
+          (element) => getComputedStyle(element).fontSize,
+        )
+        span.remove()
+        return sizes
+      })
+    expect(sizes[1]).toBe(sizes[0])
+  },
+  ["html"],
+)
+
+interaction(
+  "list",
+  "EndSwitch",
+  "a size class on a switch in a list row wins over the list size",
+  async ({ root }) => {
+    const label = root.locator("label.ui-switch").first()
+    const width = () =>
+      label
+        .locator("input")
+        .evaluate((input) => input.getBoundingClientRect().width)
+    const small = await width()
+    await label.evaluate((element) => element.classList.add("ui-large"))
+    expect(await width()).toBeGreaterThan(small)
+  },
+  ["html"],
+)
+
+interaction(
+  "switch",
+  "FieldGroupBinding",
+  "switch group binds the checked values",
+  async ({ root }) => {
+    const email = root.getByRole("switch", { name: "Email" })
+    const push = root.getByRole("switch", { name: "Push" })
+    const selection = root.getByText(/Selected:/)
+
+    await expect(email).toBeChecked()
+    await expect(selection).toHaveText("Selected: email")
+    await root.getByText("Push", { exact: true }).click()
+    await expect(push).toBeChecked()
+    await expect(selection).toHaveText("Selected: email, push")
+    await root.getByText("Email", { exact: true }).click()
+    await expect(email).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: push")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(email).toBeChecked()
+    await expect(push).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: email")
+  },
+)
+
+interaction(
   "tabs",
   "Basics",
   "tabs switch panels with click and arrow keys",
   async ({ page, root }) => {
-    const tabs = root.getByRole("tab")
-    const panels = root.locator('[role="tabpanel"]')
+    const tabs = root.locator(".ui-tabs > .ui-label")
+    const panels = root.locator(".ui-tabs > .ui-panel")
 
     await expect(panels.nth(0)).toBeVisible()
     await expect(panels.nth(1)).toBeHidden()
 
     await tabs.nth(1).click()
+    await expect(root.getByRole("radio", { name: "Settings" })).toBeChecked()
     await expect(panels.nth(1)).toBeVisible()
     await expect(panels.nth(0)).toBeHidden()
 
@@ -182,17 +372,25 @@ interaction(
 )
 
 interaction(
-  "toast",
-  "HTML",
-  "toast shows and can be dismissed",
-  async ({ page, root }) => {
-    await root.getByRole("button", { name: "Show Default Toast" }).click()
-    const toast = page.locator("#toast-manager .ui-toast")
-    await expect(toast).toHaveCount(1)
-    await expect(toast).toContainText("Default Notification")
+  "tabs",
+  "Binding",
+  "bound tabs report the selected tab and reset",
+  async ({ root }) => {
+    const profile = root.getByRole("radio", { name: "Profile" })
+    const settings = root.getByRole("radio", { name: "Settings" })
+    const selection = root.getByText(/Selected:/)
 
-    await toast.getByRole("button", { name: "Close" }).click()
-    await expect(toast).toHaveCount(0)
+    await expect(settings).toBeChecked()
+    await expect(selection).toHaveText("Selected: settings")
+    await root.getByText("Profile", { exact: true }).click()
+    await expect(profile).toBeChecked()
+    await expect(settings).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: profile")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(settings).toBeChecked()
+    await expect(profile).not.toBeChecked()
+    await expect(selection).toHaveText("Selected: settings")
   },
 )
 
@@ -233,9 +431,23 @@ interaction(
 )
 
 interaction(
+  "toggle",
+  "Binding",
+  "bound toggle groups report the selection",
+  async ({ root }) => {
+    await root.getByText("Day", { exact: true }).click()
+    await root.getByText("Italic", { exact: true }).click()
+    await expect(root.locator(".toggle-binding-text")).toHaveText(
+      "View: day. Format: bold, italic.",
+    )
+  },
+  ["react", "svelte", "vue"],
+)
+
+interaction(
   "tooltip",
   "Basics",
-  "tooltip shows on hover and toggles on click",
+  "tooltip shows on hover",
   async ({ page, root }) => {
     const trigger = root.getByRole("button", { name: "Save" })
     const tooltip = root.getByText("Save your changes")
@@ -243,15 +455,25 @@ interaction(
     const supportsInterest = await page.evaluate(
       () => "interestForElement" in HTMLButtonElement.prototype,
     )
+    test.skip(!supportsInterest, "needs interest invokers")
 
     await expect(tooltip).toBeHidden()
-    if (supportsInterest) {
-      await trigger.hover()
-      await expect(tooltip).toBeVisible()
-      await page.mouse.move(0, 0)
-      await expect(tooltip).toBeHidden()
-    }
+    await trigger.hover()
+    await expect(tooltip).toBeVisible()
+    await page.mouse.move(0, 0)
+    await expect(tooltip).toBeHidden()
+  },
+)
 
+interaction(
+  "tooltip",
+  "Basics",
+  "tooltip toggles on click",
+  async ({ root }) => {
+    const trigger = root.getByRole("button", { name: "Save" })
+    const tooltip = root.getByText("Save your changes")
+
+    await expect(tooltip).toBeHidden()
     await trigger.click()
     await expect(tooltip).toBeVisible()
   },

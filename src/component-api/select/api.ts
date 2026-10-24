@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Select",
+  css: ["list", "select", "text-field"],
   model: {
     description: "The selected value, or values with `multiple`.",
     prop: "value",
@@ -9,49 +10,76 @@ export default {
   },
   notes: {
     astro:
-      "Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to the `<select>`.",
-    html: "The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` with the options. Browsers without customizable selects show a native select.",
-    vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<select>`.",
+      "Attributes that aren't props go to the `<select>`, like `disabled`, `multiple`, `name` and `required`, and `class` and `style` go to the root `<label>`.",
+    html: "The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.",
+    react:
+      "Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`.",
+    svelte:
+      "Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`.",
+    vue: "Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
     {
+      class: ".ui-auto-fit",
+      default: "false",
+      description: "Lets the width follow the selected option, from `25ch`.",
+      group: "Auto fit",
+      prop: "autoFit",
+    },
+    {
       class: ".ui-dense",
       default: "false",
-      description: "Packs the options tighter.",
+      description: "Packs the items tighter.",
       group: "Dense",
       part: ".ui-list",
       prop: "dense",
     },
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "select",
       prop: "error",
     },
     {
+      class: ".ui-sr-only",
+      default: "false",
+      description:
+        "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
+      group: "Label",
+      part: ".ui-select > span",
+      prop: "hideLabel",
+    },
+    {
       description: "The id of the `<select>`.",
-      frameworks: ["astro", "vue"],
+      inherited: true,
       prop: "id",
       type: "string",
     },
     {
       default: "[]",
-      description: "The options, as `{ text, value }` objects.",
+      description: "The options, as `{ label, selected, value }` objects.",
       prop: "items",
     },
     {
+      default: '"medium"',
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { small: ".ui-small" },
+      values: {
+        large: ".ui-large",
+        medium: null,
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",
       default: "false",
       description:
-        "Pushes the label and description to one side and the select to the other.",
-      group: "Layout",
+        "Pushes the label and start text to one side and the select to the other.",
+      group: "Spread",
       prop: "spread",
     },
     {
@@ -70,10 +98,10 @@ export default {
       slots: ["label"],
     },
     {
-      description: "Description text displayed above the field.",
-      props: ["description"],
+      description: "Start text displayed above the field.",
+      props: ["startText"],
       selector: ".ui-start-text",
-      slots: ["description"],
+      slots: ["start-text"],
     },
     {
       description: "The boxed select area.",
@@ -82,14 +110,14 @@ export default {
     {
       description:
         "Content above the select, inside the border, with a divider.",
-      selector: ".ui-header",
-      slots: ["header"],
+      selector: ".ui-field > .ui-top",
+      slots: ["top"],
     },
     {
       description:
         "Content at the inline-start of the field, inside the border.",
-      selector: ".ui-prefix",
-      slots: ["prefix"],
+      selector: ".ui-field > .ui-start",
+      slots: ["start"],
     },
     {
       code: "<select>",
@@ -99,14 +127,14 @@ export default {
     },
     {
       description: "Content at the inline-end of the field, inside the border.",
-      selector: ".ui-suffix",
-      slots: ["suffix"],
+      selector: ".ui-field > .ui-end",
+      slots: ["end"],
     },
     {
       description:
         "Content below the select, inside the border, with a divider.",
-      selector: ".ui-footer",
-      slots: ["footer"],
+      selector: ".ui-field > .ui-bottom",
+      slots: ["bottom"],
     },
     {
       description: "Supporting text displayed below the field.",

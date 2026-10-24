@@ -1,5 +1,5 @@
 ---
-import { Button, Card } from "@opui/astro"
+import { Button, Card } from "opui-css/astro"
 
 type Props = {
   href: string
@@ -15,7 +15,12 @@ const { link } = Astro.locals
   <div class="showcase-preview">
     <slot />
   </div>
-  <Button href={link(href)} variant="tonal" size="small" class="showcase-link">
+  <Button
+    href={link(href)}
+    variant="outlined"
+    size="small"
+    class="showcase-link"
+  >
     <span>{name}</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +54,7 @@ const { link } = Astro.locals
 
     &::before {
       background-image: radial-gradient(
-        var(--text-muted) 1.45px,
+        var(--ui-text) 1.45px,
         transparent 1.45px
       );
       background-size: 18px 18px;
@@ -66,18 +71,18 @@ const { link } = Astro.locals
       z-index: 0;
     }
 
-    &.wide {
+    &.ui-wide {
       grid-column: span 2;
     }
 
-    &.xl {
+    &.ui-xl {
       grid-column: span 2;
       grid-row: span 2;
     }
 
     @media (width <= 600px) {
-      &.wide,
-      &.xl {
+      &.ui-wide,
+      &.ui-xl {
         grid-column: auto;
         grid-row: auto;
       }
@@ -93,10 +98,12 @@ const { link } = Astro.locals
 
     &
       > :where(
+        .ui-accordion,
         .ui-card,
         .ui-callout,
         .ui-divider,
         .ui-list,
+        .ui-menu,
         .ui-text-field,
         .ui-textarea,
         .ui-progress,

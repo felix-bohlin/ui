@@ -1,19 +1,37 @@
 <script setup lang="ts">
 import SwitchInput from "./SwitchInput.vue"
-import type { Slots, SwitchProps } from "./types.d.vue"
-import { useId } from "vue"
+import type { Props, Slots } from "./types.d.vue"
+import { computed, type InputHTMLAttributes, useAttrs } from "vue"
+import { warnUnnamed } from "../dev"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<SwitchProps>()
-defineSlots<Slots>()
+const {
+  card,
+  endText,
+  error,
+  hideLabel,
+  label,
+  orientation,
+  size,
+  spread,
+  variant,
+} = defineProps<Props>()
+const slots = defineSlots<Slots>()
+const attrs = useAttrs() as InputHTMLAttributes
+const inputAttrs = computed(() =>
+  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
+)
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
-const endTextId = useId()
+warnUnnamed(
+  "Switch",
+  label || slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
+)
 </script>
 
 <template>
@@ -21,13 +39,15 @@ const endTextId = useId()
     :class="[
       'ui-switch',
       {
-        'ui-small': props.small,
-        'ui-stack': props.stack,
-        'ui-spread': props.spread,
+        'ui-card': card,
+        'ui-spread': spread,
       },
-      props.class,
+      card && variant && variant !== 'outlined' && `ui-${variant}`,
+      orientation && orientation !== 'horizontal' && `ui-${orientation}`,
+      size && size !== 'medium' && `ui-${size}`,
+      $props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
+    :style="$attrs.style"
   >
     <span
       v-if="$slots['icon-unchecked']"
@@ -46,20 +66,20 @@ const endTextId = useId()
     </span>
 
     <SwitchInput
-      v-bind="$attrs"
+      v-bind="inputAttrs"
       v-model="modelValue"
-      :aria-describedby="$slots['end-text'] ? endTextId : undefined"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
     />
 
     <span
-      v-if="$slots.default"
-      :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
+      v-if="label || $slots.default"
+      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
     >
-      <slot></slot>
+      {{ label }}<slot></slot>
     </span>
 
-    <span v-if="$slots['end-text']" :id="endTextId" class="ui-end-text">
-      <slot name="end-text"></slot>
+    <span v-if="endText || $slots['end-text']" class="ui-end-text">
+      {{ endText }}<slot name="end-text"></slot>
     </span>
   </label>
 </template>

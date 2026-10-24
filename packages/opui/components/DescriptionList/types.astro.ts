@@ -3,8 +3,8 @@ import type { HTMLAttributes } from "astro/types"
 
 export type Props = Base.Props & HTMLAttributes<"dl">
 
-export type TermProps = Base.Props & HTMLAttributes<"dt">
+export type DescriptionListDescriptionProps = HTMLAttributes<"dd">
 
-export type DescriptionProps = Base.Props & HTMLAttributes<"dd">
+export type DescriptionListItemProps = HTMLAttributes<"div">
 
-export type ItemProps = Base.Props & HTMLAttributes<"div">
+export type DescriptionListTermProps = HTMLAttributes<"dt">

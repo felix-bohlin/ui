@@ -1,0 +1,91 @@
+---
+import Component from "../../layouts/Component.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import DocLink from "../../components/DocLink.astro"
+import LayoutCSS from "@opui/css/components/layout.css?raw"
+---
+
+<Component
+  slug="layout"
+  changelogPaths={[
+    { path: "src/docs/components/layout.astro", type: "docs" },
+    { path: "src/component-examples/layout", type: "docs" },
+    {
+      path: "packages/opui/css/components/layout.css",
+      type: "css",
+    },
+    { path: "src/component-api/layout", type: "api" },
+  ]}
+  installationTabs={[{ title: "layout.css", code: LayoutCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Layout</Fragment>
+  <Fragment slot="preamble">
+    Four classes for the space between components: <code>.ui-layout-column</code
+    >,
+    <code>.ui-layout-row</code>, <code>.ui-layout-grid</code> and <code
+      >.ui-layout-container</code
+    >. The <code>l-</code> marks a layout class. Put them on wrapper elements, such
+    as <code>div</code>, <code>section</code> or <code>ul</code>. They sit in
+    the <code>utils</code> layer, so on a component they replace its own layout. Their
+    gaps come from the <DocLink href="/guide/theming#spacing"
+      ><code>--ui-space-*</code> scale</DocLink
+    >, so they follow <code>--ui-space-scale</code>.
+  </Fragment>
+
+  <section>
+    <h2 id="column">Column</h2>
+    <p>
+      <code>.ui-layout-column</code> stacks its children in a column with even space
+      between them.
+    </p>
+    <AutoExample name="Column" />
+  </section>
+
+  <section>
+    <h2 id="row">Row</h2>
+    <p>
+      <code>.ui-layout-row</code> puts its children in a row, centered on one line,
+      and wraps them when they run out of room. Set <code
+        >--_justify-content</code
+      > to push them to the end or spread them out.
+    </p>
+    <AutoExample name="Row" />
+  </section>
+
+  <section>
+    <h2 id="grid">Grid</h2>
+    <p>
+      <code>.ui-layout-grid</code> fills the width with as many columns as fit at
+      <code>--_min-inline-size</code> (<code>16rem</code> by default), and wraps the
+      rest. No breakpoints: it follows the space it has.
+    </p>
+    <AutoExample name="Grid" />
+  </section>
+
+  <section>
+    <h2 id="gap">Gap</h2>
+    <p>
+      The size classes set the gap of <code>.ui-layout-column</code>, <code
+        >.ui-layout-row</code
+      > and <code>.ui-layout-grid</code>: <code>.ui-x-small</code> is <code
+        >--ui-space-1</code
+      >, <code>.ui-small</code>
+      <code>--ui-space-2</code>, the default <code>--ui-space-3</code> and <code
+        >.ui-large</code
+      >
+      <code>--ui-space-5</code>. For anything else, set <code>--_gap</code>.
+    </p>
+    <AutoExample name="Gap" />
+  </section>
+
+  <section>
+    <h2 id="container">Container</h2>
+    <p>
+      <code>.ui-layout-container</code> centers its content, caps its width at <code
+        >--_max-inline-size</code
+      > (<code>72rem</code> by default) and keeps <code>--_padding-inline</code> from
+      the edges. Combine the classes to lay out a whole section:
+    </p>
+    <AutoExample name="Composition" />
+  </section>
+</Component>

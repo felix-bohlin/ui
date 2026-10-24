@@ -8,6 +8,7 @@ const { selector = "#main-content", variant = "default" } = Astro.props
 ---
 
 <nav
+  aria-label="On this page"
   data-toc-selector={selector}
   class:list={{ "toc-drawer": variant === "drawer" }}
 >
@@ -72,7 +73,6 @@ const { selector = "#main-content", variant = "default" } = Astro.props
   }
 
   initTableOfContents()
-  document.addEventListener("astro:after-swap", initTableOfContents)
 </script>
 
 <style>
@@ -81,13 +81,13 @@ const { selector = "#main-content", variant = "default" } = Astro.props
     text-align: start;
 
     h3 {
-      font-size: var(--font-size-05);
+      font-size: var(--ui-font-size-small);
       margin-block-end: 0.5em;
       text-align: start;
     }
 
     menu {
-      font-size: var(--font-size-05);
+      font-size: var(--ui-font-size-small);
       list-style-type: none;
       margin: 0;
       padding: 0;
@@ -131,11 +131,11 @@ const { selector = "#main-content", variant = "default" } = Astro.props
       }
 
       &:hover {
-        color: var(--primary);
+        color: var(--ui-primary);
       }
 
       &:target-current {
-        color: var(--primary);
+        color: var(--ui-primary);
         font-weight: 700;
 
         &:before {

@@ -3,10 +3,15 @@ import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import SpinnerCSS from "@opui/css/components/spinner.css?raw"
+import SpinnerBuild from "../../components/UnderTheHood/SpinnerBuild.astro"
+
+import spinnerApi from "../../component-api/spinner/api"
 ---
 
 <Component
   slug="spinner"
+  browserSupport={["container-style-queries"]}
+  apis={[{ title: "Spinner API", api: spinnerApi }]}
   changelogPaths={[
     { path: "src/docs/components/spinner.astro", type: "docs" },
     { path: "src/component-examples/spinner", type: "docs" },
@@ -27,7 +32,14 @@ import SpinnerCSS from "@opui/css/components/spinner.css?raw"
     >.
   </Fragment>
 
-  <AutoExample name="Default" />
+  <section>
+    <h2 id="basics">Basics</h2>
+    <p>
+      <code>aria-busy</code> doesn't announce anything. Say what's happening in text,
+      like "Loading…" in the busy element or in a <code>role="status"</code> element.
+    </p>
+    <AutoExample name="Basics" />
+  </section>
 
   <section>
     <h2 id="sizes">Sizes</h2>
@@ -58,10 +70,12 @@ import SpinnerCSS from "@opui/css/components/spinner.css?raw"
       1. Because it's blocked by another use case
     </h3>
     <p>
-      In conjunction with the <code>&lt;progress&gt;</code> element <code
-        >aria-busy="true"</code
-      > is used on the section that is being updated. Rendering a spinner here would
-      result in a spinner <em>and</em> a progress bar which doesn't make sense.
+      A section that's being updated points at its progress bar with <code
+        >aria-describedby</code
+      > while <code>aria-busy="true"</code> marks it as busy. Busy elements with <code
+        >aria-describedby</code
+      > get no spinner, so you don't see a spinner <em>and</em> a progress bar. Buttons
+      and links always get one.
     </p>
 
     <p>
@@ -72,11 +86,13 @@ import SpinnerCSS from "@opui/css/components/spinner.css?raw"
 
     <h3 id="doesnt-make-sense">2. Because it doesn't make sense</h3>
     <ul>
+      <li><code>&lt;html&gt;</code></li>
       <li><code>&lt;input&gt;</code></li>
+      <li><code>&lt;progress&gt;</code></li>
       <li><code>&lt;select&gt;</code></li>
       <li><code>&lt;textarea&gt;</code></li>
-      <li><code>&lt;html&gt;</code></li>
-      <li><code>&lt;progress&gt;</code></li>
     </ul>
   </section>
+
+  <SpinnerBuild slot="under-the-hood" />
 </Component>

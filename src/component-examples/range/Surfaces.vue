@@ -3,14 +3,20 @@ import { Range } from "opui-css/vue"
 </script>
 
 <template>
-  <Range label="Default" />
-  <Range variant="default">
-    <code>default</code> = <code>var(--surface-default)</code>
+  <Range>
+    <template #label
+      ><code>outlined</code> (default) =
+      <code>var(--ui-field-border-color)</code></template
+    >
   </Range>
   <Range variant="filled">
-    <code>filled</code> = <code>var(--surface-filled)</code>
+    <template #label
+      ><code>filled</code> = <code>var(--ui-surface-filled)</code></template
+    >
   </Range>
   <Range variant="tonal">
-    <code>tonal</code> = <code>var(--surface-tonal)</code>
+    <template #label
+      ><code>tonal</code> = <code>var(--ui-surface-tonal)</code></template
+    >
   </Range>
 </template>

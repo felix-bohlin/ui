@@ -1,14 +1,14 @@
 ---
-import { Button, Tooltip } from "@opui/astro"
+import { Button, Tooltip, TooltipContent } from "opui-css/astro"
 ---
 
-<Tooltip id="tooltip-rich">
+<Tooltip id="tooltip-rich-content-1">
   <Button
-    interestfor="tooltip-rich"
-    commandfor="tooltip-rich"
+    interestfor="tooltip-rich-content-1"
+    commandfor="tooltip-rich-content-1"
     command="toggle-popover">Keyboard shortcuts</Button
   >
-  <Fragment slot="content">
+  <TooltipContent>
     Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
-  </Fragment>
+  </TooltipContent>
 </Tooltip>

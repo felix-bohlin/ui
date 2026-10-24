@@ -1,17 +1,24 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
-import { Table as UITable, ToggleGroup, ToggleButton } from "@opui/astro"
+import Conditional from "../../components/Conditional.astro"
+import {
+  Table as UITable,
+  TableBody as UITableBody,
+  TableCaption as UITableCaption,
+  TableCell as UITableCell,
+  TableFoot as UITableFoot,
+  TableHead as UITableHead,
+  TableHeaderCell as UITableHeaderCell,
+  TableRow as UITableRow,
+} from "opui-css/astro"
 
-import Default from "../../component-examples/table/Default.astro"
-import DefaultVue from "../../component-examples/table/Default.vue"
-import DefaultAstro from "../../component-examples/table/Default.astro?raw"
-import DefaultVueRaw from "../../component-examples/table/Default.vue?raw"
-import DefaultHtml from "../../component-examples/table/Default.html?raw"
-
+import TableCSS from "@opui/css/components/table.css?raw"
 import tableApi from "../../component-api/table/api"
+import tableColumnApi from "../../component-api/table-column/api"
+import tableColumnGroupApi from "../../component-api/table-column-group/api"
+import TableBuild from "../../components/UnderTheHood/TableBuild.astro"
 
 export const description =
   "Displays tabular data. Basic tables with row and column headers, and optional captions and footers."
@@ -21,8 +28,18 @@ export const description =
   description={description}
   slug="table"
   heroAnatomy
-  apis={[{ title: "Table API", api: tableApi }]}
-  browserSupport={["has", "container-queries", "relative-color"]}
+  apis={[
+    { title: "Table API", api: tableApi },
+    { title: "Table column group API", api: tableColumnGroupApi },
+    { title: "Table column API", api: tableColumnApi },
+  ]}
+  installationTabs={[{ title: "table.css", code: TableCSS, lang: "css" }]}
+  browserSupport={[
+    "container-scroll-state-queries",
+    "has",
+    "overflow-clip",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Table",
@@ -35,6 +52,8 @@ export const description =
       type: "css",
     },
     { path: "src/component-api/table", type: "api" },
+    { path: "src/component-api/table-column", type: "api" },
+    { path: "src/component-api/table-column-group", type: "api" },
   ]}
 >
   <Fragment slot="title">Table</Fragment>
@@ -42,49 +61,107 @@ export const description =
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UITable>
-        <UITable.Head>
-          <UITable.Row>
-            <UITable.HeaderCell>Name</UITable.HeaderCell>
-            <UITable.HeaderCell>Size</UITable.HeaderCell>
-          </UITable.Row>
-        </UITable.Head>
-        <UITable.Body>
-          <UITable.Row>
-            <UITable.Cell>Card</UITable.Cell>
-            <UITable.Cell>2 kB</UITable.Cell>
-          </UITable.Row>
-          <UITable.Row>
-            <UITable.Cell>Dialog</UITable.Cell>
-            <UITable.Cell>3 kB</UITable.Cell>
-          </UITable.Row>
-        </UITable.Body>
+        <UITableCaption>Components</UITableCaption>
+        <UITableHead>
+          <UITableRow>
+            <UITableHeaderCell>Name</UITableHeaderCell>
+            <UITableHeaderCell>Size</UITableHeaderCell>
+          </UITableRow>
+        </UITableHead>
+        <UITableBody>
+          <UITableRow>
+            <UITableCell>Card</UITableCell>
+            <UITableCell>2 kB</UITableCell>
+          </UITableRow>
+          <UITableRow>
+            <UITableCell>Dialog</UITableCell>
+            <UITableCell>3 kB</UITableCell>
+          </UITableRow>
+        </UITableBody>
+        <UITableFoot>
+          <UITableRow>
+            <UITableCell>Total</UITableCell>
+            <UITableCell>5 kB</UITableCell>
+          </UITableRow>
+        </UITableFoot>
       </UITable>
     </Anatomy>
   </Fragment>
 
   <section>
-    <h2 id="variants">Variants</h2>
+    <h2 id="density">Density</h2>
 
-    <h3 id="default">Default</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Change the cell padding with <code>density="dense"</code> or <code
+          >density="spacious"</code
+        >. The default is <code>normal</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Change the cell padding with the <code>.ui-dense</code> or <code
+          >.ui-spacious</code
+        > class.
+      </Fragment>
+    </Conditional>
+
+    <h3 id="normal">Normal</h3>
+    <AutoExample name="Normal" />
+
+    <h3 id="dense">Dense</h3>
+    <AutoExample name="Dense" />
+
+    <h3 id="spacious">Spacious</h3>
+    <AutoExample name="Spacious" />
+  </section>
+
+  <section>
+    <h2 id="controls-in-cells">Controls in cells</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A <code>TextField</code> or <code>Select</code> in a cell keeps a <code
+          >12ch</code
+        > minimum width, in every density. Set <code>hideLabel</code> and name the
+        row in <code>label</code>, since the column header isn't part of the
+        control's name.
+      </Fragment>
+      <Fragment slot="html">
+        A <code>.ui-text-field</code> or <code>.ui-select</code> in a cell keeps a
+        <code>12ch</code> minimum width, in every density. Hide the label with
+        <code>.ui-sr-only</code> and name the row in it, since the column header isn't
+        part of the control's name.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Controls" />
+  </section>
+
+  <section>
+    <h2 id="sticky-header">Sticky header</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>stickyHeader</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
+      <Fragment slot="html">
+        <code>.ui-sticky-header</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
+    </Conditional>
+
     <p>
-      Toggle between different padding densities for the table using the
-      controls below.
+      The scroll box has <code>role="region"</code>, an <code>aria-label</code> and
+      {" "}<code>tabindex="0"</code>. A table has nothing focusable, so without
+      <code>tabindex</code> keyboard users can't reach the box to scroll it, and the
+      name tells screen reader users what the region holds.
     </p>
 
-    <Example wrapperClass="table-interactive-example">
-      <ToggleGroup slot="controls" size="x-small" selection="single">
-        <ToggleButton data-size="dense">Dense</ToggleButton>
-        <ToggleButton data-size="default" pressed>Default</ToggleButton>
-        <ToggleButton data-size="spacious">Spacious</ToggleButton>
-      </ToggleGroup>
-
-      <Example.Preview slot="preview-astro" code={Default} />
-      <Example.Preview slot="preview-html" code={DefaultHtml} />
-      <Example.Preview slot="preview-vue" code={DefaultVue} />
-      <Example.Code slot="code-astro" code={DefaultAstro} />
-      <Example.Code slot="code-vue" code={DefaultVueRaw} />
-      <Example.Code slot="code-html" code={DefaultHtml} />
-    </Example>
+    <AutoExample name="StickyHeader" />
   </section>
 
   <section>
@@ -92,41 +169,39 @@ export const description =
     <p>
       An advanced table showcasing the use of <code>colgroup</code>, <code
         >rowspan</code
-      >, and <code>colspan</code>.
+      >, and <code>colspan</code>. The headers that span columns have <code
+        >scope="colgroup"</code
+      > and the other column headers <code>scope="col"</code>, so screen readers
+      read "Capital" together with "Major Cities".
+    </p>
+    <p>
+      The first cell of each row is a row header, <code
+        >&lt;th scope="row"&gt;</code
+      >. Row headers keep the body background, so only the column headers are
+      filled.
     </p>
 
     <AutoExample name="Advanced" />
   </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      A <code>&lt;caption&gt;</code> names the table, and screen readers announce
+      it when the user enters the table. <code>&lt;th&gt;</code> cells in
+      {" "}<code>&lt;thead&gt;</code> are column headers, read out with each cell
+      below them. Use <code>&lt;th scope="row"&gt;</code> for a row header in the
+      body. A <code>&lt;tfoot&gt;</code> keeps totals and summaries apart from the
+      data rows.
+    </p>
+    <p>
+      A table in a scroll box needs <code>tabindex="0"</code> on the box so keyboard
+      users can scroll it, and a name from <code>aria-label</code> with
+      {" "}<code>role="region"</code>, as in <a
+        class="ui-link"
+        href="#sticky-header">Sticky header</a
+      >.
+    </p>
+  </Fragment>
+
+  <TableBuild slot="under-the-hood" />
 </Component>
-
-<script>
-  function setupTableInteractive() {
-    document
-      .querySelectorAll<HTMLElement>(".ui-table-interactive-example")
-      .forEach((container) => {
-        if (container.dataset.tableInteractiveSetup) return
-        container.dataset.tableInteractiveSetup = "true"
-
-        container.addEventListener("change", (event) => {
-          const input = event.target
-          if (!(input instanceof HTMLInputElement) || input.type !== "radio") {
-            return
-          }
-          if (!input.checked) return
-
-          const size = input.getAttribute("data-size")
-          if (!size) return
-
-          container.querySelectorAll("table").forEach((table) => {
-            table.classList.remove("ui-dense", "ui-spacious")
-            if (size !== "default") {
-              table.classList.add(`ui-${size}`)
-            }
-          })
-        })
-      })
-  }
-
-  setupTableInteractive()
-  document.addEventListener("astro:after-swap", setupTableInteractive)
-</script>

@@ -1,6 +1,8 @@
 # Open Props UI
 
-A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships HTML, [Astro](https://astro.build/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
+Design system. Components. Modern HTML & CSS.
+
+Built on [Open Props](https://open-props.style/), with HTML, [Astro](https://astro.build/), [React](https://react.dev/), [Svelte](https://svelte.dev/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
 
 - Docs: [open-props-ui.netlify.app](https://open-props-ui.netlify.app/)
 - Source: [github.com/felix-bohlin/ui](https://github.com/felix-bohlin/ui)
@@ -13,9 +15,11 @@ pnpm add opui-css open-props
 
 Peer dependencies:
 
-- `astro` `^6` (only required if you use the Astro components)
-- `vue` `^3` (only required if you use the Vue components)
-- `open-props` `^1`
+- `astro` `^7` (only required if you use the Astro components)
+- `open-props` `^1.7.23`
+- `react` and `react-dom` `^19` (only required if you use the React components)
+- `svelte` `^5.29` (only required if you use the Svelte components)
+- `vue` `^3.5` (only required if you use the Vue components)
 
 ## Usage
 
@@ -28,9 +32,98 @@ import { Button, Card } from "opui-css/astro"
 ---
 
 <Card>
-  <Button variant="primary">Click me</Button>
+  <Button color="primary" variant="filled">Click me</Button>
 </Card>
 ```
+
+### React components
+
+React components ship markup only, so import the CSS once in your app entry:
+
+```css
+@import "opui-css/css/imports.css";
+```
+
+```tsx
+import { Button, Card } from "opui-css/react"
+
+export default function App() {
+  return (
+    <Card>
+      <Button color="primary" variant="filled">
+        Click me
+      </Button>
+    </Card>
+  )
+}
+```
+
+Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are props: `children`, and camelCased names such as `endText`. Form controls take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props. Components that need context, state or effects (Anchor, Callout, Dialog, Drawer, FieldGroup, Tabs, ToggleGroup, Tooltip and the form controls) are marked `"use client"`; the rest also render as React Server Components.
+
+### Svelte components
+
+Svelte components ship markup only, so import the CSS once in your root layout or app entry:
+
+```css
+@import "opui-css/css/imports.css";
+```
+
+```svelte
+<script lang="ts">
+  import { Button, Card } from "opui-css/svelte"
+</script>
+
+<Card>
+  <Button color="primary" variant="filled">Click me</Button>
+</Card>
+```
+
+### Vue components
+
+Vue components ship markup only, so import the CSS once in your app entry:
+
+```css
+@import "opui-css/css/imports.css";
+```
+
+```vue
+<script setup lang="ts">
+import { Button, Card } from "opui-css/vue"
+</script>
+
+<template>
+  <Card>
+    <Button color="primary" variant="filled">Click me</Button>
+  </Card>
+</template>
+```
+
+`opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue` export uncompiled sources (`.astro`, `.tsx`, `.svelte`, `.vue`, `.ts`), so they need a bundler that compiles them, e.g. Astro, or Vite with `@vitejs/plugin-react`, `@sveltejs/vite-plugin-svelte` or `@vitejs/plugin-vue`. In Next.js, add `transpilePackages: ["opui-css"]` to `next.config`.
+
+#### Ids in Astro
+
+Components that link elements with ids (form fields, Tabs, Drawer, Menu, …) read `Astro.locals.$id` when it exists and otherwise generate a random id per render. For stable, per-request ids (useful for snapshot tests), define it in a middleware:
+
+```ts
+// src/middleware.ts
+import { defineMiddleware } from "astro:middleware"
+
+export const onRequest = defineMiddleware((context, next) => {
+  const counts = new Map<string, number>()
+  context.locals.$id = (prefix) => {
+    const count = (counts.get(prefix) ?? 0) + 1
+    counts.set(prefix, count)
+    return `${prefix}-${count}`
+  }
+  return next()
+})
+```
+
+Add `/// <reference types="opui-css/env.d.ts" />` to your `env.d.ts` to type `$id` and the `interestfor` attribute on `<a>` and `<button>`.
+
+#### Astro runtime
+
+The Astro components pass settings to their parts with `AsyncLocalStorage` (`node:async_hooks`), so they run on Node, Deno and Bun. On Cloudflare, enable the `nodejs_compat` compatibility flag.
 
 ### Plain HTML + CSS (no build step)
 
@@ -39,13 +132,13 @@ Drop a pre-bundled stylesheet into any page and use the documented class names:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/opui-css/dist/opui.css"
+  href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css"
 />
 
 <button class="ui-button ui-primary">Click me</button>
 ```
 
-`dist/opui.css` is a single self-contained file (Open Props + normalize + theme + every component + utils, in the correct cascade layers). `dist/opui.components.css` is the same minus tokens and reset for users who already have those.
+`dist/opui.css` is a single self-contained file (Open Props + palette + theme + normalize + every component + utils, in the correct cascade layers). `dist/opui.components.css` has only the layer order and the component styles. The components need Open Props, `core/palette.css` and `css/theme.css` to look right, and `core/utils.css` holds `.ui-sr-only` and the motion and contrast classes, so load those yourself when you use it.
 
 If you do have a bundler that resolves CSS `@import`s (Vite, Astro, webpack, …), import the source instead so you only ship what you use:
 
@@ -59,28 +152,70 @@ If you do have a bundler that resolves CSS `@import`s (Vite, Astro, webpack, …
 The library defines this layer order:
 
 ```css
-@layer openprops, theme, normalize, components.root, components.extended, utils;
+@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
+@layer theme.palette, theme.base, theme.custom;
 ```
 
-Wrap your own styles in a layer above `utils` (or unlayered) to override.
+Import `opui-css/css/layers.css` first to set this order when you import single files.
+
+Put your theme tokens in `@layer theme.custom`, which beats the defaults in `theme.base`. Wrap other overrides in a layer above `utils` (or unlayered).
+
+## Upgrading
+
+Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.md) (also on the docs site: [Migrating to v6](https://open-props-ui.netlify.app/html/guide/migrating/)), with every change listed in [CHANGELOG.md](./CHANGELOG.md).
 
 ## Entry points
 
-| Import                              | What it gives you                             |
-| ----------------------------------- | --------------------------------------------- |
-| `opui-css`                          | Pre-bundled: everything in one file (default) |
-| `opui-css/open-props`               | Pre-bundled: Open Props tokens only           |
-| `opui-css/dist/opui.css`            | Same as default - explicit path               |
-| `opui-css/dist/opui.components.css` | Pre-bundled: components only                  |
-| `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path |
-| `opui-css/css/imports.css`          | Source: everything (resolved by your bundler) |
-| `opui-css/css/components.css`       | All component styles (no tokens / reset)      |
-| `opui-css/css/components/*.css`     | One component at a time                       |
-| `opui-css/core/normalize.css`       | CSS reset                                     |
-| `opui-css/core/palette.css`         | Extra OKLCH palette                           |
-| `opui-css/core/utils.css`           | Utility classes                               |
-| `opui-css/astro`                    | All Astro components                          |
-| `opui-css/components/*`             | Individual Astro component sources            |
+| Import                              | What it gives you                                                                                                      |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `opui-css`                          | Pre-bundled: everything in one file (default)                                                                          |
+| `opui-css/open-props`               | Pre-bundled: Open Props tokens only                                                                                    |
+| `opui-css/open-props.css`           | Source: the Open Props imports (needs `open-props` installed)                                                          |
+| `opui-css/dist/opui.css`            | Same as default - explicit path                                                                                        |
+| `opui-css/dist/opui.components.css` | Pre-bundled: components only (no Open Props, palette, theme, reset or utils)                                           |
+| `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path                                                                          |
+| `opui-css/css/imports.css`          | Source: everything (resolved by your bundler)                                                                          |
+| `opui-css/css/layers.css`           | `@layer` order only                                                                                                    |
+| `opui-css/css/components.css`       | All component styles (no Open Props, palette, theme, reset or utils)                                                   |
+| `opui-css/css/components/*.css`     | One component at a time                                                                                                |
+| `opui-css/css/theme.css`            | Theme tokens (colors, sizes, motion, state)                                                                            |
+| `opui-css/core/normalize.css`       | CSS reset                                                                                                              |
+| `opui-css/core/palette.css`         | OKLCH palette (required by the components)                                                                             |
+| `opui-css/core/utils.css`           | Utility classes                                                                                                        |
+| `opui-css/css/js/checkbox.js`       | `activateIndeterminate()`, `initCheckbox()` and `syncIndeterminate()` for indeterminate checkboxes without a framework |
+| `opui-css/css/js/range.js`          | `initRange()` keeps a `.ui-range` `<output data-live>` in sync with its slider without a framework                     |
+| `opui-css/astro`                    | All Astro components                                                                                                   |
+| `opui-css/react`                    | All React components                                                                                                   |
+| `opui-css/svelte`                   | All Svelte components                                                                                                  |
+| `opui-css/vue`                      | All Vue components                                                                                                     |
+| `opui-css/components/*`             | Individual Astro, React, Svelte and Vue component sources                                                              |
+
+Importing a React component from `opui-css/components/*` skips the type augmentation in `opui-css/react`, which adds `command`, `commandfor` and `interestfor` to React's element types. `Menu` and `DrawerHeader` need it, so add `import type {} from "opui-css/react"` once in your app.
+
+## Themes
+
+Put your own tokens in `@layer theme.custom`, which beats the defaults and loses to everything else. Four example themes ship in `themes/`: `bootstrap` (Bootstrap 5), `brutalist` (neobrutalism), `m3` (Material 3) and `shadcn` (shadcn/ui). They name their fonts (DM Sans, Roboto and Geist) but don't load them.
+
+```css
+@import "opui-css/css/imports.css";
+@import "opui-css/themes/brutalist.css";
+```
+
+## Design tokens
+
+`opui-css/tokens.json` lists every theme token in the [W3C design tokens](https://www.designtokens.org/) format: its `$type`, description and default as `$value`, and under `$extensions.opui` its CSS variable, tier, contrast promise and dark and more-contrast values. Tokens that are unset by default have no `$value`, only an `example`. Values are CSS expressions, so they work as they are in CSS, and a design tool needs to resolve them first.
+
+## AI assistants
+
+The package ships an agent skill in `skills/opui` with a reference for every component, matching the installed version. Agents don't load skills from `node_modules` on their own, so copy it into your project:
+
+```bash
+mkdir -p .claude/skills && cp -r node_modules/opui-css/skills/opui .claude/skills/opui
+```
+
+Use the skills folder your agent reads from if it isn't Claude Code, or point your `AGENTS.md` at `node_modules/opui-css/skills/opui/SKILL.md`.
+
+The docs are also available as [llms.txt](https://open-props-ui.netlify.app/llms.txt), and every docs page has a Markdown version, e.g. [/html/components/button.md](https://open-props-ui.netlify.app/html/components/button.md).
 
 ## License
 

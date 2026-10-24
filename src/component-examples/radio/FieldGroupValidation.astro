@@ -1,19 +1,17 @@
 ---
-import { Radio } from "@opui/astro"
-import { FieldSet } from "@opui/astro"
-import { FieldLegend } from "@opui/astro"
-import { FieldGroup } from "@opui/astro"
-import { Form } from "@opui/astro"
+import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet data-invalid="">
+  <Fieldset aria-describedby="radio-field-group-validation-1-error">
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="radio-group-validation">
-      <Radio value="1" checked>Radio 1</Radio>
-      <Radio value="2">Radio 2</Radio>
-      <Radio value="3">Radio 3</Radio>
+    <FieldGroup orientation="horizontal" name="radio-group-validation">
+      <Radio checked error value="1">Radio 1</Radio>
+      <Radio error value="2">Radio 2</Radio>
+      <Radio error value="3">Radio 3</Radio>
     </FieldGroup>
-    <span class="ui-end-text">Something went wrong!</span>
-  </FieldSet>
+    <span class="ui-end-text" id="radio-field-group-validation-1-error"
+      >Radio 1 is sold out, pick another.</span
+    >
+  </Fieldset>
 </Form>

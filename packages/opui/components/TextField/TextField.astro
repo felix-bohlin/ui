@@ -1,34 +1,31 @@
 ---
 import type { Props } from "./types.astro"
+import { fieldGroupContext } from "../FieldGroup/context.astro"
 
 export const title = "Text Field"
 
 const {
+  "aria-invalid": ariaInvalid,
   autoFit,
   class: className,
-  error,
-  description,
-  disabled,
   endText,
-  filled,
+  error,
+  hideLabel,
   id,
+  inputmode,
   label,
-  list,
-  max,
-  min,
   name,
-  placeholder,
-  required,
-  small,
+  pattern,
+  size,
   spread,
   startText,
-  step,
+  style,
   type = "text",
-  value,
+  variant,
   ...rest
 } = Astro.props
 
-const startTextValue = description || startText
+const field = fieldGroupContext.get()
 ---
 
 <label
@@ -36,84 +33,74 @@ const startTextValue = description || startText
     "ui-text-field",
     {
       "ui-auto-fit": autoFit,
-      "ui-filled": filled,
+      "ui-filled": variant === "filled",
       "ui-spread": spread,
-      "ui-small": small,
     },
+    size && size !== "medium" && `ui-${size}`,
     className,
   ]}
-  data-invalid={error ? "" : undefined}
-  {...rest}
+  style={style}
 >
   {
     (label || Astro.slots.has("label")) && (
-      <span class="ui-label">
+      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
         {label}
         <slot name="label" />
       </span>
     )
   }
   {
-    (startTextValue || Astro.slots.has("description")) && (
+    (startText || Astro.slots.has("start-text")) && (
       <span class="ui-start-text">
-        {startTextValue}
-        <slot name="description" />
+        {startText}
+        <slot name="start-text" />
       </span>
     )
   }
   <span class="ui-field">
     <input
-      disabled={disabled}
+      {...rest}
+      aria-invalid={error ? "true" : ariaInvalid}
       id={id}
-      inputmode={type === "numeric" ? "numeric" : undefined}
-      list={list}
-      max={max}
-      min={min}
-      name={name}
-      pattern={type === "numeric" ? "[0-9]*" : undefined}
-      placeholder={placeholder}
-      required={required}
-      step={step}
+      inputmode={inputmode ?? (type === "numeric" ? "numeric" : undefined)}
+      name={name ?? field?.name}
+      pattern={pattern ?? (type === "numeric" ? "[0-9]*" : undefined)}
       type={type === "numeric" ? "text" : type}
-      value={value}
     />
     {
-      Astro.slots.has("prefix") && (
-        <span class="ui-prefix">
-          <slot name="prefix" />
+      Astro.slots.has("start") && (
+        <span class="ui-start">
+          <slot name="start" />
         </span>
       )
     }
     {
-      Astro.slots.has("suffix") && (
-        <span class="ui-suffix">
-          <slot name="suffix" />
+      Astro.slots.has("end") && (
+        <span class="ui-end">
+          <slot name="end" />
         </span>
       )
     }
     {
-      Astro.slots.has("header") && (
-        <span class="ui-header">
-          <slot name="header" />
+      Astro.slots.has("top") && (
+        <span class="ui-top">
+          <slot name="top" />
         </span>
       )
     }
     {
-      Astro.slots.has("footer") && (
-        <span class="ui-footer">
-          <slot name="footer" />
+      Astro.slots.has("bottom") && (
+        <span class="ui-bottom">
+          <slot name="bottom" />
         </span>
       )
     }
   </span>
   {
-    (endText ||
-      Astro.slots.has("end-text") ||
-      Astro.slots.has("supporting-text")) && (
+    (endText || Astro.slots.has("end-text")) && (
       <span class="ui-end-text">
         {endText}
         <slot name="end-text" />
-        <slot name="supporting-text" />
       </span>
     )
   }

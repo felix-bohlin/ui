@@ -5,7 +5,21 @@ export default {
   options: [
     {
       description:
-        'The element to render. Defaults to `"a"` with `href`, otherwise `"button"`.',
+        "The accessible name, for a button without visible text. React and Svelte require it, or `aria-labelledby`, when there are no `children`.",
+      inherited: true,
+      prop: "aria-label",
+      type: "string",
+    },
+    {
+      description:
+        "The id of the element that names a button without visible text, instead of `aria-label`.",
+      inherited: true,
+      prop: "aria-labelledby",
+      type: "string",
+    },
+    {
+      default: '"button"',
+      description: 'The element to render. Defaults to `"a"` with `href`.',
       prop: "as",
     },
     {
@@ -15,27 +29,52 @@ export default {
       values: { critical: ".ui-critical", primary: ".ui-primary" },
     },
     {
-      attribute: "[disabled]",
+      attribute: '[aria-current="page"]',
+      description:
+        "Keeps the pressed background on a transparent (text) button link, for the current page in navigation.",
+      frameworks: ["html"],
+      group: "Current",
+      prop: "current",
+    },
+    {
       default: "false",
-      description: "Disables the button.",
-      group: "State",
+      description:
+        'Disables the button. A link button drops its `href` and gets `aria-disabled="true"`.',
       prop: "disabled",
+    },
+    {
+      description:
+        'Disables the button. A link button, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
+      frameworks: ["html"],
+      group: "State",
+      prop: "disabledState",
+      values: { button: "[disabled]", link: 'a[aria-disabled="true"]' },
     },
     {
       description: "The link to use. Renders an `<a>`.",
       prop: "href",
     },
     {
+      class: ".ui-round",
+      default: "false",
+      description: "Fully rounded corners, a circle when icon-only.",
+      group: "Shape",
+      prop: "round",
+    },
+    {
+      default: '"medium"',
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
       values: {
         large: ".ui-large",
+        medium: null,
         small: ".ui-small",
         "x-small": ".ui-x-small",
       },
     },
     {
+      default: '"transparent"',
       description: "The variant to use.",
       group: "Variants",
       prop: "variant",
@@ -43,6 +82,7 @@ export default {
         filled: ".ui-filled",
         outlined: ".ui-outlined",
         tonal: ".ui-tonal",
+        transparent: null,
       },
     },
   ],
@@ -53,9 +93,9 @@ export default {
       selector: ".ui-button > svg",
     },
     {
-      code: "<span>",
-      description: "The label.",
-      selector: ".ui-button > span",
+      code: "<kbd>",
+      description: "An optional keyboard hint.",
+      selector: ".ui-button kbd",
     },
   ],
   root: {

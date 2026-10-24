@@ -1,21 +1,38 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Range as UIRange } from "@opui/astro"
+import { Range as UIRange } from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 
 import RangeCSS from "@opui/css/components/range.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
+import RangeBuild from "../../components/UnderTheHood/RangeBuild.astro"
 
 import rangeApi from "../../component-api/range/api"
+export const description =
+  "Range lets users pick a number by sliding a thumb along a track."
 ---
 
 <Component
+  description={description}
   slug="range"
   heroAnatomy
   apis={[{ title: "Range API", api: rangeApi }]}
-  browserSupport={["light-dark", "relative-color", "container-queries"]}
+  browserSupport={[
+    "color-mix",
+    "container-queries",
+    "container-style-queries",
+    "datalist",
+    "dir-pseudo",
+    "has",
+    "light-dark",
+    "registered-custom-properties",
+    "relative-color",
+    "scroll-driven-animations",
+    "user-pseudos",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Range/Range.astro",
@@ -33,10 +50,53 @@ import rangeApi from "../../component-api/range/api"
 >
   <Fragment slot="title">Range</Fragment>
 
-  <AutoExample name="Default" column />
+  <section>
+    <h2 id="basics">Basics</h2>
+    <AutoExample name="Basics" column />
+  </section>
 
   <section>
-    <h2 id="start-end-text">Start text & End text</h2>
+    <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="components">
+        Use the <code>variant</code> prop to swap the track surface for better contrast
+        on different backgrounds. The default <code>outlined</code> track uses <code
+          >--ui-track-bg-color</code
+        >, or the field border color when the theme doesn't set it.
+      </p>
+      <p slot="html">
+        Use the <code>.ui-filled</code> or <code>.ui-tonal</code>
+        {" "}class to swap the track surface for better contrast on different
+        backgrounds. Without one, the track uses <code>--ui-track-bg-color</code
+        >, or the field border color when the theme doesn't set it.
+      </p>
+    </Conditional>
+    <AutoExample name="Surfaces" column spacious />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, <code>medium</code> (the default) and <code
+          >large</code
+        >. The thumb and the track scale with the size, the label and the texts
+        keep theirs.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>. The thumb and the track scale
+        with the size, the label and the texts keep theirs.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Sizes" column />
+  </section>
+
+  <section>
+    <h2 id="start-end-text">Start and end text</h2>
     <AutoExample name="StartEndText" column />
   </section>
 
@@ -44,104 +104,151 @@ import rangeApi from "../../component-api/range/api"
     <h2 id="value">Value</h2>
     <Conditional>
       <p slot="astro">
-        Pass the <code>valueSuffix</code> prop (or use the <code>value</code> named
-        slot) to render a live readout of the slider's current value next to the label.
-        The component wires up an <code>&lt;output&gt;</code> element and keeps its
-        text in sync with the input.
+        Pass the <code>valueSuffix</code> prop to render a live readout of the slider's
+        current value next to the label. The component wires up an <code
+          >&lt;output&gt;</code
+        > element and its script keeps the text in sync with the input. Content in
+        the <code>value-text</code> slot replaces the readout. It renders once on
+        the server, and the script leaves it as it is.
       </p>
       <p slot="html">
-        Add an <code>&lt;output class="ui-value"&gt;</code> sibling to the
-        <code>.ui-label</code> with <code>for</code> pointing at the input's id. Optionally
-        set <code>data-suffix</code> for a unit (e.g. <code>°</code>,
+        Add an <code>&lt;output class="ui-value"&gt;</code> sibling to the{" "}
+        <code>.ui-label</code> with <code>for</code> pointing at the input's id, and
+        set the same <code>for</code> on the <code>.ui-range</code> label, so it labels
+        the input and not the output. Optionally set <code>data-suffix</code> for
+        a unit (e.g. <code>°</code>,{" "}
         <code>px</code>). Updating its text content is the consumer's
-        responsibility.
+        responsibility. The example does it with an <code>input</code> listener.
+      </p>
+      <p slot="react">
+        Pass the <code>valueSuffix</code> prop to render a live readout of the slider's
+        current value next to the label. The component wires up an <code
+          >&lt;output&gt;</code
+        > element and keeps its text in sync with the input. For custom content, pass
+        a function to <code>valueText</code>: <code
+          >{"valueText={(value) => …}"}</code
+        > gets the current value as a number on every change.
+      </p>
+      <p slot="svelte">
+        Pass the <code>valueSuffix</code> prop to render a live readout of the slider's
+        current value next to the label. The component wires up an <code
+          >&lt;output&gt;</code
+        > element and keeps its text in sync with the input. For custom content, use
+        the <code>valueText</code> snippet: <code
+          >{"{#snippet valueText(value)}…{/snippet}"}</code
+        > gets the current value as a number on every change.
       </p>
       <p slot="vue">
-        Pass the <code>valueSuffix</code> prop (or use the <code>value</code> named
-        slot) to render a live readout of the slider's current value next to the label.
-        The component wires up an <code>&lt;output&gt;</code> element and keeps its
-        text in sync with the input.
+        Pass the <code>valueSuffix</code> prop to render a live readout of the slider's
+        current value next to the label. The component wires up an <code
+          >&lt;output&gt;</code
+        > element and keeps its text in sync with the input. For custom content, use
+        the scoped <code>value-text</code> slot: <code
+          >{'<template #value-text="{ value }">…</template>'}</code
+        > gets the current value as a number on every change.
       </p>
     </Conditional>
     <AutoExample name="Value" column />
+    <AutoExample name="ValueText" column />
   </section>
 
   <section>
     <h2 id="tick-marks">Tick marks</h2>
     <Conditional>
-      <p slot="astro">
-        Pass an id to the <code>list</code> prop together with an <code
-          >options</code
-        >
-        array - <code>{"options=[{ value, label }]"}</code> - and the component renders
-        a matching <code>&lt;datalist&gt;</code>.
+      <p slot="components">
+        Pass an <code>items</code> array - <code
+          >{"items=[{ label, value }]"}</code
+        > - and the component renders a <code>&lt;datalist&gt;</code> and links it
+        to the input. Set <code>list</code> to choose its id, and put your own <code
+          >&lt;option&gt;</code
+        > elements in the <code>datalist</code> slot.
+      </p>
+      <p slot="react">
+        Pass an <code>items</code> array - <code
+          >{"items=[{ label, value }]"}</code
+        > - and the component renders a <code>&lt;datalist&gt;</code> and links it
+        to the input. Set <code>list</code> to choose its id, and pass your own <code
+          >&lt;option&gt;</code
+        > elements to the <code>datalist</code> prop.
+      </p>
+      <p slot="svelte">
+        Pass an <code>items</code> array - <code
+          >{"items=[{ label, value }]"}</code
+        > - and the component renders a <code>&lt;datalist&gt;</code> and links it
+        to the input. Set <code>list</code> to choose its id, and put your own <code
+          >&lt;option&gt;</code
+        > elements in the <code>datalist</code> snippet.
       </p>
       <p slot="html">
         Use the <code>list</code> attribute on the <code>&lt;input&gt;</code> and
-        follow it with a <code>&lt;datalist&gt;</code> element containing
-        <code>&lt;option&gt;</code> elements with <code>value</code> and
+        follow it with a <code>&lt;datalist aria-hidden="true"&gt;</code> element
+        containing{" "}
+        <code>&lt;option&gt;</code> elements with <code>value</code> and{" "}
         <code>label</code> attributes.
-      </p>
-      <p slot="vue">
-        Pass an id to the <code>list</code> prop together with an <code
-          >options</code
-        >
-        array - <code>{"options=[{ value, label }]"}</code> - and the component renders
-        a matching <code>&lt;datalist&gt;</code>.
       </p>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />
   </section>
 
   <section>
-    <h2 id="variants">Variants</h2>
-    <Conditional>
-      <p slot="astro">
-        Use the <code>variant</code> prop to swap the track surface for better contrast
-        on different backgrounds.
-      </p>
-      <p slot="html">
-        Use the <code>.ui-filled</code>, <code>.ui-default</code>, or <code
-          >.ui-tonal</code
-        >
-        class to swap the track surface for better contrast on different backgrounds.
-      </p>
-      <p slot="vue">
-        Use the <code>variant</code> prop to swap the track surface for better contrast
-        on different backgrounds.
-      </p>
-    </Conditional>
-    <AutoExample name="Surfaces" column spacious />
-  </section>
-
-  <section>
     <h2 id="disabled">Disabled</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set the <code>disabled</code> prop to disable the slider. The whole range
+        dims and shows a not-allowed cursor.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>disabled</code> to the <code>&lt;input&gt;</code> to disable the
+        slider. The whole <code>.ui-range</code> dims and shows a not-allowed cursor.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Disabled" column />
   </section>
 
   <section>
     <h2 id="validation">Validation</h2>
+    <ValidationNotes element="input" subject="Fields">
+      <li>
+        The invalid styles turn the thumb, the fill and the helper texts the
+        invalid color. A range always has a value, so <code>required</code> doesn't
+        apply, and the browser's own validation only fails after <code
+          >setCustomValidity()</code
+        >.
+      </li>
+    </ValidationNotes>
     <AutoExample name="Validation" column />
   </section>
 
   <section>
     <h2 id="spread">Spread</h2>
-    <AutoExample name="Row" column />
-
-    <h3>Disabled</h3>
-
-    <AutoExample name="RowDisabled" column />
-
-    <h3>Validation</h3>
-
-    <AutoExample name="RowValidation" column />
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use the <code>spread</code> boolean prop to display the label and start text
+        on the left with the slider on the right. The value, tick marks and end text
+        go under the slider. The layout collapses to a column in containers narrower
+        than 400px.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.ui-spread</code> class to display the label and start text
+        on the left with the slider on the right. The value, tick marks and end text
+        go under the slider. The layout collapses to a column in containers narrower
+        than 400px.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Spread" column />
   </section>
+
+  <RangeBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UIRange
         endText="End text"
         label="Label"
+        items={[
+          { label: "0", value: 0 },
+          { label: "100", value: 100 },
+        ]}
         startText="Start text"
         style="inline-size: 18rem"
         value="50"
@@ -153,16 +260,12 @@ import rangeApi from "../../component-api/range/api"
   <Fragment slot="accessibility">
     <ul>
       <li>
-        <kbd>Right Arrow</kbd>: Increase the value of the slider by one step.
+        <kbd>Right Arrow</kbd> / <kbd>Left Arrow</kbd>: Increase / decrease the
+        value by one step, mirrored in right-to-left.
       </li>
       <li>
-        <kbd>Up Arrow</kbd>: Increase the value of the slider by one step.
-      </li>
-      <li>
-        <kbd>Left Arrow</kbd>: Decrease the value of the slider by one step.
-      </li>
-      <li>
-        <kbd>Down Arrow</kbd>: Decrease the value of the slider by one step.
+        <kbd>Up Arrow</kbd> / <kbd>Down Arrow</kbd>: Increase / decrease the
+        value by one step.
       </li>
       <li>
         <kbd>Home</kbd>: Set the slider to the first allowed value in its range.
@@ -171,12 +274,8 @@ import rangeApi from "../../component-api/range/api"
         <kbd>End</kbd>: Set the slider to the last allowed value in its range.
       </li>
       <li>
-        <kbd>Page Up</kbd> (Optional): Increase the slider value by an amount larger
-        than the step change made by <kbd>Up Arrow</kbd>.
-      </li>
-      <li>
-        <kbd>Page Down</kbd> (Optional): Decrease the slider value by an amount larger
-        than the step change made by <kbd>Down Arrow</kbd>.
+        <kbd>Page Up</kbd> / <kbd>Page Down</kbd>: Change the value by a larger
+        step (10% of the range in Chromium).
       </li>
     </ul>
   </Fragment>

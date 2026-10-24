@@ -4,7 +4,13 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List dense>
-    <ListItem headline="Dense list item" />
-    <ListItem headline="Dense list item" />
+    <ListItem label="Headline" />
+    <ListItem
+      label="Headline"
+      description="Supporting text that truly is quite long enough to fill up multiple lines."
+    />
+    <ListItem label="Trailing supporting text">
+      <template #end>100+</template>
+    </ListItem>
   </List>
 </template>

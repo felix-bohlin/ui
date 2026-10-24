@@ -1,120 +1,130 @@
 @layer components.root {
   :where(.ui-table) {
-    --_table-border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
+    --_radius: var(--ui-radius);
 
+    border: var(--ui-border-width) solid var(--ui-border-color);
     border-collapse: separate;
-    border-radius: var(--_table-border-radius);
+    border-radius: var(--_radius);
     border-spacing: 0;
     inline-size: 100%;
-    margin: var(--size-3) 0;
-    overflow: hidden;
+    margin-block: var(--ui-space-3);
+    margin-inline: 0;
+    overflow: clip;
+    overflow-clip-margin: calc(
+      (var(--ui-focus-ring-width) + var(--ui-focus-ring-offset)) * 1.5
+    );
     position: relative;
 
     /* Rows */
-    tr {
-      &:hover {
-        background-color: oklch(from var(--surface-filled) l c h / 75%);
+    @media (hover: hover) {
+      tbody > tr:hover > :is(td, th) {
+        background-color: oklch(from var(--ui-surface-filled) l c h / 75%);
       }
     }
 
     /* Cells */
     th,
     td {
-      background-color: var(--surface-default);
-      border-block-end: var(--border-width) solid var(--border-color);
-      border-inline-end: var(--border-width) solid var(--border-color);
-      padding: var(--size-1) var(--size-2);
+      background-color: var(--ui-surface);
+      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+      border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
+      font-size: var(--ui-font-size-small);
+      padding-block: var(--ui-space-1);
+      padding-inline: var(--ui-space-2);
 
       &:last-child {
         border-inline-end: none;
       }
     }
 
-    /* Remove bottom border only on the last row of the table */
-    & > *:last-child tr:last-child {
-      th,
-      td {
-        border-block-end: none;
-      }
-    }
-
     th {
-      background-color: var(--surface-filled);
-      color: var(--text-primary);
-      font-size: var(--font-size-05);
-      font-weight: 600;
+      --ui-border-color: var(--ui-border-color-on-filled);
+      --ui-field-border-color: var(--ui-field-border-color-on-filled);
+
+      background-color: var(--ui-surface-filled);
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-semibold);
       text-align: start;
     }
 
-    td {
-      font-size: var(--font-size-05);
+    :is(th, td):has(> .ui-checkbox:only-child) {
+      inline-size: 0;
+      text-align: center;
+      vertical-align: middle;
+
+      & > .ui-checkbox {
+        display: flex;
+        margin-inline: auto;
+      }
+    }
+
+    tbody :is(th[scope="row"], tr:has(> td) > th) {
+      --ui-border-color: inherit;
+
+      background-color: var(--ui-surface);
     }
 
     /* Round corner cells  */
     & > thead:first-of-type tr:first-child {
       th:first-child {
-        border-start-start-radius: var(--_table-border-radius);
+        border-start-start-radius: var(--_radius);
       }
 
       th:last-child {
-        border-start-end-radius: var(--_table-border-radius);
+        border-start-end-radius: var(--_radius);
       }
     }
 
     /* Logic for tables without thead */
     & > tbody:first-of-type:not(thead ~ tbody) tr:first-child {
-      td:first-child {
-        border-start-start-radius: var(--_table-border-radius);
-      }
-
-      td:last-child {
-        border-start-end-radius: var(--_table-border-radius);
-      }
-    }
-
-    /* Logic for bottom corners (whether in tbody or tfoot) */
-    & > *:last-child tr:last-child {
       :where(th, td):first-child {
-        border-end-start-radius: var(--_table-border-radius);
+        border-start-start-radius: var(--_radius);
       }
 
       :where(th, td):last-child {
-        border-end-end-radius: var(--_table-border-radius);
+        border-start-end-radius: var(--_radius);
+      }
+    }
+
+    /* Remove bottom border only on the last row of the table */
+    /* Logic for bottom corners (whether in tbody or tfoot) */
+    & > *:last-child tr:last-child {
+      th,
+      td {
+        border-block-end: none;
+      }
+
+      :where(th, td):first-child {
+        border-end-start-radius: var(--_radius);
+      }
+
+      :where(th, td):last-child {
+        border-end-end-radius: var(--_radius);
       }
     }
 
     /* Footer */
-    tfoot {
-      tr td {
-        background-color: var(--surface-filled);
-        padding-block: var(--size-2);
-      }
-
-      td {
-        border-top: var(--border-width) solid var(--border-color);
-        color: var(--text-primary);
-        font-weight: 600;
-      }
+    tfoot :where(th, td) {
+      background-color: var(--ui-surface-filled);
+      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+      color: var(--ui-text-strong);
+      font-weight: var(--ui-font-weight-semibold);
+      padding-block: var(--ui-space-2);
     }
 
     /* Caption */
     caption {
       caption-side: bottom;
-      color: var(--text-muted);
-      font-size: var(--font-size-05);
-      margin-inline-start: var(--size-2);
-      padding: var(--size-2) 0;
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+      margin-inline-start: var(--ui-space-2);
+      padding-block: var(--ui-space-2);
+      padding-inline: 0;
       text-align: start;
     }
 
-    /* Header */
-    thead {
-      z-index: 1;
-    }
-
     /* Remove bottom border of the row above the footer to stay single-line */
-    tbody:has(+ tfoot) tr:last-child td {
+    tbody:has(+ tfoot) tr:last-child :where(th, td) {
       border-block-end: none;
     }
 
@@ -123,10 +133,29 @@
       border: none;
     }
 
-    @container (width < 60ch) {
-      th,
-      td {
-        padding: var(--size-1) 0.875rem;
+    &.ui-sticky-header {
+      --_motion: var(--ui-motion);
+      --_duration: calc(var(--ui-duration) * var(--_motion));
+      --_ease: var(--ui-ease);
+      --_scroll-shadow: var(--ui-shadow-scroll);
+      --_sticky-offset: 0;
+
+      & > thead {
+        container-type: scroll-state;
+        inset-block-start: var(--_sticky-offset);
+        position: sticky;
+        z-index: 1;
+
+        th {
+          transition: box-shadow var(--_duration) var(--_ease);
+        }
+      }
+
+      @container scroll-state(stuck: block-start) {
+        & > thead th {
+          box-shadow: var(--_scroll-shadow);
+          clip-path: inset(0 0 calc(-1 * var(--ui-space-6)));
+        }
       }
     }
 
@@ -134,19 +163,11 @@
     &.ui-spacious {
       th,
       td {
-        padding: var(--size-3);
+        padding: var(--ui-space-3);
       }
 
       caption {
-        margin-inline-start: var(--size-3);
-        padding: var(--size-2) 0;
-      }
-
-      @container (width < 60ch) {
-        th,
-        td {
-          padding: var(--size-3);
-        }
+        margin-inline-start: var(--ui-space-3);
       }
     }
 
@@ -154,19 +175,14 @@
     &.ui-dense {
       th,
       td {
-        padding: var(--size-1);
+        line-height: var(--ui-line-height-tight);
+        padding-block: calc(var(--ui-space-1) / 2);
+        padding-inline: var(--ui-space-1);
       }
 
       caption {
-        margin-inline-start: var(--size-1);
-        padding: var(--size-1) 0;
-      }
-
-      @container (width < 60ch) {
-        th,
-        td {
-          padding: var(--size-1);
-        }
+        margin-inline-start: var(--ui-space-1);
+        padding-block: var(--ui-space-1);
       }
     }
   }

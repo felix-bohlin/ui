@@ -1,0 +1,44 @@
+<script lang="ts">
+  import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogHeader,
+  } from "opui-css/svelte"
+</script>
+
+<Button
+  color="critical"
+  commandfor="dialog-alert-dialog-1"
+  command="show-modal"
+  variant="outlined"
+>
+  Delete project
+</Button>
+
+<Dialog
+  id="dialog-alert-dialog-1"
+  role="alertdialog"
+  aria-describedby="dialog-alert-dialog-1-description"
+>
+  <DialogHeader>
+    <h2 class="ui-h4">Delete project?</h2>
+  </DialogHeader>
+  <DialogContent>
+    <p id="dialog-alert-dialog-1-description">
+      This deletes the project and all its files. You can't undo this.
+    </p>
+  </DialogContent>
+  <DialogActions>
+    <Button commandfor="dialog-alert-dialog-1" command="close">Cancel</Button>
+    <Button
+      color="critical"
+      commandfor="dialog-alert-dialog-1"
+      command="close"
+      variant="filled"
+    >
+      Delete
+    </Button>
+  </DialogActions>
+</Dialog>

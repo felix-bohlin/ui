@@ -1,0 +1,299 @@
+---
+import { Button, Checkbox } from "opui-css/astro"
+import CommentField from "../../components/Todo/CommentField.astro"
+import CopyFallback from "../../components/Todo/CopyFallback.astro"
+import InlineText from "../../components/Todo/InlineText.astro"
+import TodoNotes from "../../components/Todo/TodoNotes.astro"
+import Document from "../../layouts/Document.astro"
+import { parseTodo, slugify } from "../../utils/todo"
+import { testPagesEnabled } from "../../utils/test-pages"
+import source from "../../../CHECKS.md?raw"
+
+export function getStaticPaths() {
+  if (!testPagesEnabled()) return []
+  return [{ params: { index: undefined } }]
+}
+
+const { intro, sections } = parseTodo(source)
+
+const count = sections.reduce(
+  (total, section) => total + section.items.length,
+  0,
+)
+---
+
+<Document
+  description="Manual checks before a release. Check them off and comment on the ones that need a fix."
+  showToc
+>
+  <Fragment slot="title">Checks</Fragment>
+  <p slot="preamble">
+    {count} manual checks from <code>CHECKS.md</code>. Check them off as you go,
+    and comment on anything that needs a fix, then copy the comments at the
+    bottom of the page. Checks and comments are saved in this browser.
+  </p>
+
+  {
+    intro.map((paragraph) => (
+      <p>
+        <InlineText text={paragraph} />
+      </p>
+    ))
+  }
+
+  <section class="checks-summary ui-not-rich-text">
+    <p class="checks-progress" id="checks-progress" role="status">
+      0 of {count} checked
+    </p>
+    <Checkbox id="checks-hide-done" size="small">Hide checked</Checkbox>
+  </section>
+
+  {
+    sections.map((section) => (
+      <section data-check-section={section.title}>
+        <h2 id={slugify(section.title)}>{section.title}</h2>
+        <p class="checks-section-progress" data-section-progress />
+        <ol class="checks-list ui-not-rich-text">
+          {section.items.map((item) => (
+            <li
+              class="checks-item"
+              data-check-key={slugify(item.text)}
+              data-check-line={item.line}
+            >
+              <Checkbox class="checks-done">
+                <InlineText text={item.text} />
+              </Checkbox>
+              <TodoNotes class="checks-notes" notes={item.notes} />
+              <CommentField text={item.text} />
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))
+  }
+
+  <h2 id="copy">Copy</h2>
+
+  <section class="checks-actions ui-not-rich-text">
+    <Checkbox checked id="checks-only-commented">
+      Only checks I commented on
+    </Checkbox>
+    <div class="checks-buttons">
+      <Button id="checks-copy" variant="filled">Copy checks and comments</Button
+      >
+      <Button id="checks-clear-comments" variant="outlined"
+        >Clear comments</Button
+      >
+      <Button id="checks-uncheck" variant="outlined">Uncheck all</Button>
+    </div>
+    <p class="checks-status" id="checks-status" role="status"></p>
+    <CopyFallback label="Checks and comments" />
+  </section>
+</Document>
+
+<script>
+  import { copyOrSelect, trackComments } from "../../components/Todo/comments"
+  import { readStored as read, writeStored as write } from "../../utils/storage"
+
+  const commentsKey = "opui-checks-comments"
+  const doneKey = "opui-checks-done"
+  const hideKey = "opui-checks-hide-done"
+
+  const items = [...document.querySelectorAll<HTMLElement>(".checks-item")]
+  const keyOf = (item: HTMLElement) => item.dataset.checkKey!
+  const lineOf = (item: HTMLElement) => item.dataset.checkLine!
+  const doneOf = (item: HTMLElement) =>
+    item.querySelector<HTMLInputElement>(".checks-done input")!
+  const status = document.querySelector("#checks-status")!
+  const copyFallback = document.querySelector<HTMLDialogElement>(
+    "[data-copy-fallback]",
+  )!
+  const progress = document.querySelector("#checks-progress")!
+  const hideDone =
+    document.querySelector<HTMLInputElement>("#checks-hide-done")!
+  const onlyCommented = document.querySelector<HTMLInputElement>(
+    "#checks-only-commented",
+  )!
+  const notSaved =
+    "Checks can't be saved in this browser. Copy your comments before leaving the page."
+
+  const updateProgress = () => {
+    const checked = items.filter((item) => doneOf(item).checked).length
+    progress.textContent = `${checked} of ${items.length} checked`
+    for (const section of document.querySelectorAll<HTMLElement>(
+      "[data-check-section]",
+    )) {
+      const sectionItems = [
+        ...section.querySelectorAll<HTMLElement>(".checks-item"),
+      ]
+      const done = sectionItems.filter((item) => doneOf(item).checked).length
+      section.querySelector("[data-section-progress]")!.textContent =
+        `${done} of ${sectionItems.length} checked`
+    }
+  }
+
+  const saveDone = () => {
+    const done = items.filter((item) => doneOf(item).checked).map(keyOf)
+    if (!write(doneKey, done)) status.textContent = notSaved
+    updateProgress()
+  }
+
+  const comments = trackComments({
+    items,
+    keyOf,
+    onError: () => {
+      status.textContent = notSaved
+    },
+    storageKey: commentsKey,
+  })
+
+  const savedDone = new Set(read<string[]>(doneKey, []))
+
+  for (const item of items) {
+    const done = doneOf(item)
+    done.checked = savedDone.has(keyOf(item))
+    done.addEventListener("change", saveDone)
+  }
+
+  const applyHide = () =>
+    document.body.classList.toggle("checks-hide-done", hideDone.checked)
+
+  hideDone.checked = read<boolean>(hideKey, false)
+  hideDone.addEventListener("change", () => {
+    write(hideKey, hideDone.checked)
+    applyHide()
+  })
+  applyHide()
+  updateProgress()
+
+  const buildText = () => {
+    const blocks: string[] = []
+    let commented = 0
+
+    for (const section of document.querySelectorAll<HTMLElement>(
+      "[data-check-section]",
+    )) {
+      const lines = [
+        ...section.querySelectorAll<HTMLElement>(".checks-item"),
+      ].flatMap((item) => {
+        const comment = comments.commentOf(item)
+        if (!comment && onlyCommented.checked) return []
+        if (comment) commented++
+        const line = lineOf(item).replace(
+          /^- \[.?\]/,
+          doneOf(item).checked ? "- [x]" : "- [ ]",
+        )
+        return [
+          line,
+          ...(comment
+            ? comment.split("\n").map((text) => `  > ${text}`.trimEnd())
+            : []),
+        ]
+      })
+      if (lines.length)
+        blocks.push(`## ${section.dataset.checkSection}`, "", ...lines, "")
+    }
+
+    return {
+      commented,
+      text: ["CHECKS.md with my comments", "", ...blocks].join("\n").trim(),
+    }
+  }
+
+  document
+    .querySelector("#checks-copy")!
+    .addEventListener("click", async () => {
+      comments.saveAll()
+      const { commented, text } = buildText()
+      if (onlyCommented.checked && !commented) {
+        status.textContent = "No comments yet."
+        return
+      }
+      status.textContent = (await copyOrSelect(text, copyFallback))
+        ? `Copied ${commented} ${commented === 1 ? "comment" : "comments"}.`
+        : "This browser blocked copying."
+    })
+
+  document
+    .querySelector("#checks-clear-comments")!
+    .addEventListener("click", () => {
+      if (!confirm("Clear all comments?")) return
+      comments.clear()
+      status.textContent = "Comments cleared."
+    })
+
+  document.querySelector("#checks-uncheck")!.addEventListener("click", () => {
+    if (!confirm("Uncheck all checks?")) return
+    for (const item of items) doneOf(item).checked = false
+    saveDone()
+    status.textContent = "All checks unchecked."
+  })
+</script>
+
+<style>
+  .checks-summary {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-4);
+    justify-content: space-between;
+    margin-block: var(--size-4);
+  }
+
+  .checks-progress {
+    font-weight: var(--ui-font-weight-semibold);
+    margin: 0;
+  }
+
+  .checks-section-progress {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin-block: 0 var(--size-3);
+  }
+
+  .checks-list {
+    display: grid;
+    gap: var(--size-4);
+    list-style: none;
+    margin: 0 0 var(--size-6);
+    padding: 0;
+  }
+
+  .checks-item {
+    border-block-end: var(--ui-border-width) solid var(--ui-border-color);
+    display: grid;
+    gap: var(--size-2);
+    padding-block-end: var(--size-4);
+
+    &:has(.checks-done input:checked) :global(.checks-done .ui-label) {
+      color: var(--ui-text);
+      text-decoration: line-through;
+    }
+  }
+
+  :global(.checks-hide-done) .checks-item:has(.checks-done input:checked) {
+    display: none;
+  }
+
+  .checks-item :global(.checks-notes) {
+    padding-inline-start: calc(var(--ui-choice-size) + var(--size-2));
+  }
+
+  .checks-actions {
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+  }
+
+  .checks-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .checks-status {
+    color: var(--ui-text);
+    margin: 0;
+    min-block-size: 1lh;
+  }
+</style>

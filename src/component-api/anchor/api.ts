@@ -3,32 +3,29 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Anchor",
   notes: {
-    html: 'For a hover trigger, add `popover="hint"` and an id to `.ui-anchor-floating`, and `interestfor` with that id to the anchor content.',
+    html: 'To show on hover, give `.ui-floating` `popover="hint"` and an id. Add `interestfor` with that id to the trigger.',
   },
   options: [
     {
-      cssVar: "--anchor-position-area",
-      default: '"start end"',
       description:
-        "Any valid `position-area` value. Controls where the floating content is placed.",
-      group: "Position",
-      prop: "alignment",
-    },
-    {
-      description:
-        'The id of the floating content when `trigger` is `"hover"`. Add `interestfor` with the same id to the trigger.',
-      frameworks: ["astro", "vue"],
+        'The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. Required with `trigger="hover"`.',
       prop: "id",
-      type: "string",
     },
     {
-      default: '"always"',
+      cssVar: "--ui-anchor-position-area",
+      default: '"self-start self-end"',
       description:
-        'Shows the floating content always, or on hover and focus with `popover="hint"`.',
+        "Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page.",
+      group: "Position",
+      prop: "positionArea",
+    },
+    {
+      description:
+        'Shows the floating content on hover and focus with `popover="hint"`. Without it, the content always shows.',
       group: "Trigger",
-      part: ".ui-anchor-floating",
+      part: ".ui-floating",
       prop: "trigger",
-      values: { always: null, hover: '[popover="hint"]' },
+      values: { hover: '[popover="hint"]' },
     },
   ],
   parts: [
@@ -36,12 +33,11 @@ export default {
       code: "& > :first-child",
       description: "The content the floating content is anchored to.",
       selector: ".ui-anchor > :first-child",
-      slots: ["default"],
     },
     {
+      component: "AnchorContent",
       description: "The floating content.",
-      selector: ".ui-anchor-floating",
-      slots: ["anchored"],
+      selector: ".ui-floating",
     },
   ],
   root: {
@@ -49,5 +45,11 @@ export default {
     description: "Container element. Scopes the anchor to its content.",
     selector: ".ui-anchor",
   },
+  slots: [
+    {
+      description: "The content to anchor to, followed by `AnchorContent`.",
+      name: "default",
+    },
+  ],
   source: "Anchor",
 } satisfies ComponentApi

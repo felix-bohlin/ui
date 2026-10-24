@@ -1,16 +1,24 @@
 <script setup lang="ts">
-import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
+import { FieldGroup, FieldLegend, Fieldset, Form, Switch } from "opui-css/vue"
 </script>
 
 <template>
   <Form>
-    <FieldSet disabled>
+    <Fieldset disabled>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="switch-group-disabled">
+      <FieldGroup orientation="horizontal" name="switch-group-disabled">
         <Switch>Switch 1</Switch>
         <Switch>Switch 2</Switch>
         <Switch>Switch 3</Switch>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
+    <Fieldset>
+      <FieldLegend>One by one</FieldLegend>
+      <FieldGroup orientation="horizontal" name="switch-group-disabled-single">
+        <Switch checked>Enabled</Switch>
+        <Switch disabled>Disabled</Switch>
+        <Switch aria-disabled="true">Aria-disabled</Switch>
+      </FieldGroup>
+    </Fieldset>
   </Form>
 </template>

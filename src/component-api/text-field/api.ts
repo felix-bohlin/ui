@@ -9,60 +9,78 @@ export default {
   },
   notes: {
     astro:
-      "Input attributes (`disabled`, `list`, `max`, `min`, `name`, `placeholder`, `required`, `step`, `value`) go to the `<input>`. Other attributes go to the root `<label>`.",
-    html: "The control can also be a `<select>` or `<textarea>`. A `<datalist>` can be placed inside the root.",
-    vue: "Attributes that aren't props, such as `placeholder` or `disabled`, go to the `<input>`.",
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
+    html: "Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. You can put a `<datalist>` inside the root.",
+    react:
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
+    svelte:
+      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
+    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
     {
       class: ".ui-auto-fit",
       default: "false",
-      description: "Changes size depending on its content.",
-      group: "Auto-fit",
+      description: "Lets the width follow the content, from `25ch`.",
+      group: "Auto fit",
       prop: "autoFit",
     },
     {
-      attribute: "[data-invalid]",
+      attribute: '[aria-invalid="true"]',
       default: "false",
-      description: "Shows error styles.",
+      description: "Marks the control invalid and shows error styles.",
       group: "Validation",
+      part: "input",
       prop: "error",
     },
     {
-      class: ".ui-filled",
+      class: ".ui-sr-only",
       default: "false",
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "filled",
+      description:
+        "Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.",
+      group: "Label",
+      part: ".ui-text-field > span",
+      prop: "hideLabel",
     },
     {
       description: "The id of the `<input>`.",
-      frameworks: ["astro", "vue"],
+      inherited: true,
       prop: "id",
       type: "string",
     },
     {
-      class: ".ui-small",
-      default: "false",
+      default: '"medium"',
       description: "The size of the element.",
       group: "Sizes",
-      prop: "small",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        medium: null,
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",
       default: "false",
       description:
-        "Pushes the label and description to one side and the input to the other.",
-      group: "Layout",
+        "Pushes the label and start text to one side and the input to the other.",
+      group: "Spread",
       prop: "spread",
     },
     {
       default: '"text"',
       description:
         'The input type. `"numeric"` renders a text input with a numeric keyboard.',
-      frameworks: ["astro", "vue"],
       prop: "type",
       type: '"numeric" | string',
+    },
+    {
+      default: '"outlined"',
+      description: "The variant to use.",
+      group: "Variants",
+      prop: "variant",
+      values: { filled: ".ui-filled", outlined: null },
     },
   ],
   parts: [
@@ -73,11 +91,10 @@ export default {
       slots: ["label"],
     },
     {
-      description: "Description text displayed above the field.",
-      legacy: { props: ["startText"] },
-      props: ["description"],
+      description: "Start text displayed above the field.",
+      props: ["startText"],
       selector: ".ui-start-text",
-      slots: ["description"],
+      slots: ["start-text"],
     },
     {
       description: "The boxed input area.",
@@ -86,14 +103,14 @@ export default {
     {
       description:
         "Content above the input, inside the border, with a divider.",
-      selector: ".ui-header",
-      slots: ["header"],
+      selector: ".ui-field > .ui-top",
+      slots: ["top"],
     },
     {
       description:
         "Content at the inline-start of the field, inside the border.",
-      selector: ".ui-prefix",
-      slots: ["prefix"],
+      selector: ".ui-field > .ui-start",
+      slots: ["start"],
     },
     {
       code: "<input>",
@@ -103,18 +120,17 @@ export default {
     },
     {
       description: "Content at the inline-end of the field, inside the border.",
-      selector: ".ui-suffix",
-      slots: ["suffix"],
+      selector: ".ui-field > .ui-end",
+      slots: ["end"],
     },
     {
       description:
         "Content below the input, inside the border, with a divider.",
-      selector: ".ui-footer",
-      slots: ["footer"],
+      selector: ".ui-field > .ui-bottom",
+      slots: ["bottom"],
     },
     {
       description: "Supporting text displayed below the field.",
-      legacy: { slots: ["supporting-text"] },
       props: ["endText"],
       selector: ".ui-end-text",
       slots: ["end-text"],

@@ -1,65 +1,89 @@
 @layer components.extended {
   :where(details.ui-accordion) {
-    --_motion: var(--motion, 1);
-    --_actions-gap: var(--size-1);
-    --_actions-margin-block-start: var(--size-3);
-    --_actions-padding-block-end: var(--size-1);
-    --_actions-padding-inline: var(--size-3) var(--size-1);
+    --_motion: var(--ui-motion);
+    --_actions-gap: var(--ui-space-1);
+    --_actions-margin-block-start: 0;
+    --_actions-padding-block-end: var(--_summary-padding-block);
+    --_actions-padding-inline: max(
+      var(--_content-padding-inline),
+      var(--ui-focus-ring-offset) + var(--ui-focus-ring-width)
+    );
     --_bg-color: transparent;
     --_border-color: transparent;
-    --_border-radius: var(--border-radius, 4px);
     --_border-width: 0;
-    --_content-padding-block: var(--size-2) var(--size-3);
+    --_content-padding-block: var(--ui-space-2) var(--ui-space-3);
     --_content-padding-inline: var(--_padding-inline);
-    --_margin-inline: var(--size-1);
-    --_padding-inline: initial;
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
+    --_focus-ring-offset: var(--ui-focus-ring-offset);
+    --_margin-inline: var(--ui-space-1);
+    --_overflow: visible;
+    --_padding-inline: 0em;
+    --_radius: var(--ui-radius);
     --_shadow: none;
-    --_summary-padding-block: var(--size-3);
+    --_summary-padding-block: var(--ui-space-3);
     --_summary-padding-inline: var(--_padding-inline);
-    --_svg-transition: calc(0.2s * var(--_motion)) var(--ease-1);
-    --_transition: calc(0.2s * var(--_motion));
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
-    border-radius: var(--_border-radius);
+    border-radius: var(--_radius);
     box-shadow: var(--_shadow);
     display: block;
     margin-inline: var(--_margin-inline);
-    transition: all var(--_transition) ease-out;
+    overflow: var(--_overflow);
+    transition:
+      background-color var(--_duration) var(--_ease),
+      border-color var(--_duration) var(--_ease),
+      border-width var(--_duration) var(--_ease),
+      box-shadow var(--_duration) var(--_ease),
+      margin-inline var(--_duration) var(--_ease);
 
     /* Accordion animation */
     /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
     interpolate-size: allow-keywords;
 
-    &.ui-elevated {
-      --_bg-color: var(--surface-elevated);
+    &:not(.ui-transparent) {
+      --_bg-color: var(--ui-surface);
+      --_focus-ring-offset: var(--ui-focus-ring-inset);
       --_margin-inline: 0;
-      --_padding-inline: var(--size-3);
-      --_shadow: var(--shadow-3);
+      --_overflow: hidden;
+      --_padding-inline: var(--ui-space-3);
+    }
+
+    &:is(.ui-elevated, .ui-tonal) {
+      --_border-color: var(--ui-border-color-raised, var(--ui-surface));
+      --_border-width: var(--ui-border-width);
+
+      @media (forced-colors: active) {
+        --_border-color: CanvasText;
+      }
+    }
+
+    &.ui-elevated {
+      --_bg-color: var(--ui-surface-elevated);
+      --_shadow: var(--ui-shadow-elevated);
     }
 
     &.ui-outlined {
-      --_bg-color: var(--surface-default);
-      --_border-color: var(--border-color);
-      --_border-width: 1px;
-      --_margin-inline: 0;
-      --_padding-inline: var(--size-3);
+      --_bg-color: var(--ui-surface);
+      --_border-color: var(--ui-border-color);
+      --_border-width: var(--ui-border-width);
+      --_shadow: var(--ui-shadow-surface);
     }
 
     &.ui-tonal {
-      --_bg-color: var(--surface-tonal);
-      --_margin-inline: 0;
-      --_padding-inline: var(--size-3);
+      --_bg-color: var(--ui-surface-tonal);
+      --_shadow: var(--ui-shadow-surface);
     }
 
     &::details-content {
       block-size: 0;
       opacity: 0;
-      overflow-y: clip;
+      overflow-block: clip;
       transition:
-        content-visibility var(--_transition) allow-discrete,
-        opacity var(--_transition),
-        block-size var(--_transition);
+        content-visibility var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        block-size var(--_duration) var(--_ease);
     }
 
     &[open]::details-content {
@@ -71,30 +95,68 @@
     & > summary {
       background-color: inherit;
       cursor: pointer;
-      font-weight: 700;
+      font-weight: var(--ui-font-weight-bold);
       padding-block: var(--_summary-padding-block);
       padding-inline: var(--_summary-padding-inline);
       user-select: none;
 
-      &:has(svg) {
+      &:focus-visible {
+        border-radius: var(--_radius);
+        outline-offset: var(--_focus-ring-offset);
+      }
+
+      &:has(.ui-marker) {
         align-items: center;
         display: flex;
-        justify-content: space-between;
+        gap: var(--ui-space-2);
         list-style: none;
 
+        /* Safari fallback */
         &::marker,
         &::-webkit-details-marker {
           display: none;
         }
       }
 
-      svg {
-        transition: rotate var(--_svg-transition);
+      & > :is(img, svg) {
+        flex-shrink: 0;
+      }
+
+      &:has(.ui-marker)
+        > :not(.ui-anchor, .ui-badge, .ui-marker, .ui-tooltip, img, svg) {
+        min-inline-size: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .ui-marker {
+        flex-shrink: 0;
+        margin-inline-start: auto;
+        transition:
+          rotate var(--_duration) var(--_ease),
+          scale var(--_duration) var(--_ease);
       }
     }
 
-    &[open] > summary svg {
+    &[open] > summary .ui-marker {
       rotate: 180deg;
+    }
+
+    &.ui-marker-animation-flip[open] > summary .ui-marker {
+      rotate: none;
+      scale: 1 -1;
+    }
+
+    &.ui-marker-animation-turn[open] > summary .ui-marker {
+      rotate: 90deg;
+    }
+
+    &.ui-marker-animation-turn:dir(rtl) > summary .ui-marker {
+      scale: -1 1;
+    }
+
+    &.ui-marker-animation-turn[open]:dir(rtl) > summary .ui-marker {
+      rotate: -90deg;
     }
 
     & > .ui-content {
@@ -110,40 +172,41 @@
       margin-block-start: var(--_actions-margin-block-start);
       padding-block-end: var(--_actions-padding-block-end);
       padding-inline: var(--_actions-padding-inline);
+
+      &.ui-align-start {
+        justify-content: start;
+      }
     }
   }
 
   /* Accordion group  */
-  :where(.ui-card[role="group"]:has(details.ui-accordion)) {
-    --_group-radius: var(--border-radius);
-    --_gutter-color: var(--border-color);
-    --_item-padding-inline: var(--size-3);
+  :where(.ui-card[role="group"]:has(> details.ui-accordion)) {
+    --_divider-border-color: var(--ui-border-color);
+    --_group-radius: var(--ui-radius);
+    --_item-padding-inline: var(--ui-space-3);
     --_item-summary-padding-inline: var(--_item-padding-inline);
 
     display: block;
 
-    &.ui-card {
-      &:not(.ui-tonal, .ui-outlined, .ui-elevated) {
-        --_item-summary-padding-inline: 0;
-      }
-    }
-
-    & > .ui-content {
-      margin-block: 0;
-      padding: 0;
+    &.ui-transparent {
+      --_item-padding-inline: 0em;
     }
 
     & > details.ui-accordion {
+      --_bg-color: transparent;
       --_border-color: transparent;
       --_border-width: 0;
+      --_focus-ring-offset: var(--ui-focus-ring-inset);
       --_margin-inline: 0;
+      --_overflow: visible;
       --_padding-inline: var(--_item-padding-inline);
       --_shadow: none;
       --_summary-padding-inline: var(--_item-summary-padding-inline);
 
       /* Border between accordion items */
       & + & {
-        border-block-start: 1px solid var(--_gutter-color);
+        border-block-start: var(--ui-border-width) solid
+          var(--_divider-border-color);
         border-radius: 0;
       }
 

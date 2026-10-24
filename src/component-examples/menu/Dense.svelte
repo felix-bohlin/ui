@@ -1,0 +1,12 @@
+<script lang="ts">
+  import { Button, Menu } from "opui-css/svelte"
+</script>
+
+<Button commandfor="menu-dense-1" command="toggle-popover" variant="outlined">
+  Options
+</Button>
+<Menu
+  dense
+  id="menu-dense-1"
+  items={[{ label: "Copy" }, { label: "Cut" }, { label: "Paste" }]}
+/>

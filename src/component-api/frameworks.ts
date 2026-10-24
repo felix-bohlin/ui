@@ -1,19 +1,28 @@
-export type ComponentFramework = "astro" | "solid" | "svelte" | "vue"
+import type { FrameworkId, PackageFrameworkId } from "../utils/framework"
 
-export type Framework = ComponentFramework | "html"
+export type ComponentFramework = PackageFrameworkId
+
+export type Framework = FrameworkId
 
 type Syntax = {
   component: (source: string) => string
   model?: (prop: string) => string
+  modelIsProp?: boolean
   slot: (name: string) => string
-  slotsAreProps: boolean
   types: string
-}
+} & ({ slotsAreProps: false } | { slotType: string; slotsAreProps: true })
 
 export const slotProp = (name: string) =>
   name === "default"
     ? "children"
     : name.replace(/-(\w)/g, (_, letter: string) => letter.toUpperCase())
+
+export const components = (note: string) => ({
+  astro: note,
+  react: note,
+  svelte: note,
+  vue: note,
+})
 
 export const frameworks: Record<ComponentFramework, Syntax> = {
   astro: {
@@ -22,16 +31,19 @@ export const frameworks: Record<ComponentFramework, Syntax> = {
     slotsAreProps: false,
     types: "types.astro.ts",
   },
-  solid: {
-    component: (source) => `${source}.tsx`,
+  react: {
+    component: (source) => `${source}.react.tsx`,
     slot: slotProp,
+    slotType: "ReactNode",
     slotsAreProps: true,
-    types: "types.solid.ts",
+    types: "types.react.ts",
   },
   svelte: {
     component: (source) => `${source}.svelte`,
     model: (prop) => `bind:${prop}`,
+    modelIsProp: true,
     slot: slotProp,
+    slotType: "Snippet",
     slotsAreProps: true,
     types: "types.svelte.ts",
   },

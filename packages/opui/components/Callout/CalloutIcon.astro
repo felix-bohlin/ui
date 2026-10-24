@@ -1,0 +1,25 @@
+---
+import type { CalloutIconProps as Props } from "./types.astro"
+import { calloutContext } from "./context.astro"
+import { iconFor } from "./icons"
+
+const { class: className, ...rest } = Astro.props
+
+const icon = iconFor(calloutContext.get()?.severity)
+---
+
+{
+  icon && (
+    <svg
+      aria-hidden="true"
+      class:list={[className]}
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox={icon.viewBox}
+      {...rest}
+    >
+      <path fill="currentColor" d={icon.d} />
+    </svg>
+  )
+}

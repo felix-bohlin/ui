@@ -1,0 +1,127 @@
+---
+import {
+  Divider,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Range,
+  Switch,
+  TextField,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
+import { EXAMPLE_THEMES } from "../utils/example-themes"
+import {
+  GRAY_FIELDS,
+  PALETTE_FIELDS,
+  RADIUS_FIELDS,
+  sourceColor,
+} from "../utils/theme-form"
+import { radiusOptions, tokenDefaults } from "../utils/theme-store"
+
+const defaults = tokenDefaults("light")
+---
+
+<Fieldset>
+  <FieldLegend>Example theme</FieldLegend>
+  <FieldGroup>
+    <ToggleGroup aria-label="Example theme" name="example-theme" size="small">
+      <ToggleButton checked value="default">Default</ToggleButton>
+      {
+        EXAMPLE_THEMES.map((theme) => (
+          <ToggleButton value={theme.name}>{theme.label}</ToggleButton>
+        ))
+      }
+    </ToggleGroup>
+  </FieldGroup>
+</Fieldset>
+
+<Divider />
+
+<Fieldset>
+  <FieldLegend>Color palette</FieldLegend>
+  <FieldGroup>
+    <TextField
+      type="color"
+      label="Source color"
+      name="--palette-source-color"
+      value={sourceColor("light")}
+      spread
+      size="small"
+    />
+    {
+      PALETTE_FIELDS.map((field) => (
+        <Range
+          label={field.label}
+          name={field.token}
+          min={field.min}
+          max={field.max}
+          step={field.step}
+          value={defaults[field.token]}
+          valueSuffix={field.suffix ?? ""}
+        />
+      ))
+    }
+  </FieldGroup>
+</Fieldset>
+
+<Divider />
+
+<Fieldset>
+  <FieldLegend>Grays</FieldLegend>
+  <FieldGroup>
+    <Switch name="enable-grays" checked spread>Enable</Switch>
+    {
+      GRAY_FIELDS.map((field) => (
+        <Range
+          label={field.label}
+          name={field.token}
+          min={field.min}
+          max={field.max}
+          step={field.step}
+          value={defaults[field.token]}
+          valueSuffix={field.suffix ?? ""}
+        />
+      ))
+    }
+  </FieldGroup>
+</Fieldset>
+
+<Divider />
+
+<Fieldset>
+  <FieldLegend>Border radii</FieldLegend>
+  {
+    RADIUS_FIELDS.map((field) => (
+      <FieldGroup>
+        <div class="radius-field">
+          <span class="ui-label">{field.label}</span>
+          <ToggleGroup aria-label={field.label} name={field.token} size="small">
+            {radiusOptions(field.token).map((option) => (
+              <ToggleButton
+                checked={option.value === defaults[field.token]}
+                title={option.value}
+                value={option.value}
+              >
+                {option.text}
+              </ToggleButton>
+            ))}
+          </ToggleGroup>
+        </div>
+      </FieldGroup>
+    ))
+  }
+</Fieldset>
+
+<style>
+  .radius-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+
+    .ui-label {
+      font-size: var(--ui-font-size-small);
+      font-weight: var(--font-weight-5);
+    }
+  }
+</style>

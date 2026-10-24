@@ -1,0 +1,577 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import Code from "../../components/Code.astro"
+import CodeGroup from "../../components/CodeGroup.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example/index"
+import LayerStack from "../../components/LayerStack.astro"
+import TokenTiers from "../../components/TokenTiers.astro"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Concepts</Fragment>
+  <Fragment slot="preamble">
+    The architecture: cascade layers, token tiers, scopes, props and classes,
+    naming, rich text, and where JavaScript is still needed.
+  </Fragment>
+
+  <section>
+    <h2 id="cascade-layers">Cascade layers</h2>
+    <p>
+      Every rule lives in a layer, ordered once in <code>layers.css</code>:
+    </p>
+    <Code
+      code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
+@layer theme.palette, theme.base, theme.custom;`}
+      lang="css"
+    />
+    <LayerStack />
+    <p>
+      Your theme goes in <code>theme.custom</code>, your overrides unlayered or
+      in a layer after <code>utils</code>, so they win without <code
+        >!important</code
+      > or heavier selectors. <code>components.prose</code> is the lowest component
+      layer, so a component inside rich text keeps its own styles. Import <code
+        >layers.css</code
+      > first when you import single files. More in <DocLink
+        href="/guide/customizing">Customizing</DocLink
+      >.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="token-tiers">Token tiers</h2>
+    <p>
+      Each tier reads from the ones before it. A theme sets knobs, roles and
+      component tokens, and component CSS starts reading at the roles:
+    </p>
+    <TokenTiers />
+    <ul>
+      <li>
+        <strong>Knobs</strong> like <code>--ui-palette-hue</code>, <code
+          >--ui-density</code
+        > and <code>--ui-space-scale</code> are the inputs. Change the primitives
+        through them, not by name.
+      </li>
+      <li>
+        <strong>Primitives</strong> are the palette steps <code
+          >--ui-color-1</code
+        > to <code>--ui-color-16</code> and <code>--ui-gray-1</code> to <code
+          >--ui-gray-16</code
+        >, the type scale <code>--ui-font-size-100</code> to <code
+          >--ui-font-size-900</code
+        > and the Open Props scales. Component CSS never reads them, and a check in
+        the repo keeps it that way.
+      </li>
+      <li>
+        <strong>Roles</strong> are the contract: the tokens such as <code
+          >--ui-primary</code
+        >, <code>--ui-space-3</code> and <code>--ui-shadow-elevated</code>, each
+        described on <DocLink href="/guide/theme-tokens">Theme tokens</DocLink>
+        with the contrast it promises. Roles alone recreate Bootstrap, Material and
+        shadcn in the <DocLink href="/guide/customizing#example-themes"
+          >example themes</DocLink
+        >. A theme that has to reach into component CSS points at a missing
+        role, and that is worth an issue.
+      </li>
+      <li>
+        <strong>Component tokens</strong> like <code>--ui-button-size</code> cover
+        a job only one component has, and default to a role or a fixed size.
+      </li>
+      <li>
+        <strong>Private properties</strong> like <code>--_accent</code> are each component's
+        wiring, for one element, never for a theme. See <DocLink
+          href="/guide/customizing#component-properties"
+          >Component properties</DocLink
+        >.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="light-and-dark">Light and dark</h2>
+    <p>
+      The color tokens use <code>light-dark()</code> under <code
+        >color-scheme: light dark</code
+      >, so the OS setting drives them and there is no class to toggle. <code
+        >.ui-light</code
+      > and <code>.ui-dark</code> force a scheme on <code>html</code> or any element.
+      The default palette is green in light mode and blue in dark mode.
+    </p>
+    <Example>
+      <div class="concepts-schemes">
+        <div class="ui-light">
+          <button class="ui-button ui-filled ui-primary" type="button">
+            Always light
+          </button>
+        </div>
+        <div class="ui-dark">
+          <button class="ui-button ui-filled ui-primary" type="button">
+            Always dark
+          </button>
+        </div>
+      </div>
+    </Example>
+  </section>
+
+  <section>
+    <h2 id="palette-scopes">Palette scopes</h2>
+    <p>
+      Every color comes from one 16-step palette. A scope class re-derives it
+      for an element and everything inside, so one class gives a Callout and a
+      tonal Button the same red. <code>--ui-primary</code> and the text colors keep
+      the page values.
+    </p>
+    <figure class="concepts-palettes ui-not-rich-text">
+      {
+        [
+          "",
+          "ui-critical",
+          "ui-info",
+          "ui-neutral",
+          "ui-success",
+          "ui-warning",
+        ].map((scope) => (
+          <div class={scope || undefined}>
+            <code>{scope ? `.${scope}` : "Page"}</code>
+            <span class="swatches" aria-hidden="true">
+              {Array.from({ length: 16 }, (_, i) => (
+                <span style={`background-color: var(--ui-color-${i + 1})`} />
+              ))}
+            </span>
+          </div>
+        ))
+      }
+      <figcaption>
+        <code>--ui-color-1</code> to <code>--ui-color-16</code> on the page and in
+        each scope, live with the current theme.
+      </figcaption>
+    </figure>
+    <Example centered>
+      <article class="ui-callout ui-critical">
+        <div class="ui-content">Your card was declined.</div>
+      </article>
+      <button class="ui-button ui-tonal ui-critical" type="button">
+        Remove card
+      </button>
+    </Example>
+    <p>
+      <code>.ui-palette</code> with your own <code>--ui-palette-hue</code> builds
+      a new palette for a subtree and recolors <code>--ui-primary</code> and the intent
+      colors too, so one page can carry several brands. See <DocLink
+        href="/guide/theming#scopes">Theming</DocLink
+      >.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="props-and-classes">Props and classes</h2>
+    <p>
+      A component is one <code>ui-</code> class on a native element, with modifier
+      classes for its options. The Astro, React, Svelte and Vue components render
+      those exact classes from props, one to one:
+    </p>
+    <CodeGroup
+      tabs={[
+        {
+          title: "HTML",
+          code: `<button class="ui-button ui-outlined ui-small ui-primary" type="button">
+  Save
+</button>`,
+          lang: "html",
+        },
+        {
+          title: "Astro",
+          code: `<Button variant="outlined" size="small" color="primary">Save</Button>`,
+          lang: "astro",
+        },
+        {
+          title: "React",
+          code: `<Button variant="outlined" size="small" color="primary">
+  Save
+</Button>`,
+          lang: "tsx",
+        },
+        {
+          title: "Svelte",
+          code: `<Button variant="outlined" size="small" color="primary">Save</Button>`,
+          lang: "svelte",
+        },
+        {
+          title: "Vue",
+          code: `<Button variant="outlined" size="small" color="primary">Save</Button>`,
+          lang: "vue",
+        },
+      ]}
+    />
+    <p>
+      Boolean props become a class of the same name (<code>round</code> is <code
+        >.ui-round</code
+      >), and native states stay native attributes, like <code>disabled</code>.
+      The API tables list prop and class side by side.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="naming">Naming</h2>
+    <p>
+      One idea has one prop name and one set of values in every component, so
+      what you learn on one page carries over to the next.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Idea</th>
+          <th>Prop</th>
+          <th>Values</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Paint only</td>
+          <td><code>color</code></td>
+          <td>
+            <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
+              >primary</code
+            >, <code>success</code>, <code>warning</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Meaning</td>
+          <td><code>severity</code></td>
+          <td>
+            <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
+              >success</code
+            >, <code>warning</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Surface</td>
+          <td><code>variant</code></td>
+          <td>
+            <code>elevated</code>, <code>filled</code>, <code>line</code>, <code
+              >outlined</code
+            >, <code>plain</code>, <code>tonal</code>, <code>transparent</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Size</td>
+          <td><code>size</code></td>
+          <td>
+            <code>x-small</code>, <code>small</code>, <code>medium</code>, <code
+              >large</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>Density</td>
+          <td><code>dense</code> or <code>density</code></td>
+          <td>
+            <code>dense</code>, <code>normal</code>, <code>spacious</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Shape</td>
+          <td><code>round</code> or <code>shape</code></td>
+          <td>
+            <code>circle</code>, <code>rounded</code>, <code>squared</code>, <code
+              >squircle</code
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>Layout axis</td>
+          <td><code>orientation</code></td>
+          <td>
+            <code>auto</code>, <code>horizontal</code>, <code>vertical</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Side of a trigger or the screen</td>
+          <td><code>side</code></td>
+          <td>
+            <code>block-end</code>, <code>block-start</code>, <code
+              >inline-end</code
+            >, <code>inline-start</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Alignment on that side or in a row</td>
+          <td><code>align</code></td>
+          <td><code>start</code>, <code>center</code>, <code>end</code></td>
+        </tr>
+        <tr>
+          <td>Corner</td>
+          <td><code>corner</code></td>
+          <td>
+            <code>start-start</code>, <code>start-end</code>, <code
+              >end-start</code
+            >, <code>end-end</code>
+          </td>
+        </tr>
+        <tr>
+          <td>Any CSS position</td>
+          <td><code>positionArea</code></td>
+          <td>any <code>position-area</code> value</td>
+        </tr>
+        <tr>
+          <td>Checked state</td>
+          <td><code>checked</code></td>
+          <td>the native attribute</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      A component takes the values it supports from its set. <code>color</code> only
+      changes the paint. <code>severity</code> says what something means and adds
+      what that meaning needs, like the icon of a <DocLink
+        href="/components/callout#severities">Callout</DocLink
+      > or the shaped dot of a <DocLink href="/components/chip#severities"
+        >Chip</DocLink
+      >, because a color alone doesn't tell everyone.
+    </p>
+
+    <h3 id="variants">Variants</h3>
+    <p>
+      A variant describes the resting look. A hover or a selected tint never
+      counts against it. <code>filled</code> is a solid fill in the component's own
+      color: the accent on a Button, a surface on a field or a track. <code
+        >tonal</code
+      > is the tonal surface, <code>outlined</code> a border with no fill, <code
+        >elevated</code
+      > a raised surface with a shadow, <code>transparent</code> no surface and no
+      border at rest, and <code>line</code> an indicator with no track, on <DocLink
+        href="/components/tabs#line">Tabs</DocLink
+      >. <code>plain</code> is the page surface with no border, and only differs from
+      <code>transparent</code> on a tinted background:
+    </p>
+    <Example centered>
+      <div class="concepts-ladder">
+        {
+          ["page", "tonal"].map((surface) => (
+            <div
+              class:list={[
+                "concepts-surface",
+                { "is-tonal": surface === "tonal" },
+              ]}
+            >
+              <span class="concepts-surface-label">
+                {surface === "tonal" ? "On a tonal surface" : "On the page"}
+              </span>
+              {["plain", "transparent", "tonal", "outlined", "elevated"].map(
+                (variant) => (
+                  <div
+                    class:list={[
+                      "ui-card",
+                      variant !== "plain" && `ui-${variant}`,
+                    ]}
+                  >
+                    <div class="ui-content">
+                      <code>{variant}</code>
+                    </div>
+                  </div>
+                ),
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </Example>
+    <p>
+      Every enum names its default, which adds no class: <code
+        >size="medium"</code
+      >, <code>variant="transparent"</code> on a Button, <code
+        >variant="plain"</code
+      > on a Card. Leaving the prop out and writing the default give the same result.
+      <code>color</code> and <code>severity</code> have no default: leaving them out
+      means none.
+    </p>
+
+    <h3 id="start-and-end">Start and end</h3>
+    <p>
+      <code>start</code> and <code>end</code> follow the writing direction along the
+      axis that fits: <code>.ui-start</code> and <code>.ui-end</code> hold content
+      at the start and end of a row, and <code>startText</code> and <code
+        >endText</code
+      > put text above and below a field.
+    </p>
+
+    <h3 id="checked">Checked</h3>
+    <p>
+      A <DocLink href="/components/toggle">ToggleButton</DocLink> or a <DocLink
+        href="/components/tabs">TabsItem</DocLink
+      > takes <code>checked</code>, the attribute it sets on its input, with
+      each framework's own rules. In React <code>checked</code> with <code
+        >onChange</code
+      > controls it and <code>defaultChecked</code> sets where it starts. In a group
+      that owns the value, such as a ToggleGroup with a <code>value</code>, the
+      group wins.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="rich-text">Rich text</h2>
+    <p>
+      <code>.ui-rich-text</code> styles the classless elements inside it, for Markdown
+      or CMS output. Elements with a class are left alone, so components keep their
+      styles, and <code>.ui-not-rich-text</code> opts a subtree out.
+    </p>
+    <Example>
+      <article class="ui-rich-text">
+        <h3>Release notes</h3>
+        <p>Plain HTML, styled by the wrapper.</p>
+        <ul>
+          <li>No classes needed</li>
+          <li>Components keep their own styles</li>
+        </ul>
+        <div class="ui-not-rich-text">
+          <ul>
+            <li>This list is left alone</li>
+          </ul>
+        </div>
+      </article>
+    </Example>
+    <p>
+      <code>.ui-h1</code> to <code>.ui-h6</code> give the heading styles anywhere
+      else. See <DocLink href="/components/typography">Typography</DocLink>.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="javascript">JavaScript</h2>
+    <p>These work without JavaScript:</p>
+    <ul>
+      <li>
+        Accordion is a <code>details</code> element, Tabs are a radio group, and ToggleButton
+        and ToggleGroup are checkboxes and radios.
+      </li>
+      <li>
+        Dialog, Drawer and Menu open with Invoker Commands (<code>command</code> and
+        <code>commandfor</code> on a button) and the Popover API.
+      </li>
+      <li>
+        Tooltip and hover Anchor show with <code>interestfor</code> and CSS anchor
+        positioning.
+      </li>
+      <li>
+        Carousel buttons and markers are generated by CSS, and the Range track
+        fill is a scroll-driven animation.
+      </li>
+    </ul>
+    <p>
+      Some are fresh off the press, see <DocLink href="/guide/browser-support"
+        >Browser support</DocLink
+      > for the fallbacks. Two things need script in plain HTML:
+    </p>
+    <ul>
+      <li>
+        <strong>Indeterminate checkboxes</strong>: <code>indeterminate</code> is a
+        property, not an attribute. Mark the input with <code
+          >data-indeterminate</code
+        > and call <code>activateIndeterminate()</code> from <code
+          >css/js/checkbox.js</code
+        >.
+      </li>
+      <li>
+        <strong>Range value</strong>: the <code>output</code> has to be updated on
+        <code>input</code>. The Astro component ships a tiny script, and React,
+        Svelte and Vue do it reactively.
+      </li>
+    </ul>
+    <CodeGroup
+      tabs={[
+        {
+          title: "CDN",
+          code: `<script type="module">
+  import { activateIndeterminate } from "https://cdn.jsdelivr.net/npm/opui-css@6/css/js/checkbox.js"
+
+  activateIndeterminate()
+</script>`,
+          lang: "html",
+        },
+        {
+          title: "Bundler",
+          code: `<script type="module">
+  import { activateIndeterminate } from "opui-css/css/js/checkbox.js"
+
+  activateIndeterminate()
+</script>`,
+          lang: "html",
+        },
+      ]}
+    />
+  </section>
+</Guide>
+
+<style>
+  .concepts-palettes {
+    display: grid;
+    gap: var(--size-2);
+    margin-block: var(--size-5);
+    place-items: stretch;
+
+    > div {
+      align-items: center;
+      display: grid;
+      gap: var(--size-3);
+      grid-template-columns: 7rem 1fr;
+    }
+
+    code {
+      font-size: var(--ui-font-size-small);
+    }
+
+    figcaption {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+      margin-block-start: var(--size-1);
+      text-align: start;
+    }
+  }
+
+  .swatches {
+    border-radius: var(--ui-radius-small);
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    overflow: hidden;
+
+    > span {
+      block-size: var(--size-6);
+    }
+  }
+
+  .concepts-ladder {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .concepts-surface {
+    border-radius: var(--ui-radius);
+    display: grid;
+    grid-row: span 6;
+    grid-template-rows: subgrid;
+    padding: var(--size-3);
+
+    &.is-tonal {
+      background-color: var(--ui-surface-tonal);
+    }
+  }
+
+  .concepts-surface-label {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+  }
+
+  .concepts-schemes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+
+    > div {
+      border-radius: var(--ui-radius);
+      padding: var(--size-4);
+    }
+  }
+</style>

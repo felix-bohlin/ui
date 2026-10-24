@@ -4,120 +4,156 @@
 - Form related styles such as: label, supporting text, error handling
 */
   :where(.ui-text-field, .ui-textarea, .ui-select) {
-    --_motion: var(--motion, 1);
-    --_accent-color: var(--primary);
-    --_bg-color: var(--surface-default);
-    --_border-color: var(--field-border-color);
-    --_field-padding-block: var(--size-2);
-    --_field-padding-inline: var(--size-2);
-    --_filled-border-color: var(--text-primary);
-    --_height: var(--field-size);
-    --_label-color: var(--text-muted);
-    --_end-text-color: var(--text-muted);
+    --_motion: var(--ui-motion);
+    --_accent: var(--ui-primary);
+    --_affix-text-color: var(--ui-text);
+    --_arrow-inset: var(--ui-space-3);
+    --_arrow-padding: calc(
+      var(--_arrow-inset) + var(--_chevron-size) + var(--ui-space-3)
+    );
+    --_bg-color: var(--ui-field-bg-color, var(--ui-surface));
+    --_border-color: var(--ui-field-border-color);
+    --_chevron-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414'/%3E%3C/svg%3E");
+    --_chevron-size: var(--ui-icon-size-small);
+    --_duration: calc(var(--ui-duration) * var(--_motion));
+    --_ease: var(--ui-ease);
+    --_field-padding-block: var(--ui-space-2);
+    --_field-padding-block-fit: min(
+      var(--_field-padding-block),
+      max(0px, (var(--_size) - 1lh - var(--ui-field-border-width) * 2) / 2)
+    );
+    --_field-padding-inline: var(--ui-field-padding-inline, var(--ui-space-2));
+    --_font-size: var(--ui-font-size-control);
+    --_helper-text-color: var(--ui-field-helper-text-color);
+    --_size: var(--ui-field-size);
 
+    align-content: start;
     display: grid;
-    gap: var(--size-1) 0;
     position: relative;
 
     /* Field - the actual input with a border around it */
     .ui-field {
       background-color: var(--_bg-color);
-      border: var(--field-border-width) solid var(--_border-color);
-      border-radius: var(--field-border-radius);
+      border: var(--ui-field-border-width) solid var(--_border-color);
+      border-radius: var(--ui-field-radius, var(--ui-radius));
+      box-shadow: var(--ui-shadow-field, var(--ui-shadow-control));
       display: grid;
       grid-column: 1/-1;
       grid-row: 2;
       grid-template-areas:
-        "header header header"
-        "prefix input  suffix"
-        "footer footer footer";
+        "top   top   top"
+        "start input end"
+        "bottom bottom bottom";
       grid-template-columns: auto 1fr auto;
-      min-block-size: var(--_height);
+      min-block-size: var(--_size);
 
-      transition: border-color calc(0.2s * var(--_motion))
-        cubic-bezier(0.4, 0, 0.2, 1);
+      transition: border-color var(--_duration) var(--_ease);
     }
 
     :where(.ui-field) :where(input, textarea, select) {
       background: transparent;
       border: 0;
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-      font-size: var(--font-size-1);
+      color: var(--ui-text-strong);
+      font-family: var(--ui-font-body);
+      font-size: var(--_font-size);
       grid-area: input;
       inline-size: 100%;
-      line-height: var(--font-lineheight-1);
+      line-height: var(--ui-line-height-tight);
       min-inline-size: 0;
-      padding: var(--_field-padding-block) var(--_field-padding-inline);
+      padding-block: var(--_field-padding-block-fit);
+      padding-inline: var(--_field-padding-inline);
 
       &:focus,
       &:focus-visible {
         outline: 0;
       }
+
+      &::-webkit-calendar-picker-indicator,
+      &::-webkit-datetime-edit,
+      &::-webkit-datetime-edit-fields-wrapper {
+        padding-block: 0;
+      }
+    }
+
+    :where(.ui-field) :where(input, select:not([multiple], [size])) {
+      align-self: center;
+      block-size: calc(1lh + var(--_field-padding-block-fit) * 2);
     }
 
     /* Affixes */
-    .ui-prefix,
-    .ui-suffix {
+    .ui-field > :is(.ui-start, .ui-end) {
       align-items: center;
-      color: var(--_label-color);
+      color: var(--_affix-text-color);
       display: inline-flex;
+      font-size: var(--_font-size);
+      line-height: var(--ui-line-height-tight);
       padding-inline: var(--_field-padding-inline);
       white-space: nowrap;
+
+      & > svg {
+        block-size: auto;
+        flex-shrink: 0;
+        inline-size: auto;
+        max-block-size: var(--ui-icon-size);
+      }
     }
 
-    .ui-prefix {
-      grid-area: prefix;
+    .ui-field > .ui-start {
+      grid-area: start;
     }
 
-    .ui-suffix {
-      grid-area: suffix;
+    .ui-field > .ui-end {
+      grid-area: end;
     }
 
-    .ui-header,
-    .ui-footer {
+    .ui-field > :is(.ui-top, .ui-bottom) {
       align-items: center;
-      color: var(--_label-color);
+      color: var(--_affix-text-color);
       display: flex;
-      font-size: var(--font-size-0);
-      gap: var(--size-2);
-      padding: var(--size-1) var(--_field-padding-inline);
+      font-size: var(--ui-font-size-caption);
+      gap: var(--ui-space-2);
+      padding-block: var(--ui-space-1);
+      padding-inline: var(--_field-padding-inline);
     }
 
-    .ui-header {
-      border-block-end: 1px solid var(--_border-color);
-      grid-area: header;
+    .ui-field > .ui-top {
+      border-block-end: var(--ui-field-border-width) solid var(--_border-color);
+      grid-area: top;
     }
 
-    .ui-footer {
-      border-block-start: 1px solid var(--_border-color);
-      grid-area: footer;
+    .ui-field > .ui-bottom {
+      border-block-start: var(--ui-field-border-width) solid
+        var(--_border-color);
+      grid-area: bottom;
     }
 
     /* Remove padding on the input when affixes are next to it */
-    .ui-field:has(> .ui-prefix) :where(input, textarea, select) {
+    .ui-field:has(> .ui-start) :where(input, textarea, select) {
       padding-inline-start: 0;
     }
 
-    .ui-field:has(> .ui-suffix) :where(input, textarea, select) {
+    .ui-field:has(> .ui-end) :where(input, textarea, select) {
       padding-inline-end: 0;
     }
 
     /* Textarea - keep affix aligned with the first line */
     &.ui-textarea .ui-field {
-      .ui-prefix,
-      .ui-suffix {
+      & > :is(.ui-start, .ui-end) {
         align-self: start;
-        padding-block: var(--_field-padding-block);
+        padding-block: var(--_field-padding-block-fit);
       }
     }
 
     /* Required/Invalid */
-    &:has(:invalid) {
-      .ui-label:after {
-        color: var(--red);
+    &:has(:required) {
+      .ui-label::after {
+        color: var(--ui-field-required-text-color);
         content: "*";
-        margin: -0.25em auto auto 0.25em;
+        margin-inline-start: 0.25ex;
+
+        @supports (content: "*" / "") {
+          content: "*" / "";
+        }
       }
     }
 
@@ -127,97 +163,72 @@
 
       input {
         align-self: flex-start;
-        block-size: var(--_height);
+        block-size: calc(var(--_size) - var(--ui-field-border-width) * 2);
         box-shadow: none;
-        color: var(--text-primary);
+        color: var(--ui-text-strong);
         cursor: inherit;
         max-inline-size: 100%;
         padding: 0;
-        transition: font-size 0.2s var(--ease-3);
+        transition: font-size var(--_duration) var(--_ease);
 
-        &::-webkit-file-upload-button,
         &::file-selector-button {
-          background-color: var(--surface-tonal);
-          block-size: calc(100% - var(--size-2) * 2);
+          background-color: var(--ui-surface-tonal);
+          block-size: calc(100% - var(--ui-space-2) * 2);
           border: none;
-          border-radius: var(--field-border-radius);
+          border-radius: var(--ui-field-radius, var(--ui-radius));
           cursor: pointer;
-          margin-block-start: var(--size-2);
+          margin-block-start: var(--ui-space-2);
           margin-inline-end: 1ex;
-          margin-inline-start: var(--size-2);
+          margin-inline-start: var(--ui-space-2);
         }
       }
 
       /* Variants */
-      &.ui-filled {
-        input {
-          &::-webkit-file-upload-button,
-          &::file-selector-button {
-            background-color: var(--surface-default);
-            block-size: calc(100% - var(--size-2) * 2);
-            border-radius: var(--field-border-radius);
-            cursor: pointer;
-            margin-block-start: var(--size-2);
-          }
-        }
+      &.ui-filled input::file-selector-button {
+        background-color: var(--ui-surface);
       }
 
       /* Sizes */
-      &.ui-small {
-        input {
-          font-size: var(--font-size-05);
-
-          &::-webkit-file-upload-button,
-          &::file-selector-button {
-            block-size: calc(100% - var(--size-2));
-            margin-block-start: var(--size-1);
-          }
+      &.ui-small,
+      &.ui-x-small {
+        input::file-selector-button {
+          block-size: calc(100% - var(--ui-space-2));
+          margin-block-start: var(--ui-space-1);
         }
-      }
-    }
-
-    /* Autosuggest */
-    &:has(input[list]) {
-      .ui-label {
-        /* Make sure chevron is visible */
-        inline-size: calc(100% - var(--size-6));
-      }
-    }
-
-    /* Select */
-    &:has(select) {
-      .ui-label {
-        /* Make sure chevron is visible */
-        inline-size: calc(100% - var(--size-6));
       }
     }
 
     /* Customizable Select */
-    &:has(select button) {
-      select {
-        padding: 0;
+    @supports (appearance: base-select) {
+      &:has(select button) {
+        select {
+          align-self: auto;
+          block-size: auto;
+          min-block-size: 0;
+          padding: 0;
 
-        button {
-          outline: 0;
-          padding: var(--_field-padding-block) var(--size-8)
-            var(--_field-padding-block) var(--_field-padding-inline);
+          button {
+            outline: 0;
+            padding-block: var(--_field-padding-block-fit);
+            padding-inline: var(--_field-padding-inline) var(--_arrow-padding);
+          }
         }
       }
     }
 
     /* Non-customizable Select */
-    &:has(select):not(:has(button)) {
+    &:has(select) {
       select {
-        padding: var(--_field-padding-block) var(--size-8)
-          var(--_field-padding-block) var(--_field-padding-inline);
+        padding-block: var(--_field-padding-block-fit);
+        padding-inline: var(--_field-padding-inline) var(--_arrow-padding);
       }
     }
 
     /* Input - color */
     &:has(input[type="color"]) {
       .ui-field {
-        block-size: var(--_height);
-        inline-size: var(--_height);
+        block-size: var(--_size);
+        inline-size: var(--_size);
         min-block-size: 0;
         overflow: hidden;
       }
@@ -225,8 +236,8 @@
       input {
         appearance: none;
         background: none;
-        block-size: var(--_height);
-        inline-size: var(--_height);
+        block-size: var(--_size);
+        inline-size: var(--_size);
         overflow: hidden;
         padding: 0;
 
@@ -241,37 +252,63 @@
     }
 
     /* Element states */
-    &:hover {
-      &:not([data-invalid]) {
+    @media (hover: hover) {
+      &:hover:not(
+          :focus-within,
+          :has(
+            [aria-invalid="true"],
+            [readonly],
+            :user-invalid,
+            :is(input, select, textarea):is(:disabled, [aria-disabled="true"])
+          )
+        ) {
         .ui-field {
-          border-color: var(--text-primary);
+          border-color: var(--ui-text-strong);
         }
       }
     }
 
-    &:focus-within {
+    &:has(.ui-field > :is(input, select, textarea):focus-within):not(
+        :has(:focus-visible)
+      ) {
       .ui-field {
-        border-color: var(--_accent-color);
-        outline-offset: -2px;
+        border-color: var(--_accent);
+      }
+    }
+
+    .ui-field:has(> :is(input, select, textarea):focus-within):has(
+        :focus-visible
+      ) {
+      animation: ui-focus-ring var(--_duration) var(--_ease);
+      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+        var(--ui-focus-ring-color);
+      outline-offset: var(--ui-focus-ring-offset);
+    }
+
+    @media (forced-colors: active) {
+      &:has(.ui-field > :is(input, select, textarea):focus-within) .ui-field {
+        outline: var(--ui-focus-ring-width) solid Highlight;
       }
     }
 
     /* Label */
     .ui-label {
-      color: var(--text-primary);
-      font-size: var(--font-size-05);
-      font-weight: 600;
+      color: var(--ui-field-label-text-color);
+      font-size: var(--ui-field-label-font-size);
+      font-weight: var(--ui-field-label-font-weight);
       grid-column: 1/-1;
       grid-row: 1;
+      margin-block-end: var(--ui-space-1);
       padding-inline: 0 1ex;
     }
 
     :where(.ui-start-text) {
-      color: var(--_end-text-color);
-      font-size: var(--font-size-0);
+      color: var(--_helper-text-color);
+      font-size: var(--ui-field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 2;
-      line-height: 1.5;
+      line-height: var(--ui-field-helper-line-height);
+      margin-block-end: var(--ui-space-1);
     }
 
     &:not(.ui-spread):has(> .ui-start-text) {
@@ -286,22 +323,32 @@
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--_end-text-color);
-      font-size: var(--font-size-0);
+      color: var(--_helper-text-color);
+      font-size: var(--ui-field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 3;
-      line-height: 1.5;
+      line-height: var(--ui-field-helper-line-height);
+      margin-block-start: var(--ui-space-1);
+    }
+
+    :where(.ui-table) :where(td, th) > & {
+      min-inline-size: 12ch;
     }
 
     /* Auto-fit */
     &.ui-auto-fit {
-      inline-size: auto;
+      inline-size: fit-content;
+      max-inline-size: 100%;
+
+      :where(.ui-start-text, .ui-end-text) {
+        contain: inline-size;
+      }
 
       .ui-field {
         inline-size: auto;
       }
 
-      :where(& input, & textarea) {
+      :where(& input, & select, & textarea) {
         field-sizing: content;
         inline-size: auto;
         min-inline-size: 25ch;
@@ -309,41 +356,41 @@
     }
 
     /* Validation */
-    &[data-invalid],
-    &:has(:user-invalid) {
-      --_accent-color: var(--color-9);
-      --_border-color: var(--color-9);
-      --_filled-border-color: var(--color-9);
-      --_label-color: var(--color-9);
-      --_end-text-color: var(--color-9);
+    &:has([aria-invalid="true"], :user-invalid) {
+      --_accent: var(--ui-invalid);
+      --_affix-text-color: var(--ui-invalid-text);
+      --_border-color: var(--ui-invalid);
+      --_helper-text-color: var(--ui-invalid-text);
     }
 
     /*
   * Variant: Filled
   */
     &.ui-filled {
-      --_bg-color: var(--surface-tonal);
+      --_bg-color: var(--ui-surface-tonal);
 
-      &:not(:has([disabled], :has(input[type="color"]))) {
+      &:not(
+        :has(
+          :is(input, select, textarea):is(:disabled, [aria-disabled="true"]),
+          input[type="color"]
+        )
+      ) {
         /* Hover */
-        &:hover {
-          --_bg-color: light-dark(
-            oklch(from var(--surface-tonal) calc(l * 0.93) c h),
-            oklch(from var(--surface-tonal) calc(l * 1.1) c h)
-          );
+        @media (hover: hover) {
+          &:hover {
+            --_bg-color: var(--ui-surface-tonal-hover);
+          }
         }
       }
     }
 
     /* Disabled */
-    &:where(:has([disabled])) {
+    &:where(
+      :has(:is(input, select, textarea):is(:disabled, [aria-disabled="true"]))
+    ) {
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--ui-disabled-opacity);
       user-select: none;
-
-      &::before {
-        display: none;
-      }
 
       .ui-field {
         cursor: not-allowed;
@@ -366,12 +413,8 @@
 
     /* Read-only */
     &:where(:has([readonly])) {
-      &::before {
-        display: none;
-      }
-
       :where(input, textarea, select) {
-        cursor: not-allowed;
+        cursor: text;
 
         * {
           pointer-events: none;
@@ -380,13 +423,33 @@
     }
 
     /* Sizes */
+    &.ui-x-small {
+      --_field-padding-block: calc(var(--ui-space-1) * 0.75);
+      --_font-size: var(--ui-font-size-caption);
+      --_size: var(--ui-field-size-x-small);
+    }
+
     &.ui-small {
-      --_field-padding-block: var(--size-2);
-      --_height: var(--field-size-small);
+      --_field-padding-block: var(--ui-space-1);
+      --_font-size: var(--ui-font-size-small);
+      --_size: var(--ui-field-size-small);
+    }
+
+    &.ui-large {
+      --_field-padding-block: calc(var(--ui-space-2) * 1.5);
+      --_field-padding-inline: var(--ui-space-3);
+      --_size: var(--ui-field-size-large);
+    }
+
+    &.ui-small,
+    &.ui-x-small {
+      @media (pointer: coarse) {
+        --_font-size: var(--ui-font-size-control);
+      }
 
       &:has(input[type="color"]) {
         .ui-label {
-          line-height: 1.5;
+          line-height: var(--ui-line-height-control);
         }
       }
     }
@@ -394,40 +457,29 @@
     /* Orientation */
     &.ui-spread {
       align-items: start;
-      column-gap: var(--size-4);
+      column-gap: var(--ui-space-4);
       container-type: inline-size;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      inline-size: 100%;
 
       .ui-label {
-        font-weight: 600;
         grid-column: 1;
         grid-row: 1;
       }
 
       .ui-start-text {
-        color: var(--_end-text-color);
-        font-size: var(--font-size-0);
         grid-column: 1;
         grid-row: 2;
-        line-height: 1.5;
       }
 
       .ui-field {
         align-self: start;
         grid-column: 2;
-        grid-row: 1 / span 2;
-      }
-
-      .ui-field:has(textarea) {
         grid-row: 1 / span 3;
 
         + .ui-end-text {
           grid-row: 4;
         }
-      }
-
-      :where(textarea) {
-        min-inline-size: 30ch;
       }
 
       :where(.ui-end-text) {
@@ -436,31 +488,70 @@
       }
 
       /* Collapse to column on narrow containers */
-      @container (width < 400px) {
-        column-gap: 0;
-        grid-template-columns: 1fr;
-
-        .ui-label {
-          grid-column: 1;
-          grid-row: 1;
+      @container (inline-size < 400px) {
+        .ui-label,
+        .ui-start-text,
+        .ui-field,
+        :where(.ui-end-text) {
+          grid-column: 1 / -1;
         }
 
-        .ui-start-text {
-          grid-column: 1;
+        .ui-field {
           grid-row: 2;
         }
 
-        .ui-field,
-        .ui-field:has(textarea) {
-          grid-column: 1;
+        :where(.ui-end-text),
+        .ui-field + .ui-end-text {
           grid-row: 3;
-        }
-
-        :where(.ui-end-text) {
-          grid-column: 1;
-          grid-row: 4;
           text-align: start;
         }
+
+        &:has(> .ui-start-text) {
+          .ui-field {
+            grid-row: 3;
+          }
+
+          :where(.ui-end-text),
+          .ui-field + .ui-end-text {
+            grid-row: 4;
+          }
+        }
+      }
+    }
+  }
+
+  /* Autosuggest */
+  :where(.ui-text-field:has(input[list])) {
+    .ui-field {
+      position: relative;
+    }
+
+    /* Hide native arrow */
+    input[list]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+    }
+
+    input[list] {
+      padding-inline-end: var(--_arrow-padding);
+    }
+
+    .ui-field::after {
+      background-color: var(--ui-text-strong);
+      block-size: var(--_chevron-size);
+      content: "";
+      inline-size: var(--_chevron-size);
+      inset-block: 0;
+      inset-inline: auto var(--_arrow-inset);
+      margin-block: auto;
+      mask: var(--_chevron-image) center / contain no-repeat;
+      pointer-events: none;
+      position: absolute;
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
       }
     }
   }

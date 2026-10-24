@@ -1,40 +1,36 @@
 <script setup lang="ts">
 import Anchor from "../Anchor/Anchor.vue"
+import AnchorContent from "../Anchor/AnchorContent.vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { alignment, color, dot, invisible, label } = defineProps<Props>()
-defineSlots<Slots>()
-
-const positionArea =
-  alignment === "start-start"
-    ? "start start"
-    : alignment === "end-start"
-      ? "end start"
-      : alignment === "end-end"
-        ? "end end"
-        : undefined
+const { color, corner, dot, hideLabel, invisible, label } = defineProps<Props>()
+const slots = defineSlots<Slots>()
 </script>
 
 <template>
   <Anchor
-    :alignment="positionArea"
     :class="[
       'ui-badge',
       {
         'ui-dot': dot,
         'ui-invisible': invisible,
       },
-      alignment && `ui-${alignment}`,
       color && `ui-${color}`,
+      corner && corner !== 'start-end' && `ui-${corner}`,
       $props.class,
     ]"
   >
     <slot></slot>
-    <template #anchored>
-      <span class="ui-badge-indicator" :aria-label="label?.toString()">
-        {{ dot ? "" : label }}
-        <slot v-if="!dot" name="indicator"></slot>
+    <AnchorContent>
+      <span class="ui-indicator">
+        <template v-if="dot || hideLabel">
+          <span v-if="!dot && slots.indicator" aria-hidden="true">
+            <slot name="indicator"></slot>
+          </span>
+          <span v-if="label" class="ui-sr-only">{{ label }}</span>
+        </template>
+        <template v-else> {{ label }}<slot name="indicator"></slot> </template>
       </span>
-    </template>
+    </AnchorContent>
   </Anchor>
 </template>

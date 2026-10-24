@@ -1,10 +1,11 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import {
   ToggleButton as UIToggleButton,
   ToggleGroup as UIToggleGroup,
-} from "@opui/astro"
+} from "opui-css/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import ToggleGroupCSS from "@opui/css/components/toggle-group.css?raw"
 import ToggleButtonCSS from "@opui/css/components/toggle-button.css?raw"
@@ -12,16 +13,20 @@ import Conditional from "../../components/Conditional.astro"
 
 import toggleButtonApi from "../../component-api/toggle-button/api"
 import toggleGroupApi from "../../component-api/toggle-group/api"
+import ToggleBuild from "../../components/UnderTheHood/ToggleBuild.astro"
+export const description =
+  "Toggle buttons and toggle groups switch options on and off, alone or as a set."
 ---
 
 <Component
+  description={description}
   slug="toggle"
   heroAnatomy
   apis={[
     { title: "Toggle group API", api: toggleGroupApi },
     { title: "Toggle button API", api: toggleButtonApi },
   ]}
-  browserSupport={["color-mix", "light-dark", "relative-color"]}
+  browserSupport={["has", "light-dark", "relative-color", "scrollbar-width"]}
   changelogPaths={[
     {
       path: "packages/opui/components/ToggleButton/ToggleButton.astro",
@@ -41,7 +46,8 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
       path: "packages/opui/css/components/toggle-group.css",
       type: "css",
     },
-    { path: "src/component-api/toggle", type: "api" },
+    { path: "src/component-api/toggle-button", type: "api" },
+    { path: "src/component-api/toggle-group", type: "api" },
   ]}
   installationTabs={[
     {
@@ -59,6 +65,16 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
   <Fragment slot="title">Toggle</Fragment>
   <Fragment slot="preamble"
     >Buttons (disguised as input checkbox/radio) that can be toggled on and off.
+    Use them for options in a toolbar, like bold or text alignment. For a
+    setting that applies right away, use a <DocLink href="/components/switch"
+      >Switch</DocLink
+    >, and for choices in a form a <DocLink href="/components/checkbox"
+      >Checkbox</DocLink
+    >. To switch between panels of content, use <DocLink href="/components/tabs"
+      >Tabs</DocLink
+    >. For uncontrolled buttons that just run actions, use a <DocLink
+      href="/components/button-group">Button group</DocLink
+    >.
   </Fragment>
 
   <section>
@@ -67,9 +83,33 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
   </section>
 
   <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, <code>medium</code> (the default) and <code
+          >large</code
+        >. Set it on a <code>ToggleButton</code>, or on a <code
+          >ToggleGroup</code
+        > to size all its buttons.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>. Add the class to a <code
+          >.ui-toggle-button</code
+        >, or to a <code>.ui-toggle-group</code> to size all its buttons.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Sizes" centered row />
+  </section>
+
+  <section>
     <h2 id="toggle-group">Toggle group</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
+      <Fragment slot="components">
         Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
       </Fragment>
       <Fragment slot="html">
@@ -77,21 +117,15 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
           >&lt;div role="radiogroup" class="ui-toggle-group"&gt;</code
         > (or <code>role="group"</code> when multi-select).
       </Fragment>
-      <Fragment slot="vue">
-        Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
-      </Fragment>
     </Conditional>
 
     <h3 id="multi-select">Multi-select</h3>
     <Conditional>
+      <p slot="components">
+        Set <code>multiple</code> for multi-select groups.
+      </p>
       <p slot="html">
         Use <code>type="checkbox"</code> for multi-select groups.
-      </p>
-      <p slot="astro">
-        Use <code>selection="multiple"</code> for multi-select groups.
-      </p>
-      <p slot="vue">
-        Use <code>selection="multiple"</code> for multi-select groups.
       </p>
     </Conditional>
 
@@ -99,24 +133,104 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
 
     <h3 id="single-select">Single-select</h3>
     <Conditional>
-      <p slot="html">Use <code>type="radio"</code> for single-select groups.</p>
-      <p slot="astro">
-        Use <code>selection="single"</code> for single-select groups.
+      <p slot="components">
+        A group without <code>multiple</code> is single-select. Every button is a
+        radio then, and a <code>type</code> on a button is ignored. Set <code
+          >checked</code
+        > on the starting button, or <code>defaultChecked</code> in React.
       </p>
-      <p slot="vue">
-        Use <code>selection="single"</code> for single-select groups.
+      <p slot="html">
+        Use <code>type="radio"</code> for single-select groups. Add <code
+          >checked</code
+        > to the starting input.
       </p>
     </Conditional>
 
     <AutoExample name="Alignment" centered />
 
+    <h3 id="binding">Binding</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Astro renders the group on the server, so it has no bound value. The
+        selection lives in the inputs, which share the group's <code>name</code
+        >. Submit them with a form, where <code>FormData.get()</code> reads a single-select
+        group and <code>getAll()</code> a multi-select one, or read the checked inputs
+        in a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the <code>checked</code> buttons.
+      </Fragment>
+      <Fragment slot="html">
+        The selection lives in the inputs, which share a <code>name</code>.
+        Submit them with a form, where <code>FormData.get()</code> reads a radio group
+        and <code>getAll()</code> a checkbox group, or read the checked inputs in
+        a script on <code>change</code>. Set <code
+          >input.checked = input.defaultChecked</code
+        > to go back to the <code>checked</code> inputs in the markup.
+      </Fragment>
+      <Fragment slot="react">
+        Control the selection with <code>value</code> and <code
+          >onValueChange</code
+        > on the <code>ToggleGroup</code>, or set the starting selection with <code
+          >defaultValue</code
+        >. The value is a string, and an array of strings with <code
+          >multiple</code
+        >. A button is checked when its <code>value</code> is in it, so the buttons
+        don't need <code>defaultChecked</code>. A standalone <code
+          >ToggleButton</code
+        > takes <code>checked</code> with <code>onChange</code>, or <code
+          >defaultChecked</code
+        >, like any input.
+      </Fragment>
+      <Fragment slot="svelte">
+        Bind the selection with <code>bind:value</code> on the <code
+          >ToggleGroup</code
+        >. The value is a string, and an array of strings with <code
+          >multiple</code
+        >. A button is checked when its <code>value</code> is in it, and setting the
+        variable updates the buttons. A standalone <code>ToggleButton</code> binds
+        its checked state with <code>bind:checked</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Bind the selection with <code>v-model</code> on the <code
+          >ToggleGroup</code
+        >. The value is a string, and an array of strings with <code
+          >multiple</code
+        >. A button is checked when its <code>value</code> is in it, and setting the
+        ref updates the buttons. A standalone <code>ToggleButton</code> binds its
+        checked state with <code>v-model</code>.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Binding" centered column />
+
     <h3 id="text-icon">Text + icon</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Put an <code>svg</code> before the text in the slot. Icon-only buttons need
+        an <code>aria-label</code>, which the component passes to the input.
+      </Fragment>
+      <Fragment slot="html">
+        Put an <code>svg</code> before the text. Icon-only buttons need an <code
+          >aria-label</code
+        > on the input.
+      </Fragment>
+      <Fragment slot="react">
+        Put an <code>svg</code> before the text in <code>children</code>.
+        Icon-only buttons need an <code>aria-label</code>, which the component
+        passes to the input.
+      </Fragment>
+      <Fragment slot="svelte">
+        Put an <code>svg</code> before the text in <code>children</code>.
+        Icon-only buttons need an <code>aria-label</code>, which the component
+        passes to the input.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Interactive" centered />
 
     <h3 id="vertical-orientation">Vertical orientation</h3>
     <Conditional>
-      <p slot="astro">
+      <p slot="components">
         Change the layout of the group with the <code
           >orientation="vertical"</code
         > prop.
@@ -124,39 +238,52 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
       <p slot="html">
         Change the layout of the group with the <code>.ui-vertical</code> class.
       </p>
-      <p slot="vue">
-        Change the layout of the group with the <code
-          >orientation="vertical"</code
-        > prop.
-      </p>
     </Conditional>
     <AutoExample name="Vertical" centered />
 
-    <h3 id="sizes">Sizes</h3>
-    <p>
-      Choose between three sizes: default, <code>.ui-x-small</code> and <code
-        >.ui-small</code
-      >.
-    </p>
-
-    <AutoExample name="Sizes" centered row />
+    <h3 id="overflow">Overflow</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
+          >overflow="scroll"</code
+        > to keep them on one row and scroll them sideways, or <code
+          >overflow="shrink"</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="html">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Add <code
+          >.ui-overflow-scroll</code
+        > to keep them on one row and scroll them sideways, or <code
+          >.ui-overflow-shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Overflow" />
   </section>
+
+  <section>
+    <h2 id="disabled">Disabled</h2>
+    <p>
+      <code>disabled</code> on a toggle button dims it and skips it with Tab and the
+      arrow keys. <code>aria-disabled="true"</code> on the <code
+        >&lt;input&gt;</code
+      > looks the same, but keeps the toggle button focusable and its value in the
+      form. It doesn't stop the change, so block it with a script.
+    </p>
+    <AutoExample name="Disabled" centered />
+  </section>
+
+  <ToggleBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy api={toggleGroupApi} zoom={1.25}>
-      <UIToggleGroup name="toggle-anatomy" selection="single">
-        <UIToggleButton pressed type="radio">Day</UIToggleButton>
+      <UIToggleGroup name="toggle-anatomy">
+        <UIToggleButton checked type="radio">Day</UIToggleButton>
         <UIToggleButton type="radio">Week</UIToggleButton>
         <UIToggleButton type="radio">Month</UIToggleButton>
       </UIToggleGroup>
     </Anatomy>
   </Fragment>
 </Component>
-
-<style is:global>
-  .ui-toggle-group
-    .ui-toggle-button:has(input:checked).has-text
-    svg:nth-of-type(2) {
-    display: none;
-  }
-</style>

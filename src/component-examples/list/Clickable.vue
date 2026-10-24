@@ -4,14 +4,11 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem as="button" headline="Button list item" />
-    <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
-    <ListItem
-      type="checkbox"
-      for="clickable-checkbox"
-      headline="Checkbox list item"
-    >
-      <template #end><CheckboxInput id="clickable-checkbox" /></template>
+    <ListItem as="button" label="Button list item" />
+    <ListItem as="button" disabled label="Archived" />
+    <ListItem href="#clickable-list-item" label="Link list item" />
+    <ListItem type="checkbox" label="Checkbox list item">
+      <template #end><CheckboxInput /></template>
     </ListItem>
   </List>
 </template>

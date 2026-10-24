@@ -1,0 +1,99 @@
+@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
+@layer theme.palette, theme.base, theme.custom;
+
+@layer theme.custom {
+  :where(html, .ui-palette, .ui-contrast-more) {
+    --ui-backdrop-bg-color: rgb(0 0 0 / 0.32);
+    --ui-backdrop-blur: 0px;
+    --ui-border-color: light-dark(#cac4d0, #49454f);
+    --ui-border-color-on-raised: var(--ui-border-color);
+    --ui-border-color-raised: transparent;
+    --ui-radius: 0.75rem;
+    --ui-button-accent: var(--ui-primary);
+    --ui-button-on-accent: var(--ui-on-primary);
+    --ui-button-radius: var(--radius-round);
+    --ui-button-font-weight: var(--font-weight-5);
+    --ui-button-hover: layer;
+    --ui-button-hover-shadow:
+      0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+    --ui-button-padding-inline: 1.5rem;
+    --ui-button-padding-inline-large: 1.5rem;
+    --ui-button-padding-inline-small: 1rem;
+    --ui-button-padding-inline-x-small: 0.75rem;
+    --ui-chip-radius: 0.5rem;
+    --ui-choice-accent: var(--ui-primary);
+    --ui-choice-on-accent: var(--ui-on-primary);
+    --ui-choice-ripple-bg-color: light-dark(
+      rgb(29 27 32 / 0.08),
+      rgb(230 224 233 / 0.08)
+    );
+    --ui-choice-size: calc(18px * var(--ui-density));
+    --ui-control-border-color: var(--ui-field-border-color);
+    --ui-critical: light-dark(#b3261e, #f2b8b5);
+    --ui-dialog-radius: 1.75rem;
+    --ui-duration: 0.3s;
+    --ui-duration-slow: 0.5s;
+    --ui-ease: cubic-bezier(0.2, 0, 0, 1);
+    --ui-ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);
+    --ui-ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);
+    --ui-field-border-color: light-dark(#79747e, #938f99);
+    --ui-field-border-color-on-filled: var(--ui-field-border-color);
+    --ui-field-border-color-on-raised: var(--ui-field-border-color);
+    --ui-field-padding-inline: 1rem;
+    --ui-field-radius: 0.25rem;
+    --ui-focus-ring-color: light-dark(#625b71, #ccc2dc);
+    --ui-focus-ring-width: 3px;
+    --ui-font-body: Roboto, var(--font-neo-grotesque);
+    --ui-font-size-control: 0.875rem;
+    --ui-font-size-h1: 2.8125rem;
+    --ui-font-size-h2: 2.25rem;
+    --ui-font-size-h3: 2rem;
+    --ui-font-size-h4: 1.75rem;
+    --ui-font-size-h5: 1.5rem;
+    --ui-font-size-h6: 1.375rem;
+    --ui-font-weight-bold: var(--font-weight-5);
+    --ui-font-weight-semibold: var(--font-weight-5);
+    --ui-gray-chroma: 0.012;
+    --ui-gray-hue: 300;
+    --ui-letter-spacing-display: 0;
+    --ui-letter-spacing-heading: 0;
+    --ui-line-height: 1.5;
+    --ui-line-height-relaxed: 1.5;
+    --ui-menu-radius: 0.25rem;
+    --ui-on-inverse: light-dark(#f5eff7, #322f35);
+    --ui-palette-source: #6750a4;
+    --ui-primary: light-dark(#6750a4, #d0bcff);
+    --ui-on-primary: light-dark(#fff, #381e72);
+    --ui-primary-text: light-dark(#6750a4, #d0bcff);
+    --ui-primary-tonal: light-dark(#eaddff, #4f378b);
+    --ui-on-primary-tonal: light-dark(#21005d, #eaddff);
+    --ui-selected: var(--ui-surface-tonal);
+    --ui-on-selected: var(--ui-text-strong);
+    --ui-shadow-overlay:
+      0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+    --ui-shadow-elevated-dark:
+      0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+    --ui-shadow-elevated-light:
+      0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+    --ui-shadow-scroll:
+      0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+    --ui-shadow-selected: none;
+    --ui-state-active-alpha-accent: 10%;
+    --ui-state-active-alpha-dark: 10%;
+    --ui-state-active-alpha-light: 10%;
+    --ui-state-hover-alpha-accent: 8%;
+    --ui-state-hover-alpha-dark: 8%;
+    --ui-state-hover-alpha-light: 8%;
+    --ui-surface: light-dark(#fef7ff, #141218);
+    --ui-surface-elevated: light-dark(#f7f2fa, #1d1b20);
+    --ui-surface-filled: light-dark(#e6e0e9, #36343b);
+    --ui-surface-inverse: light-dark(#322f35, #e6e0e9);
+    --ui-surface-tonal: light-dark(#e8def8, #4a4458);
+    --ui-switch-thumb-bg-color: light-dark(#79747e, #938f99);
+    --ui-switch-track-block-size: calc(2rem * var(--ui-density));
+    --ui-switch-track-inline-size: calc(3.25rem * var(--ui-density));
+    --ui-text: light-dark(#49454f, #cac4d0);
+    --ui-text-strong: light-dark(#1d1b20, #e6e0e9);
+    --ui-track-bg-color: light-dark(#e6e0e9, #36343b);
+  }
+}

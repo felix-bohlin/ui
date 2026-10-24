@@ -1,9 +1,13 @@
 <form class="ui-form">
-  <fieldset class="ui-fieldset" data-invalid>
+  <fieldset
+    aria-describedby="switch-field-group-validation-1-error"
+    class="ui-fieldset"
+  >
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-horizontal">
       <label class="ui-switch">
         <input
+          aria-invalid="true"
           name="switch-field-group-validation"
           type="checkbox"
           role="switch"
@@ -12,6 +16,7 @@
       </label>
       <label class="ui-switch">
         <input
+          aria-invalid="true"
           name="switch-field-group-validation"
           type="checkbox"
           role="switch"
@@ -20,6 +25,7 @@
       </label>
       <label class="ui-switch">
         <input
+          aria-invalid="true"
           name="switch-field-group-validation"
           type="checkbox"
           role="switch"
@@ -27,6 +33,8 @@
         <span class="ui-label">Switch 3</span>
       </label>
     </div>
-    <span class="ui-end-text">Something went wrong!</span>
+    <span class="ui-end-text" id="switch-field-group-validation-1-error"
+      >Turn on at least one to continue.</span
+    >
   </fieldset>
 </form>

@@ -1,0 +1,12 @@
+---
+type Props = {
+  class: string
+  prop: string
+}
+
+const { class: className, prop } = Astro.props
+
+const currentFramework = Astro.locals.framework
+---
+
+<code>{currentFramework === "html" ? className : prop}</code>

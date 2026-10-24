@@ -5,22 +5,24 @@ import { Textarea } from "opui-css/vue"
 <template>
   <div class="example-row">
     <Textarea label="Label" placeholder="Default" required />
-    <Textarea label="Label" placeholder="Filled" required filled />
+    <Textarea label="Label" placeholder="Filled" required variant="filled" />
   </div>
 
   <div class="example-row">
     <Textarea
       label="Label"
       placeholder="Default"
+      value="This isn't right"
       endText="Only double-negatives are allowed."
       error
     />
     <Textarea
       label="Label"
       placeholder="Filled"
+      value="Uh-oh"
       endText="Only letters from the first half of the alphabet are allowed."
       error
-      filled
+      variant="filled"
     />
   </div>
 </template>

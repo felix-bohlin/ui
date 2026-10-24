@@ -1,0 +1,142 @@
+---
+const layers = [
+  { name: "openprops", note: "Open Props scales" },
+  {
+    name: "theme",
+    sublayers: [
+      { name: "theme.palette", note: "palette.css" },
+      { name: "theme.base", note: "theme.css" },
+      { name: "theme.custom", note: "Your theme", yours: true },
+    ],
+  },
+  { name: "normalize", note: "Reset and focus ring" },
+  {
+    name: "components",
+    sublayers: [
+      { name: "components.prose", note: "Rich text" },
+      { name: "components.root", note: "Button, Checkbox" },
+      { name: "components.extended", note: "Badge, Dialog, Select" },
+    ],
+  },
+  { name: "utils", note: "Utility classes" },
+  { name: "Unlayered", note: "Your overrides", yours: true },
+]
+---
+
+<figure class="layer-stack ui-not-rich-text">
+  <ol>
+    {
+      layers.map((layer) => (
+        <li data-yours={layer.yours ? "" : undefined}>
+          {layer.name === "Unlayered" ? (
+            <span class="name">{layer.name}</span>
+          ) : (
+            <code class="name">{layer.name}</code>
+          )}
+          {layer.note && <span class="note">{layer.note}</span>}
+          {layer.sublayers && (
+            <ol>
+              {layer.sublayers.map((sublayer) => (
+                <li data-yours={sublayer.yours ? "" : undefined}>
+                  <code class="name">{sublayer.name}</code>
+                  <span class="note">{sublayer.note}</span>
+                </li>
+              ))}
+            </ol>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+  <figcaption>Each layer beats the ones above it.</figcaption>
+</figure>
+
+<style>
+  .layer-stack {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--size-3);
+    margin-block: var(--size-5);
+    place-items: stretch;
+  }
+
+  ol {
+    display: grid;
+    gap: var(--size-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .layer-stack > ol {
+    padding-inline-start: var(--size-6);
+    position: relative;
+
+    &::before {
+      background-image: linear-gradient(transparent, var(--ui-primary));
+      border-radius: var(--radius-round);
+      content: "";
+      inline-size: 3px;
+      inset-block: var(--size-2);
+      inset-inline-start: var(--size-2);
+      position: absolute;
+    }
+
+    &::after {
+      border-block-start: 8px solid var(--ui-primary);
+      border-inline: 6px solid transparent;
+      content: "";
+      inset-block-end: 0;
+      inset-inline-start: calc(var(--size-2) - 4.5px);
+      position: absolute;
+    }
+  }
+
+  li {
+    align-items: center;
+    background-color: var(--ui-surface-tonal);
+    border: var(--ui-border-width) solid transparent;
+    border-radius: var(--ui-radius-small);
+    column-gap: var(--size-3);
+    display: grid;
+    grid-template-columns: minmax(9rem, auto) 1fr;
+    padding: var(--size-2) var(--size-3);
+    row-gap: var(--size-2);
+  }
+
+  li li {
+    background-color: var(--ui-surface);
+  }
+
+  li > ol {
+    grid-column: 1 / -1;
+  }
+
+  [data-yours] {
+    background-color: var(--ui-palette-tint-subtle);
+    border-color: var(--ui-primary);
+    border-style: dashed;
+  }
+
+  .name {
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .note {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+  }
+
+  figcaption {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    text-align: start;
+  }
+
+  @container (width < 24rem) {
+    li {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

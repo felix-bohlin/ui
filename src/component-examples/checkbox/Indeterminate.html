@@ -1,20 +1,20 @@
-<fieldset class="ui-fieldset indeterminate-demo">
+<fieldset class="ui-fieldset">
   <legend>
-    <label class="ui-checkbox parent">
+    <label class="ui-checkbox">
       <input type="checkbox" data-indeterminate />
       <span class="ui-label">Select all</span>
     </label>
   </legend>
-  <div class="ui-field-group" role="group">
-    <label class="ui-checkbox child">
+  <div class="ui-field-group">
+    <label class="ui-checkbox">
       <input name="indeterminate-children" type="checkbox" checked />
       <span class="ui-label">Apples</span>
     </label>
-    <label class="ui-checkbox child">
+    <label class="ui-checkbox">
       <input name="indeterminate-children" type="checkbox" />
       <span class="ui-label">Bananas</span>
     </label>
-    <label class="ui-checkbox child">
+    <label class="ui-checkbox">
       <input name="indeterminate-children" type="checkbox" />
       <span class="ui-label">Cherries</span>
     </label>
@@ -22,30 +22,27 @@
 </fieldset>
 
 <script>
-  function setupIndeterminateDemoHtml() {
-    document.querySelectorAll(".indeterminate-demo").forEach((root) => {
-      const parent = root.querySelector('.parent input[type="checkbox"]')
-      const children = Array.from(
-        root.querySelectorAll('.child input[type="checkbox"]'),
-      )
-      if (!parent || children.length === 0) return
+  {
+    document
+      .querySelectorAll("fieldset:has(> legend input[data-indeterminate])")
+      .forEach((root) => {
+        const parent = root.querySelector("legend input")
+        const children = [...root.querySelectorAll(".ui-field-group input")]
+        if (!parent || children.length === 0) return
 
-      const sync = () => {
-        const checkedCount = children.filter((c) => c.checked).length
-        parent.checked = checkedCount === children.length
-        parent.indeterminate =
-          checkedCount > 0 && checkedCount < children.length
-      }
+        const sync = () => {
+          const checkedCount = children.filter((c) => c.checked).length
+          parent.checked = checkedCount === children.length
+          parent.indeterminate =
+            checkedCount > 0 && checkedCount < children.length
+        }
 
-      parent.addEventListener("change", () => {
-        children.forEach((c) => (c.checked = parent.checked))
-        parent.indeterminate = false
+        parent.addEventListener("change", () => {
+          children.forEach((c) => (c.checked = parent.checked))
+          parent.indeterminate = false
+        })
+        children.forEach((c) => c.addEventListener("change", sync))
+        sync()
       })
-      children.forEach((c) => c.addEventListener("change", sync))
-      sync()
-    })
   }
-
-  setupIndeterminateDemoHtml()
-  document.addEventListener("astro:after-swap", setupIndeterminateDemoHtml)
 </script>

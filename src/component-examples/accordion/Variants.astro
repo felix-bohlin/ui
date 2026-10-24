@@ -1,39 +1,58 @@
 ---
-import { Accordion } from "@opui/astro"
+import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
 ---
 
 <Accordion>
-  <Fragment slot="summary">Text</Fragment>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-    neque ante id justo.
-  </p>
+  <AccordionSummary>Plain</AccordionSummary>
+  <AccordionContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
+  </AccordionContent>
 </Accordion>
 
 <Accordion variant="elevated">
-  <Fragment slot="summary">Elevated</Fragment>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-    neque ante id justo.
-  </p>
+  <AccordionSummary>Elevated</AccordionSummary>
+  <AccordionContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
+  </AccordionContent>
 </Accordion>
 
 <Accordion variant="outlined">
-  <Fragment slot="summary">Outlined</Fragment>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-    neque ante id justo.
-  </p>
+  <AccordionSummary>Outlined</AccordionSummary>
+  <AccordionContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
+  </AccordionContent>
 </Accordion>
 
 <Accordion variant="tonal">
-  <Fragment slot="summary">Tonal</Fragment>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-    neque ante id justo.
-  </p>
+  <AccordionSummary>Tonal</AccordionSummary>
+  <AccordionContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
+  </AccordionContent>
+</Accordion>
+
+<Accordion variant="transparent">
+  <AccordionSummary>Transparent</AccordionSummary>
+  <AccordionContent>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+      neque ante id justo.
+    </p>
+  </AccordionContent>
 </Accordion>

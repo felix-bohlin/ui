@@ -1,35 +1,38 @@
 <script setup lang="ts">
-import { provide, useId } from "vue"
-import { ToggleGroupKey, type Props, type Slots } from "./types.d.vue"
+import { computed, provide, reactive, useId } from "vue"
+import { ToggleGroupKey } from "./context.vue"
+import { selectionOf } from "./selection"
+import type { Props, Slots } from "./types.d.vue"
 
-const {
-  name,
-  orientation,
-  selection = "multiple",
-  size = "default",
-} = defineProps<Props>()
+const { multiple, name, orientation, overflow, size } = defineProps<Props>()
 defineSlots<Slots>()
+const model = defineModel<string | string[]>()
 
-defineOptions({
-  inheritAttrs: false,
-})
+const uid = useId()
+const groupName = computed(() => name || `toggle-group-${uid}`)
+const inputType = computed(() => (multiple ? "checkbox" : "radio"))
+const change = (input: HTMLInputElement) => {
+  if (model.value !== undefined) model.value = selectionOf(input, multiple)
+}
 
-const groupName = name || useId()
-const inputType = selection === "single" ? "radio" : "checkbox"
-
-provide(ToggleGroupKey, { name: groupName, type: inputType })
+provide(
+  ToggleGroupKey,
+  reactive({ change, groupName, inputType, value: model }),
+)
 </script>
 
 <template>
   <div
     :class="[
       'ui-toggle-group',
-      size !== 'default' && size && `ui-${size}`,
-      orientation && `ui-${orientation}`,
+      {
+        'ui-vertical': orientation === 'vertical',
+      },
+      overflow && overflow !== 'wrap' && `ui-overflow-${overflow}`,
+      size && size !== 'medium' && `ui-${size}`,
       $props.class,
     ]"
-    :role="selection === 'single' ? 'radiogroup' : 'group'"
-    v-bind="$attrs"
+    :role="multiple ? 'group' : 'radiogroup'"
   >
     <slot></slot>
   </div>

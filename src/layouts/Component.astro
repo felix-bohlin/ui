@@ -1,21 +1,39 @@
 ---
 import Document from "./Document.astro"
-import { components, componentHrefFor } from "../utils/components"
+import { componentsFor, componentHrefFor } from "../utils/components"
 import FrameworkPicker from "../components/FrameworkPicker.astro"
 import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
-import ComponentAPI from "../components/ComponentAPI.astro"
+import ComponentAPI, { type Apis } from "../components/ComponentAPI.astro"
+import type { AstroInstance } from "astro"
+import ComponentProperties from "../components/ComponentProperties.astro"
+import HydrationChip from "../components/HydrationChip.astro"
+import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
-import { Button, Chip, Divider, List, ListItem } from "@opui/astro"
+import Pagination from "../components/Pagination.astro"
+import {
+  Button,
+  Callout,
+  CalloutContent,
+  CalloutIcon,
+  Chip,
+  Divider,
+  List,
+  ListItem,
+} from "opui-css/astro"
+import { componentImports, packageFor } from "../utils/component-imports"
+import {
+  checkExports,
+  reportProblems,
+  shipped,
+} from "../utils/component-source"
 import {
   getComponentChangelog,
   type ChangelogPathEntry,
 } from "../utils/changelog"
-import {
-  DEFAULT_FRAMEWORK,
-  FRAMEWORKS,
-  type FrameworkId,
-} from "../utils/framework-routing"
+import { FRAMEWORKS, isHydratedFramework } from "../utils/framework"
+import { posts } from "../utils/learn-posts"
+import { isWhatsNewHighlighted, whatsNewFor } from "../utils/whats-new"
 
 type Props = {
   title?: string
@@ -24,7 +42,7 @@ type Props = {
   overline?: string
   browserSupport?: string[]
   slug?: string
-  apis?: any | any[] | "auto"
+  apis?: Apis
   changelogPaths?: ChangelogPathEntry[]
   heroAnatomy?: boolean
   installationTabs?: Tab[]
@@ -47,8 +65,7 @@ const {
   image,
 } = Astro.props
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 const { link } = Astro.locals
 
@@ -61,12 +78,22 @@ const urlSlug = Astro.url.pathname
 const currentSlug = slugProp ?? urlSlug
 Astro.locals.componentSlug = currentSlug
 
-const apiModules = import.meta.glob("../component-api/**/*.astro", {
-  eager: true,
-}) as Record<string, { default: any }>
+const apiModules = import.meta.glob<AstroInstance>(
+  "../component-api/**/*.astro",
+  { eager: true },
+)
 
-const autoApis = (() => {
+const apiData = import.meta.glob<ComponentApi>("../component-api/*/api.ts", {
+  eager: true,
+  import: "default",
+})
+
+reportProblems(checkExports(Object.values(apiData)))
+
+const autoApis = ((): Apis | null => {
   if (!currentSlug) return null
+  const api = apiData[`../component-api/${currentSlug}/api.ts`]
+  if (api) return [{ api }]
   const entries = FRAMEWORKS.map((f) => {
     const mod = apiModules[`../component-api/${currentSlug}/${f.label}.astro`]
     return [f.id, mod?.default] as const
@@ -74,23 +101,59 @@ const autoApis = (() => {
   return entries.length > 0 ? Object.fromEntries(entries) : null
 })()
 
-const apis = apisProp === "auto" ? autoApis : (apisProp ?? autoApis)
+const apis = apisProp ?? autoApis
 
+const hydrationFramework = isHydratedFramework(currentFramework)
+  ? currentFramework
+  : undefined
+const hydrationApis = hydrationFramework
+  ? [apis ?? []]
+      .flat()
+      .flatMap((entry) => ("api" in entry ? [entry.api] : []))
+      .filter((api) => shipped(api, hydrationFramework))
+  : []
+
+const components = componentsFor(currentFramework)
 const currentIndex = components.findIndex(
   (component) => component.slug === currentSlug,
 )
-const prevComponent = components[currentIndex - 1]
-const nextComponent = components[currentIndex + 1]
+const isComponentPage = currentIndex !== -1
+const prevComponent = isComponentPage ? components[currentIndex - 1] : undefined
+const nextComponent = isComponentPage ? components[currentIndex + 1] : undefined
 
 const githubRepo = "https://github.com/felix-bohlin/ui"
 const editUrl = `${githubRepo}/edit/main/src/docs/components/${currentSlug}.astro`
 
+const whatsNew = currentSlug ? whatsNewFor(currentFramework, currentSlug) : []
+
 const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
+
+const imports =
+  currentSlug && currentFramework !== "html"
+    ? {
+        names: componentImports(currentFramework, currentSlug),
+        package: packageFor(currentFramework),
+      }
+    : undefined
+
+const learnPosts = currentSlug
+  ? posts.filter((post) => post.component === currentSlug)
+  : []
 ---
 
 <Document
   overline={overline}
   showToc={showToc}
+  sidebarGroups={[
+    {
+      label: "Components",
+      links: components.map((component) => ({
+        href: componentHrefFor(currentFramework, component.slug),
+        isNew: isWhatsNewHighlighted(currentFramework, component.slug),
+        label: component.name,
+      })),
+    },
+  ]}
   title={title}
   description={description}
   image={image}
@@ -99,34 +162,18 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 
   <Divider variant="tonal" slot="sidebar" />
 
-  <nav slot="sidebar">
-    <h3>Components</h3>
-    <menu>
-      {
-        components.map((component) => {
-          const href = componentHrefFor(currentFramework, component.slug)
-          return (
-            <li>
-              <a
-                href={href}
-                title={component.name}
-                aria-current={
-                  component.slug === currentSlug ? "page" : undefined
-                }
-              >
-                {component.name}
-              </a>
-            </li>
-          )
-        })
-      }
-    </menu>
-  </nav>
-
   <slot name="title" slot="title" />
   <slot name="preamble" slot="preamble" />
 
-  {browserSupport && <BrowserSupportChips ids={browserSupport} />}
+  {
+    (browserSupport || hydrationApis.length > 0) && (
+      <BrowserSupportChips ids={browserSupport ?? []}>
+        {hydrationApis.length > 0 && (
+          <HydrationChip apis={hydrationApis} framework={hydrationFramework!} />
+        )}
+      </BrowserSupportChips>
+    )
+  }
 
   {
     heroAnatomy && Astro.slots.has("anatomy") && (
@@ -161,11 +208,32 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 
   {apis && <ComponentAPI apis={apis} />}
 
+  {currentSlug && <ComponentProperties slug={currentSlug} />}
+
+  {
+    Astro.slots.has("under-the-hood") && (
+      <section>
+        <h2 id="under-the-hood">Under the hood</h2>
+        {learnPosts.map((learnPost) => (
+          <p>
+            Read the post:
+            <a href={link(`/learn/${learnPost.slug}`)}>{learnPost.title}</a>
+          </p>
+        ))}
+        <slot name="under-the-hood" />
+      </section>
+    )
+  }
+
   {browserSupport && <BrowserSupport ids={browserSupport} />}
 
   {
     installationTabs ? (
-      <Installation tabs={installationTabs}>
+      <Installation
+        imports={imports}
+        slug={currentSlug}
+        tabs={installationTabs}
+      >
         <slot name="installation" />
       </Installation>
     ) : (
@@ -195,43 +263,58 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   }
 
   {
-    changelog.length > 0 && (
+    (whatsNew.length > 0 || changelog.length > 0) && (
       <section>
         <h2 id="changelog">Changelog</h2>
-        <div class="ui-not-rich-text">
-          <List id="changelog-list" bordered gutterless variant="transparent">
-            {changelog.map((entry, index) => (
-              <ListItem
-                as="a"
-                class={index >= 5 ? "changelog-extra" : undefined}
-                href={`https://github.com/felix-bohlin/ui/commit/${entry.hash}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                headline={entry.message}
+        {whatsNew.length > 0 && (
+          <Callout severity="info" variant="tonal" class="whats-new">
+            <CalloutIcon />
+            <CalloutContent>
+              <h3>What's new</h3>
+              <ul>
+                {whatsNew.map((note) => (
+                  <li set:html={note} />
+                ))}
+              </ul>
+            </CalloutContent>
+          </Callout>
+        )}
+        {changelog.length > 0 && (
+          <div class="ui-not-rich-text">
+            <List id="changelog-list" bordered flush variant="transparent">
+              {changelog.map((entry, index) => (
+                <ListItem
+                  as="a"
+                  class={index >= 5 ? "changelog-extra" : undefined}
+                  href={`https://github.com/felix-bohlin/ui/commit/${entry.hash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  label={entry.message}
+                >
+                  <time slot="end" datetime={entry.date}>
+                    {entry.relativeDate}
+                  </time>
+                  {entry.types.length > 0 && (
+                    <span class="changelog-types">
+                      {entry.types.map((type) => (
+                        <Chip label={type} variant="outlined" size="small" />
+                      ))}
+                    </span>
+                  )}
+                </ListItem>
+              ))}
+            </List>
+            {changelog.length > 5 && (
+              <Button
+                id="changelog-toggle"
+                variant="outlined"
+                data-more-count={changelog.length - 5}
               >
-                <time slot="end" datetime={entry.date}>
-                  {entry.relativeDate}
-                </time>
-                {entry.types.length > 0 && (
-                  <span slot="text" class="changelog-types">
-                    {entry.types.map((type) => (
-                      <Chip label={type} variant="outlined" size="small" />
-                    ))}
-                  </span>
-                )}
-              </ListItem>
-            ))}
-          </List>
-          {changelog.length > 5 && (
-            <Button
-              id="changelog-toggle"
-              variant="outlined"
-              data-more-count={changelog.length - 5}
-            >
-              Show {changelog.length - 5} more
-            </Button>
-          )}
-        </div>
+                Show {changelog.length - 5} more
+              </Button>
+            )}
+          </div>
+        )}
       </section>
     )
   }
@@ -239,75 +322,36 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   <footer class="component-footer ui-not-rich-text">
     <hr class="ui-divider" />
 
-    <Button href={editUrl} target="_blank" size="small">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 32 32"
-        width="1.2em"
-        height="1.2em"
-      >
-        <path
-          fill="currentColor"
-          d="M28.565 3.434a4.89 4.89 0 0 0-6.915 0L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l17.295-17.295a4.89 4.89 0 0 0 0-6.914m-5.5 1.414a2.89 2.89 0 0 1 4.085 4.086l-.9.9l-4.086-4.085zm-2.316 2.315l4.086 4.086L9.857 26.23a1.7 1.7 0 0 1-.846.46L4.3 27.7l1.01-4.71a1.7 1.7 0 0 1 .46-.846z"
-        ></path></svg
-      >
-      Edit page
-    </Button>
+    {
+      isComponentPage && (
+        <Button href={editUrl} target="_blank" size="small">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 32 32"
+            width="1.2em"
+            height="1.2em"
+          >
+            <path
+              fill="currentColor"
+              d="M28.565 3.434a4.89 4.89 0 0 0-6.915 0L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l17.295-17.295a4.89 4.89 0 0 0 0-6.914m-5.5 1.414a2.89 2.89 0 0 1 4.085 4.086l-.9.9l-4.086-4.085zm-2.316 2.315l4.086 4.086L9.857 26.23a1.7 1.7 0 0 1-.846.46L4.3 27.7l1.01-4.71a1.7 1.7 0 0 1 .46-.846z"
+            />
+          </svg>
+          <span>Edit page</span>
+        </Button>
+      )
+    }
 
-    <nav class="pagination">
-      {
-        prevComponent ? (
-          <a
-            href={componentHrefFor(currentFramework, prevComponent.slug)}
-            class="pagination-link prev"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              viewBox="0 0 32 32"
-            >
-              <path
-                fill="currentColor"
-                d="M3 16a1 1 0 0 1 1-1h21.586l-8.293-8.293a1 1 0 0 1 1.414-1.414l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L25.586 17H4a1 1 0 0 1-1-1"
-              />
-            </svg>
-            <div class="ui-hgroup">
-              <p class="ui-overline">Previous</p>
-              <p class="ui-h3">{prevComponent.name}</p>
-            </div>
-          </a>
-        ) : (
-          <div class="spacer" />
-        )
-      }
-      {
-        nextComponent ? (
-          <a
-            href={componentHrefFor(currentFramework, nextComponent.slug)}
-            class="pagination-link next"
-          >
-            <div class="ui-hgroup">
-              <p class="ui-overline">Next</p>
-              <p class="ui-h3">{nextComponent.name}</p>
-            </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              viewBox="0 0 32 32"
-            >
-              <path
-                fill="currentColor"
-                d="M3 16a1 1 0 0 1 1-1h21.586l-8.293-8.293a1 1 0 0 1 1.414-1.414l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L25.586 17H4a1 1 0 0 1-1-1"
-              />
-            </svg>
-          </a>
-        ) : (
-          <div class="spacer" />
-        )
-      }
-    </nav>
+    <Pagination
+      label="Component pages"
+      next={nextComponent && {
+        href: componentHrefFor(currentFramework, nextComponent.slug),
+        label: nextComponent.name,
+      }}
+      prev={prevComponent && {
+        href: componentHrefFor(currentFramework, prevComponent.slug),
+        label: prevComponent.name,
+      }}
+    />
   </footer>
 
   <style>
@@ -332,68 +376,6 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
       .ui-button {
         inline-size: fit-content;
       }
-
-      .pagination {
-        display: grid;
-        gap: var(--size-4);
-        grid-template-columns: repeat(auto-fit, minmax(min(33ch, 100%), 1fr));
-
-        .pagination-link {
-          align-items: center;
-          border-radius: var(--radius-3);
-          border: 1px solid var(--border-color);
-          color: var(--text-primary);
-          display: flex;
-          gap: var(--size-4);
-          padding: var(--size-4);
-          text-decoration: none;
-          transition: background-color 0.2s ease;
-
-          /* @supports (corner-shape: squircle) {
-          border-radius: 0;
-          corner-shape: squircle;
-        } */
-
-          &:hover {
-            background-color: var(--surface-tonal);
-          }
-
-          hgroup {
-            margin: 0;
-
-            p {
-              color: var(--text-muted);
-              font-size: var(--font-size-0);
-              font-weight: 500;
-              margin: 0;
-              text-transform: none;
-            }
-
-            h3 {
-              font-size: var(--font-size-4);
-              margin: 0;
-            }
-          }
-
-          svg {
-            align-items: center;
-            color: var(--text-muted);
-            display: inline-flex;
-            font-size: var(--font-size-5);
-          }
-
-          &.prev {
-            svg {
-              rotate: 180deg;
-            }
-          }
-
-          &.next {
-            justify-content: end;
-            text-align: end;
-          }
-        }
-      }
     }
   </style>
 
@@ -411,6 +393,10 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 
     :global(#changelog-list:not([data-expanded]) .changelog-extra) {
       display: none;
+    }
+
+    .whats-new {
+      margin-block-end: var(--size-4);
     }
   </style>
 </Document>

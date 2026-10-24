@@ -1,15 +1,17 @@
 ---
-import { Checkbox } from "@opui/astro"
-import { FieldDescription } from "@opui/astro"
-import { FieldGroup } from "@opui/astro"
-import { FieldLegend } from "@opui/astro"
-import { FieldSet } from "@opui/astro"
-import { Form } from "@opui/astro"
-import { Radio } from "@opui/astro"
+import {
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Radio,
+} from "opui-css/astro"
 ---
 
 <Form>
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Choose your favorite Radiohead album</FieldLegend>
     <FieldDescription>There are no wrong answers.</FieldDescription>
     <FieldGroup name="albums">
@@ -18,18 +20,12 @@ import { Radio } from "@opui/astro"
       <Radio value="in-rainbows">In Rainbows</Radio>
       <Radio value="king-of-limbs">The King of Limbs</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Which side projects do you follow?</FieldLegend>
     <FieldDescription>Some are better than others.</FieldDescription>
     <FieldGroup name="projects">
-      <Checkbox value="the-smile">
-        The Smile
-        <Fragment slot="end-text"
-          >Thom Yorke, Jonny Greenwood, Tom Skinner</Fragment
-        >
-      </Checkbox>
       <Checkbox value="atoms-for-peace">
         Atoms for Peace
         <Fragment slot="end-text">Thom Yorke, Flea, Nigel Godrich</Fragment>
@@ -47,6 +43,12 @@ import { Radio } from "@opui/astro"
         Philip Selway
         <Fragment slot="end-text">Philip Selway solo albums</Fragment>
       </Checkbox>
+      <Checkbox value="the-smile">
+        The Smile
+        <Fragment slot="end-text"
+          >Thom Yorke, Jonny Greenwood, Tom Skinner</Fragment
+        >
+      </Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 </Form>

@@ -1,0 +1,31 @@
+<button
+  type="button"
+  commandfor="dialog-actions-alignment-1"
+  command="show-modal"
+  class="ui-button ui-outlined"
+>
+  Show shortcuts
+</button>
+
+<dialog
+  id="dialog-actions-alignment-1"
+  class="ui-dialog ui-elevated"
+  aria-labelledby="dialog-actions-alignment-1-title"
+>
+  <hgroup class="ui-header" id="dialog-actions-alignment-1-title">
+    <h2 class="ui-h4">Keyboard shortcuts</h2>
+  </hgroup>
+  <div class="ui-content">
+    <p>Press <kbd>?</kbd> anywhere to open this list again.</p>
+  </div>
+  <div class="ui-actions ui-align-start">
+    <button
+      commandfor="dialog-actions-alignment-1"
+      command="close"
+      class="ui-button ui-filled"
+      type="button"
+    >
+      Got it
+    </button>
+  </div>
+</dialog>

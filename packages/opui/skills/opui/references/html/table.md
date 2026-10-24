@@ -1,0 +1,683 @@
+# Table
+
+## Anatomy
+
+| Name   | Size |
+| ------ | ---- |
+| Card   | 2 kB |
+| Dialog | 3 kB |
+| Total  | 5 kB |
+
+- `table.ui-table`
+
+  Container element.
+
+- `<thead>`
+
+  The header rows.
+
+- `<th>`
+
+  A header cell.
+
+- `<tbody>`
+
+  The body rows.
+
+- `<tr>`
+
+  A row.
+
+- `<td>`
+
+  A data cell.
+
+- `<tfoot>`
+
+  Optional footer rows, such as totals.
+
+- `<caption>`
+
+  An optional title for the table.
+
+## Density
+
+Change the cell padding with the `.ui-dense` or `.ui-spacious` class.
+
+### Normal
+
+```html
+<table class="ui-table">
+  <caption>
+    Band Members
+  </caption>
+  <thead>
+    <tr>
+      <th>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-sr-only">Select all</span>
+        </label>
+      </th>
+      <th>Band</th>
+      <th>Name</th>
+      <th>Instrument</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-sr-only">Select James Mercer</span>
+        </label>
+      </td>
+      <td>Broken Bells</td>
+      <td>James Mercer</td>
+      <td>Vocals/Guitar</td>
+    </tr>
+    <tr>
+      <td>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-sr-only">Select Jonathan Davis</span>
+        </label>
+      </td>
+      <td>Korn</td>
+      <td>Jonathan Davis</td>
+      <td>Vocals</td>
+    </tr>
+    <tr>
+      <td>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-sr-only">Select David Gilmour</span>
+        </label>
+      </td>
+      <td>Pink Floyd</td>
+      <td>David Gilmour</td>
+      <td>Guitar/Vocals</td>
+    </tr>
+    <tr>
+      <td>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-sr-only">Select Ed O'Brien</span>
+        </label>
+      </td>
+      <td>Radiohead</td>
+      <td>Ed O'Brien</td>
+      <td>Guitar/Vocals</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4">4 members</td>
+    </tr>
+  </tfoot>
+</table>
+```
+
+### Dense
+
+```html
+<table class="ui-table ui-dense">
+  <caption>
+    Band Members
+  </caption>
+  <thead>
+    <tr>
+      <th>Band</th>
+      <th>Name</th>
+      <th>Instrument</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Korn</td>
+      <td>Jonathan Davis</td>
+      <td>Vocals</td>
+    </tr>
+    <tr>
+      <td>Radiohead</td>
+      <td>Ed O'Brien</td>
+      <td>Guitar/Vocals</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+### Spacious
+
+```html
+<table class="ui-table ui-spacious">
+  <caption>
+    Band Members
+  </caption>
+  <thead>
+    <tr>
+      <th>Band</th>
+      <th>Name</th>
+      <th>Instrument</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Korn</td>
+      <td>Jonathan Davis</td>
+      <td>Vocals</td>
+    </tr>
+    <tr>
+      <td>Radiohead</td>
+      <td>Ed O'Brien</td>
+      <td>Guitar/Vocals</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+## Controls in cells
+
+A `.ui-text-field` or `.ui-select` in a cell keeps a `12ch` minimum width, in every density. Hide the label with `.ui-sr-only` and name the row in it, since the column header isn't part of the control's name.
+
+```html
+<table class="ui-table ui-dense">
+  <caption>
+    Band Members
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Instrument</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Jonathan Davis</td>
+      <td>
+        <label class="ui-select">
+          <span class="ui-sr-only" id="table-controls-1-label"
+            >Instrument for Jonathan Davis</span
+          >
+          <span class="ui-field">
+            <select aria-labelledby="table-controls-1-label">
+              <button>
+                <selectedcontent></selectedcontent>
+              </button>
+              <div class="ui-list">
+                <option value="bass">Bass</option>
+                <option value="drums">Drums</option>
+                <option value="guitar">Guitar</option>
+                <option selected value="vocals">Vocals</option>
+              </div>
+            </select>
+          </span>
+        </label>
+      </td>
+      <td>
+        <label class="ui-text-field">
+          <span class="ui-sr-only">Notes for Jonathan Davis</span>
+          <span class="ui-field">
+            <input type="text" placeholder="Add a note" />
+          </span>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>Ed O'Brien</td>
+      <td>
+        <label class="ui-select">
+          <span class="ui-sr-only" id="table-controls-2-label"
+            >Instrument for Ed O'Brien</span
+          >
+          <span class="ui-field">
+            <select aria-labelledby="table-controls-2-label">
+              <button>
+                <selectedcontent></selectedcontent>
+              </button>
+              <div class="ui-list">
+                <option value="bass">Bass</option>
+                <option value="drums">Drums</option>
+                <option selected value="guitar">Guitar</option>
+                <option value="vocals">Vocals</option>
+              </div>
+            </select>
+          </span>
+        </label>
+      </td>
+      <td>
+        <label class="ui-text-field">
+          <span class="ui-sr-only">Notes for Ed O'Brien</span>
+          <span class="ui-field">
+            <input type="text" placeholder="Add a note" />
+          </span>
+        </label>
+      </td>
+    </tr>
+  </tbody>
+</table>
+```
+
+## Sticky header
+
+`.ui-sticky-header` keeps the header rows at the top of the nearest scroll container while the rows scroll under them, and adds a shadow once the header is stuck. Put the table in a scroll box, or let it stick to the page and set `--_sticky-offset` on the table to clear a fixed top bar.
+
+The scroll box has `role="region"`, an `aria-label` and `tabindex="0"`. A table has nothing focusable, so without `tabindex` keyboard users can't reach the box to scroll it, and the name tells screen reader users what the region holds.
+
+```html
+<div
+  role="region"
+  aria-label="Invoices"
+  tabindex="0"
+  style="max-block-size: 15rem; overflow: auto"
+>
+  <table class="ui-table ui-sticky-header">
+    <thead>
+      <tr>
+        <th>Invoice</th>
+        <th>Customer</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>INV-1000</td>
+        <td>Ada</td>
+        <td>€130</td>
+      </tr>
+      <tr>
+        <td>INV-1001</td>
+        <td>Grace</td>
+        <td>€260</td>
+      </tr>
+      <tr>
+        <td>INV-1002</td>
+        <td>Linus</td>
+        <td>€390</td>
+      </tr>
+      <tr>
+        <td>INV-1003</td>
+        <td>Margaret</td>
+        <td>€520</td>
+      </tr>
+      <tr>
+        <td>INV-1004</td>
+        <td>Alan</td>
+        <td>€650</td>
+      </tr>
+      <tr>
+        <td>INV-1005</td>
+        <td>Barbara</td>
+        <td>€780</td>
+      </tr>
+      <tr>
+        <td>INV-1006</td>
+        <td>Ken</td>
+        <td>€910</td>
+      </tr>
+      <tr>
+        <td>INV-1007</td>
+        <td>Frances</td>
+        <td>€1,040</td>
+      </tr>
+      <tr>
+        <td>INV-1008</td>
+        <td>Dennis</td>
+        <td>€1,170</td>
+      </tr>
+      <tr>
+        <td>INV-1009</td>
+        <td>Radia</td>
+        <td>€1,300</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+## Advanced
+
+An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`. The headers that span columns have `scope="colgroup"` and the other column headers `scope="col"`, so screen readers read "Capital" together with "Major Cities".
+
+The first cell of each row is a row header, `<th scope="row">`. Row headers keep the body background, so only the column headers are filled.
+
+```html
+<table class="ui-table">
+  <caption>
+    Nordic Countries Overview
+  </caption>
+  <colgroup>
+    <col style="width: 8rem" />
+    <col span="3" />
+    <col span="2" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th rowspan="2" scope="col">Country</th>
+      <th colspan="3" scope="colgroup">Major Cities</th>
+      <th colspan="2" scope="colgroup">Nature</th>
+    </tr>
+    <tr>
+      <th scope="col">Capital</th>
+      <th scope="col">2nd Largest</th>
+      <th scope="col">3rd Largest</th>
+      <th scope="col">National Animal</th>
+      <th scope="col">National Bird</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Denmark</th>
+      <td>København</td>
+      <td>Aarhus</td>
+      <td>Odense</td>
+      <td>Mute Swan</td>
+      <td>Mute Swan</td>
+    </tr>
+    <tr>
+      <th scope="row">Finland</th>
+      <td>Helsinki</td>
+      <td>Espoo</td>
+      <td>Tampere</td>
+      <td>Brown Bear</td>
+      <td>Whooper Swan</td>
+    </tr>
+    <tr>
+      <th scope="row">Iceland</th>
+      <td>Reykjavík</td>
+      <td>Kópavogur</td>
+      <td>Hafnarfjörður</td>
+      <td>Gyrfalcon</td>
+      <td>Gyrfalcon</td>
+    </tr>
+    <tr>
+      <th scope="row">Norway</th>
+      <td>Oslo</td>
+      <td>Bergen</td>
+      <td>Trondheim</td>
+      <td>Elk</td>
+      <td>White-throated Dipper</td>
+    </tr>
+    <tr>
+      <th scope="row">Sweden</th>
+      <td>Stockholm</td>
+      <td>Göteborg</td>
+      <td>Malmö</td>
+      <td>Elk</td>
+      <td>Common Blackbird</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="6">5 countries</td>
+    </tr>
+  </tfoot>
+</table>
+```
+
+## Accessibility
+
+A `<caption>` names the table, and screen readers announce it when the user enters the table. `<th>` cells in `<thead>` are column headers, read out with each cell below them. Use `<th scope="row">` for a row header in the body. A `<tfoot>` keeps totals and summaries apart from the data rows.
+
+A table in a scroll box needs `tabindex="0"` on the box so keyboard users can scroll it, and a name from `aria-label` with `role="region"`, as in [Sticky header](#sticky-header).
+
+## API
+
+### Table API
+
+| Type          | Modifiers                            | Default | Description                                                                                          |
+| ------------- | ------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| Density       | default, `.ui-dense`, `.ui-spacious` | default | The cell padding.                                                                                    |
+| Sticky header | `.ui-sticky-header`                  | -       | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
+
+#### Parts
+
+| Part             | Description                           |
+| ---------------- | ------------------------------------- |
+| `table.ui-table` | Container element.                    |
+| `<thead>`        | The header rows.                      |
+| `<th>`           | A header cell.                        |
+| `<tbody>`        | The body rows.                        |
+| `<tr>`           | A row.                                |
+| `<td>`           | A data cell.                          |
+| `<tfoot>`        | Optional footer rows, such as totals. |
+| `<caption>`      | An optional title for the table.      |
+
+### Table column group API
+
+#### Parts
+
+| Part         | Description                                |
+| ------------ | ------------------------------------------ |
+| `<colgroup>` | A group of columns, before the table head. |
+
+### Table column API
+
+| Type  | Modifiers | Default | Description                            |
+| ----- | --------- | ------- | -------------------------------------- |
+| Width | `width`   | -       | The column width, merged into `style`. |
+
+#### Parts
+
+| Part    | Description                          |
+| ------- | ------------------------------------ |
+| `<col>` | A column, inside `TableColumnGroup`. |
+
+### CSS variables
+
+| Variable                            | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                      |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--ui-border-color`                 | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                         |
+| `--ui-border-color-on-filled`       | `light-dark( var(--ui-gray-6), var(--ui-gray-12) )`                                                                                                                                                             | Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.                                                                                 |
+| `--ui-border-width`                 | `1px`                                                                                                                                                                                                           | Default border width for components that draw a border.                                                                                                                                                                          |
+| `--ui-duration`                     | `0.2s`                                                                                                                                                                                                          | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                        |
+| `--ui-ease`                         | `ease`                                                                                                                                                                                                          | Default easing for transitions.                                                                                                                                                                                                  |
+| `--ui-field-border-color-on-filled` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface-filled) )`                                                                                                        | Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.                                                       |
+| `--ui-focus-ring-offset`            | `2px`                                                                                                                                                                                                           | Distance between a control and its focus ring.                                                                                                                                                                                   |
+| `--ui-focus-ring-width`             | `2px`                                                                                                                                                                                                           | Width of the focus ring.                                                                                                                                                                                                         |
+| `--ui-font-size-small`              | `var(--ui-font-size-200)`                                                                                                                                                                                       | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                          |
+| `--ui-font-weight-semibold`         | `var(--font-weight-6)`                                                                                                                                                                                          | Font weight for labels, table headers and titles.                                                                                                                                                                                |
+| `--ui-line-height-tight`            | `1.25`                                                                                                                                                                                                          | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                                                     |
+| `--ui-motion`                       | `1`                                                                                                                                                                                                             | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
+| `--ui-radius`                       | `var(--size-2)`                                                                                                                                                                                                 | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-shadow-scroll`                | `var(--shadow-4)`                                                                                                                                                                                               | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                                         |
+| `--ui-space-1`                      | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-space-2`                      | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-space-3`                      | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-space-6`                      | `calc(var(--size-6) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                                                  |
+| `--ui-surface`                      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                               | Page and card background.                                                                                                                                                                                                        |
+| `--ui-surface-filled`               | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                                                                                                                                               | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
+| `--ui-text`                         | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`     | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                        |
+| `--ui-text-strong`                  | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                 |
+
+The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
+
+## Component properties
+
+Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
+
+| Property           | Kind   | Description                                                                                   |
+| ------------------ | ------ | --------------------------------------------------------------------------------------------- |
+| `--_duration`      | Output | Duration of the header shadow transition, `--ui-duration` times `--_motion`.                  |
+| `--_ease`          | Input  | Easing of the header shadow transition. Defaults to `--ui-ease`.                              |
+| `--_motion`        | Input  | Motion multiplier for the header shadow transition in `.ui-sticky-header`. `0` turns it off.  |
+| `--_radius`        | Input  | Corner radius of the table and its corner cells. Defaults to `--ui-radius`.                   |
+| `--_scroll-shadow` | Input  | Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--ui-shadow-scroll`.          |
+| `--_sticky-offset` | Input  | Distance from the top of the scroll container where the header of `.ui-sticky-header` sticks. |
+
+## Under the hood
+
+Read the post: [A header that knows it’s stuck](https://open-props-ui.netlify.app/learn/table-scroll-state)
+
+1. Separate
+
+   - `border-radius` is ignored on a `border-collapse: collapse` table
+   - `separate` + `border-spacing: 0` keeps the corners round
+
+2. Cells
+
+   - Each cell draws only its end sides, so lines never double up
+   - The last column and the last row drop theirs
+   - Only body rows light up on hover
+   - The cell backgrounds now poke out of the rounded corners
+
+3. Corners
+
+   - The four corner cells take the same radius as the table
+   - `border-start-start-radius` follows the writing direction
+   - Drag **Radius**: the corners stay in sync
+
+4. Footer
+
+   - The footer draws its own top border
+   - `tbody:has(+ tfoot)` removes the one above it, so it stays a single line
+
+5. Sticky header
+
+   - `position: sticky` on `thead` keeps the header at the top of the scroll box
+   - Don't give the table `overflow: hidden`: it makes the table a scroll container, so the header would stick to the table and never move. `overflow: clip` is safe
+   - `scroll-state(stuck: block-start)` only shows the shadow while the header is stuck, `clip-path` lets it out below
+   - `tabindex="0"` and a name let keyboard users scroll the box
+
+Step 1 of 5: Separate
+
+- [`border-radius` ](https://webstatus.dev/features/border-radius)(Widely available): Chrome 4+, Edge 12+, Firefox 4+, Safari 5+
+- [Tables ](https://webstatus.dev/features/table)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
+
+```css
+.table {
+  border: 1px solid var(--ui-border-color);
+  border-collapse: separate;
+  border-radius: var(--radius);
+  border-spacing: 0;
+  inline-size: 100%;
+}
+```
+
+Step 2 of 5: Cells
+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+
+```css
+.table :is(th, td) {
+  background-color: var(--ui-surface);
+  border-block-end: 1px solid var(--ui-border-color);
+  border-inline-end: 1px solid var(--ui-border-color);
+  padding: 0.25rem 0.5rem;
+  text-align: start;
+}
+
+.table th {
+  background-color: var(--ui-surface-filled);
+}
+
+.table :is(th, td):last-child {
+  border-inline-end: none;
+}
+
+.table > :last-child tr:last-child > * {
+  border-block-end: none;
+}
+
+.table tbody > tr:hover > :is(th, td) {
+  background-color: oklch(from var(--ui-surface-filled) l c h / 75%);
+}
+```
+
+Step 3 of 5: Corners
+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+
+```css
+.table > thead tr:first-child th:first-child {
+  border-start-start-radius: var(--radius);
+}
+
+.table > thead tr:first-child th:last-child {
+  border-start-end-radius: var(--radius);
+}
+
+.table > :last-child tr:last-child > :first-child {
+  border-end-start-radius: var(--radius);
+}
+
+.table > :last-child tr:last-child > :last-child {
+  border-end-end-radius: var(--radius);
+}
+```
+
+Step 4 of 5: Footer
+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+
+```css
+.table tfoot :is(th, td) {
+  background-color: var(--ui-surface-filled);
+  border-block-start: 1px solid var(--ui-border-color);
+  font-weight: 600;
+}
+
+.table tbody:has(+ tfoot) tr:last-child > * {
+  border-block-end: none;
+}
+```
+
+Step 5 of 5: Sticky header
+
+- [Container scroll-state queries ](https://webstatus.dev/features/container-scroll-state-queries)(Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari not supported
+- [Sticky positioning ](https://webstatus.dev/features/sticky-positioning)(Widely available): Chrome 56+, Edge 16+, Firefox 59+, Safari 13+
+
+```html
+<div aria-label="Components" class="table-scroll" role="region" tabindex="0">
+  <table class="table">…</table>
+</div>
+```
+
+```css
+.table-scroll {
+  max-block-size: 12rem;
+  overflow: auto;
+}
+
+.table > thead {
+  container-type: scroll-state;
+  inset-block-start: 0;
+  position: sticky;
+  z-index: 1;
+}
+
+@container scroll-state(stuck: block-start) {
+  .table > thead th {
+    box-shadow: var(--ui-shadow-scroll);
+    clip-path: inset(0 0 calc(-1 * var(--ui-space-6)));
+  }
+}
+```
+
+## Browser support
+
+- Chromium: Full support Supported since v133.
+- Firefox: Partial support Missing: container-scroll-state-queries.
+- Safari: Partial support Missing: container-scroll-state-queries.
+
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Table.md).
+
+## Installation
+
+Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md).
+
+- `opui-css/css/components/table.css`
+
+## Changelog
+
+### What's new
+
+- A checkbox alone in a cell is centered ([Normal](#normal)).
+- [Dense](#density) tables (`.ui-dense`) have less block padding.
+- [Fields and selects in cells](#controls-in-cells) keep a `12ch` minimum width, in every density.
+- [Sticky header](#sticky-header) with `.ui-sticky-header`.
+- Breaking: `--_table-border-radius` is `--_radius` ([Under the hood](#under-the-hood)).
+- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
+- The [sticky header](#sticky-header) shadow reads `--ui-shadow-scroll`.

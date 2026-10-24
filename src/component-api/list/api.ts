@@ -7,29 +7,31 @@ export default {
       class: ".ui-bordered",
       default: "false",
       description: "Adds a border between list items.",
-      group: "Bordered",
+      group: "Borders",
       prop: "bordered",
     },
     {
       class: ".ui-dense",
       default: "false",
-      description: "Packs the list tighter.",
+      description: "Packs the items tighter.",
       group: "Dense",
       prop: "dense",
     },
     {
-      class: ".ui-gutterless",
+      class: ".ui-flush",
       default: "false",
       description: "Removes the inline padding.",
-      group: "Gutterless",
-      prop: "gutterless",
+      group: "Flush",
+      prop: "flush",
     },
     {
-      description: "The background color variant.",
+      default: '"filled"',
+      description:
+        "The variant to use. The default `filled` list uses the filled surface.",
       group: "Variants",
       prop: "variant",
       values: {
-        default: ".ui-default",
+        filled: null,
         tonal: ".ui-tonal",
         transparent: ".ui-transparent",
       },
@@ -38,7 +40,7 @@ export default {
   parts: [
     {
       code: "<li>",
-      component: { astro: "ListItem", vue: "ListItem" },
+      component: "ListItem",
       description: "A list item.",
       selector: ".ui-list > li",
     },

@@ -1,0 +1,68 @@
+---
+import "@opui/css/imports.css"
+import ThemeBootstrap from "../../../components/ThemeBootstrap.astro"
+import { allBlocks, isFullPage } from "../../../utils/blocks"
+
+export function getStaticPaths() {
+  return allBlocks.map((block) => ({
+    params: { block: block.slug },
+    props: { block },
+  }))
+}
+
+const { block } = Astro.props
+const fullPage = isFullPage(block.source)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{`${block.name} - Open Props UI blocks`}</title>
+    <ThemeBootstrap />
+    <script is:inline>
+      {
+        const root = document.documentElement
+        let parentRoot
+        try {
+          if (window.parent !== window)
+            parentRoot = window.parent.document.documentElement
+        } catch {}
+
+        const sync = () => {
+          root.className = parentRoot.className
+          root.style.cssText = parentRoot.style.cssText
+        }
+
+        if (parentRoot) {
+          sync()
+          new MutationObserver(sync).observe(parentRoot, {
+            attributeFilter: ["class", "style"],
+            attributes: true,
+          })
+        }
+      }
+    </script>
+  </head>
+  <body>
+    {
+      fullPage ? (
+        <div class="block-preview" data-block={block.slug}>
+          <Fragment set:html={block.source} />
+        </div>
+      ) : (
+        <main class="block-preview" data-block={block.slug}>
+          <Fragment set:html={block.source} />
+        </main>
+      )
+    }
+  </body>
+</html>
+
+<style is:global>
+  main.block-preview {
+    padding: var(--size-6) var(--size-4);
+  }
+</style>

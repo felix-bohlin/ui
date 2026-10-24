@@ -1,35 +1,25 @@
 <script setup lang="ts">
+import { computed, provide, reactive, useAttrs, useId } from "vue"
+import { autoLabelledBy } from "../id"
+import { DialogKey } from "./context.vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { actionsAlign } = defineProps<Props>()
+const { closedby } = defineProps<Props>()
+defineSlots<Slots>()
 
-defineOptions({
-  inheritAttrs: false,
-})
+const attrs = useAttrs()
+const headerId = `dialog-header-${useId()}`
+const labelledBy = computed(() => autoLabelledBy(attrs, headerId))
 
-const slots = defineSlots<Slots>()
+provide(DialogKey, reactive({ headerId: labelledBy }))
 </script>
 
 <template>
   <dialog
-    :class="['ui-dialog', 'ui-card', 'ui-elevated', $props.class]"
-    v-bind="$attrs"
+    :aria-labelledby="labelledBy"
+    :class="['ui-dialog', 'ui-elevated', $props.class]"
+    :closedby="closedby"
   >
-    <hgroup v-if="slots.header">
-      <slot name="header"></slot>
-    </hgroup>
-
-    <div v-if="slots.content" class="ui-content">
-      <slot name="content"></slot>
-    </div>
-
     <slot></slot>
-
-    <div
-      v-if="slots.actions"
-      :class="['ui-actions', actionsAlign && `ui-align-${actionsAlign}`]"
-    >
-      <slot name="actions"></slot>
-    </div>
   </dialog>
 </template>

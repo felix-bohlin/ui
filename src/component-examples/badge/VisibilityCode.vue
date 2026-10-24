@@ -3,11 +3,8 @@ import { Badge } from "opui-css/vue"
 </script>
 
 <template>
-  <Badge label="5" invisible>
+  <Badge hideLabel invisible label="5 unread messages">
     <!-- -->
-  </Badge>
-
-  <Badge dot invisible>
-    <!-- -->
+    <template #indicator>5</template>
   </Badge>
 </template>

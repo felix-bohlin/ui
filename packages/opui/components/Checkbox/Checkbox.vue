@@ -1,45 +1,68 @@
 <script setup lang="ts">
 import CheckboxInput from "./CheckboxInput.vue"
-import type { CheckboxProps, Slots } from "./types.d.vue"
-import { useId } from "vue"
+import type { Props, Slots } from "./types.d.vue"
+import { computed, type InputHTMLAttributes, useAttrs } from "vue"
+import { warnUnnamed } from "../dev"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<CheckboxProps>()
-defineSlots<Slots>()
+const {
+  card,
+  endText,
+  error,
+  hideLabel,
+  indeterminate,
+  label,
+  orientation,
+  size,
+  spread,
+  variant,
+} = defineProps<Props>()
+const slots = defineSlots<Slots>()
+const attrs = useAttrs() as InputHTMLAttributes
+const inputAttrs = computed(() =>
+  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
+)
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
-const endTextId = useId()
+warnUnnamed(
+  "Checkbox",
+  label || slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
+)
 </script>
 
 <template>
   <label
     :class="[
       'ui-checkbox',
-      props.size && `ui-${props.size}`,
       {
-        'ui-stack': props.stack,
-        'ui-spread': props.spread,
+        'ui-card': card,
+        'ui-spread': spread,
       },
-      props.class,
+      card && variant && variant !== 'outlined' && `ui-${variant}`,
+      orientation && orientation !== 'horizontal' && `ui-${orientation}`,
+      size && size !== 'medium' && `ui-${size}`,
+      $props.class,
     ]"
-    :data-invalid="props.error ? '' : undefined"
+    :style="$attrs.style"
   >
     <CheckboxInput
-      v-bind="$attrs"
+      v-bind="inputAttrs"
       v-model="modelValue"
-      :aria-describedby="$slots['end-text'] ? endTextId : undefined"
-      :indeterminate="props.indeterminate"
+      :aria-invalid="error ? 'true' : attrs['aria-invalid']"
+      :indeterminate="indeterminate"
     />
-    <span :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
-      ><slot></slot
+    <span
+      v-if="label || $slots.default"
+      :class="[hideLabel ? 'ui-sr-only' : 'ui-label']"
+      >{{ label }}<slot></slot
     ></span>
-    <span :id="endTextId" class="ui-end-text" v-if="$slots['end-text']">
-      <slot name="end-text"></slot>
+    <span v-if="endText || $slots['end-text']" class="ui-end-text">
+      {{ endText }}<slot name="end-text"></slot>
     </span>
   </label>
 </template>

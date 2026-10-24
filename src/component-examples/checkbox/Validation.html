@@ -1,38 +1,30 @@
-<div class="example-row ui-spacious">
+<div class="example-row">
   <label class="ui-checkbox">
     <input name="checkbox-validation" type="checkbox" required />
     <span class="ui-label">Default</span>
   </label>
 
-  <label class="ui-checkbox ui-stack">
+  <label class="ui-checkbox ui-vertical">
     <input name="checkbox-validation" type="checkbox" required />
     <span class="ui-label">Stack</span>
   </label>
 </div>
 
-<div class="example-row ui-spacious">
-  <label class="ui-checkbox" data-invalid>
+<div class="example-row">
+  <label class="ui-checkbox">
     <input
+      aria-invalid="true"
       name="checkbox-validation"
       type="checkbox"
       checked
-      aria-describedby="checkbox-validation-end-text-1"
     />
     <span class="ui-label">Default</span>
-    <span class="ui-end-text" id="checkbox-validation-end-text-1"
-      >Check yourself</span
-    >
+    <span class="ui-end-text">Check yourself</span>
   </label>
 
-  <label class="ui-checkbox ui-stack" data-invalid>
-    <input
-      name="checkbox-validation"
-      type="checkbox"
-      aria-describedby="checkbox-validation-end-text-2"
-    />
+  <label class="ui-checkbox ui-vertical">
+    <input aria-invalid="true" name="checkbox-validation" type="checkbox" />
     <span class="ui-label">Stack</span>
-    <span class="ui-end-text" id="checkbox-validation-end-text-2"
-      >Before you wreck yourself</span
-    >
+    <span class="ui-end-text">Before you wreck yourself</span>
   </label>
 </div>

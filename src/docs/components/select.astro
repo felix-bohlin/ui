@@ -1,34 +1,40 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Select as UISelect } from "@opui/astro"
+import { Select as UISelect } from "opui-css/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import ValidationNotes from "./partials/ValidationNotes.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import SelectCSS from "@opui/css/components/select.css?raw"
 import ListCSS from "@opui/css/components/list.css?raw"
-import classicSelectApi from "../../component-api/classic-select/api"
 import selectApi from "../../component-api/select/api"
+import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
 ---
 
 <Component
   slug="select"
   browserSupport={[
+    "color-mix",
+    "container-queries",
+    "container-style-queries",
     "customizable-select",
+    "dir-pseudo",
+    "display-animation",
     "has",
-    "light-dark",
+    "lh",
+    "open-pseudo",
     "overlay",
     "relative-color",
     "starting-style",
     "transition-behavior",
+    "user-pseudos",
   ]}
   heroAnatomy
-  apis={[
-    { title: "Select API", api: selectApi },
-    { title: "Classic Select API", api: classicSelectApi },
-  ]}
+  apis={[{ title: "Select API", api: selectApi }]}
   installationTabs={[
     {
       title: "text-field.css",
@@ -44,10 +50,6 @@ import selectApi from "../../component-api/select/api"
       path: "packages/opui/components/Select/Select.astro",
       type: "component",
     },
-    {
-      path: "packages/opui/components/ClassicSelect/ClassicSelect.astro",
-      type: "component",
-    },
     { path: "src/docs/components/select.astro", type: "docs" },
     { path: "src/component-examples/select", type: "docs" },
     {
@@ -55,7 +57,6 @@ import selectApi from "../../component-api/select/api"
       type: "css",
     },
     { path: "src/component-api/select", type: "api" },
-    { path: "src/component-api/classic-select", type: "api" },
   ]}
   seeAlsoLinks={[
     {
@@ -68,33 +69,85 @@ import selectApi from "../../component-api/select/api"
   <Fragment slot="preamble">
     Leverages the <DocLink href="/components/list" class="ui-link"
       >List component</DocLink
-    > to provide markup for the Select popover.
+    > to provide markup for the Select popover. Use a Select to pick a value in a
+    form. For actions, use a <DocLink href="/components/menu">Menu</DocLink>.
   </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
+    <p>
+      The select is outlined by default. Use <PropOrClass
+        prop='variant="filled"'
+        class=".ui-filled"
+      /> for a filled background.
+    </p>
     <AutoExample name="Variants" row spacious />
   </section>
 
   <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, <code>medium</code> (the default) and <code
+          >large</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>.
+      </Fragment>
+    </Conditional>
+    <p>
+      On touch screens, x-small and small fields keep the default text size (<code
+        >--ui-font-size-control</code
+      >, 16px), so iOS Safari doesn't zoom in when one is focused.
+    </p>
+    <AutoExample name="Sizes" row spacious />
+  </section>
+
+  <section>
+    <h2 id="dense">Dense</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use the <code>dense</code> prop to pack the options tighter.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-dense</code> to the <code>.ui-list</code> to pack the options
+        tighter.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Dense" row spacious />
+  </section>
+
+  <section>
     <h2 id="end-text">End text</h2>
-    <p><code>.ui-end-text</code>: end text element</p>
-    <AutoExample name="SupportingText" row spacious />
+    <p>
+      Use <PropOrClass prop="endText" class=".ui-end-text" /> for supporting text
+      below the select.
+    </p>
+    <AutoExample name="EndText" row spacious />
   </section>
 
   <section>
     <h2 id="affix">Affix</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>prefix</code> and <code>suffix</code> slots to affix icons or
-        short text alongside the select inside the field's border.
+      <Fragment slot="components">
+        Use the <code>start</code> and <code>end</code> slots to affix icons or short
+        text alongside the select inside the field's border.
       </Fragment>
       <Fragment slot="html">
-        Add a <code>.ui-prefix</code> or <code>.ui-suffix</code> element inside
-        <code>.ui-field</code> to affix content alongside the select.
+        Add a <code>.ui-start</code> or <code>.ui-end</code> element inside
+        {" "}<code>.ui-field</code> to affix content alongside the select.
       </Fragment>
-      <Fragment slot="vue">
-        Use the <code>prefix</code> and <code>suffix</code> slots to affix icons or
+      <Fragment slot="react">
+        Use the <code>start</code> and <code>end</code> props to affix icons or short
+        text alongside the select inside the field's border.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>start</code> and <code>end</code> snippets to affix icons or
         short text alongside the select inside the field's border.
       </Fragment>
     </Conditional>
@@ -103,47 +156,98 @@ import selectApi from "../../component-api/select/api"
   </section>
 
   <section>
-    <h2 id="validation">Validation</h2>
-    <Conditional>
-      <Fragment slot="astro">
-        <ul>
-          <li>
-            Set <code>required</code> on the component to toggle required styles on
-            the select.
-          </li>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles. It renders the
-            <code>data-invalid</code> attribute on the root element. Make use of the
-            end text to give extra feedback on the error.
-          </li>
-        </ul>
-      </Fragment>
-      <Fragment slot="vue">
-        <ul>
-          <li>
-            Add the <code>required</code> attribute on the component. It is forwarded
-            to the underlying <code>&lt;select&gt;</code>.
-          </li>
-          <li>
-            Use the <code>error</code> prop to toggle invalid styles. It renders
-            <code>data-invalid</code> on the root element. Make use of the end text
-            to give extra feedback on the error.
-          </li>
-        </ul>
+    <h2 id="top-and-bottom">Top and bottom</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Use the <code>top</code> and <code>bottom</code> slots for short text or a
+        link above and below the select, inside the field's border and set off by
+        a divider.
       </Fragment>
       <Fragment slot="html">
-        <ul>
-          <li>
-            Add <code>[required]</code> to the <code>&lt;select&gt;</code> element
-            to toggle required styles.
-          </li>
-          <li>
-            Add <code>data-invalid</code> on the root element to toggle invalid styles.
-            Make use of the end text to give extra feedback on the error.
-          </li>
-        </ul>
+        Add a <code>.ui-top</code> or <code>.ui-bottom</code> element inside
+        {" "}<code>.ui-field</code> for short text or a link above and below the select,
+        inside the field's border and set off by a divider.
+      </Fragment>
+      <Fragment slot="react">
+        Use the <code>top</code> and <code>bottom</code> props for short text or a
+        link above and below the select, inside the field's border and set off by
+        a divider.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>top</code> and <code>bottom</code> snippets for short text or
+        a link above and below the select, inside the field's border and set off by
+        a divider.
       </Fragment>
     </Conditional>
+    <p>
+      They sit outside the list of options, so they can't filter it. Keep form
+      controls out of them, since the select's <code>&lt;label&gt;</code> wraps them.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        The select's <code>aria-describedby</code> points at them, so screen readers
+        read them with the select.
+      </Fragment>
+      <Fragment slot="html">
+        Give them an <code>id</code> and list them in the select's <code
+          >aria-describedby</code
+        >, so screen readers read them with the select.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="TopAndBottom" row spacious />
+  </section>
+
+  <section>
+    <h2 id="preselected">Preselected</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>value</code> to preselect an option, or
+        <code>selected: true</code> on an item.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>selected</code> to the <code>option</code> to preselect it.
+      </Fragment>
+      <Fragment slot="react">
+        Set <code>defaultValue</code>, or <code>value</code> with <code
+          >onChange</code
+        >, to preselect an option, or
+        <code>selected: true</code> on an item.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set <code>value</code> or <code>bind:value</code> to preselect an option,
+        or
+        <code>selected: true</code> on an item.
+      </Fragment>
+      <Fragment slot="vue">
+        Set <code>value</code> or <code>v-model</code> to preselect an option, or
+        <code>selected: true</code> on an item.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Preselected" row spacious />
+  </section>
+
+  <section>
+    <h2 id="option-groups">Option groups</h2>
+    <p>
+      Wrap options in a <code>&lt;div role="group"&gt;</code> and start it with a
+      {" "}<code>&lt;label class="ui-text"&gt;</code> to group them under a heading.
+      The heading takes any content, but it doesn't name the group for screen readers.
+    </p>
+    <AutoExample name="Grouped" row spacious />
+    <h3 id="optgroup">Optgroup</h3>
+    <p>
+      An <code>&lt;optgroup&gt;</code> names its group natively through its
+      {" "}<code>label</code> attribute. Give it a <code>&lt;legend&gt;</code> with
+      the same text first in the group: it gets the heading styles in a customizable
+      select, while browsers without one show the <code>label</code>
+      {" "}in their own picker.
+    </p>
+    <AutoExample name="GroupedOptgroup" row spacious />
+  </section>
+
+  <section>
+    <h2 id="validation">Validation</h2>
+    <ValidationNotes element="select" subject="Fields" />
 
     <AutoExample name="Validation" column spacious />
   </section>
@@ -151,57 +255,80 @@ import selectApi from "../../component-api/select/api"
   <section>
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>spread</code> boolean prop to display the label and description
+      <Fragment slot="components">
+        Use the <code>spread</code> boolean prop to display the label and start text
         on the left with the select on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to display the label and description
-        on the left with the select on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>spread</code> boolean prop to display the label and description
+        Add the <code>.ui-spread</code> class to display the label and start text
         on the left with the select on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
     </Conditional>
 
-    <AutoExample name="Orientation" column spacious />
+    <AutoExample name="Spread" column spacious />
   </section>
 
   <section>
-    <h2 id="sizes">Sizes</h2>
-    <AutoExample name="Sizes" row spacious />
-  </section>
-
-  <section>
-    <h2 id="classic-select">Classic select</h2>
+    <h2 id="auto-fit">Auto-fit</h2>
     <p>
-      Bog-standard native HTML <code>&lt;select&gt;</code> without customized option
-      list.
+      Use <PropOrClass prop="autoFit" class=".ui-auto-fit" /> to let the field's width
+      follow the selected option, from <code>25ch</code>.
     </p>
-
-    <AutoExample name="Classic" row spacious />
+    <AutoExample name="AutoFit" class="flex" />
   </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      <code>appearance: base-select</code> only changes how the select looks. The
+      browser keeps the behavior of a native <code>&lt;select&gt;</code>:
+    </p>
+    <ul>
+      <li>
+        <kbd>Space</kbd> or the arrow keys open the list. In the list, the arrow keys
+        move between options, and <kbd>Enter</kbd> or <kbd>Space</kbd> picks one.
+      </li>
+      <li>
+        Typing the start of an option's text jumps to it, also while the list is
+        closed.
+      </li>
+      <li>
+        <kbd>Esc</kbd> or a click outside closes the list without changing the value.
+      </li>
+      <li>Focus returns to the select when the list closes.</li>
+      <li>
+        Screen readers announce it like any select, with its label and the
+        selected option, and the value is submitted with the form.
+      </li>
+    </ul>
+    <h3 id="fallback">Fallback</h3>
+    <p>
+      Browsers without customizable select drop the <code>&lt;button&gt;</code>
+      {" "}and the list wrapper from the <code>&lt;select&gt;</code> and keep its
+      options. The select keeps the field styles and the chevron, and opens the browser's
+      own picker.
+    </p>
+  </Fragment>
+
+  <SelectBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
       <UISelect
-        description="Description"
+        startText="Start text"
         endText="Supporting text"
         items={[
-          { text: "Option one", value: "1" },
-          { text: "Option two", value: "2" },
+          { label: "Option one", value: "1" },
+          { label: "Option two", value: "2" },
         ]}
         label="Label"
         name="select-anatomy"
       >
-        <span slot="header">Header</span>
-        <span slot="prefix">¢</span>
-        <span slot="suffix">EUR</span>
-        <span slot="footer">Footer</span>
+        <span slot="top">Top</span>
+        <span slot="start">¤</span>
+        <span slot="end">EUR</span>
+        <span slot="bottom">Bottom</span>
       </UISelect>
     </Anatomy>
   </Fragment>

@@ -1,26 +1,24 @@
-export type RangeProps = {
-  [key: string]: any
+export type RangeItem =
+  string | number | { value: string | number; label?: string }
+
+export type Props = {
   endText?: string
   error?: boolean
-  id?: string
+  hideLabel?: boolean
+  items?: RangeItem[]
   label?: string
+  list?: string
+  size?: "x-small" | "small" | "medium" | "large"
   spread?: boolean
   startText?: string
   value?: number | string
   valueSuffix?: string
-  variant?: "filled" | "default" | "tonal"
-} & (
-  | { list?: never; options?: never }
-  | {
-      list: string
-      options: (string | number | { value: string | number; label?: string })[]
-    }
-)
+  variant?: "filled" | "outlined" | "tonal"
+}
 
-export type RangeSlots<S> = {
+export type Slots<S> = {
   datalist?: S
   endText?: string | S
+  label?: string | S
   startText?: string | S
-  valueSuffix?: string | S
-  valueText?: S
 }

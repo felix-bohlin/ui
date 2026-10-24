@@ -1,17 +1,28 @@
 ---
 import Guide from "../../layouts/Guide.astro"
+import DocLink from "../../components/DocLink.astro"
 import Generator from "../../components/ThemeGenerator/ThemeGenerator.astro"
 ---
 
 <Guide overline="Guide" showToc={false}>
   <Fragment slot="title">Theme generator</Fragment>
+  <Fragment slot="preamble">
+    Edit the design tokens visually and download a <code>custom-theme.css</code
+    >.
+  </Fragment>
 
   <p>
-    Tweak the controls below to customize the design tokens. Pick which mode
-    you're editing - Light, Dark, or Both at once. When the edited mode matches
-    the site's current mode, the rest of the docs updates live too. Your changes
-    persist between visits and can also be copied as a stand-alone
-    <code>theme.css</code>.
+    Start from an example theme or the defaults, then tweak the controls below
+    to customize the design tokens. Pick which mode you're editing: Light, Dark,
+    or Both at once. When the edited mode matches the site's current mode, the
+    rest of the docs updates live too. Your changes persist between visits until
+    you reset them, and you can copy or download them as a <code
+      >custom-theme.css</code
+    >. It only lists the example theme's tokens and the ones you changed, in the <DocLink
+      href="/guide/customizing#your-theme"
+      ><code>theme.custom</code> layer</DocLink
+    >, so later releases can add and change other tokens without breaking it. It
+    starts with the layer order, so it works wherever it loads.
   </p>
 
   <Generator />

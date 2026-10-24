@@ -1,13 +1,9 @@
 ---
 import Document from "./Document.astro"
-import {
-  DEFAULT_FRAMEWORK,
-  hrefFor,
-  stripFrameworkPrefix,
-  type FrameworkId,
-} from "../utils/framework-routing"
+import { canonicalPath, hrefFor } from "../utils/framework"
 import FrameworkPicker from "../components/FrameworkPicker.astro"
-import { Divider } from "@opui/astro"
+import Pagination from "../components/Pagination.astro"
+import { Divider } from "opui-css/astro"
 
 type Props = {
   title?: string
@@ -25,29 +21,35 @@ const {
   image,
 } = Astro.props
 
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 const links = [
-  { href: "/guide/getting-started", label: "Getting started" },
-  { href: "/guide/theme-generator", label: "Theme generator" },
   { href: "/guide/why-opui", label: "Why Open Props UI?" },
+  { href: "/guide/getting-started", label: "Getting started" },
+  { href: "/guide/concepts", label: "Concepts" },
+  { href: "/guide/theming", label: "Theming" },
+  { href: "/guide/theme-tokens", label: "Theme tokens" },
+  { href: "/guide/theme-generator", label: "Theme generator" },
+  { href: "/guide/customizing", label: "Customizing" },
+  { href: "/guide/accessibility", label: "Accessibility" },
   { href: "/guide/browser-support", label: "Browser support" },
+  { href: "/guide/migrating", label: "Migrating to v6" },
   { href: "/guide/acknowledgments", label: "Acknowledgments" },
 ].map((link) => ({
   ...link,
-  resolvedHref: hrefFor(currentFramework, link.href),
+  href: hrefFor(currentFramework, link.href),
 }))
 
-const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
-  /\/$/,
-  "",
+const current = canonicalPath(Astro.url.pathname)
+const currentIndex = links.findIndex(
+  (link) => canonicalPath(link.href) === current,
 )
 ---
 
 <Document
   overline={overline}
   showToc={showToc}
+  sidebarGroups={[{ label: "Guide", links }]}
   title={title}
   description={description}
   image={image}
@@ -56,49 +58,33 @@ const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
 
   <Divider variant="tonal" slot="sidebar" />
 
-  <nav slot="sidebar">
-    <h3>Guide</h3>
-    <menu class="guide-nav-list">
-      {
-        links.map((link) => (
-          <li>
-            <a
-              href={link.resolvedHref}
-              aria-current={canonicalPath === link.href ? "page" : undefined}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))
-      }
-    </menu>
-  </nav>
-
   <slot slot="title" name="title" />
   <slot slot="preamble" name="preamble" />
   <slot />
+
+  {
+    currentIndex !== -1 && (
+      <footer class="guide-footer ui-not-rich-text">
+        <hr class="ui-divider" />
+
+        <Pagination
+          label="Guide pages"
+          next={links[currentIndex + 1]}
+          prev={links[currentIndex - 1]}
+        />
+      </footer>
+    )
+  }
 </Document>
 
-<style is:global>
-  .guide-nav-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+<style>
+  .guide-footer {
+    display: grid;
+    gap: var(--size-4);
+    margin-block-start: var(--size-8);
 
-    & a {
-      display: block;
-      padding-block: var(--size-1);
-      color: var(--text-muted);
-      text-decoration: none;
-
-      &:hover {
-        color: var(--text-primary);
-      }
-
-      &[aria-current="page"] {
-        color: var(--link);
-        font-weight: var(--font-weight-6);
-      }
+    hr {
+      margin: 0;
     }
   }
 </style>

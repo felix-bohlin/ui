@@ -4,7 +4,7 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLegend,
-  FieldSet,
+  Fieldset,
   Form,
   Radio,
 } from "opui-css/vue"
@@ -12,7 +12,7 @@ import {
 
 <template>
   <Form>
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Choose your favorite Radiohead album</FieldLegend>
       <FieldDescription>There are no wrong answers.</FieldDescription>
       <FieldGroup name="albums">
@@ -21,18 +21,12 @@ import {
         <Radio value="in-rainbows">In Rainbows</Radio>
         <Radio value="king-of-limbs">The King of Limbs</Radio>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
 
-    <FieldSet>
+    <Fieldset>
       <FieldLegend>Which side projects do you follow?</FieldLegend>
       <FieldDescription>Some are better than others.</FieldDescription>
       <FieldGroup name="projects">
-        <Checkbox value="the-smile">
-          The Smile
-          <template #end-text
-            >Thom Yorke, Jonny Greenwood, Tom Skinner</template
-          >
-        </Checkbox>
         <Checkbox value="atoms-for-peace">
           Atoms for Peace
           <template #end-text>Thom Yorke, Flea, Nigel Godrich</template>
@@ -49,7 +43,13 @@ import {
           Philip Selway
           <template #end-text>Philip Selway solo albums</template>
         </Checkbox>
+        <Checkbox value="the-smile">
+          The Smile
+          <template #end-text
+            >Thom Yorke, Jonny Greenwood, Tom Skinner</template
+          >
+        </Checkbox>
       </FieldGroup>
-    </FieldSet>
+    </Fieldset>
   </Form>
 </template>

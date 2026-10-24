@@ -1,33 +1,39 @@
 @layer components.extended {
   :where(.ui-select select) {
-    --_motion: var(--motion, 1);
     position: relative;
 
     /* Default arrow */
     &::picker-icon {
-      block-size: 0;
-      border-block-start: 5px solid;
-      border-inline: 5px solid transparent;
-      color: currentColor;
+      background-color: currentColor;
+      block-size: var(--_chevron-size);
       content: "";
-      inline-size: 0;
-      inset: 50% var(--size-3) auto auto;
+      inline-size: var(--_chevron-size);
+      inset-block: 0;
+      inset-inline: auto var(--_arrow-inset);
+      margin-block: auto;
+      mask: var(--_chevron-image) center / contain no-repeat;
       pointer-events: none;
       position: absolute;
-      translate: 0 -50%;
+      transition: scale var(--_duration) var(--_ease);
+
+      @media (forced-colors: active) {
+        background-color: ButtonText;
+      }
     }
 
     &:open {
       &::picker-icon {
-        rotate: 180deg;
+        scale: 1 -1;
       }
     }
 
     /* Select popover */
     &::picker(select) {
       /* Animation on-stage styles */
+      background: transparent;
       border: 0;
-      box-shadow: var(--shadow-2);
+      border-radius: var(--ui-field-radius, var(--ui-radius));
+      box-shadow: var(--ui-shadow-overlay);
       opacity: 1;
       padding: 0;
       scale: 1;
@@ -35,14 +41,14 @@
       /* Animation starting styles */
       @starting-style {
         opacity: 0;
-        transform: scale(0.9);
+        scale: 0.9;
       }
 
       transition:
-        display calc(0.2s * var(--_motion)) allow-discrete,
-        opacity calc(0.2s * var(--_motion)) var(--ease-3),
-        overlay calc(0.2s * var(--_motion)) allow-discrete,
-        scale calc(0.2s * var(--_motion)) var(--ease-3);
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        overlay var(--_duration) allow-discrete,
+        scale var(--_duration) var(--_ease);
     }
 
     /* Animation off-stage styles */
@@ -67,109 +73,113 @@
     }
 
     .ui-list {
-      --_bg-color: var(--surface-filled);
-      border: var(--field-border-width) solid var(--field-border-color);
-      border-radius: var(--field-border-radius);
+      --_bg-color: var(--ui-surface-filled);
+      border: var(--ui-field-border-width) solid var(--ui-field-border-color);
+      border-radius: var(--ui-field-radius, var(--ui-radius));
 
       /* Groups */
-      [role="group"] {
-        label {
-          background-color: light-dark(var(--gray-3), var(--gray-13));
-          color: light-dark(
-            oklch(from var(--text-primary) calc(l * 0.75) c h),
-            oklch(from var(--text-primary) calc(l * 1.25) c h)
+      :is([role="group"], optgroup) {
+        :is(label, legend) {
+          background-color: color-mix(
+            in oklch,
+            var(--_bg-color) 94%,
+            var(--ui-text-strong)
           );
-          font-weight: 500;
+          color: var(--ui-text);
+          font-weight: var(--ui-font-weight-medium);
           overflow: hidden;
-          padding-inline: var(--size-2);
+          padding-inline: var(--ui-space-2);
           text-overflow: ellipsis;
           white-space: nowrap;
         }
 
         &:not(:first-child),
         option:first-of-type {
-          margin-block-start: var(--size-2);
-        }
-
-        option:last-of-type,
-        &:last-child {
-          option:last-of-type {
-            margin-block-end: 0;
-          }
+          margin-block-start: var(--ui-space-2);
         }
       }
 
       /* Option */
       option {
         /* Checkmark */
-        /* TODO - checkmark should be the final version of the checkmark API. Follow the development of this and remove redundant psuedo stuff. */
-        &::check {
-          display: none;
-        }
-
+        /* TODO - checkmark should be the final version of the checkmark API. Follow the development of this and remove redundant pseudo stuff. */
         &::checkmark {
-          display: none;
-        }
-
-        &::before {
-          display: none;
+          margin-inline-start: auto;
+          order: 1;
         }
 
         &:focus-visible {
-          outline-offset: -1px;
+          outline-offset: var(--ui-focus-ring-inset);
         }
       }
     }
   }
 
   :where(.ui-select:has(select)) {
-    /* Size */
-    &.ui-small {
-      button {
-        padding-inline: var(--size-2) var(--size-7);
-
-        &::after {
-          inset-inline-end: var(--size-2);
-        }
-      }
-    }
-
     /*
     * Non-experimental Select
     *
-    * Hack to get the arrow working. Pseudo elements aren't allowed on the `<select>` element, so need to add it on the `.select` class instead. Noting this down if an `:after` element would be needed on a `.select`.
+    * Hack to get the arrow working. Pseudo elements aren't allowed on the `<select>` element, so need to add it on the `.ui-select` class instead. Noting this down if an `:after` element would be needed on a `.ui-select`.
     */
     &:not(:has(button)) {
       select {
         appearance: none;
+        text-overflow: ellipsis;
+      }
+
+      :where(option, optgroup) {
+        background-color: var(--ui-surface-elevated);
+        color: var(--ui-text-strong);
       }
 
       /* Arrow */
       &::after {
         align-self: center;
-        block-size: 0;
-        border-block-start: 5px solid;
-        border-inline: 5px solid transparent;
+        background-color: currentColor;
+        block-size: var(--_chevron-size);
         content: "";
         display: inline-block;
         flex-shrink: 0;
         grid-column: 1/-1;
         grid-row: 2;
-        inline-size: 0;
-        inset-inline-end: var(--size-3);
+        inline-size: var(--_chevron-size);
+        inset-inline-end: var(--_arrow-inset);
         justify-self: end;
+        mask: var(--_chevron-image) center / contain no-repeat;
         pointer-events: none;
         position: relative;
+
+        @media (forced-colors: active) {
+          background-color: ButtonText;
+        }
       }
 
       &:not(.ui-spread):has(> .ui-start-text)::after {
         grid-row: 3;
       }
+
+      &.ui-spread::after {
+        align-self: start;
+        grid-row: 1 / span 3;
+        margin-block-start: calc((var(--_size) - var(--_chevron-size)) / 2);
+      }
+
+      @container (inline-size < 400px) {
+        &.ui-spread::after {
+          align-self: center;
+          grid-row: 2;
+          margin-block-start: 0;
+        }
+
+        &.ui-spread:has(> .ui-start-text)::after {
+          grid-row: 3;
+        }
+      }
     }
   }
 
-  select:has(button),
-  ::picker(select) {
+  :where(.ui-select select:has(button)),
+  :where(.ui-select select:has(button))::picker(select) {
     appearance: base-select;
   }
 }

@@ -6,12 +6,10 @@ type InputProps = {
   type?: HTMLAttributes<"input">["type"] | "numeric"
 } &
   // include the rest
-  Pick<HTMLAttributes<"input">, Exclude<Base.InputProps, "type">>
+  Omit<HTMLAttributes<"input">, "size" | "type">
 
 export type Props =
   // Unique component props
   Base.Props &
-    // All html label attributes
-    HTMLAttributes<"label"> &
     // Input attributes
     InputProps

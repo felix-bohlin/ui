@@ -3,22 +3,20 @@ import "@opui/css/imports.css"
 import "/src/styles/base.css"
 import Footer from "../components/Footer.astro"
 import { Font } from "astro:assets"
-import {
-  DEFAULT_FRAMEWORK,
-  frameworkVariantsOf,
-  type FrameworkId,
-} from "../utils/framework-routing"
+import { frameworkVariantsOf } from "../utils/framework"
+import { markdownPath } from "../utils/markdown.js"
+import checkboxJs from "@opui/css/js/checkbox.js?url"
 
 type Props = {
   title?: string
   description?: string
+  hasMarkdown?: boolean
   image?: string
 }
 
-const { title, description, image } = Astro.props
+const { title, description, hasMarkdown, image } = Astro.props
 const pathname = Astro.url.pathname
-const currentFramework = (Astro.currentLocale ??
-  DEFAULT_FRAMEWORK) as FrameworkId
+const currentFramework = Astro.locals.framework
 
 // Every route is mirrored across frameworks, so every page advertises its
 // alternates. Each variant self-canonicalizes; rel=alternate covers the rest.
@@ -29,6 +27,9 @@ const currentNormalized = normalize(pathname)
 const siteTitle = title ? `${title} - Open Props UI` : "Open Props UI"
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const imageUrl = new URL(image || "/share-img.png", Astro.site)
+const markdownUrl = hasMarkdown
+  ? new URL(markdownPath(pathname), Astro.site)
+  : null
 ---
 
 <!doctype html>
@@ -36,10 +37,15 @@ const imageUrl = new URL(image || "/share-img.png", Astro.site)
   <head>
     <Font cssVariable="--font-bricolage-grotesque" preload />
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {
+      markdownUrl && (
+        <link rel="alternate" type="text/markdown" href={markdownUrl} />
+      )
+    }
     <title>{siteTitle}</title>
     {description && <meta name="description" content={description} />}
 
@@ -51,15 +57,11 @@ const imageUrl = new URL(image || "/share-img.png", Astro.site)
     <meta property="og:image" content={imageUrl} />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={siteTitle} />
-    {
-      description && (
-        <meta property="twitter:description" content={description} />
-      )
-    }
-    <meta property="twitter:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={siteTitle} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={imageUrl} />
 
     {
       variants
@@ -69,46 +71,67 @@ const imageUrl = new URL(image || "/share-img.png", Astro.site)
         ))
     }
     <meta name="generator" content={Astro.generator} />
+    <script
+      is:inline
+      type="importmap"
+      set:html={JSON.stringify({
+        imports: { "opui-css/css/js/checkbox.js": checkboxJs },
+      })}
+    />
   </head>
   <body>
     <slot />
-    <output aria-live="polite" id="toast-manager" popover="manual" role="status"
-    ></output>
-    <template id="toast-template">
-      <div class="ui-toast" role="alert">
-        <span class="ui-icon" data-toast-icon></span>
-        <div class="ui-content">
-          <div class="ui-title" data-toast-title></div>
-          <div class="ui-description" data-toast-description></div>
-        </div>
-        <button
-          aria-label="Close"
-          class="ui-close-button"
-          data-toast-close
-          type="button"
-        >
-          <svg
-            fill="none"
-            height="20"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M18 6 6 18"></path>
-            <path d="m6 6 12 12"></path>
-          </svg>
-        </button>
-      </div>
-    </template>
     <Footer />
   </body>
 </html>
 
 <script>
-  import { initToastManager } from "@opui/css/js/toast.js"
-  initToastManager()
+  import {
+    DEFAULT_FRAMEWORK,
+    FRAMEWORK_STORAGE_KEY,
+    frameworkPrefixPattern,
+    hrefFor,
+    isFrameworkFree,
+    isFrameworkId,
+    pathHasFramework,
+    stripFrameworkPrefix,
+  } from "../utils/framework"
+
+  function rememberFramework() {
+    const framework = location.pathname.match(frameworkPrefixPattern())?.[1]
+    if (!isFrameworkId(framework)) return
+    try {
+      sessionStorage.setItem(FRAMEWORK_STORAGE_KEY, framework!)
+    } catch (_) {}
+  }
+
+  function preferredFramework() {
+    try {
+      const last = sessionStorage.getItem(FRAMEWORK_STORAGE_KEY)
+      if (isFrameworkId(last)) return last
+      const saved = localStorage.getItem(FRAMEWORK_STORAGE_KEY)
+      if (isFrameworkId(saved)) return saved
+    } catch (_) {}
+    return DEFAULT_FRAMEWORK
+  }
+
+  function relinkDocs() {
+    if (!isFrameworkFree(location.pathname)) return
+    const framework = preferredFramework()
+    document.documentElement.dataset.framework = framework
+    document
+      .querySelectorAll<HTMLAnchorElement>('a[href^="/"]')
+      .forEach((anchor) => {
+        const href = anchor.getAttribute("href")!
+        const match = href.match(frameworkPrefixPattern())
+        if (!match || match[1] === framework) return
+        const path = stripFrameworkPrefix(href.split(/[?#]/)[0])
+        if (pathHasFramework(framework, path)) {
+          anchor.setAttribute("href", hrefFor(framework, href))
+        }
+      })
+  }
+
+  rememberFramework()
+  relinkDocs()
 </script>

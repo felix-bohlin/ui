@@ -1,21 +1,25 @@
 <script setup lang="ts">
-import { Card } from "opui-css/vue"
+import { Card, CardContent } from "opui-css/vue"
 </script>
 
 <template>
-  <Card variant="text">
-    <template #content>Text</template>
+  <Card>
+    <CardContent>Plain</CardContent>
+  </Card>
+
+  <Card variant="transparent">
+    <CardContent>Transparent</CardContent>
   </Card>
 
   <Card variant="outlined">
-    <template #content>Outlined</template>
+    <CardContent>Outlined</CardContent>
   </Card>
 
   <Card variant="tonal">
-    <template #content>Tonal</template>
+    <CardContent>Tonal</CardContent>
   </Card>
 
   <Card variant="elevated">
-    <template #content>Elevated</template>
+    <CardContent>Elevated</CardContent>
   </Card>
 </template>

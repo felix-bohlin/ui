@@ -1,28 +1,45 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import { Accordion as UIAccordion, Button as UIButton } from "@opui/astro"
+import {
+  Accordion as UIAccordion,
+  AccordionActions as UIAccordionActions,
+  AccordionContent as UIAccordionContent,
+  AccordionSummary as UIAccordionSummary,
+  Button as UIButton,
+} from "opui-css/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 
 import AccordionCSS from "@opui/css/components/accordion.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import AccordionBuild from "../../components/UnderTheHood/AccordionBuild.astro"
 
 import accordionApi from "../../component-api/accordion/api"
+import accordionActionsApi from "../../component-api/accordion-actions/api"
+import accordionSummaryApi from "../../component-api/accordion-summary/api"
+export const description =
+  "Lets you show and hide content, on its own or as a group."
 ---
 
 <Component
+  description={description}
   slug="accordion"
   heroAnatomy
-  apis={[{ title: "Accordion API", api: accordionApi }]}
+  apis={[
+    { title: "Accordion API", api: accordionApi },
+    { title: "Accordion summary API", api: accordionSummaryApi },
+    { title: "Accordion actions API", api: accordionActionsApi },
+  ]}
   browserSupport={[
-    "container-style-queries",
-    "content-visibility",
     "details-content",
     "details-name",
+    "dir-pseudo",
+    "display-animation",
     "has",
     "interpolate-size",
+    "overflow-clip",
     "transition-behavior",
   ]}
   changelogPaths={[
@@ -49,13 +66,21 @@ import accordionApi from "../../component-api/accordion/api"
   ]}
 >
   <Fragment slot="title">Accordion</Fragment>
-  <Fragment slot="preamble">
-    Let's you show and hide stuff. Uses the native HTML arrow, check out how to
-    add your own <a class="ui-link" href="#custom-marker">custom marker</a>.
-  </Fragment>
-
   <section>
     <h2 id="basics">Basics</h2>
+
+    <Conditional as="p">
+      <Fragment slot="components">
+        Put the header in <code>AccordionSummary</code> and the body in <code
+          >AccordionContent</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Put the header in the <code>&lt;summary&gt;</code> and the body in a <code
+          >.ui-content</code
+        > element.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Basics" column />
   </section>
@@ -64,18 +89,19 @@ import accordionApi from "../../component-api/accordion/api"
     <h2 id="variants">Variants</h2>
 
     <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>variant</code> prop to change how it looks.
+      <Fragment slot="components">
+        Use the <code>variant</code> prop to change how it looks. The default is <code
+          >plain</code
+        >, the page surface with no border, like a Card. <code>transparent</code
+        > drops the surface and the padding.
       </Fragment>
       <Fragment slot="html">
-        Add one of the variant classes (<code>.ui-card</code>, <code
+        Add one of the variant classes (<code>.ui-elevated</code>, <code
           >.ui-outlined</code
-        >, <code>.ui-elevated</code>, <code>.ui-tonal</code>) to the <code
+        >, <code>.ui-tonal</code>, <code>.ui-transparent</code>) to the <code
           >&lt;details&gt;</code
-        > element to change how it looks.
-      </Fragment>
-      <Fragment slot="vue">
-        Use the <code>variant</code> prop to change how it looks.
+        > element to change how it looks. Without one the accordion has the page surface
+        and no border, like a card.
       </Fragment>
     </Conditional>
 
@@ -86,8 +112,8 @@ import accordionApi from "../../component-api/accordion/api"
     <h2 id="accordion-group">Accordion group</h2>
 
     <Conditional as="p">
-      <Fragment slot="astro">
-        Group multiple accordions by wrapping them in a <code>Card</code>
+      <Fragment slot="components">
+        Group multiple accordions by wrapping them in a <code>Card</code>{" "}
         component with <code>role="group"</code>. To theme the entire group,
         apply the <code>variant</code> prop to the parent container.
       </Fragment>
@@ -96,21 +122,23 @@ import accordionApi from "../../component-api/accordion/api"
         with <code>role="group"</code>. To theme the entire group, apply the
         variant class to the parent container.
       </Fragment>
-      <Fragment slot="vue">
-        Group multiple accordions by wrapping them in a <code>Card</code>
-        component with <code>role="group"</code>. To theme the entire group,
-        apply the <code>variant</code> prop to the parent container.
-      </Fragment>
     </Conditional>
 
     <AutoExample name="Group" column />
 
     <h3 id="mutually-exclusive">Mutually exclusive</h3>
 
-    <p>
-      Set the <code>name</code> prop to allow only one accordion in a group to be
-      open at a time.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set the same <code>name</code> prop on each accordion to allow only one of
+        them to be open at a time.
+      </Fragment>
+      <Fragment slot="html">
+        Set the same <code>name</code> attribute on each <code
+          >&lt;details&gt;</code
+        > element to allow only one of them to be open at a time.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="GroupSingle" column />
   </section>
@@ -118,11 +146,22 @@ import accordionApi from "../../component-api/accordion/api"
   <section>
     <h2 id="actions">Actions</h2>
 
-    <p>
-      Include interactive elements in the header by using the <code
-        >.ui-actions</code
-      > class.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Add buttons or other interactive elements below the content with <code
+          >AccordionActions</code
+        >, after <code>AccordionContent</code>. They sit at the end, and <code
+          >align="start"</code
+        > lines them up with the content.
+      </Fragment>
+      <Fragment slot="html">
+        Add buttons or other interactive elements below the content in a <code
+          >.ui-actions</code
+        > element, after <code>.ui-content</code>. They sit at the end, and <code
+          >.ui-align-start</code
+        > lines them up with the content.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Actions" />
   </section>
@@ -130,36 +169,102 @@ import accordionApi from "../../component-api/accordion/api"
   <section>
     <h2 id="custom-marker">Custom marker</h2>
 
-    <p>
-      Replace the default marker by adding an SVG inside the <code>summary</code
-      >.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Replace the default marker with the <code>marker</code> slot on <code
+          >AccordionSummary</code
+        >, and give it <code>.ui-marker</code> so it sits at the end and animates,
+        and <code>aria-hidden="true"</code> since it's decorative. Other icons in
+        <code>AccordionSummary</code>, such as a leading status icon, stay put.
+        An empty <code>marker</code> slot, <code
+          >&lt;Fragment slot="marker" /&gt;</code
+        >, falls back to the native arrow.
+      </Fragment>
+      <Fragment slot="html">
+        Replace the <code>svg.ui-marker</code> inside the <code>summary</code> to
+        change the marker, and keep <code>aria-hidden="true"</code> on it since it's
+        decorative. Leave it out to fall back to the native arrow. Only <code
+          >.ui-marker</code
+        > animates, so other icons in the <code>summary</code>, such as a
+        leading status icon, stay put.
+      </Fragment>
+      <Fragment slot="react">
+        Replace the default marker with the <code>marker</code> prop on <code
+          >AccordionSummary</code
+        >, and give it <code>.ui-marker</code> so it sits at the end and animates,
+        and <code>aria-hidden="true"</code> since it's decorative. Other icons in
+        <code>AccordionSummary</code>, such as a leading status icon, stay put.
+        An empty <code>marker</code>, such as <code>{"marker={null}"}</code>,
+        falls back to the native arrow.
+      </Fragment>
+      <Fragment slot="svelte">
+        Replace the default marker with the <code>marker</code> snippet on <code
+          >AccordionSummary</code
+        >, and give it <code>.ui-marker</code> so it sits at the end and animates,
+        and <code>aria-hidden="true"</code> since it's decorative. Other icons in
+        <code>AccordionSummary</code>, such as a leading status icon, stay put.
+        An empty <code>marker</code> snippet falls back to the native arrow.
+      </Fragment>
+      <Fragment slot="vue">
+        Replace the default marker with the <code>marker</code> slot on <code
+          >AccordionSummary</code
+        >, and give it <code>.ui-marker</code> so it sits at the end and animates,
+        and <code>aria-hidden="true"</code> since it's decorative. Other icons in
+        <code>AccordionSummary</code>, such as a leading status icon, stay put.
+        An empty <code>marker</code> slot, <code
+          >&lt;template #marker /&gt;</code
+        >, falls back to the native arrow.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="CustomMarker" column />
   </section>
 
-  <Fragment slot="accessibility">
-    <p>
-      The <a
-        class="ui-link"
-        href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/"
-        >WAI-ARIA guidelines</a
-      > for accordions recommend:
-    </p>
+  <section>
+    <h2 id="marker-animation">Marker animation</h2>
 
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set the <code>markerAnimation</code> prop to change how the marker animates
+        when the accordion opens. A custom marker in the <code>marker</code>
+        slot on <code>AccordionSummary</code> animates too, as long as it has
+        <code>.ui-marker</code>.
+      </Fragment>
+      <Fragment slot="html">
+        The <code>.ui-marker</code> rotates when the accordion opens. Add <code
+          >.ui-marker-animation-flip</code
+        > or <code>.ui-marker-animation-turn</code> to the <code
+          >&lt;details&gt;</code
+        > element to flip or turn it instead.
+      </Fragment>
+      <Fragment slot="react">
+        Set the <code>markerAnimation</code> prop to change how the marker animates
+        when the accordion opens. A custom marker in the <code>marker</code>
+        prop on <code>AccordionSummary</code> animates too, as long as it has
+        <code>.ui-marker</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set the <code>markerAnimation</code> prop to change how the marker animates
+        when the accordion opens. A custom marker in the <code>marker</code>
+        snippet on <code>AccordionSummary</code> animates too, as long as it has
+        <code>.ui-marker</code>.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="MarkerAnimation" column />
+  </section>
+
+  <Fragment slot="accessibility">
     <ul>
       <li>
-        <code>summary</code> element
-        <ul>
-          <li>adding id and aria-controls</li>
-          <li>adding aria-expanded (if using JS)</li>
-        </ul>
+        Accordions are <code>&lt;details&gt;</code> and
+        {" "}<code>&lt;summary&gt;</code>. The browser announces the summary
+        with its expanded or collapsed state and toggles it with
+        {" "}<kbd>Enter</kbd> and <kbd>Space</kbd>, so no ARIA is needed.
       </li>
       <li>
-        content wrapper
-        <ul>
-          <li>adding id, role and aria-labelledby</li>
-        </ul>
+        In supporting browsers, find in page also searches closed accordions and
+        opens the one with the match.
       </li>
     </ul>
   </Fragment>
@@ -167,16 +272,19 @@ import accordionApi from "../../component-api/accordion/api"
   <Fragment slot="anatomy">
     <Anatomy>
       <UIAccordion open variant="outlined">
-        <Fragment slot="summary">Accordion title</Fragment>
-        <p>
-          Explain more about the topic shown in the summary through supporting
-          text.
-        </p>
-        <Fragment slot="actions">
+        <UIAccordionSummary>Accordion title</UIAccordionSummary>
+        <UIAccordionContent>
+          <p>
+            Explain more about the topic shown in the summary through supporting
+            text.
+          </p>
+        </UIAccordionContent>
+        <UIAccordionActions>
           <UIButton>Cancel</UIButton>
           <UIButton>Agree</UIButton>
-        </Fragment>
+        </UIAccordionActions>
       </UIAccordion>
     </Anatomy>
   </Fragment>
+  <AccordionBuild slot="under-the-hood" />
 </Component>

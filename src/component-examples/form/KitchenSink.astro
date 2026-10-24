@@ -1,29 +1,37 @@
 ---
-import { Form } from "@opui/astro"
-import { FieldSet } from "@opui/astro"
-import { FieldLegend } from "@opui/astro"
-import { FieldDescription } from "@opui/astro"
-import { FieldGroup } from "@opui/astro"
-import { TextField } from "@opui/astro"
-import { Select } from "@opui/astro"
-import { Switch } from "@opui/astro"
-import { Radio } from "@opui/astro"
-import { Textarea } from "@opui/astro"
-import { Checkbox } from "@opui/astro"
-import { Range } from "@opui/astro"
-import { Button } from "@opui/astro"
-import { Divider } from "@opui/astro"
+import {
+  Button,
+  Checkbox,
+  Divider,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+  Radio,
+  Range,
+  Select,
+  Switch,
+  Textarea,
+  TextField,
+} from "opui-css/astro"
 ---
 
-<Form id="kitchen-sink-example">
-  <FieldSet>
+<Form id="form-kitchen-sink-1">
+  <Fieldset>
     <FieldLegend>User Profile</FieldLegend>
     <FieldDescription>
       Please provide your basic contact details.
     </FieldDescription>
     <FieldGroup>
-      <TextField label="Full Name" placeholder="Jane Doe" required />
       <TextField
+        autocomplete="name"
+        label="Full Name"
+        placeholder="Jane Doe"
+        required
+      />
+      <TextField
+        autocomplete="email"
         label="Email Address"
         type="email"
         placeholder="jane@example.com"
@@ -32,30 +40,30 @@ import { Divider } from "@opui/astro"
       <Select
         label="Role"
         items={[
-          { text: "Developer", value: "dev" },
-          { text: "Designer", value: "design" },
-          { text: "Manager", value: "manager" },
+          { label: "Designer", value: "design" },
+          { label: "Developer", value: "dev" },
+          { label: "Manager", value: "manager" },
         ]}
       />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Notifications</FieldLegend>
     <FieldDescription>
       Configure how you want to receive updates.
     </FieldDescription>
-    <FieldGroup name="notifications">
+    <FieldGroup>
       <Switch name="email_notifs" checked>Email Notifications</Switch>
       <Switch name="sms_notifs">SMS Notifications</Switch>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Theme Preference</FieldLegend>
     <FieldDescription>Select your preferred visual style.</FieldDescription>
     <FieldGroup name="theme">
@@ -63,11 +71,11 @@ import { Divider } from "@opui/astro"
       <Radio value="dark">Dark Theme</Radio>
       <Radio value="system">System Default</Radio>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Experience Level</FieldLegend>
     <FieldDescription
       >How many years of experience do you have?</FieldDescription
@@ -82,33 +90,34 @@ import { Divider } from "@opui/astro"
         startText="Drag the slider to match your total tenure."
       />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Additional Info</FieldLegend>
     <FieldDescription>Anything else we should know?</FieldDescription>
-    <FieldGroup name="details">
+    <FieldGroup>
       <Textarea
         label="Biography"
+        name="biography"
         placeholder="Tell us about yourself..."
         rows={4}
       />
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 
-  <FieldSet>
+  <Fieldset>
     <FieldLegend>Legal</FieldLegend>
-    <FieldGroup name="legal">
+    <FieldGroup>
       <Checkbox name="terms" required>
         I agree to the terms and conditions
         <Fragment slot="end-text">Support this text</Fragment>
       </Checkbox>
     </FieldGroup>
-  </FieldSet>
+  </Fieldset>
 
   <Divider />
 

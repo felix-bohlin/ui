@@ -1,0 +1,9 @@
+---
+import type { TableCaptionProps as Props } from "./types.astro"
+
+const { ...rest } = Astro.props
+---
+
+<caption {...rest}>
+  <slot />
+</caption>

@@ -33,7 +33,14 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 <Component
   slug="checkbox"
   heroAnatomy
-  browserSupport={["has", "lh", "light-dark", "relative-color", "user-pseudos"]}
+  browserSupport={[
+    "container-style-queries",
+    "has",
+    "lh",
+    "light-dark",
+    "relative-color",
+    "user-pseudos",
+  ]}
   apis={[
     { title: "Checkbox API", api: checkboxApi },
     { title: "Checkbox input API", api: checkboxInputApi },

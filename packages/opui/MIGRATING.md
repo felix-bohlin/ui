@@ -279,14 +279,14 @@ The text card is the transparent card, so `.ui-text` only names a text part.
 
 ## Checkbox
 
-Internal variables are private. Rename any overrides:
+Internal variables are private. `--_ripple-size` and `--_size` are the inputs to override:
 
-| v5                   | v6                               |
-| -------------------- | -------------------------------- |
-| `--isLTR`, `--isRTL` | removed, the halo centers itself |
-| `--highlight-size`   | `--_ripple-size`                 |
-| `--thumb-scale`      | `--_thumb-scale`                 |
-| `--_input-size`      | `--_size`                        |
+| v5                   | v6                                                                             |
+| -------------------- | ------------------------------------------------------------------------------ |
+| `--isLTR`, `--isRTL` | removed, the halo centers itself                                               |
+| `--highlight-size`   | `--_ripple-size`                                                               |
+| `--thumb-scale`      | removed as an override, `--_thumb-scale` is set by the hover and active states |
+| `--_input-size`      | `--_size`                                                                      |
 
 The root selector is wrapped in `:where()`, like other components, so your own selectors win more easily. The input lines up with the first line of the label. In dark mode the marker stays light on a darkened fill.
 
@@ -384,6 +384,11 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 ```diff
 - <DescriptionList bordered>
 + <DescriptionList bordered="solid">
+```
+
+```diff
+- <dl class="ui-description-list ui-bordered">
++ <dl class="ui-description-list ui-bordered-solid">
 ```
 
 ```diff
@@ -640,14 +645,14 @@ In Astro and Vue, a tonal `Progress` no longer renders `.ui-tonal`. Target `.ui-
 
 ## Radio
 
-Internal variables are private. Rename any overrides:
+Internal variables are private. `--_ripple-size` and `--_size` are the inputs to override:
 
-| v5                   | v6                               |
-| -------------------- | -------------------------------- |
-| `--isLTR`, `--isRTL` | removed, the halo centers itself |
-| `--highlight-size`   | `--_ripple-size`                 |
-| `--thumb-scale`      | `--_thumb-scale`                 |
-| `--_input-size`      | `--_size`                        |
+| v5                   | v6                                                                             |
+| -------------------- | ------------------------------------------------------------------------------ |
+| `--isLTR`, `--isRTL` | removed, the halo centers itself                                               |
+| `--highlight-size`   | `--_ripple-size`                                                               |
+| `--thumb-scale`      | removed as an override, `--_thumb-scale` is set by the hover and active states |
+| `--_input-size`      | `--_size`                                                                      |
 
 Radios are `--ui-choice-size` (20px) like `Checkbox`, instead of 18px. The root selector is wrapped in `:where()`, the input lines up with the first line of the label, and the marker stays light on a darkened fill in dark mode.
 
@@ -1162,68 +1167,68 @@ Component borders read `--ui-border-width` (`Accordion`, `ButtonGroup`, `Callout
 
 Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick.
 
-Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size` for a control's size (the height, and the width of a square control), `--_radius` for corners, and `--_block-size` and `--_inline-size` for one axis of a box that isn't a control. A color says what it paints (`-bg-color`, `-text-color`, `-border-color`), sizes are logical (`-block-size`, `-inline-size`) and names aren't abbreviated. Rename them where you set them:
+Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent color, `--_text-color` for text, `--_bg-color` for the component's own background (a sub-part keeps a prefix, like `--_thumb-bg-color`), `--_duration` and `--_ease` for motion, `--_size` for a control's size (the height, and the width of a square control), `--_radius` for corners, and `--_block-size` and `--_inline-size` for one axis of a box that isn't a control. A color says what it paints (`-bg-color`, `-text-color`, `-border-color`), sizes are logical (`-block-size`, `-inline-size`) and names aren't abbreviated. Rename them where you set them. A property the component sets (an output in the Component properties table) isn't an override: the rows below name the input to set instead:
 
-| Component                   | Old                                                                     | New                                                                                                            |
-| --------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| Accordion                   | `--_transition`                                                         | `--_duration`                                                                                                  |
-| Accordion                   | `--_svg-transition`                                                     | removed, the chevron uses `--_duration` and `--_ease`                                                          |
-| Accordion                   | `--_gutter-color` (group)                                               | `--_divider-border-color`                                                                                      |
-| Accordion                   | `--_border-radius`                                                      | `--_radius`                                                                                                    |
-| Anchor                      | `--_anchor-tx`, `--_anchor-ty`                                          | `--_shift-x`, `--_shift-y`                                                                                     |
-| Avatar                      | `--_color`                                                              | `--_text-color`                                                                                                |
-| Avatar                      | `--_width`                                                              | `--_size`                                                                                                      |
-| Badge                       | `--_badge-inset`                                                        | `--_inset-block`, `--_inset-inline`                                                                            |
-| Badge                       | `--_anchor-tx`, `--_anchor-ty`                                          | `--_shift-x`, `--_shift-y`                                                                                     |
-| Button                      | `--_color`, `--_color-contrast`, `--_color-tonal`                       | `--_accent`, `--_on-accent`, `--_accent-tonal`                                                                 |
-| Button                      | `--_border-radius`                                                      | `--_radius`                                                                                                    |
-| Button                      | `--_min-height`                                                         | `--_size`                                                                                                      |
-| Button                      | `--_accent-contrast`, `--_accent-tonal-contrast`                        | `--_on-accent`, `--_on-accent-tonal`                                                                           |
-| ButtonGroup                 | `--_border-radius`                                                      | `--_radius`                                                                                                    |
-| ButtonGroup                 | `--_min-height`                                                         | removed, set `--_size` on the buttons                                                                          |
-| ButtonGroup                 | `--_divider-color`                                                      | `--_divider-border-color`                                                                                      |
-| Callout                     | `--_color`                                                              | `--_text-color`                                                                                                |
-| Callout                     | `--_outlined-color`                                                     | `--_outlined-text-color`                                                                                       |
-| Callout                     | `--_surface-bg`                                                         | `--_surface-bg-color`                                                                                          |
-| Callout                     | `--_border-radius`                                                      | `--_radius`                                                                                                    |
-| Callout                     | `--_icon-color`, `--_outlined-icon-color`                               | `--_icon-text-color`, `--_outlined-icon-text-color`                                                            |
-| Callout                     | `--_link-hover-color`                                                   | `--_link-hover-text-color`                                                                                     |
-| Card                        | `--_card-bg-color`                                                      | `--_bg-color`                                                                                                  |
-| Card                        | `--_card-border-color`                                                  | `--_border-color`                                                                                              |
-| Card                        | `--_card-border-width`                                                  | `--_border-width`                                                                                              |
-| Card                        | `--_card-shadow`                                                        | `--_shadow`                                                                                                    |
-| Card                        | `--_border-color` (outlined border)                                     | `--_outlined-border-color`                                                                                     |
-| Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`                        | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                             |
-| Card                        | `--_shadow-elevated`                                                    | `--_elevated-shadow`                                                                                           |
-| Card                        | `--_shadow-light`, `--_shadow-dark`                                     | removed, set `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark`, or `--_elevated-shadow` on the card |
-| Checkbox                    | `--_input-size`                                                         | `--_size`                                                                                                      |
-| Chip                        | `--_color`                                                              | `--_text-color`                                                                                                |
-| Drawer                      | `--_color`                                                              | `--_text-color`                                                                                                |
-| Drawer                      | `--_transition-duration`, `--_transition-timing`                        | `--_duration`, `--_ease`                                                                                       |
-| List                        | `--_bg-color-hover`                                                     | `--_hover-bg-color`                                                                                            |
-| normalize.css               | `--_page-bg-color`                                                      | removed, `html` reads `--ui-surface`                                                                           |
-| Progress                    | `--_accent-color`                                                       | `--_accent`                                                                                                    |
-| Radio                       | `--_input-size`                                                         | `--_size`                                                                                                      |
-| Range                       | `--_thumb-bg`                                                           | `--_thumb-bg-color`                                                                                            |
-| Range                       | `--_thumb-highlight-color`                                              | `--_thumb-highlight-bg-color`                                                                                  |
-| Range                       | `--_track-color`, `--_track-fill-color`                                 | `--_track-bg-color`, `--_track-fill-bg-color`                                                                  |
-| Range                       | `--_track-fill`                                                         | `--_track-fill-fraction`                                                                                       |
-| Range                       | `--_track-height`                                                       | `--_track-block-size`                                                                                          |
-| Switch                      | `--_accent-color`                                                       | `--_accent`                                                                                                    |
-| Switch                      | `--_transition-time`, `--_transition-tf`                                | `--_duration`, `--_ease`                                                                                       |
-| Switch                      | `--_track-height`, `--_track-width`                                     | `--_track-block-size`, `--_track-inline-size`                                                                  |
-| Switch                      | `--_accent-contrast`                                                    | `--_on-accent`                                                                                                 |
-| Switch                      | `--_dot-bg-color`, `--_dot-inset`, `--_dot-outline-size`, `--_dot-size` | `--_thumb-bg-color`, `--_thumb-inset`, `--_thumb-outline-size`, `--_thumb-size`                                |
-| Table                       | `--_table-border-radius`                                                | `--_radius`                                                                                                    |
-| TextField, Textarea, Select | `--_accent-color`                                                       | `--_accent`                                                                                                    |
-| TextField, Textarea, Select | `--_height`                                                             | `--_size`                                                                                                      |
-| TextField, Textarea, Select | `--_label-color`                                                        | `--_affix-text-color`                                                                                          |
-| TextField, Textarea, Select | `--_end-text-color`                                                     | `--_helper-text-color`                                                                                         |
-| ToggleButton                | `--_button-bg-color`                                                    | `--_bg-color`                                                                                                  |
-| ToggleButton                | `--_svg-size`                                                           | `--_icon-size` (direct child `svg`s only)                                                                      |
-| ToggleGroup                 | `--_border-radius`                                                      | `--_radius`                                                                                                    |
-| Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`                                     | `--_bg-color`, `--_text-color`                                                                                 |
-| Tooltip                     | `--_tooltip-offset`                                                     | `--_offset`                                                                                                    |
+| Component                   | Old                                                                     | New                                                                                                                                      |
+| --------------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Accordion                   | `--_transition`                                                         | `--_duration`                                                                                                                            |
+| Accordion                   | `--_svg-transition`                                                     | removed, the chevron uses `--_duration` and `--_ease`                                                                                    |
+| Accordion                   | `--_gutter-color` (group)                                               | `--_divider-border-color`                                                                                                                |
+| Accordion                   | `--_border-radius`                                                      | `--_radius`                                                                                                                              |
+| Anchor                      | `--_anchor-tx`, `--_anchor-ty`                                          | `--_shift-x`, `--_shift-y`                                                                                                               |
+| Avatar                      | `--_color`                                                              | `--_text-color`                                                                                                                          |
+| Avatar                      | `--_width`                                                              | `--_size`                                                                                                                                |
+| Badge                       | `--_badge-inset`                                                        | `--_inset`, which the component turns into `--_inset-block` and `--_inset-inline`                                                        |
+| Badge                       | `--_anchor-tx`, `--_anchor-ty`                                          | removed as overrides, the corner classes set `--_shift-x` and `--_shift-y`                                                               |
+| Button                      | `--_color`, `--_color-contrast`, `--_color-tonal`                       | `--_accent`, `--_on-accent`, `--_accent-tonal`                                                                                           |
+| Button                      | `--_border-radius`                                                      | `--_radius`                                                                                                                              |
+| Button                      | `--_min-height`                                                         | `--_size`                                                                                                                                |
+| Button                      | `--_accent-contrast`, `--_accent-tonal-contrast`                        | `--_on-accent`, `--_on-accent-tonal`                                                                                                     |
+| ButtonGroup                 | `--_border-radius`                                                      | `--_radius`                                                                                                                              |
+| ButtonGroup                 | `--_min-height`                                                         | removed, set `--_size` on the buttons                                                                                                    |
+| ButtonGroup                 | `--_divider-color`                                                      | `--_divider-border-color`                                                                                                                |
+| Callout                     | `--_color`                                                              | `--_text-color`                                                                                                                          |
+| Callout                     | `--_outlined-color`                                                     | `--_outlined-text-color`                                                                                                                 |
+| Callout                     | `--_surface-bg`                                                         | `--_surface-bg-color`                                                                                                                    |
+| Callout                     | `--_border-radius`                                                      | `--_radius`                                                                                                                              |
+| Callout                     | `--_icon-color`, `--_outlined-icon-color`                               | `--_outlined-icon-text-color` in `.ui-outlined`; without it the icon follows the text, and the severity classes set `--_icon-text-color` |
+| Callout                     | `--_link-hover-color`                                                   | `--_link-hover-text-color`                                                                                                               |
+| Card                        | `--_card-bg-color`                                                      | `--_bg-color`                                                                                                                            |
+| Card                        | `--_card-border-color`                                                  | `--_border-color`                                                                                                                        |
+| Card                        | `--_card-border-width`                                                  | `--_border-width`                                                                                                                        |
+| Card                        | `--_card-shadow`                                                        | `--_shadow`                                                                                                                              |
+| Card                        | `--_border-color` (outlined border)                                     | `--_outlined-border-color`                                                                                                               |
+| Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`                        | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                                                       |
+| Card                        | `--_shadow-elevated`                                                    | `--_elevated-shadow`                                                                                                                     |
+| Card                        | `--_shadow-light`, `--_shadow-dark`                                     | removed, set `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark`, or `--_elevated-shadow` on the card                           |
+| Checkbox                    | `--_input-size`                                                         | `--_size`                                                                                                                                |
+| Chip                        | `--_color`                                                              | `--_text-color`                                                                                                                          |
+| Drawer                      | `--_color`                                                              | `--_text-color`                                                                                                                          |
+| Drawer                      | `--_transition-duration`, `--_transition-timing`                        | `--_duration`, `--_ease`                                                                                                                 |
+| List                        | `--_bg-color-hover`                                                     | `--_hover-bg-color`                                                                                                                      |
+| normalize.css               | `--_page-bg-color`                                                      | removed, `html` reads `--ui-surface`                                                                                                     |
+| Progress                    | `--_accent-color`                                                       | `--_accent`                                                                                                                              |
+| Radio                       | `--_input-size`                                                         | `--_size`                                                                                                                                |
+| Range                       | `--_thumb-bg`                                                           | `--_thumb-bg-color`                                                                                                                      |
+| Range                       | `--_thumb-highlight-color`                                              | `--_accent`, which `--_thumb-highlight-bg-color` is derived from                                                                         |
+| Range                       | `--_track-color`, `--_track-fill-color`                                 | `--_track-base-bg-color` and `--_accent`, which `--_track-bg-color` and `--_track-fill-bg-color` are derived from                        |
+| Range                       | `--_track-fill`                                                         | removed as an override, `--_track-fill-fraction` is animated from the thumb position                                                     |
+| Range                       | `--_track-height`                                                       | `--_track-block-size`                                                                                                                    |
+| Switch                      | `--_accent-color`                                                       | `--_accent`                                                                                                                              |
+| Switch                      | `--_transition-time`, `--_transition-tf`                                | `--_duration`, `--_ease`                                                                                                                 |
+| Switch                      | `--_track-height`, `--_track-width`                                     | `--_track-block-size`, `--_track-inline-size`                                                                                            |
+| Switch                      | `--_accent-contrast`                                                    | `--_on-accent`                                                                                                                           |
+| Switch                      | `--_dot-bg-color`, `--_dot-inset`, `--_dot-outline-size`, `--_dot-size` | `--_thumb-bg-color`, `--_thumb-inset`, `--_thumb-outline-size`, `--_thumb-size`                                                          |
+| Table                       | `--_table-border-radius`                                                | `--_radius`                                                                                                                              |
+| TextField, Textarea, Select | `--_accent-color`                                                       | `--_accent`                                                                                                                              |
+| TextField, Textarea, Select | `--_height`                                                             | `--_size`                                                                                                                                |
+| TextField, Textarea, Select | `--_label-color`                                                        | removed as an override, `--_affix-text-color` reads `--ui-text` and the invalid state sets it                                            |
+| TextField, Textarea, Select | `--_end-text-color`                                                     | `--ui-field-helper-text-color`, which `--_helper-text-color` is derived from                                                             |
+| ToggleButton                | `--_button-bg-color`                                                    | `--_bg-color`                                                                                                                            |
+| ToggleButton                | `--_svg-size`                                                           | `--_icon-size` (direct child `svg`s only)                                                                                                |
+| ToggleGroup                 | `--_border-radius`                                                      | `--_radius`                                                                                                                              |
+| Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`                                     | `--_bg-color`, `--_text-color`                                                                                                           |
+| Tooltip                     | `--_tooltip-offset`                                                     | `--_offset`                                                                                                                              |
 
 `--ui-info` and `--ui-blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette, so info badges and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--ui-blue` in your theme.
 
@@ -1294,162 +1299,4 @@ Deep type imports from `opui-css/components/*` follow one naming scheme: the roo
 
 The `types.solid.ts` files are gone. There are no Solid components; write your own prop types if you used them.
 
-# Migrating from v5.4 to v5.5
-
-`Toast` is no longer exported from `opui-css/astro` or `opui-css/vue`. It is still available in HTML as an alpha: import `opui-css/css/components/toast.css` and `opui-css/css/js/toast.js`, and call `initToastManager()` once.
-
-# Migrating from v5.0 to v5.1
-
-In v5.1.0, the `critical` prop has been renamed to `error` on all form components (`TextField`, `Checkbox`, `Radio`, `Switch`, `Select`, `ClassicSelect`, `Textarea`).
-
-```diff
-- <TextField critical label="Name" />
-+ <TextField error label="Name" />
-```
-
-Note: Components that use `critical` for severity styling (such as `Button`, `Callout`, `Badge`) still use the `critical` prop.
-
-# Migrating from v4 to v5
-
-v5 prefixes every OPUI-owned class with `ui-`. The component props are unchanged apart from the changes at the end of this section, and the components render the prefixed classes.
-
-If you use the framework component (e.g. `<Button size="small" variant="outlined">`), the component emits the prefixed classes for you.
-
-If you use raw HTML or write CSS that targets library classes, you must rename every reference:
-
-```diff
-- <button class="button outlined small">Save</button>
-+ <button class="ui-button ui-outlined ui-small">Save</button>
-```
-
-```diff
-- .button.filled { /* override */ }
-+ .ui-button.ui-filled { /* override */ }
-```
-
-The full list of renamed tokens is in [CHANGELOG.md](./CHANGELOG.md#500---2026-05-21). Run a project-wide find/replace per token, then visually smoke test.
-
-CSS custom properties (`--primary`, `--surface-default`, `--size-3`, …) are unchanged in v5. They are renamed in v6, see Theme and tokens above.
-
-These changes in 5.0.0 and 5.0.1 need a code change too:
-
-- `Avatar` no longer takes `spacing`, and the group gap classes that went with it are removed.
-- `ToggleButton` no longer adds an unprefixed `selected` class when pressed. Style the checked input instead, e.g. `.ui-toggle-button:has(input:checked)`.
-- `Progress` (5.0.1): `.ui-progress` and its variant classes (`.ui-default`, `.ui-filled`, `.ui-tonal`) go on a wrapper `<div>` around `<progress>`. The Astro component renders the wrapper.
-
-```diff
-- <progress class="ui-progress ui-tonal" value="60" max="100"></progress>
-+ <div class="ui-progress ui-tonal">
-+   <progress value="60" max="100"></progress>
-+ </div>
-```
-
-# Migrating from v3 to v4
-
-v4 is a full re-platform.
-
-## 1. `import "opui-css"` still works
-
-The default export still resolves to a complete, ready-to-use stylesheet - just under a different filename. No code change needed unless you want one.
-
-```diff
-- import "opui-css"          // resolved to dist/theme-two/theme-two.css
-+ import "opui-css"          // now resolves to dist/opui.css (single theme)
-```
-
-If you imported `theme-one` specifically, you need to either accept the new theme or vendor the v3 stylesheet into your repo:
-
-```diff
-- import "opui-css/theme-one"
-- import "opui-css/theme-one/components"
-+ import "opui-css"          // or your own override layer
-```
-
-## 2. `opui-css/open-props` is unchanged
-
-```js
-import "opui-css/open-props" // still points at compiled Open Props tokens
-```
-
-## 3. The other `dist/` subpaths
-
-| v3                                       | v4                                  |
-| ---------------------------------------- | ----------------------------------- |
-| `opui-css/dist/theme-two/theme-two.css`  | `opui-css/dist/opui.css`            |
-| `opui-css/dist/theme-two/components.css` | `opui-css/dist/opui.components.css` |
-| `opui-css/dist/theme-one/theme-one.css`  | removed                             |
-| `opui-css/dist/theme-one/components.css` | removed                             |
-| `opui-css/dist/op.css`                   | `opui-css/dist/op.css` (unchanged)  |
-
-## 4. Source layout moved
-
-If you were importing from `src/`:
-
-```diff
-- @import "opui-css/src/components/button.css";
-+ @import "opui-css/css/components/button.css";
-```
-
-The component CSS now lives under `css/`. The pre-bundled output stays in `dist/`.
-
-## 5. Pick a theme - there's only one
-
-`theme-one` and `theme-two` are removed. The shipped theme lives in `css/theme.css`. To customise, override variables in a layer:
-
-```css
-@layer theme {
-  :root {
-    --primary: oklch(60% 0.2 250);
-  }
-}
-```
-
-## 6. `open-props` is now a peer dependency
-
-v3 had `open-props` as a regular dependency. v4 makes it a peer so you control the version:
-
-```bash
-pnpm add open-props
-```
-
-## 7. New: Astro components
-
-```astro
----
-import { Button, Dialog, Tabs } from "opui-css/astro"
----
-
-<Button color="primary">Save</Button>
-```
-
-`astro` is an _optional_ peer - only required if you actually import from `opui-css/astro`. Pure-CSS consumers won't see a peer warning.
-
-Astro components emit prefixed `ui-` classes (see [Migrating from v4 to v5](#migrating-from-v4-to-v5) above). Raw HTML and CSS overrides must use those prefixed names.
-
-## 8. Cascade layers
-
-v4 declares the layer order in `css/imports.css` / `dist/opui.css`:
-
-```css
-@layer openprops, theme, normalize, components.root, components.extended, utils;
-```
-
-Put your overrides in a later layer or unlayered. If your app already declared `@layer` with a different order, reconcile or import `dist/opui.components.css` and own the layer order yourself.
-
-## 9. Copy/paste is still supported
-
-The source files under `components/` and `css/components/` are unminified and free to vendor in - the license is unchanged (MIT).
-
-## 10. Card and Dialog `actionsAlign` (4.1.0)
-
-The Astro `Card` and `Dialog` no longer take an `actions` prop with an `align` field. Set the `actionsAlign` prop (`"start"` or `"end"`) instead.
-
-## 11. Pinning v3
-
-If you're not ready to migrate, pin the last v3 release:
-
-```json
-{ "dependencies": { "opui-css": "3.3.5" } }
-```
-
-v3 will not receive further updates.
+Coming from v3, v4 or an earlier v5? The older guides are in [MIGRATING-legacy.md](./MIGRATING-legacy.md). They use the names of the versions they were written for, and the renames above apply on top of them.

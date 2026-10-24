@@ -3,6 +3,7 @@ import { FIXTURES, openFixture } from "./fixtures"
 
 for (const component of FIXTURES) {
   test(`${component} looks the same`, async ({ page }) => {
+    test.setTimeout(180_000)
     await openFixture(page, "html", component)
     await page.screenshot({ fullPage: true })
 

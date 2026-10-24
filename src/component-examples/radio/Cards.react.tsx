@@ -6,17 +6,30 @@ export default function Cards() {
       <Fieldset>
         <FieldLegend>Plan</FieldLegend>
         <FieldGroup name="radio-cards">
-          <Radio value="starter" defaultChecked card endText="For one person.">
+          <Radio
+            value="starter"
+            defaultChecked
+            card
+            spread
+            endText="For one person."
+          >
             Starter
           </Radio>
           <Radio
             value="team"
             card
+            spread
             endText="Up to ten seats and shared folders."
           >
             Team
           </Radio>
-          <Radio value="enterprise" disabled card endText="Talk to sales.">
+          <Radio
+            value="enterprise"
+            disabled
+            card
+            spread
+            endText="Talk to sales."
+          >
             Enterprise
           </Radio>
         </FieldGroup>

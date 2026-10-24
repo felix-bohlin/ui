@@ -251,15 +251,15 @@ import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
   <Fieldset>
     <FieldLegend>Plan</FieldLegend>
     <FieldGroup name="radio-cards">
-      <Radio value="starter" checked card>
+      <Radio value="starter" checked card spread>
         Starter
         <Fragment slot="end-text">For one person.</Fragment>
       </Radio>
-      <Radio value="team" card>
+      <Radio value="team" card spread>
         Team
         <Fragment slot="end-text">Up to ten seats and shared folders.</Fragment>
       </Radio>
-      <Radio value="enterprise" disabled card>
+      <Radio value="enterprise" disabled card spread>
         Enterprise
         <Fragment slot="end-text">Talk to sales.</Fragment>
       </Radio>

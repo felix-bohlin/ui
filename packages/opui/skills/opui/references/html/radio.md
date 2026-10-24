@@ -262,17 +262,17 @@ Add the `.ui-card` class to the `<label class="ui-radio">` to render the radio a
   <fieldset class="ui-fieldset">
     <legend>Plan</legend>
     <div class="ui-field-group">
-      <label class="ui-radio ui-card">
+      <label class="ui-radio ui-card ui-spread">
         <input name="radio-cards" type="radio" value="starter" checked />
         <span class="ui-label">Starter</span>
         <span class="ui-end-text">For one person.</span>
       </label>
-      <label class="ui-radio ui-card">
+      <label class="ui-radio ui-card ui-spread">
         <input name="radio-cards" type="radio" value="team" />
         <span class="ui-label">Team</span>
         <span class="ui-end-text">Up to ten seats and shared folders.</span>
       </label>
-      <label class="ui-radio ui-card">
+      <label class="ui-radio ui-card ui-spread">
         <input name="radio-cards" type="radio" value="enterprise" disabled />
         <span class="ui-label">Enterprise</span>
         <span class="ui-end-text">Talk to sales.</span>

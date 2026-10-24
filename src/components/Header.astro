@@ -377,6 +377,12 @@ const { link } = Astro.locals
       gap: var(--size-4);
     }
 
+    .github-link {
+      @media (width < 900px) {
+        display: none;
+      }
+    }
+
     .mobile-menu-button {
       @media (width >= 900px) {
         display: none;

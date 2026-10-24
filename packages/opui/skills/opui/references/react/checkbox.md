@@ -400,7 +400,7 @@ export default function Spread() {
 
 ## Cards
 
-Set the `card` prop to render the checkbox as a card: an outlined surface that holds the label and `endText`, tints when hovered and when checked, and shows the focus ring on its edge. The checkbox sits at the start; add `spread` to move it to the end. `variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/react/components/card.md). In a `FieldGroup` with `orientation="horizontal"` the cards share the row equally and wrap.
+Set the `card` prop to render the checkbox as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `spread` to put the checkbox at the end.
 
 ```tsx
 import {
@@ -437,6 +437,104 @@ export default function Cards() {
             endText="Not available on this plan."
           >
             Custom domain
+          </Checkbox>
+        </FieldGroup>
+      </Fieldset>
+    </Form>
+  )
+}
+```
+
+### Input at the start
+
+Without `spread` the checkbox sits at the start.
+
+```tsx
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+} from "opui-css/react"
+
+export default function CardsStart() {
+  return (
+    <Form>
+      <Fieldset>
+        <FieldLegend>Add-ons</FieldLegend>
+        <FieldGroup name="checkbox-cards-start">
+          <Checkbox
+            value="support"
+            defaultChecked
+            card
+            endText="Answers within a day."
+          >
+            Priority support
+          </Checkbox>
+          <Checkbox value="storage" card endText="Another 100 GB.">
+            Extra storage
+          </Checkbox>
+          <Checkbox
+            value="domain"
+            disabled
+            card
+            endText="Not available on this plan."
+          >
+            Custom domain
+          </Checkbox>
+        </FieldGroup>
+      </Fieldset>
+    </Form>
+  )
+}
+```
+
+### Variants
+
+`variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/react/components/card.md). In a horizontal `FieldGroup` the cards share the row and wrap.
+
+```tsx
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+} from "opui-css/react"
+
+export default function CardsVariants() {
+  return (
+    <Form>
+      <Fieldset>
+        <FieldLegend>Variants</FieldLegend>
+        <FieldGroup name="checkbox-cards-variants" orientation="horizontal">
+          <Checkbox
+            value="outlined"
+            defaultChecked
+            card
+            spread
+            endText="The default surface."
+          >
+            Outlined
+          </Checkbox>
+          <Checkbox
+            value="tonal"
+            card
+            variant="tonal"
+            spread
+            endText="A tinted surface."
+          >
+            Tonal
+          </Checkbox>
+          <Checkbox
+            value="elevated"
+            card
+            variant="elevated"
+            spread
+            endText="A raised surface."
+          >
+            Elevated
           </Checkbox>
         </FieldGroup>
       </Fieldset>

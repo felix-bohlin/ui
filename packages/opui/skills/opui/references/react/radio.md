@@ -319,7 +319,7 @@ export default function Spread() {
 
 ## Cards
 
-Set the `card` prop to render the radio as a card: an outlined surface that holds the label and `endText`, tints when hovered and when checked, and shows the focus ring on its edge. The radio sits at the start; add `spread` to move it to the end. `variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/react/components/card.md). In a `FieldGroup` with `orientation="horizontal"` the cards share the row equally and wrap.
+Set the `card` prop to render the radio as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `spread` to put the radio at the end.
 
 ```tsx
 import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"
@@ -355,6 +355,86 @@ export default function Cards() {
             endText="Talk to sales."
           >
             Enterprise
+          </Radio>
+        </FieldGroup>
+      </Fieldset>
+    </Form>
+  )
+}
+```
+
+### Input at the start
+
+Without `spread` the radio sits at the start.
+
+```tsx
+import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"
+
+export default function CardsStart() {
+  return (
+    <Form>
+      <Fieldset>
+        <FieldLegend>Plan</FieldLegend>
+        <FieldGroup name="radio-cards-start">
+          <Radio value="starter" defaultChecked card endText="For one person.">
+            Starter
+          </Radio>
+          <Radio
+            value="team"
+            card
+            endText="Up to ten seats and shared folders."
+          >
+            Team
+          </Radio>
+          <Radio value="enterprise" disabled card endText="Talk to sales.">
+            Enterprise
+          </Radio>
+        </FieldGroup>
+      </Fieldset>
+    </Form>
+  )
+}
+```
+
+### Variants
+
+`variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/react/components/card.md). In a horizontal `FieldGroup` the cards share the row and wrap.
+
+```tsx
+import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"
+
+export default function CardsVariants() {
+  return (
+    <Form>
+      <Fieldset>
+        <FieldLegend>Variants</FieldLegend>
+        <FieldGroup name="radio-cards-variants" orientation="horizontal">
+          <Radio
+            value="outlined"
+            defaultChecked
+            card
+            spread
+            endText="The default surface."
+          >
+            Outlined
+          </Radio>
+          <Radio
+            value="tonal"
+            card
+            variant="tonal"
+            spread
+            endText="A tinted surface."
+          >
+            Tonal
+          </Radio>
+          <Radio
+            value="elevated"
+            card
+            variant="elevated"
+            spread
+            endText="A raised surface."
+          >
+            Elevated
           </Radio>
         </FieldGroup>
       </Fieldset>

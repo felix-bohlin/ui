@@ -1,0 +1,29 @@
+---
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  Form,
+} from "opui-css/astro"
+---
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Add-ons</FieldLegend>
+    <FieldGroup name="checkbox-cards-start">
+      <Checkbox value="support" checked card>
+        Priority support
+        <Fragment slot="end-text">Answers within a day.</Fragment>
+      </Checkbox>
+      <Checkbox value="storage" card>
+        Extra storage
+        <Fragment slot="end-text">Another 100 GB.</Fragment>
+      </Checkbox>
+      <Checkbox value="domain" disabled card>
+        Custom domain
+        <Fragment slot="end-text">Not available on this plan.</Fragment>
+      </Checkbox>
+    </FieldGroup>
+  </Fieldset>
+</Form>

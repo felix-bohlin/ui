@@ -253,7 +253,7 @@ Use the `spread` prop to push the label to the left and the radio to the right. 
 
 ## Cards
 
-Set the `card` prop to render the radio as a card: an outlined surface that holds the label and `endText`, tints when hovered and when checked, and shows the focus ring on its edge. The radio sits at the start; add `spread` to move it to the end. `variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/svelte/components/card.md). In a `FieldGroup` with `orientation="horizontal"` the cards share the row equally and wrap.
+Set the `card` prop to render the radio as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `spread` to put the radio at the end.
 
 ```svelte
 <script lang="ts">
@@ -281,6 +281,78 @@ Set the `card` prop to render the radio as a card: an outlined surface that hold
       <Radio value="enterprise" disabled card spread>
         Enterprise
         {#snippet endText()}Talk to sales.{/snippet}
+      </Radio>
+    </FieldGroup>
+  </Fieldset>
+</Form>
+```
+
+### Input at the start
+
+Without `spread` the radio sits at the start.
+
+```svelte
+<script lang="ts">
+  import {
+    Radio,
+    FieldGroup,
+    FieldLegend,
+    Fieldset,
+    Form,
+  } from "opui-css/svelte"
+</script>
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Plan</FieldLegend>
+    <FieldGroup name="radio-cards-start">
+      <Radio value="starter" checked card>
+        Starter
+        {#snippet endText()}For one person.{/snippet}
+      </Radio>
+      <Radio value="team" card>
+        Team
+        {#snippet endText()}Up to ten seats and shared folders.{/snippet}
+      </Radio>
+      <Radio value="enterprise" disabled card>
+        Enterprise
+        {#snippet endText()}Talk to sales.{/snippet}
+      </Radio>
+    </FieldGroup>
+  </Fieldset>
+</Form>
+```
+
+### Variants
+
+`variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/svelte/components/card.md). In a horizontal `FieldGroup` the cards share the row and wrap.
+
+```svelte
+<script lang="ts">
+  import {
+    Radio,
+    FieldGroup,
+    FieldLegend,
+    Fieldset,
+    Form,
+  } from "opui-css/svelte"
+</script>
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Variants</FieldLegend>
+    <FieldGroup name="radio-cards-variants" orientation="horizontal">
+      <Radio value="outlined" checked card spread>
+        Outlined
+        {#snippet endText()}The default surface.{/snippet}
+      </Radio>
+      <Radio value="tonal" card variant="tonal" spread>
+        Tonal
+        {#snippet endText()}A tinted surface.{/snippet}
+      </Radio>
+      <Radio value="elevated" card variant="elevated" spread>
+        Elevated
+        {#snippet endText()}A raised surface.{/snippet}
       </Radio>
     </FieldGroup>
   </Fieldset>

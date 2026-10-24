@@ -378,7 +378,7 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the labe
 
 ## Cards
 
-Add the `.ui-card` class to the `<label class="ui-checkbox">` to render the checkbox as a card: an outlined surface that holds the label and `.ui-end-text`, tints when hovered and when checked, and shows the focus ring on its edge. The checkbox sits at the start; add `.ui-spread` to move it to the end. `.ui-tonal` and `.ui-elevated` change the surface like a [Card](https://open-props-ui.netlify.app/html/components/card.md). In a `.ui-field-group.ui-horizontal` the cards share the row equally and wrap.
+Add the `.ui-card` class to the `<label class="ui-checkbox">` to render the checkbox as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `.ui-spread` to put the checkbox at the end.
 
 ```html
 <form class="ui-form">
@@ -399,6 +399,83 @@ Add the `.ui-card` class to the `<label class="ui-checkbox">` to render the chec
         <input name="checkbox-cards" type="checkbox" value="domain" disabled />
         <span class="ui-label">Custom domain</span>
         <span class="ui-end-text">Not available on this plan.</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
+```
+
+### Input at the start
+
+Without `.ui-spread` the checkbox sits at the start.
+
+```html
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Add-ons</legend>
+    <div class="ui-field-group">
+      <label class="ui-checkbox ui-card">
+        <input
+          name="checkbox-cards-start"
+          type="checkbox"
+          value="support"
+          checked
+        />
+        <span class="ui-label">Priority support</span>
+        <span class="ui-end-text">Answers within a day.</span>
+      </label>
+      <label class="ui-checkbox ui-card">
+        <input name="checkbox-cards-start" type="checkbox" value="storage" />
+        <span class="ui-label">Extra storage</span>
+        <span class="ui-end-text">Another 100 GB.</span>
+      </label>
+      <label class="ui-checkbox ui-card">
+        <input
+          name="checkbox-cards-start"
+          type="checkbox"
+          value="domain"
+          disabled
+        />
+        <span class="ui-label">Custom domain</span>
+        <span class="ui-end-text">Not available on this plan.</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
+```
+
+### Variants
+
+`.ui-tonal` and `.ui-elevated` change the surface like a [Card](https://open-props-ui.netlify.app/html/components/card.md). In a `.ui-field-group.ui-horizontal` the cards share the row and wrap.
+
+```html
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Variants</legend>
+    <div class="ui-field-group ui-horizontal">
+      <label class="ui-checkbox ui-card ui-spread">
+        <input
+          name="checkbox-cards-variants"
+          type="checkbox"
+          value="outlined"
+          checked
+        />
+        <span class="ui-label">Outlined</span>
+        <span class="ui-end-text">The default surface.</span>
+      </label>
+      <label class="ui-checkbox ui-card ui-tonal ui-spread">
+        <input name="checkbox-cards-variants" type="checkbox" value="tonal" />
+        <span class="ui-label">Tonal</span>
+        <span class="ui-end-text">A tinted surface.</span>
+      </label>
+      <label class="ui-checkbox ui-card ui-elevated ui-spread">
+        <input
+          name="checkbox-cards-variants"
+          type="checkbox"
+          value="elevated"
+        />
+        <span class="ui-label">Elevated</span>
+        <span class="ui-end-text">A raised surface.</span>
       </label>
     </div>
   </fieldset>

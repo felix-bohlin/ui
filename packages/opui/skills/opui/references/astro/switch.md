@@ -297,7 +297,7 @@ import { Switch } from "opui-css/astro"
 
 ## Cards
 
-Set the `card` prop to render the switch as a card: an outlined surface that holds the label and `endText`, tints when hovered and when checked, and shows the focus ring on its edge. The switch sits at the start; add `spread` to move it to the end. `variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/astro/components/card.md). In a `FieldGroup` with `orientation="horizontal"` the cards share the row equally and wrap.
+Set the `card` prop to render the switch as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `spread` to put the switch at the end.
 
 ```astro
 ---
@@ -319,6 +319,66 @@ import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
       <Switch value="digest" card spread>
         Weekly digest
         <Fragment slot="end-text">Every Monday morning.</Fragment>
+      </Switch>
+    </FieldGroup>
+  </Fieldset>
+</Form>
+```
+
+### Input at the start
+
+Without `spread` the switch sits at the start.
+
+```astro
+---
+import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
+---
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Notifications</FieldLegend>
+    <FieldGroup name="switch-cards-start">
+      <Switch value="email" checked card>
+        Email
+        <Fragment slot="end-text">A summary of each day.</Fragment>
+      </Switch>
+      <Switch value="push" card>
+        Push
+        <Fragment slot="end-text">Right when something happens.</Fragment>
+      </Switch>
+      <Switch value="digest" card>
+        Weekly digest
+        <Fragment slot="end-text">Every Monday morning.</Fragment>
+      </Switch>
+    </FieldGroup>
+  </Fieldset>
+</Form>
+```
+
+### Variants
+
+`variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/astro/components/card.md). In a horizontal `FieldGroup` the cards share the row and wrap.
+
+```astro
+---
+import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
+---
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Variants</FieldLegend>
+    <FieldGroup name="switch-cards-variants" orientation="horizontal">
+      <Switch value="outlined" checked card spread>
+        Outlined
+        <Fragment slot="end-text">The default surface.</Fragment>
+      </Switch>
+      <Switch value="tonal" card variant="tonal" spread>
+        Tonal
+        <Fragment slot="end-text">A tinted surface.</Fragment>
+      </Switch>
+      <Switch value="elevated" card variant="elevated" spread>
+        Elevated
+        <Fragment slot="end-text">A raised surface.</Fragment>
       </Switch>
     </FieldGroup>
   </Fieldset>

@@ -286,7 +286,7 @@ Use the `spread` prop to push the label to the left and the checkbox to the righ
 
 ## Cards
 
-Set the `card` prop to render the checkbox as a card: an outlined surface that holds the label and `endText`, tints when hovered and when checked, and shows the focus ring on its edge. The checkbox sits at the start; add `spread` to move it to the end. `variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/svelte/components/card.md). In a `FieldGroup` with `orientation="horizontal"` the cards share the row equally and wrap.
+Set the `card` prop to render the checkbox as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `spread` to put the checkbox at the end.
 
 ```svelte
 <script lang="ts">
@@ -314,6 +314,78 @@ Set the `card` prop to render the checkbox as a card: an outlined surface that h
       <Checkbox value="domain" disabled card spread>
         Custom domain
         {#snippet endText()}Not available on this plan.{/snippet}
+      </Checkbox>
+    </FieldGroup>
+  </Fieldset>
+</Form>
+```
+
+### Input at the start
+
+Without `spread` the checkbox sits at the start.
+
+```svelte
+<script lang="ts">
+  import {
+    Checkbox,
+    FieldGroup,
+    FieldLegend,
+    Fieldset,
+    Form,
+  } from "opui-css/svelte"
+</script>
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Add-ons</FieldLegend>
+    <FieldGroup name="checkbox-cards-start">
+      <Checkbox value="support" checked card>
+        Priority support
+        {#snippet endText()}Answers within a day.{/snippet}
+      </Checkbox>
+      <Checkbox value="storage" card>
+        Extra storage
+        {#snippet endText()}Another 100 GB.{/snippet}
+      </Checkbox>
+      <Checkbox value="domain" disabled card>
+        Custom domain
+        {#snippet endText()}Not available on this plan.{/snippet}
+      </Checkbox>
+    </FieldGroup>
+  </Fieldset>
+</Form>
+```
+
+### Variants
+
+`variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/svelte/components/card.md). In a horizontal `FieldGroup` the cards share the row and wrap.
+
+```svelte
+<script lang="ts">
+  import {
+    Checkbox,
+    FieldGroup,
+    FieldLegend,
+    Fieldset,
+    Form,
+  } from "opui-css/svelte"
+</script>
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Variants</FieldLegend>
+    <FieldGroup name="checkbox-cards-variants" orientation="horizontal">
+      <Checkbox value="outlined" checked card spread>
+        Outlined
+        {#snippet endText()}The default surface.{/snippet}
+      </Checkbox>
+      <Checkbox value="tonal" card variant="tonal" spread>
+        Tonal
+        {#snippet endText()}A tinted surface.{/snippet}
+      </Checkbox>
+      <Checkbox value="elevated" card variant="elevated" spread>
+        Elevated
+        {#snippet endText()}A raised surface.{/snippet}
       </Checkbox>
     </FieldGroup>
   </Fieldset>

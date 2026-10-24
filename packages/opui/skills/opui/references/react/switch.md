@@ -428,7 +428,7 @@ export default function Spread() {
 
 ## Cards
 
-Set the `card` prop to render the switch as a card: an outlined surface that holds the label and `endText`, tints when hovered and when checked, and shows the focus ring on its edge. The switch sits at the start; add `spread` to move it to the end. `variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/react/components/card.md). In a `FieldGroup` with `orientation="horizontal"` the cards share the row equally and wrap.
+Set the `card` prop to render the switch as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `spread` to put the switch at the end.
 
 ```tsx
 import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"
@@ -458,6 +458,87 @@ export default function Cards() {
           </Switch>
           <Switch value="digest" card spread endText="Every Monday morning.">
             Weekly digest
+          </Switch>
+        </FieldGroup>
+      </Fieldset>
+    </Form>
+  )
+}
+```
+
+### Input at the start
+
+Without `spread` the switch sits at the start.
+
+```tsx
+import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"
+
+export default function CardsStart() {
+  return (
+    <Form>
+      <Fieldset>
+        <FieldLegend>Notifications</FieldLegend>
+        <FieldGroup name="switch-cards-start">
+          <Switch
+            value="email"
+            defaultChecked
+            card
+            endText="A summary of each day."
+          >
+            Email
+          </Switch>
+          <Switch value="push" card endText="Right when something happens.">
+            Push
+          </Switch>
+          <Switch value="digest" card endText="Every Monday morning.">
+            Weekly digest
+          </Switch>
+        </FieldGroup>
+      </Fieldset>
+    </Form>
+  )
+}
+```
+
+### Variants
+
+`variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/react/components/card.md). In a horizontal `FieldGroup` the cards share the row and wrap.
+
+```tsx
+import { Switch, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/react"
+
+export default function CardsVariants() {
+  return (
+    <Form>
+      <Fieldset>
+        <FieldLegend>Variants</FieldLegend>
+        <FieldGroup name="switch-cards-variants" orientation="horizontal">
+          <Switch
+            value="outlined"
+            defaultChecked
+            card
+            spread
+            endText="The default surface."
+          >
+            Outlined
+          </Switch>
+          <Switch
+            value="tonal"
+            card
+            variant="tonal"
+            spread
+            endText="A tinted surface."
+          >
+            Tonal
+          </Switch>
+          <Switch
+            value="elevated"
+            card
+            variant="elevated"
+            spread
+            endText="A raised surface."
+          >
+            Elevated
           </Switch>
         </FieldGroup>
       </Fieldset>

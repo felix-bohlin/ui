@@ -326,7 +326,7 @@ import { Checkbox } from "opui-css/vue"
 
 ## Cards
 
-Set the `card` prop to render the checkbox as a card: an outlined surface that holds the label and `endText`, tints when hovered and when checked, and shows the focus ring on its edge. The checkbox sits at the start; add `spread` to move it to the end. `variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/vue/components/card.md). In a `FieldGroup` with `orientation="horizontal"` the cards share the row equally and wrap.
+Set the `card` prop to render the checkbox as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `spread` to put the checkbox at the end.
 
 ```vue
 <script setup lang="ts">
@@ -349,6 +349,70 @@ import { Checkbox, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
         <Checkbox value="domain" disabled card spread>
           Custom domain
           <template #end-text>Not available on this plan.</template>
+        </Checkbox>
+      </FieldGroup>
+    </Fieldset>
+  </Form>
+</template>
+```
+
+### Input at the start
+
+Without `spread` the checkbox sits at the start.
+
+```vue
+<script setup lang="ts">
+import { Checkbox, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
+</script>
+
+<template>
+  <Form>
+    <Fieldset>
+      <FieldLegend>Add-ons</FieldLegend>
+      <FieldGroup name="checkbox-cards-start">
+        <Checkbox value="support" checked card>
+          Priority support
+          <template #end-text>Answers within a day.</template>
+        </Checkbox>
+        <Checkbox value="storage" card>
+          Extra storage
+          <template #end-text>Another 100 GB.</template>
+        </Checkbox>
+        <Checkbox value="domain" disabled card>
+          Custom domain
+          <template #end-text>Not available on this plan.</template>
+        </Checkbox>
+      </FieldGroup>
+    </Fieldset>
+  </Form>
+</template>
+```
+
+### Variants
+
+`variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/vue/components/card.md). In a horizontal `FieldGroup` the cards share the row and wrap.
+
+```vue
+<script setup lang="ts">
+import { Checkbox, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/vue"
+</script>
+
+<template>
+  <Form>
+    <Fieldset>
+      <FieldLegend>Variants</FieldLegend>
+      <FieldGroup name="checkbox-cards-variants" orientation="horizontal">
+        <Checkbox value="outlined" checked card spread>
+          Outlined
+          <template #end-text>The default surface.</template>
+        </Checkbox>
+        <Checkbox value="tonal" card variant="tonal" spread>
+          Tonal
+          <template #end-text>A tinted surface.</template>
+        </Checkbox>
+        <Checkbox value="elevated" card variant="elevated" spread>
+          Elevated
+          <template #end-text>A raised surface.</template>
         </Checkbox>
       </FieldGroup>
     </Fieldset>

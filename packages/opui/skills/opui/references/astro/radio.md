@@ -240,7 +240,7 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 
 ## Cards
 
-Set the `card` prop to render the radio as a card: an outlined surface that holds the label and `endText`, tints when hovered and when checked, and shows the focus ring on its edge. The radio sits at the start; add `spread` to move it to the end. `variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/astro/components/card.md). In a `FieldGroup` with `orientation="horizontal"` the cards share the row equally and wrap.
+Set the `card` prop to render the radio as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `spread` to put the radio at the end.
 
 ```astro
 ---
@@ -262,6 +262,66 @@ import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
       <Radio value="enterprise" disabled card spread>
         Enterprise
         <Fragment slot="end-text">Talk to sales.</Fragment>
+      </Radio>
+    </FieldGroup>
+  </Fieldset>
+</Form>
+```
+
+### Input at the start
+
+Without `spread` the radio sits at the start.
+
+```astro
+---
+import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
+---
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Plan</FieldLegend>
+    <FieldGroup name="radio-cards-start">
+      <Radio value="starter" checked card>
+        Starter
+        <Fragment slot="end-text">For one person.</Fragment>
+      </Radio>
+      <Radio value="team" card>
+        Team
+        <Fragment slot="end-text">Up to ten seats and shared folders.</Fragment>
+      </Radio>
+      <Radio value="enterprise" disabled card>
+        Enterprise
+        <Fragment slot="end-text">Talk to sales.</Fragment>
+      </Radio>
+    </FieldGroup>
+  </Fieldset>
+</Form>
+```
+
+### Variants
+
+`variant="tonal"` and `variant="elevated"` change the surface like a [Card](https://open-props-ui.netlify.app/astro/components/card.md). In a horizontal `FieldGroup` the cards share the row and wrap.
+
+```astro
+---
+import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
+---
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Variants</FieldLegend>
+    <FieldGroup name="radio-cards-variants" orientation="horizontal">
+      <Radio value="outlined" checked card spread>
+        Outlined
+        <Fragment slot="end-text">The default surface.</Fragment>
+      </Radio>
+      <Radio value="tonal" card variant="tonal" spread>
+        Tonal
+        <Fragment slot="end-text">A tinted surface.</Fragment>
+      </Radio>
+      <Radio value="elevated" card variant="elevated" spread>
+        Elevated
+        <Fragment slot="end-text">A raised surface.</Fragment>
       </Radio>
     </FieldGroup>
   </Fieldset>

@@ -1,0 +1,23 @@
+---
+import { Radio, FieldGroup, FieldLegend, Fieldset, Form } from "opui-css/astro"
+---
+
+<Form>
+  <Fieldset>
+    <FieldLegend>Variants</FieldLegend>
+    <FieldGroup name="radio-cards-variants" orientation="horizontal">
+      <Radio value="outlined" checked card spread>
+        Outlined
+        <Fragment slot="end-text">The default surface.</Fragment>
+      </Radio>
+      <Radio value="tonal" card variant="tonal" spread>
+        Tonal
+        <Fragment slot="end-text">A tinted surface.</Fragment>
+      </Radio>
+      <Radio value="elevated" card variant="elevated" spread>
+        Elevated
+        <Fragment slot="end-text">A raised surface.</Fragment>
+      </Radio>
+    </FieldGroup>
+  </Fieldset>
+</Form>

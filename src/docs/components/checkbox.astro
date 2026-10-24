@@ -283,34 +283,51 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
     <h2 id="cards">Cards</h2>
     <Conditional as="p">
       <Fragment slot="components">
-        Set the <code>card</code> prop to render the checkbox as a card: an outlined
-        surface that holds the label and <code>endText</code>, tints when
-        hovered and when checked, and shows the focus ring on its edge. The
-        checkbox sits at the start; add <code>spread</code> to move it to the end.
-        <code>variant="tonal"</code> and <code>variant="elevated"</code> change the
-        surface like a <DocLink href="/components/card" class="ui-link"
-          >Card</DocLink
-        >. In a <code>FieldGroup</code> with <code
-          >orientation="horizontal"</code
-        >
-        the cards share the row equally and wrap.
+        Set the <code>card</code> prop to render the checkbox as a card. It tints
+        when hovered and when checked, and the focus ring goes around the card. Add
+        <code>spread</code> to put the checkbox at the end.
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-card</code> class to the <code
           >&lt;label class="ui-checkbox"&gt;</code
         >
-        {" "}to render the checkbox as a card: an outlined surface that holds
-        the label and <code>.ui-end-text</code>, tints when hovered and when
-        checked, and shows the focus ring on its edge. The checkbox sits at the
-        start; add <code>.ui-spread</code> to move it to the end.
-        <code>.ui-tonal</code> and <code>.ui-elevated</code> change the surface like
-        a <DocLink href="/components/card" class="ui-link">Card</DocLink>. In a <code
-          >.ui-field-group.ui-horizontal</code
-        > the cards share the row equally and wrap.
+        {" "}to render the checkbox as a card. It tints when hovered and when
+        checked, and the focus ring goes around the card. Add
+        <code>.ui-spread</code> to put the checkbox at the end.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Cards" column />
+
+    <h3 id="cards-input-at-the-start">Input at the start</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Without <code>spread</code> the checkbox sits at the start.
+      </Fragment>
+      <Fragment slot="html">
+        Without <code>.ui-spread</code> the checkbox sits at the start.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="CardsStart" column />
+
+    <h3 id="cards-variants">Variants</h3>
+    <Conditional as="p">
+      <Fragment slot="components">
+        <code>variant="tonal"</code> and <code>variant="elevated"</code> change the
+        surface like a <DocLink href="/components/card" class="ui-link"
+          >Card</DocLink
+        >. In a horizontal <code>FieldGroup</code> the cards share the row and wrap.
+      </Fragment>
+      <Fragment slot="html">
+        <code>.ui-tonal</code> and <code>.ui-elevated</code> change the surface like
+        a <DocLink href="/components/card" class="ui-link">Card</DocLink>. In a <code
+          >.ui-field-group.ui-horizontal</code
+        > the cards share the row and wrap.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="CardsVariants" />
   </section>
 
   <section>

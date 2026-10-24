@@ -402,7 +402,7 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
 
 ## Cards
 
-Add the `.ui-card` class to the `<label class="ui-switch">` to render the switch as a card: an outlined surface that holds the label and `.ui-end-text`, tints when hovered and when checked, and shows the focus ring on its edge. The switch sits at the start; add `.ui-spread` to move it to the end. `.ui-tonal` and `.ui-elevated` change the surface like a [Card](https://open-props-ui.netlify.app/html/components/card.md). In a `.ui-field-group.ui-horizontal` the cards share the row equally and wrap.
+Add the `.ui-card` class to the `<label class="ui-switch">` to render the switch as a card. It tints when hovered and when checked, and the focus ring goes around the card. Add `.ui-spread` to put the switch at the end.
 
 ```html
 <form class="ui-form">
@@ -434,6 +434,96 @@ Add the `.ui-card` class to the `<label class="ui-switch">` to render the switch
         />
         <span class="ui-label">Weekly digest</span>
         <span class="ui-end-text">Every Monday morning.</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
+```
+
+### Input at the start
+
+Without `.ui-spread` the switch sits at the start.
+
+```html
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Notifications</legend>
+    <div class="ui-field-group">
+      <label class="ui-switch ui-card">
+        <input
+          name="switch-cards-start"
+          type="checkbox"
+          role="switch"
+          value="email"
+          checked
+        />
+        <span class="ui-label">Email</span>
+        <span class="ui-end-text">A summary of each day.</span>
+      </label>
+      <label class="ui-switch ui-card">
+        <input
+          name="switch-cards-start"
+          type="checkbox"
+          role="switch"
+          value="push"
+        />
+        <span class="ui-label">Push</span>
+        <span class="ui-end-text">Right when something happens.</span>
+      </label>
+      <label class="ui-switch ui-card">
+        <input
+          name="switch-cards-start"
+          type="checkbox"
+          role="switch"
+          value="digest"
+        />
+        <span class="ui-label">Weekly digest</span>
+        <span class="ui-end-text">Every Monday morning.</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
+```
+
+### Variants
+
+`.ui-tonal` and `.ui-elevated` change the surface like a [Card](https://open-props-ui.netlify.app/html/components/card.md). In a `.ui-field-group.ui-horizontal` the cards share the row and wrap.
+
+```html
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Variants</legend>
+    <div class="ui-field-group ui-horizontal">
+      <label class="ui-switch ui-card ui-spread">
+        <input
+          name="switch-cards-variants"
+          type="checkbox"
+          role="switch"
+          value="outlined"
+          checked
+        />
+        <span class="ui-label">Outlined</span>
+        <span class="ui-end-text">The default surface.</span>
+      </label>
+      <label class="ui-switch ui-card ui-tonal ui-spread">
+        <input
+          name="switch-cards-variants"
+          type="checkbox"
+          role="switch"
+          value="tonal"
+        />
+        <span class="ui-label">Tonal</span>
+        <span class="ui-end-text">A tinted surface.</span>
+      </label>
+      <label class="ui-switch ui-card ui-elevated ui-spread">
+        <input
+          name="switch-cards-variants"
+          type="checkbox"
+          role="switch"
+          value="elevated"
+        />
+        <span class="ui-label">Elevated</span>
+        <span class="ui-end-text">A raised surface.</span>
       </label>
     </div>
   </fieldset>

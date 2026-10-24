@@ -35,7 +35,7 @@ Tonal
 
 ## Content
 
-Pass text or any element as children to place it in the middle of the line. The divider then renders a `<div>` instead of an `<hr>`, so screen readers read the content in order. Set `align` to `start` or `end` to move it to one side. The lines follow the `variant` and `color`.
+Put text or any element inside the divider (children in React and Svelte, the default slot in Astro and Vue) to place it in the middle of the line. The divider then renders a `<div>` instead of an `<hr>`, so screen readers read the content in order. Set `align` to `start` or `end` to move it to one side. The lines follow the `variant` and `color`.
 
 ```svelte
 <script lang="ts">

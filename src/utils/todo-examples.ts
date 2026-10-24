@@ -7,11 +7,18 @@ const sources = import.meta.glob<string>("../todo-examples/*.html", {
 const sourceOf = (name: string) => sources[`../todo-examples/${name}.html`]
 
 export const todoExamples = {
-  "carousel-scroll-button-fallback": {
-    match: "Carousel in Chromium 141",
+  "dialog-scrollbar-gutter": {
+    match: "Dialog, Drawer: the scroll lock's `scrollbar-gutter: stable`",
   },
   "list-item-as-div": {
     match: 'ListItem: `as="div"` renders',
+  },
+  "tabs-rtl": {
+    match: "Tabs: the Keyboard support list says Right and Left Arrow",
+  },
+  "tooltip-trigger-command": {
+    match:
+      'Tooltip: the triggers set `commandfor` and `command="toggle-popover"`',
   },
 }
 

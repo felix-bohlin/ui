@@ -1,0 +1,45 @@
+<p class="todo-note">
+  Two Save buttons with the same tooltip. The current one also carries
+  <code>commandfor</code> and <code>command="toggle-popover"</code> for a tap,
+  so Chromium exposes it with an expanded state and Enter toggles the tooltip
+  while it runs the action. The proposed one has <code>interestfor</code> only:
+  a plain button whose tooltip is its description, shown on hover, focus and
+  (Chrome 142+) long press. Compare them in the accessibility tree, then Tab to
+  each and press Enter.
+</p>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">
+      Today: <code>interestfor</code> + <code>command</code>
+    </p>
+    <span class="ui-tooltip">
+      <button
+        type="button"
+        class="ui-button ui-filled"
+        interestfor="todo-tooltip-command"
+        commandfor="todo-tooltip-command"
+        command="toggle-popover"
+      >
+        Save
+      </button>
+      <span class="ui-floating" id="todo-tooltip-command" popover="hint"
+        >Save your changes</span
+      >
+    </span>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">Proposed: <code>interestfor</code> only</p>
+    <span class="ui-tooltip">
+      <button
+        type="button"
+        class="ui-button ui-filled"
+        interestfor="todo-tooltip-interest"
+      >
+        Save
+      </button>
+      <span class="ui-floating" id="todo-tooltip-interest" popover="hint"
+        >Save your changes</span
+      >
+    </span>
+  </section>
+</div>

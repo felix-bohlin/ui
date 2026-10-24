@@ -298,7 +298,7 @@ import { Switch } from "opui-css/vue"
 
 ## Spread
 
-Use the `spread` prop to push the label to the left and the switch to the right. This is useful for full-width items like lists and menus.
+Use the `spread` prop to push the label to the left and the switch to the right. Handy for full-width items like lists and menus, and for [cards](#cards).
 
 ```vue
 <script setup lang="ts">

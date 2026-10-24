@@ -123,7 +123,7 @@
 
       &:has(> .ui-card:is(.ui-checkbox, .ui-radio, .ui-switch)) {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(24ch, 100%), 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(20ch, 100%), 1fr));
       }
     }
   }

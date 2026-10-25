@@ -35,8 +35,12 @@
     "*.css",
     "./css/js/*.js"
   ],
+  "bin": {
+    "opui-css": "./bin/opui-css.mjs"
+  },
   "files": [
     "astro",
+    "bin",
     "components",
     "!components/AGENTS.md",
     "core",

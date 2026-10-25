@@ -14,6 +14,7 @@ Install with `npm install opui-css`. Open Props is bundled in `dist/opui.css` fo
 - With a bundler, import everything with `@import "opui-css/css/imports.css"`, or import `opui-css/css/layers.css` first, then `opui-css/core/palette.css`, `opui-css/css/theme.css`, `opui-css/core/normalize.css`, the components from `opui-css/css/components/<name>.css` (`choice.css` with `checkbox.css`, `radio.css` or `switch.css`), and `opui-css/core/utils.css` last. `references/getting-started.md` has the full list.
 - Without a bundler, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`.
 - Astro: `import { Button } from "opui-css/astro"`. React: `import { Button } from "opui-css/react"`. Svelte: `import { Button } from "opui-css/svelte"`. Vue: `import { Button } from "opui-css/vue"`. All still need the CSS imported once.
+- `npx opui-css skill` copies this skill, matching the installed version, into `.claude/skills/opui`. Pass `--dir <path>` for another agent's skills folder and `--force` to replace an older copy after an upgrade.
 
 ## Conventions
 

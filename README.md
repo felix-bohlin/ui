@@ -9,7 +9,7 @@ https://open-props-ui.netlify.app/html/guide/getting-started/
 ### AI assistants
 
 - [llms.txt](https://open-props-ui.netlify.app/llms.txt) indexes the docs. Every page also has a Markdown version, e.g. [/html/components/button.md](https://open-props-ui.netlify.app/html/components/button.md).
-- `opui-css` ships an agent skill in `skills/opui`. See the [package README](packages/opui/README.md#ai-assistants).
+- `opui-css` ships an agent skill in `skills/opui`, and `npx opui-css skill` copies it into a project. See the [package README](packages/opui/README.md#ai-assistants).
 
 ---
 
@@ -21,6 +21,7 @@ The project is managed as a monorepo with two main parts:
 
 - **The Library (`packages/opui`)**: Contains the framework-agnostic core of the library. It is managed as a standalone workspace package named `opui-css`.
   - `astro/`: Public entry point and barrel exports for Astro-based projects.
+  - `bin/`: The `opui-css` command, which copies the agent skill into a project.
   - `components/`: UI components organized by folder. Each folder contains the Astro, React, Svelte and Vue templates (e.g., `Button.astro`, `Button.react.tsx`, `Button.svelte`, `Button.vue`) and their types.
   - `core/`: Normalize, palette and utility classes.
   - `css/`: Component styles, theme, layer order, entry-point imports and the HTML helper scripts in `css/js/`.

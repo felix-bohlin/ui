@@ -1,13 +1,16 @@
-import { execFileSync } from "node:child_process"
+import { execFileSync, spawnSync } from "node:child_process"
 import {
   cpSync,
+  existsSync,
   mkdirSync,
   mkdtempSync,
   readdirSync,
   readFileSync,
   realpathSync,
   rmSync,
+  statSync,
   symlinkSync,
+  writeFileSync,
 } from "node:fs"
 import { tmpdir } from "node:os"
 import path from "node:path"
@@ -116,6 +119,7 @@ test("the tarball ships the package and nothing else", () => {
     "LICENSE",
     "README.md",
     "astro/index.ts",
+    "bin/opui-css.mjs",
     "components/Button/Button.astro",
     "components/Button/Button.react.tsx",
     "components/Button/Button.svelte",
@@ -155,6 +159,85 @@ test("dist/opui.css starts with the layer order", () => {
   const css = readFileSync(path.join(unpacked, "dist/opui.css"), "utf8")
   expect(layers[0]).toMatch(/^@layer openprops, theme, /)
   expect(css.split("\n").slice(0, layers.length)).toEqual(layers)
+})
+
+describe("the opui-css command", () => {
+  let dir: string
+  let skill: string[]
+
+  const opui = (...args: string[]) => {
+    const result = spawnSync(
+      "node",
+      [path.join(unpacked, "bin/opui-css.mjs"), ...args],
+      { cwd: dir, encoding: "utf8" },
+    )
+    return { output: `${result.stdout}${result.stderr}`, status: result.status }
+  }
+
+  const files = (folder: string) =>
+    readdirSync(folder, { recursive: true })
+      .map(String)
+      .filter((file) => statSync(path.join(folder, file)).isFile())
+      .toSorted()
+
+  beforeAll(() => {
+    dir = path.join(work, "command")
+    mkdirSync(dir)
+    skill = files(path.join(unpacked, "skills/opui"))
+  })
+
+  test("the package declares it as a bin", () => {
+    const manifest = JSON.parse(
+      readFileSync(path.join(unpacked, "package.json"), "utf8"),
+    )
+    expect(manifest.bin).toEqual({ "opui-css": "./bin/opui-css.mjs" })
+  })
+
+  test("skill copies the skill into .claude/skills/opui", () => {
+    const { output, status } = opui("skill")
+    const target = path.join(dir, ".claude/skills/opui")
+    expect(status).toBe(0)
+    expect(output).toContain(".claude/skills/opui")
+    expect(output).toContain(
+      JSON.parse(readFileSync(path.join(unpacked, "package.json"), "utf8"))
+        .version,
+    )
+    expect(files(target)).toEqual(skill)
+    expect(skill).toContain("SKILL.md")
+    expect(skill).toContain(path.join("references", "index.md"))
+    expect(skill).toContain(path.join("references", "button.md"))
+    expect(readFileSync(path.join(target, "SKILL.md"), "utf8")).toBe(
+      readFileSync(path.join(unpacked, "skills/opui/SKILL.md"), "utf8"),
+    )
+  })
+
+  test("skill refuses to replace a copy without --force", () => {
+    const target = path.join(dir, ".claude/skills/opui")
+    writeFileSync(path.join(target, "stale.md"), "")
+    const refused = opui("skill")
+    expect(refused.status).not.toBe(0)
+    expect(refused.output).toContain("--force")
+    expect(existsSync(path.join(target, "stale.md"))).toBe(true)
+    expect(opui("skill", "--force").status).toBe(0)
+    expect(files(target)).toEqual(skill)
+  })
+
+  test("skill --dir copies it into another skills folder", () => {
+    const { output, status } = opui("skill", "--dir", "agents/skills")
+    expect(status).toBe(0)
+    expect(output).toContain(path.join("agents", "skills", "opui"))
+    expect(files(path.join(dir, "agents/skills/opui"))).toEqual(skill)
+  })
+
+  test.each([
+    { args: ["--help"], name: "--help" },
+    { args: [], name: "no command" },
+    { args: ["unknown"], name: "an unknown command" },
+  ])("$name prints the usage and fails", ({ args }) => {
+    const { output, status } = opui(...args)
+    expect(status).not.toBe(0)
+    expect(output).toContain("Usage: npx opui-css skill")
+  })
 })
 
 describe.each(FIXTURES)("$framework fixture", ({ build, check, framework }) => {

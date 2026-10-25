@@ -217,13 +217,13 @@ Put your own tokens in `@layer theme.custom`, which beats the defaults and loses
 
 ## AI assistants
 
-The package ships an agent skill in `skills/opui` with a reference for every component, matching the installed version. Agents don't load skills from `node_modules` on their own, so copy it into your project:
+The package ships an agent skill in `skills/opui`, with one reference per component for every framework, matching the installed version. Agents don't load skills from `node_modules` on their own, so copy it into your project:
 
 ```bash
-mkdir -p .claude/skills && cp -r node_modules/opui-css/skills/opui .claude/skills/opui
+npx opui-css skill
 ```
 
-Use the skills folder your agent reads from if it isn't Claude Code, or point your `AGENTS.md` at `node_modules/opui-css/skills/opui/SKILL.md`.
+It writes `.claude/skills/opui` and prints the version it copied. Pass `--dir <path>` to copy it into another agent's skills folder (`<path>/opui`), and `--force` to replace an older copy after an upgrade. Without the command: `mkdir -p .claude/skills && cp -r node_modules/opui-css/skills/opui .claude/skills/opui`.
 
 The docs are also available as [llms.txt](https://open-props-ui.netlify.app/llms.txt), and every docs page has a Markdown version, e.g. [/html/components/button.md](https://open-props-ui.netlify.app/html/components/button.md).
 

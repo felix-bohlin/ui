@@ -47,12 +47,15 @@ const themes = testPagesEnabled()
         const sync = () => {
           root.className = parentRoot.className
           root.style.cssText = parentRoot.style.cssText
+          const exampleTheme = parentRoot.dataset.exampleTheme ?? null
+          if (exampleTheme !== (root.dataset.exampleTheme ?? null))
+            window.themeUtils.applyExampleTheme(exampleTheme)
         }
 
         if (parentRoot) {
           sync()
           new MutationObserver(sync).observe(parentRoot, {
-            attributeFilter: ["class", "style"],
+            attributeFilter: ["class", "data-example-theme", "style"],
             attributes: true,
           })
         }

@@ -85,7 +85,7 @@ CI builds the docs site once, with `OPUI_TEST_PAGES=1`, in the `check` job. The 
 
 ### Agent skill
 
-`packages/opui/skills/opui/references` is generated from the docs build. `pnpm build` (and so `pnpm check`) regenerates it, and CI fails when the committed references are stale. To regenerate it from an existing build:
+`packages/opui/skills/opui/references` is generated: one file per component page from its `api.ts` data, custom properties and first example, and the guides from the docs build. `pnpm build` (and so `pnpm check`) regenerates it, and CI fails when the committed references are stale. To regenerate it from an existing build:
 
 ```bash
 pnpm build-skill

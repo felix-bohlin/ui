@@ -11,7 +11,7 @@ A CSS UI library built on [Open Props](https://open-props.style/). It ships fram
 
 Install with `npm install opui-css`. Open Props is bundled in `dist/opui.css` for your own CSS, and the components don't read it; install `open-props` only to import `opui-css/open-props.css` with a bundler.
 
-- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or import `opui-css/css/layers.css` first, then `opui-css/core/palette.css`, `opui-css/css/theme.css`, `opui-css/core/normalize.css`, the components from `opui-css/css/components/<name>.css` (`choice.css` before `checkbox.css`, `radio.css` or `switch.css`), and `opui-css/core/utils.css` last. `references/<framework>/getting-started.md` has the full list.
+- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or import `opui-css/css/layers.css` first, then `opui-css/core/palette.css`, `opui-css/css/theme.css`, `opui-css/core/normalize.css`, the components from `opui-css/css/components/<name>.css` (`choice.css` with `checkbox.css`, `radio.css` or `switch.css`), and `opui-css/core/utils.css` last. `references/getting-started.md` has the full list.
 - Without a bundler, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`.
 - Astro: `import { Button } from "opui-css/astro"`. React: `import { Button } from "opui-css/react"`. Svelte: `import { Button } from "opui-css/svelte"`. Vue: `import { Button } from "opui-css/vue"`. All still need the CSS imported once.
 
@@ -19,6 +19,7 @@ Install with `npm install opui-css`. Open Props is bundled in `dist/opui.css` fo
 
 - Every class is prefixed with `ui-`: a base class (`.ui-button`) plus modifiers (`.ui-filled`, `.ui-small`, `.ui-primary`).
 - Astro, React, Svelte and Vue props mirror the modifiers without the prefix: `<Button variant="filled" size="small" color="primary">`.
+- Slots: Astro fills a named slot with `slot="end-text"` on a child and Vue with `<template #end-text>`. React takes slots as props and Svelte as snippets, camelCased (`endText`), with the default slot as `children`. Containers take parts instead, such as `CardHeader`.
 - Common modifiers: sizes `.ui-x-small`, `.ui-small`, `.ui-large` (not every component has all three), variants `.ui-filled`, `.ui-outlined`, `.ui-tonal`, colors `.ui-primary`, `.ui-critical`, severities `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical`. The reference lists which apply.
 - Buttons: give `<button>` a `type`. When a button has an icon, wrap the label in `<span class="ui-text">` (also inside `<Button>`); a button whose only element is an `svg` is styled as icon-only.
 - Components lean on native HTML: `<dialog>`, `popover`, invoker commands (`commandfor` / `command`), `<details>`. Prefer these over custom JavaScript.
@@ -34,19 +35,19 @@ Change the least specific thing that does the job, in this order:
 
 Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border-color`): hover, active and disabled set them, so an override freezes them in every state. Change the input they derive from, such as `--_accent`. Don't add `!important` or long selectors: the layers already let your CSS win.
 
-| To change                          | Set                                                                                                                                  |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Main color                         | `--ui-palette-hue` and `--ui-palette-chroma`, or `--ui-palette-source` with any color                                                |
-| Main color in one part of the page | `.ui-palette` and `--ui-palette-hue` on that element                                                                                 |
-| Corners                            | `--ui-radius` (buttons and fields follow it)                                                                                         |
-| Fonts                              | `--ui-font-body`, `--ui-font-heading`, `--ui-font-code`                                                                              |
-| Control height                     | `--ui-density`                                                                                                                       |
-| Spacing in and between containers  | `--ui-space-scale`                                                                                                                   |
-| Shadows                            | `--ui-shadow-color` (light and dark), `--ui-shadow-elevated`, `--ui-shadow-overlay`                                                  |
-| Space between components           | `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-container` (see `layout.md`), not your own flex or grid CSS |
-| Transitions                        | `--ui-motion` (`0` turns them off), `--ui-duration`, `--ui-ease`                                                                     |
-| One component's color              | `--_accent` on it, or `.ui-primary`/`.ui-critical`                                                                                   |
-| A severity color for a section     | `.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-neutral`                                                              |
+| To change                          | Set                                                                                                                                             |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Main color                         | `--ui-palette-hue` and `--ui-palette-chroma`, or `--ui-palette-source` with any color                                                           |
+| Main color in one part of the page | `.ui-palette` and `--ui-palette-hue` on that element                                                                                            |
+| Corners                            | `--ui-radius` (buttons and fields follow it)                                                                                                    |
+| Fonts                              | `--ui-font-body`, `--ui-font-heading`, `--ui-font-code`                                                                                         |
+| Control height                     | `--ui-density`                                                                                                                                  |
+| Spacing in and between containers  | `--ui-space-scale`                                                                                                                              |
+| Shadows                            | `--ui-shadow-color` (light and dark), `--ui-shadow-elevated`, `--ui-shadow-overlay`                                                             |
+| Space between components           | `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-container` (see `references/layout.md`), not your own flex or grid CSS |
+| Transitions                        | `--ui-motion` (`0` turns them off), `--ui-duration`, `--ui-ease`                                                                                |
+| One component's color              | `--_accent` on it, or `.ui-primary`/`.ui-critical`                                                                                              |
+| A severity color for a section     | `.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-neutral`                                                                         |
 
 ```css
 @layer theme.custom {
@@ -64,11 +65,10 @@ Example themes ship in `opui-css/themes/` (`bootstrap.css`, a Bootstrap 5 look, 
 
 ## References
 
-Pick the folder matching the project: `references/html/`, `references/astro/`, `references/react/`, `references/svelte/` or `references/vue/`.
-
-1. Read `references/<framework>/getting-started.md` for setup, `references/<framework>/theming.md` for colors, scopes, density, spacing, corners, fonts, elevation, motion and contrast, and `references/<framework>/customizing.md` for the `theme.custom` layer and component properties.
+1. Read `references/getting-started.md` for setup, with a section per framework, `references/theming.md` for colors, scopes, density, spacing, corners, fonts, elevation, motion and contrast, and `references/customizing.md` for the `theme.custom` layer and component properties.
 2. Find the component in `references/index.md`.
-3. Read `references/<framework>/<component>.md` before writing markup. Each reference has examples, the full class or prop API, and the CSS files it needs. After the first icon in a reference, repeated icon SVGs in the examples are shortened to `<svg aria-hidden="true" viewBox="..."></svg>`: put any inline SVG icon there. The Under the hood walkthrough, browser support and changelog are only on the docs site.
-4. The Component properties table in each reference lists the component's `--_` custom properties. Set inputs (like `--_accent`) on the component itself. Don't override outputs (like `--_bg-color`): states set them, so an override freezes them. For exact selectors, read `node_modules/opui-css/css/components/<component>.css`.
+3. Read `references/<component>.md` before writing markup. One file covers every framework. It starts with the stylesheets to import and links to the full docs page per framework, with every example, the accessibility notes and the Under the hood walkthrough. Then it lists each component on the page: its parts with their selectors, its props with the class or attribute they render, their values and defaults, its slots, model and notes. The stylesheets' component properties and the theme tokens they read follow, and a section per framework (HTML, Astro, React, Svelte and Vue) with its import line, slot syntax, hydration notes and the page's first example. A prop marked with frameworks, such as `onValueChange` (React), only exists there, and a modifier marked HTML has no prop.
+4. After the first icon in a reference, repeated icon SVGs in the examples are shortened to `<svg aria-hidden="true" viewBox="..."></svg>`: put any inline SVG icon there.
+5. Set a component's inputs (like `--_accent`) on the component itself. Don't override outputs (like `--_bg-color`): states set them, so an override freezes them. For exact selectors, read `node_modules/opui-css/css/components/<component>.css`.
 
 Full docs: https://open-props-ui.netlify.app/llms.txt

@@ -1,0 +1,54 @@
+name: After release
+
+on:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  released-guards:
+    runs-on: ubuntu-latest
+    env:
+      BRANCH: chore/released-${{ github.ref_name }}
+      TAG: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: node scripts/released-api.mjs "$TAG"
+      - run: pnpm test:record-released
+      - name: Push the released guards
+        id: push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch --create "$BRANCH"
+          git add tests/unit/released-api.json tests/unit/released-tokens.json
+          if git diff --cached --quiet; then
+            echo "The released guards already match $TAG" >> "$GITHUB_STEP_SUMMARY"
+          else
+            git commit -m "chore: released guards at $TAG"
+            git push origin "$BRANCH"
+            echo "pushed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Open the pull request
+        if: steps.push.outputs.pushed == 'true'
+        run: |
+          compare="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/compare/main...$BRANCH?expand=1"
+          body="Regenerates \`tests/unit/released-api.json\` and \`tests/unit/released-tokens.json\` from the \`$TAG\` tag. CI doesn't start on its own for a branch that GitHub Actions pushed: run the CI workflow on \`$BRANCH\` from the Actions tab before merging."
+          if url=$(gh pr create --base main --head "$BRANCH" --title "chore: released guards at $TAG" --body "$body"); then
+            echo "Opened $url" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "GitHub Actions can't open pull requests in this repository. Open it from $compare" >> "$GITHUB_STEP_SUMMARY"
+          fi
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}

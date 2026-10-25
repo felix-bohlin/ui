@@ -91,7 +91,8 @@
     "prepack": "node scripts/build.mjs",
     "release": "node ../../scripts/release.mjs patch",
     "release:major": "node ../../scripts/release.mjs major",
-    "release:minor": "node ../../scripts/release.mjs minor"
+    "release:minor": "node ../../scripts/release.mjs minor",
+    "release:prerelease": "node ../../scripts/release.mjs prerelease"
   },
   "devDependencies": {
     "open-props": "^1.7.23",

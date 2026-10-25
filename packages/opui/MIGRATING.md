@@ -1295,6 +1295,13 @@ Deep type imports from `opui-css/components/*` follow one naming scheme: the roo
 + import type { CheckboxProps, TableCellProps } from "opui-css/astro"
 ```
 
+The Vue type files are `types.vue-props.ts` instead of `types.d.vue.ts`, since TypeScript reads a `*.d.vue.ts` file as a declaration file and `skipLibCheck` skipped it:
+
+```diff
+- import type { Props } from "opui-css/components/Button/types.d.vue"
++ import type { ButtonProps } from "opui-css/vue"
+```
+
 `opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). If you load `op.css` on its own and read those properties, import `opui-css/core/palette.css` with `opui-css/css/theme.css`, which sets the palette knobs, and read the `--ui-` names (`--ui-palette-*` and `--ui-color-1` to `--ui-color-16`).
 
 The `types.solid.ts` files are gone. There are no Solid components; write your own prop types if you used them.

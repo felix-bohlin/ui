@@ -165,11 +165,18 @@ export const exceptionFor = (
     ? undefined
     : THEME_EXCEPTIONS[preset]?.[scheme]?.[token]
 
+export const sameColor = (a?: Rgba | null, b?: Rgba | null) =>
+  a === b ||
+  (!!a &&
+    !!b &&
+    a.every((channel, index) => Math.abs(channel - b[index]) < 1e-4))
+
 export const evaluatePair = (
   pair: ContrastPair,
   colors: Map<string, Rgba | null>,
   mode: ContrastMode,
   theme: Theme,
+  unset = colors,
 ): ContrastResult => {
   const fg = colors.get(pair.fg)
   const bg = colors.get(pair.bg)
@@ -179,7 +186,11 @@ export const evaluatePair = (
       ? pairContrast(fg, bg, page, colors.get("Canvas") ?? undefined)
       : null
   const value = measured?.value ?? null
-  const exception = exceptionFor(theme, mode, pair.token)
+  const exception = [pair.fg, pair.bg, PAGE].every((color) =>
+    sameColor(colors.get(color), unset.get(color)),
+  )
+    ? exceptionFor(theme, mode, pair.token)
+    : undefined
   return {
     back: measured?.back ?? null,
     exception,
@@ -197,37 +208,42 @@ export const evaluatePair = (
 
 export const resolveColors = (
   root: Element,
-  colors: string[],
+  sets: { colors: string[]; unset?: string[] }[],
   modes: ContrastMode[],
 ) => {
   const document = root.ownerDocument
-  const hosts = modes.map(({ contrast, scheme }) => {
-    const host = document.createElement("div")
-    host.className = `ui-${scheme}${contrast === "more" ? " ui-contrast-more" : ""}`
-    host.hidden = true
-    host.style.color = "rgb(1 2 3)"
-    host.style.setProperty("forced-color-adjust", "none")
-    host.append(
-      ...colors.map((color) => {
-        const probe = document.createElement("div")
-        probe.style.color = `color(from ${color} srgb r g b / alpha)`
-        return probe
-      }),
-    )
-    return host
-  })
-  root.append(...hosts)
-  const view = document.defaultView!
-  const resolved = hosts.map(
-    (host) =>
-      new Map(
-        colors.map((color, index) => [
-          color,
-          parseSrgb(view.getComputedStyle(host.children[index]).color),
-        ]),
-      ),
+  const hosts = sets.map(({ colors, unset = [] }) =>
+    modes.map(({ contrast, scheme }) => {
+      const host = document.createElement("div")
+      host.className = `ui-${scheme}${contrast === "more" ? " ui-contrast-more" : ""}${unset.length > 0 ? " ui-palette" : ""}`
+      host.hidden = true
+      host.style.color = "rgb(1 2 3)"
+      host.style.setProperty("forced-color-adjust", "none")
+      for (const name of unset) host.style.setProperty(name, "initial")
+      host.append(
+        ...colors.map((color) => {
+          const probe = document.createElement("div")
+          probe.style.color = `color(from ${color} srgb r g b / alpha)`
+          return probe
+        }),
+      )
+      return host
+    }),
   )
-  for (const host of hosts) host.remove()
+  root.append(...hosts.flat())
+  const view = document.defaultView!
+  const resolved = hosts.map((row, set) =>
+    row.map(
+      (host) =>
+        new Map(
+          sets[set].colors.map((color, index) => [
+            color,
+            parseSrgb(view.getComputedStyle(host.children[index]).color),
+          ]),
+        ),
+    ),
+  )
+  for (const host of hosts.flat()) host.remove()
   return resolved
 }
 
@@ -240,11 +256,36 @@ export const checkPromises = (
   const colors = [
     ...new Set(["Canvas", PAGE, ...pairs.flatMap(({ bg, fg }) => [fg, bg])]),
   ]
-  const resolved = resolveColors(root, colors, modes)
+  const names = Object.keys(theme.tokens)
+  const excepted = pairs.filter(
+    ({ token }) =>
+      names.length > 0 &&
+      modes.some((mode) => exceptionFor(theme, mode, token)),
+  )
+  const [resolved, unset = resolved] = resolveColors(
+    root,
+    [
+      { colors },
+      ...(excepted.length > 0
+        ? [
+            {
+              colors: [
+                ...new Set([
+                  PAGE,
+                  ...excepted.flatMap(({ bg, fg }) => [fg, bg]),
+                ]),
+              ],
+              unset: names,
+            },
+          ]
+        : []),
+    ],
+    modes,
+  )
   return pairs.map((pair) => ({
     ...pair,
     results: modes.map((mode, index) =>
-      evaluatePair(pair, resolved[index], mode, theme),
+      evaluatePair(pair, resolved[index], mode, theme, unset[index]),
     ),
   }))
 }
@@ -290,3 +331,8 @@ export const summaryText = (
   }
   return { detail: " in every mode.", title: `All ${checks} checks pass` }
 }
+
+export const noFailuresText = ({ preset }: ReturnType<typeof summarize>) =>
+  preset > 0
+    ? `No failures. ${preset === 1 ? "One check keeps" : `${preset} checks keep`} the preset's original colors below the minimum on purpose.`
+    : "No failures. Every pair reaches its minimum in all four modes."

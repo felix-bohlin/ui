@@ -61,9 +61,7 @@ import { CONTRAST_MODES } from "../../utils/contrast"
       </thead>
     </table>
   </div>
-  <p class="preview-contrast-empty" hidden>
-    No failures. Every pair reaches its minimum in all four modes.
-  </p>
+  <p class="preview-contrast-empty" hidden></p>
 </div>
 
 <script>
@@ -72,6 +70,7 @@ import { CONTRAST_MODES } from "../../utils/contrast"
     checkPromises,
     colorLabel,
     formatRatio,
+    noFailuresText,
     summarize,
     summaryText,
     tokenOf,
@@ -272,6 +271,7 @@ import { CONTRAST_MODES } from "../../utils/contrast"
       }
       const counts = summarize(results)
       const { detail, title } = summaryText(counts)
+      empty.textContent = noFailuresText(counts)
       for (const callout of callouts) {
         callout.hidden =
           callout.dataset.summary !==

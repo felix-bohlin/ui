@@ -8,9 +8,11 @@ import {
   exceptionFor,
   formatRatio,
   modeLabel,
+  noFailuresText,
   pairContrast,
   parseSrgb,
   promisePairs,
+  sameColor,
   summarize,
   summaryText,
 } from "../../src/utils/contrast"
@@ -204,6 +206,37 @@ describe("evaluatePair and summarize", () => {
     ).toMatchObject({ status: "fail" })
   })
 
+  test("keeps the exception only while the user's tokens leave the colors alone", () => {
+    const own = { preset: "shadcn", tokens: { "--ui-border-color": "#ccc" } }
+    expect(
+      evaluatePair(
+        pair,
+        colors(faint),
+        CONTRAST_MODES[0],
+        own,
+        colors([0.9, 0.9, 0.9, 1]),
+      ),
+    ).toMatchObject({ status: "preset" })
+    expect(
+      evaluatePair(
+        pair,
+        colors(faint),
+        CONTRAST_MODES[0],
+        own,
+        colors([0.5, 0.5, 0.5, 1]),
+      ),
+    ).toMatchObject({ exception: undefined, status: "fail" })
+    expect(
+      evaluatePair(
+        pair,
+        colors(faint),
+        CONTRAST_MODES[0],
+        own,
+        new Map([["var(--ui-surface)", WHITE]]),
+      ),
+    ).toMatchObject({ status: "fail" })
+  })
+
   test("fails a color it cannot resolve", () => {
     expect(
       evaluatePair(
@@ -258,6 +291,28 @@ test("the summary reads as one sentence", () => {
   expect(
     text({ checks: 62, failing: 1, failingByMode: [0, 1, 0, 0], preset: 0 }),
   ).toBe("1 of 62 checks fails: 1 in Dark.")
+})
+
+test("compares colors channel by channel", () => {
+  expect(sameColor(WHITE, [1, 1, 1, 1])).toBe(true)
+  expect(sameColor(WHITE, [1, 1, 0.99999, 1])).toBe(true)
+  expect(sameColor(WHITE, [1, 1, 0.99, 1])).toBe(false)
+  expect(sameColor(null, null)).toBe(true)
+  expect(sameColor(WHITE, null)).toBe(false)
+  expect(sameColor(WHITE, undefined)).toBe(false)
+})
+
+test("the empty filter says why preset originals are hidden", () => {
+  const counts = { checks: 62, failing: 0, failingByMode: [0, 0, 0, 0] }
+  expect(noFailuresText({ ...counts, preset: 0 })).toBe(
+    "No failures. Every pair reaches its minimum in all four modes.",
+  )
+  expect(noFailuresText({ ...counts, preset: 1 })).toBe(
+    "No failures. One check keeps the preset's original colors below the minimum on purpose.",
+  )
+  expect(noFailuresText({ ...counts, preset: 3 })).toBe(
+    "No failures. 3 checks keep the preset's original colors below the minimum on purpose.",
+  )
 })
 
 test("mode labels read plainly", () => {

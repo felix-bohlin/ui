@@ -243,11 +243,7 @@ const callouts = [
   <div class="specimen-block">
     <p class="specimen-caption">Dialog</p>
     <div class="specimen-backdrop">
-      <dialog
-        aria-label="Delete file"
-        class="ui-dialog ui-elevated specimen-dialog"
-        open
-      >
+      <div class="ui-dialog ui-elevated specimen-dialog">
         <hgroup>
           <div class="ui-h4">Delete this file?</div>
           <p>You can restore it from the trash for 30 days.</p>
@@ -258,7 +254,7 @@ const callouts = [
             type="button">Delete</button
           >
         </div>
-      </dialog>
+      </div>
     </div>
   </div>
 
@@ -410,9 +406,13 @@ const callouts = [
   }
 
   .specimen-dialog {
+    color: CanvasText;
+    display: flex;
     inline-size: auto;
     margin: 0;
     max-inline-size: none;
+    opacity: 1;
+    pointer-events: auto;
     position: static;
   }
 

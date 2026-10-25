@@ -42,6 +42,9 @@ const schemes = [
           Your device or the site's high contrast setting asks for more
           contrast, so the preview always shows it.
         </p>
+        <a class="ui-link ui-sr-only ui-focusable preview-skip" href="#export"
+          >Skip the component preview</a
+        >
         <div class="preview-panes" data-view="both">
           {
             schemes.map(({ label, scheme }) => (
@@ -165,7 +168,8 @@ const schemes = [
   for (const root of document.querySelectorAll<HTMLElement>(
     ".builder-preview",
   )) {
-    const stored = readStored<Stored>(KEY, {})
+    const raw = readStored<unknown>(KEY, null)
+    const stored: Stored = raw && typeof raw === "object" ? raw : {}
     const select = root.querySelector<HTMLSelectElement>(
       'select[name="preview-block"]',
     )!
@@ -366,6 +370,11 @@ const schemes = [
     color: var(--ui-text);
     font-size: var(--ui-font-size-small);
     margin-block: 0 var(--size-3);
+  }
+
+  .preview-skip:focus-visible {
+    display: inline-block;
+    margin-block-end: var(--size-3);
   }
 
   .preview-panes {

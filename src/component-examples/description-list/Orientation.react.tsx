@@ -8,7 +8,7 @@ import {
 export default function Orientation() {
   return (
     <DescriptionList
-      bordered="solid"
+      bordered
       orientation="horizontal"
       style={{ maxInlineSize: "18rem" }}
     >

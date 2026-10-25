@@ -8,7 +8,7 @@
 </script>
 
 <DescriptionList
-  bordered="solid"
+  bordered
   orientation="horizontal"
   style="max-inline-size: 18rem"
 >

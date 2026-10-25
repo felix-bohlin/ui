@@ -54,7 +54,7 @@ import {
 
 ## Bordered
 
-Set `bordered="solid"` on `DescriptionList` to add a separator between the term and description on all items, or `bordered="dotted"` for a dotted one.
+Set `bordered` on `DescriptionList` to add a separator between the term and description on all items, and `dotted` with it for a dotted one.
 
 Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border, unless they're horizontal (`orientation="horizontal"`).
 
@@ -69,7 +69,7 @@ import {
 </script>
 
 <template>
-  <DescriptionList bordered="solid">
+  <DescriptionList bordered>
     <DescriptionListItem>
       <DescriptionListTerm>Price</DescriptionListTerm>
       <DescriptionListDescription>6 950 000</DescriptionListDescription>
@@ -84,7 +84,7 @@ import {
     </DescriptionListItem>
   </DescriptionList>
 
-  <DescriptionList bordered="dotted">
+  <DescriptionList bordered dotted>
     <DescriptionListItem>
       <DescriptionListTerm>Price</DescriptionListTerm>
       <DescriptionListDescription>6 950 000</DescriptionListDescription>
@@ -117,7 +117,7 @@ import {
 
 <template>
   <DescriptionList
-    bordered="solid"
+    bordered
     orientation="horizontal"
     style="max-inline-size: 18rem"
   >
@@ -143,7 +143,8 @@ import {
 
 | Prop          | Type                      | Default  | Description                                                                                                                                                      |
 | ------------- | ------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bordered`    | `"dotted"` , `"solid"`    | -        | Adds a line between the term and the description, solid or dotted.                                                                                               |
+| `bordered`    | `boolean`                 | `false`  | Adds a line between the term and the description.                                                                                                                |
+| `dotted`      | `boolean`                 | `false`  | Makes the `bordered` line dotted.                                                                                                                                |
 | `orientation` | `"auto"` , `"horizontal"` | `"auto"` | The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width. |
 
 #### Slots
@@ -170,10 +171,10 @@ The stylesheets on this page read these theme tokens. Override them on `html` or
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
 
-| Property          | Kind  | Description                                                                             |
-| ----------------- | ----- | --------------------------------------------------------------------------------------- |
-| `--_border-style` | Input | Style of the line between term and description. `.ui-bordered-dotted` makes it dotted.  |
-| `--_border-width` | Input | Width of the line between term and description. `.ui-bordered-dotted` sets it to `2px`. |
+| Property          | Kind  | Description                                                                                |
+| ----------------- | ----- | ------------------------------------------------------------------------------------------ |
+| `--_border-style` | Input | Style of the line between term and description. `.ui-bordered.ui-dotted` makes it dotted.  |
+| `--_border-width` | Input | Width of the line between term and description. `.ui-bordered.ui-dotted` sets it to `2px`. |
 
 ## Under the hood
 
@@ -267,7 +268,7 @@ Step 2 of 4: Leader line
 Step 3 of 4: Dotted
 
 ```css
-.dotted {
+.bordered.dotted {
   --line-style: dotted;
   --line-width: 2px;
 }
@@ -329,5 +330,5 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - Breaking: `Description` is now [`DescriptionListDescription`](#api), like Astro.
 - [Orientation](#orientation): `orientation="horizontal"` keeps terms and descriptions side by side at any width.
 - Breaking: [items](#bordered) render a plain `div` without `.ui-item`.
-- Breaking: [`bordered`](#bordered) takes `"solid"` or `"dotted"`.
+- Breaking: [`bordered`](#bordered) is a boolean. Replace `bordered="dotted"` with `bordered dotted`.
 - Breaking: `DescriptionListTerm` and `DescriptionListDescription` no longer render `.ui-term` and `.ui-description`. Select `dt` and `dd` in your CSS ([Basics](#basics)).

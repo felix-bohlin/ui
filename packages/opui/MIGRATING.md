@@ -379,22 +379,18 @@ The part files are renamed to `DescriptionListDescription.*`, `DescriptionListIt
 + <dd>Ada</dd>
 ```
 
-`bordered` takes `"solid"` or `"dotted"`, and the items are plain `div`s without `.ui-item`.
+In Astro and Vue, `bordered` is a boolean, and `dotted` makes its line dotted. The classes are unchanged.
 
 ```diff
-- <DescriptionList bordered>
-+ <DescriptionList bordered="solid">
+- <DescriptionList bordered="dotted">
++ <DescriptionList bordered dotted>
 ```
 
-```diff
-- <dl class="ui-description-list ui-bordered">
-+ <dl class="ui-description-list ui-bordered-solid">
-```
+The items are plain `div`s without `.ui-item`.
 
 ```diff
-- <dl class="ui-description-list ui-bordered ui-dotted">
+  <dl class="ui-description-list ui-bordered ui-dotted">
 -   <div class="ui-item">
-+ <dl class="ui-description-list ui-bordered-dotted">
 +   <div>
 ```
 

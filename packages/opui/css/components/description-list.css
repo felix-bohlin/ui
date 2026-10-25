@@ -9,7 +9,7 @@
     margin: 0;
     padding: 0;
 
-    &.ui-bordered-dotted {
+    &.ui-bordered.ui-dotted {
       --_border-style: dotted;
       --_border-width: var(--ui-border-width-thick);
     }
@@ -45,7 +45,7 @@
       }
     }
 
-    &:is(.ui-bordered-dotted, .ui-bordered-solid) > div {
+    &.ui-bordered > div {
       grid-template-columns: auto 1fr auto;
 
       dt {

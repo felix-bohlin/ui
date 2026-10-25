@@ -454,10 +454,10 @@ const whatsNew = {
       ...slots(
         `Breaking: <a href="#bordered">items</a> render a plain <code>div</code> without <code>.ui-item</code>.`,
       ),
-      html: `Breaking: <a href="#bordered"><code>.ui-bordered-solid</code></a> and <code>.ui-bordered-dotted</code> replace <code>.ui-bordered</code> and <code>.ui-dotted</code>, and items are plain <code>div</code>s without <code>.ui-item</code>.`,
+      html: `Breaking: <a href="#bordered">items</a> are plain <code>div</code>s without <code>.ui-item</code>.`,
     },
     slots(
-      `Breaking: <a href="#bordered"><code>bordered</code></a> takes <code>"solid"</code> or <code>"dotted"</code>.`,
+      `Breaking: <a href="#bordered"><code>bordered</code></a> is a boolean. Replace <code>bordered="dotted"</code> with <code>bordered dotted</code>.`,
     ),
     {
       ...slots(

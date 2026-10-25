@@ -4,11 +4,19 @@ export default {
   component: "DescriptionList",
   options: [
     {
-      description:
-        "Adds a line between the term and the description, solid or dotted.",
+      class: ".ui-bordered",
+      default: "false",
+      description: "Adds a line between the term and the description.",
       group: "Borders",
       prop: "bordered",
-      values: { dotted: ".ui-bordered-dotted", solid: ".ui-bordered-solid" },
+    },
+    {
+      class: ".ui-dotted",
+      default: "false",
+      description: "Makes the `bordered` line dotted.",
+      group: "Dotted",
+      htmlDescription: "Makes the `.ui-bordered` line dotted.",
+      prop: "dotted",
     },
     {
       default: '"auto"',

@@ -4,6 +4,7 @@ import type { Props } from "./types.react"
 export default function DescriptionList({
   bordered,
   className,
+  dotted,
   orientation,
   ...rest
 }: Props) {
@@ -11,7 +12,10 @@ export default function DescriptionList({
     <dl
       className={cx([
         "ui-description-list",
-        bordered && `ui-bordered-${bordered}`,
+        {
+          "ui-bordered": bordered,
+          "ui-dotted": dotted,
+        },
         orientation && orientation !== "auto" && `ui-${orientation}`,
         className,
       ])}

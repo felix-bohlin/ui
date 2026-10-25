@@ -52,7 +52,7 @@
 
 ## Bordered
 
-Set `bordered="solid"` on `DescriptionList` to add a separator between the term and description on all items, or `bordered="dotted"` for a dotted one.
+Set `bordered` on `DescriptionList` to add a separator between the term and description on all items, and `dotted` with it for a dotted one.
 
 Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border, unless they're horizontal (`orientation="horizontal"`).
 
@@ -66,7 +66,7 @@ Above `45ch` the term and description share a row and the border fills the gap b
   } from "opui-css/svelte"
 </script>
 
-<DescriptionList bordered="solid">
+<DescriptionList bordered>
   <DescriptionListItem>
     <DescriptionListTerm>Price</DescriptionListTerm>
     <DescriptionListDescription>6 950 000</DescriptionListDescription>
@@ -81,7 +81,7 @@ Above `45ch` the term and description share a row and the border fills the gap b
   </DescriptionListItem>
 </DescriptionList>
 
-<DescriptionList bordered="dotted">
+<DescriptionList bordered dotted>
   <DescriptionListItem>
     <DescriptionListTerm>Price</DescriptionListTerm>
     <DescriptionListDescription>6 950 000</DescriptionListDescription>
@@ -112,7 +112,7 @@ By default the term and the description stack when the list is `45ch` or narrowe
 </script>
 
 <DescriptionList
-  bordered="solid"
+  bordered
   orientation="horizontal"
   style="max-inline-size: 18rem"
 >
@@ -137,7 +137,8 @@ By default the term and the description stack when the list is `45ch` or narrowe
 
 | Prop          | Type                      | Default  | Description                                                                                                                                                      |
 | ------------- | ------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bordered`    | `"dotted"` , `"solid"`    | -        | Adds a line between the term and the description, solid or dotted.                                                                                               |
+| `bordered`    | `boolean`                 | `false`  | Adds a line between the term and the description.                                                                                                                |
+| `dotted`      | `boolean`                 | `false`  | Makes the `bordered` line dotted.                                                                                                                                |
 | `children`    | `Snippet`                 | -        | The items.                                                                                                                                                       |
 | `orientation` | `"auto"` , `"horizontal"` | `"auto"` | The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width. |
 
@@ -159,10 +160,10 @@ The stylesheets on this page read these theme tokens. Override them on `html` or
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
 
-| Property          | Kind  | Description                                                                             |
-| ----------------- | ----- | --------------------------------------------------------------------------------------- |
-| `--_border-style` | Input | Style of the line between term and description. `.ui-bordered-dotted` makes it dotted.  |
-| `--_border-width` | Input | Width of the line between term and description. `.ui-bordered-dotted` sets it to `2px`. |
+| Property          | Kind  | Description                                                                                |
+| ----------------- | ----- | ------------------------------------------------------------------------------------------ |
+| `--_border-style` | Input | Style of the line between term and description. `.ui-bordered.ui-dotted` makes it dotted.  |
+| `--_border-width` | Input | Width of the line between term and description. `.ui-bordered.ui-dotted` sets it to `2px`. |
 
 ## Under the hood
 
@@ -256,7 +257,7 @@ Step 2 of 4: Leader line
 Step 3 of 4: Dotted
 
 ```css
-.dotted {
+.bordered.dotted {
   --line-style: dotted;
   --line-width: 2px;
 }

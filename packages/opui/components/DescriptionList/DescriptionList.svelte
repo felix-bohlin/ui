@@ -4,6 +4,7 @@
   let {
     bordered,
     class: className,
+    dotted,
     orientation,
 
     // Snippets
@@ -15,7 +16,10 @@
 <dl
   class={[
     "ui-description-list",
-    bordered && `ui-bordered-${bordered}`,
+    {
+      "ui-bordered": bordered,
+      "ui-dotted": dotted,
+    },
     orientation && orientation !== "auto" && `ui-${orientation}`,
     className,
   ]}

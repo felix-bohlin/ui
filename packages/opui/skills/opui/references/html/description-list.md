@@ -43,12 +43,12 @@
 
 ## Bordered
 
-Add `.ui-bordered-solid` to the `<dl>` element to add a separator between the term and description on all items, or `.ui-bordered-dotted` for a dotted one.
+Add `.ui-bordered` to the `<dl>` element to add a separator between the term and description on all items, and `.ui-dotted` with it for a dotted one.
 
 Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border, unless they're horizontal (`.ui-horizontal`).
 
 ```html
-<dl class="ui-description-list ui-bordered-solid">
+<dl class="ui-description-list ui-bordered">
   <div>
     <dt>Price</dt>
     <dd>6 950 000</dd>
@@ -63,7 +63,7 @@ Above `45ch` the term and description share a row and the border fills the gap b
   </div>
 </dl>
 
-<dl class="ui-description-list ui-bordered-dotted">
+<dl class="ui-description-list ui-bordered ui-dotted">
   <div>
     <dt>Price</dt>
     <dd>6 950 000</dd>
@@ -85,7 +85,7 @@ By default the term and the description stack when the list is `45ch` or narrowe
 
 ```html
 <dl
-  class="ui-description-list ui-bordered-solid ui-horizontal"
+  class="ui-description-list ui-bordered ui-horizontal"
   style="max-inline-size: 18rem"
 >
   <div>
@@ -107,10 +107,11 @@ By default the term and the description stack when the list is `45ch` or narrowe
 
 ### Description list API
 
-| Type        | Modifiers                                   | Default | Description                                                                                                                                                      |
-| ----------- | ------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Borders     | `.ui-bordered-dotted`, `.ui-bordered-solid` | -       | Adds a line between the term and the description, solid or dotted.                                                                                               |
-| Orientation | default, `.ui-horizontal`                   | default | The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width. |
+| Type        | Modifiers                 | Default | Description                                                                                                                                                      |
+| ----------- | ------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Borders     | `.ui-bordered`            | -       | Adds a line between the term and the description.                                                                                                                |
+| Dotted      | `.ui-dotted`              | -       | Makes the `.ui-bordered` line dotted.                                                                                                                            |
+| Orientation | default, `.ui-horizontal` | default | The orientation of the items. `auto` stacks the term and the description when the list is `45ch` or narrower, `horizontal` keeps them side by side at any width. |
 
 #### Parts
 
@@ -139,10 +140,10 @@ The stylesheets on this page read these theme tokens. Override them on `html` or
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property          | Kind  | Description                                                                             |
-| ----------------- | ----- | --------------------------------------------------------------------------------------- |
-| `--_border-style` | Input | Style of the line between term and description. `.ui-bordered-dotted` makes it dotted.  |
-| `--_border-width` | Input | Width of the line between term and description. `.ui-bordered-dotted` sets it to `2px`. |
+| Property          | Kind  | Description                                                                                |
+| ----------------- | ----- | ------------------------------------------------------------------------------------------ |
+| `--_border-style` | Input | Style of the line between term and description. `.ui-bordered.ui-dotted` makes it dotted.  |
+| `--_border-width` | Input | Width of the line between term and description. `.ui-bordered.ui-dotted` sets it to `2px`. |
 
 ## Under the hood
 
@@ -236,7 +237,7 @@ Step 2 of 4: Leader line
 Step 3 of 4: Dotted
 
 ```css
-.dotted {
+.bordered.dotted {
   --line-style: dotted;
   --line-width: 2px;
 }
@@ -293,5 +294,5 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 ### What's new
 
 - [Orientation](#orientation): `.ui-horizontal` keeps terms and descriptions side by side at any width.
-- Breaking: [`.ui-bordered-solid`](#bordered) and `.ui-bordered-dotted` replace `.ui-bordered` and `.ui-dotted`, and items are plain `div`s without `.ui-item`.
+- Breaking: [items](#bordered) are plain `div`s without `.ui-item`.
 - Breaking: `.ui-term` and `.ui-description` are gone. The list styles `dt` and `dd` by element ([Basics](#basics)).

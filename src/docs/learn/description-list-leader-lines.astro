@@ -41,8 +41,8 @@ import Bordered from "../../component-examples/description-list/Bordered.astro"
         it
       </li>
       <li>
-        Its bottom border is the line. <code>bordered-dotted</code> only swaps the
-        border style and width
+        Its bottom border is the line. <code>dotted</code> only swaps the border style
+        and width
       </li>
       <li>
         <code>container-type: inline-size</code> on the list: at
@@ -63,16 +63,16 @@ import Bordered from "../../component-examples/description-list/Bordered.astro"
   justify-content: space-between;
 }
 
-.list.bordered-dotted {
+.list.bordered.dotted {
   --border-style: dotted;
   --border-width: var(--ui-border-width-thick);
 }
 
-.list:is(.bordered-solid, .bordered-dotted) > .item {
+.list.bordered > .item {
   grid-template-columns: auto 1fr auto;
 }
 
-.list:is(.bordered-solid, .bordered-dotted) > .item::after {
+.list.bordered > .item::after {
   block-size: var(--ui-border-width-thick);
   border-block-end: var(--border-width, var(--ui-border-width))
     var(--border-style, solid) var(--ui-border-color);
@@ -80,7 +80,7 @@ import Bordered from "../../component-examples/description-list/Bordered.astro"
   order: 1;
 }
 
-.list:is(.bordered-solid, .bordered-dotted) > .item dd {
+.list.bordered > .item dd {
   order: 2;
 }
 

@@ -1,4 +1,5 @@
 export type Props = {
-  bordered?: "dotted" | "solid"
+  bordered?: boolean
+  dotted?: boolean
   orientation?: "auto" | "horizontal"
 }

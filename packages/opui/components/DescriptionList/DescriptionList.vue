@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.vue-props"
 
-const { bordered, orientation } = defineProps<Props>()
+const { bordered, dotted, orientation } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
 
@@ -9,7 +9,10 @@ defineSlots<Slots>()
   <dl
     :class="[
       'ui-description-list',
-      bordered && `ui-bordered-${bordered}`,
+      {
+        'ui-bordered': bordered,
+        'ui-dotted': dotted,
+      },
       orientation && orientation !== 'auto' && `ui-${orientation}`,
       $props.class,
     ]"

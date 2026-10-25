@@ -116,6 +116,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): add `engineStrict: true` to `pnpm-workspace.yaml` once every machine that builds the repo runs Node 26.10 (CI and Netlify already read `.nvmrc`).
     - B: lower the root `engines` to the oldest Node the scripts need, and keep the field advisory.
+- [ ] (1) Release: `scripts/release.mjs` commits the release on the maintainer's `main` and pushes it straight to `origin`, so the release commit (version, dated CHANGELOG, regenerated files) never goes through a pull request or its CI run before it lands (`scripts/release.mjs:77-82`, `RELEASING.md:36-58`)
+  - Summary: A release is pushed straight to main, so its commit skips the pull request checks that every other change gets.
+  - Recommended: Fix with option A. A pull request runs `check` and `e2e` on the exact release commit before anything is tagged.
+  - Fix: `release.mjs` stops before the publish: it prepares the release on a `release/<version>` branch (dated CHANGELOG or a candidate version, `version`, `pnpm check`, the `chore: release <version>` commit), pushes it and opens the pull request against `main`. A `release.yml` workflow on the push to `main` of a `chore: release <version>` commit tags it. A tag pushed with `GITHUB_TOKEN` starts no other workflow, so `release.yml` also runs what the tag push starts today (the after-release steps, and the publish once it moves to CI), as reusable workflows (`workflow_call`).
+  - Options:
+    - A (recommended): a `Release` workflow, started from the Actions tab with the version, runs `release.mjs` and opens the pull request with `GITHUB_TOKEN`. Needs "Allow GitHub Actions to create and approve pull requests" in the repository settings (Settings, Actions, General, Workflow permissions), which also lets the `After release` workflow open its pull request instead of linking the compare page.
+    - B: `release.mjs` runs on the maintainer's machine and opens the pull request with their `gh` login, and only the tagging on merge runs in CI.
 - [ ] (2) Tokens: there is no Figma kit. Peers build one from their tokens: Primer generates Figma variables from its token files, Material has Theme Builder, and Carbon, Spectrum and Nord ship kits. `tokens.json` is the starting point, but its values are CSS expressions (`var()`, `light-dark()`, relative colors), so a kit needs them resolved per mode first (`packages/opui/tokens.json`, `src/utils/tokens-json.ts`)
   - Summary: There is no Figma kit, and tokens.json holds CSS expressions that a kit would need resolved per mode first.
   - Recommended: Fix with option A. A resolved-tokens export is a small script over the existing `tokens.json` and is what every Figma variables importer needs.
@@ -159,6 +166,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A: Git LFS for `tests/e2e/__screenshots__`.
     - B: keep, but run the `dark` project on fewer fixtures.
   - Still open: Git LFS isn't set up; the README Maintainers section ("Visual baselines in git") lays out option A (Git LFS) and option B (keep, fewer dark fixtures) for the owner to decide.
+- [ ] (2) Release: `scripts/release.mjs` publishes from the maintainer's machine with their npm login, so `opui-css` has no provenance statement (npm only signs provenance for a publish from CI, so `--provenance` was dropped) and every release needs a local npm session with 2FA (`scripts/release.mjs:80`, `RELEASING.md:56`)
+  - Summary: Releases are published from a laptop, so npm shows no provenance for the package and each one needs a local npm login.
+  - Recommended: Fix with option A. Trusted publishing needs no token or secret in the repository, only the publisher entry on npmjs.com.
+  - Fix: a `publish.yml` workflow on the tag push (the bare versions and the `-rc.N` candidates) with `id-token: write` checks out the tag, runs `pnpm install --frozen-lockfile` and `pnpm check`, and publishes from `packages/opui` with `npm publish --provenance`, `--tag next` for a candidate and `--tag latest` otherwise. `release.mjs` then only prepares the release: it dates the CHANGELOG (not for a candidate), sets `version`, runs `pnpm check`, commits, tags and pushes. Until the workflow has published, the dated heading on `main` already marks the version as released in `src/utils/release.ts`, so the docs deploy that the push starts can claim the release a few minutes early.
+  - Options:
+    - A (recommended): npm trusted publishing (OIDC). Needs the trusted publisher configured on npmjs.com for `opui-css` (package settings, GitHub Actions, repository `felix-bohlin/ui`, workflow `publish.yml`), which only the package owner can add.
+    - B: an npm automation token in an `NPM_TOKEN` repository secret, read by `publish.yml`. Provenance works the same, but the token has to be created, stored and rotated.
 
 ## To check
 

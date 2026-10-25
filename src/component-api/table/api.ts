@@ -25,7 +25,7 @@ export default {
     {
       default: '"wrap"',
       description:
-        'What the table does when its columns don\'t fit. `"wrap"` lets the cells wrap their text, and `"scroll"` keeps the columns at their width and scrolls the table sideways. Give a scrolling table `tabindex="0"`, so keyboard users can scroll it.',
+        'What the table does when its columns don\'t fit. `"wrap"` lets the cells wrap their text, and `"scroll"` keeps each cell on one line, scrolls the table sideways and lets the last column take the space left over. Give a scrolling table `tabindex="0"`, so keyboard users can scroll it.',
       group: "Overflow",
       prop: "overflow",
       values: { scroll: ".ui-overflow-scroll", wrap: null },

@@ -150,8 +150,11 @@
       scrollbar-width: thin;
 
       :where(th, td) {
-        inline-size: 1%;
         white-space: nowrap;
+
+        &:last-child {
+          inline-size: 100%;
+        }
       }
     }
 

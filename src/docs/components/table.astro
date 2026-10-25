@@ -144,15 +144,17 @@ export const description =
         A table on the page keeps a block margin. <code>flush</code> drops it for
         a table in a card or another padded box, and <code
           >overflow="scroll"</code
-        > keeps the columns at their width and scrolls the table sideways when they
-        don't fit, instead of wrapping the cell text.
+        > keeps each cell on one line and scrolls the table sideways when the columns
+        don't fit, instead of wrapping the cell text. The last column takes the space
+        left over, so give it no fixed width.
       </Fragment>
       <Fragment slot="html">
         A table on the page keeps a block margin. <code>.ui-flush</code> drops it
         for a table in a card or another padded box, and <code
           >.ui-overflow-scroll</code
-        > keeps the columns at their width and scrolls the table sideways when they
-        don't fit, instead of wrapping the cell text.
+        > keeps each cell on one line and scrolls the table sideways when the columns
+        don't fit, instead of wrapping the cell text. The last column takes the space
+        left over, so give it no fixed width.
       </Fragment>
     </Conditional>
     <p>

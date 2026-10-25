@@ -138,7 +138,7 @@ The `Component` layout renders a page in this order. Only the default slot is or
 6. The `anatomy` slot as "Anatomy", when `heroAnatomy` isn't set.
 7. The API tables (`apis`).
 8. The `under-the-hood` slot, as "Under the hood".
-9. Browser support, Installation (`installationTabs` and the `installation` slot), See also (`seeAlsoLinks`) and Changelog (the What's new callout from `src/utils/whats-new.ts`, then the `changelogPaths` commits).
+9. Browser support, Installation (`installationTabs` and the `installation` slot), Used in blocks (the blocks in `src/blocks/` whose markup has the root class of an `api.ts` on the page), See also (`seeAlsoLinks`) and Changelog (the What's new callout with the notes from `src/utils/whats-new.ts`, then a "Migrating from 5.x" callout with the notes that start with `Breaking:`, collapsed after five and linked to the matching section of the migration guide, then the `changelogPaths` commits).
 
 ## 4. Layout Props & Slots
 

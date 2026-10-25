@@ -1280,8 +1280,19 @@ const whatsNew = {
   ],
 } satisfies Record<string, Note[]>
 
+/**
+ * The New badge in the sidebar. A slug is in the set when the unreleased
+ * version adds the component (`carousel`, `layout`, `menu`), or changes how it
+ * looks with no props or modifier classes set, so an existing page renders
+ * differently without a code change: its surface, shape, layout or type scale
+ * (`accordion` is `plain` with a chevron, `button` icon padding, `card` actions
+ * at the end, `tabs` a segmented control, `typography` heading sizes). Renames,
+ * new props, token rewiring and fixes stay out, however many notes they add.
+ */
 const highlighted = new Set([
+  "accordion",
   "button",
+  "card",
   "carousel",
   "layout",
   "menu",

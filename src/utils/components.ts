@@ -40,6 +40,24 @@ export function componentsFor(framework: FrameworkId) {
   )
 }
 
+export const FOUNDATIONS = ["layout", "typography"]
+
+export const isFoundation = (slug: string) => FOUNDATIONS.includes(slug)
+
+export function componentGroupsFor(framework: FrameworkId) {
+  const all = componentsFor(framework)
+  return [
+    {
+      label: "Components",
+      components: all.filter((component) => !isFoundation(component.slug)),
+    },
+    {
+      label: "Foundations",
+      components: all.filter((component) => isFoundation(component.slug)),
+    },
+  ].filter((group) => group.components.length > 0)
+}
+
 /**
  * Returns the URL for a component on a specific framework. Used by sidebar
  * and pagination links so the active framework is preserved during navigation.

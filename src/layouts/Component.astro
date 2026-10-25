@@ -1,6 +1,6 @@
 ---
 import Document from "./Document.astro"
-import { componentsFor, componentHrefFor } from "../utils/components"
+import { componentGroupsFor, componentHrefFor } from "../utils/components"
 import FrameworkPicker from "../components/FrameworkPicker.astro"
 import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
@@ -34,6 +34,8 @@ import {
 import { FRAMEWORKS, isHydratedFramework } from "../utils/framework"
 import { posts } from "../utils/learn-posts"
 import { isWhatsNewHighlighted, whatsNewFor } from "../utils/whats-new"
+import { blockHref, blocksUsing } from "../utils/blocks"
+import migratingGuide from "../../packages/opui/MIGRATING.md?raw"
 
 type Props = {
   title?: string
@@ -113,18 +115,50 @@ const hydrationApis = hydrationFramework
       .filter((api) => shipped(api, hydrationFramework))
   : []
 
-const components = componentsFor(currentFramework)
-const currentIndex = components.findIndex(
+const componentGroups = componentGroupsFor(currentFramework)
+const siblings = componentGroups.flatMap((group) => group.components)
+const currentIndex = siblings.findIndex(
   (component) => component.slug === currentSlug,
 )
 const isComponentPage = currentIndex !== -1
-const prevComponent = isComponentPage ? components[currentIndex - 1] : undefined
-const nextComponent = isComponentPage ? components[currentIndex + 1] : undefined
+const prevComponent = isComponentPage ? siblings[currentIndex - 1] : undefined
+const nextComponent = isComponentPage ? siblings[currentIndex + 1] : undefined
 
 const githubRepo = "https://github.com/felix-bohlin/ui"
 const editUrl = `${githubRepo}/edit/main/src/docs/components/${currentSlug}.astro`
 
-const whatsNew = currentSlug ? whatsNewFor(currentFramework, currentSlug) : []
+const notes = currentSlug ? whatsNewFor(currentFramework, currentSlug) : []
+const isBreaking = (note: string) => note.startsWith("Breaking:")
+const whatsNew = notes.filter((note) => !isBreaking(note))
+const migrating = notes
+  .filter(isBreaking)
+  .map((note) =>
+    note
+      .replace(/^Breaking:\s*/, "")
+      .replace(/^[a-z]/, (letter) => letter.toUpperCase()),
+  )
+const migratingAnchors = new Set(
+  [...migratingGuide.matchAll(/^## (.+)$/gm)].map(([, heading]) =>
+    heading
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, ""),
+  ),
+)
+const MIGRATING_SECTIONS: Record<string, string> = {
+  form: "field-group-and-fieldset",
+  toggle: "toggle-button-and-toggle-group",
+  typography: "typography-and-rich-text",
+}
+const migratingSection =
+  currentSlug &&
+  [MIGRATING_SECTIONS[currentSlug] ?? currentSlug].find((anchor) =>
+    migratingAnchors.has(anchor),
+  )
+const migratingHref = link(
+  `/guide/migrating${migratingSection ? `#${migratingSection}` : ""}`,
+)
+const COLLAPSED = 5
 
 const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 
@@ -139,21 +173,35 @@ const imports =
 const learnPosts = currentSlug
   ? posts.filter((post) => post.component === currentSlug)
   : []
+
+const kebab = (name: string) =>
+  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
+const rootClasses = Object.entries(apiData)
+  .filter(([file, api]) => (api.page ?? file.split("/").at(-2)) === currentSlug)
+  .flatMap(([, api]) =>
+    [...api.root.selector.matchAll(/\.(ui-[a-z0-9-]+)/g)]
+      .map(([, name]) => name)
+      .filter(
+        (name) =>
+          !api.page ||
+          name === `ui-${kebab(api.component)}` ||
+          name.startsWith(`ui-${kebab(api.component)}-`),
+      ),
+  )
+const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
 ---
 
 <Document
   overline={overline}
   showToc={showToc}
-  sidebarGroups={[
-    {
-      label: "Components",
-      links: components.map((component) => ({
-        href: componentHrefFor(currentFramework, component.slug),
-        isNew: isWhatsNewHighlighted(currentFramework, component.slug),
-        label: component.name,
-      })),
-    },
-  ]}
+  sidebarGroups={componentGroups.map((group) => ({
+    label: group.label,
+    links: group.components.map((component) => ({
+      href: componentHrefFor(currentFramework, component.slug),
+      isNew: isWhatsNewHighlighted(currentFramework, component.slug),
+      label: component.name,
+    })),
+  }))}
   title={title}
   description={description}
   image={image}
@@ -242,6 +290,23 @@ const learnPosts = currentSlug
   }
 
   {
+    usedInBlocks.length > 0 && (
+      <section>
+        <h2 id="used-in-blocks">Used in blocks</h2>
+        <ul class="used-in-blocks ui-not-rich-text">
+          {usedInBlocks.map((block) => (
+            <li>
+              <a class="ui-link" href={link(blockHref(block.slug))}>
+                {block.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
     !!seeAlsoLinks?.length && (
       <section>
         <h2 id="see-also">See also</h2>
@@ -263,7 +328,7 @@ const learnPosts = currentSlug
   }
 
   {
-    (whatsNew.length > 0 || changelog.length > 0) && (
+    (notes.length > 0 || changelog.length > 0) && (
       <section>
         <h2 id="changelog">Changelog</h2>
         {whatsNew.length > 0 && (
@@ -279,13 +344,45 @@ const learnPosts = currentSlug
             </CalloutContent>
           </Callout>
         )}
+        {migrating.length > 0 && (
+          <Callout severity="warning" variant="tonal" class="migrating">
+            <CalloutIcon />
+            <CalloutContent>
+              <h3>Migrating from 5.x</h3>
+              <ul id="migrating-list">
+                {migrating.map((note, index) => (
+                  <li
+                    class={index >= COLLAPSED ? "changelog-extra" : undefined}
+                    set:html={note}
+                  />
+                ))}
+              </ul>
+              <p>
+                <a href={migratingHref}>The migration guide</a> has the steps.
+              </p>
+              {migrating.length > COLLAPSED && (
+                <div class="ui-not-rich-text">
+                  <Button
+                    class="changelog-toggle"
+                    data-more-count={migrating.length - COLLAPSED}
+                    data-target="migrating-list"
+                    size="small"
+                    variant="outlined"
+                  >
+                    Show {migrating.length - COLLAPSED} more
+                  </Button>
+                </div>
+              )}
+            </CalloutContent>
+          </Callout>
+        )}
         {changelog.length > 0 && (
           <div class="ui-not-rich-text">
             <List id="changelog-list" bordered flush variant="transparent">
               {changelog.map((entry, index) => (
                 <ListItem
                   as="a"
-                  class={index >= 5 ? "changelog-extra" : undefined}
+                  class={index >= COLLAPSED ? "changelog-extra" : undefined}
                   href={`https://github.com/felix-bohlin/ui/commit/${entry.hash}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -304,13 +401,14 @@ const learnPosts = currentSlug
                 </ListItem>
               ))}
             </List>
-            {changelog.length > 5 && (
+            {changelog.length > COLLAPSED && (
               <Button
-                id="changelog-toggle"
+                class="changelog-toggle"
+                data-more-count={changelog.length - COLLAPSED}
+                data-target="changelog-list"
                 variant="outlined"
-                data-more-count={changelog.length - 5}
               >
-                Show {changelog.length - 5} more
+                Show {changelog.length - COLLAPSED} more
               </Button>
             )}
           </div>
@@ -380,7 +478,7 @@ const learnPosts = currentSlug
   </style>
 
   <style>
-    #changelog-toggle {
+    .changelog-toggle {
       margin-block-start: var(--size-3);
     }
 
@@ -391,27 +489,49 @@ const learnPosts = currentSlug
       margin-block-start: var(--size-1);
     }
 
-    :global(#changelog-list:not([data-expanded]) .changelog-extra) {
+    :global(
+      :is(#changelog-list, #migrating-list):not([data-expanded])
+        .changelog-extra
+    ) {
       display: none;
     }
 
+    .migrating,
     .whats-new {
       margin-block-end: var(--size-4);
+    }
+
+    .used-in-blocks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1) var(--size-2);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: flex;
+      }
+
+      li:not(:last-child)::after {
+        content: ",";
+      }
     }
   </style>
 </Document>
 
 <script is:inline>
   document.addEventListener("DOMContentLoaded", function () {
-    var btn = document.getElementById("changelog-toggle")
-    var list = document.getElementById("changelog-list")
-    if (!btn || !list) return
-    btn.addEventListener("click", function () {
-      var expanded = list.hasAttribute("data-expanded")
-      list.toggleAttribute("data-expanded")
-      btn.textContent = expanded
-        ? "Show " + btn.dataset.moreCount + " more"
-        : "Show less"
+    document.querySelectorAll(".changelog-toggle").forEach(function (btn) {
+      var list = document.getElementById(btn.dataset.target)
+      if (!list) return
+      btn.addEventListener("click", function () {
+        var expanded = list.hasAttribute("data-expanded")
+        list.toggleAttribute("data-expanded")
+        btn.textContent = expanded
+          ? "Show " + btn.dataset.moreCount + " more"
+          : "Show less"
+      })
     })
   })
 </script>

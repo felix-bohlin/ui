@@ -40,6 +40,13 @@ export const blockGroups = blockCategories
 
 export const blockHref = (slug: string) => `/blocks/${slug}`
 
+export const blocksUsing = (classes: string[]) =>
+  allBlocks.filter((block) =>
+    [...block.source.matchAll(/class="([^"]*)"/g)].some(([, list]) =>
+      list.split(/\s+/).some((token) => classes.includes(token)),
+    ),
+  )
+
 export const blockPreviewHref = (slug: string) => `/blocks/${slug}/preview/`
 
 export const isFullPage = (source: string) => /<main\b/.test(source)

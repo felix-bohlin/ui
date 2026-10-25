@@ -30,7 +30,7 @@ const REMOVE_SELECTORS = [
   "button",
   "input",
   "script",
-  "section:has(> #changelog):not(:has(.whats-new))",
+  "section:has(> #changelog):not(:has(.whats-new, .migrating))",
   "style",
   "svg",
   "template",

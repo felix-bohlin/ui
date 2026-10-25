@@ -41,7 +41,8 @@
 
   :where(
     html:not([data-example-theme]),
-    html:not([data-example-theme]) :where(.ui-palette, .ui-contrast-more)
+    html:not([data-example-theme])
+      :where(.ui-palette, .ui-contrast-more):not(.preview-pane)
   ) {
     --ui-border-color-on-raised: light-dark(
       color-mix(

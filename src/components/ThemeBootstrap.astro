@@ -91,7 +91,12 @@ const exampleThemes = Object.fromEntries(
         presetStyle.textContent = presetCss
       }
       if (customStyle.textContent !== css) customStyle.textContent = css
-      document.head.append(presetStyle, customStyle)
+      if (
+        document.head.lastElementChild !== customStyle ||
+        customStyle.previousElementSibling !== presetStyle
+      ) {
+        document.head.append(presetStyle, customStyle)
+      }
       if (presetCss) root.dataset.exampleTheme = preset
       else delete root.dataset.exampleTheme
       root.toggleAttribute(

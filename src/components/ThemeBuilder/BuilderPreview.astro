@@ -47,7 +47,7 @@ const schemes = [
             schemes.map(({ label, scheme }) => (
               <div
                 aria-labelledby={`preview-components-${scheme}`}
-                class={`preview-pane ui-${scheme}`}
+                class={`preview-pane ui-palette ui-${scheme}`}
                 data-scheme={scheme}
                 role="group"
               >
@@ -109,7 +109,7 @@ const schemes = [
             schemes.map(({ label, scheme }) => (
               <div
                 aria-labelledby={`preview-blocks-${scheme}`}
-                class={`preview-pane preview-frame ui-${scheme}`}
+                class={`preview-pane preview-frame ui-palette ui-${scheme}`}
                 data-scheme={scheme}
                 role="group"
               >

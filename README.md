@@ -62,6 +62,13 @@ Record intended parity drift with `pnpm test:record-drift` and known accessibili
 
 CI builds the docs site once, with `OPUI_TEST_PAGES=1`, in the `check` job. The e2e shards download that `dist` into `dist-test` and serve it with `E2E_PREBUILT=1`, and pull request previews deploy it. On `main`, the job rebuilds without the test pages before the production deploy.
 
+### Visual baselines in git
+
+`tests/e2e/__screenshots__` holds about 1300 PNGs (65MB), and the `update-snapshots` workflow rewrites them all, so every refresh adds tens of megabytes to the history. Undecided, the options are:
+
+- A: Git LFS for `tests/e2e/__screenshots__`. Clones and the history stay small, and only the checkout steps in `ci.yml` and `update-snapshots.yml` need `lfs: true`. Contributors need `git lfs install` to see or update baselines, LFS storage and bandwidth count against the GitHub quota, and the PNGs already in the history stay unless it is rewritten with `git lfs migrate`.
+- B: keep the PNGs in git, but run the `dark` project on fewer fixtures. Nothing changes for contributors and no quota applies, but the history keeps growing, only more slowly, and dark mode loses visual coverage on the fixtures it drops.
+
 ### Releasing
 
 [RELEASING.md](RELEASING.md) has the steps: `node scripts/release.mjs <version>` dates the CHANGELOG, bumps `packages/opui/package.json`, publishes, tags and pushes, and the guards in `tests/unit/released-*.json` are regenerated afterwards. The one-off checks of a major release live in `docs/releases/`.

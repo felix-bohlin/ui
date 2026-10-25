@@ -29,14 +29,6 @@ export default {
       values: { critical: ".ui-critical", primary: ".ui-primary" },
     },
     {
-      attribute: '[aria-current="page"]',
-      description:
-        "Keeps the pressed background on a transparent (text) button link, for the current page in navigation.",
-      frameworks: ["html"],
-      group: "Current",
-      prop: "current",
-    },
-    {
       default: "false",
       description:
         'Disables the button. A link button drops its `href` and gets `aria-disabled="true"`.',
@@ -44,11 +36,15 @@ export default {
     },
     {
       description:
-        'Disables the button. A link button, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
+        'Keeps the pressed background on a transparent (text) button link for the current page in navigation, or dims a disabled one. A link button, which can\'t take `disabled`, drops its `href` and takes `aria-disabled="true"` instead.',
       frameworks: ["html"],
       group: "State",
-      prop: "disabledState",
-      values: { button: "[disabled]", link: 'a[aria-disabled="true"]' },
+      prop: "state",
+      values: {
+        current: '[aria-current="page"]',
+        disabled: "[disabled]",
+        disabledLink: 'a[aria-disabled="true"]',
+      },
     },
     {
       description: "The link to use. Renders an `<a>`.",

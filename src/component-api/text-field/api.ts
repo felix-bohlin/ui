@@ -1,3 +1,4 @@
+import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
@@ -8,14 +9,10 @@ export default {
     type: "string | number",
   },
   notes: {
-    astro:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
+    ...passThrough("input", "label", ["autocomplete", "placeholder"], {
+      react: "Use `value` with `onChange`, or `defaultValue`.",
+    }),
     html: "Use `.ui-select` for a `<select>` and `.ui-textarea` for a `<textarea>`. You can put a `<datalist>` inside the root.",
-    react:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
-    svelte:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `placeholder`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
     {
@@ -24,6 +21,16 @@ export default {
       description: "Lets the width follow the content, from `25ch`.",
       group: "Auto fit",
       prop: "autoFit",
+    },
+    {
+      attribute: "[disabled]",
+      default: "false",
+      description: "Dims the field and blocks input.",
+      group: "Disabled",
+      inherited: true,
+      part: "input",
+      prop: "disabled",
+      type: "boolean",
     },
     {
       attribute: '[aria-invalid="true"]',
@@ -47,6 +54,23 @@ export default {
       inherited: true,
       prop: "id",
       type: "string",
+    },
+    {
+      description:
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+      inherited: true,
+      prop: "name",
+      type: "string",
+    },
+    {
+      attribute: "[required]",
+      description:
+        "Adds a required mark after the label. The form won't submit while the field is empty.",
+      group: "Required",
+      inherited: true,
+      part: "input",
+      prop: "required",
+      type: "boolean",
     },
     {
       default: '"medium"',

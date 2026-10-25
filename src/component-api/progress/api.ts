@@ -1,15 +1,9 @@
-import { components } from "../frameworks.ts"
+import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
   component: "Progress",
-  notes: {
-    ...components(
-      "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `class` and `style` go to the root `<div>`.",
-    ),
-    react:
-      "Attributes that aren't props go to the `<progress>`, like `aria-busy`, `aria-label` and `id`, and `className` and `style` go to the root `<div>`.",
-  },
+  notes: passThrough("progress", "div", ["aria-busy", "aria-label", "id"]),
   options: [
     {
       description: "The maximum value.",

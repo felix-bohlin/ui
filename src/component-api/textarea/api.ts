@@ -1,3 +1,4 @@
+import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
@@ -8,15 +9,9 @@ export default {
     prop: "value",
     type: "string",
   },
-  notes: {
-    astro:
-      "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `class` and `style` go to the root `<label>`.",
-    react:
-      "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `className` and `style` go to the root `<label>`. Use `value` with `onChange`, or `defaultValue`.",
-    svelte:
-      "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `class` and `style` go to the root `<label>`.",
-    vue: "Attributes that aren't props go to the `<textarea>`, like `placeholder` or `rows`, and `class` and `style` go to the root `<label>`.",
-  },
+  notes: passThrough("textarea", "label", ["placeholder", "rows"], {
+    react: "Use `value` with `onChange`, or `defaultValue`.",
+  }),
   options: [
     {
       class: ".ui-auto-fit",
@@ -25,6 +20,16 @@ export default {
         "Lets the width follow the content and allows resizing in both directions.",
       group: "Auto fit",
       prop: "autoFit",
+    },
+    {
+      attribute: "[disabled]",
+      default: "false",
+      description: "Dims the field and blocks input.",
+      group: "Disabled",
+      inherited: true,
+      part: "textarea",
+      prop: "disabled",
+      type: "boolean",
     },
     {
       attribute: '[aria-invalid="true"]',
@@ -48,6 +53,23 @@ export default {
       inherited: true,
       prop: "id",
       type: "string",
+    },
+    {
+      description:
+        "The name of the `<textarea>`. Inside a `FieldGroup`, the group's `name` applies.",
+      inherited: true,
+      prop: "name",
+      type: "string",
+    },
+    {
+      attribute: "[required]",
+      description:
+        "Adds a required mark after the label. The form won't submit while the field is empty.",
+      group: "Required",
+      inherited: true,
+      part: "textarea",
+      prop: "required",
+      type: "boolean",
     },
     {
       default: '"medium"',

@@ -1,3 +1,4 @@
+import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
@@ -51,16 +52,23 @@ export default {
     type: "number | string",
   },
   notes: {
-    astro:
-      "Attributes that aren't props go to the `<input>`, like `disabled`, `max`, `min`, `name` and `step`, and `class` and `style` go to the root `<label>`.",
+    ...passThrough("input", "label", ["max", "min", "step"], {
+      react:
+        "Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
+    }),
     html: 'Add a `<datalist aria-hidden="true">` after the input for tick marks.',
-    react:
-      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `className` and `style` go to the root `<label>`. Set `defaultValue` for the starting value. `value` makes it controlled, so update it in `onChange`.",
-    svelte:
-      "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `class` and `style` go to the root `<label>`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
+    {
+      attribute: "[disabled]",
+      default: "false",
+      description: "Dims the slider and blocks input.",
+      group: "Disabled",
+      inherited: true,
+      part: "input",
+      prop: "disabled",
+      type: "boolean",
+    },
     {
       attribute: '[aria-invalid="true"]',
       default: "false",
@@ -94,6 +102,13 @@ export default {
       description:
         "The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.",
       prop: "list",
+    },
+    {
+      description:
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+      inherited: true,
+      prop: "name",
+      type: "string",
     },
     {
       default: '"medium"',

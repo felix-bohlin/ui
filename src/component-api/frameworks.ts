@@ -55,3 +55,28 @@ export const frameworks: Record<ComponentFramework, Syntax> = {
     types: "types.d.vue.ts",
   },
 }
+
+const listOf = (items: string[]) => {
+  const code = items.map((item) => `\`${item}\``)
+  return code.length > 1
+    ? `${code.slice(0, -1).join(", ")} and ${code.at(-1)}`
+    : code.join("")
+}
+
+export const passThrough = (
+  element: string,
+  root: string,
+  examples: string[],
+  more: Partial<Record<ComponentFramework | "default", string>> = {},
+) =>
+  Object.fromEntries(
+    (Object.keys(frameworks) as ComponentFramework[]).map((framework) => [
+      framework,
+      [
+        `Attributes that aren't props go to the \`<${element}>\`, like ${listOf(examples)}, and \`${framework === "react" ? "className" : "class"}\` and \`style\` go to the root \`<${root}>\`.`,
+        more[framework] ?? more.default,
+      ]
+        .filter(Boolean)
+        .join(" "),
+    ]),
+  ) as Record<ComponentFramework, string>

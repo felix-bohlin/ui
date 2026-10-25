@@ -1,3 +1,4 @@
+import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
@@ -17,15 +18,14 @@ export default {
     prop: "value",
     type: "string | number | boolean",
   },
-  notes: {
-    astro:
-      "Attributes that aren't props go to the `<input>`, like `checked`, `disabled`, `name` and `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
+  notes: passThrough("input", "label", ["autofocus", "form"], {
+    default:
+      "To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
     react:
-      "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.",
+      "To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange` on each radio, or `defaultChecked`.",
     svelte:
-      "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled`, `name` or `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
-  },
+      "To hide the label, set `hideLabel` and keep the text in `label` or `children`.",
+  }),
   options: [
     {
       class: ".ui-card",
@@ -36,12 +36,14 @@ export default {
       prop: "card",
     },
     {
+      default: "false",
       description:
         'Dims the radio and shows a not-allowed cursor. `aria-disabled="true"` looks the same, but keeps the radio focusable and its value in the form, and doesn\'t stop the change, so block it with a script.',
-      frameworks: ["html"],
       group: "Disabled",
+      inherited: true,
       part: "input",
       prop: "disabled",
+      type: "boolean",
       values: {
         "aria-disabled": '[aria-disabled="true"]',
         disabled: "[disabled]",
@@ -65,6 +67,19 @@ export default {
       prop: "hideLabel",
     },
     {
+      description: "The id of the `<input>`.",
+      inherited: true,
+      prop: "id",
+      type: "string",
+    },
+    {
+      description:
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+      inherited: true,
+      prop: "name",
+      type: "string",
+    },
+    {
       default: '"horizontal"',
       description:
         "The orientation of the element. `vertical` stacks the label under the input.",
@@ -74,11 +89,13 @@ export default {
     },
     {
       attribute: "[required]",
-      description: "Adds a required mark after the label.",
-      frameworks: ["html"],
+      description:
+        "Adds a required mark after the label. The form won't submit until one radio in the group is checked.",
       group: "Required",
+      inherited: true,
       part: "input",
       prop: "required",
+      type: "boolean",
     },
     {
       default: '"medium"',
@@ -98,6 +115,13 @@ export default {
       description: "Pushes the label and the input to opposite ends.",
       group: "Spread",
       prop: "spread",
+    },
+    {
+      description:
+        "The value of the `<input>`, submitted with the form when it's checked.",
+      inherited: true,
+      prop: "value",
+      type: "string",
     },
     {
       default: '"outlined"',

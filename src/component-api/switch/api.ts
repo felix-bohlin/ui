@@ -1,3 +1,4 @@
+import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
@@ -23,14 +24,15 @@ export default {
     type: "boolean | (string | number)[]",
   },
   notes: {
-    astro:
-      "Attributes that aren't props go to the `<input>`, like `checked`, `disabled`, `name` and `required`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
+    ...passThrough("input", "label", ["autofocus", "form"], {
+      default:
+        "To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
+      react:
+        "To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`.",
+      svelte:
+        "To hide the label, set `hideLabel` and keep the text in `label` or `children`.",
+    }),
     html: 'The input needs `type="checkbox"` and `role="switch"`.',
-    react:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`. Use `checked` with `onChange`, or `defaultChecked`.",
-    svelte:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or `children`.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.",
   },
   options: [
     {
@@ -42,12 +44,14 @@ export default {
       prop: "card",
     },
     {
+      default: "false",
       description:
         'Dims the switch and shows a not-allowed cursor. `aria-disabled="true"` looks the same, but keeps the switch focusable and its value in the form, and doesn\'t stop the change, so block it with a script.',
-      frameworks: ["html"],
       group: "Disabled",
+      inherited: true,
       part: "input",
       prop: "disabled",
+      type: "boolean",
       values: {
         "aria-disabled": '[aria-disabled="true"]',
         disabled: "[disabled]",
@@ -71,6 +75,19 @@ export default {
       prop: "hideLabel",
     },
     {
+      description: "The id of the `<input>`.",
+      inherited: true,
+      prop: "id",
+      type: "string",
+    },
+    {
+      description:
+        "The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies.",
+      inherited: true,
+      prop: "name",
+      type: "string",
+    },
+    {
       default: '"horizontal"',
       description:
         "The orientation of the element. `vertical` stacks the label under the switch.",
@@ -80,11 +97,13 @@ export default {
     },
     {
       attribute: "[required]",
-      description: "Adds a required mark after the label.",
-      frameworks: ["html"],
+      description:
+        "Adds a required mark after the label. The form won't submit until it's on.",
       group: "Required",
+      inherited: true,
       part: "input",
       prop: "required",
+      type: "boolean",
     },
     {
       default: '"medium"',
@@ -104,6 +123,13 @@ export default {
       description: "Pushes the label and the switch to opposite ends.",
       group: "Spread",
       prop: "spread",
+    },
+    {
+      description:
+        "The value of the `<input>`, submitted with the form when it's checked.",
+      inherited: true,
+      prop: "value",
+      type: "string",
     },
     {
       default: '"outlined"',

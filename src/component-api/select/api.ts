@@ -1,3 +1,4 @@
+import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
@@ -9,14 +10,8 @@ export default {
     type: "string | number | (string | number)[]",
   },
   notes: {
-    astro:
-      "Attributes that aren't props go to the `<select>`, like `disabled`, `multiple`, `name` and `required`, and `class` and `style` go to the root `<label>`.",
+    ...passThrough("select", "label", ["autocomplete", "multiple"]),
     html: "The `<select>` holds a `<button>` and a `.ui-list`. The button holds `<selectedcontent>`. The list holds the options. Browsers without customizable selects show a native select.",
-    react:
-      "Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `className` and `style` go to the root `<label>`.",
-    svelte:
-      "Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`.",
-    vue: "Attributes that aren't props go to the `<select>`, like `disabled` or `name`, and `class` and `style` go to the root `<label>`.",
   },
   options: [
     {
@@ -33,6 +28,16 @@ export default {
       group: "Dense",
       part: ".ui-list",
       prop: "dense",
+    },
+    {
+      attribute: "[disabled]",
+      default: "false",
+      description: "Dims the select and blocks input.",
+      group: "Disabled",
+      inherited: true,
+      part: "select",
+      prop: "disabled",
+      type: "boolean",
     },
     {
       attribute: '[aria-invalid="true"]',
@@ -61,6 +66,23 @@ export default {
       default: "[]",
       description: "The options, as `{ label, selected, value }` objects.",
       prop: "items",
+    },
+    {
+      description:
+        "The name of the `<select>`. Inside a `FieldGroup`, the group's `name` applies.",
+      inherited: true,
+      prop: "name",
+      type: "string",
+    },
+    {
+      attribute: "[required]",
+      description:
+        "Adds a required mark after the label. The form won't submit until an option with a value is selected.",
+      group: "Required",
+      inherited: true,
+      part: "select",
+      prop: "required",
+      type: "boolean",
     },
     {
       default: '"medium"',

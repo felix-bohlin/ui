@@ -1,3 +1,4 @@
+import { passThrough } from "../frameworks.ts"
 import type { ComponentApi } from "../types"
 
 export default {
@@ -7,15 +8,13 @@ export default {
     prop: "checked",
     type: "boolean",
   },
-  notes: {
-    astro:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`.",
+  notes: passThrough("input", "label", ["autofocus", "form"], {
     react:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `className` and `style` go to the root `<label>`. `defaultChecked` sets the starting state, and `checked` with `onChange` controls it, like on any input. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value wins and a button's own `checked` and `defaultChecked` are ignored.",
+      "`defaultChecked` sets the starting state, and `checked` with `onChange` controls it, like on any input. In a `ToggleGroup` with a `value` or `defaultValue`, the group's value wins and a button's own `checked` and `defaultChecked` are ignored.",
     svelte:
-      "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. `bind:checked` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `bind:value`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.",
-    vue: "Attributes that aren't props go to the `<input>`, like `disabled` or `id`, and `class` and `style` go to the root `<label>`. `v-model` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `v-model`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.",
-  },
+      "`bind:checked` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `bind:value`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.",
+    vue: "`v-model` binds a standalone checkbox button. A radio fires no `change` when another one takes the check, so for a choice of one, use a `ToggleGroup` with `v-model`. In a `ToggleGroup`, `checked` only sets the starting state: the group's value wins once it has one.",
+  }),
   options: [
     {
       attribute: "[checked]",
@@ -50,6 +49,14 @@ export default {
       inherited: true,
       prop: "name",
       type: "string",
+    },
+    {
+      description:
+        "The form won't submit until it's checked. A `ToggleGroup` without `multiple` needs it on one button only.",
+      group: "Required",
+      inherited: true,
+      prop: "required",
+      type: "boolean",
     },
     {
       default: '"medium"',

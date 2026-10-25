@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from "node:fs"
 import path from "node:path"
-import type { CustomProperties } from "./types"
+import type { ComponentApi, CustomProperties } from "./types"
 
 const modules = import.meta.glob<{ default: CustomProperties }>(
   "./custom-properties/*.ts",
@@ -15,22 +15,25 @@ export const customProperties: Record<string, CustomProperties> =
     ]),
   )
 
-const PAGE_STYLESHEETS: Record<string, string[]> = {
-  checkbox: ["checkbox", "choice"],
-  dialog: ["card", "dialog"],
-  menu: ["list", "menu"],
-  radio: ["choice", "radio"],
-  select: ["select", "text-field"],
-  textarea: ["text-field", "textarea"],
-  toggle: ["toggle-button", "toggle-group"],
-  typography: ["link", "typography"],
-}
+const apis = import.meta.glob<ComponentApi>("./*/api.ts", {
+  eager: true,
+  import: "default",
+})
+
+const kebab = (name: string) =>
+  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
 
 export const stylesheetPath = (stylesheet: string) =>
   path.resolve("packages/opui/css/components", `${stylesheet}.css`)
 
-export const pageStylesheets = (slug: string) =>
-  PAGE_STYLESHEETS[slug] ?? (existsSync(stylesheetPath(slug)) ? [slug] : [])
+export const pageStylesheets = (slug: string) => {
+  const declared = Object.entries(apis)
+    .filter(([file, api]) => (api.page ?? file.split("/")[1]) === slug)
+    .flatMap(([, api]) => api.css ?? (api.source ? [kebab(api.source)] : []))
+    .filter((stylesheet) => existsSync(stylesheetPath(stylesheet)))
+  if (declared.length > 0) return [...new Set(declared)].toSorted()
+  return existsSync(stylesheetPath(slug)) ? [slug] : []
+}
 
 export const declaredCustomProperties = (stylesheet: string) =>
   [

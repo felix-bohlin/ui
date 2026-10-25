@@ -1,10 +1,12 @@
 @import "./layers.css";
 
 /*
-* Components are divided into two categories - if they are stand-alone (root) or if they are built on top of others (extended).
+* Four groups, by the layer a file declares. Root files declare components.root (and typography.css components.prose): rules that never have to beat another component's rules on the same element.
+* Extended files declare components.extended for the rules that must beat another component's rules on the same element, and components.root for the rest.
+* Utilities declare utils. tests/unit/layers.test.ts checks every file against its group.
 */
 
-/*** Root components (no dependencies)  */
+/*** Root components (components.prose, components.root) */
 @import "./components/anchor.css";
 @import "./components/avatar.css";
 @import "./components/button.css";
@@ -17,7 +19,6 @@
 @import "./components/description-list.css";
 @import "./components/divider.css";
 @import "./components/drawer.css";
-@import "./components/layout.css";
 @import "./components/link.css";
 @import "./components/progress.css";
 @import "./components/radio.css";
@@ -29,7 +30,7 @@
 @import "./components/toggle-button.css";
 @import "./components/typography.css";
 
-/*** Extended components (has dependencies) */
+/*** Extended components (components.extended, components.root) */
 @import "./components/accordion.css";
 @import "./components/badge.css";
 @import "./components/button-group.css";
@@ -42,3 +43,6 @@
 @import "./components/textarea.css";
 @import "./components/toggle-group.css";
 @import "./components/tooltip.css";
+
+/*** Utilities (utils) */
+@import "./components/layout.css";

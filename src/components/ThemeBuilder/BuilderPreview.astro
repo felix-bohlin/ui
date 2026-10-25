@@ -1,1 +1,422 @@
-<section aria-label="Preview" class="builder-preview"></section>
+---
+import { Select, Tabs, TabsItem, TabsLabel, TabsPanel } from "opui-css/astro"
+import { allBlocks, blockPreviewHref } from "../../utils/blocks"
+import PreviewContrast from "./PreviewContrast.astro"
+import PreviewSpecimen from "./PreviewSpecimen.astro"
+import PreviewView from "./PreviewView.astro"
+
+const FRAME_WIDTHS: Record<string, number> = {
+  "account-settings": 720,
+  "analytics-dashboard": 1100,
+  chat: 900,
+  pricing: 960,
+  "sign-in": 400,
+}
+
+const blocks = allBlocks
+  .filter((block) => Object.hasOwn(FRAME_WIDTHS, block.slug))
+  .map((block) => ({
+    href: blockPreviewHref(block.slug),
+    name: block.name,
+    slug: block.slug,
+    width: FRAME_WIDTHS[block.slug],
+  }))
+
+const [firstBlock] = blocks
+
+const schemes = [
+  { label: "Light", scheme: "light" },
+  { label: "Dark", scheme: "dark" },
+] as const
+---
+
+<section aria-label="Preview" class="builder-preview">
+  <Tabs class="preview-tabs" name="preview-tab">
+    <TabsItem checked value="components">
+      <TabsLabel>Components</TabsLabel>
+      <TabsPanel data-tab="components">
+        <div class="preview-toolbar">
+          <PreviewView name="preview-components" />
+        </div>
+        <p class="preview-note" data-more-note hidden>
+          Your device or the site's high contrast setting asks for more
+          contrast, so the preview always shows it.
+        </p>
+        <div class="preview-panes" data-view="both">
+          {
+            schemes.map(({ label, scheme }) => (
+              <div
+                aria-labelledby={`preview-components-${scheme}`}
+                class={`preview-pane ui-${scheme}`}
+                data-scheme={scheme}
+                role="group"
+              >
+                <p
+                  class="preview-pane-label"
+                  data-label={label}
+                  id={`preview-components-${scheme}`}
+                >
+                  {label}
+                </p>
+                <PreviewSpecimen scheme={scheme} />
+              </div>
+            ))
+          }
+        </div>
+      </TabsPanel>
+    </TabsItem>
+    <TabsItem value="blocks">
+      <TabsLabel>Blocks</TabsLabel>
+      <TabsPanel data-tab="blocks">
+        <div class="preview-toolbar">
+          <Select
+            class="preview-block-select"
+            hideLabel
+            label="Block"
+            name="preview-block"
+            size="small"
+          >
+            {
+              blocks.map((block) => (
+                <option
+                  data-href={block.href}
+                  data-width={block.width}
+                  value={block.slug}
+                >
+                  {block.name}
+                </option>
+              ))
+            }
+          </Select>
+          <PreviewView name="preview-blocks" />
+          <a
+            class="ui-link preview-open"
+            data-open-block
+            href={firstBlock.href}
+            rel="noopener"
+            target="_blank"
+            >Open full size<span class="ui-sr-only">
+              (opens in a new tab)</span
+            ></a
+          >
+        </div>
+        <p class="preview-note" data-more-note hidden>
+          Your device or the site's high contrast setting asks for more
+          contrast, so the preview always shows it.
+        </p>
+        <div class="preview-panes" data-view="both">
+          {
+            schemes.map(({ label, scheme }) => (
+              <div
+                aria-labelledby={`preview-blocks-${scheme}`}
+                class={`preview-pane preview-frame ui-${scheme}`}
+                data-scheme={scheme}
+                role="group"
+              >
+                <p
+                  class="preview-pane-label"
+                  data-label={label}
+                  id={`preview-blocks-${scheme}`}
+                >
+                  {label}
+                </p>
+                <div
+                  aria-label={`${firstBlock.name} block in ${label.toLowerCase()} mode`}
+                  class="preview-frame-box"
+                  role="img"
+                >
+                  <iframe
+                    data-scheme={scheme}
+                    inert
+                    title={`${firstBlock.name} block`}
+                  />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </TabsPanel>
+    </TabsItem>
+    <TabsItem value="contrast">
+      <TabsLabel>Contrast</TabsLabel>
+      <TabsPanel data-tab="contrast">
+        <PreviewContrast />
+      </TabsPanel>
+    </TabsItem>
+  </Tabs>
+</section>
+
+<script>
+  import { readStored, writeStored } from "../../utils/storage"
+  import { themeStore } from "../../utils/theme"
+
+  type View = "both" | "dark" | "light"
+
+  type Stored = { block?: string; more?: boolean; tab?: string; view?: View }
+
+  const KEY = "opui-builder-preview"
+  const VIEWS: View[] = ["both", "dark", "light"]
+
+  const pageMore = () =>
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--ui-contrast")
+      .trim() === "more"
+
+  for (const root of document.querySelectorAll<HTMLElement>(
+    ".builder-preview",
+  )) {
+    const stored = readStored<Stored>(KEY, {})
+    const select = root.querySelector<HTMLSelectElement>(
+      'select[name="preview-block"]',
+    )!
+    const open = root.querySelector<HTMLAnchorElement>("[data-open-block]")!
+    const frames = [
+      ...root.querySelectorAll<HTMLIFrameElement>(".preview-frame iframe"),
+    ]
+    const tabs = [
+      ...root.querySelectorAll<HTMLInputElement>('input[name="preview-tab"]'),
+    ]
+    const panel = (tab: string) =>
+      root.querySelector<HTMLElement>(`[data-tab="${tab}"]`)!
+
+    const state = {
+      block: [...select.options].some((option) => option.value === stored.block)
+        ? stored.block!
+        : select.value,
+      more: stored.more === true,
+      tab: tabs.some((input) => input.value === stored.tab)
+        ? stored.tab!
+        : "components",
+      view:
+        stored.view && VIEWS.includes(stored.view)
+          ? stored.view
+          : root.clientWidth >= 640
+            ? "both"
+            : document.documentElement.classList.contains("ui-dark")
+              ? "dark"
+              : "light",
+    }
+
+    const save = () =>
+      writeStored(KEY, {
+        block: state.block,
+        more: state.more,
+        tab: state.tab,
+        view: state.view,
+      })
+
+    const option = () => select.selectedOptions[0]
+
+    const fit = (frame: HTMLIFrameElement) => {
+      const box = frame.parentElement!
+      const document = frame.contentDocument
+      const width = box.clientWidth
+      if (!document?.body || width === 0) return
+      const virtual = Math.max(width, Number(option().dataset.width))
+      frame.style.blockSize = "0px"
+      frame.style.inlineSize = `${virtual}px`
+      const height = Math.max(document.documentElement.scrollHeight, 320)
+      frame.style.blockSize = `${height}px`
+      box.style.setProperty("--frame-scale", String(width / virtual))
+      box.style.blockSize = `${Math.ceil((height * width) / virtual)}px`
+    }
+
+    const loadFrames = () => {
+      if (state.tab !== "blocks") return
+      const more = state.more || pageMore()
+      for (const frame of frames) {
+        const pane = frame.closest<HTMLElement>(".preview-pane")!
+        if (pane.hidden) continue
+        const src = `${option().dataset.href}?scheme=${frame.dataset.scheme}&contrast=${more ? "more" : "normal"}`
+        if (frame.getAttribute("src") !== src) {
+          frame.title = `${option().text} block`
+          frame.parentElement!.ariaLabel = `${option().text} block in ${frame.dataset.scheme} mode${more ? " with more contrast" : ""}`
+          frame.src = src
+        }
+      }
+    }
+
+    const render = () => {
+      const forced = pageMore()
+      const more = state.more || forced
+      for (const pane of root.querySelectorAll<HTMLElement>(".preview-pane")) {
+        pane.hidden =
+          state.view !== "both" && pane.dataset.scheme !== state.view
+        pane.classList.toggle("ui-contrast-more", more)
+        const label = pane.querySelector<HTMLElement>(".preview-pane-label")!
+        label.textContent = `${label.dataset.label}${more ? " with more contrast" : ""}`
+      }
+      for (const panes of root.querySelectorAll<HTMLElement>(
+        ".preview-panes",
+      )) {
+        panes.dataset.view = state.view
+      }
+      for (const input of root.querySelectorAll<HTMLInputElement>(
+        "input[data-view]",
+      )) {
+        input.checked = input.value === state.view
+      }
+      for (const input of root.querySelectorAll<HTMLInputElement>(
+        "input[data-more]",
+      )) {
+        input.checked = more
+        input.disabled = forced
+      }
+      for (const note of root.querySelectorAll<HTMLElement>(
+        "[data-more-note]",
+      )) {
+        note.hidden = !forced
+      }
+      for (const input of tabs) input.checked = input.value === state.tab
+      select.value = state.block
+      open.href = option().dataset.href!
+      loadFrames()
+    }
+
+    root.addEventListener("change", ({ target }) => {
+      if (target === select) {
+        state.block = select.value
+      } else if (!(target instanceof HTMLInputElement)) {
+        return
+      } else if (target.matches("[data-more]")) {
+        state.more = target.checked
+      } else if (!target.checked) {
+        return
+      } else if (target.matches("[data-view]")) {
+        state.view = target.value as View
+      } else if (target.name === "preview-tab") {
+        state.tab = target.value
+        panel(state.tab)
+          .querySelector(".preview-contrast")
+          ?.dispatchEvent(new Event("preview:show"))
+      } else {
+        return
+      }
+      save()
+      render()
+    })
+
+    root.addEventListener("click", (event) => {
+      if (
+        event.target instanceof Element &&
+        event.target.closest('.preview-pane a[href="#"]')
+      ) {
+        event.preventDefault()
+      }
+    })
+
+    for (const frame of frames) {
+      frame.addEventListener("load", () => {
+        const view = frame.contentWindow as typeof globalThis | null
+        if (!view?.document.body) return
+        new view.ResizeObserver(() => fit(frame)).observe(view.document.body)
+        fit(frame)
+      })
+    }
+
+    const boxes = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const frame = entry.target.querySelector("iframe")
+        if (frame) fit(frame)
+      }
+    })
+    for (const frame of frames) boxes.observe(frame.parentElement!)
+
+    themeStore.subscribe(() => requestAnimationFrame(() => frames.forEach(fit)))
+    new MutationObserver(render).observe(document.documentElement, {
+      attributeFilter: ["class"],
+      attributes: true,
+    })
+    matchMedia("(prefers-contrast: more)").addEventListener("change", render)
+
+    render()
+  }
+</script>
+
+<style>
+  .builder-preview {
+    container: builder-preview / inline-size;
+    min-inline-size: 0;
+  }
+
+  .preview-tabs {
+    & > :global(.ui-panel) {
+      margin-block-start: var(--size-3);
+    }
+  }
+
+  .preview-toolbar {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-4);
+    margin-block-end: var(--size-3);
+
+    & :global(.preview-view svg) {
+      block-size: 1.1em;
+      inline-size: 1.1em;
+    }
+  }
+
+  .preview-open {
+    font-size: var(--ui-font-size-small);
+  }
+
+  .preview-note {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin-block: 0 var(--size-3);
+  }
+
+  .preview-panes {
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  @container builder-preview (width >= 40rem) {
+    .preview-panes[data-view="both"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .preview-pane {
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--radius-3);
+    container: preview-pane / inline-size;
+    min-inline-size: 0;
+    padding: var(--size-4);
+  }
+
+  .preview-pane-label {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-medium);
+    margin-block: 0 var(--size-3);
+  }
+
+  .preview-frame {
+    padding: 0;
+
+    & .preview-pane-label {
+      margin: 0;
+      padding: var(--size-2) var(--size-3);
+    }
+  }
+
+  .preview-frame-box {
+    --frame-scale: 1;
+
+    border-end-end-radius: var(--radius-3);
+    border-end-start-radius: var(--radius-3);
+    min-block-size: 10rem;
+    overflow: hidden;
+
+    & iframe {
+      border: 0;
+      display: block;
+      inline-size: 100%;
+      scale: var(--frame-scale);
+      transform-origin: 0 0;
+    }
+  }
+</style>

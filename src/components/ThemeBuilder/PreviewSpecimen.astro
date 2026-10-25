@@ -1,0 +1,427 @@
+---
+import {
+  Avatar,
+  AvatarGroup,
+  Badge,
+  Button,
+  Callout,
+  CalloutContent,
+  CalloutIcon,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Checkbox,
+  Chip,
+  FieldGroup,
+  FieldLegend,
+  Fieldset,
+  List,
+  ListItem,
+  Progress,
+  Radio,
+  Range,
+  Select,
+  Switch,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  Tabs,
+  TabsItem,
+  TabsLabel,
+  TabsPanel,
+  TextField,
+  Textarea,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
+
+type Props = {
+  scheme: "dark" | "light"
+}
+
+const { scheme } = Astro.props
+
+const name = (part: string) => `preview-${scheme}-${part}`
+
+const variants = [
+  { label: "Filled", variant: "filled" },
+  { label: "Tonal", variant: "tonal" },
+  { label: "Outlined", variant: "outlined" },
+  { label: "Text", variant: "transparent" },
+] as const
+
+const callouts = [
+  {
+    severity: "critical",
+    text: "The payment failed. Check the card details.",
+    title: "Error",
+  },
+  {
+    severity: "info",
+    text: "A new version is ready to install.",
+    title: "Info",
+  },
+  { severity: "success", text: "Your changes were saved.", title: "Success" },
+  {
+    severity: "warning",
+    text: "Your trial ends in 3 days.",
+    title: "Warning",
+  },
+] as const
+---
+
+<div class="specimen">
+  <div class="specimen-block specimen-type ui-rich-text">
+    <p class="ui-overline">Typography</p>
+    <div class="ui-h2">Weekly report</div>
+    <div class="ui-h4">Everything the team shipped</div>
+    <p>
+      The new sign-up flow lifted conversions by 12%. Read the <a href="#"
+        >release notes</a
+      > or run <code>npm run report</code> to build it again.
+    </p>
+  </div>
+
+  <div class="specimen-block">
+    <p class="specimen-caption">Buttons</p>
+    <div class="specimen-buttons">
+      <span class="specimen-row-label">Brand</span>
+      <div class="specimen-row">
+        {
+          variants.map(({ label, variant }) => (
+            <Button color="primary" type="button" variant={variant}>
+              {label}
+            </Button>
+          ))
+        }
+      </div>
+      <span class="specimen-row-label">Default</span>
+      <div class="specimen-row">
+        {
+          variants.map(({ label, variant }) => (
+            <Button type="button" variant={variant}>
+              {label}
+            </Button>
+          ))
+        }
+      </div>
+      <span class="specimen-row-label">Sizes</span>
+      <div class="specimen-row">
+        <Button color="primary" size="small" type="button" variant="filled"
+          >Small</Button
+        >
+        <Button color="primary" type="button" variant="filled">Medium</Button>
+        <Button color="primary" size="large" type="button" variant="filled"
+          >Large</Button
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="specimen-block">
+    <p class="specimen-caption">Chips, badge and avatars</p>
+    <div class="specimen-row">
+      <Chip label="Design" variant="outlined" />
+      <Chip label="In review" variant="tonal" />
+      <Chip dot label="Live" severity="success" />
+      <Chip label="Blocked" severity="critical" />
+    </div>
+    <div class="specimen-row">
+      <Badge label="3">
+        <Button type="button" variant="outlined">Inbox</Button>
+      </Badge>
+      <AvatarGroup>
+        <Avatar>AL</Avatar>
+        <Avatar>GH</Avatar>
+        <Avatar>KJ</Avatar>
+      </AvatarGroup>
+    </div>
+  </div>
+
+  <div class="specimen-block specimen-form">
+    <p class="specimen-caption">Fields</p>
+    <TextField
+      endText="We never share it."
+      label="Email"
+      name={name("email")}
+      placeholder="you@example.com"
+      required
+      type="email"
+    />
+    <TextField
+      endText="That name is taken."
+      error
+      label="Username"
+      name={name("username")}
+      value="ada"
+    />
+    <Select label="Plan" name={name("plan")}>
+      <option>Free</option>
+      <option selected>Team</option>
+      <option>Enterprise</option>
+    </Select>
+    <Textarea
+      label="Message"
+      name={name("message")}
+      placeholder="Tell us more"
+      rows="2"
+    />
+  </div>
+
+  <div class="specimen-block specimen-form">
+    <p class="specimen-caption">Choices</p>
+    <Fieldset>
+      <FieldLegend>Billing</FieldLegend>
+      <FieldGroup name={name("billing")} orientation="horizontal">
+        <Radio checked value="monthly">Monthly</Radio>
+        <Radio value="yearly">Yearly</Radio>
+      </FieldGroup>
+    </Fieldset>
+    <Checkbox checked name={name("updates")}>Email me product updates</Checkbox>
+    <Switch checked name={name("alerts")}>Alerts</Switch>
+    <Range label="Volume" name={name("volume")} value={60} />
+    <ToggleGroup aria-label="Period" name={name("period")} size="small">
+      <ToggleButton value="day">Day</ToggleButton>
+      <ToggleButton checked value="week">Week</ToggleButton>
+      <ToggleButton value="month">Month</ToggleButton>
+    </ToggleGroup>
+  </div>
+
+  <div class="specimen-block">
+    <p class="specimen-caption">Tabs</p>
+    <Tabs name={name("tabs")}>
+      <TabsItem checked>
+        <TabsLabel>Overview</TabsLabel>
+        <TabsPanel>Sales are up 8% this week.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsLabel>Activity</TabsLabel>
+        <TabsPanel>Ada closed two tickets.</TabsPanel>
+      </TabsItem>
+      <TabsItem>
+        <TabsLabel>Settings</TabsLabel>
+        <TabsPanel>Nothing to change here.</TabsPanel>
+      </TabsItem>
+    </Tabs>
+  </div>
+
+  <div class="specimen-block">
+    <p class="specimen-caption">Card</p>
+    <Card variant="outlined">
+      <CardHeader>
+        <p>Project</p>
+        <div class="ui-h4">Website refresh</div>
+      </CardHeader>
+      <CardContent>New pages, faster images and a darker footer.</CardContent>
+      <CardActions>
+        <Button size="small" type="button">Details</Button>
+        <Button color="primary" size="small" type="button" variant="filled"
+          >Open</Button
+        >
+      </CardActions>
+    </Card>
+  </div>
+
+  <div class="specimen-block">
+    <p class="specimen-caption">Callouts</p>
+    {
+      callouts.map(({ severity, text, title }) => (
+        <Callout severity={severity}>
+          <CalloutIcon />
+          <CalloutContent>
+            <strong>{title}</strong> {text}
+          </CalloutContent>
+        </Callout>
+      ))
+    }
+  </div>
+
+  <div class="specimen-block">
+    <p class="specimen-caption">Dialog</p>
+    <div class="specimen-backdrop">
+      <dialog
+        aria-label="Delete file"
+        class="ui-dialog ui-elevated specimen-dialog"
+        open
+      >
+        <hgroup>
+          <div class="ui-h4">Delete this file?</div>
+          <p>You can restore it from the trash for 30 days.</p>
+        </hgroup>
+        <div class="ui-actions">
+          <button class="ui-button" type="button">Cancel</button><button
+            class="ui-button ui-critical ui-filled"
+            type="button">Delete</button
+          >
+        </div>
+      </dialog>
+    </div>
+  </div>
+
+  <div class="specimen-block">
+    <p class="specimen-caption">Menu</p>
+    <menu aria-label="File actions" class="ui-menu specimen-menu">
+      <li>
+        <button type="button">
+          <div class="ui-text"><p>Rename</p></div>
+          <div class="ui-end"><kbd>F2</kbd></div>
+        </button>
+      </li>
+      <li>
+        <button type="button">
+          <div class="ui-text">
+            <p>Duplicate</p>
+            <p>Keeps the comments</p>
+          </div>
+        </button>
+      </li>
+      <li class="ui-border-top ui-critical">
+        <button type="button">
+          <div class="ui-text"><p>Delete</p></div>
+        </button>
+      </li>
+    </menu>
+  </div>
+
+  <div class="specimen-block">
+    <p class="specimen-caption">List</p>
+    <List bordered variant="transparent">
+      <ListItem description="Can we move the review to Friday?" label="Grace">
+        <Avatar aria-hidden="true" slot="start">GH</Avatar>
+        <span slot="end">09:41</span>
+      </ListItem>
+      <ListItem description="The new icons are in." label="Linus">
+        <Avatar aria-hidden="true" slot="start">LT</Avatar>
+        <span slot="end">Mon</span>
+      </ListItem>
+    </List>
+  </div>
+
+  <div class="specimen-block">
+    <p class="specimen-caption">Table</p>
+    <Table density="dense">
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell scope="col">Plan</TableHeaderCell>
+          <TableHeaderCell scope="col">Seats</TableHeaderCell>
+          <TableHeaderCell scope="col">Status</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>Free</TableCell>
+          <TableCell numeric>3</TableCell>
+          <TableCell>Active</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Team</TableCell>
+          <TableCell numeric>12</TableCell>
+          <TableCell>Trial</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </div>
+
+  <div class="specimen-block">
+    <p class="specimen-caption">Progress</p>
+    <Progress aria-label="Upload" max="100" value="64" />
+    <Progress aria-label="Sync" max="100" value="30" variant="tonal" />
+  </div>
+</div>
+
+<style>
+  .specimen {
+    columns: 18rem 3;
+    gap: var(--ui-space-5);
+  }
+
+  .specimen-block {
+    break-inside: avoid;
+    display: grid;
+    gap: var(--ui-space-3);
+    margin-block-end: var(--ui-space-6);
+    min-inline-size: 0;
+  }
+
+  .specimen-type {
+    column-span: all;
+    gap: var(--ui-space-1);
+
+    & > * {
+      margin: 0;
+    }
+
+    & > p:last-child {
+      margin-block-start: var(--ui-space-2);
+      max-inline-size: 60ch;
+    }
+  }
+
+  .specimen-caption {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-semibold);
+    letter-spacing: var(--ui-letter-spacing-caps);
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .specimen-buttons {
+    align-items: baseline;
+    display: grid;
+    gap: var(--ui-space-2) var(--ui-space-3);
+
+    @container (width >= 24rem) {
+      grid-template-columns: auto 1fr;
+    }
+  }
+
+  .specimen-row-label {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-small);
+  }
+
+  .specimen-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2);
+  }
+
+  .specimen-form {
+    gap: var(--ui-space-4);
+
+    & :global(.ui-text-field),
+    & :global(.ui-select),
+    & :global(.ui-textarea),
+    & :global(.ui-range) {
+      inline-size: 100%;
+    }
+  }
+
+  .specimen-backdrop {
+    background-color: oklch(from var(--ui-backdrop-bg-color) l c h / 20%);
+    border-radius: var(--ui-radius);
+    padding: var(--ui-space-4);
+  }
+
+  .specimen-dialog {
+    inline-size: auto;
+    margin: 0;
+    max-inline-size: none;
+    position: static;
+  }
+
+  .specimen-menu {
+    max-inline-size: 16rem;
+    min-inline-size: 0;
+  }
+
+  .specimen :global(.ui-table) {
+    margin: 0;
+  }
+</style>

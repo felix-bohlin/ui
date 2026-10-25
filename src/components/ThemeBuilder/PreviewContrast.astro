@@ -1,0 +1,470 @@
+---
+import { Callout, CalloutContent, CalloutIcon, Switch } from "opui-css/astro"
+import { CONTRAST_MODES } from "../../utils/contrast"
+---
+
+<div class="preview-contrast">
+  <p class="preview-contrast-intro">
+    Each check measures one pair of theme colors in light and dark mode, with
+    normal and more contrast. Text needs 4.5:1, and borders, fills and focus
+    rings need 3:1, the WCAG minimums.
+  </p>
+
+  <div role="status">
+    {
+      (["success", "warning"] as const).map((severity) => (
+        <Callout
+          data-summary={severity}
+          hidden={severity === "warning"}
+          severity={severity}
+        >
+          <CalloutIcon />
+          <CalloutContent data-summary-text>Checking contrast</CalloutContent>
+        </Callout>
+      ))
+    }
+  </div>
+
+  <p class="preview-contrast-note" data-note="more" hidden>
+    Your device or the site's high contrast setting asks for more contrast, so
+    the normal contrast columns show the more contrast colors too.
+  </p>
+  <p class="preview-contrast-note" data-note="forced" hidden>
+    Forced colors are on, so your system replaces these colors on screen. The
+    report checks the theme's own colors.
+  </p>
+
+  <Switch data-only-failures name="preview-contrast-failures" size="small"
+    >Only failures</Switch
+  >
+
+  <div
+    aria-label="Contrast checks"
+    class="preview-contrast-scroll"
+    role="region"
+    tabindex="0"
+  >
+    <table class="ui-table preview-contrast-table">
+      <thead>
+        <tr>
+          <th rowspan="2" scope="col">Background</th>
+          <th colspan="2" scope="colgroup">Normal contrast</th>
+          <th colspan="2" scope="colgroup">More contrast</th>
+        </tr>
+        <tr>
+          {
+            CONTRAST_MODES.map(({ scheme }) => (
+              <th scope="col">{scheme === "dark" ? "Dark" : "Light"}</th>
+            ))
+          }
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <p class="preview-contrast-empty" hidden>
+    No failures. Every pair reaches its minimum in all four modes.
+  </p>
+</div>
+
+<script>
+  import {
+    CONTRAST_MODES,
+    checkPromises,
+    colorLabel,
+    formatRatio,
+    summarize,
+    summaryText,
+    tokenOf,
+  } from "../../utils/contrast"
+  import type {
+    ContrastResult,
+    ContrastRow,
+    ContrastStatus,
+    Rgba,
+  } from "../../utils/contrast"
+  import { themeStore } from "../../utils/theme"
+
+  const ICONS: Record<ContrastStatus, string> = {
+    fail: "M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6L19 6.4 17.6 5 12 10.6z",
+    pass: "M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z",
+    preset: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m1 15h-2v-6h2zm0-8h-2V7h2z",
+  }
+
+  const STATUS_TEXT: Record<ContrastStatus, string> = {
+    fail: "Fails",
+    pass: "Passes",
+    preset: "Preset original",
+  }
+
+  const SVG = "http://www.w3.org/2000/svg"
+
+  const rgb = (color: Rgba | null) =>
+    color
+      ? `rgb(${color
+          .slice(0, 3)
+          .map((channel) => Math.round(channel * 255))
+          .join(" ")})`
+      : "transparent"
+
+  const element = <K extends keyof HTMLElementTagNameMap>(
+    tag: K,
+    className = "",
+    text = "",
+  ) => {
+    const node = document.createElement(tag)
+    node.className = className
+    node.textContent = text
+    return node
+  }
+
+  const icon = (status: ContrastStatus) => {
+    const svg = document.createElementNS(SVG, "svg")
+    svg.setAttribute("aria-hidden", "true")
+    svg.setAttribute("viewBox", "0 0 24 24")
+    const path = document.createElementNS(SVG, "path")
+    path.setAttribute("d", ICONS[status])
+    path.setAttribute("fill", "currentColor")
+    svg.append(path)
+    return svg
+  }
+
+  const pageMore = () =>
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--ui-contrast")
+      .trim() === "more"
+
+  const createGroup = (rows: ContrastRow[]) => {
+    const [{ ratio, token }] = rows
+    const group = element("tbody")
+    const header = element("tr", "preview-contrast-group")
+    const th = element("th")
+    th.colSpan = CONTRAST_MODES.length + 1
+    th.scope = "rowgroup"
+    th.append(
+      element("span", "preview-contrast-name", colorLabel(token)),
+      " ",
+      element("span", "preview-contrast-needs", `needs ${ratio}:1`),
+      " ",
+      element("code", "preview-contrast-token", token),
+      element("span", "preview-contrast-reason"),
+    )
+    header.append(th)
+    group.append(header)
+    for (const row of rows) {
+      const tr = element("tr", "preview-contrast-row")
+      const label = element("th")
+      label.scope = "row"
+      label.append(
+        colorLabel(row.against),
+        " ",
+        element("code", "preview-contrast-token", tokenOf(row.against)),
+      )
+      tr.append(label)
+      for (const _ of CONTRAST_MODES) {
+        const td = element("td", "preview-contrast-cell")
+        const shape = row.ratio < 4.5
+        const sample = element(
+          "span",
+          `preview-contrast-sample${shape ? " is-shape" : ""}`,
+          shape ? "" : "Aa",
+        )
+        sample.setAttribute("aria-hidden", "true")
+        td.append(
+          sample,
+          element("span", "preview-contrast-value"),
+          element("span", "preview-contrast-status"),
+        )
+        tr.append(td)
+      }
+      group.append(tr)
+    }
+    return group
+  }
+
+  const updateCell = (td: HTMLElement, result: ContrastResult) => {
+    td.dataset.status = result.status
+    const [sample, value, status] = [...td.children] as HTMLElement[]
+    sample.style.backgroundColor = rgb(result.back)
+    sample.style.color = rgb(result.fore)
+    value.textContent =
+      result.value === null ? "Can't measure" : formatRatio(result.value)
+    status.replaceChildren(
+      icon(result.status),
+      element("span", "ui-sr-only", STATUS_TEXT[result.status]),
+    )
+    status.title = result.exception ?? STATUS_TEXT[result.status]
+  }
+
+  for (const report of document.querySelectorAll<HTMLElement>(
+    ".preview-contrast",
+  )) {
+    const table = report.querySelector("table")!
+    const callouts = report.querySelectorAll<HTMLElement>("[data-summary]")
+    const empty = report.querySelector<HTMLElement>(".preview-contrast-empty")!
+    const scroll = report.querySelector<HTMLElement>(
+      ".preview-contrast-scroll",
+    )!
+    const onlyFailures = report.querySelector<HTMLInputElement>(
+      "input[data-only-failures]",
+    )!
+    const forcedNote = report.querySelector<HTMLElement>(
+      '[data-note="forced"]',
+    )!
+    const moreNote = report.querySelector<HTMLElement>('[data-note="more"]')!
+    const groups = new Map<string, HTMLTableSectionElement>()
+    let queued = false
+
+    const filter = () => {
+      let shown = 0
+      for (const group of groups.values()) {
+        let rows = 0
+        for (const tr of group.querySelectorAll<HTMLElement>(
+          ".preview-contrast-row",
+        )) {
+          tr.hidden = onlyFailures.checked && tr.dataset.status !== "fail"
+          if (!tr.hidden) rows++
+        }
+        group.hidden = rows === 0
+        shown += rows
+      }
+      empty.hidden = shown > 0 || groups.size === 0
+      scroll.hidden = !empty.hidden
+    }
+
+    const measure = () => {
+      queued = false
+      if (!report.checkVisibility()) return
+      const results = checkPromises(document.body, themeStore.get())
+      const tokens = Map.groupBy(results, (row) => row.token)
+      if (groups.size === 0) {
+        for (const rows of [...tokens.values()].toSorted((a, b) =>
+          colorLabel(a[0].token).localeCompare(colorLabel(b[0].token)),
+        )) {
+          const group = createGroup(rows)
+          groups.set(rows[0].token, group)
+          table.append(group)
+        }
+      }
+      for (const [token, rows] of tokens) {
+        const group = groups.get(token)!
+        const trs = group.querySelectorAll<HTMLElement>(".preview-contrast-row")
+        rows.forEach((row, index) => {
+          trs[index].dataset.status = row.results.some(
+            (result) => result.status === "fail",
+          )
+            ? "fail"
+            : "pass"
+          trs[index]
+            .querySelectorAll<HTMLElement>(".preview-contrast-cell")
+            .forEach((td, mode) => updateCell(td, row.results[mode]))
+        })
+        const reasons = new Set(
+          rows.flatMap((row) =>
+            row.results.flatMap((result) =>
+              result.status === "preset" && result.exception
+                ? [result.exception]
+                : [],
+            ),
+          ),
+        )
+        group.querySelector(".preview-contrast-reason")!.textContent =
+          reasons.size > 0 ? `Preset original: ${[...reasons].join("; ")}` : ""
+      }
+      const counts = summarize(results)
+      const { detail, title } = summaryText(counts)
+      for (const callout of callouts) {
+        callout.hidden =
+          callout.dataset.summary !==
+          (counts.failing > 0 ? "warning" : "success")
+        callout
+          .querySelector("[data-summary-text]")!
+          .replaceChildren(element("strong", "", title), detail)
+      }
+      moreNote.hidden = !pageMore()
+      forcedNote.hidden = !matchMedia("(forced-colors: active)").matches
+      filter()
+    }
+
+    const schedule = () => {
+      if (queued) return
+      queued = true
+      requestAnimationFrame(measure)
+    }
+
+    onlyFailures.addEventListener("change", filter)
+    themeStore.subscribe(schedule)
+    matchMedia("(prefers-contrast: more)").addEventListener("change", schedule)
+    matchMedia("(forced-colors: active)").addEventListener("change", schedule)
+    new MutationObserver(schedule).observe(document.documentElement, {
+      attributeFilter: ["class"],
+      attributes: true,
+    })
+    report.addEventListener("preview:show", schedule)
+    schedule()
+  }
+</script>
+
+<style>
+  .preview-contrast {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--size-3);
+    min-inline-size: 0;
+
+    & p {
+      margin: 0;
+    }
+
+    & [hidden] {
+      display: none;
+    }
+  }
+
+  .preview-contrast-intro,
+  .preview-contrast-note,
+  .preview-contrast-empty {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    max-inline-size: 65ch;
+  }
+
+  .preview-contrast-scroll {
+    border-radius: var(--ui-radius);
+    max-inline-size: 100%;
+    overflow-x: auto;
+
+    &:focus-visible {
+      outline: var(--ui-focus-ring-width) var(--ui-focus-ring-style)
+        var(--ui-focus-ring-color);
+      outline-offset: var(--ui-focus-ring-offset);
+    }
+  }
+
+  .preview-contrast-table {
+    margin: 0;
+
+    & thead th {
+      text-align: center;
+      vertical-align: bottom;
+    }
+
+    & thead th[rowspan] {
+      text-align: start;
+    }
+  }
+
+  .preview-contrast-table :global(.preview-contrast-group > th) {
+    background-color: var(--ui-surface);
+    border-inline-end: none;
+    color: var(--ui-text-strong);
+    padding-block-start: var(--size-3);
+  }
+
+  .preview-contrast-table :global(.preview-contrast-name) {
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .preview-contrast-table :global(.preview-contrast-needs) {
+    color: var(--ui-text);
+    font-weight: var(--ui-font-weight-normal);
+  }
+
+  .preview-contrast-table :global(.preview-contrast-token) {
+    background: none;
+    color: var(--ui-text-subtle);
+    font-family: var(--ui-font-code);
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-normal);
+    padding: 0;
+  }
+
+  .preview-contrast-table
+    :global(.preview-contrast-group .preview-contrast-token) {
+    display: block;
+  }
+
+  .preview-contrast-table :global(.preview-contrast-reason) {
+    color: var(--ui-text-subtle);
+    display: block;
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-normal);
+  }
+
+  .preview-contrast-table :global(.preview-contrast-reason:empty) {
+    display: none;
+  }
+
+  .preview-contrast-table :global(.preview-contrast-row > th) {
+    background-color: var(--ui-surface);
+    color: var(--ui-text);
+    font-weight: var(--ui-font-weight-normal);
+    padding-inline-start: var(--size-4);
+    white-space: nowrap;
+  }
+
+  .preview-contrast-table :global(.preview-contrast-cell) {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+
+    & > * {
+      vertical-align: middle;
+    }
+
+    &[data-status="fail"] {
+      color: var(--ui-critical-text);
+      font-weight: var(--ui-font-weight-semibold);
+    }
+
+    &[data-status="pass"] {
+      color: var(--ui-text);
+    }
+
+    &[data-status="preset"] {
+      color: var(--ui-text-subtle);
+    }
+  }
+
+  .preview-contrast-table :global(.preview-contrast-sample) {
+    block-size: 1.75em;
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-small);
+    display: inline-grid;
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-bold);
+    inline-size: 2.25em;
+    margin-inline-end: var(--size-2);
+    place-items: center;
+  }
+
+  .preview-contrast-table :global(.preview-contrast-sample.is-shape::after) {
+    background-color: currentColor;
+    block-size: 0.75em;
+    border-radius: 50%;
+    content: "";
+    inline-size: 0.75em;
+  }
+
+  .preview-contrast-table :global(.preview-contrast-status) {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--size-1);
+    margin-inline-start: var(--size-1);
+
+    & svg {
+      block-size: 1em;
+      inline-size: 1em;
+    }
+  }
+
+  @container (width < 36rem) {
+    .preview-contrast-table :global(.preview-contrast-sample),
+    .preview-contrast-table
+      :global(.preview-contrast-row .preview-contrast-token) {
+      display: none;
+    }
+
+    .preview-contrast-table :global(:is(th, td)) {
+      padding-inline: var(--size-1);
+    }
+  }
+</style>

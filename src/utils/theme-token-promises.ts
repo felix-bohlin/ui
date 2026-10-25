@@ -14,6 +14,56 @@ const SURFACES = [
 const accentFill = (intent: string) =>
   `oklch(from var(${intent}) min(l, var(--ui-accent-fill-max-lightness)) c h)`
 
+export const THEME_EXCEPTIONS: Record<
+  string,
+  Partial<Record<"dark" | "light", Record<string, string>>>
+> = {
+  bootstrap: {
+    dark: {
+      "--ui-choice-border-color":
+        "Bootstrap draws its checks with its 1.9:1 border color",
+      "--ui-field-border-color":
+        "Bootstrap draws its form controls with its 1.9:1 border color",
+      "--ui-focus-ring-color":
+        "Bootstrap draws its focus ring at 25% of its primary blue",
+    },
+    light: {
+      "--ui-choice-border-color":
+        "Bootstrap draws its checks with its 1.3:1 border color",
+      "--ui-field-border-color":
+        "Bootstrap draws its form controls with its 1.3:1 border color",
+      "--ui-focus-ring-color":
+        "Bootstrap draws its focus ring at 25% of its primary blue",
+    },
+  },
+  brutalist: {
+    dark: {
+      "--ui-choice-border-color":
+        "neobrutalism keeps its black borders on the dark surface",
+      "--ui-field-border-color":
+        "neobrutalism keeps its black borders on the dark surface",
+    },
+    light: {
+      "--ui-selected-strong":
+        "neobrutalism marks the selected item with its light main color",
+    },
+  },
+  shadcn: {
+    dark: {
+      "--ui-field-border-color":
+        "shadcn/ui draws its dark inputs with a 15% white border",
+      "--ui-focus-ring-color":
+        "shadcn/ui draws its dark focus ring at 50% of a mid gray",
+    },
+    light: {
+      "--ui-field-border-color":
+        "shadcn/ui draws its inputs with a 1.26:1 border",
+      "--ui-focus-ring-color":
+        "shadcn/ui draws its focus ring at 50% of a light gray",
+    },
+  },
+}
+
 export const themeTokenPromises: Record<string, TokenPromise> = {
   "--ui-choice-border-color": {
     against: ["--ui-surface"],

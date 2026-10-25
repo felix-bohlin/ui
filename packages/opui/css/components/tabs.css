@@ -198,8 +198,12 @@
     }
 
     :where(.ui-accordion, .ui-card, .ui-dialog) > & {
-      & > .ui-input:focus-visible + .ui-label::before {
+      & > .ui-input[type="radio"]:focus-visible + .ui-label::before {
         outline-offset: var(--ui-focus-ring-inset);
+      }
+
+      &.ui-filled > .ui-input:checked + .ui-label::before {
+        --ui-focus-ring-color: var(--ui-on-selected-strong);
       }
     }
 
@@ -224,6 +228,10 @@
             outline-offset: var(--ui-focus-ring-inset);
           }
         }
+      }
+
+      &.ui-filled > .ui-input:checked + .ui-label::before {
+        --ui-focus-ring-color: var(--ui-on-selected-strong);
       }
 
       & > .ui-label {

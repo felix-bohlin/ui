@@ -195,6 +195,7 @@ One concept has one prop name and one set of values in every component. `tests/u
 | Corner                             | `corner`                       | `start-start`, `start-end`, `end-start`, `end-end`                        |
 | Free CSS position                  | `positionArea`                 | any `position-area` value                                                 |
 | Checked state                      | `checked`                      | the native attribute                                                      |
+| Open state                         | `open`                         | the native attribute, on a `details`, `dialog` or popover root            |
 | One or many                        | `multiple` (boolean)           | the native attribute                                                      |
 | Overflow on the layout axis        | `overflow`                     | `scroll`, `shrink`, `wrap`                                                |
 | Primary text                       | `label`                        | a string, with a `label` slot for rich content                            |
@@ -224,7 +225,7 @@ One concept has one prop name and one set of values in every component. `tests/u
   - The default renders nothing, in every framework and in HTML.
 - **Booleans and enums:**
   - A modifier with one alternative is a boolean and renders the class of the same name (`round` gives `.ui-round`, `stickyHeader` gives `.ui-sticky-header`). `hideLabel` is the one exception and renders `.ui-sr-only`.
-  - A boolean is off when it's left out, so its class is never the framework default. Its name says what turning it on does, never what it turns off: no `no`, `non` or `un` prefix and no `less` suffix.
+  - A boolean is off when it's left out, so its class is never the framework default. Its name says what turning it on does, never what it turns off: no `no`, `non`, `not` or `un` prefix, no `less` suffix, and no `hide` prefix except `hideLabel` (a Tooltip shows its arrow with `arrow`, not `hideArrow`). `.ui-not-rich-text` is the one exception, since it ends a `.ui-rich-text` scope from inside instead of turning off a feature of its own element.
   - When the usual case is the one people turn off, the modifier is an enum with the usual case as its named default (Carousel `buttons`: `inside`, `none`, `outside`).
   - A modifier with several values is an enum named after the concept.
   - A component never has both for one concept, and never two booleans for one axis (`overflow`, not `scrollable` and `shrink`).
@@ -240,7 +241,7 @@ One concept has one prop name and one set of values in every component. `tests/u
   - The name of a control the component generates inside one of its parts is `<part>Label`, such as `closeLabel` on `DrawerHeader`.
   - A component never joins a number and words into one name, since their order depends on the language. The caller passes the whole translated string (`<Badge hideLabel label="5 unread messages">`).
 - **Native names:**
-  - A prop that passes straight to the element keeps its lowercase native name (`closedby`, `commandfor`, `popover`, `for`). React maps `for` to `htmlFor`, like the element.
+  - A prop that passes straight to the element keeps its lowercase native name (`closedby`, `commandfor`, `popover`, `for`). React maps `for` to `htmlFor`, like the element. An inherited native attribute such as `title` keeps its name, so the `label` rule only applies to props the component defines.
   - A prop the component interprets is camelCase, and never reuses a native name for something else (Badge `invisible`, not `hidden`).
   - An overlay that a trigger addresses with `commandfor` or `interestfor` requires `id` in its types (Drawer, Menu, Tooltip and a hover Anchor).
 - **One class, one meaning:**

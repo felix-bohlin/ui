@@ -23,7 +23,7 @@ When creating or updating a component API, ensure:
 
 ## Names
 
-Groups, parts and slots come from closed lists, so a new component can't invent a name for a concept that already has one. `tests/unit/naming.test.ts` checks them.
+Groups, parts and slots come from closed lists, so a new component can't invent a name for a concept that already has one. `tests/unit/naming.test.ts` checks them, and checks that the lists below and the concept table in `packages/opui/components/AGENTS.md` match its own, so change both together.
 
 - **Groups:** `Alignment`, `Behavior`, `Borders`, `Colors`, `Density`, `Group`, `Label`, `Layout`, `Orientation`, `Overflow`, `Position`, `Severities`, `Shape`, `Sizes`, `State`, `Validation` and `Variants`. An option that fits none of them is grouped under its own name in sentence case (`stickyHeader` in `Sticky header`). Options for one concept share one option with `values` (the ListItem `state` row), since two options never share a group.
 - **Part classes:** `.ui-actions`, `.ui-bottom`, `.ui-content`, `.ui-description`, `.ui-end`, `.ui-end-text`, `.ui-field`, `.ui-floating`, `.ui-footer`, `.ui-header`, `.ui-heading`, `.ui-icon-checked`, `.ui-icon-unchecked`, `.ui-indicator`, `.ui-input`, `.ui-label`, `.ui-legend`, `.ui-marker`, `.ui-panel`, `.ui-start`, `.ui-start-text`, `.ui-text`, `.ui-top` and `.ui-value`. A part may also be another component's root (the `DrawerHeader` close `.ui-button`). `.ui-card-link` is the one exception. The class in the last compound of a part's `selector` is checked.

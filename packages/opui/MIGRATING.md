@@ -711,6 +711,8 @@ Deep type imports from `opui-css/components/*` are renamed, see [Package and imp
 
 ## Select
 
+The picker is `--ui-surface-elevated` with a `--ui-border-color-on-raised` edge, like `Menu`, instead of `--ui-surface-filled` with the field border. Set `--_bg-color` on the picker's `.ui-list` to keep the old fill, or `--ui-border-color-raised` in your theme to outline every raised surface at once.
+
 Astro and Vue no longer generate an `id` for the select. Pass `id` when something outside the component references it.
 
 In Astro and Vue, `style` goes to the root `<label>` instead of the `<select>`, like `class`. Set `--_` properties through `style`, and style the select itself with a class or CSS.
@@ -1108,7 +1110,7 @@ These tokens also have a new name, so adding the prefix isn't enough:
 }
 ```
 
-A theme pins a role by setting it, and the scope classes `.ui-palette` and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-palette, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`. The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it:
+A theme pins a role by setting it, and the scope classes `.ui-palette` and `.ui-contrast-more` derive every role again from the knobs. Set pinned roles on `:where(html, .ui-palette, .ui-contrast-more)` so the scopes keep them; knobs such as `--ui-radius` or `--ui-palette-hue` can stay on `html`. More contrast tightens knobs and no longer replaces a pinned role, so a theme that wants its primary darkened under `prefers-contrast: more` sets `--ui-primary-source` instead of `--ui-primary`, and a theme that wants another pinned role back under more contrast sets it to `revert-layer` there (see Contrast in the theming guide). The example themes do that and leave `--ui-on-primary` and `--ui-primary-text` to derive from it:
 
 ```css
 @layer theme.custom {
@@ -1247,6 +1249,8 @@ Components read roles, not palette steps or Open Props values, and the roles are
 - .sidebar { --gray-4: #e5e7eb; }
 + .sidebar { --ui-surface-filled: #e5e7eb; }
 ```
+
+`--ui-control-size-large` is `3rem` (48px) instead of 46px, so large buttons, fields, toggles and selects grow by 2px. Set `--ui-control-size-large: calc(2.875rem * var(--ui-density))` to keep the old height.
 
 ## Typography and rich text
 

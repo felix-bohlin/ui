@@ -86,4 +86,17 @@
   :where(.ui-critical, .ui-info, .ui-neutral, .ui-success, .ui-warning) {
     --ui-palette-border: var(--ui-border-color);
   }
+
+  @media (prefers-contrast: more) {
+    :where(
+      html:not(.ui-contrast-normal),
+      html:not(.ui-contrast-normal) .ui-palette
+    ) {
+      --ui-border-color: var(--ui-text);
+    }
+  }
+
+  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+    --ui-border-color: var(--ui-text);
+  }
 }

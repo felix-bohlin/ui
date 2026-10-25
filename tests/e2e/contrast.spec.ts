@@ -215,7 +215,11 @@ test.describe("token promises", () => {
           for (const [name, { against, fallback, ratio }] of Object.entries(
             themeTokenPromises,
           )) {
-            if (THEME_EXCEPTIONS[theme]?.[colorScheme]?.[name]) continue
+            if (
+              preference === "no-preference" &&
+              THEME_EXCEPTIONS[theme]?.[colorScheme]?.[name]
+            )
+              continue
             const color = fallback
               ? `var(${name}, var(${fallback}))`
               : `var(${name})`

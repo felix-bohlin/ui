@@ -190,6 +190,16 @@ const surfaceRoles = [
       same with the <code>-on-filled</code> pair. A theme that wants another border
       on raised surfaces sets the <code>-on-raised</code> tokens.
     </p>
+    <p>
+      The edge of the raised surface itself is <code
+        >--ui-border-color-raised</code
+      >, one word shorter. Every raised component reads it, the <code
+        >Select</code
+      > picker too, and each keeps its own edge until a theme sets it: cards, accordions
+      and dialogs the page background, callouts their fill, drawers, menus and the
+      picker <code>--ui-border-color-on-raised</code>. Set it to outline them
+      all, or to <code>transparent</code> to drop their edges, like the m3 theme.
+    </p>
   </section>
 
   <section>
@@ -462,9 +472,45 @@ const surfaceRoles = [
       more contrast. The example themes set their brand color that way and let
       <code>--ui-on-primary</code> and <code>--ui-primary-text</code> derive from
       it, so Bootstrap's blue darkens under more contrast and its text follows. A
-      theme that pins a role directly, such as <code>--ui-text: #333</code>,
-      owns that role in every contrast mode. Set the knob instead, or give the
-      role its own value under <code>@media (prefers-contrast: more)</code>.
+      theme that pins a role directly, such as <code
+        >--ui-border-color: #eee</code
+      >, owns that role in every contrast mode. Set the knob instead, or hand
+      the role back to the library under more contrast with <code
+        >revert-layer</code
+      >, which drops the theme's value and keeps the library's formula, computed
+      from the theme's own <code>--ui-text-strong</code> and <code
+        >--ui-surface</code
+      >:
+    </p>
+    <Code
+      code={`@layer theme.custom {
+  :where(html, .ui-palette, .ui-contrast-more) {
+    --ui-border-color: #eee;
+  }
+
+  @media (prefers-contrast: more) {
+    :where(
+      html:not(.ui-contrast-normal),
+      html:not(.ui-contrast-normal) .ui-palette
+    ) {
+      --ui-border-color: revert-layer;
+    }
+  }
+
+  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+    --ui-border-color: revert-layer;
+  }
+}`}
+      lang="css"
+    />
+    <p>
+      The example themes do this for their borders, field borders, focus ring
+      and subtle text, so they keep their originals' look at normal contrast and
+      meet every contrast promise with more contrast. Hand back a role only
+      where the library's value is stronger: a theme whose <code>--ui-text</code
+      > already equals <code>--ui-text-strong</code> keeps it, and brutalist, whose
+      borders are already black, draws them in <code>--ui-text</code> instead so they
+      stay visible in dark mode.
     </p>
 
     <Example row showCode={false}>

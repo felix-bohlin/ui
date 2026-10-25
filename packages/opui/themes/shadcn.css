@@ -103,12 +103,23 @@
   }
 
   @media (prefers-contrast: more) {
-    :where(html:not(.ui-contrast-normal)) {
-      --ui-field-helper-text-color: var(--ui-text);
+    :where(
+      html:not(.ui-contrast-normal),
+      html:not(.ui-contrast-normal) .ui-palette
+    ) {
+      --ui-border-color: revert-layer;
+      --ui-field-border-color: revert-layer;
+      --ui-field-helper-text-color: revert-layer;
+      --ui-focus-ring-color: revert-layer;
+      --ui-text-subtle: revert-layer;
     }
   }
 
-  :where(.ui-contrast-more) {
-    --ui-field-helper-text-color: var(--ui-text);
+  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+    --ui-border-color: revert-layer;
+    --ui-field-border-color: revert-layer;
+    --ui-field-helper-text-color: revert-layer;
+    --ui-focus-ring-color: revert-layer;
+    --ui-text-subtle: revert-layer;
   }
 }

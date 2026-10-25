@@ -91,4 +91,23 @@
     --ui-text-subtle: light-dark(#49454f, #cac4d0);
     --ui-track-bg-color: light-dark(#e6e0e9, #36343b);
   }
+
+  @media (prefers-contrast: more) {
+    :where(
+      html:not(.ui-contrast-normal),
+      html:not(.ui-contrast-normal) .ui-palette
+    ) {
+      --ui-border-color: revert-layer;
+      --ui-field-border-color: revert-layer;
+      --ui-focus-ring-color: revert-layer;
+      --ui-text-subtle: revert-layer;
+    }
+  }
+
+  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+    --ui-border-color: revert-layer;
+    --ui-field-border-color: revert-layer;
+    --ui-focus-ring-color: revert-layer;
+    --ui-text-subtle: revert-layer;
+  }
 }

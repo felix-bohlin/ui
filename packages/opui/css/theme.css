@@ -54,7 +54,7 @@
     --ui-font-size-100: 0.75rem;
     --ui-font-size-200: 0.875rem;
     --ui-font-size-300: 1rem;
-    --ui-font-size-400: 1.1rem;
+    --ui-font-size-400: 1.125rem;
     --ui-font-size-500: 1.25rem;
     --ui-font-size-600: 1.5rem;
     --ui-font-size-700: 2rem;
@@ -295,7 +295,7 @@
     --ui-control-size-x-small: calc(1.75rem * var(--ui-density));
     --ui-control-size-small: calc(2rem * var(--ui-density));
     --ui-control-size: calc(2.5rem * var(--ui-density));
-    --ui-control-size-large: calc(2.875rem * var(--ui-density));
+    --ui-control-size-large: calc(3rem * var(--ui-density));
 
     --ui-field-size-x-small: var(--ui-control-size-x-small);
     --ui-field-size-small: var(--ui-control-size-small);

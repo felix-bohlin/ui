@@ -15,9 +15,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-border-color-on-filled":
     "Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.",
   "--ui-border-color-on-raised":
-    "Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border on raised surfaces, such as the page background in dark mode, sets this one.",
+    "Borders drawn inside a raised surface (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu`, the `Select` picker and `Callout` without a severity): dividers, separators, outlined controls. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border inside raised surfaces sets this one. The edge of the surface itself is `--ui-border-color-raised`.",
   "--ui-border-color-raised":
-    "Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.",
+    "The edge of every raised surface: tonal and elevated `Card`, `Accordion` and `Dialog`, `Callout` without a severity, `Drawer`, `Menu` and the `Select` picker. Set it to outline them all at once, or to `transparent` to drop their edges. When unset, each keeps its own edge: cards, accordions and dialogs the page background, so they stay visible on tonal surfaces, callouts their tonal background, and drawers, menus and the picker `--ui-border-color-on-raised`. The borders inside a raised surface are `--ui-border-color-on-raised`.",
   "--ui-border-strength-dark":
     "How much of `--ui-text-strong` is mixed into `--ui-surface` for `--ui-border-color` in dark mode. `11%`, and `55%` with more contrast.",
   "--ui-border-strength-light":
@@ -187,7 +187,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--ui-font-size-300":
     "Type scale step, 16px. `--ui-font-size-body`, `--ui-font-size-control` and `--ui-font-size-h6` read it.",
   "--ui-font-size-400":
-    "Type scale step, 17.6px. `--ui-font-size-h5` reads it, and `--ui-font-size-h4` grows from it.",
+    "Type scale step, 18px. `--ui-font-size-h5` reads it, and `--ui-font-size-h4` grows from it.",
   "--ui-font-size-500":
     "Type scale step, 20px. `--ui-font-size-large` reads it, `--ui-font-size-h3` grows from it and `--ui-font-size-h4` grows to it.",
   "--ui-font-size-600":

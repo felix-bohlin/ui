@@ -13,6 +13,7 @@
     --_direction: 1;
     --_duration: calc(var(--ui-duration-slow) * var(--_motion));
     --_ease: var(--ui-ease-exit);
+    --_edge-border-color: var(--ui-border-color-raised, var(--_border-color));
     --_header-font-size: var(--ui-font-size-large);
     --_header-padding: var(--ui-space-3);
     --_inline-size: min(375px, 100vi);
@@ -141,14 +142,14 @@
     }
 
     &:not(.ui-block-end, .ui-block-start, .ui-inline-end) {
-      border-inline-end: var(--_border-width) solid var(--_border-color);
+      border-inline-end: var(--_border-width) solid var(--_edge-border-color);
       inset-inline-end: auto;
       inset-inline-start: 0;
       translate: calc(-100% * var(--_direction)) 0;
     }
 
     &.ui-inline-end {
-      border-inline-start: var(--_border-width) solid var(--_border-color);
+      border-inline-start: var(--_border-width) solid var(--_edge-border-color);
       inset-inline-end: 0;
       inset-inline-start: auto;
       translate: calc(100% * var(--_direction)) 0;
@@ -163,14 +164,14 @@
     }
 
     &.ui-block-start {
-      border-block-end: var(--_border-width) solid var(--_border-color);
+      border-block-end: var(--_border-width) solid var(--_edge-border-color);
       inset-block-end: auto;
       inset-block-start: 0;
       translate: 0 -100%;
     }
 
     &.ui-block-end {
-      border-block-start: var(--_border-width) solid var(--_border-color);
+      border-block-start: var(--_border-width) solid var(--_edge-border-color);
       inset-block-end: 0;
       inset-block-start: auto;
       translate: 0 100%;

@@ -2,9 +2,12 @@
   :where(.ui-menu) {
     --_motion: var(--ui-motion);
     --_bg-color: var(--ui-surface-elevated);
-    --_border-color: var(--ui-border-color-on-raised);
+    --_border-color: var(
+      --ui-border-color-raised,
+      var(--ui-border-color-on-raised)
+    );
     --_border-width: var(--ui-border-width);
-    --_divider-border-color: var(--_border-color);
+    --_divider-border-color: var(--ui-border-color-on-raised);
     --_duration: calc(var(--ui-duration-slow) * var(--_motion));
     --_ease: var(--ui-ease-exit);
     --_margin-block: var(--_offset);

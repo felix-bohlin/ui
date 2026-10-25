@@ -76,6 +76,8 @@ Each role with its current value, live with the theme.
 
 A raised component (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and a `Callout` without a severity) sets `--ui-border-color` to `--ui-border-color-on-raised` and `--ui-field-border-color` to `--ui-field-border-color-on-raised` on its root, so dividers and fields inside it stay visible on the raised fill. Both default to the plain border colors. Filled lists and table headers do the same with the `-on-filled` pair. A theme that wants another border on raised surfaces sets the `-on-raised` tokens.
 
+The edge of the raised surface itself is `--ui-border-color-raised`, one word shorter. Every raised component reads it, the `Select` picker too, and each keeps its own edge until a theme sets it: cards, accordions and dialogs the page background, callouts their fill, drawers, menus and the picker `--ui-border-color-on-raised`. Set it to outline them all, or to `transparent` to drop their edges, like the m3 theme.
+
 ## Density
 
 `--ui-density` scales the `--ui-control-size*` roles, so fields, buttons and list items grow or shrink together, and their padding shrinks down to the height of the text. Set it on `html`, or on a `.ui-palette` element to change one part of the page.
@@ -217,7 +219,30 @@ transition: transform calc(var(--ui-duration) * var(--ui-motion)) var(--ui-ease)
 
 `--ui-contrast` is `normal`, or `more` under `prefers-contrast: more`. More contrast changes no color directly. It tightens the knobs the roles are derived from, and every role follows: `--ui-text-strength-light` and `--ui-text-strength-dark` (how much of `--ui-text-strong` goes into `--ui-text`), `--ui-border-strength-light`, `--ui-border-strength-dark` and `--ui-field-border-strength` for the borders, `--ui-text-max-lightness`, `--ui-text-min-lightness` and `--ui-text-max-chroma` for the `-text` roles, `--ui-accent-fill-max-lightness` for intent fills, `--ui-primary-max-lightness` and `--ui-primary-min-lightness` for the primary, the `--ui-palette-*-lightness` limits for the palette roles, and `--ui-focus-ring-width`. Their values in both modes are on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#contrast). Components with translucent fills or text have style queries of their own for the shape changes.
 
-A theme that sets a knob or `--ui-primary-source` keeps working with more contrast. The example themes set their brand color that way and let `--ui-on-primary` and `--ui-primary-text` derive from it, so Bootstrap's blue darkens under more contrast and its text follows. A theme that pins a role directly, such as `--ui-text: #333`, owns that role in every contrast mode. Set the knob instead, or give the role its own value under `@media (prefers-contrast: more)`.
+A theme that sets a knob or `--ui-primary-source` keeps working with more contrast. The example themes set their brand color that way and let `--ui-on-primary` and `--ui-primary-text` derive from it, so Bootstrap's blue darkens under more contrast and its text follows. A theme that pins a role directly, such as `--ui-border-color: #eee`, owns that role in every contrast mode. Set the knob instead, or hand the role back to the library under more contrast with `revert-layer`, which drops the theme's value and keeps the library's formula, computed from the theme's own `--ui-text-strong` and `--ui-surface`:
+
+```css
+@layer theme.custom {
+  :where(html, .ui-palette, .ui-contrast-more) {
+    --ui-border-color: #eee;
+  }
+
+  @media (prefers-contrast: more) {
+    :where(
+      html:not(.ui-contrast-normal),
+      html:not(.ui-contrast-normal) .ui-palette
+    ) {
+      --ui-border-color: revert-layer;
+    }
+  }
+
+  :where(.ui-contrast-more, .ui-contrast-more .ui-palette) {
+    --ui-border-color: revert-layer;
+  }
+}
+```
+
+The example themes do this for their borders, field borders, focus ring and subtle text, so they keep their originals' look at normal contrast and meet every contrast promise with more contrast. Hand back a role only where the library's value is stronger: a theme whose `--ui-text` already equals `--ui-text-strong` keeps it, and brutalist, whose borders are already black, draws them in `--ui-text` instead so they stay visible in dark mode.
 
 ### Classes
 

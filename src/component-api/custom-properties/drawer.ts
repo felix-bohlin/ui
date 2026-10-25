@@ -29,7 +29,7 @@ export default {
   },
   "--_border-color": {
     description:
-      "Color of the inner edge border and the `.ui-header` and `.ui-actions` dividers.",
+      "Color of the `.ui-header` and `.ui-actions` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.",
     kind: "input",
   },
   "--_border-width": {
@@ -54,6 +54,11 @@ export default {
     description:
       "Easing of the slide and backdrop fade. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing.",
     kind: "output",
+  },
+  "--_edge-border-color": {
+    description:
+      "Color of the inner edge border. `--ui-border-color-raised` when a theme sets it, otherwise `--_border-color`.",
+    kind: "input",
   },
   "--_header-font-size": {
     description: "Font size of headings in `.ui-header`.",

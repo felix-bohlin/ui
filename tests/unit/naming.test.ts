@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs"
 import { expect, test } from "vitest"
 import type { ApiOption, ComponentApi } from "../../src/component-api/types"
 import allowlistJson from "./naming-allowlist.json"
@@ -91,6 +92,14 @@ const replaced: Record<string, string> = {
   text: "label",
   title: "label",
 }
+
+const sources = import.meta.glob<string>(
+  "../../packages/opui/components/*/*.{astro,svelte,tsx,vue}",
+  { eager: true, import: "default", query: "?raw" },
+)
+
+const negativeExceptions = new Set(["notRichText"])
+const openRoots = /^(details|dialog)\b|\[popover\]/
 
 const optionalModifiers = new Set([
   "as",
@@ -199,21 +208,36 @@ const problems = apis.flatMap((api) => {
   }
 
   for (const option of props) {
-    if (api.source && replaced[option.prop]) {
+    if (api.source && !option.inherited && replaced[option.prop]) {
       report(option, `use ${replaced[option.prop]}`)
     }
-    if (option.prop === "open" && !option.inherited) {
-      report(option, "use checked")
+    if (
+      option.prop === "open" &&
+      !option.inherited &&
+      !openRoots.test(api.root.selector)
+    ) {
+      report(
+        option,
+        "open is the state of details, dialog and popovers, use checked",
+      )
     }
-    if (/^(no|non|un)[A-Z]/.test(option.prop) || option.prop.endsWith("less")) {
+    if (
+      !negativeExceptions.has(option.prop) &&
+      (/^(no|non|not|un)[A-Z]/.test(option.prop) ||
+        option.prop.endsWith("less"))
+    ) {
       report(option, "names what turning it on turns off")
     }
     if (option.default === "true") {
       report(option, "a boolean is off when it's left out")
     }
     if (/^(hide|sr|visually)[A-Z]/.test(option.prop)) {
-      if (option.prop !== "hideLabel") report(option, "use hideLabel")
-      else if (option.class !== ".ui-sr-only" || !option.part) {
+      if (option.prop !== "hideLabel") {
+        report(
+          option,
+          "name what turning it on shows, hideLabel is the one hide prop",
+        )
+      } else if (option.class !== ".ui-sr-only" || !option.part) {
         report(option, "renders no .ui-sr-only on a part")
       } else if (option.part.endsWith(".ui-label")) {
         report(option, "the hidden label has .ui-sr-only instead of .ui-label")
@@ -254,7 +278,7 @@ const problems = apis.flatMap((api) => {
       const name = defaultValue(option)
       if (!name || !(name in option.values)) {
         report(option, "names no default value")
-      } else if (concept && option.values[name] !== null) {
+      } else if (option.values[name] !== null) {
         report(option, `the default "${name}" adds a class`)
       }
     }
@@ -306,6 +330,52 @@ test("component props follow the naming model", () => {
     problems.filter((problem) => !allowlist.includes(problem)),
     "new naming problems",
   ).toEqual([])
+})
+
+test("boolean props are off when left out, in every framework", () => {
+  expect(
+    Object.entries(sources).flatMap(([file, source]) =>
+      [
+        ...source.matchAll(/[{,]\s*(\w+)\s*=\s*(?:\$bindable\()?true\b/g),
+        ...(source.match(/withDefaults\([\s\S]*?\n\)/)?.[0] ?? "").matchAll(
+          /\b(\w+):\s*true\b/g,
+        ),
+      ].map(([, name]) => `${file.split("/components/")[1]} ${name}`),
+    ),
+    "props that default to true",
+  ).toEqual([])
+})
+
+const guide = (path: string) => readFileSync(path, "utf8")
+const listIn = (text: string, label: string) =>
+  [
+    ...(text
+      .match(new RegExp(`^- \\*\\*${label}:\\*\\* (.*)$`, "m"))?.[1]
+      .split(/\.\s/)[0]
+      .matchAll(/`([^`]+)`/g) ?? []),
+  ].map(([, name]) => name)
+
+test("the guides list the same names as the test", () => {
+  const names = guide("src/component-api/AGENTS.md")
+  expect(listIn(names, "Groups")).toEqual([...groups])
+  expect(listIn(names, "Part classes")).toEqual([...parts])
+  expect(listIn(names, "Slots")).toEqual([...slots])
+
+  const table = Object.fromEntries(
+    guide("packages/opui/components/AGENTS.md")
+      .split("\n")
+      .filter((line) => line.startsWith("| ") && !line.startsWith("| --"))
+      .flatMap((line) => {
+        const [, , props = "", values = ""] = line.split("|")
+        const named = [...values.matchAll(/`([^`]+)`/g)].map(([, v]) => v)
+        return [...props.matchAll(/`([^`]+)`/g)].map(
+          ([, prop]) => [prop, named.toSorted()] as const,
+        )
+      }),
+  )
+  for (const [prop, { values }] of Object.entries(vocabulary)) {
+    expect(table[prop], prop).toEqual(values.toSorted())
+  }
 })
 
 test("item keys follow the naming model", () => {

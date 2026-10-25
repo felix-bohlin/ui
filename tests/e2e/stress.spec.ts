@@ -54,13 +54,13 @@ test("chips one size step up match the control size", async ({ page }) => {
 const DENSITIES = {
   "0.875": {
     default: "35px",
-    large: "40.25px",
+    large: "42px",
     small: "28px",
     "x-small": "24.5px",
   },
   "1.125": {
     default: "45px",
-    large: "51.75px",
+    large: "54px",
     small: "36px",
     "x-small": "31.5px",
   },

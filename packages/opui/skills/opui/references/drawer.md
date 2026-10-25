@@ -74,9 +74,10 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_backdrop-blur`: The backdrop filter. Defaults to a `--ui-backdrop-blur` blur, `.ui-backdrop-transparent` removes it.
 - `--_bg-color`: The background. Defaults to `--ui-surface-elevated`.
 - `--_block-size`: Height of `.ui-block-start` and `.ui-block-end` drawers.
-- `--_border-color`: Color of the inner edge border and the `.ui-header` and `.ui-actions` dividers.
+- `--_border-color`: Color of the `.ui-header` and `.ui-actions` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.
 - `--_border-width`: Width of the inner edge border and the `.ui-header` and `.ui-actions` dividers.
 - `--_content-padding`: Padding of `.ui-content`.
+- `--_edge-border-color`: Color of the inner edge border. `--ui-border-color-raised` when a theme sets it, otherwise `--_border-color`.
 - `--_header-font-size`: Font size of headings in `.ui-header`.
 - `--_header-padding`: Padding of `.ui-header`.
 - `--_inline-size`: Width of drawers that open from the inline start or end.
@@ -89,7 +90,7 @@ Outputs: `--_direction`, `--_duration` and `--_ease`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-width`, `--ui-duration-slow`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-font-size-large`, `--ui-motion`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface-elevated` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-duration-slow`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-font-size-large`, `--ui-motion`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface-elevated` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 

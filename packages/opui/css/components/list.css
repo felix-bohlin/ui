@@ -44,7 +44,7 @@ Lists meant to be used stand-alone or as part of Select elements
     padding-block: var(--ui-space-2);
     padding-inline: 0;
 
-    &:not(.ui-menu, .ui-tonal, .ui-transparent) {
+    &:not(.ui-menu, .ui-tonal, .ui-transparent, select .ui-list) {
       --ui-border-color: var(--ui-border-color-on-filled);
       --ui-field-border-color: var(--ui-field-border-color-on-filled);
     }

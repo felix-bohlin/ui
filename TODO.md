@@ -73,6 +73,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
     The options stay as listed: accept the strip to avoid the jump, drop `stable` and accept the jump, or extend the backdrop and full-width drawers under the gutter.
   - Explained: the strip only shows with classic scrollbars (Windows, or Chrome with scrollbars always shown on macOS); overlay scrollbars take no space. The example has a page tall enough to scroll, a modal dialog and a bottom drawer, so the undimmed strip and the drawer stopping short of the edge can be seen side by side. Option C stays the recommendation: extend the backdrop and the block drawers under the gutter (`inset-inline-end: calc(-1 * (100dvi - 100%))` on the backdrop, `max-inline-size: none` with `inline-size: 100dvi` on block drawers) and keep `stable` so the page doesn't jump. Example: dialog-scrollbar-gutter
+- [ ] (2) CSS: a tonal fill inside a tonal surface, or inside an elevated surface in dark mode, matches its background, so tonal buttons, the Tabs track and tonal chips disappear there (1.00:1). Dark `--ui-surface-tonal` and `--ui-surface-elevated` are both `--ui-gray-12` (`packages/opui/css/theme.css:515-518`), and a tonal `Card`, `Accordion` or `Callout` paints the same tonal its content reads (`packages/opui/css/components/card.css:41-48`, `packages/opui/css/components/callout.css:3`)
+  - Summary: Tonal buttons, chips and the Tabs track blend into tonal cards and callouts, and into elevated cards and dialogs in dark mode.
+  - Recommended: Fix with option A. It follows the border remap raised surfaces already do, and the selected Tabs pill needs a second look either way.
+  - Fix: measured on `/html/test/button/` with a tonal `Button` in each `Card` variant: 1.16:1 on the page in light, 1.33:1 in dark, 1.00:1 on a tonal card in both modes and on an elevated card in dark. The selected Tabs pill keeps a 3.16:1 border, so the tabs stay usable.
+  - Options:
+    - A (recommended): raised surfaces remap the tonal role for their content, like `--ui-border-color`. A tonal surface sets `--ui-surface-tonal: var(--ui-surface)` on its children, and an elevated one sets it to a new role, `--ui-surface-tonal-on-elevated` (`light-dark(var(--ui-surface-tonal), var(--ui-surface))`), on its root. Themes whose dark tonal already differs from their elevated surface (m3, shadcn, brutalist) set the new role to `var(--ui-surface-tonal)`. The light Tabs pill (`--ui-surface`) then matches a remapped track inside tonal surfaces, so the pill moves to a step of its own.
+    - B: give dark `--ui-surface-tonal` and `--ui-surface-elevated` different steps in `theme.css`. Fixes elevated surfaces in dark only, and moves every tonal or elevated surface in dark mode, so the `-text` promises on tonal need checking again.
+    - C: leave it. Tonal on tonal is the author's choice, and outlined or filled controls stay visible there.
 
 ## Suggestions
 

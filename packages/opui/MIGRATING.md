@@ -1136,7 +1136,7 @@ The default palette is green in both color schemes. v5 switched it to blue in da
 }
 ```
 
-`theme.css` is in the `theme.base` layer, and `layers.css` adds an empty `theme.custom` layer after it for your own tokens. Overrides in `@layer theme` keep working and now beat the defaults wherever they load. If you copied a complete `theme.css` from the Theme generator, replace it with a new `custom-theme.css` from the generator: it only lists the tokens you changed, so it won't miss tokens added in later releases.
+`theme.css` is in the `theme.base` layer, and `layers.css` adds an empty `theme.custom` layer after it for your own tokens. Overrides in `@layer theme` keep working and now beat the defaults wherever they load. If you copied a complete `theme.css` from the v5 Theme generator, build a new one in the [Theme builder](https://open-props-ui.netlify.app/theme-builder/): it only lists the example theme you start from and the tokens you change, so it won't miss tokens added in later releases.
 
 `theme.css` no longer sets `--ui-button-radius` and `--ui-field-radius`, and buttons and fields follow `--ui-radius` while they're unset, also where you set it on a part of the page. If your own styles read them, add the fallback: `var(--ui-button-radius, var(--ui-radius))`. If you set `--ui-radius` and want buttons and fields to keep their corners, set them back:
 

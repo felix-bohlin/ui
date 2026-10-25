@@ -93,7 +93,7 @@
 /* Setup */
 :root {
   --site-gap: var(--size-4, 20px);
-  --site-header-end-inline-size: 535px;
+  --site-header-end-inline-size: 744px;
   --site-page-gutters: var(--site-gap);
 
   @media (width >=600px) {

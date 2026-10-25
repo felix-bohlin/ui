@@ -41,8 +41,8 @@ const surfaceRoles = [
         href="/guide/customizing#your-theme">Your theme</DocLink
       >. Every token and its default is on <DocLink href="/guide/theme-tokens"
         >Theme tokens</DocLink
-      >, and the <DocLink href="/theme-builder">Theme builder</DocLink>
-      writes a theme for you.
+      >, and the <DocLink href="/theme-builder">Theme builder</DocLink> writes a theme
+      for you and checks its contrast.
     </p>
   </section>
 
@@ -509,7 +509,8 @@ const surfaceRoles = [
       where the library's value is stronger: a theme whose <code>--ui-text</code
       > already equals <code>--ui-text-strong</code> keeps it, and brutalist, whose
       borders are already black, draws them in <code>--ui-text</code> instead so they
-      stay visible in dark mode.
+      stay visible in dark mode. The Theme builder hands back the same roles when
+      you set them.
     </p>
 
     <Example row showCode={false}>

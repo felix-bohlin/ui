@@ -1,4 +1,5 @@
 ---
+import DocLink from "../components/DocLink.astro"
 import ThemeBuilder from "../components/ThemeBuilder/ThemeBuilder.astro"
 import Default from "../layouts/Default.astro"
 
@@ -13,7 +14,33 @@ const description =
         <h1>Theme builder</h1>
         <p>{description}</p>
       </hgroup>
+      <p>
+        The whole site uses your theme while you work, and it stays in this
+        browser until you reset it. The export is one <code>theme.css</code>:
+        the preset you started from, then your changes in the <DocLink
+          href="/guide/customizing#your-theme"
+          ><code>theme.custom</code> layer</DocLink
+        >. Load it after opui-css.
+      </p>
     </article>
     <ThemeBuilder />
   </main>
 </Default>
+
+<style>
+  #main-content {
+    max-inline-size: min(
+      calc(100% - var(--site-gap) * 2),
+      var(--site-content-lg)
+    );
+  }
+
+  .theme-builder-intro {
+    max-inline-size: var(--site-content-text);
+    padding-block-start: var(--site-gap);
+
+    hgroup + p {
+      margin-block-start: var(--size-4);
+    }
+  }
+</style>

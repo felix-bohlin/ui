@@ -2538,6 +2538,14 @@
     "url": "/blocks/user-directory"
   },
   {
+    "id": "theme-builder",
+    "title": "Theme builder",
+    "description": "Start from a preset, set your colors, type, shape and density, check the contrast, and copy one CSS file.",
+    "headings": "bootstrap Brand color brutalist Contrast check Corners Density Export theme.css Fonts Generator Light and dark mode m3 Motion Presets Saved themes shadcn Shadows Share link Spacing Status colors",
+    "category": "Guide",
+    "url": "/theme-builder"
+  },
+  {
     "id": "api-accordion-actions-astro",
     "title": "Accordion Actions API",
     "description": "Reference for Accordion Actions Astro component.",

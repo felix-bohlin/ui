@@ -167,7 +167,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A: a `scripts/resolve-tokens.mjs` export of resolved variables per mode and theme, published next to `tokens.json`.
     - B: a full kit with components, outside this repo.
     - C: nothing until someone asks for Figma.
-- [ ] (2) Theming: there is no palette generator. Material builds a full scheme from one seed color and a contrast level, and Radix and Spectrum publish engineered 12-step scales. OPUI derives its palette from `--ui-palette-source` with fixed lightness steps, and the theme generator sets 8 tokens and a source color (`packages/opui/core/palette.css`, `src/utils/theme-store.ts`)
+- [x] (2) Theming: there is no palette generator. Material builds a full scheme from one seed color and a contrast level, and Radix and Spectrum publish engineered 12-step scales. OPUI derives its palette from `--ui-palette-source` with fixed lightness steps, and the theme generator sets 8 tokens and a source color (`packages/opui/core/palette.css`, `src/utils/theme-store.ts`)
   - Summary: There is no palette generator; the theme generator sets eight tokens and a source color with fixed lightness steps.
   - Recommended: Fix with option A. The derivation already lives in CSS, so a builder is docs-site UI over the theme generator, no package change.
   > Explain further
@@ -177,6 +177,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): grow the theme generator into a builder page with presets, more knobs and an export. Docs-site work, no package change.
     - B: add a seed-to-scheme algorithm in the package (Material's tonal palettes) that derives the gray and severity hues from the seed too.
     - C: leave the generator as it is.
+  - Fixed: option A. The Theme builder at `/theme-builder` (Themes in the header) replaces the theme generator: it starts from Default or an example theme, groups the settings from brand color to buttons and fields, previews components and blocks in light and dark with more contrast, checks every contrast promise in four modes, saves and shares themes, and exports one `theme.css` (the example theme, then the changed tokens in `theme.custom`) that the site applies as is. No package change.
 - [ ] (2) Tokens: motion and elevation scales are thin. Material has 16 durations, 10 easings and 6 elevation levels, and Carbon has 6 durations with productive and expressive easings. OPUI has three durations, three easings, `--ui-motion` as an on and off switch, and shadows per use (`packages/opui/css/theme.css`)
   - Summary: The motion and elevation scales are thin compared with peers, with three durations, three easings and shadows per use.
   - Recommended: Fix with option A. The per-use tokens are what the components and themes read, and a level scale would only duplicate them.

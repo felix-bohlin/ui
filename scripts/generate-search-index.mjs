@@ -201,6 +201,47 @@ async function generateIndex() {
     })
   }
 
+  const themeBuilder = fs.readFileSync("src/pages/theme-builder.astro", "utf-8")
+  const themeBuilderTitle = themeBuilder.match(/<h1>(.*?)<\/h1>/s)?.[1]
+  const themeBuilderDescription = themeBuilder.match(
+    /const description\s*=\s*"((?:\\.|[^"\\])*)"/s,
+  )?.[1]
+  if (!themeBuilderTitle || !themeBuilderDescription) {
+    throw new Error(
+      "src/pages/theme-builder.astro needs an <h1> and a description",
+    )
+  }
+  const exampleThemes = (await globby(["packages/opui/themes/*.css"])).map(
+    (file) => path.basename(file, ".css"),
+  )
+  index.push({
+    id: "theme-builder",
+    title: themeBuilderTitle.trim(),
+    description: themeBuilderDescription,
+    headings: [
+      ...exampleThemes,
+      "Brand color",
+      "Contrast check",
+      "Corners",
+      "Density",
+      "Export theme.css",
+      "Fonts",
+      "Generator",
+      "Light and dark mode",
+      "Motion",
+      "Presets",
+      "Saved themes",
+      "Shadows",
+      "Share link",
+      "Spacing",
+      "Status colors",
+    ]
+      .toSorted((a, b) => a.localeCompare(b))
+      .join(" "),
+    category: "Guide",
+    url: "/theme-builder",
+  })
+
   const apiEntries = []
 
   // Component API tables: index the cell content per framework. The API page

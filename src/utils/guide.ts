@@ -1,4 +1,4 @@
-import { MIGRATING_LABEL } from "./migrating"
+import { MIGRATING_LABEL } from "./migrating.ts"
 
 export const guidePages = [
   { label: "Why Open Props UI?", slug: "why-opui" },

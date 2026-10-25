@@ -1,15 +1,19 @@
 ---
+import "../styles/custom-palette.css"
 import "../styles/no-grays.css"
 import "../styles/theme-fonts.css"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
-import { THEME_KEYS, TOKENS } from "../utils/theme-store"
+import { PALETTE_KNOBS, THEME_KEYS, TOKENS } from "../utils/theme-store"
 
 const exampleThemes = Object.fromEntries(
   EXAMPLE_THEMES.map((theme) => [theme.name, theme.css]),
 )
 ---
 
-<script is:inline define:vars={{ exampleThemes, THEME_KEYS, TOKENS }}>
+<script
+  is:inline
+  define:vars={{ exampleThemes, PALETTE_KNOBS, THEME_KEYS, TOKENS }}
+>
   window.themeUtils = {
     getCustomTheme(theme) {
       try {
@@ -121,18 +125,37 @@ const exampleThemes = Object.fromEntries(
       )
       document.documentElement.classList.remove("no-grays")
 
-      Object.entries(window.themeUtils.getCustomTheme(currentTheme)).forEach(
-        ([name, value]) => {
-          if (name === "enable-grays") {
-            document.documentElement.classList.toggle(
-              "no-grays",
-              value === "false",
-            )
-          } else {
-            document.documentElement.style.setProperty(name, value)
-          }
-        },
+      const config = window.themeUtils.getCustomTheme(currentTheme)
+      Object.entries(config).forEach(([name, value]) => {
+        if (name === "enable-grays") {
+          document.documentElement.classList.toggle(
+            "no-grays",
+            value === "false",
+          )
+        } else {
+          document.documentElement.style.setProperty(name, value)
+        }
+      })
+
+      document.documentElement.classList.toggle(
+        "custom-palette",
+        PALETTE_KNOBS.some((name) => name in config),
       )
+      const scoped = TOKENS.filter((name) => name in config)
+      let style = document.getElementById("opui-custom-theme")
+      if (scoped.length === 0) {
+        style?.remove()
+        return
+      }
+      if (!style) {
+        style = document.createElement("style")
+        style.id = "opui-custom-theme"
+        document.head.append(style)
+      }
+      const css = `@layer theme.custom { html .ui-palette { ${scoped
+        .map((name) => `${name}: inherit;`)
+        .join(" ")} } }`
+      if (style.textContent !== css) style.textContent = css
     },
   }
 

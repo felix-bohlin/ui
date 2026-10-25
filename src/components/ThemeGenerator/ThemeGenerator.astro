@@ -529,10 +529,12 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   }
 
   function rerenderCode() {
+    const example = exampleTheme(themeStore.getExampleTheme())
     generatedCss = generateCss({
       dark: themeStore.get("dark"),
       light: themeStore.get("light"),
-      example: exampleTheme(themeStore.getExampleTheme())?.tokens,
+      example: example?.tokens,
+      knobs: example?.knobs,
     })
     codeEl.textContent = generatedCss
     highlightAll()

@@ -1,3 +1,5 @@
+import { paletteKnobs } from "./color-utils"
+
 const files = import.meta.glob<string>("../../packages/opui/themes/*.css", {
   eager: true,
   import: "default",
@@ -7,17 +9,20 @@ const files = import.meta.glob<string>("../../packages/opui/themes/*.css", {
 export const EXAMPLE_THEMES = Object.entries(files)
   .map(([path, css]) => {
     const name = path.match(/themes\/([^/]+)\.css$/)![1]
+    const tokens = Object.fromEntries(
+      [
+        ...(css.match(/:where\(html[^)]*\)\s*\{([^}]*)\}/)?.[1] ?? "").matchAll(
+          /^\s*(--[\w-]+):\s*([^;]+);/gm,
+        ),
+      ].map(([, token, value]) => [token, value.trim()]),
+    )
+    const source = tokens["--ui-palette-source"]
     return {
       css,
+      knobs: (source && paletteKnobs(source)) || {},
       label: `${name[0].toUpperCase()}${name.slice(1)}`,
       name,
-      tokens: Object.fromEntries(
-        [
-          ...(
-            css.match(/:where\(html[^)]*\)\s*\{([^}]*)\}/)?.[1] ?? ""
-          ).matchAll(/^\s*(--[\w-]+):\s*([^;]+);/gm),
-        ].map(([, token, value]) => [token, value.trim()]),
-      ),
+      tokens,
     }
   })
   .toSorted((a, b) => a.name.localeCompare(b.name))

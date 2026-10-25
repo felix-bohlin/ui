@@ -13,13 +13,15 @@
  *    already give go in `:where(html.ui-dark)` and the matching
  *    `prefers-color-scheme: dark` block.
  *  - An example theme's tokens come first, and the other tokens only when
- *    they differ from it.
+ *    they differ from it. Once a palette knob is set, the theme's
+ *    `--ui-palette-source` and `--ui-primary-source` are left out.
  *  - With grays disabled, every role theme.css derives from a gray step goes
  *    in `:where(html, .ui-palette, .ui-contrast-more)` with the palette step
  *    of the same number instead.
  */
 
 import {
+  PALETTE_KNOBS,
   TOKENS,
   tokenDefaults,
   type ModeConfig,
@@ -107,15 +109,27 @@ export function generateCss({
   dark,
   light,
   example = {},
+  knobs = {},
 }: {
   dark: ModeConfig
   light: ModeConfig
   example?: Record<string, string>
+  knobs?: Record<string, string>
 }): string {
-  const lightDefaults = withExample(tokenDefaults("light"), example)
-  const darkDefaults = withExample(tokenDefaults("dark"), example)
-  const lightSnap = snapshotFor(light, lightDefaults)
-  const darkSnap = snapshotFor(dark, darkDefaults)
+  const customPalette = [light, dark].some((config) =>
+    PALETTE_KNOBS.some((knob) => knob in config),
+  )
+  const lightSnap = snapshotFor(
+    light,
+    withExample(tokenDefaults("light"), { ...knobs, ...example }),
+  )
+  const darkSnap = snapshotFor(
+    dark,
+    withExample(tokenDefaults("dark"), { ...knobs, ...example }),
+  )
+  const shipped = customPalette ? example : { ...knobs, ...example }
+  const lightDefaults = withExample(tokenDefaults("light"), shipped)
+  const darkDefaults = withExample(tokenDefaults("dark"), shipped)
 
   const lightTokens = TOKENS.filter(
     (token) => lightSnap[token] !== lightDefaults[token],
@@ -126,15 +140,21 @@ export function generateCss({
       (lightTokens.includes(token) ? lightSnap[token] : darkDefaults[token]),
   )
   const lightPairs = [
-    ...Object.entries(example).map(
-      ([token, value]) =>
-        [
-          token,
-          lightTokens.includes(token as Token)
-            ? lightSnap[token as Token]
-            : value,
-        ] as const,
-    ),
+    ...Object.entries(example)
+      .filter(
+        ([token]) =>
+          !customPalette ||
+          (token !== "--ui-palette-source" && token !== "--ui-primary-source"),
+      )
+      .map(
+        ([token, value]) =>
+          [
+            token,
+            lightTokens.includes(token as Token)
+              ? lightSnap[token as Token]
+              : value,
+          ] as const,
+      ),
     ...lightTokens
       .filter((token) => !(token in example))
       .map((token) => [token, lightSnap[token]] as const),

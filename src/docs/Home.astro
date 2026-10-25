@@ -26,12 +26,12 @@ import ComponentCard from "../components/ComponentShowcase/ComponentCard.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
 import ReactLogo from "../components/ReactLogo.astro"
+import SavedThemes from "../components/SavedThemes.astro"
 import SvelteLogo from "../components/SvelteLogo.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
 import { allBlocks, blockPreviewHref } from "../utils/blocks"
 import { components } from "../utils/components"
-import { hexToOklch } from "../utils/color-utils"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
 import { formatInline } from "../utils/format-inline"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
@@ -59,11 +59,6 @@ const FRAMEWORK_BRANDING: Record<
   svelte: { color: "#FF3E00", Logo: SvelteLogo },
   vue: { color: "#41B883", Logo: VueLogo },
 }
-
-const heroKnobs = (hex?: string) =>
-  hex
-    ? `--ui-palette-hue: ${Math.round(hexToOklch(hex).H)}; --ui-palette-chroma: 0.5`
-    : "--ui-palette-hue: var(--hue-blue); --ui-palette-chroma: 0.6"
 
 const roleTokens = themeTokens().filter(
   (token) => tokenTier(token.name) === "role",
@@ -151,11 +146,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
 <Default description={description}>
   <main id="main-content" class="blueprint container is-wide">
-    <section
-      class="sheet hero ui-palette"
-      aria-labelledby="main-heading"
-      style={heroKnobs(FRAMEWORK_BRANDING[currentFramework].color)}
-    >
+    <section class="sheet hero ui-palette" aria-labelledby="main-heading">
       <div class="hero-copy">
         <hgroup class="ui-hgroup">
           <p class="hero-version">
@@ -201,8 +192,8 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
                   href={hrefFor(framework.id, "/")}
                   aria-current={isCurrent ? "page" : undefined}
                   variant={isCurrent ? "tonal" : "outlined"}
-                  data-hero-knobs={heroKnobs(branding.color)}
                   data-framework={framework.id}
+                  data-theme-color={branding.color}
                 >
                   <Logo slot="start" />
                   <Fragment slot="label">{framework.label}</Fragment>
@@ -334,7 +325,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             min={0}
             max={360}
             step={1}
-            value={240}
+            value={tokenDefaults("light")["--ui-palette-hue"]}
             valueSuffix="°"
           />
           <Range
@@ -342,14 +333,14 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             name="--ui-palette-chroma"
             min={0}
             max={1}
-            step={0.05}
-            value={0.6}
+            step={0.01}
+            value={tokenDefaults("light")["--ui-palette-chroma"]}
           />
           <div class="knob-radius">
             <span class="ui-label" id="spec-radius-label">Radius</span>
             <ToggleGroup
               aria-labelledby="spec-radius-label"
-              name="spec-radius"
+              name="--ui-radius"
               size="small"
             >
               {
@@ -371,13 +362,10 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
               >theme generator</a
             >.
           </p>
+          <SavedThemes />
         </form>
 
-        <div
-          class="specimen ui-palette ui-not-rich-text"
-          id="spec-specimen"
-          style="--ui-palette-hue: 240; --ui-palette-chroma: 0.6"
-        >
+        <div class="specimen ui-not-rich-text">
           <div class="palette-strip" aria-hidden="true">
             {
               steps.map((step) => (
@@ -413,9 +401,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           <Callout severity="info" variant="tonal">
             <CalloutIcon />
             <CalloutContent>
-              <h3>Scoped, not global</h3>
-              This box is a <code>.ui-palette</code> scope. The rest of the page keeps
-              its own knobs.
+              <h3>Every page follows</h3>
+              The knobs set the theme for the whole site. Save it to compare it with
+              others or come back to it.
             </CalloutContent>
           </Callout>
         </div>
@@ -512,14 +500,17 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 </Default>
 
 <script>
+  import { hexToOklch } from "../utils/color-utils"
   import { FRAMEWORK_STORAGE_KEY } from "../utils/framework"
+  import { savedThemes } from "../utils/saved-themes"
+  import { RADIUS_FIELDS, themeForm } from "../utils/theme-form"
+  import { themeStore } from "../utils/theme-store"
 
-  // Clicking a framework chip in the hero tints the hero with that
-  // framework's brand color before navigating. The hero is a palette scope,
-  // so the rest of the site keeps the theme.
-  const hero = document.querySelector<HTMLElement>(".hero")
+  // Clicking a framework chip in the hero sets the site theme to that
+  // framework's brand color before navigating. The theme it replaces is kept
+  // as a saved theme.
   document
-    .querySelectorAll<HTMLElement>(".framework-support [data-hero-knobs]")
+    .querySelectorAll<HTMLElement>(".framework-support [data-framework]")
     .forEach((chip) => {
       chip.addEventListener("click", () => {
         const framework = chip.dataset.framework
@@ -530,7 +521,23 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             // private mode / storage disabled - non-fatal
           }
         }
-        hero?.setAttribute("style", chip.dataset.heroKnobs ?? "")
+        savedThemes.autosave()
+        const color = chip.dataset.themeColor
+        for (const mode of ["dark", "light"] as const) {
+          if (color) {
+            themeStore.setToken(
+              mode,
+              "--ui-palette-hue",
+              String(Math.round(hexToOklch(color).H)),
+            )
+            themeStore.setToken(mode, "--ui-palette-chroma", "0.5")
+          } else {
+            themeStore.unsetTokens(mode, [
+              "--ui-palette-chroma",
+              "--ui-palette-hue",
+            ])
+          }
+        }
       })
     })
 
@@ -559,28 +566,39 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
   })
 
   const knobs = document.querySelector<HTMLFormElement>("#spec-knobs")
-  const specimen = document.querySelector<HTMLElement>("#spec-specimen")
 
-  function applyKnobs() {
-    if (!knobs || !specimen) return
-    const data = new FormData(knobs)
-    const hue = data.get("--ui-palette-hue")
-    const chroma = data.get("--ui-palette-chroma")
-    const radius = data.get("spec-radius")
-    if (typeof hue === "string") {
-      specimen.style.setProperty("--ui-palette-hue", hue)
+  if (knobs) {
+    const controls = themeForm(knobs, {
+      setExampleTheme: () => {},
+      setGrays: () => {},
+      setToken: (token, value) => {
+        const mode = themeStore.getActiveSiteMode()
+        themeStore.setToken(mode, token, value)
+        if (token !== "--ui-radius") return
+        for (const field of RADIUS_FIELDS) {
+          if (
+            field.token !== "--ui-radius" &&
+            themeStore.effective(mode, field.token) !== "var(--ui-radius)"
+          ) {
+            themeStore.setToken(mode, field.token, "var(--ui-radius)")
+          }
+        }
+      },
+    })
+
+    const sync = () => {
+      const mode = themeStore.getActiveSiteMode()
+      controls.sync(
+        mode,
+        themeStore.get(mode),
+        themeStore.defaults(mode),
+        themeStore.getExampleTheme(),
+      )
     }
-    if (typeof chroma === "string") {
-      specimen.style.setProperty("--ui-palette-chroma", chroma)
-    }
-    if (typeof radius === "string") {
-      specimen.style.setProperty("--ui-radius", radius)
-    }
+
+    sync()
+    themeStore.subscribe(sync)
   }
-
-  knobs?.addEventListener("input", applyKnobs)
-  knobs?.addEventListener("change", applyKnobs)
-  applyKnobs()
 </script>
 
 <style is:global>
@@ -602,22 +620,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         oklch(from var(--ui-color-13) l calc(c * 1.3) h)
       );
       --ui-border-color: light-dark(var(--ui-color-4), var(--ui-color-11));
-    }
-  }
-
-  @layer theme.custom {
-    #spec-specimen {
-      --ui-button-radius: initial;
-      --ui-chip-radius: initial;
-      --ui-dialog-radius: initial;
-      --ui-field-radius: initial;
-      --ui-menu-radius: initial;
-      --ui-on-primary-tonal: initial;
-      --ui-palette-source: revert-layer;
-      --ui-primary-tonal: initial;
-      --ui-primary-source: revert-layer;
-      --ui-radius-small: revert-layer;
-      --ui-radius-x-small: revert-layer;
     }
   }
 

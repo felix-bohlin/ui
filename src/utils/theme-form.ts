@@ -1,4 +1,4 @@
-import { hexToOklch, oklchToHex } from "./color-utils"
+import { oklchToHex, paletteKnobs, SOURCE_CHROMA } from "./color-utils"
 import {
   TOKENS,
   tokenDefaults,
@@ -7,7 +7,6 @@ import {
   type Token,
 } from "./theme-store"
 
-const SOURCE_CHROMA = 0.21
 const SOURCE_LIGHTNESS = 0.58
 const SOURCE_NAME = "--palette-source-color"
 const GRAYS_NAME = "enable-grays"
@@ -90,14 +89,6 @@ export const sourceColor = (
   return oklchToHex(SOURCE_LIGHTNESS, SOURCE_CHROMA * chroma, hue)
 }
 
-const paletteFromSource = (hex: string) => {
-  const { C, H } = hexToOklch(hex)
-  return [
-    ["--ui-palette-hue", String(Math.round(H))],
-    ["--ui-palette-chroma", String(+Math.min(1, C / SOURCE_CHROMA).toFixed(2))],
-  ] as const
-}
-
 const EXTRA_OPTION = "data-extra-option"
 
 const syncExtraOption = (
@@ -141,10 +132,13 @@ export const themeForm = (
   let picking = false
 
   const input = (name: string) =>
-    form.querySelector<HTMLInputElement>(`[name="${name}"]`)!
+    form.querySelector<HTMLInputElement>(`[name="${name}"]`)
 
   const setGrayInputsDisabled = (disabled: boolean) => {
-    for (const field of GRAY_FIELDS) input(field.token).disabled = disabled
+    for (const field of GRAY_FIELDS) {
+      const gray = input(field.token)
+      if (gray) gray.disabled = disabled
+    }
   }
 
   form.addEventListener("input", (event) => {
@@ -159,8 +153,10 @@ export const themeForm = (
       setGrayInputsDisabled(!target.checked)
     } else if (target.name === SOURCE_NAME) {
       picking = true
-      for (const [token, value] of paletteFromSource(target.value))
-        setToken(token, value)
+      for (const [token, value] of Object.entries(
+        paletteKnobs(target.value) ?? {},
+      ))
+        if (isToken(token)) setToken(token, value)
     } else if (isToken(target.name)) {
       setToken(target.name, target.value)
     }
@@ -203,10 +199,12 @@ export const themeForm = (
     }
 
     const graysEnabled = config["enable-grays"] !== "false"
-    input(GRAYS_NAME).checked = graysEnabled
+    const grays = input(GRAYS_NAME)
+    if (grays) grays.checked = graysEnabled
     setGrayInputsDisabled(!graysEnabled)
 
-    if (!picking) input(SOURCE_NAME).value = sourceColor(mode, config, defaults)
+    const source = input(SOURCE_NAME)
+    if (source && !picking) source.value = sourceColor(mode, config, defaults)
   }
 
   return { sync }

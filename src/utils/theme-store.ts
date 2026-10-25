@@ -49,6 +49,12 @@ export const TOKENS = [
   "--ui-button-hover",
 ] as const satisfies readonly Token[]
 
+export const PALETTE_KNOBS = [
+  "--ui-palette-chroma",
+  "--ui-palette-hue",
+  "--ui-palette-hue-rotate-by",
+] as const satisfies readonly Token[]
+
 // Defaults must mirror what `packages/opui/css/theme.css` ships
 // so the configurators (drawer + generator) reflect the live site palette
 // before the user has tweaked anything. theme.css sets --ui-palette-hue to
@@ -101,7 +107,19 @@ export type ModeConfig = Partial<Record<Token, string>> & {
 }
 
 export type ChangeType =
-  "set" | "reset" | "applyMode" | "enable-grays" | "example-theme"
+  | "applyMode"
+  | "enable-grays"
+  | "example-theme"
+  | "load"
+  | "reset"
+  | "set"
+  | "unset"
+
+export type ThemeSnapshot = {
+  dark: ModeConfig
+  example: string | null
+  light: ModeConfig
+}
 
 export type ThemeChangeDetail = {
   mode: Mode
@@ -138,7 +156,8 @@ export const withExampleTheme = (
   defaults: Record<Token, string>,
   name: string | null,
 ) => {
-  const tokens = exampleTheme(name)?.tokens ?? {}
+  const theme = exampleTheme(name)
+  const tokens: Record<string, string> = { ...theme?.knobs, ...theme?.tokens }
   return Object.fromEntries(
     TOKENS.map((token) => [token, tokens[token] ?? defaults[token]]),
   ) as Record<Token, string>
@@ -186,12 +205,44 @@ export const themeStore = {
 
   setToken(mode: Mode, token: Token, value: string): void {
     const config = readConfig(mode)
+    if (token === "--ui-palette-chroma" || token === "--ui-palette-hue") {
+      const defaults = themeStore.defaults(mode)
+      config["--ui-palette-chroma"] ??= defaults["--ui-palette-chroma"]
+      config["--ui-palette-hue"] ??= defaults["--ui-palette-hue"]
+    }
     config[token] = value
     writeConfig(mode, config)
     if (isBrowser && mode === getActiveSiteMode()) {
-      document.documentElement.style.setProperty(token, value)
+      window.themeUtils.applyCustomTheme(mode)
     }
     emit({ mode, type: "set", token, value })
+  },
+
+  unsetTokens(mode: Mode, tokens: readonly Token[]): void {
+    const config = readConfig(mode)
+    for (const token of tokens) delete config[token]
+    writeConfig(mode, config)
+    if (isBrowser && mode === getActiveSiteMode()) {
+      window.themeUtils.applyCustomTheme(mode)
+    }
+    emit({ mode, type: "unset" })
+  },
+
+  snapshot(): ThemeSnapshot {
+    return {
+      dark: readConfig("dark"),
+      example: getExampleTheme(),
+      light: readConfig("light"),
+    }
+  },
+
+  load({ dark, example, light }: ThemeSnapshot): void {
+    if (!isBrowser) return
+    writeConfig("dark", dark)
+    writeConfig("light", light)
+    window.themeUtils.setExampleTheme(example)
+    window.themeUtils.applyCustomTheme()
+    emit({ mode: getActiveSiteMode(), type: "load" })
   },
 
   setEnableGrays(mode: Mode, enabled: boolean): void {

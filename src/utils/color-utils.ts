@@ -77,3 +77,52 @@ export function oklchToHex(L: number, C: number, H: number): string {
 
   return "#" + [ri, gi, bi].map((v) => v.toString(16).padStart(2, "0")).join("")
 }
+
+export const SOURCE_CHROMA = 0.21
+
+const hslToHex = (hue: number, saturation: number, lightness: number) => {
+  const a = saturation * Math.min(lightness, 1 - lightness)
+  const channel = (n: number) => {
+    const k = (n + hue / 30) % 12
+    const value = lightness - a * Math.max(-1, Math.min(k - 3, 9 - k, 1))
+    return Math.round(value * 255)
+      .toString(16)
+      .padStart(2, "0")
+  }
+  return `#${channel(0)}${channel(8)}${channel(4)}`
+}
+
+const toOklch = (color: string) => {
+  const value = color.trim()
+  const oklch = value.match(/^oklch\(\s*[\d.]+%?\s+([\d.]+)\s+([\d.]+)/i)
+  if (oklch) return { C: Number(oklch[1]), H: Number(oklch[2]) }
+  const hsl = value.match(
+    /^hsl\(\s*([\d.]+)(?:deg)?[\s,]+([\d.]+)%[\s,]+([\d.]+)%\s*\)$/i,
+  )
+  if (hsl) {
+    return hexToOklch(
+      hslToHex(Number(hsl[1]), Number(hsl[2]) / 100, Number(hsl[3]) / 100),
+    )
+  }
+  const short = value.match(/^#([\da-f])([\da-f])([\da-f])$/i)
+  if (short)
+    return hexToOklch(
+      `#${short
+        .slice(1)
+        .map((c) => c + c)
+        .join("")}`,
+    )
+  if (/^#[\da-f]{6}$/i.test(value)) return hexToOklch(value)
+}
+
+export const paletteKnobs = (color: string) => {
+  const oklch = toOklch(color)
+  return (
+    oklch && {
+      "--ui-palette-chroma": String(
+        +Math.min(1, oklch.C / SOURCE_CHROMA).toFixed(2),
+      ),
+      "--ui-palette-hue": String(Math.round(oklch.H)),
+    }
+  )
+}

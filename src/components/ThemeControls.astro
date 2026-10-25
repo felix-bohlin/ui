@@ -10,6 +10,7 @@ import {
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
+import SavedThemes from "./SavedThemes.astro"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
 import {
   BUTTON_FIELDS,
@@ -26,6 +27,10 @@ import {
 
 const defaults = tokenDefaults("light")
 ---
+
+<SavedThemes />
+
+<Divider />
 
 <Fieldset>
   <FieldLegend>Example theme</FieldLegend>

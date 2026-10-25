@@ -6,6 +6,7 @@ import { Font } from "astro:assets"
 import { frameworkVariantsOf } from "../utils/framework"
 import { markdownPath } from "../utils/markdown.js"
 import checkboxJs from "@opui/css/js/checkbox.js?url"
+import rangeJs from "@opui/css/js/range.js?url"
 
 type Props = {
   title?: string
@@ -75,7 +76,10 @@ const markdownUrl = hasMarkdown
       is:inline
       type="importmap"
       set:html={JSON.stringify({
-        imports: { "opui-css/css/js/checkbox.js": checkboxJs },
+        imports: {
+          "opui-css/css/js/checkbox.js": checkboxJs,
+          "opui-css/css/js/range.js": rangeJs,
+        },
       })}
     />
   </head>

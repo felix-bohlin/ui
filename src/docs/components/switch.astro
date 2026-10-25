@@ -1,4 +1,5 @@
 ---
+import FieldGroupNotes from "./partials/FieldGroupNotes.astro"
 import LabelAlignment from "./partials/LabelAlignment.astro"
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
@@ -300,128 +301,9 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 
   <section>
     <h2 id="field-group">Field group</h2>
-    <p>Use field groups to group related switches.</p>
-    <Conditional>
-      <p slot="components">
-        The <code>name</code> prop will get passed down to each switch in the group.
-      </p>
-      <p slot="html">
-        Give every <code>&lt;input&gt;</code> in the group the same <code
-          >name</code
-        >
-        {" "}attribute so they're submitted together.
-      </p>
-    </Conditional>
-    <p>
-      See also: <DocLink href="/components/form" class="ui-link"
-        >Form documentation</DocLink
-      >.
-    </p>
-
-    <AutoExample name="FieldGroup" centered column />
-
-    <h3 id="field-group-orientation">Orientation</h3>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Switches stack vertically by default. Set <code
-          >orientation="horizontal"</code
-        > on the
-        <code>FieldGroup</code> to put them in a row.
-      </Fragment>
-      <Fragment slot="html">
-        Switches stack vertically by default. Add <code>.ui-horizontal</code> to the
-        <code>.ui-field-group</code> to put them in a row.
-      </Fragment>
-    </Conditional>
-    <AutoExample name="FieldGroupOrientation" row />
-
-    <h3 id="field-group-field-description">Field description</h3>
-    <p>Can be placed above and below the fields.</p>
-    <AutoExample name="FieldGroupFieldDescription" column centered spacious />
-
-    <h3 id="field-group-disabled">Disabled</h3>
-    <Conditional as="p">
-      <Fragment slot="components">
-        Set <code>disabled</code> on the <code>Fieldset</code> to disable every switch
-        in it, or on a single <code>Switch</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Attach the <code>disabled</code> attribute to the <code
-          >&lt;fieldset&gt;</code
-        > element to disable every switch in it, or to a single <code
-          >&lt;input&gt;</code
-        >.
-      </Fragment>
-    </Conditional>
-    <p>
-      <code>aria-disabled="true"</code> on the <code>&lt;input&gt;</code> looks the
-      same, but keeps the switch focusable and its value in the form. It doesn't stop
-      the change, so block it with a script.
-    </p>
-    <AutoExample name="FieldGroupDisabled" row />
-
-    <h3 id="field-group-required">Required</h3>
-    <p>
-      Each switch with <code>required</code> must be on before the form submits. There's
-      no native "at least one" for switches.
-    </p>
-    <AutoExample name="FieldGroupRequired" row />
-
-    <h3 id="field-group-validation">Validation</h3>
-    <Conditional>
-      <p slot="components">
-        Set <code>error</code> on each <code>Switch</code> in the group. The end text
-        of the <code>Fieldset</code> turns red with them.
-      </p>
-      <p slot="html">
-        Add <code>aria-invalid="true"</code> to each <code>&lt;input&gt;</code> in
-        the group. The end text of the <code>.ui-fieldset</code> turns red with them.
-      </p>
-    </Conditional>
-    <p>
-      Give the end text an <code>id</code> and point <code
-        >aria-describedby</code
-      >
-      on the fieldset at it, so screen readers read the error with the group.
-    </p>
-    <AutoExample name="FieldGroupValidation" row />
-
-    <h3 id="field-group-binding">Binding</h3>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Astro renders the group on the server, so it has no bound value. The
-        checked values live in the inputs, which share the group's <code
-          >name</code
-        >. Submit them with a form, where <code>FormData.getAll()</code> reads them,
-        or read the checked inputs in a script on <code>change</code>. Set <code
-          >input.checked = input.defaultChecked</code
-        > to go back to the <code>checked</code> switches.
-      </Fragment>
-      <Fragment slot="html">
-        The checked values live in the inputs, which share a <code>name</code>.
-        Submit them with a form, where <code>FormData.getAll()</code> reads them,
-        or read the checked inputs in a script on <code>change</code>. Set <code
-          >input.checked = input.defaultChecked</code
-        > to go back to the <code>checked</code> inputs in the markup.
-      </Fragment>
-      <Fragment slot="react">
-        Keep the checked values in your own state. Pass each <code>Switch</code> a
-        <code>checked</code> and an <code>onChange</code> that adds or removes its
-        <code>value</code>.
-      </Fragment>
-      <Fragment slot="svelte">
-        Bind the checked values with <code>bind:group</code> on each <code
-          >Switch</code
-        >. The array holds the <code>value</code> of every checked switch, and setting
-        it updates the switches.
-      </Fragment>
-      <Fragment slot="vue">
-        Bind the checked values with <code>v-model</code> and an array ref on each
-        <code>Switch</code>. The array holds the <code>value</code> of every checked
-        switch, and setting it updates the switches.
-      </Fragment>
-    </Conditional>
-    <AutoExample name="FieldGroupBinding" centered column />
+    <FieldGroupNotes control="switch">
+      <AutoExample name="FieldGroup" centered column />
+    </FieldGroupNotes>
   </section>
 
   <SwitchBuild slot="under-the-hood" />

@@ -10,8 +10,8 @@ A theme is the [knobs, roles and component tokens](https://open-props-ui.netlify
 @layer theme.custom {
   :where(html) {
     --ui-density: 0.9;
-    --ui-font-body: "Inter", var(--font-sans);
-    --ui-font-heading: "Fraunces", var(--font-serif);
+    --ui-font-body: "Inter", system-ui, sans-serif;
+    --ui-font-heading: "Fraunces", serif;
     --ui-palette-chroma: 0.35;
     --ui-palette-hue: 265;
   }
@@ -63,7 +63,7 @@ The component declares them on itself, so set them on the component, not on a pa
 
 /* Theme tokens inherit, so a parent is fine */
 .toolbar {
-  --ui-button-radius: var(--radius-round);
+  --ui-button-radius: var(--ui-radius-round);
 }
 ```
 
@@ -79,7 +79,7 @@ Unlayered CSS beats every [layer](https://open-props-ui.netlify.app/html/guide/c
 
 @layer overrides {
   .ui-badge {
-    --_size: var(--size-5);
+    --_size: var(--ui-space-5);
   }
 }
 ```

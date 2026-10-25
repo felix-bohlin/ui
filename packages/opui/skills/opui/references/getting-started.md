@@ -10,13 +10,15 @@ Open Props UI is *just CSS*. You can copy any [component](https://open-props-ui.
 
 ### Install via CDN
 
-The quickest way to get going. One file with Open Props, the theme, the reset, every component and the utility classes, in the right cascade layers.
+The quickest way to get going. One file with the theme, the reset, every component and the utility classes, in the right cascade layers, plus Open Props for your own CSS.
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css" />
 ```
 
 `@6` loads the newest 6.x release, so a new major version never changes your site. Pin an exact version, such as `@6.0.0`, for full control.
+
+6.0.0 isn't on npm yet, so the jsDelivr links on this page work once it is published. Until then, build the package from [the repository](https://github.com/felix-bohlin/ui) (`pnpm install`, then `pnpm --filter opui-css build`) and use `packages/opui/dist/opui.css`, or load `opui-css@5` (5.4.3), the previous major: [Migrating](https://open-props-ui.netlify.app/html/guide/migrating.md) lists what changed since.
 
 ### Install via NPM
 
@@ -98,13 +100,14 @@ Then import the files in your main CSS, in this order:
 ```css
 @import "./opui/css/layers.css";
 
-@import "./opui/dist/op.css";
 @import "./opui/core/palette.css";
 @import "./opui/css/theme.css";
 @import "./opui/core/normalize.css";
 @import "./opui/css/components.css";
 @import "./opui/core/utils.css";
 ```
+
+If your own CSS reads Open Props, import `./opui/dist/op.css` right after `layers.css`.
 
 ### Your first component
 

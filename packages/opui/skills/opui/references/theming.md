@@ -118,9 +118,9 @@ A raised component (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer
 
 ```css
 :where(html) {
-  --ui-font-body: "Inter", var(--font-sans);
-  --ui-font-code: "JetBrains Mono", var(--font-mono);
-  --ui-font-heading: "Fraunces", var(--font-serif);
+  --ui-font-body: "Inter", system-ui, sans-serif;
+  --ui-font-code: "JetBrains Mono", ui-monospace, monospace;
+  --ui-font-heading: "Fraunces", serif;
 }
 ```
 

@@ -1,57 +1,38 @@
 <style>
   .sign-up {
     container-type: inline-size;
-    margin-inline: auto;
-    max-inline-size: 64rem;
 
     .sign-up-layout {
       align-items: start;
       display: grid;
-      gap: var(--size-6);
+      gap: var(--ui-space-6);
       grid-template-columns: minmax(0, 1fr);
 
-      @container (inline-size >= 52rem) {
+      @container (inline-size >= 56rem) {
         align-items: center;
         grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
       }
     }
 
     .ui-card {
-      padding-block: var(--size-3);
-    }
-
-    .ui-content {
-      display: grid;
-      gap: var(--size-4);
+      padding-block: var(--ui-space-3);
     }
 
     .sign-up-names {
-      display: grid;
-      gap: var(--size-3);
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
     }
 
-    .sign-up-strength {
-      display: grid;
-      gap: var(--size-1);
-    }
-
     .sign-up-strength-label {
-      display: flex;
-      font-size: var(--font-size-0);
-      justify-content: space-between;
+      font-size: var(--ui-font-size-caption);
     }
 
     .sign-up-strong {
-      color: light-dark(
-        oklch(from var(--ui-success) 0.45 c h),
-        oklch(from var(--ui-success) 0.8 c h)
-      );
+      color: var(--ui-success-text);
       font-weight: var(--ui-font-weight-semibold);
     }
 
     .sign-up-plans .ui-end {
-      gap: var(--size-3);
+      gap: var(--ui-space-3);
     }
 
     .sign-up-price {
@@ -64,19 +45,16 @@
     }
 
     .sign-up-footer {
-      font-size: var(--font-size-1);
       text-align: center;
     }
 
     .sign-up-aside {
-      display: grid;
-      gap: var(--size-5);
-      padding-inline: var(--size-2);
+      padding-inline: var(--ui-space-2);
     }
   }
 </style>
 
-<div class="sign-up">
+<div class="sign-up ui-layout-container" style="--_max-inline-size: 66rem">
   <div class="sign-up-layout">
     <div class="ui-card ui-outlined">
       <hgroup>
@@ -86,7 +64,7 @@
       <div class="ui-content">
         <form class="ui-form" action="#">
           <div class="ui-field-group">
-            <div class="sign-up-names">
+            <div class="ui-layout-grid sign-up-names">
               <label class="ui-text-field">
                 <span class="ui-label">First name</span>
                 <span class="ui-field">
@@ -141,8 +119,10 @@
                 >At least 12 characters, with a number or a symbol.</span
               >
             </label>
-            <div class="sign-up-strength">
-              <span class="sign-up-strength-label" id="sign-up-strength"
+            <div class="ui-layout-column ui-x-small">
+              <span
+                class="ui-layout-row ui-spread sign-up-strength-label"
+                id="sign-up-strength"
                 ><span>Password strength</span
                 ><span class="sign-up-strong">Strong</span></span
               >
@@ -245,7 +225,10 @@
       </div>
     </div>
 
-    <aside aria-label="Why Northwind" class="sign-up-aside">
+    <aside
+      aria-label="Why Northwind"
+      class="ui-layout-column ui-large sign-up-aside"
+    >
       <hgroup class="ui-hgroup">
         <p class="ui-overline">Why teams switch</p>
         <h2 class="ui-h3">Plan, ship and report in one place</h2>

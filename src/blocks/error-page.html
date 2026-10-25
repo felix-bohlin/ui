@@ -1,15 +1,9 @@
 <style>
   .error-page {
-    display: grid;
-    gap: var(--size-6);
-    margin-inline: auto;
-    max-inline-size: 36rem;
-    padding-block: var(--size-6);
+    padding-block: var(--ui-space-6);
 
     .error-page-intro {
-      display: grid;
-      gap: var(--size-4);
-      justify-items: center;
+      align-items: center;
       text-align: center;
     }
 
@@ -21,31 +15,21 @@
       line-height: var(--font-lineheight-00);
     }
 
-    .error-page-search {
-      display: flex;
-      gap: var(--size-2);
-
-      .ui-text-field {
-        flex: 1;
-      }
-    }
-
-    .error-page-links {
-      display: grid;
-      gap: var(--size-2);
+    .error-page-search .ui-text-field {
+      flex: 1;
     }
 
     .error-page-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
-      justify-content: center;
+      --_justify-content: center;
     }
   }
 </style>
 
-<div class="error-page">
-  <div class="error-page-intro">
+<div
+  class="error-page ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 36rem"
+>
+  <div class="ui-layout-column error-page-intro">
     <p class="error-page-code" aria-hidden="true">404</p>
     <hgroup>
       <h1 class="ui-h3">We can't find that page</h1>
@@ -57,7 +41,7 @@
   </div>
 
   <search>
-    <form class="error-page-search" action="#">
+    <form class="ui-layout-row ui-small error-page-search" action="#">
       <label class="ui-text-field">
         <span class="ui-sr-only">Search Northwind</span>
         <span class="ui-field">
@@ -81,7 +65,10 @@
     </form>
   </search>
 
-  <nav aria-labelledby="error-page-links-heading" class="error-page-links">
+  <nav
+    aria-labelledby="error-page-links-heading"
+    class="ui-layout-column ui-small"
+  >
     <h2 class="ui-overline" id="error-page-links-heading">Popular pages</h2>
     <ul class="ui-list ui-bordered ui-tonal">
       <li>
@@ -231,7 +218,7 @@
     </ul>
   </nav>
 
-  <div class="error-page-actions">
+  <div class="ui-layout-row ui-small error-page-actions">
     <a class="ui-button ui-outlined" href="#error-page-back"
       ><svg
         aria-hidden="true"

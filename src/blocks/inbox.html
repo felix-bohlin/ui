@@ -2,38 +2,9 @@
   .inbox {
     container-type: inline-size;
 
-    .inbox-header {
-      align-items: center;
-      border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-      display: flex;
-      gap: var(--size-2);
-      padding: var(--size-2) var(--size-3);
-
-      .ui-text-field {
-        flex: 1;
-        max-inline-size: 28rem;
-      }
-    }
-
     .inbox-menu-button {
       @container (inline-size >= 72rem) {
         display: none;
-      }
-    }
-
-    .inbox-brand {
-      align-items: center;
-      color: var(--ui-text-strong);
-      display: flex;
-      font-weight: var(--ui-font-weight-bold);
-      gap: var(--size-2);
-      margin-inline-end: auto;
-      text-decoration: none;
-
-      svg {
-        block-size: var(--size-5);
-        color: var(--ui-primary);
-        inline-size: var(--size-5);
       }
     }
 
@@ -49,7 +20,7 @@
     .inbox-folders {
       border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
       display: none;
-      padding: var(--size-3) var(--size-2);
+      padding: var(--ui-space-3) var(--ui-space-2);
 
       @container (inline-size >= 72rem) {
         display: block;
@@ -57,26 +28,19 @@
 
       .ui-button {
         inline-size: 100%;
-        margin-block-end: var(--size-2);
+        margin-block-end: var(--ui-space-2);
       }
     }
 
     .inbox-label-heading {
-      padding: var(--size-3) var(--size-3) 0;
-    }
-
-    .inbox-dot {
-      background-color: var(--dot);
-      block-size: var(--size-2);
-      border-radius: var(--radius-round);
-      inline-size: var(--size-2);
+      padding: var(--ui-space-3) var(--ui-space-3) 0;
     }
 
     main {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
 
-      @container (inline-size >= 48rem) {
+      @container (inline-size >= 56rem) {
         grid-template-columns: 20rem minmax(0, 1fr);
       }
 
@@ -88,28 +52,20 @@
     .inbox-list {
       border-block-end: var(--ui-border-width) solid var(--ui-border-color);
 
-      @container (inline-size >= 48rem) {
+      @container (inline-size >= 56rem) {
         border-block-end: 0;
         border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
       }
     }
 
     .inbox-list-header {
-      align-items: center;
-      display: flex;
-      gap: var(--size-2);
-      justify-content: space-between;
-      padding: var(--size-3) var(--size-3) var(--size-1);
-
-      h1 {
-        margin: 0;
-      }
+      padding: var(--ui-space-3) var(--ui-space-3) var(--ui-space-1);
     }
 
     .inbox-messages {
       .ui-text p:first-child {
         display: flex;
-        gap: var(--size-2);
+        gap: var(--ui-space-2);
         justify-content: space-between;
       }
 
@@ -127,6 +83,10 @@
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+
+      [aria-current="page"] :is(.inbox-subject, time) {
+        color: inherit;
+      }
     }
 
     .inbox-unread {
@@ -134,69 +94,13 @@
       .inbox-subject {
         font-weight: var(--ui-font-weight-semibold);
       }
-
-      .ui-start::before {
-        background-color: var(--ui-primary);
-        block-size: var(--size-2);
-        border-radius: var(--radius-round);
-        content: "";
-        inline-size: var(--size-2);
-        inset-block-start: 50%;
-        inset-inline-start: calc(var(--size-2) * -1.25);
-        position: absolute;
-        translate: 0 -50%;
-      }
-
-      .ui-start {
-        position: relative;
-      }
     }
 
     .inbox-reader {
-      display: grid;
-      gap: var(--size-4);
-      padding: var(--size-4);
+      padding: var(--ui-space-4);
 
-      @container (inline-size >= 48rem) {
-        padding: var(--size-5);
-      }
-    }
-
-    .inbox-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-1);
-      justify-content: space-between;
-
-      div {
-        display: flex;
-        gap: var(--size-1);
-      }
-    }
-
-    .inbox-reader-title {
-      display: grid;
-      gap: var(--size-2);
-
-      h2 {
-        margin: 0;
-      }
-    }
-
-    .inbox-labels {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-1);
-    }
-
-    .inbox-sender {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-3);
-
-      p {
-        margin: 0;
+      @container (inline-size >= 56rem) {
+        padding: var(--ui-space-5);
       }
     }
 
@@ -205,99 +109,18 @@
       min-inline-size: 0;
     }
 
-    .inbox-body {
-      display: grid;
-      gap: var(--size-3);
-      max-inline-size: 42rem;
-
-      p,
-      ul {
-        margin: 0;
-      }
-    }
-
-    .inbox-attachments {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
-    }
-
+    .inbox-body,
     .inbox-reply {
-      display: grid;
-      gap: var(--size-2);
       max-inline-size: 42rem;
+    }
 
-      .ui-button {
-        justify-self: end;
-      }
+    .inbox-reply .ui-button {
+      align-self: end;
     }
   }
 </style>
 
 <div class="inbox">
-  <header class="inbox-header">
-    <button
-      aria-label="Open folders"
-      class="ui-button ui-round ui-small inbox-menu-button"
-      command="show-modal"
-      commandfor="inbox-drawer"
-      type="button"
-    >
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="currentColor"
-          d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"
-        ></path>
-      </svg>
-    </button>
-    <a class="inbox-brand" href="#inbox">
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="currentColor"
-          d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 4-8 5-8-5V6l8 5 8-5z"
-        ></path>
-      </svg>
-      Postbox
-    </a>
-    <div class="ui-text-field ui-small">
-      <span class="ui-field">
-        <input
-          aria-label="Search mail"
-          name="inbox-search"
-          placeholder="Search mail"
-          type="search"
-        />
-        <span class="ui-start">
-          <svg
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
-            ></path>
-          </svg>
-        </span>
-      </span>
-    </div>
-    <div class="ui-avatar" role="img" aria-label="Linnea Ek">LE</div>
-  </header>
-
   <div class="inbox-layout">
     <nav aria-label="Folders" class="inbox-folders">
       <button class="ui-button ui-filled" type="button">
@@ -442,7 +265,7 @@
         <li>
           <a href="#inbox-label-clients">
             <div class="ui-start">
-              <span class="inbox-dot" style="--dot: var(--ui-info)"></span>
+              <span class="ui-swatch ui-info"></span>
             </div>
             <div class="ui-text"><p>Clients</p></div>
           </a>
@@ -450,7 +273,7 @@
         <li>
           <a href="#inbox-label-invoices">
             <div class="ui-start">
-              <span class="inbox-dot" style="--dot: var(--ui-success)"></span>
+              <span class="ui-swatch ui-success"></span>
             </div>
             <div class="ui-text"><p>Invoices</p></div>
           </a>
@@ -458,7 +281,7 @@
         <li>
           <a href="#inbox-label-team">
             <div class="ui-start">
-              <span class="inbox-dot" style="--dot: var(--ui-warning)"></span>
+              <span class="ui-swatch ui-warning"></span>
             </div>
             <div class="ui-text"><p>Team</p></div>
           </a>
@@ -468,17 +291,44 @@
 
     <main>
       <section aria-labelledby="inbox-heading" class="inbox-list">
-        <div class="inbox-list-header">
-          <h1 class="ui-h5" id="inbox-heading">Inbox</h1>
+        <div class="ui-layout-row ui-small ui-spread inbox-list-header">
+          <div class="ui-layout-row ui-small">
+            <button
+              aria-label="Open folders"
+              class="ui-button ui-round ui-small inbox-menu-button"
+              command="show-modal"
+              commandfor="inbox-drawer"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"
+                ></path>
+              </svg>
+            </button>
+            <h1 class="ui-h5" id="inbox-heading">Inbox</h1>
+          </div>
           <span class="ui-caption">3 unread</span>
         </div>
         <ul class="ui-list ui-transparent inbox-messages">
           <li class="inbox-unread">
             <a aria-current="page" href="#inbox-message-1">
               <div class="ui-start">
-                <div class="ui-avatar" role="img" aria-label="Henrik Aalto">
-                  HA
-                </div>
+                <span class="ui-badge ui-dot">
+                  <span class="ui-avatar" role="img" aria-label="Henrik Aalto">
+                    HA
+                  </span>
+                  <span class="ui-floating"
+                    ><span class="ui-indicator"></span
+                  ></span>
+                </span>
               </div>
               <div class="ui-text">
                 <p>
@@ -501,9 +351,18 @@
           <li class="inbox-unread">
             <a href="#inbox-message-2">
               <div class="ui-start">
-                <div class="ui-avatar" role="img" aria-label="Camille Durand">
-                  CD
-                </div>
+                <span class="ui-badge ui-dot">
+                  <span
+                    class="ui-avatar"
+                    role="img"
+                    aria-label="Camille Durand"
+                  >
+                    CD
+                  </span>
+                  <span class="ui-floating"
+                    ><span class="ui-indicator"></span
+                  ></span>
+                </span>
               </div>
               <div class="ui-text">
                 <p>
@@ -526,7 +385,14 @@
           <li class="inbox-unread">
             <a href="#inbox-message-3">
               <div class="ui-start">
-                <div class="ui-avatar" role="img" aria-label="Billing">B</div>
+                <span class="ui-badge ui-dot">
+                  <span class="ui-avatar" role="img" aria-label="Billing"
+                    >B</span
+                  >
+                  <span class="ui-floating"
+                    ><span class="ui-indicator"></span
+                  ></span>
+                </span>
               </div>
               <div class="ui-text">
                 <p>
@@ -593,9 +459,16 @@
         </ul>
       </section>
 
-      <article aria-labelledby="inbox-subject" class="inbox-reader">
-        <div class="inbox-toolbar">
-          <div role="group" aria-label="Message actions">
+      <article
+        aria-labelledby="inbox-subject"
+        class="ui-layout-column ui-large inbox-reader"
+      >
+        <div class="ui-layout-row ui-x-small ui-spread">
+          <div
+            aria-label="Message actions"
+            class="ui-layout-row ui-x-small"
+            role="group"
+          >
             <button
               aria-label="Archive"
               class="ui-button ui-round ui-small"
@@ -652,7 +525,7 @@
               </svg>
             </button>
           </div>
-          <div>
+          <div class="ui-layout-row ui-x-small">
             <button class="ui-button ui-outlined ui-small" type="button">
               <svg
                 aria-hidden="true"
@@ -685,13 +558,12 @@
           </div>
         </div>
 
-        <div class="inbox-reader-title">
+        <div class="ui-layout-column ui-small">
           <h2 class="ui-h4" id="inbox-subject">
             Signed contract and next steps
           </h2>
-          <div class="inbox-labels">
-            <span class="ui-chip ui-outlined ui-small">
-              <span class="inbox-dot" style="--dot: var(--ui-info)"></span>
+          <div class="ui-layout-row ui-x-small">
+            <span class="ui-chip ui-dot ui-info ui-outlined ui-small">
               <span class="ui-text">Clients</span>
             </span>
             <span class="ui-chip ui-outlined ui-small">
@@ -700,7 +572,7 @@
           </div>
         </div>
 
-        <div class="inbox-sender">
+        <div class="ui-layout-row">
           <div class="ui-avatar" role="img" aria-label="Henrik Aalto">HA</div>
           <div class="inbox-sender-info">
             <p>
@@ -714,7 +586,7 @@
           >
         </div>
 
-        <div class="inbox-body">
+        <div class="ui-layout-column inbox-body">
           <p>Hi Linnea,</p>
           <p>
             Great news, legal approved everything on our side. Attached is the
@@ -731,7 +603,7 @@
           <p>Henrik</p>
         </div>
 
-        <div class="inbox-attachments">
+        <div class="ui-layout-row ui-small">
           <a class="ui-chip ui-outlined" href="#inbox-attachment-contract">
             <svg
               aria-hidden="true"
@@ -764,7 +636,7 @@
           </a>
         </div>
 
-        <form action="#" class="inbox-reply">
+        <form action="#" class="ui-layout-column ui-small inbox-reply">
           <label class="ui-textarea">
             <span class="ui-label">Reply to Henrik</span>
             <span class="ui-field">

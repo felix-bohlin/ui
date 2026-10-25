@@ -1,36 +1,15 @@
 <style>
   .team-members {
     container-type: inline-size;
-    display: grid;
-    gap: var(--size-5);
-    grid-template-columns: minmax(0, 1fr);
-    margin-inline: auto;
-    max-inline-size: 56rem;
-
-    .team-top {
-      align-items: end;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-4);
-      justify-content: space-between;
-    }
 
     .team-seats {
-      display: grid;
-      gap: var(--size-1);
       inline-size: min(100%, 14rem);
-
-      p {
-        color: var(--ui-text);
-        font-size: var(--font-size-1);
-        margin: 0;
-      }
     }
 
     .team-invite {
       align-items: end;
       display: grid;
-      gap: var(--size-3);
+      gap: var(--ui-space-3);
       grid-template-columns: minmax(0, 1fr);
 
       @container (inline-size >= 40rem) {
@@ -41,21 +20,13 @@
     .team-tabs .ui-panel {
       inline-size: 100%;
       min-inline-size: 0;
-      padding-block-start: var(--size-3);
-    }
-
-    .team-list {
-      margin: 0;
-    }
-
-    .team-you {
-      color: var(--ui-text);
+      padding-block-start: var(--ui-space-3);
     }
 
     .team-end {
-      gap: var(--size-2);
+      gap: var(--ui-space-2);
 
-      @container (inline-size >= 36rem) {
+      @container (inline-size >= 40rem) {
         display: grid;
         grid-template-columns: 9rem 5rem auto;
         justify-items: start;
@@ -71,7 +42,7 @@
     .team-status {
       display: none;
 
-      @container (inline-size >= 36rem) {
+      @container (inline-size >= 40rem) {
         display: inline-flex;
       }
     }
@@ -79,9 +50,9 @@
     .team-pending-actions {
       align-items: end;
       flex-direction: column;
-      gap: var(--size-1);
+      gap: var(--ui-space-1);
 
-      @container (inline-size >= 36rem) {
+      @container (inline-size >= 40rem) {
         align-items: center;
         flex-direction: row;
       }
@@ -89,13 +60,16 @@
   }
 </style>
 
-<div class="team-members">
-  <div class="team-top">
+<div
+  class="team-members ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 58rem"
+>
+  <div class="ui-layout-row ui-spread">
     <hgroup class="ui-hgroup">
       <h1 class="ui-h3">Team members</h1>
       <p>Invite people and choose what they can do.</p>
     </hgroup>
-    <div class="team-seats">
+    <div class="ui-layout-column ui-x-small team-seats">
       <p id="team-members-seats">8 of 10 seats used</p>
       <div class="ui-progress">
         <progress
@@ -178,7 +152,7 @@
               <div class="ui-avatar" role="img" aria-label="Anna Berg">AB</div>
             </div>
             <div class="ui-text">
-              <p>Anna Berg <span class="team-you">(you)</span></p>
+              <p>Anna Berg (you)</p>
               <p>anna.berg@northwind.example</p>
             </div>
             <div class="ui-end team-end">

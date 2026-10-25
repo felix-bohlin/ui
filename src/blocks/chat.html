@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
 
-    @container (inline-size >= 52rem) {
+    @container (inline-size >= 56rem) {
       grid-template-columns: 20rem minmax(0, 1fr);
     }
 
@@ -12,32 +12,24 @@
       border-inline-end: var(--ui-border-width) solid var(--ui-border-color);
       display: none;
 
-      @container (inline-size >= 52rem) {
+      @container (inline-size >= 56rem) {
         display: block;
       }
     }
 
     .chat-sidebar-header {
-      display: grid;
-      gap: var(--size-3);
-      padding: var(--size-4) var(--size-3) var(--size-2);
-    }
-
-    .chat-sidebar-title {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
+      padding: var(--ui-space-4) var(--ui-space-3) var(--ui-space-2);
     }
 
     .chat-unread {
       background-color: var(--ui-primary);
-      border-radius: var(--radius-round);
+      border-radius: var(--ui-radius-round);
       color: var(--ui-on-primary);
-      font-size: var(--font-size-0);
+      font-size: var(--ui-font-size-caption);
       font-weight: var(--ui-font-weight-semibold);
       line-height: 1;
-      min-inline-size: var(--size-5);
-      padding: var(--size-1) var(--size-2);
+      min-inline-size: var(--ui-space-5);
+      padding: var(--ui-space-1) var(--ui-space-2);
       text-align: center;
     }
 
@@ -48,79 +40,42 @@
     }
 
     .chat-thread-header {
-      align-items: center;
       border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-      display: flex;
-      gap: var(--size-3);
-      padding: var(--size-3);
+      padding: var(--ui-space-3);
 
       hgroup {
         flex: 1;
         min-inline-size: 0;
       }
-
-      h1 {
-        margin: 0;
-      }
     }
 
     .chat-conversations-button {
-      @container (inline-size >= 52rem) {
+      @container (inline-size >= 56rem) {
         display: none;
       }
-    }
-
-    .chat-online {
-      align-items: center;
-      display: flex;
-      gap: var(--size-1);
-
-      &::before {
-        background-color: var(--ui-success);
-        block-size: var(--size-2);
-        border-radius: var(--radius-round);
-        content: "";
-        inline-size: var(--size-2);
-      }
-    }
-
-    .chat-thread-actions {
-      display: flex;
-      gap: var(--size-1);
     }
 
     .chat-messages {
       --ui-divider-gap: 0;
 
-      display: flex;
-      flex-direction: column;
-      gap: var(--size-3);
-      list-style-type: none;
-      margin: 0;
-      padding: var(--size-4) var(--size-3);
+      padding: var(--ui-space-4) var(--ui-space-3);
 
       @container (inline-size >= 40rem) {
-        padding-inline: var(--size-5);
+        padding-inline: var(--ui-space-5);
       }
     }
 
     .chat-message {
       align-items: end;
       display: flex;
-      gap: var(--size-2);
+      gap: var(--ui-space-2);
       max-inline-size: min(100%, 34rem);
     }
 
     .chat-bubble {
       background-color: var(--ui-surface-tonal);
       border-radius: var(--ui-radius);
-      display: grid;
-      gap: var(--size-1);
-      padding: var(--size-2) var(--size-3);
-
-      p {
-        margin: 0;
-      }
+      padding: var(--ui-space-2) var(--ui-space-3);
     }
 
     .chat-outgoing {
@@ -139,17 +94,13 @@
     }
 
     .chat-attachment {
-      align-items: center;
       background-color: var(--ui-surface);
       border: var(--ui-border-width) solid var(--ui-border-color);
       border-radius: var(--ui-radius);
-      display: flex;
-      gap: var(--size-2);
-      padding: var(--size-2);
+      padding: var(--ui-space-2);
 
       svg {
         color: var(--ui-primary);
-        flex-shrink: 0;
       }
 
       .ui-link {
@@ -158,11 +109,10 @@
     }
 
     .chat-typing {
-      margin: 0;
-      padding: 0 var(--size-3) var(--size-2);
+      padding: 0 var(--ui-space-3) var(--ui-space-2);
 
       @container (inline-size >= 40rem) {
-        padding-inline: var(--size-5);
+        padding-inline: var(--ui-space-5);
       }
     }
 
@@ -170,8 +120,8 @@
       align-items: end;
       border-block-start: var(--ui-border-width) solid var(--ui-border-color);
       display: flex;
-      gap: var(--size-2);
-      padding: var(--size-3);
+      gap: var(--ui-space-2);
+      padding: var(--ui-space-3);
 
       .ui-textarea {
         flex: 1;
@@ -183,8 +133,8 @@
 
 <div class="chat">
   <aside aria-labelledby="chat-conversations-heading" class="chat-sidebar">
-    <div class="chat-sidebar-header">
-      <div class="chat-sidebar-title">
+    <div class="ui-layout-column chat-sidebar-header">
+      <div class="ui-layout-row ui-spread">
         <h2 class="ui-h5" id="chat-conversations-heading">Messages</h2>
         <button
           aria-label="New message"
@@ -299,7 +249,7 @@
   </aside>
 
   <main>
-    <header class="chat-thread-header">
+    <header class="ui-layout-row chat-thread-header">
       <button
         aria-label="Show conversations"
         class="ui-button ui-round ui-small chat-conversations-button"
@@ -323,9 +273,13 @@
       <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
       <hgroup>
         <h1 class="ui-h6">Saga Nyström</h1>
-        <p class="ui-caption chat-online">Online</p>
+        <p>
+          <span class="ui-chip ui-dot ui-success ui-small"
+            ><span class="ui-text">Online</span></span
+          >
+        </p>
       </hgroup>
-      <div class="chat-thread-actions">
+      <div class="ui-layout-row ui-x-small">
         <button
           aria-label="Start call"
           class="ui-button ui-round ui-small"
@@ -396,11 +350,14 @@
       </div>
     </header>
 
-    <ol aria-label="Messages with Saga Nyström" class="chat-messages">
+    <ol
+      aria-label="Messages with Saga Nyström"
+      class="ui-layout-column chat-messages"
+    >
       <li class="ui-divider">Today</li>
       <li class="chat-message">
         <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
-        <div class="chat-bubble">
+        <div class="ui-layout-column ui-x-small chat-bubble">
           <p>
             Hi! Did you get a chance to look at the pricing proposal for Tromsø
             Outdoor?
@@ -411,7 +368,7 @@
         </div>
       </li>
       <li class="chat-message chat-outgoing">
-        <div class="chat-bubble">
+        <div class="ui-layout-column ui-x-small chat-bubble">
           <p>
             Yes, looks good. I'd lead with the annual plan and keep the 3-seat
             starter as a fallback.
@@ -422,7 +379,7 @@
         </div>
       </li>
       <li class="chat-message chat-outgoing">
-        <div class="chat-bubble">
+        <div class="ui-layout-column ui-x-small chat-bubble">
           <p>Can you add the case study from Bergen Bikes too?</p>
           <p class="ui-caption">
             <time datetime="2026-10-08T14:19">14:19</time>, read
@@ -431,9 +388,9 @@
       </li>
       <li class="chat-message">
         <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
-        <div class="chat-bubble">
+        <div class="ui-layout-column ui-x-small chat-bubble">
           <p>Good call. Here's the current draft:</p>
-          <div class="chat-attachment">
+          <div class="ui-layout-media ui-small chat-attachment">
             <svg
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -460,7 +417,7 @@
       </li>
       <li class="chat-message">
         <div class="ui-avatar" role="img" aria-label="Saga Nyström">SN</div>
-        <div class="chat-bubble">
+        <div class="ui-layout-column ui-x-small chat-bubble">
           <p>Perfect, I'll send the deck tonight 🙌</p>
           <p class="ui-caption">
             <time datetime="2026-10-08T14:32">14:32</time>

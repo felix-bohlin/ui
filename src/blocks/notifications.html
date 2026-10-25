@@ -1,36 +1,7 @@
 <style>
   .notifications {
-    margin-inline: auto;
-    max-inline-size: 42rem;
-
-    .notifications-head {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
-      justify-content: space-between;
-    }
-
-    .notifications-head-actions {
-      align-items: center;
-      display: flex;
-      gap: var(--size-1);
-    }
-
-    > .ui-card > .ui-content {
-      display: grid;
-      gap: var(--size-3);
-    }
-
     .notifications-feed {
-      display: grid;
-      gap: var(--size-4);
-      padding-block-start: var(--size-3);
-    }
-
-    .notifications-day {
-      display: grid;
-      gap: var(--size-2);
+      padding-block-start: var(--ui-space-3);
     }
 
     .notifications-unread .ui-text > p:first-child {
@@ -39,14 +10,11 @@
 
     .notifications-quote {
       border-inline-start: var(--ui-border-width) solid var(--ui-border-color);
-      padding-inline-start: var(--size-2);
+      padding-inline-start: var(--ui-space-2);
     }
 
     .notifications-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
-      padding-block-start: var(--size-2);
+      padding-block-start: var(--ui-space-2);
     }
 
     time {
@@ -54,22 +22,22 @@
     }
 
     .notifications-empty {
-      color: var(--ui-text);
-      display: grid;
-      gap: var(--size-2);
-      justify-items: center;
-      padding-block: var(--size-8);
+      align-items: center;
+      padding-block: var(--ui-space-8);
       text-align: center;
     }
   }
 </style>
 
-<div class="notifications">
+<div
+  class="notifications ui-layout-container"
+  style="--_max-inline-size: 42rem"
+>
   <div class="ui-card ui-outlined">
     <div class="ui-content">
-      <div class="notifications-head">
+      <div class="ui-layout-row ui-small ui-spread">
         <h1 class="ui-h4">Notifications</h1>
-        <div class="notifications-head-actions">
+        <div class="ui-layout-row ui-x-small">
           <button class="ui-button ui-small" type="button">
             <svg
               aria-hidden="true"
@@ -122,10 +90,10 @@
         />
         <label class="ui-label" for="notifications-tab-all">All</label>
         <div class="ui-panel">
-          <div class="notifications-feed">
+          <div class="ui-layout-column ui-large notifications-feed">
             <section
               aria-labelledby="notifications-today"
-              class="notifications-day"
+              class="ui-layout-column ui-small"
             >
               <h2 class="ui-overline" id="notifications-today">Today</h2>
               <ul class="ui-list ui-transparent ui-flush">
@@ -146,7 +114,7 @@
                     <p class="notifications-quote">
                       @Astrid can you check the pricing copy before Friday?
                     </p>
-                    <div class="notifications-actions">
+                    <div class="ui-layout-row ui-small notifications-actions">
                       <button class="ui-button ui-tonal ui-small" type="button">
                         Reply
                       </button>
@@ -176,7 +144,7 @@
                       invited you to the Design guild workspace
                     </p>
                     <p>14 members, including Priya and Mats.</p>
-                    <div class="notifications-actions">
+                    <div class="ui-layout-row ui-small notifications-actions">
                       <button
                         class="ui-button ui-filled ui-small"
                         type="button"
@@ -216,7 +184,7 @@
 
             <section
               aria-labelledby="notifications-yesterday"
-              class="notifications-day"
+              class="ui-layout-column ui-small"
             >
               <h2 class="ui-overline" id="notifications-yesterday">
                 Yesterday
@@ -257,7 +225,7 @@
 
             <section
               aria-labelledby="notifications-earlier"
-              class="notifications-day"
+              class="ui-layout-column ui-small"
             >
               <h2 class="ui-overline" id="notifications-earlier">
                 Monday 5 October
@@ -275,7 +243,7 @@
                       month
                     </p>
                     <p>Update it to avoid a pause in service.</p>
-                    <div class="notifications-actions">
+                    <div class="ui-layout-row ui-small notifications-actions">
                       <a
                         class="ui-button ui-outlined ui-small"
                         href="#notifications-billing"
@@ -304,7 +272,7 @@
           >Mentions</label
         >
         <div class="ui-panel">
-          <div class="notifications-feed">
+          <div class="ui-layout-column ui-large notifications-feed">
             <ul class="ui-list ui-transparent ui-flush">
               <li class="notifications-unread">
                 <div class="ui-start">
@@ -355,7 +323,7 @@
           >Archived</label
         >
         <div class="ui-panel">
-          <div class="notifications-empty">
+          <div class="ui-layout-column ui-small notifications-empty">
             <svg
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"

@@ -1,40 +1,11 @@
 <style>
   .sign-in {
-    display: grid;
-    margin-inline: auto;
-    max-inline-size: 26rem;
-
     .ui-card {
-      padding-block: var(--size-3);
+      padding-block: var(--ui-space-3);
     }
 
     hgroup {
       text-align: center;
-    }
-
-    .ui-content {
-      --ui-divider-gap: 0;
-
-      display: grid;
-      gap: var(--size-4);
-    }
-
-    .sign-in-providers {
-      display: grid;
-      gap: var(--size-2);
-      grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-    }
-
-    .sign-in-row {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
-      justify-content: space-between;
-
-      .ui-link {
-        font-size: var(--font-size-1);
-      }
     }
 
     .sign-in-submit {
@@ -42,20 +13,19 @@
     }
 
     .sign-in-footer {
-      font-size: var(--font-size-1);
       text-align: center;
     }
   }
 </style>
 
-<div class="sign-in">
+<div class="sign-in ui-layout-container" style="--_max-inline-size: 28rem">
   <div class="ui-card ui-outlined">
     <hgroup>
       <h1 class="ui-h4">Sign in to Northwind</h1>
       <p>Welcome back. Pick up where you left off.</p>
     </hgroup>
     <div class="ui-content">
-      <div class="sign-in-providers">
+      <div class="ui-layout-grid ui-small" style="--_min-inline-size: 9rem">
         <button class="ui-button ui-outlined" type="button">
           <svg
             aria-hidden="true"
@@ -113,7 +83,7 @@
               />
             </span>
           </label>
-          <div class="sign-in-row">
+          <div class="ui-layout-row ui-small ui-spread">
             <label class="ui-checkbox">
               <input name="remember" type="checkbox" />
               <span class="ui-label">Remember me</span>

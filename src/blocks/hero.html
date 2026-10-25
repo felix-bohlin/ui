@@ -5,49 +5,27 @@
     .hero-inner {
       align-items: center;
       display: grid;
-      gap: var(--size-8);
+      gap: var(--ui-space-8);
       grid-template-columns: minmax(0, 1fr);
-      margin-inline: auto;
-      max-inline-size: 76rem;
 
-      @container (inline-size >= 60rem) {
+      @container (inline-size >= 56rem) {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
       }
     }
 
     .hero-copy {
-      display: grid;
-      gap: var(--size-5);
-      justify-items: start;
+      align-items: start;
     }
 
     .hero-title {
       font-size: clamp(var(--font-size-6), 7cqi, var(--font-size-8));
       letter-spacing: -0.02em;
-      margin: 0;
       text-wrap: balance;
     }
 
     .hero-pitch {
-      color: var(--ui-text);
       font-size: var(--font-size-3);
-      margin: 0;
       max-inline-size: 34rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-3);
-    }
-
-    .hero-proof {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      font-size: var(--font-size-1);
-      gap: var(--size-3);
-      margin: 0;
     }
 
     .hero-stars {
@@ -67,10 +45,10 @@
         oklch(from var(--ui-primary) l c calc(h + 60) / 15%)
       );
       border-radius: var(--ui-radius);
-      padding: var(--size-4);
+      padding: var(--ui-space-4);
 
       @container (inline-size >= 40rem) {
-        padding: var(--size-6);
+        padding: var(--ui-space-6);
       }
     }
 
@@ -79,36 +57,20 @@
     }
 
     .hero-toolbar {
-      align-items: center;
       border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-      display: flex;
-      gap: var(--size-2);
-      padding: var(--size-2) var(--size-3);
+      padding: var(--ui-space-2) var(--ui-space-3);
 
-      .hero-dot {
-        background-color: var(--ui-border-color);
-        block-size: var(--size-2);
-        border-radius: var(--radius-round);
-        inline-size: var(--size-2);
+      .ui-swatch {
+        --_swatch-bg-color: var(--ui-border-color);
       }
 
       .hero-url {
-        margin-inline-start: var(--size-2);
+        margin-inline-start: var(--ui-space-2);
       }
     }
 
     .hero-screen {
-      display: grid;
-      gap: var(--size-3);
-      padding: var(--size-3);
-    }
-
-    .hero-screen-head {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
-      justify-content: space-between;
+      padding: var(--ui-space-3);
 
       strong {
         font-size: var(--font-size-2);
@@ -116,13 +78,11 @@
     }
 
     .hero-stats {
-      display: grid;
-      gap: var(--size-2);
       grid-template-columns: repeat(3, minmax(0, 1fr));
 
       .ui-card {
-        gap: var(--size-1);
-        padding: var(--size-2);
+        gap: var(--ui-space-1);
+        padding: var(--ui-space-2);
       }
 
       strong {
@@ -133,7 +93,7 @@
 
     .hero-tasks {
       .ui-text p:last-child {
-        font-size: var(--font-size-0);
+        font-size: var(--ui-font-size-caption);
       }
 
       .ui-progress {
@@ -143,9 +103,9 @@
   }
 </style>
 
-<div class="hero">
+<div class="hero ui-layout-container" style="--_max-inline-size: 76rem">
   <div class="hero-inner">
-    <div class="hero-copy">
+    <div class="ui-layout-column ui-large hero-copy">
       <a class="ui-chip ui-outlined" href="#hero-release">
         <span class="ui-text">New: Northwind 6.0 with AI planning</span>
         <svg
@@ -170,7 +130,7 @@
         your team spends less time updating tools and more time building.
       </p>
 
-      <div class="hero-actions">
+      <div class="ui-layout-row">
         <a class="ui-button ui-filled ui-large" href="#hero-sign-up">
           Start free trial
         </a>
@@ -190,7 +150,7 @@
         </a>
       </div>
 
-      <p class="hero-proof">
+      <p class="ui-layout-row">
         <span class="hero-stars" aria-hidden="true">
           <svg
             aria-hidden="true"
@@ -215,22 +175,22 @@
         role="img"
         aria-label="Preview of a Northwind sprint board with three stats and three tasks in progress"
       >
-        <div class="hero-toolbar">
-          <span class="hero-dot"></span>
-          <span class="hero-dot"></span>
-          <span class="hero-dot"></span>
+        <div class="ui-layout-row ui-small hero-toolbar">
+          <span class="ui-swatch"></span>
+          <span class="ui-swatch"></span>
+          <span class="ui-swatch"></span>
           <span class="hero-url ui-caption"
             >app.northwind.example/sprints/42</span
           >
         </div>
-        <div class="hero-screen">
-          <div class="hero-screen-head">
+        <div class="ui-layout-column hero-screen">
+          <div class="ui-layout-row ui-small ui-spread">
             <strong>Sprint 42</strong>
             <span class="ui-chip ui-small">
               <span class="ui-text">Ends Oct 16</span>
             </span>
           </div>
-          <div class="hero-stats">
+          <div class="ui-layout-grid ui-small hero-stats">
             <div class="ui-card ui-outlined">
               <span class="ui-caption">Done</span>
               <strong>18</strong>

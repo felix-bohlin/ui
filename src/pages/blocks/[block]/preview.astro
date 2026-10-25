@@ -3,6 +3,7 @@ import "@opui/css/imports.css"
 import "@opui/open-props.css"
 import ThemeBootstrap from "../../../components/ThemeBootstrap.astro"
 import { allBlocks, isFullPage } from "../../../utils/blocks"
+import { testPagesEnabled } from "../../../utils/test-pages"
 
 export function getStaticPaths() {
   return allBlocks.map((block) => ({
@@ -13,6 +14,17 @@ export function getStaticPaths() {
 
 const { block } = Astro.props
 const fullPage = isFullPage(block.source)
+const themes = testPagesEnabled()
+  ? Object.fromEntries(
+      Object.entries(
+        import.meta.glob<string>("../../../../packages/opui/themes/*.css", {
+          eager: true,
+          import: "default",
+          query: "?raw",
+        }),
+      ).map(([path, css]) => [path.match(/themes\/([^/]+)\.css$/)![1], css]),
+    )
+  : {}
 ---
 
 <!doctype html>
@@ -59,11 +71,20 @@ const fullPage = isFullPage(block.source)
         </main>
       )
     }
+    <script is:inline define:vars={{ themes }}>
+      const theme = new URLSearchParams(location.search).get("theme")
+      if (theme && Object.hasOwn(themes, theme)) {
+        const style = document.createElement("style")
+        style.textContent = themes[theme]
+        document.head.append(style)
+        document.documentElement.dataset.theme = theme
+      }
+    </script>
   </body>
 </html>
 
 <style is:global>
   main.block-preview {
-    padding: var(--size-6) var(--size-4);
+    padding-block: var(--ui-space-6);
   }
 </style>

@@ -1,24 +1,11 @@
 <style>
   .two-factor {
-    display: grid;
-    margin-inline: auto;
-    max-inline-size: 26rem;
-
     .ui-card {
-      padding-block: var(--size-3);
-    }
-
-    .ui-content {
-      --ui-divider-gap: 0;
-
-      display: grid;
-      gap: var(--size-4);
+      padding-block: var(--ui-space-3);
     }
 
     .two-factor-head {
-      display: grid;
-      gap: var(--size-3);
-      justify-items: center;
+      align-items: center;
       text-align: center;
     }
 
@@ -37,25 +24,19 @@
     }
 
     .two-factor-resend {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      font-size: var(--font-size-1);
-      gap: var(--size-1);
-      justify-content: center;
+      --_justify-content: center;
     }
 
     .two-factor-footer {
-      font-size: var(--font-size-1);
       text-align: center;
     }
   }
 </style>
 
-<div class="two-factor">
+<div class="two-factor ui-layout-container" style="--_max-inline-size: 28rem">
   <div class="ui-card ui-outlined">
     <div class="ui-content">
-      <div class="two-factor-head">
+      <div class="ui-layout-column two-factor-head">
         <div class="ui-avatar ui-squircle">
           <svg
             aria-hidden="true"
@@ -110,7 +91,7 @@
         </div>
       </form>
 
-      <p class="two-factor-resend">
+      <p class="ui-layout-row ui-x-small two-factor-resend">
         Didn't get a code?
         <button class="ui-button ui-small" type="button">
           <svg

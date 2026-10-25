@@ -1,38 +1,17 @@
 <style>
   .blog-list {
     container-type: inline-size;
-    display: grid;
-    gap: var(--size-7);
-    margin-inline: auto;
-    max-inline-size: 76rem;
 
-    .blog-header {
-      align-items: end;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-4);
-      justify-content: space-between;
-
-      .ui-hgroup {
-        flex: 1 1 24rem;
-      }
-    }
-
-    .blog-categories {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
+    .blog-header .ui-hgroup {
+      flex: 1 1 24rem;
     }
 
     .blog-cover {
       aspect-ratio: 2 / 1;
       background-image: linear-gradient(
         135deg,
-        oklch(from var(--ui-primary) l c calc(h + var(--blog-hue, 0))),
-        oklch(from var(--ui-primary) l c calc(h + var(--blog-hue, 0) + 60))
+        oklch(from var(--ui-primary) l c calc(h + var(--hue, 0))),
+        oklch(from var(--ui-primary) l c calc(h + var(--hue, 0) + 60))
       );
     }
 
@@ -40,9 +19,9 @@
       display: grid;
       grid-template-columns: minmax(0, 1fr);
 
-      @container (inline-size >= 52rem) {
+      @container (inline-size >= 56rem) {
         align-items: center;
-        gap: var(--size-6);
+        gap: var(--ui-space-6);
         grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
 
         .blog-cover {
@@ -51,74 +30,29 @@
       }
 
       .blog-featured-body {
-        display: grid;
-        gap: var(--size-4);
-        padding: var(--size-5);
+        padding: var(--ui-space-5);
       }
-
-      .ui-hgroup {
-        h2 {
-          text-wrap: balance;
-        }
-      }
-    }
-
-    .blog-latest {
-      display: grid;
-      gap: var(--size-4);
 
       h2 {
-        margin: 0;
-      }
-    }
-
-    .blog-posts {
-      display: grid;
-      gap: var(--size-5);
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-
-      .ui-card {
-        block-size: 100%;
+        text-wrap: balance;
       }
     }
 
     .blog-meta {
-      display: grid;
-      gap: var(--size-4);
       margin-block-start: auto;
     }
 
-    .blog-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-1);
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .blog-byline {
-      align-items: center;
-      display: flex;
-      gap: var(--size-3);
-    }
-
-    .blog-byline-text {
-      display: grid;
-      font-size: var(--font-size-1);
-    }
-
     .blog-more {
-      justify-self: center;
+      align-self: center;
     }
   }
 </style>
 
-<div class="blog-list">
-  <div class="blog-header">
+<div
+  class="blog-list ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 76rem"
+>
+  <div class="ui-layout-row ui-spread blog-header">
     <hgroup class="ui-hgroup">
       <p>Northwind blog</p>
       <h1 class="ui-h2">Notes on building calm software</h1>
@@ -127,7 +61,7 @@
       </p>
     </hgroup>
     <nav aria-label="Categories">
-      <ul class="blog-categories">
+      <ul class="ui-layout-row ui-small">
         <li>
           <a class="ui-chip" href="#blog-list-all" aria-current="page"
             ><span class="ui-text">All posts</span></a
@@ -160,11 +94,11 @@
   <article class="ui-card ui-outlined blog-featured">
     <div
       class="blog-cover"
-      style="--blog-hue: 0"
+      style="--hue: 0"
       role="img"
       aria-label="Cover image for Northwind 6.0: planning that learns from your team"
     ></div>
-    <div class="blog-featured-body">
+    <div class="ui-layout-column blog-featured-body">
       <hgroup class="ui-hgroup">
         <p>Featured</p>
         <h2 class="ui-h3">
@@ -177,7 +111,7 @@
           faster. Here's what's new and how we built it.
         </p>
       </hgroup>
-      <ul class="blog-tags" aria-label="Tags">
+      <ul class="ui-layout-row ui-x-small" aria-label="Tags">
         <li class="ui-chip ui-small">
           <span class="ui-text">Product</span>
         </li>
@@ -185,26 +119,26 @@
           <span class="ui-text">Release</span>
         </li>
       </ul>
-      <div class="blog-byline">
+      <div class="ui-layout-media">
         <span class="ui-avatar" aria-hidden="true">LE</span>
-        <span class="blog-byline-text"
-          ><span>Lena Ek, Head of Product</span
-          ><span class="ui-caption"
-            ><time datetime="2026-10-01">Oct 1, 2026</time>, 12 min read</span
-          ></span
-        >
+        <div>
+          <p>Lena Ek, Head of Product</p>
+          <p class="ui-caption">
+            <time datetime="2026-10-01">Oct 1, 2026</time>, 12 min read
+          </p>
+        </div>
       </div>
     </div>
   </article>
 
-  <section class="blog-latest" aria-labelledby="blog-list-latest-heading">
+  <section class="ui-layout-column" aria-labelledby="blog-list-latest-heading">
     <h2 class="ui-h4" id="blog-list-latest-heading">Latest posts</h2>
-    <ul class="blog-posts">
+    <ul class="ui-layout-grid ui-large" style="--_min-inline-size: 20rem">
       <li>
         <article class="ui-card ui-outlined">
           <div
             class="blog-cover"
-            style="--blog-hue: 40"
+            style="--hue: 40"
             role="img"
             aria-label="Cover image for Inside our new search engine"
           ></div>
@@ -220,7 +154,7 @@
             </p>
           </hgroup>
           <div class="ui-content blog-meta">
-            <ul class="blog-tags" aria-label="Tags">
+            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
               <li class="ui-chip ui-small">
                 <span class="ui-text">Engineering</span>
               </li>
@@ -228,15 +162,14 @@
                 <span class="ui-text">Performance</span>
               </li>
             </ul>
-            <div class="blog-byline">
+            <div class="ui-layout-media">
               <span class="ui-avatar" aria-hidden="true">OH</span>
-              <span class="blog-byline-text"
-                ><span>Omar Haddad</span
-                ><span class="ui-caption"
-                  ><time datetime="2026-09-30">Sep 30, 2026</time>, 9 min
-                  read</span
-                ></span
-              >
+              <div>
+                <p>Omar Haddad</p>
+                <p class="ui-caption">
+                  <time datetime="2026-09-30">Sep 30, 2026</time>, 9 min read
+                </p>
+              </div>
             </div>
           </div>
         </article>
@@ -245,7 +178,7 @@
         <article class="ui-card ui-outlined">
           <div
             class="blog-cover"
-            style="--blog-hue: 200"
+            style="--hue: 200"
             role="img"
             aria-label="Cover image for Working with clients in Northwind"
           ></div>
@@ -261,7 +194,7 @@
             </p>
           </hgroup>
           <div class="ui-content blog-meta">
-            <ul class="blog-tags" aria-label="Tags">
+            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
               <li class="ui-chip ui-small">
                 <span class="ui-text">Guides</span>
               </li>
@@ -269,15 +202,14 @@
                 <span class="ui-text">Collaboration</span>
               </li>
             </ul>
-            <div class="blog-byline">
+            <div class="ui-layout-media">
               <span class="ui-avatar" aria-hidden="true">IJ</span>
-              <span class="blog-byline-text"
-                ><span>Ida Jansson</span
-                ><span class="ui-caption"
-                  ><time datetime="2026-09-22">Sep 22, 2026</time>, 5 min
-                  read</span
-                ></span
-              >
+              <div>
+                <p>Ida Jansson</p>
+                <p class="ui-caption">
+                  <time datetime="2026-09-22">Sep 22, 2026</time>, 5 min read
+                </p>
+              </div>
             </div>
           </div>
         </article>
@@ -286,7 +218,7 @@
         <article class="ui-card ui-outlined">
           <div
             class="blog-cover"
-            style="--blog-hue: 320"
+            style="--hue: 320"
             role="img"
             aria-label="Cover image for How Fjord Health ships weekly with 4 teams"
           ></div>
@@ -302,20 +234,19 @@
             </p>
           </hgroup>
           <div class="ui-content blog-meta">
-            <ul class="blog-tags" aria-label="Tags">
+            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
               <li class="ui-chip ui-small">
                 <span class="ui-text">Customer stories</span>
               </li>
             </ul>
-            <div class="blog-byline">
+            <div class="ui-layout-media">
               <span class="ui-avatar" aria-hidden="true">SK</span>
-              <span class="blog-byline-text"
-                ><span>Sara Kim</span
-                ><span class="ui-caption"
-                  ><time datetime="2026-09-15">Sep 15, 2026</time>, 7 min
-                  read</span
-                ></span
-              >
+              <div>
+                <p>Sara Kim</p>
+                <p class="ui-caption">
+                  <time datetime="2026-09-15">Sep 15, 2026</time>, 7 min read
+                </p>
+              </div>
             </div>
           </div>
         </article>
@@ -324,7 +255,7 @@
         <article class="ui-card ui-outlined">
           <div
             class="blog-cover"
-            style="--blog-hue: 100"
+            style="--hue: 100"
             role="img"
             aria-label="Cover image for Estimates are a conversation, not a number"
           ></div>
@@ -340,20 +271,19 @@
             </p>
           </hgroup>
           <div class="ui-content blog-meta">
-            <ul class="blog-tags" aria-label="Tags">
+            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
               <li class="ui-chip ui-small">
                 <span class="ui-text">Product</span>
               </li>
             </ul>
-            <div class="blog-byline">
+            <div class="ui-layout-media">
               <span class="ui-avatar" aria-hidden="true">KL</span>
-              <span class="blog-byline-text"
-                ><span>Karl Lund</span
-                ><span class="ui-caption"
-                  ><time datetime="2026-09-08">Sep 8, 2026</time>, 6 min
-                  read</span
-                ></span
-              >
+              <div>
+                <p>Karl Lund</p>
+                <p class="ui-caption">
+                  <time datetime="2026-09-08">Sep 8, 2026</time>, 6 min read
+                </p>
+              </div>
             </div>
           </div>
         </article>
@@ -362,7 +292,7 @@
         <article class="ui-card ui-outlined">
           <div
             class="blog-cover"
-            style="--blog-hue: 260"
+            style="--hue: 260"
             role="img"
             aria-label="Cover image for Designing dark mode with OKLCH"
           ></div>
@@ -378,7 +308,7 @@
             </p>
           </hgroup>
           <div class="ui-content blog-meta">
-            <ul class="blog-tags" aria-label="Tags">
+            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
               <li class="ui-chip ui-small">
                 <span class="ui-text">Design</span>
               </li>
@@ -386,15 +316,14 @@
                 <span class="ui-text">Accessibility</span>
               </li>
             </ul>
-            <div class="blog-byline">
+            <div class="ui-layout-media">
               <span class="ui-avatar" aria-hidden="true">ER</span>
-              <span class="blog-byline-text"
-                ><span>Elif Rahman</span
-                ><span class="ui-caption"
-                  ><time datetime="2026-08-29">Aug 29, 2026</time>, 8 min
-                  read</span
-                ></span
-              >
+              <div>
+                <p>Elif Rahman</p>
+                <p class="ui-caption">
+                  <time datetime="2026-08-29">Aug 29, 2026</time>, 8 min read
+                </p>
+              </div>
             </div>
           </div>
         </article>
@@ -403,7 +332,7 @@
         <article class="ui-card ui-outlined">
           <div
             class="blog-cover"
-            style="--blog-hue: 160"
+            style="--hue: 160"
             role="img"
             aria-label="Cover image for Our remote onboarding checklist"
           ></div>
@@ -419,20 +348,19 @@
             </p>
           </hgroup>
           <div class="ui-content blog-meta">
-            <ul class="blog-tags" aria-label="Tags">
+            <ul class="ui-layout-row ui-x-small" aria-label="Tags">
               <li class="ui-chip ui-small">
                 <span class="ui-text">Company</span>
               </li>
             </ul>
-            <div class="blog-byline">
+            <div class="ui-layout-media">
               <span class="ui-avatar" aria-hidden="true">AB</span>
-              <span class="blog-byline-text"
-                ><span>Anna Berg</span
-                ><span class="ui-caption"
-                  ><time datetime="2026-08-18">Aug 18, 2026</time>, 4 min
-                  read</span
-                ></span
-              >
+              <div>
+                <p>Anna Berg</p>
+                <p class="ui-caption">
+                  <time datetime="2026-08-18">Aug 18, 2026</time>, 4 min read
+                </p>
+              </div>
             </div>
           </div>
         </article>

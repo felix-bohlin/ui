@@ -1,44 +1,31 @@
 <style>
   .newsletter {
     container-type: inline-size;
-    margin-inline: auto;
-    max-inline-size: 64rem;
 
     .newsletter-card {
       display: grid;
-      gap: var(--size-6);
+      gap: var(--ui-space-6);
       grid-template-columns: minmax(0, 1fr);
-      padding: var(--size-5);
+      padding: var(--ui-space-5);
 
-      @container (inline-size >= 52rem) {
-        gap: var(--size-8);
+      @container (inline-size >= 56rem) {
+        gap: var(--ui-space-8);
         grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-        padding: var(--size-7);
+        padding: var(--ui-space-7);
       }
     }
 
-    .newsletter-intro {
-      align-content: start;
-      display: grid;
-      gap: var(--size-5);
-    }
-
-    .newsletter-issue {
-      .ui-text p:first-child {
-        font-weight: var(--ui-font-weight-medium);
-      }
+    .newsletter-issue .ui-text p:first-child {
+      font-weight: var(--ui-font-weight-medium);
     }
 
     .newsletter-form {
       align-content: start;
-      gap: var(--size-5);
+      gap: var(--ui-space-5);
     }
 
     .newsletter-signup {
       align-items: end;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
 
       .ui-text-field {
         flex: 1 1 14rem;
@@ -46,24 +33,18 @@
     }
 
     .newsletter-topics {
-      display: grid;
-      gap: var(--size-3);
       grid-template-columns: minmax(0, 1fr);
 
-      @container (inline-size >= 30rem) {
+      @container (inline-size >= 40rem) {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-    }
-
-    .newsletter-privacy {
-      margin: 0;
     }
   }
 </style>
 
-<div class="newsletter">
+<div class="newsletter ui-layout-container" style="--_max-inline-size: 64rem">
   <div class="ui-card ui-outlined newsletter-card">
-    <div class="newsletter-intro">
+    <div class="ui-layout-column ui-large">
       <hgroup class="ui-hgroup">
         <p>The Northwind Dispatch</p>
         <h1 class="ui-h3">Product notes worth reading, every other Thursday</h1>
@@ -99,7 +80,7 @@
     </div>
 
     <form class="ui-form newsletter-form" action="#">
-      <div class="newsletter-signup">
+      <div class="ui-layout-row ui-small newsletter-signup">
         <label class="ui-text-field">
           <span class="ui-label">Email</span>
           <span class="ui-field">
@@ -196,7 +177,7 @@
         </div>
       </div>
 
-      <p class="ui-caption newsletter-privacy">
+      <p class="ui-caption">
         We'll only use your email for this newsletter. Unsubscribe with one
         click at any time. Read our
         <a class="ui-link" href="#newsletter-privacy">privacy policy</a>.

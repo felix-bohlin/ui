@@ -4,14 +4,12 @@
 
     .faq-inner {
       display: grid;
-      gap: var(--size-6);
+      gap: var(--ui-space-6);
       grid-template-columns: minmax(0, 1fr);
-      margin-inline: auto;
-      max-inline-size: 72rem;
 
       @container (inline-size >= 56rem) {
         align-content: start;
-        column-gap: var(--size-8);
+        column-gap: var(--ui-space-8);
         grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
 
         .ui-tabs {
@@ -21,41 +19,10 @@
         }
       }
     }
-
-    .faq-support {
-      .ui-content {
-        align-items: center;
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--size-3);
-      }
-
-      .faq-agent p {
-        margin: 0;
-      }
-    }
-
-    .faq-online {
-      align-items: center;
-      display: inline-flex;
-      gap: var(--size-2);
-
-      &::before {
-        background-color: var(--ui-success);
-        block-size: var(--size-2);
-        border-radius: var(--radius-round);
-        content: "";
-        inline-size: var(--size-2);
-      }
-    }
-
-    .ui-panel p {
-      margin: 0;
-    }
   }
 </style>
 
-<div class="faq">
+<div class="faq ui-layout-container">
   <div class="faq-inner">
     <hgroup class="ui-hgroup">
       <p>Help center</p>
@@ -86,6 +53,7 @@
               How long is the free trial?
               <svg
                 aria-hidden="true"
+                class="ui-marker"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -110,6 +78,7 @@
               Can I import from another tool?
               <svg
                 aria-hidden="true"
+                class="ui-marker"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -134,6 +103,7 @@
               Is there a mobile app?
               <svg
                 aria-hidden="true"
+                class="ui-marker"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -158,6 +128,7 @@
               Do you offer discounts for non-profits?
               <svg
                 aria-hidden="true"
+                class="ui-marker"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -197,6 +168,7 @@
               Which payment methods do you accept?
               <svg
                 aria-hidden="true"
+                class="ui-marker"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -220,6 +192,7 @@
               Can I change plans at any time?
               <svg
                 aria-hidden="true"
+                class="ui-marker"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -243,6 +216,7 @@
               What happens when I add more members?
               <svg
                 aria-hidden="true"
+                class="ui-marker"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -281,6 +255,7 @@
               Where is my data stored?
               <svg
                 aria-hidden="true"
+                class="ui-marker"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -304,6 +279,7 @@
               Do you support single sign-on?
               <svg
                 aria-hidden="true"
+                class="ui-marker"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -328,6 +304,7 @@
               Are you GDPR and SOC 2 compliant?
               <svg
                 aria-hidden="true"
+                class="ui-marker"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -350,19 +327,21 @@
       </div>
     </div>
 
-    <section
-      class="ui-card ui-outlined faq-support"
-      aria-labelledby="faq-support-heading"
-    >
+    <section class="ui-card ui-outlined" aria-labelledby="faq-support-heading">
       <hgroup>
         <h2 class="ui-h5" id="faq-support-heading">Still have questions?</h2>
         <p>Our support team in Stockholm usually replies within 2 hours.</p>
       </hgroup>
-      <div class="ui-content">
+      <div class="ui-content ui-layout-media">
         <div class="ui-avatar" aria-hidden="true">AH</div>
-        <div class="faq-agent">
-          <p>Astrid Holm</p>
-          <p class="ui-caption faq-online">Online now, Mon–Fri 08–18 CET</p>
+        <div>
+          <p>
+            Astrid Holm
+            <span class="ui-chip ui-dot ui-success ui-small"
+              ><span class="ui-text">Online now</span></span
+            >
+          </p>
+          <p class="ui-caption">Mon–Fri 08–18 CET</p>
         </div>
       </div>
       <div class="ui-actions">

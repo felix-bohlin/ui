@@ -1,10 +1,6 @@
 <style>
   .feature-grid {
     container-type: inline-size;
-    display: grid;
-    gap: var(--size-7);
-    margin-inline: auto;
-    max-inline-size: 72rem;
 
     .feature-intro {
       margin-inline: auto;
@@ -17,14 +13,9 @@
     }
 
     .feature-list {
-      display: grid;
-      gap: var(--size-4);
       grid-template-columns: minmax(0, 1fr);
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
 
-      @container (inline-size >= 36rem) {
+      @container (inline-size >= 40rem) {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -32,30 +23,11 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .ui-card {
-        block-size: 100%;
-      }
-
       .ui-content {
         display: grid;
-        gap: var(--size-2);
+        gap: var(--ui-space-2);
         justify-items: start;
-
-        & > * {
-          margin: 0;
-        }
       }
-
-      p {
-        color: var(--ui-text);
-      }
-    }
-
-    .feature-heading {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
     }
 
     .feature-icon {
@@ -63,26 +35,20 @@
       border-radius: var(--ui-radius);
       color: var(--ui-primary);
       display: grid;
-      padding: var(--size-2);
+      padding: var(--ui-space-2);
       place-items: center;
-
-      svg {
-        block-size: var(--size-5);
-        inline-size: var(--size-5);
-      }
     }
 
     .feature-footer {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-3);
-      justify-content: center;
+      --_justify-content: center;
     }
   }
 </style>
 
-<section class="feature-grid" aria-labelledby="feature-grid-heading">
+<section
+  class="feature-grid ui-layout-container ui-layout-column ui-large"
+  aria-labelledby="feature-grid-heading"
+>
   <hgroup class="ui-hgroup feature-intro">
     <p>Why Northwind</p>
     <h1 class="ui-h2" id="feature-grid-heading">
@@ -94,13 +60,14 @@
     </p>
   </hgroup>
 
-  <ul class="feature-list">
+  <ul class="ui-layout-grid ui-large feature-list">
     <li>
       <article class="ui-card ui-outlined">
         <div class="ui-content">
           <span class="feature-icon">
             <svg
               aria-hidden="true"
+              class="ui-icon ui-large"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -126,6 +93,7 @@
           <span class="feature-icon">
             <svg
               aria-hidden="true"
+              class="ui-icon ui-large"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -151,6 +119,7 @@
           <span class="feature-icon">
             <svg
               aria-hidden="true"
+              class="ui-icon ui-large"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -162,7 +131,7 @@
               ></path>
             </svg>
           </span>
-          <div class="feature-heading">
+          <div class="ui-layout-row ui-small">
             <h2 class="ui-h5">Insights</h2>
             <span class="ui-chip ui-x-small">
               <span class="ui-text">New</span>
@@ -181,6 +150,7 @@
           <span class="feature-icon">
             <svg
               aria-hidden="true"
+              class="ui-icon ui-large"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -206,6 +176,7 @@
           <span class="feature-icon">
             <svg
               aria-hidden="true"
+              class="ui-icon ui-large"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -231,6 +202,7 @@
           <span class="feature-icon">
             <svg
               aria-hidden="true"
+              class="ui-icon ui-large"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -252,7 +224,7 @@
     </li>
   </ul>
 
-  <div class="feature-footer">
+  <div class="ui-layout-row feature-footer">
     <a class="ui-button ui-filled" href="#feature-grid-trial"
       >Start free trial</a
     >

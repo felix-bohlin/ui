@@ -1,38 +1,20 @@
 <style>
   .product-detail {
     container-type: inline-size;
-    margin-inline: auto;
-    max-inline-size: 72rem;
 
-    .pd-breadcrumb ol {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      font-size: var(--font-size-1);
-      gap: var(--size-2);
-      list-style-type: none;
-      margin: 0 0 var(--size-4);
-      padding: 0;
-
-      li + li::before {
-        color: var(--ui-text);
-        content: "/";
-        margin-inline-end: var(--size-2);
-      }
-
-      [aria-current="page"] {
-        color: var(--ui-text);
-      }
+    .pd-breadcrumb li + li::before {
+      content: "/";
+      margin-inline-end: var(--ui-space-2);
     }
 
     .pd-layout {
       align-items: start;
       display: grid;
-      gap: var(--size-6);
+      gap: var(--ui-space-6);
       grid-template-columns: minmax(0, 1fr);
 
-      @container (inline-size >= 52rem) {
-        gap: var(--size-8);
+      @container (inline-size >= 56rem) {
+        gap: var(--ui-space-8);
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       }
     }
@@ -40,117 +22,41 @@
     .pd-gallery {
       position: relative;
 
-      @container (inline-size >= 52rem) {
-        inset-block-start: var(--size-4);
+      @container (inline-size >= 56rem) {
+        inset-block-start: var(--ui-space-4);
         position: sticky;
       }
     }
 
     .pd-image {
       aspect-ratio: 1;
+      background: linear-gradient(
+        135deg,
+        oklch(from var(--ui-primary) l c calc(h + var(--hue, 0))),
+        oklch(from var(--ui-primary) l c calc(h + var(--hue, 0) + 60))
+      );
       border-radius: var(--ui-radius);
     }
 
-    .pd-image-1 {
-      background: linear-gradient(
-        135deg,
-        var(--ui-primary),
-        oklch(from var(--ui-primary) l c calc(h + 60))
-      );
-    }
-
-    .pd-image-2 {
-      background: linear-gradient(
-        160deg,
-        oklch(from var(--ui-primary) l c calc(h + 30)),
-        oklch(from var(--ui-primary) calc(l - 0.15) c calc(h + 90))
-      );
-    }
-
-    .pd-image-3 {
-      background: radial-gradient(
-        circle at 30% 30%,
-        oklch(from var(--ui-primary) calc(l + 0.15) c h),
-        oklch(from var(--ui-primary) l c calc(h + 60))
-      );
-    }
-
-    .pd-image-4 {
-      background: linear-gradient(
-        45deg,
-        oklch(from var(--ui-primary) calc(l - 0.1) c calc(h + 60)),
-        var(--ui-primary)
-      );
-    }
-
-    .pd-info {
-      display: grid;
-      gap: var(--size-5);
-    }
-
-    .pd-rating {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      font-size: var(--font-size-1);
-      gap: var(--size-2);
-      margin: 0;
-    }
-
     .pd-stars {
-      color: light-dark(
-        oklch(from var(--ui-warning) 0.6 c h),
-        oklch(from var(--ui-warning) 0.8 c h)
-      );
+      color: var(--ui-warning-text);
       display: flex;
-
-      svg {
-        block-size: var(--size-4);
-        inline-size: var(--size-4);
-      }
     }
 
-    .pd-price {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
-      margin: 0;
-
-      strong {
-        font-size: var(--font-size-5);
-        font-variant-numeric: tabular-nums;
-      }
-
-      s {
-        color: var(--ui-text);
-      }
-    }
-
-    .pd-summary {
-      color: var(--ui-text);
-      margin: 0;
+    .pd-price strong {
+      font-size: var(--font-size-5);
+      font-variant-numeric: tabular-nums;
     }
 
     .pd-swatch {
       aspect-ratio: 1;
-      border: var(--ui-border-width) solid var(--ui-border-color);
-      border-radius: var(--radius-round);
-      inline-size: var(--size-3);
-    }
-
-    .pd-swatch-pine {
-      background-color: var(--ui-primary);
-    }
-
-    .pd-swatch-fjord {
-      background-color: oklch(from var(--ui-primary) l c calc(h + 60));
-    }
-
-    .pd-swatch-sand {
       background-color: oklch(
-        from var(--ui-primary) calc(l + 0.2) c calc(h - 80)
+        from var(--ui-primary) calc(l + var(--lightness, 0)) c
+          calc(h + var(--hue, 0))
       );
+      border: var(--ui-border-width) solid var(--ui-border-color);
+      border-radius: var(--ui-radius-round);
+      inline-size: var(--size-3);
     }
 
     .pd-option .ui-toggle-group {
@@ -159,9 +65,6 @@
 
     .pd-buy {
       align-items: end;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
 
       .ui-text-field {
         inline-size: 6rem;
@@ -173,28 +76,22 @@
     }
 
     .pd-form {
-      gap: var(--size-5);
+      gap: var(--ui-space-5);
     }
 
     .pd-perks {
-      margin: 0;
       padding-block: 0;
     }
 
-    .pd-details {
-      margin-block-start: var(--size-2);
-    }
-
     .pd-details ul {
-      margin: 0;
-      padding-inline-start: var(--size-4);
+      padding-inline-start: var(--ui-space-4);
     }
   }
 </style>
 
-<div class="product-detail">
+<div class="product-detail ui-layout-container ui-layout-column ui-large">
   <nav aria-label="Breadcrumb" class="pd-breadcrumb">
-    <ol>
+    <ol class="ui-layout-row ui-small">
       <li><a class="ui-link" href="#product-detail-shop">Shop</a></li>
       <li><a class="ui-link" href="#product-detail-women">Women</a></li>
       <li><a class="ui-link" href="#product-detail-midlayers">Midlayers</a></li>
@@ -212,43 +109,48 @@
         <li>
           <div
             aria-label="Merino Trail Hoodie in Pine, front view"
-            class="pd-image pd-image-1"
+            class="pd-image"
+            style="--hue: 0"
             role="img"
           ></div>
         </li>
         <li>
           <div
             aria-label="Back view with the zipped chest pocket"
-            class="pd-image pd-image-2"
+            class="pd-image"
+            style="--hue: 30"
             role="img"
           ></div>
         </li>
         <li>
           <div
             aria-label="Close-up of the merino knit"
-            class="pd-image pd-image-3"
+            class="pd-image"
+            style="--hue: 60"
             role="img"
           ></div>
         </li>
         <li>
           <div
             aria-label="Worn on a mountain trail"
-            class="pd-image pd-image-4"
+            class="pd-image"
+            style="--hue: 90"
             role="img"
           ></div>
         </li>
       </ul>
     </div>
 
-    <div class="pd-info">
+    <div class="ui-layout-column ui-large">
       <hgroup class="ui-hgroup">
         <p class="ui-overline">Fjällgården</p>
         <h1 class="ui-h3">Merino Trail Hoodie</h1>
       </hgroup>
 
-      <p class="pd-rating">
+      <div class="ui-layout-row ui-small">
         <span class="pd-stars" aria-hidden="true">
           <svg
+            class="ui-icon"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -260,6 +162,7 @@
             ></path>
           </svg>
           <svg
+            class="ui-icon"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -271,6 +174,7 @@
             ></path>
           </svg>
           <svg
+            class="ui-icon"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -282,6 +186,7 @@
             ></path>
           </svg>
           <svg
+            class="ui-icon"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -293,6 +198,7 @@
             ></path>
           </svg>
           <svg
+            class="ui-icon"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -306,17 +212,17 @@
         </span>
         <span>4.7 out of 5</span>
         <a class="ui-link" href="#product-detail-reviews">128 reviews</a>
-      </p>
+      </div>
 
-      <p class="pd-price">
+      <div class="ui-layout-row ui-small pd-price">
         <strong>€119.00</strong>
         <s><span class="ui-sr-only">Was </span>€149.00</s>
         <span class="ui-chip ui-small"
           ><span class="ui-text">Save 20%</span></span
         >
-      </p>
+      </div>
 
-      <p class="pd-summary">
+      <p>
         A breathable 200 g/m² merino midlayer with a scuba hood, thumb loops and
         a zipped chest pocket. Warm on cold starts, never clammy on the climb.
       </p>
@@ -332,17 +238,25 @@
                 type="radio"
                 value="pine"
               />
-              <span aria-hidden="true" class="pd-swatch pd-swatch-pine"></span>
+              <span aria-hidden="true" class="pd-swatch"></span>
               Pine
             </label>
             <label class="ui-toggle-button">
               <input name="product-detail-color" type="radio" value="fjord" />
-              <span aria-hidden="true" class="pd-swatch pd-swatch-fjord"></span>
+              <span
+                aria-hidden="true"
+                class="pd-swatch"
+                style="--hue: 60"
+              ></span>
               Fjord
             </label>
             <label class="ui-toggle-button">
               <input name="product-detail-color" type="radio" value="sand" />
-              <span aria-hidden="true" class="pd-swatch pd-swatch-sand"></span>
+              <span
+                aria-hidden="true"
+                class="pd-swatch"
+                style="--hue: -80; --lightness: 0.2"
+              ></span>
               Sand
             </label>
           </div>
@@ -388,7 +302,7 @@
           </p>
         </fieldset>
 
-        <div class="pd-buy">
+        <div class="ui-layout-row ui-small pd-buy">
           <label class="ui-text-field">
             <span class="ui-label">Quantity</span>
             <span class="ui-field">
@@ -514,6 +428,7 @@
             Details
             <svg
               aria-hidden="true"
+              class="ui-marker"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -539,6 +454,7 @@
             Materials and care
             <svg
               aria-hidden="true"
+              class="ui-marker"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -563,6 +479,7 @@
             Shipping and returns
             <svg
               aria-hidden="true"
+              class="ui-marker"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"

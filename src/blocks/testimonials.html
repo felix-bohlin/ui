@@ -1,15 +1,9 @@
 <style>
   .testimonials {
     container-type: inline-size;
-    display: grid;
-    gap: var(--size-7);
-    margin-inline: auto;
-    max-inline-size: 72rem;
 
     .testimonials-intro {
-      display: grid;
-      gap: var(--size-4);
-      justify-items: center;
+      align-items: center;
       margin-inline: auto;
       max-inline-size: 40rem;
       text-align: center;
@@ -20,50 +14,31 @@
     }
 
     .testimonials-summary {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      font-size: var(--font-size-1);
-      gap: var(--size-2);
-      justify-content: center;
-      margin: 0;
+      --_justify-content: center;
     }
 
     .testimonials-list {
-      column-gap: var(--size-4);
+      column-gap: var(--ui-space-4);
       columns: 1;
       list-style-type: none;
-      margin: 0;
       padding: 0;
 
       @container (inline-size >= 40rem) {
         columns: 2;
       }
 
-      @container (inline-size >= 60rem) {
+      @container (inline-size >= 56rem) {
         columns: 3;
       }
 
       li {
         break-inside: avoid;
-        padding-block-end: var(--size-4);
-      }
-
-      figure {
-        margin: 0;
+        padding-block-end: var(--ui-space-4);
       }
 
       .ui-content {
         display: grid;
-        gap: var(--size-3);
-      }
-
-      blockquote {
-        margin: 0;
-
-        p {
-          margin: 0;
-        }
+        gap: var(--ui-space-3);
       }
     }
 
@@ -81,25 +56,17 @@
       }
     }
 
-    .testimonials-author {
-      align-items: center;
-      display: flex;
-      gap: var(--size-3);
-      margin-block-start: var(--size-1);
-
-      & > span:last-child {
-        display: grid;
-      }
-    }
-
     .testimonials-name {
       font-weight: var(--ui-font-weight-medium);
     }
   }
 </style>
 
-<section class="testimonials" aria-labelledby="testimonials-heading">
-  <div class="testimonials-intro">
+<section
+  class="testimonials ui-layout-container ui-layout-column ui-large"
+  aria-labelledby="testimonials-heading"
+>
+  <div class="ui-layout-column testimonials-intro">
     <hgroup class="ui-hgroup">
       <p>Customer stories</p>
       <h1 class="ui-h2" id="testimonials-heading">
@@ -110,7 +77,7 @@
         customers say.
       </p>
     </hgroup>
-    <p class="testimonials-summary">
+    <p class="ui-layout-row testimonials-summary">
       <span class="testimonials-stars" aria-hidden="true">
         <svg
           aria-hidden="true"
@@ -158,14 +125,12 @@
               engineering is actually doing.
             </p>
           </blockquote>
-          <figcaption class="testimonials-author">
+          <figcaption class="ui-layout-media">
             <span class="ui-avatar" aria-hidden="true">SL</span>
-            <span
-              ><span class="testimonials-name">Sofia Lindqvist</span
-              ><span class="ui-caption"
-                >Head of Product, Fjord Health</span
-              ></span
-            >
+            <div>
+              <p class="testimonials-name">Sofia Lindqvist</p>
+              <p class="ui-caption">Head of Product, Fjord Health</p>
+            </div>
           </figcaption>
         </div>
       </figure>
@@ -197,14 +162,12 @@
               attachment.
             </p>
           </blockquote>
-          <figcaption class="testimonials-author">
+          <figcaption class="ui-layout-media">
             <span class="ui-avatar" aria-hidden="true">DO</span>
-            <span
-              ><span class="testimonials-name">Daniel Okafor</span
-              ><span class="ui-caption"
-                >Engineering Manager, Brightpath</span
-              ></span
-            >
+            <div>
+              <p class="testimonials-name">Daniel Okafor</p>
+              <p class="ui-caption">Engineering Manager, Brightpath</p>
+            </div>
           </figcaption>
         </div>
       </figure>
@@ -242,12 +205,12 @@
               there.
             </p>
           </blockquote>
-          <figcaption class="testimonials-author">
+          <figcaption class="ui-layout-media">
             <span class="ui-avatar" aria-hidden="true">MT</span>
-            <span
-              ><span class="testimonials-name">Mei Tanaka</span
-              ><span class="ui-caption">Staff Engineer, Kumo Labs</span></span
-            >
+            <div>
+              <p class="testimonials-name">Mei Tanaka</p>
+              <p class="ui-caption">Staff Engineer, Kumo Labs</p>
+            </div>
           </figcaption>
         </div>
       </figure>
@@ -279,14 +242,12 @@
               items. Closing the loop with customers is now a one-click job.
             </p>
           </blockquote>
-          <figcaption class="testimonials-author">
+          <figcaption class="ui-layout-media">
             <span class="ui-avatar" aria-hidden="true">JB</span>
-            <span
-              ><span class="testimonials-name">Jonas Berg</span
-              ><span class="ui-caption"
-                >Customer Success Lead, Saltvik</span
-              ></span
-            >
+            <div>
+              <p class="testimonials-name">Jonas Berg</p>
+              <p class="ui-caption">Customer Success Lead, Saltvik</p>
+            </div>
           </figcaption>
         </div>
       </figure>
@@ -315,12 +276,12 @@
           <blockquote>
             <p>Honestly the calmest tool we use. No noise, just the work.</p>
           </blockquote>
-          <figcaption class="testimonials-author">
+          <figcaption class="ui-layout-media">
             <span class="ui-avatar" aria-hidden="true">AD</span>
-            <span
-              ><span class="testimonials-name">Amara Diallo</span
-              ><span class="ui-caption">Designer, Studio Nord</span></span
-            >
+            <div>
+              <p class="testimonials-name">Amara Diallo</p>
+              <p class="ui-caption">Designer, Studio Nord</p>
+            </div>
           </figcaption>
         </div>
       </figure>
@@ -353,12 +314,12 @@
               down.
             </p>
           </blockquote>
-          <figcaption class="testimonials-author">
+          <figcaption class="ui-layout-media">
             <span class="ui-avatar" aria-hidden="true">EJ</span>
-            <span
-              ><span class="testimonials-name">Erik Johansson</span
-              ><span class="ui-caption">CTO, Ledger & Co</span></span
-            >
+            <div>
+              <p class="testimonials-name">Erik Johansson</p>
+              <p class="ui-caption">CTO, Ledger & Co</p>
+            </div>
           </figcaption>
         </div>
       </figure>

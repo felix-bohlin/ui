@@ -1,134 +1,46 @@
 <style>
   .order-history {
     container-type: inline-size;
-    display: grid;
-    gap: var(--size-5);
-    margin-inline: auto;
-    max-inline-size: 60rem;
-
-    .orders-header {
-      align-items: end;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-3);
-      justify-content: space-between;
-    }
 
     .orders-filters {
       align-items: end;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-3);
 
       .ui-text-field {
         flex: 1 1 14rem;
       }
     }
 
-    .orders-list {
-      display: grid;
-      gap: var(--size-4);
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
-
     .orders-top {
       align-items: start;
       border-block-end: var(--ui-border-width) solid var(--ui-border-color);
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-3);
-      justify-content: space-between;
-      padding: var(--size-3);
-    }
-
-    .orders-top h2 {
-      margin: 0;
+      padding: var(--ui-space-3);
     }
 
     .orders-meta {
       display: grid;
       flex: 1 1 24rem;
-      gap: var(--size-3) var(--size-5);
+      gap: var(--ui-space-3) var(--ui-space-5);
       grid-template-columns: repeat(auto-fit, minmax(7rem, max-content));
-      margin: 0;
 
       dd {
         font-variant-numeric: tabular-nums;
         font-weight: var(--ui-font-weight-semibold);
-        margin: 0;
       }
-    }
-
-    .orders-status {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
-    }
-
-    .orders-body {
-      display: grid;
-      gap: var(--size-3);
-    }
-
-    .orders-tracking {
-      display: grid;
-      gap: var(--size-1);
-
-      p {
-        font-size: var(--font-size-1);
-        margin: 0;
-      }
-    }
-
-    .orders-steps {
-      display: flex;
-      justify-content: space-between;
     }
 
     .orders-items {
-      margin: 0;
       padding-block: 0;
     }
 
     .orders-thumb {
       aspect-ratio: 1;
+      background: linear-gradient(
+        135deg,
+        oklch(from var(--ui-primary) l c calc(h + var(--hue, 0))),
+        oklch(from var(--ui-primary) l c calc(h + var(--hue, 0) + 60))
+      );
       border-radius: var(--ui-radius);
       inline-size: var(--size-8);
-    }
-
-    .orders-thumb-1 {
-      background: linear-gradient(
-        135deg,
-        var(--ui-primary),
-        oklch(from var(--ui-primary) l c calc(h + 60))
-      );
-    }
-
-    .orders-thumb-2 {
-      background: linear-gradient(
-        135deg,
-        oklch(from var(--ui-primary) l c calc(h - 80)),
-        oklch(from var(--ui-primary) l c calc(h - 30))
-      );
-    }
-
-    .orders-thumb-3 {
-      background: linear-gradient(
-        135deg,
-        oklch(from var(--ui-primary) l c calc(h + 140)),
-        oklch(from var(--ui-primary) l c calc(h + 190))
-      );
-    }
-
-    .orders-thumb-4 {
-      background: linear-gradient(
-        135deg,
-        oklch(from var(--ui-primary) l c calc(h + 200)),
-        oklch(from var(--ui-primary) l c calc(h + 250))
-      );
     }
 
     .orders-price {
@@ -142,32 +54,21 @@
         margin-inline-start: auto;
       }
     }
-
-    .orders-footer {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-3);
-      justify-content: space-between;
-
-      p {
-        color: var(--ui-text);
-        font-size: var(--font-size-1);
-        margin: 0;
-      }
-    }
   }
 </style>
 
-<div class="order-history">
-  <div class="orders-header">
+<div
+  class="order-history ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 60rem"
+>
+  <div class="ui-layout-row ui-spread">
     <hgroup class="ui-hgroup">
       <h1 class="ui-h3">Order history</h1>
       <p>Track deliveries, download receipts and buy again.</p>
     </hgroup>
   </div>
 
-  <div class="orders-filters">
+  <div class="ui-layout-row orders-filters">
     <div class="ui-text-field">
       <span class="ui-field">
         <input
@@ -208,10 +109,10 @@
     </div>
   </div>
 
-  <ul class="orders-list">
+  <ul class="ui-layout-column ui-large">
     <li>
       <article aria-labelledby="order-history-4821" class="ui-card ui-outlined">
-        <div class="orders-top">
+        <div class="ui-layout-row ui-spread orders-top">
           <h2 class="ui-h5" id="order-history-4821">Order NW-4821</h2>
           <dl class="orders-meta">
             <div>
@@ -227,26 +128,14 @@
               <dd>Astrid Lindqvist</dd>
             </div>
           </dl>
-          <div class="orders-status">
-            <span class="ui-chip ui-info">
-              <svg
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m13.5-9 1.96 2.5H17V9.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5"
-                ></path>
-              </svg>
+          <div class="ui-layout-row ui-small">
+            <span class="ui-chip ui-dot ui-info ui-small">
               <span class="ui-text">In transit</span>
             </span>
           </div>
         </div>
-        <div class="ui-content orders-body">
-          <div class="orders-tracking">
+        <div class="ui-content">
+          <div class="ui-layout-column ui-x-small">
             <p id="order-history-4821-eta">
               Arrives <strong>Thursday 8 October</strong>, PostNord 00370 7319
               4821
@@ -258,7 +147,7 @@
                 value="66"
               ></progress>
             </div>
-            <div aria-hidden="true" class="orders-steps ui-caption">
+            <div aria-hidden="true" class="ui-layout-row ui-spread ui-caption">
               <span>Ordered</span><span>Shipped</span><span>Delivered</span>
             </div>
           </div>
@@ -267,7 +156,8 @@
               <div class="ui-start">
                 <div
                   aria-label="Merino base layer in Pine"
-                  class="orders-thumb orders-thumb-1"
+                  class="orders-thumb"
+                  style="--hue: 0"
                   role="img"
                 ></div>
               </div>
@@ -281,7 +171,8 @@
               <div class="ui-start">
                 <div
                   aria-label="Wool hiking socks in Fjord"
-                  class="orders-thumb orders-thumb-3"
+                  class="orders-thumb"
+                  style="--hue: 140"
                   role="img"
                 ></div>
               </div>
@@ -359,7 +250,7 @@
 
     <li>
       <article aria-labelledby="order-history-4610" class="ui-card ui-outlined">
-        <div class="orders-top">
+        <div class="ui-layout-row ui-spread orders-top">
           <h2 class="ui-h5" id="order-history-4610">Order NW-4610</h2>
           <dl class="orders-meta">
             <div>
@@ -375,31 +266,20 @@
               <dd>Astrid Lindqvist</dd>
             </div>
           </dl>
-          <div class="orders-status">
-            <span class="ui-chip ui-success">
-              <svg
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
-                ></path>
-              </svg>
+          <div class="ui-layout-row ui-small">
+            <span class="ui-chip ui-dot ui-success ui-small">
               <span class="ui-text">Delivered 17 Sep</span>
             </span>
           </div>
         </div>
-        <div class="ui-content orders-body">
+        <div class="ui-content">
           <ul class="ui-list ui-transparent ui-flush orders-items">
             <li>
               <div class="ui-start">
                 <div
                   aria-label="Down vest in Moss"
-                  class="orders-thumb orders-thumb-2"
+                  class="orders-thumb"
+                  style="--hue: -80"
                   role="img"
                 ></div>
               </div>
@@ -413,7 +293,8 @@
               <div class="ui-start">
                 <div
                   aria-label="Insulated bottle in Slate"
-                  class="orders-thumb orders-thumb-4"
+                  class="orders-thumb"
+                  style="--hue: 200"
                   role="img"
                 ></div>
               </div>
@@ -502,7 +383,7 @@
 
     <li>
       <article aria-labelledby="order-history-4377" class="ui-card ui-outlined">
-        <div class="orders-top">
+        <div class="ui-layout-row ui-spread orders-top">
           <h2 class="ui-h5" id="order-history-4377">Order NW-4377</h2>
           <dl class="orders-meta">
             <div>
@@ -518,31 +399,20 @@
               <dd>Mateo Okafor</dd>
             </div>
           </dl>
-          <div class="orders-status">
-            <span class="ui-chip ui-warning">
-              <svg
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8"
-                ></path>
-              </svg>
+          <div class="ui-layout-row ui-small">
+            <span class="ui-chip ui-dot ui-warning ui-small">
               <span class="ui-text">Returned</span>
             </span>
           </div>
         </div>
-        <div class="ui-content orders-body">
+        <div class="ui-content">
           <ul class="ui-list ui-transparent ui-flush orders-items">
             <li>
               <div class="ui-start">
                 <div
                   aria-label="Trail running cap in Sand"
-                  class="orders-thumb orders-thumb-2"
+                  class="orders-thumb"
+                  style="--hue: -80"
                   role="img"
                 ></div>
               </div>
@@ -597,7 +467,7 @@
     </li>
   </ul>
 
-  <div class="orders-footer">
+  <div class="ui-layout-row ui-spread">
     <p>Showing 3 of 18 orders</p>
     <button class="ui-button ui-outlined" type="button">Load more</button>
   </div>

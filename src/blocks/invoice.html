@@ -1,53 +1,25 @@
 <style>
   .invoice {
     container-type: inline-size;
-    display: grid;
-    gap: var(--size-4);
-    margin-inline: auto;
-    max-inline-size: 56rem;
-
-    .invoice-toolbar {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
-      justify-content: space-between;
-
-      div {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--size-2);
-      }
-    }
 
     .invoice-sheet {
-      padding: var(--size-2);
+      padding: var(--ui-space-2);
 
       @container (inline-size >= 40rem) {
-        padding: var(--size-5);
+        padding: var(--ui-space-5);
       }
 
       > .ui-content {
-        display: grid;
-        gap: var(--size-6);
-        grid-template-columns: minmax(0, 1fr);
-        min-inline-size: 0;
+        gap: var(--ui-space-6);
       }
     }
 
     .invoice-head {
       align-items: start;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-4);
-      justify-content: space-between;
     }
 
     .invoice-brand {
-      align-items: center;
-      display: flex;
       font-weight: var(--ui-font-weight-bold);
-      gap: var(--size-2);
 
       svg {
         block-size: var(--size-6);
@@ -57,29 +29,15 @@
     }
 
     .invoice-title {
-      display: grid;
-      gap: var(--size-2);
-      justify-items: start;
+      align-items: start;
 
       @container (inline-size >= 40rem) {
-        justify-items: end;
+        align-items: end;
         text-align: end;
       }
     }
 
-    .invoice-due {
-      &::before {
-        background-color: var(--ui-warning);
-        block-size: var(--size-2);
-        border-radius: var(--radius-round);
-        content: "";
-        inline-size: var(--size-2);
-      }
-    }
-
     .invoice-parties {
-      display: grid;
-      gap: var(--size-5);
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
 
       address {
@@ -89,59 +47,40 @@
     }
 
     .invoice-label {
-      margin-block-end: var(--size-2);
+      margin-block-end: var(--ui-space-2);
     }
 
-    .invoice-items {
-      overflow-x: auto;
-
-      .ui-table {
-        margin-block: 0;
-        min-inline-size: 30rem;
+    .invoice-items :is(th, td) {
+      &:first-child {
+        inline-size: 100%;
       }
-    }
 
-    .invoice-number {
-      font-variant-numeric: tabular-nums;
-      text-align: end;
-      white-space: nowrap;
+      &:last-child {
+        inline-size: auto;
+      }
     }
 
     .invoice-totals {
-      display: grid;
-      gap: var(--size-2) 0;
-      grid-template-columns: 1fr auto;
-      inline-size: 100%;
-      margin: 0;
-      margin-inline-start: auto;
+      justify-self: end;
       max-inline-size: 22rem;
+    }
 
+    .invoice-total {
+      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+      font-size: var(--font-size-3);
+      font-weight: var(--ui-font-weight-bold);
+      padding-block-start: var(--ui-space-3);
+
+      dd,
       dt {
-        color: var(--ui-text);
-        margin: 0;
-      }
-
-      dd {
-        font-variant-numeric: tabular-nums;
-        margin: 0;
-        text-align: end;
-      }
-
-      .invoice-total {
-        border-block-start: var(--ui-border-width) solid var(--ui-border-color);
         color: var(--ui-text-strong);
-        font-size: var(--font-size-3);
-        font-weight: var(--ui-font-weight-bold);
-        padding-block-start: var(--size-3);
       }
     }
 
     .invoice-payment {
-      display: grid;
-      gap: var(--size-4);
       grid-template-columns: minmax(0, 1fr);
 
-      @container (inline-size >= 44rem) {
+      @container (inline-size >= 40rem) {
         grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
       }
     }
@@ -152,8 +91,11 @@
   }
 </style>
 
-<div class="invoice">
-  <div class="invoice-toolbar">
+<div
+  class="invoice ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 58rem"
+>
+  <div class="ui-layout-row ui-small ui-spread">
     <a class="ui-button ui-small" href="#invoice-all"
       ><svg
         aria-hidden="true"
@@ -168,7 +110,7 @@
         ></path></svg
       ><span class="ui-text">All invoices</span></a
     >
-    <div>
+    <div class="ui-layout-row ui-small">
       <button class="ui-button ui-outlined ui-small" type="button">
         <svg
           aria-hidden="true"
@@ -219,8 +161,8 @@
     class="ui-card ui-outlined invoice-sheet"
   >
     <div class="ui-content">
-      <div class="invoice-head">
-        <p class="invoice-brand">
+      <div class="ui-layout-row ui-spread invoice-head">
+        <div class="ui-layout-row ui-small invoice-brand">
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -234,19 +176,19 @@
             ></path>
           </svg>
           Northwind Studio
-        </p>
-        <div class="invoice-title">
+        </div>
+        <div class="ui-layout-column ui-small invoice-title">
           <hgroup>
             <h1 class="ui-h3" id="invoice-heading">Invoice NW-2026-0418</h1>
             <p>Issued 8 October 2026</p>
           </hgroup>
-          <span class="ui-chip ui-small invoice-due"
+          <span class="ui-chip ui-dot ui-warning ui-small"
             ><span class="ui-text">Due 7 November 2026</span></span
           >
         </div>
       </div>
 
-      <div class="invoice-parties">
+      <div class="ui-layout-grid ui-large invoice-parties">
         <section aria-labelledby="invoice-from">
           <h2 class="ui-overline invoice-label" id="invoice-from">From</h2>
           <address>
@@ -282,76 +224,80 @@
         </section>
       </div>
 
-      <div
+      <table
         aria-label="Line items"
-        class="invoice-items"
-        role="region"
+        class="ui-table ui-flush ui-overflow-scroll invoice-items"
         tabindex="0"
       >
-        <table class="ui-table">
-          <thead>
-            <tr>
-              <th scope="col">Description</th>
-              <th class="invoice-number" scope="col">Qty</th>
-              <th class="invoice-number" scope="col">Unit price</th>
-              <th class="invoice-number" scope="col">Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                Design system audit
-                <p class="ui-caption">Components, tokens and docs review</p>
-              </td>
-              <td class="invoice-number">24 h</td>
-              <td class="invoice-number">1 250 kr</td>
-              <td class="invoice-number">30 000 kr</td>
-            </tr>
-            <tr>
-              <td>
-                Component library, sprint 14
-                <p class="ui-caption">Data table, date picker and drawer</p>
-              </td>
-              <td class="invoice-number">1</td>
-              <td class="invoice-number">48 000 kr</td>
-              <td class="invoice-number">48 000 kr</td>
-            </tr>
-            <tr>
-              <td>
-                Accessibility review
-                <p class="ui-caption">WCAG 2.2 AA, checkout flow</p>
-              </td>
-              <td class="invoice-number">8 h</td>
-              <td class="invoice-number">1 250 kr</td>
-              <td class="invoice-number">10 000 kr</td>
-            </tr>
-            <tr>
-              <td>
-                Hosting, October 2026
-                <p class="ui-caption">Docs site and Storybook</p>
-              </td>
-              <td class="invoice-number">1</td>
-              <td class="invoice-number">1 490 kr</td>
-              <td class="invoice-number">1 490 kr</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <dl class="invoice-totals">
-        <dt>Subtotal</dt>
-        <dd>89 490,00 kr</dd>
-        <dt>VAT 25 %</dt>
-        <dd>22 372,50 kr</dd>
-        <dt class="invoice-total">Total due</dt>
-        <dd class="invoice-total">111 862,50 kr</dd>
+        <thead>
+          <tr>
+            <th scope="col">Description</th>
+            <th class="ui-numeric" scope="col">Qty</th>
+            <th class="ui-numeric" scope="col">Unit price</th>
+            <th class="ui-numeric" scope="col">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              Design system audit
+              <p class="ui-caption">Components, tokens and docs review</p>
+            </td>
+            <td class="ui-numeric">24 h</td>
+            <td class="ui-numeric">1 250 kr</td>
+            <td class="ui-numeric">30 000 kr</td>
+          </tr>
+          <tr>
+            <td>
+              Component library, sprint 14
+              <p class="ui-caption">Data table, date picker and drawer</p>
+            </td>
+            <td class="ui-numeric">1</td>
+            <td class="ui-numeric">48 000 kr</td>
+            <td class="ui-numeric">48 000 kr</td>
+          </tr>
+          <tr>
+            <td>
+              Accessibility review
+              <p class="ui-caption">WCAG 2.2 AA, checkout flow</p>
+            </td>
+            <td class="ui-numeric">8 h</td>
+            <td class="ui-numeric">1 250 kr</td>
+            <td class="ui-numeric">10 000 kr</td>
+          </tr>
+          <tr>
+            <td>
+              Hosting, October 2026
+              <p class="ui-caption">Docs site and Storybook</p>
+            </td>
+            <td class="ui-numeric">1</td>
+            <td class="ui-numeric">1 490 kr</td>
+            <td class="ui-numeric">1 490 kr</td>
+          </tr>
+        </tbody>
+      </table>
+      <dl
+        class="ui-description-list ui-horizontal ui-bordered-solid invoice-totals"
+      >
+        <div>
+          <dt>Subtotal</dt>
+          <dd>89 490,00 kr</dd>
+        </div>
+        <div>
+          <dt>VAT 25 %</dt>
+          <dd>22 372,50 kr</dd>
+        </div>
+        <div class="invoice-total">
+          <dt>Total due</dt>
+          <dd>111 862,50 kr</dd>
+        </div>
       </dl>
 
       <hr class="ui-divider" />
 
       <section
         aria-labelledby="invoice-payment-heading"
-        class="invoice-payment"
+        class="ui-layout-grid ui-large invoice-payment"
       >
         <div>
           <h2 class="ui-overline invoice-label" id="invoice-payment-heading">

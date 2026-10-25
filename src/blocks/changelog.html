@@ -1,54 +1,33 @@
 <style>
   .changelog {
     container-type: inline-size;
-    display: grid;
-    gap: var(--size-7);
-    margin-inline: auto;
-    max-inline-size: 56rem;
-
-    .changelog-header {
-      align-items: end;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-4);
-      justify-content: space-between;
-    }
 
     .changelog-header .ui-hgroup {
       flex: 1 1 24rem;
     }
 
-    .changelog-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
-    }
-
     .changelog-timeline {
-      display: grid;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
+      --_gap: 0;
     }
 
     .changelog-release {
       border-inline-start: var(--ui-border-width) solid var(--ui-border-color);
       display: grid;
-      gap: var(--size-2) var(--size-6);
-      padding-block-end: var(--size-8);
-      padding-inline-start: var(--size-5);
+      gap: var(--ui-space-2) var(--ui-space-6);
+      padding-block-end: var(--ui-space-8);
+      padding-inline-start: var(--ui-space-5);
       position: relative;
 
       &::before {
         background-color: var(--ui-surface);
-        block-size: var(--size-3);
-        border: var(--border-size-2) solid var(--ui-text);
-        border-radius: var(--radius-round);
+        block-size: var(--ui-space-3);
+        border: var(--ui-border-width-thick) solid var(--ui-text);
+        border-radius: var(--ui-radius-round);
         content: "";
-        inline-size: var(--size-3);
-        inset-block-start: var(--size-1);
+        inline-size: var(--ui-space-3);
+        inset-block-start: var(--ui-space-1);
         inset-inline-start: calc(
-          var(--size-3) / -2 - var(--ui-border-width) / 2
+          var(--ui-space-3) / -2 - var(--ui-border-width) / 2
         );
         position: absolute;
       }
@@ -62,32 +41,13 @@
         padding-block-end: 0;
       }
 
-      @container (inline-size >= 44rem) {
+      @container (inline-size >= 40rem) {
         grid-template-columns: 10rem minmax(0, 1fr);
       }
     }
 
     .changelog-meta {
-      align-content: start;
-      display: grid;
-      gap: var(--size-2);
-      justify-items: start;
-
-      time {
-        color: var(--ui-text);
-        font-size: var(--font-size-1);
-      }
-    }
-
-    .changelog-body {
-      display: grid;
-      gap: var(--size-4);
-      min-inline-size: 0;
-
-      h2,
-      p {
-        margin: 0;
-      }
+      align-items: start;
     }
 
     .changelog-cover {
@@ -100,60 +60,30 @@
       border-radius: var(--ui-radius);
     }
 
-    .changelog-group {
+    .changelog-group ul {
       display: grid;
-      gap: var(--size-2);
-
-      h3 {
-        align-items: center;
-        display: flex;
-        gap: var(--size-2);
-        margin: 0;
-
-        &::before {
-          background-color: var(--changelog-dot);
-          block-size: var(--size-2);
-          border-radius: var(--radius-round);
-          content: "";
-          inline-size: var(--size-2);
-        }
-      }
-
-      ul {
-        display: grid;
-        gap: var(--size-1);
-        list-style-type: disc;
-        margin: 0;
-        padding-inline-start: var(--size-5);
-      }
-    }
-
-    .changelog-added {
-      --changelog-dot: var(--ui-success);
-    }
-
-    .changelog-improved {
-      --changelog-dot: var(--ui-info);
-    }
-
-    .changelog-fixed {
-      --changelog-dot: var(--ui-warning);
+      gap: var(--ui-space-1);
+      list-style-type: disc;
+      padding-inline-start: var(--ui-space-5);
     }
 
     .changelog-more {
-      justify-self: center;
+      align-self: center;
     }
   }
 </style>
 
-<div class="changelog">
-  <div class="changelog-header">
+<div
+  class="changelog ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 56rem"
+>
+  <div class="ui-layout-row ui-spread changelog-header">
     <hgroup class="ui-hgroup">
       <p>Product updates</p>
       <h1 class="ui-h2">Changelog</h1>
       <p>New features, improvements and fixes in every release.</p>
     </hgroup>
-    <div class="changelog-actions">
+    <div class="ui-layout-row ui-small">
       <a class="ui-button ui-outlined ui-small" href="#changelog-rss">
         <svg
           aria-hidden="true"
@@ -174,15 +104,15 @@
     </div>
   </div>
 
-  <ol class="changelog-timeline">
+  <ol class="ui-layout-column changelog-timeline">
     <li class="changelog-release">
-      <div class="changelog-meta">
+      <div class="ui-layout-column ui-small changelog-meta">
         <time datetime="2026-10-01">Oct 1, 2026</time>
         <span class="ui-chip ui-small">
           <span class="ui-text">v6.0.0 (latest)</span>
         </span>
       </div>
-      <div class="changelog-body">
+      <div class="ui-layout-column">
         <h2 class="ui-h4" id="changelog-6-0">AI planning and a faster board</h2>
         <div
           class="changelog-cover"
@@ -193,8 +123,10 @@
           Northwind 6.0 suggests estimates and sprint scope from your past work,
           and the board now renders 3× faster on large projects.
         </p>
-        <div class="changelog-group changelog-added">
-          <h3 class="ui-h6">Added</h3>
+        <div class="ui-layout-column ui-small changelog-group">
+          <h3 class="ui-h6 ui-layout-row ui-small">
+            <span class="ui-swatch ui-success"></span>Added
+          </h3>
           <ul>
             <li>AI estimates on new issues, based on similar finished work.</li>
             <li>Sprint planner that flags overcommitted team members.</li>
@@ -204,8 +136,10 @@
             </li>
           </ul>
         </div>
-        <div class="changelog-group changelog-improved">
-          <h3 class="ui-h6">Improved</h3>
+        <div class="ui-layout-column ui-small changelog-group">
+          <h3 class="ui-h6 ui-layout-row ui-small">
+            <span class="ui-swatch ui-info"></span>Improved
+          </h3>
           <ul>
             <li>Boards with 5&nbsp;000+ issues load in under a second.</li>
             <li>Cleaner issue sidebar with collapsible sections.</li>
@@ -238,27 +172,31 @@
     </li>
 
     <li class="changelog-release">
-      <div class="changelog-meta">
+      <div class="ui-layout-column ui-small changelog-meta">
         <time datetime="2026-09-12">Sep 12, 2026</time>
         <span class="ui-chip ui-outlined ui-small">
           <span class="ui-text">v5.8.0</span>
         </span>
       </div>
-      <div class="changelog-body">
+      <div class="ui-layout-column">
         <h2 class="ui-h4" id="changelog-5-8">Guest access and saved views</h2>
         <p>
           Invite clients and contractors to single projects, and save any filter
           combination as a shared view.
         </p>
-        <div class="changelog-group changelog-added">
-          <h3 class="ui-h6">Added</h3>
+        <div class="ui-layout-column ui-small changelog-group">
+          <h3 class="ui-h6 ui-layout-row ui-small">
+            <span class="ui-swatch ui-success"></span>Added
+          </h3>
           <ul>
             <li>Free guest seats with access to one project at a time.</li>
             <li>Saved views, shareable with your team or kept private.</li>
           </ul>
         </div>
-        <div class="changelog-group changelog-fixed">
-          <h3 class="ui-h6">Fixed</h3>
+        <div class="ui-layout-column ui-small changelog-group">
+          <h3 class="ui-h6 ui-layout-row ui-small">
+            <span class="ui-swatch ui-warning"></span>Fixed
+          </h3>
           <ul>
             <li>Due dates showed in UTC instead of the local time zone.</li>
             <li>Mentions in comments didn't notify users on mobile.</li>
@@ -268,16 +206,18 @@
     </li>
 
     <li class="changelog-release">
-      <div class="changelog-meta">
+      <div class="ui-layout-column ui-small changelog-meta">
         <time datetime="2026-08-28">Aug 28, 2026</time>
         <span class="ui-chip ui-outlined ui-small">
           <span class="ui-text">v5.7.2</span>
         </span>
       </div>
-      <div class="changelog-body">
+      <div class="ui-layout-column">
         <h2 class="ui-h4" id="changelog-5-7-2">Bug fixes</h2>
-        <div class="changelog-group changelog-fixed">
-          <h3 class="ui-h6">Fixed</h3>
+        <div class="ui-layout-column ui-small changelog-group">
+          <h3 class="ui-h6 ui-layout-row ui-small">
+            <span class="ui-swatch ui-warning"></span>Fixed
+          </h3>
           <ul>
             <li>CSV exports skipped issues in archived sprints.</li>
             <li>The Slack integration posted duplicate updates.</li>

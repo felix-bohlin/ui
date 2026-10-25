@@ -1,35 +1,13 @@
 <style>
   .notification-settings {
     container-type: inline-size;
-    display: grid;
-    gap: var(--size-5);
-    margin-inline: auto;
-    max-inline-size: 56rem;
-
-    .notif-top {
-      align-items: end;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-3);
-      justify-content: space-between;
-    }
-
-    .notif-table {
-      overflow-x: auto;
-
-      .ui-table {
-        margin-block: 0;
-      }
-    }
 
     .notif-channel {
       inline-size: 3.5rem;
       text-align: center;
 
       svg {
-        block-size: var(--size-4);
         display: block;
-        inline-size: var(--size-4);
         margin-inline: auto;
       }
 
@@ -39,8 +17,7 @@
     }
 
     .notif-group {
-      color: var(--ui-text);
-      font-size: var(--font-size-0);
+      font-size: var(--ui-font-size-caption);
     }
 
     .notif-name,
@@ -53,7 +30,7 @@
     }
 
     .notif-desc {
-      font-weight: var(--font-weight-4);
+      font-weight: var(--ui-font-weight-normal);
     }
 
     .notif-cell {
@@ -65,43 +42,33 @@
     }
 
     .notif-options {
-      display: grid;
-      gap: var(--size-4);
       grid-template-columns: minmax(0, 1fr);
 
-      @container (inline-size >= 44rem) {
+      @container (inline-size >= 40rem) {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      }
-
-      .ui-card {
-        block-size: 100%;
       }
     }
 
     .notif-hours {
-      display: grid;
-      gap: var(--size-3);
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .notif-footer {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
-      justify-content: end;
+      --_justify-content: end;
 
       p {
-        color: var(--ui-text);
-        font-size: var(--font-size-1);
-        margin: 0 auto 0 0;
+        margin-inline-end: auto;
       }
     }
   }
 </style>
 
-<form class="notification-settings" action="#">
-  <div class="notif-top">
+<form
+  class="notification-settings ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 56rem"
+  action="#"
+>
+  <div class="ui-layout-row ui-spread">
     <hgroup class="ui-hgroup">
       <h1 class="ui-h3">Notifications</h1>
       <p>Choose what reaches you, and where.</p>
@@ -125,14 +92,15 @@
         <a class="ui-link" href="#notification-settings-phone">Change number</a>
       </p>
     </hgroup>
-    <div class="ui-content notif-table">
-      <table class="ui-table">
+    <div class="ui-content">
+      <table class="ui-table ui-flush">
         <thead>
           <tr>
             <th scope="col">Notification</th>
             <th class="notif-channel" scope="col">
               <svg
                 aria-hidden="true"
+                class="ui-icon"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -148,6 +116,7 @@
             <th class="notif-channel" scope="col">
               <svg
                 aria-hidden="true"
+                class="ui-icon"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -163,6 +132,7 @@
             <th class="notif-channel" scope="col">
               <svg
                 aria-hidden="true"
+                class="ui-icon"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -534,7 +504,7 @@
     </div>
   </section>
 
-  <div class="notif-options">
+  <div class="ui-layout-grid ui-large notif-options">
     <section
       aria-labelledby="notification-settings-quiet-heading"
       class="ui-card ui-outlined"
@@ -607,7 +577,7 @@
     </section>
   </div>
 
-  <div class="notif-footer">
+  <div class="ui-layout-row ui-small notif-footer">
     <p>Changes apply to all your devices.</p>
     <button class="ui-button" type="reset">Reset to defaults</button>
     <button class="ui-button ui-filled" type="submit">Save changes</button>

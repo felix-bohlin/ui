@@ -1,29 +1,21 @@
 <style>
   .shopping-cart {
     container-type: inline-size;
-    margin-inline: auto;
-    max-inline-size: 72rem;
-
-    .cart-title {
-      margin-block-end: var(--size-5);
-    }
 
     .cart-layout {
       align-items: start;
       display: grid;
-      gap: var(--size-5);
+      gap: var(--ui-space-5);
       grid-template-columns: minmax(0, 1fr);
 
       @container (inline-size >= 56rem) {
-        gap: var(--size-6);
+        gap: var(--ui-space-6);
         grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
       }
     }
 
     .cart-items {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
+      --_gap: 0;
 
       li + li {
         border-block-start: var(--ui-border-width) solid var(--ui-border-color);
@@ -31,16 +23,16 @@
     }
 
     .cart-item {
-      column-gap: var(--size-3);
+      column-gap: var(--ui-space-3);
       display: grid;
       grid-template-areas:
         "thumb info"
         "thumb buy";
       grid-template-columns: auto minmax(0, 1fr);
-      padding: var(--size-3);
-      row-gap: var(--size-3);
+      padding: var(--ui-space-3);
+      row-gap: var(--ui-space-3);
 
-      @container (inline-size >= 36rem) {
+      @container (inline-size >= 40rem) {
         grid-template-areas: "thumb info buy";
         grid-template-columns: auto minmax(0, 1fr) auto;
       }
@@ -48,89 +40,33 @@
 
     .cart-thumb {
       aspect-ratio: 1;
+      background: linear-gradient(
+        135deg,
+        oklch(from var(--ui-primary) l c calc(h + var(--hue, 0))),
+        oklch(from var(--ui-primary) l c calc(h + var(--hue, 0) + 60))
+      );
       border-radius: var(--ui-radius);
       grid-area: thumb;
       inline-size: var(--size-10);
     }
 
-    .cart-thumb-1 {
-      background: linear-gradient(
-        135deg,
-        var(--ui-primary),
-        oklch(from var(--ui-primary) l c calc(h + 60))
-      );
-    }
-
-    .cart-thumb-2 {
-      background: linear-gradient(
-        135deg,
-        oklch(from var(--ui-primary) l c calc(h - 80)),
-        oklch(from var(--ui-primary) l c calc(h - 30))
-      );
-    }
-
-    .cart-thumb-3 {
-      background: linear-gradient(
-        135deg,
-        oklch(from var(--ui-primary) l c calc(h + 140)),
-        oklch(from var(--ui-primary) l c calc(h + 190))
-      );
-    }
-
     .cart-info {
-      display: grid;
-      gap: var(--size-1);
+      align-items: start;
       grid-area: info;
-      justify-items: start;
-
-      h2,
-      p {
-        margin: 0;
-      }
-
-      p {
-        color: var(--ui-text);
-        font-size: var(--font-size-1);
-      }
-    }
-
-    .cart-stock {
-      align-items: center;
-      display: flex;
-      gap: var(--size-1);
-
-      &::before {
-        background-color: var(--_dot);
-        block-size: var(--size-2);
-        border-radius: var(--radius-round);
-        content: "";
-        inline-size: var(--size-2);
-      }
-    }
-
-    .cart-in-stock {
-      --_dot: var(--ui-success);
-    }
-
-    .cart-backorder {
-      --_dot: var(--ui-warning);
     }
 
     .cart-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-1);
-      margin-inline-start: calc(var(--size-2) * -1);
+      margin-inline-start: calc(var(--ui-space-2) * -1);
     }
 
     .cart-buy {
       align-items: center;
       display: flex;
-      gap: var(--size-3);
+      gap: var(--ui-space-3);
       grid-area: buy;
       justify-content: space-between;
 
-      @container (inline-size >= 36rem) {
+      @container (inline-size >= 40rem) {
         align-items: end;
         flex-direction: column-reverse;
         justify-content: start;
@@ -138,10 +74,6 @@
     }
 
     .cart-qty {
-      align-items: center;
-      display: flex;
-      gap: var(--size-1);
-
       .ui-text-field {
         inline-size: 3.5rem;
       }
@@ -154,79 +86,43 @@
     .cart-line-price {
       font-variant-numeric: tabular-nums;
       font-weight: var(--ui-font-weight-semibold);
-      margin: 0;
       text-align: end;
 
       s {
         display: block;
-        font-weight: var(--font-weight-4);
+        font-weight: var(--ui-font-weight-normal);
       }
     }
 
     .cart-summary {
       @container (inline-size >= 56rem) {
-        inset-block-start: var(--size-4);
+        inset-block-start: var(--ui-space-4);
         position: sticky;
       }
 
       .ui-content {
         display: grid;
-        gap: var(--size-4);
-      }
-    }
-
-    .cart-shipping {
-      display: grid;
-      gap: var(--size-2);
-
-      p {
-        font-size: var(--font-size-1);
-        margin: 0;
+        gap: var(--ui-space-4);
       }
     }
 
     .cart-discount {
       align-items: end;
-      display: flex;
-      gap: var(--size-2);
 
       .ui-text-field {
         flex: 1;
       }
     }
 
-    .cart-totals {
-      display: grid;
-      font-size: var(--font-size-1);
-      gap: var(--size-2);
-      margin: 0;
+    .cart-total {
+      border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+      font-size: var(--font-size-3);
+      font-weight: var(--ui-font-weight-bold);
+      padding-block-start: var(--ui-space-3);
 
-      div {
-        display: flex;
-        gap: var(--size-3);
-        justify-content: space-between;
-      }
-
+      dd,
       dt {
-        color: var(--ui-text);
-      }
-
-      dd {
-        font-variant-numeric: tabular-nums;
-        margin: 0;
-      }
-
-      .cart-total {
-        border-block-start: var(--ui-border-width) solid var(--ui-border-color);
-        font-size: var(--font-size-3);
-        font-weight: var(--ui-font-weight-bold);
-        margin-block-start: var(--size-2);
-        padding-block-start: var(--size-3);
-
-        dd,
-        dt {
-          color: var(--ui-text-strong);
-        }
+        color: var(--ui-text-strong);
       }
     }
 
@@ -235,37 +131,40 @@
     }
 
     .cart-continue {
-      font-size: var(--font-size-1);
-      margin: 0;
       text-align: center;
     }
   }
 </style>
 
-<div class="shopping-cart">
-  <hgroup class="ui-hgroup cart-title">
+<div class="shopping-cart ui-layout-container ui-layout-column ui-large">
+  <hgroup class="ui-hgroup">
     <h1 class="ui-h3">Shopping cart</h1>
     <p>3 items, prices include VAT</p>
   </hgroup>
 
   <div class="cart-layout">
     <section aria-label="Cart items" class="ui-card ui-outlined">
-      <ul class="cart-items">
+      <ul class="ui-layout-column cart-items">
         <li class="cart-item">
           <div
             aria-label="Merino Trail Hoodie in Pine"
-            class="cart-thumb cart-thumb-1"
+            class="cart-thumb"
+            style="--hue: 0"
             role="img"
           ></div>
-          <div class="cart-info">
+          <div class="ui-layout-column ui-x-small cart-info">
             <h2 class="ui-h6">
               <a class="ui-link" href="#shopping-cart-hoodie"
                 >Merino Trail Hoodie</a
               >
             </h2>
             <p>Pine, Size M</p>
-            <p class="cart-stock cart-in-stock">In stock, ships today</p>
-            <div class="cart-links">
+            <p>
+              <span class="ui-chip ui-dot ui-success ui-small"
+                ><span class="ui-text">In stock, ships today</span></span
+              >
+            </p>
+            <div class="ui-layout-row ui-x-small cart-links">
               <button class="ui-button ui-x-small" type="button">
                 Save for later
               </button>
@@ -277,7 +176,7 @@
           <div class="cart-buy">
             <div
               aria-label="Quantity of Merino Trail Hoodie"
-              class="cart-qty"
+              class="ui-layout-row ui-x-small cart-qty"
               role="group"
             >
               <button
@@ -338,18 +237,23 @@
         <li class="cart-item">
           <div
             aria-label="Wool hiking socks in Fjord"
-            class="cart-thumb cart-thumb-3"
+            class="cart-thumb"
+            style="--hue: 140"
             role="img"
           ></div>
-          <div class="cart-info">
+          <div class="ui-layout-column ui-x-small cart-info">
             <h2 class="ui-h6">
               <a class="ui-link" href="#shopping-cart-socks"
                 >Wool hiking socks</a
               >
             </h2>
             <p>Fjord, 39–42</p>
-            <p class="cart-stock cart-in-stock">In stock, ships today</p>
-            <div class="cart-links">
+            <p>
+              <span class="ui-chip ui-dot ui-success ui-small"
+                ><span class="ui-text">In stock, ships today</span></span
+              >
+            </p>
+            <div class="ui-layout-row ui-x-small cart-links">
               <button class="ui-button ui-x-small" type="button">
                 Save for later
               </button>
@@ -361,7 +265,7 @@
           <div class="cart-buy">
             <div
               aria-label="Quantity of Wool hiking socks"
-              class="cart-qty"
+              class="ui-layout-row ui-x-small cart-qty"
               role="group"
             >
               <button
@@ -417,16 +321,21 @@
         <li class="cart-item">
           <div
             aria-label="Trail running cap in Sand"
-            class="cart-thumb cart-thumb-2"
+            class="cart-thumb"
+            style="--hue: -80"
             role="img"
           ></div>
-          <div class="cart-info">
+          <div class="ui-layout-column ui-x-small cart-info">
             <h2 class="ui-h6">
               <a class="ui-link" href="#shopping-cart-cap">Trail running cap</a>
             </h2>
             <p>Sand, One size</p>
-            <p class="cart-stock cart-backorder">Back in stock 21 Oct</p>
-            <div class="cart-links">
+            <p>
+              <span class="ui-chip ui-dot ui-warning ui-small"
+                ><span class="ui-text">Back in stock 21 Oct</span></span
+              >
+            </p>
+            <div class="ui-layout-row ui-x-small cart-links">
               <button class="ui-button ui-x-small" type="button">
                 Save for later
               </button>
@@ -438,7 +347,7 @@
           <div class="cart-buy">
             <div
               aria-label="Quantity of Trail running cap"
-              class="cart-qty"
+              class="ui-layout-row ui-x-small cart-qty"
               role="group"
             >
               <button
@@ -502,7 +411,7 @@
         <h2 class="ui-h5" id="shopping-cart-summary-heading">Order summary</h2>
       </hgroup>
       <div class="ui-content">
-        <div class="cart-shipping">
+        <div class="ui-layout-column ui-small">
           <p id="shopping-cart-free-shipping">
             You've unlocked <strong>free delivery</strong>.
           </p>
@@ -515,7 +424,7 @@
           </div>
         </div>
 
-        <div class="cart-discount">
+        <div class="ui-layout-row ui-small cart-discount">
           <label class="ui-text-field ui-small">
             <span class="ui-label">Discount code</span>
             <span class="ui-field">
@@ -549,7 +458,7 @@
           </button>
         </div>
 
-        <dl class="cart-totals">
+        <dl class="ui-description-list ui-horizontal ui-bordered-solid">
           <div>
             <dt>Subtotal</dt>
             <dd>€196.00</dd>

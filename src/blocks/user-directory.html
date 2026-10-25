@@ -1,83 +1,23 @@
 <style>
   .user-directory {
     container-type: inline-size;
-    display: grid;
-    gap: var(--size-4);
-    margin-inline: auto;
-    max-inline-size: 80rem;
 
-    .user-directory-header {
-      align-items: end;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-3);
-      justify-content: space-between;
-    }
-
-    .user-directory-filters {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-3);
-      justify-content: space-between;
-
-      .ui-text-field {
-        flex: 1 1 16rem;
-        max-inline-size: 28rem;
-      }
-    }
-
-    .user-directory-grid {
-      display: grid;
-      gap: var(--size-3);
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-
-      .ui-card {
-        block-size: 100%;
-      }
-
-      .ui-content {
-        display: grid;
-        gap: var(--size-3);
-      }
-    }
-
-    .user-directory-person {
-      align-items: center;
-      display: flex;
-      gap: var(--size-3);
-
-      hgroup {
-        min-inline-size: 0;
-      }
-    }
-
-    .user-directory-meta {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
+    .user-directory-filters .ui-text-field {
+      flex: 1 1 16rem;
+      max-inline-size: 28rem;
     }
 
     .user-directory-footer {
       align-items: center;
-      display: grid;
-      gap: var(--size-2);
-      justify-items: center;
-
-      p {
-        color: var(--ui-text);
-        font-size: var(--font-size-1);
-      }
     }
   }
 </style>
 
-<div class="user-directory">
-  <div class="user-directory-header">
+<div
+  class="user-directory ui-layout-container ui-layout-column ui-large"
+  style="--_max-inline-size: 80rem"
+>
+  <div class="ui-layout-row ui-spread">
     <hgroup class="ui-hgroup">
       <p>Northwind</p>
       <h1 class="ui-h3">People</h1>
@@ -99,7 +39,7 @@
     </button>
   </div>
 
-  <search class="user-directory-filters">
+  <search class="ui-layout-row ui-spread user-directory-filters">
     <label class="ui-text-field">
       <span class="ui-sr-only">Search people</span>
       <span class="ui-field">
@@ -167,10 +107,10 @@
     </div>
   </search>
 
-  <ul class="user-directory-grid">
+  <ul class="ui-layout-grid" style="--_min-inline-size: 17rem">
     <li class="ui-card ui-outlined">
       <div class="ui-content">
-        <div class="user-directory-person">
+        <div class="ui-layout-media">
           <span class="ui-badge ui-dot ui-success ui-end-end">
             <span class="ui-avatar" aria-hidden="true">AN</span>
             <span class="ui-floating"><span class="ui-indicator"></span></span>
@@ -180,7 +120,7 @@
             <p>Head of Design<span class="ui-sr-only">, online</span></p>
           </hgroup>
         </div>
-        <div class="user-directory-meta ui-caption">
+        <div class="ui-layout-row ui-small ui-caption">
           <span class="ui-chip ui-small"
             ><span class="ui-text">Design</span></span
           >
@@ -216,14 +156,14 @@
     </li>
     <li class="ui-card ui-outlined">
       <div class="ui-content">
-        <div class="user-directory-person">
+        <div class="ui-layout-media">
           <span class="ui-avatar" aria-hidden="true">ER</span>
           <hgroup>
             <h2 class="ui-h6">Elif Rahman</h2>
             <p>Customer Success Manager</p>
           </hgroup>
         </div>
-        <div class="user-directory-meta ui-caption">
+        <div class="ui-layout-row ui-small ui-caption">
           <span class="ui-chip ui-small"
             ><span class="ui-text">Support</span></span
           >
@@ -259,7 +199,7 @@
     </li>
     <li class="ui-card ui-outlined">
       <div class="ui-content">
-        <div class="user-directory-person">
+        <div class="ui-layout-media">
           <span class="ui-badge ui-dot ui-success ui-end-end">
             <span class="ui-avatar" aria-hidden="true">KM</span>
             <span class="ui-floating"><span class="ui-indicator"></span></span>
@@ -269,7 +209,7 @@
             <p>Staff Engineer<span class="ui-sr-only">, online</span></p>
           </hgroup>
         </div>
-        <div class="user-directory-meta ui-caption">
+        <div class="ui-layout-row ui-small ui-caption">
           <span class="ui-chip ui-small"
             ><span class="ui-text">Engineering</span></span
           >
@@ -305,7 +245,7 @@
     </li>
     <li class="ui-card ui-outlined">
       <div class="ui-content">
-        <div class="user-directory-person">
+        <div class="ui-layout-media">
           <span class="ui-badge ui-dot ui-success ui-end-end">
             <span class="ui-avatar" aria-hidden="true">LH</span>
             <span class="ui-floating"><span class="ui-indicator"></span></span>
@@ -315,7 +255,7 @@
             <p>Product Designer<span class="ui-sr-only">, online</span></p>
           </hgroup>
         </div>
-        <div class="user-directory-meta ui-caption">
+        <div class="ui-layout-row ui-small ui-caption">
           <span class="ui-chip ui-small"
             ><span class="ui-text">Design</span></span
           >
@@ -351,14 +291,14 @@
     </li>
     <li class="ui-card ui-outlined">
       <div class="ui-content">
-        <div class="user-directory-person">
+        <div class="ui-layout-media">
           <span class="ui-avatar" aria-hidden="true">MB</span>
           <hgroup>
             <h2 class="ui-h6">Mats Berg</h2>
             <p>Account Executive</p>
           </hgroup>
         </div>
-        <div class="user-directory-meta ui-caption">
+        <div class="ui-layout-row ui-small ui-caption">
           <span class="ui-chip ui-small"
             ><span class="ui-text">Sales</span></span
           >
@@ -394,14 +334,14 @@
     </li>
     <li class="ui-card ui-outlined">
       <div class="ui-content">
-        <div class="user-directory-person">
+        <div class="ui-layout-media">
           <span class="ui-avatar" aria-hidden="true">PN</span>
           <hgroup>
             <h2 class="ui-h6">Priya Nair</h2>
             <p>Engineering Manager</p>
           </hgroup>
         </div>
-        <div class="user-directory-meta ui-caption">
+        <div class="ui-layout-row ui-small ui-caption">
           <span class="ui-chip ui-small"
             ><span class="ui-text">Engineering</span></span
           >
@@ -437,7 +377,7 @@
     </li>
     <li class="ui-card ui-outlined">
       <div class="ui-content">
-        <div class="user-directory-person">
+        <div class="ui-layout-media">
           <span class="ui-badge ui-dot ui-success ui-end-end">
             <span class="ui-avatar" aria-hidden="true">SL</span>
             <span class="ui-floating"><span class="ui-indicator"></span></span>
@@ -447,7 +387,7 @@
             <p>Support Lead<span class="ui-sr-only">, online</span></p>
           </hgroup>
         </div>
-        <div class="user-directory-meta ui-caption">
+        <div class="ui-layout-row ui-small ui-caption">
           <span class="ui-chip ui-small"
             ><span class="ui-text">Support</span></span
           >
@@ -483,14 +423,14 @@
     </li>
     <li class="ui-card ui-outlined">
       <div class="ui-content">
-        <div class="user-directory-person">
+        <div class="ui-layout-media">
           <span class="ui-avatar" aria-hidden="true">TO</span>
           <hgroup>
             <h2 class="ui-h6">Tomás Ortega</h2>
             <p>Frontend Engineer</p>
           </hgroup>
         </div>
-        <div class="user-directory-meta ui-caption">
+        <div class="ui-layout-row ui-small ui-caption">
           <span class="ui-chip ui-small"
             ><span class="ui-text">Engineering</span></span
           >
@@ -526,7 +466,7 @@
     </li>
   </ul>
 
-  <div class="user-directory-footer">
+  <div class="ui-layout-column ui-small user-directory-footer">
     <p>Showing 8 of 48 people</p>
     <button class="ui-button ui-outlined" type="button">Load more</button>
   </div>

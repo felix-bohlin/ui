@@ -1,39 +1,8 @@
 <style>
   .onboarding-checklist {
-    margin-inline: auto;
-    max-inline-size: 40rem;
-
-    > .ui-card > .ui-content {
-      display: grid;
-      gap: var(--size-4);
-    }
-
     .onboarding-checklist-head {
       align-items: start;
-      display: flex;
-      gap: var(--size-3);
-      justify-content: space-between;
-    }
-
-    .onboarding-checklist-progress {
-      display: grid;
-      gap: var(--size-1);
-    }
-
-    .onboarding-checklist-count {
-      display: flex;
-      font-size: var(--font-size-1);
-      justify-content: space-between;
-
-      span:last-child {
-        color: var(--ui-text);
-      }
-    }
-
-    .onboarding-checklist-step {
-      align-items: center;
-      display: flex;
-      gap: var(--size-3);
+      flex-wrap: nowrap;
     }
 
     .onboarding-checklist-complete {
@@ -44,10 +13,8 @@
     .onboarding-checklist-marker {
       block-size: var(--size-6);
       border: var(--ui-border-width) solid var(--ui-border-color);
-      border-radius: var(--radius-round);
+      border-radius: var(--ui-radius-round);
       display: inline-grid;
-      flex-shrink: 0;
-      font-size: var(--font-size-1);
       font-variant-numeric: tabular-nums;
       inline-size: var(--size-6);
       place-items: center;
@@ -60,26 +27,21 @@
     }
 
     details > .ui-content {
-      display: grid;
-      gap: var(--size-3);
       padding-inline-start: calc(var(--size-3) + var(--size-6) + var(--size-3));
-    }
-
-    .onboarding-checklist-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size-2);
     }
   }
 </style>
 
-<div class="onboarding-checklist">
+<div
+  class="onboarding-checklist ui-layout-container"
+  style="--_max-inline-size: 40rem"
+>
   <section
     aria-labelledby="onboarding-checklist-heading"
     class="ui-card ui-outlined"
   >
     <div class="ui-content">
-      <div class="onboarding-checklist-head">
+      <div class="ui-layout-row ui-spread onboarding-checklist-head">
         <hgroup>
           <h1 class="ui-h4" id="onboarding-checklist-heading">
             Get started with Northwind
@@ -106,10 +68,8 @@
         </button>
       </div>
 
-      <div class="onboarding-checklist-progress">
-        <span
-          class="onboarding-checklist-count"
-          id="onboarding-checklist-progress"
+      <div class="ui-layout-column ui-x-small">
+        <span class="ui-layout-row ui-spread" id="onboarding-checklist-progress"
           ><span>3 of 6 steps done</span><span>50%</span></span
         >
         <div class="ui-progress">
@@ -124,9 +84,7 @@
       <div class="ui-card ui-outlined" role="group" aria-label="Steps">
         <details class="ui-accordion" name="onboarding-checklist-steps">
           <summary>
-            <span
-              class="onboarding-checklist-step onboarding-checklist-complete"
-            >
+            <span class="ui-layout-media onboarding-checklist-complete">
               <span
                 aria-hidden="true"
                 class="onboarding-checklist-marker onboarding-checklist-done"
@@ -140,6 +98,7 @@
             </span>
             <svg
               aria-hidden="true"
+              class="ui-marker"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -153,7 +112,7 @@
           </summary>
           <div class="ui-content">
             <p>Your workspace northwind.example is ready.</p>
-            <div class="onboarding-checklist-actions">
+            <div class="ui-layout-row ui-small">
               <a
                 class="ui-button ui-small"
                 href="#onboarding-checklist-workspace"
@@ -164,9 +123,7 @@
         </details>
         <details class="ui-accordion" name="onboarding-checklist-steps">
           <summary>
-            <span
-              class="onboarding-checklist-step onboarding-checklist-complete"
-            >
+            <span class="ui-layout-media onboarding-checklist-complete">
               <span
                 aria-hidden="true"
                 class="onboarding-checklist-marker onboarding-checklist-done"
@@ -178,6 +135,7 @@
             </span>
             <svg
               aria-hidden="true"
+              class="ui-marker"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -191,7 +149,7 @@
           </summary>
           <div class="ui-content">
             <p>Lina, Mats and Priya joined. Invite more people any time.</p>
-            <div class="onboarding-checklist-actions">
+            <div class="ui-layout-row ui-small">
               <a class="ui-button ui-small" href="#onboarding-checklist-team"
                 >Invite more</a
               >
@@ -200,9 +158,7 @@
         </details>
         <details class="ui-accordion" name="onboarding-checklist-steps">
           <summary>
-            <span
-              class="onboarding-checklist-step onboarding-checklist-complete"
-            >
+            <span class="ui-layout-media onboarding-checklist-complete">
               <span
                 aria-hidden="true"
                 class="onboarding-checklist-marker onboarding-checklist-done"
@@ -212,6 +168,7 @@
             </span>
             <svg
               aria-hidden="true"
+              class="ui-marker"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -227,7 +184,7 @@
             <p>
               Pull requests and issues from northwind/web now sync both ways.
             </p>
-            <div class="onboarding-checklist-actions">
+            <div class="ui-layout-row ui-small">
               <a class="ui-button ui-small" href="#onboarding-checklist-github"
                 >Manage repositories</a
               >
@@ -236,7 +193,7 @@
         </details>
         <details class="ui-accordion" name="onboarding-checklist-steps" open>
           <summary>
-            <span class="onboarding-checklist-step">
+            <span class="ui-layout-media">
               <span aria-hidden="true" class="onboarding-checklist-marker"
                 >4</span
               >
@@ -244,6 +201,7 @@
             </span>
             <svg
               aria-hidden="true"
+              class="ui-marker"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -260,7 +218,7 @@
               Projects group tasks, docs and releases. Start from scratch or use
               a template for a product launch, a sprint or a design review.
             </p>
-            <div class="onboarding-checklist-actions">
+            <div class="ui-layout-row ui-small">
               <a
                 class="ui-button ui-filled ui-small"
                 href="#onboarding-checklist-new-project"
@@ -276,7 +234,7 @@
         </details>
         <details class="ui-accordion" name="onboarding-checklist-steps">
           <summary>
-            <span class="onboarding-checklist-step">
+            <span class="ui-layout-media">
               <span aria-hidden="true" class="onboarding-checklist-marker"
                 >5</span
               >
@@ -284,6 +242,7 @@
             </span>
             <svg
               aria-hidden="true"
+              class="ui-marker"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -300,7 +259,7 @@
               Pick what reaches you by email, push or Slack, so nothing
               important slips by.
             </p>
-            <div class="onboarding-checklist-actions">
+            <div class="ui-layout-row ui-small">
               <a
                 class="ui-button ui-outlined ui-small"
                 href="#onboarding-checklist-notifications"
@@ -311,7 +270,7 @@
         </details>
         <details class="ui-accordion" name="onboarding-checklist-steps">
           <summary>
-            <span class="onboarding-checklist-step">
+            <span class="ui-layout-media">
               <span aria-hidden="true" class="onboarding-checklist-marker"
                 >6</span
               >
@@ -319,6 +278,7 @@
             </span>
             <svg
               aria-hidden="true"
+              class="ui-marker"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -335,7 +295,7 @@
               Get a menu bar timer and offline access on macOS, Windows and
               Linux.
             </p>
-            <div class="onboarding-checklist-actions">
+            <div class="ui-layout-row ui-small">
               <a
                 class="ui-button ui-outlined ui-small"
                 href="#onboarding-checklist-download"

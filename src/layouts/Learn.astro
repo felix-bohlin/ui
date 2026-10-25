@@ -1,5 +1,7 @@
 ---
 import Document from "./Document.astro"
+import FrameworkPicker from "../components/FrameworkPicker.astro"
+import { Divider } from "opui-css/astro"
 import { canonicalPath, hrefFor } from "../utils/framework"
 import { categories, componentName, posts, walkthroughs } from "../utils/learn"
 
@@ -67,7 +69,14 @@ const groups = [
   transitionName={currentPost && `learn-${currentPost.slug}`}
   wide={wide}
 >
+  <FrameworkPicker size="small" slot="sidebar" />
+
+  <Divider variant="tonal" slot="sidebar" />
+
   <slot slot="title" name="title" />
-  <slot slot="preamble" name="preamble" />
+  <slot slot="preamble" name="preamble">
+    {description} The posts are plain HTML and CSS, the same on every framework; the
+    component links follow the framework you picked.
+  </slot>
   <slot />
 </Document>

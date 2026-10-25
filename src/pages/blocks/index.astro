@@ -1,5 +1,6 @@
 ---
 import Blocks from "../../layouts/Blocks.astro"
+import DocLink from "../../components/DocLink.astro"
 import { blockGroups, blockHref, blockPreviewHref } from "../../utils/blocks"
 ---
 
@@ -12,7 +13,9 @@ import { blockGroups, blockHref, blockPreviewHref } from "../../utils/blocks"
   <Fragment slot="preamble">
     Very generic SaaS'y-looking blocks, but they are fully functional and if
     nothing else shows you how the components play together in different
-    scenarios.
+    scenarios. Every block is plain HTML and CSS, the same on every framework;
+    the <DocLink href="/components">component</DocLink> links follow the framework
+    you picked.
   </Fragment>
 
   {

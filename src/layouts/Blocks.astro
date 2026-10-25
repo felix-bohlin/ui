@@ -1,5 +1,7 @@
 ---
 import Document from "./Document.astro"
+import FrameworkPicker from "../components/FrameworkPicker.astro"
+import { Divider } from "opui-css/astro"
 import { blockGroups, blockHref } from "../utils/blocks"
 
 type Props = {
@@ -38,6 +40,10 @@ const groups = [
   title={title}
   wide={wide}
 >
+  <FrameworkPicker size="small" slot="sidebar" />
+
+  <Divider variant="tonal" slot="sidebar" />
+
   <slot slot="title" name="title" />
   <slot slot="preamble" name="preamble" />
   <slot />

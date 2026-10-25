@@ -1,9 +1,13 @@
 ---
-import "../styles/custom-palette.css"
-import "../styles/no-grays.css"
 import "../styles/theme-fonts.css"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
-import { PALETTE_KNOBS, THEME_KEYS, TOKENS } from "../utils/theme-store"
+import { FONT_TOKENS, THEME_KEY, VIEW_KEYS } from "../utils/theme"
+
+type Props = {
+  overrides?: boolean
+}
+
+const { overrides = false } = Astro.props
 
 const exampleThemes = Object.fromEntries(
   EXAMPLE_THEMES.map((theme) => [theme.name, theme.css]),
@@ -12,56 +16,57 @@ const exampleThemes = Object.fromEntries(
 
 <script
   is:inline
-  define:vars={{ exampleThemes, PALETTE_KNOBS, THEME_KEYS, TOKENS }}
+  define:vars={{ exampleThemes, FONT_TOKENS, overrides, THEME_KEY, VIEW_KEYS }}
 >
+  const params = overrides
+    ? new URLSearchParams(location.search)
+    : new URLSearchParams()
+  const forcedScheme = ["dark", "light"].includes(params.get("scheme"))
+    ? params.get("scheme")
+    : null
+  const forcedContrast = ["more", "normal"].includes(params.get("contrast"))
+    ? params.get("contrast")
+    : null
+
+  const style = (id) => {
+    let element = document.getElementById(id)
+    if (!element) {
+      element = document.createElement("style")
+      element.id = id
+    }
+    return element
+  }
+
   window.themeUtils = {
-    getCustomTheme(theme) {
-      try {
-        const config = JSON.parse(
-          localStorage.getItem(`${THEME_KEYS.customTheme}-${theme}`) ?? "{}",
-        )
-        // Drop the legacy `--gray-hue-offset` key. The new core derives grays
-        // per-element using absolute `--ui-gray-hue`, so the offset semantic no
-        // longer applies. Users will fall back to the default --ui-gray-hue (255).
-        delete config["--gray-hue-offset"]
-        const sizes = { 1: "0.25rem", 2: "0.5rem", 3: "1rem", 4: "1.25rem" }
-        for (const [name, value] of Object.entries(config)) {
-          const legacy = /^var\(--(?:radius|size)-(\d)\)$/.exec(value)
-          if (legacy) config[name] = sizes[legacy[1]] ?? value
-        }
-        return config
-      } catch {
-        return {}
-      }
-    },
     getSystemPreference() {
       return window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light"
     },
-    getExampleTheme() {
-      try {
-        const name = localStorage.getItem(THEME_KEYS.exampleTheme)
-        return name && Object.hasOwn(exampleThemes, name) ? name : null
-      } catch {
-        return null
-      }
-    },
     getStoredContrast() {
       try {
-        return localStorage.getItem(THEME_KEYS.contrast)
+        return localStorage.getItem(VIEW_KEYS.contrast)
       } catch {
         return null
       }
     },
     getStoredTheme() {
       try {
-        return localStorage.getItem(THEME_KEYS.theme)
+        return localStorage.getItem(VIEW_KEYS.mode)
       } catch {
         return null
       }
     },
-    setContrast(contrast) {
+    readTheme() {
+      try {
+        const theme = JSON.parse(localStorage.getItem(THEME_KEY) ?? "null")
+        if (theme && typeof theme === "object") return theme
+        const preset = localStorage.getItem("opui-example-theme")
+        if (preset) return { css: "", preset, tokens: {} }
+      } catch {}
+      return null
+    },
+    applyContrast(contrast) {
       document.documentElement.classList.remove(
         "ui-contrast-more",
         "ui-contrast-normal",
@@ -69,32 +74,38 @@ const exampleThemes = Object.fromEntries(
       if (contrast) {
         document.documentElement.classList.add(`ui-contrast-${contrast}`)
       }
+    },
+    setContrast(contrast) {
+      window.themeUtils.applyContrast(forcedContrast ?? contrast)
       try {
-        if (contrast) localStorage.setItem(THEME_KEYS.contrast, contrast)
-        else localStorage.removeItem(THEME_KEYS.contrast)
+        if (contrast) localStorage.setItem(VIEW_KEYS.contrast, contrast)
+        else localStorage.removeItem(VIEW_KEYS.contrast)
       } catch {}
     },
-    applyExampleTheme(name) {
-      let style = document.getElementById("opui-example-theme")
-      if (!name) {
-        delete document.documentElement.dataset.exampleTheme
-        style?.remove()
-        return
+    applyThemeCss(preset, css, tokens) {
+      const root = document.documentElement
+      const presetStyle = style("opui-example-theme")
+      const customStyle = style("opui-theme")
+      const presetCss = (preset && exampleThemes[preset]) || ""
+      if (presetStyle.textContent !== presetCss) {
+        presetStyle.textContent = presetCss
       }
-      document.documentElement.dataset.exampleTheme = name
-      if (!style) {
-        style = document.createElement("style")
-        style.id = "opui-example-theme"
-        document.head.append(style)
-      }
-      style.textContent = exampleThemes[name]
+      if (customStyle.textContent !== css) customStyle.textContent = css
+      document.head.append(presetStyle, customStyle)
+      if (presetCss) root.dataset.exampleTheme = preset
+      else delete root.dataset.exampleTheme
+      root.toggleAttribute(
+        "data-theme-font",
+        FONT_TOKENS.some((name) => Object.hasOwn(tokens ?? {}, name)),
+      )
     },
-    setExampleTheme(name) {
-      try {
-        if (name) localStorage.setItem(THEME_KEYS.exampleTheme, name)
-        else localStorage.removeItem(THEME_KEYS.exampleTheme)
-      } catch {}
-      window.themeUtils.applyExampleTheme(name)
+    applyStoredTheme() {
+      const theme = window.themeUtils.readTheme()
+      window.themeUtils.applyThemeCss(
+        theme?.preset ?? null,
+        typeof theme?.css === "string" ? theme.css : "",
+        theme?.tokens,
+      )
     },
     applyTheme(theme) {
       document.documentElement.classList.remove(
@@ -103,72 +114,43 @@ const exampleThemes = Object.fromEntries(
         "dark",
         "light",
       )
-      document.documentElement.classList.add(`ui-${theme}`)
-      window.themeUtils.applyCustomTheme(theme)
+      document.documentElement.classList.add(`ui-${forcedScheme ?? theme}`)
     },
     setTheme(theme) {
       try {
-        localStorage.setItem(THEME_KEYS.theme, theme)
+        localStorage.setItem(VIEW_KEYS.mode, theme)
       } catch {}
       window.themeUtils.applyTheme(theme)
     },
-    applyCustomTheme(theme) {
-      const currentTheme =
-        theme ||
-        (document.documentElement.classList.contains("ui-dark")
-          ? "dark"
-          : "light")
-
-      // Reset previous custom properties before applying mode-specific ones
-      TOKENS.forEach((name) =>
-        document.documentElement.style.removeProperty(name),
-      )
-      document.documentElement.classList.remove("no-grays")
-
-      const config = window.themeUtils.getCustomTheme(currentTheme)
-      Object.entries(config).forEach(([name, value]) => {
-        if (name === "enable-grays") {
-          document.documentElement.classList.toggle(
-            "no-grays",
-            value === "false",
-          )
-        } else {
-          document.documentElement.style.setProperty(name, value)
-        }
-      })
-
-      document.documentElement.classList.toggle(
-        "custom-palette",
-        PALETTE_KNOBS.some((name) => name in config),
-      )
-      const scoped = TOKENS.filter((name) => name in config)
-      let style = document.getElementById("opui-custom-theme")
-      if (scoped.length === 0) {
-        style?.remove()
-        return
-      }
-      if (!style) {
-        style = document.createElement("style")
-        style.id = "opui-custom-theme"
-        document.head.append(style)
-      }
-      const css = `@layer theme.custom { html .ui-palette { ${scoped
-        .map((name) => `${name}: inherit;`)
-        .join(" ")} } }`
-      if (style.textContent !== css) style.textContent = css
-    },
   }
 
-  window.themeUtils.applyTheme(
-    window.themeUtils.getStoredTheme() ||
-      window.themeUtils.getSystemPreference(),
+  const applyMode = () =>
+    window.themeUtils.applyTheme(
+      window.themeUtils.getStoredTheme() ||
+        window.themeUtils.getSystemPreference(),
+    )
+
+  applyMode()
+  window.themeUtils.applyContrast(
+    forcedContrast ?? window.themeUtils.getStoredContrast(),
   )
-  window.themeUtils.setContrast(window.themeUtils.getStoredContrast())
-  window.themeUtils.applyExampleTheme(window.themeUtils.getExampleTheme())
+  window.themeUtils.applyStoredTheme()
+
   window
     .matchMedia("(prefers-color-scheme: dark)")
     .addEventListener("change", () => {
-      if (window.themeUtils.getStoredTheme()) return
-      window.themeUtils.applyTheme(window.themeUtils.getSystemPreference())
+      if (!window.themeUtils.getStoredTheme()) applyMode()
     })
+
+  window.addEventListener("storage", (event) => {
+    if (event.key === null || event.key === THEME_KEY) {
+      window.themeUtils.applyStoredTheme()
+    }
+    if (event.key === null || event.key === VIEW_KEYS.mode) applyMode()
+    if (event.key === null || event.key === VIEW_KEYS.contrast) {
+      window.themeUtils.applyContrast(
+        forcedContrast ?? window.themeUtils.getStoredContrast(),
+      )
+    }
+  })
 </script>

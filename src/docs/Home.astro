@@ -8,7 +8,6 @@ import {
   Checkbox,
   Chip,
   Progress,
-  Range,
   Switch,
   Table,
   TableBody,
@@ -17,8 +16,6 @@ import {
   TableHeaderCell,
   TableRow,
   TextField,
-  ToggleButton,
-  ToggleGroup,
 } from "opui-css/astro"
 import AstroLogo from "../components/AstroLogo.astro"
 import ChipRain from "../components/ChipRain.astro"
@@ -26,7 +23,7 @@ import ComponentCard from "../components/ComponentShowcase/ComponentCard.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
 import ReactLogo from "../components/ReactLogo.astro"
-import SavedThemes from "../components/SavedThemes.astro"
+import ThemeQuickControls from "../components/ThemeQuickControls.astro"
 import SvelteLogo from "../components/SvelteLogo.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
@@ -37,7 +34,6 @@ import { formatInline } from "../utils/format-inline"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import { posts } from "../utils/learn-posts"
 import { packageVersion, prerelease, unreleased } from "../utils/release"
-import { RADIUS_OPTIONS, tokenDefaults } from "../utils/theme-store"
 import { themeTokens, tokenTier } from "../utils/theme-tokens"
 
 const description = "Design system. Components. Modern HTML & CSS."
@@ -46,18 +42,15 @@ const currentFramework = Astro.locals.framework
 const { link } = Astro.locals
 const componentsHref = hrefFor(currentFramework, "/components")
 const quickstartHref = hrefFor(currentFramework, "/guide/getting-started")
-const generatorHref = hrefFor(currentFramework, "/guide/theme-generator")
+const builderHref = link("/theme-builder")
 const tokensHref = hrefFor(currentFramework, "/guide/theme-tokens")
 
-const FRAMEWORK_BRANDING: Record<
-  FrameworkId,
-  { color?: string; Logo: typeof AstroLogo }
-> = {
-  astro: { color: "#F041FF", Logo: AstroLogo },
+const FRAMEWORK_BRANDING: Record<FrameworkId, { Logo: typeof AstroLogo }> = {
+  astro: { Logo: AstroLogo },
   html: { Logo: Html5Logo },
-  react: { color: "#61DAFB", Logo: ReactLogo },
-  svelte: { color: "#FF3E00", Logo: SvelteLogo },
-  vue: { color: "#41B883", Logo: VueLogo },
+  react: { Logo: ReactLogo },
+  svelte: { Logo: SvelteLogo },
+  vue: { Logo: VueLogo },
 }
 
 const roleTokens = themeTokens().filter(
@@ -193,7 +186,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
                   aria-current={isCurrent ? "page" : undefined}
                   variant={isCurrent ? "tonal" : "outlined"}
                   data-framework={framework.id}
-                  data-theme-color={branding.color}
                 >
                   <Logo slot="start" />
                   <Fragment slot="label">{framework.label}</Fragment>
@@ -310,7 +302,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     <section class="sheet" aria-labelledby="spec-heading">
       <header class="sheet-header">
         <h2 class="ui-h2" id="spec-heading">
-          Turn three knobs, the whole kit follows
+          Three choices, the whole kit follows
         </h2>
         <p>
           Components read {roleTokens} role tokens, never a raw color. Try it.
@@ -318,52 +310,17 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       </header>
 
       <div class="bench">
-        <form class="knobs ui-form" id="spec-knobs">
-          <Range
-            label="Hue"
-            name="--ui-palette-hue"
-            min={0}
-            max={360}
-            step={1}
-            value={tokenDefaults("light")["--ui-palette-hue"]}
-            valueSuffix="°"
-          />
-          <Range
-            label="Chroma"
-            name="--ui-palette-chroma"
-            min={0}
-            max={1}
-            step={0.01}
-            value={tokenDefaults("light")["--ui-palette-chroma"]}
-          />
-          <div class="knob-radius">
-            <span class="ui-label" id="spec-radius-label">Radius</span>
-            <ToggleGroup
-              aria-labelledby="spec-radius-label"
-              name="--ui-radius"
-              size="small"
-            >
-              {
-                RADIUS_OPTIONS.map((option) => (
-                  <ToggleButton
-                    checked={
-                      option.value === tokenDefaults("light")["--ui-radius"]
-                    }
-                    value={option.value}
-                  >
-                    {option.text}
-                  </ToggleButton>
-                ))
-              }
-            </ToggleGroup>
+        <div class="knobs">
+          <ThemeQuickControls />
+          <div class="knob-actions">
+            <Button href={builderHref} variant="filled" color="primary">
+              Open the theme builder
+            </Button>
+            <Button class="knob-reset" type="button" variant="outlined">
+              Reset
+            </Button>
           </div>
-          <p class="knob-note">
-            About forty more in the <a class="ui-link" href={generatorHref}
-              >theme generator</a
-            >.
-          </p>
-          <SavedThemes />
-        </form>
+        </div>
 
         <div class="specimen ui-not-rich-text">
           <div class="palette-strip" aria-hidden="true">
@@ -401,9 +358,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           <Callout severity="info" variant="tonal">
             <CalloutIcon />
             <CalloutContent>
-              <h3>Every page follows</h3>
-              The knobs set the theme for the whole site. Save it to compare it with
-              others or come back to it.
+              <h3>Want the rest?</h3>
+              The theme builder adds fonts, density, shadows and status colors, checks
+              the contrast and hands you the CSS.
             </CalloutContent>
           </Callout>
         </div>
@@ -489,8 +446,8 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         <Button href={quickstartHref} variant="filled" color="primary">
           Start drafting
         </Button>
-        <Button href={generatorHref} variant="outlined" color="primary">
-          Theme generator
+        <Button href={builderHref} variant="outlined" color="primary">
+          Theme builder
         </Button>
       </div>
     </section>
@@ -500,15 +457,11 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 </Default>
 
 <script>
-  import { hexToOklch } from "../utils/color-utils"
   import { FRAMEWORK_STORAGE_KEY } from "../utils/framework"
-  import { savedThemes } from "../utils/saved-themes"
-  import { RADIUS_FIELDS, themeForm } from "../utils/theme-form"
-  import { themeStore } from "../utils/theme-store"
+  import { themeStore } from "../utils/theme"
 
-  // Clicking a framework chip in the hero sets the site theme to that
-  // framework's brand color before navigating. The theme it replaces is kept
-  // as a saved theme.
+  // Clicking a framework chip in the hero remembers the framework, so the bare
+  // homepage opens it next time.
   document
     .querySelectorAll<HTMLElement>(".framework-support [data-framework]")
     .forEach((chip) => {
@@ -519,23 +472,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             localStorage.setItem(FRAMEWORK_STORAGE_KEY, framework)
           } catch (_) {
             // private mode / storage disabled - non-fatal
-          }
-        }
-        savedThemes.autosave()
-        const color = chip.dataset.themeColor
-        for (const mode of ["dark", "light"] as const) {
-          if (color) {
-            themeStore.setToken(
-              mode,
-              "--ui-palette-hue",
-              String(Math.round(hexToOklch(color).H)),
-            )
-            themeStore.setToken(mode, "--ui-palette-chroma", "0.5")
-          } else {
-            themeStore.unsetTokens(mode, [
-              "--ui-palette-chroma",
-              "--ui-palette-hue",
-            ])
           }
         }
       })
@@ -565,40 +501,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     attributes: true,
   })
 
-  const knobs = document.querySelector<HTMLFormElement>("#spec-knobs")
-
-  if (knobs) {
-    const controls = themeForm(knobs, {
-      setExampleTheme: () => {},
-      setGrays: () => {},
-      setToken: (token, value) => {
-        const mode = themeStore.getActiveSiteMode()
-        themeStore.setToken(mode, token, value)
-        if (token !== "--ui-radius") return
-        for (const field of RADIUS_FIELDS) {
-          if (
-            field.token !== "--ui-radius" &&
-            themeStore.effective(mode, field.token) !== "var(--ui-radius)"
-          ) {
-            themeStore.setToken(mode, field.token, "var(--ui-radius)")
-          }
-        }
-      },
-    })
-
-    const sync = () => {
-      const mode = themeStore.getActiveSiteMode()
-      controls.sync(
-        mode,
-        themeStore.get(mode),
-        themeStore.defaults(mode),
-        themeStore.getExampleTheme(),
-      )
-    }
-
-    sync()
-    themeStore.subscribe(sync)
-  }
+  document
+    .querySelector(".knob-reset")
+    ?.addEventListener("click", () => themeStore.reset())
 </script>
 
 <style is:global>
@@ -1155,21 +1060,13 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   .knobs {
     display: grid;
-    gap: var(--size-5);
-    overflow: clip;
-    overflow-clip-margin: calc(var(--site-page-gutters) / 2);
+    gap: var(--size-6);
   }
 
-  .knob-radius {
-    display: grid;
+  .knob-actions {
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--size-2);
-    justify-items: start;
-  }
-
-  .knob-note {
-    color: var(--ui-text);
-    font-size: var(--ui-font-size-small);
-    margin: 0;
   }
 
   .specimen {

@@ -1,0 +1,205 @@
+---
+import {
+  FieldLegend,
+  Fieldset,
+  TextField,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
+import { EXAMPLE_THEMES } from "../utils/example-themes"
+import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
+---
+
+<form class="theme-quick ui-form">
+  <Fieldset>
+    <FieldLegend>Starting point</FieldLegend>
+    <ToggleGroup aria-label="Starting point" name="theme-preset" size="small">
+      <ToggleButton checked value="">Default</ToggleButton>
+      {
+        EXAMPLE_THEMES.map((theme) => (
+          <ToggleButton value={theme.name}>{theme.label}</ToggleButton>
+        ))
+      }
+    </ToggleGroup>
+  </Fieldset>
+
+  <Fieldset>
+    <FieldLegend>Brand color</FieldLegend>
+    <div class="theme-quick-brand">
+      <ToggleGroup aria-label="Brand color" name="theme-brand" size="small">
+        <ToggleButton checked value="">Preset</ToggleButton>
+        {
+          BRAND_SWATCHES.map((swatch) => (
+            <ToggleButton value={swatch.value}>
+              <span
+                aria-hidden="true"
+                class="theme-quick-swatch"
+                style={`--swatch: ${swatch.value}`}
+              />
+              {swatch.label}
+            </ToggleButton>
+          ))
+        }
+      </ToggleGroup>
+      <TextField
+        hideLabel
+        label="Custom brand color"
+        name="theme-brand-custom"
+        size="small"
+        title="Custom brand color"
+        type="color"
+      />
+    </div>
+  </Fieldset>
+
+  <Fieldset>
+    <FieldLegend>Corners</FieldLegend>
+    <ToggleGroup aria-label="Corners" name="theme-corners" size="small">
+      <ToggleButton checked value="">Preset</ToggleButton>
+      {
+        CORNERS.map((option) => (
+          <ToggleButton value={option.value}>{option.label}</ToggleButton>
+        ))
+      }
+      <ToggleButton class="theme-quick-custom" value="custom"
+        >Custom</ToggleButton
+      >
+    </ToggleGroup>
+  </Fieldset>
+
+  <Fieldset class="theme-quick-saved" hidden>
+    <FieldLegend>Your themes</FieldLegend>
+    <ToggleGroup aria-label="Your themes" name="theme-saved" size="small" />
+  </Fieldset>
+</form>
+
+<script>
+  import { savedThemes } from "../utils/saved-themes"
+  import { cornersOf, cornersTokens, themeStore } from "../utils/theme"
+  import { brandTokens, isHex, resolveHex } from "../utils/theme-brand"
+
+  for (const form of document.querySelectorAll<HTMLFormElement>(
+    ".theme-quick",
+  )) {
+    const radios = (name: string) => [
+      ...form.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`),
+    ]
+    const custom = form.querySelector<HTMLInputElement>(
+      'input[name="theme-brand-custom"]',
+    )!
+    const saved = form.querySelector<HTMLElement>(".theme-quick-saved")!
+    const savedList = saved.querySelector<HTMLElement>(".ui-toggle-group")!
+    let pendingColor: string | null = null
+
+    const check = (name: string, value: string | null) => {
+      for (const radio of radios(name)) radio.checked = radio.value === value
+    }
+
+    const sync = () => {
+      const { preset, tokens } = themeStore.get()
+      check("theme-preset", preset ?? "")
+
+      const brand = tokens["--ui-palette-source"] ?? null
+      const swatch = brand
+        ? radios("theme-brand").find(
+            (radio) => radio.value.toLowerCase() === brand.toLowerCase(),
+          )
+        : undefined
+      check("theme-brand", brand ? (swatch?.value ?? null) : "")
+      if (document.activeElement !== custom) {
+        custom.value =
+          brand && isHex(brand)
+            ? brand.toLowerCase()
+            : (resolveHex("var(--ui-primary)") ?? custom.value)
+      }
+
+      check("theme-corners", cornersOf(tokens) ?? "")
+
+      const themes = savedThemes.list()
+      const current = savedThemes.current()
+      saved.hidden = themes.length === 0
+      savedList.replaceChildren(
+        ...themes.map((theme) => {
+          const label = document.createElement("label")
+          label.className = "ui-toggle-button"
+          const input = document.createElement("input")
+          input.checked = theme.name === current
+          input.name = "theme-saved"
+          input.type = "radio"
+          input.value = theme.name
+          label.append(input, theme.name)
+          return label
+        }),
+      )
+    }
+
+    const applyBrand = (value: string | null) =>
+      themeStore.update(
+        value
+          ? brandTokens(value)
+          : { "--ui-palette-source": null, "--ui-primary-source": null },
+      )
+
+    form.addEventListener("submit", (event) => event.preventDefault())
+
+    form.addEventListener("change", (event) => {
+      const target = event.target
+      if (!(target instanceof HTMLInputElement)) return
+      if (target.type === "radio" && !target.checked) return
+      if (target.name === "theme-preset") {
+        themeStore.setPreset(target.value || null)
+        const brand = themeStore.get().tokens["--ui-palette-source"]
+        if (brand && isHex(brand)) applyBrand(brand)
+      } else if (target.name === "theme-brand") {
+        applyBrand(target.value || null)
+      } else if (target.name === "theme-corners") {
+        if (target.value !== "custom") {
+          themeStore.update(cornersTokens(target.value || null))
+        }
+      } else if (target.name === "theme-saved") {
+        savedThemes.apply(target.value)
+      }
+    })
+
+    custom.addEventListener("input", () => {
+      const queued = pendingColor !== null
+      pendingColor = custom.value
+      if (queued) return
+      requestAnimationFrame(() => {
+        if (pendingColor) applyBrand(pendingColor)
+        pendingColor = null
+      })
+    })
+
+    sync()
+    savedThemes.subscribe(sync)
+  }
+</script>
+
+<style>
+  .theme-quick {
+    display: grid;
+    gap: var(--size-4);
+
+    :global([hidden]),
+    :global(.theme-quick-custom:not(:has(:checked))) {
+      display: none;
+    }
+  }
+
+  .theme-quick-brand {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .theme-quick-swatch {
+    background-color: var(--swatch);
+    block-size: 0.75em;
+    border-radius: var(--radius-round);
+    display: inline-block;
+    inline-size: 0.75em;
+    margin-inline-end: var(--size-1);
+  }
+</style>

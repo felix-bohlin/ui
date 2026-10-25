@@ -1,5 +1,3 @@
-import { paletteKnobs } from "./color-utils"
-
 const files = import.meta.glob<string>("../../packages/opui/themes/*.css", {
   eager: true,
   import: "default",
@@ -16,10 +14,8 @@ export const EXAMPLE_THEMES = Object.entries(files)
         ),
       ].map(([, token, value]) => [token, value.trim()]),
     )
-    const source = tokens["--ui-palette-source"]
     return {
       css,
-      knobs: (source && paletteKnobs(source)) || {},
       label: `${name[0].toUpperCase()}${name.slice(1)}`,
       name,
       tokens,

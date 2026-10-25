@@ -16,7 +16,6 @@ import { navItems } from "./nav.js"
  * @property {string} url
  */
 
-export const SEARCH_CATEGORIES = navItems.map(({ category, label }) => ({
-  id: category,
-  label,
-}))
+export const SEARCH_CATEGORIES = navItems.flatMap(({ category, label }) =>
+  category ? [{ id: category, label }] : [],
+)

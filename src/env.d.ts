@@ -42,18 +42,19 @@ declare namespace App {
 
 interface Window {
   themeUtils: {
-    applyCustomTheme: (theme?: "dark" | "light") => void
-    applyExampleTheme: (name: string | null) => void
+    applyContrast: (contrast: string | null) => void
+    applyStoredTheme: () => void
     applyTheme: (theme: "dark" | "light") => void
-    getCustomTheme: (
-      theme: "dark" | "light",
-    ) => import("./utils/theme-store").ModeConfig
-    getExampleTheme: () => string | null
+    applyThemeCss: (
+      preset: string | null,
+      css: string,
+      tokens?: Record<string, string>,
+    ) => void
     getStoredContrast: () => string | null
     getStoredTheme: () => string | null
     getSystemPreference: () => "dark" | "light"
+    readTheme: () => import("./utils/theme").StoredTheme | null
     setContrast: (contrast: "more" | "normal" | null) => void
-    setExampleTheme: (name: string | null) => void
     setTheme: (theme: "dark" | "light") => void
   }
 }

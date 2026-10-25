@@ -1,0 +1,19 @@
+---
+import ThemeBuilder from "../components/ThemeBuilder/ThemeBuilder.astro"
+import Default from "../layouts/Default.astro"
+
+const description =
+  "Start from a preset, set your colors, type, shape and density, check the contrast, and copy one CSS file."
+---
+
+<Default description={description} hasMarkdown title="Theme builder">
+  <main id="main-content" class="container is-wide">
+    <article class="ui-rich-text theme-builder-intro">
+      <hgroup>
+        <h1>Theme builder</h1>
+        <p>{description}</p>
+      </hgroup>
+    </article>
+    <ThemeBuilder />
+  </main>
+</Default>

@@ -86,7 +86,7 @@ export function pathHasFramework(framework, sharedPath) {
   return !slug || componentHasFramework(framework, slug)
 }
 
-export const FRAMEWORK_FREE_PREFIXES = ["/blocks", "/learn"]
+export const FRAMEWORK_FREE_PREFIXES = ["/blocks", "/learn", "/theme-builder"]
 
 /** @param {string} sharedPath */
 export function isFrameworkFree(sharedPath) {

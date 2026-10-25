@@ -6,7 +6,6 @@ export const guidePages = [
   { label: "Concepts", slug: "concepts" },
   { label: "Theming", slug: "theming" },
   { label: "Customizing", slug: "customizing" },
-  { label: "Theme generator", slug: "theme-generator" },
   { label: "Theme tokens", slug: "theme-tokens" },
   { label: "Accessibility", slug: "accessibility" },
   { label: "Browser support", slug: "browser-support" },

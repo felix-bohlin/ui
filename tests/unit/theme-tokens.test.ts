@@ -4,11 +4,7 @@ import themeSource from "@opui/css/theme.css?raw"
 import { describe, expect, test } from "vitest"
 import { cssVarRows, stylesheets } from "../../src/component-api/rows"
 import type { ComponentApi } from "../../src/component-api/types"
-import {
-  generateCss,
-  PLACEHOLDER_CSS,
-} from "../../src/components/ThemeGenerator/generateCss"
-import { TOKENS, tokenDefaults } from "../../src/utils/theme-store"
+import { BRAND_TOKENS, CORNER_TOKENS, FONT_TOKENS } from "../../src/utils/theme"
 import { themeTokenDescriptions } from "../../src/utils/theme-token-descriptions"
 import { themeTokenPromises } from "../../src/utils/theme-token-promises"
 import { themeTokenTiers } from "../../src/utils/theme-token-tiers"
@@ -188,11 +184,10 @@ describe("theme tokens", () => {
     )
   })
 
-  test("every store token exists in theme.css", () => {
-    for (const token of TOKENS) expect(find(token)).toBeDefined()
-    expect(tokenDefaults("light")["--ui-palette-hue"]).toBe("145")
-    expect(tokenDefaults("dark")["--ui-palette-hue"]).toBe("145")
-    expect(tokenDefaults("light")["--ui-radius"]).toBe("0.5rem")
+  test("every token the quick theme controls write exists in theme.css", () => {
+    for (const token of [...BRAND_TOKENS, ...CORNER_TOKENS, ...FONT_TOKENS]) {
+      expect(find(token)).toBeDefined()
+    }
   })
 
   test("the knob block reads no other token, so knobs inherit into every scope", () => {
@@ -322,112 +317,6 @@ describe("theme tokens", () => {
     )
     expect(css).toBe("html {\n  --x: 3;\n}\nhtml.ui-dark {\n  --x: 2;\n}\n")
     expect(() => setThemeToken(css, "--missing", "1")).toThrow()
-  })
-})
-
-describe("generateCss", () => {
-  test("lists only the changed tokens in the theme.custom layer", () => {
-    const css = generateCss({
-      dark: {
-        "--ui-radius": "1rem",
-        "--ui-palette-hue": "200",
-      },
-      light: {
-        "--ui-radius": "1rem",
-        "--ui-palette-hue": "30",
-      },
-    })
-    expect(css)
-      .toBe(`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
-@layer theme.palette, theme.base, theme.custom;
-
-@layer theme.custom {
-  :where(html) {
-    --ui-palette-hue: 30;
-    --ui-radius: 1rem;
-  }
-
-  :where(html.ui-dark) {
-    --ui-palette-hue: 200;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :where(html:not(.ui-light)) {
-      --ui-palette-hue: 200;
-    }
-  }
-}
-`)
-  })
-
-  test("leaves out dark values that the light block and defaults already give", () => {
-    const css = generateCss({
-      dark: { "--ui-radius": "0", "--ui-palette-hue": "145" },
-      light: { "--ui-radius": "0" },
-    })
-    expect(css).toContain("--ui-radius: 0;")
-    expect(css).not.toContain("--ui-palette-hue")
-    expect(css).not.toContain("ui-dark")
-  })
-
-  test("starts from an example theme and adds the changes on top", () => {
-    const css = generateCss({
-      dark: { "--ui-radius": "0", "--ui-palette-hue": "200" },
-      light: { "--ui-radius": "0", "--ui-palette-hue": "280" },
-      example: {
-        "--ui-radius": "0.25rem",
-        "--ui-density": "0.875",
-        "--ui-palette-hue": "280",
-      },
-    })
-    expect(css).toContain(`  :where(html) {
-    --ui-radius: 0;
-    --ui-density: 0.875;
-    --ui-palette-hue: 280;
-  }`)
-    expect(css).toMatch(
-      /:where\(html\.ui-dark\) \{\n {4}--ui-palette-hue: 200;\n {2}\}/,
-    )
-    expect(
-      generateCss({
-        dark: {},
-        light: {},
-        example: { "--ui-density": "0.875" },
-      }),
-    ).toContain("--ui-density: 0.875;")
-  })
-
-  test("returns the placeholder without changes", () => {
-    expect(generateCss({ dark: {}, light: {} })).toBe(PLACEHOLDER_CSS)
-  })
-
-  test("swaps grays for palette steps when grays are disabled", () => {
-    const css = generateCss({
-      dark: { "enable-grays": "false" },
-      light: { "enable-grays": "false" },
-    })
-    expect(css).toContain(":where(html, .ui-palette, .ui-contrast-more) {")
-    expect(css).toContain(
-      "--ui-surface: light-dark(var(--ui-color-1), var(--ui-color-13));",
-    )
-    expect(css).toContain(
-      "--ui-neutral: light-dark(oklch(from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) c h), var(--ui-color-9));",
-    )
-    expect(css).toContain(
-      "--ui-surface-inverse: light-dark(var(--ui-color-15), var(--ui-color-2));",
-    )
-    expect(css).not.toContain("--ui-text:")
-    expect(css).not.toContain("--ui-border-color:")
-  })
-
-  test("mixes gray and palette steps when only one mode disables grays", () => {
-    const css = generateCss({ dark: {}, light: { "enable-grays": "false" } })
-    expect(css).toContain(
-      "--ui-surface: light-dark(var(--ui-color-1), var(--ui-gray-13));",
-    )
-    expect(css).toContain(
-      "--ui-neutral: light-dark(oklch(from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) c h), var(--ui-gray-9));",
-    )
   })
 })
 

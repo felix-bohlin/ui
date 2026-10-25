@@ -22,7 +22,7 @@ const REMOVE_SELECTORS = [
   ".example-preview",
   ".guide-footer",
   ".header-anchor",
-  ".theme-generator",
+  ".theme-builder",
   ".ui-tabs > .ui-label",
   "h1 .ui-floating",
   "[data-panel='output']",

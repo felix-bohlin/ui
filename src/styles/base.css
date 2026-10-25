@@ -26,7 +26,7 @@
   color: var(--ui-color-1);
 }
 
-@layer theme.custom {
+@layer theme.base {
   :where(html.ui-dark) {
     --shadow-color: 220 40% 2%;
     --shadow-strength: 20%;
@@ -54,7 +54,7 @@
   }
 }
 
-:where(:root:not([data-example-theme]))
+:where(:root:not([data-example-theme], [data-theme-font]))
   :where(h1, h2, h3, h4, h5, h6, hgroup h1 + p):not(
     :where(.anatomy-diagram, .example-preview) *
   ) {

@@ -43,6 +43,12 @@ const legacyRedirects = {
     guideSlugs.map((s) => [`/guide/${s}`, `${d}/guide/${s}`]),
   ),
   ...Object.fromEntries(
+    ["/guide", ...FRAMEWORK_IDS.map((f) => `/${f}/guide`)].map((prefix) => [
+      `${prefix}/theme-generator`,
+      "/theme-builder",
+    ]),
+  ),
+  ...Object.fromEntries(
     ["/blog", ...FRAMEWORK_IDS.map((f) => `/${f}/blog`)].flatMap((prefix) => [
       [prefix, "/learn"],
       ...learnSlugs.map((s) => [`${prefix}/${s}`, `/learn/${s}`]),

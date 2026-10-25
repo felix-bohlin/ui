@@ -1,18 +1,12 @@
 import { readStored, writeStored } from "./storage"
-import { themeStore, type ModeConfig, type ThemeSnapshot } from "./theme-store"
+import { normalizeTheme, themeStore, type Theme } from "./theme"
 
-export type SavedTheme = ThemeSnapshot & { name: string }
-
-export const PREVIOUS_THEME = "Previous theme"
+export type SavedTheme = Theme & { name: string }
 
 const STORAGE_KEY = "opui-saved-themes"
 const EVENT_NAME = "saved-themes:change"
 
-const sortedEntries = (config: ModeConfig) =>
-  Object.entries(config).toSorted(([a], [b]) => a.localeCompare(b))
-
-const fingerprint = ({ dark, example, light }: ThemeSnapshot) =>
-  JSON.stringify([sortedEntries(dark), example, sortedEntries(light)])
+const fingerprint = (theme: Theme) => JSON.stringify(normalizeTheme(theme))
 
 const write = (themes: SavedTheme[]) => {
   writeStored(STORAGE_KEY, themes)
@@ -22,13 +16,20 @@ const write = (themes: SavedTheme[]) => {
 export const savedThemes = {
   list(): SavedTheme[] {
     const themes = readStored<unknown>(STORAGE_KEY, [])
-    return (Array.isArray(themes) ? (themes as SavedTheme[]) : [])
-      .filter((theme) => typeof theme?.name === "string")
+    return (Array.isArray(themes) ? themes : [])
+      .filter(
+        (theme): theme is SavedTheme =>
+          typeof theme?.name === "string" &&
+          theme.name.trim() !== "" &&
+          typeof theme.tokens === "object" &&
+          theme.tokens !== null,
+      )
+      .map((theme) => ({ name: theme.name, ...normalizeTheme(theme) }))
       .toSorted((a, b) => a.name.localeCompare(b.name))
   },
 
   current(): string | null {
-    const current = fingerprint(themeStore.snapshot())
+    const current = fingerprint(themeStore.get())
     return (
       savedThemes.list().find((theme) => fingerprint(theme) === current)
         ?.name ?? null
@@ -45,32 +46,25 @@ export const savedThemes = {
   save(name: string): void {
     write([
       ...savedThemes.list().filter((theme) => theme.name !== name),
-      { name, ...themeStore.snapshot() },
+      { name, ...themeStore.get() },
     ])
   },
 
   apply(name: string): void {
     const theme = savedThemes.list().find((entry) => entry.name === name)
-    if (theme) themeStore.load(theme)
+    if (theme) themeStore.set(theme)
   },
 
   remove(name: string): void {
     write(savedThemes.list().filter((theme) => theme.name !== name))
   },
 
-  autosave(): void {
-    const { dark, example, light } = themeStore.snapshot()
-    const custom =
-      example !== null ||
-      Object.keys(dark).length > 0 ||
-      Object.keys(light).length > 0
-    if (custom && savedThemes.current() === null) {
-      savedThemes.save(PREVIOUS_THEME)
-    }
-  },
-
-  subscribe(handler: () => void): void {
+  subscribe(handler: () => void): () => void {
     document.addEventListener(EVENT_NAME, handler)
-    themeStore.subscribe(handler)
+    const unsubscribe = themeStore.subscribe(handler)
+    return () => {
+      document.removeEventListener(EVENT_NAME, handler)
+      unsubscribe()
+    }
   },
 }

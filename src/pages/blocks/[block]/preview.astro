@@ -34,33 +34,7 @@ const themes = testPagesEnabled()
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
     <title>{`${block.name} - Open Props UI blocks`}</title>
-    <ThemeBootstrap />
-    <script is:inline>
-      {
-        const root = document.documentElement
-        let parentRoot
-        try {
-          if (window.parent !== window)
-            parentRoot = window.parent.document.documentElement
-        } catch {}
-
-        const sync = () => {
-          root.className = parentRoot.className
-          root.style.cssText = parentRoot.style.cssText
-          const exampleTheme = parentRoot.dataset.exampleTheme ?? null
-          if (exampleTheme !== (root.dataset.exampleTheme ?? null))
-            window.themeUtils.applyExampleTheme(exampleTheme)
-        }
-
-        if (parentRoot) {
-          sync()
-          new MutationObserver(sync).observe(parentRoot, {
-            attributeFilter: ["class", "data-example-theme", "style"],
-            attributes: true,
-          })
-        }
-      }
-    </script>
+    <ThemeBootstrap overrides />
   </head>
   <body>
     {
@@ -77,6 +51,8 @@ const themes = testPagesEnabled()
     <script is:inline define:vars={{ themes }}>
       const theme = new URLSearchParams(location.search).get("theme")
       if (theme && Object.hasOwn(themes, theme)) {
+        window.themeUtils.applyStoredTheme = () => {}
+        window.themeUtils.applyThemeCss(null, "", {})
         const style = document.createElement("style")
         style.textContent = themes[theme]
         document.head.append(style)

@@ -1870,51 +1870,6 @@
     "url": "/vue/guide/migrating"
   },
   {
-    "id": "guide-theme-generator-html",
-    "title": "Theme generator",
-    "description": "Edit the design tokens visually and download a custom-theme.css.",
-    "headings": "",
-    "category": "Guide",
-    "frameworkId": "html",
-    "url": "/html/guide/theme-generator"
-  },
-  {
-    "id": "guide-theme-generator-astro",
-    "title": "Theme generator",
-    "description": "Edit the design tokens visually and download a custom-theme.css.",
-    "headings": "",
-    "category": "Guide",
-    "frameworkId": "astro",
-    "url": "/astro/guide/theme-generator"
-  },
-  {
-    "id": "guide-theme-generator-react",
-    "title": "Theme generator",
-    "description": "Edit the design tokens visually and download a custom-theme.css.",
-    "headings": "",
-    "category": "Guide",
-    "frameworkId": "react",
-    "url": "/react/guide/theme-generator"
-  },
-  {
-    "id": "guide-theme-generator-svelte",
-    "title": "Theme generator",
-    "description": "Edit the design tokens visually and download a custom-theme.css.",
-    "headings": "",
-    "category": "Guide",
-    "frameworkId": "svelte",
-    "url": "/svelte/guide/theme-generator"
-  },
-  {
-    "id": "guide-theme-generator-vue",
-    "title": "Theme generator",
-    "description": "Edit the design tokens visually and download a custom-theme.css.",
-    "headings": "",
-    "category": "Guide",
-    "frameworkId": "vue",
-    "url": "/vue/guide/theme-generator"
-  },
-  {
     "id": "guide-theme-tokens-html",
     "title": "Theme tokens",
     "description": "Every token theme.css declares, with its default and its tier. Most are roles; the others are marked knob, primitive,\n    hook or component. The tests check every promised contrast\n    ratio in light and dark mode, with and without more contrast.",

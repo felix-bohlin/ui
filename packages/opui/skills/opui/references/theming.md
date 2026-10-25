@@ -23,7 +23,7 @@ A theme sets [knobs and roles](https://open-props-ui.netlify.app/html/guide/conc
 
 Drag a knob: the palette is derived again, the roles that read it follow, and so does every component. A theme sets the knobs once on `html`; this figure is a `.ui-palette` scope with its own.
 
-Snippets on this page belong in `@layer theme.custom`, see [Your theme](https://open-props-ui.netlify.app/html/guide/customizing.md#your-theme). Every token and its default is on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md), and the [Theme generator](https://open-props-ui.netlify.app/html/guide/theme-generator.md) writes a theme for you.
+Snippets on this page belong in `@layer theme.custom`, see [Your theme](https://open-props-ui.netlify.app/html/guide/customizing.md#your-theme). Every token and its default is on [Theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md), and the [Theme builder](https://open-props-ui.netlify.app/theme-builder.md) writes a theme for you.
 
 ## Palette
 

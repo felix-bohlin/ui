@@ -18,7 +18,7 @@ A theme is the [knobs, roles and component tokens](https://open-props-ui.netlify
 }
 ```
 
-If it might load before `layers.css`, start it with the two `@layer` statements from there, like the example themes do. The [Theme generator](https://open-props-ui.netlify.app/html/guide/theme-generator.md) writes one for you, and [Theming](https://open-props-ui.netlify.app/html/guide/theming.md) walks through the knobs.
+If it might load before `layers.css`, start it with the two `@layer` statements from there, like the example themes do. The [Theme builder](https://open-props-ui.netlify.app/theme-builder.md) writes one for you, and [Theming](https://open-props-ui.netlify.app/html/guide/theming.md) walks through the knobs.
 
 Knobs inherit, so `html` is enough for them. A role you pin, such as `--ui-surface` or `--ui-primary`, goes on `:where(html, .ui-palette, .ui-contrast-more)` so the scope classes keep it. The example themes do that for every token.
 

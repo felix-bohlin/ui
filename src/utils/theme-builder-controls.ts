@@ -1,4 +1,11 @@
-import { BRAND_TOKENS, CORNER_TOKENS, type ThemeTokens } from "./theme"
+import {
+  BRAND_TOKENS,
+  COMPONENT_RADII,
+  CORNER_TOKENS,
+  FOLLOW_RADIUS,
+  type ThemeTokens,
+} from "./theme"
+import { BALANCED_PRIMARY, MONOCHROME_PRIMARY } from "./theme-brand"
 
 export type ChoiceOption = { label: string; tokens: ThemeTokens; value: string }
 
@@ -50,17 +57,7 @@ const REVERT = "revert-layer"
 const revert = (...tokens: string[]) =>
   Object.fromEntries(tokens.map((token) => [token, REVERT]))
 
-export const BALANCED_PRIMARY =
-  "light-dark(var(--ui-color-9), var(--ui-color-6))"
-
-export const MONOCHROME_PRIMARY =
-  "light-dark(oklch(0.205 0 0), oklch(0.922 0 0))"
-
-export const FOLLOW_RADIUS = "var(--ui-radius)"
-
-export const COMPONENT_RADII = CORNER_TOKENS.filter(
-  (token) => !token.startsWith("--ui-radius"),
-)
+export { BALANCED_PRIMARY, COMPONENT_RADII, FOLLOW_RADIUS, MONOCHROME_PRIMARY }
 
 export const FONTS = [
   {

@@ -1,7 +1,7 @@
 ---
 import "../styles/theme-fonts.css"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
-import { FONT_TOKENS, THEME_KEY, VIEW_KEYS } from "../utils/theme"
+import { FONT_TOKENS, LAYERS, THEME_KEY, VIEW_KEYS } from "../utils/theme"
 
 type Props = {
   overrides?: boolean
@@ -16,7 +16,14 @@ const exampleThemes = Object.fromEntries(
 
 <script
   is:inline
-  define:vars={{ exampleThemes, FONT_TOKENS, overrides, THEME_KEY, VIEW_KEYS }}
+  define:vars={{
+    exampleThemes,
+    FONT_TOKENS,
+    LAYERS,
+    overrides,
+    THEME_KEY,
+    VIEW_KEYS,
+  }}
 >
   const params = overrides
     ? new URLSearchParams(location.search)
@@ -86,9 +93,13 @@ const exampleThemes = Object.fromEntries(
       const root = document.documentElement
       const presetStyle = style("opui-example-theme")
       const customStyle = style("opui-theme")
-      const presetCss = (preset && exampleThemes[preset]) || ""
-      if (presetStyle.textContent !== presetCss) {
-        presetStyle.textContent = presetCss
+      const presetCss =
+        typeof preset === "string" && Object.hasOwn(exampleThemes, preset)
+          ? exampleThemes[preset]
+          : ""
+      const presetText = presetCss || LAYERS
+      if (presetStyle.textContent !== presetText) {
+        presetStyle.textContent = presetText
       }
       if (customStyle.textContent !== css) customStyle.textContent = css
       if (

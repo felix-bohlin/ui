@@ -1,5 +1,6 @@
 ---
 import {
+  Button,
   FieldLegend,
   Fieldset,
   TextField,
@@ -12,8 +13,8 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
 
 <form class="theme-quick ui-form">
   <Fieldset>
-    <FieldLegend>Starting point</FieldLegend>
-    <ToggleGroup aria-label="Starting point" name="theme-preset" size="small">
+    <FieldLegend>Start from</FieldLegend>
+    <ToggleGroup aria-label="Start from" name="theme-preset" size="small">
       <ToggleButton checked value="">Default</ToggleButton>
       {
         EXAMPLE_THEMES.map((theme) => (
@@ -27,7 +28,9 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
     <FieldLegend>Brand color</FieldLegend>
     <div class="theme-quick-brand">
       <ToggleGroup aria-label="Brand color" name="theme-brand" size="small">
-        <ToggleButton checked value="">Preset</ToggleButton>
+        <ToggleButton checked class="theme-quick-start" value="">
+          Default
+        </ToggleButton>
         {
           BRAND_SWATCHES.map((swatch) => (
             <ToggleButton value={swatch.value}>
@@ -55,7 +58,9 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
   <Fieldset>
     <FieldLegend>Corners</FieldLegend>
     <ToggleGroup aria-label="Corners" name="theme-corners" size="small">
-      <ToggleButton checked value="">Preset</ToggleButton>
+      <ToggleButton checked class="theme-quick-start" value="">
+        Default
+      </ToggleButton>
       {
         CORNERS.map((option) => (
           <ToggleButton value={option.value}>{option.label}</ToggleButton>
@@ -71,12 +76,41 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
     <FieldLegend>Your themes</FieldLegend>
     <ToggleGroup aria-label="Your themes" name="theme-saved" size="small" />
   </Fieldset>
+
+  <div class="theme-quick-actions">
+    <Button
+      class="theme-quick-reset"
+      size="small"
+      type="button"
+      variant="outlined"
+    >
+      Reset theme
+    </Button>
+    <p aria-live="polite" class="theme-quick-status"></p>
+    <Button class="theme-quick-undo" hidden size="small" type="button">
+      Undo
+    </Button>
+  </div>
 </form>
 
 <script>
+  import { exampleTheme } from "../utils/example-themes"
   import { savedThemes } from "../utils/saved-themes"
-  import { cornersOf, cornersTokens, themeStore } from "../utils/theme"
-  import { brandTokens, isHex, resolveHex } from "../utils/theme-brand"
+  import {
+    cornersOf,
+    cornersUpdate,
+    normalizeTheme,
+    themeStore,
+    type Theme,
+  } from "../utils/theme"
+  import {
+    brandUpdate,
+    isHex,
+    resolveHex,
+    switchPreset,
+  } from "../utils/theme-brand"
+
+  const fingerprint = (theme: Theme) => JSON.stringify(normalizeTheme(theme))
 
   for (const form of document.querySelectorAll<HTMLFormElement>(
     ".theme-quick",
@@ -89,15 +123,40 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
     )!
     const saved = form.querySelector<HTMLElement>(".theme-quick-saved")!
     const savedList = saved.querySelector<HTMLElement>(".ui-toggle-group")!
+    const status = form.querySelector<HTMLElement>(".theme-quick-status")!
+    const undo = form.querySelector<HTMLButtonElement>(".theme-quick-undo")!
     let pendingColor: string | null = null
+    let savedNames = ""
+    let undoTheme: Theme | null = null
+    let undoFingerprint = ""
 
     const check = (name: string, value: string | null) => {
       for (const radio of radios(name)) radio.checked = radio.value === value
     }
 
+    const renderSaved = (names: string[]) => {
+      savedList.replaceChildren(
+        ...names.map((name) => {
+          const label = document.createElement("label")
+          label.className = "ui-toggle-button"
+          const input = document.createElement("input")
+          input.name = "theme-saved"
+          input.type = "radio"
+          input.value = name
+          label.append(input, name)
+          return label
+        }),
+      )
+    }
+
     const sync = () => {
-      const { preset, tokens } = themeStore.get()
+      const theme = themeStore.get()
+      const { preset, tokens } = theme
       check("theme-preset", preset ?? "")
+      const start = exampleTheme(preset)?.label ?? "Default"
+      for (const label of form.querySelectorAll(".theme-quick-start")) {
+        label.lastChild!.textContent = start
+      }
 
       const brand = tokens["--ui-palette-source"] ?? null
       const swatch = brand
@@ -115,28 +174,34 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
 
       check("theme-corners", cornersOf(tokens) ?? "")
 
-      const themes = savedThemes.list()
-      const current = savedThemes.current()
-      saved.hidden = themes.length === 0
-      savedList.replaceChildren(
-        ...themes.map((theme) => {
-          const label = document.createElement("label")
-          label.className = "ui-toggle-button"
-          const input = document.createElement("input")
-          input.checked = theme.name === current
-          input.name = "theme-saved"
-          input.type = "radio"
-          input.value = theme.name
-          label.append(input, theme.name)
-          return label
-        }),
-      )
+      const names = savedThemes.list().map((entry) => entry.name)
+      saved.hidden = names.length === 0
+      if (names.join("\n") !== savedNames) {
+        savedNames = names.join("\n")
+        renderSaved(names)
+      }
+      check("theme-saved", savedThemes.current())
+
+      if (undoTheme && fingerprint(theme) !== undoFingerprint) {
+        undoTheme = null
+        undo.hidden = true
+        status.textContent = ""
+      }
+    }
+
+    const undoable = (message: string, action: () => void) => {
+      const before = themeStore.get()
+      action()
+      undoTheme = before
+      undoFingerprint = fingerprint(themeStore.get())
+      status.textContent = message
+      undo.hidden = false
     }
 
     const applyBrand = (value: string | null) =>
       themeStore.update(
         value
-          ? brandTokens(value)
+          ? brandUpdate(themeStore.get().tokens, value)
           : { "--ui-palette-source": null, "--ui-primary-source": null },
       )
 
@@ -147,18 +212,36 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
       if (!(target instanceof HTMLInputElement)) return
       if (target.type === "radio" && !target.checked) return
       if (target.name === "theme-preset") {
-        themeStore.setPreset(target.value || null)
-        const brand = themeStore.get().tokens["--ui-palette-source"]
-        if (brand && isHex(brand)) applyBrand(brand)
+        switchPreset(target.value || null)
       } else if (target.name === "theme-brand") {
         applyBrand(target.value || null)
       } else if (target.name === "theme-corners") {
         if (target.value !== "custom") {
-          themeStore.update(cornersTokens(target.value || null))
+          themeStore.update(
+            cornersUpdate(themeStore.get().tokens, target.value || null),
+          )
         }
       } else if (target.name === "theme-saved") {
-        savedThemes.apply(target.value)
+        undoable(`Switched to ${target.value}.`, () =>
+          savedThemes.apply(target.value),
+        )
       }
+    })
+
+    form
+      .querySelector(".theme-quick-reset")!
+      .addEventListener("click", () =>
+        undoable("Theme reset.", () => themeStore.reset()),
+      )
+
+    undo.addEventListener("click", () => {
+      if (!undoTheme) return
+      const theme = undoTheme
+      undoTheme = null
+      undo.hidden = true
+      themeStore.set(theme)
+      status.textContent = "Undone."
+      form.querySelector<HTMLElement>(".theme-quick-reset")!.focus()
     })
 
     custom.addEventListener("input", () => {
@@ -187,11 +270,24 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
     }
   }
 
+  .theme-quick-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
   .theme-quick-brand {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-2);
+  }
+
+  .theme-quick-status {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
   }
 
   .theme-quick-swatch {

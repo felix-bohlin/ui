@@ -32,10 +32,7 @@ const HANDBACK = [
   "--ui-border-color",
   "--ui-field-border-color",
   "--ui-field-helper-text-color",
-  "--ui-field-placeholder-text-color",
   "--ui-focus-ring-color",
-  "--ui-focus-ring-width",
-  "--ui-state-active-alpha-dark",
   "--ui-text-subtle",
 ]
 
@@ -65,6 +62,12 @@ export const CORNER_TOKENS = [
   "--ui-radius-small",
   "--ui-radius-x-small",
 ]
+
+export const COMPONENT_RADII = CORNER_TOKENS.filter(
+  (name) => !name.startsWith("--ui-radius"),
+)
+
+export const FOLLOW_RADIUS = "var(--ui-radius)"
 
 export const FONT_TOKENS = ["--ui-font-body", "--ui-font-heading"]
 
@@ -152,15 +155,26 @@ export const normalizeTheme = (value: unknown): Theme => {
 
 const LEGACY_PALETTE = ["--ui-palette-chroma", "--ui-palette-hue"]
 
-export const migrateLegacy = (read: (key: string) => unknown): Theme | null => {
+const LEGACY_SIZES: Record<string, string> = {
+  1: "0.25rem",
+  2: "0.5rem",
+  3: "1rem",
+  4: "1.25rem",
+}
+
+export const migrateLegacy = (read: (key: string) => unknown) => {
   const preset = read("opui-example-theme")
-  const config = read("opui-custom-theme-light") ?? read("opui-custom-theme")
+  const config =
+    read("opui-custom-theme-light") ??
+    read("opui-custom-theme-dark") ??
+    read("opui-custom-theme")
   if (preset === null && config === null) return null
   const tokens: ThemeTokens = {}
   if (config && typeof config === "object") {
     for (const [name, value] of Object.entries(config)) {
       if (typeof value === "string" && !LEGACY_PALETTE.includes(name)) {
-        tokens[name] = value
+        const size = /^var\(--(?:radius|size)-(\d)\)$/.exec(value)?.[1]
+        tokens[name] = (size && LEGACY_SIZES[size]) || value
       }
     }
     const { "--ui-palette-chroma": chroma, "--ui-palette-hue": hue } =
@@ -198,13 +212,25 @@ const emit = (theme: Theme) => {
   document.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: theme }))
 }
 
-const read = (): Theme => {
+let memory: Theme | null = null
+
+if (isBrowser) {
+  window.addEventListener("storage", (event) => {
+    if (event.key === THEME_KEY || event.key === null) memory = null
+  })
+}
+
+const read = () => {
+  if (memory) return memory
   const stored = readStored<unknown>(THEME_KEY, null)
   if (stored !== null) return normalizeTheme(stored)
   const legacy = migrateLegacy(readLegacy)
   if (!legacy) return emptyTheme()
-  writeStored(THEME_KEY, store(legacy))
+  const next = store(legacy)
+  writeStored(THEME_KEY, next)
   for (const key of LEGACY_KEYS) removeStored(key)
+  memory = legacy
+  apply(next)
   return legacy
 }
 
@@ -216,6 +242,18 @@ export const cornersOf = (tokens: ThemeTokens) => {
     CORNER_TOKENS.every((name) => tokens[name] === macro[name])
     ? value
     : "custom"
+}
+
+export const cornersUpdate = (tokens: ThemeTokens, value: string | null) => {
+  const update = cornersTokens(value)
+  if (value !== null) {
+    for (const name of COMPONENT_RADII) {
+      if (tokens[name] !== undefined && tokens[name] !== FOLLOW_RADIUS) {
+        delete update[name]
+      }
+    }
+  }
+  return update
 }
 
 export const cornersTokens = (value: string | null) =>
@@ -230,25 +268,26 @@ export const cornersTokens = (value: string | null) =>
             ? "min(5px, var(--ui-radius))"
             : name === "--ui-radius-x-small"
               ? "min(2px, var(--ui-radius))"
-              : "var(--ui-radius)",
+              : FOLLOW_RADIUS,
     ]),
   ) as Record<string, string | null>
 
 export const themeStore = {
-  get(): Theme {
+  get() {
     if (!isBrowser) return emptyTheme()
     return read()
   },
 
-  set(theme: Theme): void {
+  set(theme: Theme) {
     if (!isBrowser) return
     const next = store(normalizeTheme(theme))
+    memory = { preset: next.preset, tokens: next.tokens }
     writeStored(THEME_KEY, next)
     apply(next)
     emit(next)
   },
 
-  update(tokens: Record<string, string | null>): void {
+  update(tokens: Record<string, string | null>) {
     const current = themeStore.get()
     const next = { ...current.tokens }
     for (const [name, value] of Object.entries(tokens)) {
@@ -258,15 +297,15 @@ export const themeStore = {
     themeStore.set({ ...current, tokens: next })
   },
 
-  setPreset(preset: string | null): void {
+  setPreset(preset: string | null) {
     themeStore.set({ ...themeStore.get(), preset })
   },
 
-  reset(): void {
+  reset() {
     themeStore.set(emptyTheme())
   },
 
-  subscribe(handler: (theme: Theme) => void): () => void {
+  subscribe(handler: (theme: Theme) => void) {
     if (!isBrowser) return () => {}
     const onChange = (event: Event) =>
       handler((event as CustomEvent<Theme>).detail)

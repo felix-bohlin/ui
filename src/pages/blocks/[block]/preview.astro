@@ -35,6 +35,50 @@ const themes = testPagesEnabled()
     <meta name="robots" content="noindex" />
     <title>{`${block.name} - Open Props UI blocks`}</title>
     <ThemeBootstrap overrides />
+    <script is:inline>
+      {
+        let parentDocument
+        try {
+          localStorage.getItem("opui-theme")
+        } catch {
+          try {
+            if (window.parent !== window)
+              parentDocument = window.parent.document
+          } catch {}
+        }
+
+        if (parentDocument) {
+          const params = new URLSearchParams(location.search)
+          const root = document.documentElement
+          const parentRoot = parentDocument.documentElement
+          const sync = () => {
+            if (!params.has("scheme") && !params.has("contrast")) {
+              root.className = parentRoot.className
+            }
+            if (params.has("theme")) return
+            window.themeUtils.applyThemeCss(
+              parentRoot.dataset.exampleTheme ?? null,
+              parentDocument.getElementById("opui-theme")?.textContent ?? "",
+            )
+            root.toggleAttribute(
+              "data-theme-font",
+              parentRoot.hasAttribute("data-theme-font"),
+            )
+          }
+          sync()
+          const observer = new MutationObserver(sync)
+          observer.observe(parentRoot, {
+            attributeFilter: ["class", "data-example-theme", "data-theme-font"],
+            attributes: true,
+          })
+          observer.observe(parentDocument.head, {
+            characterData: true,
+            childList: true,
+            subtree: true,
+          })
+        }
+      }
+    </script>
   </head>
   <body>
     {

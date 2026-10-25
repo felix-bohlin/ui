@@ -114,7 +114,10 @@ const surfaceRoles = [
       component:
     </p>
     <Example centered row>
-      <section class="ui-palette scope-demo" style="--ui-palette-hue: 30">
+      <section
+        class="ui-palette scope-demo"
+        style="--ui-palette-hue: 30; --ui-palette-source: oklch(58% calc(0.21 * var(--ui-palette-chroma)) var(--ui-palette-hue)); --ui-primary-source: light-dark(var(--ui-color-9), var(--ui-color-6))"
+      >
         <p class="ui-caption">.ui-palette with --ui-palette-hue: 30</p>
         <button class="ui-button ui-filled ui-primary" type="button">
           Primary

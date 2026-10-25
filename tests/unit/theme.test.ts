@@ -6,6 +6,7 @@ import {
   PLACEHOLDER_CSS,
   cornersOf,
   cornersTokens,
+  cornersUpdate,
   customCss,
   exportCss,
   migrateLegacy,
@@ -38,6 +39,12 @@ describe("customCss", () => {
       ":where(.ui-contrast-more, .ui-contrast-more .ui-palette) {\n    --ui-text-subtle: revert-layer;\n  }",
     )
     expect(css.match(/--ui-radius/g)).toHaveLength(1)
+  })
+
+  test("keeps a user's focus ring width under more contrast", () => {
+    expect(customCss({ "--ui-focus-ring-width": "5px" })).not.toContain(
+      "revert-layer",
+    )
   })
 })
 
@@ -106,6 +113,21 @@ describe("migrateLegacy", () => {
   })
 })
 
+describe("migrateLegacy fallbacks", () => {
+  test("reads a dark-only config and maps old size tokens to rem", () => {
+    expect(
+      migrateLegacy((key) =>
+        key === "opui-custom-theme-dark"
+          ? { "--ui-button-radius": "var(--radius-2)", "--ui-radius": "1rem" }
+          : null,
+      ),
+    ).toEqual({
+      preset: null,
+      tokens: { "--ui-button-radius": "0.5rem", "--ui-radius": "1rem" },
+    })
+  })
+})
+
 describe("corners", () => {
   test("round-trips every option and reports the preset and custom states", () => {
     expect(cornersOf({})).toBeNull()
@@ -122,5 +144,17 @@ describe("corners", () => {
     expect(
       Object.values(cornersTokens(null)).every((value) => value === null),
     ).toBe(true)
+  })
+})
+
+describe("cornersUpdate", () => {
+  test("keeps component radii the user set to their own value", () => {
+    const update = cornersUpdate(
+      { "--ui-button-radius": "var(--ui-radius)", "--ui-chip-radius": "2rem" },
+      "0",
+    )
+    expect(update["--ui-radius"]).toBe("0")
+    expect(update["--ui-button-radius"]).toBe("var(--ui-radius)")
+    expect("--ui-chip-radius" in update).toBe(false)
   })
 })

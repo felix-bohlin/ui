@@ -23,8 +23,8 @@ import ComponentCard from "../components/ComponentShowcase/ComponentCard.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
 import ReactLogo from "../components/ReactLogo.astro"
-import ThemeQuickControls from "../components/ThemeQuickControls.astro"
 import SvelteLogo from "../components/SvelteLogo.astro"
+import ThemeQuickControls from "../components/ThemeQuickControls.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
 import { allBlocks, blockPreviewHref } from "../utils/blocks"
@@ -316,9 +316,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             <Button href={builderHref} variant="filled" color="primary">
               Open the theme builder
             </Button>
-            <Button class="knob-reset" type="button" variant="outlined">
-              Reset
-            </Button>
           </div>
         </div>
 
@@ -458,7 +455,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
 <script>
   import { FRAMEWORK_STORAGE_KEY } from "../utils/framework"
-  import { themeStore } from "../utils/theme"
 
   // Clicking a framework chip in the hero remembers the framework, so the bare
   // homepage opens it next time.
@@ -496,14 +492,11 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
   measure()
   document.addEventListener("theme:change", measure)
+  subject?.addEventListener("transitionend", measure)
   new MutationObserver(measure).observe(document.documentElement, {
     attributeFilter: ["class", "style"],
     attributes: true,
   })
-
-  document
-    .querySelector(".knob-reset")
-    ?.addEventListener("click", () => themeStore.reset())
 </script>
 
 <style is:global>

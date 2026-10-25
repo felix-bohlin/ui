@@ -58,7 +58,7 @@ const { link } = Astro.locals
             >
           </Switch>
           <Switch spread id="contrast-switcher">
-            High contrast
+            More contrast
             <svg
               slot="icon-checked"
               xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,6 @@ const { link } = Astro.locals
     <Button size="small" commandfor="theme-configurator-drawer" command="close"
       >Close</Button
     >
-    <Button size="small" id="theme-configurator-reset">Reset theme</Button>
     <Button href={link("/theme-builder")} size="small" variant="outlined"
       >Theme builder</Button
     >
@@ -110,9 +109,6 @@ const { link } = Astro.locals
 </Drawer>
 
 <script>
-  import { themeStore } from "../utils/theme"
-
-  const resetBtn = document.getElementById("theme-configurator-reset")
   const themeSwitcher = document.getElementById(
     "theme-switcher",
   ) as HTMLInputElement | null
@@ -163,8 +159,6 @@ const { link } = Astro.locals
     attributeFilter: ["class"],
     attributes: true,
   })
-
-  resetBtn?.addEventListener("click", () => themeStore.reset())
 </script>
 
 <style>

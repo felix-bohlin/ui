@@ -1,8 +1,17 @@
 import { hexToOklch, oklchToHex } from "./color-utils"
+import { themeStore, type ThemeTokens } from "./theme"
 
 type Rgb = [number, number, number]
 
 const SURFACE_RATIO = 3
+
+const BRAND_GRAY_CHROMA = "0.012"
+
+export const BALANCED_PRIMARY =
+  "light-dark(var(--ui-color-9), var(--ui-color-6))"
+
+export const MONOCHROME_PRIMARY =
+  "light-dark(oklch(0.205 0 0), oklch(0.922 0 0))"
 
 const clip = (value: number) => Math.min(1, Math.max(0, value))
 
@@ -38,6 +47,7 @@ const surfaceOf = (scheme: "dark" | "light") => {
   const host = document.createElement("div")
   host.className = `ui-${scheme}`
   host.hidden = true
+  host.style.forcedColorAdjust = "none"
   const probe = document.createElement("div")
   probe.style.color = "color(from var(--ui-surface) srgb r g b)"
   host.append(probe)
@@ -84,6 +94,7 @@ export const resolveHex = (color: string) => {
   const probe = document.createElement("div")
   probe.hidden = true
   probe.style.color = `color(from ${color} srgb r g b)`
+  probe.style.forcedColorAdjust = "none"
   document.body.append(probe)
   const rgb = parseSrgb(getComputedStyle(probe).color)
   probe.remove()
@@ -96,4 +107,37 @@ export const resolveHex = (color: string) => {
         )
         .join("")}`
     : null
+}
+
+const grayHueOf = (hex: string) => String(Math.round(hexToOklch(hex).H))
+
+export const brandUpdate = (tokens: ThemeTokens, hex: string) => {
+  const previous = tokens["--ui-palette-source"]
+  const primary = tokens["--ui-primary-source"] ?? ""
+  const update: Record<string, string> = [
+    BALANCED_PRIMARY,
+    MONOCHROME_PRIMARY,
+  ].includes(primary)
+    ? { "--ui-palette-source": hex }
+    : brandTokens(hex)
+  if (
+    previous &&
+    isHex(previous) &&
+    tokens["--ui-gray-chroma"] === BRAND_GRAY_CHROMA &&
+    tokens["--ui-gray-hue"] === grayHueOf(previous)
+  ) {
+    update["--ui-gray-hue"] = grayHueOf(hex)
+  }
+  return update
+}
+
+export const switchPreset = (preset: string | null) => {
+  const { tokens } = themeStore.get()
+  const brand = tokens["--ui-palette-source"]
+  const fitted =
+    !!brand &&
+    isHex(brand) &&
+    tokens["--ui-primary-source"] === brandTokens(brand)["--ui-primary-source"]
+  themeStore.setPreset(preset)
+  if (fitted) themeStore.update(brandTokens(brand))
 }

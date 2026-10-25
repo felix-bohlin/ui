@@ -1,8 +1,10 @@
+import { exampleTheme } from "./example-themes"
 import {
   BRAND_TOKENS,
   COMPONENT_RADII,
   CORNER_TOKENS,
   FOLLOW_RADIUS,
+  type Theme,
   type ThemeTokens,
 } from "./theme"
 import { BALANCED_PRIMARY, MONOCHROME_PRIMARY } from "./theme-brand"
@@ -1586,3 +1588,49 @@ export const matchOption = (
       )
     )
   }) ?? null
+
+const RADIUS_TOKENS = CORNER_TOKENS.filter(
+  (token) => !COMPONENT_RADII.includes(token),
+)
+
+export const isFollow = (value?: string) =>
+  value !== undefined &&
+  canonical(value, "", {}) === canonical(FOLLOW_RADIUS, "", {})
+
+const isAccentTone = (value?: string) =>
+  value !== undefined &&
+  [BALANCED_PRIMARY, MONOCHROME_PRIMARY].some(
+    (tone) => canonical(value, "", {}) === canonical(tone, "", {}),
+  )
+
+export const ownTokens = (control: Control, tokens: ThemeTokens) =>
+  control.kind === "brand" && isAccentTone(tokens["--ui-primary-source"])
+    ? ["--ui-palette-source"]
+    : controlTokens(control)
+
+export const isChanged = (
+  control: Control,
+  tokens: ThemeTokens,
+  base: ThemeTokens,
+) =>
+  (control.kind === "corners"
+    ? RADIUS_TOKENS
+    : ownTokens(control, tokens)
+  ).some(
+    (token) =>
+      token in tokens &&
+      !(
+        COMPONENT_RADII.includes(token) &&
+        isFollow(tokens[token]) &&
+        (base[token] === undefined || isFollow(base[token]))
+      ),
+  )
+
+export const changeCount = ({ preset, tokens }: Theme) => {
+  const base = exampleTheme(preset)?.tokens ?? {}
+  return (
+    CONTROLS.filter((control) => isChanged(control, tokens, base)).length +
+    Object.keys(tokens).filter((token) => !BUILDER_TOKENS.includes(token))
+      .length
+  )
+}

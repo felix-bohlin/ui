@@ -40,6 +40,16 @@ describe("encodeTheme and decodeTheme", () => {
     )
   })
 
+  test("keep brackets, quotes and marks inside a quoted name", () => {
+    const tokens = {
+      "--ui-font-body": `"Hey! (Display) [2]", 'It"s', serif`,
+      "--ui-shadow-surface": "0 1px 2px rgb(0 0 0 / 0.3)",
+    }
+    expect(decodeTheme(encodeTheme({ preset: null, tokens }))?.tokens).toEqual(
+      tokens,
+    )
+  })
+
   test("write URL-safe text", () => {
     expect(encodeTheme(theme)).toMatch(/^[\w-]+$/)
   })
@@ -83,6 +93,36 @@ describe("encodeTheme and decodeTheme", () => {
         preset: null,
         tokens: { "--ui-surface": "url(https://example.com/x.png)" },
       }),
+    ],
+    [
+      "a value with an unclosed function",
+      encode({ preset: null, tokens: { "--ui-0": "calc(" } }),
+    ],
+    [
+      "a value with an unclosed bracket",
+      encode({
+        preset: null,
+        tokens: { "--ui-0": "(", "--ui-surface": "red" },
+      }),
+    ],
+    [
+      "a value with an unclosed quote",
+      encode({
+        preset: null,
+        tokens: { "--ui-0": '"', "--ui-surface": "red" },
+      }),
+    ],
+    [
+      "a value with brackets in the wrong order",
+      encode({ preset: null, tokens: { "--ui-radius": "min(1px, [2px)]" } }),
+    ],
+    [
+      "a value marked important",
+      encode({ preset: null, tokens: { "--ui-surface": "red !important" } }),
+    ],
+    [
+      "a value with a line break",
+      encode({ preset: null, tokens: { "--ui-font-body": '"A\nB", serif' } }),
     ],
     ["a value that is too long", "a".repeat(20000)],
   ])("return null for %s", (_, value) => {

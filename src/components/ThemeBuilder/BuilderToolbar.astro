@@ -84,6 +84,7 @@ const presets = [
 
 <form class="builder-save" hidden id="builder-save-form">
   <TextField
+    aria-describedby="builder-save-note"
     autocomplete="off"
     label="Theme name"
     maxlength="40"
@@ -92,11 +93,16 @@ const presets = [
     size="small"
   />
   <div class="builder-actions">
-    <Button color="primary" size="small" type="submit" variant="filled"
-      >Save theme</Button
+    <Button
+      color="primary"
+      data-save-submit
+      size="small"
+      type="submit"
+      variant="filled">Save theme</Button
     >
     <Button data-save-cancel size="small" variant="transparent">Cancel</Button>
   </div>
+  <p aria-live="polite" class="builder-save-note" id="builder-save-note"></p>
 </form>
 
 <script>
@@ -104,8 +110,11 @@ const presets = [
   import { savedThemes } from "../../utils/saved-themes"
   import { copyText } from "../../utils/storage"
   import { themeStore, type Theme } from "../../utils/theme"
-  import { brandTokens, isHex } from "../../utils/theme-brand"
+  import { switchPreset } from "../../utils/theme-brand"
+  import { changeCount } from "../../utils/theme-builder-controls"
   import { SHARE_PARAM, decodeTheme, shareUrl } from "../../utils/theme-share"
+
+  type Undo = { focus: HTMLElement; restore: () => void }
 
   const toolbar = document.querySelector<HTMLElement>(".builder-toolbar")
   if (toolbar) {
@@ -120,28 +129,53 @@ const presets = [
       toolbar.querySelector<HTMLButtonElement>("[data-save-open]")!
     const deleteButton =
       toolbar.querySelector<HTMLButtonElement>("[data-delete]")!
+    const resetButton =
+      toolbar.querySelector<HTMLButtonElement>("[data-reset-all]")!
     const form = document.querySelector<HTMLFormElement>(".builder-save")!
     const nameInput = form.querySelector<HTMLInputElement>("input")!
+    const submit = form.querySelector<HTMLButtonElement>("[data-save-submit]")!
+    const saveNote = form.querySelector<HTMLElement>(".builder-save-note")!
     const status = document.querySelector<HTMLElement>("[data-status]")!
-    const undo = document.querySelector<HTMLButtonElement>("[data-undo]")!
-    let undoAction: (() => void) | null = null
+    const undoButton = document.querySelector<HTMLButtonElement>("[data-undo]")!
+    let pending: (Undo & { state: string }) | null = null
+    let editing: string | null = null
+    let replacing: string | null = null
     let clearTimer = 0
 
-    const say = (message: string, action?: () => void) => {
+    const stateOf = () => JSON.stringify([themeStore.get(), savedThemes.list()])
+
+    const say = (message: string, undo?: Undo) => {
       clearTimeout(clearTimer)
       status.textContent = message
-      undoAction = action ?? null
-      undo.hidden = !action
-      if (!action) {
+      pending = undo ? { ...undo, state: stateOf() } : null
+      undoButton.hidden = !undo
+      if (!undo) {
         clearTimer = window.setTimeout(() => {
           status.textContent = ""
         }, 6000)
       }
     }
 
+    const undoable = (
+      message: string,
+      focus: HTMLElement,
+      action: () => void,
+    ) => {
+      const theme = themeStore.get()
+      const name = editing
+      action()
+      say(message, {
+        focus,
+        restore: () => {
+          editing = name
+          themeStore.set(theme)
+        },
+      })
+    }
+
     const describe = (theme: Theme) => {
       const start = exampleTheme(theme.preset)?.label ?? "Default"
-      const count = Object.keys(theme.tokens).length
+      const count = changeCount(theme)
       return count === 0
         ? `It starts from ${start} with no changes.`
         : `It starts from ${start} with ${count} ${count === 1 ? "change" : "changes"}.`
@@ -154,10 +188,18 @@ const presets = [
       }
       const themes = savedThemes.list()
       const current = savedThemes.current()
+      if (current) editing = current
+      if (
+        !themes.some((entry) => entry.name === editing) ||
+        (!theme.preset && Object.keys(theme.tokens).length === 0)
+      ) {
+        editing = current
+      }
+      const edited = current === null ? editing : null
       savedField.hidden = themes.length === 0
       savedList.replaceChildren(
         Object.assign(document.createElement("option"), {
-          textContent: "Not saved",
+          textContent: edited ? `${edited} (unsaved changes)` : "Not saved",
           value: "",
         }),
         ...themes.map((entry) =>
@@ -173,38 +215,57 @@ const presets = [
         "aria-label",
         current ? `Delete ${current}` : "Delete",
       )
-      saveOpen.textContent = current ? "Saved" : "Save"
+      saveOpen.textContent = current
+        ? "Saved"
+        : edited
+          ? "Save changes"
+          : "Save"
       saveOpen.setAttribute(
         "aria-label",
-        current ? `Save again, saved as ${current}` : "Save this theme",
+        current
+          ? `Save again, saved as ${current}`
+          : edited
+            ? `Save changes to ${edited}`
+            : "Save this theme",
       )
+      if (pending && stateOf() !== pending.state) {
+        if (document.activeElement === undoButton) pending.focus.focus()
+        pending = null
+        undoButton.hidden = true
+        status.textContent = ""
+      }
+    }
+
+    const confirmReplace = (name: string | null) => {
+      replacing = name
+      saveNote.textContent = name
+        ? `You already have a theme named ${name}. Save again to replace it.`
+        : ""
+      submit.textContent = name ? "Replace theme" : "Save theme"
     }
 
     const closeForm = (focus = true) => {
       form.hidden = true
+      confirmReplace(null)
       saveOpen.setAttribute("aria-expanded", "false")
       if (focus) saveOpen.focus()
     }
 
     presetSelect.addEventListener("change", () => {
-      const before = themeStore.get()
-      const brand = before.tokens["--ui-palette-source"]
-      const fitted =
-        brand &&
-        isHex(brand) &&
-        before.tokens["--ui-primary-source"] ===
-          brandTokens(brand)["--ui-primary-source"]
-      themeStore.setPreset(presetSelect.value || null)
-      if (fitted) themeStore.update(brandTokens(brand))
+      switchPreset(presetSelect.value || null)
       const label = exampleTheme(presetSelect.value)?.label ?? "Default"
       say(`Starting from ${label}. Your changes are kept.`)
     })
 
     savedSelect.addEventListener("change", () => {
-      if (!savedSelect.value) return
-      const previous = themeStore.get()
-      savedThemes.apply(savedSelect.value)
-      say(`Switched to ${savedSelect.value}.`, () => themeStore.set(previous))
+      const name = savedSelect.value
+      if (!name) {
+        sync()
+        return
+      }
+      undoable(`Switched to ${name}.`, savedSelect, () =>
+        savedThemes.apply(name),
+      )
     })
 
     saveOpen.addEventListener("click", () => {
@@ -213,17 +274,26 @@ const presets = [
         return
       }
       form.hidden = false
+      confirmReplace(null)
       saveOpen.setAttribute("aria-expanded", "true")
-      nameInput.value = savedThemes.current() ?? savedThemes.nextName()
+      nameInput.value =
+        savedThemes.current() ?? editing ?? savedThemes.nextName()
       nameInput.focus()
       nameInput.select()
     })
+
+    nameInput.addEventListener("input", () => confirmReplace(null))
 
     form.addEventListener("submit", (event) => {
       event.preventDefault()
       const name = nameInput.value.trim()
       if (!name) return
       const replaced = savedThemes.list().some((entry) => entry.name === name)
+      const own = name === (savedThemes.current() ?? editing)
+      if (replaced && !own && replacing !== name) {
+        confirmReplace(name)
+        return
+      }
       savedThemes.save(name)
       closeForm()
       say(replaced ? `Updated ${name}.` : `Saved as ${name}.`)
@@ -241,15 +311,18 @@ const presets = [
       const name = savedThemes.current()
       if (!name) return
       savedThemes.remove(name)
-      say(`Deleted ${name}.`, () => savedThemes.save(name))
+      say(`Deleted ${name}.`, {
+        focus: saveOpen,
+        restore: () => savedThemes.save(name),
+      })
       saveOpen.focus()
     })
 
-    toolbar.querySelector("[data-reset-all]")!.addEventListener("click", () => {
-      const previous = themeStore.get()
-      themeStore.reset()
-      say("Theme reset to the default.", () => themeStore.set(previous))
-    })
+    resetButton.addEventListener("click", () =>
+      undoable("Theme reset to the default.", resetButton, () =>
+        themeStore.reset(),
+      ),
+    )
 
     toolbar
       .querySelector("[data-copy-link]")!
@@ -260,10 +333,13 @@ const presets = [
         say(copied ? "Link copied." : "Could not copy the link.")
       })
 
-    undo.addEventListener("click", () => {
-      const action = undoAction
+    undoButton.addEventListener("click", () => {
+      if (!pending) return
+      const { focus, restore } = pending
+      pending = null
+      restore()
+      focus.focus()
       say("Undone.")
-      action?.()
     })
 
     const params = new URLSearchParams(location.search)
@@ -295,12 +371,11 @@ const presets = [
         share
           .querySelector("[data-share-use]")!
           .addEventListener("click", () => {
-            const previous = themeStore.get()
-            themeStore.set(shared)
             close()
-            say("Using the theme from the link.", () =>
-              themeStore.set(previous),
-            )
+            undoable("Using the theme from the link.", presetSelect, () => {
+              editing = null
+              themeStore.set(shared)
+            })
           })
         share
           .querySelector("[data-share-keep]")!
@@ -376,6 +451,17 @@ const presets = [
     gap: var(--size-2) var(--size-3);
 
     &[hidden] {
+      display: none;
+    }
+  }
+
+  .builder-save-note {
+    color: var(--ui-text);
+    flex-basis: 100%;
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+
+    &:empty {
       display: none;
     }
   }

@@ -89,19 +89,31 @@ const setup = `@import "opui-css/css/imports.css";
     let frame = 0
 
     const fontsOf = (stacks: (string | undefined)[]) => {
-      const names = stacks.flatMap((stack) => {
-        if (!stack || stack === "revert-layer") return []
+      const names = new Set<string>()
+      const custom = new Set<string>()
+      for (const stack of stacks) {
+        if (!stack || stack === "revert-layer") continue
         const known = FONTS.find(
           (font) => canonical(font.value, "", {}) === canonical(stack, "", {}),
         )
-        if (known) return known.load ? [known.load] : []
         const first = stack
           .split(",")[0]
           .trim()
           .replace(/^["']|["']$/g, "")
-        return first && !GENERIC.has(first.toLowerCase()) ? [first] : []
-      })
-      return [...new Set(names)].toSorted()
+        if (known?.load) names.add(known.load)
+        else if (!known && first && !GENERIC.has(first.toLowerCase())) {
+          custom.add(first)
+        }
+      }
+      return {
+        count: names.size + custom.size,
+        list: [
+          ...[...names].toSorted(),
+          ...(custom.size === 0
+            ? []
+            : [custom.size === 1 ? "a custom font" : "custom fonts"]),
+        ],
+      }
     }
 
     const render = () => {
@@ -118,11 +130,11 @@ const setup = `@import "opui-css/css/imports.css";
           (token) => theme.tokens[token] ?? preset[token],
         ),
       )
-      fontNote.hidden = fonts.length === 0
+      fontNote.hidden = fonts.count === 0
       const list = new Intl.ListFormat("en", { type: "conjunction" }).format(
-        fonts,
+        fonts.list,
       )
-      fontText.textContent = `This theme uses ${list}. The file names the ${fonts.length === 1 ? "font" : "fonts"} but doesn't load ${fonts.length === 1 ? "it" : "them"}, so load ${fonts.length === 1 ? "it" : "them"} in your project too, for example from Fontsource or Google Fonts.`
+      fontText.textContent = `This theme uses ${list}. The file names the ${fonts.count === 1 ? "font" : "fonts"} but doesn't load ${fonts.count === 1 ? "it" : "them"}, so load ${fonts.count === 1 ? "it" : "them"} in your project too, for example from Fontsource or Google Fonts.`
     }
 
     const schedule = () => {

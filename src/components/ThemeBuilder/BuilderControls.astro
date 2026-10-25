@@ -38,7 +38,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
               <AccordionSummary>
                 <span>Fine-tune</span>
                 <span class="builder-fine-meta" data-fine-meta>
-                  {fine.length} more settings
+                  {fine.length} more{" "}
+                  {fine.length === 1 ? "setting" : "settings"}
                 </span>
               </AccordionSummary>
               <AccordionContent>
@@ -60,8 +61,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
   import {
     CORNERS,
     cornersTokens,
+    cornersUpdate,
     themeStore,
-    type Theme,
     type ThemeTokens,
   } from "../../utils/theme"
   import {
@@ -72,14 +73,17 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     MONOCHROME_PRIMARY,
     canonical,
     controlTokens,
+    isChanged,
+    isFollow,
     matchOption,
+    ownTokens,
     tidy,
     type ChoiceControl,
     type ColorControl,
     type Control,
     type RangeControl,
   } from "../../utils/theme-builder-controls"
-  import { brandTokens } from "../../utils/theme-brand"
+  import { brandTokens, brandUpdate } from "../../utils/theme-brand"
 
   type Update = Record<string, string | null>
 
@@ -93,7 +97,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       ),
     )
     const dual = new Set<string>()
-    let theme: Theme = themeStore.get()
+    const picked = new Set<string>()
+    let theme = themeStore.get()
     let first = true
     let queued: Update | null = null
     let frame = 0
@@ -102,11 +107,13 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const host = document.createElement("div")
       host.className = `ui-${scheme}`
       host.hidden = true
+      host.style.forcedColorAdjust = "none"
       root.append(host)
       return host
     })
     const lengthProbe = document.createElement("div")
     lengthProbe.hidden = true
+    lengthProbe.style.forcedColorAdjust = "none"
     root.append(lengthProbe)
 
     const presetTokens = () => exampleTheme(theme.preset)?.tokens ?? {}
@@ -177,22 +184,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         ? `Light ${colorText(light)}, dark ${colorText(dark)}`
         : colorText(light)
 
-    const isFollow = (value?: string) =>
-      value !== undefined &&
-      canonical(value, "", {}) === canonical(FOLLOW_RADIUS, "", {})
-
-    const changed = (control: Control) => {
-      if (control.kind === "corners") {
-        return ["--ui-radius", "--ui-radius-small", "--ui-radius-x-small"].some(
-          (token) => token in theme.tokens,
-        )
-      }
-      return controlTokens(control).some(
-        (token) =>
-          token in theme.tokens &&
-          !(COMPONENT_RADII.includes(token) && isFollow(theme.tokens[token])),
-      )
-    }
+    const changed = (control: Control) =>
+      isChanged(control, theme.tokens, presetTokens())
 
     const resetTokens = (control: Control): Update => {
       if (control.kind === "corners") {
@@ -207,9 +200,11 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         )
       }
       return Object.fromEntries(
-        controlTokens(control).map((token) => [
+        ownTokens(control, theme.tokens).map((token) => [
           token,
-          COMPONENT_RADII.includes(token) && "--ui-radius" in theme.tokens
+          COMPONENT_RADII.includes(token) &&
+          "--ui-radius" in theme.tokens &&
+          (baseOf(token) === undefined || isFollow(baseOf(token)))
             ? FOLLOW_RADIUS
             : null,
         ]),
@@ -278,27 +273,17 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     const grayHue = (hex: string | null) =>
       hex ? `${Math.round(hexToOklch(hex).H)}` : null
 
-    const grayMatchesBrand = (hex: string | null) =>
-      grayHue(hex) !== null &&
-      same("--ui-gray-chroma", valueOf("--ui-gray-chroma"), "0.012") &&
-      same("--ui-gray-hue", valueOf("--ui-gray-hue"), grayHue(hex)!)
-
     const applyBrand = (hex: string, darkHex?: string) => {
-      const before = paletteHex()
-      const userTone = theme.tokens["--ui-primary-source"]
-      const keepTone =
-        userTone !== undefined &&
-        ["balanced", "monochrome"].includes(toneOf(userTone, before))
-      const update: Update = darkHex
-        ? {
-            "--ui-palette-source": hex,
-            "--ui-primary-source": `light-dark(${hex}, ${darkHex})`,
-          }
-        : keepTone
-          ? { "--ui-palette-source": hex }
-          : brandTokens(hex)
-      if (grayMatchesBrand(before) && "--ui-gray-hue" in theme.tokens) {
-        update["--ui-gray-hue"] = grayHue(hex)
+      const update: Update = brandUpdate(
+        {
+          ...theme.tokens,
+          "--ui-palette-source":
+            theme.tokens["--ui-palette-source"] ?? paletteHex() ?? "",
+        },
+        hex,
+      )
+      if (darkHex) {
+        update["--ui-primary-source"] = `light-dark(${hex}, ${darkHex})`
       }
       return update
     }
@@ -521,6 +506,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
             control.follows && (raw === undefined || isFollow(raw))
               ? `${control.follows}, ${formatted}`
               : formatted
+          input.setAttribute("aria-valuetext", text)
         }
         valueText.textContent = text
       }
@@ -544,7 +530,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
           fine.querySelector("[data-fine-meta]")!.textContent =
             fineCount > 0
               ? `${fineCount} of ${fineControls.length} changed`
-              : `${fineControls.length} more settings`
+              : `${fineControls.length} more ${fineControls.length === 1 ? "setting" : "settings"}`
           if (first && fineCount > 0) fine.open = true
         }
       }
@@ -588,6 +574,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const throttle = event.type === "input"
 
       if (target instanceof HTMLInputElement && target.dataset.color) {
+        if (element.classList.contains("is-dual")) picked.add(control.id)
         onColor(control, element, throttle)
         return
       }
@@ -595,12 +582,15 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         if (event.type !== "change") return
         if (target.checked) {
           dual.add(control.id)
+          picked.delete(control.id)
           element.classList.add("is-dual")
           element.querySelector<HTMLElement>("[data-mode=dark]")!.hidden = false
         } else {
-          dual.delete(control.id)
+          const opened = dual.delete(control.id)
+          const changedColor = picked.delete(control.id)
           element.classList.remove("is-dual")
-          onColor(control, element, false)
+          if (opened && !changedColor) render()
+          else onColor(control, element, false)
         }
         return
       }
@@ -611,6 +601,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       if (control.kind === "brand" && target instanceof HTMLInputElement) {
         if (event.type !== "change" || !target.checked) return
         dual.delete(control.id)
+        picked.delete(control.id)
         write(applyBrand(target.value))
       } else if (
         control.kind === "corners" &&
@@ -618,12 +609,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         target instanceof HTMLInputElement &&
         target.checked
       ) {
-        const update: Update = cornersTokens(target.value)
-        for (const token of COMPONENT_RADII) {
-          const current = theme.tokens[token]
-          if (current !== undefined && !isFollow(current)) delete update[token]
-        }
-        write(update)
+        write(cornersUpdate(theme.tokens, target.value))
       } else if (control.kind === "choice" && event.type === "change") {
         const value = (target as HTMLInputElement | HTMLSelectElement).value
         if (target instanceof HTMLInputElement && !target.checked) return
@@ -640,6 +626,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         )
       } else if (control.kind === "range") {
         const number = Number((target as HTMLInputElement).value)
+        target.setAttribute("aria-valuetext", formatRange(control, number))
         const value =
           control.scale === "density"
             ? `calc(${number}${control.unit} * var(--ui-density))`
@@ -658,6 +645,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       const control = element && controls.get(element.dataset.control!)
       if (!control) return
       dual.delete(control.id)
+      picked.delete(control.id)
       write(resetTokens(control))
       element
         .querySelector<HTMLElement>(

@@ -9,9 +9,9 @@ A CSS UI library built on [Open Props](https://open-props.style/). It ships fram
 
 ## Setup
 
-Install with `npm install opui-css open-props`.
+Install with `npm install opui-css`. Open Props is bundled in `dist/opui.css` for your own CSS, and the components don't read it; install `open-props` only to import `opui-css/open-props.css` with a bundler.
 
-- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or import `opui-css/css/layers.css` first, then `opui-css/open-props.css`, `opui-css/core/palette.css`, `opui-css/css/theme.css`, `opui-css/core/normalize.css`, the components from `opui-css/css/components/<name>.css` (`choice.css` before `checkbox.css`, `radio.css` or `switch.css`), and `opui-css/core/utils.css` last. `references/<framework>/getting-started.md` has the full list.
+- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or import `opui-css/css/layers.css` first, then `opui-css/core/palette.css`, `opui-css/css/theme.css`, `opui-css/core/normalize.css`, the components from `opui-css/css/components/<name>.css` (`choice.css` before `checkbox.css`, `radio.css` or `switch.css`), and `opui-css/core/utils.css` last. `references/<framework>/getting-started.md` has the full list.
 - Without a bundler, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`.
 - Astro: `import { Button } from "opui-css/astro"`. React: `import { Button } from "opui-css/react"`. Svelte: `import { Button } from "opui-css/svelte"`. Vue: `import { Button } from "opui-css/vue"`. All still need the CSS imported once.
 
@@ -42,7 +42,7 @@ Never override a component's outputs (`--_bg-color`, `--_text-color`, `--_border
 | Fonts                              | `--ui-font-body`, `--ui-font-heading`, `--ui-font-code`                                                                              |
 | Control height                     | `--ui-density`                                                                                                                       |
 | Spacing in and between containers  | `--ui-space-scale`                                                                                                                   |
-| Shadows                            | `--ui-shadow-elevated-light`, `--ui-shadow-elevated-dark`, `--ui-shadow-overlay`                                                     |
+| Shadows                            | `--ui-shadow-color` (light and dark), `--ui-shadow-elevated`, `--ui-shadow-overlay`                                                  |
 | Space between components           | `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-container` (see `layout.md`), not your own flex or grid CSS |
 | Transitions                        | `--ui-motion` (`0` turns them off), `--ui-duration`, `--ui-ease`                                                                     |
 | One component's color              | `--_accent` on it, or `.ui-primary`/`.ui-critical`                                                                                   |

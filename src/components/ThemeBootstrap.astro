@@ -20,9 +20,10 @@ const exampleThemes = Object.fromEntries(
         // per-element using absolute `--ui-gray-hue`, so the offset semantic no
         // longer applies. Users will fall back to the default --ui-gray-hue (255).
         delete config["--gray-hue-offset"]
+        const sizes = { 1: "0.25rem", 2: "0.5rem", 3: "1rem", 4: "1.25rem" }
         for (const [name, value] of Object.entries(config)) {
-          const radius = /^var\(--radius-(\d)\)$/.exec(value)
-          if (radius) config[name] = `var(--size-${radius[1]})`
+          const legacy = /^var\(--(?:radius|size)-(\d)\)$/.exec(value)
+          if (legacy) config[name] = sizes[legacy[1]] ?? value
         }
         return config
       } catch {

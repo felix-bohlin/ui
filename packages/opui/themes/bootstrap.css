@@ -6,14 +6,13 @@
     --ui-backdrop-blur: 0px;
     --ui-border-color: light-dark(#dee2e6, #495057);
     --ui-border-color-on-filled: var(--ui-border-color);
-    --ui-border-color-on-raised: var(--ui-border-color);
     --ui-border-color-raised: var(--ui-border-color);
     --ui-radius: 0.375rem;
     --ui-radius-small: 0.375rem;
     --ui-radius-x-small: 0.25rem;
     --ui-button-accent: light-dark(#6a737b, #adb5bd);
     --ui-button-on-accent: light-dark(#fff, #000);
-    --ui-button-font-weight: var(--font-weight-4);
+    --ui-button-font-weight: 400;
     --ui-button-padding-inline: 0.75rem;
     --ui-button-padding-inline-large: 1rem;
     --ui-button-padding-inline-small: 0.5rem;
@@ -27,7 +26,6 @@
     --ui-disabled-opacity: 0.65;
     --ui-field-border-color: light-dark(#dee2e6, #495057);
     --ui-field-border-color-on-filled: var(--ui-field-border-color);
-    --ui-field-border-color-on-raised: var(--ui-field-border-color);
     --ui-field-helper-font-size: 0.875rem;
     --ui-field-helper-text-color: light-dark(
       rgb(33 37 41 / 0.75),
@@ -35,7 +33,7 @@
     );
     --ui-field-label-text-color: var(--ui-text);
     --ui-field-label-font-size: 1rem;
-    --ui-field-label-font-weight: var(--font-weight-4);
+    --ui-field-label-font-weight: 400;
     --ui-field-padding-inline: 0.75rem;
     --ui-focus-ring-color: rgb(13 110 253 / 0.25);
     --ui-focus-ring-offset: 0px;
@@ -49,8 +47,8 @@
     --ui-font-size-h4: min(calc(1.275rem + 0.3vi), 1.5rem);
     --ui-font-size-h5: 1.25rem;
     --ui-font-size-h6: 1rem;
-    --ui-font-weight-bold: var(--font-weight-5);
-    --ui-font-weight-semibold: var(--font-weight-7);
+    --ui-font-weight-bold: 500;
+    --ui-font-weight-semibold: 700;
     --ui-gray-chroma: 0.012;
     --ui-gray-hue: 250;
     --ui-info: #0dcaf0;
@@ -65,8 +63,7 @@
     --ui-selected: var(--ui-primary);
     --ui-on-selected: var(--ui-on-primary);
     --ui-shadow-overlay: none;
-    --ui-shadow-elevated-dark: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
-    --ui-shadow-elevated-light: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
+    --ui-shadow-elevated: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
     --ui-shadow-scroll: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
     --ui-shadow-selected: none;
     --ui-success: #198754;

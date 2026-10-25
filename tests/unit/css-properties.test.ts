@@ -48,7 +48,18 @@ const problem = (name: string) => {
   ) {
     return "say what the color paints: -bg-color, -text-color or -border-color"
   }
+  if (
+    name.startsWith("--ui-") &&
+    !SUFFIX.test(
+      name.replace(/-(x-small|small|large|filled|on-filled|on-raised)$/, ""),
+    )
+  ) {
+    return "end in the property it sets, a value type, -accent, -strength or -lightness"
+  }
 }
+
+const SUFFIX =
+  /-(bg-color|text-color|border-color|size|radius|gap|shadow|padding(-inline|-block)?|font-size|font-weight|line-height|position-area|blur|offset|translate|hover|border-width|accent|on-accent|strength|lightness)$/
 
 test("private and component custom properties follow the suffix rules", () => {
   const checked = [...names].filter(

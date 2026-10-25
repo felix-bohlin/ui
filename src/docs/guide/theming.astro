@@ -59,7 +59,7 @@ const surfaceRoles = [
     <Code
       code={`:where(html) {
   --ui-palette-chroma: 0.5;
-  --ui-palette-hue: var(--hue-green);
+  --ui-palette-hue: 145;
   --ui-palette-hue-rotate-by: 0;
 }`}
       lang="css"
@@ -73,9 +73,8 @@ const surfaceRoles = [
         (gray) to <code>1</code>.
       </li>
       <li>
-        <code>--ui-palette-hue</code> is a hue angle, and Open Props' <code
-          >--hue-*</code
-        > tokens work.
+        <code>--ui-palette-hue</code> is a hue angle in degrees, <code>145</code
+        > (green) by default.
       </li>
       <li>
         <code>--ui-palette-hue-rotate-by</code> turns the hue by this many degrees
@@ -187,9 +186,9 @@ const surfaceRoles = [
       > and <code>--ui-field-border-color</code> to <code
         >--ui-field-border-color-on-raised</code
       > on its root, so dividers and fields inside it stay visible on the raised fill.
-      Filled lists and table headers do the same with the <code>-on-filled</code
-      > pair. A theme with its own border colors sets the <code>-on-raised</code
-      > and <code>-on-filled</code> tokens too, as the example themes do.
+      Both default to the plain border colors. Filled lists and table headers do the
+      same with the <code>-on-filled</code> pair. A theme that wants another border
+      on raised surfaces sets the <code>-on-raised</code> tokens.
     </p>
   </section>
 
@@ -214,7 +213,11 @@ const surfaceRoles = [
     <h2 id="spacing">Spacing</h2>
     <p>
       <code>--ui-space-1</code> to <code>--ui-space-8</code> pad and space containers,
-      forms and rich text. Each is the Open Props size of the same number times
+      forms and rich text. Each is a fixed step (<code>0.25rem</code>, <code
+        >0.5rem</code
+      >, <code>1rem</code>, <code>1.25rem</code>, <code>1.5rem</code>, <code
+        >1.75rem</code
+      >, <code>2rem</code> and <code>3rem</code>) times
       <code>--ui-space-scale</code>, set on <code>html</code> or a <code
         >.ui-palette</code
       > element. Controls follow <code>--ui-density</code> instead, so a roomy form
@@ -341,10 +344,7 @@ const surfaceRoles = [
         <code>--ui-shadow-field</code> splits off the fields.
       </li>
       <li>
-        <code>--ui-shadow-elevated</code>: elevated cards and accordions. Set <code
-          >--ui-shadow-elevated-light</code
-        > and <code>--ui-shadow-elevated-dark</code>, it picks one per scheme,
-        also in scoped parts of the page.
+        <code>--ui-shadow-elevated</code>: elevated cards and accordions.
       </li>
       <li>
         <code>--ui-shadow-overlay</code>: dialogs, drawers, menus, <code
@@ -362,19 +362,16 @@ const surfaceRoles = [
       </li>
       <li><code>--ui-shadow-selected</code>: the selected tab.</li>
       <li>
-        <code>--ui-shadow-color</code> and <code>--ui-shadow-strength</code>:
-        the HSL channels and opacity every Open Props shadow is built from, <code
-          >220 3% 15%</code
-        > and <code>1%</code> in light mode, <code>220 40% 2%</code> and <code
-          >20%</code
-        > in dark mode.
+        <code>--ui-shadow-color</code>: the color and base opacity every default
+        shadow is built from, a <code>light-dark()</code> pair, so shadows darken
+        in dark mode, also in <code>.ui-dark</code> parts of the page. Each layer
+        adds its own opacity on top.
       </li>
     </ul>
     <Code
       code={`:where(html) {
-  --ui-shadow-overlay: var(--shadow-4);
-  --ui-shadow-elevated-dark: none;
-  --ui-shadow-elevated-light: none;
+  --ui-shadow-color: light-dark(hsl(250 30% 20% / 2%), hsl(0 0% 0% / 30%));
+  --ui-shadow-elevated: none;
 }`}
       lang="css"
     />
@@ -389,7 +386,13 @@ const surfaceRoles = [
     </p>
 
     <h3 id="motion-global">Global classes</h3>
-    <p>On <code>html</code>, these override the OS preference:</p>
+    <p>
+      On <code>html</code>, these override the OS preference for every
+      transition and animation. Smooth scrolling follows the system setting
+      only, since <code>normalize.css</code> keys it on <code
+        >prefers-reduced-motion</code
+      >.
+    </p>
     <ul>
       <li>
         <code>.ui-motion-off</code>: sets <code>--ui-motion: 0</code>.

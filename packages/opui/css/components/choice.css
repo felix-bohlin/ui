@@ -3,10 +3,14 @@
     --_motion: var(--ui-motion);
     --_accent: var(
       --ui-choice-accent,
-      light-dark(
-        var(--ui-primary),
-        oklch(
-          from var(--ui-primary) min(l, var(--ui-choice-fill-max-lightness)) c h
+      var(
+        --ui-control-accent,
+        light-dark(
+          var(--ui-primary),
+          oklch(
+            from var(--ui-primary) min(l, var(--ui-choice-fill-max-lightness)) c
+              h
+          )
         )
       )
     );
@@ -14,7 +18,10 @@
     --_ease: var(--ui-ease);
     --_on-accent: var(
       --ui-choice-on-accent,
-      light-dark(var(--ui-on-primary), var(--ui-on-accent))
+      var(
+        --ui-on-control-accent,
+        light-dark(var(--ui-on-primary), var(--ui-on-accent))
+      )
     );
 
     align-items: start;

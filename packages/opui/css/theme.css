@@ -2,42 +2,38 @@
   /* Color scheme */
   .ui-light {
     --ui-color-scheme: light;
-    --ui-shadow-elevated: var(--ui-shadow-elevated-light);
 
     color-scheme: light;
   }
 
   .ui-dark {
     --ui-color-scheme: dark;
-    --ui-shadow-elevated: var(--ui-shadow-elevated-dark);
 
     color-scheme: dark;
   }
 
-  :where(.ui-light, .ui-dark):where(:not(html)) {
-    background-color: var(--ui-surface);
-    color: var(--ui-text);
-  }
-
   /* Knobs. Plain values, set once on html and inherited by every scope. */
   :where(html) {
-    color-scheme: var(--ui-color-scheme, light dark);
+    color-scheme: var(--ui-color-scheme);
+
+    /* Color scheme */
+    --ui-color-scheme: light;
 
     /* Palette - the knobs core/palette.css derives --ui-color-1 to --ui-color-16 from */
     --ui-palette-chroma: 0.5;
-    --ui-palette-hue: var(--hue-green);
+    --ui-palette-hue: 145;
     --ui-palette-hue-rotate-by: 0;
-    /* --ui-palette-source: oklch(0.58 calc(0.21 * 0.5) var(--hue-blue)); */
+    /* --ui-palette-source: oklch(0.58 calc(0.21 * 0.5) 240); */
 
     /* Gray palette also lives in core/palette.css. */
     --ui-gray-chroma: 0.01;
     --ui-gray-hue: 255;
 
     /* Borders */
-    --ui-radius: var(--size-2);
+    --ui-radius: 0.5rem;
     --ui-border-width: 1px;
-    --ui-border-width-thick: var(--border-size-2);
-    --ui-radius-round: var(--radius-round);
+    --ui-border-width-thick: 2px;
+    --ui-radius-round: 1e5px;
     /* --ui-chip-radius: var(--ui-radius); */
     /* --ui-dialog-radius: var(--ui-radius); */
     /* --ui-menu-radius: var(--ui-radius); */
@@ -48,8 +44,11 @@
     --ui-focus-ring-width: 2px;
 
     /* Typography */
-    --ui-font-body: var(--font-sans);
-    --ui-font-code: var(--font-mono);
+    --ui-font-body: system-ui, sans-serif;
+    --ui-font-code:
+      Dank Mono, Operator Mono, Inconsolata, Fira Mono, ui-monospace, SF Mono,
+      Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo, Consolas,
+      DejaVu Sans Mono, monospace;
     /* --ui-font-heading: var(--ui-font-body); */
 
     --ui-font-size-100: 0.75rem;
@@ -65,10 +64,10 @@
     --ui-fluid-min-inline-size: 20rem;
     --ui-fluid-max-inline-size: 48rem;
 
-    --ui-font-weight-normal: var(--font-weight-4);
-    --ui-font-weight-medium: var(--font-weight-5);
-    --ui-font-weight-semibold: var(--font-weight-6);
-    --ui-font-weight-bold: var(--font-weight-7);
+    --ui-font-weight-normal: 400;
+    --ui-font-weight-medium: 500;
+    --ui-font-weight-semibold: 600;
+    --ui-font-weight-bold: 700;
 
     --ui-letter-spacing-caps: 0.06em;
     --ui-letter-spacing-display: -0.02em;
@@ -85,12 +84,14 @@
     --ui-underline-offset-small: 1px;
     --ui-underline-thickness-hover: 3px;
 
-    --ui-code-bg-color: light-dark(oklch(0 0 0 / 12%), oklch(1 0 0 / 10%));
-
     /* Spacing - gaps, padding and margins inside and between components. */
     --ui-space-scale: 1;
     /* --ui-card-padding: var(--ui-space-3); */
     /* --ui-list-item-padding-inline: var(--ui-space-3); */
+
+    /* Controls */
+    /* --ui-control-accent: var(--ui-primary); */
+    /* --ui-on-control-accent: var(--ui-on-primary); */
 
     /* Control sizes - shared scale for fields and buttons so they line up. */
     --ui-density: 1;
@@ -125,8 +126,8 @@
     --ui-duration: 0.2s;
     --ui-duration-slow: 0.3s;
     --ui-ease: ease;
-    --ui-ease-enter: var(--ease-out-3);
-    --ui-ease-exit: var(--ease-in-3);
+    --ui-ease-enter: cubic-bezier(0, 0, 0.3, 1);
+    --ui-ease-exit: cubic-bezier(0.7, 0, 1, 1);
     --ui-motion: 1;
 
     /* Contrast */
@@ -136,13 +137,15 @@
     --ui-accent-max-lightness: 1;
     --ui-border-strength-dark: 11%;
     --ui-border-strength-light: 17%;
+    --ui-code-bg-alpha-dark: 10%;
+    --ui-code-bg-alpha-light: 12%;
     --ui-field-border-strength: 50%;
     --ui-invalid-min-lightness: 0;
     --ui-palette-accent-min-lightness: 0;
     --ui-palette-border-max-lightness: 1;
     --ui-palette-border-min-lightness: 0;
     --ui-palette-text-max-lightness: 1;
-    --ui-palette-text-min-lightness: 0;
+    --ui-palette-text-min-lightness: 0.8;
     --ui-palette-tint-max-lightness: 1;
     --ui-palette-tint-min-lightness: 0;
     --ui-primary-max-lightness: 1;
@@ -167,9 +170,9 @@
 
     /* Icons */
     --ui-icon-size-x-small: 0.75rem;
-    --ui-icon-size-small: var(--size-3);
-    --ui-icon-size: var(--size-4);
-    --ui-icon-size-large: var(--size-5);
+    --ui-icon-size-small: 1rem;
+    --ui-icon-size: 1.25rem;
+    --ui-icon-size-large: 1.5rem;
 
     /* Choice controls */
     /* --ui-choice-accent: var(--ui-primary); */
@@ -177,45 +180,20 @@
     /* --ui-choice-border-color: var(--ui-field-border-color); */
     --ui-choice-fill-max-lightness: 0.62;
     --ui-choice-label-offset: 0px;
-    --ui-choice-ripple-bg-color: oklch(0.6 0 0 / 0.2);
 
     /* Elevation */
     --ui-shadow-control: none;
     /* --ui-shadow-field: var(--ui-shadow-control); */
-    --ui-shadow-overlay: var(--shadow-3);
-    --ui-shadow-elevated: var(--ui-shadow-elevated-light);
-    --ui-shadow-elevated-dark: var(--shadow-4);
-    --ui-shadow-elevated-light: var(--shadow-3);
-    --ui-shadow-scroll: var(--shadow-4);
     --ui-shadow-surface: none;
-    --ui-shadow-selected: var(--shadow-1);
-    --ui-shadow-color: 220 3% 15%;
-    --ui-shadow-strength: 1%;
+    --ui-shadow-color: light-dark(hsl(220 3% 15% / 1%), hsl(220 40% 2% / 20%));
 
     /* Overlays */
     --ui-backdrop-blur: 1px;
-    --ui-backdrop-bg-color: rgb(0 0 0 / 0.5);
-  }
-
-  :where(:root) {
-    --shadow-color: var(--ui-shadow-color);
-    --shadow-strength: var(--ui-shadow-strength);
-  }
-
-  :where(html.ui-dark) {
-    --ui-shadow-color: 220 40% 2%;
-    --ui-shadow-strength: 20%;
   }
 
   @media (prefers-color-scheme: dark) {
     :where(html) {
       --ui-color-scheme: dark;
-    }
-
-    :where(html:not(.ui-light)) {
-      --ui-shadow-color: 220 40% 2%;
-      --ui-shadow-elevated: var(--ui-shadow-elevated-dark);
-      --ui-shadow-strength: 20%;
     }
   }
 
@@ -223,8 +201,8 @@
   :where(html, .ui-palette, .ui-contrast-more) {
     /* Borders */
     --ui-radius-large: calc(var(--ui-radius) * 1.5);
-    --ui-radius-small: min(var(--radius-2), var(--ui-radius));
-    --ui-radius-x-small: min(var(--radius-1), var(--ui-radius));
+    --ui-radius-small: min(5px, var(--ui-radius));
+    --ui-radius-x-small: min(2px, var(--ui-radius));
 
     /* Focus ring */
     --ui-focus-ring-color: oklch(
@@ -290,24 +268,34 @@
       );
     }
 
-    --ui-code-block-bg-color: var(--ui-color-15);
-    --ui-code-block-text-color: var(--ui-color-1);
+    --ui-code-bg-color: light-dark(
+      oklch(from var(--ui-text) l c h / var(--ui-code-bg-alpha-light)),
+      oklch(from var(--ui-text) l c h / var(--ui-code-bg-alpha-dark))
+    );
+    --ui-code-block-bg-color: light-dark(
+      var(--ui-surface-inverse),
+      var(--ui-surface-filled)
+    );
+    --ui-code-block-text-color: light-dark(
+      var(--ui-on-inverse),
+      var(--ui-text-strong)
+    );
 
     /* Spacing - gaps, padding and margins inside and between components. */
-    --ui-space-1: calc(var(--size-1) * var(--ui-space-scale));
-    --ui-space-2: calc(var(--size-2) * var(--ui-space-scale));
-    --ui-space-3: calc(var(--size-3) * var(--ui-space-scale));
-    --ui-space-4: calc(var(--size-4) * var(--ui-space-scale));
-    --ui-space-5: calc(var(--size-5) * var(--ui-space-scale));
-    --ui-space-6: calc(var(--size-6) * var(--ui-space-scale));
-    --ui-space-7: calc(var(--size-7) * var(--ui-space-scale));
-    --ui-space-8: calc(var(--size-8) * var(--ui-space-scale));
+    --ui-space-1: calc(0.25rem * var(--ui-space-scale));
+    --ui-space-2: calc(0.5rem * var(--ui-space-scale));
+    --ui-space-3: calc(1rem * var(--ui-space-scale));
+    --ui-space-4: calc(1.25rem * var(--ui-space-scale));
+    --ui-space-5: calc(1.5rem * var(--ui-space-scale));
+    --ui-space-6: calc(1.75rem * var(--ui-space-scale));
+    --ui-space-7: calc(2rem * var(--ui-space-scale));
+    --ui-space-8: calc(3rem * var(--ui-space-scale));
 
     /* Control sizes - shared scale for fields and buttons so they line up. */
-    --ui-control-size-x-small: calc(28px * var(--ui-density));
-    --ui-control-size-small: calc(32px * var(--ui-density));
-    --ui-control-size: calc(40px * var(--ui-density));
-    --ui-control-size-large: calc(46px * var(--ui-density));
+    --ui-control-size-x-small: calc(1.75rem * var(--ui-density));
+    --ui-control-size-small: calc(2rem * var(--ui-density));
+    --ui-control-size: calc(2.5rem * var(--ui-density));
+    --ui-control-size-large: calc(2.875rem * var(--ui-density));
 
     --ui-field-size-x-small: var(--ui-control-size-x-small);
     --ui-field-size-small: var(--ui-control-size-small);
@@ -319,7 +307,7 @@
     --ui-button-size: var(--ui-control-size);
     --ui-button-size-large: var(--ui-control-size-large);
 
-    --ui-chip-size-x-small: calc(24px * var(--ui-density));
+    --ui-chip-size-x-small: calc(1.5rem * var(--ui-density));
     --ui-chip-size-small: var(--ui-control-size-x-small);
     --ui-chip-size: var(--ui-control-size-small);
     --ui-chip-size-large: var(--ui-control-size);
@@ -349,23 +337,22 @@
     );
 
     /* Divider */
-    --ui-divider-gap: calc(var(--size-fluid-3) * var(--ui-space-scale));
+    --ui-divider-gap: calc(clamp(1.5rem, 3vi, 2rem) * var(--ui-space-scale));
 
     /* Choice controls */
+    --ui-choice-ripple-bg-color: oklch(from var(--ui-text) l c h / 20%);
     --ui-choice-size-x-small: calc(0.875rem * var(--ui-density));
-    --ui-choice-size-small: calc(var(--size-3) * var(--ui-density));
-    --ui-choice-size: calc(var(--size-4) * var(--ui-density));
-    --ui-choice-size-large: calc(var(--size-5) * var(--ui-density));
+    --ui-choice-size-small: calc(1rem * var(--ui-density));
+    --ui-choice-size: calc(1.25rem * var(--ui-density));
+    --ui-choice-size-large: calc(1.5rem * var(--ui-density));
     --ui-switch-thumb-size-x-small: calc(0.625rem * var(--ui-density));
     --ui-switch-thumb-size-small: calc(0.75rem * var(--ui-density));
-    --ui-switch-thumb-size: calc(var(--size-3) * var(--ui-density));
-    --ui-switch-thumb-size-large: calc(var(--size-4) * var(--ui-density));
-    --ui-switch-track-block-size-x-small: calc(
-      var(--size-3) * var(--ui-density)
-    );
-    --ui-switch-track-block-size-small: calc(var(--size-4) * var(--ui-density));
-    --ui-switch-track-block-size: calc(var(--size-5) * var(--ui-density));
-    --ui-switch-track-block-size-large: calc(var(--size-6) * var(--ui-density));
+    --ui-switch-thumb-size: calc(1rem * var(--ui-density));
+    --ui-switch-thumb-size-large: calc(1.25rem * var(--ui-density));
+    --ui-switch-track-block-size-x-small: calc(1rem * var(--ui-density));
+    --ui-switch-track-block-size-small: calc(1.25rem * var(--ui-density));
+    --ui-switch-track-block-size: calc(1.5rem * var(--ui-density));
+    --ui-switch-track-block-size-large: calc(1.75rem * var(--ui-density));
     --ui-switch-track-inline-size-x-small: calc(
       2 * var(--ui-switch-track-block-size-x-small)
     );
@@ -385,25 +372,22 @@
     /* Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */
     --ui-blue: light-dark(
       oklch(
-        from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) 0.2
-          var(--hue-blue)
+        from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) 0.2 240
       ),
-      oklch(from var(--ui-color-9) l 0.2 var(--hue-blue))
+      oklch(from var(--ui-color-9) l 0.2 240)
     );
     --ui-green: light-dark(
       oklch(
-        from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) 0.2
-          var(--hue-green)
+        from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) 0.2 145
       ),
-      oklch(from var(--ui-color-9) l 0.2 var(--hue-green))
+      oklch(from var(--ui-color-9) l 0.2 145)
     );
-    --ui-orange: oklch(from var(--ui-color-7) l 0.2 var(--hue-orange));
+    --ui-orange: oklch(from var(--ui-color-7) l 0.2 75);
     --ui-red: light-dark(
       oklch(
-        from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) 0.2
-          var(--hue-red)
+        from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) 0.2 25
       ),
-      oklch(from var(--ui-color-9) l 0.2 var(--hue-red))
+      oklch(from var(--ui-color-9) l 0.2 25)
     );
 
     /* Intent tokens */
@@ -561,11 +545,49 @@
         var(--ui-text-strong) var(--ui-border-strength-light),
         var(--ui-surface)
       ),
-      var(--ui-surface)
+      color-mix(
+        in oklch,
+        var(--ui-text-strong) var(--ui-border-strength-dark),
+        var(--ui-surface)
+      )
     );
     /* --ui-control-border-color: var(--ui-field-border-color); */
     /* --ui-control-border-color-filled: oklch(0 0 0); */
     /* --ui-border-color-raised: var(--ui-border-color); */
+
+    /* Elevation */
+    --ui-shadow-elevated:
+      0 -1px 3px 0 hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)),
+      0 1px 2px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)),
+      0 2px 5px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.04)),
+      0 4px 12px -5px
+        hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.05)),
+      0 12px 15px -5px
+        hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.07));
+    --ui-shadow-overlay:
+      0 -1px 3px 0 hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)),
+      0 1px 2px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)),
+      0 2px 5px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.04)),
+      0 4px 12px -5px
+        hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.05)),
+      0 12px 15px -5px
+        hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.07));
+    --ui-shadow-scroll:
+      0 -2px 5px 0 hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)),
+      0 1px 1px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.03)),
+      0 2px 2px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.03)),
+      0 5px 5px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.04)),
+      0 9px 9px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.05)),
+      0 16px 16px -2px
+        hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.06));
+    --ui-shadow-selected: 0 1px 2px -1px
+      hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.09));
+
+    /* Overlays */
+    --ui-backdrop-bg-color: light-dark(
+      oklch(from var(--ui-text) l c h / 50%),
+      oklch(from var(--ui-surface) calc(l / 2) c h / 50%)
+    );
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -582,7 +604,8 @@
       --ui-accent-max-lightness: 0.42;
       --ui-border-strength-dark: 55%;
       --ui-border-strength-light: 55%;
-      --ui-code-bg-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 6%));
+      --ui-code-bg-alpha-dark: 6%;
+      --ui-code-bg-alpha-light: 6%;
       --ui-field-border-strength: 70%;
       --ui-focus-ring-width: 3px;
       --ui-invalid-min-lightness: 0.85;
@@ -612,7 +635,8 @@
     --ui-accent-max-lightness: 0.42;
     --ui-border-strength-dark: 55%;
     --ui-border-strength-light: 55%;
-    --ui-code-bg-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 6%));
+    --ui-code-bg-alpha-dark: 6%;
+    --ui-code-bg-alpha-light: 6%;
     --ui-field-border-strength: 70%;
     --ui-focus-ring-width: 3px;
     --ui-invalid-min-lightness: 0.85;
@@ -631,12 +655,6 @@
     --ui-text-min-lightness: 0.9;
     --ui-text-strength-dark: 90%;
     --ui-text-strength-light: 90%;
-  }
-
-  :where(.ui-contrast-more):where(:not(html)) {
-    accent-color: var(--ui-primary);
-    caret-color: var(--ui-primary);
-    color: var(--ui-text);
   }
 
   :where(

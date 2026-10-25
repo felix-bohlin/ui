@@ -2,7 +2,10 @@ import { readdirSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
-import { themeTokenPromises } from "../../src/utils/theme-token-promises"
+import {
+  promiseColor,
+  themeTokenPromises,
+} from "../../src/utils/theme-token-promises"
 import {
   COMPONENTS,
   computed,
@@ -219,7 +222,7 @@ test.describe("token promises", () => {
             for (const surface of against) {
               expect
                 .soft(
-                  await contrast(main, color, `var(${surface})`),
+                  await contrast(main, color, promiseColor(surface)),
                   `${name} against ${surface}`,
                 )
                 .toBeGreaterThanOrEqual(ratio)

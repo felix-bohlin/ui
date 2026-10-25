@@ -10,13 +10,13 @@ Built on [Open Props](https://open-props.style/), with HTML, [Astro](https://ast
 ## Install
 
 ```bash
-pnpm add opui-css open-props
+pnpm add opui-css
 ```
 
 Peer dependencies:
 
 - `astro` `^7` (only required if you use the Astro components)
-- `open-props` `^1.7.23`
+- `open-props` `^1.7.23` (only required if you import `opui-css/open-props.css`, the Open Props source)
 - `react` and `react-dom` `^19` (only required if you use the React components)
 - `svelte` `^5.29` (only required if you use the Svelte components)
 - `vue` `^3.5` (only required if you use the Vue components)
@@ -144,12 +144,12 @@ Drop a pre-bundled stylesheet into any page and use the documented class names:
 <button class="ui-button ui-primary">Click me</button>
 ```
 
-`dist/opui.css` is a single self-contained file (Open Props + palette + theme + normalize + every component + utils, in the correct cascade layers). `dist/opui.components.css` has only the layer order and the component styles. The components need Open Props, `core/palette.css` and `css/theme.css` to look right, and `core/utils.css` holds `.ui-sr-only` and the motion and contrast classes, so load those yourself when you use it.
+`dist/opui.css` is a single self-contained file (Open Props + palette + theme + normalize + every component + utils, in the correct cascade layers). `dist/opui.components.css` has only the layer order, the component styles and the `Layout` classes. The components need `core/palette.css` and `css/theme.css` to look right, and `core/utils.css` holds `.ui-sr-only` and the motion and contrast classes, so load those yourself when you use it. Nothing in the package reads Open Props: `theme.css` holds its own values, and Open Props is in the bundle for your own CSS.
 
 If you do have a bundler that resolves CSS `@import`s (Vite, Astro, webpack, …), import the source instead so you only ship what you use:
 
 ```css
-@import "opui-css/css/imports.css"; /* same content as dist/opui.css */
+@import "opui-css/css/imports.css"; /* dist/opui.css without Open Props */
 @import "opui-css/css/components/button.css"; /* or pick à la carte */
 ```
 
@@ -175,12 +175,12 @@ Breaking changes and how to update your code are in [MIGRATING.md](./MIGRATING.m
 | Import                              | What it gives you                                                                                                                                                                                                                                                      |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `opui-css`                          | Pre-bundled: everything in one file (default)                                                                                                                                                                                                                          |
-| `opui-css/open-props`               | Pre-bundled: Open Props tokens only                                                                                                                                                                                                                                    |
+| `opui-css/open-props`               | Pre-bundled: Open Props tokens only, for your own CSS (the components don't read them)                                                                                                                                                                                                                                    |
 | `opui-css/open-props.css`           | Source: the Open Props imports (needs `open-props` installed)                                                                                                                                                                                                          |
 | `opui-css/dist/opui.css`            | Same as default - explicit path                                                                                                                                                                                                                                        |
 | `opui-css/dist/opui.components.css` | Pre-bundled: components only (no Open Props, palette, theme, reset or utils)                                                                                                                                                                                           |
 | `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path                                                                                                                                                                                                                          |
-| `opui-css/css/imports.css`          | Source: everything (resolved by your bundler)                                                                                                                                                                                                                          |
+| `opui-css/css/imports.css`          | Source: everything but Open Props (resolved by your bundler)                                                                                                                                                                                                                          |
 | `opui-css/css/layers.css`           | `@layer` order only                                                                                                                                                                                                                                                    |
 | `opui-css/css/components.css`       | All component styles (no Open Props, palette, theme, reset or utils)                                                                                                                                                                                                   |
 | `opui-css/css/components/*.css`     | One component at a time                                                                                                                                                                                                                                                |

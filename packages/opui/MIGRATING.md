@@ -534,7 +534,7 @@ In Astro and Vue, a drawer that opens from the inline start no longer renders `.
 
 ## Icon button
 
-`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `round` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_size: var(--size-4)`.
+`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `round` makes it a circle. The hover halo is gone: icon-only buttons get the button's hover background. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_size: 1.25rem`.
 
 ```diff
 - <IconButton aria-label="Edit">
@@ -546,7 +546,7 @@ In Astro and Vue, a drawer that opens from the inline start no longer renders `.
 + <button class="ui-button ui-round ui-x-small">
 ```
 
-Icons are smaller than before. Set `--_icon-size: var(--size-5)` to get the old 24px back. The icon color is the button's accent instead of the inherited text color.
+Icons are smaller than before. Set `--_icon-size: 1.5rem` to get the old 24px back. The icon color is the button's accent instead of the inherited text color.
 
 `icon-button.css` is gone, so drop its import if you import single component files.
 
@@ -1067,7 +1067,7 @@ Tooltips use `--ui-surface-inverse` and `--ui-on-inverse`, and shift along the v
 
 ## Theme and tokens
 
-Every theme token has a `--ui-` prefix, like the classes: `--primary` is `--ui-primary`, `--border-color` is `--ui-border-color`, `--color-1` is `--ui-color-1` and `--gray-1` is `--ui-gray-1`. Open Props tokens keep their names: `--size-*`, `--font-size-0` to `--font-size-8`, `--shadow-1` to `--shadow-6`, `--hue-*`, `--shadow-color` and `--shadow-strength`. Add `ui-` to every token you set or read. `tokens.json` lists them all with their new names.
+Every theme token has a `--ui-` prefix, like the classes: `--primary` is `--ui-primary`, `--border-color` is `--ui-border-color`, `--color-1` is `--ui-color-1` and `--gray-1` is `--ui-gray-1`. Open Props tokens keep their names: `--size-*`, `--font-size-0` to `--font-size-8`, `--shadow-1` to `--shadow-6`, `--hue-*`, `--shadow-color` and `--shadow-strength`, but no theme token reads them any more (see [Package and imports](#package-and-imports)). Add `ui-` to every token you set or read. `tokens.json` lists them all with their new names.
 
 ```diff
 - .sidebar { --primary: var(--green); }
@@ -1127,12 +1127,12 @@ The default palette is green in both color schemes. v5 switched it to blue in da
 ```css
 @layer theme.custom {
   :where(html.ui-dark) {
-    --ui-palette-hue: var(--hue-blue);
+    --ui-palette-hue: 240;
   }
 
   @media (prefers-color-scheme: dark) {
     :where(html:not(.ui-light)) {
-      --ui-palette-hue: var(--hue-blue);
+      --ui-palette-hue: 240;
     }
   }
 }
@@ -1145,8 +1145,8 @@ The default palette is green in both color schemes. v5 switched it to blue in da
 ```css
 @layer theme.custom {
   :where(html) {
-    --ui-button-radius: var(--size-2);
-    --ui-field-radius: var(--size-2);
+    --ui-button-radius: 0.5rem;
+    --ui-field-radius: 0.5rem;
   }
 }
 ```
@@ -1155,7 +1155,7 @@ The default palette is green in both color schemes. v5 switched it to blue in da
 
 Component padding, gaps and margins read `--ui-space-1` to `--ui-space-8` instead of the Open Props `--size-*` steps. The steps resolve on `html`, so overriding `--size-*` on a part of the page no longer changes the components in it. Set `--ui-space-scale` on `html` to change the spacing everywhere, or a component's `--_` property to change one.
 
-The `Select` picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-elevated` (`--ui-shadow-elevated-dark`, `--shadow-4`, in dark mode, was `--shadow-3`).
+The `Select` picker and `Drawer` use `--ui-shadow-overlay` (`--shadow-3`, was `--shadow-2`), and elevated `Accordion` uses `--ui-shadow-elevated`, the elevated `Card` shadow.
 
 `--ui-primary` is `--ui-color-9` in light mode and `--ui-color-6` in dark mode, and `--ui-on-primary` is derived from `--ui-primary` with relative color. If you set your own `--ui-primary`, its text color now follows it.
 
@@ -1200,7 +1200,7 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Card                        | `--_border-color` (outlined border)                                     | `--_outlined-border-color`                                                                                                               |
 | Card                        | `--_bg-surface`, `--_bg-tonal`, `--_bg-elevated`                        | `--_surface-bg-color`, `--_tonal-bg-color`, `--_elevated-bg-color`                                                                       |
 | Card                        | `--_shadow-elevated`                                                    | `--_elevated-shadow`                                                                                                                     |
-| Card                        | `--_shadow-light`, `--_shadow-dark`                                     | removed, set `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark`, or `--_elevated-shadow` on the card                           |
+| Card                        | `--_shadow-light`, `--_shadow-dark`                                     | removed, set `--ui-shadow-elevated`, or `--_elevated-shadow` on the card |
 | Checkbox                    | `--_input-size`                                                         | `--_size`                                                                                                                                |
 | Chip                        | `--_color`                                                              | `--_text-color`                                                                                                                          |
 | Drawer                      | `--_color`                                                              | `--_text-color`                                                                                                                          |
@@ -1230,9 +1230,20 @@ Private custom properties (`--_*`) follow one scheme: `--_accent` for the accent
 | Tooltip                     | `--_tooltip-bg`, `--_tooltip-color`                                     | `--_bg-color`, `--_text-color`                                                                                                           |
 | Tooltip                     | `--_tooltip-offset`                                                     | `--_offset`                                                                                                                              |
 
-`--ui-info` and `--ui-blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette, so info badges and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--ui-blue` in your theme.
+`--ui-info` and `--ui-blue` use hue 240, the same blue as the `.ui-info` palette, so info badges and callouts match. If you relied on the old cyan-ish blue (hue 210), set `--ui-blue` in your theme.
 
-Dark mode shadows are darker: `theme.css` sets `--ui-shadow-color: 220 40% 2%` and `--ui-shadow-strength: 20%` under `.ui-dark` and the OS dark preference, and they set the Open Props `--shadow-color` and `--shadow-strength`. Override the `--ui-` tokens on `html` to change them. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
+Dark mode shadows are darker: every shadow role (`--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-selected`) builds its layers from `--ui-shadow-color`, `light-dark(hsl(220 3% 15% / 1%), hsl(220 40% 2% / 20%))`, so it darkens under `.ui-dark`, also on a part of the page, and the OS dark preference. There is one `--ui-shadow-elevated` for both schemes and no `--ui-shadow-elevated-light`, `--ui-shadow-elevated-dark` or `--ui-shadow-strength`; set `--ui-shadow-color` to change the color in each scheme, or `--ui-shadow-elevated` to replace the shadow:
+
+```css
+@layer theme.custom {
+  :where(html, .ui-palette, .ui-contrast-more) {
+    --ui-shadow-color: light-dark(hsl(250 30% 20% / 2%), hsl(0 0% 0% / 30%));
+    --ui-shadow-elevated: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
+  }
+}
+```
+
+`theme.css` no longer sets the Open Props `--shadow-color` and `--shadow-strength`. If your own CSS reads `--shadow-1` to `--shadow-6` and should darken in dark mode, set those two yourself under `.ui-dark` and the OS dark preference. The bundle no longer contains Open Props' `@custom-media` definitions (`--OSdark`, `--md-n-above` and so on); import `open-props/media` if your PostCSS setup used them.
 
 Components read roles, not palette steps or Open Props values, and the roles are computed on `html`. Overriding a step such as `--ui-gray-4` or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the role, or add `.ui-palette` so the part derives its roles again from its own palette:
 
@@ -1300,6 +1311,19 @@ The Vue type files are `types.vue-props.ts` instead of `types.d.vue.ts`, since T
 ```diff
 - import type { Props } from "opui-css/components/Button/types.d.vue"
 + import type { ButtonProps } from "opui-css/vue"
+```
+
+`open-props` is an optional peer dependency. `theme.css` and the example themes no longer read Open Props: the values they took from it (`--size-*`, `--radius-*`, `--border-size-2`, `--ease-in-3`, `--ease-out-3`, `--font-sans`, `--font-mono`, `--font-weight-*`, `--hue-*` and the shadows) are written into `theme.css`, with the same results. `dist/opui.css` still bundles Open Props, so nothing changes if you load it. `css/imports.css` no longer imports `open-props.css`: if your own CSS reads Open Props, import `opui-css/open-props.css` after it and install `open-props`. Otherwise drop the `open-props` package, and replace Open Props values in your theme with plain values or roles:
+
+```diff
+  @layer theme.custom {
+    :where(html) {
+-     --ui-radius: var(--size-2);
+-     --ui-palette-hue: var(--hue-blue);
++     --ui-radius: 0.5rem;
++     --ui-palette-hue: 240;
+    }
+  }
 ```
 
 `opui-css/open-props` (`dist/op.css`) no longer includes Open Props' palette (`--palette-*` and `--color-1` to `--color-16`). If you load `op.css` on its own and read those properties, import `opui-css/core/palette.css` with `opui-css/css/theme.css`, which sets the palette knobs, and read the `--ui-` names (`--ui-palette-*` and `--ui-color-1` to `--ui-color-16`).

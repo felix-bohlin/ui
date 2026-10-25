@@ -14,7 +14,6 @@
  * "true"/"false" to stay byte-compatible with previously-saved configs.
  */
 
-import huesSource from "open-props/src/props.colors-oklch-hues.css?raw"
 import { exampleTheme } from "./example-themes"
 import { removeStored, writeStored } from "./storage"
 import { themeTokens } from "./theme-tokens"
@@ -53,16 +52,7 @@ export const TOKENS = [
 // Defaults must mirror what `packages/opui/css/theme.css` ships
 // so the configurators (drawer + generator) reflect the live site palette
 // before the user has tweaked anything. theme.css sets --ui-palette-hue to
-// Open Props' --hue-green (145) in both color schemes.
-const HUES = Object.fromEntries(
-  [...huesSource.matchAll(/(--hue-[\w-]+):\s*([\d.]+)/g)].map(
-    ([, name, value]) => [name, value],
-  ),
-)
-
-const resolveHues = (value: string) =>
-  value.replace(/var\((--hue-[\w-]+)\)/g, (match, name) => HUES[name] ?? match)
-
+// 145 (green) in both color schemes.
 const THEME_TOKENS = themeTokens()
 
 const TOKEN_DEFAULTS_BY_MODE: Record<Mode, Record<Token, string>> = {
@@ -73,10 +63,8 @@ const TOKEN_DEFAULTS_BY_MODE: Record<Mode, Record<Token, string>> = {
 for (const token of TOKENS) {
   const declared = THEME_TOKENS.find((candidate) => candidate.name === token)
   if (!declared) throw new Error(`${token} is not declared in theme.css`)
-  TOKEN_DEFAULTS_BY_MODE.light[token] = resolveHues(declared.value)
-  TOKEN_DEFAULTS_BY_MODE.dark[token] = resolveHues(
-    declared.dark ?? declared.value,
-  )
+  TOKEN_DEFAULTS_BY_MODE.light[token] = declared.value
+  TOKEN_DEFAULTS_BY_MODE.dark[token] = declared.dark ?? declared.value
 }
 
 export const THEME_KEYS = {
@@ -92,10 +80,10 @@ export function tokenDefaults(mode: Mode): Record<Token, string> {
 
 export const RADIUS_OPTIONS = [
   { text: "0", value: "0" },
-  { text: "1", value: "var(--size-1)" },
-  { text: "2", value: "var(--size-2)" },
-  { text: "3", value: "var(--size-3)" },
-  { text: "4", value: "var(--size-4)" },
+  { text: "1", value: "0.25rem" },
+  { text: "2", value: "0.5rem" },
+  { text: "3", value: "1rem" },
+  { text: "4", value: "1.25rem" },
 ]
 
 export const BUTTON_HOVER_OPTIONS = [

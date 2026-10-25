@@ -1,8 +1,5 @@
 @import "./layers.css";
 
-/* Open Props */
-@import "../open-props.css";
-
 /* Theme */
 @import "../core/palette.css";
 @import "./theme.css";

@@ -6,15 +6,12 @@
     --ui-backdrop-blur: 0px;
     --ui-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 0.1));
     --ui-border-color-on-filled: var(--ui-border-color);
-    --ui-border-color-on-raised: var(--ui-border-color);
     --ui-border-color-raised: var(--ui-border-color);
     --ui-radius: 0.875rem;
     --ui-radius-small: 0.5rem;
     --ui-radius-x-small: 4px;
-    --ui-button-accent: var(--ui-primary);
-    --ui-button-on-accent: var(--ui-on-primary);
     --ui-button-radius: 0.5rem;
-    --ui-button-font-weight: var(--font-weight-5);
+    --ui-button-font-weight: 500;
     --ui-button-hover: layer;
     --ui-button-padding-inline: 1rem;
     --ui-button-padding-inline-large: 1.5rem;
@@ -22,12 +19,12 @@
     --ui-button-padding-inline-x-small: 0.5rem;
     --ui-card-padding: 1.5rem;
     --ui-chip-radius: 0.5rem;
-    --ui-choice-accent: var(--ui-primary);
-    --ui-choice-on-accent: var(--ui-on-primary);
     --ui-choice-border-color: var(--ui-primary);
     --ui-choice-ripple-bg-color: transparent;
     --ui-choice-size: 1rem;
     --ui-code-bg-color: var(--ui-surface-tonal);
+    --ui-control-accent: var(--ui-primary);
+    --ui-on-control-accent: var(--ui-on-primary);
     --ui-control-border-color: var(--ui-field-border-color);
     --ui-control-size-large: 2.5rem;
     --ui-control-size-small: 2rem;
@@ -41,20 +38,21 @@
     --ui-duration-slow: 0.2s;
     --ui-field-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 0.15));
     --ui-field-border-color-on-filled: var(--ui-field-border-color);
-    --ui-field-border-color-on-raised: var(--ui-field-border-color);
     --ui-field-padding-inline: 0.75rem;
     --ui-field-radius: 0.5rem;
     --ui-field-helper-font-size: var(--ui-font-size-small);
-    --ui-field-label-font-weight: var(--font-weight-5);
+    --ui-field-label-font-weight: 500;
     --ui-focus-ring-color: light-dark(
       oklch(0.708 0 0 / 0.5),
       oklch(0.556 0 0 / 0.5)
     );
     --ui-focus-ring-offset: 0px;
     --ui-focus-ring-width: 3px;
-    --ui-font-body: Geist, var(--font-neo-grotesque);
+    --ui-font-body:
+      Geist, Inter, Roboto, Helvetica Neue, Arial Nova, Nimbus Sans, Arial,
+      sans-serif;
     --ui-font-size-control: 0.875rem;
-    --ui-font-weight-bold: var(--font-weight-6);
+    --ui-font-weight-bold: 600;
     --ui-gray-chroma: 0;
     --ui-gray-hue: 0;
     --ui-icon-size: 1rem;
@@ -74,9 +72,7 @@
     --ui-shadow-control: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --ui-shadow-overlay:
       0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --ui-shadow-elevated-dark:
-      0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --ui-shadow-elevated-light:
+    --ui-shadow-elevated:
       0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     --ui-shadow-scroll:
       0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);

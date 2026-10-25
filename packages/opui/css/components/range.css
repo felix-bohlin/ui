@@ -13,7 +13,10 @@
 @layer components.root {
   :where(.ui-range) {
     --_motion: var(--ui-motion);
-    --_accent: var(--ui-choice-accent, var(--ui-primary));
+    --_accent: var(
+      --ui-choice-accent,
+      var(--ui-control-accent, var(--ui-primary))
+    );
     --_duration: calc(var(--ui-duration-fast) * var(--_motion));
     --_ease: var(--ui-ease);
     --_focus-ring-duration: calc(var(--ui-duration) * var(--_motion));

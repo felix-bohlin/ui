@@ -106,6 +106,9 @@
     "astro": {
       "optional": true
     },
+    "open-props": {
+      "optional": true
+    },
     "react": {
       "optional": true
     },

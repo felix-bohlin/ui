@@ -192,7 +192,7 @@ const whatsNew = {
     `Breaking: <a href="#disabled">disabled links</a> have no <code>href</code>, so they can't be focused or followed.`,
     `<code>--_duration</code> and <code>--_ease</code> set the transition duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-button-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
-    `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-on-accent</code>, the border with <code>--ui-control-border-color</code> (outlined) and <code>--ui-control-border-color-filled</code> (filled and tonal), the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>, like the intent text roles.`,
+    `Themes set the color of <a href="#colors">default buttons</a> with <a href="#api"><code>--ui-button-accent</code></a> and <code>--ui-button-on-accent</code>, or of every control at once with <code>--ui-control-accent</code> and <code>--ui-on-control-accent</code>, the border with <code>--ui-control-border-color</code> (outlined) and <code>--ui-control-border-color-filled</code> (filled and tonal), the font weight with <code>--ui-button-font-weight</code>, the shadow with <code>--ui-shadow-control</code>, the hover shadow and offset with <code>--ui-button-hover-shadow</code> and <code>--ui-button-hover-translate</code>, and the font size with <code>--ui-font-size-control</code>. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>, like the intent text roles.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code>, the same readable primary as links, and critical ones <code>--ui-critical-text</code>.`,
     `<a href="#colors">Critical</a> fills and their hover and pressed shades stay within <code>--ui-accent-fill-max-lightness</code>, and the border keeps <code>--ui-critical</code>.`,
     components(
@@ -227,7 +227,7 @@ const whatsNew = {
       `<a href="#vertical-orientation"><code>orientation</code></a> takes <code>"horizontal"</code>, the default, like <code>Carousel</code>.`,
     ),
     `Corners follow <code>--ui-radius</code>, and <a href="#api"><code>--ui-button-radius</code></a> overrides it when a theme sets it, so one token squares or rounds every component.`,
-    `Themes set the color of groups without <code>.ui-primary</code> or <code>.ui-critical</code> with <a href="#api"><code>--ui-button-accent</code></a>, the edge and dividers of outlined groups with <code>--ui-control-border-color</code> and of filled and tonal groups with <code>--ui-control-border-color-filled</code>, and the font weight and size with <code>--ui-button-font-weight</code> and <code>--ui-font-size-control</code>, like buttons. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>.`,
+    `Themes set the color of groups without <code>.ui-primary</code> or <code>.ui-critical</code> with <a href="#api"><code>--ui-button-accent</code></a> or <code>--ui-control-accent</code>, the edge and dividers of outlined groups with <code>--ui-control-border-color</code> and of filled and tonal groups with <code>--ui-control-border-color-filled</code>, and the font weight and size with <code>--ui-button-font-weight</code> and <code>--ui-font-size-control</code>, like buttons. In dark mode the text stays at least as light as <code>--ui-text-min-lightness</code>.`,
     `<a href="#colors">Primary</a> outlined and text buttons read <code>--ui-primary-text</code>, the same readable primary as links.`,
     `<a href="#colors">Critical</a> fills stay within <code>--ui-accent-fill-max-lightness</code>, like buttons, and with more contrast the outlined edge reads <code>--ui-critical-text</code>, like the dividers.`,
     components(
@@ -276,7 +276,7 @@ const whatsNew = {
     `Breaking: <code>--_card-bg-color</code>, <code>--_card-border-color</code>, <code>--_card-border-width</code> and <code>--_card-shadow</code> drop the <code>card-</code> prefix, the outlined <code>--_border-color</code> is <code>--_outlined-border-color</code>, and <code>--_bg-surface</code>, <code>--_bg-tonal</code> and <code>--_bg-elevated</code> are <code>--_surface-bg-color</code>, <code>--_tonal-bg-color</code> and <code>--_elevated-bg-color</code>, and <code>--_shadow-elevated</code> is <code>--_elevated-shadow</code> (<a href="#under-the-hood">Under the hood</a>).`,
     `<code>--_duration</code> and <code>--_ease</code> set the focus ring animation's duration and easing (<a href="#under-the-hood">Under the hood</a>).`,
     `Elevated cards use <a href="#api"><code>--ui-shadow-elevated</code></a>, and padding and gaps read the <code>--ui-space-*</code> scale.`,
-    `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--ui-shadow-elevated-light</code> and <code>--ui-shadow-elevated-dark</code></a> in your theme, or <a href="#component-properties"><code>--_elevated-shadow</code></a> on the card.`,
+    `Breaking: <code>--_shadow-light</code> and <code>--_shadow-dark</code> are gone. Set <a href="#api"><code>--ui-shadow-elevated</code></a> in your theme, one shadow whose color follows <code>--ui-shadow-color</code> in each scheme, or <a href="#component-properties"><code>--_elevated-shadow</code></a> on the card.`,
     `<a href="#variants">Tonal and outlined</a> cards read <a href="#api"><code>--ui-shadow-surface</code></a>, and tonal and elevated cards <code>--ui-border-color-raised</code>, when a theme sets them.`,
     `Borders inside <a href="#variants">tonal and elevated</a> cards read <code>--ui-border-color-on-raised</code> and <code>--ui-field-border-color-on-raised</code>, so a theme's borders reach inside.`,
     components(
@@ -338,7 +338,7 @@ const whatsNew = {
       html: `Call <code>syncIndeterminate(input)</code> from <code>checkbox.js</code> after you change <code>data-indeterminate</code> (<a href="#indeterminate">Indeterminate</a>).`,
     },
     `The unchecked border reads <a href="#api"><code>--ui-choice-border-color</code></a> when a theme sets it, and <code>--ui-field-border-color</code>, which reaches 3:1 against the page by default, when it doesn't.`,
-    `The checked fill and mark read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code> when a theme sets them.`,
+    `The checked fill and mark read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code>, or <code>--ui-control-accent</code> and <code>--ui-on-control-accent</code>, when a theme sets them.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code> and <code>--_input-size</code> is <code>--_size</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
     `Without a <a href="#hidden-label">visible label</a>, checkboxes center in table cells and lines of text, and stay a 24px click target at every size.`,
@@ -724,7 +724,7 @@ const whatsNew = {
       html: `Breaking: <a href="#label-position"><code>.ui-vertical</code></a> replaces <code>.ui-stack</code>.`,
     },
     `The unchecked ring reads <a href="#api"><code>--ui-choice-border-color</code></a> when a theme sets it, and <code>--ui-field-border-color</code>, which reaches 3:1 against the page by default, when it doesn't.`,
-    `The checked fill and dot read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code> when a theme sets them.`,
+    `The checked fill and dot read <a href="#api"><code>--ui-choice-accent</code></a> and <code>--ui-choice-on-accent</code>, or <code>--ui-control-accent</code> and <code>--ui-on-control-accent</code>, when a theme sets them.`,
     `<a href="#sizes">Radios</a> are 20px, the same <code>--ui-choice-size</code> as Checkbox.`,
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code> and <code>--_input-size</code> is <code>--_size</code>. <code>--isLTR</code> and <code>--isRTL</code> are gone, the halo centers itself (<a href="#under-the-hood">Under the hood</a>).`,
@@ -780,7 +780,7 @@ const whatsNew = {
       `Breaking: <a href="#tick-marks"><code>items</code></a> replaces <code>options</code>, the label goes in the <code>label</code> slot, and the readout slot is <a href="#value"><code>value-text</code></a>.`,
     ),
     `The empty track reaches 3:1 against the page by default, and with more contrast it takes the page color with an inset edge so the fill stands out.`,
-    `The thumb and fill read <a href="#api"><code>--ui-choice-accent</code></a> and the empty track <code>--ui-track-bg-color</code> when a theme sets them.`,
+    `The thumb and fill read <a href="#api"><code>--ui-choice-accent</code></a>, or <code>--ui-control-accent</code>, and the empty track <code>--ui-track-bg-color</code> when a theme sets them.`,
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
     {
       ...slots(
@@ -927,7 +927,7 @@ const whatsNew = {
     },
     `The unchecked thumb and track read <a href="#api"><code>--ui-switch-thumb-bg-color</code></a> and <code>--ui-switch-track-bg-color</code>.`,
     `The unchecked track border reads <a href="#api"><code>--ui-choice-border-color</code></a> when a theme sets it, and <code>--ui-field-border-color</code> when it doesn't, like the checkbox and radio borders.`,
-    `The checked track reads <a href="#api"><code>--ui-choice-accent</code></a> and the unchecked track <code>--ui-track-bg-color</code> when a theme sets them.`,
+    `The checked track reads <a href="#api"><code>--ui-choice-accent</code></a>, or <code>--ui-control-accent</code>, and the unchecked track <code>--ui-track-bg-color</code> when a theme sets them.`,
     `Each <a href="#api">track width</a> is twice its track height until a theme sets it.`,
     slots(
       `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
@@ -1268,6 +1268,7 @@ const whatsNew = {
     ),
   ],
   typography: [
+    `<a href="#heading-group">Overlines</a> read <code>--ui-text-subtle</code>, so a theme's secondary text color reaches them.`,
     `<a href="#inline-text-elements"><code>kbd</code> and <code>var</code></a> sit on <code>--ui-surface-inverse</code> with <code>--ui-on-inverse</code> text, like tooltips.`,
     `<a href="#rich-text-showcase">Inline <code>code</code></a> reads <code>--ui-code-bg-color</code>, code blocks read <code>--ui-code-block-bg-color</code> and <code>--ui-code-block-text-color</code>, and <code>del</code>, <code>ins</code> and <code>abbr</code> read <code>--ui-critical-text</code>, <code>--ui-success-text</code> and <code>--ui-info</code>.`,
     `Breaking: <a href="#inline-text-elements"><code>del</code>, <code>ins</code>, <code>abbr</code> and <code>dfn</code></a> and their classes are no longer severity scopes, so content inside them keeps the page palette.`,

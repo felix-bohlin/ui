@@ -25,12 +25,10 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
             href="/components">component</DocLink
           > CSS straight from the docs - no install required. Each component page
           has its CSS under Installation, with the files it depends on and a button
-          that copies them all. It reads tokens from Open Props, <code
-            >palette.css</code
-          > and <code>theme.css</code>, so those need to be on the page too,
-          after <code>layers.css</code> sets the layer order. <code
-            >normalize.css</code
-          > adds the focus ring and
+          that copies them all. It reads tokens from <code>palette.css</code> and
+          <code>theme.css</code>, so those need to be on the page too, after <code
+            >layers.css</code
+          > sets the layer order. <code>normalize.css</code> adds the focus ring and
           <code>utils.css</code> adds <code>.ui-sr-only</code> and the motion classes.
           The CDN link below has all of it in one file.
         </p>
@@ -120,7 +118,8 @@ import PickAndChoose from "./partials/PickAndChoose.astro"
         >openprops</code
       > layer, and <code>open-props.css</code> imports it from <code
         >node_modules</code
-      > for bundlers. <code>dist/opui.css</code> is the CDN file. <code
+      > for bundlers. The components don't read it, so both are optional and only
+      there for your own CSS. <code>dist/opui.css</code> is the CDN file. <code
         >themes/</code
       > holds the <DocLink href="/guide/customizing#example-themes"
         >example themes</DocLink

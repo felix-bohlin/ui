@@ -20,7 +20,7 @@ const TYPES: [RegExp, string][] = [
   [/shadow(?!-color$)/, "shadow"],
   [/-style$/, "strokeStyle"],
   [
-    /-accent(-|$)|^(?!--ui-shadow-color$).*-color(-|$)|^--ui-(blue|critical|green|info|invalid|neutral|on|orange|palette|primary|red|selected|success|surface|text|warning)(-|$)/,
+    /-accent(-|$)|^(?!--ui-color-scheme$).*-color(-|$)|^--ui-(blue|critical|green|info|invalid|neutral|on|orange|palette|primary|red|selected|success|surface|text|warning)(-|$)/,
     "color",
   ],
   [

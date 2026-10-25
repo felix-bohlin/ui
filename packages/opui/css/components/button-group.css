@@ -17,7 +17,10 @@
     }
 
     &.ui-outlined {
-      --_edge-accent: var(--ui-button-accent, var(--ui-palette-strong));
+      --_edge-accent: var(
+        --ui-button-accent,
+        var(--ui-control-accent, var(--ui-palette-strong))
+      );
       --_edge-outline-color: var(
         --ui-control-border-color,
         var(--_edge-accent)

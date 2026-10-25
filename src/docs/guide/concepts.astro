@@ -45,7 +45,9 @@ import TokenTiers from "../../components/TokenTiers.astro"
     <h2 id="token-tiers">Token tiers</h2>
     <p>
       Each tier reads from the ones before it. A theme sets knobs, roles and
-      component tokens, and component CSS starts reading at the roles:
+      component tokens, and component CSS starts reading at the roles. <DocLink
+        href="/guide/theme-tokens">Theme tokens</DocLink
+      > and <code>tokens.json</code> name the tier of every token:
     </p>
     <TokenTiers />
     <p>
@@ -53,15 +55,19 @@ import TokenTiers from "../../components/TokenTiers.astro"
         >--ui-density</code
       > are the inputs. <strong>Primitives</strong>, the palette steps <code
         >--ui-color-1</code
-      > to <code>--ui-color-16</code>, the type scale and the Open Props scales,
-      derive from them, and component CSS never reads them. <strong
+      > to <code>--ui-color-16</code> and the type scale <code
+        >--ui-font-size-100</code
+      > to <code>--ui-font-size-900</code>, derive from them, and component CSS
+      never reads them. <strong
         >Roles</strong
       >
       such as <code>--ui-primary</code> and <code>--ui-space-3</code> are the contract
       every component reads, each listed on <DocLink href="/guide/theme-tokens"
         >Theme tokens</DocLink
-      > with the contrast it promises; a few are hooks, unset until a theme sets one
-      value for every component with that job. Roles plus a few component tokens recreate
+      > with the contrast it promises; a few are hooks, such as <code
+        >--ui-control-accent</code
+      > and <code>--ui-selected</code>, unset until a theme sets one value for every
+      component with that job. Roles plus a few component tokens recreate
       Bootstrap, Material and shadcn in the <DocLink
         href="/guide/customizing#example-themes">example themes</DocLink
       >, and a theme that has to reach into component CSS points at a missing
@@ -72,7 +78,10 @@ import TokenTiers from "../../components/TokenTiers.astro"
       > are one component's wiring for one element, see <DocLink
         href="/guide/customizing#component-properties"
         >Component properties</DocLink
-      >. <DocLink href="/guide/theming">Theming</DocLink> walks through the knobs.
+      >. The documented inputs among them are per instance: the component declares
+      them on itself in <code>components.root</code>, so a theme in <code
+        >theme.custom</code
+      > can't set them site-wide. <DocLink href="/guide/theming">Theming</DocLink> walks through the knobs.
     </p>
   </section>
 

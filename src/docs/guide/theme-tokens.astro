@@ -32,10 +32,11 @@ const slug = (title: string) =>
 <Guide overline="Guide">
   <Fragment slot="title">Theme tokens</Fragment>
   <Fragment slot="preamble">
-    Every token <code>theme.css</code> declares, with its default. Most are <DocLink
-      href="/guide/concepts#token-tiers">roles</DocLink
-    >, the ones marked <em>component</em> belong to one component. The tests check
-    every promised contrast ratio in light and dark mode, with and without more contrast.
+    Every token <code>theme.css</code> declares, with its default and its <DocLink
+      href="/guide/concepts#token-tiers">tier</DocLink
+    >. Most are roles; the others are marked <em>knob</em>, <em>primitive</em>,
+    <em>hook</em> or <em>component</em>. The tests check every promised contrast
+    ratio in light and dark mode, with and without more contrast.
   </Fragment>
 
   <section>
@@ -89,10 +90,15 @@ const slug = (title: string) =>
       >, only an <code>example</code>.
     </p>
     <p>
-      The tier is <code>role</code>, <code>component</code> (read by one component)
-      or <code>hook</code>: an optional role such as <code>--ui-selected</code> that
+      The tier is <code>knob</code> (an input a theme turns, such as <code
+        >--ui-palette-hue</code
+      > or a contrast limit), <code>primitive</code> (derived from the knobs and read
+      by no component, such as <code>--ui-font-size-300</code>), <code
+        >role</code
+      >,
+      <code>hook</code> (an optional role such as <code>--ui-selected</code> that
       every component with that job reads, each with a default of its own until a
-      theme sets it.
+      theme sets it) or <code>component</code> (read by one component).
     </p>
   </section>
 
@@ -134,8 +140,13 @@ const slug = (title: string) =>
         Component tokens start with the component and end in the property they
         set, such as <code>-bg-color</code>, <code>-text-color</code>, <code
           >-border-color</code
-        >, <code>-size</code>, <code>-radius</code>, <code>-font-weight</code>,
-        <code>-shadow</code> or <code>-gap</code>, like the <code>--_*</code> properties.
+        >, <code>-size</code>, <code>-radius</code>, <code>-gap</code>, <code
+          >-padding</code
+        > or <code>-shadow</code>, like the <code>--_*</code> properties, or in the
+        type of their value, such as <code>-font-weight</code>, <code
+          >-blur</code
+        >,
+        <code>-offset</code> or a keyword like <code>-hover</code>.
       </li>
     </ul>
   </section>

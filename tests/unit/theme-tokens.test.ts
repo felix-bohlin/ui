@@ -11,6 +11,7 @@ import {
 import { TOKENS, tokenDefaults } from "../../src/utils/theme-store"
 import { themeTokenDescriptions } from "../../src/utils/theme-token-descriptions"
 import { themeTokenPromises } from "../../src/utils/theme-token-promises"
+import { themeTokenTiers } from "../../src/utils/theme-token-tiers"
 import {
   OVERRIDE_HOOKS,
   parseThemeTokens,
@@ -85,6 +86,7 @@ describe("theme tokens", () => {
         .filter((section) => section.tokens.length > 0)
         .map((section) => section.title),
     ).toEqual([
+      "Color scheme",
       "Palette",
       "Palette roles",
       "Named colors (no severity meaning)",
@@ -97,6 +99,7 @@ describe("theme tokens", () => {
       "Focus ring",
       "Typography",
       "Spacing",
+      "Controls",
       "Control sizes",
       "Button",
       "Tabs",
@@ -119,21 +122,22 @@ describe("theme tokens", () => {
   })
 
   test("dark overrides are read from the dark rules", () => {
-    expect(find("--ui-shadow-color")).toEqual({
-      dark: "220 40% 2%",
-      name: "--ui-shadow-color",
-      value: "220 3% 15%",
+    expect(find("--ui-color-scheme")).toEqual({
+      dark: "dark",
+      name: "--ui-color-scheme",
+      value: "light",
     })
+    expect(find("--ui-shadow-color")?.value).toMatch(/^light-dark\(/)
+    expect(find("--ui-shadow-color")?.dark).toBeUndefined()
     expect(find("--ui-palette-hue")).toEqual({
       name: "--ui-palette-hue",
-      value: "var(--hue-green)",
+      value: "145",
     })
     expect(find("--ui-motion")?.value).toBe("1")
     expect(find("--ui-motion")?.dark).toBeUndefined()
     expect(find("--ui-palette-hue-rotate-by")?.value).toBe("0")
     expect(find("--ui-palette-source")?.optional).toBe(true)
     expect(find("--ui-focus-ring-color")?.optional).toBeUndefined()
-    expect(find("--ui-color-scheme")).toBeUndefined()
   })
 
   test("more-contrast overrides are read from the contrast block", () => {
@@ -153,8 +157,8 @@ describe("theme tokens", () => {
     ).toEqual([
       "--ui-button-hover",
       "--ui-button-hover-translate",
+      "--ui-color-scheme",
       "--ui-contrast",
-      "--ui-shadow-color",
     ])
   })
 
@@ -174,8 +178,10 @@ describe("theme tokens", () => {
   test("every promise names declared tokens and is sorted", () => {
     for (const [name, promise] of Object.entries(themeTokenPromises)) {
       expect(find(name), name).toBeDefined()
-      for (const against of promise.against)
-        expect(find(against), against).toBeDefined()
+      for (const against of promise.against) {
+        for (const read of against.match(/--ui-[\w-]+/g) ?? [])
+          expect(find(read), read).toBeDefined()
+      }
     }
     expect(Object.keys(themeTokenPromises)).toEqual(
       Object.keys(themeTokenPromises).toSorted(),
@@ -186,7 +192,7 @@ describe("theme tokens", () => {
     for (const token of TOKENS) expect(find(token)).toBeDefined()
     expect(tokenDefaults("light")["--ui-palette-hue"]).toBe("145")
     expect(tokenDefaults("dark")["--ui-palette-hue"]).toBe("145")
-    expect(tokenDefaults("light")["--ui-radius"]).toBe("var(--size-2)")
+    expect(tokenDefaults("light")["--ui-radius"]).toBe("0.5rem")
   })
 
   test("the knob block reads no other token, so knobs inherit into every scope", () => {
@@ -196,7 +202,7 @@ describe("theme tokens", () => {
     const reads = [
       ...block.matchAll(/^\s*(--ui-[\w-]+):[^;]*var\(--(?:ui-|_)[^;]*;/gm),
     ].map((match) => match[1])
-    expect(reads).toEqual(["--ui-shadow-elevated"])
+    expect(reads).toEqual([])
   })
 
   test("the contrast rules set knobs only, and both set the same ones", () => {
@@ -224,6 +230,40 @@ describe("theme tokens", () => {
       expect(find(name)?.optional, name).toBe(true)
     }
     expect([...OVERRIDE_HOOKS]).toEqual([...OVERRIDE_HOOKS].toSorted())
+  })
+
+  test("every token has a tier, declared beside the hooks, and no tier is stale", () => {
+    const names = new Set(tokens.map((token) => token.name))
+    for (const name of Object.keys(themeTokenTiers)) {
+      expect(names, name).toContain(name)
+      expect(OVERRIDE_HOOKS, name).not.toContain(name)
+    }
+    for (const tier of ["component", "knob", "primitive"]) {
+      const names = Object.entries(themeTokenTiers)
+        .filter(([, candidate]) => candidate === tier)
+        .map(([name]) => name)
+      expect(names, tier).toEqual(names.toSorted())
+    }
+    expect(tokenTier("--ui-palette-hue")).toBe("knob")
+    expect(tokenTier("--ui-font-size-300")).toBe("primitive")
+    expect(tokenTier("--ui-primary")).toBe("role")
+    expect(tokenTier("--ui-selected")).toBe("hook")
+    expect(tokenTier("--ui-button-size")).toBe("component")
+    expect(tokenTier("--ui-code-bg-color")).toBe("component")
+    expect(tokenTier("--ui-backdrop-bg-color")).toBe("role")
+    expect(tokenTier("--ui-control-size")).toBe("role")
+    const knobBlock = themeSource.slice(
+      themeSource.indexOf(":where(html) {"),
+      themeSource.indexOf("\n  }\n", themeSource.indexOf(":where(html) {")),
+    )
+    for (const token of tokens) {
+      if (tokenTier(token.name) !== "knob") continue
+      expect(
+        knobBlock.includes(`${token.name}:`) ||
+          token.name === "--ui-primary-source",
+        token.name,
+      ).toBe(true)
+    }
   })
 
   test("a declared token is read without a fallback", () => {
@@ -289,11 +329,11 @@ describe("generateCss", () => {
   test("lists only the changed tokens in the theme.custom layer", () => {
     const css = generateCss({
       dark: {
-        "--ui-radius": "var(--radius-3)",
+        "--ui-radius": "1rem",
         "--ui-palette-hue": "200",
       },
       light: {
-        "--ui-radius": "var(--radius-3)",
+        "--ui-radius": "1rem",
         "--ui-palette-hue": "30",
       },
     })
@@ -304,7 +344,7 @@ describe("generateCss", () => {
 @layer theme.custom {
   :where(html) {
     --ui-palette-hue: 30;
-    --ui-radius: var(--radius-3);
+    --ui-radius: 1rem;
   }
 
   :where(html.ui-dark) {
@@ -335,7 +375,7 @@ describe("generateCss", () => {
       dark: { "--ui-radius": "0", "--ui-palette-hue": "200" },
       light: { "--ui-radius": "0", "--ui-palette-hue": "280" },
       example: {
-        "--ui-radius": "var(--size-1)",
+        "--ui-radius": "0.25rem",
         "--ui-density": "0.875",
         "--ui-palette-hue": "280",
       },

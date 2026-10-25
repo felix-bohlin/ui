@@ -57,18 +57,11 @@
     /* First p element (overline) */
     :where(:scope.ui-hgroup) > p:first-of-type:first-child,
     hgroup p:first-of-type:first-child {
-      color: light-dark(
-        oklch(from var(--ui-text) calc(l * 1.25) c h),
-        oklch(from var(--ui-text) calc(l * 0.9) c h)
-      );
+      color: var(--ui-text-subtle);
       font-size: var(--ui-font-size-caption);
       font-weight: var(--ui-font-weight-medium);
       letter-spacing: var(--ui-letter-spacing-caps);
       text-transform: uppercase;
-
-      @container style(--ui-contrast: more) {
-        color: var(--ui-text);
-      }
     }
 
     /* Body paragraphs after the heading */

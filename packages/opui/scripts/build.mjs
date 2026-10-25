@@ -9,9 +9,12 @@ const root = resolve(here, "..")
 const dist = resolve(root, "dist")
 
 const targets = [
-  { input: "css/imports.css", out: "opui.css" },
-  { input: "css/components.css", out: "opui.components.css" },
-  { input: "open-props.css", out: "op.css" },
+  {
+    inputs: ["css/layers.css", "open-props.css", "css/imports.css"],
+    out: "opui.css",
+  },
+  { inputs: ["css/components.css"], out: "opui.components.css" },
+  { inputs: ["open-props.css"], out: "op.css" },
 ]
 
 const processor = postcss([atImport()])
@@ -19,10 +22,13 @@ const processor = postcss([atImport()])
 await rm(dist, { force: true, recursive: true })
 await mkdir(dist, { recursive: true })
 
-for (const { input, out } of targets) {
-  const from = resolve(root, input)
+for (const { inputs, out } of targets) {
+  const from = resolve(root, inputs.at(-1))
   const to = resolve(dist, out)
-  const result = await processor.process(`@import "${from}";`, {
+  const source = inputs
+    .map((input) => `@import "${resolve(root, input)}";`)
+    .join("\n")
+  const result = await processor.process(source, {
     from,
     to,
     map: { annotation: `${out}.map`, inline: false, sourcesContent: false },

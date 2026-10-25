@@ -32,6 +32,17 @@
     }
   }
 
+  :where(.ui-light, .ui-dark):where(:not(html)) {
+    background-color: var(--ui-surface);
+    color: var(--ui-text);
+  }
+
+  :where(.ui-contrast-more):where(:not(html)) {
+    accent-color: var(--ui-primary);
+    caret-color: var(--ui-primary);
+    color: var(--ui-text);
+  }
+
   :where(body) {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;

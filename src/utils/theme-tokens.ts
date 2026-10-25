@@ -1,4 +1,5 @@
 import themeSource from "@opui/css/theme.css?raw"
+import { themeTokenTiers } from "./theme-token-tiers"
 
 export type ThemeToken = {
   dark?: string
@@ -23,6 +24,7 @@ const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
 const FALLBACK_SCOPE = /@supports not\b/
 const THEME_SCOPE = /\bhtml\b/
 const SECTION_ORDER = [
+  "Color scheme",
   "Palette",
   "Palette roles",
   "Named colors (no severity meaning)",
@@ -35,6 +37,7 @@ const SECTION_ORDER = [
   "Focus ring",
   "Typography",
   "Spacing",
+  "Controls",
   "Control sizes",
   "Button",
   "Tabs",
@@ -199,47 +202,25 @@ export const parseThemeTokens = (css = themeSource): ThemeSection[] => {
   )
 }
 
-const COMPONENT_PREFIXES = [
-  "--ui-backdrop-",
-  "--ui-button-",
-  "--ui-chip-",
-  "--ui-choice-",
-  "--ui-code-block-",
-  "--ui-divider-",
-  "--ui-field-",
-  "--ui-switch-",
-]
-
-const ROLE_EXCEPTIONS = new Set([
-  "--ui-button-radius",
-  "--ui-choice-accent",
-  "--ui-choice-border-color",
-  "--ui-choice-on-accent",
-  "--ui-field-border-color",
-  "--ui-field-border-color-on-raised",
-  "--ui-field-border-width",
-])
-
 export const OVERRIDE_HOOKS = [
   "--ui-border-color-raised",
   "--ui-choice-accent",
+  "--ui-control-accent",
   "--ui-control-border-color",
   "--ui-control-border-color-filled",
+  "--ui-on-control-accent",
   "--ui-on-selected",
   "--ui-primary-tonal",
   "--ui-selected",
   "--ui-track-bg-color",
 ] as const
 
-export type TokenTier = "component" | "hook" | "role"
+export type TokenTier = "component" | "hook" | "knob" | "primitive" | "role"
 
 export const tokenTier = (name: string): TokenTier =>
   (OVERRIDE_HOOKS as readonly string[]).includes(name)
     ? "hook"
-    : !ROLE_EXCEPTIONS.has(name) &&
-        COMPONENT_PREFIXES.some((prefix) => name.startsWith(prefix))
-      ? "component"
-      : "role"
+    : (themeTokenTiers[name] ?? "role")
 
 const themeTokensIn = (sections: ThemeSection[]) =>
   sections.flatMap((section) => section.tokens)

@@ -1,4 +1,5 @@
 @layer components.extended {
+  /* Reads --_duration, --_ease and the other --_ properties text-field.css declares on .ui-select */
   :where(.ui-select select) {
     position: relative;
 

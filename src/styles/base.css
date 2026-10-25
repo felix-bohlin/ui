@@ -26,6 +26,34 @@
   color: var(--ui-color-1);
 }
 
+@layer theme.custom {
+  :where(html.ui-dark) {
+    --shadow-color: 220 40% 2%;
+    --shadow-strength: 20%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :where(html:not(.ui-light)) {
+      --shadow-color: 220 40% 2%;
+      --shadow-strength: 20%;
+    }
+  }
+
+  :where(
+    html:not([data-example-theme]),
+    html:not([data-example-theme]) :where(.ui-palette, .ui-contrast-more)
+  ) {
+    --ui-border-color-on-raised: light-dark(
+      color-mix(
+        in oklch,
+        var(--ui-text-strong) var(--ui-border-strength-light),
+        var(--ui-surface)
+      ),
+      var(--ui-surface)
+    );
+  }
+}
+
 :where(:root:not([data-example-theme]))
   :where(h1, h2, h3, h4, h5, h6, hgroup h1 + p):not(
     :where(.anatomy-diagram, .example-preview) *

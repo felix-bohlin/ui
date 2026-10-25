@@ -1,7 +1,10 @@
 @layer components.root {
   :where(.ui-button) {
     --_motion: var(--ui-motion);
-    --_accent: var(--ui-button-accent, var(--ui-palette-strong));
+    --_accent: var(
+      --ui-button-accent,
+      var(--ui-control-accent, var(--ui-palette-strong))
+    );
     --_accent-fill: var(--ui-button-accent-filled, var(--_accent));
     --_accent-text: light-dark(
       var(--_accent),
@@ -50,7 +53,10 @@
     );
     --_font-size: var(--ui-font-size-control);
     --_icon-size: 0.7lh;
-    --_on-accent: var(--ui-button-on-accent, var(--ui-palette-on-strong));
+    --_on-accent: var(
+      --ui-button-on-accent,
+      var(--ui-on-control-accent, var(--ui-palette-on-strong))
+    );
     --_on-accent-fill: var(--ui-button-on-accent-filled, var(--_on-accent));
     --_on-accent-tonal: var(--_accent);
     --_outlined-active-bg-color: var(--_filled-active-bg-color);

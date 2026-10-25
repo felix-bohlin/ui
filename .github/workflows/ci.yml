@@ -14,7 +14,8 @@ jobs:
   check:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      actions: write
+      contents: write
       pull-requests: write
     steps:
       - uses: actions/checkout@v7
@@ -28,7 +29,33 @@ jobs:
         env:
           OPUI_TEST_PAGES: "1"
       - run: git add --intent-to-add -- public/search-index.json packages/opui/skills/opui/references packages/opui/tokens.json
-      - run: git diff --exit-code -- public/search-index.json packages/opui/skills/opui/references packages/opui/tokens.json
+      - if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
+        run: git diff --exit-code -- public/search-index.json packages/opui/skills/opui/references packages/opui/tokens.json
+      - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        name: Commit the regenerated files
+        run: |
+          files="public/search-index.json packages/opui/skills/opui/references packages/opui/tokens.json"
+          if git diff --quiet -- $files; then exit 0; fi
+          git diff --stat -- $files
+          git diff --binary -- $files > "$RUNNER_TEMP/generated.patch"
+          merge=$(git rev-parse HEAD)
+          git reset --quiet --hard
+          git clean -fdq -- $files
+          git fetch --depth=1 origin "$SHA"
+          git checkout --force -B "$BRANCH" "$SHA"
+          git apply --index "$RUNNER_TEMP/generated.patch"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: regenerate the search index, skill references and tokens.json"
+          git push origin "HEAD:refs/heads/$BRANCH"
+          gh workflow run ci.yml --ref "$BRANCH"
+          echo "::notice::Pushed the regenerated files to $BRANCH as $(git rev-parse --short HEAD), CI runs again there"
+          git checkout --force --detach "$merge"
+        env:
+          BRANCH: ${{ github.head_ref }}
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.pull_request.head.sha }}
       - uses: actions/upload-artifact@v7
         with:
           name: dist

@@ -571,7 +571,7 @@ Only direct `li`/`option` children (and options in a `[role="group"]`) are style
 
 `.ui-end` only sizes an `svg` that is its direct child. An icon wrapped in another element inside `.ui-end` keeps its own size.
 
-`.ui-start` and `.ui-end` are only styled as direct children of a row, or of the `a`, `button`, `div` or `label` directly in it. Move one that sits deeper, such as inside your own wrapper, up to that level.
+`.ui-start` and `.ui-end` are only styled as direct children of a row, or of the `a`, `button` or `label` directly in it. Move one that sits deeper, such as inside your own wrapper, up to that level.
 
 ```diff
   <li>

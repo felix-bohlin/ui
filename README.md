@@ -39,7 +39,7 @@ The project is managed as a monorepo with two main parts:
   - `src/stress-tests/`: Pages that combine many components, rendered at `/tests/<name>/`.
   - `src/utils/`: Shared helpers and data, such as framework routing and What's new notes.
 - **Scripts (`scripts/`)**: Checks and generators. `pnpm check` runs the CSS order, component and custom property checks, and `pnpm build` runs the search index, browser support and agent skill scripts.
-- **Tests (`tests/`)**: Unit and parity tests in `tests/unit`, Playwright visual, accessibility and interaction tests in `tests/e2e`.
+- **Tests (`tests/`)**: Unit and parity tests in `tests/unit`, Playwright visual, accessibility and interaction tests in `tests/e2e`, and the packed tarball in consumer projects in `tests/package`.
 
 ### Development
 
@@ -57,6 +57,8 @@ Only the fixture pages at `/<framework>/test/<component>` need `OPUI_TEST_PAGES=
 `pnpm test:e2e` needs Playwright's Chromium, Firefox and WebKit. Install them once with `pnpm exec playwright install chromium firefox webkit`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium. With Chromium only, pass `--project=light --project=dark`. CI runs the `mcr.microsoft.com/playwright` image. Visual baselines are only generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots. Until then, a new component's visual test fails locally.
 
 Record intended parity drift with `pnpm test:record-drift` and known accessibility violations with `pnpm test:e2e:record-a11y`.
+
+`pnpm test:package` (part of `pnpm check`) runs `npm pack` in `packages/opui`, checks what the tarball ships and the layer order at the top of `dist/opui.css`, then copies each fixture in `tests/package/fixtures/` (Astro, React, Svelte, Vue) to a temporary folder, unpacks the tarball into its `node_modules/opui-css` and runs the framework's type checker (`astro check`, `tsc`, `svelte-check`, `vue-tsc`) and its build. The fixtures are workspace packages, so `pnpm install` installs their dependencies and the test runs without network access. To try a fixture by hand against the workspace package, run `pnpm --dir tests/package/fixtures/react exec vite build` (or `astro check`, `svelte-check`, `vue-tsc --noEmit`).
 
 ### Releasing
 

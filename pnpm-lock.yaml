@@ -377,6 +377,106 @@ importers:
         specifier: ^16.1.0
         version: 16.1.1(postcss@8.5.16)
 
+  tests/package/fixtures/astro:
+    dependencies:
+      astro:
+        specifier: 'catalog:'
+        version: 7.3.6(@types/node@24.13.2)(yaml@2.9.0)
+      open-props:
+        specifier: 'catalog:'
+        version: 1.7.23
+      opui-css:
+        specifier: workspace:*
+        version: link:../../../../packages/opui
+    devDependencies:
+      '@astrojs/check':
+        specifier: ^0.9.10
+        version: 0.9.10(prettier-plugin-astro@0.14.1)(prettier@3.9.4)(typescript@6.0.3)
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+
+  tests/package/fixtures/react:
+    dependencies:
+      open-props:
+        specifier: 'catalog:'
+        version: 1.7.23
+      opui-css:
+        specifier: workspace:*
+        version: link:../../../../packages/opui
+      react:
+        specifier: 'catalog:'
+        version: 19.3.0
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.3.0(react@19.3.0)
+    devDependencies:
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.3.0(@types/react@19.3.0)
+      '@vitejs/plugin-react':
+        specifier: ^6.1.2
+        version: 6.1.2(vite@8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0))
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      vite:
+        specifier: ^8.3.3
+        version: 8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0)
+
+  tests/package/fixtures/svelte:
+    dependencies:
+      open-props:
+        specifier: 'catalog:'
+        version: 1.7.23
+      opui-css:
+        specifier: workspace:*
+        version: link:../../../../packages/opui
+      svelte:
+        specifier: 'catalog:'
+        version: 5.56.4
+    devDependencies:
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^7.3.1
+        version: 7.3.1(svelte@5.56.4)(vite@8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0))
+      svelte-check:
+        specifier: ^4.7.6
+        version: 4.7.6(picomatch@4.0.7)(svelte@5.56.4)(typescript@6.0.3)
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      vite:
+        specifier: ^8.3.3
+        version: 8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0)
+
+  tests/package/fixtures/vue:
+    dependencies:
+      open-props:
+        specifier: 'catalog:'
+        version: 1.7.23
+      opui-css:
+        specifier: workspace:*
+        version: link:../../../../packages/opui
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.39(typescript@6.0.3)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^6.0.7
+        version: 6.0.7(vite@8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      vite:
+        specifier: ^8.3.3
+        version: 8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0)
+      vue-tsc:
+        specifier: ^3.3.11
+        version: 3.3.11(typescript@6.0.3)
+
 packages:
 
   '@astrojs/check@0.9.10':
@@ -5028,6 +5128,15 @@ snapshots:
       vite: 8.1.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0)
       vitefu: 1.1.3(vite@8.1.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0))
 
+  '@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.56.4)(vite@8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0))':
+    dependencies:
+      deepmerge: 4.3.1
+      magic-string: 1.4.2
+      obug: 2.2.1
+      svelte: 5.56.4
+      vite: 8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0)
+      vitefu: 1.1.3(vite@8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0))
+
   '@tybys/wasm-util@0.10.3':
     dependencies:
       tslib: 2.8.1
@@ -5111,6 +5220,12 @@ snapshots:
     dependencies:
       '@rolldown/pluginutils': 1.0.1
       vite: 8.1.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0)
+      vue: 3.5.39(typescript@6.0.3)
+
+  '@vitejs/plugin-vue@6.0.7(vite@8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))':
+    dependencies:
+      '@rolldown/pluginutils': 1.0.1
+      vite: 8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0)
       vue: 3.5.39(typescript@6.0.3)
 
   '@vitest/mocker@5.0.2(vite@8.3.3(@types/node@24.13.2)(esbuild@0.28.1)(yaml@2.9.0))':

@@ -8,7 +8,7 @@ const chromium = {
 }
 
 const crossBrowser =
-  /(anatomy|contrast|engines|interaction|stress|stress-data-display|stress-overlays|stress-overlays-a11y|theming)\.spec\.ts/
+  /(anatomy|contrast|css-js|engines|interaction|stress|stress-data-display|stress-overlays|stress-overlays-a11y|theming)\.spec\.ts/
 
 export default defineConfig({
   expect: {

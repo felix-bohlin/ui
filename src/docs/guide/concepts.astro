@@ -58,16 +58,14 @@ import TokenTiers from "../../components/TokenTiers.astro"
       > to <code>--ui-color-16</code> and the type scale <code
         >--ui-font-size-100</code
       > to <code>--ui-font-size-900</code>, derive from them, and component CSS
-      never reads them. <strong
-        >Roles</strong
-      >
+      never reads them. <strong>Roles</strong>
       such as <code>--ui-primary</code> and <code>--ui-space-3</code> are the contract
       every component reads, each listed on <DocLink href="/guide/theme-tokens"
         >Theme tokens</DocLink
       > with the contrast it promises; a few are hooks, such as <code
         >--ui-control-accent</code
-      > and <code>--ui-selected</code>, unset until a theme sets one value for every
-      component with that job. Roles plus a few component tokens recreate
+      > and <code>--ui-selected</code>, unset until a theme sets one value for
+      every component with that job. Roles plus a few component tokens recreate
       Bootstrap, Material and shadcn in the <DocLink
         href="/guide/customizing#example-themes">example themes</DocLink
       >, and a theme that has to reach into component CSS points at a missing
@@ -78,10 +76,12 @@ import TokenTiers from "../../components/TokenTiers.astro"
       > are one component's wiring for one element, see <DocLink
         href="/guide/customizing#component-properties"
         >Component properties</DocLink
-      >. The documented inputs among them are per instance: the component declares
-      them on itself in <code>components.root</code>, so a theme in <code
+      >. The documented inputs among them are per instance: the component
+      declares them on itself in <code>components.root</code>, so a theme in <code
         >theme.custom</code
-      > can't set them site-wide. <DocLink href="/guide/theming">Theming</DocLink> walks through the knobs.
+      > can't set them site-wide. <DocLink href="/guide/theming"
+        >Theming</DocLink
+      > walks through the knobs.
     </p>
   </section>
 

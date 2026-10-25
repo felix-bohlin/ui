@@ -17,8 +17,8 @@ import { Anchor, AnchorContent, Button, Card, CardContent } from "opui-css/vue"
 
 <style>
 .coach-mark {
-  font-size: var(--font-size-1);
-  margin-inline-start: var(--size-2);
+  font-size: var(--ui-font-size-body);
+  margin-inline-start: var(--ui-space-2);
   max-inline-size: 220px;
 }
 </style>

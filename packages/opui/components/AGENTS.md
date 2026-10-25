@@ -534,13 +534,14 @@ Windows High Contrast (`forced-colors: active`) repaints everything with system 
 - `ToggleButton`: the checked state is a tint, so it gets `SelectedItem`.
 - `ToggleGroup`: the dividers between buttons are shadows, so they become `CanvasText` borders.
 - `Tooltip`: the surface and the arrow are fills, so they get a `CanvasText` border and arrow.
+- `Typography`: the `.ui-swatch` legend dot is a fill, so it keeps a `CanvasText` fill with `forced-color-adjust: none`. Text and underlines are forced by the browser, and code blocks lose their fill and keep their text.
 
 The components without a block, and why:
 
 - `Anchor`, `Form`, `Layout`, `DescriptionList`: layout only, no boundary or state of their own.
 - `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Button`: the browser styles `button` with `ButtonFace`, `ButtonText` and `ButtonBorder`; the variants only change colors, which are forced anyway.
-- `Link`, `Typography`: text and underlines, forced to `LinkText` and `CanvasText`. Code blocks lose their fill and keep their text.
+- `Link`: text and underlines, forced to `LinkText` and `CanvasText`.
 - `Textarea`: `textarea.css` only sizes the control; `text-field.css` has the block.
 
 When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.

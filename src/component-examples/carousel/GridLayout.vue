@@ -8,7 +8,7 @@ const places = ["Kyoto", "Lima", "Lisbon"]
   <div
     style="
       display: grid;
-      gap: var(--size-4);
+      gap: var(--ui-space-4);
       grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
     "
   >

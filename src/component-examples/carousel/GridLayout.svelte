@@ -5,7 +5,7 @@
 </script>
 
 <div
-  style="display: grid; gap: var(--size-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
+  style="display: grid; gap: var(--ui-space-4); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))"
 >
   <div>
     <Carousel aria-label="Destinations" markers>

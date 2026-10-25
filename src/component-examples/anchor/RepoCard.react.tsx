@@ -59,18 +59,18 @@ export default function RepoCard() {
         .repo-card {
           font-size: var(--ui-font-size-small);
           inline-size: 280px;
-          margin-block-start: var(--size-2);
+          margin-block-start: var(--ui-space-2);
         }
 
         .repo-card .ui-content {
           display: grid;
-          gap: var(--size-2);
+          gap: var(--ui-space-2);
         }
 
         .repo-card-identity {
           align-items: center;
           display: flex;
-          gap: var(--size-3);
+          gap: var(--ui-space-3);
         }
 
         .repo-card-identity > div {

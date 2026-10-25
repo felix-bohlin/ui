@@ -34,7 +34,7 @@
   :global {
     .link-preview {
       inline-size: 280px;
-      margin-block-start: var(--size-2);
+      margin-block-start: var(--ui-space-2);
     }
 
     .link-preview img {
@@ -48,8 +48,8 @@
     }
 
     .link-preview h3 {
-      font-size: var(--font-size-2);
-      margin-block: var(--size-1);
+      font-size: var(--ui-font-size-400);
+      margin-block: var(--ui-space-1);
     }
   }
 </style>

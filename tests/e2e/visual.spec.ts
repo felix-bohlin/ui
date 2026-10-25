@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test"
-import { FIXTURES, openFixture } from "./fixtures"
+import { BLOCKS, FIXTURES, openFixture } from "./fixtures"
 
 for (const component of FIXTURES) {
   test(`${component} looks the same`, async ({ page }) => {
@@ -18,4 +18,18 @@ for (const component of FIXTURES) {
       })
     }
   })
+}
+
+for (const block of BLOCKS) {
+  for (const width of [390, 768, 1280]) {
+    test(`${block} looks the same at ${width}px`, async ({ page }) => {
+      test.setTimeout(180_000)
+      await page.setViewportSize({ height: 900, width })
+      await openFixture(page, "html", block)
+      const preview = page.locator(".block-preview")
+      await expect.soft(preview).toHaveScreenshot(`${block}/${width}.png`, {
+        mask: [preview.locator("img"), preview.locator("video")],
+      })
+    })
+  }
 }

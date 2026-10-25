@@ -20,11 +20,17 @@ const known: Record<string, string[]> = JSON.parse(
 
 test.use({ viewport: { height: 4000, width: 1280 } })
 
+const THEMED_BLOCKS = [
+  "blocks/inbox",
+  "blocks/sales-dashboard",
+  "blocks/shopping-cart",
+]
+
 const isCarousel = (html: string) =>
   /^<[^>]*\bclass="[^"]*\bui-carousel\b/.test(html)
 
 for (const theme of THEMES) {
-  for (const component of STRESS_TESTS) {
+  for (const component of [...THEMED_BLOCKS, ...STRESS_TESTS]) {
     test(`${component} works with the ${theme} theme`, async ({
       page,
     }, testInfo) => {
@@ -34,8 +40,9 @@ for (const theme of THEMES) {
         await page.evaluate(() => document.documentElement.dataset.theme),
       ).toBe(theme)
 
+      const isBlock = component.startsWith("blocks/")
       const { violations } = await new AxeBuilder({ page })
-        .include("main")
+        .include(isBlock ? "body" : "main")
         .exclude('iframe[src*="youtube"]')
         .analyze()
       const nodes = violations.flatMap((violation) =>
@@ -84,6 +91,15 @@ for (const theme of THEMES) {
         }
         await new Promise(requestAnimationFrame)
       })
+
+      if (isBlock) {
+        const preview = page.locator(".block-preview")
+        await expect
+          .soft(preview)
+          .toHaveScreenshot(`themes/${theme}/${component}.png`, {
+            mask: [preview.locator("img"), preview.locator("video")],
+          })
+      }
 
       const examplesLocator = page.locator("[data-example]")
       for (let index = 0; index < (await examplesLocator.count()); index++) {

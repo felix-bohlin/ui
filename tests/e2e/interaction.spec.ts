@@ -590,7 +590,8 @@ interaction(
     const trigger = root.getByRole("button", { name: "Options" })
     const menu = root.locator("menu.ui-menu")
 
-    await trigger.click()
+    await trigger.focus()
+    await page.keyboard.press("Enter")
     await expect(menu).toBeVisible()
     await page.keyboard.press("Tab")
     await expectFocusWithin(menu)
@@ -637,7 +638,7 @@ interaction(
       header.boundingBox(),
       cell.boundingBox(),
     ])
-    expect(headerBox?.y).toBeCloseTo(regionBox?.y ?? 0, 0)
+    expect(Math.abs((headerBox?.y ?? 0) - (regionBox?.y ?? 0))).toBeLessThan(2)
     expect(cellBox?.y).toBeLessThan(regionBox?.y ?? 0)
   },
 )

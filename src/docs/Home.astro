@@ -33,12 +33,11 @@ import { hexToOklch } from "../utils/color-utils"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import { posts } from "../utils/learn-posts"
+import { packageVersion, prerelease, unreleased } from "../utils/release"
 import { RADIUS_OPTIONS } from "../utils/theme-store"
 import { themeTokens, tokenTier } from "../utils/theme-tokens"
-import opuiPackage from "../../packages/opui/package.json"
 
 const description = "Design system. Components. Modern HTML & CSS."
-const version = opuiPackage.version
 
 const currentFramework = Astro.locals.framework
 const { link } = Astro.locals
@@ -109,7 +108,7 @@ const materials = [
 
 const titleBlock = [
   { label: "Drawing", value: "Open Props UI" },
-  { label: "Rev", value: version },
+  { label: "Rev", value: packageVersion },
   { label: "Scale", value: "1:1" },
   { label: "Material", value: "HTML & CSS" },
   { label: "Base", value: "Open Props" },
@@ -136,7 +135,18 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     >
       <div class="hero-copy">
         <hgroup class="ui-hgroup">
-          <p>{version}</p>
+          <p class="hero-version">
+            {packageVersion}
+            {
+              unreleased && (
+                <span class="ui-chip ui-dot ui-warning ui-x-small">
+                  <span class="ui-text">
+                    {prerelease ? "Release candidate" : "Not on npm yet"}
+                  </span>
+                </span>
+              )
+            }
+          </p>
 
           <h1 class="ui-h1" id="main-heading">Open Props UI</h1>
 
@@ -662,6 +672,18 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       gap: var(--size-10);
       grid-template-columns: minmax(0, 7fr) minmax(0, 6fr);
       padding-block-end: calc(var(--size-9) + var(--size-6));
+    }
+  }
+
+  .hero-version {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-2);
+
+    .ui-chip {
+      letter-spacing: normal;
+      text-transform: none;
     }
   }
 

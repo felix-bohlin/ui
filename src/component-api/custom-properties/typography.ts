@@ -21,4 +21,9 @@ export default {
       "Digits reserved for the numbers of an `ol`, from its `start` attribute.",
     kind: "output",
   },
+  "--_swatch-bg-color": {
+    description:
+      "Fill of `.ui-swatch`. Defaults to `--ui-palette-accent`, the accent of the color class on the swatch or of the surrounding severity scope.",
+    kind: "input",
+  },
 } satisfies CustomProperties

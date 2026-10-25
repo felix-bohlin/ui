@@ -99,6 +99,41 @@
     line-height: var(--ui-line-height);
   }
 
+  /* Icon */
+  :where(.ui-icon) {
+    block-size: var(--ui-icon-size);
+    flex-shrink: 0;
+    inline-size: var(--ui-icon-size);
+
+    &.ui-small {
+      block-size: var(--ui-icon-size-small);
+      inline-size: var(--ui-icon-size-small);
+    }
+
+    &.ui-large {
+      block-size: var(--ui-icon-size-large);
+      inline-size: var(--ui-icon-size-large);
+    }
+  }
+
+  /* Swatch */
+  :where(.ui-swatch) {
+    --_swatch-bg-color: var(--ui-palette-accent);
+
+    background-color: var(--_swatch-bg-color);
+    block-size: var(--ui-space-2);
+    border-radius: var(--ui-radius-round);
+    display: inline-block;
+    flex-shrink: 0;
+    inline-size: var(--ui-space-2);
+    vertical-align: middle;
+
+    @media (forced-colors: active) {
+      background-color: CanvasText;
+      forced-color-adjust: none;
+    }
+  }
+
   /* Inline text elements - class utilities */
   :where(.ui-u, .ui-abbr, .ui-dfn) {
     text-decoration: underline;

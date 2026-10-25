@@ -16,6 +16,10 @@
     flex-wrap: wrap;
     gap: var(--_gap);
     justify-content: var(--_justify-content);
+
+    &.ui-spread {
+      --_justify-content: space-between;
+    }
   }
 
   :where(.ui-layout-grid) {
@@ -28,9 +32,35 @@
       auto-fill,
       minmax(min(var(--_min-inline-size), 100%), 1fr)
     );
+
+    & > li > :where(.ui-card) {
+      block-size: 100%;
+    }
   }
 
-  :where(.ui-layout-column, .ui-layout-row, .ui-layout-grid) {
+  :where(.ui-layout-media) {
+    --_gap: var(--ui-space-3);
+
+    align-items: center;
+    display: flex;
+    gap: var(--_gap);
+    min-inline-size: 0;
+
+    & > :where(:not(:last-child)) {
+      flex: none;
+    }
+
+    & > :where(:last-child) {
+      flex: 1 1 auto;
+      min-inline-size: 0;
+
+      & > * {
+        margin-block: 0;
+      }
+    }
+  }
+
+  :where(.ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-media) {
     &.ui-x-small {
       --_gap: var(--ui-space-1);
     }
@@ -42,6 +72,12 @@
     &.ui-large {
       --_gap: var(--ui-space-5);
     }
+  }
+
+  :where(ul, ol):where(.ui-layout-column, .ui-layout-row, .ui-layout-grid) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
   :where(.ui-layout-container) {

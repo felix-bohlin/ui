@@ -29,6 +29,19 @@ export default {
       prop: "codeBlock",
     },
     {
+      description:
+        "Tone of `.ui-swatch`. Without it, the swatch takes the palette accent of the scope it sits in.",
+      group: "Colors",
+      prop: "color",
+      values: {
+        critical: ".ui-critical",
+        info: ".ui-info",
+        neutral: ".ui-neutral",
+        success: ".ui-success",
+        warning: ".ui-warning",
+      },
+    },
+    {
       description: "Heading styles for any element.",
       group: "Heading",
       prop: "heading",
@@ -46,6 +59,13 @@ export default {
       description: "Groups an overline, heading, and optional body copy.",
       group: "Heading group",
       prop: "headingGroup",
+    },
+    {
+      class: ".ui-icon",
+      description:
+        "Sizes an inline `svg` to `--ui-icon-size` and keeps it from shrinking in a flex row.",
+      group: "Icon",
+      prop: "icon",
     },
     {
       description: "Inline text element utilities.",
@@ -95,10 +115,18 @@ export default {
     },
     {
       default: '"medium"',
-      description: "Size modifiers on `.ui-p`.",
+      description:
+        "Size modifiers on `.ui-p` and `.ui-icon`. An icon reads `--ui-icon-size-small` and `--ui-icon-size-large`.",
       group: "Sizes",
       prop: "size",
       values: { large: ".ui-large", medium: null, small: ".ui-small" },
+    },
+    {
+      class: ".ui-swatch",
+      description:
+        "A small colored dot for a legend, in `--_swatch-bg-color`, the palette accent of its tone or scope.",
+      group: "Swatch",
+      prop: "swatch",
     },
   ],
   parts: [],

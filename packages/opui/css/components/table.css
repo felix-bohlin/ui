@@ -133,6 +133,28 @@
       border: none;
     }
 
+    /* Numbers */
+    .ui-numeric {
+      font-variant-numeric: tabular-nums;
+      text-align: end;
+    }
+
+    &.ui-flush {
+      margin-block: 0;
+    }
+
+    &.ui-overflow-scroll {
+      display: block;
+      overflow-inline: auto;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: thin;
+
+      :where(th, td) {
+        inline-size: 1%;
+        white-space: nowrap;
+      }
+    }
+
     &.ui-sticky-header {
       --_motion: var(--ui-motion);
       --_duration: calc(var(--ui-duration) * var(--_motion));

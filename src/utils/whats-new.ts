@@ -266,6 +266,12 @@ const whatsNew = {
     `<a href="#variants">Tonal and elevated</a> cards have a border in the page background color, so they stay visible on tonal surfaces.`,
     `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
     {
+      ...components(
+        `<a href="#variants"><code>CardContent</code></a> is a stack with <code>--ui-space-3</code> between its children and no block margins, so a body with several elements needs no CSS. Content with inline children keeps the normal flow.`,
+      ),
+      html: `<a href="#variants"><code>.ui-content</code></a> is a stack with <code>--ui-space-3</code> between its children and no block margins, so a body with several elements needs no CSS. Content with inline children keeps the normal flow.`,
+    },
+    {
       ...slots(
         `Breaking: <a href="#actions-alignment">actions</a> sit at the end by default. Set <code>align="start"</code> on <code>CardActions</code> to line them up with the content.`,
       ),
@@ -598,6 +604,10 @@ const whatsNew = {
   ],
   layout: [
     `New: <a href="#column"><code>.ui-layout-column</code></a>, <a href="#row"><code>.ui-layout-row</code></a>, <a href="#grid"><code>.ui-layout-grid</code></a> and <a href="#container"><code>.ui-layout-container</code></a> lay out the space between components.`,
+    `<a href="#spread"><code>.ui-spread</code></a> pushes the children of a row to its two ends, for a page header.`,
+    `<a href="#media"><code>.ui-layout-media</code></a> puts an avatar or an icon next to text that fills the rest and truncates.`,
+    `On a <code>ul</code> or <code>ol</code>, <a href="#lists">rows and grids</a> drop the list bullets and margins, and a card alone in an <code>li</code> fills its grid cell.`,
+    `Three named <a href="#breakpoints">container breakpoints</a> to reflow a page at the same widths as the blocks.`,
   ],
   list: [
     `Themes can set <a href="#api"><code>--ui-list-item-padding-inline</code></a>. Descriptions read <code>--ui-text-subtle</code>, and <code>--ui-on-selected</code> on a selected row.`,
@@ -989,6 +999,14 @@ const whatsNew = {
       default: `<a href="#sticky-header">Sticky header</a> with the <code>stickyHeader</code> prop.`,
       html: `<a href="#sticky-header">Sticky header</a> with <code>.ui-sticky-header</code>.`,
     },
+    {
+      default: `<a href="#numbers">Number columns</a> with <code>numeric</code> on <code>TableCell</code> and <code>TableHeaderCell</code>.`,
+      html: `<a href="#numbers">Number columns</a> with <code>.ui-numeric</code> on the cells.`,
+    },
+    {
+      default: `<a href="#in-a-card">Tables in a card</a>: <code>flush</code> drops the block margin and <code>overflow="scroll"</code> scrolls the columns sideways.`,
+      html: `<a href="#in-a-card">Tables in a card</a>: <code>.ui-flush</code> drops the block margin and <code>.ui-overflow-scroll</code> scrolls the columns sideways.`,
+    },
     `Breaking: <code>--_table-border-radius</code> is <code>--_radius</code> (<a href="#under-the-hood">Under the hood</a>).`,
     slots(
       `Breaking: <a href="#api"><code>TableColumn</code> <code>width</code></a> takes a CSS length; a declaration string such as <code>"min-width: 10rem"</code> is no longer parsed, pass <code>style</code> instead.`,
@@ -1290,6 +1308,8 @@ const whatsNew = {
     `<a href="#link">Links</a> only show hover styles on devices that can hover, so they no longer stick after a tap.`,
     `Styles use logical properties only, so the <a href="#classless">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
     `<a href="#rich-text-showcase">Rich text</a> with tables and code blocks scrolls with <code>overflow-inline</code> and <code>overflow-block</code>, so it follows the writing mode. Browsers older than Chrome 135, Firefox 69 and Safari 26 ignore them and don't scroll it.`,
+    `<a href="#icon"><code>.ui-icon</code></a> sizes an <code>svg</code> to <code>--ui-icon-size</code>, with <code>.ui-small</code> and <code>.ui-large</code>.`,
+    `<a href="#swatch"><code>.ui-swatch</code></a> is a small dot for a color legend, painted by a severity class or <code>--_swatch-bg-color</code>.`,
   ],
 } satisfies Record<string, Note[]>
 

@@ -101,6 +101,57 @@
       padding-block: var(--_padding) calc(var(--_padding) + var(--ui-space-1));
     }
 
+    & > :where(.ui-content:not(.ui-rich-text)) > * {
+      margin-block: 0;
+    }
+
+    &
+      > :where(
+        .ui-content:not(
+          .ui-rich-text,
+          :has(
+            > :is(
+              a,
+              abbr,
+              b,
+              button,
+              cite,
+              code,
+              em,
+              i,
+              img,
+              input,
+              kbd,
+              mark,
+              q,
+              s,
+              samp,
+              small,
+              span,
+              strong,
+              sub,
+              sup,
+              svg,
+              time,
+              u,
+              var,
+              .ui-avatar,
+              .ui-badge,
+              .ui-carousel
+            )
+          )
+        )
+      ) {
+      align-content: start;
+      display: grid;
+      gap: var(--ui-space-3);
+      grid-template-columns: minmax(0, 1fr);
+
+      & > .ui-divider {
+        margin-block: 0;
+      }
+    }
+
     & > .ui-content:has(+ .ui-divider) {
       padding-block-end: 0;
     }

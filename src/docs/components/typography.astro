@@ -83,6 +83,30 @@ import typographyApi from "../../component-api/typography/api"
 
     <h3 id="code-block">Code block</h3>
     <AutoExample name="CodeBlock" column />
+
+    <h3 id="icon">Icon</h3>
+    <p>
+      <code>.ui-icon</code> sizes an <code>svg</code> to <code
+        >--ui-icon-size</code
+      >
+      and keeps it from shrinking next to text. <code>.ui-small</code> and <code
+        >.ui-large</code
+      > read <code>--ui-icon-size-small</code> and <code
+        >--ui-icon-size-large</code
+      >. Components size the icons they own, so the class is for icons in your
+      own markup.
+    </p>
+    <AutoExample name="Icon" />
+
+    <h3 id="swatch">Swatch</h3>
+    <p>
+      <code>.ui-swatch</code> is a small dot for a color legend. A severity class
+      on it, such as <code>.ui-info</code>, paints it in that tone, and <code
+        >--_swatch-bg-color</code
+      > takes any other color. A status with a name is a <code>Chip</code> with a
+      dot instead.
+    </p>
+    <AutoExample name="Swatch" />
   </section>
 
   <section>

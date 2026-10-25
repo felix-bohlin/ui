@@ -4,6 +4,8 @@
   let {
     class: className,
     density,
+    flush,
+    overflow,
     stickyHeader,
 
     // Snippets
@@ -15,8 +17,9 @@
 <table
   class={[
     "ui-table",
-    { "ui-sticky-header": stickyHeader },
+    { "ui-flush": flush, "ui-sticky-header": stickyHeader },
     density && density !== "normal" && `ui-${density}`,
+    overflow && overflow !== "wrap" && `ui-overflow-${overflow}`,
     className,
   ]}
   {...rest}

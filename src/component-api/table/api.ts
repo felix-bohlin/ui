@@ -15,6 +15,22 @@ export default {
       values: { dense: ".ui-dense", normal: null, spacious: ".ui-spacious" },
     },
     {
+      class: ".ui-flush",
+      default: "false",
+      description:
+        "Drops the block margin, for a table that sits in a card or another padded box.",
+      group: "Flush",
+      prop: "flush",
+    },
+    {
+      default: '"wrap"',
+      description:
+        'What the table does when its columns don\'t fit. `"wrap"` lets the cells wrap their text, and `"scroll"` keeps the columns at their width and scrolls the table sideways. Give a scrolling table `tabindex="0"`, so keyboard users can scroll it.',
+      group: "Overflow",
+      prop: "overflow",
+      values: { scroll: ".ui-overflow-scroll", wrap: null },
+    },
+    {
       class: ".ui-sticky-header",
       default: "false",
       description:

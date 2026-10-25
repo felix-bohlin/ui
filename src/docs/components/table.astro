@@ -16,8 +16,10 @@ import {
 
 import TableCSS from "@opui/css/components/table.css?raw"
 import tableApi from "../../component-api/table/api"
+import tableCellApi from "../../component-api/table-cell/api"
 import tableColumnApi from "../../component-api/table-column/api"
 import tableColumnGroupApi from "../../component-api/table-column-group/api"
+import tableHeaderCellApi from "../../component-api/table-header-cell/api"
 import TableBuild from "../../components/UnderTheHood/TableBuild.astro"
 
 export const description =
@@ -30,6 +32,8 @@ export const description =
   heroAnatomy
   apis={[
     { title: "Table API", api: tableApi },
+    { title: "Table header cell API", api: tableHeaderCellApi },
+    { title: "Table cell API", api: tableCellApi },
     { title: "Table column group API", api: tableColumnGroupApi },
     { title: "Table column API", api: tableColumnApi },
   ]}
@@ -52,7 +56,9 @@ export const description =
       type: "css",
     },
     { path: "src/component-api/table", type: "api" },
+    { path: "src/component-api/table-cell", type: "api" },
     { path: "src/component-api/table-column", type: "api" },
+    { path: "src/component-api/table-header-cell", type: "api" },
     { path: "src/component-api/table-column-group", type: "api" },
   ]}
 >
@@ -112,6 +118,48 @@ export const description =
 
     <h3 id="spacious">Spacious</h3>
     <AutoExample name="Spacious" />
+  </section>
+
+  <section>
+    <h2 id="numbers">Numbers</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Set <code>numeric</code> on the cells of a number column, header included.
+        They align to the end and use tabular figures, so the digits line up from
+        row to row.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-numeric</code> to the cells of a number column, header included.
+        They align to the end and use tabular figures, so the digits line up from
+        row to row.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Numeric" />
+  </section>
+
+  <section>
+    <h2 id="in-a-card">In a card</h2>
+    <Conditional as="p">
+      <Fragment slot="components">
+        A table on the page keeps a block margin. <code>flush</code> drops it for
+        a table in a card or another padded box, and <code
+          >overflow="scroll"</code
+        > keeps the columns at their width and scrolls the table sideways when they
+        don't fit, instead of wrapping the cell text.
+      </Fragment>
+      <Fragment slot="html">
+        A table on the page keeps a block margin. <code>.ui-flush</code> drops it
+        for a table in a card or another padded box, and <code
+          >.ui-overflow-scroll</code
+        > keeps the columns at their width and scrolls the table sideways when they
+        don't fit, instead of wrapping the cell text.
+      </Fragment>
+    </Conditional>
+    <p>
+      A scrolling table needs <code>tabindex="0"</code>, so keyboard users can
+      scroll it. The caption names it.
+    </p>
+    <AutoExample name="InCard" />
   </section>
 
   <section>

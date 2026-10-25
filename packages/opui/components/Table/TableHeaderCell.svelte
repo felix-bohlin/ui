@@ -1,9 +1,16 @@
 <script lang="ts">
   import type { TableHeaderCellProps as Props } from "./types.svelte"
 
-  let { children, ...rest }: Props = $props()
+  let {
+    class: className,
+    numeric,
+
+    // Snippets
+    children,
+    ...rest
+  }: Props = $props()
 </script>
 
-<th {...rest}>
+<th class={[{ "ui-numeric": numeric }, className]} {...rest}>
   {@render children?.()}
 </th>

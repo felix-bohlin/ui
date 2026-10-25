@@ -1,6 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import Code from "../../components/Code.astro"
 import DocLink from "../../components/DocLink.astro"
 import LayoutCSS from "@opui/css/components/layout.css?raw"
 ---
@@ -20,15 +21,14 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
 >
   <Fragment slot="title">Layout</Fragment>
   <Fragment slot="preamble">
-    Four classes for the space between components: <code>.ui-layout-column</code
+    Five classes for the space between components: <code>.ui-layout-column</code
     >,
-    <code>.ui-layout-row</code>, <code>.ui-layout-grid</code> and <code
-      >.ui-layout-container</code
-    >. Put them on wrapper elements, such as <code>div</code>, <code
-      >section</code
-    >
-    or <code>ul</code>. They sit in the <code>utils</code> layer, so on a component
-    they replace its own layout. Their gaps come from the <DocLink
+    <code>.ui-layout-row</code>, <code>.ui-layout-grid</code>, <code
+      >.ui-layout-media</code
+    > and <code>.ui-layout-container</code>. Put them on wrapper elements, such
+    as <code>div</code>, <code>section</code> or
+    <code>ul</code>. They sit in the <code>utils</code> layer, so on a component they
+    replace its own layout. Their gaps come from the <DocLink
       href="/guide/theming#spacing"><code>--ui-space-*</code> scale</DocLink
     >, so they follow <code>--ui-space-scale</code>.
   </Fragment>
@@ -48,9 +48,16 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
       <code>.ui-layout-row</code> puts its children in a row, centered on one line,
       and wraps them when they run out of room. Set <code
         >--_justify-content</code
-      > to push them to the end or spread them out.
+      > to push them to the end.
     </p>
     <AutoExample name="Row" />
+
+    <h3 id="spread">Spread</h3>
+    <p>
+      <code>.ui-spread</code> pushes the children to the two ends of the row. A page
+      header is a spread row around a heading group and a row of actions.
+    </p>
+    <AutoExample name="Spread" />
   </section>
 
   <section>
@@ -61,6 +68,27 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
       rest. No breakpoints: it follows the space it has.
     </p>
     <AutoExample name="Grid" />
+
+    <h3 id="lists">Lists</h3>
+    <p>
+      On a <code>ul</code> or <code>ol</code>, <code>.ui-layout-row</code> and <code
+        >.ui-layout-grid</code
+      > drop the bullets and the list margins, and a <code>.ui-card</code> alone in
+      an <code>li</code> of a grid fills its cell, so the cards in a row share one
+      height.
+    </p>
+    <AutoExample name="List" />
+  </section>
+
+  <section>
+    <h2 id="media">Media</h2>
+    <p>
+      <code>.ui-layout-media</code> puts a fixed-size start, such as an avatar or
+      an icon, next to text. The last child fills the rest of the row, truncates instead
+      of pushing the row wider, and its paragraphs lose their margins. The size classes
+      set the gap.
+    </p>
+    <AutoExample name="Media" />
   </section>
 
   <section>
@@ -88,5 +116,33 @@ import LayoutCSS from "@opui/css/components/layout.css?raw"
       the edges. Combine the classes to lay out a whole section:
     </p>
     <AutoExample name="Composition" />
+  </section>
+
+  <section>
+    <h2 id="breakpoints">Breakpoints</h2>
+    <p>
+      The layout classes need none, but a page that changes shape uses the same
+      three container widths everywhere, so similar layouts reflow at the same
+      point. Measure the container, not the viewport, with <code
+        >container-type: inline-size</code
+      > on the wrapper:
+    </p>
+    <ul>
+      <li>
+        <code>40rem</code>: two columns, such as a form next to its summary, or
+        a toolbar that stops wrapping.
+      </li>
+      <li>
+        <code>56rem</code>: a sidebar next to the content, or three columns.
+      </li>
+      <li>
+        <code>72rem</code>: three panes, such as folders, a list and a reading
+        pane.
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.page {\n  container-type: inline-size;\n}\n\n@container (inline-size >= 40rem) {\n  .page-columns {\n    grid-template-columns: 1fr 1fr;\n  }\n}`}
+    />
   </section>
 </Component>

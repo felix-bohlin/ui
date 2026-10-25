@@ -7,7 +7,7 @@ export type TableBodyProps = HTMLAttributes<"tbody">
 
 export type TableCaptionProps = HTMLAttributes<"caption">
 
-export type TableCellProps = HTMLAttributes<"td">
+export type TableCellProps = Base.TableCellProps & HTMLAttributes<"td">
 
 export type TableColumnGroupProps = HTMLAttributes<"colgroup">
 
@@ -15,7 +15,7 @@ export type TableColumnProps = Base.TableColumnProps & HTMLAttributes<"col">
 
 export type TableFootProps = HTMLAttributes<"tfoot">
 
-export type TableHeaderCellProps = HTMLAttributes<"th">
+export type TableHeaderCellProps = Base.TableCellProps & HTMLAttributes<"th">
 
 export type TableHeadProps = HTMLAttributes<"thead">
 

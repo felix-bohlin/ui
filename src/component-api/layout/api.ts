@@ -24,20 +24,29 @@ export default {
     },
     {
       class: ".ui-layout-grid",
-      description: "Columns that fill the width and wrap.",
+      description:
+        "Columns that fill the width and wrap. On a `ul` or `ol` it also drops the list bullets and margins, and a `.ui-card` in each `li` fills its cell.",
       group: "Grid",
       prop: "grid",
     },
     {
+      class: ".ui-layout-media",
+      description:
+        "A media object: a fixed-size start, such as an avatar, next to text that fills the rest and truncates.",
+      group: "Media",
+      prop: "media",
+    },
+    {
       class: ".ui-layout-row",
-      description: "A wrapping row with its children centered on one line.",
+      description:
+        "A wrapping row with its children centered on one line. On a `ul` or `ol` it also drops the list bullets and margins.",
       group: "Row",
       prop: "row",
     },
     {
       default: '"medium"',
       description:
-        "The space between children of `.ui-layout-column`, `.ui-layout-row` and `.ui-layout-grid`.",
+        "The space between children of `.ui-layout-column`, `.ui-layout-row`, `.ui-layout-grid` and `.ui-layout-media`.",
       group: "Sizes",
       prop: "size",
       values: {
@@ -47,11 +56,19 @@ export default {
         "x-small": ".ui-x-small",
       },
     },
+    {
+      class: ".ui-spread",
+      default: "false",
+      description:
+        "Pushes the children of `.ui-layout-row` to its two ends, for a page header with a heading group and its actions.",
+      group: "Spread",
+      prop: "spread",
+    },
   ],
   parts: [],
   root: {
     description: "Any element. The classes only set its layout.",
     selector:
-      ".ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-container",
+      ".ui-layout-column, .ui-layout-row, .ui-layout-grid, .ui-layout-media, .ui-layout-container",
   },
 } satisfies ComponentApi

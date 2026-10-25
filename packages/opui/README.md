@@ -2,7 +2,7 @@
 
 Design system. Components. Modern HTML & CSS.
 
-Built on [Open Props](https://open-props.style/), with HTML, [Astro](https://astro.build/), [React](https://react.dev/), [Svelte](https://svelte.dev/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
+HTML, [Astro](https://astro.build/), [React](https://react.dev/), [Svelte](https://svelte.dev/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS. The theme tokens started from [Open Props](https://open-props.style/), and the components don't need it: it ships as an optional companion for your own CSS.
 
 - Docs: [open-props-ui.netlify.app](https://open-props-ui.netlify.app/)
 - Source: [github.com/felix-bohlin/ui](https://github.com/felix-bohlin/ui)

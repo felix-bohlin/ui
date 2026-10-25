@@ -25,8 +25,8 @@ import Example from "../../components/Example/index"
       code={`@layer theme.custom {
   :where(html) {
     --ui-density: 0.9;
-    --ui-font-body: "Inter", var(--font-sans);
-    --ui-font-heading: "Fraunces", var(--font-serif);
+    --ui-font-body: "Inter", system-ui, sans-serif;
+    --ui-font-heading: "Fraunces", serif;
     --ui-palette-chroma: 0.35;
     --ui-palette-hue: 265;
   }
@@ -157,7 +157,7 @@ import Example from "../../components/Example/index"
 
 /* Theme tokens inherit, so a parent is fine */
 .toolbar {
-  --ui-button-radius: var(--radius-round);
+  --ui-button-radius: var(--ui-radius-round);
 }`}
       lang="css"
     />
@@ -201,7 +201,7 @@ import Example from "../../components/Example/index"
 
 @layer overrides {
   .ui-badge {
-    --_size: var(--size-5);
+    --_size: var(--ui-space-5);
   }
 }`}
       lang="css"

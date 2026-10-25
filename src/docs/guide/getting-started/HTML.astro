@@ -40,9 +40,9 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
   <section>
     <h2 id="cdn">Install via CDN</h2>
     <p>
-      The quickest way to get going. One file with Open Props, the theme, the
-      reset, every component and the utility classes, in the right cascade
-      layers.
+      The quickest way to get going. One file with the theme, the reset, every
+      component and the utility classes, in the right cascade layers, plus Open
+      Props for your own CSS.
     </p>
     <Code
       code={`<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css" />`}
@@ -134,7 +134,6 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
     <Code
       code={`@import "./opui/css/layers.css";
 
-@import "./opui/dist/op.css";
 @import "./opui/core/palette.css";
 @import "./opui/css/theme.css";
 @import "./opui/core/normalize.css";
@@ -142,6 +141,10 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
 @import "./opui/core/utils.css";`}
       lang="css"
     />
+    <p>
+      If your own CSS reads Open Props, import <code>./opui/dist/op.css</code> right
+      after <code>layers.css</code>.
+    </p>
   </section>
 
   <section>

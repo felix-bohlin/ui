@@ -37,7 +37,7 @@ import { formatInline } from "../utils/format-inline"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import { posts } from "../utils/learn-posts"
 import { packageVersion, prerelease, unreleased } from "../utils/release"
-import { RADIUS_OPTIONS } from "../utils/theme-store"
+import { RADIUS_OPTIONS, tokenDefaults } from "../utils/theme-store"
 import { themeTokens, tokenTier } from "../utils/theme-tokens"
 
 const description = "Design system. Components. Modern HTML & CSS."
@@ -355,7 +355,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
               {
                 RADIUS_OPTIONS.map((option) => (
                   <ToggleButton
-                    checked={option.value === "var(--size-2)"}
+                    checked={
+                      option.value === tokenDefaults("light")["--ui-radius"]
+                    }
                     value={option.value}
                   >
                     {option.text}
@@ -573,14 +575,6 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     }
     if (typeof radius === "string") {
       specimen.style.setProperty("--ui-radius", radius)
-      specimen.style.setProperty(
-        "--ui-radius-small",
-        `min(var(--radius-2), ${radius})`,
-      )
-      specimen.style.setProperty(
-        "--ui-radius-x-small",
-        `min(var(--radius-1), ${radius})`,
-      )
     }
   }
 
@@ -608,6 +602,22 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         oklch(from var(--ui-color-13) l calc(c * 1.3) h)
       );
       --ui-border-color: light-dark(var(--ui-color-4), var(--ui-color-11));
+    }
+  }
+
+  @layer theme.custom {
+    #spec-specimen {
+      --ui-button-radius: initial;
+      --ui-chip-radius: initial;
+      --ui-dialog-radius: initial;
+      --ui-field-radius: initial;
+      --ui-menu-radius: initial;
+      --ui-on-primary-tonal: initial;
+      --ui-palette-source: revert-layer;
+      --ui-primary-tonal: initial;
+      --ui-primary-source: revert-layer;
+      --ui-radius-small: revert-layer;
+      --ui-radius-x-small: revert-layer;
     }
   }
 

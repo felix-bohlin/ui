@@ -60,6 +60,8 @@ Record intended parity drift with `pnpm test:record-drift` and known accessibili
 
 `pnpm test:package` (part of `pnpm check`) runs `npm pack` in `packages/opui`, checks what the tarball ships and the layer order at the top of `dist/opui.css`, then copies each fixture in `tests/package/fixtures/` (Astro, React, Svelte, Vue) to a temporary folder, unpacks the tarball into its `node_modules/opui-css` and runs the framework's type checker (`astro check`, `tsc`, `svelte-check`, `vue-tsc`) and its build. The fixtures are workspace packages, so `pnpm install` installs their dependencies and the test runs without network access. To try a fixture by hand against the workspace package, run `pnpm --dir tests/package/fixtures/react exec vite build` (or `astro check`, `svelte-check`, `vue-tsc --noEmit`).
 
+CI builds the docs site once, with `OPUI_TEST_PAGES=1`, in the `check` job. The e2e shards download that `dist` into `dist-test` and serve it with `E2E_PREBUILT=1`, and pull request previews deploy it. On `main`, the job rebuilds without the test pages before the production deploy.
+
 ### Releasing
 
 [RELEASING.md](RELEASING.md) has the steps: `node scripts/release.mjs <version>` dates the CHANGELOG, bumps `packages/opui/package.json`, publishes, tags and pushes, and the guards in `tests/unit/released-*.json` are regenerated afterwards. The one-off checks of a major release live in `docs/releases/`.

@@ -11,25 +11,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-test-site:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm test:e2e:build
-      - uses: actions/upload-artifact@v7
-        with:
-          name: dist-test
-          path: dist-test/
-          retention-days: 1
-
   check:
     runs-on: ubuntu-latest
     permissions:
@@ -45,9 +26,16 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
         env:
-          OPUI_TEST_PAGES: ${{ github.event_name == 'pull_request' && '1' || '' }}
+          OPUI_TEST_PAGES: "1"
       - run: git add --intent-to-add -- public/search-index.json packages/opui/skills/opui/references packages/opui/tokens.json
       - run: git diff --exit-code -- public/search-index.json packages/opui/skills/opui/references packages/opui/tokens.json
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
+      - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: pnpm astro build
       - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: pnpm --package=netlify-cli@27.11.2 dlx netlify deploy --prod --no-build --dir=dist --filter open-props-ui-docs --message "Deploy ${GITHUB_SHA::7}"
         env:
@@ -79,7 +67,7 @@ jobs:
 
   e2e-shard:
     name: e2e (${{ matrix.shard }}/3)
-    needs: build-test-site
+    needs: check
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.63.0-noble
     strategy:
@@ -88,8 +76,6 @@ jobs:
         shard: [1, 2, 3]
     steps:
       - uses: actions/checkout@v7
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:
@@ -98,7 +84,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - uses: actions/download-artifact@v8
         with:
-          name: dist-test
+          name: dist
           path: dist-test
       - run: pnpm test:e2e --shard=${{ matrix.shard }}/3
         env:

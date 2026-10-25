@@ -21,16 +21,18 @@ import {
 } from "opui-css/astro"
 import AstroLogo from "../components/AstroLogo.astro"
 import ChipRain from "../components/ChipRain.astro"
+import ComponentCard from "../components/ComponentShowcase/ComponentCard.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
 import ReactLogo from "../components/ReactLogo.astro"
 import SvelteLogo from "../components/SvelteLogo.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
-import { allBlocks } from "../utils/blocks"
+import { allBlocks, blockPreviewHref } from "../utils/blocks"
 import { components } from "../utils/components"
 import { hexToOklch } from "../utils/color-utils"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
+import { formatInline } from "../utils/format-inline"
 import { FRAMEWORKS, hrefFor, type FrameworkId } from "../utils/framework"
 import { posts } from "../utils/learn-posts"
 import { packageVersion, prerelease, unreleased } from "../utils/release"
@@ -43,7 +45,6 @@ const currentFramework = Astro.locals.framework
 const { link } = Astro.locals
 const componentsHref = hrefFor(currentFramework, "/components")
 const quickstartHref = hrefFor(currentFramework, "/guide/getting-started")
-const conceptsHref = hrefFor(currentFramework, "/guide/concepts")
 const generatorHref = hrefFor(currentFramework, "/guide/theme-generator")
 const tokensHref = hrefFor(currentFramework, "/guide/theme-tokens")
 
@@ -106,13 +107,34 @@ const materials = [
   },
 ]
 
+const featuredBlocks = allBlocks.filter((block) =>
+  [
+    "analytics-dashboard",
+    "chat",
+    "kanban-board",
+    "pricing",
+    "product-detail",
+  ].includes(block.slug),
+)
+
+const featuredPosts = posts
+  .filter((post) =>
+    [
+      "carousel-css-only",
+      "dialog-closedby",
+      "select-base-select",
+      "tooltip-interest-invokers",
+    ].includes(post.slug),
+  )
+  .toSorted((a, b) => a.title.localeCompare(b.title))
+
 const titleBlock = [
   { label: "Drawing", value: "Open Props UI" },
   { label: "Rev", value: packageVersion },
   { label: "Scale", value: "1:1" },
   { label: "Material", value: "HTML & CSS" },
   { label: "Base", value: "The platform" },
-  { label: "Sheet", value: "1 of 4" },
+  { label: "Sheet", value: "1 of 6" },
 ]
 
 const dimensions = [
@@ -154,9 +176,8 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         </hgroup>
 
         <p class="hero-lede">
-          One set of theme tokens, drawn through {components.length} components in
-          HTML, Astro, React, Svelte and Vue. Built on the CSS that shipped this year,
-          with Open Props as an optional companion.
+          {components.length} components, built on the CSS that shipped this year.
+          Yours to read, change and keep.
         </p>
 
         <div class="hero-ctas">
@@ -244,13 +265,50 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       <header class="sheet-header">
         <h2 class="ui-h2" id="components-heading">Every component, to scale</h2>
         <p>
-          Each component is a CSS file you can read, change and keep. Open one
-          for its anatomy, its API and the files it depends on, with a button
-          that copies them all.
+          Plain CSS, no black box. One click copies a component and everything
+          it needs.
         </p>
       </header>
 
       <ComponentShowcase />
+    </section>
+
+    <section class="sheet" aria-labelledby="blocks-heading">
+      <header class="sheet-header">
+        <h2 class="ui-h2" id="blocks-heading">Snap them into whole screens</h2>
+        <p>
+          {allBlocks.length} blocks, from sign-in forms to dashboards. Copy, paste,
+          ship.
+        </p>
+      </header>
+
+      <div class="block-showcase">
+        {
+          featuredBlocks.map((block, index) => (
+            <ComponentCard
+              name={block.name}
+              href={`/blocks/${block.slug}`}
+              size={index === 0 ? "xl" : undefined}
+            >
+              <div class="block-thumbnail">
+                <iframe
+                  inert
+                  loading="lazy"
+                  src={blockPreviewHref(block.slug)}
+                  tabindex="-1"
+                  title={`${block.name} preview`}
+                />
+              </div>
+            </ComponentCard>
+          ))
+        }
+      </div>
+
+      <div class="hero-ctas">
+        <Button href={link("/blocks")} variant="outlined" color="primary">
+          Browse all {allBlocks.length} blocks
+        </Button>
+      </div>
     </section>
 
     <section class="sheet" aria-labelledby="spec-heading">
@@ -259,11 +317,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
           Turn three knobs, the whole kit follows
         </h2>
         <p>
-          A theme sets knobs like the palette hue. The knobs derive a 16-step
-          palette, the palette fills about {roleTokens} role tokens such as
-          <code>--ui-primary</code> and <code>--ui-surface</code>, and every
-          component reads the roles. No component reads a palette step, and a
-          check in the repo keeps it that way.
+          Components read {roleTokens} role tokens, never a raw color. Try it.
         </p>
       </header>
 
@@ -306,12 +360,8 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             </ToggleGroup>
           </div>
           <p class="knob-note">
-            The same knobs, and about forty more, live in the <a
-              class="ui-link"
-              href={generatorHref}>theme generator</a
-            >. How the tiers fit together is in <a
-              class="ui-link"
-              href={conceptsHref}>Concepts</a
+            About forty more in the <a class="ui-link" href={generatorHref}
+              >theme generator</a
             >.
           </p>
         </form>
@@ -365,14 +415,51 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
       </div>
     </section>
 
+    <section class="sheet" aria-labelledby="learn-heading">
+      <header class="sheet-header">
+        <h2 class="ui-h2" id="learn-heading">Then JavaScript, now CSS</h2>
+        <p>
+          Short posts on the new CSS inside each component. Steal the tricks.
+        </p>
+      </header>
+
+      <div class="learn-showcase">
+        {
+          featuredPosts.map((post) => (
+            <ComponentCard name={post.title} href={`/learn/${post.slug}`}>
+              <dl class="then-now">
+                <div>
+                  <dt>Then</dt>
+                  <dd>
+                    <s set:html={formatInline(post.before ?? "", link)} />
+                  </dd>
+                </div>
+                <div>
+                  <dt>Now</dt>
+                  <dd>
+                    <code>{post.technique}</code>
+                  </dd>
+                </div>
+              </dl>
+            </ComponentCard>
+          ))
+        }
+      </div>
+
+      <div class="hero-ctas">
+        <Button href={link("/learn")} variant="outlined" color="primary">
+          Read all {posts.length} posts
+        </Button>
+      </div>
+    </section>
+
     <section class="sheet" aria-labelledby="materials-heading">
       <header class="sheet-header">
         <h2 class="ui-h2" id="materials-heading">What ships in the box</h2>
         <p>
-          Install the package or copy the files you need. Either way the CSS is
-          layered, so your theme and your overrides win without <code
+          Install it or copy the files. Your overrides win, no <code
             >!important</code
-          >.
+          > needed.
         </p>
       </header>
 
@@ -974,6 +1061,68 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     }
   }
 
+  .block-showcase {
+    display: grid;
+    gap: var(--size-4);
+
+    @media (width >= 600px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      & :global(.ui-xl) {
+        grid-column: 1 / -1;
+        grid-row: auto;
+      }
+    }
+
+    @media (width >= 1100px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+
+      & :global(.ui-xl) {
+        grid-column: span 2;
+        grid-row: span 2;
+
+        :global(.showcase-preview) {
+          align-self: stretch;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .block-thumbnail {
+          aspect-ratio: auto;
+          flex: 1;
+        }
+
+        iframe {
+          block-size: 1000px;
+        }
+      }
+    }
+  }
+
+  .block-thumbnail {
+    aspect-ratio: 16 / 10;
+    background-color: var(--ui-surface);
+    border: 1px solid var(--blueprint-line-strong);
+    border-radius: var(--radius-1);
+    container-type: inline-size;
+    inline-size: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    position: relative;
+
+    iframe {
+      block-size: 800px;
+      border: 0;
+      color-scheme: normal;
+      inline-size: 1280px;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      position: absolute;
+      transform: scale(tan(atan2(100cqi, 1280px)));
+      transform-origin: 0 0;
+    }
+  }
+
   /* Specification bench */
   .bench {
     display: grid;
@@ -1035,6 +1184,53 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
     :global(.ui-text-field) {
       flex: 1;
+    }
+  }
+
+  .learn-showcase {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+
+    :global(.showcase-preview) {
+      align-self: start;
+    }
+  }
+
+  .then-now {
+    display: grid;
+    gap: var(--size-4);
+    inline-size: 100%;
+    margin: 0;
+
+    dt {
+      color: var(--blueprint-ink);
+      font-size: var(--ui-font-size-caption);
+      font-weight: var(--ui-font-weight-semibold);
+      letter-spacing: var(--font-letterspacing-3);
+      text-transform: uppercase;
+    }
+
+    dd {
+      margin: var(--size-1) 0 0;
+    }
+
+    s {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+      text-decoration-color: var(--ui-critical-text);
+
+      :global(code) {
+        font-size: 0.9em;
+      }
+    }
+
+    dd > code {
+      background: none;
+      color: var(--ui-primary-text);
+      font-size: var(--font-size-3);
+      font-weight: var(--ui-font-weight-bold);
+      padding: 0;
     }
   }
 

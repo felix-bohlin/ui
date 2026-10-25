@@ -15,8 +15,34 @@ fs.rmSync(cache, { force: true, recursive: true })
 fs.mkdirSync(cache, { recursive: true })
 execFileSync("sh", [
   "-c",
-  `git archive ${version} packages/opui | tar -x -C "${cache}"`,
+  `git archive ${version} packages/opui $(git ls-tree -d --name-only ${version} src/component-api/custom-properties) | tar -x -C "${cache}"`,
 ])
+
+const inputsRoot = fs.existsSync(
+  path.join(cache, "src/component-api/custom-properties"),
+)
+  ? path.join(cache, "src/component-api/custom-properties")
+  : "src/component-api/custom-properties"
+const inputsVersion = inputsRoot.startsWith(cache)
+  ? version
+  : JSON.parse(fs.readFileSync("packages/opui/package.json", "utf8")).version
+const inputs = Object.fromEntries(
+  fs
+    .readdirSync(inputsRoot)
+    .filter((file) => file.endsWith(".ts"))
+    .toSorted()
+    .map((file) => [
+      file.replace(/\.ts$/, ""),
+      [
+        ...fs
+          .readFileSync(path.join(inputsRoot, file), "utf8")
+          .matchAll(/"(--_[\w-]+)":\s*\{[\s\S]*?kind:\s*"input"/g),
+      ]
+        .map(([, name]) => name)
+        .toSorted(),
+    ])
+    .filter(([, names]) => names.length > 0),
+)
 
 const exported = new Set(
   ["astro", "vue"].flatMap((framework) => {
@@ -95,10 +121,18 @@ const sorted = (object) =>
 fs.writeFileSync(
   "tests/unit/released-api.json",
   `${JSON.stringify(
-    { classes: [...classes].toSorted(), props: sorted(props), version },
+    {
+      classes: [...classes].toSorted(),
+      inputs,
+      inputsVersion,
+      props: sorted(props),
+      version,
+    },
     null,
     2,
   )}\n`,
 )
 fs.rmSync(cache, { force: true, recursive: true })
-console.log(`Wrote tests/unit/released-api.json for ${version}`)
+console.log(
+  `Wrote tests/unit/released-api.json for ${version}${inputsVersion === version ? "" : `, with the documented inputs of the working tree (${inputsVersion}), enforced from that release on`}`,
+)

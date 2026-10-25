@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs"
 import { expect, test } from "vitest"
+import type { CustomProperties } from "../../src/component-api/types"
 import { frameworkProps } from "../../src/utils/component-source"
 import { classNamesIn } from "../../src/utils/package-source"
 import released from "./released-api.json"
@@ -60,6 +61,38 @@ test("released classes still exist or are logged as Breaking or Removed", () => 
   )
   expect(unlogged, "removed without a Breaking or Removed entry").toEqual([])
 })
+
+const currentInputs = Object.fromEntries(
+  Object.entries(
+    import.meta.glob<{ default: CustomProperties }>(
+      "../../src/component-api/custom-properties/*.ts",
+      { eager: true },
+    ),
+  ).map(([file, module]) => [
+    file.match(/([^/]+)\.ts$/)![1],
+    new Set(
+      Object.entries(module.default)
+        .filter(([, property]) => property.kind === "input")
+        .map(([name]) => name),
+    ),
+  ]),
+)
+
+test.skipIf(released.inputsVersion !== released.version)(
+  "released --_ inputs still exist or are logged as Breaking or Removed",
+  () => {
+    const unlogged = Object.entries(released.inputs).flatMap(([file, names]) =>
+      names
+        .filter(
+          (name) =>
+            !currentInputs[file]?.has(name) &&
+            !breaking.includes(`\`${name}\``),
+        )
+        .map((name) => `${file} ${name}`),
+    )
+    expect(unlogged, "removed without a Breaking or Removed entry").toEqual([])
+  },
+)
 
 test("the released version is in the CHANGELOG", () => {
   expect(changelog).toContain(`\n## ${released.version} `)

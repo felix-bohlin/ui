@@ -4,18 +4,38 @@ OPUI ships first-class Vue components. Install the package, import what you need
 
 ## Install via NPM
 
-The components ship as uncompiled single-file components (`.vue` and `.ts`), so your build has to compile them. Any setup with Vue SFC support works, for example Vite with `@vitejs/plugin-vue`, Nuxt, or Astro with `@astrojs/vue`.
+The components ship as uncompiled single-file components (`.vue` and `.ts`), so your build has to compile them. They need Vue 3.5 or later, so add `vue` if it isn't installed yet. Any setup with Vue SFC support works, for example Vite with `@vitejs/plugin-vue`, Nuxt, or Astro with `@astrojs/vue`.
 
 `pnpm`
 
 ```sh
-pnpm add opui-css open-props vue -S
+pnpm add opui-css
 ```
 
 `npm`
 
 ```sh
-npm install opui-css open-props vue -S
+npm install opui-css
+```
+
+For server rendering, the server build has to compile the package too, since Node can't load `.vue` files from `node_modules`. In Nuxt, add it to `build.transpile`:
+
+```ts
+export default defineNuxtConfig({
+  build: { transpile: ["opui-css"] },
+})
+```
+
+In a Vite SSR setup of your own, add it to `ssr.noExternal`:
+
+```ts
+import vue from "@vitejs/plugin-vue"
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  plugins: [vue()],
+  ssr: { noExternal: ["opui-css"] },
+})
 ```
 
 ## Import the CSS
@@ -34,7 +54,6 @@ Or pick and choose in a CSS file, and import that file in `main.ts` instead:
 
 ```css
 @import "opui-css/css/layers.css";
-@import "opui-css/open-props.css";
 @import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";
 @import "opui-css/core/normalize.css";
@@ -44,13 +63,13 @@ Or pick and choose in a CSS file, and import that file in `main.ts` instead:
 @import "opui-css/core/utils.css";
 ```
 
-```ts
-import "./styles/main.css"
-```
-
 Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component.
 
 In Nuxt, add the file to `css` in `nuxt.config.ts` instead.
+
+```ts
+import "./styles/main.css"
+```
 
 ## How to use
 

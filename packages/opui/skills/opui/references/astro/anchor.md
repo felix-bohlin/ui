@@ -46,8 +46,8 @@ import {
 
 <style>
   .coach-mark {
-    font-size: var(--font-size-1);
-    margin-inline-start: var(--size-2);
+    font-size: var(--ui-font-size-body);
+    margin-inline-start: var(--ui-space-2);
     max-inline-size: 220px;
   }
 </style>
@@ -119,18 +119,18 @@ import {
   .repo-card {
     font-size: var(--ui-font-size-small);
     inline-size: 280px;
-    margin-block-start: var(--size-2);
+    margin-block-start: var(--ui-space-2);
   }
 
   .repo-card .ui-content {
     display: grid;
-    gap: var(--size-2);
+    gap: var(--ui-space-2);
   }
 
   .repo-card-identity {
     align-items: center;
     display: flex;
-    gap: var(--size-3);
+    gap: var(--ui-space-3);
   }
 
   .repo-card-identity > div {
@@ -179,7 +179,7 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/astro"
 <style>
   .link-preview {
     inline-size: 280px;
-    margin-block-start: var(--size-2);
+    margin-block-start: var(--ui-space-2);
   }
 
   .link-preview img {
@@ -193,8 +193,8 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/astro"
   }
 
   .link-preview h3 {
-    font-size: var(--font-size-2);
-    margin-block: var(--size-1);
+    font-size: var(--ui-font-size-400);
+    margin-block: var(--ui-space-1);
   }
 </style>
 ```
@@ -203,124 +203,26 @@ import { Anchor, AnchorContent, Card, CardHeader } from "opui-css/astro"
 
 ### Anchor API
 
-| Prop           | Type      | Default                 | Description                                                                                                                                                                                                        |
-| -------------- | --------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `id`           | `string`  | -                       | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. Required with `trigger="hover"`.                                                         |
-| `positionArea` | `string`  | `"self-start self-end"` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
-| `trigger`      | `"hover"` | -                       | Shows the floating content on hover and focus with `popover="hint"`. Without it, the content always shows.                                                                                                         |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | - | The id of the root. With `trigger="hover"`, the id of `AnchorContent`. Add `interestfor` with the same id to the trigger. Required with `trigger="hover"`. |
+| `positionArea` | `string` | `"self-start self-end"` | Any valid `position-area` value. Controls where the floating content is placed. The `self-` keywords follow the content's own direction, so the placement mirrors in a right-to-left part of a left-to-right page. |
+| `trigger` | `"hover"` | - | Shows the floating content on hover and focus with `popover="hint"`. Without it, the content always shows. |
 
 #### Slots
 
-| Slot      | Description                                            |
-| --------- | ------------------------------------------------------ |
+| Slot | Description |
+| --- | --- |
 | `default` | The content to anchor to, followed by `AnchorContent`. |
 
 ## Component properties
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
 
-| Property     | Kind  | Description                                          |
-| ------------ | ----- | ---------------------------------------------------- |
+| Property | Kind | Description |
+| --- | --- | --- |
 | `--_shift-x` | Input | Horizontal shift of `.ui-floating`. Defaults to `0`. |
-| `--_shift-y` | Input | Vertical shift of `.ui-floating`. Defaults to `0`.   |
-
-## Under the hood
-
-Read the post: [Hover cards without JavaScript](https://open-props-ui.netlify.app/learn/anchor-hover-cards)
-
-1. Hint
-
-   - `interestfor` opens it on hover and keyboard focus, no JavaScript
-   - Only `<button>`, `<a href>` and `<area>` can be interest invokers
-   - `popover="hint"` leaves open menus and dialogs alone
-   - Without positioning it opens in the middle of the viewport
-
-2. Tap
-
-   - Touch screens can't hover, so a tap toggles the card instead
-   - A link can't take `commandfor`, so tapping a link follows it
-
-3. Anchor
-
-   - The invoker is the implicit anchor: no `anchor-name`, no `position-anchor`
-   - `position-area` places it below, spanning towards the end
-   - A card that's always visible has no invoker, so it needs `anchor-name` and `position-anchor`
-
-4. Flip
-
-   - Scroll the trigger to the bottom of the window and hover it again
-   - The browser tries each fallback when the card would overflow
-   - `anchors-visible` hides it when the trigger scrolls out of view
-
-Step 1 of 4: Hint
-
-- [Interest invokers ](https://webstatus.dev/features/interest-invokers)(Limited availability): Chrome 142+, Edge 142+, Firefox not supported, Safari not supported
-- [popover="hint" ](https://webstatus.dev/features/popover-hint)(Limited availability): Chrome 151+, Edge 151+, Firefox 153+, Safari not supported
-
-```html
-<button type="button" interestfor="card">felix-bohlin/ui</button>
-
-<div class="card" id="card" popover="hint">…</div>
-```
-
-```css
-.card {
-  background-color: var(--ui-surface-elevated);
-  border: 1px solid var(--ui-surface);
-  border-radius: var(--ui-radius);
-  box-shadow: var(--ui-shadow-elevated);
-  color: inherit;
-  inline-size: 18rem;
-  padding: 1rem;
-}
-```
-
-Step 2 of 4: Tap
-
-- [Invoker commands ](https://webstatus.dev/features/invoker-commands)(Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
-
-```html
-<button
-  type="button"
-  interestfor="card"
-  commandfor="card"
-  command="toggle-popover"
->
-  felix-bohlin/ui
-</button>
-```
-
-Step 3 of 4: Anchor
-
-- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 151+, Edge 151+, Firefox 151+, Safari 27+
-
-```css
-.card {
-  inset: auto;
-  margin: 0.5rem 0 0;
-  position-area: block-end span-inline-end;
-}
-```
-
-Step 4 of 4: Flip
-
-```css
-.card {
-  position-try-fallbacks:
-    flip-block,
-    flip-inline,
-    flip-block flip-inline;
-  position-visibility: anchors-visible;
-}
-```
-
-## Browser support
-
-- Chromium: Full support Supported since v151.
-- Firefox: Partial support Missing: interest-invokers.
-- Safari: Partial support Missing: interest-invokers, popover-hint.
-
-Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Anchor.md).
+| `--_shift-y` | Input | Vertical shift of `.ui-floating`. Defaults to `0`. |
 
 ## Installation
 
@@ -334,14 +236,3 @@ Import the components from `opui-css/astro`:
 Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md).
 
 - `opui-css/css/components/anchor.css`
-
-## Changelog
-
-### What's new
-
-- Breaking: `--_anchor-tx` and `--_anchor-ty` are `--_shift-x` and `--_shift-y` ([Under the hood](#under-the-hood)).
-- Breaking: the floating content is [`.ui-floating`](#api) instead of `.ui-anchor-floating`.
-- Breaking: [`trigger`](#hover-trigger) only takes `"hover"`. Leave it out instead of `trigger="always"`.
-- Breaking: [`AnchorContent`](#api) replaces the `anchored` slot.
-- Breaking: [hover anchors](#hover-trigger) no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and put `interestfor` on the trigger.
-- Breaking: `alignment` is [`positionArea`](#always-visible).

@@ -1,6 +1,6 @@
 # Customizing
 
-Theme tokens change the whole library. To change one component, or one instance of it, set its `--_*` properties.
+Where your CSS goes: a theme in `theme.custom` changes the whole library, a component's `--_*` properties change one component or one instance, and your own layer holds the rest.
 
 ## Your theme
 
@@ -9,7 +9,6 @@ A theme is the [knobs, roles and component tokens](https://open-props-ui.netlify
 ```css
 @layer theme.custom {
   :where(html) {
-    --ui-radius: 4px;
     --ui-density: 0.9;
     --ui-font-body: "Inter", var(--font-sans);
     --ui-font-heading: "Fraunces", var(--font-serif);
@@ -19,7 +18,7 @@ A theme is the [knobs, roles and component tokens](https://open-props-ui.netlify
 }
 ```
 
-If it might load before `layers.css`, start it with the two `@layer` statements from there, like the example themes do. The [Theme generator](https://open-props-ui.netlify.app/astro/guide/theme-generator.md) writes one for you.
+If it might load before `layers.css`, start it with the two `@layer` statements from there, like the example themes do. The [Theme generator](https://open-props-ui.netlify.app/astro/guide/theme-generator.md) writes one for you, and [Theming](https://open-props-ui.netlify.app/astro/guide/theming.md) walks through the knobs.
 
 Knobs inherit, so `html` is enough for them. A role you pin, such as `--ui-surface` or `--ui-primary`, goes on `:where(html, .ui-palette, .ui-contrast-more)` so the scope classes keep it. The example themes do that for every token.
 

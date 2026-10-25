@@ -2,9 +2,28 @@
 
 The knobs and roles behind colors, density, spacing, corners, fonts, elevation, motion and contrast, and the classes that scope them.
 
-Snippets on this page belong in `@layer theme.custom`, see [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md). Every token and its default is on [Theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md), and the [Theme generator](https://open-props-ui.netlify.app/vue/guide/theme-generator.md) writes a theme for you.
+A theme sets [knobs and roles](https://open-props-ui.netlify.app/vue/guide/concepts.md#token-tiers), and every component reads the roles:
 
-v6 renames every token: `--primary` is `--ui-primary`, `--text-primary` is `--ui-text-strong`, `--surface-default` is `--ui-surface`. The full table is in [Migrating](https://open-props-ui.netlify.app/vue/guide/migrating.md#theme-and-tokens).
+1. Knobs
+
+   `--ui-palette-hue` 145 `--ui-palette-chroma` 0.5
+
+2. Palette `--ui-color-1` to `--ui-color-16`
+
+3. Roles
+
+   - `--ui-primary` Filled buttons, links, focus ring
+   - `--ui-palette-tint` Tonal fills
+   - `--ui-palette-text` Tinted text
+   - `--ui-palette-border` Tinted borders
+
+4. Components
+
+   [A link](#token-flow)
+
+Drag a knob: the palette is derived again, the roles that read it follow, and so does every component. A theme sets the knobs once on `html`; this figure is a `.ui-palette` scope with its own.
+
+Snippets on this page belong in `@layer theme.custom`, see [Your theme](https://open-props-ui.netlify.app/vue/guide/customizing.md#your-theme). Every token and its default is on [Theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md), and the [Theme generator](https://open-props-ui.netlify.app/vue/guide/theme-generator.md) writes a theme for you.
 
 ## Palette
 
@@ -13,13 +32,13 @@ One hue and chroma in `theme.css` become a source color, `--ui-palette-source`, 
 ```css
 :where(html) {
   --ui-palette-chroma: 0.5;
-  --ui-palette-hue: var(--hue-green);
+  --ui-palette-hue: 145;
   --ui-palette-hue-rotate-by: 0;
 }
 ```
 
 - `--ui-palette-chroma` scales the saturation, from `0` (gray) to `1`.
-- `--ui-palette-hue` is a hue angle, and Open Props' `--hue-*` tokens work.
+- `--ui-palette-hue` is a hue angle in degrees, `145` (green) by default.
 - `--ui-palette-hue-rotate-by` turns the hue by this many degrees per step, so `1` spreads 15° across the palette. The severity scopes use `1` for livelier tints.
 
 Or set `--ui-palette-source` to any color: the palette keeps its oklch hue, scales its chroma and sets the lightness per step. The palette is computed on `:root`, `.ui-palette`, `.ui-contrast-more`, the severity classes and the inline `del`, `ins`, `abbr` and `dfn` elements and their classes, so the knobs do nothing anywhere else. Each severity class takes its hue from its intent token, so setting `--ui-critical`, `--ui-info`, `--ui-success` or `--ui-warning` recolors the scope. `.ui-neutral` follows `--ui-gray-hue` and `--ui-gray-chroma` instead:
@@ -33,31 +52,29 @@ Or set `--ui-palette-source` to any color: the palette keeps its oklch hue, scal
 
 ## Scopes
 
-A scope class re-themes an element and everything inside it.
+A scope class re-themes an element and everything inside it, so one page can carry several brands, a dark panel or one red for every critical component:
 
-- `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning` swap the palette steps, see [Palette scopes](https://open-props-ui.netlify.app/vue/guide/concepts.md#palette-scopes).
-- `.ui-light` and `.ui-dark` force a color scheme.
-- `.ui-palette` re-derives the palette and every derived token (colors, control sizes, spacing, type roles and radii) from the knobs the element sets or inherits. `.ui-contrast-more` does the same with the contrast knobs tightened.
-
-On an element, `.ui-dark` and `.ui-light` only pick the other side of `light-dark()`. The shadow color and strength still come from the page; `--ui-shadow-elevated` and the surface and text colors switch with the scheme. Add `.ui-palette` with your own knobs to give a part of the page its own palette:
-
-```html
-<aside class="ui-dark">
-  Always dark
-</aside>
-
-<section class="ui-palette" style="--ui-palette-hue: 30">
-  <button class="ui-button ui-primary ui-filled" type="button">
-    Orange brand
-  </button>
-</section>
-```
+- `.ui-palette` re-derives the palette and every derived token (colors, control sizes, spacing, type roles and radii) from the knobs the element sets or inherits, `--ui-primary` and the intent colors included. `.ui-contrast-more` does the same with the contrast knobs tightened.
+- `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning` swap the palette steps for the intent color and leave `--ui-primary` and the text colors alone. [Concepts](https://open-props-ui.netlify.app/vue/guide/concepts.md#palette-scopes) shows the steps of each one.
+- `.ui-light` and `.ui-dark` force a color scheme. On an element they only pick the other side of `light-dark()`: the surface and text colors and `--ui-shadow-elevated` switch, while the shadow color and strength still come from the page.
 
 ## Surfaces
 
-`--ui-surface` is the page, `--ui-surface-elevated` the raised layers (elevated cards and accordions, dialogs, drawers, menus), `--ui-surface-tonal` the tinted variants, `--ui-surface-filled` lists, tracks and table headers, and `--ui-surface-inverse` tooltips. `--ui-text-strong` is for headings, labels and values, `--ui-text` for body copy.
+Five surfaces, two text colors and two border colors paint everything that isn't an accent:
 
-A raised component (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and a `Callout` without a severity) sets `--ui-border-color` to `--ui-border-color-on-raised` and `--ui-field-border-color` to `--ui-field-border-color-on-raised` on its root, so dividers and fields inside it stay visible on the raised fill. Filled lists and table headers do the same with the `-on-filled` pair. A theme with its own border colors sets the `-on-raised` and `-on-filled` tokens too, as the example themes do.
+- `--ui-surface` The page
+- `--ui-surface-elevated` Elevated cards and accordions, dialogs, drawers, menus
+- `--ui-surface-tonal` Tonal variants
+- `--ui-surface-filled` Lists, tracks, table headers
+- `--ui-surface-inverse` Tooltips
+- `--ui-text-strong` Headings, labels, values
+- `--ui-text` Body copy
+- `--ui-border-color` Dividers, outlined variants
+- `--ui-field-border-color` Fields
+
+Each role with its current value, live with the theme.
+
+A raised component (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and a `Callout` without a severity) sets `--ui-border-color` to `--ui-border-color-on-raised` and `--ui-field-border-color` to `--ui-field-border-color-on-raised` on its root, so dividers and fields inside it stay visible on the raised fill. Both default to the plain border colors. Filled lists and table headers do the same with the `-on-filled` pair. A theme that wants another border on raised surfaces sets the `-on-raised` tokens.
 
 ## Density
 
@@ -71,7 +88,7 @@ A raised component (tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer
 
 ## Spacing
 
-`--ui-space-1` to `--ui-space-8` pad and space containers, forms and rich text. Each is the Open Props size of the same number times `--ui-space-scale`, set on `html` or a `.ui-palette` element. Controls follow `--ui-density` instead, so a roomy form can keep compact fields.
+`--ui-space-1` to `--ui-space-8` pad and space containers, forms and rich text. Each is a fixed step (`0.25rem`, `0.5rem`, `1rem`, `1.25rem`, `1.5rem`, `1.75rem`, `2rem` and `3rem`) times `--ui-space-scale`, set on `html` or a `.ui-palette` element. Controls follow `--ui-density` instead, so a roomy form can keep compact fields.
 
 ```css
 :where(html) {
@@ -150,18 +167,17 @@ Browsers without `progress()` (before Firefox 155 and Safari 26) keep `clamp()` 
 ## Elevation
 
 - `--ui-shadow-control`: buttons with a variant, chips, toggle buttons and fields. `none` until a theme sets it, and the optional `--ui-shadow-field` splits off the fields.
-- `--ui-shadow-elevated`: elevated cards and accordions. Set `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark`, it picks one per scheme, also in scoped parts of the page.
+- `--ui-shadow-elevated`: elevated cards and accordions.
 - `--ui-shadow-overlay`: dialogs, drawers, menus, `select` pickers and the carousel buttons.
 - `--ui-shadow-scroll`: the edges of scrolled dialogs, drawers and sticky table headers.
 - `--ui-shadow-surface`: tonal and outlined cards and accordions, and callouts. `none` by default.
 - `--ui-shadow-selected`: the selected tab.
-- `--ui-shadow-color` and `--ui-shadow-strength`: the HSL channels and opacity every Open Props shadow is built from, `220 3% 15%` and `1%` in light mode, `220 40% 2%` and `20%` in dark mode.
+- `--ui-shadow-color`: the color and base opacity every default shadow is built from, a `light-dark()` pair, so shadows darken in dark mode, also in `.ui-dark` parts of the page. Each layer adds its own opacity on top.
 
 ```css
 :where(html) {
-  --ui-shadow-overlay: var(--shadow-4);
-  --ui-shadow-elevated-dark: none;
-  --ui-shadow-elevated-light: none;
+  --ui-shadow-color: light-dark(hsl(250 30% 20% / 2%), hsl(0 0% 0% / 30%));
+  --ui-shadow-elevated: none;
 }
 ```
 
@@ -171,7 +187,7 @@ Browsers without `progress()` (before Firefox 155 and Safari 26) keep `clamp()` 
 
 ### Global classes
 
-On `html`, these override the OS preference:
+On `html`, these override the OS preference for every transition and animation. Smooth scrolling follows the system setting only, since `normalize.css` keys it on `prefers-reduced-motion`.
 
 - `.ui-motion-off`: sets `--ui-motion: 0`.
 - `.ui-motion-on`: sets `--ui-motion: 1`.

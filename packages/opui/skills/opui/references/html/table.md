@@ -2,11 +2,11 @@
 
 ## Anatomy
 
-| Name   | Size |
-| ------ | ---- |
-| Card   | 2 kB |
+| Name | Size |
+| --- | --- |
+| Card | 2 kB |
 | Dialog | 3 kB |
-| Total  | 5 kB |
+| Total | 5 kB |
 
 - `table.ui-table`
 
@@ -174,6 +174,94 @@ Change the cell padding with the `.ui-dense` or `.ui-spacious` class.
     </tr>
   </tbody>
 </table>
+```
+
+## Numbers
+
+Add `.ui-numeric` to the cells of a number column, header included. They align to the end and use tabular figures, so the digits line up from row to row.
+
+```html
+<table class="ui-table">
+  <caption>
+    Invoices
+  </caption>
+  <thead>
+    <tr>
+      <th>Invoice</th>
+      <th class="ui-numeric">Items</th>
+      <th class="ui-numeric">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>INV-1041</td>
+      <td class="ui-numeric">3</td>
+      <td class="ui-numeric">1,240.00</td>
+    </tr>
+    <tr>
+      <td>INV-1042</td>
+      <td class="ui-numeric">12</td>
+      <td class="ui-numeric">86.50</td>
+    </tr>
+    <tr>
+      <td>INV-1043</td>
+      <td class="ui-numeric">1</td>
+      <td class="ui-numeric">11,900.00</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+## In a card
+
+A table on the page keeps a block margin. `.ui-flush` drops it for a table in a card or another padded box, and `.ui-overflow-scroll` keeps each cell on one line and scrolls the table sideways when the columns don't fit, instead of wrapping the cell text. The last column takes the space left over, so give it no fixed width.
+
+A scrolling table needs `tabindex="0"`, so keyboard users can scroll it. The caption names it.
+
+```html
+<div class="ui-card ui-outlined" style="max-inline-size: 28rem">
+  <hgroup class="ui-header">
+    <h3 class="ui-h5">Deployments</h3>
+    <p>The last three releases and where they went.</p>
+  </hgroup>
+  <table class="ui-table ui-flush ui-overflow-scroll" tabindex="0">
+    <caption>
+      Deployments by release
+    </caption>
+    <thead>
+      <tr>
+        <th>Release</th>
+        <th>Environment</th>
+        <th>Deployed by</th>
+        <th>Deployed at</th>
+        <th class="ui-numeric">Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2.4.0</td>
+        <td>Production</td>
+        <td>Ingrid Sandberg</td>
+        <td>8 October, 09:42</td>
+        <td class="ui-numeric">4 min 12 s</td>
+      </tr>
+      <tr>
+        <td>2.3.2</td>
+        <td>Staging</td>
+        <td>Oskar Lind</td>
+        <td>7 October, 16:05</td>
+        <td class="ui-numeric">3 min 48 s</td>
+      </tr>
+      <tr>
+        <td>2.3.1</td>
+        <td>Production</td>
+        <td>Amara Okafor</td>
+        <td>1 October, 11:20</td>
+        <td class="ui-numeric">12 min 3 s</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 ```
 
 ## Controls in cells
@@ -426,70 +514,96 @@ A table in a scroll box needs `tabindex="0"` on the box so keyboard users can sc
 
 ### Table API
 
-| Type          | Modifiers                            | Default | Description                                                                                          |
-| ------------- | ------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
-| Density       | default, `.ui-dense`, `.ui-spacious` | default | The cell padding.                                                                                    |
-| Sticky header | `.ui-sticky-header`                  | -       | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
+| Type | Modifiers | Default | Description |
+| --- | --- | --- | --- |
+| Density | default, `.ui-dense`, `.ui-spacious` | default | The cell padding. |
+| Flush | `.ui-flush` | - | Drops the block margin, for a table that sits in a card or another padded box. |
+| Overflow | default, `.ui-overflow-scroll` | default | What the table does when its columns don't fit. `"wrap"` lets the cells wrap their text, and `"scroll"` keeps each cell on one line, scrolls the table sideways and lets the last column take the space left over. Give a scrolling table `tabindex="0"`, so keyboard users can scroll it. |
+| Sticky header | `.ui-sticky-header` | - | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
 
 #### Parts
 
-| Part             | Description                           |
-| ---------------- | ------------------------------------- |
-| `table.ui-table` | Container element.                    |
-| `<thead>`        | The header rows.                      |
-| `<th>`           | A header cell.                        |
-| `<tbody>`        | The body rows.                        |
-| `<tr>`           | A row.                                |
-| `<td>`           | A data cell.                          |
-| `<tfoot>`        | Optional footer rows, such as totals. |
-| `<caption>`      | An optional title for the table.      |
+| Part | Description |
+| --- | --- |
+| `table.ui-table` | Container element. |
+| `<thead>` | The header rows. |
+| `<th>` | A header cell. |
+| `<tbody>` | The body rows. |
+| `<tr>` | A row. |
+| `<td>` | A data cell. |
+| `<tfoot>` | Optional footer rows, such as totals. |
+| `<caption>` | An optional title for the table. |
+
+### Table header cell API
+
+| Type | Modifiers | Default | Description |
+| --- | --- | --- | --- |
+| Numeric | `.ui-numeric` | - | Aligns the header to the end, over a column of `numeric` cells. |
+
+#### Parts
+
+| Part | Description |
+| --- | --- |
+| `<th>` | A header cell, inside `TableRow`. |
+
+### Table cell API
+
+| Type | Modifiers | Default | Description |
+| --- | --- | --- | --- |
+| Numeric | `.ui-numeric` | - | Aligns the cell to the end and uses tabular figures, so the digits of a column line up. |
+
+#### Parts
+
+| Part | Description |
+| --- | --- |
+| `<td>` | A data cell, inside `TableRow`. |
 
 ### Table column group API
 
 #### Parts
 
-| Part         | Description                                |
-| ------------ | ------------------------------------------ |
+| Part | Description |
+| --- | --- |
 | `<colgroup>` | A group of columns, before the table head. |
 
 ### Table column API
 
-| Type  | Modifiers | Default | Description                            |
-| ----- | --------- | ------- | -------------------------------------- |
-| Width | `width`   | -       | The column width, merged into `style`. |
+| Type | Modifiers | Default | Description |
+| --- | --- | --- | --- |
+| Width | `width` | - | The column width, merged into `style`. |
 
 #### Parts
 
-| Part    | Description                          |
-| ------- | ------------------------------------ |
+| Part | Description |
+| --- | --- |
 | `<col>` | A column, inside `TableColumnGroup`. |
 
 ### CSS variables
 
-| Variable                            | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                      |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-color`                 | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                         |
-| `--ui-border-color-on-filled`       | `light-dark( var(--ui-gray-6), var(--ui-gray-12) )`                                                                                                                                                             | Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.                                                                                 |
-| `--ui-border-width`                 | `1px`                                                                                                                                                                                                           | Default border width for components that draw a border.                                                                                                                                                                          |
-| `--ui-duration`                     | `0.2s`                                                                                                                                                                                                          | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                        |
-| `--ui-ease`                         | `ease`                                                                                                                                                                                                          | Default easing for transitions.                                                                                                                                                                                                  |
-| `--ui-field-border-color-on-filled` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface-filled) )`                                                                                                        | Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.                                                       |
-| `--ui-focus-ring-offset`            | `2px`                                                                                                                                                                                                           | Distance between a control and its focus ring.                                                                                                                                                                                   |
-| `--ui-focus-ring-width`             | `2px`                                                                                                                                                                                                           | Width of the focus ring.                                                                                                                                                                                                         |
-| `--ui-font-size-small`              | `var(--ui-font-size-200)`                                                                                                                                                                                       | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                          |
-| `--ui-font-weight-semibold`         | `var(--font-weight-6)`                                                                                                                                                                                          | Font weight for labels, table headers and titles.                                                                                                                                                                                |
-| `--ui-line-height-tight`            | `1.25`                                                                                                                                                                                                          | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                                                     |
-| `--ui-motion`                       | `1`                                                                                                                                                                                                             | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                         |
-| `--ui-radius`                       | `var(--size-2)`                                                                                                                                                                                                 | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
-| `--ui-shadow-scroll`                | `var(--shadow-4)`                                                                                                                                                                                               | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Defaults to Open Props `--shadow-4`.                                                                         |
-| `--ui-space-1`                      | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-2`                      | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-3`                      | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-space-6`                      | `calc(var(--size-6) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                                                  |
-| `--ui-surface`                      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                               | Page and card background.                                                                                                                                                                                                        |
-| `--ui-surface-filled`               | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                                                                                                                                               | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                            |
-| `--ui-text-strong`                  | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                 |
-| `--ui-text-subtle`                  | `var(--ui-text)`                                                                                                                                                                                                | Secondary text: placeholders, field helper text, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. When unset, `--ui-text`.                                                                |
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--ui-border-color` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`. |
+| `--ui-border-color-on-filled` | `light-dark( var(--ui-gray-6), var(--ui-gray-12) )` | Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts. |
+| `--ui-border-width` | `1px` | Default border width for components that draw a border. |
+| `--ui-duration` | `0.2s` | Default transition duration. Multiplied by `--ui-motion`. |
+| `--ui-ease` | `ease` | Default easing for transitions. |
+| `--ui-field-border-color-on-filled` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface-filled) )` | Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`. |
+| `--ui-focus-ring-offset` | `2px` | Distance between a control and its focus ring. |
+| `--ui-focus-ring-width` | `2px` | Width of the focus ring. |
+| `--ui-font-size-small` | `var(--ui-font-size-200)` | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`. |
+| `--ui-font-weight-semibold` | `600` | Font weight for labels, table headers and titles. |
+| `--ui-line-height-tight` | `1.25` | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons. |
+| `--ui-motion` | `1` | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+| `--ui-radius` | `0.5rem` | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-shadow-scroll` | `0 -2px 5px 0 hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)), 0 1px 1px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.03)), 0 2px 2px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.03)), 0 5px 5px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.04)), 0 9px 9px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.05)), 0 16px 16px -2px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.06))` | Shadow under the header and above the footer of a scrolled `Dialog` or `Drawer`, and under a sticky `Table` header. Six layers of `--ui-shadow-color`. |
+| `--ui-space-1` | `calc(0.25rem * var(--ui-space-scale))` | Spacing step 1: `0.25rem` times `--ui-space-scale`. |
+| `--ui-space-2` | `calc(0.5rem * var(--ui-space-scale))` | Spacing step 2: `0.5rem` times `--ui-space-scale`. |
+| `--ui-space-3` | `calc(1rem * var(--ui-space-scale))` | Spacing step 3: `1rem` times `--ui-space-scale`. |
+| `--ui-space-6` | `calc(1.75rem * var(--ui-space-scale))` | Spacing step 6: `1.75rem` times `--ui-space-scale`. |
+| `--ui-surface` | `light-dark(var(--ui-gray-1), var(--ui-gray-13))` | Page and card background. |
+| `--ui-surface-filled` | `light-dark(var(--ui-gray-4), var(--ui-gray-15))` | Background of filled areas such as progress tracks and table stripes. |
+| `--ui-text-strong` | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Strongest text color, for headings, labels and values. Body text is `--ui-text`. |
+| `--ui-text-subtle` | `var(--ui-text)` | Secondary text: placeholders, field helper text, overlines, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. When unset, `--ui-text`. |
 
 The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -497,172 +611,14 @@ The stylesheets on this page read these theme tokens. Override them on `html` or
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property           | Kind   | Description                                                                                   |
-| ------------------ | ------ | --------------------------------------------------------------------------------------------- |
-| `--_duration`      | Output | Duration of the header shadow transition, `--ui-duration` times `--_motion`.                  |
-| `--_ease`          | Input  | Easing of the header shadow transition. Defaults to `--ui-ease`.                              |
-| `--_motion`        | Input  | Motion multiplier for the header shadow transition in `.ui-sticky-header`. `0` turns it off.  |
-| `--_radius`        | Input  | Corner radius of the table and its corner cells. Defaults to `--ui-radius`.                   |
-| `--_scroll-shadow` | Input  | Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--ui-shadow-scroll`.          |
-| `--_sticky-offset` | Input  | Distance from the top of the scroll container where the header of `.ui-sticky-header` sticks. |
-
-## Under the hood
-
-Read the post: [A header that knows it’s stuck](https://open-props-ui.netlify.app/learn/table-scroll-state)
-
-1. Separate
-
-   - `border-radius` is ignored on a `border-collapse: collapse` table
-   - `separate` + `border-spacing: 0` keeps the corners round
-
-2. Cells
-
-   - Each cell draws only its end sides, so lines never double up
-   - The last column and the last row drop theirs
-   - Only body rows light up on hover
-   - The cell backgrounds now poke out of the rounded corners
-
-3. Corners
-
-   - The four corner cells take the same radius as the table
-   - `border-start-start-radius` follows the writing direction
-   - Drag **Radius**: the corners stay in sync
-
-4. Footer
-
-   - The footer draws its own top border
-   - `tbody:has(+ tfoot)` removes the one above it, so it stays a single line
-
-5. Sticky header
-
-   - `position: sticky` on `thead` keeps the header at the top of the scroll box
-   - Don't give the table `overflow: hidden`: it makes the table a scroll container, so the header would stick to the table and never move. `overflow: clip` is safe
-   - `scroll-state(stuck: block-start)` only shows the shadow while the header is stuck, `clip-path` lets it out below
-   - `tabindex="0"` and a name let keyboard users scroll the box
-
-Step 1 of 5: Separate
-
-- [`border-radius` ](https://webstatus.dev/features/border-radius)(Widely available): Chrome 4+, Edge 12+, Firefox 4+, Safari 5+
-- [Tables ](https://webstatus.dev/features/table)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
-
-```css
-.table {
-  border: 1px solid var(--ui-border-color);
-  border-collapse: separate;
-  border-radius: var(--radius);
-  border-spacing: 0;
-  inline-size: 100%;
-}
-```
-
-Step 2 of 5: Cells
-
-- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
-- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
-
-```css
-.table :is(th, td) {
-  background-color: var(--ui-surface);
-  border-block-end: 1px solid var(--ui-border-color);
-  border-inline-end: 1px solid var(--ui-border-color);
-  padding: 0.25rem 0.5rem;
-  text-align: start;
-}
-
-.table th {
-  background-color: var(--ui-surface-filled);
-}
-
-.table :is(th, td):last-child {
-  border-inline-end: none;
-}
-
-.table > :last-child tr:last-child > * {
-  border-block-end: none;
-}
-
-.table tbody > tr:hover > :is(th, td) {
-  background-color: oklch(from var(--ui-surface-filled) l c h / 75%);
-}
-```
-
-Step 3 of 5: Corners
-
-- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
-
-```css
-.table > thead tr:first-child th:first-child {
-  border-start-start-radius: var(--radius);
-}
-
-.table > thead tr:first-child th:last-child {
-  border-start-end-radius: var(--radius);
-}
-
-.table > :last-child tr:last-child > :first-child {
-  border-end-start-radius: var(--radius);
-}
-
-.table > :last-child tr:last-child > :last-child {
-  border-end-end-radius: var(--radius);
-}
-```
-
-Step 4 of 5: Footer
-
-- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-
-```css
-.table tfoot :is(th, td) {
-  background-color: var(--ui-surface-filled);
-  border-block-start: 1px solid var(--ui-border-color);
-  font-weight: 600;
-}
-
-.table tbody:has(+ tfoot) tr:last-child > * {
-  border-block-end: none;
-}
-```
-
-Step 5 of 5: Sticky header
-
-- [Container scroll-state queries ](https://webstatus.dev/features/container-scroll-state-queries)(Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari not supported
-- [Sticky positioning ](https://webstatus.dev/features/sticky-positioning)(Widely available): Chrome 56+, Edge 16+, Firefox 59+, Safari 13+
-
-```html
-<div aria-label="Components" class="table-scroll" role="region" tabindex="0">
-  <table class="table">…</table>
-</div>
-```
-
-```css
-.table-scroll {
-  max-block-size: 12rem;
-  overflow: auto;
-}
-
-.table > thead {
-  container-type: scroll-state;
-  inset-block-start: 0;
-  position: sticky;
-  z-index: 1;
-}
-
-@container scroll-state(stuck: block-start) {
-  .table > thead th {
-    box-shadow: var(--ui-shadow-scroll);
-    clip-path: inset(0 0 calc(-1 * var(--ui-space-6)));
-  }
-}
-```
-
-## Browser support
-
-- Chromium: Full support Supported since v133.
-- Firefox: Partial support Missing: container-scroll-state-queries.
-- Safari: Partial support Missing: container-scroll-state-queries.
-
-Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Table.md).
+| Property | Kind | Description |
+| --- | --- | --- |
+| `--_duration` | Output | Duration of the header shadow transition, `--ui-duration` times `--_motion`. |
+| `--_ease` | Input | Easing of the header shadow transition. Defaults to `--ui-ease`. |
+| `--_motion` | Input | Motion multiplier for the header shadow transition in `.ui-sticky-header`. `0` turns it off. |
+| `--_radius` | Input | Corner radius of the table and its corner cells. Defaults to `--ui-radius`. |
+| `--_scroll-shadow` | Input | Shadow of the stuck header in `.ui-sticky-header`. Defaults to `--ui-shadow-scroll`. |
+| `--_sticky-offset` | Input | Distance from the top of the scroll container where the header of `.ui-sticky-header` sticks. |
 
 ## Installation
 
@@ -670,15 +626,13 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - `opui-css/css/components/table.css`
 
-## Changelog
+## Used in blocks
 
-### What's new
-
-- The caption reads [`--ui-text-subtle`](#api).
-- A checkbox alone in a cell is centered ([Normal](#normal)).
-- [Dense](#density) tables (`.ui-dense`) have less block padding.
-- [Fields and selects in cells](#controls-in-cells) keep a `12ch` minimum width, in every density.
-- [Sticky header](#sticky-header) with `.ui-sticky-header`.
-- Breaking: `--_table-border-radius` is `--_radius` ([Under the hood](#under-the-hood)).
-- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
-- The [sticky header](#sticky-header) shadow reads `--ui-shadow-scroll`.
+- [Analytics dashboard](https://open-props-ui.netlify.app/blocks/analytics-dashboard.md)
+- [Billing](https://open-props-ui.netlify.app/blocks/billing.md)
+- [Data table](https://open-props-ui.netlify.app/blocks/data-table.md)
+- [File manager](https://open-props-ui.netlify.app/blocks/file-manager.md)
+- [Invoice](https://open-props-ui.netlify.app/blocks/invoice.md)
+- [Notification settings](https://open-props-ui.netlify.app/blocks/notification-settings.md)
+- [Pricing](https://open-props-ui.netlify.app/blocks/pricing.md)
+- [Sales dashboard](https://open-props-ui.netlify.app/blocks/sales-dashboard.md)

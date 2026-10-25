@@ -250,69 +250,72 @@ import { Range } from "opui-css/vue"
 
 ### Range API
 
-| Prop                                                                                                                                                                                                                                                                                 | Type                                             | Default      | Description                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `endText`                                                                                                                                                                                                                                                                            | `string`                                         | -            | Supporting text displayed below the input.                                                                                            |
-| `error`                                                                                                                                                                                                                                                                              | `boolean`                                        | `false`      | Marks the control invalid and shows error styles.                                                                                     |
-| `hideLabel`                                                                                                                                                                                                                                                                          | `boolean`                                        | `false`      | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name.                            |
-| `id`                                                                                                                                                                                                                                                                                 | `string`                                         | -            | The id of the `<input>`. Generated when omitted and the value is shown.                                                               |
-| `items`                                                                                                                                                                                                                                                                              | `RangeItem[]`                                    | -            | Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick.    |
-| `label`                                                                                                                                                                                                                                                                              | `string`                                         | -            | The label for the range.                                                                                                              |
-| `list`                                                                                                                                                                                                                                                                               | `string`                                         | -            | The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used.                                                    |
-| `size`                                                                                                                                                                                                                                                                               | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`   | The size of the element.                                                                                                              |
-| `spread`                                                                                                                                                                                                                                                                             | `boolean`                                        | `false`      | Pushes the label and start text to one side and the input to the other.                                                               |
-| `startText`                                                                                                                                                                                                                                                                          | `string`                                         | -            | Description text displayed above the input.                                                                                           |
-| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                                                                          | `number` , `string`                              | -            | The current value.                                                                                                                    |
-| `value`                                                                                                                                                                                                                                                                              | `number` , `string`                              | -            | The current value.                                                                                                                    |
-| `valueSuffix` **Needs hydration** The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Update the `<output>` text on `input` yourself, or add `data-live` to it and call `initRange()` from `opui-css/css/js/range.js`. | `string`                                         | -            | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`.                                         |
-| `variant`                                                                                                                                                                                                                                                                            | `"filled"` , `"outlined"` , `"tonal"`            | `"outlined"` | The variant to use. The default `outlined` track uses `--ui-track-bg-color`, or the field border color when the theme doesn't set it. |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `disabled` | `boolean` | `false` | Dims the slider and blocks input. |
+| `endText` | `string` | - | Supporting text displayed below the input. |
+| `error` | `boolean` | `false` | Marks the control invalid and shows error styles. |
+| `hideLabel` | `boolean` | `false` | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. The field keeps it as its accessible name. |
+| `id` | `string` | - | The id of the `<input>`. Generated when omitted and the value is shown. |
+| `items` | `RangeItem[]` | - | Tick marks, rendered as `<option>` elements in a `<datalist>`. Each is a value, or a `{ label, value }` object for a labeled tick. |
+| `label` | `string` | - | The label for the range. |
+| `list` | `string` | - | The id of the `<datalist>`. Generated when `items` or the `datalist` slot is used. |
+| `name` | `string` | - | The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. |
+| `size` | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element. |
+| `spread` | `boolean` | `false` | Pushes the label and start text to one side and the input to the other. |
+| `startText` | `string` | - | Description text displayed above the input. |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `number` , `string` | - | The current value. |
+| `value` | `number` , `string` | - | The current value. |
+| `valueSuffix` **Needs hydration** The value `<output>` renders once and only follows the thumb after hydration. The track fill is CSS, so it works. Update the `<output>` text on `input` yourself, or add `data-live` to it and call `initRange()` from `opui-css/css/js/range.js`. | `string` | - | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. |
+| `variant` | `"filled"` , `"outlined"` , `"tonal"` | `"outlined"` | The variant to use. The default `outlined` track uses `--ui-track-bg-color`, or the field border color when the theme doesn't set it. |
 
 #### Slots
 
-| Slot         | Description                                              |
-| ------------ | -------------------------------------------------------- |
-| `datalist`   | Tick marks and their labels, under the input.            |
-| `end-text`   | Supporting text displayed below the input.               |
-| `label`      | The label for the range.                                 |
-| `start-text` | Description text displayed above the input.              |
+| Slot | Description |
+| --- | --- |
+| `datalist` | Tick marks and their labels, under the input. |
+| `end-text` | Supporting text displayed below the input. |
+| `label` | The label for the range. |
+| `start-text` | Description text displayed above the input. |
 | `value-text` | Shows the current value, with an optional `valueSuffix`. |
 
-Attributes that aren't props go to the `<input>`, like `max`, `min` or `step`, and `class` and `style` go to the root `<label>`.
+Attributes that aren't props go to the `<input>`, like `max`, `min` and `step`, and `class` and `style` go to the root `<label>`.
 
 ### CSS variables
 
-| Variable                        | Default                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                          |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-width`             | `1px`                                                                                                                                                                                                                    | Default border width for components that draw a border.                                                                                                                                                                                                                                                                                                                                              |
-| `--ui-choice-accent`            | Unset                                                                                                                                                                                                                    | Fill of a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of `Range`. When unset, `--ui-primary`, with its lightness capped in dark mode for the choice controls. Set it to `--ui-primary` for the plain primary, like Material and shadcn.                                                                                                                                         |
-| `--ui-disabled-opacity`         | `0.64`                                                                                                                                                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                                                                                                                                                                                                |
-| `--ui-duration`                 | `0.2s`                                                                                                                                                                                                                   | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                                                                                                                                                                            |
-| `--ui-duration-fast`            | `0.1s`                                                                                                                                                                                                                   | Transition duration for hover and press feedback.                                                                                                                                                                                                                                                                                                                                                    |
-| `--ui-ease`                     | `ease`                                                                                                                                                                                                                   | Default easing for transitions.                                                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-field-border-color`       | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )`                                                                                                                        | Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make. |
-| `--ui-field-helper-font-size`   | `var(--ui-font-size-caption)`                                                                                                                                                                                            | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                                                                                                     |
-| `--ui-field-helper-line-height` | `var(--ui-line-height-control)`                                                                                                                                                                                          | Line height for helper and end text under a field.                                                                                                                                                                                                                                                                                                                                                   |
-| `--ui-field-helper-text-color`  | `var(--ui-text-subtle)`                                                                                                                                                                                                  | Text color for helper and end text under a field.                                                                                                                                                                                                                                                                                                                                                    |
-| `--ui-field-label-font-size`    | `var(--ui-font-size-small)`                                                                                                                                                                                              | Font size for field labels.                                                                                                                                                                                                                                                                                                                                                                          |
-| `--ui-field-label-font-weight`  | `var(--ui-font-weight-semibold)`                                                                                                                                                                                         | Font weight for emphasized field labels and legends.                                                                                                                                                                                                                                                                                                                                                 |
-| `--ui-field-label-text-color`   | `var(--ui-text-strong)`                                                                                                                                                                                                  | Text color for field labels.                                                                                                                                                                                                                                                                                                                                                                         |
-| `--ui-focus-ring-offset`        | `2px`                                                                                                                                                                                                                    | Distance between a control and its focus ring.                                                                                                                                                                                                                                                                                                                                                       |
-| `--ui-font-weight-semibold`     | `var(--font-weight-6)`                                                                                                                                                                                                   | Font weight for labels, table headers and titles.                                                                                                                                                                                                                                                                                                                                                    |
-| `--ui-invalid`                  | `light-dark( var(--ui-critical), oklch( from var(--ui-critical) max(l, var(--ui-invalid-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )`                                                                       | Color for invalid field borders, fills and outlines. Lifted to `--ui-invalid-min-lightness` in dark mode, so invalid borders stand out from the page with more contrast.                                                                                                                                                                                                                             |
-| `--ui-invalid-text`             | `light-dark( oklch(from var(--ui-invalid) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-invalid) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )`                         | Color for validation messages and invalid labels. `--ui-invalid` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, so it stays readable where `--ui-invalid` is lighter for borders.                                                                                                                                                                           |
-| `--ui-motion`                   | `1`                                                                                                                                                                                                                      | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion).                                                                                                                                                                                              |
-| `--ui-primary`                  | `light-dark( oklch( from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c h ), oklch( from var(--ui-primary-source) max(l, var(--ui-primary-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )` | Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color.                                                                                                                                                       |
-| `--ui-radius-round`             | `var(--radius-round)`                                                                                                                                                                                                    | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.                                                                                                                                                                                                                                                                   |
-| `--ui-space-1`                  | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-2`                  | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-4`                  | `calc(var(--size-4) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-state-active-alpha-dark`  | `30%`                                                                                                                                                                                                                    | Alpha of the pressed state layer on neutral buttons in dark mode. `30%`, and `20%` with more contrast so the text keeps 7:1.                                                                                                                                                                                                                                                                         |
-| `--ui-state-active-alpha-light` | `20%`                                                                                                                                                                                                                    | Alpha of the pressed state layer on neutral buttons in light mode.                                                                                                                                                                                                                                                                                                                                   |
-| `--ui-surface`                  | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                                        | Page and card background.                                                                                                                                                                                                                                                                                                                                                                            |
-| `--ui-surface-filled`           | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                                                                                                                                                        | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                                                                                                                                                                                |
-| `--ui-surface-tonal`            | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                        | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                        |
-| `--ui-text-strong`              | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                                        | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                                                                                                                                                                                     |
-| `--ui-track-bg-color`           | Unset                                                                                                                                                                                                                    | The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch `--ui-switch-track-bg-color`.                                                                                                                                                               |
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--ui-border-width` | `1px` | Default border width for components that draw a border. |
+| `--ui-choice-accent` | Unset | Fill of a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of `Range`. When unset, `--ui-control-accent`, else `--ui-primary`, with its lightness capped in dark mode for the choice controls. Set it, or `--ui-control-accent`, to `--ui-primary` for the plain primary, like Material and shadcn. |
+| `--ui-control-accent` | Unset | The accent every control shares: `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`, a checked `Checkbox`, `Radio` and `Switch`, and the `Range` thumb and fill. Unset by default, so buttons keep `--ui-palette-strong` and choice controls `--ui-primary`. Set it to `--ui-primary` to give every control the brand color in one line, like Material and shadcn, and `--ui-button-accent` or `--ui-choice-accent` to override one of them. |
+| `--ui-disabled-opacity` | `0.64` | Opacity applied to disabled controls. |
+| `--ui-duration` | `0.2s` | Default transition duration. Multiplied by `--ui-motion`. |
+| `--ui-duration-fast` | `0.1s` | Transition duration for hover and press feedback. |
+| `--ui-ease` | `ease` | Default easing for transitions. |
+| `--ui-field-border-color` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )` | Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make. |
+| `--ui-field-helper-font-size` | `var(--ui-font-size-caption)` | Font size for helper and end text under a field. |
+| `--ui-field-helper-line-height` | `var(--ui-line-height-control)` | Line height for helper and end text under a field. |
+| `--ui-field-helper-text-color` | `var(--ui-text-subtle)` | Text color for helper and end text under a field. |
+| `--ui-field-label-font-size` | `var(--ui-font-size-small)` | Font size for field labels. |
+| `--ui-field-label-font-weight` | `var(--ui-font-weight-semibold)` | Font weight for emphasized field labels and legends. |
+| `--ui-field-label-text-color` | `var(--ui-text-strong)` | Text color for field labels. |
+| `--ui-focus-ring-offset` | `2px` | Distance between a control and its focus ring. |
+| `--ui-font-weight-semibold` | `600` | Font weight for labels, table headers and titles. |
+| `--ui-invalid` | `light-dark( var(--ui-critical), oklch( from var(--ui-critical) max(l, var(--ui-invalid-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )` | Color for invalid field borders, fills and outlines. Lifted to `--ui-invalid-min-lightness` in dark mode, so invalid borders stand out from the page with more contrast. |
+| `--ui-invalid-text` | `light-dark( oklch(from var(--ui-invalid) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-invalid) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )` | Color for validation messages and invalid labels. `--ui-invalid` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, so it stays readable where `--ui-invalid` is lighter for borders. |
+| `--ui-motion` | `1` | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/vue/guide/theming.md#motion). |
+| `--ui-primary` | `light-dark( oklch( from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c h ), oklch( from var(--ui-primary-source) max(l, var(--ui-primary-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )` | Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color. |
+| `--ui-radius-round` | `1e5px` | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers. |
+| `--ui-space-1` | `calc(0.25rem * var(--ui-space-scale))` | Spacing step 1: `0.25rem` times `--ui-space-scale`. |
+| `--ui-space-2` | `calc(0.5rem * var(--ui-space-scale))` | Spacing step 2: `0.5rem` times `--ui-space-scale`. |
+| `--ui-space-4` | `calc(1.25rem * var(--ui-space-scale))` | Spacing step 4: `1.25rem` times `--ui-space-scale`. |
+| `--ui-state-active-alpha-dark` | `30%` | Alpha of the pressed state layer on neutral buttons in dark mode. `30%`, and `20%` with more contrast so the text keeps 7:1. |
+| `--ui-state-active-alpha-light` | `20%` | Alpha of the pressed state layer on neutral buttons in light mode. |
+| `--ui-surface` | `light-dark(var(--ui-gray-1), var(--ui-gray-13))` | Page and card background. |
+| `--ui-surface-filled` | `light-dark(var(--ui-gray-4), var(--ui-gray-15))` | Background of filled areas such as progress tracks and table stripes. |
+| `--ui-surface-tonal` | `light-dark(var(--ui-gray-3), var(--ui-gray-12))` | Background of tonal variants. |
+| `--ui-text-strong` | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Strongest text color, for headings, labels and values. Body text is `--ui-text`. |
+| `--ui-track-bg-color` | Unset | The empty part of a track: the unchecked `Switch`, `Progress` and the `Range` track. When unset, `Progress` and tonal ranges use `--ui-surface-tonal`, the default range its field border and the switch `--ui-switch-track-bg-color`. |
 
 The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md).
 
@@ -320,273 +323,28 @@ The stylesheets on this page read these theme tokens. Override them on `html` or
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/vue/guide/customizing.md#component-properties) has examples.
 
-| Property                      | Kind   | Description                                                                                                                                                                              |
-| ----------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`                   | Input  | Color of the thumb, its ring and the track fill. Defaults to `--ui-choice-accent`, or `--ui-primary` when the theme doesn't set it, and is set by the invalid state.                     |
-| `--_duration`                 | Output | Duration of the thumb ring transition, `--ui-duration-fast` times `--_motion`.                                                                                                           |
-| `--_ease`                     | Input  | Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`.                                                                                                             |
-| `--_focus-ring-duration`      | Output | Duration of the focus ring animation, `--ui-duration` times `--_motion`, slower than the `--_duration` of the transitions.                                                               |
-| `--_forced-fill-bg-color`     | Output | Thumb and fill color in forced colors mode. `GrayText` when disabled.                                                                                                                    |
-| `--_forced-track-bg-color`    | Output | Track color in forced colors mode. `GrayText` when disabled.                                                                                                                             |
-| `--_inset`                    | Output | Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`.                                                                          |
-| `--_motion`                   | Input  | Motion multiplier for the thumb highlight and focus ring. `0` turns them off.                                                                                                            |
-| `--_thumb-bg-color`           | Output | The current thumb color. From `--_accent`, set by the disabled state.                                                                                                                    |
-| `--_thumb-border-width`       | Input  | Width of the page-colored ring between the thumb and the track. Set on the `<input>`.                                                                                                    |
-| `--_thumb-highlight-bg-color` | Output | Color of the ring around the thumb, from `--_accent` at `--ui-state-active-alpha-light`, or `--ui-state-active-alpha-dark` in dark mode.                                                 |
-| `--_thumb-highlight-size`     | Output | Current width of the ring around the thumb. Set by the hover and active states.                                                                                                          |
-| `--_thumb-offset`             | Output | Vertical offset that centers the thumb on the track.                                                                                                                                     |
-| `--_thumb-size`               | Input  | Width and height of the thumb. Set by the sizes, and larger on touch screens at the default size.                                                                                        |
-| `--_track-base-bg-color`      | Input  | Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`. |
-| `--_track-bg-color`           | Output | The current track color, from `--_track-base-bg-color`; set by the active and disabled states.                                                                                           |
-| `--_track-block-size`         | Input  | Height of the track. Set by the sizes.                                                                                                                                                   |
-| `--_track-fill-bg-color`      | Output | Color of the filled part of the track, from `--_accent`.                                                                                                                                 |
-| `--_track-fill-fraction`      | Output | How much of the track is filled, animated from the thumb position.                                                                                                                       |
-| `--_track-radius`             | Input  | Corner radius of the track.                                                                                                                                                              |
-
-## Under the hood
-
-Read the post: [Range sliders with datalist ticks](https://open-props-ui.netlify.app/learn/range-tick-marks)
-
-1. Track
-
-   - `appearance: none` on the input, then style the track pseudo-element
-   - Chromium and Safari: `::-webkit-slider-runnable-track`, Firefox: `::-moz-range-track`
-   - A `1e5px` radius is always a pill
-
-2. Thumb
-
-   - The thumb needs its own `appearance: none`
-   - WebKit pins it to the top of the track: (track − thumb) ÷ 2 centers it
-   - A border in the surface color cuts it out of the track
-
-3. Fill
-
-   - Firefox draws the filled part with `::-moz-range-progress`
-   - Elsewhere a one-color `linear-gradient`, sized to `--track-fill`, paints it
-   - `overflow: hidden` makes the input a scroller, and the thumb a `view-timeline` inside it. `timeline-scope` lets the input use it
-   - The thumb's position drives the animation: `--track-fill` is registered as a `<percentage>`, so it animates. No JavaScript
-   - The timeline runs from the end edge, so the keyframes go from `100%` to `0%`
-   - In right-to-left the animation runs in reverse and the gradient moves to the right edge
-   - Without scroll-driven animations there's no fill, the slider still works
-   - Padding with an equal negative margin leaves room for the thumb and halo, `view-timeline-inset` and `outline-offset` take it back out
-   - `--inset` is half a thumb, and at least `0.5rem` for the halo, so it follows `--thumb-size`
-
-4. Halo
-
-   - A `box-shadow` spread draws the ring, no extra element
-   - Relative color: the primary hue at a fixed lightness, with the theme's `--ui-state-active-alpha-light`
-   - The pseudo-elements inherit `--halo` from the input's `:hover` and `:active`
-   - `:not([disabled])`: no halo on a disabled slider
-   - Hover and drag the thumb
-
-5. Ticks
-
-   - A `<datalist>` is hidden by default, `display: flex` brings it back
-   - Zero-width options with centered labels sit exactly on each step
-   - Half a thumb of padding lines the ends up with the thumb's center
-   - `--thumb-size` is registered as a `<length>`, so `3ex` resolves on the field, at the thumb's font size, and the smaller tick labels inherit that length
-
-Step 1 of 5: Track
-
-- [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
-- [\<input type="range"> ](https://webstatus.dev/features/input-range)(Widely available): Chrome 4+, Edge 12+, Firefox 23+, Safari 3.1+
-
-```css
-.range {
-  appearance: none;
-  background: transparent;
-  block-size: 1.25rem;
-  inline-size: 100%;
-}
-
-.range::-webkit-slider-runnable-track {
-  appearance: none;
-  background-color: var(--ui-track-bg-color, var(--ui-field-border-color));
-  block-size: 0.75ex;
-  border-radius: 1e5px;
-}
-
-.range::-moz-range-track {
-  appearance: none;
-  background-color: var(--ui-track-bg-color, var(--ui-field-border-color));
-  block-size: 0.75ex;
-  border-radius: 1e5px;
-}
-```
-
-Step 2 of 5: Thumb
-
-```css
-.range::-webkit-slider-thumb {
-  appearance: none;
-  background: var(--ui-primary);
-  block-size: 3ex;
-  border: 3px solid var(--ui-surface);
-  border-radius: 50%;
-  cursor: ew-resize;
-  inline-size: 3ex;
-  margin-block-start: -1.125ex;
-}
-
-.range::-moz-range-thumb {
-  appearance: none;
-  background: var(--ui-primary);
-  block-size: 3ex;
-  border: 3px solid var(--ui-surface);
-  border-radius: 50%;
-  cursor: ew-resize;
-  inline-size: 3ex;
-}
-```
-
-Step 3 of 5: Fill
-
-- [`:dir()` ](https://webstatus.dev/features/dir-pseudo)(Widely available): Chrome 120+, Edge 120+, Firefox 49+, Safari 16.4+
-- [Gradients ](https://webstatus.dev/features/gradients)(Widely available): Chrome 26+, Edge 12+, Firefox 3.6+, Safari 7+
-- [Registered custom properties ](https://webstatus.dev/features/registered-custom-properties)(Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
-- [Scroll-driven animations ](https://webstatus.dev/features/scroll-driven-animations)(Limited availability): Chrome 115+, Edge 115+, Firefox not supported, Safari 26+
-
-```html
-<style>
-  @property --track-fill {
-    syntax: "<percentage>";
-    inherits: true;
-    initial-value: 0%;
-  }
-
-  @keyframes build-range-fill {
-    from {
-      --track-fill: 100%;
-    }
-
-    to {
-      --track-fill: 0%;
-    }
-  }
-</style>
-```
-
-```css
-.range {
-  --inset: max(0.5rem, var(--thumb-size) / 2);
-  animation-fill-mode: both;
-  animation-name: build-range-fill;
-  animation-range: contain;
-  animation-timeline: --thumb;
-  animation-timing-function: linear;
-  box-sizing: content-box;
-  margin: calc(-1 * var(--inset));
-  outline-offset: calc(1ex - var(--inset));
-  overflow: hidden;
-  padding: var(--inset);
-  timeline-scope: --thumb;
-}
-
-.range:dir(rtl) {
-  animation-direction: reverse;
-}
-
-.range::-webkit-slider-thumb {
-  view-timeline: --thumb inline;
-  view-timeline-inset: var(--inset);
-}
-
-.range::-webkit-slider-runnable-track {
-  background-image: linear-gradient(var(--ui-primary), var(--ui-primary));
-  background-repeat: no-repeat;
-  background-size: var(--track-fill, 0%) 100%;
-}
-
-.range:dir(rtl)::-webkit-slider-runnable-track {
-  background-position: right;
-}
-
-.range::-moz-range-progress {
-  background-color: var(--ui-primary);
-  block-size: 0.75ex;
-  border-radius: 1e5px;
-}
-```
-
-Step 4 of 5: Halo
-
-- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
-
-```css
-.range {
-  --halo: 0px;
-}
-
-.range:not([disabled]):hover {
-  --halo: 0.25rem;
-}
-
-.range:not([disabled]):active {
-  --halo: 0.5rem;
-}
-
-.range::-webkit-slider-thumb {
-  box-shadow: 0 0 0 var(--halo)
-    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha-light));
-  transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
-}
-
-.range::-moz-range-thumb {
-  box-shadow: 0 0 0 var(--halo)
-    oklch(from var(--ui-primary) 70% 100% h / var(--ui-state-active-alpha-light));
-  transition: box-shadow calc(0.2s * var(--ui-motion, 1)) var(--ui-ease);
-}
-```
-
-Step 5 of 5: Ticks
-
-- [\<datalist> ](https://webstatus.dev/features/datalist)(Limited availability): Chrome 69+, Edge 12+, Firefox 110+, Safari 12.1+
-- [Registered custom properties ](https://webstatus.dev/features/registered-custom-properties)(Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
-
-```html
-<style>
-  @property --thumb-size {
-    syntax: "<length>";
-    inherits: true;
-    initial-value: 24px;
-  }
-</style>
-
-<input class="range" type="range" list="ticks" … />
-<datalist class="ticks" id="ticks">
-  <option value="0" label="0"></option>
-  <option value="25" label="25"></option>
-  …
-</datalist>
-```
-
-```css
-.field {
-  --thumb-size: 3ex;
-}
-
-.ticks {
-  display: flex;
-  justify-content: space-between;
-  padding-inline: calc(var(--thumb-size) / 2);
-}
-
-.ticks > option {
-  display: flex;
-  inline-size: 0;
-  justify-content: center;
-  padding: 0;
-  white-space: nowrap;
-}
-```
-
-## Browser support
-
-- Chromium: Full support Supported since v125.
-- Firefox: Partial support Missing: scroll-driven-animations.
-- Safari: Full support Supported since v26.
-
-Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Range.md).
+| Property | Kind | Description |
+| --- | --- | --- |
+| `--_accent` | Input | Color of the thumb, its ring and the track fill. Defaults to `--ui-choice-accent`, or `--ui-primary` when the theme doesn't set it, and is set by the invalid state. |
+| `--_duration` | Output | Duration of the thumb ring transition, `--ui-duration-fast` times `--_motion`. |
+| `--_ease` | Input | Easing of the thumb ring transition and focus ring. Defaults to `--ui-ease`. |
+| `--_focus-ring-duration` | Output | Duration of the focus ring animation, `--ui-duration` times `--_motion`, slower than the `--_duration` of the transitions. |
+| `--_forced-fill-bg-color` | Output | Thumb and fill color in forced colors mode. `GrayText` when disabled. |
+| `--_forced-track-bg-color` | Output | Track color in forced colors mode. `GrayText` when disabled. |
+| `--_inset` | Output | Padding around the `input` that keeps the thumb and its highlight from clipping, computed from `--_thumb-size`. |
+| `--_motion` | Input | Motion multiplier for the thumb highlight and focus ring. `0` turns them off. |
+| `--_thumb-bg-color` | Output | The current thumb color. From `--_accent`, set by the disabled state. |
+| `--_thumb-border-width` | Input | Width of the page-colored ring between the thumb and the track. Set on the `<input>`. |
+| `--_thumb-highlight-bg-color` | Output | Color of the ring around the thumb, from `--_accent` at `--ui-state-active-alpha-light`, or `--ui-state-active-alpha-dark` in dark mode. |
+| `--_thumb-highlight-size` | Output | Current width of the ring around the thumb. Set by the hover and active states. |
+| `--_thumb-offset` | Output | Vertical offset that centers the thumb on the track. |
+| `--_thumb-size` | Input | Width and height of the thumb. Set by the sizes, and larger on touch screens at the default size. |
+| `--_track-base-bg-color` | Input | Color of the empty track at rest. `--ui-track-bg-color` when the theme sets it, otherwise the field border, and `--ui-surface` under more contrast; set by `.ui-filled` and `.ui-tonal`. |
+| `--_track-bg-color` | Output | The current track color, from `--_track-base-bg-color`; set by the active and disabled states. |
+| `--_track-block-size` | Input | Height of the track. Set by the sizes. |
+| `--_track-fill-bg-color` | Output | Color of the filled part of the track, from `--_accent`. |
+| `--_track-fill-fraction` | Output | How much of the track is filled, animated from the thumb position. |
+| `--_track-radius` | Input | Corner radius of the track. |
 
 ## Installation
 
@@ -595,27 +353,3 @@ Import the component from `opui-css/vue`:
 Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md).
 
 - `opui-css/css/components/range.css`
-
-## Changelog
-
-### What's new
-
-- [`hideLabel`](#api) hides the label visually and keeps it as the accessible name.
-- Breaking: `--_thumb-highlight-color`, `--_track-color`, `--_track-fill-color`, `--_track-fill` and `--_track-height` are `--_thumb-highlight-bg-color`, `--_track-bg-color`, `--_track-fill-bg-color`, `--_track-fill-fraction` and `--_track-block-size` ([Under the hood](#under-the-hood)).
-- Breaking: [`items`](#tick-marks) replaces `options`, the label goes in the `label` slot, and the readout slot is [`value-text`](#value).
-- The empty track reaches 3:1 against the page by default, and with more contrast it takes the page color with an inset edge so the fill stands out.
-- The thumb and fill read [`--ui-choice-accent`](#api) and the empty track `--ui-track-bg-color` when a theme sets them.
-- [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
-- Breaking: the track fill is CSS only ([Under the hood](#under-the-hood)). The component no longer sets `--_track-fill` from script.
-- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look. The default is named `outlined`.
-- [Validation](#validation) with the `error` prop, which sets `aria-invalid="true"` on the input.
-- [Sizes](#sizes) with the `size` prop, like the other form controls. The focus ring hugs the thumb.
-- Breaking: `--_thumb-bg` is `--_thumb-bg-color` ([Under the hood](#under-the-hood)).
-- [`items`](#tick-marks) is typed as `RangeItem[]`, exported from every framework.
-- [`items`](#tick-marks) renders a linked `<datalist>` without a `list` id.
-- The [`value-text`](#value) slot is scoped with the current value and follows the thumb.
-- Breaking: `style` goes to the root, like `class`, instead of the `<input>` ([API](#api)).
-- The thumb, its halo and the track fill follow `--_accent` on `.ui-range` ([Under the hood](#under-the-hood)).
-- Breaking: deep type imports from `components/Range/types` are named `Props` and `Slots` (was `RangeProps` and `RangeSlots`). Import [`RangeProps`](#api) from the framework entry instead.
-- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
-- [`--_track-base-bg-color`](#component-properties) sets the empty track at rest, so filled and tonal tracks darken on press and take the disabled color.

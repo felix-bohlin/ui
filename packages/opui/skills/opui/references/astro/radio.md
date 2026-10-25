@@ -299,7 +299,15 @@ The radio lines up with the first line of its label and centers on the label's c
 
 Use `RadioInput` without the label for a custom layout, such as the end of a list item. See [List](https://open-props-ui.netlify.app/astro/components/list.md#radio).
 
-## Orientation
+## Field group
+
+Use field groups to group related radios.
+
+The `name` prop will get passed down to each radio in the group.
+
+See also: [Form documentation](https://open-props-ui.netlify.app/astro/components/form.md).
+
+### Orientation
 
 Radios stack vertically by default. Set `orientation="horizontal"` on the `FieldGroup` to put them in a row.
 
@@ -320,7 +328,7 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 </Form>
 ```
 
-## Field description
+### Field description
 
 Can be placed above and below the fields.
 
@@ -359,7 +367,7 @@ import {
 </Form>
 ```
 
-## Disabled
+### Disabled
 
 Set `disabled` on the `Fieldset` to disable every radio in it, or on a single `Radio`.
 
@@ -390,7 +398,7 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 </Form>
 ```
 
-## Required
+### Required
 
 Set the `required` prop on at least one `Radio`. It is forwarded to the underlying `<input>`.
 
@@ -411,7 +419,7 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 </Form>
 ```
 
-## Validation
+### Validation
 
 Set `error` on each `Radio` in the group. The end text of the `Fieldset` turns red with them.
 
@@ -437,9 +445,9 @@ import { FieldGroup, FieldLegend, Fieldset, Form, Radio } from "opui-css/astro"
 </Form>
 ```
 
-## Binding
+### Binding
 
-Astro renders the group on the server, so it has no bound value. The selected value lives in the inputs, which share the group's `name`. Submit them with a form, where `FormData.get()` reads it, or read the checked input in a script on `change`. Set `input.checked = input.defaultChecked` to go back to the `checked` radio.
+Astro renders the group on the server, so it has no bound value. The selected value live in the inputs, which share the group's `name`. Submit them with a form, where `FormData.get()` reads it, or read the checked input in a script on `change`. Set `input.checked = input.defaultChecked` to go back to the `checked` radio.
 
 ```astro
 ---
@@ -490,36 +498,41 @@ import {
 
 ### Keyboard support
 
-| Key        | Function                                                                                               |
-| ---------- | ------------------------------------------------------------------------------------------------------ |
-| `Tab`      | Moves focus into the group, to the checked radio. When none is checked, focus goes to the first radio. |
-| Arrow keys | Move focus to the next or previous radio and select it.                                                |
-| `Space`    | Selects the focused radio.                                                                             |
+| Key | Function |
+| --- | --- |
+| `Tab` | Moves focus into the group, to the checked radio. When none is checked, focus goes to the first radio. |
+| Arrow keys | Move focus to the next or previous radio and select it. |
+| `Space` | Selects the focused radio. |
 
 ## API
 
 ### Radio API
 
-| Prop          | Type                                             | Default        | Description                                                                                                                                                                                                           |
-| ------------- | ------------------------------------------------ | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `card`        | `boolean`                                        | `false`        | Renders the radio as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. |
-| `endText`     | `string`                                         | -              | Supporting text displayed below the label.                                                                                                                                                                            |
-| `error`       | `boolean`                                        | `false`        | Marks the control invalid and shows error styles.                                                                                                                                                                     |
-| `hideLabel`   | `boolean`                                        | `false`        | Visually hides the label, `.ui-sr-only` instead of `.ui-label`.                                                                                                                                                       |
-| `label`       | `string`                                         | -              | The label.                                                                                                                                                                                                            |
-| `orientation` | `"horizontal"` , `"vertical"`                    | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the input.                                                                                                                                          |
-| `size`        | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"`     | The size of the element.                                                                                                                                                                                              |
-| `spread`      | `boolean`                                        | `false`        | Pushes the label and the input to opposite ends.                                                                                                                                                                      |
-| `variant`     | `"elevated"` , `"outlined"` , `"tonal"`          | `"outlined"`   | The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card.                                                                                           |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `card` | `boolean` | `false` | Renders the radio as a card: a padded, outlined surface that tints when hovered and when checked, with the label and `endText` inside. Add `spread` to put the input at the end, and `variant` to change the surface. |
+| `disabled` | `boolean` | `false` | Dims the radio and shows a not-allowed cursor. `aria-disabled="true"` looks the same, but keeps the radio focusable and its value in the form, and doesn't stop the change, so block it with a script. |
+| `endText` | `string` | - | Supporting text displayed below the label. |
+| `error` | `boolean` | `false` | Marks the control invalid and shows error styles. |
+| `hideLabel` | `boolean` | `false` | Visually hides the label, `.ui-sr-only` instead of `.ui-label`. |
+| `id` | `string` | - | The id of the `<input>`. |
+| `label` | `string` | - | The label. |
+| `name` | `string` | - | The name of the `<input>`. Inside a `FieldGroup`, the group's `name` applies. |
+| `orientation` | `"horizontal"` , `"vertical"` | `"horizontal"` | The orientation of the element. `vertical` stacks the label under the input. |
+| `required` | `boolean` | - | Adds a required mark after the label. The form won't submit until one radio in the group is checked. |
+| `size` | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element. |
+| `spread` | `boolean` | `false` | Pushes the label and the input to opposite ends. |
+| `value` | `string` | - | The value of the `<input>`, submitted with the form when it's checked. |
+| `variant` | `"elevated"` , `"outlined"` , `"tonal"` | `"outlined"` | The surface of the card, with `card`. `outlined` has a border, `tonal` a tinted surface and `elevated` a shadow, like Card. |
 
 #### Slots
 
-| Slot       | Description                                |
-| ---------- | ------------------------------------------ |
-| `default`  | The label.                                 |
+| Slot | Description |
+| --- | --- |
+| `default` | The label. |
 | `end-text` | Supporting text displayed below the label. |
 
-Attributes that aren't props go to the `<input>`, like `checked`, `disabled`, `name` and `value`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
+Attributes that aren't props go to the `<input>`, like `autofocus` and `form`, and `class` and `style` go to the root `<label>`. To hide the label, set `hideLabel` and keep the text in `label` or the slot.
 
 ### Radio input API
 
@@ -527,92 +540,94 @@ The radio `<input>` without the label, for a custom layout inside a `label.ui-ra
 
 ### Field group API
 
-| Prop          | Type                                     | Default  | Description                                                                                               |
-| ------------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
-| `name`        | `string`                                 | -        | Sets `name` on the OPUI fields inside that don't set their own.                                           |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `name` | `string` | - | Sets `name` on the OPUI fields inside that don't set their own. |
 | `orientation` | `"auto"` , `"horizontal"` , `"vertical"` | `"auto"` | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 #### Slots
 
-| Slot      | Description                                         |
-| --------- | --------------------------------------------------- |
+| Slot | Description |
+| --- | --- |
 | `default` | The fields, such as checkboxes, radios or switches. |
 
 ### CSS variables
 
-| Variable                                | Default                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                                                                                          |
-| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-color`                     | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )`                        | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                                                                                                                                                                                             |
-| `--ui-border-color-on-raised`           | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), var(--ui-surface) )`                                                                                                     | Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. The light border mix in light mode and the page background in dark mode. Each raised component sets `--ui-border-color` to it on its root.                                                                                                              |
-| `--ui-border-color-raised`              | Unset                                                                                                                                                                                                                                  | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.                                                                                                                                                          |
-| `--ui-border-width`                     | `1px`                                                                                                                                                                                                                                  | Default border width for components that draw a border.                                                                                                                                                                                                                                                                                                                                              |
-| `--ui-card-padding`                     | Unset                                                                                                                                                                                                                                  | Padding of `Card`, `Dialog` and `Accordion` content, headers and actions. When unset, `--ui-space-3`.                                                                                                                                                                                                                                                                                                |
-| `--ui-choice-accent`                    | Unset                                                                                                                                                                                                                                  | Fill of a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of `Range`. When unset, `--ui-primary`, with its lightness capped in dark mode for the choice controls. Set it to `--ui-primary` for the plain primary, like Material and shadcn.                                                                                                                                         |
-| `--ui-choice-border-color`              | Unset                                                                                                                                                                                                                                  | Border of the unchecked `Checkbox`, `Radio` and `Switch` track. When unset, `--ui-field-border-color`. Set it for themes whose field border is fainter than 3:1, like shadcn, which outlines its choices with `--ui-primary` like shadcn/ui does.                                                                                                                                                    |
-| `--ui-choice-fill-max-lightness`        | `0.62`                                                                                                                                                                                                                                 | The highest OKLCH lightness of a checked `Checkbox`, `Radio` and `Switch` fill in dark mode, so the light mark keeps 3:1. `0.62`.                                                                                                                                                                                                                                                                    |
-| `--ui-choice-label-offset`              | `0px`                                                                                                                                                                                                                                  | Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.                                                                                                                                                                                                                                                |
-| `--ui-choice-on-accent`                 | Unset                                                                                                                                                                                                                                  | Color of the mark on a checked `Checkbox`, `Radio` and `Switch`. Set it with `--ui-choice-accent`. When unset, `--ui-on-primary` in light mode and near-white in dark mode.                                                                                                                                                                                                                          |
-| `--ui-choice-ripple-bg-color`           | `oklch(0.6 0 0 / 0.2)`                                                                                                                                                                                                                 | Halo color for the `Checkbox` and `Radio` hover effect.                                                                                                                                                                                                                                                                                                                                              |
-| `--ui-choice-size`                      | `calc(var(--size-4) * var(--ui-density))`                                                                                                                                                                                              | Default `Checkbox` and `Radio` input size.                                                                                                                                                                                                                                                                                                                                                           |
-| `--ui-choice-size-large`                | `calc(var(--size-5) * var(--ui-density))`                                                                                                                                                                                              | `Checkbox` and `Radio` input size with `.ui-large`.                                                                                                                                                                                                                                                                                                                                                  |
-| `--ui-choice-size-small`                | `calc(var(--size-3) * var(--ui-density))`                                                                                                                                                                                              | `Checkbox` and `Radio` input size with `.ui-small`, and in dense `List` rows unless the control has a size class.                                                                                                                                                                                                                                                                                    |
-| `--ui-choice-size-x-small`              | `calc(0.875rem * var(--ui-density))`                                                                                                                                                                                                   | `Checkbox` and `Radio` input size with `.ui-x-small`.                                                                                                                                                                                                                                                                                                                                                |
-| `--ui-disabled-opacity`                 | `0.64`                                                                                                                                                                                                                                 | Opacity applied to disabled controls.                                                                                                                                                                                                                                                                                                                                                                |
-| `--ui-duration`                         | `0.2s`                                                                                                                                                                                                                                 | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                                                                                                                                                                            |
-| `--ui-ease`                             | `ease`                                                                                                                                                                                                                                 | Default easing for transitions.                                                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-field-border-color`               | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )`                                                                                                                                      | Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make. |
-| `--ui-field-border-color-on-raised`     | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )`                                                                                                                                      | Field border color inside raised surfaces. The same mix as `--ui-field-border-color` by default. Each raised component sets `--ui-field-border-color` to it on its root.                                                                                                                                                                                                                             |
-| `--ui-field-border-width`               | `1px`                                                                                                                                                                                                                                  | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                                                                                                                                                                                                                                                                           |
-| `--ui-field-helper-font-size`           | `var(--ui-font-size-caption)`                                                                                                                                                                                                          | Font size for helper and end text under a field.                                                                                                                                                                                                                                                                                                                                                     |
-| `--ui-field-helper-line-height`         | `var(--ui-line-height-control)`                                                                                                                                                                                                        | Line height for helper and end text under a field.                                                                                                                                                                                                                                                                                                                                                   |
-| `--ui-field-helper-text-color`          | `var(--ui-text-subtle)`                                                                                                                                                                                                                | Text color for helper and end text under a field.                                                                                                                                                                                                                                                                                                                                                    |
-| `--ui-field-label-font-size`            | `var(--ui-font-size-small)`                                                                                                                                                                                                            | Font size for field labels.                                                                                                                                                                                                                                                                                                                                                                          |
-| `--ui-field-label-font-weight`          | `var(--ui-font-weight-semibold)`                                                                                                                                                                                                       | Font weight for emphasized field labels and legends.                                                                                                                                                                                                                                                                                                                                                 |
-| `--ui-field-label-text-color`           | `var(--ui-text-strong)`                                                                                                                                                                                                                | Text color for field labels.                                                                                                                                                                                                                                                                                                                                                                         |
-| `--ui-field-required-text-color`        | `var(--ui-invalid-text)`                                                                                                                                                                                                               | Color of the required asterisk.                                                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-focus-ring-color`                 | `oklch( from var(--ui-surface) clamp(0, (0.6 - l) * 1000, 1) 0 0 )`                                                                                                                                                                    | Color of the keyboard focus ring. Black on surfaces lighter than OKLCH 0.6 and white on darker ones, so it reaches 3:1 on any `--ui-surface`.                                                                                                                                                                                                                                                        |
-| `--ui-focus-ring-offset`                | `2px`                                                                                                                                                                                                                                  | Distance between a control and its focus ring.                                                                                                                                                                                                                                                                                                                                                       |
-| `--ui-focus-ring-style`                 | `solid`                                                                                                                                                                                                                                | Outline style of the focus ring.                                                                                                                                                                                                                                                                                                                                                                     |
-| `--ui-focus-ring-width`                 | `2px`                                                                                                                                                                                                                                  | Width of the focus ring.                                                                                                                                                                                                                                                                                                                                                                             |
-| `--ui-font-size-body`                   | `var(--ui-font-size-300)`                                                                                                                                                                                                              | Font size of body copy, `Card` text and the `Callout` title. Defaults to `--ui-font-size-300`.                                                                                                                                                                                                                                                                                                       |
-| `--ui-font-size-caption`                | `var(--ui-font-size-100)`                                                                                                                                                                                                              | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.                                                                                                                                                                                       |
-| `--ui-font-size-small`                  | `var(--ui-font-size-200)`                                                                                                                                                                                                              | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                                                                                                                                                                                              |
-| `--ui-invalid`                          | `light-dark( var(--ui-critical), oklch( from var(--ui-critical) max(l, var(--ui-invalid-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )`                                                                                     | Color for invalid field borders, fills and outlines. Lifted to `--ui-invalid-min-lightness` in dark mode, so invalid borders stand out from the page with more contrast.                                                                                                                                                                                                                             |
-| `--ui-invalid-text`                     | `light-dark( oklch(from var(--ui-invalid) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-invalid) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )`                                       | Color for validation messages and invalid labels. `--ui-invalid` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, so it stays readable where `--ui-invalid` is lighter for borders.                                                                                                                                                                           |
-| `--ui-line-height-control`              | `1.5`                                                                                                                                                                                                                                  | Line height of interface text: labels, helpers, choice labels and field hints.                                                                                                                                                                                                                                                                                                                       |
-| `--ui-line-height-tight`                | `1.25`                                                                                                                                                                                                                                 | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                                                                                                                                                                                                                         |
-| `--ui-motion`                           | `1`                                                                                                                                                                                                                                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).                                                                                                                                                                                            |
-| `--ui-on-accent`                        | `var(--ui-gray-1)`                                                                                                                                                                                                                     | Text on an accent fill, an intent color kept within `--ui-accent-fill-max-lightness`: critical buttons, severity `Badge`s, the invalid choice mark and the checked choice mark in dark mode. Near-white in both modes, since the cap keeps every accent fill dark enough for it.                                                                                                                     |
-| `--ui-on-primary`                       | `color( from var(--ui-primary) xyz-d65 calc(0.9505 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))) calc(0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)) calc(1.089 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))) )` | Text color on `--ui-primary`. Derived with relative color from the primary's relative luminance (the `y` of `xyz-d65`): white on a primary below 0.182, near-black above it, so either side keeps 4.5:1 and a custom `--ui-primary` gets readable text.                                                                                                                                              |
-| `--ui-primary`                          | `light-dark( oklch( from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c h ), oklch( from var(--ui-primary-source) max(l, var(--ui-primary-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )`               | Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color.                                                                                                                                                       |
-| `--ui-primary-tonal`                    | Unset                                                                                                                                                                                                                                  | Background of `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal`, and of a checked `Checkbox`, `Radio` or `Switch` card. When unset, buttons use `--ui-palette-tint` and cards `--ui-primary` at `--ui-state-active-alpha-accent`. Material's `primary-container` and shadcn's `secondary` go here.                                                                                       |
-| `--ui-radius`                           | `var(--size-2)`                                                                                                                                                                                                                        | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                                                                                                                                                     |
-| `--ui-radius-round`                     | `var(--radius-round)`                                                                                                                                                                                                                  | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.                                                                                                                                                                                                                                                                   |
-| `--ui-shadow-elevated`                  | `var(--ui-shadow-elevated-light)` `var(--ui-shadow-elevated-dark)` in dark mode                                                                                                                                                        | Shadow of elevated `Card` and `Accordion`. Switches between `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one.                                                                                                                                                             |
-| `--ui-shadow-surface`                   | `none`                                                                                                                                                                                                                                 | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                                                                                                                                                                                       |
-| `--ui-space-1`                          | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                                          | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-2`                          | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                                          | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-3`                          | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                                          | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-4`                          | `calc(var(--size-4) * var(--ui-space-scale))`                                                                                                                                                                                          | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-5`                          | `calc(var(--size-5) * var(--ui-space-scale))`                                                                                                                                                                                          | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-8`                          | `calc(var(--size-8) * var(--ui-space-scale))`                                                                                                                                                                                          | Spacing step 8: Open Props `--size-8` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-state-active-alpha-accent`        | `25%`                                                                                                                                                                                                                                  | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                    |
-| `--ui-state-hover-alpha-accent`         | `15%`                                                                                                                                                                                                                                  | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-surface`                          | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                                                      | Page and card background.                                                                                                                                                                                                                                                                                                                                                                            |
-| `--ui-surface-elevated`                 | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                                                                                                                                                                      | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                                                                                                                                    |
-| `--ui-surface-tonal`                    | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                                      | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                        |
-| `--ui-surface-tonal-hover`              | `light-dark( oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h), oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h) )`                                                                                                          | Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s and filled `TextField`, `Select` and `Textarea` fields. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.                                                                                                                                                                                            |
-| `--ui-switch-thumb-size-large`          | `calc(var(--size-4) * var(--ui-density))`                                                                                                                                                                                              | Diameter of the `Switch` thumb with `.ui-large`.                                                                                                                                                                                                                                                                                                                                                     |
-| `--ui-switch-thumb-size-small`          | `calc(0.75rem * var(--ui-density))`                                                                                                                                                                                                    | Diameter of the `Switch` thumb with `.ui-small`, and in `List` rows unless the switch has a size class.                                                                                                                                                                                                                                                                                              |
-| `--ui-switch-thumb-size-x-small`        | `calc(0.625rem * var(--ui-density))`                                                                                                                                                                                                   | Diameter of the `Switch` thumb with `.ui-x-small`.                                                                                                                                                                                                                                                                                                                                                   |
-| `--ui-switch-track-block-size-large`    | `calc(var(--size-6) * var(--ui-density))`                                                                                                                                                                                              | Height of the `Switch` track with `.ui-large`.                                                                                                                                                                                                                                                                                                                                                       |
-| `--ui-switch-track-block-size-small`    | `calc(var(--size-4) * var(--ui-density))`                                                                                                                                                                                              | Height of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class.                                                                                                                                                                                                                                                                                                |
-| `--ui-switch-track-block-size-x-small`  | `calc( var(--size-3) * var(--ui-density) )`                                                                                                                                                                                            | Height of the `Switch` track with `.ui-x-small`.                                                                                                                                                                                                                                                                                                                                                     |
-| `--ui-switch-track-inline-size-large`   | `calc( 2 * var(--ui-switch-track-block-size-large) )`                                                                                                                                                                                  | Width of the `Switch` track with `.ui-large`. Twice `--ui-switch-track-block-size-large` until a theme sets it.                                                                                                                                                                                                                                                                                      |
-| `--ui-switch-track-inline-size-small`   | `calc( 2 * var(--ui-switch-track-block-size-small) )`                                                                                                                                                                                  | Width of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class. Twice `--ui-switch-track-block-size-small` until a theme sets it.                                                                                                                                                                                                                               |
-| `--ui-switch-track-inline-size-x-small` | `calc( 2 * var(--ui-switch-track-block-size-x-small) )`                                                                                                                                                                                | Width of the `Switch` track with `.ui-x-small`. Twice `--ui-switch-track-block-size-x-small` until a theme sets it.                                                                                                                                                                                                                                                                                  |
-| `--ui-text`                             | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`                            | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                                                                                                                                                                                            |
-| `--ui-text-strong`                      | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                                                      | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                                                                                                                                                                                     |
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--ui-border-color` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`. |
+| `--ui-border-color-on-raised` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border on raised surfaces, such as the page background in dark mode, sets this one. |
+| `--ui-border-color-raised` | Unset | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background. |
+| `--ui-border-width` | `1px` | Default border width for components that draw a border. |
+| `--ui-card-padding` | Unset | Padding of `Card`, `Dialog` and `Accordion` content, headers and actions. When unset, `--ui-space-3`. |
+| `--ui-choice-accent` | Unset | Fill of a checked `Checkbox`, `Radio` and `Switch`, and the thumb and fill of `Range`. When unset, `--ui-control-accent`, else `--ui-primary`, with its lightness capped in dark mode for the choice controls. Set it, or `--ui-control-accent`, to `--ui-primary` for the plain primary, like Material and shadcn. |
+| `--ui-choice-border-color` | Unset | Border of the unchecked `Checkbox`, `Radio` and `Switch` track. When unset, `--ui-field-border-color`. Set it for themes whose field border is fainter than 3:1, like shadcn, which outlines its choices with `--ui-primary` like shadcn/ui does. |
+| `--ui-choice-fill-max-lightness` | `0.62` | The highest OKLCH lightness of a checked `Checkbox`, `Radio` and `Switch` fill in dark mode, so the light mark keeps 3:1. `0.62`. |
+| `--ui-choice-label-offset` | `0px` | Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font. |
+| `--ui-choice-on-accent` | Unset | Color of the mark on a checked `Checkbox`, `Radio` and `Switch`. Set it with `--ui-choice-accent`. When unset, `--ui-on-control-accent`, else `--ui-on-primary` in light mode and near-white in dark mode. |
+| `--ui-choice-ripple-bg-color` | `oklch(from var(--ui-text) l c h / 20%)` | Halo color for the `Checkbox` and `Radio` hover effect. `--ui-text` at 20%. |
+| `--ui-choice-size` | `calc(1.25rem * var(--ui-density))` | Default `Checkbox` and `Radio` input size. |
+| `--ui-choice-size-large` | `calc(1.5rem * var(--ui-density))` | `Checkbox` and `Radio` input size with `.ui-large`. |
+| `--ui-choice-size-small` | `calc(1rem * var(--ui-density))` | `Checkbox` and `Radio` input size with `.ui-small`, and in dense `List` rows unless the control has a size class. |
+| `--ui-choice-size-x-small` | `calc(0.875rem * var(--ui-density))` | `Checkbox` and `Radio` input size with `.ui-x-small`. |
+| `--ui-control-accent` | Unset | The accent every control shares: `Button` and `ButtonGroup` without `.ui-primary` or `.ui-critical`, a checked `Checkbox`, `Radio` and `Switch`, and the `Range` thumb and fill. Unset by default, so buttons keep `--ui-palette-strong` and choice controls `--ui-primary`. Set it to `--ui-primary` to give every control the brand color in one line, like Material and shadcn, and `--ui-button-accent` or `--ui-choice-accent` to override one of them. |
+| `--ui-disabled-opacity` | `0.64` | Opacity applied to disabled controls. |
+| `--ui-duration` | `0.2s` | Default transition duration. Multiplied by `--ui-motion`. |
+| `--ui-ease` | `ease` | Default easing for transitions. |
+| `--ui-field-border-color` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )` | Border color of every empty control: `TextField`, `Select`, `Textarea`, the unchecked `Checkbox`, `Radio` and `Switch` unless `--ui-choice-border-color` is set, the `Range` track and the `Progress` outline. `--ui-text-strong` mixed into `--ui-surface` at `--ui-field-border-strength`, so it reaches 3:1. Lighter than `--ui-border-color`, which is decorative, is a choice a theme can make. |
+| `--ui-field-border-color-on-raised` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )` | Field border color inside raised surfaces. The same mix as `--ui-field-border-color` by default. Each raised component sets `--ui-field-border-color` to it on its root. |
+| `--ui-field-border-width` | `1px` | Border width for fields, `Checkbox`, `Radio` and `Switch`. |
+| `--ui-field-helper-font-size` | `var(--ui-font-size-caption)` | Font size for helper and end text under a field. |
+| `--ui-field-helper-line-height` | `var(--ui-line-height-control)` | Line height for helper and end text under a field. |
+| `--ui-field-helper-text-color` | `var(--ui-text-subtle)` | Text color for helper and end text under a field. |
+| `--ui-field-label-font-size` | `var(--ui-font-size-small)` | Font size for field labels. |
+| `--ui-field-label-font-weight` | `var(--ui-font-weight-semibold)` | Font weight for emphasized field labels and legends. |
+| `--ui-field-label-text-color` | `var(--ui-text-strong)` | Text color for field labels. |
+| `--ui-field-required-text-color` | `var(--ui-invalid-text)` | Color of the required asterisk. |
+| `--ui-focus-ring-color` | `oklch( from var(--ui-surface) clamp(0, (0.6 - l) * 1000, 1) 0 0 )` | Color of the keyboard focus ring. Black on surfaces lighter than OKLCH 0.6 and white on darker ones, so it reaches 3:1 on any `--ui-surface`. |
+| `--ui-focus-ring-offset` | `2px` | Distance between a control and its focus ring. |
+| `--ui-focus-ring-style` | `solid` | Outline style of the focus ring. |
+| `--ui-focus-ring-width` | `2px` | Width of the focus ring. |
+| `--ui-font-size-body` | `var(--ui-font-size-300)` | Font size of body copy, `Card` text and the `Callout` title. Defaults to `--ui-font-size-300`. |
+| `--ui-font-size-caption` | `var(--ui-font-size-100)` | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`. |
+| `--ui-font-size-small` | `var(--ui-font-size-200)` | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`. |
+| `--ui-invalid` | `light-dark( var(--ui-critical), oklch( from var(--ui-critical) max(l, var(--ui-invalid-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )` | Color for invalid field borders, fills and outlines. Lifted to `--ui-invalid-min-lightness` in dark mode, so invalid borders stand out from the page with more contrast. |
+| `--ui-invalid-text` | `light-dark( oklch(from var(--ui-invalid) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-invalid) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )` | Color for validation messages and invalid labels. `--ui-invalid` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, so it stays readable where `--ui-invalid` is lighter for borders. |
+| `--ui-line-height-control` | `1.5` | Line height of interface text: labels, helpers, choice labels and field hints. |
+| `--ui-line-height-tight` | `1.25` | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons. |
+| `--ui-motion` | `1` | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
+| `--ui-on-accent` | `var(--ui-gray-1)` | Text on an accent fill, an intent color kept within `--ui-accent-fill-max-lightness`: critical buttons, severity `Badge`s, the invalid choice mark and the checked choice mark in dark mode. Near-white in both modes, since the cap keeps every accent fill dark enough for it. |
+| `--ui-on-control-accent` | Unset | Text and mark color on a `--ui-control-accent` fill. Set it with `--ui-control-accent`. `--ui-button-on-accent` and `--ui-choice-on-accent` override it per component. |
+| `--ui-on-primary` | `color( from var(--ui-primary) xyz-d65 calc(0.9505 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))) calc(0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)) calc(1.089 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))) )` | Text color on `--ui-primary`. Derived with relative color from the primary's relative luminance (the `y` of `xyz-d65`): white on a primary below 0.182, near-black above it, so either side keeps 4.5:1 and a custom `--ui-primary` gets readable text. |
+| `--ui-primary` | `light-dark( oklch( from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c h ), oklch( from var(--ui-primary-source) max(l, var(--ui-primary-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )` | Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color. |
+| `--ui-primary-tonal` | Unset | Background of `Button` and `ButtonGroup` with `.ui-primary` and `.ui-tonal`, and of a checked `Checkbox`, `Radio` or `Switch` card. When unset, buttons use `--ui-palette-tint` and cards `--ui-primary` at `--ui-state-active-alpha-accent`. Material's `primary-container` and shadcn's `secondary` go here. |
+| `--ui-radius` | `0.5rem` | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-radius-round` | `1e5px` | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers. |
+| `--ui-shadow-elevated` | `0 -1px 3px 0 hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)), 0 1px 2px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)), 0 2px 5px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.04)), 0 4px 12px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.05)), 0 12px 15px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.07))` | Shadow of elevated `Card` and `Accordion`. Five layers of `--ui-shadow-color`, which follows the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. |
+| `--ui-shadow-surface` | `none` | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane. |
+| `--ui-space-1` | `calc(0.25rem * var(--ui-space-scale))` | Spacing step 1: `0.25rem` times `--ui-space-scale`. |
+| `--ui-space-2` | `calc(0.5rem * var(--ui-space-scale))` | Spacing step 2: `0.5rem` times `--ui-space-scale`. |
+| `--ui-space-3` | `calc(1rem * var(--ui-space-scale))` | Spacing step 3: `1rem` times `--ui-space-scale`. |
+| `--ui-space-4` | `calc(1.25rem * var(--ui-space-scale))` | Spacing step 4: `1.25rem` times `--ui-space-scale`. |
+| `--ui-space-5` | `calc(1.5rem * var(--ui-space-scale))` | Spacing step 5: `1.5rem` times `--ui-space-scale`. |
+| `--ui-space-8` | `calc(3rem * var(--ui-space-scale))` | Spacing step 8: `3rem` times `--ui-space-scale`. |
+| `--ui-state-active-alpha-accent` | `25%` | Alpha of the pressed state layer on primary and critical buttons. |
+| `--ui-state-hover-alpha-accent` | `15%` | Alpha of the hover state layer on primary and critical buttons. |
+| `--ui-surface` | `light-dark(var(--ui-gray-1), var(--ui-gray-13))` | Page and card background. |
+| `--ui-surface-elevated` | `light-dark(var(--ui-gray-1), var(--ui-gray-12))` | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options. |
+| `--ui-surface-tonal` | `light-dark(var(--ui-gray-3), var(--ui-gray-12))` | Background of tonal variants. |
+| `--ui-surface-tonal-hover` | `light-dark( oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h), oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h) )` | Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s and filled `TextField`, `Select` and `Textarea` fields. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode. |
+| `--ui-switch-thumb-size-large` | `calc(1.25rem * var(--ui-density))` | Diameter of the `Switch` thumb with `.ui-large`. |
+| `--ui-switch-thumb-size-small` | `calc(0.75rem * var(--ui-density))` | Diameter of the `Switch` thumb with `.ui-small`, and in `List` rows unless the switch has a size class. |
+| `--ui-switch-thumb-size-x-small` | `calc(0.625rem * var(--ui-density))` | Diameter of the `Switch` thumb with `.ui-x-small`. |
+| `--ui-switch-track-block-size-large` | `calc(1.75rem * var(--ui-density))` | Height of the `Switch` track with `.ui-large`. |
+| `--ui-switch-track-block-size-small` | `calc(1.25rem * var(--ui-density))` | Height of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class. |
+| `--ui-switch-track-block-size-x-small` | `calc(1rem * var(--ui-density))` | Height of the `Switch` track with `.ui-x-small`. |
+| `--ui-switch-track-inline-size-large` | `calc( 2 * var(--ui-switch-track-block-size-large) )` | Width of the `Switch` track with `.ui-large`. Twice `--ui-switch-track-block-size-large` until a theme sets it. |
+| `--ui-switch-track-inline-size-small` | `calc( 2 * var(--ui-switch-track-block-size-small) )` | Width of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class. Twice `--ui-switch-track-block-size-small` until a theme sets it. |
+| `--ui-switch-track-inline-size-x-small` | `calc( 2 * var(--ui-switch-track-block-size-x-small) )` | Width of the `Switch` track with `.ui-x-small`. Twice `--ui-switch-track-block-size-x-small` until a theme sets it. |
+| `--ui-text` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )` | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`. |
+| `--ui-text-strong` | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Strongest text color, for headings, labels and values. Body text is `--ui-text`. |
 
 The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
@@ -620,143 +635,53 @@ The stylesheets on this page read these theme tokens. Override them on `html` or
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
 
+### card.css
+
+A dependency, from [Card](https://open-props-ui.netlify.app/astro/components/card.md).
+
+| Property | Kind | Description |
+| --- | --- | --- |
+| `--_bg-color` | Output | The current background. Set by the variants. |
+| `--_border-color` | Output | The current border color. Set by the variants (`--ui-border-color-raised` in `.ui-tonal` and `.ui-elevated` when a theme sets it) and by hovering `.ui-card-link`. |
+| `--_border-width` | Output | The current border width. Set by the variants. |
+| `--_duration` | Output | Duration of the focus ring animation, `--ui-duration` times `--_motion`. |
+| `--_ease` | Input | Easing of the focus ring animation. Defaults to `--ui-ease`. |
+| `--_elevated-bg-color` | Input | Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`. |
+| `--_elevated-shadow` | Input | Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`. |
+| `--_motion` | Input | Motion multiplier for the focus ring animation. `0` turns it off. |
+| `--_outlined-border-color` | Input | Border color of `.ui-outlined`. Defaults to `--ui-border-color`. |
+| `--_padding` | Input | Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. |
+| `--_shadow` | Output | The current shadow. `.ui-elevated` sets `--_elevated-shadow`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`. |
+| `--_surface-bg-color` | Input | Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`. |
+| `--_tonal-bg-color` | Input | Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`. |
+
 ### choice.css
 
-| Property              | Kind   | Description                                                                                                                                                                                         |
-| --------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`           | Input  | Fill and border of the checked input. `--ui-choice-accent` when the theme sets it, otherwise `--ui-primary` with its lightness capped in dark mode, and `--ui-invalid` when invalid.                |
-| `--_bg-color`         | Output | Background of `.ui-card`, read by `card.css`. The surface by default, `--_hover-bg-color` when hovered and `--_checked-bg-color` when checked.                                                      |
-| `--_border-color`     | Output | Border of `.ui-card`, read by `card.css`. `--ui-border-color` by default, `--_accent` when checked and `--ui-invalid` when invalid.                                                                 |
-| `--_border-width`     | Output | Border width of `.ui-card`, read by `card.css`. `--ui-border-width`.                                                                                                                                |
-| `--_card-padding`     | Input  | Padding of `.ui-card`. `--ui-space-3`, and `--ui-space-2` in `.ui-small` and `.ui-x-small`.                                                                                                         |
-| `--_checked-bg-color` | Input  | Background of a checked `.ui-card`. `--ui-primary-tonal` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`.                                                      |
-| `--_duration`         | Output | Duration of the transitions, `--ui-duration` times `--_motion`.                                                                                                                                     |
-| `--_ease`             | Input  | Easing of the transitions. Defaults to `--ui-ease`.                                                                                                                                                 |
-| `--_hover-bg-color`   | Input  | Background of a hovered `.ui-card`. Defaults to `--ui-surface-tonal-hover`.                                                                                                                         |
-| `--_motion`           | Input  | Motion multiplier for the transitions. `0` turns them off.                                                                                                                                          |
-| `--_on-accent`        | Input  | Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, otherwise `--ui-on-primary`, or `--ui-on-accent` in dark mode. `--ui-on-accent` when invalid. |
-| `--_ripple-size`      | Input  | Size of the hover ripple of checkboxes and radios, relative to the input. Set on `input`.                                                                                                           |
-| `--_shadow`           | Output | Shadow of `.ui-card`, read by `card.css`. `--ui-shadow-surface` unless `.ui-tonal` or `.ui-elevated` set their own.                                                                                 |
-| `--_size`             | Input  | Width and height of the checkbox and radio input, which the label centers on. Defaults to `--ui-choice-size`, set by the size classes. `switch.css` sets it to the track height.                    |
-| `--_thumb-scale`      | Output | Current scale of the ripple. Set by the hover and active states.                                                                                                                                    |
+| Property | Kind | Description |
+| --- | --- | --- |
+| `--_accent` | Input | Fill and border of the checked input. `--ui-choice-accent` when the theme sets it, otherwise `--ui-primary` with its lightness capped in dark mode, and `--ui-invalid` when invalid. |
+| `--_bg-color` | Output | Background of `.ui-card`, read by `card.css`. The surface by default, `--_hover-bg-color` when hovered and `--_checked-bg-color` when checked. |
+| `--_border-color` | Output | Border of `.ui-card`, read by `card.css`. `--ui-border-color` by default, `--_accent` when checked and `--ui-invalid` when invalid. |
+| `--_border-width` | Output | Border width of `.ui-card`, read by `card.css`. `--ui-border-width`. |
+| `--_card-padding` | Input | Padding of `.ui-card`. `--ui-space-3`, and `--ui-space-2` in `.ui-small` and `.ui-x-small`. |
+| `--_checked-bg-color` | Input | Background of a checked `.ui-card`. `--ui-primary-tonal` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`. |
+| `--_duration` | Output | Duration of the transitions, `--ui-duration` times `--_motion`. |
+| `--_ease` | Input | Easing of the transitions. Defaults to `--ui-ease`. |
+| `--_hover-bg-color` | Input | Background of a hovered `.ui-card`. Defaults to `--ui-surface-tonal-hover`. |
+| `--_motion` | Input | Motion multiplier for the transitions. `0` turns them off. |
+| `--_on-accent` | Input | Color of the checkmark, dash and dots on `--_accent`. `--ui-choice-on-accent` when the theme sets it, otherwise `--ui-on-primary`, or `--ui-on-accent` in dark mode. `--ui-on-accent` when invalid. |
+| `--_ripple-size` | Input | Size of the hover ripple of checkboxes and radios, relative to the input. Set on `input`. |
+| `--_shadow` | Output | Shadow of `.ui-card`, read by `card.css`. `--ui-shadow-surface` unless `.ui-tonal` or `.ui-elevated` set their own. |
+| `--_size` | Input | Width and height of the checkbox and radio input, which the label centers on. Defaults to `--ui-choice-size`, set by the size classes. `switch.css` sets it to the track height. |
+| `--_thumb-scale` | Output | Current scale of the ripple. Set by the hover and active states. |
 
 ### radio.css
 
-| Property        | Kind   | Description                                                                       |
-| --------------- | ------ | --------------------------------------------------------------------------------- |
-| `--_accent`     | Input  | Fill and border of the checked circle. `SelectedItem` in forced colors.           |
+| Property | Kind | Description |
+| --- | --- | --- |
+| `--_accent` | Input | Fill and border of the checked circle. `SelectedItem` in forced colors. |
 | `--_dot-radius` | Output | Radius of the checked dot, computed from `--_size` and `--ui-field-border-width`. |
-| `--_on-accent`  | Input  | Color of the dot on `--_accent`. `SelectedItemText` in forced colors.             |
-
-## Under the hood
-
-1. Appearance
-
-   - `appearance: none` drops the native circle
-   - Still a radio group: one shared `name`, arrow keys move the selection
-   - The `<legend>` names the group
-   - In dark mode `--accent` caps the primary's lightness, so the light dot keeps 3:1
-
-2. Dot
-
-   - The dot is a `radial-gradient()` on the input's own background, centered in its box
-   - No second box to lay out and round to device pixels, so the dot stays centered at every zoom level and screen scale
-   - Half a pixel between the two stops smooths the edge
-
-3. Label
-
-   - The `<label>` wraps the input, so the text is part of the hit area
-   - `:has([disabled])` dims the whole row from the input's state
-   - `(size − 1lh) / 2` centers the first line on the circle, in every browser
-
-Step 1 of 3: Appearance
-
-- [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
-- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
-- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
-
-```html
-<fieldset>
-  <legend>Plan</legend>
-  <label class="label">
-    <input class="radio" type="radio" name="plan" checked />
-    <span>Monthly</span>
-  </label>
-  <label class="label">
-    <input class="radio" type="radio" name="plan" />
-    <span>Yearly</span>
-  </label>
-</fieldset>
-```
-
-```css
-.radio {
-  --accent: light-dark(
-    var(--ui-primary),
-    oklch(from var(--ui-primary) min(l, 0.62) c h)
-  );
-  --accent-contrast: light-dark(var(--ui-on-primary), var(--ui-on-accent));
-
-  appearance: none;
-  aspect-ratio: 1;
-  background-color: var(--ui-surface);
-  block-size: 1.25rem;
-  border: var(--ui-field-border-width) solid var(--ui-field-border-color);
-  border-radius: 50%;
-  box-sizing: border-box;
-  inline-size: 1.25rem;
-  margin: 0;
-}
-
-.radio:checked {
-  background-color: var(--accent);
-  border-color: var(--accent);
-}
-```
-
-Step 2 of 3: Dot
-
-```css
-.radio:checked {
-  background-image: radial-gradient(
-    circle,
-    var(--accent-contrast) calc(var(--dot) - 0.25px),
-    var(--accent) calc(var(--dot) + 0.25px)
-  );
-}
-```
-
-Step 3 of 3: Label
-
-- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [lh unit ](https://webstatus.dev/features/lh)(Widely available): Chrome 109+, Edge 109+, Firefox 120+, Safari 16.4+
-
-```css
-.label {
-  align-items: start;
-  cursor: pointer;
-  display: inline-grid;
-  gap: 0 0.5rem;
-  grid-auto-flow: column;
-}
-
-.label:has([disabled]) {
-  cursor: not-allowed;
-  opacity: var(--ui-disabled-opacity);
-}
-
-.label > span {
-  margin-block-start: calc((1.25rem - 1lh) / 2);
-}
-```
-
-## Browser support
-
-- Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v18.
-
-Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Radio.md).
+| `--_on-accent` | Input | Color of the dot on `--_accent`. `SelectedItemText` in forced colors. |
 
 ## Installation
 
@@ -774,26 +699,8 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 - `opui-css/css/components/form.css`
 - `opui-css/css/components/card.css`
 
-## Changelog
+## Used in blocks
 
-### What's new
-
-- [Cards](#cards) with the `card` prop, `spread` for the input at the end, and `variant="tonal"` or `"elevated"`.
-- [`label`](#api) takes the label text, a shorthand for the default slot.
-- Breaking: [`orientation="vertical"`](#label-position) replaces `stack`.
-- The unchecked ring reads [`--ui-choice-border-color`](#api) when a theme sets it, and `--ui-field-border-color`, which reaches 3:1 against the page by default, when it doesn't.
-- The checked fill and dot read [`--ui-choice-accent`](#api) and `--ui-choice-on-accent` when a theme sets them.
-- [Radios](#sizes) are 20px, the same `--ui-choice-size` as Checkbox.
-- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
-- Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale` and `--_input-size` is `--_size`. `--isLTR` and `--isRTL` are gone, the halo centers itself ([Under the hood](#under-the-hood)).
-- Without a [visible label](#hidden-label), radios center in table cells and lines of text, and stay a 24px click target at every size.
-- [Spread](#spread) with the `spread` prop, like Checkbox and Switch.
-- Breaking: set `error` on each `Radio` in an invalid group instead of `data-invalid` on the `Fieldset` ([Validation](#field-group-validation)).
-- `size` takes `"x-small"`. [Sizes](#sizes)
-- A radio without a [label](#visible-label), `aria-label` or `aria-labelledby` warns in development.
-- [`endText`](#end-text) takes a string, like the `end-text` slot.
-- Breaking: no `type` prop in the types, and the native `size` isn't typed either ([API](#api)).
-- Breaking: deep type imports from `components/Radio/types` are named `Props` and `Slots` (was `RadioProps` and `RadioSlots`). Import [`RadioProps`](#api) from the framework entry instead.
-- `--_duration` and `--_ease` set the transition duration and easing ([Under the hood](#under-the-hood)).
-- Breaking: `style` goes to the root `<label>`, like `class`, so `--_` properties set through it apply ([API](#api)).
-- [Sizes](#sizes) name the default: `size="medium"`.
+- [Checkout](https://open-props-ui.netlify.app/blocks/checkout.md)
+- [Notification settings](https://open-props-ui.netlify.app/blocks/notification-settings.md)
+- [Sign up](https://open-props-ui.netlify.app/blocks/sign-up.md)

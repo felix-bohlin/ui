@@ -466,203 +466,63 @@ Everything at once.
 
 ### Form API
 
-| Prop       | Type               | Default  | Description               |
-| ---------- | ------------------ | -------- | ------------------------- |
-| `as`       | `"div"` , `"form"` | `"form"` | The element to render.    |
-| `children` | `Snippet`          | -        | The fieldsets and fields. |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `as` | `"div"` , `"form"` | `"form"` | The element to render. |
+| `children` | `Snippet` | - | The fieldsets and fields. |
 
 ### Fieldset API
 
-| Prop       | Type                   | Default      | Description                                                                                                            |
-| ---------- | ---------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| `as`       | `"div"` , `"fieldset"` | `"fieldset"` | The element to render. Elements other than `fieldset` get `role="group"`. Point their `aria-labelledby` at the legend. |
-| `children` | `Snippet`              | -            | The legend, description and fields.                                                                                    |
-| `disabled` | `boolean`              | `false`      | Disables every field inside. Only on a `<fieldset>`.                                                                   |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `as` | `"div"` , `"fieldset"` | `"fieldset"` | The element to render. Elements other than `fieldset` get `role="group"`. Point their `aria-labelledby` at the legend. |
+| `children` | `Snippet` | - | The legend, description and fields. |
+| `disabled` | `boolean` | `false` | Disables every field inside. Only on a `<fieldset>`. |
 
 ### Field legend API
 
-| Prop       | Type               | Default    | Description                                                   |
-| ---------- | ------------------ | ---------- | ------------------------------------------------------------- |
-| `as`       | `"legend"` , `"p"` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
-| `children` | `Snippet`          | -          | The label.                                                    |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `as` | `"legend"` , `"p"` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
+| `children` | `Snippet` | - | The label. |
 
 ### Field description API
 
-| Prop       | Type      | Default | Description |
-| ---------- | --------- | ------- | ----------- |
-| `children` | `Snippet` | -       | The text.   |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `Snippet` | - | The text. |
 
 ### Field group API
 
-| Prop          | Type                                     | Default  | Description                                                                                               |
-| ------------- | ---------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
-| `children`    | `Snippet`                                | -        | The fields, such as checkboxes, radios or switches.                                                       |
-| `name`        | `string`                                 | -        | Sets `name` on the OPUI fields inside that don't set their own.                                           |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `Snippet` | - | The fields, such as checkboxes, radios or switches. |
+| `name` | `string` | - | Sets `name` on the OPUI fields inside that don't set their own. |
 | `orientation` | `"auto"` , `"horizontal"` , `"vertical"` | `"auto"` | The orientation of the fields. With `auto`, fields stack and a group with only buttons lines up in a row. |
 
 ### CSS variables
 
-| Variable                         | Default                                                                                                                                                                                                     | Description                                                                                                                                                                                                                |
-| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-disabled-opacity`          | `0.64`                                                                                                                                                                                                      | Opacity applied to disabled controls.                                                                                                                                                                                      |
-| `--ui-field-helper-font-size`    | `var(--ui-font-size-caption)`                                                                                                                                                                               | Font size for helper and end text under a field.                                                                                                                                                                           |
-| `--ui-field-helper-line-height`  | `var(--ui-line-height-control)`                                                                                                                                                                             | Line height for helper and end text under a field.                                                                                                                                                                         |
-| `--ui-field-helper-text-color`   | `var(--ui-text-subtle)`                                                                                                                                                                                     | Text color for helper and end text under a field.                                                                                                                                                                          |
-| `--ui-field-label-font-weight`   | `var(--ui-font-weight-semibold)`                                                                                                                                                                            | Font weight for emphasized field labels and legends.                                                                                                                                                                       |
-| `--ui-field-label-text-color`    | `var(--ui-text-strong)`                                                                                                                                                                                     | Text color for field labels.                                                                                                                                                                                               |
-| `--ui-field-required-text-color` | `var(--ui-invalid-text)`                                                                                                                                                                                    | Color of the required asterisk.                                                                                                                                                                                            |
-| `--ui-font-size-small`           | `var(--ui-font-size-200)`                                                                                                                                                                                   | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                    |
-| `--ui-invalid-text`              | `light-dark( oklch(from var(--ui-invalid) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-invalid) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )`            | Color for validation messages and invalid labels. `--ui-invalid` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, so it stays readable where `--ui-invalid` is lighter for borders. |
-| `--ui-line-height-control`       | `1.5`                                                                                                                                                                                                       | Line height of interface text: labels, helpers, choice labels and field hints.                                                                                                                                             |
-| `--ui-space-1`                   | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                               | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                            |
-| `--ui-space-2`                   | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                               | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                            |
-| `--ui-space-3`                   | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                               | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                            |
-| `--ui-space-4`                   | `calc(var(--size-4) * var(--ui-space-scale))`                                                                                                                                                               | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                            |
-| `--ui-space-5`                   | `calc(var(--size-5) * var(--ui-space-scale))`                                                                                                                                                               | Spacing step 5: Open Props `--size-5` times `--ui-space-scale`.                                                                                                                                                            |
-| `--ui-space-8`                   | `calc(var(--size-8) * var(--ui-space-scale))`                                                                                                                                                               | Spacing step 8: Open Props `--size-8` times `--ui-space-scale`.                                                                                                                                                            |
-| `--ui-text`                      | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )` | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                  |
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--ui-disabled-opacity` | `0.64` | Opacity applied to disabled controls. |
+| `--ui-field-helper-font-size` | `var(--ui-font-size-caption)` | Font size for helper and end text under a field. |
+| `--ui-field-helper-line-height` | `var(--ui-line-height-control)` | Line height for helper and end text under a field. |
+| `--ui-field-helper-text-color` | `var(--ui-text-subtle)` | Text color for helper and end text under a field. |
+| `--ui-field-label-font-weight` | `var(--ui-font-weight-semibold)` | Font weight for emphasized field labels and legends. |
+| `--ui-field-label-text-color` | `var(--ui-text-strong)` | Text color for field labels. |
+| `--ui-field-required-text-color` | `var(--ui-invalid-text)` | Color of the required asterisk. |
+| `--ui-font-size-small` | `var(--ui-font-size-200)` | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`. |
+| `--ui-invalid-text` | `light-dark( oklch(from var(--ui-invalid) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-invalid) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )` | Color for validation messages and invalid labels. `--ui-invalid` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, so it stays readable where `--ui-invalid` is lighter for borders. |
+| `--ui-line-height-control` | `1.5` | Line height of interface text: labels, helpers, choice labels and field hints. |
+| `--ui-space-1` | `calc(0.25rem * var(--ui-space-scale))` | Spacing step 1: `0.25rem` times `--ui-space-scale`. |
+| `--ui-space-2` | `calc(0.5rem * var(--ui-space-scale))` | Spacing step 2: `0.5rem` times `--ui-space-scale`. |
+| `--ui-space-3` | `calc(1rem * var(--ui-space-scale))` | Spacing step 3: `1rem` times `--ui-space-scale`. |
+| `--ui-space-4` | `calc(1.25rem * var(--ui-space-scale))` | Spacing step 4: `1.25rem` times `--ui-space-scale`. |
+| `--ui-space-5` | `calc(1.5rem * var(--ui-space-scale))` | Spacing step 5: `1.5rem` times `--ui-space-scale`. |
+| `--ui-space-8` | `calc(3rem * var(--ui-space-scale))` | Spacing step 8: `3rem` times `--ui-space-scale`. |
+| `--ui-text` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )` | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`. |
 
 The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
-
-## Under the hood
-
-Read the post: [Smarter fieldsets with :has()](https://open-props-ui.netlify.app/learn/form-fieldset-has)
-
-1. Fieldset
-
-   - `<fieldset>` and `<legend>` name the group for assistive tech
-   - `all: unset` drops the border, padding and the legend notch
-   - What's left is a plain grid
-
-2. Description
-
-   - `:has(+ .description)`: the legend knows a description follows
-   - The spacing moves from the legend to the description
-
-3. Groups
-
-   - `:has(> .check):not(:has(> :not(.check)))`: only checkboxes, radios or switches, nothing else
-   - A list of choices gets a tighter gap
-   - A group of only buttons becomes a row, unless it's set to `.column`
-   - The row gets space above it, unless an `<hr>` comes right before it
-   - A `.column` of buttons keeps each button at its own width
-   - The buttons act on the whole form, so their group goes after the fieldset, not inside it
-
-4. Required
-
-   - One `required` input anywhere inside marks the legend
-   - No prop to keep in sync with the inputs
-
-Step 1 of 4: Fieldset
-
-- [`all` ](https://webstatus.dev/features/all)(Widely available): Chrome 37+, Edge 79+, Firefox 27+, Safari 9.1+
-- [\<fieldset> and \<legend> ](https://webstatus.dev/features/fieldset)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
-
-```html
-<fieldset class="fieldset">
-  <legend>Account</legend>
-  …
-</fieldset>
-```
-
-```css
-.fieldset {
-  all: unset;
-  display: grid;
-  gap: 0.25rem;
-}
-
-.fieldset legend {
-  all: unset;
-  font-weight: 600;
-  margin-block-end: 0.75rem;
-}
-```
-
-Step 2 of 4: Description
-
-- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-
-```css
-.fieldset legend:has(+ .description) {
-  margin-block-end: 0;
-}
-
-.description {
-  color: var(--ui-text);
-  font-size: var(--ui-font-size-small);
-  margin: 0;
-}
-
-.description:has(+ *) {
-  margin-block-end: 0.75rem;
-}
-```
-
-Step 3 of 4: Groups
-
-- [`:not()` ](https://webstatus.dev/features/not)(Widely available): Chrome 88+, Edge 88+, Firefox 84+, Safari 9+
-
-```html
-<form>
-  <fieldset class="fieldset">
-    <legend>Notifications</legend>
-    …
-  </fieldset>
-  <div class="group">
-    <button type="reset">Cancel</button>
-    <button type="button">Save</button>
-  </div>
-</form>
-```
-
-```css
-.group {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.group + .group {
-  margin-block-start: 1.25rem;
-}
-
-.group:has(> .check):not(:has(> :not(.check))) {
-  gap: 0.5rem;
-}
-
-.group:has(> button):not(.column, :has(> :not(button))) {
-  align-items: center;
-  flex-direction: row;
-  gap: 0.5rem;
-}
-
-.group:has(> button):not(.column, :has(> :not(button)), hr + .group) {
-  margin-block-start: 1rem;
-}
-
-.group.column:has(> button):not(:has(> :not(button))) {
-  align-items: start;
-}
-```
-
-Step 4 of 4: Required
-
-```css
-.fieldset:has(:required) legend::after {
-  color: var(--ui-field-required-text-color);
-  content: "*";
-  margin-inline-start: 0.25ex;
-}
-```
-
-## Browser support
-
-- Chromium: Full support Supported since v119.
-- Firefox: Full support Supported since v121.
-- Safari: Full support Supported since v16.5.
-
-Explore these features in the [browser support guide](https://open-props-ui.netlify.app/svelte/guide/browser-support/?components=Form.md).
 
 ## Installation
 
@@ -679,6 +539,19 @@ Import the components from `opui-css/svelte`:
 Copy the CSS into your project to own it. It reads tokens from Open Props, `palette.css` and `theme.css`, so those go on the page too, after `layers.css`. See [Getting started](https://open-props-ui.netlify.app/svelte/guide/getting-started.md).
 
 - `opui-css/css/components/form.css`
+
+## Used in blocks
+
+- [Account settings](https://open-props-ui.netlify.app/blocks/account-settings.md)
+- [Checkout](https://open-props-ui.netlify.app/blocks/checkout.md)
+- [Forgot password](https://open-props-ui.netlify.app/blocks/forgot-password.md)
+- [Newsletter](https://open-props-ui.netlify.app/blocks/newsletter.md)
+- [Notification settings](https://open-props-ui.netlify.app/blocks/notification-settings.md)
+- [Product detail](https://open-props-ui.netlify.app/blocks/product-detail.md)
+- [Server status](https://open-props-ui.netlify.app/blocks/server-status.md)
+- [Sign in](https://open-props-ui.netlify.app/blocks/sign-in.md)
+- [Sign up](https://open-props-ui.netlify.app/blocks/sign-up.md)
+- [Two-factor authentication](https://open-props-ui.netlify.app/blocks/two-factor.md)
 
 ## See also
 

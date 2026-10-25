@@ -83,32 +83,32 @@ import { Card, CardContent, Divider } from "opui-css/astro"
 
 ### Divider API
 
-| Prop      | Type                                  | Default      | Description                         |
-| --------- | ------------------------------------- | ------------ | ----------------------------------- |
-| `align`   | `"center"` , `"end"` , `"start"`      | `"center"`   | Where the content sits on the line. |
-| `color`   | `"primary"`                           | -            | Optional colors.                    |
-| `variant` | `"filled"` , `"outlined"` , `"tonal"` | `"outlined"` | The variant to use.                 |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `align` | `"center"` , `"end"` , `"start"` | `"center"` | Where the content sits on the line. |
+| `color` | `"primary"` | - | Optional colors. |
+| `variant` | `"filled"` , `"outlined"` , `"tonal"` | `"outlined"` | The variant to use. |
 
 #### Slots
 
-| Slot      | Description                                                    |
-| --------- | -------------------------------------------------------------- |
+| Slot | Description |
+| --- | --- |
 | `default` | Optional content in the middle of the line. Renders a `<div>`. |
 
 ### CSS variables
 
-| Variable                 | Default                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                    |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-color`      | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )`          | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                                       |
-| `--ui-border-width`      | `1px`                                                                                                                                                                                                                    | Default border width for components that draw a border.                                                                                                                                                                                        |
-| `--ui-divider-gap`       | `calc(var(--size-fluid-3) * var(--ui-space-scale))`                                                                                                                                                                      | Block margin around a `Divider`, times `--ui-space-scale`. Cards, callouts, dialogs and drawers set it to `--ui-space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.                    |
-| `--ui-font-size-caption` | `var(--ui-font-size-100)`                                                                                                                                                                                                | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.                                 |
-| `--ui-primary`           | `light-dark( oklch( from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c h ), oklch( from var(--ui-primary-source) max(l, var(--ui-primary-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )` | Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color. |
-| `--ui-space-3`           | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                |
-| `--ui-space-4`           | `calc(var(--size-4) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                                |
-| `--ui-surface-filled`    | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                                                                                                                                                        | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                          |
-| `--ui-surface-tonal`     | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                        | Background of tonal variants.                                                                                                                                                                                                                  |
-| `--ui-text`              | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`              | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                                      |
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--ui-border-color` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`. |
+| `--ui-border-width` | `1px` | Default border width for components that draw a border. |
+| `--ui-divider-gap` | `calc(clamp(1.5rem, 3vi, 2rem) * var(--ui-space-scale))` | Block margin around a `Divider`, times `--ui-space-scale`. Cards, callouts, dialogs and drawers set it to `--ui-space-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it. |
+| `--ui-font-size-caption` | `var(--ui-font-size-100)` | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`. |
+| `--ui-primary` | `light-dark( oklch( from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c h ), oklch( from var(--ui-primary-source) max(l, var(--ui-primary-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )` | Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color. |
+| `--ui-space-3` | `calc(1rem * var(--ui-space-scale))` | Spacing step 3: `1rem` times `--ui-space-scale`. |
+| `--ui-space-4` | `calc(1.25rem * var(--ui-space-scale))` | Spacing step 4: `1.25rem` times `--ui-space-scale`. |
+| `--ui-surface-filled` | `light-dark(var(--ui-gray-4), var(--ui-gray-15))` | Background of filled areas such as progress tracks and table stripes. |
+| `--ui-surface-tonal` | `light-dark(var(--ui-gray-3), var(--ui-gray-12))` | Background of tonal variants. |
+| `--ui-text` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )` | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`. |
 
 The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
@@ -116,88 +116,9 @@ The stylesheets on this page read these theme tokens. Override them on `html` or
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
 
-| Property                  | Kind  | Description                                                                                          |
-| ------------------------- | ----- | ---------------------------------------------------------------------------------------------------- |
+| Property | Kind | Description |
+| --- | --- | --- |
 | `--_divider-border-color` | Input | The line color. Defaults to `--ui-border-color`, `.ui-filled`, `.ui-primary` and `.ui-tonal` set it. |
-
-## Under the hood
-
-1. Element
-
-   - `<hr>`: a thematic break, semantics included
-   - The normalize removes its border, so you are now looking at nothing
-   - Some would call this the purest divider
-
-2. Height
-
-   - It has a height now
-   - You still can't see it
-   - Trust the process
-
-3. Paint
-
-   - There it is
-   - Please hold your applause
-
-4. Breathe
-
-   - Keeps the text from touching the line
-   - Without it the divider still divides, just aggressively
-
-5. Ship it
-
-   - No JavaScript, no `:has()`, no anchor positioning
-   - Drag **Excitement**: nothing reads it, and nothing changes
-   - Coming in v3: a second line
-
-Step 1 of 5: Element
-
-- [\<hr> ](https://webstatus.dev/features/hr)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3+
-
-```html
-<p>Above the line</p>
-<hr class="divider" />
-<p>Below the line</p>
-```
-
-Step 2 of 5: Height
-
-```css
-.divider {
-  block-size: 1px;
-}
-```
-
-Step 3 of 5: Paint
-
-- [`background-color` ](https://webstatus.dev/features/background-color)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
-
-```css
-.divider {
-  background-color: var(--ui-border-color);
-}
-```
-
-Step 4 of 5: Breathe
-
-- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
-- [`margin` ](https://webstatus.dev/features/margin)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
-
-```css
-.divider {
-  margin-block: var(--ui-divider-gap);
-}
-```
-
-Step 5 of 5: Ship it
-
-## Browser support
-
-- Chromium: Full support Supported since v133.
-- Firefox: Full support Supported since v154.
-- Safari: Full support Supported since v18.
-
-Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Divider.md).
 
 ## Installation
 
@@ -207,11 +128,10 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - `opui-css/css/components/divider.css`
 
-## Changelog
+## Used in blocks
 
-### What's new
-
-- [Spacing](#spacing) comes from `--ui-divider-gap`, which cards, callouts, dialogs and drawers make tighter.
-- Breaking: `variant="primary"` is [`color="primary"`](#variants).
-- [Variants](#variants) name the default: `variant="outlined"`.
-- [Content](#content) in the middle of the line through the default slot, aligned with `align`.
+- [Chat](https://open-props-ui.netlify.app/blocks/chat.md)
+- [Checkout](https://open-props-ui.netlify.app/blocks/checkout.md)
+- [Invoice](https://open-props-ui.netlify.app/blocks/invoice.md)
+- [Sign in](https://open-props-ui.netlify.app/blocks/sign-in.md)
+- [Two-factor authentication](https://open-props-ui.netlify.app/blocks/two-factor.md)

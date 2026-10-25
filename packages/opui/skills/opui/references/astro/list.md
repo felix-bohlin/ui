@@ -187,19 +187,7 @@ import { List, ListItem } from "opui-css/astro"
     </svg>
   </ListItem>
   <ListItem label="Headline" description="Supporting text">
-    <svg
-      slot="start"
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-    >
-      <path
-        fill="currentColor"
-        d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
-      ></path>
-    </svg>
+    <svg slot="start" aria-hidden="true" viewBox="0 0 32 32"></svg>
   </ListItem>
 </List>
 ```
@@ -412,19 +400,7 @@ import { List, ListItem } from "opui-css/astro"
 
 <List>
   <ListItem label="No inset">
-    <svg
-      slot="start"
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-    >
-      <path
-        fill="currentColor"
-        d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
-      ></path>
-    </svg>
+    <svg slot="start" aria-hidden="true" viewBox="0 0 32 32"></svg>
   </ListItem>
   <ListItem inset label="Inset class">
     <p>Makes the text line up nicely</p>
@@ -448,34 +424,11 @@ import { Button, List, ListItem } from "opui-css/astro"
 <List flush>
   <ListItem label="Gutterless list item">
     <Button aria-label="Delete" round size="small" slot="end">
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
-        ></path>
-      </svg>
+      <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </Button>
   </ListItem>
   <ListItem label="Headline" description="Supporting text">
-    <svg
-      slot="start"
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-    >
-      <path
-        fill="currentColor"
-        d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
-      ></path>
-    </svg>
+    <svg slot="start" aria-hidden="true" viewBox="0 0 32 32"></svg>
     <Fragment slot="end">100+</Fragment>
   </ListItem>
 </List>
@@ -540,99 +493,99 @@ import { List, ListItem } from "opui-css/astro"
 
 ### List API
 
-| Prop       | Type                                     | Default    | Description                                                            |
-| ---------- | ---------------------------------------- | ---------- | ---------------------------------------------------------------------- |
-| `bordered` | `boolean`                                | `false`    | Adds a border between list items.                                      |
-| `dense`    | `boolean`                                | `false`    | Packs the items tighter.                                               |
-| `flush`    | `boolean`                                | `false`    | Removes the inline padding.                                            |
-| `variant`  | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. The default `filled` list uses the filled surface. |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `bordered` | `boolean` | `false` | Adds a border between list items. |
+| `dense` | `boolean` | `false` | Packs the items tighter. |
+| `flush` | `boolean` | `false` | Removes the inline padding. |
+| `variant` | `"filled"` , `"tonal"` , `"transparent"` | `"filled"` | The variant to use. The default `filled` list uses the filled surface. |
 
 #### Slots
 
-| Slot      | Description     |
-| --------- | --------------- |
+| Slot | Description |
+| --- | --- |
 | `default` | The list items. |
 
 ### List item API
 
-| Prop          | Type                                  | Default | Description                                                                                                                                                                                         |
-| ------------- | ------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`          | `"a"` , `"button"`                    | -       | The element to render inside the `<li>`: `"a"` or `"button"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`. |
-| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                                                                                                       |
-| `color`       | `"critical"`                          | -       | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/astro/components/menu.md).                                                                       |
-| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                                                                                                              |
-| `disabled`    | `boolean`                             | `false` | Disables a button item. A link item drops its `href` and gets `aria-disabled="true"` instead.                                                                                                       |
-| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                                                                                                            |
-| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                                                                                                                |
-| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                                                                                                                 |
-| `label`       | `string`                              | -       | The label, the first paragraph.                                                                                                                                                                     |
-| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`.                                                                                            |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `as` | `"a"` , `"button"` | - | The element to render inside the `<li>`: `"a"` or `"button"`. Defaults to `"a"` when `href` is set, and to nothing otherwise, so a static item is a bare `<li>`. A `<button>` gets `type="button"`. |
+| `borderTop` | `boolean` | `false` | Adds a border above the item. |
+| `color` | `"critical"` | - | Optional colors. `critical` marks a destructive item in a [Menu](https://open-props-ui.netlify.app/astro/components/menu.md). |
+| `description` | `string` | - | Supporting text, the second paragraph. |
+| `disabled` | `boolean` | `false` | Disables a button item. A link item drops its `href` and gets `aria-disabled="true"` instead. |
+| `for` | `string` | - | The `for` attribute of the `<label>` when `type` is set. |
+| `href` | `string` | - | The link to use. Renders an `<a>` inside the `<li>`. |
+| `inset` | `boolean` | `false` | Aligns the text with items that have start content. |
+| `label` | `string` | - | The label, the first paragraph. |
+| `type` | `"checkbox"` , `"radio"` , `"switch"` | - | Wraps the content in a `<label>` for a checkbox, radio or switch. Can't be combined with `as` or `href`. |
 
 #### Slots
 
-| Slot          | Description                                                                                               |
-| ------------- | --------------------------------------------------------------------------------------------------------- |
-| `default`     | More content inside `.ui-text`, after the label and description, or all the content when there's neither. |
-| `description` | Supporting text, the second paragraph.                                                                    |
-| `end`         | Optional content at the end, such as a value or an action.                                                |
-| `label`       | The label, the first paragraph.                                                                           |
-| `start`       | Optional content at the start, such as an icon or avatar.                                                 |
-| `submenu`     | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.                               |
+| Slot | Description |
+| --- | --- |
+| `default` | More content inside `.ui-text`, after the label and description, or all the content when there's neither. |
+| `description` | Supporting text, the second paragraph. |
+| `end` | Optional content at the end, such as a value or an action. |
+| `label` | The label, the first paragraph. |
+| `start` | Optional content at the start, such as an icon or avatar. |
+| `submenu` | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`. |
 
 ### CSS variables
 
-| Variable                              | Default                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                          |
-| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-color`                   | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )`          | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                                                                                                                                                                                                             |
-| `--ui-border-color-on-filled`         | `light-dark( var(--ui-gray-6), var(--ui-gray-12) )`                                                                                                                                                                      | Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts.                                                                                                                                                                                                                                                                     |
-| `--ui-border-color-on-raised`         | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), var(--ui-surface) )`                                                                                       | Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. The light border mix in light mode and the page background in dark mode. Each raised component sets `--ui-border-color` to it on its root.                                                                                                                              |
-| `--ui-border-width`                   | `1px`                                                                                                                                                                                                                    | Default border width for components that draw a border.                                                                                                                                                                                                                                                                                                                                                              |
-| `--ui-border-width-thick`             | `var(--border-size-2)`                                                                                                                                                                                                   | Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar.                                                                                                          |
-| `--ui-choice-size-small`              | `calc(var(--size-3) * var(--ui-density))`                                                                                                                                                                                | `Checkbox` and `Radio` input size with `.ui-small`, and in dense `List` rows unless the control has a size class.                                                                                                                                                                                                                                                                                                    |
-| `--ui-control-size`                   | `calc(40px * var(--ui-density))`                                                                                                                                                                                         | Shared default height for fields and buttons so they line up.                                                                                                                                                                                                                                                                                                                                                        |
-| `--ui-control-size-small`             | `calc(32px * var(--ui-density))`                                                                                                                                                                                         | Shared small height for fields and buttons.                                                                                                                                                                                                                                                                                                                                                                          |
-| `--ui-critical`                       | `var(--ui-red)`                                                                                                                                                                                                          | Severity color for errors and destructive actions.                                                                                                                                                                                                                                                                                                                                                                   |
-| `--ui-critical-text`                  | `light-dark( oklch(from var(--ui-critical) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-critical) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )`                       | Critical as a text color: the `.ui-critical` items of a `Menu`, a `.ui-critical` `Button` with no variant or `.ui-outlined`, and `del` and `.ui-del` text. `--ui-critical` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.                                                                                                                                                   |
-| `--ui-disabled-opacity`               | `0.64`                                                                                                                                                                                                                   | Opacity applied to disabled controls.                                                                                                                                                                                                                                                                                                                                                                                |
-| `--ui-duration-slow`                  | `0.3s`                                                                                                                                                                                                                   | Transition duration for entering and leaving overlays: `Dialog`, `Drawer` and `Menu`.                                                                                                                                                                                                                                                                                                                                |
-| `--ui-ease-enter`                     | `var(--ease-out-3)`                                                                                                                                                                                                      | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`, and the `Badge`, `Progress` and `Tooltip` transitions.                                                                                                                                                                                                                                                                               |
-| `--ui-ease-exit`                      | `var(--ease-in-3)`                                                                                                                                                                                                       | Easing for elements leaving the screen: closing `Drawer` and `Menu`.                                                                                                                                                                                                                                                                                                                                                 |
-| `--ui-field-border-color-on-filled`   | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface-filled) )`                                                                                                                 | Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`.                                                                                                                                                                                                                                           |
-| `--ui-field-border-color-on-raised`   | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )`                                                                                                                        | Field border color inside raised surfaces. The same mix as `--ui-field-border-color` by default. Each raised component sets `--ui-field-border-color` to it on its root.                                                                                                                                                                                                                                             |
-| `--ui-focus-ring-inset`               | `calc(-1 * var(--ui-focus-ring-width))`                                                                                                                                                                                  | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.                                                                                                                                                                                                                                                                                                    |
-| `--ui-font-code`                      | `var(--font-mono)`                                                                                                                                                                                                       | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                                                                                                                                                                                                    |
-| `--ui-font-size-caption`              | `var(--ui-font-size-100)`                                                                                                                                                                                                | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.                                                                                                                                                                                                       |
-| `--ui-font-size-small`                | `var(--ui-font-size-200)`                                                                                                                                                                                                | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                                                                                                                                                                                                              |
-| `--ui-font-weight-bold`               | `var(--font-weight-7)`                                                                                                                                                                                                   | Font weight for headings, buttons and terms.                                                                                                                                                                                                                                                                                                                                                                         |
-| `--ui-font-weight-normal`             | `var(--font-weight-4)`                                                                                                                                                                                                   | Font weight for body text, `List` text and `Button` keyboard shortcuts.                                                                                                                                                                                                                                                                                                                                              |
-| `--ui-icon-size`                      | `var(--size-4)`                                                                                                                                                                                                          | Default icon size inside components.                                                                                                                                                                                                                                                                                                                                                                                 |
-| `--ui-icon-size-small`                | `var(--size-3)`                                                                                                                                                                                                          | Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.                                                                                                                                                                                                                                                                                                           |
-| `--ui-line-height`                    | `1.6`                                                                                                                                                                                                                    | Line height of body copy: prose, captions and `List` text.                                                                                                                                                                                                                                                                                                                                                           |
-| `--ui-list-item-padding-inline`       | Unset                                                                                                                                                                                                                    | Horizontal padding of `List` and `Menu` items, headings and `Select` options. When unset, `--ui-space-3`.                                                                                                                                                                                                                                                                                                            |
-| `--ui-menu-radius`                    | Unset                                                                                                                                                                                                                    | Corner radius for `Menu`. When unset, menus follow `--ui-radius`.                                                                                                                                                                                                                                                                                                                                                    |
-| `--ui-motion`                         | `1`                                                                                                                                                                                                                      | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion).                                                                                                                                                                                                            |
-| `--ui-on-selected`                    | Unset                                                                                                                                                                                                                    | Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and `--ui-primary-text` on a selected `Select` option.                                                                                                                                                                                                                                              |
-| `--ui-primary`                        | `light-dark( oklch( from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c h ), oklch( from var(--ui-primary-source) max(l, var(--ui-primary-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )` | Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color.                                                                                                                                                                       |
-| `--ui-primary-text`                   | `light-dark( oklch(from var(--ui-primary) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-primary) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )`                         | Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`, and a selected `Select` option. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text. |
-| `--ui-radius`                         | `var(--size-2)`                                                                                                                                                                                                          | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                                                                                                                                                                     |
-| `--ui-selected`                       | Unset                                                                                                                                                                                                                    | Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` on toggles and `--ui-primary` at `--ui-state-active-alpha-accent` on list items and options. Pair it with `--ui-on-selected`.                                                                                                     |
-| `--ui-selected-strong`                | `var(--ui-primary)`                                                                                                                                                                                                      | Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row and the selected tab of filled `Tabs`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint.                                                                                                                    |
-| `--ui-shadow-overlay`                 | `var(--shadow-3)`                                                                                                                                                                                                        | Shadow of layers that float above the page: `Dialog`, `Drawer`, `Menu`, `Select` pickers and the `Carousel` buttons.                                                                                                                                                                                                                                                                                                 |
-| `--ui-space-1`                        | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-2`                        | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-3`                        | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-6`                        | `calc(var(--size-6) * var(--ui-space-scale))`                                                                                                                                                                            | Spacing step 6: Open Props `--size-6` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-state-active-alpha-accent`      | `25%`                                                                                                                                                                                                                    | Alpha of the pressed state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                                    |
-| `--ui-state-hover-alpha-accent`       | `15%`                                                                                                                                                                                                                    | Alpha of the hover state layer on primary and critical buttons.                                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-surface-elevated`               | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                                                                                                                                                        | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                                                                                                                                                    |
-| `--ui-surface-filled`                 | `light-dark(var(--ui-gray-4), var(--ui-gray-15))`                                                                                                                                                                        | Background of filled areas such as progress tracks and table stripes.                                                                                                                                                                                                                                                                                                                                                |
-| `--ui-surface-tonal`                  | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                        | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                                        |
-| `--ui-switch-thumb-size-small`        | `calc(0.75rem * var(--ui-density))`                                                                                                                                                                                      | Diameter of the `Switch` thumb with `.ui-small`, and in `List` rows unless the switch has a size class.                                                                                                                                                                                                                                                                                                              |
-| `--ui-switch-track-block-size-small`  | `calc(var(--size-4) * var(--ui-density))`                                                                                                                                                                                | Height of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class.                                                                                                                                                                                                                                                                                                                |
-| `--ui-switch-track-inline-size-small` | `calc( 2 * var(--ui-switch-track-block-size-small) )`                                                                                                                                                                    | Width of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class. Twice `--ui-switch-track-block-size-small` until a theme sets it.                                                                                                                                                                                                                                               |
-| `--ui-text`                           | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`              | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                                                                                                                                                                                                            |
-| `--ui-text-strong`                    | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                                        | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                                                                                                                                                                                                     |
-| `--ui-text-subtle`                    | `var(--ui-text)`                                                                                                                                                                                                         | Secondary text: placeholders, field helper text, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. When unset, `--ui-text`.                                                                                                                                                                                                                                                    |
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--ui-border-color` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`. |
+| `--ui-border-color-on-filled` | `light-dark( var(--ui-gray-6), var(--ui-gray-12) )` | Border color inside filled surfaces: lists without a variant and table headers. `List` and `Table` set `--ui-border-color` to it on those parts. |
+| `--ui-border-color-on-raised` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border on raised surfaces, such as the page background in dark mode, sets this one. |
+| `--ui-border-width` | `1px` | Default border width for components that draw a border. |
+| `--ui-border-width-thick` | `2px` | Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar. |
+| `--ui-choice-size-small` | `calc(1rem * var(--ui-density))` | `Checkbox` and `Radio` input size with `.ui-small`, and in dense `List` rows unless the control has a size class. |
+| `--ui-control-size` | `calc(2.5rem * var(--ui-density))` | Shared default height for fields and buttons so they line up. |
+| `--ui-control-size-small` | `calc(2rem * var(--ui-density))` | Shared small height for fields and buttons. |
+| `--ui-critical` | `var(--ui-red)` | Severity color for errors and destructive actions. |
+| `--ui-critical-text` | `light-dark( oklch(from var(--ui-critical) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-critical) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )` | Critical as a text color: the `.ui-critical` items of a `Menu`, a `.ui-critical` `Button` with no variant or `.ui-outlined`, and `del` and `.ui-del` text. `--ui-critical` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`. |
+| `--ui-disabled-opacity` | `0.64` | Opacity applied to disabled controls. |
+| `--ui-duration-slow` | `0.3s` | Transition duration for entering and leaving overlays: `Dialog`, `Drawer` and `Menu`. |
+| `--ui-ease-enter` | `cubic-bezier(0, 0, 0.3, 1)` | Easing for elements entering the screen: opening `Dialog`, `Drawer` and `Menu`, and the `Badge`, `Progress` and `Tooltip` transitions. |
+| `--ui-ease-exit` | `cubic-bezier(0.7, 0, 1, 1)` | Easing for elements leaving the screen: closing `Drawer` and `Menu`. |
+| `--ui-field-border-color-on-filled` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface-filled) )` | Field border color inside filled surfaces: lists without a variant and table headers. `--ui-text-strong` mixed into `--ui-surface-filled` at `--ui-field-border-strength`. |
+| `--ui-field-border-color-on-raised` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )` | Field border color inside raised surfaces. The same mix as `--ui-field-border-color` by default. Each raised component sets `--ui-field-border-color` to it on its root. |
+| `--ui-focus-ring-inset` | `calc(-1 * var(--ui-focus-ring-width))` | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
+| `--ui-font-code` | `Dank Mono, Operator Mono, Inconsolata, Fira Mono, ui-monospace, SF Mono, Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono, monospace` | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. A monospace stack by default. |
+| `--ui-font-size-caption` | `var(--ui-font-size-100)` | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`. |
+| `--ui-font-size-small` | `var(--ui-font-size-200)` | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`. |
+| `--ui-font-weight-bold` | `700` | Font weight for headings, buttons and terms. |
+| `--ui-font-weight-normal` | `400` | Font weight for body text, `List` text and `Button` keyboard shortcuts. |
+| `--ui-icon-size` | `1.25rem` | Default icon size inside components. |
+| `--ui-icon-size-small` | `1rem` | Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron. |
+| `--ui-line-height` | `1.6` | Line height of body copy: prose, captions and `List` text. |
+| `--ui-list-item-padding-inline` | Unset | Horizontal padding of `List` and `Menu` items, headings and `Select` options. When unset, `--ui-space-3`. |
+| `--ui-menu-radius` | Unset | Corner radius for `Menu`. When unset, menus follow `--ui-radius`. |
+| `--ui-motion` | `1` | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/astro/guide/theming.md#motion). |
+| `--ui-on-selected` | Unset | Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and `--ui-primary-text` on a selected `Select` option. |
+| `--ui-primary` | `light-dark( oklch( from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c h ), oklch( from var(--ui-primary-source) max(l, var(--ui-primary-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )` | Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color. |
+| `--ui-primary-text` | `light-dark( oklch(from var(--ui-primary) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-primary) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )` | Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`, and a selected `Select` option. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text. |
+| `--ui-radius` | `0.5rem` | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-selected` | Unset | Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` on toggles and `--ui-primary` at `--ui-state-active-alpha-accent` on list items and options. Pair it with `--ui-on-selected`. |
+| `--ui-selected-strong` | `var(--ui-primary)` | Mark of a selected item that has to stand out from the page on its own: the current `Carousel` marker, the bar on the start edge of a selected `List` row and the selected tab of filled `Tabs`. Defaults to `--ui-primary`. `--ui-selected` is the fill behind a selected item and may be faint. |
+| `--ui-shadow-overlay` | `0 -1px 3px 0 hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)), 0 1px 2px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)), 0 2px 5px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.04)), 0 4px 12px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.05)), 0 12px 15px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.07))` | Shadow of layers that float above the page: `Dialog`, `Drawer`, `Menu`, `Select` pickers and the `Carousel` buttons. Five layers of `--ui-shadow-color`. |
+| `--ui-space-1` | `calc(0.25rem * var(--ui-space-scale))` | Spacing step 1: `0.25rem` times `--ui-space-scale`. |
+| `--ui-space-2` | `calc(0.5rem * var(--ui-space-scale))` | Spacing step 2: `0.5rem` times `--ui-space-scale`. |
+| `--ui-space-3` | `calc(1rem * var(--ui-space-scale))` | Spacing step 3: `1rem` times `--ui-space-scale`. |
+| `--ui-space-6` | `calc(1.75rem * var(--ui-space-scale))` | Spacing step 6: `1.75rem` times `--ui-space-scale`. |
+| `--ui-state-active-alpha-accent` | `25%` | Alpha of the pressed state layer on primary and critical buttons. |
+| `--ui-state-hover-alpha-accent` | `15%` | Alpha of the hover state layer on primary and critical buttons. |
+| `--ui-surface-elevated` | `light-dark(var(--ui-gray-1), var(--ui-gray-12))` | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options. |
+| `--ui-surface-filled` | `light-dark(var(--ui-gray-4), var(--ui-gray-15))` | Background of filled areas such as progress tracks and table stripes. |
+| `--ui-surface-tonal` | `light-dark(var(--ui-gray-3), var(--ui-gray-12))` | Background of tonal variants. |
+| `--ui-switch-thumb-size-small` | `calc(0.75rem * var(--ui-density))` | Diameter of the `Switch` thumb with `.ui-small`, and in `List` rows unless the switch has a size class. |
+| `--ui-switch-track-block-size-small` | `calc(1.25rem * var(--ui-density))` | Height of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class. |
+| `--ui-switch-track-inline-size-small` | `calc( 2 * var(--ui-switch-track-block-size-small) )` | Width of the `Switch` track with `.ui-small`, and in `List` rows unless the switch has a size class. Twice `--ui-switch-track-block-size-small` until a theme sets it. |
+| `--ui-text` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )` | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`. |
+| `--ui-text-strong` | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Strongest text color, for headings, labels and values. Body text is `--ui-text`. |
+| `--ui-text-subtle` | `var(--ui-text)` | Secondary text: placeholders, field helper text, overlines, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. When unset, `--ui-text`. |
 
 The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md).
 
@@ -640,148 +593,49 @@ The stylesheets on this page read these theme tokens. Override them on `html` or
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/astro/guide/customizing.md#component-properties) has examples.
 
-| Property                         | Kind   | Description                                                                                                                                                                                                                                                                                    |
-| -------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_bg-color`                    | Input  | Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it.                                                                                                                                                                             |
-| `--_description-text-color`      | Input  | Text color of the description paragraph in an item. `--ui-text-subtle`, and `--ui-on-selected` on a selected or current row when a theme sets it.                                                                                                                                              |
-| `--_divider-border-color`        | Input  | Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-strong` in `.ui-tonal`.                                                                                                                                 |
-| `--_hover-bg-color`              | Input  | Background of hovered items, from `--ui-primary`.                                                                                                                                                                                                                                              |
-| `--_item-gap`                    | Input  | Gap between the content of an item. Smaller in `.ui-dense`.                                                                                                                                                                                                                                    |
-| `--_item-padding-inline`         | Input  | Horizontal padding of items, headings and options. `--ui-list-item-padding-inline`, or `--ui-space-3` when a theme leaves it unset.                                                                                                                                                            |
-| `--_radius`                      | Input  | The corner radius of a `.ui-list`. Defaults to `--ui-radius`, and `0` when the list is a direct child of a `Card`, `Accordion` or `Dialog`, which round and clip it themselves.                                                                                                                |
-| `--_selected-bg-color`           | Input  | Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`, stronger than `--_hover-bg-color`. With more contrast it is `--_hover-bg-color`, so the text keeps 7:1, and the bar marks the row. |
-| `--_selected-indicator-bg-color` | Input  | Color of the bar on the start edge of selected and current items and options, which marks them without relying on the fill. Defaults to `--ui-selected-strong`.                                                                                                                                |
-| `--_selected-indicator-size`     | Input  | Width of the bar on selected and current items. Defaults to `--ui-border-width-thick`.                                                                                                                                                                                                         |
-| `--_selected-shadow`             | Output | Inset shadow that draws the bar from `--_selected-indicator-bg-color` and `--_selected-indicator-size`, on the start edge in both writing directions.                                                                                                                                          |
-| `--_separator-gap`               | Input  | Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`.                                                                                                                                                                                        |
-| `--_start-image-size`            | Input  | Width of a square image in `.ui-start`.                                                                                                                                                                                                                                                        |
-| `--_start-size`                  | Input  | Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`.                                                                                                                                                                                       |
-| `--_start-video-size`            | Input  | Height of a video in `.ui-start`, which keeps a 16:9 ratio.                                                                                                                                                                                                                                    |
+### list.css
 
-## Under the hood
+| Property | Kind | Description |
+| --- | --- | --- |
+| `--_bg-color` | Input | Background of the list and its items. Defaults to `--ui-surface-filled`, `.ui-transparent` and `.ui-tonal` set it. |
+| `--_description-text-color` | Input | Text color of the description paragraph in an item. `--ui-text-subtle`, and `--ui-on-selected` on a selected or current row when a theme sets it. |
+| `--_divider-border-color` | Input | Color of the lines between items in `.ui-bordered` and on `.ui-border-top`. Defaults to `--ui-border-color`, mixed with 20% `--ui-text-strong` in `.ui-tonal`. |
+| `--_hover-bg-color` | Input | Background of hovered items, from `--ui-primary`. |
+| `--_item-gap` | Input | Gap between the content of an item. Smaller in `.ui-dense`. |
+| `--_item-padding-inline` | Input | Horizontal padding of items, headings and options. `--ui-list-item-padding-inline`, or `--ui-space-3` when a theme leaves it unset. |
+| `--_radius` | Input | The corner radius of a `.ui-list`. Defaults to `--ui-radius`, and `0` when the list is a direct child of a `Card`, `Accordion` or `Dialog`, which round and clip it themselves. |
+| `--_selected-bg-color` | Input | Background of selected and current items and options. `--ui-selected` when the theme sets it, otherwise `--ui-primary` at `--ui-state-active-alpha-accent`, stronger than `--_hover-bg-color`. With more contrast it is `--_hover-bg-color`, so the text keeps 7:1, and the bar marks the row. |
+| `--_selected-indicator-bg-color` | Input | Color of the bar on the start edge of selected and current items and options, which marks them without relying on the fill. Defaults to `--ui-selected-strong`. |
+| `--_selected-indicator-size` | Input | Width of the bar on selected and current items. Defaults to `--ui-border-width-thick`. |
+| `--_selected-shadow` | Output | Inset shadow that draws the bar from `--_selected-indicator-bg-color` and `--_selected-indicator-size`, on the start edge in both writing directions. |
+| `--_separator-gap` | Input | Space around the lines between items in `.ui-bordered` and on `.ui-border-top`. Smaller in `.ui-dense`. |
+| `--_start-image-size` | Input | Width of a square image in `.ui-start`. |
+| `--_start-size` | Input | Maximum size of leading and trailing icons, and the indent of `.ui-inset` items. Smaller in `.ui-dense`. |
+| `--_start-video-size` | Input | Height of a video in `.ui-start`, which keeps a 16:9 ratio. |
 
-1. Row
+### menu.css
 
-   - Start, text and end parts in one flex row
-   - `>` styles direct children only, so a nested list in a row stays a list
-   - `--gap` and `--start-size` drive the spacing and the icon column
-   - The button is padded too, so the padding doubles
-
-2. Clickable
-
-   - `:has(> a, > button, > label)` moves the padding onto the button, link or label (checkbox, radio and switch rows)
-   - The whole row is the hit target
-   - Hover tint derived from `--ui-primary`
-
-3. Inset
-
-   - An item without an icon lines up with the ones that have one
-   - Same two custom properties, so it follows the knobs
-
-4. Bordered
-
-   - `> li + li`: a line between items, never above the first
-   - The line sits in the margin, outside the hover area
-
-Step 1 of 4: Row
-
-```html
-<ul class="list">
-  <li>
-    <button type="button">
-      <span class="start"><svg>…</svg></span>
-      <span class="text">
-        <span>Inbox</span>
-        <span>3 unread</span>
-      </span>
-      <span class="end"><kbd>⌘I</kbd></span>
-    </button>
-  </li>
-</ul>
-```
-
-```css
-.list {
-  background-color: var(--ui-surface-filled);
-  list-style: none;
-  padding: 0.5rem 0;
-}
-
-.list > li,
-.list > li > button {
-  align-items: center;
-  display: flex;
-  gap: var(--gap);
-  min-block-size: var(--ui-control-size);
-  padding: 0.5rem 0.75rem;
-  position: relative;
-}
-
-.start {
-  display: grid;
-  inline-size: var(--start-size);
-}
-
-.text {
-  display: grid;
-  flex: 1;
-}
-
-.text > * + * {
-  color: var(--ui-text);
-  font-size: var(--ui-font-size-caption);
-}
-```
-
-Step 2 of 4: Clickable
-
-- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
-
-```css
-.list > li:has(> a, > button, > label) {
-  padding: 0;
-}
-
-.list > li > button {
-  inline-size: 100%;
-}
-
-.list > li > button:hover {
-  background-color: oklch(from var(--ui-primary) l c h / 15%);
-}
-```
-
-Step 3 of 4: Inset
-
-```css
-.inset .text {
-  padding-inline-start: calc(var(--start-size) + var(--gap));
-}
-```
-
-Step 4 of 4: Bordered
-
-```css
-.bordered > li + li {
-  margin-block-start: 0.75rem;
-}
-
-.bordered > li + li::before {
-  border-block-start: 1px solid var(--ui-border-color);
-  content: "";
-  inset: -0.5rem 0 auto 0;
-  position: absolute;
-}
-```
-
-## Browser support
-
-- Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v18.
-
-Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=List.md).
+| Property | Kind | Description |
+| --- | --- | --- |
+| `--_bg-color` | Input | The background. Defaults to `--ui-surface-elevated`. |
+| `--_border-color` | Input | The border color. Defaults to `--ui-border-color-on-raised`, and `--_divider-border-color` follows it. |
+| `--_border-width` | Input | The border width. Defaults to `--ui-border-width`. |
+| `--_divider-border-color` | Input | Color of the item separators. Defaults to `--_border-color`. |
+| `--_duration` | Output | Duration of the transitions, `--ui-duration-slow` times `--_motion`. |
+| `--_ease` | Output | Easing of the open and close transitions. `--ui-ease-enter` while opening and `--ui-ease-exit` while closing. |
+| `--_hover-bg-color` | Output | Hover background of `.ui-critical` items, from `--ui-critical`. |
+| `--_margin-block` | Output | Block margin of a popover menu, `--_offset` or `0` depending on the side. |
+| `--_margin-inline` | Output | Inline margin of a popover menu, `--_offset` for `.ui-inline-start` and `.ui-inline-end`. |
+| `--_max-block-size` | Input | Maximum height. |
+| `--_min-block-size` | Input | Height a popover menu keeps when space is tight, unless its content is shorter. Needs `calc-size()`. |
+| `--_min-inline-size` | Input | Minimum width. A popover menu is also at least as wide as its invoker. |
+| `--_motion` | Input | Motion multiplier for the transitions. `0` turns them off. |
+| `--_offset` | Input | Gap between a popover menu and its invoker. |
+| `--_position-area` | Output | The `position-area` of a popover menu, from `--_side` and `--_span`. `--ui-anchor-position-area` overrides it. |
+| `--_radius` | Input | The corner radius. Defaults to `--ui-radius`. |
+| `--_shadow` | Input | The shadow. Defaults to `--ui-shadow-overlay`. |
+| `--_side` | Output | Side of the invoker the menu opens on, a `self-` keyword so it follows the menu's own direction. Set by `.ui-block-start`, `.ui-inline-start` and `.ui-inline-end`. |
+| `--_span` | Output | Direction the menu extends along the invoker. Set by the side classes and `.ui-align-end`. |
 
 ## Installation
 
@@ -796,25 +650,23 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - `opui-css/css/components/list.css`
 
-## Changelog
+## Used in blocks
 
-### What's new
-
-- Themes can set [`--ui-list-item-padding-inline`](#api). Descriptions read `--ui-text-subtle`, and `--ui-on-selected` on a selected row.
-- A link [`ListItem`](#api) takes `disabled`: it drops its `href` and gets `aria-disabled="true"`.
-- Breaking: `ListItem` [`label`](#text) replaces `headline`, and the `label` and `description` slots replace the `text` slot.
-- Breaking: [`flush`](#flush) replaces `gutterless`.
-- Selected and current items read [`--ui-selected`](#api) and `--ui-on-selected` when a theme sets them.
-- Smaller [start](#icon) and end icons.
-- Breaking: `divided` is removed. Use [`bordered`](#on-every-item).
-- [Dense](#dense) rows keep the default inline padding, so they line up with card content.
-- Only direct children are styled as rows, so nested lists inside a row stay normal lists ([Under the hood](#under-the-hood)).
-- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look. The default is named `filled`.
-- Breaking: [`ListItem` `as`](#list-item-api) only accepts `"a"` or `"button"`. A static item leaves it out.
-- Breaking: `--_bg-color-hover` is `--_hover-bg-color` ([Under the hood](#under-the-hood)).
-- A checked [option](#radio) uses `--ui-state-active-alpha-accent`.
-- Breaking: [`type`](#checkbox) can't be combined with `as` or `href` (types).
-- Breaking: rows no longer style `aria-selected="true"` on a link, button, label or list item, where ARIA doesn't allow it. Mark the current row with [`aria-current="page"`](#selected).
-- [Selected and current rows](#selected) have a bar on their start edge in `--ui-selected-strong` and a stronger fill than hover, so they don't rely on a tint alone.
-- Lists are [rounded](#variants) with `--_radius` (`--ui-radius`) and clip their rows to the corners, except as a direct child of a card.
-- [Dense](#dense) rows are `--ui-control-size-small` tall, so they follow `--ui-density`.
+- [Account settings](https://open-props-ui.netlify.app/blocks/account-settings.md)
+- [App shell](https://open-props-ui.netlify.app/blocks/app-shell.md)
+- [Chat](https://open-props-ui.netlify.app/blocks/chat.md)
+- [Checkout](https://open-props-ui.netlify.app/blocks/checkout.md)
+- [Data table](https://open-props-ui.netlify.app/blocks/data-table.md)
+- [Error page](https://open-props-ui.netlify.app/blocks/error-page.md)
+- [Hero](https://open-props-ui.netlify.app/blocks/hero.md)
+- [Inbox](https://open-props-ui.netlify.app/blocks/inbox.md)
+- [Newsletter](https://open-props-ui.netlify.app/blocks/newsletter.md)
+- [Notifications](https://open-props-ui.netlify.app/blocks/notifications.md)
+- [Order history](https://open-props-ui.netlify.app/blocks/order-history.md)
+- [Product detail](https://open-props-ui.netlify.app/blocks/product-detail.md)
+- [Project overview](https://open-props-ui.netlify.app/blocks/project-overview.md)
+- [Sales dashboard](https://open-props-ui.netlify.app/blocks/sales-dashboard.md)
+- [Server status](https://open-props-ui.netlify.app/blocks/server-status.md)
+- [Sign up](https://open-props-ui.netlify.app/blocks/sign-up.md)
+- [Team members](https://open-props-ui.netlify.app/blocks/team-members.md)
+- [Two-factor authentication](https://open-props-ui.netlify.app/blocks/two-factor.md)

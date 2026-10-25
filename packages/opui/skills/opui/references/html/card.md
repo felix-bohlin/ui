@@ -123,18 +123,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
       class="ui-button ui-round ui-small"
       aria-label="Share"
     >
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
-        />
-      </svg>
+      <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
   </div>
 </div>
@@ -169,36 +158,14 @@ Actions sit at the end. Add `.ui-align-start` to `.ui-actions` to line them up w
       class="ui-button ui-round ui-small"
       aria-label="Favorite"
     >
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M3.384 7.13c2.972-4.17 9.167-4.174 12.146-.008l.465.65l.417-.593c2.955-4.195 9.16-4.236 12.17-.081A7.48 7.48 0 0 1 28 16.583L16.732 28.681a1 1 0 0 1-1.464 0L3.992 16.54a7.46 7.46 0 0 1-.608-9.41m10.52 1.155c-2.181-3.05-6.716-3.046-8.892.007a5.46 5.46 0 0 0 .446 6.887L16.002 26.53l10.534-11.31a5.48 5.48 0 0 0 .427-6.95c-2.205-3.044-6.751-3.013-8.916.06l-1.229 1.744a1 1 0 0 1-1.63.006z"
-        />
-      </svg>
+      <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
     <button
       type="button"
       class="ui-button ui-round ui-small"
       aria-label="Share"
     >
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M14 3a1 1 0 1 1 0 2H7.5A2.5 2.5 0 0 0 5 7.5v17A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5V19a1 1 0 1 1 2 0v5.5a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17A4.5 4.5 0 0 1 7.5 3zm5.58-.907a1 1 0 0 1 1.067.146l10 8.5a1 1 0 0 1 0 1.523l-10 8.5A1 1 0 0 1 18.999 20v-3.96c-3.193.258-5.636 1.722-7.34 3.213a15.6 15.6 0 0 0-2.115 2.26c-.234.307-.407.56-.52.733c-.085.13-.136.215-.152.243l-.006.006l.001.001A1 1 0 0 1 7 22.036c0-.222-.003-.444.003-.666c.011-.406.042-.982.12-1.67c.155-1.37.5-3.218 1.265-5.08s1.967-3.776 3.855-5.225C13.948 8.086 16.161 7.2 19 7.032V3a1 1 0 0 1 .58-.907M20.998 8a1 1 0 0 1-1 1c-2.925 0-5.018.814-6.539 1.98c-1.533 1.177-2.551 2.763-3.224 4.4a16.5 16.5 0 0 0-.957 3.38c.318-.33.672-.672 1.062-1.013C12.462 15.891 15.687 14 19.999 14a1 1 0 0 1 1 1v2.838l7.456-6.338L21 5.161z"
-        />
-      </svg>
+      <svg aria-hidden="true" viewBox="0 0 32 32"></svg>
     </button>
   </div>
 </div>
@@ -233,63 +200,63 @@ Only one `.ui-card-link` per card. The link covers the text, so selecting text i
 
 ### Card API
 
-| Type     | Modifiers                                                               | Default | Description                                                                            |
-| -------- | ----------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------- |
+| Type | Modifiers | Default | Description |
+| --- | --- | --- | --- |
 | Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`, `.ui-transparent` | default | The variant to use. The default `plain` card has the page surface color and no border. |
 
 #### Parts
 
-| Part               | Description                          |
-| ------------------ | ------------------------------------ |
-| `.ui-card`         | Container element.                   |
-| `hgroup.ui-header` | The card header.                     |
-| `.ui-content`      | The card content.                    |
-| `.ui-actions`      | A group of actions, such as buttons. |
+| Part | Description |
+| --- | --- |
+| `.ui-card` | Container element. |
+| `hgroup.ui-header` | The card header. |
+| `.ui-content` | The card content. |
+| `.ui-actions` | A group of actions, such as buttons. |
 
 To make the whole card clickable, add `.ui-card-link` to one link in it. Other links and buttons stay clickable.
 
 ### Card actions API
 
-| Type      | Modifiers                  | Default | Description                |
-| --------- | -------------------------- | ------- | -------------------------- |
+| Type | Modifiers | Default | Description |
+| --- | --- | --- | --- |
 | Alignment | default, `.ui-align-start` | default | Alignment for the actions. |
 
 #### Parts
 
-| Part          | Description                          |
-| ------------- | ------------------------------------ |
+| Part | Description |
+| --- | --- |
 | `.ui-actions` | A group of actions, such as buttons. |
 
 ### CSS variables
 
-| Variable                            | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                                                                             |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-color`                 | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                                                                                |
-| `--ui-border-color-on-raised`       | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), var(--ui-surface) )`                                                                              | Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. The light border mix in light mode and the page background in dark mode. Each raised component sets `--ui-border-color` to it on its root. |
-| `--ui-border-color-raised`          | Unset                                                                                                                                                                                                           | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background.                                             |
-| `--ui-border-width`                 | `1px`                                                                                                                                                                                                           | Default border width for components that draw a border.                                                                                                                                                                                                                                 |
-| `--ui-card-padding`                 | Unset                                                                                                                                                                                                           | Padding of `Card`, `Dialog` and `Accordion` content, headers and actions. When unset, `--ui-space-3`.                                                                                                                                                                                   |
-| `--ui-duration`                     | `0.2s`                                                                                                                                                                                                          | Default transition duration. Multiplied by `--ui-motion`.                                                                                                                                                                                                                               |
-| `--ui-ease`                         | `ease`                                                                                                                                                                                                          | Default easing for transitions.                                                                                                                                                                                                                                                         |
-| `--ui-field-border-color-on-raised` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )`                                                                                                               | Field border color inside raised surfaces. The same mix as `--ui-field-border-color` by default. Each raised component sets `--ui-field-border-color` to it on its root.                                                                                                                |
-| `--ui-focus-ring-color`             | `oklch( from var(--ui-surface) clamp(0, (0.6 - l) * 1000, 1) 0 0 )`                                                                                                                                             | Color of the keyboard focus ring. Black on surfaces lighter than OKLCH 0.6 and white on darker ones, so it reaches 3:1 on any `--ui-surface`.                                                                                                                                           |
-| `--ui-focus-ring-offset`            | `2px`                                                                                                                                                                                                           | Distance between a control and its focus ring.                                                                                                                                                                                                                                          |
-| `--ui-focus-ring-style`             | `solid`                                                                                                                                                                                                         | Outline style of the focus ring.                                                                                                                                                                                                                                                        |
-| `--ui-focus-ring-width`             | `2px`                                                                                                                                                                                                           | Width of the focus ring.                                                                                                                                                                                                                                                                |
-| `--ui-font-size-body`               | `var(--ui-font-size-300)`                                                                                                                                                                                       | Font size of body copy, `Card` text and the `Callout` title. Defaults to `--ui-font-size-300`.                                                                                                                                                                                          |
-| `--ui-font-size-caption`            | `var(--ui-font-size-100)`                                                                                                                                                                                       | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.                                                                          |
-| `--ui-line-height-tight`            | `1.25`                                                                                                                                                                                                          | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons.                                                                                                                                            |
-| `--ui-motion`                       | `1`                                                                                                                                                                                                             | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion).                                                                                |
-| `--ui-radius`                       | `var(--size-2)`                                                                                                                                                                                                 | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                                        |
-| `--ui-shadow-elevated`              | `var(--ui-shadow-elevated-light)` `var(--ui-shadow-elevated-dark)` in dark mode                                                                                                                                 | Shadow of elevated `Card` and `Accordion`. Switches between `--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark` with the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. Set those two instead of this one.                                                |
-| `--ui-shadow-surface`               | `none`                                                                                                                                                                                                          | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane.                                                                                                                                          |
-| `--ui-space-1`                      | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                                         |
-| `--ui-space-2`                      | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                                         |
-| `--ui-space-3`                      | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                                         |
-| `--ui-surface`                      | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                               | Page and card background.                                                                                                                                                                                                                                                               |
-| `--ui-surface-elevated`             | `light-dark(var(--ui-gray-1), var(--ui-gray-12))`                                                                                                                                                               | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options.                                                                                                                                                                                       |
-| `--ui-surface-tonal`                | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                               | Background of tonal variants.                                                                                                                                                                                                                                                           |
-| `--ui-text`                         | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`     | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                                                                               |
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--ui-border-color` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`. |
+| `--ui-border-color-on-raised` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Border color inside raised surfaces: tonal and elevated `Card` and `Accordion`, `Dialog`, `Drawer`, `Menu` and `Callout` without a severity. The same mix as `--ui-border-color` by default. Each raised component sets `--ui-border-color` to it on its root, so a theme that wants another border on raised surfaces, such as the page background in dark mode, sets this one. |
+| `--ui-border-color-raised` | Unset | Border color of tonal and elevated `Card` and `Accordion` and of `Callout` without a severity. When unset, cards and accordions use the page background color, so they stay visible on tonal surfaces, and callouts their tonal background. |
+| `--ui-border-width` | `1px` | Default border width for components that draw a border. |
+| `--ui-card-padding` | Unset | Padding of `Card`, `Dialog` and `Accordion` content, headers and actions. When unset, `--ui-space-3`. |
+| `--ui-duration` | `0.2s` | Default transition duration. Multiplied by `--ui-motion`. |
+| `--ui-ease` | `ease` | Default easing for transitions. |
+| `--ui-field-border-color-on-raised` | `color-mix( in oklch, var(--ui-text-strong) var(--ui-field-border-strength), var(--ui-surface) )` | Field border color inside raised surfaces. The same mix as `--ui-field-border-color` by default. Each raised component sets `--ui-field-border-color` to it on its root. |
+| `--ui-focus-ring-color` | `oklch( from var(--ui-surface) clamp(0, (0.6 - l) * 1000, 1) 0 0 )` | Color of the keyboard focus ring. Black on surfaces lighter than OKLCH 0.6 and white on darker ones, so it reaches 3:1 on any `--ui-surface`. |
+| `--ui-focus-ring-offset` | `2px` | Distance between a control and its focus ring. |
+| `--ui-focus-ring-style` | `solid` | Outline style of the focus ring. |
+| `--ui-focus-ring-width` | `2px` | Width of the focus ring. |
+| `--ui-font-size-body` | `var(--ui-font-size-300)` | Font size of body copy, `Card` text and the `Callout` title. Defaults to `--ui-font-size-300`. |
+| `--ui-font-size-caption` | `var(--ui-font-size-100)` | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`. |
+| `--ui-line-height-tight` | `1.25` | Line height of single-line controls and compact text: field inputs, `Table` cells, `Tooltip`, `Card` captions and keyboard hints in buttons. |
+| `--ui-motion` | `1` | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. See [Motion](https://open-props-ui.netlify.app/html/guide/theming.md#motion). |
+| `--ui-radius` | `0.5rem` | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-shadow-elevated` | `0 -1px 3px 0 hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)), 0 1px 2px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.02)), 0 2px 5px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.04)), 0 4px 12px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.05)), 0 12px 15px -5px hsl(from var(--ui-shadow-color) h s l / calc(alpha + 0.07))` | Shadow of elevated `Card` and `Accordion`. Five layers of `--ui-shadow-color`, which follows the color scheme, also in `.ui-light` and `.ui-dark` parts of the page. |
+| `--ui-shadow-surface` | `none` | Shadow of tonal and outlined `Card` and `Accordion`, and of `Callout`. `none` by default, for themes that put every surface on the same plane. |
+| `--ui-space-1` | `calc(0.25rem * var(--ui-space-scale))` | Spacing step 1: `0.25rem` times `--ui-space-scale`. |
+| `--ui-space-2` | `calc(0.5rem * var(--ui-space-scale))` | Spacing step 2: `0.5rem` times `--ui-space-scale`. |
+| `--ui-space-3` | `calc(1rem * var(--ui-space-scale))` | Spacing step 3: `1rem` times `--ui-space-scale`. |
+| `--ui-surface` | `light-dark(var(--ui-gray-1), var(--ui-gray-13))` | Page and card background. |
+| `--ui-surface-elevated` | `light-dark(var(--ui-gray-1), var(--ui-gray-12))` | Background of elevated cards and accordions, dialogs, drawers, menus and native `Select` options. |
+| `--ui-surface-tonal` | `light-dark(var(--ui-gray-3), var(--ui-gray-12))` | Background of tonal variants. |
+| `--ui-text` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )` | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`. |
 
 The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md).
 
@@ -297,139 +264,21 @@ The stylesheets on this page read these theme tokens. Override them on `html` or
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/html/guide/customizing.md#component-properties) has examples.
 
-| Property                   | Kind   | Description                                                                                                                                                                    |
-| -------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--_bg-color`              | Output | The current background. Set by the variants.                                                                                                                                   |
-| `--_border-color`          | Output | The current border color. Set by the variants (`--ui-border-color-raised` in `.ui-tonal` and `.ui-elevated` when a theme sets it) and by hovering `.ui-card-link`.             |
-| `--_border-width`          | Output | The current border width. Set by the variants.                                                                                                                                 |
-| `--_duration`              | Output | Duration of the focus ring animation, `--ui-duration` times `--_motion`.                                                                                                       |
-| `--_ease`                  | Input  | Easing of the focus ring animation. Defaults to `--ui-ease`.                                                                                                                   |
-| `--_elevated-bg-color`     | Input  | Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`.                                                                                                             |
-| `--_elevated-shadow`       | Input  | Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`.                                                                                                                  |
-| `--_motion`                | Input  | Motion multiplier for the focus ring animation. `0` turns it off.                                                                                                              |
-| `--_outlined-border-color` | Input  | Border color of `.ui-outlined`. Defaults to `--ui-border-color`.                                                                                                               |
-| `--_padding`               | Input  | Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset.                                                               |
-| `--_shadow`                | Output | The current shadow. `.ui-elevated` sets `--_elevated-shadow`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`.                                                        |
-| `--_surface-bg-color`      | Input  | Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`. |
-| `--_tonal-bg-color`        | Input  | Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`.                                                                                                                   |
-
-## Under the hood
-
-1. Base
-
-   - A flex column: header, content and actions share one `gap`
-   - Padding sits on the children, so media can go edge to edge
-   - Without actions, the last child pads the bottom itself
-   - `overflow: hidden` clips children to the rounded corners
-
-2. Variants
-
-   - Variants only swap custom properties, the rules stay the same
-   - `--ui-shadow-elevated` is a theme token that switches to a heavier shadow in dark mode
-   - Shadows barely show on dark surfaces, switch the site to dark mode to compare
-
-3. Actions
-
-   - `margin-block-start: auto` pins the actions to the bottom of a stretched card
-   - `:not(.ui-filled, .ui-outlined, .ui-tonal)` only matches a text button, with no variant class
-   - A text button has no background, so the row shifts to line its label up with the text
-
-Step 1 of 3: Base
-
-- [Flexbox gap ](https://webstatus.dev/features/flexbox-gap)(Widely available): Chrome 84+, Edge 84+, Firefox 63+, Safari 14.1+
-- [\<hgroup> ](https://webstatus.dev/features/hgroup)(Widely available): Chrome 5+, Edge 12+, Firefox 4+, Safari 5+
-
-```html
-<div class="card">
-  <hgroup>
-    <p>Overline</p>
-    <h3>Headline</h3>
-  </hgroup>
-  <div class="content">…</div>
-  <div class="actions">…</div>
-</div>
-```
-
-```css
-.card {
-  --card-bg: var(--ui-surface);
-  --card-border: transparent;
-  --card-border-width: 0;
-  --card-shadow: none;
-  background-color: var(--card-bg);
-  border: var(--card-border-width) solid var(--card-border);
-  border-radius: var(--ui-radius);
-  box-shadow: var(--card-shadow);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  min-inline-size: 0;
-  overflow: hidden;
-  overflow-wrap: break-word;
-}
-
-.card > :is(hgroup, .content) {
-  margin-block: 0;
-  padding-inline: 0.75rem;
-}
-
-.card > :is(hgroup, .content):last-child {
-  padding-block-end: 0.75rem;
-}
-
-.card > hgroup {
-  padding-block-start: 0.75rem;
-}
-
-.card > hgroup > * {
-  margin-block: 0;
-}
-```
-
-Step 2 of 3: Variants
-
-- [Custom properties ](https://webstatus.dev/features/custom-properties)(Widely available): Chrome 49+, Edge 15+, Firefox 31+, Safari 9.1+
-
-```css
-.tonal {
-  --card-bg: var(--ui-surface-tonal);
-  --card-border: var(--ui-surface);
-  --card-border-width: 1px;
-}
-
-.elevated {
-  --card-bg: var(--ui-surface-elevated);
-  --card-border: var(--ui-surface);
-  --card-border-width: 1px;
-  --card-shadow: var(--ui-shadow-elevated);
-}
-```
-
-Step 3 of 3: Actions
-
-- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-
-```css
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-block-start: auto;
-  padding: 0.5rem 0.75rem;
-}
-
-.actions:has(> .ui-button:first-child:not(.ui-filled, .ui-outlined, .ui-tonal)) {
-  padding-inline: 0.25rem 0.75rem;
-}
-```
-
-## Browser support
-
-- Chromium: Full support Supported since v105.
-- Firefox: Full support Supported since v121.
-- Safari: Full support Supported since v15.4.
-
-Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Card.md).
+| Property | Kind | Description |
+| --- | --- | --- |
+| `--_bg-color` | Output | The current background. Set by the variants. |
+| `--_border-color` | Output | The current border color. Set by the variants (`--ui-border-color-raised` in `.ui-tonal` and `.ui-elevated` when a theme sets it) and by hovering `.ui-card-link`. |
+| `--_border-width` | Output | The current border width. Set by the variants. |
+| `--_duration` | Output | Duration of the focus ring animation, `--ui-duration` times `--_motion`. |
+| `--_ease` | Input | Easing of the focus ring animation. Defaults to `--ui-ease`. |
+| `--_elevated-bg-color` | Input | Background of `.ui-elevated`. Defaults to `--ui-surface-elevated`. |
+| `--_elevated-shadow` | Input | Shadow of `.ui-elevated`. Defaults to `--ui-shadow-elevated`. |
+| `--_motion` | Input | Motion multiplier for the focus ring animation. `0` turns it off. |
+| `--_outlined-border-color` | Input | Border color of `.ui-outlined`. Defaults to `--ui-border-color`. |
+| `--_padding` | Input | Padding of the header, content and actions. `--ui-card-padding`, or `--ui-space-3` when a theme leaves it unset. |
+| `--_shadow` | Output | The current shadow. `.ui-elevated` sets `--_elevated-shadow`, `.ui-tonal` and `.ui-outlined` set `--ui-shadow-surface`. |
+| `--_surface-bg-color` | Input | Background of default and `.ui-outlined` cards, and border color of `.ui-tonal` and `.ui-elevated` unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-surface`. |
+| `--_tonal-bg-color` | Input | Background of `.ui-tonal`. Defaults to `--ui-surface-tonal`. |
 
 ## Installation
 
@@ -445,20 +294,36 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - `opui-css/css/components/card.css`
 
-## Changelog
+## Used in blocks
 
-### What's new
-
-- Themes can set [`--ui-card-padding`](#api).
-- The [header](#header) takes `.ui-header` on its `hgroup`, like the `Drawer` header.
-- Add `.ui-card-link` to a link to make the [whole card clickable](#clickable).
-- [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
-- [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.
-- Breaking: [actions](#actions-alignment) sit at the end by default. Add `.ui-align-start` to line them up with the content.
-- Breaking: `--_card-bg-color`, `--_card-border-color`, `--_card-border-width` and `--_card-shadow` drop the `card-` prefix, the outlined `--_border-color` is `--_outlined-border-color`, and `--_bg-surface`, `--_bg-tonal` and `--_bg-elevated` are `--_surface-bg-color`, `--_tonal-bg-color` and `--_elevated-bg-color`, and `--_shadow-elevated` is `--_elevated-shadow` ([Under the hood](#under-the-hood)).
-- `--_duration` and `--_ease` set the focus ring animation's duration and easing ([Under the hood](#under-the-hood)).
-- Elevated cards use [`--ui-shadow-elevated`](#api), and padding and gaps read the `--ui-space-*` scale.
-- Breaking: `--_shadow-light` and `--_shadow-dark` are gone. Set [`--ui-shadow-elevated-light` and `--ui-shadow-elevated-dark`](#api) in your theme, or [`--_elevated-shadow`](#component-properties) on the card.
-- [Tonal and outlined](#variants) cards read [`--ui-shadow-surface`](#api), and tonal and elevated cards `--ui-border-color-raised`, when a theme sets them.
-- Borders inside [tonal and elevated](#variants) cards read `--ui-border-color-on-raised` and `--ui-field-border-color-on-raised`, so a theme's borders reach inside.
-- Breaking: `.ui-text` on a card is [`.ui-transparent`](#variants).
+- [Account settings](https://open-props-ui.netlify.app/blocks/account-settings.md)
+- [Analytics dashboard](https://open-props-ui.netlify.app/blocks/analytics-dashboard.md)
+- [App shell](https://open-props-ui.netlify.app/blocks/app-shell.md)
+- [Billing](https://open-props-ui.netlify.app/blocks/billing.md)
+- [Blog list](https://open-props-ui.netlify.app/blocks/blog-list.md)
+- [Checkout](https://open-props-ui.netlify.app/blocks/checkout.md)
+- [Empty states](https://open-props-ui.netlify.app/blocks/empty-states.md)
+- [FAQ](https://open-props-ui.netlify.app/blocks/faq.md)
+- [Feature grid](https://open-props-ui.netlify.app/blocks/feature-grid.md)
+- [File manager](https://open-props-ui.netlify.app/blocks/file-manager.md)
+- [Forgot password](https://open-props-ui.netlify.app/blocks/forgot-password.md)
+- [Hero](https://open-props-ui.netlify.app/blocks/hero.md)
+- [Invoice](https://open-props-ui.netlify.app/blocks/invoice.md)
+- [Kanban board](https://open-props-ui.netlify.app/blocks/kanban-board.md)
+- [Newsletter](https://open-props-ui.netlify.app/blocks/newsletter.md)
+- [Notification settings](https://open-props-ui.netlify.app/blocks/notification-settings.md)
+- [Notifications](https://open-props-ui.netlify.app/blocks/notifications.md)
+- [Onboarding checklist](https://open-props-ui.netlify.app/blocks/onboarding-checklist.md)
+- [Order history](https://open-props-ui.netlify.app/blocks/order-history.md)
+- [Pricing](https://open-props-ui.netlify.app/blocks/pricing.md)
+- [Product detail](https://open-props-ui.netlify.app/blocks/product-detail.md)
+- [Project overview](https://open-props-ui.netlify.app/blocks/project-overview.md)
+- [Sales dashboard](https://open-props-ui.netlify.app/blocks/sales-dashboard.md)
+- [Server status](https://open-props-ui.netlify.app/blocks/server-status.md)
+- [Shopping cart](https://open-props-ui.netlify.app/blocks/shopping-cart.md)
+- [Sign in](https://open-props-ui.netlify.app/blocks/sign-in.md)
+- [Sign up](https://open-props-ui.netlify.app/blocks/sign-up.md)
+- [Team members](https://open-props-ui.netlify.app/blocks/team-members.md)
+- [Testimonials](https://open-props-ui.netlify.app/blocks/testimonials.md)
+- [Two-factor authentication](https://open-props-ui.netlify.app/blocks/two-factor.md)
+- [User directory](https://open-props-ui.netlify.app/blocks/user-directory.md)

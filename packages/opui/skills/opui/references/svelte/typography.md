@@ -64,27 +64,79 @@ Use `.ui-link` for links outside `.ui-rich-text`. Inside rich text, links get th
 <pre class="ui-code-block"><code>{code}</code></pre>
 ```
 
+### Icon
+
+`.ui-icon` sizes an `svg` to `--ui-icon-size` and keeps it from shrinking next to text. `.ui-small` and `.ui-large` read `--ui-icon-size-small` and `--ui-icon-size-large`. Components size the icons they own, so the class is for icons in your own markup.
+
+```svelte
+<p class="ui-layout-row ui-small">
+  <svg
+    aria-hidden="true"
+    class="ui-icon"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-1 15-4-4 1.41-1.41L11 14.17l5.59-5.59L18 10z"
+    ></path>
+  </svg>
+  All checks passed
+</p>
+<p class="ui-layout-row ui-small">
+  <svg aria-hidden="true" class="ui-icon ui-small" viewBox="0 0 24 24"></svg>
+  Small
+</p>
+<p class="ui-layout-row ui-small">
+  <svg aria-hidden="true" class="ui-icon ui-large" viewBox="0 0 24 24"></svg>
+  Large
+</p>
+```
+
+### Swatch
+
+`.ui-swatch` is a small dot for a color legend. A severity class on it, such as `.ui-info`, paints it in that tone, and `--_swatch-bg-color` takes any other color. A status with a name is a `Chip` with a dot instead.
+
+```svelte
+<ul class="ui-layout-row">
+  <li class="ui-layout-row ui-x-small">
+    <span class="ui-swatch ui-success"></span> Online
+  </li>
+  <li class="ui-layout-row ui-x-small">
+    <span class="ui-swatch ui-warning"></span> Degraded
+  </li>
+  <li class="ui-layout-row ui-x-small">
+    <span class="ui-swatch ui-critical"></span> Down
+  </li>
+  <li class="ui-layout-row ui-x-small">
+    <span class="ui-swatch" style="--_swatch-bg-color: var(--ui-color-7)"
+    ></span>
+    Maintenance
+  </li>
+</ul>
+```
+
 ## Inline text elements
 
-| Result            | Element           | Class       |
-| ----------------- | ----------------- | ----------- |
-| [Link](#link)     | `<a href>`        | `.ui-link`  |
-| Abbr.             | `<abbr>`          | `.ui-abbr`  |
-| **Bold**          | `<b>`, `<strong>` | None        |
-| Citation          | `<cite>`          | `.ui-cite`  |
-| ~~Deleted~~       | `<del>`           | `.ui-del`   |
-| Definition        | `<dfn>`           | `.ui-dfn`   |
-| *Italic*          | `<em>`, `<i>`     | None        |
-| Inserted          | `<ins>`           | `.ui-ins`   |
-| `Ctrl + S`        | `<kbd>`           | `.ui-kbd`   |
-| *Highlight*       | `<mark>`          | `.ui-mark`  |
-| ~~Strikethrough~~ | `<s>`             | `.ui-s`     |
-| `sample output`   | `<samp>`          | `.ui-samp`  |
-| Small             | `<small>`         | `.ui-small` |
-| Text Sub          | `<sub>`           | `.ui-sub`   |
-| Text Sup          | `<sup>`           | `.ui-sup`   |
-| *Underline*       | `<u>`             | `.ui-u`     |
-| `variable`        | `<var>`           | `.ui-var`   |
+| Result | Element | Class |
+| --- | --- | --- |
+| [Link](#link) | `<a href>` | `.ui-link` |
+| Abbr. | `<abbr>` | `.ui-abbr` |
+| **Bold** | `<b>`, `<strong>` | None |
+| Citation | `<cite>` | `.ui-cite` |
+| ~~Deleted~~ | `<del>` | `.ui-del` |
+| Definition | `<dfn>` | `.ui-dfn` |
+| *Italic* | `<em>`, `<i>` | None |
+| Inserted | `<ins>` | `.ui-ins` |
+| `Ctrl + S` | `<kbd>` | `.ui-kbd` |
+| *Highlight* | `<mark>` | `.ui-mark` |
+| ~~Strikethrough~~ | `<s>` | `.ui-s` |
+| `sample output` | `<samp>` | `.ui-samp` |
+| Small | `<small>` | `.ui-small` |
+| Text Sub | `<sub>` | `.ui-sub` |
+| Text Sup | `<sup>` | `.ui-sup` |
+| *Underline* | `<u>` | `.ui-u` |
+| `variable` | `<var>` | `.ui-var` |
 
 ## Classless
 
@@ -594,73 +646,82 @@ cold-brew 1.0.0</samp></pre>
 
 ### Typography API
 
-| Type          | Modifiers                                                                                                                                                  | Default | Description                                                                                                                                        |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Blockquote    | `.ui-blockquote`                                                                                                                                           | -       | Quoted block with a start border.                                                                                                                  |
-| Caption       | `.ui-caption`                                                                                                                                              | -       | Muted supporting text.                                                                                                                             |
-| Code block    | `pre.ui-code-block`                                                                                                                                        | -       | Monospace preformatted block.                                                                                                                      |
-| Heading       | `.ui-h1`, `.ui-h2`, `.ui-h3`, `.ui-h4`, `.ui-h5`, `.ui-h6`                                                                                                 | -       | Heading styles for any element.                                                                                                                    |
-| Heading group | `.ui-hgroup`                                                                                                                                               | -       | Groups an overline, heading, and optional body copy.                                                                                               |
-| Inline        | `.ui-abbr`, `.ui-cite`, `.ui-del`, `.ui-dfn`, `.ui-ins`, `.ui-kbd`, `.ui-mark`, `.ui-s`, `.ui-samp`, `.ui-small`, `.ui-sub`, `.ui-sup`, `.ui-u`, `.ui-var` | -       | Inline text element utilities.                                                                                                                     |
-| Link          | `.ui-link`                                                                                                                                                 | -       | Link styles outside `.ui-rich-text`. On hover and focus, the underline gets thicker. The color gets darker in light mode and lighter in dark mode. |
-| Not rich text | `.ui-not-rich-text`                                                                                                                                        | -       | Ends the `.ui-rich-text` styles inside it.                                                                                                         |
-| Overline      | `.ui-overline`                                                                                                                                             | -       | Small uppercase label text.                                                                                                                        |
-| Paragraph     | `.ui-p`                                                                                                                                                    | -       | Body paragraph styling.                                                                                                                            |
-| Sizes         | default, `.ui-large`, `.ui-small`                                                                                                                          | default | Size modifiers on `.ui-p`.                                                                                                                         |
+| Type | Modifiers | Default | Description |
+| --- | --- | --- | --- |
+| Blockquote | `.ui-blockquote` | - | Quoted block with a start border. |
+| Caption | `.ui-caption` | - | Muted supporting text. |
+| Code block | `pre.ui-code-block` | - | Monospace preformatted block. |
+| Colors | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | - | Tone of `.ui-swatch`. Without it, the swatch takes the palette accent of the scope it sits in. |
+| Heading | `.ui-h1`, `.ui-h2`, `.ui-h3`, `.ui-h4`, `.ui-h5`, `.ui-h6` | - | Heading styles for any element. |
+| Heading group | `.ui-hgroup` | - | Groups an overline, heading, and optional body copy. |
+| Icon | `.ui-icon` | - | Sizes an inline `svg` to `--ui-icon-size` and keeps it from shrinking in a flex row. |
+| Inline | `.ui-abbr`, `.ui-cite`, `.ui-del`, `.ui-dfn`, `.ui-ins`, `.ui-kbd`, `.ui-mark`, `.ui-s`, `.ui-samp`, `.ui-small`, `.ui-sub`, `.ui-sup`, `.ui-u`, `.ui-var` | - | Inline text element utilities. |
+| Link | `.ui-link` | - | Link styles outside `.ui-rich-text`. On hover and focus, the underline gets thicker. The color gets darker in light mode and lighter in dark mode. |
+| Not rich text | `.ui-not-rich-text` | - | Ends the `.ui-rich-text` styles inside it. |
+| Overline | `.ui-overline` | - | Small uppercase label text. |
+| Paragraph | `.ui-p` | - | Body paragraph styling. |
+| Sizes | default, `.ui-large`, `.ui-small` | default | Size modifiers on `.ui-p` and `.ui-icon`. An icon reads `--ui-icon-size-small` and `--ui-icon-size-large`. |
+| Swatch | `.ui-swatch` | - | A small colored dot for a legend, in `--_swatch-bg-color`, the palette accent of its tone or scope. |
 
 #### Parts
 
-| Part            | Description                                         |
-| --------------- | --------------------------------------------------- |
+| Part | Description |
+| --- | --- |
 | `.ui-rich-text` | Classless typography for uncontrolled child markup. |
 
 Add the classes to elements in your markup. There is no Svelte component.
 
 ### CSS variables
 
-| Variable                         | Default                                                                                                                                                                                                         | Description                                                                                                                                                                                                                                                                                                                                                                                                          |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-color`              | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                                                                                                                                                                                                             |
-| `--ui-border-width`              | `1px`                                                                                                                                                                                                           | Default border width for components that draw a border.                                                                                                                                                                                                                                                                                                                                                              |
-| `--ui-border-width-thick`        | `var(--border-size-2)`                                                                                                                                                                                          | Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar.                                                                                                          |
-| `--ui-code-bg-color`             | `light-dark(oklch(0 0 0 / 12%), oklch(1 0 0 / 10%))`                                                                                                                                                            | Background of inline `code` in rich text and `Typography`. A translucent black in light mode and white in dark mode, fainter with more contrast so the text stands out.                                                                                                                                                                                                                                              |
-| `--ui-code-block-bg-color`       | `var(--ui-color-15)`                                                                                                                                                                                            | Background of `pre.ui-code-block` and `pre` in rich text. A dark shade of the palette in both modes.                                                                                                                                                                                                                                                                                                                 |
-| `--ui-code-block-text-color`     | `var(--ui-color-1)`                                                                                                                                                                                             | Text color of `pre.ui-code-block` and `pre` in rich text.                                                                                                                                                                                                                                                                                                                                                            |
-| `--ui-critical-text`             | `light-dark( oklch(from var(--ui-critical) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-critical) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )`              | Critical as a text color: the `.ui-critical` items of a `Menu`, a `.ui-critical` `Button` with no variant or `.ui-outlined`, and `del` and `.ui-del` text. `--ui-critical` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.                                                                                                                                                   |
-| `--ui-font-body`                 | `var(--font-sans)`                                                                                                                                                                                              | Font family for body text, fields and buttons. Defaults to Open Props `--font-sans`.                                                                                                                                                                                                                                                                                                                                 |
-| `--ui-font-code`                 | `var(--font-mono)`                                                                                                                                                                                              | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. Defaults to Open Props `--font-mono`.                                                                                                                                                                                                                                    |
-| `--ui-font-heading`              | Unset                                                                                                                                                                                                           | Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. When unset, headings follow `--ui-font-body`.                                                                                                                                                                                                                                                                                                           |
-| `--ui-font-size-caption`         | `var(--ui-font-size-100)`                                                                                                                                                                                       | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.                                                                                                                                                                                                       |
-| `--ui-font-size-h1`              | `calc( var(--ui-font-size-700) + (var(--ui-font-size-900) - var(--ui-font-size-700)) * var(--ui-fluid-progress) )`                                                                                              | Font size for `h1` and `.ui-h1`. Grows from `--ui-font-size-700` to `--ui-font-size-900` with `--ui-fluid-progress`.                                                                                                                                                                                                                                                                                                 |
-| `--ui-font-size-h2`              | `calc( var(--ui-font-size-600) + (var(--ui-font-size-800) - var(--ui-font-size-600)) * var(--ui-fluid-progress) )`                                                                                              | Font size for `h2` and `.ui-h2`. Grows from `--ui-font-size-600` to `--ui-font-size-800` with `--ui-fluid-progress`.                                                                                                                                                                                                                                                                                                 |
-| `--ui-font-size-h3`              | `calc( var(--ui-font-size-500) + (var(--ui-font-size-600) - var(--ui-font-size-500)) * var(--ui-fluid-progress) )`                                                                                              | Font size for `h3` and `.ui-h3`. Grows from `--ui-font-size-500` to `--ui-font-size-600` with `--ui-fluid-progress`.                                                                                                                                                                                                                                                                                                 |
-| `--ui-font-size-h4`              | `calc( var(--ui-font-size-400) + (var(--ui-font-size-500) - var(--ui-font-size-400)) * var(--ui-fluid-progress) )`                                                                                              | Font size for `h4` and `.ui-h4`. Grows from `--ui-font-size-400` to `--ui-font-size-500` with `--ui-fluid-progress`.                                                                                                                                                                                                                                                                                                 |
-| `--ui-font-size-h5`              | `var(--ui-font-size-400)`                                                                                                                                                                                       | Font size for `h5` and `.ui-h5`. Defaults to `--ui-font-size-400`.                                                                                                                                                                                                                                                                                                                                                   |
-| `--ui-font-size-h6`              | `var(--ui-font-size-300)`                                                                                                                                                                                       | Font size for `h6` and `.ui-h6`. Defaults to `--ui-font-size-300`.                                                                                                                                                                                                                                                                                                                                                   |
-| `--ui-font-size-large`           | `var(--ui-font-size-500)`                                                                                                                                                                                       | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`.                                                                                                                                                                                                                                                                                    |
-| `--ui-font-size-small`           | `var(--ui-font-size-200)`                                                                                                                                                                                       | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                                                                                                                                                                                                              |
-| `--ui-font-weight-bold`          | `var(--font-weight-7)`                                                                                                                                                                                          | Font weight for headings, buttons and terms.                                                                                                                                                                                                                                                                                                                                                                         |
-| `--ui-font-weight-medium`        | `var(--font-weight-5)`                                                                                                                                                                                          | Font weight for badges, overlines and group labels.                                                                                                                                                                                                                                                                                                                                                                  |
-| `--ui-info`                      | `var(--ui-blue)`                                                                                                                                                                                                | Severity color for informational messages, and the dotted underline of `abbr`, `dfn`, `.ui-abbr` and `.ui-dfn`.                                                                                                                                                                                                                                                                                                      |
-| `--ui-letter-spacing-caps`       | `0.06em`                                                                                                                                                                                                        | Letter spacing of uppercase text: overlines and the first paragraph of an `hgroup`.                                                                                                                                                                                                                                                                                                                                  |
-| `--ui-letter-spacing-display`    | `-0.02em`                                                                                                                                                                                                       | Letter spacing of `h1` and `h2`, tighter than the body.                                                                                                                                                                                                                                                                                                                                                              |
-| `--ui-letter-spacing-heading`    | `-0.01em`                                                                                                                                                                                                       | Letter spacing of `h3` and `h4`, slightly tighter than the body.                                                                                                                                                                                                                                                                                                                                                     |
-| `--ui-line-height`               | `1.6`                                                                                                                                                                                                           | Line height of body copy: prose, captions and `List` text.                                                                                                                                                                                                                                                                                                                                                           |
-| `--ui-on-inverse`                | `light-dark(var(--ui-gray-1), var(--ui-gray-15))`                                                                                                                                                               | Text color on `--ui-surface-inverse`.                                                                                                                                                                                                                                                                                                                                                                                |
-| `--ui-primary-text`              | `light-dark( oklch(from var(--ui-primary) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-primary) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )`                | Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`, and a selected `Select` option. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text. |
-| `--ui-radius`                    | `var(--size-2)`                                                                                                                                                                                                 | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                                                                                                                                                                     |
-| `--ui-radius-small`              | `min(var(--radius-2), var(--ui-radius))`                                                                                                                                                                        | Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-radius`, capped at 5px.                                                                                                                                                                                                                                                              |
-| `--ui-rhythm-step`               | `0.25rem`                                                                                                                                                                                                       | Vertical rhythm unit. Rich text margins and heading line heights round to it.                                                                                                                                                                                                                                                                                                                                        |
-| `--ui-space-2`                   | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-3`                   | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-space-4`                   | `calc(var(--size-4) * var(--ui-space-scale))`                                                                                                                                                                   | Spacing step 4: Open Props `--size-4` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                      |
-| `--ui-success-text`              | `light-dark( oklch(from var(--ui-success) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-success) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )`                | Success as a text color, for success text outside an `.ui-success` scope, and `ins` and `.ui-ins` text. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`.                                                                                                                                                                                                       |
-| `--ui-surface-inverse`           | `light-dark(var(--ui-gray-15), var(--ui-gray-2))`                                                                                                                                                               | Background of `Tooltip`, the `Carousel` buttons and `kbd`, `var`, `.ui-kbd` and `.ui-var`, inverted against the page.                                                                                                                                                                                                                                                                                                |
-| `--ui-text`                      | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`     | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                                                                                                                                                                                                            |
-| `--ui-text-strong`               | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                               | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                                                                                                                                                                                                     |
-| `--ui-underline-offset`          | `2px`                                                                                                                                                                                                           | Gap between text and its underline: `Link` and rich text links, and in Firefox `abbr`, `dfn`, `ins` and `u`.                                                                                                                                                                                                                                                                                                         |
-| `--ui-underline-offset-small`    | `1px`                                                                                                                                                                                                           | Gap between text and the underline of `abbr`, `dfn`, `ins` and `u` and their classes. Firefox uses `--ui-underline-offset`.                                                                                                                                                                                                                                                                                          |
-| `--ui-underline-thickness-hover` | `3px`                                                                                                                                                                                                           | Underline thickness of `Link` and rich text links on hover and keyboard focus. At rest they keep the font's own thickness.                                                                                                                                                                                                                                                                                           |
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--ui-border-color` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`. |
+| `--ui-border-width` | `1px` | Default border width for components that draw a border. |
+| `--ui-border-width-thick` | `2px` | Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar. |
+| `--ui-code-bg-color` | `light-dark( oklch(from var(--ui-text) l c h / var(--ui-code-bg-alpha-light)), oklch(from var(--ui-text) l c h / var(--ui-code-bg-alpha-dark)) )` | Background of inline `code` in rich text and `Typography`. `--ui-text` at `--ui-code-bg-alpha-light` in light mode and `--ui-code-bg-alpha-dark` in dark mode, fainter with more contrast so the text stands out. |
+| `--ui-code-block-bg-color` | `light-dark( var(--ui-surface-inverse), var(--ui-surface-filled) )` | Background of `pre.ui-code-block` and `pre` in rich text. `--ui-surface-inverse` in light mode and `--ui-surface-filled` in dark mode, so the block is dark in both. |
+| `--ui-code-block-text-color` | `light-dark( var(--ui-on-inverse), var(--ui-text-strong) )` | Text color of `pre.ui-code-block` and `pre` in rich text. `--ui-on-inverse` in light mode and `--ui-text-strong` in dark mode, on `--ui-code-block-bg-color`. |
+| `--ui-critical-text` | `light-dark( oklch(from var(--ui-critical) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-critical) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )` | Critical as a text color: the `.ui-critical` items of a `Menu`, a `.ui-critical` `Button` with no variant or `.ui-outlined`, and `del` and `.ui-del` text. `--ui-critical` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`. |
+| `--ui-font-body` | `system-ui, sans-serif` | Font family for body text, fields and buttons. `system-ui, sans-serif` by default. |
+| `--ui-font-code` | `Dank Mono, Operator Mono, Inconsolata, Fira Mono, ui-monospace, SF Mono, Monaco, Droid Sans Mono, Source Code Pro, Cascadia Code, Menlo, Consolas, DejaVu Sans Mono, monospace` | Font family for `code`, `kbd`, `samp` and `pre` in rich text, `.ui-kbd`, `.ui-samp`, `.ui-var`, code blocks and `kbd` in buttons and lists. A monospace stack by default. |
+| `--ui-font-heading` | Unset | Font family for `h1`–`h6` and the `.ui-h1`–`.ui-h6` classes. When unset, headings follow `--ui-font-body`. |
+| `--ui-font-size-caption` | `var(--ui-font-size-100)` | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`. |
+| `--ui-font-size-h1` | `calc( var(--ui-font-size-700) + (var(--ui-font-size-900) - var(--ui-font-size-700)) * var(--ui-fluid-progress) )` | Font size for `h1` and `.ui-h1`. Grows from `--ui-font-size-700` to `--ui-font-size-900` with `--ui-fluid-progress`. |
+| `--ui-font-size-h2` | `calc( var(--ui-font-size-600) + (var(--ui-font-size-800) - var(--ui-font-size-600)) * var(--ui-fluid-progress) )` | Font size for `h2` and `.ui-h2`. Grows from `--ui-font-size-600` to `--ui-font-size-800` with `--ui-fluid-progress`. |
+| `--ui-font-size-h3` | `calc( var(--ui-font-size-500) + (var(--ui-font-size-600) - var(--ui-font-size-500)) * var(--ui-fluid-progress) )` | Font size for `h3` and `.ui-h3`. Grows from `--ui-font-size-500` to `--ui-font-size-600` with `--ui-fluid-progress`. |
+| `--ui-font-size-h4` | `calc( var(--ui-font-size-400) + (var(--ui-font-size-500) - var(--ui-font-size-400)) * var(--ui-fluid-progress) )` | Font size for `h4` and `.ui-h4`. Grows from `--ui-font-size-400` to `--ui-font-size-500` with `--ui-fluid-progress`. |
+| `--ui-font-size-h5` | `var(--ui-font-size-400)` | Font size for `h5` and `.ui-h5`. Defaults to `--ui-font-size-400`. |
+| `--ui-font-size-h6` | `var(--ui-font-size-300)` | Font size for `h6` and `.ui-h6`. Defaults to `--ui-font-size-300`. |
+| `--ui-font-size-large` | `var(--ui-font-size-500)` | Font size of lead paragraphs, `.ui-p.ui-large`, the `Drawer` title and large `Avatar` initials. Defaults to `--ui-font-size-500`. |
+| `--ui-font-size-small` | `var(--ui-font-size-200)` | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`. |
+| `--ui-font-weight-bold` | `700` | Font weight for headings, buttons and terms. |
+| `--ui-font-weight-medium` | `500` | Font weight for badges, overlines and group labels. |
+| `--ui-icon-size` | `1.25rem` | Default icon size inside components. |
+| `--ui-icon-size-large` | `1.5rem` | Icon size inside `Avatar`, and of an `svg` without a `width` in `normalize.css`. |
+| `--ui-icon-size-small` | `1rem` | Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron. |
+| `--ui-info` | `var(--ui-blue)` | Severity color for informational messages, and the dotted underline of `abbr`, `dfn`, `.ui-abbr` and `.ui-dfn`. |
+| `--ui-letter-spacing-caps` | `0.06em` | Letter spacing of uppercase text: overlines and the first paragraph of an `hgroup`. |
+| `--ui-letter-spacing-display` | `-0.02em` | Letter spacing of `h1` and `h2`, tighter than the body. |
+| `--ui-letter-spacing-heading` | `-0.01em` | Letter spacing of `h3` and `h4`, slightly tighter than the body. |
+| `--ui-line-height` | `1.6` | Line height of body copy: prose, captions and `List` text. |
+| `--ui-on-inverse` | `light-dark(var(--ui-gray-1), var(--ui-gray-15))` | Text color on `--ui-surface-inverse`. |
+| `--ui-palette-accent` | `light-dark( oklch(from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) c h), oklch( from var(--ui-color-7) max(l, var(--ui-palette-accent-min-lightness)) c h ) )` | The accent shade of the current palette: `Callout` icons and outlined borders. Stronger with more contrast. The severity `Chip` dot reads it. Re-derived inside every severity scope, so `.ui-success` gets a green one. |
+| `--ui-primary-text` | `light-dark( oklch(from var(--ui-primary) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-primary) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )` | Primary as a text color: links, rich text links, `Callout` link hover, `Button` and `ButtonGroup` with `.ui-primary` and no variant or `.ui-outlined`, and a selected `Select` option. Defaults to `--ui-primary` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`, and is derived again from the more-contrast primary. Set it when the primary needs another shade for text. |
+| `--ui-radius` | `0.5rem` | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-radius-round` | `1e5px` | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers. |
+| `--ui-radius-small` | `min(5px, var(--ui-radius))` | Corner radius of small parts: `kbd`, inline `code`, `mark`, `var`, `Tooltip`, the file input and a square `Avatar` image. `--ui-radius`, capped at 5px. |
+| `--ui-rhythm-step` | `0.25rem` | Vertical rhythm unit. Rich text margins and heading line heights round to it. |
+| `--ui-space-2` | `calc(0.5rem * var(--ui-space-scale))` | Spacing step 2: `0.5rem` times `--ui-space-scale`. |
+| `--ui-space-3` | `calc(1rem * var(--ui-space-scale))` | Spacing step 3: `1rem` times `--ui-space-scale`. |
+| `--ui-space-4` | `calc(1.25rem * var(--ui-space-scale))` | Spacing step 4: `1.25rem` times `--ui-space-scale`. |
+| `--ui-success-text` | `light-dark( oklch(from var(--ui-success) min(l, var(--ui-text-max-lightness)) c h), oklch( from var(--ui-success) max(l, var(--ui-text-min-lightness)) min(c, var(--ui-text-max-chroma)) h ) )` | Success as a text color, for success text outside an `.ui-success` scope, and `ins` and `.ui-ins` text. `--ui-success` with its lightness kept within `--ui-text-max-lightness` and `--ui-text-min-lightness`. |
+| `--ui-surface-inverse` | `light-dark(var(--ui-gray-15), var(--ui-gray-2))` | Background of `Tooltip`, the `Carousel` buttons and `kbd`, `var`, `.ui-kbd` and `.ui-var`, inverted against the page. |
+| `--ui-text` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )` | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`. |
+| `--ui-text-strong` | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Strongest text color, for headings, labels and values. Body text is `--ui-text`. |
+| `--ui-text-subtle` | `var(--ui-text)` | Secondary text: placeholders, field helper text, overlines, descriptions in `List` and `Menu` items, unselected `Tabs` labels and `Table` captions. When unset, `--ui-text`. |
+| `--ui-underline-offset` | `2px` | Gap between text and its underline: `Link` and rich text links, and in Firefox `abbr`, `dfn`, `ins` and `u`. |
+| `--ui-underline-offset-small` | `1px` | Gap between text and the underline of `abbr`, `dfn`, `ins` and `u` and their classes. Firefox uses `--ui-underline-offset`. |
+| `--ui-underline-thickness-hover` | `3px` | Underline thickness of `Link` and rich text links on hover and keyboard focus. At rest they keep the font's own thickness. |
 
 The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -670,175 +731,19 @@ Set these on the component itself, inline or in your own CSS. Inputs are the kno
 
 ### link.css
 
-| Property        | Kind  | Description                                                                                                                    |
-| --------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Property | Kind | Description |
+| --- | --- | --- |
 | `--_text-color` | Input | Text and underline color of `.ui-link` and of links without a `ui-` class in `.ui-rich-text`. Defaults to `--ui-primary-text`. |
 
 ### typography.css
 
-| Property          | Kind   | Description                                                                                      |
-| ----------------- | ------ | ------------------------------------------------------------------------------------------------ |
-| `--_count-digits` | Output | Digits reserved for the numbers of an `ol`, from its number of items.                            |
-| `--_flow-gap`     | Input  | Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it. |
-| `--_font-scale`   | Output | Ratio of `1em` to `1rem` that scales heading sizes with the surrounding font size.               |
-| `--_start-digits` | Output | Digits reserved for the numbers of an `ol`, from its `start` attribute.                          |
-
-## Under the hood
-
-Read the post: [Vertical rhythm with round()](https://open-props-ui.netlify.app/learn/vertical-rhythm-round)
-
-Read the post: [Fluid type with progress()](https://open-props-ui.netlify.app/learn/fluid-type-progress)
-
-1. Unsnapped
-
-   - Stripes mark each line box (`1lh`), dotted lines mark `--ui-rhythm-step`
-   - A plain `line-height` lands between grid lines at most sizes
-
-2. Snap line height
-
-   - `round(up, …, step)` snaps the line height to the next step
-   - `1em + 0.5rem`: tight for large headings, roomy for small ones
-   - One rule for every heading level
-
-3. Snap font size
-
-   - Fluid sizes land on half a step
-   - Drag **Font size**: it moves in steps, not pixels
-
-4. Flow space
-
-   - One flow space derived from the body text
-   - `@property` makes it a length, so `1.25em` resolves once, on `.prose`. Unregistered, each heading would resolve it against its own font size
-   - `round()` puts it on the step. Fractions of it round again
-   - More space above a heading than below: it sits with the text it introduces
-
-Step 1 of 4: Unsnapped
-
-```css
-.prose h2 {
-  font-size: var(--size);
-  line-height: 1.2;
-}
-```
-
-Step 2 of 4: Snap line height
-
-- [`round(), mod(), and rem()` ](https://webstatus.dev/features/round-mod-rem)(Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
-
-```css
-.prose :is(h1, h2, h3, h4, h5, h6) {
-  line-height: round(up, 1em + 0.5rem, var(--ui-rhythm-step));
-}
-```
-
-Step 3 of 4: Snap font size
-
-- [`round(), mod(), and rem()` ](https://webstatus.dev/features/round-mod-rem)(Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
-
-```css
-.prose h2 {
-  font-size: round(var(--size), var(--ui-rhythm-step) / 2);
-}
-```
-
-Step 4 of 4: Flow space
-
-- [Registered custom properties ](https://webstatus.dev/features/registered-custom-properties)(Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
-- [`round(), mod(), and rem()` ](https://webstatus.dev/features/round-mod-rem)(Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
-
-```css
-@property --flow-space {
-  inherits: true;
-  initial-value: 0px;
-  syntax: "<length>";
-}
-
-.prose {
-  --flow-space: round(1.25em, var(--ui-rhythm-step));
-}
-
-.prose > * {
-  margin-block: 0 var(--flow-space);
-}
-
-.prose h2 {
-  margin-block: calc(var(--flow-space) * 3)
-    round(var(--flow-space) * 0.75, var(--ui-rhythm-step));
-}
-```
-
-1. Fixed sizes
-
-   - The dashed box is the viewport. Drag **Viewport**: the headings don't care
-   - The largest step of the scale on every screen
-
-2. A clamp() per heading
-
-   - `var(--viewport) * 0.09` stands in for `9vi`, so the slider plays the viewport
-   - Each heading grows over its own range: the `h1` from 356 to 622px, the `h4` from 587 to 667px
-   - At 600px, the starting value, the `h1` is nearly full size, the `h3` is already done and the `h4` has barely moved
-
-3. One ramp
-
-   - `progress(value, start, end)` is 0 at the start, 1 at the end, clamped in between
-   - Every heading reads the same ramp, so they grow together
-   - Drag **Window start** and **Window end**: the breakpoints move, the sizes stay
-
-4. Reuse the ramp
-
-   - Any length can ride the ramp: the gap between the headings here, or a spacing scale in your theme
-   - The theme rounds the sizes to the rhythm step on top, see Vertical rhythm with round()
-
-Step 1 of 4: Fixed sizes
-
-```css
-.h1 { font-size: 3.5rem; }
-.h2 { font-size: 2.5rem; }
-.h3 { font-size: 1.5rem; }
-.h4 { font-size: 1.25rem; }
-```
-
-Step 2 of 4: A clamp() per heading
-
-```css
-.h1 { font-size: clamp(2rem, var(--viewport) * 0.09, 3.5rem); }
-.h2 { font-size: clamp(1.5rem, var(--viewport) * 0.06, 2.5rem); }
-.h3 { font-size: clamp(1.25rem, var(--viewport) * 0.04, 1.5rem); }
-.h4 { font-size: clamp(1.1rem, var(--viewport) * 0.03, 1.25rem); }
-```
-
-Step 3 of 4: One ramp
-
-- [`progress()` ](https://webstatus.dev/features/progress-function)(Newly available): Chrome 138+, Edge 138+, Firefox 155+, Safari 26+
-
-```css
-.viewport {
-  --progress: progress(var(--viewport), var(--fluid-min), var(--fluid-max));
-}
-
-.h1 { font-size: calc(2rem + (3.5rem - 2rem) * var(--progress)); }
-.h2 { font-size: calc(1.5rem + (2.5rem - 1.5rem) * var(--progress)); }
-.h3 { font-size: calc(1.25rem + (1.5rem - 1.25rem) * var(--progress)); }
-.h4 { font-size: calc(1.1rem + (1.25rem - 1.1rem) * var(--progress)); }
-```
-
-Step 4 of 4: Reuse the ramp
-
-- [`progress()` ](https://webstatus.dev/features/progress-function)(Newly available): Chrome 138+, Edge 138+, Firefox 155+, Safari 26+
-
-```css
-.viewport {
-  gap: calc(0.5rem + 1rem * var(--progress));
-}
-```
-
-## Browser support
-
-- Chromium: Full support Supported since v143.
-- Firefox: Partial support Missing: text-wrap-pretty.
-- Safari: Partial support Missing: box-decoration-break, marker.
-
-Explore these features in the [browser support guide](https://open-props-ui.netlify.app/svelte/guide/browser-support/?components=Typography.md).
+| Property | Kind | Description |
+| --- | --- | --- |
+| `--_count-digits` | Output | Digits reserved for the numbers of an `ol`, from its number of items. |
+| `--_flow-gap` | Input | Space between blocks in `.ui-rich-text`. Heading, `hr` and `figure` margins are multiples of it. |
+| `--_font-scale` | Output | Ratio of `1em` to `1rem` that scales heading sizes with the surrounding font size. |
+| `--_start-digits` | Output | Digits reserved for the numbers of an `ol`, from its `start` attribute. |
+| `--_swatch-bg-color` | Input | Fill of `.ui-swatch`. Defaults to `--ui-palette-accent`, the accent of the color class on the swatch or of the surrounding severity scope. |
 
 ## Installation
 
@@ -846,25 +751,3 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - `opui-css/css/components/typography.css`
 - `opui-css/css/components/link.css`
-
-## Changelog
-
-### What's new
-
-- [`kbd` and `var`](#inline-text-elements) sit on `--ui-surface-inverse` with `--ui-on-inverse` text, like tooltips.
-- [Inline `code`](#rich-text-showcase) reads `--ui-code-bg-color`, code blocks read `--ui-code-block-bg-color` and `--ui-code-block-text-color`, and `del`, `ins` and `abbr` read `--ui-critical-text`, `--ui-success-text` and `--ui-info`.
-- Breaking: [`del`, `ins`, `abbr` and `dfn`](#inline-text-elements) and their classes are no longer severity scopes, so content inside them keeps the page palette.
-- Inline `code`, `kbd`, `mark` and `var` are rounded with `--ui-radius-small`, and the blockquote bar and table rules follow `--ui-border-width-thick`.
-- Text sizes follow the type roles `--ui-font-size-caption`, `--ui-font-size-small`, `--ui-font-size-body` and `--ui-font-size-large` on the `--ui-font-size-100` to `900` scale, with `--ui-line-height-*` and `--ui-letter-spacing-*` roles for the rest, so a theme reshapes the type in a few lines.
-- [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
-- Breaking: [heading sizes](#variants) changed. Sizes and line heights snap to `--ui-rhythm-step`, `h1` to `h4` grow together over one viewport window (`--ui-fluid-min-inline-size` to `--ui-fluid-max-inline-size`, with `progress()`), and the heading scale no longer inverts on narrow screens.
-- Breaking: [rich text](#classless) only styles headings without a class, like lists. Add a `.ui-h1`–`.ui-h6` class to a heading that has another class.
-- [Rich text](#rich-text-showcase) styles tables, which scroll sideways in narrow columns, `hr` and task lists.
-- Breaking: [rich text](#classless) sits in the `components.prose` layer, below components, so components inside prose keep their own styles. If you declare the layer order yourself, add `components.prose` before `components.root`.
-- [Rich text](#rich-text-showcase) headings, `pre` and `small` scale with the surrounding font size, and so does [`.ui-small`](#inline-text-elements).
-- Rich text `var` is monospace, like [`.ui-var`](#inline-text-elements).
-- [Links](#link) are documented, and get a thicker underline on hover.
-- Headings read [`--ui-font-heading`](#api), and code, `kbd`, `samp` and `.ui-var` read `--ui-font-code`. Rich text margins read the `--ui-space-*` scale.
-- [Links](#link) read `--ui-primary-text`, which keeps 4.5:1 on every surface, in a List too.
-- [Links](#link) and [underlined text](#inline-text-elements) read `--ui-underline-offset`, `--ui-underline-offset-small` and `--ui-underline-thickness-hover`.
-- [Rich text links](#link) are styled by `link.css`, with one rule for `.ui-link` and classless links. Install it next to `typography.css`.

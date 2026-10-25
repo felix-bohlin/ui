@@ -4,18 +4,30 @@ OPUI ships first-class Svelte 5 components. Install the package, import what you
 
 ## Install via NPM
 
-The components ship as uncompiled Svelte components (`.svelte` and `.ts`), so your build has to compile them. They need Svelte 5.29 or later. Any setup with Svelte support works, for example SvelteKit, Vite with `@sveltejs/vite-plugin-svelte`, or Astro with `@astrojs/svelte`.
+The components ship as uncompiled Svelte components (`.svelte` and `.ts`), so your build has to compile them. They need Svelte 5.29 or later, so add `svelte` if it isn't installed yet. Any setup with Svelte support works, for example SvelteKit, Vite with `@sveltejs/vite-plugin-svelte`, or Astro with `@astrojs/svelte`.
 
 `pnpm`
 
 ```sh
-pnpm add opui-css open-props svelte -S
+pnpm add opui-css
 ```
 
 `npm`
 
 ```sh
-npm install opui-css open-props svelte -S
+npm install opui-css
+```
+
+SvelteKit compiles the package for server rendering through its `svelte` field. In a Vite SSR setup of your own, add it to `ssr.noExternal`, since Node can't load `.svelte` files from `node_modules`:
+
+```ts
+import { svelte } from "@sveltejs/vite-plugin-svelte"
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  plugins: [svelte()],
+  ssr: { noExternal: ["opui-css"] },
+})
 ```
 
 ## Import the CSS
@@ -36,7 +48,6 @@ Or pick and choose in a CSS file, and import that file in your layout instead:
 
 ```css
 @import "opui-css/css/layers.css";
-@import "opui-css/open-props.css";
 @import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";
 @import "opui-css/core/normalize.css";
@@ -45,6 +56,8 @@ Or pick and choose in a CSS file, and import that file in your layout instead:
 @import "opui-css/css/components/checkbox.css";
 @import "opui-css/core/utils.css";
 ```
+
+Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component.
 
 ```svelte
 <script lang="ts">
@@ -55,8 +68,6 @@ Or pick and choose in a CSS file, and import that file in your layout instead:
 
 {@render children()}
 ```
-
-Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component.
 
 ## How to use
 

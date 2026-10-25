@@ -1,8 +1,8 @@
 # Getting started
 
-Design system. Components. Modern HTML & CSS.
+Add the CSS from the CDN, from npm or by copying the files, then write the class names.
 
-Open Props UI is *just CSS*. You can copy any [component](https://open-props-ui.netlify.app/html/components.md) CSS straight from the docs - no install required. Each component page has its CSS under Installation, with the files it depends on and a button that copies them all. It reads tokens from Open Props, `palette.css` and `theme.css`, so those need to be on the page too, after `layers.css` sets the layer order. `normalize.css` adds the focus ring and `utils.css` adds `.ui-sr-only` and the motion classes. The CDN link below has all of it in one file.
+Open Props UI is *just CSS*. You can copy any [component](https://open-props-ui.netlify.app/html/components.md) CSS straight from the docs - no install required. Each component page has its CSS under Installation, with the files it depends on and a button that copies them all. It reads tokens from `palette.css` and `theme.css`, so those need to be on the page too, after `layers.css` sets the layer order. `normalize.css` adds the focus ring and `utils.css` adds `.ui-sr-only` and the motion classes. The CDN link below has all of it in one file.
 
 ## Install via CDN
 
@@ -21,13 +21,13 @@ For when you have a bundler that resolves CSS `@import`s from `node_modules`, li
 `pnpm`
 
 ```sh
-pnpm add opui-css open-props
+pnpm add opui-css
 ```
 
 `npm`
 
 ```sh
-npm install opui-css open-props
+npm install opui-css
 ```
 
 ### Import the CSS
@@ -42,7 +42,6 @@ Or pick and choose the parts you want to include:
 
 ```css
 @import "opui-css/css/layers.css";
-@import "opui-css/open-props.css";
 @import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";
 @import "opui-css/core/normalize.css";
@@ -56,7 +55,7 @@ Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the m
 
 ## Install manually
 
-The most flexible way to use OPUI, and it works without a build step. Download these files from the [`packages/opui/` folder on GitHub](https://github.com/felix-bohlin/ui/tree/main/packages/opui) and drop them into your project.
+The most flexible way to use OPUI, and it works without a build step. Download the package (`npm pack opui-css`, or browse it on [jsDelivr](https://cdn.jsdelivr.net/npm/opui-css@6/)) and drop these files into your project:
 
 ```text
 opui
@@ -69,21 +68,33 @@ opui
 │  │  ├─ accordion.css
 │  │  └─ ...
 │  ├─ js
-│  │  └─ checkbox.js
+│  │  ├─ checkbox.js
+│  │  └─ range.js
 │  ├─ components.css
+│  ├─ imports.css
 │  ├─ layers.css
 │  └─ theme.css
-└─ op.css
+├─ dist
+│  ├─ op.css
+│  ├─ opui.components.css
+│  └─ opui.css
+├─ themes
+│  ├─ bootstrap.css
+│  ├─ brutalist.css
+│  ├─ m3.css
+│  └─ shadcn.css
+├─ open-props.css
+└─ tokens.json
 ```
 
-`op.css` is Open Props, pre-bundled in the `openprops` layer. It isn't in the repo, so grab it from [the CDN](https://cdn.jsdelivr.net/npm/opui-css@6/dist/op.css) (or `dist/op.css` in the npm package). The package's `open-props.css` imports Open Props from `node_modules`, which only works with a bundler.
+`dist/op.css` is Open Props, pre-bundled in the `openprops` layer, and `open-props.css` imports it from `node_modules` for bundlers. The components don't read it, so both are optional and only there for your own CSS. `dist/opui.css` is the CDN file. `themes/` holds the [example themes](https://open-props-ui.netlify.app/html/guide/customizing.md#example-themes) and `tokens.json` the [design tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md#tokens-json).
 
-Put it all together something like this in your main CSS. If you have your files in a different folder structure you'd of course need to change the paths.
+Then import the files in your main CSS, in this order:
 
 ```css
 @import "./opui/css/layers.css";
 
-@import "./opui/op.css";
+@import "./opui/dist/op.css";
 @import "./opui/core/palette.css";
 @import "./opui/css/theme.css";
 @import "./opui/core/normalize.css";
@@ -95,4 +106,6 @@ Put it all together something like this in your main CSS. If you have your files
 
 With the CSS on the page, a component is a class on the right element. The modifiers are classes too.
 
-A few components need a bit of JavaScript in plain HTML, such as indeterminate checkboxes in `css/js/checkbox.js`. Import them in a `<script type="module">`, from `https://cdn.jsdelivr.net/npm/opui-css@6/css/js/` without a bundler. [Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md#javascript) shows the imports and explains the class names, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/html/components.md). [Theming](https://open-props-ui.netlify.app/html/guide/theming.md) covers colors, density, motion and contrast.
+Two things need a bit of JavaScript in plain HTML: indeterminate checkboxes (`css/js/checkbox.js`) and the Range value (`css/js/range.js`). Import them in a `<script type="module">`, from `https://cdn.jsdelivr.net/npm/opui-css@6/css/js/` without a bundler.
+
+[Concepts](https://open-props-ui.netlify.app/html/guide/concepts.md#javascript) shows the imports and explains the class names, the cascade layers and what needs JavaScript. Then browse the [components](https://open-props-ui.netlify.app/html/components.md). [Theming](https://open-props-ui.netlify.app/html/guide/theming.md) covers colors, density, motion and contrast.

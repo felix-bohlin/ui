@@ -270,64 +270,64 @@ Disable a button or link chip with the `disabled` prop. A link chip drops its `h
 
 ### Chip API
 
-| Prop        | Type                                                              | Default    | Description                                                                                   |
-| ----------- | ----------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------- |
-| `as`        | `"a"` , `"button"` , `"div"`                                      | `"div"`    | The element to render. Defaults to `"a"` with `href`.                                         |
-| `disabled`  | `boolean`                                                         | `false`    | Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead. |
-| `dot`       | `boolean`                                                         | `false`    | Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it.         |
-| `end`       | `Snippet`                                                         | -          | Optional content at the end, such as an icon.                                                 |
-| `href`      | `string`                                                          | -          | The link to use. Renders an `<a>`.                                                            |
-| `label`     | `Snippet` , `string`                                              | -          | The label, text or rich content.                                                              |
-| `multiline` | `boolean`                                                         | `false`    | Lets the label wrap to multiple lines.                                                        |
-| `severity`  | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -          | The severity of a status chip. It tints the chip, and colors and shapes its dot.              |
-| `size`      | `"large"` , `"medium"` , `"small"` , `"x-small"`                  | `"medium"` | The size of the element.                                                                      |
-| `start`     | `Snippet`                                                         | -          | Optional content at the start, such as an icon.                                               |
-| `variant`   | `"outlined"` , `"tonal"`                                          | `"tonal"`  | The variant to use.                                                                           |
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `as` | `"a"` , `"button"` , `"div"` | `"div"` | The element to render. Defaults to `"a"` with `href`. |
+| `disabled` | `boolean` | `false` | Disables a button chip. A link chip drops its `href` and gets `aria-disabled="true"` instead. |
+| `dot` | `boolean` | `false` | Adds a leading dot in the chip's color. `critical`, `warning` and `neutral` shape it. |
+| `end` | `Snippet` | - | Optional content at the end, such as an icon. |
+| `href` | `string` | - | The link to use. Renders an `<a>`. |
+| `label` | `Snippet` , `string` | - | The label, text or rich content. |
+| `multiline` | `boolean` | `false` | Lets the label wrap to multiple lines. |
+| `severity` | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | - | The severity of a status chip. It tints the chip, and colors and shapes its dot. |
+| `size` | `"large"` , `"medium"` , `"small"` , `"x-small"` | `"medium"` | The size of the element. |
+| `start` | `Snippet` | - | Optional content at the start, such as an icon. |
+| `variant` | `"outlined"` , `"tonal"` | `"tonal"` | The variant to use. |
 
 ### CSS variables
 
-| Variable                           | Default                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--ui-border-color`                | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )`                        | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`.                                                                                                                                                                                                                                                                                                      |
-| `--ui-border-width`                | `1px`                                                                                                                                                                                                                                  | Default border width for components that draw a border.                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `--ui-border-width-thick`          | `var(--border-size-2)`                                                                                                                                                                                                                 | Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar.                                                                                                                                                                   |
-| `--ui-chip-radius`                 | Unset                                                                                                                                                                                                                                  | Corner radius for `Chip`. When unset, chips follow `--ui-radius`.                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `--ui-chip-size`                   | `var(--ui-control-size-small)`                                                                                                                                                                                                         | Default `Chip` height.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `--ui-chip-size-large`             | `var(--ui-control-size)`                                                                                                                                                                                                               | `Chip` height with `.ui-large`.                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `--ui-chip-size-small`             | `var(--ui-control-size-x-small)`                                                                                                                                                                                                       | `Chip` height with `.ui-small`.                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `--ui-chip-size-x-small`           | `calc(24px * var(--ui-density))`                                                                                                                                                                                                       | `Chip` height with `.ui-x-small`.                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `--ui-control-border-color`        | Unset                                                                                                                                                                                                                                  | Border color of controls without a fill: `Button` with `.ui-outlined`, the edge and dividers of an outlined `ButtonGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined`, and the selected `Tabs` pill. When unset, outlined buttons use their color, the selected `Tabs` pill `--ui-field-border-color` and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`. |
-| `--ui-control-border-color-filled` | Unset                                                                                                                                                                                                                                  | Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, the edge and dividers of a `ButtonGroup` with one of them, a checked `ToggleButton`, `Chip` without `.ui-outlined` and the `Carousel` buttons. When unset, buttons have no visible border, the carousel buttons use a shade of their fill and the rest use `--ui-border-color`. Set it with `--ui-control-border-color` to outline every control.                                            |
-| `--ui-critical`                    | `var(--ui-red)`                                                                                                                                                                                                                        | Severity color for errors and destructive actions.                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `--ui-disabled-opacity`            | `0.64`                                                                                                                                                                                                                                 | Opacity applied to disabled controls.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `--ui-font-size-caption`           | `var(--ui-font-size-100)`                                                                                                                                                                                                              | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`.                                                                                                                                                                                                                                                                |
-| `--ui-font-size-small`             | `var(--ui-font-size-200)`                                                                                                                                                                                                              | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`.                                                                                                                                                                                                                                                                                                       |
-| `--ui-icon-size`                   | `var(--size-4)`                                                                                                                                                                                                                        | Default icon size inside components.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `--ui-icon-size-small`             | `var(--size-3)`                                                                                                                                                                                                                        | Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron.                                                                                                                                                                                                                                                                                                                                                                    |
-| `--ui-info`                        | `var(--ui-blue)`                                                                                                                                                                                                                       | Severity color for informational messages, and the dotted underline of `abbr`, `dfn`, `.ui-abbr` and `.ui-dfn`.                                                                                                                                                                                                                                                                                                                                                               |
-| `--ui-neutral`                     | `light-dark( oklch(from var(--ui-gray-9) min(l, var(--ui-accent-max-lightness)) c h), var(--ui-gray-9) )`                                                                                                                              | Severity color for neutral messages. `--ui-gray-9`, capped at `--ui-accent-max-lightness` in light mode. The `.ui-neutral` scope follows `--ui-gray-hue` and `--ui-gray-chroma`, not this token.                                                                                                                                                                                                                                                                              |
-| `--ui-on-primary`                  | `color( from var(--ui-primary) xyz-d65 calc(0.9505 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))) calc(0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)) calc(1.089 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))) )` | Text color on `--ui-primary`. Derived with relative color from the primary's relative luminance (the `y` of `xyz-d65`): white on a primary below 0.182, near-black above it, so either side keeps 4.5:1 and a custom `--ui-primary` gets readable text.                                                                                                                                                                                                                       |
-| `--ui-on-selected`                 | Unset                                                                                                                                                                                                                                  | Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and `--ui-primary-text` on a selected `Select` option.                                                                                                                                                                                                                                                                                                       |
-| `--ui-palette-accent`              | `light-dark( oklch(from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) c h), oklch( from var(--ui-color-7) max(l, var(--ui-palette-accent-min-lightness)) c h ) )`                                                           | The accent shade of the current palette: `Callout` icons and outlined borders. Stronger with more contrast. The severity `Chip` dot reads it. Re-derived inside every severity scope, so `.ui-success` gets a green one.                                                                                                                                                                                                                                                      |
-| `--ui-palette-border`              | `light-dark( oklch( from var(--ui-color-5) min(l, var(--ui-palette-border-max-lightness)) c h ), oklch( from var(--ui-color-11) max(l, var(--ui-palette-border-min-lightness)) c h ) )`                                                | The border shade of the current palette: tonal `Callout` borders. Stronger with more contrast. Severity `Chip` borders read it. Re-derived inside every severity scope.                                                                                                                                                                                                                                                                                                       |
-| `--ui-palette-strong`              | `light-dark(var(--ui-color-16), var(--ui-color-1))`                                                                                                                                                                                    | The strongest shade of the current palette, the darkest in light mode and the lightest in dark mode, with the most contrast against the page: `Callout` text, the default `Button` fill when `--ui-button-accent` is unset. Severity `Chip` text reads it. Re-derived inside every severity scope.                                                                                                                                                                            |
-| `--ui-palette-tint-subtle`         | `light-dark( oklch(from var(--ui-color-3) l c h / 60%), oklch(from var(--ui-color-6) l c h / 5%) )`                                                                                                                                    | A faint fill of the current palette: tonal severity `Callout`s. Tonal severity `Chip`s read it. Re-derived inside every severity scope.                                                                                                                                                                                                                                                                                                                                       |
-| `--ui-primary`                     | `light-dark( oklch( from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c h ), oklch( from var(--ui-primary-source) max(l, var(--ui-primary-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )`               | Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color.                                                                                                                                                                                                                                |
-| `--ui-radius`                      | `var(--size-2)`                                                                                                                                                                                                                        | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length.                                                                                                                                                                                                                                              |
-| `--ui-radius-round`                | `var(--radius-round)`                                                                                                                                                                                                                  | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers.                                                                                                                                                                                                                                                                                                                                            |
-| `--ui-selected`                    | Unset                                                                                                                                                                                                                                  | Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` on toggles and `--ui-primary` at `--ui-state-active-alpha-accent` on list items and options. Pair it with `--ui-on-selected`.                                                                                                                                                              |
-| `--ui-shadow-control`              | `none`                                                                                                                                                                                                                                 | Shadow of buttons with a variant, standalone `ToggleButton`, outlined `Chip` and fields. `none` by default, for themes that lift controls off the page.                                                                                                                                                                                                                                                                                                                       |
-| `--ui-space-1`                     | `calc(var(--size-1) * var(--ui-space-scale))`                                                                                                                                                                                          | Spacing step 1: Open Props `--size-1` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `--ui-space-2`                     | `calc(var(--size-2) * var(--ui-space-scale))`                                                                                                                                                                                          | Spacing step 2: Open Props `--size-2` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `--ui-space-3`                     | `calc(var(--size-3) * var(--ui-space-scale))`                                                                                                                                                                                          | Spacing step 3: Open Props `--size-3` times `--ui-space-scale`.                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `--ui-success`                     | `var(--ui-green)`                                                                                                                                                                                                                      | Severity color for success messages.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `--ui-surface`                     | `light-dark(var(--ui-gray-1), var(--ui-gray-13))`                                                                                                                                                                                      | Page and card background.                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `--ui-surface-tonal`               | `light-dark(var(--ui-gray-3), var(--ui-gray-12))`                                                                                                                                                                                      | Background of tonal variants.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `--ui-surface-tonal-hover`         | `light-dark( oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h), oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h) )`                                                                                                          | Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s and filled `TextField`, `Select` and `Textarea` fields. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode.                                                                                                                                                                                                                                                                     |
-| `--ui-text`                        | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )`                            | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`.                                                                                                                                                                                                                                                                                                                                                     |
-| `--ui-text-disabled`               | `color-mix( in oklch, var(--ui-text) var(--ui-text-disabled-strength), var(--ui-surface) )`                                                                                                                                            | Text color of disabled buttons and chips. `--ui-text` mixed into `--ui-surface` at `--ui-text-disabled-strength`. Also the label and border of an unchecked disabled `ToggleButton`.                                                                                                                                                                                                                                                                                          |
-| `--ui-text-strong`                 | `light-dark(var(--ui-gray-15), var(--ui-gray-1))`                                                                                                                                                                                      | Strongest text color, for headings, labels and values. Body text is `--ui-text`.                                                                                                                                                                                                                                                                                                                                                                                              |
-| `--ui-warning`                     | `var(--ui-orange)`                                                                                                                                                                                                                     | Severity color for warnings. Unlike the other severities it keeps its lightness with more contrast: the fill is light and takes dark `--ui-on-warning` text, and `--ui-warning-text` gets the stricter lightness limits instead.                                                                                                                                                                                                                                              |
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--ui-border-color` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-border-strength-dark), var(--ui-surface) ) )` | Default border color for cards, lists, tables and dividers. `--ui-text-strong` mixed into `--ui-surface` at `--ui-border-strength-light` or `--ui-border-strength-dark`. |
+| `--ui-border-width` | `1px` | Default border width for components that draw a border. |
+| `--ui-border-width-thick` | `2px` | Width of emphasized rules: the head and foot rules of rich text tables, the `AvatarGroup` ring, the `Badge` border, the neutral `Chip` dot, the dotted `DescriptionList` rule, the `Tabs` indicator, the bar on a selected `List` row, the `Spinner` ring, and at one and a half times, the blockquote bar. |
+| `--ui-chip-radius` | Unset | Corner radius for `Chip`. When unset, chips follow `--ui-radius`. |
+| `--ui-chip-size` | `var(--ui-control-size-small)` | Default `Chip` height. |
+| `--ui-chip-size-large` | `var(--ui-control-size)` | `Chip` height with `.ui-large`. |
+| `--ui-chip-size-small` | `var(--ui-control-size-x-small)` | `Chip` height with `.ui-small`. |
+| `--ui-chip-size-x-small` | `calc(1.5rem * var(--ui-density))` | `Chip` height with `.ui-x-small`. |
+| `--ui-control-border-color` | Unset | Border color of controls without a fill: `Button` with `.ui-outlined`, the edge and dividers of an outlined `ButtonGroup`, `ToggleButton`, `ToggleGroup`, `Chip` with `.ui-outlined`, the track of `Tabs` with `.ui-outlined`, and the selected `Tabs` pill. When unset, outlined buttons use their color, the selected `Tabs` pill `--ui-field-border-color` and the rest `--ui-border-color`. Themes that outline controls like fields set it to `--ui-field-border-color`. |
+| `--ui-control-border-color-filled` | Unset | Border color of controls with a fill: `Button` with `.ui-filled` or `.ui-tonal`, the edge and dividers of a `ButtonGroup` with one of them, a checked `ToggleButton`, `Chip` without `.ui-outlined` and the `Carousel` buttons. When unset, buttons have no visible border, the carousel buttons use a shade of their fill and the rest use `--ui-border-color`. Set it with `--ui-control-border-color` to outline every control. |
+| `--ui-critical` | `var(--ui-red)` | Severity color for errors and destructive actions. |
+| `--ui-disabled-opacity` | `0.64` | Opacity applied to disabled controls. |
+| `--ui-font-size-caption` | `var(--ui-font-size-100)` | Font size of captions, `Badge`, `Chip`, `Divider` labels, `List` secondary text, `Menu` shortcuts, overlines, `small`, `figcaption` and x-small buttons, toggles and fields. Defaults to `--ui-font-size-100`. |
+| `--ui-font-size-small` | `var(--ui-font-size-200)` | Font size of helper text, `Callout`, `Table`, `Tooltip`, code blocks, dense `List` text and small buttons, chips, toggles and fields. Defaults to `--ui-font-size-200`. |
+| `--ui-icon-size` | `1.25rem` | Default icon size inside components. |
+| `--ui-icon-size-small` | `1rem` | Icon size inside `Chip`, x-small `Avatar` and dense `List` rows, and the `Select` and autosuggest chevron. |
+| `--ui-info` | `var(--ui-blue)` | Severity color for informational messages, and the dotted underline of `abbr`, `dfn`, `.ui-abbr` and `.ui-dfn`. |
+| `--ui-neutral` | `light-dark( oklch(from var(--ui-gray-9) min(l, var(--ui-accent-max-lightness)) c h), var(--ui-gray-9) )` | Severity color for neutral messages. `--ui-gray-9`, capped at `--ui-accent-max-lightness` in light mode. The `.ui-neutral` scope follows `--ui-gray-hue` and `--ui-gray-chroma`, not this token. |
+| `--ui-on-primary` | `color( from var(--ui-primary) xyz-d65 calc(0.9505 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))) calc(0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1)) calc(1.089 * (0.0012 + 0.9988 * clamp(0, (0.182 - y) * 1000, 1))) )` | Text color on `--ui-primary`. Derived with relative color from the primary's relative luminance (the `y` of `xyz-d65`): white on a primary below 0.182, near-black above it, so either side keeps 4.5:1 and a custom `--ui-primary` gets readable text. |
+| `--ui-on-selected` | Unset | Text color on `--ui-selected`. When unset, `--ui-on-primary` on toggles, the item's own text color on list items and `--ui-primary-text` on a selected `Select` option. |
+| `--ui-palette-accent` | `light-dark( oklch(from var(--ui-color-9) min(l, var(--ui-accent-max-lightness)) c h), oklch( from var(--ui-color-7) max(l, var(--ui-palette-accent-min-lightness)) c h ) )` | The accent shade of the current palette: `Callout` icons and outlined borders. Stronger with more contrast. The severity `Chip` dot reads it. Re-derived inside every severity scope, so `.ui-success` gets a green one. |
+| `--ui-palette-border` | `light-dark( oklch( from var(--ui-color-5) min(l, var(--ui-palette-border-max-lightness)) c h ), oklch( from var(--ui-color-11) max(l, var(--ui-palette-border-min-lightness)) c h ) )` | The border shade of the current palette: tonal `Callout` borders. Stronger with more contrast. Severity `Chip` borders read it. Re-derived inside every severity scope. |
+| `--ui-palette-strong` | `light-dark(var(--ui-color-16), var(--ui-color-1))` | The strongest shade of the current palette, the darkest in light mode and the lightest in dark mode, with the most contrast against the page: `Callout` text, the default `Button` fill when `--ui-button-accent` is unset. Severity `Chip` text reads it. Re-derived inside every severity scope. |
+| `--ui-palette-tint-subtle` | `light-dark( oklch(from var(--ui-color-3) l c h / 60%), oklch(from var(--ui-color-6) l c h / 5%) )` | A faint fill of the current palette: tonal severity `Callout`s. Tonal severity `Chip`s read it. Re-derived inside every severity scope. |
+| `--ui-primary` | `light-dark( oklch( from var(--ui-primary-source) min(l, var(--ui-primary-max-lightness)) c h ), oklch( from var(--ui-primary-source) max(l, var(--ui-primary-min-lightness)) min(c, var(--ui-accent-max-chroma)) h ) )` | Brand color for primary actions and accents. Derived from `--ui-primary-source` within `--ui-primary-max-lightness` and `--ui-primary-min-lightness`. Set `--ui-primary-source` to keep more contrast working, or this token to pin the color. |
+| `--ui-radius` | `0.5rem` | Corner radius for every component: cards, callouts, menus, buttons and fields follow it, and small parts like `kbd`, tooltips and checkboxes never get rounder than it. Set it to `0` for square corners. Takes a single length. |
+| `--ui-radius-round` | `1e5px` | The pill radius for round buttons, avatars, badges, chips, radios, switches, the range track and the carousel buttons and markers. |
+| `--ui-selected` | Unset | Background of a selected control: a checked `ToggleButton`, the selected `ToggleGroup` item, and a selected or current `List` item and `Select` option. When unset, `--ui-primary` on toggles and `--ui-primary` at `--ui-state-active-alpha-accent` on list items and options. Pair it with `--ui-on-selected`. |
+| `--ui-shadow-control` | `none` | Shadow of buttons with a variant, standalone `ToggleButton`, outlined `Chip` and fields. `none` by default, for themes that lift controls off the page. |
+| `--ui-space-1` | `calc(0.25rem * var(--ui-space-scale))` | Spacing step 1: `0.25rem` times `--ui-space-scale`. |
+| `--ui-space-2` | `calc(0.5rem * var(--ui-space-scale))` | Spacing step 2: `0.5rem` times `--ui-space-scale`. |
+| `--ui-space-3` | `calc(1rem * var(--ui-space-scale))` | Spacing step 3: `1rem` times `--ui-space-scale`. |
+| `--ui-success` | `var(--ui-green)` | Severity color for success messages. |
+| `--ui-surface` | `light-dark(var(--ui-gray-1), var(--ui-gray-13))` | Page and card background. |
+| `--ui-surface-tonal` | `light-dark(var(--ui-gray-3), var(--ui-gray-12))` | Background of tonal variants. |
+| `--ui-surface-tonal-hover` | `light-dark( oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h), oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h) )` | Hover fill of a `--ui-surface-tonal` surface: clickable `Chip`s and filled `TextField`, `Select` and `Textarea` fields. Derived from `--ui-surface-tonal`, darker in light mode and lighter in dark mode. |
+| `--ui-text` | `light-dark( color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-light), var(--ui-surface) ), color-mix( in oklch, var(--ui-text-strong) var(--ui-text-strength-dark), var(--ui-surface) ) )` | Body text color. `--ui-text-strong` mixed into `--ui-surface` at `--ui-text-strength-light` or `--ui-text-strength-dark`. |
+| `--ui-text-disabled` | `color-mix( in oklch, var(--ui-text) var(--ui-text-disabled-strength), var(--ui-surface) )` | Text color of disabled buttons and chips. `--ui-text` mixed into `--ui-surface` at `--ui-text-disabled-strength`. Also the label and border of an unchecked disabled `ToggleButton`. |
+| `--ui-text-strong` | `light-dark(var(--ui-gray-15), var(--ui-gray-1))` | Strongest text color, for headings, labels and values. Body text is `--ui-text`. |
+| `--ui-warning` | `var(--ui-orange)` | Severity color for warnings. Unlike the other severities it keeps its lightness with more contrast: the fill is light and takes dark `--ui-on-warning` text, and `--ui-warning-text` gets the stricter lightness limits instead. |
 
 The stylesheets on this page read these theme tokens. Override them on `html` or on a wrapper. See all [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md).
 
@@ -335,131 +335,19 @@ The stylesheets on this page read these theme tokens. Override them on `html` or
 
 Set these on the component itself, inline or in your own CSS. Inputs are the knobs. Outputs are derived from the inputs and the current state, so overriding one fixes it in every state. [Customizing](https://open-props-ui.netlify.app/svelte/guide/customizing.md#component-properties) has examples.
 
-| Property                 | Kind   | Description                                                                                                                                                                                         |
-| ------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--_accent`              | Output | The color the hover background of a colored button or link chip is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`.                                 |
-| `--_bg-color`            | Output | The current background. Set by the variant, color classes and hover states.                                                                                                                         |
-| `--_border-color`        | Output | The current border color. Defaults to `--ui-control-border-color-filled`, and `.ui-outlined` to `--ui-control-border-color`, both falling back to `--ui-border-color`. The severity classes set it. |
-| `--_dot-bg-color`        | Output | The color of the `.ui-dot` marker. `currentColor`, or `--ui-palette-accent` with a severity class.                                                                                                  |
-| `--_font-size`           | Input  | The font size. `.ui-large` sets it.                                                                                                                                                                 |
-| `--_icon-padding-inline` | Input  | Inline padding on the side of a leading or trailing `svg`. `.ui-large` sets it.                                                                                                                     |
-| `--_icon-size`           | Input  | Width of an `svg`. `.ui-large` sets it.                                                                                                                                                             |
-| `--_padding-inline`      | Input  | The inline padding. `.ui-large` sets it.                                                                                                                                                            |
-| `--_pressed-bg-color`    | Input  | Background of a button chip with `aria-pressed="true"`. `--ui-selected` when the theme sets it, otherwise `--ui-primary`.                                                                           |
-| `--_size`                | Input  | The height. Defaults to `--ui-chip-size`, set by the size classes.                                                                                                                                  |
-| `--_text-color`          | Output | The current text color. Set by the variant, color classes and disabled states.                                                                                                                      |
-
-## Under the hood
-
-1. Base
-
-   - One class for a `<div>`, `<button>` or `<a>`: the element decides what it does
-   - Fixed `block-size` from `--ui-chip-size`, width from the content
-
-2. Icon
-
-   - `:has(> svg:first-child)` and `:has(> svg:last-child)` find the icon side, and each sets only its own side, so a chip can have both
-   - Less padding next to the icon balances its optical weight
-   - No `start-icon` or `end-icon` classes
-
-3. Truncate
-
-   - `max-inline-size: 100%` caps the chip at its container
-   - `min-inline-size: 0` lets the text shrink below its content width
-   - That's why the label needs its own `.text` wrapper
-
-4. Hover
-
-   - `:where(button, a)`: only interactive chips react
-   - Relative color derives the hover shade from the surface
-   - `light-dark()` darkens in light mode, lightens in dark
-   - The library names this shade `--ui-surface-tonal-hover`, shared with filled fields
-   - Hover the button chips
-
-Step 1 of 4: Base
-
-```html
-<div class="chip">
-  <span class="text">Design</span>
-</div>
-
-<button class="chip" type="button">…</button>
-```
-
-```css
-.chip {
-  --bg: var(--ui-surface-tonal);
-  align-items: center;
-  background-color: var(--bg);
-  block-size: var(--ui-chip-size);
-  border: 1px solid var(--ui-border-color);
-  border-radius: var(--ui-radius);
-  color: var(--ui-text-strong);
-  display: inline-flex;
-  font-size: var(--ui-font-size-caption);
-  gap: var(--ui-space-1);
-  padding-inline: var(--ui-space-2);
-  text-decoration: none;
-}
-```
-
-Step 2 of 4: Icon
-
-- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-
-```css
-.chip:has(> svg:first-child) {
-  padding-inline-start: var(--ui-space-1);
-}
-
-.chip:has(> svg:last-child) {
-  padding-inline-end: var(--ui-space-1);
-}
-
-.chip svg {
-  flex-shrink: 0;
-  inline-size: var(--ui-icon-size-small);
-}
-```
-
-Step 3 of 4: Truncate
-
-- [Text overflow ](https://webstatus.dev/features/text-overflow)(Widely available): Chrome 1+, Edge 12+, Firefox 7+, Safari 1.3+
-
-```css
-.chip {
-  max-inline-size: 100%;
-}
-
-.chip > .text {
-  min-inline-size: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-```
-
-Step 4 of 4: Hover
-
-- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
-- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
-
-```css
-.chip:where(button, a):hover {
-  --bg: light-dark(
-    oklch(from var(--ui-surface-tonal) calc(l * 0.93) c h),
-    oklch(from var(--ui-surface-tonal) calc(l * 1.1) c h)
-  );
-}
-```
-
-## Browser support
-
-- Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v18.
-
-Explore these features in the [browser support guide](https://open-props-ui.netlify.app/svelte/guide/browser-support/?components=Chip.md).
+| Property | Kind | Description |
+| --- | --- | --- |
+| `--_accent` | Output | The color the hover background of a colored button or link chip is derived from. Set by `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning`. |
+| `--_bg-color` | Output | The current background. Set by the variant, color classes and hover states. |
+| `--_border-color` | Output | The current border color. Defaults to `--ui-control-border-color-filled`, and `.ui-outlined` to `--ui-control-border-color`, both falling back to `--ui-border-color`. The severity classes set it. |
+| `--_dot-bg-color` | Output | The color of the `.ui-dot` marker. `currentColor`, or `--ui-palette-accent` with a severity class. |
+| `--_font-size` | Input | The font size. `.ui-large` sets it. |
+| `--_icon-padding-inline` | Input | Inline padding on the side of a leading or trailing `svg`. `.ui-large` sets it. |
+| `--_icon-size` | Input | Width of an `svg`. `.ui-large` sets it. |
+| `--_padding-inline` | Input | The inline padding. `.ui-large` sets it. |
+| `--_pressed-bg-color` | Input | Background of a button chip with `aria-pressed="true"`. `--ui-selected` when the theme sets it, otherwise `--ui-primary`. |
+| `--_size` | Input | The height. Defaults to `--ui-chip-size`, set by the size classes. |
+| `--_text-color` | Output | The current text color. Set by the variant, color classes and disabled states. |
 
 ## Installation
 
@@ -469,23 +357,26 @@ Copy the CSS into your project to own it. It reads tokens from Open Props, `pale
 
 - `opui-css/css/components/chip.css`
 
-## Changelog
+## Used in blocks
 
-### What's new
-
-- Outlined chips take `--ui-shadow-control` like outlined buttons.
-- Chips without `.ui-outlined` read `--ui-control-border-color-filled` for their border, like filled buttons.
-- Outlined chips read [`--ui-control-border-color`](#api) for their border, like outlined buttons.
-- [Large](#sizes) size with `size="large"`, and small chips are 28px to match the control sizes.
-- Long labels truncate with an ellipsis unless the chip is [`multiline`](#sizes).
-- The hover and press ripple is removed. [Button](#button) and [link](#link) chips change their background on hover instead.
-- `size` takes `"x-small"`. [Sizes](#sizes)
-- [Severities](#severities) for statuses with `severity`, and a shape-coded [`dot`](#dot).
-- [Disabled](#disabled) chips: `aria-disabled="true"` on a link chip, and `.ui-disabled` for an inactive static chip.
-- Breaking: `--_color` is `--_text-color` ([Under the hood](#under-the-hood)).
-- [`disabled`](#disabled) works on button and link chips. A link chip gets `aria-disabled="true"`.
-- Breaking: a button chip needs `as="button"`, and a link chip needs `href` ([types](#api)).
-- Breaking: [disabled link chips](#disabled) have no `href`, so they can't be focused or followed.
-- [Button](#button) and [link](#link) chips hover with `--ui-surface-tonal-hover`, like filled fields.
-- [Sizes](#sizes) name the default: `size="medium"`.
-- [Pressed](#pressed) button chips (`aria-pressed="true"`) are filled with `--ui-selected`, or `--ui-primary`, like a checked toggle button.
+- [Billing](https://open-props-ui.netlify.app/blocks/billing.md)
+- [Blog list](https://open-props-ui.netlify.app/blocks/blog-list.md)
+- [Changelog](https://open-props-ui.netlify.app/blocks/changelog.md)
+- [Chat](https://open-props-ui.netlify.app/blocks/chat.md)
+- [Data table](https://open-props-ui.netlify.app/blocks/data-table.md)
+- [Empty states](https://open-props-ui.netlify.app/blocks/empty-states.md)
+- [FAQ](https://open-props-ui.netlify.app/blocks/faq.md)
+- [Feature grid](https://open-props-ui.netlify.app/blocks/feature-grid.md)
+- [Hero](https://open-props-ui.netlify.app/blocks/hero.md)
+- [Inbox](https://open-props-ui.netlify.app/blocks/inbox.md)
+- [Invoice](https://open-props-ui.netlify.app/blocks/invoice.md)
+- [Kanban board](https://open-props-ui.netlify.app/blocks/kanban-board.md)
+- [Order history](https://open-props-ui.netlify.app/blocks/order-history.md)
+- [Pricing](https://open-props-ui.netlify.app/blocks/pricing.md)
+- [Product detail](https://open-props-ui.netlify.app/blocks/product-detail.md)
+- [Project overview](https://open-props-ui.netlify.app/blocks/project-overview.md)
+- [Sales dashboard](https://open-props-ui.netlify.app/blocks/sales-dashboard.md)
+- [Server status](https://open-props-ui.netlify.app/blocks/server-status.md)
+- [Shopping cart](https://open-props-ui.netlify.app/blocks/shopping-cart.md)
+- [Team members](https://open-props-ui.netlify.app/blocks/team-members.md)
+- [User directory](https://open-props-ui.netlify.app/blocks/user-directory.md)

@@ -11,34 +11,36 @@ const { href, name, size } = Astro.props
 const { link } = Astro.locals
 ---
 
-<Card variant="elevated" class:list={["showcase-card", size && `ui-${size}`]}>
-  <div class="showcase-preview">
-    <slot />
-  </div>
-  <Button
-    href={link(href)}
-    variant="outlined"
-    size="small"
-    class="showcase-link"
-  >
-    <span>{name}</span>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      aria-hidden="true"
+<li class:list={["showcase-item", size && `ui-${size}`]}>
+  <Card variant="elevated" class="showcase-card">
+    <div class="showcase-preview">
+      <slot />
+    </div>
+    <Button
+      href={link(href)}
+      variant="outlined"
+      size="small"
+      class="showcase-link"
     >
-      <path d="M5 12h14"></path>
-      <path d="m12 5 7 7-7 7"></path>
-    </svg>
-  </Button>
-</Card>
+      <span>{name}</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M5 12h14"></path>
+        <path d="m12 5 7 7-7 7"></path>
+      </svg>
+    </Button>
+  </Card>
+</li>
 
 <style is:global>
   .showcase-card {
@@ -70,21 +72,41 @@ const { link } = Astro.locals
       position: absolute;
       z-index: 0;
     }
+  }
 
-    &.ui-wide {
-      grid-column: span 2;
-    }
+  .showcase-item {
+    @media (width >= 600px) {
+      &.ui-wide {
+        grid-column: span 2;
+      }
 
-    &.ui-xl {
-      grid-column: span 2;
-      grid-row: span 2;
-    }
-
-    @media (width <= 600px) {
-      &.ui-wide,
       &.ui-xl {
-        grid-column: auto;
-        grid-row: auto;
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+    }
+  }
+
+  .showcase-grid {
+    @media (width < 600px) {
+      --_items-per-view: 1.15;
+
+      margin-inline: calc(var(--site-page-gutters) / -2);
+      padding-inline: calc(var(--site-page-gutters) / 2);
+      scroll-padding-inline: calc(var(--site-page-gutters) / 2);
+    }
+
+    @media (width >= 600px) {
+      grid-auto-columns: auto;
+      grid-auto-flow: row dense;
+      margin-inline: 0;
+      overflow-inline: visible;
+      padding: 0;
+      scroll-marker-group: none;
+      scroll-snap-type: none;
+
+      &::scroll-button(*) {
+        content: none;
       }
     }
   }

@@ -54,12 +54,15 @@ import ComponentCard from "./ComponentCard.astro"
 import FrameworkPicker from "../FrameworkPicker.astro"
 ---
 
-<div class="component-showcase component-showcase--hero">
+<Carousel
+  aria-label="Components"
+  class="component-showcase component-showcase--hero showcase-grid"
+>
   {
     Astro.slots.has("default") && (
-      <div class="component-showcase__intro">
+      <li class="component-showcase__intro">
         <slot />
-      </div>
+      </li>
     )
   }
 
@@ -410,12 +413,13 @@ import FrameworkPicker from "../FrameworkPicker.astro"
 
   <style is:global>
     .component-showcase {
-      display: grid;
       gap: var(--size-3);
-      grid-auto-flow: dense;
       grid-auto-rows: minmax(180px, auto);
-      grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
       margin-block: var(--size-8);
+
+      @media (width >= 600px) {
+        grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+      }
     }
 
     .component-showcase--hero {
@@ -531,7 +535,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       margin: 0;
     }
   </style>
-</div>
+</Carousel>
 
 <script is:inline>
   ;(function () {

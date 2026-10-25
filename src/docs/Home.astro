@@ -4,6 +4,7 @@ import {
   Callout,
   CalloutContent,
   CalloutIcon,
+  Carousel,
   Checkbox,
   Chip,
   Progress,
@@ -282,7 +283,11 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         </p>
       </header>
 
-      <div class="block-showcase">
+      <Carousel
+        aria-label="Blocks"
+        class="block-showcase showcase-grid"
+        markers
+      >
         {
           featuredBlocks.map((block, index) => (
             <ComponentCard
@@ -302,7 +307,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             </ComponentCard>
           ))
         }
-      </div>
+      </Carousel>
 
       <div class="hero-ctas">
         <Button href={link("/blocks")} variant="outlined" color="primary">
@@ -423,7 +428,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
         </p>
       </header>
 
-      <div class="learn-showcase">
+      <ul class="learn-showcase">
         {
           featuredPosts.map((post) => (
             <ComponentCard name={post.title} href={`/learn/${post.slug}`}>
@@ -444,7 +449,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
             </ComponentCard>
           ))
         }
-      </div>
+      </ul>
 
       <div class="hero-ctas">
         <Button href={link("/learn")} variant="outlined" color="primary">
@@ -696,6 +701,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
   #main-content {
     display: grid;
     gap: var(--size-4);
+    grid-template-columns: minmax(0, 1fr);
     padding-block: var(--size-4) var(--size-8);
 
     @media (width >= 900px) {
@@ -1067,6 +1073,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
     @media (width >= 600px) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-block: 0;
 
       & :global(.ui-xl) {
         grid-column: 1 / -1;
@@ -1191,6 +1198,9 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     display: grid;
     gap: var(--size-4);
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
     :global(.showcase-preview) {
       align-self: start;

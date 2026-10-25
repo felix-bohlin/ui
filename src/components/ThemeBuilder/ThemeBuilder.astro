@@ -1,9 +1,61 @@
 ---
 import BuilderControls from "./BuilderControls.astro"
+import BuilderExport from "./BuilderExport.astro"
 import BuilderPreview from "./BuilderPreview.astro"
+import BuilderToolbar from "./BuilderToolbar.astro"
 ---
 
 <div class="theme-builder">
-  <BuilderControls />
-  <BuilderPreview />
+  <BuilderToolbar />
+  <div class="builder-columns">
+    <BuilderControls />
+    <div class="builder-preview-column">
+      <BuilderPreview />
+    </div>
+  </div>
+  <BuilderExport />
 </div>
+
+<script>
+  const builder = document.querySelector<HTMLElement>(".theme-builder")
+  const header = document.querySelector<HTMLElement>(".site-header")
+  if (builder && header) {
+    const measure = () =>
+      builder.style.setProperty("--builder-header", `${header.offsetHeight}px`)
+    new ResizeObserver(measure).observe(header)
+    measure()
+  }
+</script>
+
+<style>
+  .theme-builder {
+    --builder-header: 5.25rem;
+
+    display: grid;
+    gap: var(--size-4);
+    margin-block: var(--size-4) var(--size-9);
+  }
+
+  .builder-columns {
+    align-items: start;
+    display: grid;
+    gap: var(--size-6);
+    grid-template-columns: minmax(0, 1fr);
+
+    @media (width >= 900px) {
+      grid-template-columns: clamp(22rem, 30vi, 28rem) minmax(0, 1fr);
+    }
+  }
+
+  .builder-preview-column {
+    min-inline-size: 0;
+
+    @media (width >= 900px) {
+      inset-block-start: calc(var(--builder-header) + var(--size-3));
+      max-block-size: calc(100dvb - var(--builder-header) - var(--size-3) * 2);
+      overflow: auto;
+      overscroll-behavior: contain;
+      position: sticky;
+    }
+  }
+</style>

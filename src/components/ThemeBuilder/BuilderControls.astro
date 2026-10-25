@@ -1,1 +1,751 @@
-<section aria-label="Theme settings" class="builder-controls"></section>
+---
+import { Accordion, AccordionContent, AccordionSummary } from "opui-css/astro"
+import themeCss from "../../../packages/opui/css/theme.css?raw"
+import { GROUPS, libraryDefaults } from "../../utils/theme-builder-controls"
+import BuilderControl from "./BuilderControl.astro"
+
+const defaults = JSON.stringify(libraryDefaults(themeCss))
+---
+
+<section
+  aria-labelledby="builder-settings-title"
+  class="builder-controls"
+  data-defaults={defaults}
+>
+  <h2 class="ui-sr-only" id="builder-settings-title">Settings</h2>
+  {
+    GROUPS.map((group) => {
+      const basic = group.controls.filter((control) => control.tier === "basic")
+      const fine = group.controls.filter((control) => control.tier === "fine")
+      return (
+        <section
+          aria-labelledby={`builder-group-${group.id}`}
+          class="builder-group"
+          data-group={group.id}
+        >
+          <header class="builder-group-head">
+            <h3 id={`builder-group-${group.id}`}>
+              {group.label}
+              <span class="builder-count" data-count hidden />
+            </h3>
+            <p>{group.description}</p>
+          </header>
+          {basic.map((control) => (
+            <BuilderControl control={control} />
+          ))}
+          {fine.length > 0 && (
+            <Accordion class="builder-fine" data-fine variant="outlined">
+              <AccordionSummary>
+                <span>Fine-tune</span>
+                <span class="builder-fine-meta" data-fine-meta>
+                  {fine.length} more settings
+                </span>
+              </AccordionSummary>
+              <AccordionContent>
+                {fine.map((control) => (
+                  <BuilderControl control={control} />
+                ))}
+              </AccordionContent>
+            </Accordion>
+          )}
+        </section>
+      )
+    })
+  }
+</section>
+
+<script>
+  import { hexToOklch } from "../../utils/color-utils"
+  import { exampleTheme } from "../../utils/example-themes"
+  import {
+    CORNERS,
+    cornersTokens,
+    themeStore,
+    type Theme,
+    type ThemeTokens,
+  } from "../../utils/theme"
+  import {
+    BALANCED_PRIMARY,
+    COMPONENT_RADII,
+    CONTROLS,
+    FOLLOW_RADIUS,
+    MONOCHROME_PRIMARY,
+    canonical,
+    controlTokens,
+    matchOption,
+    tidy,
+    type ChoiceControl,
+    type ColorControl,
+    type Control,
+    type RangeControl,
+  } from "../../utils/theme-builder-controls"
+  import { brandTokens } from "../../utils/theme-brand"
+
+  type Update = Record<string, string | null>
+
+  const root = document.querySelector<HTMLElement>(".builder-controls")
+  if (root) {
+    const defaults: ThemeTokens = JSON.parse(root.dataset.defaults ?? "{}")
+    const controls = new Map(CONTROLS.map((control) => [control.id, control]))
+    const elements = new Map(
+      [...root.querySelectorAll<HTMLElement>("[data-control]")].map(
+        (element) => [element.dataset.control!, element],
+      ),
+    )
+    const dual = new Set<string>()
+    let theme: Theme = themeStore.get()
+    let first = true
+    let queued: Update | null = null
+    let frame = 0
+
+    const hosts = (["light", "dark"] as const).map((scheme) => {
+      const host = document.createElement("div")
+      host.className = `ui-${scheme}`
+      host.hidden = true
+      root.append(host)
+      return host
+    })
+    const lengthProbe = document.createElement("div")
+    lengthProbe.hidden = true
+    root.append(lengthProbe)
+
+    const presetTokens = () => exampleTheme(theme.preset)?.tokens ?? {}
+    const valueOf = (token: string) =>
+      theme.tokens[token] ?? presetTokens()[token]
+    const baseOf = (token: string) => presetTokens()[token]
+    const same = (token: string, a?: string, b?: string) =>
+      canonical(a, token, defaults) === canonical(b, token, defaults)
+
+    const toHex = (value: string) => {
+      const match = value.match(
+        /^color\(srgb ([^\s)]+) ([^\s)]+) ([^\s)]+)(?: \/ ([^\s)]+))?\)$/,
+      )
+      if (!match) return null
+      const hex = match
+        .slice(1, 4)
+        .map((channel) =>
+          Math.round(Math.min(1, Math.max(0, Number(channel))) * 255)
+            .toString(16)
+            .padStart(2, "0"),
+        )
+        .join("")
+      return { alpha: match[4] ? Number(match[4]) : 1, hex: `#${hex}` }
+    }
+
+    const resolveColors = (expressions: string[]) => {
+      for (const host of hosts) {
+        host.replaceChildren(
+          ...expressions.map((expression) => {
+            const probe = document.createElement("div")
+            probe.style.color = `color(from ${expression} srgb r g b / alpha)`
+            return probe
+          }),
+        )
+      }
+      const resolved = hosts.map((host) =>
+        [...host.children].map((probe) => toHex(getComputedStyle(probe).color)),
+      )
+      return new Map(
+        expressions.map((expression, index) => [
+          expression,
+          resolved.map((mode) => mode[index]),
+        ]),
+      )
+    }
+
+    const resolvePx = (expression: string) => {
+      lengthProbe.style.inlineSize = expression
+      const px = parseFloat(getComputedStyle(lengthProbe).inlineSize)
+      lengthProbe.style.inlineSize = ""
+      return Number.isFinite(px) ? px : null
+    }
+
+    const round = (value: number, digits = 4) => +value.toFixed(digits)
+
+    const colorText = (color: ReturnType<typeof toHex> | null) =>
+      color
+        ? color.alpha < 1
+          ? `${color.hex} at ${Math.round(color.alpha * 100)}%`
+          : color.hex
+        : "not set"
+
+    const describeColor = (
+      [light, dark]: (ReturnType<typeof toHex> | null)[],
+      isDual: boolean,
+    ) =>
+      isDual
+        ? `Light ${colorText(light)}, dark ${colorText(dark)}`
+        : colorText(light)
+
+    const isFollow = (value?: string) =>
+      value !== undefined &&
+      canonical(value, "", {}) === canonical(FOLLOW_RADIUS, "", {})
+
+    const changed = (control: Control) => {
+      if (control.kind === "corners") {
+        return ["--ui-radius", "--ui-radius-small", "--ui-radius-x-small"].some(
+          (token) => token in theme.tokens,
+        )
+      }
+      return controlTokens(control).some(
+        (token) =>
+          token in theme.tokens &&
+          !(COMPONENT_RADII.includes(token) && isFollow(theme.tokens[token])),
+      )
+    }
+
+    const resetTokens = (control: Control): Update => {
+      if (control.kind === "corners") {
+        return Object.fromEntries(
+          Object.keys(cornersTokens(null))
+            .filter(
+              (token) =>
+                !COMPONENT_RADII.includes(token) ||
+                isFollow(theme.tokens[token]),
+            )
+            .map((token) => [token, null]),
+        )
+      }
+      return Object.fromEntries(
+        controlTokens(control).map((token) => [
+          token,
+          COMPONENT_RADII.includes(token) && "--ui-radius" in theme.tokens
+            ? FOLLOW_RADIUS
+            : null,
+        ]),
+      )
+    }
+
+    const flush = () => {
+      cancelAnimationFrame(frame)
+      frame = 0
+      if (!queued) return
+      const update = queued
+      queued = null
+      themeStore.update(update)
+    }
+
+    const write = (update: Update, throttle = false) => {
+      queued = { ...queued, ...update }
+      if (!throttle) flush()
+      else if (!frame) frame = requestAnimationFrame(flush)
+    }
+
+    const paletteHex = () =>
+      resolveColors(["var(--ui-palette-source)"]).get(
+        "var(--ui-palette-source)",
+      )?.[0]?.hex ?? null
+
+    const fitted = new Map<string, string>()
+
+    const autoPrimary = (hex: string | null) => {
+      if (!hex) return null
+      if (!fitted.has(hex)) {
+        fitted.set(hex, brandTokens(hex)["--ui-primary-source"])
+      }
+      return fitted.get(hex)!
+    }
+
+    const isFitted = (primary: string) => {
+      const source = valueOf("--ui-palette-source")
+      const sides = primary
+        .match(/^light-dark\((.*)\)$/)?.[1]
+        .split(/,(?![^(]*\))/)
+        .map((side) => side.trim())
+      return (
+        !!source &&
+        sides?.length === 2 &&
+        sides.some((side) => same("", side, source)) &&
+        sides.some((side) => side.startsWith("oklch("))
+      )
+    }
+
+    const toneOf = (primary: string | undefined, hex: string | null) => {
+      const token = "--ui-primary-source"
+      if (same(token, primary, BALANCED_PRIMARY)) return "balanced"
+      if (same(token, primary, MONOCHROME_PRIMARY)) return "monochrome"
+      if (
+        primary?.startsWith("light-dark(") &&
+        !primary.includes("var(") &&
+        !isFitted(primary) &&
+        !same(token, primary, autoPrimary(hex) ?? undefined)
+      ) {
+        return "dual"
+      }
+      return "brand"
+    }
+
+    const grayHue = (hex: string | null) =>
+      hex ? `${Math.round(hexToOklch(hex).H)}` : null
+
+    const grayMatchesBrand = (hex: string | null) =>
+      grayHue(hex) !== null &&
+      same("--ui-gray-chroma", valueOf("--ui-gray-chroma"), "0.012") &&
+      same("--ui-gray-hue", valueOf("--ui-gray-hue"), grayHue(hex)!)
+
+    const applyBrand = (hex: string, darkHex?: string) => {
+      const before = paletteHex()
+      const userTone = theme.tokens["--ui-primary-source"]
+      const keepTone =
+        userTone !== undefined &&
+        ["balanced", "monochrome"].includes(toneOf(userTone, before))
+      const update: Update = darkHex
+        ? {
+            "--ui-palette-source": hex,
+            "--ui-primary-source": `light-dark(${hex}, ${darkHex})`,
+          }
+        : keepTone
+          ? { "--ui-palette-source": hex }
+          : brandTokens(hex)
+      if (grayMatchesBrand(before) && "--ui-gray-hue" in theme.tokens) {
+        update["--ui-gray-hue"] = grayHue(hex)
+      }
+      return update
+    }
+
+    const choiceTokens = (control: ChoiceControl, value: string): Update => {
+      if (control.dynamic === "primary-tone") {
+        const primary =
+          value === "balanced"
+            ? BALANCED_PRIMARY
+            : value === "monochrome"
+              ? MONOCHROME_PRIMARY
+              : autoPrimary(paletteHex())
+        return { "--ui-primary-source": primary }
+      }
+      if (control.dynamic === "brand-hue" && value === "brand") {
+        return {
+          "--ui-gray-chroma": "0.012",
+          "--ui-gray-hue": grayHue(paletteHex()),
+        }
+      }
+      const option = control.options.find((entry) => entry.value === value)
+      return Object.fromEntries(
+        controlTokens(control).map((token) => [
+          token,
+          option?.tokens[token] ?? null,
+        ]),
+      )
+    }
+
+    const choiceValue = (
+      control: ChoiceControl,
+      read: (token: string) => string | undefined,
+      hex: string | null,
+    ) => {
+      if (control.dynamic === "primary-tone") {
+        const tone = toneOf(read("--ui-primary-source"), hex)
+        return tone === "dual" ? "brand" : tone
+      }
+      if (
+        control.dynamic === "brand-hue" &&
+        hex &&
+        same("--ui-gray-chroma", read("--ui-gray-chroma"), "0.012") &&
+        same("--ui-gray-hue", read("--ui-gray-hue"), grayHue(hex)!)
+      ) {
+        return "brand"
+      }
+      return matchOption(control.options, read, defaults)?.value ?? null
+    }
+
+    const check = (element: HTMLElement, value: string | null) => {
+      for (const radio of element.querySelectorAll<HTMLInputElement>(
+        "input[type=radio]",
+      )) {
+        radio.checked = radio.value.toLowerCase() === value?.toLowerCase()
+      }
+    }
+
+    const setColorInputs = (
+      element: HTMLElement,
+      [light, dark]: (ReturnType<typeof toHex> | null)[],
+      isDual: boolean,
+    ) => {
+      const [lightInput, darkInput] = [
+        ...element.querySelectorAll<HTMLInputElement>("input[data-color]"),
+      ]
+      const darkField = element.querySelector<HTMLElement>("[data-mode=dark]")!
+      const dualBox = element.querySelector<HTMLInputElement>(
+        "[data-dual] input, input[data-dual]",
+      )!
+      if (light && document.activeElement !== lightInput) {
+        lightInput.value = light.hex
+      }
+      if (document.activeElement !== darkInput) {
+        darkInput.value = (dark ?? light)?.hex ?? "#000000"
+      }
+      darkField.hidden = !isDual
+      dualBox.checked = isDual
+      element.classList.toggle("is-dual", isDual)
+      const [lightCaption, darkCaption] =
+        element.querySelectorAll<HTMLElement>("[data-caption]")
+      lightCaption.textContent = isDual
+        ? `Light ${colorText(light)}`
+        : colorText(light)
+      darkCaption.textContent = `Dark ${colorText(dark)}`
+      const label = element
+        .querySelector<HTMLElement>("[data-mode=light]")!
+        .querySelector(".ui-sr-only")
+      const name = element.dataset.name ?? ""
+      if (label) label.textContent = isDual ? `${name} in light mode` : name
+    }
+
+    const formatRange = (control: RangeControl, value: number) =>
+      control.display === "percent"
+        ? `${Math.round(value * 100)}%`
+        : `${round(value)}${control.unit}`
+
+    const rangeNumber = (control: RangeControl) => {
+      const raw = valueOf(control.token)
+      const value = raw?.trim()
+      const toUnit = (number: number, unit: string) =>
+        control.unit === "rem" && unit === "px"
+          ? number / 16
+          : control.unit === "px" && unit === "rem"
+            ? number * 16
+            : number
+      const plain = value?.match(/^(-?[\d.]+)(px|rem)?$/)
+      if (plain) return toUnit(Number(plain[1]), plain[2] ?? control.unit)
+      const scaled = value?.match(
+        /^calc\((-?[\d.]+)(px|rem) \* var\(--ui-density\)\)$/,
+      )
+      if (scaled) return toUnit(Number(scaled[1]), scaled[2])
+      if (control.unit === "") {
+        return Number(defaults[control.token] ?? control.min)
+      }
+      const px = resolvePx(
+        `var(${control.token}${control.fallback ? `, ${control.fallback}` : ""})`,
+      )
+      if (px === null) return control.min
+      const density =
+        control.scale === "density"
+          ? Number(valueOf("--ui-density") ?? defaults["--ui-density"] ?? 1)
+          : 1
+      return toUnit(px / density, "px")
+    }
+
+    const render = () => {
+      fitted.clear()
+      const colorExpressions = [
+        "var(--ui-palette-source)",
+        "var(--ui-primary-source)",
+        ...CONTROLS.filter(
+          (control): control is ColorControl => control.kind === "color",
+        ).map((control) => `var(${control.token})`),
+      ]
+      const colors = resolveColors(colorExpressions)
+      const hex = colors.get("var(--ui-palette-source)")?.[0]?.hex ?? null
+      const tone = toneOf(valueOf("--ui-primary-source"), hex)
+      const ranges = new Map(
+        CONTROLS.filter(
+          (control): control is RangeControl => control.kind === "range",
+        ).map((control) => [control.id, rangeNumber(control)]),
+      )
+
+      for (const [id, element] of elements) {
+        const control = controls.get(id)
+        if (!control) continue
+        const isChanged = changed(control)
+        const origin = element.querySelector<HTMLElement>("[data-origin]")!
+        origin.textContent = isChanged
+          ? "Yours"
+          : theme.preset
+            ? "Preset"
+            : "Default"
+        element.classList.toggle("is-changed", isChanged)
+        element.querySelector<HTMLButtonElement>("[data-reset]")!.disabled =
+          !isChanged
+        const valueText = element.querySelector<HTMLElement>("[data-value]")!
+        const owner = isChanged ? "Your" : theme.preset ? "Preset" : "Default"
+        let text = ""
+
+        if (control.kind === "brand") {
+          const isDual = dual.has(id) || tone === "dual"
+          const pair = isDual
+            ? colors.get("var(--ui-primary-source)")!
+            : colors.get("var(--ui-palette-source)")!
+          setColorInputs(element, pair, isDual)
+          const source = theme.tokens["--ui-palette-source"]?.toLowerCase()
+          check(element, isDual ? null : (source ?? null))
+          text = describeColor(pair, isDual)
+        } else if (control.kind === "color") {
+          const pair = colors.get(`var(${control.token})`)!
+          const isDual =
+            dual.has(id) ||
+            (!!pair[0] && !!pair[1] && pair[0].hex !== pair[1].hex)
+          setColorInputs(element, pair, isDual)
+          text = describeColor(pair, isDual)
+        } else if (control.kind === "corners") {
+          const radius = valueOf("--ui-radius")
+          const match = CORNERS.find((corner) =>
+            same("--ui-radius", radius, corner.value),
+          )
+          check(element, match?.value ?? null)
+          const value = radius ?? defaults["--ui-radius"]
+          text = match ? `${match.label}, ${value}` : `${owner} value, ${value}`
+        } else if (control.kind === "choice") {
+          const value = choiceValue(control, valueOf, hex)
+          const option = control.options.find((entry) => entry.value === value)
+          if (control.display === "select") {
+            const select = element.querySelector("select")!
+            if (document.activeElement !== select) {
+              select.value = value ?? "custom"
+            }
+          } else {
+            check(element, value)
+          }
+          const tokens = controlTokens(control)
+          text = option
+            ? ""
+            : tokens.length === 1
+              ? `${owner} value, ${tidy(valueOf(tokens[0]) ?? "not set")}`
+              : `${owner} values: ${tokens
+                  .filter((token) => valueOf(token) !== undefined)
+                  .map((token) => `${token}: ${tidy(valueOf(token)!)}`)
+                  .join("; ")}`
+          if (control.display === "select") {
+            element.querySelector<HTMLOptionElement>(
+              "option[value=custom]",
+            )!.textContent = `${owner} value`
+          }
+        } else if (control.kind === "range") {
+          const raw = valueOf(control.token)
+          const number = ranges.get(id) ?? control.min
+          const input =
+            element.querySelector<HTMLInputElement>("input[type=range]")!
+          if (document.activeElement !== input) {
+            input.value = `${Math.min(control.max, Math.max(control.min, number))}`
+          }
+          const formatted = formatRange(control, number)
+          text =
+            control.follows && (raw === undefined || isFollow(raw))
+              ? `${control.follows}, ${formatted}`
+              : formatted
+        }
+        valueText.textContent = text
+      }
+
+      for (const group of root.querySelectorAll<HTMLElement>("[data-group]")) {
+        const all = [...group.querySelectorAll<HTMLElement>("[data-control]")]
+        const count = all.filter((element) =>
+          element.classList.contains("is-changed"),
+        ).length
+        const badge = group.querySelector<HTMLElement>("[data-count]")!
+        badge.hidden = count === 0
+        badge.textContent = count === 1 ? "1 change" : `${count} changes`
+        const fine = group.querySelector<HTMLDetailsElement>("[data-fine]")
+        if (fine) {
+          const fineControls = all.filter(
+            (element) => element.dataset.tier === "fine",
+          )
+          const fineCount = fineControls.filter((element) =>
+            element.classList.contains("is-changed"),
+          ).length
+          fine.querySelector("[data-fine-meta]")!.textContent =
+            fineCount > 0
+              ? `${fineCount} of ${fineControls.length} changed`
+              : `${fineControls.length} more settings`
+          if (first && fineCount > 0) fine.open = true
+        }
+      }
+      first = false
+    }
+
+    const onColor = (
+      control: Control,
+      element: HTMLElement,
+      throttle: boolean,
+    ) => {
+      const [light, dark] = [
+        ...element.querySelectorAll<HTMLInputElement>("input[data-color]"),
+      ].map((input) => input.value)
+      const isDual = element.classList.contains("is-dual")
+      if (control.kind === "brand") {
+        write(applyBrand(light, isDual ? dark : undefined), throttle)
+      } else if (control.kind === "color") {
+        const value = isDual ? `light-dark(${light}, ${dark})` : light
+        write(
+          {
+            [control.token]: value,
+            ...Object.fromEntries(
+              (control.follow ?? []).map((token) => [
+                token,
+                `var(${control.token})`,
+              ]),
+            ),
+          },
+          throttle,
+        )
+      }
+    }
+
+    const onChange = (event: Event) => {
+      const target = event.target
+      if (!(target instanceof HTMLElement)) return
+      const element = target.closest<HTMLElement>("[data-control]")
+      const control = element && controls.get(element.dataset.control!)
+      if (!element || !control) return
+      const throttle = event.type === "input"
+
+      if (target instanceof HTMLInputElement && target.dataset.color) {
+        onColor(control, element, throttle)
+        return
+      }
+      if (target instanceof HTMLInputElement && target.type === "checkbox") {
+        if (event.type !== "change") return
+        if (target.checked) {
+          dual.add(control.id)
+          element.classList.add("is-dual")
+          element.querySelector<HTMLElement>("[data-mode=dark]")!.hidden = false
+        } else {
+          dual.delete(control.id)
+          element.classList.remove("is-dual")
+          onColor(control, element, false)
+        }
+        return
+      }
+      if (event.type !== "change" && !(target instanceof HTMLInputElement)) {
+        return
+      }
+
+      if (control.kind === "brand" && target instanceof HTMLInputElement) {
+        if (event.type !== "change" || !target.checked) return
+        dual.delete(control.id)
+        write(applyBrand(target.value))
+      } else if (
+        control.kind === "corners" &&
+        event.type === "change" &&
+        target instanceof HTMLInputElement &&
+        target.checked
+      ) {
+        const update: Update = cornersTokens(target.value)
+        for (const token of COMPONENT_RADII) {
+          const current = theme.tokens[token]
+          if (current !== undefined && !isFollow(current)) delete update[token]
+        }
+        write(update)
+      } else if (control.kind === "choice" && event.type === "change") {
+        const value = (target as HTMLInputElement | HTMLSelectElement).value
+        if (target instanceof HTMLInputElement && !target.checked) return
+        const update = choiceTokens(control, value)
+        const isBase = Object.entries(update).every(([token, written]) =>
+          same(token, written ?? undefined, baseOf(token)),
+        )
+        write(
+          isBase
+            ? Object.fromEntries(
+                Object.keys(update).map((token) => [token, null]),
+              )
+            : update,
+        )
+      } else if (control.kind === "range") {
+        const number = Number((target as HTMLInputElement).value)
+        const value =
+          control.scale === "density"
+            ? `calc(${number}${control.unit} * var(--ui-density))`
+            : `${number}${control.unit}`
+        write({ [control.token]: value }, throttle)
+      }
+    }
+
+    root.addEventListener("input", onChange)
+    root.addEventListener("change", onChange)
+    root.addEventListener("click", (event) => {
+      const button = (event.target as Element).closest<HTMLButtonElement>(
+        "[data-reset]",
+      )
+      const element = button?.closest<HTMLElement>("[data-control]")
+      const control = element && controls.get(element.dataset.control!)
+      if (!control) return
+      dual.delete(control.id)
+      write(resetTokens(control))
+      element
+        .querySelector<HTMLElement>(
+          "input:not([type=checkbox], [type=radio]), select, input:checked, input[type=radio]",
+        )
+        ?.focus()
+    })
+
+    render()
+    themeStore.subscribe((next) => {
+      theme = next
+      render()
+    })
+    new MutationObserver(render).observe(document.documentElement, {
+      attributeFilter: ["class"],
+    })
+  }
+</script>
+
+<style>
+  .builder-controls {
+    display: grid;
+    gap: var(--size-5);
+    min-inline-size: 0;
+  }
+
+  .builder-group {
+    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+    display: grid;
+    gap: var(--size-4);
+    padding-block-start: var(--size-4);
+
+    &:first-of-type {
+      border-block-start: 0;
+      padding-block-start: 0;
+    }
+  }
+
+  .builder-group-head {
+    display: grid;
+    gap: var(--size-1);
+
+    h3 {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--ui-font-size-large);
+      gap: var(--size-2);
+      margin: 0;
+    }
+
+    p {
+      color: var(--ui-text-subtle);
+      font-size: var(--ui-font-size-small);
+      margin: 0;
+    }
+  }
+
+  .builder-count {
+    background-color: var(--ui-primary-tonal, var(--ui-surface-tonal));
+    border-radius: var(--ui-radius-round);
+    color: var(--ui-on-primary-tonal, var(--ui-text-strong));
+    font-size: var(--ui-font-size-caption);
+    font-weight: var(--ui-font-weight-semibold);
+    padding: 0.125em 0.75em;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .builder-fine {
+    > :global(summary) {
+      font-size: var(--ui-font-size-body);
+      gap: var(--size-2);
+    }
+
+    :global(.ui-content) {
+      display: grid;
+      gap: var(--size-4);
+      padding-block: var(--size-3);
+    }
+  }
+
+  .builder-fine-meta {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-normal);
+    margin-inline-end: auto;
+  }
+</style>

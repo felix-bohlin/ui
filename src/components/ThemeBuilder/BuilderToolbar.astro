@@ -1,0 +1,401 @@
+---
+import {
+  Button,
+  Callout,
+  CalloutContent,
+  CalloutIcon,
+  Select,
+  TextField,
+} from "opui-css/astro"
+import { EXAMPLE_THEMES } from "../../utils/example-themes"
+
+const presets = [
+  { label: "Default", value: "" },
+  ...EXAMPLE_THEMES.map((theme) => ({ label: theme.label, value: theme.name })),
+]
+---
+
+<Callout class="builder-share" data-share hidden severity="info">
+  <CalloutIcon />
+  <CalloutContent>
+    <h2 class="builder-share-title" id="builder-share-title">
+      This link has a theme
+    </h2>
+    <p data-share-summary></p>
+    <div class="builder-actions">
+      <Button color="primary" data-share-use size="small" variant="filled"
+        >Use this theme</Button
+      >
+      <Button data-share-keep size="small" variant="outlined">Keep mine</Button>
+    </div>
+  </CalloutContent>
+</Callout>
+
+<div class="builder-toolbar">
+  <div class="builder-toolbar-group">
+    <Select
+      class="builder-preset"
+      items={presets}
+      label="Start from"
+      name="builder-preset"
+      size="small"
+    />
+    <div class="builder-saved" data-saved hidden>
+      <Select label="Your themes" name="builder-saved" size="small">
+        <option value="">Not saved</option>
+      </Select>
+    </div>
+    <div class="builder-actions">
+      <Button
+        aria-controls="builder-save-form"
+        aria-expanded="false"
+        data-save-open
+        size="small"
+        variant="outlined">Save</Button
+      >
+      <Button data-delete hidden size="small" variant="transparent"
+        >Delete</Button
+      >
+    </div>
+  </div>
+  <div class="builder-status">
+    <p data-status role="status"></p>
+    <Button data-undo hidden size="x-small" variant="outlined">Undo</Button>
+  </div>
+  <div class="builder-actions">
+    <Button data-reset-all size="small" variant="transparent">Reset</Button>
+    <Button data-copy-link size="small" variant="outlined">Copy link</Button>
+    <Button href="#export" size="small" variant="tonal">
+      Export CSS
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        ><path
+          fill="currentColor"
+          d="M11 4.75a1 1 0 1 1 2 0v11.84l4.3-4.3a1 1 0 1 1 1.4 1.42l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.42l4.3 4.3z"
+        ></path></svg
+      >
+    </Button>
+  </div>
+</div>
+
+<form class="builder-save" hidden id="builder-save-form">
+  <TextField
+    autocomplete="off"
+    label="Theme name"
+    maxlength="40"
+    name="builder-save-name"
+    required
+    size="small"
+  />
+  <div class="builder-actions">
+    <Button color="primary" size="small" type="submit" variant="filled"
+      >Save theme</Button
+    >
+    <Button data-save-cancel size="small" variant="transparent">Cancel</Button>
+  </div>
+</form>
+
+<script>
+  import { exampleTheme } from "../../utils/example-themes"
+  import { savedThemes } from "../../utils/saved-themes"
+  import { copyText } from "../../utils/storage"
+  import { themeStore, type Theme } from "../../utils/theme"
+  import { brandTokens, isHex } from "../../utils/theme-brand"
+  import { SHARE_PARAM, decodeTheme, shareUrl } from "../../utils/theme-share"
+
+  const toolbar = document.querySelector<HTMLElement>(".builder-toolbar")
+  if (toolbar) {
+    const share = document.querySelector<HTMLElement>("[data-share]")!
+    const presetSelect = toolbar.querySelector<HTMLSelectElement>(
+      'select[name="builder-preset"]',
+    )!
+    const savedField = toolbar.querySelector<HTMLElement>("[data-saved]")!
+    const savedSelect = savedField.querySelector("select")!
+    const savedList = savedSelect.querySelector<HTMLElement>(".ui-list")!
+    const saveOpen =
+      toolbar.querySelector<HTMLButtonElement>("[data-save-open]")!
+    const deleteButton =
+      toolbar.querySelector<HTMLButtonElement>("[data-delete]")!
+    const form = document.querySelector<HTMLFormElement>(".builder-save")!
+    const nameInput = form.querySelector<HTMLInputElement>("input")!
+    const status = document.querySelector<HTMLElement>("[data-status]")!
+    const undo = document.querySelector<HTMLButtonElement>("[data-undo]")!
+    let undoAction: (() => void) | null = null
+    let clearTimer = 0
+
+    const say = (message: string, action?: () => void) => {
+      clearTimeout(clearTimer)
+      status.textContent = message
+      undoAction = action ?? null
+      undo.hidden = !action
+      if (!action) {
+        clearTimer = window.setTimeout(() => {
+          status.textContent = ""
+        }, 6000)
+      }
+    }
+
+    const describe = (theme: Theme) => {
+      const start = exampleTheme(theme.preset)?.label ?? "Default"
+      const count = Object.keys(theme.tokens).length
+      return count === 0
+        ? `It starts from ${start} with no changes.`
+        : `It starts from ${start} with ${count} ${count === 1 ? "change" : "changes"}.`
+    }
+
+    const sync = () => {
+      const theme = themeStore.get()
+      if (document.activeElement !== presetSelect) {
+        presetSelect.value = theme.preset ?? ""
+      }
+      const themes = savedThemes.list()
+      const current = savedThemes.current()
+      savedField.hidden = themes.length === 0
+      savedList.replaceChildren(
+        Object.assign(document.createElement("option"), {
+          textContent: "Not saved",
+          value: "",
+        }),
+        ...themes.map((entry) =>
+          Object.assign(document.createElement("option"), {
+            textContent: entry.name,
+            value: entry.name,
+          }),
+        ),
+      )
+      savedSelect.value = current ?? ""
+      deleteButton.hidden = current === null
+      deleteButton.setAttribute(
+        "aria-label",
+        current ? `Delete ${current}` : "Delete",
+      )
+      saveOpen.textContent = current ? "Saved" : "Save"
+      saveOpen.setAttribute(
+        "aria-label",
+        current ? `Save again, saved as ${current}` : "Save this theme",
+      )
+    }
+
+    const closeForm = (focus = true) => {
+      form.hidden = true
+      saveOpen.setAttribute("aria-expanded", "false")
+      if (focus) saveOpen.focus()
+    }
+
+    presetSelect.addEventListener("change", () => {
+      const before = themeStore.get()
+      const brand = before.tokens["--ui-palette-source"]
+      const fitted =
+        brand &&
+        isHex(brand) &&
+        before.tokens["--ui-primary-source"] ===
+          brandTokens(brand)["--ui-primary-source"]
+      themeStore.setPreset(presetSelect.value || null)
+      if (fitted) themeStore.update(brandTokens(brand))
+      const label = exampleTheme(presetSelect.value)?.label ?? "Default"
+      say(`Starting from ${label}. Your changes are kept.`)
+    })
+
+    savedSelect.addEventListener("change", () => {
+      if (!savedSelect.value) return
+      const previous = themeStore.get()
+      savedThemes.apply(savedSelect.value)
+      say(`Switched to ${savedSelect.value}.`, () => themeStore.set(previous))
+    })
+
+    saveOpen.addEventListener("click", () => {
+      if (!form.hidden) {
+        closeForm()
+        return
+      }
+      form.hidden = false
+      saveOpen.setAttribute("aria-expanded", "true")
+      nameInput.value = savedThemes.current() ?? savedThemes.nextName()
+      nameInput.focus()
+      nameInput.select()
+    })
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault()
+      const name = nameInput.value.trim()
+      if (!name) return
+      const replaced = savedThemes.list().some((entry) => entry.name === name)
+      savedThemes.save(name)
+      closeForm()
+      say(replaced ? `Updated ${name}.` : `Saved as ${name}.`)
+    })
+
+    form
+      .querySelector("[data-save-cancel]")!
+      .addEventListener("click", () => closeForm())
+
+    form.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeForm()
+    })
+
+    deleteButton.addEventListener("click", () => {
+      const name = savedThemes.current()
+      if (!name) return
+      savedThemes.remove(name)
+      say(`Deleted ${name}.`, () => savedThemes.save(name))
+      saveOpen.focus()
+    })
+
+    toolbar.querySelector("[data-reset-all]")!.addEventListener("click", () => {
+      const previous = themeStore.get()
+      themeStore.reset()
+      say("Theme reset to the default.", () => themeStore.set(previous))
+    })
+
+    toolbar
+      .querySelector("[data-copy-link]")!
+      .addEventListener("click", async () => {
+        const copied = await copyText(
+          shareUrl(themeStore.get(), location.origin),
+        )
+        say(copied ? "Link copied." : "Could not copy the link.")
+      })
+
+    undo.addEventListener("click", () => {
+      const action = undoAction
+      say("Undone.")
+      action?.()
+    })
+
+    const params = new URLSearchParams(location.search)
+    if (params.has(SHARE_PARAM)) {
+      const shared = decodeTheme(params.get(SHARE_PARAM))
+      const clearParam = () => {
+        const url = new URL(location.href)
+        url.searchParams.delete(SHARE_PARAM)
+        history.replaceState(history.state, "", url)
+      }
+      const same =
+        shared && JSON.stringify(shared) === JSON.stringify(themeStore.get())
+      if (!shared) {
+        clearParam()
+        say(
+          "The theme in this link could not be read. Your theme is unchanged.",
+        )
+      } else if (same) {
+        clearParam()
+      } else {
+        share.hidden = false
+        share.querySelector("[data-share-summary]")!.textContent =
+          `${describe(shared)} Using it replaces your current theme.`
+        const close = () => {
+          share.hidden = true
+          clearParam()
+          presetSelect.focus()
+        }
+        share
+          .querySelector("[data-share-use]")!
+          .addEventListener("click", () => {
+            const previous = themeStore.get()
+            themeStore.set(shared)
+            close()
+            say("Using the theme from the link.", () =>
+              themeStore.set(previous),
+            )
+          })
+        share
+          .querySelector("[data-share-keep]")!
+          .addEventListener("click", () => {
+            close()
+            say("Kept your theme.")
+          })
+      }
+    }
+
+    sync()
+    savedThemes.subscribe(sync)
+  }
+</script>
+
+<style>
+  .builder-share {
+    &[hidden] {
+      display: none;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .builder-share-title {
+    font-size: var(--ui-font-size-body);
+    margin: 0;
+  }
+
+  .builder-toolbar {
+    align-items: end;
+    border-block: var(--ui-border-width) solid var(--ui-border-color);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3) var(--size-4);
+    justify-content: space-between;
+    padding-block: var(--size-3);
+  }
+
+  .builder-toolbar-group {
+    align-items: end;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+  }
+
+  .builder-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+
+    :global([hidden]) {
+      display: none;
+    }
+  }
+
+  .builder-saved[hidden] {
+    display: none;
+  }
+
+  .builder-preset,
+  .builder-saved :global(.ui-select) {
+    min-inline-size: 10rem;
+  }
+
+  .builder-save {
+    align-items: end;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-3);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .builder-status {
+    align-items: center;
+    align-self: center;
+    display: flex;
+    flex: 1 1 12rem;
+    gap: var(--size-2);
+    justify-content: end;
+
+    :global([hidden]) {
+      display: none;
+    }
+
+    p {
+      color: var(--ui-text);
+      font-size: var(--ui-font-size-small);
+      margin: 0;
+    }
+  }
+</style>

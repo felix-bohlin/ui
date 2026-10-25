@@ -1,0 +1,263 @@
+---
+import { Button, Callout, CalloutContent, CalloutIcon } from "opui-css/astro"
+import { PLACEHOLDER_CSS } from "../../utils/theme"
+import Code from "../Code.astro"
+import "../../styles/syntax.css"
+
+const { link } = Astro.locals
+const setup = `@import "opui-css/css/imports.css";
+@import "./theme.css";`
+---
+
+<section
+  aria-labelledby="builder-export-title"
+  class="builder-export"
+  id="export"
+>
+  <div class="builder-export-intro">
+    <h2 id="builder-export-title">Export</h2>
+    <p>
+      Your theme is one CSS file. It holds the preset you started from and your
+      changes, and it works in light and dark mode.
+    </p>
+    <ol>
+      <li>
+        Load opui-css as shown in <a
+          class="ui-link"
+          href={link("/guide/getting-started")}>Getting started</a
+        >.
+      </li>
+      <li>
+        Save this file as <code>theme.css</code> and load it after opui-css.
+      </li>
+    </ol>
+    <Code code={setup} lang="css" />
+    <Callout data-font-note hidden severity="info">
+      <CalloutIcon />
+      <CalloutContent>
+        <p data-font-text></p>
+      </CalloutContent>
+    </Callout>
+  </div>
+
+  <div class="builder-css">
+    <div class="builder-css-head">
+      <span class="builder-css-title">theme.css</span>
+      <span class="builder-css-meta" data-css-meta></span>
+      <Button data-css-copy size="small" variant="outlined">Copy</Button>
+      <Button color="primary" data-css-download size="small" variant="filled"
+        >Download</Button
+      >
+    </div>
+    <pre
+      tabindex="0"
+      aria-label="theme.css"><code class="language-css" data-css>{PLACEHOLDER_CSS}</code></pre>
+    <p class="builder-css-status" data-css-status role="status"></p>
+  </div>
+</section>
+
+<script>
+  import { highlightAll } from "microlighter"
+  import { exampleTheme } from "../../utils/example-themes"
+  import { copyText } from "../../utils/storage"
+  import { exportCss, themeStore } from "../../utils/theme"
+  import { FONTS, canonical } from "../../utils/theme-builder-controls"
+
+  const section = document.querySelector<HTMLElement>(".builder-export")
+  if (section) {
+    const code = section.querySelector<HTMLElement>("[data-css]")!
+    const meta = section.querySelector<HTMLElement>("[data-css-meta]")!
+    const status = section.querySelector<HTMLElement>("[data-css-status]")!
+    const fontNote = section.querySelector<HTMLElement>("[data-font-note]")!
+    const fontText = section.querySelector<HTMLElement>("[data-font-text]")!
+    const GENERIC = new Set([
+      "-apple-system",
+      "blinkmacsystemfont",
+      "cursive",
+      "fantasy",
+      "monospace",
+      "sans-serif",
+      "serif",
+      "system-ui",
+      "ui-monospace",
+      "ui-rounded",
+      "ui-sans-serif",
+      "ui-serif",
+    ])
+    let css = ""
+    let timer = 0
+    let frame = 0
+
+    const fontsOf = (stacks: (string | undefined)[]) => {
+      const names = stacks.flatMap((stack) => {
+        if (!stack || stack === "revert-layer") return []
+        const known = FONTS.find(
+          (font) => canonical(font.value, "", {}) === canonical(stack, "", {}),
+        )
+        if (known) return known.load ? [known.load] : []
+        const first = stack
+          .split(",")[0]
+          .trim()
+          .replace(/^["']|["']$/g, "")
+        return first && !GENERIC.has(first.toLowerCase()) ? [first] : []
+      })
+      return [...new Set(names)].toSorted()
+    }
+
+    const render = () => {
+      frame = 0
+      const theme = themeStore.get()
+      css = exportCss(theme)
+      code.textContent = css
+      highlightAll()
+      const lines = css.trimEnd().split("\n").length
+      meta.textContent = `${lines} lines`
+      const preset = exampleTheme(theme.preset)?.tokens ?? {}
+      const fonts = fontsOf(
+        ["--ui-font-body", "--ui-font-code", "--ui-font-heading"].map(
+          (token) => theme.tokens[token] ?? preset[token],
+        ),
+      )
+      fontNote.hidden = fonts.length === 0
+      const list = new Intl.ListFormat("en", { type: "conjunction" }).format(
+        fonts,
+      )
+      fontText.textContent = `This theme uses ${list}. The file names the ${fonts.length === 1 ? "font" : "fonts"} but doesn't load ${fonts.length === 1 ? "it" : "them"}, so load ${fonts.length === 1 ? "it" : "them"} in your project too, for example from Fontsource or Google Fonts.`
+    }
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(render)
+    }
+
+    const say = (message: string) => {
+      clearTimeout(timer)
+      status.textContent = message
+      timer = window.setTimeout(() => {
+        status.textContent = ""
+      }, 4000)
+    }
+
+    section
+      .querySelector("[data-css-copy]")!
+      .addEventListener("click", async () => {
+        say((await copyText(css)) ? "Copied theme.css." : "Could not copy.")
+      })
+
+    section
+      .querySelector("[data-css-download]")!
+      .addEventListener("click", () => {
+        const url = URL.createObjectURL(new Blob([css], { type: "text/css" }))
+        const anchor = document.createElement("a")
+        anchor.href = url
+        anchor.download = "theme.css"
+        anchor.click()
+        setTimeout(() => URL.revokeObjectURL(url))
+        say("Downloaded theme.css.")
+      })
+
+    render()
+    themeStore.subscribe(schedule)
+  }
+</script>
+
+<style>
+  .builder-export {
+    align-items: start;
+    border-block-start: var(--ui-border-width) solid var(--ui-border-color);
+    display: grid;
+    gap: var(--size-5);
+    padding-block-start: var(--size-6);
+    scroll-margin-block-start: var(--size-11);
+
+    @media (width >= 900px) {
+      grid-template-columns: minmax(18rem, 26rem) minmax(0, 1fr);
+    }
+  }
+
+  .builder-export-intro {
+    display: grid;
+    gap: var(--size-3);
+
+    h2,
+    ol,
+    p {
+      margin: 0;
+    }
+
+    ol {
+      display: grid;
+      gap: var(--size-2);
+      padding-inline-start: var(--size-5);
+    }
+
+    :global([hidden]) {
+      display: none;
+    }
+  }
+
+  .builder-css {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+
+    pre {
+      background: #1e1e1e;
+      border-radius: var(--ui-radius);
+      color-scheme: dark;
+      margin: 0;
+      max-block-size: 70vb;
+      overflow: auto;
+      padding: var(--size-4);
+    }
+
+    code {
+      --syntax-comment: #74a061;
+      --syntax-constant: #b5cea8;
+      --syntax-function: #dcdcaa;
+      --syntax-keyword: #c586c0;
+      --syntax-operator: #d4d4d4;
+      --syntax-property: #9cdcfe;
+      --syntax-punctuation: #949494;
+      --syntax-selector: #d7ba7d;
+      --syntax-string: #ce9178;
+      --syntax-tag: #569cd6;
+      --syntax-type: #4ec9b0;
+      --syntax-value: #ce9178;
+      --syntax-variable: #9cdcfe;
+
+      background: none;
+      color: #d4d4d4;
+      display: block;
+      font-family: var(--font-mono);
+      font-size: var(--font-size-0);
+      line-height: 1.65;
+      padding: 0;
+      white-space: pre;
+    }
+  }
+
+  .builder-css-head {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .builder-css-title {
+    font-family: var(--font-mono);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .builder-css-meta {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-small);
+    margin-inline-end: auto;
+  }
+
+  .builder-css-status {
+    color: var(--ui-text);
+    font-size: var(--ui-font-size-small);
+    margin: 0;
+    min-block-size: 1lh;
+  }
+</style>

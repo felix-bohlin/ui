@@ -1,0 +1,315 @@
+---
+import {
+  Button,
+  Checkbox,
+  Range,
+  Select,
+  TextField,
+  ToggleButton,
+  ToggleGroup,
+} from "opui-css/astro"
+import {
+  FONTS,
+  controlTokens,
+  type Control,
+} from "../../utils/theme-builder-controls"
+import { BRAND_SWATCHES, CORNERS } from "../../utils/theme"
+
+type Props = { control: Control }
+
+const { control } = Astro.props
+const base = `builder-${control.id}`
+const labelId = `${base}-label`
+const hintId = control.hint ? `${base}-hint` : undefined
+const valueId = `${base}-value`
+const originId = `${base}-origin`
+const describedBy = [hintId, valueId, originId].filter(Boolean).join(" ")
+const tokens = controlTokens(control)
+const fontOf = (label: string) =>
+  FONTS.find((font) => font.label === label)?.value
+const options =
+  control.kind === "choice"
+    ? control.options
+    : control.kind === "corners"
+      ? CORNERS.map((corner) => ({ label: corner.label, value: corner.value }))
+      : []
+const isColor = control.kind === "color" || control.kind === "brand"
+const name = control.kind === "brand" ? "Brand color" : control.label
+---
+
+<div
+  class="builder-control"
+  data-control={control.id}
+  data-kind={control.kind}
+  data-name={name}
+  data-tier={control.tier}
+>
+  <div class="builder-control-head">
+    <span class="builder-control-label" id={labelId} title={tokens.join("\n")}
+      >{control.label}</span
+    >
+    <span class="builder-control-origin" data-origin id={originId}>Preset</span>
+    <Button
+      aria-label={`Reset ${name.toLowerCase()}`}
+      class="builder-control-reset"
+      data-reset
+      disabled
+      round
+      size="x-small"
+      title="Back to the preset value"
+      variant="transparent"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        ><path
+          fill="currentColor"
+          d="M12 5V2.21c0-.45-.54-.67-.85-.35l-3.8 3.79c-.2.2-.2.51 0 .71l3.79 3.79c.32.31.86.09.86-.36V7c3.73 0 6.68 3.42 5.86 7.29c-.47 2.27-2.31 4.1-4.57 4.57c-3.57.75-6.75-1.7-7.23-5.01a1 1 0 0 0-.98-.85c-.6 0-1.08.53-1 1.13c.62 4.39 4.8 7.64 9.53 6.72c3.12-.61 5.63-3.12 6.24-6.24C20.84 9.48 16.94 5 12 5"
+        ></path></svg
+      >
+    </Button>
+  </div>
+  {
+    control.hint && (
+      <p class="builder-control-hint" id={hintId}>
+        {control.hint}
+      </p>
+    )
+  }
+
+  {
+    control.kind === "brand" && (
+      <ToggleGroup
+        aria-describedby={describedBy}
+        aria-labelledby={labelId}
+        class="builder-swatches"
+        name={`${base}-swatch`}
+        size="small"
+      >
+        {BRAND_SWATCHES.map((swatch) => (
+          <ToggleButton value={swatch.value}>
+            <span
+              aria-hidden="true"
+              class="builder-swatch"
+              style={`--swatch: ${swatch.value}`}
+            />
+            {swatch.label}
+          </ToggleButton>
+        ))}
+      </ToggleGroup>
+    )
+  }
+
+  {
+    isColor && (
+      <div class="builder-colors">
+        <div class="builder-color" data-mode="light">
+          <TextField
+            aria-describedby={describedBy}
+            data-color="light"
+            hideLabel
+            label={name}
+            size="small"
+            type="color"
+          />
+          <span aria-hidden="true" class="builder-color-caption" data-caption />
+        </div>
+        <div class="builder-color" data-mode="dark" hidden>
+          <TextField
+            data-color="dark"
+            hideLabel
+            label={`${name} in dark mode`}
+            size="small"
+            type="color"
+          />
+          <span aria-hidden="true" class="builder-color-caption" data-caption />
+        </div>
+        <div class="builder-dual">
+          <Checkbox data-dual size="small">
+            Different in dark mode
+          </Checkbox>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    (control.kind === "corners" ||
+      (control.kind === "choice" && control.display === "toggle")) && (
+      <ToggleGroup
+        aria-describedby={describedBy}
+        aria-labelledby={labelId}
+        name={base}
+        size="small"
+      >
+        {options.map((option) => (
+          <ToggleButton value={option.value}>{option.label}</ToggleButton>
+        ))}
+      </ToggleGroup>
+    )
+  }
+
+  {
+    control.kind === "choice" && control.display === "select" && (
+      <Select
+        aria-describedby={describedBy}
+        hideLabel
+        label={control.label}
+        name={base}
+        size="small"
+      >
+        <option disabled hidden value="custom">
+          Custom
+        </option>
+        {control.options.map((option) => (
+          <option
+            style={
+              control.font && fontOf(option.label)
+                ? `font-family: ${fontOf(option.label)}`
+                : undefined
+            }
+            value={option.value}
+          >
+            {option.label}
+          </option>
+        ))}
+      </Select>
+    )
+  }
+
+  {
+    control.kind === "range" && (
+      <Range
+        aria-describedby={describedBy}
+        hideLabel
+        label={control.label}
+        max={control.max}
+        min={control.min}
+        name={base}
+        size="small"
+        step={control.step}
+      />
+    )
+  }
+
+  <p class="builder-control-value" id={valueId} data-value></p>
+</div>
+
+<style>
+  .builder-control {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+
+    > :global(.ui-toggle-group) {
+      inline-size: 100%;
+    }
+
+    > :global(.ui-select),
+    > :global(.ui-range) {
+      inline-size: 100%;
+    }
+  }
+
+  .builder-control-head {
+    align-items: center;
+    display: flex;
+    gap: var(--size-2);
+    min-block-size: var(--ui-control-size-x-small);
+  }
+
+  .builder-control-label {
+    color: var(--ui-text-strong);
+    flex: 1;
+    font-size: var(--ui-font-size-small);
+    font-weight: var(--ui-font-weight-semibold);
+  }
+
+  .builder-control-origin {
+    border: var(--ui-border-width) solid var(--ui-border-color);
+    border-radius: var(--ui-radius-round);
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+    line-height: var(--ui-line-height-tight);
+    padding: 0.125em 0.625em;
+
+    .is-changed & {
+      background-color: var(--ui-primary-tonal, var(--ui-surface-tonal));
+      border-color: transparent;
+      color: var(--ui-on-primary-tonal, var(--ui-text-strong));
+      font-weight: var(--ui-font-weight-semibold);
+    }
+  }
+
+  .builder-control-reset:disabled {
+    visibility: hidden;
+  }
+
+  .builder-control-hint,
+  .builder-control-value {
+    color: var(--ui-text-subtle);
+    font-size: var(--ui-font-size-caption);
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .builder-control-hint {
+    margin-block-start: calc(-1 * var(--size-2));
+  }
+
+  .builder-control-value:empty {
+    display: none;
+  }
+
+  :is([data-kind="brand"], [data-kind="color"]) .builder-control-value {
+    block-size: 1px;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .builder-colors {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-3);
+
+    .builder-dual {
+      flex-basis: 100%;
+    }
+  }
+
+  .builder-color {
+    align-items: center;
+    display: flex;
+    gap: var(--size-2);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .builder-color-caption {
+    color: var(--ui-text);
+    font-family: var(--font-mono);
+    font-size: var(--ui-font-size-small);
+  }
+
+  .builder-swatches {
+    inline-size: 100%;
+  }
+
+  .builder-swatch {
+    background-color: var(--swatch);
+    block-size: 0.75em;
+    border-radius: var(--ui-radius-round);
+    display: inline-block;
+    inline-size: 0.75em;
+    margin-inline-end: var(--size-1);
+  }
+</style>

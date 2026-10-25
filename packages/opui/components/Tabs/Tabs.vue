@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, provide, reactive, useId } from "vue"
 import { TabsKey } from "./context.vue"
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
 const { name, overflow, variant } = defineProps<Props>()
 defineSlots<Slots>()

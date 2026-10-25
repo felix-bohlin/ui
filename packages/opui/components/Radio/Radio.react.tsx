@@ -1,5 +1,5 @@
 import { cx } from "../cx"
-import { warnUnnamed } from "../dev"
+import { hasName, warnUnnamed } from "../dev"
 import RadioInput from "./RadioInput.react"
 import type { Props } from "./types.react"
 
@@ -18,10 +18,7 @@ export default function Radio({
   endText,
   ...rest
 }: Props) {
-  warnUnnamed(
-    "Radio",
-    label || children || rest["aria-label"] || rest["aria-labelledby"],
-  )
+  warnUnnamed("Radio", hasName({ ...rest, label }, children))
 
   return (
     <label

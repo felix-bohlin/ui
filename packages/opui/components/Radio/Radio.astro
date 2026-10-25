@@ -1,6 +1,6 @@
 ---
 import type { Props } from "./types.astro"
-import { warnUnnamed } from "../dev"
+import { hasName, warnUnnamed } from "../dev"
 import RadioInput from "./RadioInput.astro"
 
 export const title = "Radio"
@@ -21,13 +21,7 @@ const {
   ...rest
 } = Astro.props
 
-warnUnnamed(
-  "Radio",
-  label ||
-    Astro.slots.has("default") ||
-    Astro.props["aria-label"] ||
-    Astro.props["aria-labelledby"],
-)
+warnUnnamed("Radio", hasName(Astro.props, Astro.slots.has("default")))
 ---
 
 <label

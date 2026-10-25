@@ -1,6 +1,8 @@
 ---
 import type { Props } from "./types.astro"
 import { menuContext } from "./context.astro"
+import { warnMissingId } from "../dev"
+import { tagAttrs } from "../tag"
 
 export const title = "Menu"
 
@@ -16,6 +18,7 @@ const {
   ...rest
 } = Astro.props
 
+warnMissingId("Menu", id)
 const rootId = menuContext.get()?.rootId ?? id
 const html = await menuContext.provide({ rootId }, () =>
   Astro.slots.render("default"),
@@ -60,12 +63,9 @@ const html = await menuContext.provide({ rootId }, () =>
             ]}
           >
             <Tag
-              aria-disabled={href && disabled ? "true" : undefined}
+              {...tagAttrs(Tag, disabled, href)}
               command={closes ? "hide-popover" : undefined}
               commandfor={closes ? rootId : undefined}
-              disabled={!href && disabled ? true : undefined}
-              href={href && !disabled ? href : undefined}
-              type={href ? undefined : "button"}
               {...itemRest}
             >
               <div class="ui-text">

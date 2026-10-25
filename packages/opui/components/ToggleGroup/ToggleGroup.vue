@@ -1,18 +1,24 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="Multiple extends boolean = false">
 import { computed, provide, reactive, useId } from "vue"
 import { ToggleGroupKey } from "./context.vue"
 import { selectionOf } from "./selection"
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
-const { multiple, name, orientation, overflow, size } = defineProps<Props>()
+type Model = Multiple extends true ? string[] : string
+
+const { multiple, name, orientation, overflow, size } = defineProps<
+  Props & { multiple?: Multiple }
+>()
 defineSlots<Slots>()
-const model = defineModel<string | string[]>()
+const model = defineModel<Model>()
 
 const uid = useId()
 const groupName = computed(() => name || `toggle-group-${uid}`)
 const inputType = computed(() => (multiple ? "checkbox" : "radio"))
 const change = (input: HTMLInputElement) => {
-  if (model.value !== undefined) model.value = selectionOf(input, multiple)
+  if (model.value !== undefined) {
+    model.value = selectionOf(input, multiple) as Model
+  }
 }
 
 provide(

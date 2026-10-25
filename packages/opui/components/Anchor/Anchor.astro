@@ -1,6 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import { anchorContext } from "./context.astro"
+import { warnMissingId } from "../dev"
 import { mergeStyle } from "../style"
 import { extendsAnchor } from "./root"
 
@@ -17,6 +18,9 @@ const {
 
 const isHover = trigger === "hover"
 const id = isHover ? (idProp ?? undefined) : undefined
+if (isHover && !extendsAnchor(className)) {
+  warnMissingId("Anchor", id, "interestfor")
+}
 const html = await anchorContext.provide(
   { floatingId: id, popover: isHover ? "hint" : undefined },
   () => Astro.slots.render("default"),

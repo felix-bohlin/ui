@@ -3,7 +3,7 @@ import { markerPath } from "./icons"
 import type {
   AccordionSummaryProps as Props,
   AccordionSummarySlots as Slots,
-} from "./types.d.vue"
+} from "./types.vue-props"
 
 defineProps<Props>()
 defineSlots<Slots>()

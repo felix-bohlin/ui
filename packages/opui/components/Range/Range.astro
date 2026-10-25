@@ -2,6 +2,7 @@
 import type { Props } from "./types.astro"
 import { createId, idRefs } from "../id"
 import { fieldGroupContext } from "../FieldGroup/context.astro"
+import { defaultValue } from "./value"
 
 export const title = "Range"
 
@@ -39,17 +40,7 @@ const hasStartText = !!startText || Astro.slots.has("start-text")
 const hasEndText = !!endText || Astro.slots.has("end-text")
 const hasValue = valueSuffix !== undefined || Astro.slots.has("value-text")
 const hasDatalist = !!items || Astro.slots.has("datalist")
-const defaultValue = () => {
-  const minValue = Number(min ?? 0)
-  const maxValue = Math.max(minValue, Number(max ?? 100))
-  const stepValue = step === "any" ? 0 : Number(step ?? 1)
-  const middle = minValue + (maxValue - minValue) / 2
-  if (!stepValue) return middle
-  const stepped =
-    minValue + Math.round((middle - minValue) / stepValue) * stepValue
-  return stepped > maxValue ? stepped - stepValue : stepped
-}
-const valueText = `${value ?? defaultValue()}${valueSuffix ?? ""}`
+const valueText = `${value ?? defaultValue({ max, min, step })}${valueSuffix ?? ""}`
 
 const inputId = id || (hasValue ? $id("range") : undefined)
 const labelId = hasLabel ? $id("range-label") : undefined

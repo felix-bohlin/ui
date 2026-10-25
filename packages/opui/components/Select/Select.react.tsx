@@ -4,6 +4,7 @@ import { createElement, useId } from "react"
 import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { idRefs } from "../id"
+import { initialValue } from "./selection"
 import type { Props } from "./types.react"
 
 export default function Select({
@@ -47,16 +48,7 @@ export default function Select({
     rest["aria-describedby"],
   )
 
-  const selectedValues = items
-    .filter((item) => item.selected)
-    .map((item) => String(item.value))
-  const initialValue =
-    defaultValue ??
-    (selectedValues.length
-      ? multiple
-        ? selectedValues
-        : selectedValues[0]
-      : undefined)
+  const selected = initialValue(items, multiple)
 
   return (
     <label
@@ -88,7 +80,12 @@ export default function Select({
           aria-describedby={describedBy}
           aria-invalid={error ? "true" : rest["aria-invalid"]}
           aria-labelledby={label ? labelId : rest["aria-labelledby"]}
-          defaultValue={value === undefined ? initialValue : undefined}
+          defaultValue={
+            value === undefined
+              ? (defaultValue ??
+                (Array.isArray(selected) ? selected.map(String) : selected))
+              : undefined
+          }
           id={id}
           multiple={multiple}
           name={name ?? field?.name}

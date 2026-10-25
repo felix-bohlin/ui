@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs } from "vue"
+import { computed, inject, useAttrs, watchEffect } from "vue"
+import { useInputAttrs } from "../vue"
 import { warnGroupedChecked } from "../dev"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { ToggleGroupKey } from "../ToggleGroup/context.vue"
 import { isSelected } from "../ToggleGroup/selection"
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
 const {
   checked: checkedProp = undefined,
@@ -22,9 +23,7 @@ defineOptions({
 })
 
 const attrs = useAttrs()
-const inputAttrs = computed(() =>
-  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
-)
+const inputAttrs = useInputAttrs()
 
 const field = inject(FieldGroupKey, undefined)
 const group = inject(ToggleGroupKey, undefined)
@@ -33,7 +32,9 @@ const finalType = computed(() =>
   group?.inputType === "radio" ? "radio" : (type ?? "checkbox"),
 )
 const grouped = computed(() => isSelected(group?.value, value))
-warnGroupedChecked("ToggleButton", grouped.value, checkedProp ?? model.value)
+watchEffect(() =>
+  warnGroupedChecked("ToggleButton", grouped.value, checkedProp ?? model.value),
+)
 const checked = computed(() => grouped.value ?? model.value ?? checkedProp)
 const change = (event: Event) => {
   const input = event.currentTarget as HTMLInputElement

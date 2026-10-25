@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 import {
   computed,
   inject,
@@ -10,8 +10,10 @@ import {
   useId,
   useTemplateRef,
 } from "vue"
+import { useInputAttrs } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
+import { defaultValue } from "./value"
 
 defineOptions({
   inheritAttrs: false,
@@ -55,18 +57,8 @@ onMounted(() => {
 onBeforeUnmount(() => form?.removeEventListener("reset", syncAfterReset))
 
 const attrs = useAttrs() as InputHTMLAttributes
-const inputAttrs = computed(() =>
-  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
-)
-const defaultValue = computed(() => {
-  const min = Number(attrs.min ?? 0)
-  const max = Math.max(min, Number(attrs.max ?? 100))
-  const step = attrs.step === "any" ? 0 : Number(attrs.step ?? 1)
-  const middle = min + (max - min) / 2
-  if (!step) return middle
-  const value = min + Math.round((middle - min) / step) * step
-  return value > max ? value - step : value
-})
+const inputAttrs = useInputAttrs()
+const middle = computed(() => defaultValue(attrs))
 
 const uid = useId()
 const field = inject(FieldGroupKey, undefined)
@@ -110,8 +102,8 @@ const endTextId = `range-end-${uid}`
       :for="inputId"
       :data-suffix="valueSuffix"
     >
-      <slot name="value-text" :value="Number(model ?? defaultValue)"
-        >{{ model ?? defaultValue }}{{ valueSuffix }}</slot
+      <slot name="value-text" :value="Number(model ?? middle)"
+        >{{ model ?? middle }}{{ valueSuffix }}</slot
       >
     </output>
     <span

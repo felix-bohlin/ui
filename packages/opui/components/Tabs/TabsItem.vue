@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, inject, provide, reactive, useId } from "vue"
+import { computed, inject, provide, reactive, useId, watchEffect } from "vue"
 import { warnGroupedChecked } from "../dev"
 import { isSelected } from "../ToggleGroup/selection"
 import { TabsKey } from "./context.vue"
-import type { Slots, TabsItemProps } from "./types.d.vue"
+import type { Slots, TabsItemProps } from "./types.vue-props"
 
 const { checked = undefined, id, name, value } = defineProps<TabsItemProps>()
 defineSlots<Slots>()
@@ -17,7 +17,9 @@ const parent = inject(TabsKey, undefined)
 const groupName = computed(() => name || parent?.groupName || `tabs-${uid}`)
 const tabId = computed(() => id || `tab-${uid}`)
 const grouped = computed(() => isSelected(parent?.value, value))
-warnGroupedChecked("TabsItem", grouped.value, checked, "Tabs")
+watchEffect(() =>
+  warnGroupedChecked("TabsItem", grouped.value, checked, "Tabs"),
+)
 const change = (event: Event) =>
   parent?.change?.(event.currentTarget as HTMLInputElement)
 

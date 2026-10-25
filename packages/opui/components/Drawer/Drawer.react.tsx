@@ -1,6 +1,7 @@
 "use client"
 
 import { cx } from "../cx"
+import { warnMissingId } from "../dev"
 import { autoLabelledBy } from "../id"
 import { DrawerContext } from "./context.react"
 import type { Props } from "./types.react"
@@ -14,6 +15,7 @@ export default function Drawer({
   side = "inline-start",
   ...rest
 }: Props) {
+  warnMissingId("Drawer", id)
   const labelledBy = autoLabelledBy(rest, `${id}-heading`)
 
   return (

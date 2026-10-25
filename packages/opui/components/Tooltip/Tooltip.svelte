@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { untrack } from "svelte"
   import Anchor from "../Anchor/Anchor.svelte"
+  import { warnMissingId } from "../dev"
   import type { Props } from "./types.svelte"
 
   let {
@@ -12,6 +14,8 @@
     children,
     ...rest
   }: Props = $props()
+
+  untrack(() => warnMissingId("Tooltip", id, "interestfor"))
 </script>
 
 <Anchor

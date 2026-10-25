@@ -1,6 +1,8 @@
 "use client"
 
 import { cx } from "../cx"
+import { warnMissingId } from "../dev"
+import { tagAttrs } from "../tag"
 import { MenuContext, useMenuContext } from "./context.react"
 import type { Props } from "./types.react"
 
@@ -16,6 +18,7 @@ export default function Menu({
   children,
   ...rest
 }: Props) {
+  warnMissingId("Menu", id)
   const rootId = useMenuContext()?.rootId ?? id
 
   return (
@@ -60,12 +63,9 @@ export default function Menu({
               key={index}
             >
               <Tag
-                aria-disabled={href && disabled ? "true" : undefined}
+                {...tagAttrs(Tag, disabled, href)}
                 command={closes ? "hide-popover" : undefined}
                 commandfor={closes ? rootId : undefined}
-                disabled={!href && disabled ? true : undefined}
-                href={href && !disabled ? href : undefined}
-                type={href ? undefined : "button"}
                 {...itemRest}
               >
                 <div className="ui-text">

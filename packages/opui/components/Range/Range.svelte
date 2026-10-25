@@ -3,6 +3,7 @@
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
   import type { Props } from "./types.svelte"
+  import { defaultValue } from "./value"
 
   let {
     class: className,
@@ -37,16 +38,7 @@
   const hasLabel = $derived(!!label)
   const hasValue = $derived(valueSuffix !== undefined || !!valueText)
   const hasDatalist = $derived(!!items || !!datalist)
-  const defaultValue = $derived.by(() => {
-    const minValue = Number(min ?? 0)
-    const maxValue = Math.max(minValue, Number(max ?? 100))
-    const stepValue = step === "any" ? 0 : Number(step ?? 1)
-    const middle = minValue + (maxValue - minValue) / 2
-    if (!stepValue) return middle
-    const stepped =
-      minValue + Math.round((middle - minValue) / stepValue) * stepValue
-    return stepped > maxValue ? stepped - stepValue : stepped
-  })
+  const middle = $derived(defaultValue({ max, min, step }))
 
   const inputId = $derived(id || (hasValue ? `range-${uid}` : undefined))
   const labelId = $derived(hasLabel ? `range-label-${uid}` : undefined)
@@ -79,8 +71,8 @@
   {#if hasValue}
     <output class="ui-value" for={inputId} data-suffix={valueSuffix}>
       {#if valueText}{@render valueText(
-          Number(value ?? defaultValue),
-        )}{:else}{value ?? defaultValue}{valueSuffix ?? ""}{/if}
+          Number(value ?? middle),
+        )}{:else}{value ?? middle}{valueSuffix ?? ""}{/if}
     </output>
   {/if}
   {#if startText}

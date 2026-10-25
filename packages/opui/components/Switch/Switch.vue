@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import SwitchInput from "./SwitchInput.vue"
-import type { Props, Slots } from "./types.d.vue"
-import { computed, type InputHTMLAttributes, useAttrs } from "vue"
-import { warnUnnamed } from "../dev"
+import type { Props, Slots } from "./types.vue-props"
+import { type InputHTMLAttributes, useAttrs } from "vue"
+import { useInputAttrs } from "../vue"
+import { hasName, warnUnnamed } from "../dev"
 
 defineOptions({
   inheritAttrs: false,
@@ -21,17 +22,12 @@ const {
 } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
-const inputAttrs = computed(() =>
-  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
-)
+const inputAttrs = useInputAttrs()
 const modelValue = defineModel<boolean | (string | number)[] | undefined>({
   default: undefined,
 })
 
-warnUnnamed(
-  "Switch",
-  label || slots.default || attrs["aria-label"] || attrs["aria-labelledby"],
-)
+warnUnnamed("Switch", hasName({ ...attrs, label }, slots.default))
 </script>
 
 <template>

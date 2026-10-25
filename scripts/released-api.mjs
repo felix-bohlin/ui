@@ -29,7 +29,7 @@ const exported = new Set(
 )
 
 const componentsRoot = path.join(cache, "packages/opui/components")
-const typeFiles = ["types.astro.ts", "types.d.vue.ts"]
+const typeFiles = ["types.astro.ts", "types.d.vue.ts", "types.vue-props.ts"]
 const files = fs
   .readdirSync(componentsRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())

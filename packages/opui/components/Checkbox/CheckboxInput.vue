@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CheckboxInputProps } from "./types.d.vue"
+import type { CheckboxInputProps } from "./types.vue-props"
 import {
   computed,
   inject,

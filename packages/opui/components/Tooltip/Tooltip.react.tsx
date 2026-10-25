@@ -1,5 +1,6 @@
 import Anchor from "../Anchor/Anchor.react"
 import { cx } from "../cx"
+import { warnMissingId } from "../dev"
 import type { Props } from "./types.react"
 
 export default function Tooltip({
@@ -9,6 +10,8 @@ export default function Tooltip({
   positionArea,
   ...rest
 }: Props) {
+  warnMissingId("Tooltip", id, "interestfor")
+
   return (
     <Anchor
       className={cx(["ui-tooltip", { "ui-arrow": arrow }, className])}

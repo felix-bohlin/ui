@@ -30,8 +30,14 @@
     position: relative;
 
     & > .ui-input[type="radio"] {
-      /* utils > .ui-sr-only */
       /* TODO: use mixin for this when available */
+      block-size: 1lh;
+      clip-path: inset(50%);
+      inline-size: 1ch;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+
       &:checked {
         /* Checked Tab */
         & + .ui-label {

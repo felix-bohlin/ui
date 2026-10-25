@@ -1,6 +1,7 @@
 ---
 import type { Props } from "./types.astro"
 import { autoLabelledBy } from "../id"
+import { warnMissingId } from "../dev"
 import { drawerContext } from "./context.astro"
 
 export const title = "Drawer"
@@ -15,6 +16,7 @@ const {
   ...rest
 } = Astro.props
 
+warnMissingId("Drawer", id)
 const labelledBy = autoLabelledBy(rest, `${id}-heading`)
 const html = await drawerContext.provide({ id, titleId: labelledBy }, () =>
   Astro.slots.render("default"),

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject } from "vue"
 import { TabsKey } from "./context.vue"
-import type { Slots, TabsLabelProps } from "./types.d.vue"
+import type { Slots, TabsLabelProps } from "./types.vue-props"
 
 const { for: htmlFor } = defineProps<TabsLabelProps>()
 defineSlots<Slots>()

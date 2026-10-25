@@ -23,7 +23,7 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 ## Check
 
-- **Props in every framework.** Compare `types.astro.ts`, `types.react.ts`, `types.svelte.ts` and `types.d.vue.ts` in `packages/opui/components/<Name>/`. Report props that one framework takes and another doesn't, without a `frameworks` limit in `api.ts` or a note that explains it. Report types that differ between frameworks.
+- **Props in every framework.** Compare `types.astro.ts`, `types.react.ts`, `types.svelte.ts` and `types.vue-props.ts` in `packages/opui/components/<Name>/`. Report props that one framework takes and another doesn't, without a `frameworks` limit in `api.ts` or a note that explains it. Report types that differ between frameworks.
 - **Defaults.** The documented default matches the default in each component (`.astro`, `.react.tsx`, `.svelte`, `.vue`).
 - **Values.** Each enum prop's `values` covers every value of its type and maps to a modifier the CSS has.
 - **CSS.** Every class, attribute and selector in `api.ts` (`class`, `attribute`, `part`, `selector`, `cssVar`) exists in the component's stylesheets. Report modifiers the CSS has that the API doesn't document.

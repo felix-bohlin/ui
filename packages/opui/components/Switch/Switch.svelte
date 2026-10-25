@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
-  import { warnUnnamed } from "../dev"
+  import { hasName, warnUnnamed } from "../dev"
   import SwitchInput from "./SwitchInput.svelte"
   import type { Props } from "./types.svelte"
 
@@ -27,12 +27,7 @@
     ...rest
   }: Props = $props()
 
-  untrack(() =>
-    warnUnnamed(
-      "Switch",
-      label || children || rest["aria-label"] || rest["aria-labelledby"],
-    ),
-  )
+  untrack(() => warnUnnamed("Switch", hasName({ ...rest, label }, children)))
 </script>
 
 <label

@@ -3,7 +3,7 @@ import { computed, inject } from "vue"
 import Button from "../Button/Button.vue"
 import { DrawerKey } from "./context.vue"
 import { closePath } from "./icons"
-import type { DrawerHeaderProps, Slots } from "./types.d.vue"
+import type { DrawerHeaderProps, Slots } from "./types.vue-props"
 
 const { closeLabel = "Close", commandfor } = defineProps<DrawerHeaderProps>()
 defineSlots<Slots>()

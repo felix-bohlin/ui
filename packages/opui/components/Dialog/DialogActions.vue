@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DialogActionsProps as Props, Slots } from "./types.d.vue"
+import type { DialogActionsProps as Props, Slots } from "./types.vue-props"
 
 const { align } = defineProps<Props>()
 defineSlots<Slots>()

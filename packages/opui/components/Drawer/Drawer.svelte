@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { untrack } from "svelte"
+  import { warnMissingId } from "../dev"
   import { autoLabelledBy } from "../id"
   import { setDrawerContext } from "./context.svelte"
   import type { Props } from "./types.svelte"
@@ -16,6 +18,7 @@
     ...rest
   }: Props = $props()
 
+  untrack(() => warnMissingId("Drawer", id))
   const labelledBy = $derived(autoLabelledBy(rest, `${id}-heading`))
 
   setDrawerContext({

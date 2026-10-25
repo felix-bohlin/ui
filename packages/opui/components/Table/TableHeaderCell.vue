@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TableHeaderCellProps as Props, Slots } from "./types.d.vue"
+import type { TableHeaderCellProps as Props, Slots } from "./types.vue-props"
 
 defineProps<Props>()
 defineSlots<Slots>()

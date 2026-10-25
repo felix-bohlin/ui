@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { tagAttrs } from "../tag"
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
 const {
   as,

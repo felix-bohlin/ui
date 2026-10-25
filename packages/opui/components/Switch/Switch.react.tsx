@@ -1,5 +1,5 @@
 import { cx } from "../cx"
-import { warnUnnamed } from "../dev"
+import { hasName, warnUnnamed } from "../dev"
 import SwitchInput from "./SwitchInput.react"
 import type { Props } from "./types.react"
 
@@ -20,10 +20,7 @@ export default function Switch({
   iconUnchecked,
   ...rest
 }: Props) {
-  warnUnnamed(
-    "Switch",
-    label || children || rest["aria-label"] || rest["aria-labelledby"],
-  )
+  warnUnnamed("Switch", hasName({ ...rest, label }, children))
 
   return (
     <label

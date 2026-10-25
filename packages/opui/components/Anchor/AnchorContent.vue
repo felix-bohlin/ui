@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject } from "vue"
 import { AnchorKey } from "./context.vue"
-import type { AnchorContentProps as Props, Slots } from "./types.d.vue"
+import type { AnchorContentProps as Props, Slots } from "./types.vue-props"
 
 defineProps<Props>()
 defineSlots<Slots>()

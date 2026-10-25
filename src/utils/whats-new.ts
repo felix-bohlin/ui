@@ -78,6 +78,9 @@ const whatsNew = {
     slots(
       `Breaking: <code>alignment</code> is <a href="#always-visible"><code>positionArea</code></a>.`,
     ),
+    components(
+      `A <a href="#hover-trigger">hover anchor</a> without an <code>id</code> warns in development, since its trigger points at it with <code>interestfor</code>.`,
+    ),
   ],
   avatar: [
     components(
@@ -559,6 +562,9 @@ const whatsNew = {
     },
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
     `<a href="#basics">Content</a> scrolls with <code>overflow-inline</code> and <code>overflow-block</code>, so it follows the writing mode. Browsers older than Chrome 135, Firefox 69 and Safari 26 ignore them and don't scroll it.`,
+    components(
+      `A <code>Drawer</code> without an <code>id</code> warns in development, since its trigger and <code>DrawerHeader</code> point at it (<a href="#basics">Basics</a>).`,
+    ),
   ],
   form: [
     {
@@ -675,6 +681,9 @@ const whatsNew = {
     ),
     `The menu shadow is <a href="#api"><code>--ui-shadow-overlay</code></a>, shared with drawers and select pickers.`,
     `<a href="#basics">Critical items</a> read <code>--ui-critical-text</code>.`,
+    components(
+      `A <code>Menu</code> without an <code>id</code> warns in development, since its trigger and items point at it (<a href="#basics">Basics</a>).`,
+    ),
   ],
   progress: [
     `The track is always outlined with <code>--ui-field-border-color</code>, so the empty part is visible.`,
@@ -1254,6 +1263,9 @@ const whatsNew = {
     `<a href="#text-only">Tooltip text</a> uses <code>--ui-line-height-tight</code> (1.25), shared with card captions and keyboard hints.`,
     `The tooltip sits on <a href="#api"><code>--ui-surface-inverse</code></a> with <code>--ui-on-inverse</code> text, like <code>kbd</code>.`,
     `Styles use logical properties only, so the <a href="#basics">layout</a> follows the writing mode. Horizontal left-to-right rendering is unchanged.`,
+    components(
+      `A <code>Tooltip</code> without an <code>id</code> warns in development, since its trigger points at it with <code>interestfor</code> (<a href="#basics">Basics</a>).`,
+    ),
   ],
   typography: [
     `<a href="#inline-text-elements"><code>kbd</code> and <code>var</code></a> sit on <code>--ui-surface-inverse</code> with <code>--ui-on-inverse</code> text, like tooltips.`,

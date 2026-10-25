@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TableRowProps as Props, Slots } from "./types.d.vue"
+import type { TableRowProps as Props, Slots } from "./types.vue-props"
 
 defineProps<Props>()
 defineSlots<Slots>()

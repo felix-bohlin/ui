@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CardHeaderProps as Props, Slots } from "./types.d.vue"
+import type { CardHeaderProps as Props, Slots } from "./types.vue-props"
 
 defineProps<Props>()
 defineSlots<Slots>()

@@ -1,5 +1,8 @@
 <script lang="ts">
+  import { untrack } from "svelte"
+  import { warnMissingId } from "../dev"
   import { getMenuContext, setMenuContext } from "./context.svelte"
+  import { tagAttrs } from "../tag"
   import type { Props } from "./types.svelte"
 
   let {
@@ -17,6 +20,7 @@
     ...rest
   }: Props = $props()
 
+  untrack(() => warnMissingId("Menu", id))
   const parent = getMenuContext()
   const rootId = $derived(parent?.rootId ?? id)
 
@@ -47,12 +51,9 @@
     <li class={[{ "ui-border-top": borderTop }, color && `ui-${color}`]}>
       <svelte:element
         this={href ? "a" : "button"}
-        aria-disabled={href && disabled ? "true" : undefined}
+        {...tagAttrs(href ? "a" : "button", disabled, href)}
         command={closes ? "hide-popover" : undefined}
         commandfor={closes ? rootId : undefined}
-        disabled={!href && disabled ? true : undefined}
-        href={href && !disabled ? href : undefined}
-        type={href ? undefined : "button"}
         {...itemRest}
       >
         <div class="ui-text">

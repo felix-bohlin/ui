@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, provide, reactive, useAttrs } from "vue"
+import { warnMissingId } from "../dev"
 import { autoLabelledBy } from "../id"
 import { DrawerKey } from "./context.vue"
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
 const {
   backdrop = "blurred",
@@ -13,6 +14,7 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 
+warnMissingId("Drawer", id)
 const attrs = useAttrs()
 const labelledBy = computed(() => autoLabelledBy(attrs, `${id}-heading`))
 

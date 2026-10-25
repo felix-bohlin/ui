@@ -1,14 +1,23 @@
 <script setup lang="ts">
 import { computed, provide, reactive } from "vue"
+import { warnMissingId } from "../dev"
 import { AnchorKey } from "./context.vue"
 import { extendsAnchor } from "./root"
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
-const { id: idProp, positionArea, trigger } = defineProps<Props>()
+const {
+  class: className,
+  id: idProp,
+  positionArea,
+  trigger,
+} = defineProps<Props>()
 defineSlots<Slots>()
 
 const isHover = computed(() => trigger === "hover")
 const id = computed(() => (isHover.value ? idProp : undefined))
+if (isHover.value && !extendsAnchor(className)) {
+  warnMissingId("Anchor", id.value, "interestfor")
+}
 
 const positionStyle = computed(() =>
   positionArea ? { "--ui-anchor-position-area": positionArea } : undefined,

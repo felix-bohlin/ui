@@ -57,13 +57,17 @@
     "README.md"
   ],
   "style": "./dist/opui.css",
+  "svelte": "./svelte/index.ts",
   "exports": {
     ".": "./dist/opui.css",
     "./open-props": "./dist/op.css",
     "./open-props.css": "./open-props.css",
     "./astro": "./astro/index.ts",
     "./react": "./react/index.ts",
-    "./svelte": "./svelte/index.ts",
+    "./svelte": {
+      "svelte": "./svelte/index.ts",
+      "default": "./svelte/index.ts"
+    },
     "./themes/*.css": "./themes/*.css",
     "./themes/*": "./themes/*.css",
     "./tokens.json": "./tokens.json",

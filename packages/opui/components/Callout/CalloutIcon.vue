@@ -2,7 +2,7 @@
 import { computed, inject } from "vue"
 import { CalloutKey } from "./context.vue"
 import { iconFor } from "./icons"
-import type { CalloutIconProps as Props } from "./types.d.vue"
+import type { CalloutIconProps as Props } from "./types.vue-props"
 
 defineProps<Props>()
 

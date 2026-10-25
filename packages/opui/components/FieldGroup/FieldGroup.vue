@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, provide, reactive } from "vue"
 import { FieldGroupKey } from "./context.vue"
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
 const { name, orientation } = defineProps<Props>()
 defineSlots<Slots>()

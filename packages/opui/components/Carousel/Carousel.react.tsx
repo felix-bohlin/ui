@@ -1,4 +1,5 @@
 import { cx } from "../cx"
+import { mergeStyle } from "../style"
 import type { Props } from "./types.react"
 
 export default function Carousel({
@@ -16,11 +17,6 @@ export default function Carousel({
   children,
   ...rest
 }: Props) {
-  const vars = {
-    ...(itemsPerView ? { "--_items-per-view": itemsPerView } : {}),
-    ...(aspectRatio ? { "--_media-aspect-ratio": aspectRatio } : {}),
-  }
-
   return (
     <ul
       className={cx([
@@ -36,7 +32,13 @@ export default function Carousel({
         buttons && buttons !== "inside" && `ui-buttons-${buttons}`,
         className,
       ])}
-      style={itemsPerView || aspectRatio ? { ...vars, ...style } : style}
+      style={mergeStyle(
+        {
+          "--_items-per-view": itemsPerView,
+          "--_media-aspect-ratio": aspectRatio,
+        },
+        style ?? {},
+      )}
       {...rest}
     >
       {children}

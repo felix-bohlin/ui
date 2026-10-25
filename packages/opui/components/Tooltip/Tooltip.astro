@@ -2,10 +2,13 @@
 import type { Props } from "./types.astro"
 
 import Anchor from "../Anchor/Anchor.astro"
+import { warnMissingId } from "../dev"
 
 export const title = "Tooltip"
 
 const { arrow, class: className, id, positionArea, ...rest } = Astro.props
+
+warnMissingId("Tooltip", id, "interestfor")
 ---
 
 <Anchor

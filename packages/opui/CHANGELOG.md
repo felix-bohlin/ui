@@ -108,6 +108,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `theme.css` tokens follow one naming model: `--ui-on-*` is the text and icon color on a fill, `-text` after a color is that color tuned for reading, and `light`, `dark`, `inverse` and `contrast` each mean one thing. Beyond the `--ui-` prefix, `--text-primary` is `--ui-text-strong`, `--primary-contrast` is `--ui-on-primary`, `--text-primary-contrast` is `--ui-on-inverse`, `--text-muted` is `--ui-text`, `--text-muted-contrast` is removed (`kbd` and `var` read `--ui-surface-inverse` and `--ui-on-inverse`), `--surface-default` is `--ui-surface`, `--border-radius` is `--ui-radius`, `--button-border-radius` is `--ui-button-radius` and `--field-border-radius` is `--ui-field-radius`. MIGRATING lists them.
 - `theme.css` roles are what components read, so overriding a palette step (`--ui-gray-N`, `--ui-color-N`) or an Open Props value such as `--size-3` on a part of the page no longer changes the components there. Override the role instead, such as `--ui-surface`, `--ui-border-color` or `--ui-space-3`, or put `.ui-palette` on the part so the roles are derived again from its palette. A subtree that should follow its own knobs takes `.ui-palette`.
 - `theme.css` keeps one palette hue, Open Props' `--hue-green`, in both color schemes instead of switching to `--hue-blue` in dark mode. Set `--ui-palette-hue: var(--hue-blue)` on `html.ui-dark` and under `prefers-color-scheme: dark` to keep the blue dark palette.
+- `types.d.vue.ts` in every component folder is `types.vue-props.ts`, since TypeScript reads a `*.d.vue.ts` file as a declaration file and `skipLibCheck` skipped it. Update deep imports from `opui-css/components/<Name>/types.d.vue` to `types.vue-props`, or import the types from `opui-css/vue`.
 
 ### Removed
 
@@ -137,6 +138,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Accordion` takes a `markerAnimation` prop (`rotate`, `flip`, `turn`) that sets how the marker animates when it opens. Defaults to `rotate`, which needs no class; `.ui-marker-animation-flip` mirrors the chevron and `.ui-marker-animation-turn` points it to the inline end when closed and down when open, also in right-to-left.
 - `Accordion`, `Avatar`, `Button`, `ButtonGroup`, `Card`, `Checkbox`, `Chip`, `Divider`, `List`, `Progress`, `Radio`, `Range`, `Select`, `Switch`, `Tabs`, `TextField`, `Textarea`, `ToggleButton` and `ToggleGroup` accept their default by name, which adds no class: `size="medium"` on every sized component, `variant="plain"` on `Accordion` and `Card`, `"transparent"` on `Button` and `ButtonGroup`, `"outlined"` on `Divider` and `Range`, `"filled"` on `List`, and `"tonal"` on `Progress` and `Tabs`. In HTML, a `Drawer` opens from the inline start without `.ui-inline-start`.
 - `AccordionActions` takes `align` (`.ui-align-start`), like `CardActions` and `DialogActions`.
+- `Anchor` with `trigger="hover"`, `Drawer`, `Menu` and `Tooltip` warn in development when `id` is missing, since their trigger reaches them through `commandfor` or `interestfor` and a `Drawer` names itself after it.
 - `Avatar` and `ListItem` links take `disabled`, like `Button` and `Chip`: the link drops its `href` and gets `aria-disabled="true"`.
 - `Avatar` takes a `size` prop (`.ui-x-small`, `.ui-small`, `.ui-large`) that matches the control sizes. Letters and icons scale with it, and large initials are `--ui-font-size-large`.
 - `AvatarGroup` component (`div.ui-avatar-group[role="group"]`) in Astro, React, Svelte and Vue. It takes `class`, attributes such as `aria-label`, and avatars as children, and raises a focused avatar so the next one doesn't cover its focus ring.
@@ -209,7 +211,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `ToggleButton` when checked, `Chip` without `.ui-outlined` and the `Carousel` buttons read `--ui-control-border-color-filled` for their border, like filled buttons.
 - `ToggleButton` when checked, the selected `ToggleGroup` item, and selected or current `List` items and `Select` options read the optional `--ui-selected` and `--ui-on-selected`. When unset, toggles are filled with `--ui-primary` and List items and Select options get a primary tint. m3 and shadcn set them to their tonal surface.
 - `ToggleButton` in Vue binds a standalone button's checked state with `v-model`, like `bind:checked` in Svelte and `checked` with `onChange` in React. In a `ToggleGroup` the group's `v-model` still wins.
-- `ToggleGroup` takes a bindable `value`: `bind:value` in Svelte, `v-model` in Vue, and `value`, `defaultValue` and `onValueChange` in React. It is a string, and an array of strings with `multiple`, and a `ToggleButton` in the group takes its checked state from it once the group has one. The button's own `checked` or `defaultChecked` is then ignored, and a dev warning says so.
+- `ToggleGroup` takes a bindable `value`: `bind:value` in Svelte, `v-model` in Vue, and `value`, `defaultValue` and `onValueChange` in React. It is a string, and an array of strings with `multiple`, in the types of every framework, and a `ToggleButton` in the group takes its checked state from it once the group has one. The button's own `checked` or `defaultChecked` is then ignored, and a dev warning says so.
 - `Typography` reads a `--ui-rhythm-step` theme token (`0.25rem`). Heading font sizes snap to half a step and heading line heights to a full step with `round()`.
 - `Typography` rich text styles `hr`, tables (which scroll sideways in a narrow column), `pre > samp` and preformatted text without `code`.
 - `Typography` rich text task lists (an `li` that starts with a checkbox, or with a classless `label` around one) show the checkbox in place of the bullet.
@@ -219,6 +221,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `opui-css/astro`, `opui-css/react`, `opui-css/svelte` and `opui-css/vue` export the component `Props` types (`ButtonProps`, `TabsLabelProps`, …), `MenuItem` and `SelectItem`.
 - `opui-css/react` exports React 19 components for every Astro and Vue component. Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are props (`children`, and camelCased names such as `endText`), form controls (`ToggleButton` and `TabsItem` too) take the native `value`/`defaultValue`, `checked`/`defaultChecked` and `onChange` props, and components that need context, state or effects are marked `"use client"` so the rest also render as React Server Components. `react` and `react-dom` `^19` are optional peer dependencies.
 - `opui-css/svelte` exports Svelte 5 components for every Astro and Vue component. Containers take parts, such as `CardHeader` and `DialogActions`. Other slots are snippets (`children`, and camelCased names such as `endText`), `TextField`, `Textarea`, `Select`, `Range` and `ToggleGroup` support `bind:value`, `Checkbox` and `Switch` support `bind:checked` and `bind:group`, `ToggleButton` supports `bind:checked`, and `Radio` supports `bind:group`. `svelte` `^5.29` is an optional peer dependency.
+- `package.json` has a `svelte` field and a `svelte` export condition on `opui-css/svelte` (`./svelte/index.ts`), which `@sveltejs/vite-plugin-svelte` reads to compile the package for SSR in SvelteKit and Vite instead of externalizing it.
 - `range.js` (`opui-css/css/js/range.js`) exports `initRange()`, which keeps a `.ui-range` `<output class="ui-value" data-live>` in sync with its slider, after a form reset and across `astro:after-swap`. `Range.astro` calls it; HTML pages can import it instead of wiring the output themselves.
 - `skills` references list each component's `--_` custom properties as inputs to set or outputs that states derive, like the Component properties tables on the docs pages.
 - `skills/opui` is an agent skill shipped with the package, with a reference for every component and an index that maps every exported component and part to its reference.
@@ -442,6 +445,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Checkbox`, `Radio` and `Switch` required asterisks, and the `Fieldset` legend's, follow the last word of a wrapped label instead of jumping to the end of the row.
 - `Checkbox`, `Radio`, `Switch`, `TextField`, `Textarea`, `Select` and `Range` pass a user `aria-invalid` to the control when `error` isn't set.
 - `Checkbox` unchecked border reads `--ui-field-border-color` like Radio and the text fields.
+- `Checkbox`, `Dialog`, `Drawer`, `Radio`, `Switch`, `Tabs` and `ToggleButton` no longer need Vite's `import.meta.env` types or runtime for their dev-only warnings. Where `import.meta.env.DEV` is undefined they read `process.env.NODE_ENV`, so the warnings also show with webpack and Turbopack (Next.js).
 - `Checkbox`, `Radio`, `Switch`, `TextField` and `Textarea` no longer point `aria-describedby` at the end text, so screen readers don't read it twice. The wrapping `<label>` already makes it part of the name.
 - `Checkbox` and `Radio` no longer set `--ui-primary` when invalid, so links and other content in their label keep the primary color.
 - `Checkbox`, `Radio`, `Switch`, `TextField`, `Textarea`, `Select` and `Fieldset` required asterisks are left out of the accessible name, so screen readers don't read "star".
@@ -496,6 +500,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Radio` dot is centered at every size. It was half a pixel off at small, default and large.
 - `Radio` dot stays centered at every zoom level and screen scale. It's a `radial-gradient()` on the input's background instead of a separate `::after` box.
 - `Radio` in Vue follows a passed `checked` without `v-model`.
+- `Radio` in Vue compares `v-model` with its `value` like a native radio, so `ref(1)` checks the radio with `value="1"`.
 - `Range` focus ring sits `--ui-focus-ring-offset` outside the thumb instead of `1ex` outside the track, also at every size.
 - `Range` with `spread` (`.ui-spread`) collapses to a column when narrower than 400px, like `TextField`. The container query had no container, so it never applied, and the slider's minimum width could push its parent wider.
 - `Range` in Vue shows the default value without `value` or `v-model`, and `v-model` returns a number.
@@ -547,6 +552,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `Tabs` and `ToggleGroup` context only applies to their own children in Astro.
 - `Tabs`, `TabsItem`, `ToggleGroup`, `Select`, `Range`, `Checkbox`, `Radio` and `Switch` in Vue render the same generated id prefixes as the other frameworks.
 - `Tabs` in Astro names a `TabsItem` outside a `Tabs` and links its `TabsLabel`, like React and Svelte.
+- `Tabs` and `ToggleButton` hide their inputs in `tabs.css` and `toggle-button.css` instead of `core/utils.css`, so single-file imports and `dist/opui.components.css` no longer show the radio and checkbox inputs.
 - `Tabs` directly in a `Card` draw the focus ring inside, so the card doesn't clip it.
 - `TabsItem` in Vue follows `id` and `tabId` changes.
 - `Textarea` no longer adds the border width to its minimum height.
@@ -612,6 +618,7 @@ React and Svelte components, `Carousel`, `Menu`, `AvatarGroup`, the `Layout` cla
 - `normalize.css` body text reads `--ui-font-weight-normal` and headings `--ui-font-weight-bold`, so a theme's weights reach bare text and headings.
 - `opui-css/css/js/checkbox.js` resolves through `exports`. It resolved to `checkbox.js.css`.
 - `opui-css/open-props.css` resolves through `exports`.
+- `opui-css/react` adds its element types with `import type {} from "react"`, so the type-only module no longer imports React at runtime.
 - `package.json` `exports` resolve documented source imports with a `.css` extension (`opui-css/css/imports.css`, `opui-css/core/normalize.css`, `opui-css/css/components/button.css`, …) Previously they resolved to `*.css.css`.
 - `package.json` peer dependency ranges are `astro` `^7`, `svelte` `^5.29` and `vue` `^3.5` instead of the versions used for development.
 - `theme.css` gives `.ui-light` and `.ui-dark` on an element other than `html` the page surface and text color. `--ui-color-scheme` follows the OS preference, so `Card` elevated shadows are correct in dark mode without a class.

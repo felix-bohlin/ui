@@ -10,7 +10,7 @@ When implementing or updating a component, ensure:
 
 - [ ] **All Frameworks**: Every `.astro` file has a matching `.react.tsx`, `.svelte` and `.vue` file in the same folder (`pnpm check-components` fails otherwise).
 - [ ] **Title Export**: `export const title = "Component Name"` is present in `<Name>.astro`.
-- [ ] **Props Type**: Astro imports `Props` from `./types.astro`, React imports `Props` from `./types.react`, Svelte imports `Props` from `./types.svelte`, Vue imports `Props` and `Slots` from `./types.d.vue` (use `type`, never `interface`). Every type file names the root's props `Props`, and each part's props after the part, `<Root><Part>Props` (`CardActionsProps`, `TableCellProps`). `types.ts` names the named slots `Slots<S>` (`Badge`, `Range`) and declares no type for the default slot alone: `children` comes from `ComponentProps` and `SvelteHTMLElements`, and `types.d.vue.ts` names its slots `Slots` (`DefaultSlots` from `../vue` when the default slot is the only one).
+- [ ] **Props Type**: Astro imports `Props` from `./types.astro`, React imports `Props` from `./types.react`, Svelte imports `Props` from `./types.svelte`, Vue imports `Props` and `Slots` from `./types.vue-props` (use `type`, never `interface`). Every type file names the root's props `Props`, and each part's props after the part, `<Root><Part>Props` (`CardActionsProps`, `TableCellProps`). `types.ts` names the named slots `Slots<S>` (`Badge`, `Range`) and declares no type for the default slot alone: `children` comes from `ComponentProps` and `SvelteHTMLElements`, and `types.vue-props.ts` names its slots `Slots` (`DefaultSlots` from `../vue` when the default slot is the only one).
 - [ ] **Sorting**: Props and destructuring are sorted alphabetically, slots last. Classes follow section 3 (base, states, variants, `className`), in the same order in every framework. `pnpm check-components` checks the keys of the object types in the type files, `className` last, and the root class order against Astro.
 - [ ] **Rest Props**: `...rest` is captured and spread onto the root element in Astro, React and Svelte. Vue falls through attributes by default.
 - [ ] **Class Management**: Used `class:list` in Astro, a `cx([...])` array in React, a `class` array in Svelte and a `:class` array in Vue, in the same order.
@@ -27,7 +27,7 @@ Every component uses layered type files:
 
 - `types.ts` - shared, framework-agnostic props (component-specific only; no `HTMLAttributes`), and the `Context` shape for components with context
 - `types.astro.ts` - Astro props = base + `HTMLAttributes<element>`
-- `types.d.vue.ts` - Vue props = base + `Class` from `../vue`, plus the `Slots` type for `defineSlots` (`DefaultSlots` from `../vue` when the default slot is the only one). It imports the base types by name (`Props as BaseProps`), because the Vue compiler can't resolve `defineProps` types through `import type * as Base`
+- `types.vue-props.ts` - Vue props = base + `Class` from `../vue`, plus the `Slots` type for `defineSlots` (`DefaultSlots` from `../vue` when the default slot is the only one). It imports the base types by name (`Props as BaseProps`), because the Vue compiler can't resolve `defineProps` types through `import type * as Base`. The name avoids `types.vue.ts`, which the Vue compiler reads as the `.vue` file, and `types.d.vue.ts`, a declaration file name that `skipLibCheck` leaves unchecked
 - `types.react.ts` - React props = base + named slot props (`Base.Slots<ReactNode>`, when there are any) + `ComponentProps<element>`, which brings `children`
 - `types.svelte.ts` - Svelte props = base + named snippets (`Base.Slots<Snippet>`, when there are any) + `SvelteHTMLElements[element]`, which brings `children`
 
@@ -56,7 +56,7 @@ The Vue component mirrors it in `<script setup>`:
 
 ```vue
 <script setup lang="ts">
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
 const { disabled, label, size, variant = "outlined" } = defineProps<Props>()
 defineSlots<Slots>()
@@ -514,16 +514,36 @@ Private `--_*` properties follow the same suffixes as component tokens, so one w
 
 ### Forced colors
 
-Windows High Contrast (`forced-colors: active`) repaints everything with system colors and drops backgrounds and shadows. A component needs a `@media (forced-colors: active)` block only where a boundary or a state is carried by color alone: a shadow-only edge, a tinted selected state, a filled track. Borders are forced to `CanvasText` by the browser and need nothing, and Chromium forces a `transparent` border color like any other. The components without a block, and why:
+Windows High Contrast (`forced-colors: active`) repaints everything with system colors and drops backgrounds and shadows. A component needs a `@media (forced-colors: active)` block only where a boundary or a state is carried by color alone: a shadow-only edge, a tinted selected state, a filled track. Borders are forced to `CanvasText` by the browser and need nothing, and Chromium forces a `transparent` border color like any other. `tests/unit/forced-colors.test.ts` checks both lists against the stylesheets that contain the media query. The components with a block, and why:
+
+- `Accordion`: the elevated and tonal variants have a shadow-only edge, so they get a `CanvasText` border.
+- `Avatar`: a letter avatar is a fill, so it gets a `CanvasText` border.
+- `ButtonGroup`: the dividers are box shadows, so the buttons get a `ButtonBorder` border.
+- `Card`: the focused card-link border is a tint, so it gets `Highlight`.
+- `Carousel`: the scroll markers are fills, so they get a `ButtonText` outline and `SelectedItem` for the current one.
+- `Checkbox`, `Radio`, `Switch` and `Choice` (their shared root): the checked mark, the switch track and the checked `.ui-card` border are tints, so they get `SelectedItem`, `SelectedItemText` and `CanvasText`.
+- `Chip`: the severity dot and the selected state are fills, so they get `CanvasText` and `SelectedItem`.
+- `Divider`: the line is a background, so it becomes a `CanvasText` border.
+- `List`: selected and current items are tints, so they get `SelectedItem`.
+- `Progress`: the filled track, so it gets `SelectedItem` and a `CanvasText` outline.
+- `Range`: the track and its fill are backgrounds, so they get `CanvasText` and `SelectedItem`.
+- `Select`: the picker chevron is a mask, so it gets `ButtonText`.
+- `Spinner`: a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
+- `Tabs`: the selected tab is a tint, so it gets `SelectedItem` and a `CanvasText` border.
+- `TextField`: the field border is real, but the focus outline gets `Highlight` and the autosuggest mask chevron `ButtonText`. `Select` and `Textarea` share the stylesheet.
+- `ToggleButton`: the checked state is a tint, so it gets `SelectedItem`.
+- `ToggleGroup`: the dividers between buttons are shadows, so they become `CanvasText` borders.
+- `Tooltip`: the surface and the arrow are fills, so they get a `CanvasText` border and arrow.
+
+The components without a block, and why:
 
 - `Anchor`, `Form`, `Layout`, `DescriptionList`: layout only, no boundary or state of their own.
-- `Badge`, `Callout`, `Card` (outlined), `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
+- `Badge`, `Callout`, `Dialog`, `Drawer`, `Menu`, `Table`: every boundary is a real border, which the browser forces to `CanvasText`.
 - `Button`: the browser styles `button` with `ButtonFace`, `ButtonText` and `ButtonBorder`; the variants only change colors, which are forced anyway.
 - `Link`, `Typography`: text and underlines, forced to `LinkText` and `CanvasText`. Code blocks lose their fill and keep their text.
-- `Spinner`: in forced colors a `CanvasText` ring with `forced-color-adjust: none`, so its transparent segment is kept and the spin stays visible.
-- `Choice` (the shared checkbox, radio and switch root): the blocks live in `checkbox.css`, `radio.css` and `switch.css`, except the checked `.ui-card` border, which is a tint and gets `SelectedItem` in `choice.css`.
+- `Textarea`: `textarea.css` only sizes the control; `text-field.css` has the block.
 
-`Accordion` (the elevated and tonal variants have a shadow-only edge) and `ButtonGroup` (the dividers are box shadows) have blocks for that reason. `TextField` and `Textarea`, which shares `text-field.css`, have blocks too, although the field border is real: they only recolor the focus outline and the autosuggest mask chevron. When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
+When a component gains a shadow-only edge or a color-only state, it gets a block and this list is updated.
 
 ### More contrast
 

@@ -1,7 +1,7 @@
 ---
 import SwitchInput from "./SwitchInput.astro"
 import type { Props } from "./types.astro"
-import { warnUnnamed } from "../dev"
+import { hasName, warnUnnamed } from "../dev"
 
 export const title = "Switch"
 
@@ -21,13 +21,7 @@ const {
   ...rest
 } = Astro.props
 
-warnUnnamed(
-  "Switch",
-  label ||
-    Astro.slots.has("default") ||
-    Astro.props["aria-label"] ||
-    Astro.props["aria-labelledby"],
-)
+warnUnnamed("Switch", hasName(Astro.props, Astro.slots.has("default")))
 ---
 
 <label

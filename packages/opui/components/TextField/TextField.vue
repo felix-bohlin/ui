@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, type InputHTMLAttributes, useAttrs } from "vue"
-import type { Props, Slots } from "./types.d.vue"
+import { useInputAttrs } from "../vue"
+import type { Props, Slots } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 
 defineOptions({
@@ -23,9 +24,7 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 const attrs = useAttrs() as InputHTMLAttributes
-const inputAttrs = computed(() =>
-  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
-)
+const inputAttrs = useInputAttrs()
 const modelValue = defineModel<string | number>()
 
 const model = computed({

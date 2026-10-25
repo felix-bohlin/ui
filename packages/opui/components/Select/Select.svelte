@@ -2,6 +2,7 @@
   import { content } from "../content.svelte"
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
+  import { initialValue } from "./selection"
   import type { SelectItem } from "./types"
   import type { Props } from "./types.svelte"
   import { untrack } from "svelte"
@@ -34,8 +35,7 @@
   }: Props = $props()
 
   untrack(() => {
-    if (value === undefined && rest.multiple)
-      value = items.filter((item) => item.selected).map((item) => item.value)
+    value ??= initialValue(items, rest.multiple)
   })
 
   const uid = $props.id()

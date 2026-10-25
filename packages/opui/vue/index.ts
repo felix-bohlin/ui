@@ -74,80 +74,80 @@ export type {
   AccordionContentProps,
   Props as AccordionProps,
   AccordionSummaryProps,
-} from "../components/Accordion/types.d.vue"
+} from "../components/Accordion/types.vue-props"
 export type {
   AnchorContentProps,
   Props as AnchorProps,
   AnchorContentProps as TooltipContentProps,
-} from "../components/Anchor/types.d.vue"
+} from "../components/Anchor/types.vue-props"
 export type {
   AvatarGroupProps,
   Props as AvatarProps,
-} from "../components/Avatar/types.d.vue"
-export type { Props as BadgeProps } from "../components/Badge/types.d.vue"
-export type { Props as ButtonProps } from "../components/Button/types.d.vue"
-export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.d.vue"
+} from "../components/Avatar/types.vue-props"
+export type { Props as BadgeProps } from "../components/Badge/types.vue-props"
+export type { Props as ButtonProps } from "../components/Button/types.vue-props"
+export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.vue-props"
 export type {
   CalloutContentProps,
   CalloutIconProps,
   Props as CalloutProps,
-} from "../components/Callout/types.d.vue"
+} from "../components/Callout/types.vue-props"
 export type {
   CardActionsProps,
   CardContentProps,
   CardHeaderProps,
   Props as CardProps,
-} from "../components/Card/types.d.vue"
-export type { Props as CarouselProps } from "../components/Carousel/types.d.vue"
+} from "../components/Card/types.vue-props"
+export type { Props as CarouselProps } from "../components/Carousel/types.vue-props"
 export type {
   CheckboxInputProps,
   Props as CheckboxProps,
-} from "../components/Checkbox/types.d.vue"
-export type { Props as ChipProps } from "../components/Chip/types.d.vue"
+} from "../components/Checkbox/types.vue-props"
+export type { Props as ChipProps } from "../components/Chip/types.vue-props"
 export type {
   DescriptionListDescriptionProps,
   DescriptionListItemProps,
   Props as DescriptionListProps,
   DescriptionListTermProps,
-} from "../components/DescriptionList/types.d.vue"
+} from "../components/DescriptionList/types.vue-props"
 export type {
   DialogActionsProps,
   DialogContentProps,
   DialogHeaderProps,
   Props as DialogProps,
-} from "../components/Dialog/types.d.vue"
-export type { Props as DividerProps } from "../components/Divider/types.d.vue"
+} from "../components/Dialog/types.vue-props"
+export type { Props as DividerProps } from "../components/Divider/types.vue-props"
 export type {
   DrawerActionsProps,
   DrawerContentProps,
   DrawerHeaderProps,
   Props as DrawerProps,
   DrawerTitleProps,
-} from "../components/Drawer/types.d.vue"
-export type { Props as FieldDescriptionProps } from "../components/FieldDescription/types.d.vue"
-export type { Props as FieldGroupProps } from "../components/FieldGroup/types.d.vue"
-export type { Props as FieldLegendProps } from "../components/FieldLegend/types.d.vue"
-export type { Props as FieldsetProps } from "../components/Fieldset/types.d.vue"
-export type { Props as FormProps } from "../components/Form/types.d.vue"
-export type { Props as ListProps } from "../components/List/types.d.vue"
-export type { Props as ListItemProps } from "../components/ListItem/types.d.vue"
+} from "../components/Drawer/types.vue-props"
+export type { Props as FieldDescriptionProps } from "../components/FieldDescription/types.vue-props"
+export type { Props as FieldGroupProps } from "../components/FieldGroup/types.vue-props"
+export type { Props as FieldLegendProps } from "../components/FieldLegend/types.vue-props"
+export type { Props as FieldsetProps } from "../components/Fieldset/types.vue-props"
+export type { Props as FormProps } from "../components/Form/types.vue-props"
+export type { Props as ListProps } from "../components/List/types.vue-props"
+export type { Props as ListItemProps } from "../components/ListItem/types.vue-props"
 export type {
   MenuItem,
   Props as MenuProps,
-} from "../components/Menu/types.d.vue"
-export type { Props as ProgressProps } from "../components/Progress/types.d.vue"
+} from "../components/Menu/types.vue-props"
+export type { Props as ProgressProps } from "../components/Progress/types.vue-props"
 export type {
   RadioInputProps,
   Props as RadioProps,
-} from "../components/Radio/types.d.vue"
+} from "../components/Radio/types.vue-props"
 export type { RangeItem } from "../components/Range/types"
-export type { Props as RangeProps } from "../components/Range/types.d.vue"
+export type { Props as RangeProps } from "../components/Range/types.vue-props"
 export type { SelectItem } from "../components/Select/types"
-export type { Props as SelectProps } from "../components/Select/types.d.vue"
+export type { Props as SelectProps } from "../components/Select/types.vue-props"
 export type {
   SwitchInputProps,
   Props as SwitchProps,
-} from "../components/Switch/types.d.vue"
+} from "../components/Switch/types.vue-props"
 export type {
   TableBodyProps,
   TableCaptionProps,
@@ -159,15 +159,15 @@ export type {
   TableHeadProps,
   Props as TableProps,
   TableRowProps,
-} from "../components/Table/types.d.vue"
+} from "../components/Table/types.vue-props"
 export type {
   TabsItemProps,
   TabsLabelProps,
   TabsPanelProps,
   Props as TabsProps,
-} from "../components/Tabs/types.d.vue"
-export type { Props as TextareaProps } from "../components/Textarea/types.d.vue"
-export type { Props as TextFieldProps } from "../components/TextField/types.d.vue"
-export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.d.vue"
-export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.d.vue"
-export type { Props as TooltipProps } from "../components/Tooltip/types.d.vue"
+} from "../components/Tabs/types.vue-props"
+export type { Props as TextareaProps } from "../components/Textarea/types.vue-props"
+export type { Props as TextFieldProps } from "../components/TextField/types.vue-props"
+export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.vue-props"
+export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.vue-props"
+export type { Props as TooltipProps } from "../components/Tooltip/types.vue-props"

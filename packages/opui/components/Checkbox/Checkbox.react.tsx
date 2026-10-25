@@ -1,5 +1,5 @@
 import { cx } from "../cx"
-import { warnUnnamed } from "../dev"
+import { hasName, warnUnnamed } from "../dev"
 import CheckboxInput from "./CheckboxInput.react"
 import type { Props } from "./types.react"
 
@@ -18,10 +18,7 @@ export default function Checkbox({
   endText,
   ...rest
 }: Props) {
-  warnUnnamed(
-    "Checkbox",
-    label || children || rest["aria-label"] || rest["aria-labelledby"],
-  )
+  warnUnnamed("Checkbox", hasName({ ...rest, label }, children))
 
   return (
     <label

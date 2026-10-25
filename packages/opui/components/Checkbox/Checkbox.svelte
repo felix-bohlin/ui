@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte"
   import { content } from "../content.svelte"
-  import { warnUnnamed } from "../dev"
+  import { hasName, warnUnnamed } from "../dev"
   import CheckboxInput from "./CheckboxInput.svelte"
   import type { Props } from "./types.svelte"
 
@@ -25,12 +25,7 @@
     ...rest
   }: Props = $props()
 
-  untrack(() =>
-    warnUnnamed(
-      "Checkbox",
-      label || children || rest["aria-label"] || rest["aria-labelledby"],
-    ),
-  )
+  untrack(() => warnUnnamed("Checkbox", hasName({ ...rest, label }, children)))
 </script>
 
 <label

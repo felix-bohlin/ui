@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Slots, TabsPanelProps } from "./types.d.vue"
+import type { Slots, TabsPanelProps } from "./types.vue-props"
 
 defineProps<TabsPanelProps>()
 defineSlots<Slots>()

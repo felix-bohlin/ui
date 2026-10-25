@@ -52,7 +52,7 @@ export const frameworks: Record<ComponentFramework, Syntax> = {
     model: () => "v-model",
     slot: (name) => `v-slot:${name}`,
     slotsAreProps: false,
-    types: "types.d.vue.ts",
+    types: "types.vue-props.ts",
   },
 }
 

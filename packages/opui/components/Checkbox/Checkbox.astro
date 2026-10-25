@@ -1,6 +1,6 @@
 ---
 import type { Props } from "./types.astro"
-import { warnUnnamed } from "../dev"
+import { hasName, warnUnnamed } from "../dev"
 import CheckboxInput from "./CheckboxInput.astro"
 
 export const title = "Checkbox"
@@ -21,13 +21,7 @@ const {
   ...rest
 } = Astro.props
 
-warnUnnamed(
-  "Checkbox",
-  label ||
-    Astro.slots.has("default") ||
-    Astro.props["aria-label"] ||
-    Astro.props["aria-labelledby"],
-)
+warnUnnamed("Checkbox", hasName(Astro.props, Astro.slots.has("default")))
 ---
 
 <label

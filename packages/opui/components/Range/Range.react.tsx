@@ -5,10 +5,11 @@ import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { idRefs } from "../id"
 import type { Props } from "./types.react"
+import { defaultValue } from "./value"
 
 export default function Range({
   className,
-  defaultValue,
+  defaultValue: defaultValueProp,
   endText,
   error,
   hideLabel,
@@ -35,13 +36,14 @@ export default function Range({
 }: Props) {
   const uid = useId()
   const field = useFieldGroupContext()
-  const [current, setCurrent] = useState(defaultValue)
+  const [current, setCurrent] = useState(defaultValueProp)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const form = inputRef.current?.form
     if (!form) return
-    const sync = () => setTimeout(() => setCurrent(inputRef.current?.value))
+    const sync = () =>
+      setTimeout(() => setCurrent(inputRef.current?.valueAsNumber))
     form.addEventListener("reset", sync)
     return () => form.removeEventListener("reset", sync)
   }, [])
@@ -58,16 +60,7 @@ export default function Range({
   const hasLabel = !!label
   const hasValue = valueSuffix !== undefined || !!valueText
   const hasDatalist = !!items || !!datalist
-  const middle = () => {
-    const minValue = Number(min ?? 0)
-    const maxValue = Math.max(minValue, Number(max ?? 100))
-    const stepValue = step === "any" ? 0 : Number(step ?? 1)
-    const center = minValue + (maxValue - minValue) / 2
-    if (!stepValue) return center
-    const stepped =
-      minValue + Math.round((center - minValue) / stepValue) * stepValue
-    return stepped > maxValue ? stepped - stepValue : stepped
-  }
+  const middle = () => defaultValue({ max, min, step })
 
   const inputId = id || (hasValue ? `range-${uid}` : undefined)
   const labelId = hasLabel ? `range-label-${uid}` : undefined
@@ -114,14 +107,14 @@ export default function Range({
         aria-describedby={describedBy}
         aria-invalid={error ? "true" : rest["aria-invalid"]}
         aria-labelledby={labelId ?? rest["aria-labelledby"]}
-        defaultValue={defaultValue}
+        defaultValue={defaultValueProp}
         id={inputId}
         list={listId}
         max={max}
         min={min}
         name={name ?? field?.name}
         onChange={(event) => {
-          setCurrent(event.target.value)
+          setCurrent(event.target.valueAsNumber)
           onChange?.(event)
         }}
         ref={setRef}

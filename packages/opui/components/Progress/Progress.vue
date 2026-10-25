@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, useAttrs } from "vue"
-import type { Props, Slots } from "./types.d.vue"
+import { useAttrs } from "vue"
+import { useInputAttrs } from "../vue"
+import type { Props, Slots } from "./types.vue-props"
 
 const { max, value, variant } = defineProps<Props>()
 defineSlots<Slots>()
@@ -10,9 +11,7 @@ defineOptions({
 })
 
 const attrs = useAttrs()
-const progressAttrs = computed(() =>
-  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
-)
+const progressAttrs = useInputAttrs()
 </script>
 
 <template>

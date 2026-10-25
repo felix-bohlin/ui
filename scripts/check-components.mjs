@@ -46,7 +46,7 @@ const CONTEXT_FILES = [
 
 const TYPE_FILES = [
   "types.astro.ts",
-  "types.d.vue.ts",
+  "types.vue-props.ts",
   "types.react.ts",
   "types.svelte.ts",
   "types.ts",
@@ -60,7 +60,7 @@ const BARREL_TYPES = {
   astro: "types.astro",
   react: "types.react",
   svelte: "types.svelte",
-  vue: "types.d.vue",
+  vue: "types.vue-props",
 }
 
 const barrels = Object.fromEntries(

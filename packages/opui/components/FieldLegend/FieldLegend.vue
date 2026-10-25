@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
 const { as = "legend" } = defineProps<Props>()
 defineSlots<Slots>()

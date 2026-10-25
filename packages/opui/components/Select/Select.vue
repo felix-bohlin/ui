@@ -6,9 +6,11 @@ import {
   useAttrs,
   useId,
 } from "vue"
-import type { Props, Slots } from "./types.d.vue"
+import { useInputAttrs } from "../vue"
+import type { Props, Slots } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
+import { initialValue } from "./selection"
 
 defineOptions({
   inheritAttrs: false,
@@ -31,23 +33,14 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 const attrs = useAttrs() as SelectHTMLAttributes
-const inputAttrs = computed(() =>
-  Object.fromEntries(Object.entries(attrs).filter(([key]) => key !== "style")),
-)
+const inputAttrs = useInputAttrs()
 const modelValue = defineModel<string | number | (string | number)[]>()
 
 const multiple = computed(
   () => attrs.multiple !== undefined && attrs.multiple !== false,
 )
-const selectedItemValues = computed(() =>
-  items.filter((item) => item.selected).map((item) => item.value),
-)
-
 const model = computed({
-  get: () =>
-    modelValue.value ??
-    value ??
-    (multiple.value ? selectedItemValues.value : selectedItemValues.value[0]),
+  get: () => modelValue.value ?? value ?? initialValue(items, multiple.value),
   set: (value) => {
     modelValue.value = value
   },

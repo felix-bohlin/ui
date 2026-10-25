@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Anchor from "../Anchor/Anchor.vue"
 import AnchorContent from "../Anchor/AnchorContent.vue"
-import type { Props, Slots } from "./types.d.vue"
+import type { Props, Slots } from "./types.vue-props"
 
 const { color, corner, dot, hideLabel, invisible, label } = defineProps<Props>()
 const slots = defineSlots<Slots>()

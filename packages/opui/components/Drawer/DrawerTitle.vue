@@ -2,7 +2,7 @@
 import { inject } from "vue"
 import { warnReplacedId } from "../dev"
 import { DrawerKey } from "./context.vue"
-import type { DrawerTitleProps as Props, Slots } from "./types.d.vue"
+import type { DrawerTitleProps as Props, Slots } from "./types.vue-props"
 
 const { id } = defineProps<Props>()
 defineSlots<Slots>()

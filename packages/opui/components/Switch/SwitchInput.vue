@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, type InputHTMLAttributes, useAttrs } from "vue"
-import type { SwitchInputProps } from "./types.d.vue"
+import type { SwitchInputProps } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 
 defineOptions({

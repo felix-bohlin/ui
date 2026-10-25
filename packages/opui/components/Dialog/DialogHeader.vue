@@ -2,7 +2,7 @@
 import { inject } from "vue"
 import { warnReplacedId } from "../dev"
 import { DialogKey } from "./context.vue"
-import type { DialogHeaderProps as Props, Slots } from "./types.d.vue"
+import type { DialogHeaderProps as Props, Slots } from "./types.vue-props"
 
 const { id } = defineProps<Props>()
 defineSlots<Slots>()

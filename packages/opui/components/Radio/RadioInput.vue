@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, type InputHTMLAttributes, useAttrs } from "vue"
-import type { RadioInputProps } from "./types.d.vue"
+import type { RadioInputProps } from "./types.vue-props"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 
 defineOptions({
@@ -14,14 +14,17 @@ const modelValue = defineModel<string | number | boolean | undefined>({
 })
 const field = inject(FieldGroupKey, undefined)
 
-const checked = computed(() =>
-  attrs.checked === undefined
-    ? modelValue.value === (attrs.value ?? true)
-    : attrs.checked !== false,
-)
-const select = () => {
-  modelValue.value = (attrs.value as string | number | undefined) ?? true
-}
+const unchecked = Symbol()
+const model = computed({
+  get: () =>
+    modelValue.value ??
+    (attrs.checked !== undefined && attrs.checked !== false
+      ? attrs.value
+      : unchecked),
+  set: (value: string | number | boolean | undefined) => {
+    modelValue.value = value
+  },
+})
 </script>
 
 <template>
@@ -30,7 +33,7 @@ const select = () => {
     :class="$props.class"
     v-bind="$attrs"
     :name="attrs.name ?? field?.name"
-    :checked="checked || undefined"
-    @change="select"
+    :value="attrs.value"
+    v-model="model"
   />
 </template>

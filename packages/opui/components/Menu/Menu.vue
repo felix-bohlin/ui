@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { computed, inject, provide, reactive } from "vue"
+import { warnMissingId } from "../dev"
 import { MenuKey } from "./context.vue"
-import type { Props, Slots } from "./types.d.vue"
+import { tagAttrs } from "../tag"
+import type { Props, Slots } from "./types.vue-props"
 
 const {
   align,
@@ -14,6 +16,7 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 
+warnMissingId("Menu", id)
 const parent = inject(MenuKey, undefined)
 const rootId = computed(() => parent?.rootId ?? id)
 provide(MenuKey, reactive({ rootId }))
@@ -53,13 +56,12 @@ provide(MenuKey, reactive({ rootId }))
     >
       <component
         :is="href ? 'a' : 'button'"
-        :aria-disabled="href && disabled ? 'true' : undefined"
         :command="!href && !keepOpen && !disabled ? 'hide-popover' : undefined"
         :commandfor="!href && !keepOpen && !disabled ? rootId : undefined"
-        :disabled="!href && disabled ? true : undefined"
-        :href="href && !disabled ? href : undefined"
-        :type="href ? undefined : 'button'"
-        v-bind="itemRest"
+        v-bind="{
+          ...tagAttrs(href ? 'a' : 'button', disabled, href),
+          ...itemRest,
+        }"
       >
         <div class="ui-text">
           <p>{{ label }}</p>

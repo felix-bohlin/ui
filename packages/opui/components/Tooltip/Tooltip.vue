@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import Anchor from "../Anchor/Anchor.vue"
-import type { Props, Slots } from "./types.d.vue"
+import { warnMissingId } from "../dev"
+import type { Props, Slots } from "./types.vue-props"
 
 const { arrow, id, positionArea } = defineProps<Props>()
 defineSlots<Slots>()
+
+warnMissingId("Tooltip", id, "interestfor")
 </script>
 
 <template>

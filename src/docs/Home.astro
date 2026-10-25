@@ -1071,7 +1071,7 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
     display: grid;
     gap: var(--size-4);
 
-    @media (width >= 600px) {
+    @media (width >= 900px) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       margin-block: 0;
 
@@ -1144,6 +1144,8 @@ const steps = Array.from({ length: 16 }, (_, i) => i + 1)
   .knobs {
     display: grid;
     gap: var(--size-5);
+    overflow: clip;
+    overflow-clip-margin: calc(var(--site-page-gutters) / 2);
   }
 
   .knob-radius {

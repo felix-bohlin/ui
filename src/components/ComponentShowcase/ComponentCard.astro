@@ -75,7 +75,7 @@ const { link } = Astro.locals
   }
 
   .showcase-item {
-    @media (width >= 600px) {
+    @media (width >= 900px) {
       &.ui-wide {
         grid-column: span 2;
       }
@@ -88,15 +88,19 @@ const { link } = Astro.locals
   }
 
   .showcase-grid {
-    @media (width < 600px) {
-      --_items-per-view: 1.15;
+    @media (width < 900px) {
+      --_items-per-view: 2.15;
 
       margin-inline: calc(var(--site-page-gutters) / -2);
       padding-inline: calc(var(--site-page-gutters) / 2);
       scroll-padding-inline: calc(var(--site-page-gutters) / 2);
     }
 
-    @media (width >= 600px) {
+    @media (width < 600px) {
+      --_items-per-view: 1.15;
+    }
+
+    @media (width >= 900px) {
       grid-auto-columns: auto;
       grid-auto-flow: row dense;
       margin-inline: 0;

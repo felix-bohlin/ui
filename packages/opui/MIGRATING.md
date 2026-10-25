@@ -1269,7 +1269,7 @@ Rich text styles live in a new `components.prose` layer, below `components.root`
 
 ```diff
 - @layer openprops, theme, normalize, components.root, components.extended, utils;
-+ @layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
++ @layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils;
 ```
 
 Spacing changed, so rich text pages look a bit different:
@@ -1296,6 +1296,14 @@ Import `opui-css/css/layers.css` first when you import single component files, s
   @import "opui-css/css/layers.css";
 + @import "opui-css/css/components/choice.css";
   @import "opui-css/css/components/checkbox.css";
+```
+
+Browser fallbacks that take more than the browser default moved out of the component files into the `components.compat` layer. Import `compat.css` after the components, or one component's file from `css/compat/`, or a squircle `Avatar` is a circle in browsers without `corner-shape`:
+
+```diff
+  @import "opui-css/css/layers.css";
+  @import "opui-css/css/components/avatar.css";
++ @import "opui-css/css/compat.css";
 ```
 
 Deep type imports from `opui-css/components/*` follow one naming scheme: the root is `Props`, its slots `Slots`, and each part is named after the part. `CheckboxProps` and `CheckboxSlots` in `components/Checkbox/types*` are `Props` and `Slots` (likewise `Radio`, `Switch` and `Range`), `TermProps`, `DescriptionProps` and `ItemProps` are `DescriptionListTermProps`, `DescriptionListDescriptionProps` and `DescriptionListItemProps`, and Table's `SectionProps` and `ColumnProps` are one type per part, such as `TableCellProps`, and `TableColumnProps`. Import the names from the framework entry instead:

@@ -9,6 +9,7 @@
 
 /* Components */
 @import "./components.css";
+@import "./compat.css";
 
 /* Utils */
 @import "../core/utils.css";

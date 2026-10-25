@@ -18,7 +18,7 @@ export const LEGACY_KEYS = [
   "opui-example-theme",
 ]
 
-export const LAYERS = `@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
+export const LAYERS = `@layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils;
 @layer theme.palette, theme.base, theme.custom;
 `
 

@@ -33,6 +33,33 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 ## Bugs
 
+- [ ] (4) Menu: on iOS, the submenu anchor block sets `anchor-scope: --ui-menu` on every submenu that has its own submenu, which hides the parent's `--ui-menu` from that submenu's `position-anchor`, so in a menu three levels deep the middle submenu opens unanchored at the top-left. It also replaces the root's `--ui-menu-root` anchor, so the rule that keeps submenus of submenus going in a flipped parent's direction is invalid there (`packages/opui/css/compat/menu.css:2-15`, `packages/opui/css/components/menu.css:117-136`)
+  - Summary: On iOS, in a menu three levels deep, the middle submenu opens in the top-left corner instead of next to its parent.
+  - Recommended: Fix. The rule only changes on iOS, and Chromium with the gate forced on places all three levels with the fix.
+  - Fix: confirm first on iOS Safari 26 on `/tests/overlays/`, which has menus three levels deep. In Chromium with the gate forced on and the trigger at the end edge, the second-level menu sits at the top-left today; with the fix below it anchors to its parent and its submenu opens on the correct side. Two-level menus (the Submenu example) are the same either way.
+    ```css
+    @layer components.compat {
+      /* iOS Safari doesn't place a submenu at its trigger item, so there it
+         anchors to the parent menu. Remove once iOS Safari does. */
+      @supports (-webkit-touch-callout: none) {
+        :where(.ui-menu) {
+          &:has(.ui-menu[popover]) {
+            anchor-name: --ui-menu;
+          }
+
+          &:not(.ui-menu .ui-menu):has(.ui-menu[popover]) {
+            anchor-name: --ui-menu-root, --ui-menu;
+            anchor-scope: --ui-menu-root, --ui-menu;
+          }
+
+          & .ui-menu[popover] {
+            position-anchor: --ui-menu;
+          }
+        }
+      }
+    }
+    ```
+
 ---
 
 ---
@@ -240,6 +267,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
   > Explain further and provide an example
 
+- [ ] (2) Menu: the iOS submenu anchor in the compat layer is an engine gate for iOS WebKit, which the e2e projects don't run, so no test fails the day iOS Safari places a submenu at its trigger item. Remove the block locally, open `/tests/overlays/` in iOS Safari and check whether submenus sit at their trigger item. If they do, remove the block (`packages/opui/css/compat/menu.css:2-15`)
+  - Summary: Nothing says when iOS Safari places submenus right, so the iOS fix could stay longer than it's needed.
+  - Recommended: Explain further. Only a check on an iPhone or iPad can tell, and the block only applies there.
 - [ ] (3) Menu, Tooltip: in WebKit, a popover anchored to a trigger inside a modal Dialog, a Drawer or another Menu lands above its trigger by about the page's scroll offset once the page is scrolled: a split button menu in a dialog footer far down the overlays stress page opens around 1850px too high, and second level submenus can't be clicked because the first submenu has left the viewport. The same overlays near the top of the page are placed right, and anchors in the normal page flow are fine after scrolling. The e2e scenarios carry it as a known WebKit failure (`failingIn.webkit` in `tests/e2e/stress-overlays.ts`), and `tests/e2e/engines.spec.ts` reproduces it without the library: a plain popover anchored in a modal dialog, which is expected to fail in WebKit only on a scrolled page. If that test starts passing, WebKit fixed it, or the cause is ours. Check in Safari on macOS on `/tests/overlays/` after scrolling down, and report it to WebKit if Safari does the same (`tests/e2e/stress-overlays.ts`)
   - Summary: In WebKit, menus and tooltips inside a dialog, drawer or menu open far above their trigger once the page is scrolled.
   - Recommended: Explain further. It is carried as an expected WebKit failure with a library-free repro, and only Safari on macOS can confirm it before reporting to WebKit.

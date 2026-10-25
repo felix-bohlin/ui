@@ -10,7 +10,7 @@ You check the browser support chips on the component docs pages. You report find
 
 - `AGENTS.md`
 - `.claude/skills/audit/findings-format.md`, the format for your report
-- `scripts/check-browser-support.mjs`, which checks that each id exists in `web-features` and warns about ids that the stylesheets a page imports use but the page doesn't list, or that the page lists but nothing uses. It only knows the features in its `patterns` list, and counts a match only when its rule's selector can match the elements in the page's HTML examples (`src/component-examples/<slug>/*.html`), so the `input` and `textarea` rules in `text-field.css` don't count for Select
+- `scripts/check-browser-support.mjs`, which checks that each id exists in `web-features` and warns about ids that the stylesheets a page imports use but the page doesn't list, or that the page lists but nothing uses. It only knows the features in the `patterns` list of `packages/opui/scripts/features.mjs`, and counts a match only when its rule's selector can match the elements in the page's HTML examples (`src/component-examples/<slug>/*.html`), so the `input` and `textarea` rules in `text-field.css` don't count for Select
 
 ## How the pieces connect
 

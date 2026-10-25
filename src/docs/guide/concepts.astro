@@ -22,7 +22,7 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       Every rule lives in a layer, ordered once in <code>layers.css</code>:
     </p>
     <Code
-      code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
+      code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils;
 @layer theme.palette, theme.base, theme.custom;`}
       lang="css"
     />
@@ -32,8 +32,11 @@ import UnreleasedNote from "../../components/UnreleasedNote.astro"
       in a layer after <code>utils</code>, so they win without <code
         >!important</code
       > or heavier selectors. <code>components.prose</code> is the lowest component
-      layer, so a component inside rich text keeps its own styles. Import <code
-        >layers.css</code
+      layer, so a component inside rich text keeps its own styles. <code
+        >components.compat</code
+      > is the highest, so a <DocLink href="/guide/browser-support#compat"
+        >browser fallback</DocLink
+      > beats the component rule it stands in for. Import <code>layers.css</code
       > first when you import single files. Where your CSS goes: <DocLink
         href="/guide/customizing#your-theme">Your theme</DocLink
       > and <DocLink href="/guide/customizing#unlayered-or-your-own-layer"

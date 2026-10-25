@@ -49,6 +49,13 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
       lang="html"
     />
     <p>
+      It includes the <DocLink href="/guide/browser-support#compat"
+        >browser fallbacks</DocLink
+      >. <code>dist/opui.no-compat.css</code> leaves them out, and <code
+        >dist/opui.baseline-&lt;year&gt;.css</code
+      > keeps only the ones that browsers of that Baseline year need.
+    </p>
+    <p>
       <code>@6</code> loads the newest 6.x release, so a new major version never changes
       your site. Pin an exact version, such as <code>@6.0.0</code>, for full
       control.
@@ -91,20 +98,27 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
 │  ├─ palette.css
 │  └─ utils.css
 ├─ css
+│  ├─ compat
+│  │  ├─ avatar.css
+│  │  └─ ...
 │  ├─ components
 │  │  ├─ accordion.css
 │  │  └─ ...
 │  ├─ js
 │  │  ├─ checkbox.js
 │  │  └─ range.js
+│  ├─ compat.css
 │  ├─ components.css
 │  ├─ imports.css
 │  ├─ layers.css
 │  └─ theme.css
 ├─ dist
 │  ├─ op.css
+│  ├─ opui.baseline-2023.css
+│  ├─ ...
 │  ├─ opui.components.css
-│  └─ opui.css
+│  ├─ opui.css
+│  └─ opui.no-compat.css
 ├─ themes
 │  ├─ bootstrap.css
 │  ├─ brutalist.css
@@ -138,12 +152,14 @@ import UnreleasedNote from "../../../components/UnreleasedNote.astro"
 @import "./opui/css/theme.css";
 @import "./opui/core/normalize.css";
 @import "./opui/css/components.css";
+@import "./opui/css/compat.css";
 @import "./opui/core/utils.css";`}
       lang="css"
     />
     <p>
       If your own CSS reads Open Props, import <code>./opui/dist/op.css</code> right
-      after <code>layers.css</code>.
+      after <code>layers.css</code>. Leave out <code>compat.css</code> if you don't
+      need the browser fallbacks.
     </p>
   </section>
 

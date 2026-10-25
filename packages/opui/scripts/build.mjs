@@ -4,31 +4,39 @@ import { fileURLToPath } from "node:url"
 import postcss from "postcss"
 import atImport from "postcss-import"
 
+import { baselineYear, baselineYears, withoutCompat } from "./features.mjs"
+
 const here = dirname(fileURLToPath(import.meta.url))
 const root = resolve(here, "..")
 const dist = resolve(root, "dist")
 
-const targets = [
-  {
-    inputs: ["css/layers.css", "open-props.css", "css/imports.css"],
-    out: "opui.css",
-  },
-  { inputs: ["css/components.css"], out: "opui.components.css" },
-  { inputs: ["open-props.css"], out: "op.css" },
-]
+const library = ["css/layers.css", "open-props.css", "css/imports.css"]
 
-const processor = postcss([atImport()])
+const targets = [
+  { inputs: library, out: "opui.css" },
+  {
+    inputs: ["css/components.css", "css/compat.css"],
+    out: "opui.components.css",
+  },
+  { inputs: ["open-props.css"], out: "op.css" },
+  ...baselineYears().map((year) => ({
+    inputs: library,
+    out: `opui.baseline-${year}.css`,
+    plugins: [baselineYear(year)],
+  })),
+  { inputs: library, out: "opui.no-compat.css", plugins: [withoutCompat()] },
+]
 
 await rm(dist, { force: true, recursive: true })
 await mkdir(dist, { recursive: true })
 
-for (const { inputs, out } of targets) {
+for (const { inputs, out, plugins = [] } of targets) {
   const from = resolve(root, inputs.at(-1))
   const to = resolve(dist, out)
   const source = inputs
     .map((input) => `@import "${resolve(root, input)}";`)
     .join("\n")
-  const result = await processor.process(source, {
+  const result = await postcss([atImport(), ...plugins]).process(source, {
     from,
     to,
     map: { annotation: `${out}.map`, inline: false, sourcesContent: false },

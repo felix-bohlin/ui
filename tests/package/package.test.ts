@@ -125,13 +125,17 @@ test("the tarball ships the package and nothing else", () => {
     "components/Button/Button.svelte",
     "components/Button/Button.vue",
     "core/normalize.css",
+    "css/compat.css",
+    "css/compat/avatar.css",
     "css/components/button.css",
     "css/imports.css",
     "css/js/checkbox.js",
     "css/js/range.js",
     "dist/op.css",
+    "dist/opui.baseline-2023.css",
     "dist/opui.components.css",
     "dist/opui.css",
+    "dist/opui.no-compat.css",
     "env.d.ts",
     "open-props.css",
     "package.json",
@@ -159,6 +163,14 @@ test("dist/opui.css starts with the layer order", () => {
   const css = readFileSync(path.join(unpacked, "dist/opui.css"), "utf8")
   expect(layers[0]).toMatch(/^@layer openprops, theme, /)
   expect(css.split("\n").slice(0, layers.length)).toEqual(layers)
+})
+
+test("dist/opui.no-compat.css leaves out the compat layer", () => {
+  const css = (file: string) =>
+    readFileSync(path.join(unpacked, "dist", file), "utf8")
+  expect(css("opui.css")).toContain("@layer components.compat {")
+  expect(css("opui.baseline-2023.css")).toContain("@layer components.compat {")
+  expect(css("opui.no-compat.css")).not.toContain("@layer components.compat {")
 })
 
 describe("the opui-css command", () => {

@@ -74,7 +74,7 @@ Prefer inputs like `--_accent` over outputs like `--_bg-color`. The states set t
 Unlayered CSS beats every [layer](https://open-props-ui.netlify.app/html/guide/concepts.md#cascade-layers), which is fine for most apps. If you use layers yourself, add one after `utils`: it beats the library and still loses to your unlayered one-off fixes.
 
 ```css
-@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils, overrides;
+@layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils, overrides;
 @layer theme.palette, theme.base, theme.custom;
 
 @layer overrides {

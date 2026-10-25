@@ -46,7 +46,7 @@
     "open-props": "catalog:",
     "opui-css": "workspace:*",
     "typescript": "^6.0.3",
-    "web-features": "^3.43.0"
+    "web-features": "catalog:"
   },
   "devDependencies": {
     "@astrojs/react": "^7.0.1",

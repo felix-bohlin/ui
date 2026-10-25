@@ -76,7 +76,9 @@ import Shapes from "../../component-examples/avatar/Shapes.astro"
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        Without <code>corner-shape</code>, the full radius draws a circle
+        Without <code>corner-shape</code>, the compat layer swaps the full
+        radius for 27% of the size, a rounded square. Without the compat layer,
+        the full radius draws a circle
       </li>
       <li>
         Without <code>:has()</code>, the background color stays behind the

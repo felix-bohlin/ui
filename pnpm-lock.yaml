@@ -213,6 +213,9 @@ catalogs:
     vue:
       specifier: ^3.5.39
       version: 3.5.39
+    web-features:
+      specifier: ^3.43.0
+      version: 3.43.0
 
 importers:
 
@@ -246,7 +249,7 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
       web-features:
-        specifier: ^3.43.0
+        specifier: 'catalog:'
         version: 3.43.0
     devDependencies:
       '@astrojs/react':
@@ -376,6 +379,9 @@ importers:
       postcss-import:
         specifier: ^16.1.0
         version: 16.1.1(postcss@8.5.16)
+      web-features:
+        specifier: 'catalog:'
+        version: 3.43.0
 
   tests/package/fixtures/astro:
     dependencies:

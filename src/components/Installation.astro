@@ -1,6 +1,7 @@
 ---
 import Code from "./Code.astro"
 import CodeGroup from "./CodeGroup.astro"
+import { compatCss } from "../utils/compat"
 import { components, dependentsOf } from "../utils/components"
 import { componentHasFramework } from "../utils/framework"
 
@@ -37,7 +38,22 @@ const dependencies = tabs
   .map(pageFor)
   .filter((c) => c !== undefined)
 
-const cssTabs = tabs.filter((tab) => tab.title.endsWith(".css"))
+const allTabs = [
+  ...tabs,
+  ...tabs.flatMap((tab) =>
+    compatCss[tab.title]
+      ? [
+          {
+            code: compatCss[tab.title],
+            lang: "css",
+            title: `compat/${tab.title}`,
+          },
+        ]
+      : [],
+  ),
+]
+
+const cssTabs = allTabs.filter((tab) => tab.title.endsWith(".css"))
 const allCss = cssTabs
   .map((tab) => `/* ${tab.title} */\n${tab.code.trim()}\n`)
   .join("\n")
@@ -118,7 +134,7 @@ const usedBy = slug
     )
   }
 
-  <CodeGroup tabs={tabs} />
+  <CodeGroup tabs={allTabs} />
 </section>
 
 <style>

@@ -16,6 +16,8 @@ The quickest way to get going. One file with the theme, the reset, every compone
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css" />
 ```
 
+It includes the [browser fallbacks](https://open-props-ui.netlify.app/html/guide/browser-support.md#compat). `dist/opui.no-compat.css` leaves them out, and `dist/opui.baseline-<year>.css` keeps only the ones that browsers of that Baseline year need.
+
 `@6` loads the newest 6.x release, so a new major version never changes your site. Pin an exact version, such as `@6.0.0`, for full control.
 
 6.0.0 isn't on npm yet, so the jsDelivr links on this page work once it is published. Until then, build the package from [the repository](https://github.com/felix-bohlin/ui) (`pnpm install`, then `pnpm --filter opui-css build`) and use `packages/opui/dist/opui.css`, or load `opui-css@5` (5.4.3), the previous major: [Migrating](https://open-props-ui.netlify.app/html/guide/migrating.md) lists what changed since.
@@ -54,10 +56,11 @@ Or pick and choose the parts you want to include:
 @import "opui-css/css/components/button.css";
 @import "opui-css/css/components/choice.css";
 @import "opui-css/css/components/checkbox.css";
+@import "opui-css/css/compat.css";
 @import "opui-css/core/utils.css";
 ```
 
-Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component.
+Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component. `compat.css` holds the [browser fallbacks](https://open-props-ui.netlify.app/html/guide/browser-support.md#compat), and you can leave it out.
 
 ### Install manually
 
@@ -70,20 +73,27 @@ opui
 │  ├─ palette.css
 │  └─ utils.css
 ├─ css
+│  ├─ compat
+│  │  ├─ avatar.css
+│  │  └─ ...
 │  ├─ components
 │  │  ├─ accordion.css
 │  │  └─ ...
 │  ├─ js
 │  │  ├─ checkbox.js
 │  │  └─ range.js
+│  ├─ compat.css
 │  ├─ components.css
 │  ├─ imports.css
 │  ├─ layers.css
 │  └─ theme.css
 ├─ dist
 │  ├─ op.css
+│  ├─ opui.baseline-2023.css
+│  ├─ ...
 │  ├─ opui.components.css
-│  └─ opui.css
+│  ├─ opui.css
+│  └─ opui.no-compat.css
 ├─ themes
 │  ├─ bootstrap.css
 │  ├─ brutalist.css
@@ -104,10 +114,11 @@ Then import the files in your main CSS, in this order:
 @import "./opui/css/theme.css";
 @import "./opui/core/normalize.css";
 @import "./opui/css/components.css";
+@import "./opui/css/compat.css";
 @import "./opui/core/utils.css";
 ```
 
-If your own CSS reads Open Props, import `./opui/dist/op.css` right after `layers.css`.
+If your own CSS reads Open Props, import `./opui/dist/op.css` right after `layers.css`. Leave out `compat.css` if you don't need the browser fallbacks.
 
 ### Your first component
 
@@ -138,6 +149,8 @@ import "opui-css/css/imports.css"
 Or pick and choose in a CSS file, and import that file in the layout instead:
 
 Same code as in the HTML section.
+
+Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component. `compat.css` holds the [browser fallbacks](https://open-props-ui.netlify.app/astro/guide/browser-support.md#compat), and you can leave it out.
 
 ```astro
 ---
@@ -202,6 +215,8 @@ import "opui-css/css/imports.css"
 Or pick and choose in a CSS file, and import that file in your entry instead:
 
 Same code as in the HTML section.
+
+Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component. `compat.css` holds the [browser fallbacks](https://open-props-ui.netlify.app/react/guide/browser-support.md#compat), and you can leave it out.
 
 ```tsx
 import "./styles/main.css"
@@ -269,6 +284,8 @@ Svelte components ship markup only - the CSS still has to be imported once, in y
 Or pick and choose in a CSS file, and import that file in your layout instead:
 
 Same code as in the HTML section.
+
+Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component. `compat.css` holds the [browser fallbacks](https://open-props-ui.netlify.app/svelte/guide/browser-support.md#compat), and you can leave it out.
 
 ```svelte
 <script lang="ts">
@@ -347,6 +364,8 @@ createApp(App).mount("#app")
 Or pick and choose in a CSS file, and import that file in `main.ts` instead:
 
 Same code as in the HTML section.
+
+Import `layers.css` first and `utils.css` last, it holds `.ui-sr-only` and the motion classes. Add `choice.css` with `checkbox.css`, `radio.css` or `switch.css`. Import `opui-css/css/components.css` instead of single component files to get every component. `compat.css` holds the [browser fallbacks](https://open-props-ui.netlify.app/vue/guide/browser-support.md#compat), and you can leave it out.
 
 In Nuxt, add the file to `css` in `nuxt.config.ts` instead.
 

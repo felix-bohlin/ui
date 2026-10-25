@@ -80,13 +80,14 @@ import DocLink from "../../components/DocLink.astro"
           production"
         </h3>
         <p>
-          Yes and no. Chromium is the target: components use new features as
-          they ship, and in Firefox and Safari they fall back to what the
-          browser does by default (<DocLink href="/guide/browser-support#policy"
-            >Browser support</DocLink
-          >). If your users are on Chromium, or those defaults are good enough,
-          it's ready. The point is to let the spec and the components mature
-          alongside each other.
+          Yes and no. Components use a new feature as soon as a browser ships
+          it, whichever browser that is. Browsers without it fall back to what
+          they do by default, or to a fallback from the <DocLink
+            href="/guide/browser-support#compat">compat layer</DocLink
+          >, which is included unless you leave it out. If your users' browsers
+          have the features, or those fallbacks are good enough, it's ready. The
+          point is to let the spec and the components mature alongside each
+          other.
         </p>
         <p>We're all adults here, we make the decisions we think are best.</p>
       </CalloutContent>

@@ -6,6 +6,8 @@ import {
 } from "../../utils/baseline"
 import { componentHrefFor } from "../../utils/components"
 import { componentHasFramework } from "../../utils/framework"
+import { baselineYears } from "../../../packages/opui/scripts/features.mjs"
+import DocLink from "../../components/DocLink.astro"
 import { Chip } from "opui-css/astro"
 
 const categorized = await getCategorizedBaselineIds()
@@ -14,6 +16,8 @@ const { featureToComponents, componentToFeatures } = await getBaselineMappings()
 const allFeatures = Object.keys(featureToComponents).sort()
 const allComponents = Object.keys(componentToFeatures).sort()
 const currentFramework = Astro.locals.framework
+
+const levels = baselineYears()
 
 const years = Object.keys(categorized)
   .filter((k) => k !== "all" && k !== "limited")
@@ -31,19 +35,99 @@ const years = Object.keys(categorized)
     <h2 id="policy">Policy</h2>
     <ul>
       <li>
-        Chromium is the target. Open Props UI uses new HTML and CSS as it ships,
-        and waits for Firefox and Safari to catch up.
+        Feature first. Open Props UI uses a new HTML or CSS feature as soon as a
+        browser ships it, whichever browser that is, and waits for the others to
+        catch up.
       </li>
       <li>
-        Where a browser lacks a feature, the component falls back to what that
-        browser does by default. There is no code for one browser only, unless
-        it changes no API and does nothing in Chromium. The one exception is iOS
-        Safari, where submenus anchor to their parent menu.
+        The component CSS has no code for one browser. Where a browser lacks a
+        feature, the component falls back to what that browser does by default,
+        or to a fallback from the <a href="#compat">compat layer</a>.
       </li>
       <li>
-        Firefox and Safari still run the tests. Their known failures are
-        recorded as expected, so each one fails the day the browser catches up
-        and the entry is removed.
+        Chromium, Firefox and WebKit run the tests. Known failures are recorded
+        as expected, so each one fails the day the browser catches up and the
+        entry is removed.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="compat">Compat layer</h2>
+    <p>
+      Fallbacks that take more than the browser default live in their own layer, <code
+        >components.compat</code
+      >. Each one sits in an <code>@supports</code> block. A feature test only applies
+      in a browser without the feature, and stops applying the day that browser ships
+      it. An engine gate, like the iOS fix for Menu, applies in that engine until
+      it's removed. The layer is part of <code>imports.css</code> and <code
+        >dist/opui.css</code
+      >.
+    </p>
+    <ul>
+      <li>
+        Avatar (<code>css/compat/avatar.css</code>): without <code
+          >corner-shape</code
+        >, a squircle is a rounded square with corners at 27% of its size, which
+        scales like the squircle does.
+      </li>
+      <li>
+        Menu (<code>css/compat/menu.css</code>): on iOS Safari, submenus anchor
+        to their parent menu, because iOS Safari doesn't place them at their
+        trigger item.
+      </li>
+    </ul>
+    <h3 id="support-level">Support level</h3>
+    <p>Pick the file that matches the browsers you support:</p>
+    <ul>
+      <li><code>dist/opui.css</code>: every fallback. The default.</li>
+      <li>
+        <code>dist/opui.baseline-&lt;year&gt;.css</code>, {levels[0]} to {
+          levels.at(-1)
+        }: only the fallbacks for features that became Baseline after that year,
+        plus the fixes for browser bugs.
+      </li>
+      <li><code>dist/opui.no-compat.css</code>: no fallbacks.</li>
+    </ul>
+    <p>
+      With a bundler, <code>imports.css</code> includes <code
+        >css/compat.css</code
+      >. When you <DocLink href="/guide/getting-started"
+        >import single files</DocLink
+      >, add <code>css/compat.css</code> after the components, or leave it out.
+    </p>
+    <p>
+      The tests run in the current Chromium, Firefox and WebKit, not in older
+      versions, so a year level is untested in the browsers it's for. A fallback
+      stays until its feature is Baseline widely available.
+    </p>
+    <h3 id="polyfills">Polyfills</h3>
+    <p>
+      Some features are HTML, and CSS can't stand in for them. These polyfills
+      add them in browsers without them. The library doesn't ship or test them.
+    </p>
+    <ul>
+      <li>
+        <a href="https://github.com/oddbird/css-anchor-positioning"
+          ><code>@oddbird/css-anchor-positioning</code></a
+        >: anchor positioning, for Anchor, Menu and Tooltip. It doesn't cover
+        the whole spec.
+      </li>
+      <li>
+        <a href="https://github.com/tak-dcxi/dialog-closedby-polyfill"
+          ><code>dialog-closedby-polyfill</code></a
+        >: <code>closedby</code>, for Dialog and Drawer.
+      </li>
+      <li>
+        <a href="https://github.com/mfreed7/interestfor"
+          ><code>interestfor</code></a
+        >: interest invokers (<code>interestfor</code>), for Anchor and Tooltip.
+      </li>
+      <li>
+        <a href="https://github.com/keithamus/invokers-polyfill"
+          ><code>invokers-polyfill</code></a
+        >: Invoker Commands (<code>commandfor</code> and <code>command</code>),
+        for Dialog, Drawer, Menu and Tooltip.
       </li>
     </ul>
   </section>

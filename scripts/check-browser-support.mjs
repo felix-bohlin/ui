@@ -4,6 +4,7 @@ import { join, basename } from "node:path"
 import { fileURLToPath } from "node:url"
 import postcss from "postcss"
 
+import { patterns } from "../packages/opui/scripts/features.mjs"
 import { computeBrowserSupport } from "../src/utils/browser-support.ts"
 
 const componentsDir = fileURLToPath(
@@ -16,26 +17,6 @@ const examplesDir = fileURLToPath(
   new URL("../src/component-examples", import.meta.url),
 )
 const coreDir = fileURLToPath(new URL("../packages/opui/core", import.meta.url))
-
-const patterns = [
-  { id: "anchor-positioning", pattern: /\b(anchor-name|position-anchor):/ },
-  { id: "color-mix", pattern: /color-mix\(/ },
-  { id: "container-scroll-state-queries", pattern: /scroll-state\(/ },
-  { id: "container-style-queries", pattern: /@container style\(/ },
-  { id: "corner-shape", pattern: /corner-shape:/ },
-  { id: "dir-pseudo", pattern: /:dir\(/ },
-  {
-    id: "display-animation",
-    pattern: /\b(?:content-visibility|display)\s[^,;]*allow-discrete/,
-  },
-  { id: "field-sizing", pattern: /field-sizing:/ },
-  { id: "has", pattern: /:has\(/ },
-  { id: "light-dark", pattern: /light-dark\(/ },
-  { id: "progress-function", pattern: /\bprogress\(/ },
-  { id: "relative-color", pattern: /\(\s*from\s/ },
-  { id: "scrollbar-gutter", pattern: /scrollbar-gutter:/ },
-  { id: "user-pseudos", pattern: /:user-(?:in)?valid\b/ },
-]
 
 const STYLESHEET = /@opui\/css\/components\/([\w-]+\.css)\?raw/g
 

@@ -1,0 +1,16 @@
+@layer components.compat {
+  /* iOS Safari doesn't place a submenu at its trigger item, so there it
+     anchors to the parent menu. Remove once iOS Safari does. */
+  @supports (-webkit-touch-callout: none) {
+    :where(.ui-menu) {
+      &:has(.ui-menu[popover]) {
+        anchor-name: --ui-menu;
+        anchor-scope: --ui-menu;
+      }
+
+      & .ui-menu[popover] {
+        position-anchor: --ui-menu;
+      }
+    }
+  }
+}

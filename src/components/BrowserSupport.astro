@@ -2,6 +2,8 @@
 import Baseline from "./Baseline.astro"
 import BrowserSupportChips from "./BrowserSupportChips.astro"
 import DocLink from "./DocLink.astro"
+import { pageStylesheets } from "../component-api/custom-properties"
+import { compatCss } from "../utils/compat"
 import { components } from "../utils/components"
 
 type Props = {
@@ -13,6 +15,9 @@ const sortedIds = [...ids].sort()
 const name = components.find(
   (component) => component.slug === Astro.locals.componentSlug,
 )?.name
+const compat = pageStylesheets(Astro.locals.componentSlug ?? "")
+  .map((stylesheet) => `${stylesheet}.css`)
+  .filter((file) => compatCss[file])
 const guideHref = name
   ? `/guide/browser-support?${new URLSearchParams({ components: name })}`
   : "/guide/browser-support"
@@ -27,4 +32,19 @@ const guideHref = name
       >browser support guide</DocLink
     >.
   </p>
+  {
+    compat.length > 0 && (
+      <p>
+        The <DocLink href="/guide/browser-support#compat">compat layer</DocLink>{" "}
+        has fallbacks for it in{" "}
+        {compat.map((file, index) => (
+          <>
+            {index > 0 && ", "}
+            <code>css/compat/{file}</code>
+          </>
+        ))}
+        .
+      </p>
+    )
+  }
 </section>

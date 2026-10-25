@@ -8,6 +8,7 @@ const root = fileURLToPath(new URL("..", import.meta.url))
 const opuiDir = join(root, "packages/opui")
 const srcDir = join(root, "src")
 const openPropsEntry = join(opuiDir, "open-props.css")
+const compatDir = join(opuiDir, "css/compat")
 const componentsDir = join(opuiDir, "css/components")
 const coreDir = join(opuiDir, "core")
 const docsDir = join(srcDir, "component-api/custom-properties")
@@ -122,8 +123,15 @@ const addUndefined = (name, file) => {
 
 const privateErrors = []
 
+const basesOf = (file) => {
+  const names = BASES[basename(file)] ?? []
+  return dirname(file) === compatDir
+    ? [basename(file), ...names].map((name) => join(componentsDir, name))
+    : names.map((name) => join(dirname(file), name))
+}
+
 for (const { declared, file, read } of packageFiles) {
-  const bases = BASES[basename(file)] ?? []
+  const bases = basesOf(file).map((base) => relative(dirname(file), base))
   const local = new Set([
     ...declared,
     ...bases.flatMap((base) => [
@@ -205,6 +213,7 @@ const found = Object.fromEntries(
       .filter(
         ({ file }) =>
           file.startsWith(componentsDir) ||
+          dirname(file) === compatDir ||
           file === join(coreDir, "normalize.css"),
       )
       .map(async ({ file, read }) => [

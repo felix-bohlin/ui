@@ -1,29 +1,39 @@
 ---
+import { Range } from "opui-css/astro"
+
 type Props = {
   label: string
   min?: number
 }
 
 const { label, min = 160 } = Astro.props
+const max = 960
 ---
 
-<div class="resizable" data-min={min}>
+<div class="resizable" style={`--_min: ${min}px`}>
   <div class="resizable-frame">
     <slot />
     <span aria-hidden="true" class="resizable-width"></span>
-    <span
-      aria-label={label}
-      aria-orientation="vertical"
-      aria-valuemin={min}
-      class="resizable-handle"
-      role="separator"
-      tabindex="0"></span>
+    <span aria-hidden="true" class="resizable-handle"></span>
   </div>
+  <Range
+    class="resizable-range"
+    label={label}
+    max={max}
+    min={min}
+    step={10}
+    value={max}
+    valueSuffix="px"
+  />
 </div>
 
 <style>
   .resizable {
+    --_chrome: calc(2 * (var(--ui-space-4) + var(--ui-border-width-thick)));
+
     container-type: inline-size;
+    display: grid;
+    gap: var(--ui-space-5);
     inline-size: 100%;
     padding-block: var(--ui-space-3);
   }
@@ -31,10 +41,14 @@ const { label, min = 160 } = Astro.props
   .resizable-frame {
     border: var(--ui-border-width-thick) dashed var(--ui-border-color);
     border-radius: var(--ui-radius);
-    box-sizing: border-box;
+    box-sizing: content-box;
     display: grid;
     gap: var(--ui-space-4);
-    inline-size: clamp(var(--_min, 10rem), var(--_size, 100cqi), 100cqi);
+    inline-size: clamp(
+      var(--_min),
+      var(--_size, 100cqi),
+      calc(100cqi - var(--_chrome))
+    );
     padding: var(--ui-space-4);
     position: relative;
   }
@@ -80,17 +94,18 @@ const { label, min = 160 } = Astro.props
     }
 
     &:hover,
-    &:focus-visible,
     .resizable[data-dragging] & {
       border-color: var(--ui-primary);
     }
 
-    &:focus-visible {
-      outline: var(--ui-focus-ring-width) solid var(--ui-focus-ring-color);
-      outline-offset: var(--ui-focus-ring-offset);
+    &:dir(rtl) {
+      translate: 50% -50%;
     }
+  }
 
-    @media (scripting: none) {
+  @media (scripting: none) {
+    .resizable-handle,
+    .resizable :global(.resizable-range) {
       display: none;
     }
   }
@@ -101,60 +116,50 @@ const { label, min = 160 } = Astro.props
     const frame = resizable.querySelector<HTMLElement>(".resizable-frame")
     const handle = resizable.querySelector<HTMLElement>(".resizable-handle")
     const width = resizable.querySelector(".resizable-width")
-    if (!frame || !handle) return
-    const min = Number(resizable.dataset.min)
-    const max = () => resizable.clientWidth
+    const input = resizable.querySelector<HTMLInputElement>(
+      ".resizable-range input[type=range]",
+    )
+    if (!frame || !handle || !input) return
+
+    const chrome = () => {
+      const style = getComputedStyle(frame)
+      return [
+        style.borderInlineStartWidth,
+        style.borderInlineEndWidth,
+        style.paddingInlineStart,
+        style.paddingInlineEnd,
+      ].reduce((sum, value) => sum + Number.parseFloat(value), 0)
+    }
+
+    const render = () => {
+      resizable.style.setProperty("--_size", `${input.value}px`)
+      if (width) width.textContent = `${input.value}px`
+    }
 
     const set = (px: number) => {
-      const size = Math.round(Math.min(Math.max(px, min), max()))
-      resizable.style.setProperty("--_size", `${size}px`)
-      sync()
+      input.value = String(px)
+      input.dispatchEvent(new Event("input", { bubbles: true }))
     }
 
-    const sync = () => {
-      const size = Math.round(frame.getBoundingClientRect().width)
-      const style = getComputedStyle(frame)
-      const content = Math.round(
-        size -
-          [
-            style.borderInlineStartWidth,
-            style.borderInlineEndWidth,
-            style.paddingInlineStart,
-            style.paddingInlineEnd,
-          ].reduce((sum, value) => sum + Number.parseFloat(value), 0),
-      )
-      handle.setAttribute("aria-valuemax", String(max()))
-      handle.setAttribute("aria-valuenow", String(size))
-      handle.setAttribute("aria-valuetext", `${content}px`)
-      if (width) width.textContent = `${content}px`
+    const fit = () => {
+      const full = Number(input.max) - Number(input.value) < Number(input.step)
+      input.max = String(Math.floor(resizable.clientWidth - chrome()))
+      set(full ? Number(input.max) : Number(input.value))
     }
-
-    resizable.style.setProperty("--_min", `${min}px`)
-
-    handle.addEventListener("keydown", (event) => {
-      const current = frame.getBoundingClientRect().width
-      const by = event.shiftKey ? 50 : 10
-      const next = {
-        ArrowDown: current - by,
-        ArrowLeft: current - by,
-        ArrowRight: current + by,
-        ArrowUp: current + by,
-        End: max(),
-        Home: min,
-      }[event.key]
-      if (next === undefined) return
-      event.preventDefault()
-      set(next)
-    })
 
     handle.addEventListener("pointerdown", (event) => {
       if (event.button !== 0) return
       event.preventDefault()
       handle.setPointerCapture(event.pointerId)
-      handle.focus()
       resizable.dataset.dragging = ""
-      const move = (moveEvent: PointerEvent) =>
-        set(moveEvent.clientX - frame.getBoundingClientRect().left)
+      const rtl = getComputedStyle(frame).direction === "rtl"
+      const move = (moveEvent: PointerEvent) => {
+        const rect = frame.getBoundingClientRect()
+        const outer = rtl
+          ? rect.right - moveEvent.clientX
+          : moveEvent.clientX - rect.left
+        set(outer - chrome())
+      }
       const end = () => {
         delete resizable.dataset.dragging
         handle.removeEventListener("pointermove", move)
@@ -163,6 +168,7 @@ const { label, min = 160 } = Astro.props
       handle.addEventListener("lostpointercapture", end, { once: true })
     })
 
-    new ResizeObserver(sync).observe(resizable)
+    input.addEventListener("input", render)
+    new ResizeObserver(fit).observe(resizable)
   })
 </script>

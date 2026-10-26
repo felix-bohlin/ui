@@ -16,7 +16,11 @@ const columns = [
     {
       columns.map((column) => (
         <div class="validity-compare-column" data-mode={column.mode}>
-          <p class="validity-compare-title">
+          <p
+            aria-atomic="true"
+            aria-live="polite"
+            class="validity-compare-title"
+          >
             <code>{column.selector}</code>
             <span class="validity-compare-status" data-match="true">
               matches

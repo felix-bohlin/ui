@@ -108,6 +108,15 @@ const columns = [
       inset: 0 0 calc(-1 * var(--ui-border-width));
       pointer-events: none;
       position: absolute;
+
+      @media (forced-colors: active) {
+        background-image: linear-gradient(
+          to bottom,
+          GrayText var(--ui-border-width),
+          transparent var(--ui-border-width)
+        );
+        forced-color-adjust: none;
+      }
     }
   }
 
@@ -128,9 +137,9 @@ const columns = [
 
   .rhythm-compare-line {
     --_edge: var(--ui-text-strong);
+    --_edge-style: solid;
 
     background-color: oklch(from var(--ui-primary) l c h / 8%);
-    box-shadow: inset 0 calc(-1 * var(--ui-border-width-thick)) 0 var(--_edge);
     display: block;
     position: relative;
     white-space: nowrap;
@@ -140,7 +149,16 @@ const columns = [
     }
 
     &:has([data-off]) {
-      --_edge: var(--ui-invalid);
+      --_edge: var(--ui-invalid-text);
+      --_edge-style: dashed;
+    }
+
+    &:after {
+      border-block-end: var(--ui-border-width-thick) var(--_edge-style)
+        var(--_edge);
+      content: "";
+      inset: auto 0 0;
+      position: absolute;
     }
   }
 

@@ -52,17 +52,21 @@ const charts = [
   <div class="fluid-compare-charts">
     {
       charts.map((chart) => (
-        <figure class="fluid-compare-chart" data-mode={chart.mode}>
+        <figure
+          aria-hidden="true"
+          class="fluid-compare-chart"
+          data-mode={chart.mode}
+        >
           <figcaption>
             <code>{chart.title}</code>
             <span>{chart.caption}</span>
           </figcaption>
-          <div aria-hidden="true" class="fluid-compare-plot">
+          <div class="fluid-compare-plot">
             <span class="fluid-compare-y" data-end="max">
-              max
+              100%
             </span>
             <span class="fluid-compare-y" data-end="min">
-              min
+              0%
             </span>
             {chart.mode === "progress" && <span class="fluid-compare-window" />}
             <svg preserveAspectRatio="none" viewBox="0 0 1000 100">
@@ -83,7 +87,7 @@ const charts = [
               />
             ))}
           </div>
-          <div aria-hidden="true" class="fluid-compare-ticks">
+          <div class="fluid-compare-ticks">
             {ticks.map((tick) => (
               <span style={`--_x: ${x(tick) / 1000}`}>{tick}</span>
             ))}
@@ -167,8 +171,8 @@ const charts = [
     --_domain-min: 240px;
     --_h1: light-dark(oklch(0.575 0.163 255.5), oklch(0.622 0.161 255.1));
     --_h2: light-dark(oklch(0.671 0.175 40.6), oklch(0.622 0.173 40.1));
-    --_h3: light-dark(oklch(0.669 0.141 162.1), oklch(0.621 0.128 163.1));
-    --_h4: light-dark(oklch(0.764 0.161 75.1), oklch(0.67 0.143 73.2));
+    --_h3: light-dark(oklch(0.62 0.141 162.1), oklch(0.621 0.128 163.1));
+    --_h4: light-dark(oklch(0.64 0.161 75.1), oklch(0.67 0.143 73.2));
     --_x: progress(var(--viewport), var(--_domain-min), var(--_domain-max));
     --progress: progress(var(--viewport), var(--fluid-min), var(--fluid-max));
 
@@ -227,6 +231,7 @@ const charts = [
     border-block-end: var(--ui-border-width) solid var(--ui-border-color);
     border-block-start: var(--ui-border-width) dashed var(--ui-border-color);
     cursor: ew-resize;
+    direction: ltr;
     margin-inline: 2.25rem 0.5rem;
     position: relative;
     touch-action: pan-y;
@@ -325,11 +330,17 @@ const charts = [
     [data-mode="progress"] > .fluid-compare-plot > & {
       --_growth: var(--progress);
     }
+
+    @media (forced-colors: active) {
+      box-shadow: none;
+      forced-color-adjust: none;
+    }
   }
 
   .fluid-compare-ticks {
     block-size: 1lh;
     color: var(--ui-text);
+    direction: ltr;
     font-size: var(--ui-font-size-caption);
     font-variant-numeric: tabular-nums;
     margin-inline: 2.25rem 0.5rem;
@@ -434,6 +445,10 @@ const charts = [
       border-radius: var(--ui-radius-round);
       content: "";
       inline-size: 0.625rem;
+
+      @media (forced-colors: active) {
+        forced-color-adjust: none;
+      }
     }
   }
 
@@ -476,6 +491,10 @@ const charts = [
     &:hover,
     .fluid-compare[data-dragging] & {
       border-color: var(--ui-primary);
+    }
+
+    &:dir(rtl) {
+      translate: 50% -50%;
     }
   }
 
@@ -533,13 +552,19 @@ const charts = [
           .forEach((path) => path.setAttribute("d", d))
         const width = compare.querySelector(".fluid-compare-width")
         if (width) width.textContent = `${value("--viewport")}px`
+        const rem = Number.parseFloat(
+          getComputedStyle(document.documentElement).fontSize,
+        )
         compare
           .querySelectorAll<HTMLElement>(".fluid-compare-row")
           .forEach((row) => {
             const size = row.querySelector("[data-size]")
-            if (size) {
-              size.textContent = `${Number.parseFloat(getComputedStyle(row).fontSize).toFixed(1)}px`
-            }
+            if (!size) return
+            const px = Number.parseFloat(getComputedStyle(row).fontSize)
+            const min = Number.parseFloat(row.style.getPropertyValue("--_min"))
+            const max = Number.parseFloat(row.style.getPropertyValue("--_max"))
+            const share = (px / rem - min) / (max - min)
+            size.textContent = `${px.toFixed(1)}px, ${Math.round(Math.min(Math.max(share, 0), 1) * 100)}%`
           })
       }
 
@@ -570,10 +595,13 @@ const charts = [
         })
       }
 
-      drag(
-        compare.querySelector(".fluid-compare-handle"),
-        (event) => event.clientX - (frame?.getBoundingClientRect().left ?? 0),
-      )
+      drag(compare.querySelector(".fluid-compare-handle"), (event) => {
+        if (!frame) return 0
+        const rect = frame.getBoundingClientRect()
+        return getComputedStyle(frame).direction === "rtl"
+          ? rect.right - event.clientX
+          : event.clientX - rect.left
+      })
       compare
         .querySelectorAll<HTMLElement>(".fluid-compare-plot")
         .forEach((plot) =>

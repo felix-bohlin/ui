@@ -16,7 +16,7 @@ const shades = Array.from({ length: 16 }, (_, index) => index + 1)
       <CalloutContent>An outlined callout from the same one</CalloutContent>
     </Callout>
   </div>
-  <ol aria-label="Derived shades" class="palette-hue-shades">
+  <ol aria-label="Derived shades" class="palette-hue-shades" role="list">
     {
       shades.map((shade) => (
         <li style={`--_shade: var(--ui-color-${shade})`}>
@@ -54,6 +54,10 @@ const shades = Array.from({ length: 16 }, (_, index) => index + 1)
       background-color: var(--_shade);
       block-size: 2rem;
       margin: 0;
+
+      @media (forced-colors: active) {
+        forced-color-adjust: none;
+      }
 
       &:first-child {
         border-end-start-radius: var(--ui-radius);

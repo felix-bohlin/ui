@@ -72,7 +72,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (2) Tooling: `released-api.mjs` writes `released-api.json` with `JSON.stringify(..., 2)`, one array item per line, but the committed file is Prettier-formatted and not in `.prettierignore`, so the pull request the after-release workflow opens would fail `format:check`. It also reads only the Astro and Vue barrels and type files and walks only `css/`, while the test also reads `core/` (`scripts/released-api.mjs:47-58`, `scripts/released-api.mjs:109`, `scripts/released-api.mjs:121-134`, `tests/unit/released-api.test.ts:23-31`, `.github/workflows/after-release.yml:34-46`)
   - Summary: Regenerating the released API after a release produces a file that fails the format check and misses React, Svelte and core classes.
   - Recommended: Fix. The next release depends on it.
-  - Replaces: the regenerate step in `AGENTS.md:79` only works by hand today ("Regenerate it after a release with `node scripts/released-api.mjs <tag>`").
+  - Replaces: the regenerate step in `AGENTS.md:77` only works by hand today ("Regenerate it after a release with `node scripts/released-api.mjs <tag>`").
   - Fix: write the file through Prettier's `format`, as `check-css-vars --update` does, read every barrel in `PACKAGE_FRAMEWORK_IDS` with the type-file map `check-components` uses, and walk `core/` as the test does.
   > Fix
 - [x] (4) Menu: on iOS, the submenu anchor block sets `anchor-scope: --ui-menu` on every submenu that has its own submenu, which hides the parent's `--ui-menu` from that submenu's `position-anchor`, so in a menu three levels deep the middle submenu opens unanchored at the top-left. It also replaces the root's `--ui-menu-root` anchor, so the rule that keeps submenus of submenus going in a flipped parent's direction is invalid there (`packages/opui/css/compat/menu.css:2-15`, `packages/opui/css/components/menu.css:117-136`)
@@ -250,7 +250,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (1) Tooling: the list of regenerated files is written out three times in `ci.yml` and copied into `AGENTS.md`, the README, `check-colors.mjs` and `.prettierignore`, so a new generator's output would be neither checked nor committed by CI (`.github/workflows/ci.yml:33`, `.github/workflows/ci.yml:35`, `.github/workflows/ci.yml:39`, `README.md:93`, `scripts/check-colors.mjs:8-12`, `.prettierignore:10-15`, `AGENTS.md:76`)
   - Summary: A file that a new script generates would go stale without CI noticing or committing it.
   - Recommended: Fix. One list removes six copies.
-  - Replaces: the file list in `AGENTS.md:76`, which then names the manifest.
+  - Replaces: the file list in `AGENTS.md:75`, which then names the manifest.
   - Fix: keep the paths in one manifest (for example `scripts/generated-files.json`), read it in the CI steps, `check-colors` and the README, and generate the `.prettierignore` block or test that it matches.
   > Fix
 - [ ] (1) Tests: some e2e checks are opt-in or skip silently. The overlay axe spec checks 16 of 79 scenarios; `THEME_EXCEPTIONS` entries are skipped and never re-tested, so a fixed contrast stays excepted; the interest-invoker and `::scroll-button` tests skip in Chromium too, so a regression there only skips (`tests/e2e/stress-overlays-a11y.spec.ts:6-23`, `tests/e2e/contrast.spec.ts:168-172`, `tests/e2e/interaction.spec.ts:57`, `tests/e2e/interaction.spec.ts:774`, `tests/e2e/interaction.spec.ts:839`)
@@ -262,13 +262,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (1) Tooling: `check-css-vars` doesn't read `style=""` attributes, counts any quoted `"--x"` in a scanned file as a declaration, and `LENGTH` only knows `px` and `rem` (`scripts/check-css-vars.mjs:22`, `scripts/check-css-vars.mjs:77`, `scripts/check-css-vars.mjs:86-89`, `src/utils/package-source.js:9`)
   - Summary: A custom property read in a style attribute, or a typo that appears in a string, passes the property check.
   - Recommended: Fix. The parsers are already dependencies.
-  - Replaces: makes `AGENTS.md:76` hold for inline styles and the other absolute units.
+  - Replaces: makes `AGENTS.md:74` hold for inline styles and the other absolute units.
   - Fix: read `style` attributes with parse5, collect declarations with postcss `walkDecls` instead of a regex over the whole source, and add `pt`, `pc`, `cm`, `mm`, `in` and `Q`.
   > Fix
 - [ ] (1) Tooling: `build-agent-skill.mjs` skips silently (`guideMarkdown` can return nothing, `exampleLines` returns `[]`), resolves paths from the working directory, and calls `localeCompare` without a locale, so the reference order depends on the machine (`scripts/build-agent-skill.mjs:16`, `scripts/build-agent-skill.mjs:107`, `scripts/build-agent-skill.mjs:186-195`, `scripts/build-agent-skill.mjs:648`)
   - Summary: The agent skill can lose a guide page without an error, and its order can change between machines.
   - Recommended: Fix. Small changes in one script.
-  - Replaces: makes the ascending-order rule in `AGENTS.md:21` deterministic for the generated references.
+  - Replaces: makes the ascending-order rule in `AGENTS.md:19` deterministic for the generated references.
   - Fix: throw when a page yields no markdown, resolve from `import.meta.url`, and pass `"en"` to every `localeCompare`.
   > Fix
 - [ ] (1) Tooling: local runs differ from CI. CI sets `OPUI_TEST_PAGES=1` for `pnpm check` but the `check` script doesn't, so local runs never build or link-check the test pages; the session hook runs `pnpm install` without `--frozen-lockfile` and ends the wrapper install with `|| true`; and the Playwright version is pinned in three places with nothing comparing them (`package.json:10`, `.github/workflows/ci.yml:30-32`, `.claude/hooks/session-start.sh:10`, `.claude/hooks/session-start.sh:14`, `package.json:64`, `.github/workflows/ci.yml:107`, `.github/workflows/update-snapshots.yml:17`)
@@ -314,22 +314,36 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (1) Tokens: the token rules "Never `-contrast`" and "`--ui-on-{fill}` always has a `--ui-{fill}` or a `--ui-surface-{fill}` to sit on" are prose; `css-properties.test.ts` checks the component and private suffixes only (`packages/opui/components/AGENTS.md:488`, `packages/opui/components/AGENTS.md:493`, `tests/unit/css-properties.test.ts:51-78`)
   - Summary: A new token can break the naming model for on-colors and contrast without a failure.
   - Recommended: Fix. Both rules are a pattern over the token names.
-  - Replaces: `packages/opui/components/AGENTS.md:488` and `:493`, which then name the test.
+  - Replaces: `packages/opui/components/AGENTS.md:484` and `:489`, which then name the test.
   - Fix: add both rules to `css-properties.test.ts`, with `--ui-on-accent` as the one named exception until the Tokens item about it is decided.
   - Note: the Tokens item chose option A, so the exception is `--ui-on-fill` now. It stays one: it sits on any intent fill kept within the fill lightness cap, and there is no `--ui-fill`.
   > Fix
 - [ ] (1) Learn: nothing checks the Learn registry's order, and an unknown web-features id in a post's `features` or an Under the hood step only logs a warning and renders as limited availability (`src/utils/learn-posts.ts`, `src/components/UnderTheHood/BuildUp.astro:130`, `src/utils/browser-support.ts:52-56`)
   - Summary: A Learn post can show a wrong browser support chip or sit out of order, and only a review notices.
   - Recommended: Fix. Both are a few lines in a unit test.
-  - Replaces: the Registry rule in `.claude/agents/blog.md:23`.
+  - Replaces: the Registry rule in `.claude/agents/blog.md:28`.
   - Fix: a `learn.test.ts` that checks the order and that every `features` id exists in `web-features`, and make the warning an error in the build.
   > Fix
 - [ ] (1) Tests: the reasons passed to `failingIn` and `test.fail` are separate copies of the strings in `engines.spec.ts`, and the WebKit one is worded differently in the two files, so nothing ties an expected failure to its browser repro (`tests/e2e/engines.spec.ts:4-8`, `tests/e2e/stress-overlays.ts:22-26`)
   - Summary: An expected browser failure can lose its plain-HTML repro without any test noticing.
   - Recommended: Fix. Sharing the strings makes the link explicit.
-  - Replaces: the repro clause of `AGENTS.md:60` ("add a plain-HTML repro to `tests/e2e/engines.spec.ts` when it's a browser bug").
+  - Replaces: the repro clause of `AGENTS.md:57` ("add a plain-HTML repro to `tests/e2e/engines.spec.ts` when it's a browser bug").
   - Fix: export the reasons from one module that `engines.spec.ts` uses for its repro titles, import them in `stress-overlays.ts` and the `test.fail` calls, and fail when a reason has no repro.
   > Fix
+- [ ] (1) Tests: the align rule in the components guide (one default per part, wherever the part appears) is only checked for four parts in Astro: `actions-align.test.ts` renders `AccordionActions`, `CardActions`, `DialogFooter` and `DrawerFooter` (`tests/unit/actions-align.test.ts:1-44`, `packages/opui/components/AGENTS.md:231`)
+  - Summary: The align default is only checked for four Astro parts.
+  - Recommended: Fix. The parts with an align option are listed in their api.ts.
+  - Fix: build the part list from the `api.ts` options with `prop: "align"`, and render each part in every framework, the way `parity.test.ts` renders the examples.
+  - Replaces: `packages/opui/components/AGENTS.md:231`, which then names the test.
+- [ ] (1) Tests: `naming.test.ts` only catches `dense` next to `density` for the rule that a component never has both a boolean and an enum for one concept, not any other boolean named after a value of a concept the component also has (`tests/unit/naming.test.ts:319-320`, `packages/opui/components/AGENTS.md:229`)
+  - Summary: Only dense next to density is caught when a component has both forms of one concept.
+  - Recommended: Fix. The vocabulary already lists the values of each concept.
+  - Fix: report a boolean option whose name is one of the `values` of a `vocabulary` concept that the same `api.ts` also has as an option.
+  - Replaces: the first half of `packages/opui/components/AGENTS.md:229`, which then names the test.
+- [ ] (1) Tests: `parity.test.ts` drops `script` and `style` before it compares the markup, so nothing checks the docs guide's rule that HTML examples are as functional as the Astro ones; only the `framework-parity` agent reads the scripts (`tests/unit/normalize.ts:7`, `src/docs/components/AGENTS.md:309`)
+  - Summary: Nothing checks that an HTML example ships the script its behavior needs.
+  - Recommended: Explain further. A check first needs a rule for which examples need a script.
+  - Replaces: `src/docs/components/AGENTS.md:309` (Functional Parity) and the scripts clause of `.claude/agents/framework-parity.md:33`.
 - [ ] (2) Tokens: there is no Figma kit. Peers build one from their tokens: Primer generates Figma variables from its token files, Material has Theme Builder, and Carbon, Spectrum and Nord ship kits. `tokens.json` is the starting point, but its values are CSS expressions (`var()`, `light-dark()`, relative colors), so a kit needs them resolved per mode first (`packages/opui/tokens.json`, `src/utils/tokens-json.ts`)
   - Summary: There is no Figma kit, and tokens.json holds CSS expressions that a kit would need resolved per mode first.
   - Recommended: Fix with option A. A resolved-tokens export is a small script over the existing `tokens.json` and is what every Figma variables importer needs.
@@ -397,13 +411,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (2) Tooling: `check-browser-support` can detect 14 of the 51 ids the pages list, so the other 37 (`starting-style`, `popover`, `interpolate-size`, `customizable-select`, `scroll-markers` and more) are only checked for being known and sorted. It doesn't look at the HTML features in the examples, and it reads the stylesheets from the page's `?raw` imports, not the `api.ts` `css` list (`packages/opui/scripts/features.mjs:47-65`, `scripts/check-browser-support.mjs:21`, `scripts/check-browser-support.mjs:63-79`)
   - Summary: Most browser support chips are never compared with the CSS, so a missing or stale chip passes.
   - Recommended: Fix. A detector per id turns most of the browser-support agent's review into a script.
-  - Replaces: `.claude/agents/browser-support.md:26-30`, steps 1, 2, 3 and 5 (list the features the CSS uses, report missing and unused ids, check the HTML features in the examples).
+  - Replaces: `.claude/agents/browser-support.md:30-34`, steps 1, 2, 3 and 5 (list the features the CSS uses, report missing and unused ids, check the HTML features in the examples).
   - Fix: add a pattern to `features.mjs` for every id in use, attribute detectors on the example HTML (`commandfor`, `interestfor`, `closedby`, `<details name>`, `popover`, `<datalist>`), read the sheets from `api.ts`, and fail on a listed id that has no detector. The agent then keeps only step 4, an id that names the wrong feature.
   > Fix
 - [ ] (2) Tests: the "only shrinks" and "only when intended" rules for the ledgers are prose. Recording the a11y ledger can add keys, a `.diff` that matches the current drift passes, and a new `naming-allowlist.json` entry passes; only fixed or stale entries fail (`tests/e2e/a11y.spec.ts:106-113`, `tests/e2e/a11y.spec.ts:162-176`, `tests/unit/parity.test.ts:253-270`, `tests/unit/naming.test.ts:325-330`)
   - Summary: A new accessibility violation, markup drift or naming exception can be accepted without anyone noticing.
   - Recommended: Fix with option A. It turns the rule into a check and keeps a way to accept intended changes.
-  - Replaces: `AGENTS.md:80` ("only shrinks: fix the name and drop the entry, never add one") and `AGENTS.md:87` ("NEVER update snapshots, add or change `.diff` files, or edit `tests/e2e/a11y-known-violations.json` ... unless the change is intended. Say so in the commit message").
+  - Replaces: `AGENTS.md:86` ("NEVER update snapshots, add or change `.diff` files, or edit `tests/e2e/a11y-known-violations.json` ... unless the change is intended. Say so in the commit message").
   - Options:
     - A (recommended): a step in the `history` CI job, which has the full history, that diffs the a11y ledger keys, `naming-allowlist.json` and the set of parity `.diff` files against the merge base, and fails on an addition unless a commit on the branch carries a `Ledger-Change: intended` trailer.
     - B: only assert that `naming-allowlist.json` stays empty.
@@ -424,7 +438,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (2) API docs: `checkApi` checks props, values, slots and hydration, but not that documented classes exist in the component's CSS, that every class a stylesheet adds is in some `api.ts` (`.ui-motion-off` in `carousel.css:77` is in none), that destructured defaults match `default`, or that an `anchorName` entry is still an `anchor-name` in the CSS (the anatomy spec only catches missing ones) (`src/utils/component-source.ts:267-428`, `tests/e2e/anatomy.spec.ts:70-140`)
   - Summary: The API tables can document classes and defaults the code no longer has, and nothing fails.
   - Recommended: Fix. It moves the api-docs agent's CSS and Defaults checks into the tests.
-  - Replaces: `src/component-api/AGENTS.md:10` (CSS Verified) and `.claude/agents/api-docs.md:27,29-30` (Defaults, CSS, Parts).
+  - Replaces: `src/component-api/AGENTS.md:10` (CSS Verified) and `.claude/agents/api-docs.md:31,33-34` (Defaults, CSS, Parts).
   - Fix: add the four checks to `checkApi`, reading the sheets with `stylesheets(api)`, and shrink the guide's CSS Verified line to a pointer.
   > Fix
 - [x] (2) CSS: Stylelint enforces none of the CSS review's mechanical rules: `:hover` only inside `@media (hover: hover)`, no bare `:focus`, no `!important`, no state classes such as `.ui-open` or `.ui-checked`, vendor prefixes only on native-control pseudo-elements, transitions and animations reading `--_duration`, and no dead selectors (`stylelint.config.mjs`, `scripts/stylelint-logical-shorthands.mjs`)
@@ -443,7 +457,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [ ] (2) Changelog: `changelog.test.ts` checks names, order and headings, but not that an Added, Breaking or Changed entry has a What's new note, that a Breaking entry has a MIGRATING section, or that new classes and tokens are named in Unreleased (only removed ones are). `whatsNew` and `highlighted` aren't typed against the page slugs, and about 20 notes have no `href="#"` (`tests/unit/changelog.test.ts`, `tests/unit/migrating.test.ts:15`, `src/utils/whats-new.ts:1342`, `src/utils/whats-new.ts:1353`)
   - Summary: A change can ship without its What's new note or migration note, and a note can link nowhere.
   - Recommended: Fix. The entry, note and section names are all machine-readable.
-  - Replaces: `AGENTS.md:52` (a note for Added, Breaking and Changed entries), `AGENTS.md:54` (link the section), and `.claude/agents/changelog.md:22,25-26` (Logged, What's new, Migrating).
+  - Replaces: `AGENTS.md:49` (a note for Added, Breaking and Changed entries), `AGENTS.md:51` (link the section), and `.claude/agents/changelog.md:24,27-28` (Logged, What's new, Migrating).
   - Fix: type `whatsNew` and `highlighted` with `satisfies` against the docs slugs, and add the entry-to-note, Breaking-to-MIGRATING, new-class and anchor checks to `changelog.test.ts`, with a named list for entries that span several components. The changelog agent then keeps "is the entry accurate and complete".
   - Still open: `changelog.test.ts` now fails when a component an `Added`, `Breaking` or `Changed` entry starts with has no page, or its page has no What's new note of that kind, and `check-dist` checks the anchors. Left: the Breaking-to-MIGRATING and new-class checks, typing the `whatsNew` keys, and links in the 20 notes without one. `tests/unit/whats-new.test.ts` checks that every key is a page slug and every highlighted page has notes.
   > Fix

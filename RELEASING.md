@@ -55,7 +55,7 @@ Merge the pull request once CI is green. Keep the branch up to date with `main` 
 
 On the push to `main`, the `Release` workflow (`.github/workflows/release.yml`) finds the `chore: release <version>` commit for the version in `package.json` (the branch commit after a merge commit, the new commit after a squash or rebase), checks that it sets that version and dates the heading (or keeps it undated for a candidate), tags it `<version>`, without a `v` prefix like the existing `5.4.3`, and pushes the tag. It runs on the pushes that change the CHANGELOG or `package.json`, and does nothing when the tag exists or no release commit is there. A tag pushed with `GITHUB_TOKEN` starts no workflow either, so `release.yml` calls the `After release` workflow itself (see After). By hand, `node scripts/release.mjs tag` on an up-to-date `main` does the same, and the tag push starts `After release`.
 
-CI builds `main` and deploys the docs. The dated heading tells `src/utils/release.ts` that the version is out, so the docs stop marking it as unreleased with the merge, before the package is on npm: publish right after the tag.
+CI builds `main` and, once the e2e tests pass, deploys the docs. The dated heading tells `src/utils/release.ts` that the version is out, so the docs stop marking it as unreleased with the merge, before the package is on npm: publish right after the tag.
 
 ## Publish
 

@@ -1,5 +1,5 @@
 import { features } from "web-features"
-import { access, readdir, readFile } from "node:fs/promises"
+import { readdir, readFile } from "node:fs/promises"
 import { join, basename } from "node:path"
 import { fileURLToPath } from "node:url"
 import postcss from "postcss"
@@ -29,22 +29,27 @@ for (const file of files.sort()) {
   const name = basename(file, ".astro")
   const content = await readFile(join(componentsDir, file), "utf-8")
   const match = content.match(/browserSupport=\{\[([\s\S]*?)\]\}/)
-  if (!match) continue
-  const ids = [...match[1].matchAll(/["']([^"']+)["']/g)].map((m) => m[1])
-  if (ids.length === 0) continue
+  const ids = match
+    ? [...match[1].matchAll(/["']([^"']+)["']/g)].map((m) => m[1])
+    : []
   components[name] = ids
   stylesheets[name] = [
     ...new Set([...content.matchAll(STYLESHEET)].map((m) => m[1])),
   ].sort()
 }
 
+const withoutComments = (source, file) => {
+  const root = postcss.parse(source, { from: file })
+  root.walkComments((comment) => {
+    comment.remove()
+  })
+  return root.toString()
+}
+
 const readCss = (files) =>
   Promise.all(
-    files.map((file) =>
-      access(file).then(
-        () => readFile(file, "utf-8"),
-        () => "",
-      ),
+    files.map(async (file) =>
+      withoutComments(await readFile(file, "utf-8"), file),
     ),
   ).then((sources) => sources.join("\n"))
 
@@ -243,16 +248,27 @@ for (const [comp, ids] of Object.entries(components)) {
   }
 }
 
+const unsorted = Object.entries(components)
+  .filter(([, ids]) => ids.join() !== ids.toSorted().join())
+  .map(([comp, ids]) => `${comp}: ${ids.toSorted().join(", ")}`)
+
 if (missing.length > 0) {
-  console.warn("browserSupport is missing ids that the page's stylesheets use:")
-  for (const entry of missing) console.warn(`  ${entry}`)
+  console.error(
+    "browserSupport is missing ids that the page's stylesheets use:",
+  )
+  for (const entry of missing) console.error(`  ${entry}`)
 }
 
 if (unused.length > 0) {
-  console.warn(
+  console.error(
     "browserSupport lists ids that no stylesheet the page installs uses:",
   )
-  for (const entry of unused) console.warn(`  ${entry}`)
+  for (const entry of unused) console.error(`  ${entry}`)
+}
+
+if (unsorted.length > 0) {
+  console.error("browserSupport is not sorted, expected:")
+  for (const entry of unsorted) console.error(`  ${entry}`)
 }
 
 const unknown = Object.entries(components).flatMap(([comp, ids]) =>
@@ -261,6 +277,9 @@ const unknown = Object.entries(components).flatMap(([comp, ids]) =>
 if (unknown.length > 0) {
   console.error("Unknown web-features ids in browserSupport:")
   for (const entry of unknown) console.error(`  ${entry}`)
+}
+
+if (missing.length + unused.length + unsorted.length + unknown.length > 0) {
   process.exit(1)
 }
 

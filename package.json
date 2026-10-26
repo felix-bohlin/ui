@@ -4,11 +4,11 @@
   "type": "module",
   "scripts": {
     "astro": "astro",
-    "build": "pnpm build-search-index && pnpm check-browser-support && astro build && pnpm build-skill",
+    "build": "pnpm build-search-index && astro build && pnpm build-skill",
     "build-search-index": "node scripts/generate-search-index.mjs",
     "build-skill": "node scripts/build-agent-skill.mjs",
     "check": "pnpm check:fast && pnpm build && pnpm test:package",
-    "check:fast": "pnpm format:check && pnpm lint && pnpm sort-css:check && pnpm check-components && pnpm check-css-vars && pnpm check-characters && pnpm check-colors && pnpm typecheck && pnpm test",
+    "check:fast": "pnpm format:check && pnpm lint && pnpm sort-css:check && pnpm check-browser-support && pnpm check-components && pnpm check-css-vars && pnpm check-characters && pnpm check-colors && pnpm typecheck && pnpm test",
     "check-browser-support": "node scripts/check-browser-support.mjs",
     "check-components": "node scripts/check-components.mjs",
     "check-characters": "node scripts/check-characters.mjs",

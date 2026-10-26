@@ -21,7 +21,7 @@ export default function LongContent() {
         <DialogHeader>
           <DialogTitle>Terms of service</DialogTitle>
         </DialogHeader>
-        <DialogContent>
+        <DialogContent aria-label="Terms" role="region" tabIndex={0}>
           <p>
             These terms cover your use of the service and any content you
             upload. By creating an account you agree to them, and to any updates

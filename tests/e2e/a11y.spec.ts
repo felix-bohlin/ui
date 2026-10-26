@@ -30,7 +30,7 @@ if (RECORD) test.describe.configure({ mode: "serial" })
 const TARGETS = [...BLOCKS, ...COMPONENTS, ...STRESS_TESTS].toSorted()
 
 const OPENED: Record<string, string[]> = {
-  dialog: ["dialog-alert-dialog-1"],
+  dialog: ["dialog-alert-dialog-1", "dialog-long-content-1"],
   drawer: ["drawer-close-behaviors-1"],
 }
 

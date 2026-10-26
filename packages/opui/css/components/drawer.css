@@ -97,6 +97,10 @@
       overscroll-behavior: contain;
       padding: var(--_content-padding);
 
+      &:focus-visible {
+        outline-offset: var(--ui-focus-ring-inset);
+      }
+
       &::before,
       &::after {
         block-size: var(--ui-space-2);

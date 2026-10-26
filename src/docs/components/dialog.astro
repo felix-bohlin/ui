@@ -227,6 +227,44 @@ export const description =
         as links.
       </Fragment>
     </Conditional>
+    <Conditional as="p">
+      <Fragment slot="components">
+        Safari doesn't make a scroll container focusable, so when the content
+        holds only text, a keyboard can't reach it to scroll. Give the <code
+          >DialogContent</code
+        >
+        <code>tabindex="0"</code>, <code>role="region"</code> and an <code
+          >aria-label</code
+        > that names what scrolls.
+      </Fragment>
+      <Fragment slot="react">
+        Safari doesn't make a scroll container focusable, so when the content
+        holds only text, a keyboard can't reach it to scroll. Give the <code
+          >DialogContent</code
+        >
+        <code>{"tabIndex={0}"}</code>, <code>role="region"</code> and an <code
+          >aria-label</code
+        > that names what scrolls.
+      </Fragment>
+      <Fragment slot="svelte">
+        Safari doesn't make a scroll container focusable, so when the content
+        holds only text, a keyboard can't reach it to scroll. Give the <code
+          >DialogContent</code
+        >
+        <code>{"tabindex={0}"}</code>, <code>role="region"</code> and an <code
+          >aria-label</code
+        > that names what scrolls.
+      </Fragment>
+      <Fragment slot="html">
+        Safari doesn't make a scroll container focusable, so when the content
+        holds only text, a keyboard can't reach it to scroll. Give <code
+          >.ui-content</code
+        >
+        <code>tabindex="0"</code>, <code>role="region"</code> and an <code
+          >aria-label</code
+        > that names what scrolls.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="LongContent" row />
   </section>

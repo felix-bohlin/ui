@@ -488,6 +488,7 @@ export const whatsNew = {
       ),
       html: `The <a href="#footer">footer</a> holds buttons, text or anything else, and <code>.ui-actions</code> groups the buttons in it.`,
     },
+    `A focusable <a href="#long-content">content</a> draws its focus ring inside the dialog, so the dialog edges don't clip it.`,
     `Opens over <a href="#api"><code>--ui-duration-slow</code></a>, the overlay duration.`,
     `Themes can set <a href="#api"><code>--ui-dialog-radius</code></a> for a corner radius of its own.`,
     {
@@ -561,7 +562,7 @@ export const whatsNew = {
       react: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
       svelte: `The <a href="#basics">title</a> is <code>--ui-font-size-h4</code>, like the <code>Dialog</code> title, and <code>--_title-font-size</code> changes it.`,
     },
-    `<a href="#basics">Content</a> is a stack with <code>--ui-space-3</code> between its children, like <code>Dialog</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow.`,
+    `<a href="#basics">Content</a> is a stack with <code>--ui-space-3</code> between its children, like <code>Dialog</code> content, so paragraphs don't touch. Content with inline children keeps the normal flow, and a focusable content draws its focus ring inside the drawer.`,
     slots(
       `Breaking: the page no longer <a href="#basics">locks scrolling</a> by default. Set <code>scrollLock</code>, and pass the <code>id</code> the trigger points at.`,
     ),

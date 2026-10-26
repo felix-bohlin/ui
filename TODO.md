@@ -64,7 +64,22 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 ---
 
+- [ ] (5) Select (Svelte): in Chromium, a Svelte `Select` whose bound value is `undefined` renders with nothing selected whenever the page has a document-wide `MutationObserver`, which browser extensions, analytics and Playwright tracing add. Svelte 5.56 and older re-apply `select.__value` from their own observer on the `<selectedcontent>` mutations Chromium makes, before the binding effect has set `__value`, so `selectedIndex` turns -1 and the effect then finds no `:checked` option. `initialValue()` covers an item with `selected: true`, but a select whose first option is the default, or whose options come from children, still ends up empty. Svelte 5.57.0 ignores `<selectedcontent>` mutations (`packages/opui/components/Select/Select.svelte:37-39`, `packages/opui/package.json`, `pnpm-workspace.yaml`)
+  - Summary: In Chrome, a Svelte Select can show no option at all when an extension or script on the page watches the DOM.
+  - Recommended: Fix with option A. The docs and tests already run on Svelte 5.57.2, and users on older Svelte keep the bug otherwise.
+  - Fix: the catalog is on Svelte 5.57.2, so the docs and tests no longer hit it, and `client-render.spec.ts` compares each select's selection with the server markup. What's left is the package's peer range, which still allows 5.29.
+  - Options:
+    - A (recommended): raise the `svelte` peer range to `^5.57.0`, with a `Changed` entry in the CHANGELOG.
+    - B: keep the range and say in the Select docs that Chromium needs Svelte 5.57 or later.
+
 ## Docs
+
+- [ ] (2) Docs: nothing checks internal links and anchors. `src/utils/whats-new.ts` alone has 655 `href="#…"` links into component pages, and a renamed heading leaves them pointing at nothing without a failure (`src/utils/whats-new.ts`, `src/docs/components/`)
+  - Summary: A renamed heading silently breaks the What's new and other in-page links that point at it.
+  - Recommended: Fix with option A. A post-build check is fast and covers every page and link at once.
+  - Options:
+    - A (recommended): a post-build `scripts/check-links.mjs` that reads `dist/` with parse5 and fails on an internal `href` whose page or `#id` doesn't exist, run at the end of `pnpm build`.
+    - B: an e2e spec that crawls the built site.
 
 ## Limitations
 
@@ -158,6 +173,22 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): a `Release` workflow, started from the Actions tab with the version, runs `release.mjs` and opens the pull request with `GITHUB_TOKEN`. Needs "Allow GitHub Actions to create and approve pull requests" in the repository settings (Settings, Actions, General, Workflow permissions), which also lets the `After release` workflow open its pull request instead of linking the compare page.
     - B: `release.mjs` runs on the maintainer's machine and opens the pull request with their `gh` login, and only the tagging on merge runs in CI.
+- [ ] (1) Tests: "select keeps its padding when a script adds the button" only asserts that the padding isn't `0px`, so a wrong padding of any other size passes (`tests/e2e/interaction.spec.ts`)
+  - Summary: One Select test would still pass with any wrong padding that isn't zero.
+  - Recommended: Fix. Comparing with the token is a one-line change.
+  - Fix: compare it with the field's inline padding token resolved on the same element.
+- [ ] (1) Tests: Tabs are only tested with one ArrowRight. ArrowLeft, wrapping from the last tab and the Overflow example scrolling a focused tab into view aren't tested, and CHECKS.md lists the last as a manual check (`tests/e2e/interaction.spec.ts`)
+  - Summary: Tab keyboard wrapping and scrolling a focused tab into view are only checked by hand.
+  - Recommended: Fix. Both are short additions to the existing Tabs test.
+  - Fix: extend the Basics test with ArrowLeft and the wrap, and add an Overflow test that tabs to the last tab and checks that it's inside the scroller's box.
+- [ ] (1) Tests: the Carousel test only clicks the next scroll button. The markers and the rule that a carousel doesn't scroll smoothly with reduced motion or `.ui-motion-off` aren't tested (`tests/e2e/interaction.spec.ts`, `packages/opui/css/components/carousel.css`)
+  - Summary: Carousel markers and the reduced-motion scrolling rule are only checked by hand.
+  - Recommended: Fix. The existing next-button test already shows how to reach the pseudo-elements.
+  - Fix: click a marker and check `scrollLeft` and the active marker, and check `scroll-behavior` with `.ui-motion-off`, skipped like the next-button test where `::scroll-button()` is missing.
+- [ ] (1) Tests: `range.js` updates a `data-live` output again after a form reset, but no example puts a Range in a form, so the reset path never runs (`packages/opui/css/js/range.js`)
+  - Summary: Resetting a form doesn't have a test that the range's shown value follows.
+  - Recommended: Fix. A form with a reset button in one example covers it.
+  - Fix: give the Range Value example a form with a reset button, and test that moving the slider and resetting puts the output back.
 - [ ] (2) Tokens: there is no Figma kit. Peers build one from their tokens: Primer generates Figma variables from its token files, Material has Theme Builder, and Carbon, Spectrum and Nord ship kits. `tokens.json` is the starting point, but its values are CSS expressions (`var()`, `light-dark()`, relative colors), so a kit needs them resolved per mode first (`packages/opui/tokens.json`, `src/utils/tokens-json.ts`)
   - Summary: There is no Figma kit, and tokens.json holds CSS expressions that a kit would need resolved per mode first.
   - Recommended: Fix with option A. A resolved-tokens export is a small script over the existing `tokens.json` and is what every Figma variables importer needs.
@@ -209,6 +240,20 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): npm trusted publishing (OIDC). Needs the trusted publisher configured on npmjs.com for `opui-css` (package settings, GitHub Actions, repository `felix-bohlin/ui`, workflow `publish.yml`), which only the package owner can add.
     - B: an npm automation token in an `NPM_TOKEN` repository secret, read by `publish.yml`. Provenance works the same, but the token has to be created, stored and rotated.
+- [ ] (2) Tests: the check scripts have no tests of their own. They only run on the tree, which passes, so a pattern that breaks would pass everything too (`scripts/check-css-vars.mjs`, `scripts/sort-css.mjs`, `scripts/check-characters.mjs`, `scripts/check-components.mjs`, `scripts/stylelint-logical-shorthands.mjs`)
+  - Summary: If a check script's pattern breaks, `pnpm check` keeps passing without noticing.
+  - Recommended: Fix. Each check gets one known-bad fixture, and the stylelint plugin needs no change to test.
+  - Fix: export each script's core as a function of its input and test it on a known-bad fixture per rule. The stylelint plugin can be tested as it is with `stylelint.lint({ code, config })`.
+- [ ] (2) Tests: nothing checks that the invalid styles only show after interaction or submit (`:user-invalid`), which CHECKS.md lists as a manual check for Checkbox and TextField (`packages/opui/css/components/text-field.css`, `packages/opui/css/components/checkbox.css`)
+  - Summary: Nothing guards that fields wait for the user to interact before they look invalid.
+  - Recommended: Fix. One test on the TextField Validation example covers the rule.
+  - Fix: on the TextField Validation example, check that the border starts in the normal color and turns to the invalid color after typing an invalid value and leaving the field.
+- [ ] (2) CI: one `update-snapshots` label accepts every visual change in the pull request at once, and the bot commit lists nothing to review, so a regression rides along with an intended change unless someone opens every image (`.github/workflows/update-snapshots.yml:30`, `package.json`)
+  - Summary: Updating the visual baselines accepts every change at once without saying which images moved.
+  - Recommended: Fix with option A. It keeps how baselines are made and only adds the list to review.
+  - Options:
+    - A (recommended): write the changed and added images to the job summary and a PR comment.
+    - B: run `--update-snapshots=changed` without `rm -rf`, and delete baselines without an example in a separate step.
 
 ## To check
 

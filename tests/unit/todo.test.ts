@@ -682,6 +682,7 @@ describe("TODO.md", () => {
       "Accessibility",
       "Bugs",
       "Docs",
+      "Future plans",
       "Limitations",
       "Questions",
       "Suggestions",
@@ -741,6 +742,7 @@ describe("TODO.md", () => {
     "Tests",
     "Tokens",
     "Tooling",
+    "Web components",
   ]
   const names = new Set([
     ...AREAS,

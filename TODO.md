@@ -129,6 +129,66 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: an e2e spec that crawls the built site.
   - Fixed with option A: `scripts/check-dist.mjs` (`pnpm check-dist`) runs at the end of `pnpm build`. It parses every page in `dist` with parse5, follows redirect pages, and fails on an internal link to a missing page or `#id`, a duplicate id, a missing `.md` alternate, a search index URL that doesn't exist and a dead link in `llms.txt` or a `.md` page. It found the Tabs note's `#variants`, the Migrating guide's relative `MIGRATING-legacy.md`, the release checks' `RELEASING.md`, 54 `css-variables` ids on each API index, the Menu Custom `#menu` and the framework variants and `.md` files that `/checks` and `/todo` advertised; all fixed. Placeholder fragments on the block previews, stress and fixture pages are skipped, and same-page fragments inside an example preview are only checked on component pages, since examples link their own page's sections.
 
+## Future plans
+
+Custom elements (web components) the library could add, for behavior that HTML and CSS can't give a component.
+
+- [ ] (1) Range: `range.js` only wires the outputs that exist when `initRange()` runs, so markup that htmx, Turbo, `innerHTML` or a `<template>` adds later needs another call, and its `astro:after-swap` listener ties the framework-agnostic helper to Astro (`packages/opui/css/js/range.js:1-44`, `packages/opui/components/Range/Range.astro:136-139`)
+  - Summary: A Range added to the page after load doesn't update its value readout until `initRange()` runs again.
+  - Recommended: Fix. Two delegated listeners replace the init call, and the markup stays as it is.
+  - Fix: listen for `input` and `reset` once on `document` (both bubble) and update the `output[data-live]` of the event's `.ui-range`, with `resetValue()` after a reset, so importing `range.js` is all a page does. That drops the `WeakSet` and the `astro:after-swap` listener; keep `initRange()` as an export that does nothing, so existing pages don't break. The starting text and `aria-valuetext` come from the markup, as the Astro component already renders them. A custom element doesn't fit here: the root is a `<label>`, and a wrapper would add parity drift in React, Svelte and Vue.
+- [ ] (1) Textarea, TextField: a field with `maxlength` doesn't say how many characters are left, and counting them needs a script (`src/component-examples/textarea/EndText.html:1-7`)
+  - Summary: Fields with a character limit don't show how many characters are left.
+  - Recommended: Fix. The end text already has room for the count.
+  - Fix: an `<opui-character-count>` in the end text reads the field's `maxlength`, shows the characters left and announces them politely only near the limit, so each keystroke isn't read out. Without the script the end text shows only its hint. Add it to `Textarea` and `TextField` in all five formats.
+- [ ] (1) TextField: a password field can't show its text. The sign-up block's password field has no reveal toggle, and a toggle needs a script to switch the input's `type` (`src/blocks/sign-up.html:105-121`, `packages/opui/css/components/text-field.css:105`)
+  - Summary: Password fields have no show password toggle, so users can't check what they typed.
+  - Recommended: Fix. A small element in the end affix keeps the field's markup and CSS.
+  - Fix: an `<opui-password-toggle class="ui-end">` as the field's end affix, so `.ui-field > .ui-end` still matches. It holds a `.ui-button` that switches the input between `type="password"` and `type="text"`, sets `aria-pressed` and keeps focus where it is. Without the script `:not(:defined)` hides it and the field is a plain password field. Add it to `TextField` in all five formats.
+- [ ] (1) Web components: dates in the blocks are fixed text, such as "Yesterday" in the inbox, so they go stale, and relative wording in the reader's language needs a script (`src/blocks/inbox.html:400-402`, `src/blocks/notifications.html:127-129`)
+  - Summary: Dates like "Yesterday" are fixed text, so they go stale and don't follow the reader's language.
+  - Recommended: Fix. The element is small, and the server text stays as the fallback.
+  - Fix: an `<opui-relative-time>` around a `<time datetime>` rewrites its text with `Intl.RelativeTimeFormat` in the page's `lang`, puts the full date in `title`, and refreshes on a timer that slows down as the date gets older. Without the script the server text shows.
+- [ ] (2) Table: sorting a table needs a script. The data-table block marks Customer as sorted with a fixed `aria-sort`, and its headers can't change the order (`src/blocks/data-table.html:156-168`)
+  - Summary: Table headers can't sort the rows, and the sorted column in the data-table block is fixed.
+  - Recommended: Fix with option A. Server sorting keeps working without the script, and the element adds sorting in the page.
+  - Options:
+    - A (recommended): an `<opui-sortable-table>` around the `.ui-table` turns each header marked `data-sort` into a button, reorders the `tbody` rows by the cell text or a `data-sort-value`, sets `aria-sort` on the sorted header and announces the new order. Without the script the headers are links to a server-sorted page, or plain text.
+    - B: document server sorting only: the headers are links with a `sort` query parameter, and the page renders `aria-sort`.
+- [ ] (2) Web components: a color picker needs a script, and `<input type="color">` only gives hex, which the library's colors never use. The Theme builder has a light-DOM `<oklch-input>` for it, but it lives in the docs site and isn't form-associated (`src/utils/oklch-input.ts:83`, `src/utils/oklch-input.ts:297-299`)
+  - Summary: There is no OKLCH color field, and the native color input only gives hex values.
+  - Recommended: Fix. The element already exists on the docs site and mostly needs to move into the package.
+  - Fix: move `oklch-input.ts` and the color helpers it imports into the package as `<opui-color-field>`, with `Range` sliders and a `TextField`. Make it form-associated (`static formAssociated = true` and `ElementInternals`), so it submits its `oklch()` value and takes part in validation and form reset. The Theme builder then imports it from the package. Without the script it is a `TextField` that takes an `oklch()` string.
+- [ ] (2) Web components: copying text to the clipboard needs a script. The docs site's code blocks do it with their own listener, and the library has no copy button (`src/components/Code.astro:69`, `src/components/Code.astro:292-304`)
+  - Summary: There is no copy button for invite links, codes or snippets, so each page writes its own.
+  - Recommended: Fix. Custom commands keep the button a plain `Button`.
+  - Fix: the button stays a `.ui-button` with `commandfor` and `command="--copy"`, since a wrapper would break `packages/opui/css/components/button-group.css:55` and `packages/opui/css/components/form.css:97`. Its target is an `<opui-copy>` around the text or field, which handles the `command` event: it copies the field's value or its own text with `navigator.clipboard.writeText()`, shows a copied state on the button for a moment and announces "Copied". Without the script `:not(:defined)` hides the button and the text can still be selected.
+- [ ] (2) Web components: there is no toast. A confirmation after an action, such as saving the account settings form, needs a script to show, stack and dismiss it (`src/blocks/account-settings.html:154-156`)
+  - Summary: There is no toast, so a page can't confirm an action like a saved form without its own script.
+  - Recommended: Fix. The top layer and invoker commands do most of the work, and the element adds the queue and the timing.
+  - Fix: an `<opui-toaster>` region shown with `popover="manual"`, with a `show()` method and a `--toast` command for buttons. It stacks toasts, dismisses each after a delay that pauses on hover and focus, gives each a close button, and announces it through a polite live region that stays in the page. The severity colors come from `Callout`. Without the script nothing shows, so a page that must confirm without one renders a `Callout`.
+- [ ] (3) Checkbox: a select all checkbox needs a script. The Indeterminate example carries its own inline script, and the data-table block's Select all customers checkbox does nothing (`src/component-examples/checkbox/Indeterminate.html:24-48`, `src/blocks/data-table.html:162-167`)
+  - Summary: Select all checkboxes do nothing in plain HTML unless the page writes its own script.
+  - Recommended: Fix. It repairs the data-table block and replaces the example's inline script.
+  - Fix: an `<opui-select-all>` around the group (the `fieldset` or the `table`), so no `.ui-checkbox` gets a wrapper. The checkbox marked `data-select-all` checks and unchecks the other checkboxes in it, is `indeterminate` while they're mixed, and follows form reset. It covers what `checkbox.js` does today, so `activateIndeterminate()` can move into it. Without the script the checkboxes are independent.
+- [ ] (3) Web components: the package ships no custom elements, only two init helpers, so behavior that HTML and CSS can't give a component has nowhere to live, and a page calls `initRange()` or `activateIndeterminate()` again after it adds markup (`packages/opui/css/js/checkbox.js:1-31`, `packages/opui/css/js/range.js:1-44`, `packages/opui/package.json:34-37`, `src/docs/guide/concepts.astro:431-501`)
+  - Summary: The library has no home for components that need JavaScript, so each one would invent its own setup.
+  - Recommended: Fix with option A. One implementation serves all five frameworks, instead of the element plus three framework copies of the behavior.
+  - Fix: set the ground rules before the first element, so the other Future plans items share them.
+    - Light DOM, no Shadow DOM. The components are styled by global `ui-` classes in cascade layers, `:has()` between parts and the themes, which a shadow root would cut off.
+    - The element is the root, or the root of a part, with its `ui-` class, never a wrapper around an existing root. Child selectors such as `packages/opui/css/components/form.css:90`, `packages/opui/css/components/table.css:55` and `packages/opui/css/components/button-group.css:55` would stop matching.
+    - The markup works before the element upgrades, and `:not(:defined)` hides the parts that only work with it.
+    - Tags start with `opui-`, since custom element names are global, and classes stay `ui-`. Each file defines its element once, behind a `customElements.get()` check like `src/utils/oklch-input.ts:297`, and does nothing on the server.
+    - Elements live in `packages/opui/elements/`, one file each, exported as `opui-css/elements/*` and listed in `sideEffects`. The JavaScript section of Concepts and the Browser support page list them, and interaction tests run in Chromium, Firefox and WebKit.
+    - Each one is a component like the others: Astro, React, Svelte and Vue files, an `api.ts`, a docs page, examples in five formats, a CHANGELOG entry and a What's new note.
+  - Options:
+    - A (recommended): the element holds the behavior, and the Astro, React, Svelte and Vue components render the same tag and load its definition on the client. A framework adds only what it needs to control a value, such as React's `value` and `onChange`.
+    - B: the element is for HTML and Astro. React, Svelte and Vue render the same tag but do the behavior themselves, as they do for Range today.
+- [ ] (3) Web components: the quantity fields have no number stepper. The shopping cart's Decrease and Increase buttons do nothing, since stepping a value needs a script, and the product page falls back to a bare number input (`src/blocks/shopping-cart.html:177-227`, `src/blocks/product-detail.html:306-318`)
+  - Summary: The cart's quantity buttons do nothing when pressed, and there is no stepper component to build them with.
+  - Recommended: Fix. It repairs the cart block, and the stepper is on the New components list under Suggestions.
+  - Fix: an `<opui-number-stepper class="ui-number-stepper">` around a number `TextField` and two `.ui-button`s with `commandfor` naming the input and `command="--step-down"` or `command="--step-up"`. The element handles the `command` event: it calls `stepDown()` or `stepUp()`, fires `input` and `change`, disables a button at `min` or `max`, repeats while a button is held and follows form reset. The cart's input becomes `type="number"`. Without the script it is a plain number input with the browser's spin buttons, and `:not(:defined)` hides the two buttons. If browsers add built-in step commands for number inputs, the element is no longer needed.
+
 ## Limitations
 
 ## Questions

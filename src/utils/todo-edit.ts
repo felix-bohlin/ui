@@ -4,6 +4,7 @@ export const SECTIONS = [
   "Accessibility",
   "Bugs",
   "Docs",
+  "Future plans",
   "Limitations",
   "Questions",
   "Suggestions",

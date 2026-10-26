@@ -56,6 +56,7 @@ Group the items under the `TODO.md` section they belong in, sorted by severity, 
 - `## Accessibility`
 - `## Bugs`
 - `## Docs`
+- `## Future plans`
 - `## Limitations`
 - `## Questions`
 - `## Suggestions`

@@ -52,6 +52,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Summary: One split button test sometimes fails in WebKit because the menu stays open after an item is clicked.
   - Recommended: Fix. A trace from a failing run shows where the click goes.
   - Fix: on the next failing WebKit run, open the test's trace from the run's Playwright report and check whether the click reached the item, whether `hide-popover` ran, and whether the menu opened again.
+  - Note: it failed again in Astro on CI run 40362563247 (`b0116af2`). The click on "Save as draft" went through, and the menu was still visible 5 seconds later. Four frameworks have now failed it, so the cause isn't one framework's markup.
 - [x] (2) Tests: the Playwright projects pick the specs that also run in Firefox and WebKit with an allowlist regex, which leaves out `client-render.spec.ts` and `todo.spec.ts`, although AGENTS.md says every spec without screenshots runs there (`playwright.config.ts:10-11`, `playwright.config.ts:37`, `playwright.config.ts:46`, `AGENTS.md:83`)
   - Summary: Two specs without screenshots only run in Chromium, though the guide says they also run in Firefox and WebKit.
   - Recommended: Fix. An opt-out list can't drift from the rule.

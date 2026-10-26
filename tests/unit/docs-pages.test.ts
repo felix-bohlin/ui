@@ -59,6 +59,13 @@ const BLOCK = new Set([
 
 const FRAMEWORK_SLOTS = new Set<string>(["components", ...FRAMEWORK_IDS])
 
+const WRAPPED_SLOTS = new Set([
+  "accessibility",
+  "anatomy",
+  "under-the-hood",
+  "usage",
+])
+
 const PAGES = readdirSync("src/docs/components")
   .filter((file) => file.endsWith(".astro"))
   .map((file) => file.replace(/\.astro$/, ""))
@@ -107,7 +114,7 @@ const conditionalTag = (node: Node) => quoted(node, "as") ?? "span"
 const isBlock = (node: Node) =>
   "name" in node &&
   (node.name === "Conditional"
-    ? conditionalTag(node) === "div"
+    ? BLOCK.has(conditionalTag(node))
     : BLOCK.has(node.name))
 
 const hasBlock = (node: Node): boolean =>
@@ -166,7 +173,13 @@ test("links to docs pages use DocLink", () => {
 test("links don't hard-code a framework", () => {
   expect(
     find((node) => {
-      const href = quoted(node, "href")
+      const raw = attribute(node, "href")
+      const href =
+        raw?.kind === "quoted" || raw?.kind === "template-literal"
+          ? raw.value
+          : raw?.kind === "expression"
+            ? raw.value.match(/^\s*["'`](\/[^"'`$]*)/)?.[1]
+            : undefined
       if (href && frameworkIn(href)) return `href="${href}"`
       const code =
         node.type === "frontmatter"
@@ -197,9 +210,19 @@ test("sections start with a heading that has an id", () => {
       if (node.name !== "section") return
       const level =
         2 +
-        ancestors.filter(
-          (ancestor) => "name" in ancestor && ancestor.name === "section",
-        ).length
+        ancestors.filter((ancestor, index) => {
+          const parent = ancestors[index - 1]
+          const slot = quoted(ancestor, "slot") ?? ""
+          return (
+            ("name" in ancestor && ancestor.name === "section") ||
+            (!!parent &&
+              "name" in parent &&
+              parent.name === "Component" &&
+              (WRAPPED_SLOTS.has(slot) ||
+                (slot === "installation" &&
+                  !!attribute(parent, "installationTabs"))))
+          )
+        }).length
       const [first] = content(node)
       return first &&
         "name" in first &&

@@ -1,8 +1,14 @@
 import { execFileSync } from "node:child_process"
 import fs from "node:fs"
 import path from "node:path"
+import { format } from "prettier"
 import ts from "typescript"
-import { barrelExports, classNamesIn } from "../src/utils/package-source.js"
+import { PACKAGE_FRAMEWORK_IDS } from "../src/utils/framework.js"
+import {
+  BARREL_TYPES,
+  barrelExports,
+  classNamesIn,
+} from "../src/utils/package-source.js"
 
 const version = process.argv[2]
 if (!version) {
@@ -44,18 +50,26 @@ const inputs = Object.fromEntries(
     .filter(([, names]) => names.length > 0),
 )
 
+const OLDER_TYPE_FILES = { vue: ["types.d.vue.ts"] }
+
+const barrel = (framework) =>
+  path.join(cache, "packages/opui", framework, "index.ts")
+const shipped = PACKAGE_FRAMEWORK_IDS.filter((framework) =>
+  fs.existsSync(barrel(framework)),
+)
 const exported = new Set(
-  ["astro", "vue"].flatMap((framework) => {
-    const barrel = path.join(cache, "packages/opui", framework, "index.ts")
-    if (!fs.existsSync(barrel)) return []
-    return barrelExports(fs.readFileSync(barrel, "utf8")).map(
+  shipped.flatMap((framework) =>
+    barrelExports(fs.readFileSync(barrel(framework), "utf8")).map(
       ({ name }) => name,
-    )
-  }),
+    ),
+  ),
 )
 
 const componentsRoot = path.join(cache, "packages/opui/components")
-const typeFiles = ["types.astro.ts", "types.d.vue.ts", "types.vue-props.ts"]
+const typeFiles = shipped.flatMap((framework) => [
+  `${BARREL_TYPES[framework]}.ts`,
+  ...(OLDER_TYPE_FILES[framework] ?? []),
+])
 const files = fs
   .readdirSync(componentsRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
@@ -106,7 +120,11 @@ for (const file of files) {
   }
 }
 
-const classes = classNamesIn([path.join(cache, "packages/opui/css")])
+const classes = classNamesIn(
+  ["css", "core"]
+    .map((dir) => path.join(cache, "packages/opui", dir))
+    .filter((dir) => fs.existsSync(dir)),
+)
 
 const sorted = (object) =>
   Object.fromEntries(
@@ -118,19 +136,23 @@ const sorted = (object) =>
       ]),
   )
 
+const output = "tests/unit/released-api.json"
 fs.writeFileSync(
-  "tests/unit/released-api.json",
-  `${JSON.stringify(
-    {
-      classes: [...classes].toSorted(),
-      inputs,
-      inputsVersion,
-      props: sorted(props),
-      version,
-    },
-    null,
-    2,
-  )}\n`,
+  output,
+  await format(
+    JSON.stringify(
+      {
+        classes: [...classes].toSorted(),
+        inputs,
+        inputsVersion,
+        props: sorted(props),
+        version,
+      },
+      null,
+      2,
+    ),
+    { filepath: output },
+  ),
 )
 fs.rmSync(cache, { force: true, recursive: true })
 console.log(

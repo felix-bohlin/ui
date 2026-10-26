@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs"
 import { expect, test } from "vitest"
 import type { CustomProperties } from "../../src/component-api/types"
 import { frameworkProps } from "../../src/utils/component-source"
+import { PACKAGE_FRAMEWORK_IDS } from "../../src/utils/framework"
 import { classNamesIn } from "../../src/utils/package-source"
 import released from "./released-api.json"
 
@@ -22,7 +23,7 @@ const native = /^(aria-[a-z]+|command|commandfor|id|interestfor|name|open)$/
 
 const currentProps = (source: string, component: string) =>
   new Set(
-    (["astro", "vue"] as const).flatMap((framework) => [
+    PACKAGE_FRAMEWORK_IDS.flatMap((framework) => [
       ...frameworkProps({ component, source }, framework).keys(),
     ]),
   )

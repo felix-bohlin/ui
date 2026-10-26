@@ -10,7 +10,7 @@ import {
   FRAMEWORK_IDS,
   PACKAGE_FRAMEWORK_IDS,
 } from "../src/utils/framework.js"
-import { barrelExports } from "../src/utils/package-source.js"
+import { BARREL_TYPES, barrelExports } from "../src/utils/package-source.js"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 const componentsDir = join(root, "packages/opui/components")
@@ -99,13 +99,6 @@ const TYPE_FILES = [
 const BARRELS = Object.fromEntries(
   PACKAGE_FRAMEWORK_IDS.map((framework) => [framework, `.${framework}`]),
 )
-
-const BARREL_TYPES = {
-  astro: "types.astro",
-  react: "types.react",
-  svelte: "types.svelte",
-  vue: "types.vue-props",
-}
 
 const COMPONENT_FILES = {
   astro: ".astro",

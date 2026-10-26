@@ -87,12 +87,16 @@
     ".ui-link",
     ".ui-list",
     ".ui-mark",
+    ".ui-motion-debug",
+    ".ui-motion-off",
+    ".ui-motion-on",
     ".ui-multiline",
     ".ui-neutral",
     ".ui-not-rich-text",
     ".ui-outlined",
     ".ui-overline",
     ".ui-p",
+    ".ui-palette",
     ".ui-prefix",
     ".ui-primary",
     ".ui-progress",
@@ -284,12 +288,11 @@
       "--_elevated-shadow",
       "--_max-inline-size",
       "--_motion",
-      "--_scroll-shadow"
+      "--_scroll-shadow",
+      "--_title-font-size"
     ],
     "divider": ["--_divider-border-color"],
     "drawer": [
-      "--_actions-gap",
-      "--_actions-padding",
       "--_backdrop-bg-color",
       "--_backdrop-blur",
       "--_bg-color",
@@ -298,12 +301,15 @@
       "--_border-width",
       "--_content-padding",
       "--_direction",
+      "--_footer-gap",
+      "--_footer-padding",
       "--_header-padding",
       "--_inline-size",
       "--_motion",
       "--_scroll-shadow",
       "--_shadow",
-      "--_text-color"
+      "--_text-color",
+      "--_title-font-size"
     ],
     "layout": [
       "--_gap",
@@ -430,7 +436,7 @@
       "--_shift",
       "--_text-color"
     ],
-    "typography": ["--_count-digits"]
+    "typography": ["--_count-digits", "--_font-scale"]
   },
   "inputsVersion": "6.0.0",
   "props": {

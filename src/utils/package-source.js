@@ -2,6 +2,13 @@
 import fs from "node:fs"
 import path from "node:path"
 
+export const BARREL_TYPES = {
+  astro: "types.astro",
+  react: "types.react",
+  svelte: "types.svelte",
+  vue: "types.vue-props",
+}
+
 const BARREL_EXPORT = /^export \{ default as (\w+) \} from "([^"]+)"/gm
 const COMPONENT_FOLDER = /^\.\.\/components\/([^/]+)\//
 const CLASS_NAME = /\.(ui-[a-z0-9-]+)/g

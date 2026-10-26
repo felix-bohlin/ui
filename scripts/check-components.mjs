@@ -31,6 +31,50 @@ const SCRIPTS = [
   [".vue", /<script\b[^>]*>([\s\S]*?)<\/script>/g],
 ]
 
+const TYPES_FILES = [
+  [".astro", "./types.astro"],
+  [".react.tsx", "./types.react"],
+  [".svelte", "./types.svelte"],
+  [".vue", "./types.vue-props"],
+]
+
+const checkTypesImport = (file, path, source) => {
+  const own = TYPES_FILES.find(([extension]) => file.endsWith(extension))?.[1]
+  if (!own) return
+  for (const [, from] of source.matchAll(
+    /from\s+["'](\.\/types\.[\w-]+)["']/g,
+  )) {
+    if (from !== own) {
+      report(path, `imports types from ${from}; import them from ${own}`)
+    }
+  }
+}
+
+const classesIn = (item) => {
+  const quoted = /^(["'`])([\s\S]*)\1$/.exec(item)
+  if (quoted) return quoted[2].split(/\s+/)
+  if (item.startsWith("{")) {
+    return [
+      ...item.matchAll(
+        /[{,]\s*(?:(["'`])([^"'`]+)\1|([A-Za-z_$][\w$-]*))\s*:/g,
+      ),
+    ].map(([, , quotedKey, key]) => quotedKey ?? key)
+  }
+  return [
+    ...item.matchAll(/\?\s*(["'`])([^"'`]*)\1\s*:\s*(["'`])([^"'`]*)\3/g),
+  ].flatMap(([, , yes, , no]) => [yes, no])
+}
+
+const checkClassPrefix = (file, lists, label) => {
+  for (const items of lists) {
+    for (const name of items.flatMap(classesIn).filter(Boolean)) {
+      if (!name.startsWith("ui-")) {
+        report(file, `${label} has the class "${name}"; prefix it with ui-`)
+      }
+    }
+  }
+}
+
 const CLASS_LISTS = [
   [".astro", /class:list=\{\[/g, "class:list"],
   [".react.tsx", /\bcx\(\[/g, "cx"],
@@ -365,6 +409,7 @@ for (const folder of folders) {
     const source = await readFile(path, "utf-8")
 
     if (/^types.*\.ts$/.test(file)) checkSortedKeys(path, source)
+    checkTypesImport(file, path, source)
     if (file.endsWith(".react.tsx")) {
       const svelte = `${basename(file, ".react.tsx")}.svelte`
       const snippets = files.includes(svelte)
@@ -387,6 +432,7 @@ for (const folder of folders) {
         pattern,
       )
       checkClassOrder(path, lists, label)
+      checkClassPrefix(path, lists, label)
       tokens.set(file, classTokens(lists))
     }
     if (file.endsWith(".react.tsx") || file === "context.react.ts") {
@@ -453,8 +499,38 @@ for (const slug of exampleFolders) {
 
 const astroNames = exportedNames(barrels.astro)
 const astroTypes = exportedTypes(barrels.astro)
+const firstUnsorted = (list) =>
+  list.findIndex(
+    (item, index) => index > 0 && list[index - 1].localeCompare(item, "en") > 0,
+  )
+
 for (const [framework, source] of Object.entries(barrels)) {
   const barrel = join(root, "packages/opui", framework, "index.ts")
+  const values = barrelExports(source).map(({ name }) => name)
+  const value = firstUnsorted(values)
+  if (value !== -1) {
+    report(
+      barrel,
+      `sort the exports: ${values[value]} goes before ${values[value - 1]}`,
+    )
+  }
+  const sources = typeExports(source).map(({ from }) => from)
+  const line = firstUnsorted(sources)
+  if (line !== -1) {
+    report(
+      barrel,
+      `sort the type exports by source: ${sources[line]} goes before ${sources[line - 1]}`,
+    )
+  }
+  for (const { names } of typeExports(source)) {
+    const at = firstUnsorted(names)
+    if (at !== -1) {
+      report(
+        barrel,
+        `sort the type names: ${names[at]} goes before ${names[at - 1]}`,
+      )
+    }
+  }
   const names = exportedNames(source)
   const missing = astroNames.filter((name) => !names.includes(name))
   const extra = names.filter((name) => !astroNames.includes(name))

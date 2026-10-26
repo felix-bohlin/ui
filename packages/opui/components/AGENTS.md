@@ -10,14 +10,14 @@ When implementing or updating a component, ensure:
 
 - [ ] **All Frameworks**: Every `.astro` file has a matching `.react.tsx`, `.svelte` and `.vue` file in the same folder (`pnpm check-components` fails otherwise).
 - [ ] **Title Export**: `export const title = "Component Name"` is present in `<Name>.astro`.
-- [ ] **Props Type**: Astro imports `Props` from `./types.astro`, React imports `Props` from `./types.react`, Svelte imports `Props` from `./types.svelte`, Vue imports `Props` and `Slots` from `./types.vue-props`. Every type file names the root's props `Props`, and each part's props after the part, `<Root><Part>Props` (`CardActionsProps`, `TableCellProps`). `types.ts` names the named slots `Slots<S>` (`Badge`, `Range`) and declares no type for the default slot alone: `children` comes from `ComponentProps` and `SvelteHTMLElements`, and `types.vue-props.ts` names its slots `Slots` (`DefaultSlots` from `../vue` when the default slot is the only one).
+- [ ] **Props Type**: each framework imports its types from its own file (`./types.astro`, `./types.react`, `./types.svelte`, `./types.vue-props`), which `pnpm check-components` checks. Every type file names the root's props `Props`, and each part's props after the part, `<Root><Part>Props` (`CardActionsProps`, `TableCellProps`). `types.ts` names the named slots `Slots<S>` (`Badge`, `Range`) and declares no type for the default slot alone: `children` comes from `ComponentProps` and `SvelteHTMLElements`, and `types.vue-props.ts` names its slots `Slots` (`DefaultSlots` from `../vue` when the default slot is the only one).
 - [ ] **Sorting**: Props and destructuring are sorted alphabetically, slots last with `children` first. Classes follow section 3 (base, states, variants, `className`), in the same order in every framework. `pnpm check-components` checks the keys of every object type in the type files, the order of the destructured props (React's slots are the Svelte twin's snippets), `className` last, and the root class order against Astro.
 - [ ] **Rest Props**: `...rest` is captured and spread onto the root element in Astro, React and Svelte. Vue falls through attributes by default.
 - [ ] **Class Management**: Used `class:list` in Astro, a `cx([...])` array in React, a `class` array in Svelte and a `:class` array in Vue, in the same order.
 - [ ] **ID Stability**: Used `createId(Astro.locals)` in Astro, `useId()` in React, `$props.id()` in Svelte and `useId()` in Vue for any internal element linking.
 - [ ] **Accessibility**: ARIA labels, roles, and relationships are correctly handled.
 - [ ] **Parts or Slots**: Containers expose parts (section 4); form controls and small components use props and named slots.
-- [ ] **Exports**: The component and its `Props` type are exported from `packages/opui/astro/index.ts`, `packages/opui/react/index.ts`, `packages/opui/svelte/index.ts` and `packages/opui/vue/index.ts`, sorted, the root's as `Props as <Root>Props` and each part's under its own name (`Props as CardProps`, `CardActionsProps`). `pnpm check-components` checks that the barrels export the same components and types, with each `Props` type from the framework's own types file.
+- [ ] **Exports**: The component and its `Props` type are exported from `packages/opui/astro/index.ts`, `packages/opui/react/index.ts`, `packages/opui/svelte/index.ts` and `packages/opui/vue/index.ts`, sorted, the root's as `Props as <Root>Props` and each part's under its own name (`Props as CardProps`, `CardActionsProps`). `pnpm check-components` checks that the barrels are sorted and export the same components and types, with each `Props` type from the framework's own types file.
 
 ---
 
@@ -166,7 +166,7 @@ Components often share another component's styles (`Accordion` and `Dialog` look
 
 ## 3. Class Management
 
-Use `class:list` exclusively in Astro, `cx([...])` from `../cx` in React, a `class` array in Svelte, and a `:class` array in Vue. Every library-owned class is prefixed with `ui-`; the public prop API stays unprefixed (`<Button size="small" variant="outlined">`) and the component interpolates the prefix when rendering.
+Use `class:list` exclusively in Astro, `cx([...])` from `../cx` in React, a `class` array in Svelte, and a `:class` array in Vue. Every library-owned class is prefixed with `ui-` (`pnpm check-components` checks the class lists); the public prop API stays unprefixed (`<Button size="small" variant="outlined">`) and the component interpolates the prefix when rendering.
 
 Follow this order for readability:
 

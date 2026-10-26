@@ -32,6 +32,7 @@ import {
   entries,
   intended,
 } from "../../scripts/check-ratchets.mjs"
+import { indexProblems } from "../../scripts/generate-search-index.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
 import logicalShorthands from "../../scripts/stylelint-logical-shorthands.mjs"
 
@@ -638,6 +639,40 @@ describe("check-components", () => {
     ).toEqual([
       "exports ItemProps: name the root's props Props and each part's <Root><Part>Props (Props, TabsItemProps)",
     ])
+  })
+})
+
+describe("generate-search-index", () => {
+  const entry = (category: string, id = category) => ({
+    category,
+    description: "A page.",
+    id,
+    title: "Page",
+  })
+
+  test("reports a category without entries, an unknown category and an entry without a description", () => {
+    expect(
+      indexProblems([
+        entry("API"),
+        entry("Blocks"),
+        entry("Component"),
+        entry("Guide"),
+        entry("Notes"),
+        { ...entry("Guide", "guide-empty"), description: "" },
+      ]),
+    ).toEqual([
+      "Unknown search categories: Notes",
+      "Search categories without entries: Learn",
+      "Search entries without a title or description: guide-empty",
+    ])
+  })
+
+  test("accepts an index with every category", () => {
+    expect(
+      indexProblems(
+        ["API", "Blocks", "Component", "Guide", "Learn"].map((id) => entry(id)),
+      ),
+    ).toEqual([])
   })
 })
 

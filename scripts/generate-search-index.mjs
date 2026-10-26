@@ -1,4 +1,4 @@
-import fs from "fs"
+import fs, { realpathSync } from "fs"
 import path from "path"
 import { fileURLToPath, pathToFileURL } from "url"
 import { globby } from "globby"
@@ -13,12 +13,9 @@ import { SEARCH_CATEGORIES } from "../src/utils/search-categories.js"
 
 const CATEGORY_IDS = new Set(SEARCH_CATEGORIES.map((category) => category.id))
 
-const API_LABEL_PATTERN = FRAMEWORKS.map((f) => f.label).join("|")
-const LABEL_TO_ID = Object.fromEntries(FRAMEWORKS.map((f) => [f.label, f.id]))
-
-process.chdir(fileURLToPath(new URL("..", import.meta.url)))
-
-const OUTPUT_FILE = path.resolve("public/search-index.json")
+const OUTPUT_FILE = fileURLToPath(
+  new URL("../public/search-index.json", import.meta.url),
+)
 
 function frameworkUrl(framework, sharedPath) {
   return `/${framework}${sharedPath}`
@@ -85,6 +82,34 @@ function readMarkdownHeadings(file, content) {
   )
 }
 
+/** @param {{ category: string, description: string, id: string, title: string }[]} index */
+export function indexProblems(index) {
+  const unknown = [
+    ...new Set(
+      index
+        .map((item) => item.category)
+        .filter((category) => !CATEGORY_IDS.has(category)),
+    ),
+  ].toSorted()
+  const missing = SEARCH_CATEGORIES.map(({ id }) => id).filter(
+    (id) => !index.some((item) => item.category === id),
+  )
+  const empty = index
+    .filter((item) => !item.title || !item.description)
+    .map((item) => item.id)
+  return [
+    ...(unknown.length > 0
+      ? [`Unknown search categories: ${unknown.join(", ")}`]
+      : []),
+    ...(missing.length > 0
+      ? [`Search categories without entries: ${missing.join(", ")}`]
+      : []),
+    ...(empty.length > 0
+      ? [`Search entries without a title or description: ${empty.join(", ")}`]
+      : []),
+  ]
+}
+
 async function generateIndex() {
   console.log("Generating search index...")
 
@@ -93,7 +118,6 @@ async function generateIndex() {
   const gettingStartedPages = (
     await globby(["src/docs/guide/getting-started/[A-Z]*.astro"])
   ).sort()
-  const apiFiles = (await globby(["src/component-api/**/*.astro"])).sort()
   const apiDataFiles = (await globby(["src/component-api/*/api.ts"])).sort()
 
   /** @type {SearchItem[]} */
@@ -248,52 +272,6 @@ async function generateIndex() {
 
   // Component API tables: index the cell content per framework. The API page
   // itself is framework-aware (lives at /api and /astro/api).
-  for (const file of apiFiles) {
-    const content = fs.readFileSync(file, "utf-8")
-    const folder = path.basename(path.dirname(file))
-    const filename = path.basename(file)
-
-    const match = filename.match(
-      new RegExp(`^(.*)(${API_LABEL_PATTERN})\\.astro$`),
-    )
-    if (!match) continue
-
-    const type = match[2]
-    const frameworkId = LABEL_TO_ID[type]
-    if (!frameworkId) continue
-
-    const name = componentName(folder)
-
-    const cellMatches = content.matchAll(
-      /<TableCell\b[^>]*>(.*?)<\/TableCell\s*>/gs,
-    )
-    const apiContent = []
-    for (const cellMatch of cellMatches) {
-      apiContent.push(
-        cellMatch[1]
-          .replace(/<[^>]*>/g, "")
-          .replace(/\s+/g, " ")
-          .trim(),
-      )
-    }
-
-    const apiUrl = frameworkUrl(frameworkId, "/api") + `#${folder}`
-
-    apiEntries.push([
-      `${folder}/${type}`,
-      {
-        id: `api-${folder}-${frameworkId}`,
-        title: `${name} API`,
-        description: `Reference for ${name} ${type} component.`,
-        headings: apiContent.join(" "),
-        category: "API",
-        frameworkId,
-        type,
-        url: apiUrl,
-      },
-    ])
-  }
-
   for (const file of apiDataFiles) {
     const { default: api } = await import(
       pathToFileURL(path.resolve(file)).href
@@ -359,25 +337,20 @@ async function generateIndex() {
   apiEntries.sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
   index.push(...apiEntries.map(([, entry]) => entry))
 
-  const unknown = index.filter((item) => !CATEGORY_IDS.has(item.category))
-  if (unknown.length > 0) {
-    throw new Error(
-      `Unknown search categories: ${[...new Set(unknown.map((item) => item.category))].toSorted().join(", ")}`,
-    )
-  }
-
-  const empty = index.filter((item) => !item.title || !item.description)
-  if (empty.length > 0) {
-    throw new Error(
-      `Search entries without a title or description: ${empty.map((item) => item.id).join(", ")}`,
-    )
-  }
+  const problems = indexProblems(index)
+  if (problems.length > 0) throw new Error(problems.join("\n"))
 
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(index, null, 2))
   console.log(`Generated index with ${index.length} items at ${OUTPUT_FILE}`)
 }
 
-generateIndex().catch((err) => {
-  console.error(err)
-  process.exit(1)
-})
+if (
+  process.argv[1] &&
+  realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
+  process.chdir(fileURLToPath(new URL("..", import.meta.url)))
+  generateIndex().catch((err) => {
+    console.error(err)
+    process.exit(1)
+  })
+}

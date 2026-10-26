@@ -35,24 +35,34 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Explained: right, and it reaches further than mobile Safari. Option A leans on `interestfor`, which only Chromium has (142 and later; web-features 3.43 lists no Firefox or Safari support). The library has no hover fallback, since `tooltip.css` only styles `:popover-open`, so without the command pair a tooltip never opens in Safari, desktop or iOS, or in Firefox: not on hover, focus or a tap. The pair is what opens it there today, because Invoker Commands work in Safari 26.2 and Firefox 144: a click or a tap toggles it, and since Safari has no `popover="hint"`, it stays until the trigger is pressed again. (The earlier note that the tooltip shows on hover through CSS where `interestfor` is missing was wrong.) So the choice is per trigger. On a button that acts, like Save, the pair makes one press save and toggle the tooltip, and gives Save an expanded state in Chromium. On a button whose only job is to show the text (an info button next to a field, often called a toggletip), the pair is the right tool: the press shows the text, "expanded" is true, and it works in every browser with Invoker Commands, iOS Safari included. Chromium on Android shows interest on a long press of a button, so Save gets its tooltip there with `interestfor` alone; iOS Safari only will once WebKit ships interest invokers.
   - Still open: which triggers keep the pair.
   - Options:
-    - A (recommended): action buttons (Save) take `interestfor` only, and the Tooltip page adds a toggletip example: an info button with `commandfor`, `command="toggle-popover"` and `interestfor`, for text touch users must reach in every browser. Tooltips on action buttons don't show in Safari and Firefox until they ship interest invokers, as the browser support rules expect for a Chromium-first feature.
+    - A (recommended): action buttons (Save) take `interestfor` only, and the Tooltip page adds a toggletip example: an info button with `commandfor`, `command="toggle-popover"` and `interestfor`, for text touch users must reach in every browser. Tooltips on action buttons don't show in Safari and Firefox until they ship interest invokers.
     - B: keep the pair on every trigger, as today, with the expanded state and the double action in Chromium, so Safari and Firefox users can tap or click.
     - C: like A, and point to the `interestfor` polyfill (npm `interestfor`) for apps that need hover and focus tooltips in Safari and Firefox now. It can't add the touch behavior, so iOS still needs the toggletip.
+  > Explain further
+  > No the browser support rules shouldn’t be chromium first. Correct that. The rule or way of thinking rather, should be that if a feature lands that is interesting enough to explore here, it’ll get included. In the compat layer there can be workarounds added if possible. The library has no preference for any browser, its feature-first.
+  - Explained: a correction first. The library is feature first, with no preference for a browser: a feature worth exploring goes in as soon as one engine ships it, whichever engine that is, and the compat layer can carry a workaround for the others where one is possible. My earlier notes called that Chromium first; that was wrong, and the notes on this item, the `user-select` item and the WebKit anchoring item are corrected. For the Tooltip it changes the picture. `interestfor` is the feature (shipped in Chromium 142), and the compat layer can give the other engines a CSS fallback: inside `@supports not selector(:interest-source)` (the pseudo-class shipped with `interestfor`, so it detects exactly the engines without it), show the `.ui-floating` while its trigger is hovered or has keyboard focus (`.ui-tooltip:has(> :hover, > :focus-visible) > .ui-floating`), overriding the hidden popover's `display: none`, and anchor it to the wrapper, which `anchor.css` already makes an anchor (`--anchor`). Safari and Firefox on desktop then get the hover and focus tooltip without the command pair, so Save is a plain button in every engine: no expanded state and Enter only saves. Two limits remain. The fallback isn't a top-layer popover, so an ancestor with `overflow: hidden` can clip it, and positioning needs anchor positioning in that engine. And CSS can't help touch: iOS Safari has neither hover nor interest invokers, so on an iPhone a tap only reaches text through the command pair. That is what a toggletip is for: a button whose only job is to show the text, where "expanded" is true and the press does one thing.
+  - Options:
+    - A (recommended): drop the command pair from action buttons (Save) in the examples and prose, add `css/compat/tooltip.css` with the hover and focus fallback above, and add a toggletip example (an info button with `commandfor`, `command="toggle-popover"` and `interestfor`) for text touch users must reach in every browser.
+    - B: keep the command pair on every trigger, as today.
+    - C: like A, without the compat fallback: tooltips on action buttons show only in engines with interest invokers.
 
 ## Bugs
 
-- [ ] (1) Tokens: in the bootstrap, brutalist and m3 themes, a severity class on the same element as `.ui-palette` or `.ui-contrast-more` gets the theme's palette instead of its severity color. The themes set `--ui-palette-source` on `:where(html, .ui-palette, .ui-contrast-more)` in `theme.custom`, which outranks the severity scopes in `theme.base`, and the Theme builder export uses the same layer (`packages/opui/themes/bootstrap.css:5,70`, `packages/opui/themes/brutalist.css:5,61`, `packages/opui/themes/m3.css:5,70`, `packages/opui/css/theme.css`)
+- [x] (1) Tokens: in the bootstrap, brutalist and m3 themes, a severity class on the same element as `.ui-palette` or `.ui-contrast-more` gets the theme's palette instead of its severity color. The themes set `--ui-palette-source` on `:where(html, .ui-palette, .ui-contrast-more)` in `theme.custom`, which outranks the severity scopes in `theme.base`, and the Theme builder export uses the same layer (`packages/opui/themes/bootstrap.css:5,70`, `packages/opui/themes/brutalist.css:5,61`, `packages/opui/themes/m3.css:5,70`, `packages/opui/css/theme.css`)
   - Summary: In three example themes, a critical or info chip that is also a palette scope shows the brand color instead of red or blue.
   - Recommended: Fix with option A. The severity class is the more specific intent, and a layer after the theme keeps every theme working without edits.
   - Fix: confirm with `<span class="ui-palette ui-chip ui-critical">` on `/tests/contrast/?theme=m3`. Found while fixing the Tokens item about the severity cycle, which it doesn't cover.
   - Options:
     - A (recommended): move the severity scope sources (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) into a `theme.severity` sublayer after `theme.custom` in `layers.css`, with a CHANGELOG entry for the new layer.
     - B: say in the theming guide that a severity class can't sit on a `.ui-palette` or `.ui-contrast-more` element when a theme sets `--ui-palette-source`.
+  > Fix with option A
+  - Fixed: option A. `layers.css` declares a `theme.severity` sublayer after `theme.custom`, and `theme.css` puts the palette source and hue rotation of `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success` and `.ui-warning` in it, so a theme that sets `--ui-palette-source` on `.ui-palette` or `.ui-contrast-more` no longer recolors a severity class on the same element. The four example themes, the Theme builder export (`src/utils/theme.ts`), the layer diagram, the concepts and customizing guides, the package README, SKILL.md and MIGRATING name the new layer, and the unreleased `layers.css` CHANGELOG entry says what it's for. The severity test in `theming.spec.ts` now runs in the default theme and every example theme: with the rules back in `theme.base`, bootstrap, brutalist and m3 fail, with the layer all five pass.
 - [ ] (1) Tests: in WebKit, "split button opens its menu" sometimes still finds the menu open 5 seconds after a click on "Save as draft", once each in Svelte, React and Vue. A plain popover hidden while it opens closes in WebKit, so the opening transition isn't the cause (`tests/e2e/interaction.spec.ts:813-826`, `src/component-examples/button-group/SplitButton.html:25-44`)
   - Summary: One split button test sometimes fails in WebKit because the menu stays open after an item is clicked.
   - Recommended: Fix. A trace from a failing run shows where the click goes.
   - Fix: on the next failing WebKit run, open the test's trace from the run's Playwright report and check whether the click reached the item, whether `hide-popover` ran, and whether the menu opened again.
   - Note: it failed again in Astro on CI run 40362563247 (`b0116af2`). The click on "Save as draft" went through, and the menu was still visible 5 seconds later. Four frameworks have now failed it, so the cause isn't one framework's markup.
+  > Fix
 - [x] (2) Tests: the Playwright projects pick the specs that also run in Firefox and WebKit with an allowlist regex, which leaves out `client-render.spec.ts` and `todo.spec.ts`, although AGENTS.md says every spec without screenshots runs there (`playwright.config.ts:10-11`, `playwright.config.ts:37`, `playwright.config.ts:46`, `AGENTS.md:83`)
   - Summary: Two specs without screenshots only run in Chromium, though the guide says they also run in Firefox and WebKit.
   - Recommended: Fix. An opt-out list can't drift from the rule.
@@ -64,6 +74,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. The next release depends on it.
   - Replaces: the regenerate step in `AGENTS.md:79` only works by hand today ("Regenerate it after a release with `node scripts/released-api.mjs <tag>`").
   - Fix: write the file through Prettier's `format`, as `check-css-vars --update` does, read every barrel in `PACKAGE_FRAMEWORK_IDS` with the type-file map `check-components` uses, and walk `core/` as the test does.
+  > Fix
 - [x] (4) Menu: on iOS, the submenu anchor block sets `anchor-scope: --ui-menu` on every submenu that has its own submenu, which hides the parent's `--ui-menu` from that submenu's `position-anchor`, so in a menu three levels deep the middle submenu opens unanchored at the top-left. It also replaces the root's `--ui-menu-root` anchor, so the rule that keeps submenus of submenus going in a flipped parent's direction is invalid there (`packages/opui/css/compat/menu.css:2-15`, `packages/opui/css/components/menu.css:117-136`)
   - Summary: On iOS, in a menu three levels deep, the middle submenu opens in the top-left corner instead of next to its parent.
   - Recommended: Fix. The rule only changes on iOS, and Chromium with the gate forced on places all three levels with the fix.
@@ -152,7 +163,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
     The options stay as listed: accept the strip to avoid the jump, drop `stable` and accept the jump, or extend the backdrop and full-width drawers under the gutter.
   - Explained: the strip only shows with classic scrollbars (Windows, or Chrome with scrollbars always shown on macOS); overlay scrollbars take no space. The example has a page tall enough to scroll, a modal dialog and a bottom drawer, so the undimmed strip and the drawer stopping short of the edge can be seen side by side. Option C stays the recommendation: extend the backdrop and the block drawers under the gutter (`inset-inline-end: calc(-1 * (100dvi - 100%))` on the backdrop, `max-inline-size: none` with `inline-size: 100dvi` on block drawers) and keep `stable` so the page doesn't jump. Example: dialog-scrollbar-gutter
-- [ ] (2) CSS: a tonal fill inside a tonal surface, or inside an elevated surface in dark mode, matches its background, so tonal buttons, the Tabs track and tonal chips disappear there (1.00:1). Dark `--ui-surface-tonal` and `--ui-surface-elevated` are both `--ui-gray-12` (`packages/opui/css/theme.css:515-518`), and a tonal `Card`, `Accordion` or `Callout` paints the same tonal its content reads (`packages/opui/css/components/card.css:41-48`, `packages/opui/css/components/callout.css:3`)
+- [x] (2) CSS: a tonal fill inside a tonal surface, or inside an elevated surface in dark mode, matches its background, so tonal buttons, the Tabs track and tonal chips disappear there (1.00:1). Dark `--ui-surface-tonal` and `--ui-surface-elevated` are both `--ui-gray-12` (`packages/opui/css/theme.css:515-518`), and a tonal `Card`, `Accordion` or `Callout` paints the same tonal its content reads (`packages/opui/css/components/card.css:41-48`, `packages/opui/css/components/callout.css:3`)
   - Summary: Tonal buttons, chips and the Tabs track blend into tonal cards and callouts, and into elevated cards and dialogs in dark mode.
   - Recommended: Fix with option A. It follows the border remap raised surfaces already do, and the selected Tabs pill needs a second look either way.
   - Fix: measured on `/html/test/button/` with a tonal `Button` in each `Card` variant: 1.16:1 on the page in light, 1.33:1 in dark, 1.00:1 on a tonal card in both modes and on an elevated card in dark. The selected Tabs pill keeps a 3.16:1 border, so the tabs stay usable.
@@ -162,6 +173,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - C: leave it. Tonal on tonal is the author's choice, and outlined or filled controls stay visible there.
   > Explain further and provide an example
   - Explained: tonal is the quiet fill. A tonal button, a chip and the Tabs track paint `--ui-surface-tonal`, one gray step off the page: `--ui-gray-3` on `--ui-gray-1` in light mode (1.16:1) and `--ui-gray-12` on `--ui-gray-13` in dark mode (1.33:1). That small step is all that draws their shape. A tonal Card, Accordion or Callout paints its own background with the same `--ui-surface-tonal`, so a tonal control inside it is the card's own color, 1.00:1, and only its text is left. In dark mode `--ui-surface-elevated` is `--ui-gray-12` too, so the same happens inside elevated cards, dialogs, drawers and menus. Outlined and filled controls keep their border or accent, so only the tonal ones vanish. Option A fixes it the way raised surfaces already fix borders: they set `--ui-border-color` to `--ui-border-color-on-raised` for their content, and they would also point the tonal role at a step that differs from their own background (the page surface inside a tonal card, and inside an elevated one in dark mode). The example measures a tonal button, a chip and the tab track in an outlined, a tonal and an elevated card, in both modes, today and with option A simulated by two overrides. With A, light mode shows the second problem the item names: the selected tab is the page surface, so it matches the remapped track and only its border sets it apart. Example: tonal-surfaces
+  > Fix with option C
+  - Fixed: option C. No change: a tonal control on a tonal surface stays the author's choice, and outlined and filled controls stay visible there. The `tonal-surfaces` example keeps the measurements.
 
 ## Suggestions
 
@@ -185,7 +198,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: accept the copies for good and drop the item.
   > Fix with option A
   - Fixed: option A. The copies stay as they are (seven `-text` derivations in `theme.css`, plus `--_accent-text` and `--_edge-text`). So the change isn't forgotten, "the -text and on-fill formulas wait for @function in Firefox and Safari" in `tests/unit/compat.test.ts` fails once web-features lists CSS `@function` (`function`, Chromium 139 only today) in Firefox and Safari, and its message says which formulas to write once.
-- [ ] (1) Package: the Node pins differ. `packages/opui/package.json:121` says `>=22` (consumers), the root `package.json:86` `>=26.10.0`, `.nvmrc` `26.10.0`, and no `.npmrc` sets `engine-strict`, so the root field is advisory (this review ran on Node 22.22 without a warning)
+- [x] (1) Package: the Node pins differ. `packages/opui/package.json:121` says `>=22` (consumers), the root `package.json:86` `>=26.10.0`, `.nvmrc` `26.10.0`, and no `.npmrc` sets `engine-strict`, so the root field is advisory (this review ran on Node 22.22 without a warning)
   - Summary: The repo declares Node 26.10 but nothing stops a contributor from running it on Node 22.
   - Recommended: Fix with option A. pnpm 12 reads `engineStrict` from `pnpm-workspace.yaml`, not `.npmrc`, and it can only be turned on once every machine runs Node 26.10.
   - Options:
@@ -200,6 +213,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): install Node 26.10 in the cloud environment's setup script, then add `engineStrict: true` to `pnpm-workspace.yaml` in the next session.
     - B: lower the root `engines` to the oldest Node the scripts need, and keep the field advisory.
+  - Fixed: option A. `pnpm-workspace.yaml` sets `engineStrict: true`, so `pnpm install` refuses a Node older than the root `engines` (`>=26.10.0`). Cloud sessions still started on Node 22.22, so `.claude/hooks/session-start.sh` now fetches the `.nvmrc` version from nodejs.org into `~/.local` when `node` is another version (about 5 seconds), puts it first in `PATH` before `pnpm install` and exports it for the session; tried from a clean environment with Node 22 first in `PATH`. Every CI job that installs already reads `.nvmrc`, and the README says it.
 - [x] (1) Release: `scripts/release.mjs` commits the release on the maintainer's `main` and pushes it straight to `origin`, so the release commit (version, dated CHANGELOG, regenerated files) never goes through a pull request or its CI run before it lands (`scripts/release.mjs:77-82`, `RELEASING.md:36-58`)
   - Summary: A release is pushed straight to main, so its commit skips the pull request checks that every other change gets.
   - Recommended: Fix with option A. A pull request runs `check` and `e2e` on the exact release commit before anything is tagged.
@@ -238,26 +252,31 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. One list removes six copies.
   - Replaces: the file list in `AGENTS.md:76`, which then names the manifest.
   - Fix: keep the paths in one manifest (for example `scripts/generated-files.json`), read it in the CI steps, `check-colors` and the README, and generate the `.prettierignore` block or test that it matches.
+  > Fix
 - [ ] (1) Tests: some e2e checks are opt-in or skip silently. The overlay axe spec checks 16 of 79 scenarios; `THEME_EXCEPTIONS` entries are skipped and never re-tested, so a fixed contrast stays excepted; the interest-invoker and `::scroll-button` tests skip in Chromium too, so a regression there only skips (`tests/e2e/stress-overlays-a11y.spec.ts:6-23`, `tests/e2e/contrast.spec.ts:168-172`, `tests/e2e/interaction.spec.ts:57`, `tests/e2e/interaction.spec.ts:774`, `tests/e2e/interaction.spec.ts:839`)
   - Summary: Some accessibility and interaction tests can pass without checking anything.
   - Recommended: Fix. Each change is local to its spec.
   - Replaces: no prose rule.
   - Fix: make overlay axe opt-out with a reason per scenario, fail when an excepted contrast now meets its promise, and skip the feature tests only outside Chromium.
+  > Fix
 - [ ] (1) Tooling: `check-css-vars` doesn't read `style=""` attributes, counts any quoted `"--x"` in a scanned file as a declaration, and `LENGTH` only knows `px` and `rem` (`scripts/check-css-vars.mjs:22`, `scripts/check-css-vars.mjs:77`, `scripts/check-css-vars.mjs:86-89`, `src/utils/package-source.js:9`)
   - Summary: A custom property read in a style attribute, or a typo that appears in a string, passes the property check.
   - Recommended: Fix. The parsers are already dependencies.
   - Replaces: makes `AGENTS.md:76` hold for inline styles and the other absolute units.
   - Fix: read `style` attributes with parse5, collect declarations with postcss `walkDecls` instead of a regex over the whole source, and add `pt`, `pc`, `cm`, `mm`, `in` and `Q`.
+  > Fix
 - [ ] (1) Tooling: `build-agent-skill.mjs` skips silently (`guideMarkdown` can return nothing, `exampleLines` returns `[]`), resolves paths from the working directory, and calls `localeCompare` without a locale, so the reference order depends on the machine (`scripts/build-agent-skill.mjs:16`, `scripts/build-agent-skill.mjs:107`, `scripts/build-agent-skill.mjs:186-195`, `scripts/build-agent-skill.mjs:648`)
   - Summary: The agent skill can lose a guide page without an error, and its order can change between machines.
   - Recommended: Fix. Small changes in one script.
   - Replaces: makes the ascending-order rule in `AGENTS.md:21` deterministic for the generated references.
   - Fix: throw when a page yields no markdown, resolve from `import.meta.url`, and pass `"en"` to every `localeCompare`.
+  > Fix
 - [ ] (1) Tooling: local runs differ from CI. CI sets `OPUI_TEST_PAGES=1` for `pnpm check` but the `check` script doesn't, so local runs never build or link-check the test pages; the session hook runs `pnpm install` without `--frozen-lockfile` and ends the wrapper install with `|| true`; and the Playwright version is pinned in three places with nothing comparing them (`package.json:10`, `.github/workflows/ci.yml:30-32`, `.claude/hooks/session-start.sh:10`, `.claude/hooks/session-start.sh:14`, `package.json:64`, `.github/workflows/ci.yml:107`, `.github/workflows/update-snapshots.yml:17`)
   - Summary: A change can pass locally and fail in CI, because the two don't build the same pages or install the same way.
   - Recommended: Fix. Each part is a one-line change or a short test.
   - Replaces: no prose rule.
   - Fix: set `OPUI_TEST_PAGES=1` in the `check` script, use `--frozen-lockfile` in the hook, and add a unit test that reads the three Playwright versions and compares them.
+  > Fix
 - [ ] (1) Docs site: some lists are kept in sync by hand: the accessibility guide's Per component list, the theme lists in `customizing.astro` and the package README, the release checks' Components and the ComponentShowcase (both miss Layout), and the guide slugs that `skill.test.ts` copies from `build-agent-skill.mjs` (`src/docs/guide/accessibility.astro:182-225`, `src/docs/guide/customizing.astro:67-92`, `packages/opui/README.md:199`, `packages/opui/README.md:213`, `docs/releases/6.0.0.md:36-115`, `tests/unit/skill.test.ts:8`)
   - Summary: Adding a component, theme or guide page means updating several lists by hand, and some already miss one.
   - Recommended: Fix with option A. A generated list can't drift.
@@ -265,16 +284,19 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): build each list from the source data (the docs pages, `packages/opui/themes/`, the guide slugs exported once), and generate the README theme list in the build.
     - B: keep the lists and add a sync test for each.
+  > Fix with option A
 - [ ] (1) Docs site: the sitemap lists the 36 block previews and the home page, which are `noindex`, and nothing checks that `llms.txt` lists every page; a page `articleToMarkdown` can't convert is dropped silently (`astro.config.mjs:68`, `src/pages/blocks/[block]/preview.astro:35`, `src/integrations/llms.mjs:159-162`, `src/integrations/html-to-markdown.mjs:264`)
   - Summary: Search engines are pointed at pages marked not to index, and a docs page can vanish from llms.txt unnoticed.
   - Recommended: Fix. Both fit in the build.
   - Replaces: the presence half of the "Markdown and llms.txt" release check in `docs/releases/6.0.0.md`.
   - Fix: give `sitemap()` a filter for `noindex` pages, and make `check-dist` fail when a page in `dist/<framework>/` has no entry in that framework's `llms.txt`.
+  > Fix
 - [ ] (1) Package: nothing resolves the `opui-css/...` specifiers in the package README, and nothing checks that `dist/op.css` keeps the MIGRATING promise of no `--palette-*` and no `--color-N` (`packages/opui/README.md:30-31`, `packages/opui/MIGRATING.md:1358`, `tests/package/package.test.ts:159-187`)
   - Summary: The README can show an import path that doesn't resolve, and the Open Props bundle can bring the palette back.
   - Recommended: Fix. The tarball test already has the unpacked files.
   - Replaces: the README half of the "README and CHANGELOG" release check, and a promise only MIGRATING.md states.
   - Fix: in `package.test.ts`, resolve every `opui-css/...` specifier in the README against the unpacked tarball, as `skill.test.ts` does for SKILL.md, and assert that `dist/op.css` has no `--palette-` and no `--color-` declarations.
+  > Fix
 - [x] (1) Tooling: the findings format says "Cite every file with a line or line range", but nothing checks the citations. One open item cites `palette.css:2-18,89-136` though the file has 131 lines, and five citations have no directory (`.claude/skills/audit/findings-format.md:9`, `TODO.md:346`)
   - Summary: A finding can point at lines that no longer exist, so the reader can't find what it means.
   - Recommended: Fix. The parser already splits off the file references.
@@ -288,22 +310,26 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. Deleting it changes no output.
   - Replaces: no prose rule.
   - Fix: delete the glob and the loop, and assert in the script that each category it builds has at least one entry.
+  > Fix
 - [ ] (1) Tokens: the token rules "Never `-contrast`" and "`--ui-on-{fill}` always has a `--ui-{fill}` or a `--ui-surface-{fill}` to sit on" are prose; `css-properties.test.ts` checks the component and private suffixes only (`packages/opui/components/AGENTS.md:488`, `packages/opui/components/AGENTS.md:493`, `tests/unit/css-properties.test.ts:51-78`)
   - Summary: A new token can break the naming model for on-colors and contrast without a failure.
   - Recommended: Fix. Both rules are a pattern over the token names.
   - Replaces: `packages/opui/components/AGENTS.md:488` and `:493`, which then name the test.
   - Fix: add both rules to `css-properties.test.ts`, with `--ui-on-accent` as the one named exception until the Tokens item about it is decided.
   - Note: the Tokens item chose option A, so the exception is `--ui-on-fill` now. It stays one: it sits on any intent fill kept within the fill lightness cap, and there is no `--ui-fill`.
+  > Fix
 - [ ] (1) Learn: nothing checks the Learn registry's order, and an unknown web-features id in a post's `features` or an Under the hood step only logs a warning and renders as limited availability (`src/utils/learn-posts.ts`, `src/components/UnderTheHood/BuildUp.astro:130`, `src/utils/browser-support.ts:52-56`)
   - Summary: A Learn post can show a wrong browser support chip or sit out of order, and only a review notices.
   - Recommended: Fix. Both are a few lines in a unit test.
   - Replaces: the Registry rule in `.claude/agents/blog.md:23`.
   - Fix: a `learn.test.ts` that checks the order and that every `features` id exists in `web-features`, and make the warning an error in the build.
+  > Fix
 - [ ] (1) Tests: the reasons passed to `failingIn` and `test.fail` are separate copies of the strings in `engines.spec.ts`, and the WebKit one is worded differently in the two files, so nothing ties an expected failure to its browser repro (`tests/e2e/engines.spec.ts:4-8`, `tests/e2e/stress-overlays.ts:22-26`)
   - Summary: An expected browser failure can lose its plain-HTML repro without any test noticing.
   - Recommended: Fix. Sharing the strings makes the link explicit.
   - Replaces: the repro clause of `AGENTS.md:60` ("add a plain-HTML repro to `tests/e2e/engines.spec.ts` when it's a browser bug").
   - Fix: export the reasons from one module that `engines.spec.ts` uses for its repro titles, import them in `stress-overlays.ts` and the `test.fail` calls, and fail when a reason has no repro.
+  > Fix
 - [ ] (2) Tokens: there is no Figma kit. Peers build one from their tokens: Primer generates Figma variables from its token files, Material has Theme Builder, and Carbon, Spectrum and Nord ship kits. `tokens.json` is the starting point, but its values are CSS expressions (`var()`, `light-dark()`, relative colors), so a kit needs them resolved per mode first (`packages/opui/tokens.json`, `src/utils/tokens-json.ts`)
   - Summary: There is no Figma kit, and tokens.json holds CSS expressions that a kit would need resolved per mode first.
   - Recommended: Fix with option A. A resolved-tokens export is a small script over the existing `tokens.json` and is what every Figma variables importer needs.
@@ -313,7 +339,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A: a `scripts/resolve-tokens.mjs` export of resolved variables per mode and theme, published next to `tokens.json`.
     - B: a full kit with components, outside this repo.
     - C: nothing until someone asks for Figma.
-- [ ] (2) Tokens: motion and elevation scales are thin. Material has 16 durations, 10 easings and 6 elevation levels, and Carbon has 6 durations with productive and expressive easings. OPUI has three durations, three easings, `--ui-motion` as an on and off switch, and shadows per use (`packages/opui/css/theme.css`)
+- [x] (2) Tokens: motion and elevation scales are thin. Material has 16 durations, 10 easings and 6 elevation levels, and Carbon has 6 durations with productive and expressive easings. OPUI has three durations, three easings, `--ui-motion` as an on and off switch, and shadows per use (`packages/opui/css/theme.css`)
   - Summary: The motion and elevation scales are thin compared with peers, with three durations, three easings and shadows per use.
   - Recommended: Fix with option A. The per-use tokens are what the components and themes read, and a level scale would only duplicate them.
   > Explain further
@@ -321,6 +347,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): keep the per-use tokens and add a duration or shadow only when a component needs it.
     - B: add a level scale (`--ui-shadow-1` to `--ui-shadow-5`, `--ui-duration-1` to `-4`) and point the per-use tokens at it, so themes can set the scale once.
+  > Fix with option A
+  - Fixed: option A. No change: the components keep reading the per-use durations, easings and shadows, and a new duration or shadow comes with the component that needs it.
 - [x] (2) Docs: component pages have no do and don't guidance, and accessibility notes are uneven. Carbon splits each component into Usage, Style, Code and Accessibility, and Primer gives do and don't examples plus accessibility expectations. OPUI has an Accessibility section on 17 of 32 pages, keyboard notes on 7, and "when to use" is one preamble sentence (`src/docs/components/`, `src/docs/components/AGENTS.md`)
   - Summary: Component pages lack do and don't guidance, and only about half have an Accessibility section or keyboard notes.
   - Recommended: Fix with option A. A `usage` slot and a data-driven Keyboard support partial give every page the same two sections.
@@ -371,6 +399,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. A detector per id turns most of the browser-support agent's review into a script.
   - Replaces: `.claude/agents/browser-support.md:26-30`, steps 1, 2, 3 and 5 (list the features the CSS uses, report missing and unused ids, check the HTML features in the examples).
   - Fix: add a pattern to `features.mjs` for every id in use, attribute detectors on the example HTML (`commandfor`, `interestfor`, `closedby`, `<details name>`, `popover`, `<datalist>`), read the sheets from `api.ts`, and fail on a listed id that has no detector. The agent then keeps only step 4, an id that names the wrong feature.
+  > Fix
 - [ ] (2) Tests: the "only shrinks" and "only when intended" rules for the ledgers are prose. Recording the a11y ledger can add keys, a `.diff` that matches the current drift passes, and a new `naming-allowlist.json` entry passes; only fixed or stale entries fail (`tests/e2e/a11y.spec.ts:106-113`, `tests/e2e/a11y.spec.ts:162-176`, `tests/unit/parity.test.ts:253-270`, `tests/unit/naming.test.ts:325-330`)
   - Summary: A new accessibility violation, markup drift or naming exception can be accepted without anyone noticing.
   - Recommended: Fix with option A. It turns the rule into a check and keeps a way to accept intended changes.
@@ -379,6 +408,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): a step in the `history` CI job, which has the full history, that diffs the a11y ledger keys, `naming-allowlist.json` and the set of parity `.diff` files against the merge base, and fails on an addition unless a commit on the branch carries a `Ledger-Change: intended` trailer.
     - B: only assert that `naming-allowlist.json` stays empty.
   - Still open: the naming allowlist is gone (naming problems must be `[]`), and `scripts/check-ratchets.mjs` in the `history` CI job (the `screenshots` job, renamed) fails when `scripts/css-vars-allowlist.json` or `tests/unit/todo-allowlist.json` gains an entry. The a11y ledger and the parity `.diff` files can still gain entries.
+  > Fix with option A
 - [x] (2) CI: nothing checks commit messages. The prefixes and the ban on the em dash and the middle dot in commit messages are prose, and `check-characters` only reads files (`scripts/check-characters.mjs:13-23`, `AGENTS.md:11`, `AGENTS.md:43`)
   - Summary: A commit with the wrong prefix or a forbidden character goes in unnoticed.
   - Recommended: Fix. It is a few lines in a job that already has the history.
@@ -396,6 +426,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Recommended: Fix. It moves the api-docs agent's CSS and Defaults checks into the tests.
   - Replaces: `src/component-api/AGENTS.md:10` (CSS Verified) and `.claude/agents/api-docs.md:27,29-30` (Defaults, CSS, Parts).
   - Fix: add the four checks to `checkApi`, reading the sheets with `stylesheets(api)`, and shrink the guide's CSS Verified line to a pointer.
+  > Fix
 - [x] (2) CSS: Stylelint enforces none of the CSS review's mechanical rules: `:hover` only inside `@media (hover: hover)`, no bare `:focus`, no `!important`, no state classes such as `.ui-open` or `.ui-checked`, vendor prefixes only on native-control pseudo-elements, transitions and animations reading `--_duration`, and no dead selectors (`stylelint.config.mjs`, `scripts/stylelint-logical-shorthands.mjs`)
   - Summary: CSS can break the review rules for hover, focus, states and motion, and only an agent review notices.
   - Recommended: Fix. One plugin per rule, like the logical-shorthands one.
@@ -415,11 +446,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Replaces: `AGENTS.md:52` (a note for Added, Breaking and Changed entries), `AGENTS.md:54` (link the section), and `.claude/agents/changelog.md:22,25-26` (Logged, What's new, Migrating).
   - Fix: type `whatsNew` and `highlighted` with `satisfies` against the docs slugs, and add the entry-to-note, Breaking-to-MIGRATING, new-class and anchor checks to `changelog.test.ts`, with a named list for entries that span several components. The changelog agent then keeps "is the entry accurate and complete".
   - Still open: `changelog.test.ts` now fails when a component an `Added`, `Breaking` or `Changed` entry starts with has no page, or its page has no What's new note of that kind, and `check-dist` checks the anchors. Left: the Breaking-to-MIGRATING and new-class checks, typing the `whatsNew` keys, and links in the 20 notes without one. `tests/unit/whats-new.test.ts` checks that every key is a page slug and every highlighted page has notes.
+  > Fix
 - [ ] (2) Tests: the release checks list docs-site behavior that a Playwright spec could check: the framework picker keeping the page and the hash, search with the arrow keys, Enter and Esc, copy buttons copying the shown code, no sideways scrolling at 320px, no running animations with reduced motion (`getAnimations()`), and a Tab walk where focus is always visible. Only the Menu keyboard checks exist (`tests/e2e/interaction.spec.ts:995-1046`, `docs/releases/6.0.0.md:31`, `docs/releases/6.0.0.md:118`, `docs/releases/6.0.0.md:129`, `docs/releases/6.0.0.md:150-154`, `docs/releases/6.0.0.md:166`)
   - Summary: Several manual release checks for the docs site could run as tests on every pull request.
   - Recommended: Fix. Each one removes a manual check from every release.
   - Replaces: the matching manual checks in `docs/releases/6.0.0.md` (Framework picker, Search, Code blocks, Small screens, Browser zoom, Reduced motion, Keyboard only), which then say "covered by `docs.spec.ts`" or keep only what a test can't see.
   - Fix: a `tests/e2e/docs.spec.ts` against the built site, starting with the picker and search.
+  > Fix
 - [ ] (2) CI: the production Netlify deploy is a step of the `check` job, and `e2e-shard` runs after `check`, so a push to `main` whose e2e fails still deploys (`.github/workflows/ci.yml:66-72`, `.github/workflows/ci.yml:105`)
   - Summary: A commit that fails the end-to-end tests can still reach the production docs.
   - Recommended: Fix with option A. The `dist` artifact already exists, so the deploy only moves.
@@ -427,6 +460,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): move the production deploy into a job with `needs: [check, e2e]` that downloads the `dist` artifact.
     - B: keep deploying from `check`.
+  > Fix with option A
 - [ ] (4) New components the blocks point to. Each block currently draws these with its own CSS:
   - Summary: Blocks draw charts, breadcrumbs, steppers, timelines, ratings, pagination and stat cards with their own CSS for lack of components.
   - Recommended: Explain further. Still true (none of the eleven exist in the package), but which ones to build is a scope decision, and severity 4 looks high for a suggestion that breaks nothing.
@@ -441,6 +475,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Stat card (label, value, trend): analytics-dashboard, app-shell, project-overview, sales-dashboard.
   - Stepper: checkout, onboarding-checklist.
   - Timeline: changelog, project-overview, server-status.
+  > Fix
+  > There’s a separate branch with those components. Pr #418. It’s old and needs some rework but see what you can do there. It’s not going to ship in 6.0 so go nuts and improve wherever you want.
 - [x] (2) Theming: there is no palette generator. Material builds a full scheme from one seed color and a contrast level, and Radix and Spectrum publish engineered 12-step scales. OPUI derives its palette from `--ui-palette-source` with fixed lightness steps, and the theme generator sets 8 tokens and a source color (`packages/opui/core/palette.css`, `src/utils/theme-store.ts`)
   - Summary: There is no palette generator; the theme generator sets eight tokens and a source color with fixed lightness steps.
   - Recommended: Fix with option A. The derivation already lives in CSS, so a builder is docs-site UI over the theme generator, no package change.
@@ -495,7 +531,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   > Isn’t that good for some screen readers that text can be selectable? Maybe I’m understanding the issue wrong.
   - Explained: `user-select: none` only stops selecting text with a pointer (a drag, a double-click, a long press). Screen readers don't go through the selection: they read the accessibility tree, so NVDA's browse mode, VoiceOver's reading keys and iOS VoiceOver read the text the same either way, and the control keeps its name. What it does block is copying that text and tools that speak the selected text (macOS Speak Selection, select-to-speak extensions). That's why the library only sets it where native controls behave the same and a press should act, not select: button, tab, summary and choice labels, list items on touch screens, and disabled fields, fieldsets and ranges. Body text, field values, descriptions and callouts stay selectable. Chromium and Firefox already apply it; web-features 3.43 lists no Safari support for the unprefixed property, so Safari selects those labels today.
-  - Fixed: `-webkit-user-select: none` sits next to each of the ten declarations (`button.css`, `accordion.css`, `choice.css` twice, `form.css`, `list.css`, `range.css`, `tabs.css`, `text-field.css`, `toggle-button.css`). Chromium reads it as the same property, so nothing changes there, as the browser support rules allow, and the Fixed section of the CHANGELOG names the components.
+  - Fixed: `-webkit-user-select: none` sits next to each of the ten declarations (`button.css`, `accordion.css`, `choice.css` twice, `form.css`, `list.css`, `range.css`, `tabs.css`, `text-field.css`, `toggle-button.css`). Engines with the unprefixed property read it as the same property, so nothing changes there, which the browser support rules allow for a fallback in the component CSS, and the Fixed section of the CHANGELOG names the components.
 - [x] (2) Dialog: on `/html/components/dialog/` (Long content), check in Safari that the terms can be scrolled with the keyboard. `.ui-content` scrolls but holds only paragraphs, and focus lands on "Decline" outside the scroller. Chromium and Firefox make such a scroller focusable, Safari doesn't. If confirmed, add `tabindex="0"` to that `.ui-content` in all five formats and a sentence in the prose (`src/component-examples/dialog/LongContent.html:18-82`, `packages/opui/css/components/dialog.css:38-43`)
   - Summary: In Safari, keyboard users can't scroll the terms in the long-content dialog because the scrolling area isn't focusable.
   - Recommended: Fix. Safari has no keyboard-focusable scrollers, the example's content holds only paragraphs and no tabindex in any format, so the check would plainly fail.
@@ -614,7 +650,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Explain further
   - Explained: WebKit has it on file. Bug 304551, "incorrect anchor positioning when a fixed-positioned element and its anchor are both in the top layer", reported in December 2025 with Chrome right and Safari wrong, was closed as a duplicate of bug 301023. That is our case: the menu or tooltip is `position: fixed` and it and its trigger, inside a modal dialog, a drawer or another menu, are both in the top layer, and WebKit offsets it by the page's scroll. Nothing to change in the library and nothing to report. When WebKit ships the fix, `engines.spec.ts` fails with "expected to fail but passed": remove `WEBKIT_SCROLLED_ANCHOR` from the scenarios and the repro.
   > Explain further
-  - Explained: what users see: in Safari, open a modal Dialog or Drawer far down a scrolled page, open a Menu or Tooltip inside it, and it appears above its button by as much as the page is scrolled, often out of view; near the top of the page it's right. A popover opened from inside a modal dialog and the dialog itself both live in the top layer, and in that case WebKit offsets the popover by the page's scroll. That is WebKit's bug (on file, see the note above) and it shows without the library, so the browser support rules say no workaround in the package. Everything that can be done here is in place: the overlay scenarios and the plain repro in `engines.spec.ts` are expected to fail in WebKit, so when Safari ships the fix the repro fails with "expected to fail but passed", which is the signal to drop `WEBKIT_SCROLLED_ANCHOR`. There is nothing left to check or report.
+  - Explained: what users see: in Safari, open a modal Dialog or Drawer far down a scrolled page, open a Menu or Tooltip inside it, and it appears above its button by as much as the page is scrolled, often out of view; near the top of the page it's right. A popover opened from inside a modal dialog and the dialog itself both live in the top layer, and in that case WebKit offsets the popover by the page's scroll. That is WebKit's bug (on file, see the note above) and it shows without the library. A workaround would have to go in the compat layer behind a WebKit engine gate, and there is none in CSS: the offset is the page's scroll position, which CSS can't read as a length. Everything that can be done here is in place: the overlay scenarios and the plain repro in `engines.spec.ts` are expected to fail in WebKit, so when Safari ships the fix the repro fails with "expected to fail but passed", which is the signal to drop `WEBKIT_SCROLLED_ANCHOR`. There is nothing left to check or report.
   - Still open: only whether to keep this item.
   - Options:
     - A (recommended): remove this item, since the bug is on file and the expected failure in `engines.spec.ts` says when it's fixed.

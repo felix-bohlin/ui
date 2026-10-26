@@ -4,7 +4,7 @@
   import { getFieldGroupContext } from "../FieldGroup/context.svelte"
   import { idRefs } from "../id"
   import type { Props } from "./types.svelte"
-  import { defaultValue } from "./value"
+  import { defaultValue, resetValue } from "./value"
 
   let {
     class: className,
@@ -108,7 +108,10 @@
       if (!input.hasAttribute("value") && initialValue != null)
         input.defaultValue = String(initialValue)
       const form = input.form
-      const sync = () => setTimeout(() => (value = input.valueAsNumber))
+      const sync = (event: Event) =>
+        setTimeout(() => {
+          if (!event.defaultPrevented) value = resetValue(input)
+        })
       form?.addEventListener("reset", sync)
       return () => form?.removeEventListener("reset", sync)
     }}

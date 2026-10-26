@@ -5,7 +5,7 @@ import { cx } from "../cx"
 import { useFieldGroupContext } from "../FieldGroup/context.react"
 import { idRefs } from "../id"
 import type { Props } from "./types.react"
-import { defaultValue } from "./value"
+import { defaultValue, resetValue } from "./value"
 
 export default function Range({
   className,
@@ -42,8 +42,11 @@ export default function Range({
   useEffect(() => {
     const form = inputRef.current?.form
     if (!form) return
-    const sync = () =>
-      setTimeout(() => setCurrent(inputRef.current?.valueAsNumber))
+    const sync = (event: Event) =>
+      setTimeout(() => {
+        if (inputRef.current && !event.defaultPrevented)
+          setCurrent(resetValue(inputRef.current))
+      })
     form.addEventListener("reset", sync)
     return () => form.removeEventListener("reset", sync)
   }, [])

@@ -1,5 +1,14 @@
 const wired = new WeakSet()
 
+function resetValue(input) {
+  const probe = document.createElement("input")
+  for (const name of ["type", "min", "max", "step", "value"]) {
+    const value = input.getAttribute(name)
+    if (value !== null) probe.setAttribute(name, value)
+  }
+  return probe.value
+}
+
 // Mirror the slider's current value into its associated <output> on every
 // input event. Idempotent: each .ui-range is wired once, and ignores ranges
 // without a value display.
@@ -11,12 +20,16 @@ function wireRanges() {
     if (!input || wired.has(output)) continue
     wired.add(output)
     const suffix = output.dataset.suffix ?? ""
-    const update = () => {
-      output.textContent = `${input.value}${suffix}`
+    const update = (value = input.value) => {
+      output.textContent = `${value}${suffix}`
       if (suffix) input.setAttribute("aria-valuetext", output.textContent)
     }
-    input.addEventListener("input", update)
-    input.form?.addEventListener("reset", () => setTimeout(update))
+    input.addEventListener("input", () => update())
+    input.form?.addEventListener("reset", (event) =>
+      setTimeout(() => {
+        if (!event.defaultPrevented) update(resetValue(input))
+      }),
+    )
     update()
   }
 }

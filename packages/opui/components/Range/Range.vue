@@ -13,7 +13,7 @@ import {
 import { useInputAttrs } from "../vue"
 import { FieldGroupKey } from "../FieldGroup/context.vue"
 import { idRefs } from "../id"
-import { defaultValue } from "./value"
+import { defaultValue, resetValue } from "./value"
 
 defineOptions({
   inheritAttrs: false,
@@ -46,9 +46,10 @@ const model = computed({
 
 const input = useTemplateRef<HTMLInputElement>("input")
 let form: HTMLFormElement | null | undefined
-const syncAfterReset = () =>
+const syncAfterReset = (event: Event) =>
   setTimeout(() => {
-    if (input.value) model.value = input.value.valueAsNumber
+    if (input.value && !event.defaultPrevented)
+      model.value = resetValue(input.value)
   })
 onMounted(() => {
   if (input.value && !input.value.hasAttribute("value") && model.value != null)

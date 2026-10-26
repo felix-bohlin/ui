@@ -12,6 +12,10 @@ const RATCHETS = [
     file: "tests/unit/todo-allowlist.json",
     fix: "fix the new TODO.md item instead of allowing it",
   },
+  {
+    file: "tests/unit/untested-scripts.json",
+    fix: "add a test that imports the script or runs it by its path",
+  },
 ]
 
 const A11Y_LEDGER = "tests/e2e/a11y-known-violations.json"

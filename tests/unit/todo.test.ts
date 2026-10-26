@@ -840,7 +840,37 @@ describe("TODO.md", () => {
       todo(
         item(
           "- [ ] (1) Card: the shadow is off",
-          "Summary: The shadow is off. It reads `card.css`.",
+          "Summary: The shadow is off",
+          "Recommended: Fix. It is small.",
+        ),
+      ),
+    ],
+    [
+      "longSummaries",
+      todo(
+        item(
+          "- [ ] (1) Card: the shadow is off",
+          "Summary: The shadow is off. It looks flat.",
+          "Recommended: Fix. It is small.",
+        ),
+      ),
+    ],
+    [
+      "longSummaries",
+      todo(
+        item(
+          "- [ ] (1) Card: the shadow is off",
+          "Summary: The shadow in src/card.css is off.",
+          "Recommended: Fix. It is small.",
+        ),
+      ),
+    ],
+    [
+      "longSummaries",
+      todo(
+        item(
+          "- [ ] (1) Card: the shadow is off",
+          "Summary: The shadow is off and is off and is off and is off and is off and is off and is off and is off and is off and is off and is off and is off and is off and is off and flat.",
           "Recommended: Fix. It is small.",
         ),
       ),

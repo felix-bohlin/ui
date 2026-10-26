@@ -1,3 +1,4 @@
+import { spawnSync } from "node:child_process"
 import { describe, expect, test } from "vitest"
 import { fixOptions, parseTodo } from "../../src/utils/todo"
 import {
@@ -373,5 +374,36 @@ describe("triageItems", () => {
         },
       ]),
     ).toThrow("recommended must be")
+  })
+})
+
+describe("scripts/todo.mjs", () => {
+  const todoMjs = (...args: string[]) =>
+    spawnSync("node", ["scripts/todo.mjs", ...args], {
+      encoding: "utf-8",
+      input: args.includes("apply-answers")
+        ? answers("- [ ] (1) Nope: this item doesn't exist", "  > Fix")
+        : "",
+    })
+
+  test("prints the open items as JSON", () => {
+    const { status, stdout } = todoMjs("list")
+    expect(status).toBe(0)
+    expect(JSON.parse(stdout).length).toBeGreaterThan(0)
+  })
+
+  test("fails on an answer that matches no item, and writes nothing", () => {
+    const { status, stderr, stdout } = todoMjs("apply-answers", "--dry-run")
+    expect(status).toBe(1)
+    expect(
+      JSON.parse(stdout).map(({ status }: { status: string }) => status),
+    ).toEqual(["missing"])
+    expect(stderr).toContain("match no item")
+  })
+
+  test("prints the usage for an unknown command", () => {
+    const { status, stderr } = todoMjs("nope")
+    expect(status).toBe(1)
+    expect(stderr).toContain("Usage: node scripts/todo.mjs")
   })
 })

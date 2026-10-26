@@ -477,11 +477,10 @@ describe("file discovery", () => {
       writeFileSync(join(root, file), text)
     }
     return (script: string, ...args: string[]) => {
-      const { status, stderr } = spawnSync(
-        "node",
-        [`scripts/${script}.mjs`, ...args],
-        { encoding: "utf-8", env: { ...process.env, OPUI_ROOT: root } },
-      )
+      const { status, stderr } = spawnSync("node", [script, ...args], {
+        encoding: "utf-8",
+        env: { ...process.env, OPUI_ROOT: root },
+      })
       return { status, stderr }
     }
   }
@@ -494,18 +493,18 @@ describe("file discovery", () => {
       "src/a.css": UNSORTED,
       "tests/a.css": UNSORTED,
     })
-    const characters = run("check-characters")
+    const characters = run("scripts/check-characters.mjs")
     expect(characters.status).toBe(1)
     expect(characters.stderr).toContain("src/a.css:1: em dash")
     expect(characters.stderr).not.toContain("ignored/")
 
-    const colors = run("check-colors")
+    const colors = run("scripts/check-colors.mjs")
     expect(colors.status).toBe(1)
     expect(colors.stderr).toContain("src/a.css:4: #fff")
     expect(colors.stderr).toContain("notes/a.css:4: #fff")
     expect(colors.stderr).not.toMatch(/generated\/|ignored\/|tests\//)
 
-    const sorted = run("sort-css", "--check")
+    const sorted = run("scripts/sort-css.mjs", "--check")
     expect(sorted.status).toBe(1)
     expect(sorted.stderr).toContain("src/a.css")
     expect(sorted.stderr).not.toContain("notes/a.css")
@@ -513,9 +512,9 @@ describe("file discovery", () => {
 
   test("each check passes once its files are fixed", () => {
     const run = repo({ "notes/a.css": SORTED, "src/a.css": SORTED })
-    expect(run("check-characters").status).toBe(0)
-    expect(run("check-colors").status).toBe(0)
-    expect(run("sort-css", "--check").status).toBe(0)
+    expect(run("scripts/check-characters.mjs").status).toBe(0)
+    expect(run("scripts/check-colors.mjs").status).toBe(0)
+    expect(run("scripts/sort-css.mjs", "--check").status).toBe(0)
   })
 })
 

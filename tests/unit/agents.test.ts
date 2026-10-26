@@ -1,4 +1,4 @@
-import { execFileSync } from "node:child_process"
+import { execFileSync, spawnSync } from "node:child_process"
 import { matchesGlob } from "node:path"
 import { describe, expect, test } from "vitest"
 import {
@@ -127,5 +127,28 @@ describe("audit-scope", () => {
         paths: ["packages/opui/css/**"],
       },
     ])
+  })
+})
+
+describe("scripts/audit-scope.mjs", () => {
+  const scope = (...args: string[]) =>
+    spawnSync("node", ["scripts/audit-scope.mjs", ...args], {
+      encoding: "utf-8",
+    })
+
+  test("picks the agents for a component, with its files", () => {
+    const { status, stdout } = scope("tabs")
+    expect(status).toBe(0)
+    const { agents } = JSON.parse(stdout)
+    expect(agents.map(({ name }: { name: string }) => name)).toContain("css")
+    expect(
+      agents.every(({ files }: { files: string[] }) => files.length > 0),
+    ).toBe(true)
+  })
+
+  test("fails on a word that is no agent or component", () => {
+    const { status, stderr } = scope("nope")
+    expect(status).toBe(1)
+    expect(stderr).toContain("nope: not an agent")
   })
 })

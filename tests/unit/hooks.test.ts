@@ -16,8 +16,8 @@ const EM_DASH = String.fromCodePoint(0x2014)
 
 const settings = JSON.parse(readFileSync(".claude/settings.json", "utf-8"))
 
-const hook = (name: string, input: object, project = process.cwd()) =>
-  spawnSync("node", [`.claude/hooks/${name}.mjs`], {
+const hook = (script: string, input: object, project = process.cwd()) =>
+  spawnSync("node", [script], {
     encoding: "utf-8",
     env: { ...process.env, CLAUDE_PROJECT_DIR: project },
     input: JSON.stringify(input),
@@ -47,7 +47,7 @@ describe("post-edit", () => {
 
   test("reports a problem in the edited file to Claude", () => {
     const result = hook(
-      "post-edit",
+      ".claude/hooks/post-edit.mjs",
       { tool_input: { file_path: join(project, "docs/dash.md") } },
       project,
     )
@@ -63,7 +63,11 @@ describe("post-edit", () => {
       join(tmpdir(), "elsewhere.md"),
       "",
     ]) {
-      const result = hook("post-edit", { tool_input: { file_path } }, project)
+      const result = hook(
+        ".claude/hooks/post-edit.mjs",
+        { tool_input: { file_path } },
+        project,
+      )
       expect(result.status, file_path).toBe(0)
       expect(result.stderr, file_path).toBe("")
     }
@@ -72,7 +76,7 @@ describe("post-edit", () => {
 
 describe("stop", () => {
   test("lets Claude stop when a stop hook already made it continue", () => {
-    const result = hook("stop", { stop_hook_active: true })
+    const result = hook(".claude/hooks/stop.mjs", { stop_hook_active: true })
     expect(result.status).toBe(0)
     expect(result.stderr).toBe("")
   })
@@ -92,7 +96,8 @@ describe("stop", () => {
     git("add", ".")
     git("commit", "-q", "-m", "chore: add a")
     git("push", "-q", "-u", "origin", "HEAD")
-    const stop = () => hook("stop", { stop_hook_active: false }, clone)
+    const stop = () =>
+      hook(".claude/hooks/stop.mjs", { stop_hook_active: false }, clone)
 
     expect(stop().status).toBe(0)
 

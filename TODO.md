@@ -48,6 +48,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Options:
     - A (recommended): move the severity scope sources (`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`) into a `theme.severity` sublayer after `theme.custom` in `layers.css`, with a CHANGELOG entry for the new layer.
     - B: say in the theming guide that a severity class can't sit on a `.ui-palette` or `.ui-contrast-more` element when a theme sets `--ui-palette-source`.
+- [ ] (1) Tests: in WebKit, "split button opens its menu" sometimes still finds the menu open 5 seconds after a click on "Save as draft", once each in Svelte, React and Vue. A plain popover hidden while it opens closes in WebKit, so the opening transition isn't the cause (`tests/e2e/interaction.spec.ts:813-826`, `src/component-examples/button-group/SplitButton.html:25-44`)
+  - Summary: One split button test sometimes fails in WebKit because the menu stays open after an item is clicked.
+  - Recommended: Fix. A trace from a failing run shows where the click goes.
+  - Fix: on the next failing WebKit run, open the test's trace from the run's Playwright report and check whether the click reached the item, whether `hide-popover` ran, and whether the menu opened again.
 - [x] (2) Tests: the Playwright projects pick the specs that also run in Firefox and WebKit with an allowlist regex, which leaves out `client-render.spec.ts` and `todo.spec.ts`, although AGENTS.md says every spec without screenshots runs there (`playwright.config.ts:10-11`, `playwright.config.ts:37`, `playwright.config.ts:46`, `AGENTS.md:83`)
   - Summary: Two specs without screenshots only run in Chromium, though the guide says they also run in Firefox and WebKit.
   - Recommended: Fix. An opt-out list can't drift from the rule.

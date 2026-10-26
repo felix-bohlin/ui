@@ -95,6 +95,12 @@ export default {
       },
     },
     {
+      files: ["packages/opui/css/components/progress.css"],
+      rules: {
+        "opui/motion-duration": [true, { except: ["--_loop-duration: 2s"] }],
+      },
+    },
+    {
       files: ["packages/opui/css/components/text-field.css"],
       rules: { "opui/focus-visible": [true, { except: ["&:focus"] }] },
     },

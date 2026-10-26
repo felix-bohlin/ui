@@ -20,8 +20,17 @@ test.each([
   ["opui/hover-media", block("&:hover { color: CanvasText; }")],
   ["opui/motion-duration", block("transition: opacity 0.2s;")],
   ["opui/motion-duration", block("transition: opacity var(--ui-duration);")],
+  [
+    "opui/motion-duration",
+    block("transition: opacity var(--_duration), color var(--ui-duration);"),
+  ],
+  ["opui/motion-duration", block("--_duration: var(--ui-duration);")],
   ["opui/state-classes", block("&.ui-button.ui-open { color: CanvasText; }")],
   ["opui/unused-classes", block("& .ui-no-such-part { color: CanvasText; }")],
+  [
+    "opui/unused-classes",
+    "@scope (.ui-no-such-part) {\n  :scope { color: CanvasText; }\n}\n",
+  ],
   ["opui/vendor-prefix", block("-webkit-user-select: none;")],
   ["selector-no-vendor-prefix", block("&::-moz-selection { color: Canvas; }")],
 ])("%s rejects %j", async (rule, code) => {
@@ -34,6 +43,7 @@ test.each([
   block("transition: opacity var(--_duration) var(--_ease) 0s;"),
   block("animation: ui-spin max(0.7s * var(--_motion), 1s) linear infinite;"),
   block("animation-duration: auto, var(--_focus-ring-duration);"),
+  block("--_duration: calc(var(--ui-duration) * var(--_motion));"),
   block("transition: none;"),
   block("&:has(.ui-icon-checked) { color: CanvasText; }"),
   block("-webkit-user-select: none;\nuser-select: none;"),

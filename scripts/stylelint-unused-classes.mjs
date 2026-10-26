@@ -42,8 +42,8 @@ const rule = (primary) => (root, result) => {
   if (!validateOptions(result, ruleName, { actual: primary })) return
 
   const reported = new Set()
-  root.walkRules((node) => {
-    for (const [word, name] of node.selector.matchAll(/\.(ui-[\w-]+)/g)) {
+  const check = (node, text) => {
+    for (const [word, name] of text.matchAll(/\.(ui-[\w-]+)/g)) {
       if (reported.has(name) || isUsed(name)) continue
       reported.add(name)
       report({
@@ -55,7 +55,10 @@ const rule = (primary) => (root, result) => {
         word,
       })
     }
-  })
+  }
+
+  root.walkRules((node) => check(node, node.selector))
+  root.walkAtRules("scope", (node) => check(node, node.params))
 }
 
 rule.ruleName = ruleName

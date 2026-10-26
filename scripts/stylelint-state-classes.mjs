@@ -64,8 +64,8 @@ const rule = (primary, secondary) => (root, result) => {
 
   const except = exceptions(secondary, { messages, result, root, ruleName })
 
-  root.walkRules((node) => {
-    for (const selector of node.selectors) {
+  const check = (node, selectors) => {
+    for (const selector of selectors) {
       const found = [...selector.matchAll(STATE)]
       if (found.length === 0 || except.allows(selector)) continue
       for (const [word, name, state] of found) {
@@ -79,7 +79,10 @@ const rule = (primary, secondary) => (root, result) => {
         })
       }
     }
-  })
+  }
+
+  root.walkRules((node) => check(node, node.selectors))
+  root.walkAtRules("scope", (node) => check(node, [node.params]))
 
   except.reportUnused()
 }

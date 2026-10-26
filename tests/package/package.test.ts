@@ -12,6 +12,7 @@ import {
   symlinkSync,
   writeFileSync,
 } from "node:fs"
+import { createRequire } from "node:module"
 import { tmpdir } from "node:os"
 import path from "node:path"
 import { afterAll, beforeAll, describe, expect, test } from "vitest"
@@ -201,6 +202,64 @@ test("dist/opui.no-compat.css leaves out the compat layer", () => {
   expect(css("opui.css")).toContain("@layer components.compat {")
   expect(css("opui.baseline-2023.css")).toContain("@layer components.compat {")
   expect(css("opui.no-compat.css")).not.toContain("@layer components.compat {")
+})
+
+test("dist/op.css has no palette, as MIGRATING.md promises", () => {
+  const css = readFileSync(path.join(unpacked, "dist/op.css"), "utf8")
+  expect(css.length).toBeGreaterThan(0)
+  expect(
+    [...css.matchAll(/(?<![\w-])(--(?:color|palette)-[\w-]*)\s*:/g)].map(
+      ([, name]) => name,
+    ),
+    "open-props.css imports Open Props' palette again",
+  ).toEqual([])
+})
+
+test("every opui-css specifier in the README resolves in the tarball", () => {
+  const readme = readFileSync(path.join(unpacked, "README.md"), "utf8")
+  const specifiers = [
+    ...new Set(
+      [...readme.matchAll(/(?<![\w@/.-])opui-css\/([\w/<>.*-]+)/g)].map(
+        ([, subpath]) => subpath.replace(/\.$/, ""),
+      ),
+    ),
+  ].toSorted()
+  expect(specifiers.length).toBeGreaterThan(0)
+
+  const consumer = path.join(work, "readme")
+  mkdirSync(path.join(consumer, "node_modules"), { recursive: true })
+  symlinkSync(unpacked, path.join(consumer, "node_modules/opui-css"))
+  const require = createRequire(path.join(consumer, "index.js"))
+  const resolves = (subpath: string) => {
+    try {
+      require.resolve(`opui-css/${subpath}`)
+      return true
+    } catch {
+      return false
+    }
+  }
+  const PLACEHOLDER = /\*|<[^>]+>/
+  const candidates = (subpath: string) => {
+    if (!PLACEHOLDER.test(subpath)) return [subpath]
+    const segments = subpath.split("/")
+    const index = segments.findIndex((segment) => PLACEHOLDER.test(segment))
+    const folder = path.join(unpacked, ...segments.slice(0, index))
+    if (index !== segments.length - 1 || !existsSync(folder)) return []
+    const pattern = new RegExp(
+      `^${segments[index]
+        .split(PLACEHOLDER)
+        .map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+        .join("[^/]+")}$`,
+    )
+    return readdirSync(folder)
+      .flatMap((entry) => [entry, entry.replace(/\.[^.]+$/, "")])
+      .filter((name) => pattern.test(name))
+      .map((name) => [...segments.slice(0, index), name].join("/"))
+  }
+  expect(
+    specifiers.filter((subpath) => !candidates(subpath).some(resolves)),
+    "the README names opui-css/... imports the package doesn't export",
+  ).toEqual([])
 })
 
 describe("the opui-css command", () => {

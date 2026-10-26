@@ -161,12 +161,12 @@ The library defines this layer order:
 
 ```css
 @layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils;
-@layer theme.palette, theme.base, theme.custom;
+@layer theme.palette, theme.base, theme.custom, theme.severity;
 ```
 
 Import `opui-css/css/layers.css` first to set this order when you import single files, and `opui-css/css/compat.css` after the components for the browser fallbacks.
 
-Put your theme tokens in `@layer theme.custom`, which beats the defaults in `theme.base`. Wrap other overrides in a layer above `utils` (or unlayered).
+Put your theme tokens in `@layer theme.custom`, which beats the defaults in `theme.base`. `theme.severity` comes after it and only holds the palette source of the severity classes, so a theme that sets `--ui-palette-source` doesn't recolor a `.ui-critical` on the same element. Wrap other overrides in a layer above `utils` (or unlayered).
 
 ## Upgrading
 

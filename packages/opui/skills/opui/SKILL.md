@@ -24,7 +24,7 @@ Install with `npm install opui-css`. Open Props is bundled in `dist/opui.css` fo
 - Common modifiers: sizes `.ui-x-small`, `.ui-small`, `.ui-large` (not every component has all three), variants `.ui-filled`, `.ui-outlined`, `.ui-tonal`, colors `.ui-primary`, `.ui-critical`, severities `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical`. The reference lists which apply.
 - Buttons: give `<button>` a `type`. When a button has an icon, wrap the label in `<span class="ui-text">` (also inside `<Button>`); a button whose only element is an `svg` is styled as icon-only.
 - Components lean on native HTML: `<dialog>`, `popover`, invoker commands (`commandfor` / `command`), `<details>`. Prefer these over custom JavaScript.
-- Styles live in cascade layers (`openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils`), and `theme` has the sublayers `theme.palette, theme.base, theme.custom`. Put theme tokens in `@layer theme.custom`. Put other overrides in a layer after `utils` or leave them unlayered.
+- Styles live in cascade layers (`openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils`), and `theme` has the sublayers `theme.palette, theme.base, theme.custom, theme.severity`. Put theme tokens in `@layer theme.custom`. Put other overrides in a layer after `utils` or leave them unlayered.
 
 ## Customizing
 

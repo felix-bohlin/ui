@@ -719,7 +719,9 @@
       oklch(from var(--ui-color-6) l c h / 5%)
     );
   }
+}
 
+@layer theme.severity {
   /* Severity scope classes */
   :where(.ui-critical) {
     --ui-palette-source: oklch(from var(--ui-critical) 0.58 0.21 h);

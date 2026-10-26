@@ -19,7 +19,7 @@ export const LEGACY_KEYS = [
 ]
 
 export const LAYERS = `@layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils;
-@layer theme.palette, theme.base, theme.custom;
+@layer theme.palette, theme.base, theme.custom, theme.severity;
 `
 
 export const PLACEHOLDER_CSS = `${LAYERS}

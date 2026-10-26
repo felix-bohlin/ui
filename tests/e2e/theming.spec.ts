@@ -1,3 +1,4 @@
+import { readdirSync } from "node:fs"
 import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
 import { computed, openFixture, resolveColor } from "./fixtures"
@@ -50,49 +51,62 @@ test("a .ui-palette subtree re-derives its colors", async ({ page }) => {
   expect(await resolveColor(scope, "var(--ui-primary)")).toMatch(/ 120\)$/)
 })
 
-test("a severity class keeps its palette on a .ui-palette or .ui-contrast-more element", async ({
-  page,
-}) => {
-  const severities = ["critical", "info", "neutral", "success", "warning"]
-  const scopes = ["ui-contrast-more", "ui-palette"]
-  await page.evaluate(
-    ([severities, scopes]) => {
-      for (const scope of scopes) {
-        for (const severity of severities) {
-          const parent = document.createElement("div")
-          parent.className = scope
-          parent.innerHTML = `<span class="ui-chip ui-${severity}" data-severity="child"></span><span class="${scope} ui-chip ui-${severity}" data-severity="same"></span>`
-          parent.dataset.severityScope = `${scope} ${severity}`
-          document.body.append(parent)
+const THEMES = [
+  "default",
+  ...readdirSync(new URL("../../packages/opui/themes/", import.meta.url))
+    .filter((file) => file.endsWith(".css"))
+    .map((file) => file.replace(/\.css$/, ""))
+    .toSorted(),
+]
+
+for (const theme of THEMES) {
+  test(`a severity class keeps its palette on a .ui-palette or .ui-contrast-more element (${theme})`, async ({
+    page,
+  }) => {
+    if (theme !== "default") {
+      await openFixture(page, "html", "stress/theming", `?theme=${theme}`)
+    }
+    const severities = ["critical", "info", "neutral", "success", "warning"]
+    const scopes = ["ui-contrast-more", "ui-palette"]
+    await page.evaluate(
+      ([severities, scopes]) => {
+        for (const scope of scopes) {
+          for (const severity of severities) {
+            const parent = document.createElement("div")
+            parent.className = scope
+            parent.innerHTML = `<span class="ui-chip ui-${severity}" data-severity="child"></span><span class="${scope} ui-chip ui-${severity}" data-severity="same"></span>`
+            parent.dataset.severityScope = `${scope} ${severity}`
+            document.body.append(parent)
+          }
+        }
+      },
+      [severities, scopes],
+    )
+    for (const scope of scopes) {
+      for (const severity of severities) {
+        const parent = page.locator(
+          `[data-severity-scope="${scope} ${severity}"]`,
+        )
+        for (const token of [
+          "--ui-color-9",
+          "--ui-palette-accent",
+          "--ui-palette-tint-subtle",
+        ]) {
+          const color = `var(${token}, transparent)`
+          const child = await resolveColor(
+            parent.locator('[data-severity="child"]'),
+            color,
+          )
+          expect(child).not.toBe("rgba(0, 0, 0, 0)")
+          expect(
+            await resolveColor(parent.locator('[data-severity="same"]'), color),
+            `${token} on .${scope}.ui-${severity}`,
+          ).toBe(child)
         }
       }
-    },
-    [severities, scopes],
-  )
-  for (const scope of scopes) {
-    for (const severity of severities) {
-      const parent = page.locator(
-        `[data-severity-scope="${scope} ${severity}"]`,
-      )
-      for (const token of [
-        "--ui-color-9",
-        "--ui-palette-accent",
-        "--ui-palette-tint-subtle",
-      ]) {
-        const color = `var(${token}, transparent)`
-        const child = await resolveColor(
-          parent.locator('[data-severity="child"]'),
-          color,
-        )
-        expect(child).not.toBe("rgba(0, 0, 0, 0)")
-        expect(
-          await resolveColor(parent.locator('[data-severity="same"]'), color),
-          `${token} on .${scope}.ui-${severity}`,
-        ).toBe(child)
-      }
     }
-  }
-})
+  })
+}
 
 test(".ui-motion-off removes transitions", async ({ page }) => {
   const button = example(page, "MotionOff").locator(".ui-button")

@@ -115,7 +115,7 @@ The stylesheets read `--ui-border-color`, `--ui-border-color-on-filled`, `--ui-b
     </button>
   </li>
   <li>
-    <a href="#basics">
+    <a href="/guide/getting-started/">
       <div class="ui-text"><p>Help</p></div>
     </a>
   </li>
@@ -147,7 +147,7 @@ import { Button, Menu } from "opui-css/astro"
     { label: "Edit", shortcut: "Ctrl+E" },
     { label: "Duplicate", shortcut: "Ctrl+D" },
     { disabled: true, label: "Archive" },
-    { href: "#basics", label: "Help" },
+    { href: "/guide/getting-started/", label: "Help" },
     { borderTop: true, color: "critical", label: "Delete" },
   ]}
 />
@@ -180,7 +180,7 @@ export default function Basics() {
           { label: "Edit", shortcut: "Ctrl+E" },
           { label: "Duplicate", shortcut: "Ctrl+D" },
           { disabled: true, label: "Archive" },
-          { href: "#basics", label: "Help" },
+          { href: "/guide/getting-started/", label: "Help" },
           { borderTop: true, color: "critical", label: "Delete" },
         ]}
       />
@@ -209,7 +209,7 @@ export default function Basics() {
     { label: "Edit", shortcut: "Ctrl+E" },
     { label: "Duplicate", shortcut: "Ctrl+D" },
     { disabled: true, label: "Archive" },
-    { href: "#basics", label: "Help" },
+    { href: "/guide/getting-started/", label: "Help" },
     { borderTop: true, color: "critical", label: "Delete" },
   ]}
 />
@@ -240,7 +240,7 @@ import { Button, Menu } from "opui-css/vue"
       { label: 'Edit', shortcut: 'Ctrl+E' },
       { label: 'Duplicate', shortcut: 'Ctrl+D' },
       { disabled: true, label: 'Archive' },
-      { href: '#basics', label: 'Help' },
+      { href: '/guide/getting-started/', label: 'Help' },
       { borderTop: true, color: 'critical', label: 'Delete' },
     ]"
   />

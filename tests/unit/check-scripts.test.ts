@@ -1,3 +1,4 @@
+import { readdirSync } from "node:fs"
 import stylelint from "stylelint"
 import { describe, expect, test } from "vitest"
 import { featureIds, patterns } from "../../packages/opui/scripts/features.mjs"
@@ -41,6 +42,8 @@ import {
   intended,
 } from "../../scripts/check-ratchets.mjs"
 import { indexProblems } from "../../scripts/generate-search-index.mjs"
+import { localBaselines } from "../../scripts/check-screenshot-authors.mjs"
+import { releasedApi } from "../../scripts/released-api.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
 import logicalShorthands from "../../scripts/stylelint-logical-shorthands.mjs"
 
@@ -396,6 +399,62 @@ describe("check-file", () => {
         ".a {\n  inset: 0;\n  color: red;\n}\n",
       ),
     ).toEqual([])
+  })
+})
+
+describe("check-screenshot-authors", () => {
+  const BOT = "41898282+github-actions[bot]@users.noreply.github.com"
+
+  test("reports the baselines whose last change isn't the bot's", () => {
+    const log = [
+      `\0${BOT}`,
+      "",
+      "a.png",
+      "\0me@example.com",
+      "",
+      "a.png",
+      "b.png",
+      `\0${BOT}`,
+      "",
+      "b.png",
+    ].join("\n")
+    expect(localBaselines(["a.png", "b.png", "c.png"], log)).toEqual([
+      { author: "me@example.com", file: "b.png" },
+      { author: undefined, file: "c.png" },
+    ])
+  })
+
+  test("reports nothing when the bot made every last change", () => {
+    expect(localBaselines(["a.png"], `\0${BOT}\n\na.png`)).toEqual([])
+  })
+})
+
+describe("released-api", () => {
+  const api = releasedApi(".", "src/component-api/custom-properties")
+
+  test("finds the props, classes and inputs of the working tree", () => {
+    expect(api.props).toMatchObject({
+      Button: {
+        Button: expect.arrayContaining([
+          "as",
+          "color",
+          "href",
+          "size",
+          "variant",
+        ]),
+      },
+    })
+    expect([...api.classes]).toContain(".ui-button")
+    expect(Object.values(api.inputs).flat()).toContain("--_accent")
+  })
+
+  test("finds props for every component folder", () => {
+    expect(Object.keys(api.props).toSorted()).toEqual(
+      readdirSync("packages/opui/components", { withFileTypes: true })
+        .filter((entry) => entry.isDirectory())
+        .map(({ name }) => name)
+        .toSorted(),
+    )
   })
 })
 

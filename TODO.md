@@ -64,13 +64,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 ---
 
-- [ ] (5) Select (Svelte): in Chromium, a Svelte `Select` whose bound value is `undefined` renders with nothing selected whenever the page has a document-wide `MutationObserver`, which browser extensions, analytics and Playwright tracing add. Svelte 5.56 and older re-apply `select.__value` from their own observer on the `<selectedcontent>` mutations Chromium makes, before the binding effect has set `__value`, so `selectedIndex` turns -1 and the effect then finds no `:checked` option. `initialValue()` covers an item with `selected: true`, but a select whose first option is the default, or whose options come from children, still ends up empty. Svelte 5.57.0 ignores `<selectedcontent>` mutations (`packages/opui/components/Select/Select.svelte:37-39`, `packages/opui/package.json`, `pnpm-workspace.yaml`)
+- [x] (5) Select (Svelte): in Chromium, a Svelte `Select` whose bound value is `undefined` renders with nothing selected whenever the page has a document-wide `MutationObserver`, which browser extensions, analytics and Playwright tracing add. Svelte 5.56 and older re-apply `select.__value` from their own observer on the `<selectedcontent>` mutations Chromium makes, before the binding effect has set `__value`, so `selectedIndex` turns -1 and the effect then finds no `:checked` option. `initialValue()` covers an item with `selected: true`, but a select whose first option is the default, or whose options come from children, still ends up empty. Svelte 5.57.0 ignores `<selectedcontent>` mutations (`packages/opui/components/Select/Select.svelte:37-39`, `packages/opui/package.json`, `pnpm-workspace.yaml`)
   - Summary: In Chrome, a Svelte Select can show no option at all when an extension or script on the page watches the DOM.
   - Recommended: Fix with option A. The docs and tests already run on Svelte 5.57.2, and users on older Svelte keep the bug otherwise.
   - Fix: the catalog is on Svelte 5.57.2, so the docs and tests no longer hit it, and `client-render.spec.ts` compares each select's selection with the server markup. What's left is the package's peer range, which still allows 5.29.
   - Options:
     - A (recommended): raise the `svelte` peer range to `^5.57.0`, with a `Changed` entry in the CHANGELOG.
     - B: keep the range and say in the Select docs that Chromium needs Svelte 5.57 or later.
+  - Fixed: option A. The `svelte` peer range is `^5.57`, and the `opui-css/svelte` entry under Added in the CHANGELOG, the README, the Svelte getting started guide, its skill reference and the components guide say 5.57, as does the `package.json` peer range entry under Fixed. The Svelte components are new in 6.0.0, so the unreleased Added entry changed instead of a new Changed one.
 
 ## Docs
 

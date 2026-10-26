@@ -253,7 +253,7 @@ OPUI ships first-class Svelte 5 components. Install the package, import what you
 
 ### Install via NPM
 
-The components ship as uncompiled Svelte components (`.svelte` and `.ts`), so your build has to compile them. They need Svelte 5.29 or later, so add `svelte` if it isn't installed yet. Any setup with Svelte support works, for example SvelteKit, Vite with `@sveltejs/vite-plugin-svelte`, or Astro with `@astrojs/svelte`.
+The components ship as uncompiled Svelte components (`.svelte` and `.ts`), so your build has to compile them. They need Svelte 5.57 or later, so add `svelte` if it isn't installed yet. Any setup with Svelte support works, for example SvelteKit, Vite with `@sveltejs/vite-plugin-svelte`, or Astro with `@astrojs/svelte`.
 
 SvelteKit compiles the package for server rendering through its `svelte` field. In a Vite SSR setup of your own, add it to `ssr.noExternal`, since Node can't load `.svelte` files from `node_modules`:
 

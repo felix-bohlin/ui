@@ -105,7 +105,7 @@
     "open-props": "^1.7.23",
     "react": "^19",
     "react-dom": "^19",
-    "svelte": "^5.29",
+    "svelte": "^5.57",
     "vue": "^3.5"
   },
   "peerDependenciesMeta": {

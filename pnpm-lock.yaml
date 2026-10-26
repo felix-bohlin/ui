@@ -364,7 +364,7 @@ importers:
         specifier: ^19
         version: 19.3.0(react@19.3.0)
       svelte:
-        specifier: ^5.29
+        specifier: ^5.57
         version: 5.57.2
       vue:
         specifier: ^3.5

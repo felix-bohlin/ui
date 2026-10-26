@@ -18,7 +18,7 @@ Peer dependencies:
 - `astro` `^7` (only required if you use the Astro components)
 - `open-props` `^1.7.23` (only required if you import `opui-css/open-props.css`, the Open Props source)
 - `react` and `react-dom` `^19` (only required if you use the React components)
-- `svelte` `^5.29` (only required if you use the Svelte components)
+- `svelte` `^5.57` (only required if you use the Svelte components)
 - `vue` `^3.5` (only required if you use the Vue components)
 
 ## Usage

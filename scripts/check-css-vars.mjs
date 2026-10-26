@@ -2,6 +2,7 @@ import { readdir, readFile, writeFile } from "node:fs/promises"
 import { basename, dirname, extname, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import postcss from "postcss"
+import { format } from "prettier"
 import { declaredProperties } from "../src/utils/package-source.js"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
@@ -281,7 +282,10 @@ if (update) {
       )
       .toSorted(([a], [b]) => a.localeCompare(b)),
   )
-  await writeFile(allowlistFile, `${JSON.stringify(next, null, 2)}\n`)
+  await writeFile(
+    allowlistFile,
+    await format(JSON.stringify(next), { filepath: allowlistFile }),
+  )
 }
 
 const errors = [

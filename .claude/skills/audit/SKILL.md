@@ -31,7 +31,7 @@ Names and slugs can be mixed: `/audit css button` runs `css` on Button only.
 2. Check every finding of severity 4 or more yourself by opening the cited lines. Drop it, or lower it, when it doesn't hold.
 3. Turn a `Fix:` note that offers alternatives into an `Options:` list, as in `findings-format.md`.
 4. Give every finding a `Summary:` and a `Recommended:` note as in `findings-format.md`.
-5. Group the findings by `TODO.md` section, sorted by severity, lowest first.
+5. For the chat report, group the findings by `TODO.md` section, sorted by severity, lowest first (`todo.mjs add` places a sweep's findings itself).
 6. A finding that asks for a new theme token is a design question, not a bug: name the role it would fill and which example theme needs it, and point to section 9 of `packages/opui/components/AGENTS.md`, which says when a token is warranted. The reader first, the token second.
 
 ## Report

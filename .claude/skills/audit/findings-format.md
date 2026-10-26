@@ -16,7 +16,7 @@ Every audit agent reports findings in this format, so `/audit` can merge them an
 
 ## Item
 
-One finding per item, in the `TODO.md` item format. `Component:` is the component name, or the area (`CSS`, `Docs`, `Learn`, `Changelog`) when it isn't one component.
+One finding per item, in the `TODO.md` item format. `Component:` is the component name, a docs page title, or an area from `AREAS` in `tests/unit/todo.test.ts` when it isn't one component.
 
 ````md
 - [ ] (2) Component: what is wrong, in one or two sentences (`path/to/file.css:12-18`, `path/to/Other.astro:4`)

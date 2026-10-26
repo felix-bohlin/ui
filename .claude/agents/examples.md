@@ -23,6 +23,6 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 - **Files.** `pnpm check-components` checks the file set, names, React exports, `"use client"`, outer wrappers and that a page shows every example, and `tests/unit/parity.test.ts` checks decorative SVGs. A `*Code` file exists for each framework whose preview needs one, and shows the same thing as its preview without the doc-only parts.
 - **Coverage.** Every variant, size, color and state the CSS and `api.ts` document has an example on the page.
-- **Imports.** Astro examples import from `opui-css/astro`, React from `opui-css/react`, Svelte from `opui-css/svelte` and Vue from `opui-css/vue`. They use components instead of hand-written markup where a component exists.
-- **Content.** Realistic, short text that is the same in every framework. Lists of options, sizes and variants are in ascending order unless the visual order means something. Ids are unique on the page.
+- **Imports.** Each example imports from its own framework's `opui-css/<framework>` (`pnpm check-components` fails on `@opui/`), and uses components instead of hand-written markup where a component exists.
+- **Content.** Realistic, short text. Lists of options, sizes and variants are in ascending order unless the visual order means something.
 - **Snapshots.** Changes in `tests/unit/__snapshots__/` that come with an example change are intended, and the commit says so.

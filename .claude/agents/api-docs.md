@@ -27,11 +27,10 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 ## Check
 
-- **Props in every framework.** Compare `types.astro.ts`, `types.react.ts`, `types.svelte.ts` and `types.vue-props.ts` in `packages/opui/components/<Name>/`. Report props that one framework takes and another doesn't, without a `frameworks` limit or `inherited` in `api.ts`. Report types that differ between frameworks.
+- **Props in every framework.** Compare `types.astro.ts`, `types.react.ts`, `types.svelte.ts` and `types.vue-props.ts` in `packages/opui/components/<Name>/`. Report types that differ between frameworks (`checkApi` already reports a prop one framework lacks).
 - **Defaults.** The documented default matches the default in each component (`.astro`, `.react.tsx`, `.svelte`, `.vue`).
-- **Values.** Each enum prop's `values` covers every value of its type and maps to a modifier the CSS has.
+- **Values.** Each `values` entry maps to a modifier the CSS has (`checkApi` checks the keys against the type).
 - **CSS.** Every class, attribute and selector in `api.ts` (`class`, `attribute`, `part`, `selector`, `cssVar`) exists in the component's stylesheets. Report modifiers the CSS has that the API doesn't document.
 - **Parts.** `root` and `parts` match the rendered markup and are in visual order. `anchorName` is set when the CSS sets an `anchor-name`.
-- **Slots.** Every slot the components render is documented, with kebab-case names.
 - **Wording.** Descriptions are short and use the standard phrases from the guide. Classes have the `ui-` prefix and a dot, `default` has neither, and code is in backticks, never `<code>` tags (Inline code in `src/component-api/AGENTS.md`).
 - **Docs pages.** The page in `src/docs/components/` doesn't contradict the API: props, classes and defaults it mentions match.

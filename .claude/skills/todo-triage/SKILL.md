@@ -10,7 +10,7 @@ Give every open `TODO.md` item a `Summary:` and a `Recommended:` note. You only 
 
 ## Read first
 
-- `AGENTS.md`, the `## TODO.md` and `## Characters` sections.
+- `AGENTS.md`, the `## TODO.md` section.
 - `.claude/skills/audit/findings-format.md`, the item format and the note syntax.
 
 ## Scope
@@ -31,7 +31,7 @@ For each item:
    - A single `Fix:` and no options: `Fix`.
    - A question of taste or scope, for example in `## Questions`: `Explain further`.
    - The user can only decide after seeing it: `Explain further and provide an example`.
-4. Write the notes as JSON, `[{ "line", "summary", "recommended" }]`, leaving out a note the item has, and run `node scripts/todo.mjs triage <file>`. It puts them first under the headline and rejects a recommendation the `/todo` page can't offer.
+4. Write the notes as JSON, `[{ "line", "summary", "recommended" }]`, and run `node scripts/todo.mjs triage <file>`. It puts them first under the headline, and rejects a note the item has and a recommendation the `/todo` page can't offer.
 
 Then run `pnpm exec prettier --write TODO.md`, `pnpm exec vitest run tests/unit/todo.test.ts` (it checks the format) and `pnpm check-characters`, and commit with `chore: add summaries and recommendations to open todos`.
 

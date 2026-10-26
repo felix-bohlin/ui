@@ -28,9 +28,9 @@ You check the browser support chips on the component docs pages. You report find
 For each page in scope:
 
 1. List the features its CSS uses that `web-features` tracks. Look up an id with `node -e 'import("web-features").then(({ features }) => console.log(JSON.stringify(features["has"], null, 2)))'`, and search ids by name or `compat_features` key when you aren't sure of one.
-2. Report features the CSS uses that are missing from `browserSupport`. Which widely available features to leave out and which to keep is in `browserSupport` in `src/docs/components/AGENTS.md`.
-3. Report ids in `browserSupport` that the CSS no longer uses.
+2. Report features outside the script's `patterns` that the CSS uses and `browserSupport` lacks. Which widely available features to leave out and which to keep is in `browserSupport` in `src/docs/components/AGENTS.md`.
+3. Report ids outside `patterns` in `browserSupport` that the CSS no longer uses.
 4. Report ids that point at the wrong feature, such as a broader or narrower id than the one used.
 5. Check the features the HTML in the examples relies on (`popover`, `commandfor`, `interestfor`, `closedby`, `<details name>`) the same way.
 
-Run `pnpm check-browser-support` and include its partial support summary when it is relevant to a finding. Sort suggested `browserSupport` lists in ascending order.
+Run `pnpm check-browser-support` and include its partial support summary when it is relevant to a finding.

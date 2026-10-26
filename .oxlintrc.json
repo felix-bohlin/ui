@@ -16,5 +16,23 @@
     "playwright-report/**",
     "test-results/**"
   ],
-  "plugins": ["oxc", "react", "typescript", "unicorn", "vue"]
+  "overrides": [
+    {
+      "files": [
+        "packages/opui/env.d.ts",
+        "packages/opui/react/elements.ts",
+        "packages/opui/svelte/elements.ts",
+        "src/env.d.ts",
+        "tests/e2e/css-js.spec.ts"
+      ],
+      "rules": {
+        "typescript/consistent-type-definitions": "off"
+      }
+    }
+  ],
+  "plugins": ["oxc", "react", "typescript", "unicorn", "vue"],
+  "rules": {
+    "typescript/consistent-type-definitions": ["error", "type"],
+    "typescript/no-inferrable-types": "error"
+  }
 }

@@ -35,8 +35,8 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 
 ## Typescript
 
-- ALWAYS use type over interface unless interface is specifically required.
 - ALWAYS prefer inference over explicit types.
+- `pnpm lint` fails on `interface` and on annotations a literal already implies. Files that need declaration merging are listed in the `overrides` of `.oxlintrc.json`.
 
 ## Commit messages
 

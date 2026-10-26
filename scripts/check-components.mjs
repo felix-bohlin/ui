@@ -364,9 +364,6 @@ for (const folder of folders) {
     const path = join(dir, file)
     const source = await readFile(path, "utf-8")
 
-    if (/^\s*(export\s+)?interface\s/m.test(source)) {
-      report(path, 'uses "interface"; use "type" instead')
-    }
     if (/^types.*\.ts$/.test(file)) checkSortedKeys(path, source)
     if (file.endsWith(".react.tsx")) {
       const svelte = `${basename(file, ".react.tsx")}.svelte`

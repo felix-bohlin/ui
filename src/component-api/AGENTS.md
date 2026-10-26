@@ -70,6 +70,7 @@ import buttonGroupApi from "../../component-api/button-group/api"
 - `source`: the component folder in `packages/opui/components/`. Omit it for CSS-only components, such as `spinner`; every framework then shows the HTML tables plus its `notes`, followed by "There is no {Framework} component.".
 - `page`: the docs page slug when it differs from the folder, such as `tabs` for `tabs-item`. The API index links to it, and the check fails when it does not exist.
 - `hydration`: per-framework props that need a client directive in React, Svelte or Vue, each with a `description` and an optional `fallback`. They get a marker in the props table. `default` applies to every hydrated framework without its own entry.
+- `keyboard`: the keys of an interactive component, as `{ description, keys }` rows. See [Keyboard support](#keyboard-support-keyboard).
 - `root` and `parts`: structural elements with a `selector` and a `description`. `code` overrides the selector shown in the table, such as `<summary>`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `"DescriptionListTerm"`. Container parts (`CardHeader`, `AccordionSummary`) always set `component`; a part with its own props or slots also gets its own `api.ts`, like `card-actions`, whose `component` names its root. A slot has one name in every framework, so React and Svelte use its camelCase form (`valueText` for the Range `value-text` slot). Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
 - `options`: props and their HTML equivalent (`class` or `attribute`, `group` for the HTML table). Every option has its own `group`; the check fails when two share one. Use `frameworks` to limit an option to some frameworks, such as `["html"]` for a class-only option or `["react"]` for `onValueChange`, and `type` to override the resolved type.
   - `inherited: true` marks a native attribute the types don't declare, such as an `id` or `name` that `...rest` passes on. It needs a `type`, and the props table shows it in every framework that doesn't declare it. The check fails when every framework declares it, and when any other option is missing in a framework it applies to.
@@ -82,6 +83,32 @@ import buttonGroupApi from "../../component-api/button-group/api"
 - `css`: the stylesheets under `packages/opui/css/components/` the component is styled by, without the extension. Defaults to the kebab-cased `source`. The CSS variables table lists every theme token those files read, with the default from `theme.css` and the description from `src/utils/theme-token-descriptions.ts`.
 - `model`: the bound value.
 - `notes`: per-framework notes. `default` applies to every framework without its own note, HTML included. For a note that every component framework shares but HTML doesn't, spread `components(note)` from [frameworks.ts](frameworks.ts), imported as `../frameworks.ts` because the search index and skill scripts load `api.ts` in Node. A component that passes unknown attributes to an inner element writes that note with `passThrough(element, root, examples, more)` from the same file: it names the element the attributes go to, the root that gets `class` (`className` in React) and `style`, a few example attributes, and an optional sentence per framework (or `default`) after it.
+
+## Keyboard support (`keyboard`)
+
+`keyboard` lists what each key does on an interactive component, one row per key or per keys that do the same thing. The docs page renders it with the `KeyboardSupport` partial ([src/docs/components/AGENTS.md](../docs/components/AGENTS.md)), as one table with the same key names and order on every page.
+
+```ts
+keyboard: [
+  {
+    description:
+      "Moves focus to the next checkbox. Every checkbox in a group is a tab stop.",
+    keys: ["Tab"],
+  },
+  {
+    description:
+      "Checks or unchecks the focused checkbox. An indeterminate checkbox gets checked.",
+    keys: ["Space"],
+  },
+],
+```
+
+- `keys` come from `KEYS` in [keyboard.ts](keyboard.ts), a closed list in a fixed order: `Tab`, `Shift + Tab`, `Enter`, `Space`, the arrows (`Up Arrow`, `Down Arrow`, `Left Arrow`, `Right Arrow`), `Home`, `End`, `Page Up`, `Page Down`, `Esc` and `Printable characters` for type-ahead. Add a key there when a component needs a new one. A combination is written with `" + "`.
+- List the keys of a row and the rows themselves in the order of `KEYS`, and give each key one row, so a key has one description per component.
+- `description` is a sentence with a capital and a period, formatted by `formatInline`. Say where focus is when the key does different things (`On the trigger, ...`), and where focus goes.
+- Dialog and Drawer share their rows through `modalKeyboard(name)` from `keyboard.ts`, imported as `../keyboard.ts`.
+- Check every row in the browser before writing it: press the keys on the component's fixture page (`/<framework>/test/<component>`) in Chromium. Most of the behavior is native (radio groups, `details`, `dialog`, popovers with `commandfor` and `interestfor`, `select`, range inputs, scroll buttons and markers), so write what the browser does, and name the browser when only Chromium does it or other engines differ.
+- `checkApi` reports a key that isn't in `KEYS`, keys or rows out of order, a key in two rows, a row without keys, an empty `keyboard` and a description that isn't a sentence.
 
 ## Component properties (`custom-properties/<stylesheet>.ts`)
 

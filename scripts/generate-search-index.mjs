@@ -65,6 +65,7 @@ function readMeta(file) {
 
   const headings = [
     ...readHeadings(content),
+    ...(content.includes("<KeyboardSupport") ? ["Keyboard support"] : []),
     ...readMarkdownHeadings(file, content),
   ]
 

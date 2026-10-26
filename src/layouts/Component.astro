@@ -234,6 +234,15 @@ const usedInBlocks = rootClasses.length > 0 ? blocksUsing(rootClasses) : []
     )
   }
 
+  {
+    Astro.slots.has("usage") && (
+      <section>
+        <h2 id="usage">Usage</h2>
+        <slot name="usage" />
+      </section>
+    )
+  }
+
   <slot />
 
   {

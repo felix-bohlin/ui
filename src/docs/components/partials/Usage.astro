@@ -1,0 +1,16 @@
+---
+if (!Astro.slots.has("when") || !Astro.slots.has("when-not")) {
+  throw new Error(
+    `Usage on ${Astro.locals.componentSlug}: fill both the when and when-not slots`,
+  )
+}
+---
+
+<h3 id="when-to-use">When to use</h3>
+<ul>
+  <slot name="when" />
+</ul>
+<h3 id="when-not-to-use">When not to use</h3>
+<ul>
+  <slot name="when-not" />
+</ul>

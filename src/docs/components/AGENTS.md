@@ -42,7 +42,7 @@ Before creating or refactoring a page, perform the following research:
 - **Example Files**: For each component, create a directory: `src/component-examples/[component]/`.
   - `Basics.astro`, `Basics.html`, `Basics.react.tsx`, `Basics.svelte` and `Basics.vue`, one per framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Every example needs all five: `pnpm check-components` fails when one is missing, and the parity test compares them.
   - `Variants.astro`, `Variants.html`, `Variants.react.tsx`, `Variants.svelte`, `Variants.vue`, etc.
-- **Partials**: `src/docs/components/partials/[Name].astro` holds prose that several pages share, such as `ValidationNotes` and `LabelAlignment`. Give a partial props for the words that differ per page, and write it once with `<PropOrClass>` and `<Conditional>`.
+- **Partials**: `src/docs/components/partials/[Name].astro` holds prose that several pages share, such as `ValidationNotes` and `LabelAlignment`. Give a partial props for the words that differ per page, and write it once with `<PropOrClass>` and `<Conditional>`. `Usage` and `KeyboardSupport` render the sections every component page shares (see 5.7 and 5.8).
 - **Naming**: Use PascalCase for example files (e.g., `Basics.astro`, `HiddenLabel.astro`).
   - If a code snippet needs to differ from the rendered preview (e.g., to hide documentation-specific scripts or wrappers), add a file with a `Code` suffix for each framework that needs one, such as `SizesCode.astro` and `SizesCode.react.tsx`. `<AutoExample>` shows it in the code tab instead of the preview's source.
 
@@ -123,10 +123,11 @@ The manual form remains supported and unchanged:
 
 The `Component` layout renders a page in this order. Only the default slot is ordered by the page itself; the rest is placed by the layout, wherever the slot sits in the source.
 
-1. `title` and `preamble`. Not every page needs a preamble. Use it for a short description, and for "when to use" guidance when the component has a close sibling (Chip vs Button, Dialog vs Drawer, Menu vs Select, Switch vs Checkbox vs Toggle, Tabs vs Toggle group), linked both ways with `<DocLink>`.
+1. `title` and `preamble`. Not every page needs a preamble. Use it for a short description, and name the close sibling when there is one (Chip vs Button, Dialog vs Drawer, Menu vs Select, Switch vs Checkbox vs Toggle, Tabs vs Toggle group), linked both ways with `<DocLink>`. The full guidance goes in the `usage` slot.
 2. Browser support chips (`browserSupport`).
 3. The `anatomy` slot, when `heroAnatomy` is set.
-4. The default slot, in this order. Skip what doesn't apply:
+4. The `usage` slot, as "Usage" (see 5.7). It comes before the examples, so readers know they're on the right page before they read how to set it up.
+5. The default slot, in this order. Skip what doesn't apply:
    1. Basics: the plain component. The first example always sits in a `<section>` with an `h2`, usually `<h2 id="basics">Basics</h2>`.
    2. Variants, colors and severities.
    3. Sizes and density.
@@ -134,11 +135,11 @@ The `Component` layout renders a page in this order. Only the default slot is or
    5. States: disabled, required, invalid, validation.
    6. Layout: spread, orientation, alignment, overflow.
    7. Composition and special cases: groups, advanced examples, related notes.
-5. The `accessibility` slot, as "Accessibility".
-6. The `anatomy` slot as "Anatomy", when `heroAnatomy` isn't set.
-7. The API tables (`apis`).
-8. The `under-the-hood` slot, as "Under the hood".
-9. Browser support, Installation (`installationTabs` and the `installation` slot), Used in blocks (the blocks in `src/blocks/` whose markup has the root class of an `api.ts` on the page), See also (`seeAlsoLinks`) and Changelog (the What's new callout with the notes from `src/utils/whats-new.ts`, then a "Migrating from 5.x" callout with the notes that start with `Breaking:`, collapsed after five and linked to the matching section of the migration guide, then the `changelogPaths` commits).
+6. The `accessibility` slot, as "Accessibility", with the Keyboard support table last (see 5.8).
+7. The `anatomy` slot as "Anatomy", when `heroAnatomy` isn't set.
+8. The API tables (`apis`).
+9. The `under-the-hood` slot, as "Under the hood".
+10. Browser support, Installation (`installationTabs` and the `installation` slot), Used in blocks (the blocks in `src/blocks/` whose markup has the root class of an `api.ts` on the page), See also (`seeAlsoLinks`) and Changelog (the What's new callout with the notes from `src/utils/whats-new.ts`, then a "Migrating from 5.x" callout with the notes that start with `Breaking:`, collapsed after five and linked to the matching section of the migration guide, then the `changelogPaths` commits).
 
 ## 4. Layout Props & Slots
 
@@ -163,7 +164,8 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 - `preamble`: (Optional) Introductory text.
 - `default`: Main documentation content.
 - `anatomy`: (Optional) An `<Anatomy>` diagram of the component's parts (see 5.4).
-- `accessibility`: (Optional) Accessibility notes.
+- `usage`: (Required on component pages) The `Usage` partial with "When to use" and "When not to use" (see 5.7).
+- `accessibility`: (Optional) Accessibility notes and the `KeyboardSupport` partial (see 5.8).
 - `installation`: (Optional) Extra context above installation tabs.
 - `under-the-hood`: (Optional) Rendered as "Under the hood", after the API tables.
 
@@ -265,6 +267,42 @@ For a sentence that only differs by the prop and the class it names, use `<PropO
 </p>
 ```
 
+### 5.7 Usage
+
+Every component page fills the `usage` slot with the `Usage` partial ([partials/Usage.astro](partials/Usage.astro)). The layout renders it as "Usage" after the preamble and the hero anatomy, and the partial adds the "When to use" and "When not to use" headings. Each `<li slot="when">` and `<li slot="when-not">` is one item:
+
+```astro
+<Usage slot="usage">
+  <li slot="when">
+    A question or a short task that needs the user's full attention, like
+    renaming a file.
+  </li>
+  <li slot="when">
+    Confirming a destructive action, in an <a href="#alert-dialog"
+      >alert dialog</a
+    >.
+  </li>
+  <li slot="when-not">
+    Navigation, filters or side content. Use a <DocLink
+      href="/components/drawer">Drawer</DocLink
+    >.
+  </li>
+  <li slot="when-not">Long or complex tasks. Give them a page of their own.</li>
+</Usage>
+```
+
+- Two or three items per list. `tests/unit/docs-sections.test.ts` counts them on every page.
+- An item is a situation, with an example after "like", and links the section of the page that shows it.
+- A "When not to use" item names the situation, then the alternative: "Use a [Drawer]." Link it with `<DocLink>`, and give the sibling page the reverse item.
+- When an item rests on behavior, such as a drawer making the page behind it inert, check it.
+- The layout and the partials own the `usage`, `when-to-use`, `when-not-to-use` and `keyboard-support` ids. The test fails when a page writes one.
+
+### 5.8 Accessibility and keyboard support
+
+- The `accessibility` slot holds what's specific to the component: how it gets its name, the roles it renders and what a screen reader gets from it. Leave the slot out when there's nothing specific to say. Check claims in the accessibility tree (Chromium DevTools, or `Accessibility.getFullAXTree` over CDP in Playwright), and say "Chromium" when that's the only browser you checked.
+- Interactive components list their keys in their `api.ts` (`keyboard`, see [src/component-api/AGENTS.md](../../component-api/AGENTS.md#keyboard-support-keyboard)). Render them with `<KeyboardSupport />` ([partials/KeyboardSupport.astro](partials/KeyboardSupport.astro)), last in the `accessibility` slot. It adds the "Keyboard support" heading and a Key and Function table, and reads the `api.ts` of the page slug. Pass `api={...}` when the keys sit on another one, like `toggleGroupApi` on the Toggle page. Its children go between the heading and the table, for a note such as "These are Chromium's keys".
+- Never hand-write a keyboard list or a `<kbd>` table. `tests/unit/docs-sections.test.ts` fails when a page doesn't render the keyboard data of its `api.ts`, or renders `<KeyboardSupport />` without any.
+
 ## 6. Content Generation & Best Practices
 
 - **Analytical Examples**: Show sections for each major variant, size, and state found in CSS/source.
@@ -275,7 +313,7 @@ For a sentence that only differs by the prop and the class it names, use `<PropO
 - **Functional Parity**: Ensure that HTML examples are just as functional and complete as their Astro counterparts. Both versions should result in the same visual and functional output in their respective previews.
 - **Code Example Intent**: Code examples should be **sparse and minimal**. Focus on highlighting the most important change or point of the demo rather than being an exhaustive mirror of the preview's implementation.
 - **No Fluff**: Stick to direct, technical descriptions. No conversational filler.
-- **No Prohibitions**: Show what the user can do. Leave out "don't do this" notes about things the page doesn't cover or that point away from the topic, like "Don't add `role="region"` to the content".
+- **No Prohibitions**: Show what the user can do. Leave out "don't do this" notes about things the page doesn't cover or that point away from the topic, like "Don't add `role="region"` to the content". The "When not to use" list in Usage is the exception, and each of its items says what to use instead.
 - **Alphabetical Order**: Organize imports and props alphabetically where possible.
 
 ## 7. Key Learnings & Debugging

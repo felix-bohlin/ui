@@ -7,6 +7,7 @@ import {
   type ComponentFramework,
   type Framework,
 } from "../component-api/frameworks"
+import { KEYS, type ApiKey } from "../component-api/keyboard"
 import type { ApiOption, ComponentApi } from "../component-api/types"
 import { isHydratedFramework } from "./framework"
 import { barrelExports } from "./package-source"
@@ -283,6 +284,36 @@ export const checkApi = (api: ComponentApi) => {
     .forEach((group) =>
       report(`group "${group}" is used by more than one option`),
     )
+
+  const rank = (key: ApiKey) => KEYS.indexOf(key)
+  const keyboard = api.keyboard ?? []
+  if (api.keyboard?.length === 0) report("keyboard is empty")
+  keyboard.forEach(({ description, keys }) => {
+    const label = keys.join(", ") || "(none)"
+    if (keys.length === 0) report("keyboard row has no keys")
+    keys
+      .filter((key) => rank(key) === -1)
+      .forEach((key) => report(`keyboard key "${key}" is not in KEYS`))
+    if (keys.some((key, i) => i > 0 && rank(key) <= rank(keys[i - 1]))) {
+      report(`keyboard keys "${label}" don't follow the order of KEYS`)
+    }
+    if (!/^[A-Z][\s\S]*\.$/.test(description)) {
+      report(
+        `keyboard "${label}" description isn't a sentence with a capital and a period`,
+      )
+    }
+  })
+  const keys = keyboard.flatMap((row) => row.keys)
+  keys
+    .filter((key, i) => keys.indexOf(key) !== i)
+    .forEach((key) => report(`keyboard key "${key}" is in more than one row`))
+  if (
+    keyboard.some(
+      (row, i) => i > 0 && rank(row.keys[0]) < rank(keyboard[i - 1].keys[0]),
+    )
+  ) {
+    report("keyboard rows don't follow the order of KEYS")
+  }
 
   const shippedIn = all.filter((framework) => shipped(api, framework))
   if (api.source && shippedIn.length === 0) {

@@ -1,4 +1,10 @@
 import type { ComponentFramework, Framework } from "./frameworks"
+import type { ApiKey } from "./keyboard"
+
+export type ApiKeyboard = {
+  description: string
+  keys: ApiKey[]
+}
 
 export type ApiPart = {
   anchorName?: string
@@ -45,6 +51,7 @@ export type ComponentApi = {
   hydration?: Partial<
     Record<Exclude<ComponentFramework, "astro"> | "default", ApiHydration[]>
   >
+  keyboard?: ApiKeyboard[]
   model?: ApiModel & {
     frameworks?: Partial<Record<ComponentFramework, ApiModel[]>>
   }

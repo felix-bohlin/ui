@@ -37,10 +37,16 @@
 
     mark a[href]:where(:not([class*="ui-"])) {
       &,
-      &:hover,
       &:focus-visible {
         color: inherit;
         text-decoration-color: currentColor;
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          color: inherit;
+          text-decoration-color: currentColor;
+        }
       }
     }
   }

@@ -5,11 +5,9 @@ import { fileURLToPath } from "node:url"
 
 const root = fileURLToPath(new URL("..", import.meta.url))
 
-const GENERATED = [
-  "packages/opui/skills/opui/references/",
-  "packages/opui/tokens.json",
-  "public/search-index.json",
-]
+const GENERATED = JSON.parse(
+  readFileSync(join(root, "scripts/generated-files.json"), "utf-8"),
+)
 
 const SKIPPED = ["tests/"]
 
@@ -75,7 +73,9 @@ const files = execFileSync(
   .split("\n")
   .filter(
     (file) =>
-      file && ![...GENERATED, ...SKIPPED].some((path) => file.startsWith(path)),
+      file &&
+      !GENERATED.some((path) => file === path || file.startsWith(`${path}/`)) &&
+      !SKIPPED.some((path) => file.startsWith(path)),
   )
 
 const problems = files.flatMap((file) => {

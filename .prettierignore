@@ -7,9 +7,9 @@ dist
 node_modules
 dist-test
 playwright-report
-public/search-index.json
 test-results
 tests/e2e/a11y-known-violations.json
 tests/unit/__snapshots__
 packages/opui/skills/opui/references
 packages/opui/tokens.json
+public/search-index.json

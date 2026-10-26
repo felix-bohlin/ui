@@ -192,6 +192,8 @@ describe("parseTodo", () => {
         "- [ ] (2) Checkbox: the label wraps (`packages/opui/css/components/choice.css:12-18`)",
         "- [ ] (2) Checkbox: the label wraps (`packages/opui/css/components/choice.css:30-36`, `src/docs/components/checkbox.astro`)",
         "- [ ] (2) Tabs: the pill is off (`layout` Surfaces)",
+        "- [ ] (2) Layout: the gap collapses (`layout` Surfaces, `packages/opui/css/components/layout.css:12`)",
+        "- [ ] (2) Layout: the gap grows (`src/components/{A,B}Build.astro`, `src/utils/learn-posts.ts`)",
       ].join("\n"),
     ).sections
 
@@ -199,6 +201,8 @@ describe("parseTodo", () => {
       "checkbox-the-label-wraps",
       "checkbox-the-label-wraps",
       "tabs-the-pill-is-off-layout-surfaces",
+      "layout-the-gap-collapses",
+      "layout-the-gap-grows",
     ])
   })
 
@@ -779,7 +783,9 @@ describe("TODO.md", () => {
   const mentionProblem = (entry: string) => {
     const [name, lines] = entry.split(":")
     if (name.includes("/")) return citationProblem(entry)
-    const files = tracked.filter((file) => file.endsWith(`/${name}`))
+    const files = tracked.filter(
+      (file) => file === name || file.endsWith(`/${name}`),
+    )
     if (!files.length) return "matches no file"
     if (!files.some((file) => fitsLines(lines, lineCount(file)))) {
       return `cites lines outside ${files.join(" and ")}`
@@ -830,6 +836,12 @@ describe("TODO.md", () => {
       ),
       "cite each file from the repo root with lines inside it, `path/to/file.css:12-18` or `AGENTS.md:9`. Correct a stale citation in place: the /todo page keys answers on the text before the file references",
     ).toEqual([])
+  })
+
+  test("the citation check finds a bare file name at the repo root", () => {
+    expect(citationProblems("A: see `RELEASING.md:1` and `TODO.md:2`")).toEqual(
+      [],
+    )
   })
 
   test("the citation check reads every form of citation", () => {

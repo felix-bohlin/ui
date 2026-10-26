@@ -109,7 +109,11 @@ const splitHeadline = (text: string) => {
     component,
     files,
     headline,
-    key: slugify(files.length ? text.slice(0, -refs![0].length) : text),
+    key: slugify(
+      entries.some((entry) => filePattern.test(entry))
+        ? text.slice(0, -refs![0].length)
+        : text,
+    ),
   }
 }
 

@@ -1,6 +1,8 @@
 import { describe, expect, test } from "vitest"
+import { colorToOklch } from "../../src/utils/color-utils"
 import { exampleTheme } from "../../src/utils/example-themes"
 import {
+  BRAND_SWATCHES,
   CORNER_TOKENS,
   LAYERS,
   PLACEHOLDER_CSS,
@@ -11,6 +13,7 @@ import {
   exportCss,
   migrateLegacy,
   normalizeTheme,
+  presetBrand,
 } from "../../src/utils/theme"
 
 describe("customCss", () => {
@@ -174,5 +177,21 @@ describe("cornersUpdate", () => {
     expect(update["--ui-radius"]).toBe("0")
     expect(update["--ui-button-radius"]).toBe("var(--ui-radius)")
     expect("--ui-chip-radius" in update).toBe(false)
+  })
+})
+
+describe("brand", () => {
+  test("swatches run in ascending hue", () => {
+    const hues = BRAND_SWATCHES.map((swatch) => colorToOklch(swatch.value)!.H)
+    expect(hues).toEqual(hues.toSorted((a, b) => a - b))
+  })
+
+  test("presetBrand reads the example theme's brand", () => {
+    expect(presetBrand(null)).toBeUndefined()
+    expect(presetBrand("bootstrap")).toBe("#0d6efd")
+    expect(presetBrand("m3")).toBe("light-dark(#6750a4, #d0bcff)")
+    expect(presetBrand("shadcn")).toBe(
+      "light-dark(oklch(0.205 0 0), oklch(0.922 0 0))",
+    )
   })
 })

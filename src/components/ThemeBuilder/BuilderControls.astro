@@ -56,8 +56,14 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
 </section>
 
 <script>
-  import { hexToOklch } from "../../utils/color-utils"
+  import { syncBrandPicker } from "../../utils/brand-picker"
+  import {
+    colorToOklch,
+    formatOklch,
+    parseOklch,
+  } from "../../utils/color-utils"
   import { exampleTheme } from "../../utils/example-themes"
+  import { OklchInput } from "../../utils/oklch-input"
   import {
     CORNERS,
     cornersTokens,
@@ -123,20 +129,9 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     const same = (token: string, a?: string, b?: string) =>
       canonical(a, token, defaults) === canonical(b, token, defaults)
 
-    const toHex = (value: string) => {
-      const match = value.match(
-        /^color\(srgb ([^\s)]+) ([^\s)]+) ([^\s)]+)(?: \/ ([^\s)]+))?\)$/,
-      )
-      if (!match) return null
-      const hex = match
-        .slice(1, 4)
-        .map((channel) =>
-          Math.round(Math.min(1, Math.max(0, Number(channel))) * 255)
-            .toString(16)
-            .padStart(2, "0"),
-        )
-        .join("")
-      return { alpha: match[4] ? Number(match[4]) : 1, hex: `#${hex}` }
+    const toColor = (value: string) => {
+      const parsed = parseOklch(value)
+      return parsed && { value: formatOklch(parsed, parsed.alpha) }
     }
 
     const resolveColors = (expressions: string[]) => {
@@ -144,13 +139,15 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         host.replaceChildren(
           ...expressions.map((expression) => {
             const probe = document.createElement("div")
-            probe.style.color = `color(from ${expression} srgb r g b / alpha)`
+            probe.style.color = `oklch(from ${expression} l c h / alpha)`
             return probe
           }),
         )
       }
       const resolved = hosts.map((host) =>
-        [...host.children].map((probe) => toHex(getComputedStyle(probe).color)),
+        [...host.children].map((probe) =>
+          toColor(getComputedStyle(probe).color),
+        ),
       )
       return new Map(
         expressions.map((expression, index) => [
@@ -169,15 +166,11 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
 
     const round = (value: number, digits = 4) => +value.toFixed(digits)
 
-    const colorText = (color: ReturnType<typeof toHex> | null) =>
-      color
-        ? color.alpha < 1
-          ? `${color.hex} at ${Math.round(color.alpha * 100)}%`
-          : color.hex
-        : "not set"
+    const colorText = (color: ReturnType<typeof toColor>) =>
+      color ? color.value : "not set"
 
     const describeColor = (
-      [light, dark]: (ReturnType<typeof toHex> | null)[],
+      [light, dark]: ReturnType<typeof toColor>[],
       isDual: boolean,
     ) =>
       isDual
@@ -226,19 +219,19 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       else if (!frame) frame = requestAnimationFrame(flush)
     }
 
-    const paletteHex = () =>
+    const paletteColor = () =>
       resolveColors(["var(--ui-palette-source)"]).get(
         "var(--ui-palette-source)",
-      )?.[0]?.hex ?? null
+      )?.[0]?.value ?? null
 
     const fitted = new Map<string, string>()
 
-    const autoPrimary = (hex: string | null) => {
-      if (!hex) return null
-      if (!fitted.has(hex)) {
-        fitted.set(hex, brandTokens(hex)["--ui-primary-source"])
+    const autoPrimary = (color: string | null) => {
+      if (!color) return null
+      if (!fitted.has(color)) {
+        fitted.set(color, brandTokens(color)["--ui-primary-source"])
       }
-      return fitted.get(hex)!
+      return fitted.get(color)!
     }
 
     const isFitted = (primary: string) => {
@@ -255,7 +248,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       )
     }
 
-    const toneOf = (primary: string | undefined, hex: string | null) => {
+    const toneOf = (primary: string | undefined, color: string | null) => {
       const token = "--ui-primary-source"
       if (same(token, primary, BALANCED_PRIMARY)) return "balanced"
       if (same(token, primary, MONOCHROME_PRIMARY)) return "monochrome"
@@ -263,27 +256,29 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         primary?.startsWith("light-dark(") &&
         !primary.includes("var(") &&
         !isFitted(primary) &&
-        !same(token, primary, autoPrimary(hex) ?? undefined)
+        !same(token, primary, autoPrimary(color) ?? undefined)
       ) {
         return "dual"
       }
       return "brand"
     }
 
-    const grayHue = (hex: string | null) =>
-      hex ? `${Math.round(hexToOklch(hex).H)}` : null
+    const grayHue = (color: string | null) => {
+      const oklch = color ? colorToOklch(color) : null
+      return oklch ? `${Math.round(oklch.H)}` : null
+    }
 
-    const applyBrand = (hex: string, darkHex?: string) => {
+    const applyBrand = (color: string, darkColor?: string) => {
       const update: Update = brandUpdate(
         {
           ...theme.tokens,
           "--ui-palette-source":
-            theme.tokens["--ui-palette-source"] ?? paletteHex() ?? "",
+            theme.tokens["--ui-palette-source"] ?? paletteColor() ?? "",
         },
-        hex,
+        color,
       )
-      if (darkHex) {
-        update["--ui-primary-source"] = `light-dark(${hex}, ${darkHex})`
+      if (darkColor) {
+        update["--ui-primary-source"] = `light-dark(${color}, ${darkColor})`
       }
       return update
     }
@@ -295,13 +290,13 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
             ? BALANCED_PRIMARY
             : value === "monochrome"
               ? MONOCHROME_PRIMARY
-              : autoPrimary(paletteHex())
+              : autoPrimary(paletteColor())
         return { "--ui-primary-source": primary }
       }
       if (control.dynamic === "brand-hue" && value === "brand") {
         return {
           "--ui-gray-chroma": "0.012",
-          "--ui-gray-hue": grayHue(paletteHex()),
+          "--ui-gray-hue": grayHue(paletteColor()),
         }
       }
       const option = control.options.find((entry) => entry.value === value)
@@ -316,17 +311,17 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
     const choiceValue = (
       control: ChoiceControl,
       read: (token: string) => string | undefined,
-      hex: string | null,
+      color: string | null,
     ) => {
       if (control.dynamic === "primary-tone") {
-        const tone = toneOf(read("--ui-primary-source"), hex)
+        const tone = toneOf(read("--ui-primary-source"), color)
         return tone === "dual" ? "brand" : tone
       }
       if (
         control.dynamic === "brand-hue" &&
-        hex &&
+        color &&
         same("--ui-gray-chroma", read("--ui-gray-chroma"), "0.012") &&
-        same("--ui-gray-hue", read("--ui-gray-hue"), grayHue(hex)!)
+        same("--ui-gray-hue", read("--ui-gray-hue"), grayHue(color) ?? "")
       ) {
         return "brand"
       }
@@ -343,22 +338,18 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
 
     const setColorInputs = (
       element: HTMLElement,
-      [light, dark]: (ReturnType<typeof toHex> | null)[],
+      [light, dark]: ReturnType<typeof toColor>[],
       isDual: boolean,
     ) => {
       const [lightInput, darkInput] = [
-        ...element.querySelectorAll<HTMLInputElement>("input[data-color]"),
+        ...element.querySelectorAll<OklchInput>("oklch-input[data-color]"),
       ]
       const darkField = element.querySelector<HTMLElement>("[data-mode=dark]")!
       const dualBox = element.querySelector<HTMLInputElement>(
         "[data-dual] input, input[data-dual]",
       )!
-      if (light && document.activeElement !== lightInput) {
-        lightInput.value = light.hex
-      }
-      if (document.activeElement !== darkInput) {
-        darkInput.value = (dark ?? light)?.hex ?? "#000000"
-      }
+      if (light) lightInput.value = light.value
+      darkInput.value = (dark ?? light)?.value ?? ""
       darkField.hidden = !isDual
       dualBox.checked = isDual
       element.classList.toggle("is-dual", isDual)
@@ -368,11 +359,10 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         ? `Light ${colorText(light)}`
         : colorText(light)
       darkCaption.textContent = `Dark ${colorText(dark)}`
-      const label = element
-        .querySelector<HTMLElement>("[data-mode=light]")!
-        .querySelector(".ui-sr-only")
       const name = element.dataset.name ?? ""
-      if (label) label.textContent = isDual ? `${name} in light mode` : name
+      lightInput.label = isDual
+        ? `${name} in light mode`
+        : (lightInput.dataset.label ?? name)
     }
 
     const formatRange = (control: RangeControl, value: number) =>
@@ -419,8 +409,8 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         ).map((control) => `var(${control.token})`),
       ]
       const colors = resolveColors(colorExpressions)
-      const hex = colors.get("var(--ui-palette-source)")?.[0]?.hex ?? null
-      const tone = toneOf(valueOf("--ui-primary-source"), hex)
+      const palette = colors.get("var(--ui-palette-source)")?.[0]?.value ?? null
+      const tone = toneOf(valueOf("--ui-primary-source"), palette)
       const ranges = new Map(
         CONTROLS.filter(
           (control): control is RangeControl => control.kind === "range",
@@ -450,14 +440,19 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
             ? colors.get("var(--ui-primary-source)")!
             : colors.get("var(--ui-palette-source)")!
           setColorInputs(element, pair, isDual)
-          const source = theme.tokens["--ui-palette-source"]?.toLowerCase()
-          check(element, isDual ? null : (source ?? null))
+          syncBrandPicker(
+            element.querySelector<HTMLElement>(".brand-picker")!,
+            theme.preset,
+            isDual && isChanged
+              ? (valueOf("--ui-primary-source") ?? null)
+              : (theme.tokens["--ui-palette-source"] ?? null),
+          )
           text = describeColor(pair, isDual)
         } else if (control.kind === "color") {
           const pair = colors.get(`var(${control.token})`)!
           const isDual =
             dual.has(id) ||
-            (!!pair[0] && !!pair[1] && pair[0].hex !== pair[1].hex)
+            (!!pair[0] && !!pair[1] && pair[0].value !== pair[1].value)
           setColorInputs(element, pair, isDual)
           text = describeColor(pair, isDual)
         } else if (control.kind === "corners") {
@@ -469,7 +464,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
           const value = radius ?? defaults["--ui-radius"]
           text = match ? `${match.label}, ${value}` : `${owner} value, ${value}`
         } else if (control.kind === "choice") {
-          const value = choiceValue(control, valueOf, hex)
+          const value = choiceValue(control, valueOf, palette)
           const option = control.options.find((entry) => entry.value === value)
           if (control.display === "select") {
             const select = element.querySelector("select")!
@@ -543,7 +538,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       throttle: boolean,
     ) => {
       const [light, dark] = [
-        ...element.querySelectorAll<HTMLInputElement>("input[data-color]"),
+        ...element.querySelectorAll<OklchInput>("oklch-input[data-color]"),
       ].map((input) => input.value)
       const isDual = element.classList.contains("is-dual")
       if (control.kind === "brand") {
@@ -573,7 +568,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       if (!element || !control) return
       const throttle = event.type === "input"
 
-      if (target instanceof HTMLInputElement && target.dataset.color) {
+      if (target instanceof OklchInput) {
         if (element.classList.contains("is-dual")) picked.add(control.id)
         onColor(control, element, throttle)
         return
@@ -584,7 +579,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
           dual.add(control.id)
           picked.delete(control.id)
           element.classList.add("is-dual")
-          element.querySelector<HTMLElement>("[data-mode=dark]")!.hidden = false
+          render()
         } else {
           const opened = dual.delete(control.id)
           const changedColor = picked.delete(control.id)
@@ -602,7 +597,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
         if (event.type !== "change" || !target.checked) return
         dual.delete(control.id)
         picked.delete(control.id)
-        write(applyBrand(target.value))
+        write(target.value ? applyBrand(target.value) : resetTokens(control))
       } else if (
         control.kind === "corners" &&
         event.type === "change" &&
@@ -649,7 +644,7 @@ const defaults = JSON.stringify(libraryDefaults(themeCss))
       write(resetTokens(control))
       element
         .querySelector<HTMLElement>(
-          "input:not([type=checkbox], [type=radio]), select, input:checked, input[type=radio]",
+          "input:not([type=checkbox], [type=radio]), select, input:checked, input[type=radio], .oklch-trigger",
         )
         ?.focus()
     })

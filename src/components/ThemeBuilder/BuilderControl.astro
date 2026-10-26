@@ -4,7 +4,6 @@ import {
   Checkbox,
   Range,
   Select,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
@@ -13,7 +12,9 @@ import {
   controlTokens,
   type Control,
 } from "../../utils/theme-builder-controls"
-import { BRAND_SWATCHES, CORNERS } from "../../utils/theme"
+import { CORNERS } from "../../utils/theme"
+import BrandPicker from "../BrandPicker.astro"
+import OklchInput from "../OklchInput.astro"
 
 type Props = { control: Control }
 
@@ -81,49 +82,34 @@ const name = control.kind === "brand" ? "Brand color" : control.label
   }
 
   {
-    control.kind === "brand" && (
-      <ToggleGroup
-        aria-describedby={describedBy}
-        aria-labelledby={labelId}
-        class="builder-swatches"
-        name={`${base}-swatch`}
-        size="small"
-      >
-        {BRAND_SWATCHES.map((swatch) => (
-          <ToggleButton value={swatch.value}>
-            <span
-              aria-hidden="true"
-              class="builder-swatch"
-              style={`--swatch: ${swatch.value}`}
-            />
-            {swatch.label}
-          </ToggleButton>
-        ))}
-      </ToggleGroup>
-    )
-  }
-
-  {
     isColor && (
       <div class="builder-colors">
         <div class="builder-color" data-mode="light">
-          <TextField
-            aria-describedby={describedBy}
-            data-color="light"
-            hideLabel
-            label={name}
-            size="small"
-            type="color"
-          />
+          {control.kind === "brand" ? (
+            <BrandPicker
+              aria-describedby={describedBy}
+              aria-labelledby={labelId}
+              custom={{ "data-color": "light" }}
+              name={`${base}-swatch`}
+            />
+          ) : (
+            <OklchInput
+              alpha
+              aria-describedby={describedBy}
+              class="oklch-field"
+              data-color="light"
+              data-label={name}
+              label={name}
+            />
+          )}
           <span aria-hidden="true" class="builder-color-caption" data-caption />
         </div>
         <div class="builder-color" data-mode="dark" hidden>
-          <TextField
+          <OklchInput
+            alpha={control.kind === "color"}
+            class="oklch-field"
             data-color="dark"
-            hideLabel
             label={`${name} in dark mode`}
-            size="small"
-            type="color"
           />
           <span aria-hidden="true" class="builder-color-caption" data-caption />
         </div>
@@ -287,6 +273,7 @@ const name = control.kind === "brand" ? "Brand color" : control.label
   .builder-color {
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     gap: var(--size-2);
 
     &[hidden] {
@@ -298,18 +285,5 @@ const name = control.kind === "brand" ? "Brand color" : control.label
     color: var(--ui-text);
     font-family: var(--font-mono);
     font-size: var(--ui-font-size-small);
-  }
-
-  .builder-swatches {
-    inline-size: 100%;
-  }
-
-  .builder-swatch {
-    background-color: var(--swatch);
-    block-size: 0.75em;
-    border-radius: var(--ui-radius-round);
-    display: inline-block;
-    inline-size: 0.75em;
-    margin-inline-end: var(--size-1);
   }
 </style>

@@ -1,4 +1,9 @@
-import { hexToOklch, oklchToHex } from "./color-utils"
+import {
+  colorToOklch,
+  formatOklch,
+  oklchToHex,
+  parseOklch,
+} from "./color-utils"
 import { themeStore, type ThemeTokens } from "./theme"
 
 type Rgb = [number, number, number]
@@ -57,76 +62,67 @@ const surfaceOf = (scheme: "dark" | "light") => {
   return surface
 }
 
-const round = (value: number, digits: number) => +value.toFixed(digits)
-
-export const fitBrand = (hex: string, scheme: "dark" | "light") => {
+export const fitBrand = (color: string, scheme: "dark" | "light") => {
   const surface = surfaceOf(scheme)
-  if (!surface || contrastRatio(hexToRgb(hex), surface) >= SURFACE_RATIO) {
-    return hex
-  }
-  const { C, H, L } = hexToOklch(hex)
-  const darker = luminance(surface) > 0.18
+  const oklch = colorToOklch(color)
+  if (!surface || !oklch) return color
+  const { C, H, L } = oklch
   const passes = (lightness: number) =>
     contrastRatio(hexToRgb(oklchToHex(lightness, C, H)), surface) >=
     SURFACE_RATIO
+  if (passes(L)) return color
+  const darker = luminance(surface) > 0.18
   let [low, high] = darker ? [0, L] : [L, 1]
   for (let step = 0; step < 24; step++) {
     const middle = (low + high) / 2
     if (passes(middle) === darker) low = middle
     else high = middle
   }
-  return `oklch(${round(darker ? low : high, 3)} ${round(C, 3)} ${round(H, 1)})`
+  return formatOklch({ C, H, L: darker ? low : high })
 }
 
-export const isHex = (value: string) => /^#[\da-f]{6}$/i.test(value)
+export const isBrandColor = (value: string) => colorToOklch(value) !== null
 
-export const brandTokens = (hex: string) => {
-  const light = fitBrand(hex, "light")
-  const dark = fitBrand(hex, "dark")
+export const brandTokens = (color: string) => {
+  const light = fitBrand(color, "light")
+  const dark = fitBrand(color, "dark")
   return {
-    "--ui-palette-source": hex,
+    "--ui-palette-source": color,
     "--ui-primary-source":
-      light === dark ? hex : `light-dark(${light}, ${dark})`,
+      light === dark ? color : `light-dark(${light}, ${dark})`,
   }
 }
 
-export const resolveHex = (color: string) => {
+export const resolveOklch = (color: string) => {
   const probe = document.createElement("div")
   probe.hidden = true
-  probe.style.color = `color(from ${color} srgb r g b)`
+  probe.style.color = `oklch(from ${color} l c h)`
   probe.style.forcedColorAdjust = "none"
   document.body.append(probe)
-  const rgb = parseSrgb(getComputedStyle(probe).color)
+  const oklch = parseOklch(getComputedStyle(probe).color)
   probe.remove()
-  return rgb
-    ? `#${rgb
-        .map((channel) =>
-          Math.round(channel * 255)
-            .toString(16)
-            .padStart(2, "0"),
-        )
-        .join("")}`
-    : null
+  return oklch && formatOklch(oklch)
 }
 
-const grayHueOf = (hex: string) => String(Math.round(hexToOklch(hex).H))
+const grayHueOf = (color: string) =>
+  String(Math.round(colorToOklch(color)?.H ?? 0))
 
-export const brandUpdate = (tokens: ThemeTokens, hex: string) => {
+export const brandUpdate = (tokens: ThemeTokens, color: string) => {
   const previous = tokens["--ui-palette-source"]
   const primary = tokens["--ui-primary-source"] ?? ""
   const update: Record<string, string> = [
     BALANCED_PRIMARY,
     MONOCHROME_PRIMARY,
   ].includes(primary)
-    ? { "--ui-palette-source": hex }
-    : brandTokens(hex)
+    ? { "--ui-palette-source": color }
+    : brandTokens(color)
   if (
     previous &&
-    isHex(previous) &&
+    isBrandColor(previous) &&
     tokens["--ui-gray-chroma"] === BRAND_GRAY_CHROMA &&
     tokens["--ui-gray-hue"] === grayHueOf(previous)
   ) {
-    update["--ui-gray-hue"] = grayHueOf(hex)
+    update["--ui-gray-hue"] = grayHueOf(color)
   }
   return update
 }
@@ -136,7 +132,7 @@ export const switchPreset = (preset: string | null) => {
   const brand = tokens["--ui-palette-source"]
   const fitted =
     !!brand &&
-    isHex(brand) &&
+    isBrandColor(brand) &&
     tokens["--ui-primary-source"] === brandTokens(brand)["--ui-primary-source"]
   themeStore.setPreset(preset)
   if (fitted) themeStore.update(brandTokens(brand))

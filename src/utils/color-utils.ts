@@ -52,6 +52,23 @@ export function hexToOklch(hex: string): { L: number; C: number; H: number } {
  * Out-of-gamut values are clamped to [0, 1] per channel.
  */
 export function oklchToHex(L: number, C: number, H: number): string {
+  const [lr, lg, lb] = oklchToLinearSrgb(L, C, H)
+
+  const clamp = (v: number) => Math.max(0, Math.min(1, v))
+  const ri = Math.round(clamp(toGamma(lr)) * 255)
+  const gi = Math.round(clamp(toGamma(lg)) * 255)
+  const bi = Math.round(clamp(toGamma(lb)) * 255)
+
+  return "#" + [ri, gi, bi].map((v) => v.toString(16).padStart(2, "0")).join("")
+}
+
+export type Oklch = { C: number; H: number; L: number }
+
+export function oklchToLinearSrgb(
+  L: number,
+  C: number,
+  H: number,
+): [number, number, number] {
   const hRad = H * (Math.PI / 180)
   const a = C * Math.cos(hRad)
   const b = C * Math.sin(hRad)
@@ -65,14 +82,68 @@ export function oklchToHex(L: number, C: number, H: number): string {
   const m = m_ * m_ * m_
   const s = s_ * s_ * s_
 
-  const lr = 4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s
-  const lg = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s
-  const lb = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s
+  return [
+    4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+    -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s,
+  ]
+}
 
-  const clamp = (v: number) => Math.max(0, Math.min(1, v))
-  const ri = Math.round(clamp(toGamma(lr)) * 255)
-  const gi = Math.round(clamp(toGamma(lg)) * 255)
-  const bi = Math.round(clamp(toGamma(lb)) * 255)
+const SRGB_TO_P3 = [
+  [0.8224621209, 0.177537879, 0],
+  [0.0331941989, 0.9668058011, 0],
+  [0.0170826307, 0.0723974407, 0.9105199286],
+]
 
-  return "#" + [ri, gi, bi].map((v) => v.toString(16).padStart(2, "0")).join("")
+const GAMUT_EPSILON = 0.0005
+
+const inUnit = (channels: number[]) =>
+  channels.every(
+    (channel) => channel >= -GAMUT_EPSILON && channel <= 1 + GAMUT_EPSILON,
+  )
+
+export function oklchGamut(L: number, C: number, H: number) {
+  const srgb = oklchToLinearSrgb(L, C, H)
+  if (inUnit(srgb)) return "srgb"
+  const p3 = SRGB_TO_P3.map((row) =>
+    row.reduce((sum, weight, index) => sum + weight * srgb[index], 0),
+  )
+  return inUnit(p3) ? "p3" : "wide"
+}
+
+const NUMBER = String.raw`(-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?)`
+
+const OKLCH = new RegExp(
+  String.raw`^oklch\(\s*${NUMBER}(%?)\s+${NUMBER}(%?)\s+(?:${NUMBER}(?:deg)?|none)\s*(?:\/\s*${NUMBER}(%?)\s*)?\)$`,
+  "i",
+)
+
+export function parseOklch(value: string): (Oklch & { alpha: number }) | null {
+  const match = OKLCH.exec(value.trim())
+  if (!match) return null
+  const [, l, lPercent, c, cPercent, h, alpha, alphaPercent] = match
+  const L = Number(l) / (lPercent ? 100 : 1)
+  const C = cPercent ? (Number(c) * 0.4) / 100 : Number(c)
+  const hue = h === undefined ? 0 : Number(h)
+  return {
+    C: Math.max(0, C),
+    H: ((hue % 360) + 360) % 360,
+    L: Math.min(1, Math.max(0, L)),
+    alpha: alpha === undefined ? 1 : Number(alpha) / (alphaPercent ? 100 : 1),
+  }
+}
+
+export function colorToOklch(value: string): Oklch | null {
+  const trimmed = value.trim()
+  if (/^#[\da-f]{6}$/i.test(trimmed)) return hexToOklch(trimmed)
+  const parsed = parseOklch(trimmed)
+  return parsed && { C: parsed.C, H: parsed.H, L: parsed.L }
+}
+
+const round = (value: number, digits: number) => +value.toFixed(digits)
+
+export function formatOklch({ C, H, L }: Oklch, alpha = 1): string {
+  const hue = round(C, 3) === 0 ? 0 : round(H, 1) % 360
+  const color = `${round(L, 3)} ${round(C, 3)} ${hue}`
+  return alpha < 1 ? `oklch(${color} / ${round(alpha, 3)})` : `oklch(${color})`
 }

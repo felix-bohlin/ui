@@ -37,10 +37,14 @@ const HANDBACK = [
 ]
 
 export const BRAND_SWATCHES = [
-  { label: "Astro", value: "#F041FF" },
-  { label: "React", value: "#61DAFB" },
-  { label: "Svelte", value: "#FF3E00" },
-  { label: "Vue", value: "#41B883" },
+  { label: "Red", value: "oklch(0.626 0.193 23)" },
+  { label: "Orange", value: "oklch(0.691 0.191 45)" },
+  { label: "Green", value: "oklch(0.641 0.133 158)" },
+  { label: "Teal", value: "oklch(0.649 0.114 182)" },
+  { label: "Blue", value: "oklch(0.649 0.193 252)" },
+  { label: "Indigo", value: "oklch(0.544 0.191 267)" },
+  { label: "Purple", value: "oklch(0.556 0.183 306)" },
+  { label: "Pink", value: "oklch(0.617 0.208 346)" },
 ]
 
 export const CORNERS = [
@@ -120,6 +124,15 @@ export const emptyTheme = (): Theme => ({ preset: null, tokens: {} })
 
 export const presetCss = (preset: string | null) =>
   EXAMPLE_THEMES.find((theme) => theme.name === preset)?.css ?? ""
+
+export const presetBrand = (preset: string | null) => {
+  const tokens =
+    EXAMPLE_THEMES.find((theme) => theme.name === preset)?.tokens ?? {}
+  const primary = tokens["--ui-primary-source"]
+  return primary && !primary.includes("var(")
+    ? primary
+    : tokens["--ui-palette-source"]
+}
 
 export const customCss = (tokens: ThemeTokens) => {
   const entries = Object.entries(sortTokens(tokens))

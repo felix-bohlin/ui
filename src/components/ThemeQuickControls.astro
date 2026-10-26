@@ -3,12 +3,12 @@ import {
   Button,
   FieldLegend,
   Fieldset,
-  TextField,
   ToggleButton,
   ToggleGroup,
 } from "opui-css/astro"
 import { EXAMPLE_THEMES } from "../utils/example-themes"
-import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
+import { CORNERS } from "../utils/theme"
+import BrandPicker from "./BrandPicker.astro"
 ---
 
 <form class="theme-quick ui-form">
@@ -26,33 +26,7 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
 
   <Fieldset>
     <FieldLegend>Brand color</FieldLegend>
-    <div class="theme-quick-brand">
-      <ToggleGroup aria-label="Brand color" name="theme-brand" size="small">
-        <ToggleButton checked class="theme-quick-start" value="">
-          Default
-        </ToggleButton>
-        {
-          BRAND_SWATCHES.map((swatch) => (
-            <ToggleButton value={swatch.value}>
-              <span
-                aria-hidden="true"
-                class="theme-quick-swatch"
-                style={`--swatch: ${swatch.value}`}
-              />
-              {swatch.label}
-            </ToggleButton>
-          ))
-        }
-      </ToggleGroup>
-      <TextField
-        hideLabel
-        label="Custom brand color"
-        name="theme-brand-custom"
-        size="small"
-        title="Custom brand color"
-        type="color"
-      />
-    </div>
+    <BrandPicker name="theme-brand" />
   </Fieldset>
 
   <Fieldset>
@@ -72,11 +46,6 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
     </ToggleGroup>
   </Fieldset>
 
-  <Fieldset class="theme-quick-saved" hidden>
-    <FieldLegend>Your themes</FieldLegend>
-    <ToggleGroup aria-label="Your themes" name="theme-saved" size="small" />
-  </Fieldset>
-
   <div class="theme-quick-actions">
     <Button
       class="theme-quick-reset"
@@ -94,8 +63,9 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
 </form>
 
 <script>
+  import { syncBrandPicker } from "../utils/brand-picker"
   import { exampleTheme } from "../utils/example-themes"
-  import { savedThemes } from "../utils/saved-themes"
+  import type { OklchInput } from "../utils/oklch-input"
   import {
     cornersOf,
     cornersUpdate,
@@ -105,8 +75,8 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
   } from "../utils/theme"
   import {
     brandUpdate,
-    isHex,
-    resolveHex,
+    isBrandColor,
+    resolveOklch,
     switchPreset,
   } from "../utils/theme-brand"
 
@@ -118,35 +88,16 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
     const radios = (name: string) => [
       ...form.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`),
     ]
-    const custom = form.querySelector<HTMLInputElement>(
-      'input[name="theme-brand-custom"]',
-    )!
-    const saved = form.querySelector<HTMLElement>(".theme-quick-saved")!
-    const savedList = saved.querySelector<HTMLElement>(".ui-toggle-group")!
+    const picker = form.querySelector<HTMLElement>(".brand-picker")!
+    const custom = picker.querySelector<OklchInput>("[data-brand-custom]")!
     const status = form.querySelector<HTMLElement>(".theme-quick-status")!
     const undo = form.querySelector<HTMLButtonElement>(".theme-quick-undo")!
     let pendingColor: string | null = null
-    let savedNames = ""
     let undoTheme: Theme | null = null
     let undoFingerprint = ""
 
     const check = (name: string, value: string | null) => {
       for (const radio of radios(name)) radio.checked = radio.value === value
-    }
-
-    const renderSaved = (names: string[]) => {
-      savedList.replaceChildren(
-        ...names.map((name) => {
-          const label = document.createElement("label")
-          label.className = "ui-toggle-button"
-          const input = document.createElement("input")
-          input.name = "theme-saved"
-          input.type = "radio"
-          input.value = name
-          label.append(input, name)
-          return label
-        }),
-      )
     }
 
     const sync = () => {
@@ -159,28 +110,13 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
       }
 
       const brand = tokens["--ui-palette-source"] ?? null
-      const swatch = brand
-        ? radios("theme-brand").find(
-            (radio) => radio.value.toLowerCase() === brand.toLowerCase(),
-          )
-        : undefined
-      check("theme-brand", brand ? (swatch?.value ?? null) : "")
-      if (document.activeElement !== custom) {
-        custom.value =
-          brand && isHex(brand)
-            ? brand.toLowerCase()
-            : (resolveHex("var(--ui-primary)") ?? custom.value)
-      }
+      syncBrandPicker(picker, preset, brand)
+      custom.value =
+        brand && isBrandColor(brand)
+          ? brand
+          : (resolveOklch("var(--ui-primary)") ?? custom.value)
 
       check("theme-corners", cornersOf(tokens) ?? "")
-
-      const names = savedThemes.list().map((entry) => entry.name)
-      saved.hidden = names.length === 0
-      if (names.join("\n") !== savedNames) {
-        savedNames = names.join("\n")
-        renderSaved(names)
-      }
-      check("theme-saved", savedThemes.current())
 
       if (undoTheme && fingerprint(theme) !== undoFingerprint) {
         undoTheme = null
@@ -221,10 +157,6 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
             cornersUpdate(themeStore.get().tokens, target.value || null),
           )
         }
-      } else if (target.name === "theme-saved") {
-        undoable(`Switched to ${target.value}.`, () =>
-          savedThemes.apply(target.value),
-        )
       }
     })
 
@@ -255,7 +187,7 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
     })
 
     sync()
-    savedThemes.subscribe(sync)
+    themeStore.subscribe(sync)
   }
 </script>
 
@@ -277,25 +209,9 @@ import { BRAND_SWATCHES, CORNERS } from "../utils/theme"
     gap: var(--size-2);
   }
 
-  .theme-quick-brand {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2);
-  }
-
   .theme-quick-status {
     color: var(--ui-text);
     font-size: var(--ui-font-size-small);
     margin: 0;
-  }
-
-  .theme-quick-swatch {
-    background-color: var(--swatch);
-    block-size: 0.75em;
-    border-radius: var(--radius-round);
-    display: inline-block;
-    inline-size: 0.75em;
-    margin-inline-end: var(--size-1);
   }
 </style>

@@ -5,7 +5,6 @@ import {
   CalloutContent,
   CalloutIcon,
   Select,
-  TextField,
 } from "opui-css/astro"
 import { EXAMPLE_THEMES } from "../../utils/example-themes"
 
@@ -32,32 +31,13 @@ const presets = [
 </Callout>
 
 <div class="builder-toolbar">
-  <div class="builder-toolbar-group">
-    <Select
-      class="builder-preset"
-      items={presets}
-      label="Start from"
-      name="builder-preset"
-      size="small"
-    />
-    <div class="builder-saved" data-saved hidden>
-      <Select label="Your themes" name="builder-saved" size="small">
-        <option value="">Not saved</option>
-      </Select>
-    </div>
-    <div class="builder-actions">
-      <Button
-        aria-controls="builder-save-form"
-        aria-expanded="false"
-        data-save-open
-        size="small"
-        variant="outlined">Save</Button
-      >
-      <Button data-delete hidden size="small" variant="transparent"
-        >Delete</Button
-      >
-    </div>
-  </div>
+  <Select
+    class="builder-preset"
+    items={presets}
+    label="Start from"
+    name="builder-preset"
+    size="small"
+  />
   <div class="builder-status">
     <p data-status role="status"></p>
     <Button data-undo hidden size="x-small" variant="outlined">Undo</Button>
@@ -82,32 +62,8 @@ const presets = [
   </div>
 </div>
 
-<form class="builder-save" hidden id="builder-save-form">
-  <TextField
-    aria-describedby="builder-save-note"
-    autocomplete="off"
-    label="Theme name"
-    maxlength="40"
-    name="builder-save-name"
-    required
-    size="small"
-  />
-  <div class="builder-actions">
-    <Button
-      color="primary"
-      data-save-submit
-      size="small"
-      type="submit"
-      variant="filled">Save theme</Button
-    >
-    <Button data-save-cancel size="small" variant="transparent">Cancel</Button>
-  </div>
-  <p aria-live="polite" class="builder-save-note" id="builder-save-note"></p>
-</form>
-
 <script>
   import { exampleTheme } from "../../utils/example-themes"
-  import { savedThemes } from "../../utils/saved-themes"
   import { copyText } from "../../utils/storage"
   import { themeStore, type Theme } from "../../utils/theme"
   import { switchPreset } from "../../utils/theme-brand"
@@ -122,27 +78,14 @@ const presets = [
     const presetSelect = toolbar.querySelector<HTMLSelectElement>(
       'select[name="builder-preset"]',
     )!
-    const savedField = toolbar.querySelector<HTMLElement>("[data-saved]")!
-    const savedSelect = savedField.querySelector("select")!
-    const savedList = savedSelect.querySelector<HTMLElement>(".ui-list")!
-    const saveOpen =
-      toolbar.querySelector<HTMLButtonElement>("[data-save-open]")!
-    const deleteButton =
-      toolbar.querySelector<HTMLButtonElement>("[data-delete]")!
     const resetButton =
       toolbar.querySelector<HTMLButtonElement>("[data-reset-all]")!
-    const form = document.querySelector<HTMLFormElement>(".builder-save")!
-    const nameInput = form.querySelector<HTMLInputElement>("input")!
-    const submit = form.querySelector<HTMLButtonElement>("[data-save-submit]")!
-    const saveNote = form.querySelector<HTMLElement>(".builder-save-note")!
     const status = document.querySelector<HTMLElement>("[data-status]")!
     const undoButton = document.querySelector<HTMLButtonElement>("[data-undo]")!
     let pending: (Undo & { state: string }) | null = null
-    let editing: string | null = null
-    let replacing: string | null = null
     let clearTimer = 0
 
-    const stateOf = () => JSON.stringify([themeStore.get(), savedThemes.list()])
+    const stateOf = () => JSON.stringify(themeStore.get())
 
     const say = (message: string, undo?: Undo) => {
       clearTimeout(clearTimer)
@@ -162,15 +105,8 @@ const presets = [
       action: () => void,
     ) => {
       const theme = themeStore.get()
-      const name = editing
       action()
-      say(message, {
-        focus,
-        restore: () => {
-          editing = name
-          themeStore.set(theme)
-        },
-      })
+      say(message, { focus, restore: () => themeStore.set(theme) })
     }
 
     const describe = (theme: Theme) => {
@@ -186,48 +122,6 @@ const presets = [
       if (document.activeElement !== presetSelect) {
         presetSelect.value = theme.preset ?? ""
       }
-      const themes = savedThemes.list()
-      const current = savedThemes.current()
-      if (current) editing = current
-      if (
-        !themes.some((entry) => entry.name === editing) ||
-        (!theme.preset && Object.keys(theme.tokens).length === 0)
-      ) {
-        editing = current
-      }
-      const edited = current === null ? editing : null
-      savedField.hidden = themes.length === 0
-      savedList.replaceChildren(
-        Object.assign(document.createElement("option"), {
-          textContent: edited ? `${edited} (unsaved changes)` : "Not saved",
-          value: "",
-        }),
-        ...themes.map((entry) =>
-          Object.assign(document.createElement("option"), {
-            textContent: entry.name,
-            value: entry.name,
-          }),
-        ),
-      )
-      savedSelect.value = current ?? ""
-      deleteButton.hidden = current === null
-      deleteButton.setAttribute(
-        "aria-label",
-        current ? `Delete ${current}` : "Delete",
-      )
-      saveOpen.textContent = current
-        ? "Saved"
-        : edited
-          ? "Save changes"
-          : "Save"
-      saveOpen.setAttribute(
-        "aria-label",
-        current
-          ? `Save again, saved as ${current}`
-          : edited
-            ? `Save changes to ${edited}`
-            : "Save this theme",
-      )
       if (pending && stateOf() !== pending.state) {
         if (document.activeElement === undoButton) pending.focus.focus()
         pending = null
@@ -236,86 +130,10 @@ const presets = [
       }
     }
 
-    const confirmReplace = (name: string | null) => {
-      replacing = name
-      saveNote.textContent = name
-        ? `You already have a theme named ${name}. Save again to replace it.`
-        : ""
-      submit.textContent = name ? "Replace theme" : "Save theme"
-    }
-
-    const closeForm = (focus = true) => {
-      form.hidden = true
-      confirmReplace(null)
-      saveOpen.setAttribute("aria-expanded", "false")
-      if (focus) saveOpen.focus()
-    }
-
     presetSelect.addEventListener("change", () => {
       switchPreset(presetSelect.value || null)
       const label = exampleTheme(presetSelect.value)?.label ?? "Default"
       say(`Starting from ${label}. Your changes are kept.`)
-    })
-
-    savedSelect.addEventListener("change", () => {
-      const name = savedSelect.value
-      if (!name) {
-        sync()
-        return
-      }
-      undoable(`Switched to ${name}.`, savedSelect, () =>
-        savedThemes.apply(name),
-      )
-    })
-
-    saveOpen.addEventListener("click", () => {
-      if (!form.hidden) {
-        closeForm()
-        return
-      }
-      form.hidden = false
-      confirmReplace(null)
-      saveOpen.setAttribute("aria-expanded", "true")
-      nameInput.value =
-        savedThemes.current() ?? editing ?? savedThemes.nextName()
-      nameInput.focus()
-      nameInput.select()
-    })
-
-    nameInput.addEventListener("input", () => confirmReplace(null))
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault()
-      const name = nameInput.value.trim()
-      if (!name) return
-      const replaced = savedThemes.list().some((entry) => entry.name === name)
-      const own = name === (savedThemes.current() ?? editing)
-      if (replaced && !own && replacing !== name) {
-        confirmReplace(name)
-        return
-      }
-      savedThemes.save(name)
-      closeForm()
-      say(replaced ? `Updated ${name}.` : `Saved as ${name}.`)
-    })
-
-    form
-      .querySelector("[data-save-cancel]")!
-      .addEventListener("click", () => closeForm())
-
-    form.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeForm()
-    })
-
-    deleteButton.addEventListener("click", () => {
-      const name = savedThemes.current()
-      if (!name) return
-      savedThemes.remove(name)
-      say(`Deleted ${name}.`, {
-        focus: saveOpen,
-        restore: () => savedThemes.save(name),
-      })
-      saveOpen.focus()
     })
 
     resetButton.addEventListener("click", () =>
@@ -372,10 +190,9 @@ const presets = [
           .querySelector("[data-share-use]")!
           .addEventListener("click", () => {
             close()
-            undoable("Using the theme from the link.", presetSelect, () => {
-              editing = null
-              themeStore.set(shared)
-            })
+            undoable("Using the theme from the link.", presetSelect, () =>
+              themeStore.set(shared),
+            )
           })
         share
           .querySelector("[data-share-keep]")!
@@ -387,7 +204,7 @@ const presets = [
     }
 
     sync()
-    savedThemes.subscribe(sync)
+    themeStore.subscribe(sync)
   }
 </script>
 
@@ -417,13 +234,6 @@ const presets = [
     padding-block: var(--size-3);
   }
 
-  .builder-toolbar-group {
-    align-items: end;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-3);
-  }
-
   .builder-actions {
     align-items: center;
     display: flex;
@@ -435,35 +245,8 @@ const presets = [
     }
   }
 
-  .builder-saved[hidden] {
-    display: none;
-  }
-
-  .builder-preset,
-  .builder-saved :global(.ui-select) {
+  .builder-preset {
     min-inline-size: 10rem;
-  }
-
-  .builder-save {
-    align-items: end;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2) var(--size-3);
-
-    &[hidden] {
-      display: none;
-    }
-  }
-
-  .builder-save-note {
-    color: var(--ui-text);
-    flex-basis: 100%;
-    font-size: var(--ui-font-size-small);
-    margin: 0;
-
-    &:empty {
-      display: none;
-    }
   }
 
   .builder-status {

@@ -113,10 +113,20 @@ const { label, min = 160 } = Astro.props
 
     const sync = () => {
       const size = Math.round(frame.getBoundingClientRect().width)
+      const style = getComputedStyle(frame)
+      const content = Math.round(
+        size -
+          [
+            style.borderInlineStartWidth,
+            style.borderInlineEndWidth,
+            style.paddingInlineStart,
+            style.paddingInlineEnd,
+          ].reduce((sum, value) => sum + Number.parseFloat(value), 0),
+      )
       handle.setAttribute("aria-valuemax", String(max()))
       handle.setAttribute("aria-valuenow", String(size))
-      handle.setAttribute("aria-valuetext", `${size}px`)
-      if (width) width.textContent = `${size}px`
+      handle.setAttribute("aria-valuetext", `${content}px`)
+      if (width) width.textContent = `${content}px`
     }
 
     resizable.style.setProperty("--_min", `${min}px`)

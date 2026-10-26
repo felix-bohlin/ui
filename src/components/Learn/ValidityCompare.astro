@@ -67,6 +67,10 @@ const columns = [
       --_border-color: var(--ui-invalid);
       --_helper-text-color: var(--ui-invalid-text);
     }
+
+    &[data-mode="invalid"] :global(.ui-text-field:has(:invalid) .ui-field) {
+      border-color: var(--_border-color);
+    }
   }
 
   .validity-compare-title {

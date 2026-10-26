@@ -65,6 +65,7 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
+      actions: write
       contents: write
     outputs:
       prerelease: ${{ steps.tag.outputs.prerelease }}
@@ -84,8 +85,13 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           node scripts/release.mjs tag
       - if: steps.tag.outputs.version != ''
-        run: echo "Tagged $VERSION. Publish it from the tag with \`node scripts/release.mjs publish\` (RELEASING.md)." >> "$GITHUB_STEP_SUMMARY"
+        name: Run the Publish workflow on the tag
+        run: |
+          gh workflow run publish.yml --ref "$VERSION"
+          echo "Tagged $VERSION. The Publish workflow publishes it to npm." >> "$GITHUB_STEP_SUMMARY"
         env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.tag.outputs.version }}
 
   after-release:

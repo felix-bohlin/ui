@@ -25,7 +25,7 @@ if [ "$(node --version 2>/dev/null)" != "$node_version" ]; then
   fi
 fi
 
-pnpm install
+pnpm install --frozen-lockfile
 
 for wrapper in "${PNPM_HOME:-$HOME/.local/share/pnpm}"/.tools/pnpm/*/node_modules/pnpm; do
   if [ -f "$wrapper/install.js" ] && ! head -c 4 "$wrapper/pnpm" | grep -q ELF; then

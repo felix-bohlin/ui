@@ -53,7 +53,7 @@ pnpm dev
 
 Run `pnpm check` before you commit. `pnpm check:fast` skips the build.
 
-Only the fixture pages at `/<framework>/test/<component>` need `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`). The stress test pages at `/tests/` also render in `pnpm dev`.
+Only the fixture pages at `/<framework>/test/<component>` need `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`). `pnpm check` sets it, so it builds and checks them as CI does. The stress test pages at `/tests/` also render in `pnpm dev`.
 
 `pnpm test:e2e` needs Playwright's Chromium, Firefox and WebKit. Install them once with `pnpm exec playwright install chromium firefox webkit`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium. With Chromium only, pass `--project=light --project=dark`. CI runs the `mcr.microsoft.com/playwright` image. Visual baselines are only generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots. The run lists the images it added, changed and removed in a comment on the PR (one comment, updated by each run): open them before merging. Until then, a new component's visual test fails locally. The baselines are in Git LFS, so the visual tests need `git lfs pull` first (see [Visual baselines in Git LFS](#visual-baselines-in-git-lfs)).
 

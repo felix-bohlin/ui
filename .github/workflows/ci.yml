@@ -28,8 +28,6 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
-        env:
-          OPUI_TEST_PAGES: "1"
       - name: List the regenerated files
         run: |
           mapfile -t files < <(jq -r '.[]' scripts/generated-files.json)

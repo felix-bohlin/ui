@@ -1,5 +1,9 @@
 import { readFileSync } from "node:fs"
 import { describe, expect, test } from "vitest"
+import type { ComponentApi } from "../../src/component-api/types"
+import { components } from "../../src/utils/components"
+import { FRAMEWORK_IDS } from "../../src/utils/framework"
+import { whatsNewFor } from "../../src/utils/whats-new"
 
 const changelog = readFileSync("packages/opui/CHANGELOG.md", "utf8")
 const start = changelog.indexOf("\n## ")
@@ -78,3 +82,68 @@ test("the unreleased sections come in order", () => {
   )
   expect(new Set(titles).size).toBe(titles.length)
 })
+
+const apis = import.meta.glob<ComponentApi>(
+  "../../src/component-api/*/api.ts",
+  {
+    eager: true,
+    import: "default",
+  },
+)
+const slugs = components.map(({ slug }) => slug)
+const PAGES: Record<string, string> = { FieldSet: "form", Link: "typography" }
+const pageOf = (component: string) => {
+  const [file, api] =
+    Object.entries(apis).find(([, entry]) => entry.component === component) ??
+    []
+  if (api) return api.page ?? file?.split("/").at(-2)
+  if (PAGES[component]) return PAGES[component]
+  const words = component
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .toLowerCase()
+    .split("-")
+  return words
+    .map((_, index) => words.slice(0, words.length - index).join("-"))
+    .find((slug) => slugs.includes(slug))
+}
+const subjects = (entry: string) =>
+  [
+    ...(entry.match(/^- ((?:`[A-Z]\w*`(?:,? and |, )?)+)/)?.[1] ?? "").matchAll(
+      /`(\w+)`/g,
+    ),
+  ].map(([, component]) => component)
+const noted = sections.filter(({ title }) =>
+  ["Added", "Breaking", "Changed"].includes(title),
+)
+
+test("every component an entry starts with has a docs page", () => {
+  expect(
+    noted
+      .flatMap(({ entries }) => entries.flatMap(subjects))
+      .filter((component) => !pageOf(component)),
+    "map it to its page in PAGES in tests/unit/changelog.test.ts",
+  ).toEqual([])
+})
+
+test.each(noted)(
+  "$title entries have a What's new note on the page of each component they start with",
+  ({ entries, title }) => {
+    const breaking = title === "Breaking"
+    expect(
+      entries.flatMap((entry) =>
+        subjects(entry)
+          .filter((component) => {
+            const slug = pageOf(component) ?? ""
+            return !FRAMEWORK_IDS.flatMap((framework) =>
+              whatsNewFor(framework, slug),
+            ).some((note) => note.startsWith("Breaking:") === breaking)
+          })
+          .map(
+            (component) =>
+              `${component} (${pageOf(component)}): ${entry.slice(0, 60)}`,
+          ),
+      ),
+      `add a ${breaking ? "Breaking: " : ""}note for these pages to src/utils/whats-new.ts`,
+    ).toEqual([])
+  },
+)

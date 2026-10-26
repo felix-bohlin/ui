@@ -16,7 +16,7 @@ export default {
     },
     {
       description:
-        "In a single-select group, moves focus to the previous or next button and checks it, wrapping around at the ends. Left and Right follow the reading direction. A multi-select group ignores them.",
+        "In a single-select group, moves focus to the previous or next button and checks it, wrapping around at the ends (Safari stops at the first and the last). Left and Right follow the reading direction. A multi-select group ignores them.",
       keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
     },
   ],

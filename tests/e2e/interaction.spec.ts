@@ -1,6 +1,11 @@
 import { expect, test } from "@playwright/test"
 import type { Locator, Page } from "@playwright/test"
 import {
+  failsIn,
+  WEBKIT_ARROW_FOCUS_SCROLL,
+  WEBKIT_RADIO_NO_WRAP,
+} from "./engine-bugs"
+import {
   computed,
   FRAMEWORKS,
   hasExample,
@@ -557,17 +562,36 @@ interaction(
     await expect(panels.nth(2)).toBeVisible()
     await expect(panels.nth(1)).toBeHidden()
 
+    await page.keyboard.press("ArrowLeft")
+    await expect(root.getByRole("radio", { name: "Settings" })).toBeChecked()
+    await expect(panels.nth(1)).toBeVisible()
+    await expect(panels.nth(2)).toBeHidden()
+  },
+)
+
+interaction(
+  "tabs",
+  "Basics",
+  "tabs wrap between the last and the first tab with the arrow keys",
+  async ({ page, root }) => {
+    failsIn(page.context().browser()!.browserType().name(), {
+      webkit: WEBKIT_RADIO_NO_WRAP,
+    })
+    const tabs = root.locator(".ui-tabs > .ui-label")
+    const panels = root.locator(".ui-tabs > .ui-panel")
+
+    await tabs.last().click()
+    await expect(
+      root.getByRole("radio", { name: "Notifications" }),
+    ).toBeChecked()
     await page.keyboard.press("ArrowRight")
     await expect(root.getByRole("radio", { name: "Profile" })).toBeChecked()
     await expect(panels.nth(0)).toBeVisible()
-    await expect(panels.nth(2)).toBeHidden()
-
     await page.keyboard.press("ArrowLeft")
     await expect(
       root.getByRole("radio", { name: "Notifications" }),
     ).toBeChecked()
     await expect(panels.nth(2)).toBeVisible()
-    await expect(panels.nth(0)).toBeHidden()
   },
 )
 
@@ -579,6 +603,9 @@ interaction(
     await needs(page, "sibling-index()", () =>
       CSS.supports("order", "sibling-index()"),
     )
+    failsIn(page.context().browser()!.browserType().name(), {
+      webkit: WEBKIT_ARROW_FOCUS_SCROLL,
+    })
     const tabs = root.locator(".ui-tabs")
     const inputs = tabs.locator(":scope > .ui-input")
     const labels = tabs.locator(":scope > .ui-label")

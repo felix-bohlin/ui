@@ -3,7 +3,9 @@ import type { Page } from "@playwright/test"
 import {
   ENGINE_BUGS,
   FIREFOX_SELF_RTL,
+  WEBKIT_ARROW_FOCUS_SCROLL,
   WEBKIT_FALLBACK_ITEM_CLICK,
+  WEBKIT_RADIO_NO_WRAP,
   WEBKIT_TOP_LAYER_ANCHOR,
   failsIn,
   type EngineBug,
@@ -211,4 +213,60 @@ repro(WEBKIT_FALLBACK_ITEM_CLICK, () => {
       expect(stillOpen, "clicks after opening that left it open").toEqual([])
     })
   }
+})
+
+const radios = (count: number) =>
+  Array.from(
+    { length: count },
+    (_, index) =>
+      `<input type="radio" name="group" id="radio-${index + 1}"${index === 0 ? " checked" : ""}><label for="radio-${index + 1}">Option ${index + 1}</label>`,
+  ).join("")
+
+repro(WEBKIT_RADIO_NO_WRAP, () => {
+  test("the arrow keys wrap from the last radio of a group to the first", async ({
+    browserName,
+    page: tab,
+  }) => {
+    failsIn(browserName, { webkit: WEBKIT_RADIO_NO_WRAP })
+    await tab.setContent(`<!doctype html>${radios(3)}`)
+    await tab.locator("label").last().click()
+    await expect(tab.locator("#radio-3")).toBeChecked()
+    await tab.keyboard.press("ArrowRight")
+    await expect(tab.locator("#radio-1")).toBeChecked()
+  })
+})
+
+repro(WEBKIT_ARROW_FOCUS_SCROLL, () => {
+  test("a scroll container scrolls to the clipped radio the arrow keys focus", async ({
+    browserName,
+    page: tab,
+  }) => {
+    failsIn(browserName, { webkit: WEBKIT_ARROW_FOCUS_SCROLL })
+    await tab.setContent(`<!doctype html>
+<style>
+  #strip { display: grid; grid-auto-columns: max-content; inline-size: 16rem; overflow-x: auto; position: relative }
+  input { block-size: 1lh; clip-path: inset(50%); grid-row: 1; inline-size: 1ch; inset-block-start: 50%; inset-inline-start: 50%; margin: 0; position: absolute }
+  label { grid-row: 1; padding: 0.5rem 1.5rem; white-space: nowrap }
+${Array.from({ length: 8 }, (_, index) => `  #radio-${index + 1} { grid-column: ${index + 1} }`).join("\n")}
+</style>
+<div id="strip">${radios(8)}</div>`)
+    await tab.locator("label").first().click()
+    for (let index = 1; index < 8; index++) {
+      await tab.keyboard.press("ArrowRight")
+    }
+    await expect(tab.locator("#radio-8")).toBeFocused()
+    await expect
+      .poll(() =>
+        tab.evaluate(() => {
+          const strip = document
+            .getElementById("strip")!
+            .getBoundingClientRect()
+          const last = document
+            .querySelector("label:last-of-type")!
+            .getBoundingClientRect()
+          return last.left >= strip.left - 1 && last.right <= strip.right + 1
+        }),
+      )
+      .toBe(true)
+  })
 })

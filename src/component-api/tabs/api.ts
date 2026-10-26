@@ -10,7 +10,7 @@ export default {
     },
     {
       description:
-        "Moves focus to the previous or next tab and selects it, wrapping around at the ends. Left and Right follow the reading direction.",
+        "Moves focus to the previous or next tab and selects it, wrapping around at the ends (Safari stops at the first and the last). Left and Right follow the reading direction.",
       keys: ["Up Arrow", "Down Arrow", "Left Arrow", "Right Arrow"],
     },
   ],

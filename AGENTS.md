@@ -50,7 +50,7 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 - Start the entry with the component name in backticks, e.g. "- `Tabs` take a `variant` prop.", and keep each section sorted by that name: components A to Z, then files and tokens (`theme.css`, `normalize.css`). `tests/unit/changelog.test.ts` checks both, and that the headings are versions from newest to oldest, the first is the package version and its sections come in that order. It also fails when a component an `Added`, `Breaking` or `Changed` entry starts with has no docs page, or its page has no What's new note of that kind.
 - For `Added`, `Breaking` and `Changed` entries, add or update a short note for the component page in `src/utils/whats-new.ts`. It renders the What's new callout on the page (a note that starts with `Breaking:` goes in the Migrating from 5.x callout instead), and the New badge in the sidebar when the slug is also in `highlighted`, which follows the rule written next to it.
 - Use `html`, `astro`, `react`, `svelte` and `vue` keys when the notes differ per framework (classes vs props). A framework without a note gets no callout or badge.
-- Link to the section on the page that documents the change (`<a href="#line">`).
+- Link to the section on the page that documents the change (`<a href="#line">`). `pnpm check-dist` fails on a link to a missing id, and `tests/unit/whats-new.test.ts` on a key or a `highlighted` slug that is no page or has no notes.
 - Keep the notes in sync when a change is reworked, and only remove notes when asked.
 
 ## Browser support

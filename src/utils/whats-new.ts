@@ -11,7 +11,7 @@ const components = (note: string) => ({
 
 const slots = (note: string) => ({ astro: note, vue: note })
 
-const whatsNew = {
+export const whatsNew = {
   accordion: [
     `Breaking: <code>--_border-radius</code> is <code>--_radius</code> (<a href="#under-the-hood">Under the hood</a>).`,
     {
@@ -1332,7 +1332,7 @@ const whatsNew = {
  * at the end, `tabs` a segmented control, `typography` heading sizes). Renames,
  * new props, token rewiring and fixes stay out, however many notes they add.
  */
-const highlighted = new Set([
+export const highlighted = new Set([
   "accordion",
   "button",
   "card",

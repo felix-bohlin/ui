@@ -7,7 +7,7 @@ This guide defines the standards for documenting component APIs (HTML, Astro, Re
 When creating or updating a component API, ensure:
 
 - [ ] **File Format**: An `api.ts` data file (see [Data-driven APIs](#data-driven-apis-apits)) in one folder per component, such as `src/component-api/button/api.ts`.
-- [ ] **CSS Verified**: Every class, selector and part selector exists in the component's CSS file in `packages/opui/css/components/`.
+- [ ] **CSS Verified**: `checkApi` checks the classes, `cssVar`s and `anchorName`s against the `css` stylesheets, and `checkClasses` that every stylesheet class is in some `api.ts`.
 - [ ] **Inline code**: Wrap classes, selectors, tags and props in backticks in descriptions and notes. `formatInline` renders them as `<code>` and escapes HTML, so never write `<code>` tags. Link to docs pages with `[label](/components/name)`.
 - [ ] **Class Prefixing**: Classes in `class` and `values` use the `ui-` prefix and a leading dot (`.ui-primary`).
 - [ ] **Baseline value**: Map an enum value that adds no class to `null` in `values` (`values: { end: ".ui-align-end", start: null }`). The table shows it as `default`.
@@ -119,7 +119,7 @@ The `--_` custom properties a stylesheet declares are documented per stylesheet,
 
 Prop names and types are read from each framework's types file (from every member of a union), Astro and Vue slots from the component source, and Svelte snippets and React slot props from `types.svelte.ts` and `types.react.ts`, so they are never written by hand. React and Svelte get a `children` row when `api.ts` documents a `default` slot and the types don't declare `children`. Framework syntax lives in [frameworks.ts](frameworks.ts).
 
-`checkApi` and `checkExports` in [component-source.ts](../utils/component-source.ts) return every `[component-api]` problem: a prop or slot missing from `api.ts`, a documented prop, part prop, snippet or slot that isn't in the source, a `source` and `component` that match no component file, and a component exported from a barrel in `packages/opui/<framework>/index.ts` that is neither an `api.ts`'s `component` nor a part's `component`. `tests/unit/component-api.test.ts` runs them over every `api.ts` in `pnpm test`, and the docs build throws them all at once.
+`checkApi`, `checkClasses` and `checkExports` in [component-source.ts](../utils/component-source.ts) return every `[component-api]` problem: a prop or slot missing from `api.ts`, a documented prop, part prop, snippet or slot that isn't in the source, a destructured default that differs from `default`, a class, `cssVar` or `anchorName` that the stylesheets don't have, a stylesheet class that no `api.ts` names, a `source` and `component` that match no component file, and a component exported from a barrel in `packages/opui/<framework>/index.ts` that is neither an `api.ts`'s `component` nor a part's `component`. `tests/unit/component-api.test.ts` runs them over every `api.ts` in `pnpm test`, and the docs build throws them all at once.
 
 Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`, or let `<Component slug="...">` pick it up without a title. `<Anatomy>` finds it from the page slug. `tests/e2e/anatomy.spec.ts` checks every page with `heroAnatomy` for overflow and spacing, and for axe violations on the HTML pages.
 

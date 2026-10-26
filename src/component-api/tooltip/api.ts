@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Tooltip",
+  css: ["anchor", "tooltip"],
   keyboard: [
     {
       description:

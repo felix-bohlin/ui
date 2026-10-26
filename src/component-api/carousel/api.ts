@@ -20,7 +20,9 @@ export default {
     },
   ],
   notes: {
-    html: "The root is a `<ul>` with an `aria-label`. CSS adds the buttons, and `.ui-markers` the markers.",
+    default:
+      "Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.",
+    html: "The root is a `<ul>` with an `aria-label`. CSS adds the buttons, and `.ui-markers` the markers. Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.",
   },
   options: [
     {

@@ -23,6 +23,7 @@ import {
 } from "opui-css/astro"
 import { componentImports, packageFor } from "../utils/component-imports"
 import {
+  checkClasses,
   checkExports,
   reportProblems,
   shipped,
@@ -91,7 +92,10 @@ const apiData = import.meta.glob<ComponentApi>("../component-api/*/api.ts", {
   import: "default",
 })
 
-reportProblems(checkExports(Object.values(apiData)))
+reportProblems([
+  ...checkClasses(Object.values(apiData)),
+  ...checkExports(Object.values(apiData)),
+])
 
 const autoApis = ((): Apis | null => {
   if (!currentSlug) return null

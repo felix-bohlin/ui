@@ -23,14 +23,14 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 
 ## Already checked by tools
 
-`tests/unit/component-api.test.ts` lists every `[component-api]` problem: a prop or slot missing from `api.ts`, a documented prop, part prop, snippet, slot or enum value that isn't in the source, and an exported component without an `api.ts`. Don't repeat those checks by hand. Run `pnpm exec vitest run tests/unit/component-api.test.ts` and report its problems.
+`tests/unit/component-api.test.ts` lists every `[component-api]` problem: a prop or slot missing from `api.ts`, a documented prop, part prop, snippet, slot or enum value that isn't in the source, a destructured default that differs from `default`, a class, `cssVar` or `anchorName` that the stylesheets don't have, a stylesheet class that no `api.ts` names, and an exported component without an `api.ts`. Don't repeat those checks by hand. Run `pnpm exec vitest run tests/unit/component-api.test.ts` and report its problems.
 
 ## Check
 
 - **Props in every framework.** Compare `types.astro.ts`, `types.react.ts`, `types.svelte.ts` and `types.vue-props.ts` in `packages/opui/components/<Name>/`. Report types that differ between frameworks (`checkApi` already reports a prop one framework lacks).
-- **Defaults.** The documented default matches the default in each component (`.astro`, `.react.tsx`, `.svelte`, `.vue`).
-- **Values.** Each `values` entry maps to a modifier the CSS has (`checkApi` checks the keys against the type).
-- **CSS.** Every class, attribute and selector in `api.ts` (`class`, `attribute`, `part`, `selector`, `cssVar`) exists in the component's stylesheets. Report modifiers the CSS has that the API doesn't document.
-- **Parts.** `root` and `parts` match the rendered markup and are in visual order. `anchorName` is set when the CSS sets an `anchor-name`.
+- **Defaults.** A default the components don't destructure, such as a baseline value without a class or a CSS default, matches what the CSS does.
+- **Values.** Each `values` entry that isn't a class, such as `[disabled]`, maps to a modifier the CSS has (`checkApi` checks the keys against the type and the classes against the stylesheets).
+- **CSS.** Every attribute and selector in `api.ts` (`attribute`, `part`, `selector`) matches what the stylesheets style.
+- **Parts.** `root` and `parts` match the rendered markup and are in visual order.
 - **Wording.** Descriptions are short and use the standard phrases from the guide. Classes have the `ui-` prefix and a dot, `default` has neither, and code is in backticks, never `<code>` tags (Inline code in `src/component-api/AGENTS.md`).
 - **Docs pages.** The page in `src/docs/components/` doesn't contradict the API: props, classes and defaults it mentions match.

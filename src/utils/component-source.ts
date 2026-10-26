@@ -10,9 +10,10 @@ import {
 import { KEYS, type ApiKey } from "../component-api/keyboard"
 import type { ApiOption, ComponentApi } from "../component-api/types"
 import { isHydratedFramework } from "./framework"
-import { barrelExports } from "./package-source"
+import { barrelExports, classNames, stripComments } from "./package-source"
 
 const root = path.resolve("packages/opui/components")
+const stylesheetRoot = path.resolve("packages/opui/css/components")
 
 const read = (source: string | undefined, file: string) => {
   if (!source) return undefined
@@ -107,6 +108,125 @@ const cleanType = (text: string) => {
 }
 
 type Target = Pick<ComponentApi, "component" | "source">
+
+const kebab = (name: string) =>
+  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
+
+export const stylesheets = (api: Pick<ComponentApi, "css" | "source">) =>
+  (api.css ?? (api.source ? [kebab(api.source)] : [])).map((file) =>
+    path.join(stylesheetRoot, `${file}.css`),
+  )
+
+const readCss = (file: string) =>
+  fs.existsSync(file) ? stripComments(fs.readFileSync(file, "utf8")) : ""
+
+const sharedClasses = () =>
+  new Set(
+    [
+      ...fs
+        .readdirSync(path.resolve("packages/opui/core"))
+        .filter((file) => file.endsWith(".css"))
+        .map((file) => path.resolve("packages/opui/core", file)),
+      path.resolve("packages/opui/css/theme.css"),
+    ].flatMap((file) => classNames(readCss(file))),
+  )
+
+export const anchorNames = (css: string) =>
+  new Set(
+    [...css.matchAll(/\banchor-name:\s*([^;}]+)/g)].flatMap(([, value]) =>
+      value.split(",").map((name) => name.trim()),
+    ),
+  )
+
+export const documentedClasses = (api: ComponentApi) => [
+  ...new Set(
+    classNames(
+      [
+        api.root.selector,
+        ...api.parts.map((part) => part.selector),
+        ...api.options.flatMap((option) => [
+          option.class ?? "",
+          option.part ?? "",
+          ...Object.values(option.values ?? {}).map((value) => value ?? ""),
+        ]),
+      ].join(" "),
+    ),
+  ),
+]
+
+const SCRIPTS: Record<ComponentFramework, RegExp> = {
+  astro: /^---\n([\s\S]*?)\n---/g,
+  react: /^([\s\S]*)$/g,
+  svelte: /<script\b[^>]*>([\s\S]*?)<\/script>/g,
+  vue: /<script\b[^>]*>([\s\S]*?)<\/script>/g,
+}
+
+const isPropsSource = (node: ts.Expression) => {
+  const text = (ts.isAsExpression(node) ? node.expression : node).getText()
+  return (
+    text === "Astro.props" ||
+    (ts.isCallExpression(node) &&
+      ["$props", "defineProps"].includes(node.expression.getText()))
+  )
+}
+
+const propsBinding = (node: ts.Node): ts.ObjectBindingPattern | undefined => {
+  if (
+    ts.isVariableDeclaration(node) &&
+    node.initializer &&
+    ts.isObjectBindingPattern(node.name) &&
+    isPropsSource(node.initializer)
+  ) {
+    return node.name
+  }
+  if (
+    ts.isFunctionDeclaration(node) &&
+    node.modifiers?.some((m) => m.kind === ts.SyntaxKind.DefaultKeyword) &&
+    node.parameters[0] &&
+    ts.isObjectBindingPattern(node.parameters[0].name)
+  ) {
+    return node.parameters[0].name
+  }
+  return ts.forEachChild(node, propsBinding)
+}
+
+const literal = (node: ts.Expression | undefined): string | undefined => {
+  if (!node) return undefined
+  if (ts.isStringLiteral(node)) return JSON.stringify(node.text)
+  if (ts.isNumericLiteral(node)) return node.text
+  if (node.kind === ts.SyntaxKind.TrueKeyword) return "true"
+  if (node.kind === ts.SyntaxKind.FalseKeyword) return "false"
+  if (ts.isCallExpression(node) && node.expression.getText() === "$bindable") {
+    return literal(node.arguments[0])
+  }
+  return undefined
+}
+
+export const destructuredDefaults = (
+  framework: ComponentFramework,
+  source: string,
+) => {
+  const script = [...source.matchAll(SCRIPTS[framework])]
+    .map(([, code]) => code)
+    .join("\n")
+  const binding = propsBinding(
+    ts.createSourceFile(
+      `component.${framework === "react" ? "tsx" : "ts"}`,
+      script,
+      ts.ScriptTarget.Latest,
+      true,
+      framework === "react" ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
+    ),
+  )
+  return new Map(
+    (binding?.elements ?? []).flatMap((element) => {
+      const value = literal(element.initializer)
+      return value && !element.dotDotDotToken
+        ? [[(element.propertyName ?? element.name).getText(), value]]
+        : []
+    }),
+  )
+}
 
 export const modelsFor = (api: ComponentApi, framework: ComponentFramework) =>
   api.model ? (api.model.frameworks?.[framework] ?? [api.model]) : []
@@ -264,11 +384,54 @@ export const checkExports = (apis: ComponentApi[]) => {
   )
 }
 
+export const checkClasses = (apis: ComponentApi[]) => {
+  const documented = new Set(
+    apis.flatMap((api) => classNames(JSON.stringify(api))),
+  )
+  return fs
+    .readdirSync(stylesheetRoot)
+    .filter((file) => file.endsWith(".css"))
+    .toSorted()
+    .flatMap((file) =>
+      [...new Set(classNames(readCss(path.join(stylesheetRoot, file))))]
+        .filter((name) => !documented.has(name))
+        .map(
+          (name) =>
+            `${file}: class "${name}" is in no api.ts; document it as an option, a part or in a note`,
+        ),
+    )
+}
+
 export const checkApi = (api: ComponentApi) => {
   const problems: string[] = []
   const report = (message: string, framework?: ComponentFramework) =>
     problems.push(
       `${api.component}${framework ? ` (${framework})` : ""}: ${message}`,
+    )
+
+  const sheets = stylesheets(api)
+  const sheetNames = sheets.map((file) => path.basename(file)).join(", ")
+  const css = sheets.map(readCss).join("\n")
+  const classes = new Set([...classNames(css), ...sharedClasses()])
+  documentedClasses(api)
+    .filter((name) => !classes.has(name))
+    .forEach((name) =>
+      report(
+        `class "${name}" is in neither its stylesheets (${sheetNames}) nor the core CSS`,
+      ),
+    )
+  api.options
+    .filter((option) => option.cssVar?.startsWith("--"))
+    .filter((option) => !css.includes(option.cssVar!))
+    .forEach((option) =>
+      report(`cssVar "${option.cssVar}" is not in ${sheetNames}`),
+    )
+  const anchors = anchorNames(css)
+  ;[api.root, ...api.parts]
+    .flatMap((part) => part.anchorName ?? [])
+    .filter((name) => !anchors.has(name))
+    .forEach((name) =>
+      report(`anchorName "${name}" is no anchor-name in ${sheetNames}`),
     )
 
   if (
@@ -340,6 +503,20 @@ export const checkApi = (api: ComponentApi) => {
     hydrationFor(api, framework).forEach((entry) =>
       exists("hydration prop", entry.prop),
     )
+    destructuredDefaults(
+      framework,
+      read(api.source, componentFile(api, framework)) ?? "",
+    ).forEach((value, prop) => {
+      const option = api.options.find(
+        (option) => option.prop === prop && appliesTo(option, framework),
+      )
+      if (option && option.default !== value) {
+        report(
+          `prop "${prop}" defaults to ${value}, but api.ts documents ${option.default ?? "no default"}`,
+          framework,
+        )
+      }
+    })
     declared.forEach((_, prop) => {
       if (!describe(api, prop, framework, "prop")) {
         report(`prop "${prop}" is not documented`, framework)

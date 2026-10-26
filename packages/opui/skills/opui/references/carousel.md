@@ -30,7 +30,8 @@ A scrolling list with snap points, buttons and markers.
 
 ### Notes
 
-- HTML: The root is a `<ul>` with an `aria-label`. CSS adds the buttons, and `.ui-markers` the markers.
+- HTML: The root is a `<ul>` with an `aria-label`. CSS adds the buttons, and `.ui-markers` the markers. Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
+- Astro, React, Svelte and Vue: Smooth scrolling follows `--ui-motion`: `.ui-motion-off` on the carousel or a parent turns it off.
 
 ## Component properties
 

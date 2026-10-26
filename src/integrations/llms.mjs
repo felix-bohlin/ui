@@ -143,7 +143,8 @@ export const hrefRewriter = (frameworkId, site) => (href) => {
     (FRAMEWORKS.some(
       (f) => localized === `/${f.id}` || localized.startsWith(`/${f.id}/`),
     ) ||
-      (isFrameworkFree(localized) && !/\/preview\/?$/.test(localized)))
+      (isFrameworkFree(localized) &&
+        !/\/preview\/?$|^\/todo\/example\//.test(localized)))
   const target = isDoc ? markdownPath(localized) : localized
   return `${new URL(target, site)}${hash ? `#${hash}` : ""}`
 }

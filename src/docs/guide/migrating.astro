@@ -4,7 +4,12 @@ import Guide from "../../layouts/Guide.astro"
 import { compiledContent } from "../../../packages/opui/MIGRATING.md"
 import { parseMigrating } from "../../utils/migrating"
 
-const { intro, sections, title } = parseMigrating(await compiledContent())
+const { intro, sections, title } = parseMigrating(
+  (await compiledContent()).replaceAll(
+    'href="./',
+    'href="https://github.com/felix-bohlin/ui/blob/main/packages/opui/',
+  ),
+)
 const content = [
   intro,
   ...sections.map((section) => `<section>${section}</section>`),

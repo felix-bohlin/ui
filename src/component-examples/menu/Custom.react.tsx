@@ -63,7 +63,7 @@ export default function Custom() {
         />
         <ListItem
           label="Open in new tab"
-          href="#menu"
+          href="#custom"
           start={
             <svg
               aria-hidden="true"

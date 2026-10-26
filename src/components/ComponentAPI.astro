@@ -25,11 +25,17 @@ export type Apis = ApiEntry | ApiEntry[]
 
 type Props = {
   apis?: Apis
+  cssVariablesId?: string
   title?: string
   hideTitle?: boolean
 }
 
-const { apis, title: titleProp, hideTitle = false } = Astro.props
+const {
+  apis,
+  cssVariablesId = "css-variables",
+  title: titleProp,
+  hideTitle = false,
+} = Astro.props
 
 const apiList = Array.isArray(apis) ? apis : apis ? [apis] : []
 
@@ -100,7 +106,7 @@ const { link } = Astro.locals
           })}
           {cssVars.length > 0 && (
             <Fragment>
-              <h3 id="css-variables">CSS variables</h3>
+              <h3 id={cssVariablesId}>CSS variables</h3>
               <DocsTable
                 columns={[
                   { label: "Variable", width: "30%" },

@@ -14,7 +14,12 @@ export function getStaticPaths() {
   return [{ params: { index: undefined } }]
 }
 
-const { intro, sections } = parseTodo(source)
+const { intro, sections } = parseTodo(
+  source.replaceAll(
+    "](../../",
+    "](https://github.com/felix-bohlin/ui/blob/main/",
+  ),
+)
 
 const count = sections.reduce(
   (total, section) => total + section.items.length,

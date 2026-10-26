@@ -8,10 +8,13 @@ import {
   checkClient,
   checkContext,
   checkDestructuring,
+  checkExampleClient,
+  checkExampleWrapper,
   checkIndexSignature,
   checkModel,
   checkPropsType,
   checkProvide,
+  checkReactExample,
   checkRest,
   checkSortedKeys,
   checkTypeNames,
@@ -426,6 +429,88 @@ describe("check-components", () => {
       "exports Key: a context.vue.ts exports TabsKey",
       "does not take its shape from the Context type in ./types",
     ])
+  })
+
+  test('"use client" marks exactly the React examples with client hooks or function props', () => {
+    const example = (body: string) =>
+      `export default function A() {\n  ${body}\n}\n`
+    const client = (body: string) => `"use client"\n\n${example(body)}`
+    expect(
+      checkExampleClient("A.react.tsx", example("const id = useId()")),
+    ).toEqual([])
+    expect(
+      checkExampleClient(
+        "A.react.tsx",
+        example("return <List render={(item) => item} />"),
+      ),
+    ).toEqual([expect.stringContaining('start it with "use client"')])
+    expect(
+      checkExampleClient(
+        "A.react.tsx",
+        example(
+          "const render = (item) => item\n  return <List render={render} />",
+        ),
+      ),
+    ).toEqual([expect.stringContaining('start it with "use client"')])
+    expect(
+      checkExampleClient("A.react.tsx", example("const t = useToast()")),
+    ).toEqual([expect.stringContaining('start it with "use client"')])
+    expect(
+      checkExampleClient("A.react.tsx", client("const id = useId()")),
+    ).toEqual([
+      'starts with "use client" but uses no hooks, event handlers or function props',
+    ])
+  })
+
+  test("React examples default-export a function named after the file", () => {
+    const source = (imports: string, name: string) =>
+      `import { ${imports} } from "opui-css/react"\n\nexport default function ${name}() {\n  return null\n}\n`
+    expect(
+      checkReactExample(
+        "Basics.react.tsx",
+        "Basics",
+        source("Badge", "Basics"),
+      ),
+    ).toEqual([])
+    expect(
+      checkReactExample(
+        "FieldGroup.react.tsx",
+        "FieldGroup",
+        source("FieldGroup", "FieldGroupExample"),
+      ),
+    ).toEqual([])
+    expect(
+      checkReactExample("Basics.react.tsx", "Basics", source("Badge", "Demo")),
+    ).toEqual(["must default-export `function Basics()`, named after the file"])
+  })
+
+  test("examples don't wrap all of their content in example-row or example-column", () => {
+    const wrapped =
+      '<div class="example-row">\n  <span>a</span>\n  <div>b</div>\n</div>\n'
+    const message =
+      'wraps all of its content in example-row; drop the wrapper and set row on <AutoExample name="A">'
+    expect(checkExampleWrapper("A.html", "A", wrapped)).toEqual([message])
+    expect(
+      checkExampleWrapper(
+        "A.vue",
+        "A",
+        `<template>\n${wrapped}</template>\n\n<style>\n  span { color: red; }\n</style>\n`,
+      ),
+    ).toEqual([message])
+    expect(
+      checkExampleWrapper(
+        "A.react.tsx",
+        "A",
+        'export default function A() {\n  return (\n    <>\n      <div className="example-row">a</div>\n    </>\n  )\n}\n',
+      ),
+    ).toEqual([message])
+    expect(
+      checkExampleWrapper(
+        "A.html",
+        "A",
+        '<div class="example-row">a</div>\n<div class="example-row">b</div>\n',
+      ),
+    ).toEqual([])
   })
 
   test("props types are named Props and <Root><Part>Props", () => {

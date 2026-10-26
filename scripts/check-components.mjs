@@ -15,6 +15,7 @@ import { barrelExports } from "../src/utils/package-source.js"
 const root = fileURLToPath(new URL("..", import.meta.url))
 const componentsDir = join(root, "packages/opui/components")
 const examplesDir = join(root, "src/component-examples")
+const docsDir = join(root, "src/docs/components")
 
 const SCRIPTS = [
   [".astro", /^---\n([\s\S]*?)\n---/g],
@@ -199,20 +200,19 @@ const classTokens = (lists) =>
     )
     .join("\n")
 
-export const checkClient = (source) => {
+const clientProblems = (source, used, uses) => {
   const client = source.startsWith('"use client"\n')
-  if (CLIENT.test(source) && !client) {
-    return [
-      'uses context, state, effects or event handlers; start it with "use client"',
-    ]
-  }
-  if (!CLIENT.test(source) && client) {
-    return [
-      'starts with "use client" but uses no context, state, effects or event handlers',
-    ]
-  }
+  if (used && !client) return [`uses ${uses}; start it with "use client"`]
+  if (!used && client) return [`starts with "use client" but uses no ${uses}`]
   return []
 }
+
+export const checkClient = (source) =>
+  clientProblems(
+    source,
+    CLIENT.test(source),
+    "context, state, effects or event handlers",
+  )
 
 export const checkIndexSignature = (source) =>
   /^\s*\[key: string\]:/m.test(source)
@@ -601,6 +601,155 @@ const property = (object, name) =>
     (node) => ts.isPropertyAssignment(node) && keyName(node.name) === name,
   )?.initializer
 
+const SERVER_HOOKS = ["useCallback", "useDebugValue", "useId", "useMemo"]
+
+const isFunction = (node) =>
+  !!node && (ts.isArrowFunction(node) || ts.isFunctionExpression(node))
+
+const usesClientFeatures = (sourceFile) => {
+  const functions = nodesIn(
+    sourceFile,
+    (node) =>
+      ts.isVariableDeclaration(node) &&
+      ts.isIdentifier(node.name) &&
+      isFunction(node.initializer),
+  ).map((node) => node.name.text)
+  const hooks = nodesIn(
+    sourceFile,
+    (node) =>
+      ts.isCallExpression(node) &&
+      ts.isIdentifier(node.expression) &&
+      /^use[A-Z]/.test(node.expression.text) &&
+      !SERVER_HOOKS.includes(node.expression.text),
+  )
+  const functionProps = nodesIn(sourceFile, (node) => {
+    if (!ts.isJsxAttribute(node)) return false
+    const value =
+      node.initializer && ts.isJsxExpression(node.initializer)
+        ? node.initializer.expression
+        : undefined
+    return (
+      /^on[A-Z]/.test(node.name.getText()) ||
+      isFunction(value) ||
+      (!!value && ts.isIdentifier(value) && functions.includes(value.text))
+    )
+  })
+  return hooks.length > 0 || functionProps.length > 0
+}
+
+export const checkExampleClient = (file, source) =>
+  clientProblems(
+    source,
+    CLIENT.test(source) || usesClientFeatures(parse(file, source)),
+    "hooks, event handlers or function props",
+  )
+
+const LAYOUT_CLASS = /(?:^|\s)example-(row|column)(?:\s|$)/
+
+const exampleTemplate = (file, source) =>
+  (file.endsWith(".vue")
+    ? (source.match(/^<template>([\s\S]*)^<\/template>/m)?.[1] ?? "")
+    : source.replace(/^---\n[\s\S]*?\n---\n/, "")
+  )
+    .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/g, "")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .trim()
+
+const markupWrapper = (markup) => {
+  const open = markup.match(/^<([a-z][\w-]*)\b[^>]*?\bclass="([^"]*)"[^>]*>/)
+  const layout = open?.[2].match(LAYOUT_CLASS)?.[1]
+  if (!layout) return null
+  let depth = 0
+  for (const match of markup.matchAll(
+    new RegExp(`<(/?)${open[1]}\\b[^>]*?(/?)>`, "g"),
+  )) {
+    if (match[2]) continue
+    depth += match[1] ? -1 : 1
+    if (depth === 0) {
+      return match.index + match[0].length === markup.length ? layout : null
+    }
+  }
+  return null
+}
+
+const jsxWrapper = (node) => {
+  while (node && ts.isParenthesizedExpression(node)) node = node.expression
+  if (node && ts.isJsxFragment(node)) {
+    const children = node.children.filter(
+      (child) => !(ts.isJsxText(child) && child.containsOnlyTriviaWhiteSpaces),
+    )
+    return children.length === 1 ? jsxWrapper(children[0]) : null
+  }
+  if (!node || !ts.isJsxElement(node)) return null
+  const className = node.openingElement.attributes.properties.find(
+    (attribute) =>
+      ts.isJsxAttribute(attribute) && attribute.name.getText() === "className",
+  )?.initializer
+  return className && ts.isStringLiteral(className)
+    ? (className.text.match(LAYOUT_CLASS)?.[1] ?? null)
+    : null
+}
+
+const defaultFunction = (sourceFile) =>
+  sourceFile.statements.find(
+    (node) =>
+      ts.isFunctionDeclaration(node) &&
+      node.modifiers?.some(
+        (modifier) => modifier.kind === ts.SyntaxKind.DefaultKeyword,
+      ),
+  )
+
+export const checkReactExample = (file, name, source) => {
+  const sourceFile = parse(file, source)
+  const imported = sourceFile.statements
+    .filter(ts.isImportDeclaration)
+    .flatMap(({ importClause }) => [
+      ...(importClause?.name ? [importClause.name.text] : []),
+      ...(importClause?.namedBindings?.elements?.map(
+        (element) => element.name.text,
+      ) ?? []),
+    ])
+  const expected = imported.includes(name) ? `${name}Example` : name
+  return defaultFunction(sourceFile)?.name?.text === expected
+    ? []
+    : [
+        `must default-export \`function ${expected}()\`, named after the file${expected === name ? "" : ` with the Example suffix, since ${name} is imported`}`,
+      ]
+}
+
+export const checkExampleWrapper = (file, name, source) => {
+  const layout = file.endsWith(".react.tsx")
+    ? jsxWrapper(
+        defaultFunction(parse(file, source))?.body?.statements.findLast(
+          ts.isReturnStatement,
+        )?.expression,
+      )
+    : markupWrapper(exampleTemplate(file, source))
+  return layout
+    ? [
+        `wraps all of its content in example-${layout}; drop the wrapper and set ${layout} on <AutoExample name="${name}">`,
+      ]
+    : []
+}
+
+const pageExamples = async (file, seen = new Set()) => {
+  if (seen.has(file)) return []
+  seen.add(file)
+  const source = await readFile(file, "utf8").catch(() => "")
+  const names = [
+    ...source.matchAll(/<AutoExample\b[^>]*?\bname="([^"]+)"/g),
+  ].map(([, name]) => name)
+  for (const [, partial] of source.matchAll(
+    /from "(\.{1,2}\/[^"]+\.astro)"/g,
+  )) {
+    const path = join(file, "..", partial)
+    if (!relative(docsDir, path).startsWith("..")) {
+      names.push(...(await pageExamples(path, seen)))
+    }
+  }
+  return names
+}
+
 const readModels = async () => {
   const apiDir = join(root, "src/component-api")
   const models = new Map()
@@ -845,15 +994,42 @@ const main = async () => {
     const names = [
       ...new Set(files.map((file) => file.replace(EXAMPLE_FILE, ""))),
     ].toSorted()
+    const page = join(docsDir, `${slug}.astro`)
+    const shown = await pageExamples(page)
     for (const file of files) {
-      const source = await readFile(join(dir, file), "utf8")
+      const path = join(dir, file)
+      const source = await readFile(path, "utf8")
       for (const [, from] of source.matchAll(
         /from\s+["'](@opui\/[^"']*)["']/g,
       )) {
-        report(join(dir, file), `imports ${from}, use opui-css/<framework>`)
+        report(path, `imports ${from}, use opui-css/<framework>`)
       }
+      const name = file.replace(EXAMPLE_FILE, "")
+      if (file.endsWith(".react.tsx")) {
+        reportAll(path, checkExampleClient(path, source))
+        reportAll(path, checkReactExample(path, name, source))
+      }
+      reportAll(path, checkExampleWrapper(path, name, source))
+    }
+    for (const name of shown.filter((name) => !names.includes(name))) {
+      report(
+        page,
+        `shows <AutoExample name="${name}">, which has no files in ${relative(root, dir)}`,
+      )
     }
     for (const name of names) {
+      if (!/^[A-Z][A-Za-z0-9]*$/.test(name)) {
+        report(
+          join(dir, name),
+          "is not PascalCase; name example files like Basics.astro or HiddenLabel.astro",
+        )
+      }
+      if (!name.endsWith("Code") && !shown.includes(name)) {
+        report(
+          join(dir, name),
+          `is shown on no docs page; add <AutoExample name="${name}" /> to ${relative(root, page)} or delete the files`,
+        )
+      }
       if (FRAMEWORK_AGNOSTIC_EXAMPLES.includes(`${slug}/${name}`)) continue
       const code = name.endsWith("Code")
       if (code && !names.includes(name.slice(0, -4))) {

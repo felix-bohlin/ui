@@ -340,16 +340,44 @@ describe("check-components", () => {
     ).toEqual([
       expect.stringContaining("captures ...rest but never spreads it"),
     ])
-    const svelte = (spread: string) =>
-      `<script lang="ts">\n  let { class: className, ...rest } = $props()\n  const attrs = ${spread}\n</script>\n\n<div class={className} {...attrs}></div>\n`
+    const svelte = (script: string, markup: string) =>
+      `<script lang="ts">\n  let { class: className, ...rest } = $props()\n  ${script}\n</script>\n\n${markup}\n`
+    const unspread = [
+      expect.stringContaining("captures ...rest but never spreads it"),
+    ]
     expect(
-      checkRest("A.svelte", svelte('$derived({ ...rest, "data-a": "" })')),
+      checkRest(
+        "A.svelte",
+        svelte(
+          'const attrs = $derived({ ...rest, "data-a": "" })',
+          "<div class={className} {...attrs}></div>",
+        ),
+      ),
     ).toEqual([])
     expect(
-      checkRest("A.svelte", svelte("hasName({ ...rest, label: className })")),
-    ).toEqual([
-      expect.stringContaining("captures ...rest but never spreads it"),
-    ])
+      checkRest(
+        "A.svelte",
+        svelte(
+          'const attrs = $derived({ ...rest, "data-a": "" })',
+          "<div class={className}></div>",
+        ),
+      ),
+    ).toEqual(unspread)
+    expect(
+      checkRest(
+        "A.svelte",
+        svelte(
+          "$effect(() => {\n    hasName({ ...rest, label: className })\n  })",
+          "<div class={className}></div>",
+        ),
+      ),
+    ).toEqual(unspread)
+    expect(
+      checkRest(
+        "A.react.tsx",
+        "export default function A({ href, ...rest }: Props) {\n  const attrs = useMemo(() => ({ ...rest, href }), [rest, href])\n  return <a href={href} />\n}\n",
+      ),
+    ).toEqual(unspread)
   })
 
   test("Vue binds the attributes it stops inheriting", () => {

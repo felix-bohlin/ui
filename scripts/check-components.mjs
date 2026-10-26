@@ -447,7 +447,41 @@ export const checkPropsType = (file, source, framework, expected) => {
   return problems
 }
 
-const spreadsRest = (source) => {
+const restCarriers = (script) => {
+  const declarations = nodesIn(
+    script,
+    (node) =>
+      ts.isVariableDeclaration(node) &&
+      ts.isIdentifier(node.name) &&
+      !!node.initializer,
+  )
+  const carriers = new Set(["rest"])
+  let grew = true
+  while (grew) {
+    grew = false
+    for (const declaration of declarations) {
+      if (carriers.has(declaration.name.text)) continue
+      if (
+        nodesIn(
+          declaration.initializer,
+          (node) => ts.isIdentifier(node) && carriers.has(node.text),
+        ).length > 0
+      ) {
+        carriers.add(declaration.name.text)
+        grew = true
+      }
+    }
+  }
+  return {
+    carriers: [...carriers],
+    initializers: declarations
+      .filter((declaration) => carriers.has(declaration.name.text))
+      .map((declaration) => declaration.initializer.getText()),
+  }
+}
+
+const spreadsRest = (source, carriers) => {
+  const carried = new RegExp(`(?<![\\w$])(?:${carriers.join("|")})(?![\\w$])`)
   for (const match of source.matchAll(/\{\s*\.\.\./g)) {
     const call = /([\w$.]+)\(\s*$/.exec(source.slice(0, match.index))
     if (call && call[1] !== "$derived") continue
@@ -457,13 +491,14 @@ const spreadsRest = (source) => {
       if (source[end] === "{") depth++
       if (source[end] === "}" && --depth === 0) break
     }
-    if (/\brest\b/.test(source.slice(match.index, end))) return true
+    if (carried.test(source.slice(match.index, end))) return true
   }
   return false
 }
 
 export const checkRest = (file, source) => {
-  const node = propsNode(parseScript(file, source))
+  const script = parseScript(file, source)
+  const node = propsNode(script)
   if (node && ts.isIdentifier(node.name)) {
     return source.includes(`{...${node.name.text}}`)
       ? []
@@ -475,7 +510,14 @@ export const checkRest = (file, source) => {
       "does not capture ...rest in its props destructuring: Astro, React and Svelte components capture it and spread it onto the root element, or the input of a form control",
     ]
   }
-  return spreadsRest(source.replace(node.name.getText(), ""))
+  const { carriers, initializers } = restCarriers(script)
+  return spreadsRest(
+    [node.name.getText(), ...initializers].reduce(
+      (text, part) => text.replace(part, ""),
+      source,
+    ),
+    carriers,
+  )
     ? []
     : [
         "captures ...rest but never spreads it: spread it onto the root element, or the input of a form control",
@@ -748,7 +790,11 @@ export const checkExampleWrapper = (file, name, source) => {
 const pageExamples = async (file, slug, seen = new Set()) => {
   if (seen.has(file)) return []
   seen.add(file)
-  const source = (await readFile(file, "utf8").catch(() => ""))
+  const raw = await readFile(file, "utf8").catch(() => "")
+  const fence = raw.match(/^---\n([\s\S]*?)\n---\n/)
+  const frontmatter = fence?.[1] ?? ""
+  const source = raw
+    .slice(fence?.[0].length ?? 0)
     .replace(/<!--[\s\S]*?-->/g, "")
     .replace(/\{\/\*[\s\S]*?\*\/\}/g, "")
   const examples = [...source.matchAll(/<AutoExample\b[^>]*>/g)].flatMap(
@@ -758,12 +804,14 @@ const pageExamples = async (file, slug, seen = new Set()) => {
       return name ? [{ auto: true, name, slug: own ?? slug }] : []
     },
   )
-  for (const [, folder, name] of source.matchAll(
-    /component-examples\/([\w-]+)\/(\w+)\.(?:astro|html|react\.tsx|svelte|vue)(?:\?raw)?["']/g,
+  for (const [, binding, folder, name] of frontmatter.matchAll(
+    /^import\s+([\w$]+)\s+from\s+["'][^"']*component-examples\/([\w-]+)\/(\w+)\.(?:astro|html|react\.tsx|svelte|vue)(?:\?raw)?["']/gm,
   )) {
-    examples.push({ auto: false, name, slug: folder })
+    if (new RegExp(`(?<![\\w$])${binding}(?![\\w$])`).test(source)) {
+      examples.push({ auto: false, name, slug: folder })
+    }
   }
-  for (const [, partial] of source.matchAll(
+  for (const [, partial] of frontmatter.matchAll(
     /from "(\.{1,2}\/[^"]+\.astro)"/g,
   )) {
     const path = join(file, "..", partial)

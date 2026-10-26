@@ -154,21 +154,25 @@ interaction(
     await expect(dialog).toBeVisible()
     await expectFocusWithin(dialog)
 
-    const buttons = await dialog.getByRole("button").count()
-    const visited = new Set<string>()
-    for (let press = 1; press <= 2 * (buttons + 1); press++) {
+    const buttons = dialog.getByRole("button")
+    const count = await buttons.count()
+    for (let press = 1; press <= 2 * (count + 1); press++) {
       await page.keyboard.press("Tab")
-      const focus = await dialog.evaluate((element) => {
+      const behind = await dialog.evaluate((element) => {
         const active = document.activeElement
-        return {
-          behind: active !== document.body && !element.contains(active),
-          label: element.contains(active) ? active!.textContent!.trim() : "",
-        }
+        return active !== document.body && !element.contains(active)
       })
-      expect(focus.behind, `Tab ${press} lands behind the dialog`).toBe(false)
-      if (focus.label) visited.add(focus.label)
+      expect(behind, `Tab ${press} lands behind the dialog`).toBe(false)
     }
-    expect(visited.size, "Tab reaches every button").toBe(buttons)
+
+    await buttons.first().focus()
+    for (let index = 1; index < count; index++) {
+      await page.keyboard.press("Tab")
+      await expect(
+        buttons.nth(index),
+        "Tab moves to the next button",
+      ).toBeFocused()
+    }
 
     await page.keyboard.press("Escape")
     await expect(dialog).toBeHidden()

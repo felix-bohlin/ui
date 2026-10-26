@@ -75,7 +75,7 @@ Unlayered CSS beats every [layer](https://open-props-ui.netlify.app/html/guide/c
 
 ```css
 @layer openprops, theme, normalize, components.prose, components.root, components.extended, components.compat, utils, overrides;
-@layer theme.palette, theme.base, theme.custom;
+@layer theme.palette, theme.base, theme.custom, theme.severity;
 
 @layer overrides {
   .ui-badge {

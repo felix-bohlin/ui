@@ -18,9 +18,13 @@ jobs:
     outputs:
       pushed: ${{ steps.commit.outputs.pushed }}
     steps:
+      - run: apt-get update && apt-get install --yes --no-install-recommends git-lfs
       - uses: actions/checkout@v7
         with:
           ref: ${{ github.head_ref || github.ref_name }}
+      - run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git lfs install --local
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:
@@ -33,14 +37,15 @@ jobs:
       - name: Commit updated snapshots
         id: commit
         run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tests/e2e/__screenshots__
+          git add --all tests/e2e/__screenshots__
+          git add --renormalize tests/e2e/__screenshots__
           if git diff --cached --quiet; then
             echo "No snapshot changes"
           else
             git commit -m "chore: update visual snapshots"
+            git lfs fsck --pointers HEAD
             git push
             echo "pushed=true" >> "$GITHUB_OUTPUT"
           fi

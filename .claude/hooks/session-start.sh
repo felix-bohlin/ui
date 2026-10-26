@@ -15,6 +15,10 @@ for wrapper in "${PNPM_HOME:-$HOME/.local/share/pnpm}"/.tools/pnpm/*/node_module
   fi
 done
 
+if [ -n "${CLAUDE_ENV_FILE:-}" ]; then
+  echo 'export GIT_LFS_SKIP_SMUDGE=1' >> "$CLAUDE_ENV_FILE"
+fi
+
 if [ -x /opt/pw-browsers/chromium ] && [ -n "${CLAUDE_ENV_FILE:-}" ]; then
   echo 'export PLAYWRIGHT_CHROMIUM_EXECUTABLE=/opt/pw-browsers/chromium' >> "$CLAUDE_ENV_FILE"
 fi

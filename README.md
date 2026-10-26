@@ -55,7 +55,7 @@ Run `pnpm check` before you commit. `pnpm check:fast` skips the build.
 
 Only the fixture pages at `/<framework>/test/<component>` need `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`). The stress test pages at `/tests/` also render in `pnpm dev`.
 
-`pnpm test:e2e` needs Playwright's Chromium, Firefox and WebKit. Install them once with `pnpm exec playwright install chromium firefox webkit`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium. With Chromium only, pass `--project=light --project=dark`. CI runs the `mcr.microsoft.com/playwright` image. Visual baselines are only generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots. Until then, a new component's visual test fails locally.
+`pnpm test:e2e` needs Playwright's Chromium, Firefox and WebKit. Install them once with `pnpm exec playwright install chromium firefox webkit`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium. With Chromium only, pass `--project=light --project=dark`. CI runs the `mcr.microsoft.com/playwright` image. Visual baselines are only generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots. Until then, a new component's visual test fails locally. The baselines are in Git LFS, so the visual tests need `git lfs pull` first (see [Visual baselines in Git LFS](#visual-baselines-in-git-lfs)).
 
 Record intended parity drift with `pnpm test:record-drift` and known accessibility violations with `pnpm test:e2e:record-a11y`.
 
@@ -67,12 +67,15 @@ CI builds the docs site once, with `OPUI_TEST_PAGES=1`, in the `check` job. The 
 
 One topic per pull request, so it can be reviewed, reverted and logged on its own. A change to a component is one topic: the component in every framework, its CSS, its `api.ts`, the docs page, the examples, the CHANGELOG entry and the What's new note go in together, and a fix you find on the way gets its own pull request. A release is its own pull request too, with the version bump, the CHANGELOG and the release checks in `docs/releases/`, and no features or fixes.
 
-### Visual baselines in git
+### Visual baselines in Git LFS
 
-`tests/e2e/__screenshots__` holds about 1300 PNGs (65MB), and the `update-snapshots` workflow rewrites them all, so every refresh adds tens of megabytes to the history. Undecided, the options are:
+`tests/e2e/__screenshots__` holds about 1600 PNGs (90MB), and the `update-snapshots` workflow rewrites them all. `.gitattributes` stores them in Git LFS, so the history only gets small pointer files, and a refresh only uploads the images whose content changed.
 
-- A: Git LFS for `tests/e2e/__screenshots__`. Clones and the history stay small, and only the checkout steps in `ci.yml` and `update-snapshots.yml` need `lfs: true`. Contributors need `git lfs install` to see or update baselines, LFS storage and bandwidth count against the GitHub quota, and the PNGs already in the history stay unless it is rewritten with `git lfs migrate`.
-- B: keep the PNGs in git, but run the `dark` project on fewer fixtures. Nothing changes for contributors and no quota applies, but the history keeps growing, only more slowly, and dark mode loses visual coverage on the fixtures it drops.
+- Install Git LFS once to see or compare the baselines: `brew install git-lfs` or `apt install git-lfs`, then `git lfs install`. Clones and pulls then download the baselines they check out, and `git lfs pull` downloads them in a clone made before. Without Git LFS, or with `GIT_LFS_SKIP_SMUDGE=1`, the files stay pointers, and everything but the visual tests (`visual.spec.ts`, `themes.spec.ts`) works, since only they read the images. `git lfs pull --include "tests/e2e/__screenshots__/light/button-*"` downloads a few. Claude Code cloud sessions set `GIT_LFS_SKIP_SMUDGE=1` in `.claude/hooks/session-start.sh`.
+- In CI, the `e2e` shards install git-lfs in the Playwright container, restore `.git/lfs/objects` from the Actions cache (keyed on the object ids of the checked-out baselines, or the newest cache when they changed), `git lfs pull` the missing ones and save the cache before the tests run, so a run only spends LFS bandwidth on new images. No other job downloads them: `check`, `screenshots`, the release workflows and the Netlify deploy (the `dist` that `check` builds) work with the pointers.
+- `update-snapshots` installs git-lfs too, deletes and re-records every baseline and commits them as pointers. `git lfs fsck --pointers` fails the run before the push if one is a plain PNG, and the push uploads the new objects with `GITHUB_TOKEN`. LFS storage and bandwidth count against the repository owner's GitHub quota.
+- The first `update-snapshots` run after `.gitattributes` gained the rule converts the baselines that are still plain PNGs in git, so its commit changes every file. Until then, git-lfs warns that they "should have been pointers", and `git status` can list some as modified. Leave them out of commits (`git commit -a` would convert them, and the `screenshots` job fails on baselines the bot didn't commit). `git -c filter.lfs.required=false -c filter.lfs.process= -c filter.lfs.clean= -c filter.lfs.smudge= update-index -q --really-refresh` clears the list.
+- The PNGs committed before the move stay in the history. Only rewriting the history with `git lfs migrate` would drop them.
 
 ### Releasing
 

@@ -13,6 +13,8 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    env:
+      GIT_LFS_SKIP_SMUDGE: "1"
     permissions:
       actions: write
       contents: write
@@ -102,7 +104,33 @@ jobs:
       matrix:
         shard: [1, 2, 3]
     steps:
+      - run: apt-get update && apt-get install --yes --no-install-recommends git-lfs
       - uses: actions/checkout@v7
+      - name: List the visual baselines in Git LFS
+        id: lfs
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git lfs install --local
+          git lfs ls-files --long | cut -d ' ' -f 1 | sort > "$RUNNER_TEMP/lfs-objects"
+          echo "objects=$(sha256sum < "$RUNNER_TEMP/lfs-objects" | cut -d ' ' -f 1)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@v6
+        id: lfs-cache
+        with:
+          key: lfs-${{ steps.lfs.outputs.objects }}
+          path: .git/lfs/objects
+          restore-keys: lfs-
+      - name: Pull the visual baselines
+        shell: bash
+        run: |
+          git lfs pull
+          mkdir -p .git/lfs/objects
+          find .git/lfs/objects -type f -printf '%f\n' | sort | comm -23 - "$RUNNER_TEMP/lfs-objects" > "$RUNNER_TEMP/lfs-stale"
+          while read -r oid; do rm -f ".git/lfs/objects/${oid:0:2}/${oid:2:2}/$oid"; done < "$RUNNER_TEMP/lfs-stale"
+      - uses: actions/cache/save@v6
+        if: steps.lfs-cache.outputs.cache-hit != 'true'
+        with:
+          key: ${{ steps.lfs-cache.outputs.cache-primary-key }}
+          path: .git/lfs/objects
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:

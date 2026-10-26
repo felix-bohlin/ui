@@ -26,12 +26,14 @@ import {
   checkTypesImport,
   checkVueAttrs,
 } from "../../scripts/check-components.mjs"
+import { colorProblems } from "../../scripts/check-colors.mjs"
 import {
   allowlistErrors,
   customProperties,
   literals,
   primitives,
 } from "../../scripts/check-css-vars.mjs"
+import { fileProblems } from "../../scripts/check-file.mjs"
 import {
   added,
   driftAdditions,
@@ -349,6 +351,51 @@ const size = knob("--ui-tpyo")
         /^--ui-gray-3 is listed for css\/components\/b\.css .* no longer there/,
       ),
     ])
+  })
+})
+
+describe("check-colors", () => {
+  test("reports colors outside comments, and skips tests and generated files", () => {
+    expect(
+      colorProblems("a.css", "/* #fff */\n.a {\n  color: rgb(0 0 0);\n}\n"),
+    ).toEqual(["a.css:3: rgb(...)"])
+    expect(colorProblems("tests/unit/a.test.ts", 'const a = "#fff"')).toEqual(
+      [],
+    )
+    expect(colorProblems("notes.txt", "#fff")).toEqual([])
+  })
+})
+
+describe("check-file", () => {
+  test("reports nothing for a clean file", async () => {
+    expect(
+      await fileProblems(
+        "packages/opui/css/components/a.css",
+        ".a {\n  color: oklch(0 0 0);\n  inset: 0;\n}\n",
+      ),
+    ).toEqual([])
+  })
+
+  test("reports forbidden characters, colors and unsorted declarations with their fix", async () => {
+    expect(
+      await fileProblems(
+        "packages/opui/css/components/a.css",
+        `/* one ${EM_DASH} two */\n.a {\n  inset: 0;\n  color: #fff;\n}\n`,
+      ),
+    ).toEqual([
+      "packages/opui/css/components/a.css:1: em dash (U+2014). Use a comma, a slash or parentheses instead.",
+      "packages/opui/css/components/a.css:4: #fff is not OKLCH. Write it as oklch().",
+      "packages/opui/css/components/a.css: CSS declarations are out of order. Run pnpm sort-css.",
+    ])
+  })
+
+  test("only checks the declaration order inside the sort-css globs", async () => {
+    expect(
+      await fileProblems(
+        "scripts/a.css",
+        ".a {\n  inset: 0;\n  color: red;\n}\n",
+      ),
+    ).toEqual([])
   })
 })
 

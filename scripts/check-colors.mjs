@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process"
-import { readFileSync } from "node:fs"
+import { readFileSync, realpathSync } from "node:fs"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 
@@ -65,24 +65,11 @@ const checked = (file, text) => {
   return null
 }
 
-const files = execFileSync(
-  "git",
-  ["ls-files", "--cached", "--others", "--exclude-standard"],
-  { cwd: root, encoding: "utf8" },
-)
-  .split("\n")
-  .filter(
-    (file) =>
-      file &&
-      !GENERATED.some((path) => file === path || file.startsWith(`${path}/`)) &&
-      !SKIPPED.some((path) => file.startsWith(path)),
-  )
-
-const problems = files.flatMap((file) => {
-  let text
-  try {
-    text = readFileSync(join(root, file), "utf8")
-  } catch {
+export const colorProblems = (file, text) => {
+  if (
+    GENERATED.some((path) => file === path || file.startsWith(`${path}/`)) ||
+    SKIPPED.some((path) => file.startsWith(path))
+  ) {
     return []
   }
   const source = checked(file, text)
@@ -92,14 +79,41 @@ const problems = files.flatMap((file) => {
     const found = match[0].endsWith("(") ? `${match[0]}...)` : match[0]
     return `${file}:${line}: ${found}`
   })
-})
-
-if (problems.length > 0) {
-  console.error(problems.join("\n"))
-  console.error(
-    `\n${problems.length} color(s) not in OKLCH. Write them as oklch().`,
-  )
-  process.exit(1)
 }
 
-console.log("Every color is OKLCH.")
+const main = () => {
+  const files = execFileSync(
+    "git",
+    ["ls-files", "--cached", "--others", "--exclude-standard"],
+    { cwd: root, encoding: "utf8" },
+  )
+    .split("\n")
+    .filter(Boolean)
+
+  const problems = files.flatMap((file) => {
+    let text
+    try {
+      text = readFileSync(join(root, file), "utf8")
+    } catch {
+      return []
+    }
+    return colorProblems(file, text)
+  })
+
+  if (problems.length > 0) {
+    console.error(problems.join("\n"))
+    console.error(
+      `\n${problems.length} color(s) not in OKLCH. Write them as oklch().`,
+    )
+    process.exit(1)
+  }
+
+  console.log("Every color is OKLCH.")
+}
+
+if (
+  process.argv[1] &&
+  realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
+  main()
+}

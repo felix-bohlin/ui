@@ -26,6 +26,12 @@ import {
   literals,
   primitives,
 } from "../../scripts/check-css-vars.mjs"
+import {
+  added,
+  driftAdditions,
+  entries,
+  intended,
+} from "../../scripts/check-ratchets.mjs"
 import { sortSource } from "../../scripts/sort-css.mjs"
 import logicalShorthands from "../../scripts/stylelint-logical-shorthands.mjs"
 
@@ -160,6 +166,43 @@ describe("check-css-vars", () => {
         /^--ui-gray-3 is listed for css\/components\/b\.css .* no longer there/,
       ),
     ])
+  })
+})
+
+describe("check-ratchets", () => {
+  test("reports a new ledger key and a new rule under a known key", () => {
+    expect(
+      added(
+        entries({ "light/html/a": ["region"] }),
+        entries({
+          "dark/html/b": ["list"],
+          "light/html/a": ["color-contrast", "region"],
+        }),
+      ),
+    ).toEqual(["dark/html/b: list", "light/html/a: color-contrast"])
+  })
+
+  test("reports a new drift file and new drift lines, not moved context or fewer lines", () => {
+    const diff = "===\n--- astro\n+++ react\n@@ -1,2 +1,2 @@\n <a>\n-x\n+y\n"
+    expect(
+      driftAdditions(
+        { "a.react.diff": diff, "b.vue.diff": diff, "c.vue.diff": diff },
+        {
+          "a.react.diff": diff.replace("@@ -1,2 +1,2 @@", "@@ -3,2 +3,2 @@"),
+          "b.vue.diff": `${diff}-z\n`,
+          "c.vue.diff": diff.replace("+y\n", ""),
+          "d.svelte.diff": diff,
+        },
+      ),
+    ).toEqual([
+      "b.vue.diff gained 1 drift line",
+      "d.svelte.diff records new drift",
+    ])
+  })
+
+  test("accepts the trailer on any commit, in any case", () => {
+    expect(intended("\n\nIntended\n")).toBe(true)
+    expect(intended("\nnot intended\n")).toBe(false)
   })
 })
 

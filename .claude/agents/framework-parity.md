@@ -29,7 +29,7 @@ The components you are given, or the ones touched by `git diff --name-only` agai
 ## Check
 
 - **Markup.** The HTML example and the components render the same elements, classes, attributes and ARIA. Read the components, not only the test result: the examples don't exercise every prop.
-- **Drift.** A `.diff` file in `tests/unit/__snapshots__/` records markup a framework adds because of how it works. Report drift that is a real difference the component could fix, and drift files whose commit didn't say the change was intended.
+- **Drift.** A `.diff` file in `tests/unit/__snapshots__/` records markup a framework adds because of how it works. Report drift that is a real difference the component could fix. `scripts/check-ratchets.mjs` checks that new drift is marked intended.
 - **HTML completeness.** The HTML examples have the scripts their behavior needs, like the Astro ones: `parity.test.ts` compares the markup but drops `script` and `style`.
 - **Types.** A prop has the same type in `types.ts`, `types.astro.ts`, `types.react.ts`, `types.svelte.ts` and `types.vue-props.ts` (`checkApi` checks that each framework has it).
 - **Implementation.** Rest props land on the root element, or the input of a form control (the check only sees that they are spread). Ids use `createId(Astro.locals)`, React's `useId()`, `$props.id()` and Vue's `useId()`, only for elements the component links itself. Native states use attributes, not classes (Stylelint checks the CSS side).

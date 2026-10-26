@@ -161,7 +161,7 @@ export const allowlistErrors = (found, allowed) => {
       for (const entry of listed) {
         if (!actual.has(entry)) {
           errors.push(
-            `${entry} is listed for ${file} in scripts/css-vars-allowlist.json but no longer there: remove the entry`,
+            `${entry} is listed for ${file} in scripts/css-vars-allowlist.json but no longer there: run node scripts/check-css-vars.mjs --update`,
           )
         }
       }

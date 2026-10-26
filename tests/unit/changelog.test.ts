@@ -25,11 +25,17 @@ const compare = (a: string, b: string) => {
 
 describe.each(sections)("$title", ({ entries }) => {
   test("every entry starts with a backticked name", () => {
-    expect(entries.filter((entry) => !name(entry))).toEqual([])
+    expect(
+      entries.filter((entry) => !name(entry)),
+      "start every entry with the component name in backticks: - `Tabs` take a `variant` prop.",
+    ).toEqual([])
   })
 
   test("entries are sorted by their leading name", () => {
-    expect(entries).toEqual(entries.toSorted(compare))
+    expect(
+      entries,
+      "sort the entries by their backticked name: components A to Z, then files and tokens (theme.css, normalize.css)",
+    ).toEqual(entries.toSorted(compare))
   })
 })
 
@@ -75,12 +81,14 @@ test("releases go from newest to oldest", () => {
 
 test("the unreleased sections come in order", () => {
   const titles = sections.map((section) => section.title)
-  expect(titles).toEqual(
+  const order =
+    "Breaking, Removed, Added, Changed and Fixed, in that order and each once"
+  expect(titles, order).toEqual(
     ["Breaking", "Removed", "Added", "Changed", "Fixed"].filter((title) =>
       titles.includes(title),
     ),
   )
-  expect(new Set(titles).size).toBe(titles.length)
+  expect(new Set(titles).size, order).toBe(titles.length)
 })
 
 const apis = import.meta.glob<ComponentApi>(

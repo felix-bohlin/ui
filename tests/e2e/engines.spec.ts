@@ -3,10 +3,12 @@ import type { Page } from "@playwright/test"
 import {
   ENGINE_BUGS,
   FIREFOX_SELF_RTL,
+  WEBKIT_FALLBACK_ITEM_CLICK,
   WEBKIT_TOP_LAYER_ANCHOR,
   failsIn,
   type EngineBug,
 } from "./engine-bugs"
+import { settle } from "./fixtures"
 
 const reproduced = new Set<EngineBug>()
 
@@ -110,4 +112,103 @@ repro(FIREFOX_SELF_RTL, () => {
       .poll(() => placement(tab))
       .toMatchObject({ below: 0, endEdge: 0 })
   })
+})
+
+const splitButton = (start: string) => `<!doctype html>
+<style>
+  body { margin: 0; padding: 200px 0 0 ${start} }
+  .group { display: inline-flex; overflow: hidden }
+  #popover {
+    inline-size: 12rem;
+    inset: auto;
+    margin: 0;
+    opacity: 0;
+    position-area: block-end span-inline-start;
+    position-try-fallbacks: flip-inline;
+    scale: 0.96;
+    transition:
+      display 0.3s allow-discrete,
+      opacity 0.3s,
+      overlay 0.3s allow-discrete,
+      scale 0.3s;
+  }
+  #popover:popover-open {
+    opacity: 1;
+    scale: 1;
+  }
+  @starting-style {
+    #popover:popover-open {
+      opacity: 0;
+      scale: 0.96;
+    }
+  }
+  #popover button { display: block; inline-size: 100%; padding: 0.5rem }
+</style>
+<div class="group">
+  <button>Save</button>
+  <button id="trigger" commandfor="popover" command="toggle-popover">More</button>
+  <div id="popover" popover>
+    <button id="item" commandfor="popover" command="hide-popover">Save as draft</button>
+    <button commandfor="popover" command="hide-popover">Save and publish</button>
+  </div>
+</div>`
+
+repro(WEBKIT_FALLBACK_ITEM_CLICK, () => {
+  for (const fallback of [false, true]) {
+    test(`an item click closes an end aligned popover ${fallback ? "that a position-try fallback placed" : "at its own position"}`, async ({
+      browserName,
+      page: tab,
+    }) => {
+      failsIn(
+        browserName,
+        fallback ? { webkit: WEBKIT_FALLBACK_ITEM_CLICK } : {},
+      )
+      await tab.setContent(splitButton(fallback ? "8px" : "400px"))
+      const popover = tab.locator("#popover")
+      const open = async () => {
+        await tab.locator("#trigger").click()
+        await expect(popover).toBeVisible()
+      }
+
+      await open()
+      await settle(popover)
+      expect(
+        await placement(tab).then(({ endEdge, startEdge }) =>
+          fallback ? startEdge : endEdge,
+        ),
+        fallback
+          ? "the popover starts at its trigger"
+          : "the popover ends at its trigger",
+      ).toBe(0)
+      await popover.evaluate((element: HTMLElement) => element.hidePopover())
+      await expect(popover).toBeHidden()
+
+      const stillOpen: string[] = []
+      for (const delay of [
+        null,
+        null,
+        null,
+        ...Array.from({ length: 12 }, (_, index) => index * 30),
+      ]) {
+        await open()
+        if (delay === null) await tab.locator("#item").click()
+        else {
+          await tab.waitForTimeout(delay)
+          await tab.locator("#item").click({ force: true })
+        }
+        const closed = await popover
+          .waitFor({ state: "hidden", timeout: 2000 })
+          .then(() => true)
+          .catch(() => false)
+        if (!closed) {
+          stillOpen.push(delay === null ? "click" : `${delay}ms`)
+          await popover.evaluate((element: HTMLElement) =>
+            element.hidePopover(),
+          )
+          await expect(popover).toBeHidden()
+        }
+      }
+      expect(stillOpen, "clicks after opening that left it open").toEqual([])
+    })
+  }
 })

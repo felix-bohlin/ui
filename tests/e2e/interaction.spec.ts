@@ -6,6 +6,7 @@ import {
   hasExample,
   openFixture,
   resolveColor,
+  settle,
 } from "./fixtures"
 import type { Framework } from "./fixtures"
 
@@ -817,10 +818,22 @@ interaction(
   "split button opens its menu",
   async ({ root }) => {
     const menu = root.locator("menu.ui-menu")
+    const trigger = root.getByRole("button", { name: "More save options" })
 
+    await root.evaluate((element) => (element.style.justifyItems = "center"))
     await expect(menu).toBeHidden()
-    await root.getByRole("button", { name: "More save options" }).click()
+    await trigger.click()
     await expect(menu).toBeVisible()
+    await settle(menu)
+    const [menuBox, triggerBox] = await Promise.all([
+      menu.boundingBox(),
+      trigger.boundingBox(),
+    ])
+    expect(
+      Math.round(menuBox!.x + menuBox!.width),
+      "the menu ends at its trigger's end edge, without a position-try fallback",
+    ).toBe(Math.round(triggerBox!.x + triggerBox!.width))
+    expect(menuBox!.y).toBeGreaterThan(triggerBox!.y + triggerBox!.height)
     await menu.getByRole("button", { name: "Save as draft" }).click()
     await expect(menu).toBeHidden()
   },

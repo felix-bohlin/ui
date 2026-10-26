@@ -1,6 +1,8 @@
+import { execFileSync } from "node:child_process"
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs"
 import { describe, expect, test } from "vitest"
 import {
+  carryOver,
   fixOptions,
   parseTodo,
   plainText,
@@ -38,6 +40,7 @@ describe("parseTodo", () => {
             component: undefined,
             files: [],
             headline: "Tooltips `never` show",
+            key: "tooltips-never-show",
             line: "- [] (2) Tooltips `never` show",
             notes: [],
             recommended: undefined,
@@ -50,6 +53,7 @@ describe("parseTodo", () => {
             component: undefined,
             files: [],
             headline: "Unscored",
+            key: "unscored",
             line: "- [?] Unscored",
             notes: [],
             recommended: undefined,
@@ -76,6 +80,7 @@ describe("parseTodo", () => {
             component: undefined,
             files: [],
             headline: "Fixed",
+            key: "fixed",
             line: "- [x] (3) Fixed",
             notes: [{ kind: "item", level: 0, text: "Note" }],
             recommended: undefined,
@@ -176,6 +181,24 @@ describe("parseTodo", () => {
         headline:
           "New components the blocks point to. Each block draws these with its own CSS:",
       },
+    ])
+  })
+
+  test("keys an item on its text before the file references", () => {
+    const [section] = parseTodo(
+      [
+        "## Bugs",
+        "",
+        "- [ ] (2) Checkbox: the label wraps (`packages/opui/css/components/choice.css:12-18`)",
+        "- [ ] (2) Checkbox: the label wraps (`packages/opui/css/components/choice.css:30-36`, `src/docs/components/checkbox.astro`)",
+        "- [ ] (2) Tabs: the pill is off (`layout` Surfaces)",
+      ].join("\n"),
+    ).sections
+
+    expect(section.items.map((item) => item.key)).toEqual([
+      "checkbox-the-label-wraps",
+      "checkbox-the-label-wraps",
+      "tabs-the-pill-is-off-layout-surfaces",
     ])
   })
 
@@ -501,6 +524,38 @@ describe("replyOf", () => {
   })
 })
 
+describe("carryOver", () => {
+  test("moves answers saved under an old key to the key it starts with", () => {
+    expect(
+      carryOver({ "a-b-c-ts-1": "Fix", other: "Remove issue" }, ["a-b", "x"]),
+    ).toEqual({ "a-b": "Fix", other: "Remove issue" })
+  })
+
+  test("moves an answer saved before a citation was corrected", () => {
+    expect(carryOver({ "a-b-c-ts-395-401": "Fix" }, ["a-b", "c"])).toEqual({
+      "a-b": "Fix",
+    })
+  })
+
+  test("picks the longest key the old key starts with", () => {
+    expect(carryOver({ "a-b-c-d-ts-1": "Fix" }, ["a-b", "a-b-c"])).toEqual({
+      "a-b-c": "Fix",
+    })
+  })
+
+  test("keeps an answer already saved under the new key", () => {
+    expect(
+      carryOver({ "a-b": "Fix", "a-b-c-ts-1": "Remove issue" }, ["a-b"]),
+    ).toEqual({ "a-b": "Fix" })
+  })
+
+  test("returns the saved answers when nothing moves", () => {
+    const saved = { "a-b": "Fix", gone: "Fix" }
+
+    expect(carryOver(saved, ["a-b", "a-b-c", "constructor"])).toBe(saved)
+  })
+})
+
 describe("slugify", () => {
   test("turns a heading into an id", () => {
     expect(slugify("To check")).toBe("to-check")
@@ -540,6 +595,18 @@ describe("TODO.md", () => {
           )
           .map((item) => `${title}: ${item.line.slice(0, 80)}`),
       ),
+    ).toEqual([])
+  })
+
+  test("gives every item its own key", () => {
+    const keys = parseTodo(source)
+      .done.flatMap((section) => section.items)
+      .concat(items)
+      .map((item) => item.key)
+
+    expect(
+      keys.filter((key, index) => keys.indexOf(key) !== index),
+      "Two items share the text before their file references, which the /todo page keys answers on. Reword one of them",
     ).toEqual([])
   })
 
@@ -676,26 +743,115 @@ describe("TODO.md", () => {
     ).toEqual([])
   })
 
-  test("cites files that exist, with lines inside them", () => {
+  const PATH = /^\/?[\w@.[\]-]+(?:\/[\w@.[\]-]*)*(?::[\d,-]+)?$/
+  const looksCited = (code: string) =>
+    PATH.test(code) && /\/|\.\w+(?::|$)|:\d/.test(code)
+
+  const tracked = execFileSync("git", ["ls-files"], { encoding: "utf8" })
+    .split("\n")
+    .filter(Boolean)
+
+  const lineCount = (path: string) =>
+    readFileSync(path, "utf8").trimEnd().split("\n").length
+
+  const fitsLines = (lines: string, count: number) =>
+    lines.split(",").every((range) => {
+      const [start, end = start] = range.split("-").map(Number)
+      return (
+        /^\d+(-\d+)?$/.test(range) && start >= 1 && start <= end && end <= count
+      )
+    })
+
+  const citationProblem = (entry: string) => {
+    const [path, lines] = entry.split(":")
+    if (path.startsWith("/") || /(^|\/)\.\.?\//.test(path)) {
+      return "cite it from the repo root"
+    }
+    if (!existsSync(path)) return "doesn't exist from the repo root"
+    if (lines === undefined) return
+    if (!statSync(path).isFile()) return "is a folder, cite no lines"
+    const count = lineCount(path)
+    if (!fitsLines(lines, count)) {
+      return `cites lines outside the file's 1-${count}`
+    }
+  }
+
+  const mentionProblem = (entry: string) => {
+    const [name, lines] = entry.split(":")
+    if (name.includes("/")) return citationProblem(entry)
+    const files = tracked.filter((file) => file.endsWith(`/${name}`))
+    if (!files.length) return "matches no file"
+    if (!files.some((file) => fitsLines(lines, lineCount(file)))) {
+      return `cites lines outside ${files.join(" and ")}`
+    }
+  }
+
+  const citationProblems = (text: string) => {
+    const group = text.match(/ \(([^()]+)\)$/)
+    const entries = group?.[1].split(", ") ?? []
+    const codes = (part: string) =>
+      [...part.matchAll(/`([^`]+)`/g)].map(([, code]) => code)
+    const malformed = entries.filter(
+      (entry) => codes(entry).some(looksCited) && !/^`[^`]+`$/.test(entry),
+    )
+    const closing = entries.flatMap((entry) =>
+      /^`[^`]+`$/.test(entry) ? codes(entry).filter(looksCited) : [],
+    )
+    const inline = codes(group ? text.slice(0, group.index) : text).filter(
+      (code) => looksCited(code) && /:\d/.test(code),
+    )
+    return [
+      ...malformed.map(
+        (entry) =>
+          `${entry} in the file references: wrap each file in backticks and separate them with ", "`,
+      ),
+      ...closing.flatMap((entry) => {
+        const found = citationProblem(entry)
+        return found ? [`${entry} ${found}`] : []
+      }),
+      ...inline.flatMap((entry) => {
+        const found = mentionProblem(entry)
+        return found ? [`${entry} ${found}`] : []
+      }),
+    ]
+  }
+
+  test("cites files from the repo root, with lines inside them", () => {
     expect(
-      items
-        .flatMap(({ text }) =>
-          (text.match(/ \(([^()]+)\)$/)?.[1].split(", ") ?? [])
-            .flatMap((entry) => entry.match(/^`([^`]+)`$/)?.slice(1) ?? [])
-            .filter((entry) => /[./]/.test(entry))
-            .filter((entry) => {
-              const [path, lines] = entry.split(":")
-              if (!existsSync(path)) return true
-              if (!statSync(path).isFile()) return Boolean(lines)
-              const length = readFileSync(path, "utf8").split("\n").length
-              return (lines?.match(/\d+/g) ?? []).some(
-                (line) => Number(line) > length,
-              )
-            }),
-        )
-        .filter((entry) => !allowlist.citations.includes(entry)),
-      "cite a path from the repo root, with lines that exist in the file",
+      items.flatMap((item) =>
+        citationProblems(item.text)
+          .filter(
+            (problem) =>
+              !allowlist.citations.some((entry) =>
+                problem.startsWith(`${entry} `),
+              ),
+          )
+          .map((problem) => `${headline(item)}: ${problem}`),
+      ),
+      "cite each file from the repo root with lines inside it, `path/to/file.css:12-18` or `AGENTS.md:9`. Correct a stale citation in place: the /todo page keys answers on the text before the file references",
     ).toEqual([])
+  })
+
+  test("the citation check reads every form of citation", () => {
+    expect(
+      citationProblems(
+        "A: see `AGENTS.md:1`, `src/nope.ts:3`, `nope.css:1` and `carousel.css:99999` (`/etc/hosts`, `../AGENTS.md`, `TODO.md:0`, `src`, `src:2`)",
+      ),
+    ).toEqual([
+      "/etc/hosts cite it from the repo root",
+      "../AGENTS.md cite it from the repo root",
+      "TODO.md:0 cites lines outside the file's 1-" +
+        readFileSync("TODO.md", "utf8").trimEnd().split("\n").length,
+      "src:2 is a folder, cite no lines",
+      "src/nope.ts:3 doesn't exist from the repo root",
+      "nope.css:1 matches no file",
+      "carousel.css:99999 cites lines outside packages/opui/css/components/carousel.css",
+    ])
+    expect(
+      citationProblems("A: b (`AGENTS.md:1`; `TODO.md:2`, `layout` Surfaces)"),
+    ).toEqual([
+      '`AGENTS.md:1`; `TODO.md:2` in the file references: wrap each file in backticks and separate them with ", "',
+    ])
   })
 
   test("the allowlist only lists open problems", () => {

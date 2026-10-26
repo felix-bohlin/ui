@@ -6,7 +6,7 @@ Every audit agent reports findings in this format, so `/audit` can merge them an
 
 - Verify every finding before reporting it: open the file, read the lines, and confirm the problem is there on the current code. Drop anything you can't confirm.
 - Check `TODO.md` first. Skip a finding that is already listed, open or done, unless it came back after being fixed. Then say so.
-- Cite every file with a line or line range, `path/to/file.css:12-18`.
+- Cite every file with a line or line range, `path/to/file.css:12-18`. `tests/unit/todo.test.ts` checks that the files an open item's headline cites exist and the lines fit them.
 - Severity is 1-10, 10 is the most severe. Most findings are 1-3. Use 4 and up for broken behavior, inaccessible components or wrong docs that users copy.
 - Keep each finding to what is wrong and where. Put the fix in a `Fix:` note, with a code block when the fix is code.
 - Start the notes with `Summary:`, what the reader or user notices with no fix, and `Recommended:`, the action the `/todo` page offers, chosen with the rules in `.claude/skills/todo-triage/SKILL.md`. `tests/unit/todo.test.ts` checks their order, the sentence, its length and the action.
@@ -30,7 +30,7 @@ One finding per item, in the `TODO.md` item format. `Component:` is the componen
     ```
 ````
 
-The headline is the item's identity: the `/todo` page keys the user's answers on it, so later notes never change it.
+The headline's text before its file references is the item's identity: the `/todo` page keys the user's answers on it, so later notes never change it. Correct a stale citation in the closing file references in place.
 
 With several fixes, `Fix:` keeps what applies to all of them, such as what to confirm first, and each choice is a lettered item under `Options:`. Put a choice's code block under its own item. When the fix only applies if something happens, name it in the heading, such as `Options if a browser fails:`. For example:
 

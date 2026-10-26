@@ -196,7 +196,7 @@ const count = itemCount(sections)
             <li
               class="todo-item"
               data-todo-component={slugify(item.component ?? "Other")}
-              data-todo-key={slugify(item.text)}
+              data-todo-key={item.key}
               data-todo-line={item.line}
               data-todo-recommended={item.recommended?.action}
               data-todo-reply={JSON.stringify(item.reply)}
@@ -412,11 +412,22 @@ const count = itemCount(sections)
     <Button id="todo-next" size="small" variant="outlined">Next</Button>
     <Button id="todo-copy" size="small" variant="filled">Copy</Button>
   </div>
+  <script
+    is:inline
+    type="application/json"
+    id="todo-keys"
+    set:html={JSON.stringify(
+      [...open, ...done].flatMap((section) =>
+        section.items.map((item) => item.key),
+      ),
+    )}
+  />
 </Document>
 
 <script>
   import { copyOrSelect, trackComments } from "../../components/Todo/comments"
   import { readStored, writeStored } from "../../utils/storage"
+  import { carryOver } from "../../utils/todo"
 
   const storageKey = "opui-todo-comments"
   const actionsKey = "opui-todo-actions"
@@ -432,6 +443,16 @@ const count = itemCount(sections)
     JSON.parse(item.dataset.todoReply!)
 
   const readVersions = () => readStored<Record<string, string>>(versionsKey, {})
+
+  const allKeys: string[] = JSON.parse(
+    document.getElementById("todo-keys")!.textContent!,
+  )
+  for (const key of [actionsKey, storageKey, versionsKey]) {
+    const saved = readStored<Record<string, string>>(key, {})
+    const carried = carryOver(saved, allKeys)
+    if (carried !== saved) writeStored(key, carried)
+  }
+
   const answerLines = (lines: string[]) =>
     lines
       .map((line) =>

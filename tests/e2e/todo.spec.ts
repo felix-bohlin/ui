@@ -39,6 +39,37 @@ test.describe("todo page", () => {
       .toContain(`\n  > ${recommended}`)
   })
 
+  test("carries answers saved under an older headline over", async ({
+    page,
+  }) => {
+    const item = page.locator(".todo-item").first()
+    const key = await item.getAttribute("data-todo-key")
+    const old = `${key}-src-utils-todo-ts-1-2`
+
+    await page.evaluate((old) => {
+      localStorage.setItem(
+        "opui-todo-actions",
+        JSON.stringify({ [old]: "Remove issue" }),
+      )
+      localStorage.setItem(
+        "opui-todo-comments",
+        JSON.stringify({ [old]: "Saved before" }),
+      )
+    }, old)
+    await page.reload()
+
+    await expect(item.locator("textarea")).toHaveValue("Saved before")
+    await expect(
+      item.locator('.todo-action input[value="Remove issue"]'),
+    ).toBeChecked()
+    expect(
+      await page.evaluate(() => [
+        JSON.parse(localStorage.getItem("opui-todo-actions")!),
+        JSON.parse(localStorage.getItem("opui-todo-comments")!),
+      ]),
+    ).toEqual([{ [key!]: "Remove issue" }, { [key!]: "Saved before" }])
+  })
+
   test("moves to the next unanswered todo", async ({ page }) => {
     const unanswered = page.locator(".todo-item:not([hidden])")
     const keys = await unanswered.evaluateAll((items) =>

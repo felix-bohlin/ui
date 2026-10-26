@@ -13,6 +13,7 @@ type TodoItem = {
   component?: string
   files: string[]
   headline: string
+  key: string
   line: string
   notes: TodoNote[]
   recommended?: { action: string; reason?: string }
@@ -104,7 +105,12 @@ const splitHeadline = (text: string) => {
   if (files.length) headline = headline.slice(0, -refs![0].length)
   if (component) headline = headline.charAt(0).toUpperCase() + headline.slice(1)
 
-  return { component, files, headline }
+  return {
+    component,
+    files,
+    headline,
+    key: slugify(files.length ? text.slice(0, -refs![0].length) : text),
+  }
 }
 
 const recommendedPattern =
@@ -390,6 +396,27 @@ export const stressRefs = (text: string) =>
         : [],
     ),
   )
+
+export const carryOver = <T>(saved: Record<string, T>, keys: string[]) => {
+  const current = new Set(keys)
+  const moved = Object.keys(saved).flatMap((old) => {
+    if (current.has(old)) return []
+    const key = keys
+      .filter((key) => old.startsWith(`${key}-`))
+      .reduce<string | undefined>(
+        (longest, key) => (key.length > (longest?.length ?? 0) ? key : longest),
+        undefined,
+      )
+    return key ? [{ key, old }] : []
+  })
+  if (!moved.length) return saved
+  const next = { ...saved }
+  for (const { key, old } of moved) {
+    if (!Object.hasOwn(next, key)) next[key] = next[old]
+    delete next[old]
+  }
+  return next
+}
 
 export const slugify = (text: string) =>
   text

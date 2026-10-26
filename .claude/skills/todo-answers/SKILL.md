@@ -19,7 +19,7 @@ The text starts with `TODO.md with my comments`, then per section a `## Title` h
 
 ## Steps
 
-1. Locate each item in `TODO.md` by its exact line. If the line isn't there, look in the same section for a headline that starts with the same first 80 characters, and say so when it is ambiguous or missing.
+1. Locate each item in `TODO.md` by its exact line. If the line isn't there, look in the same section for the item with the same text before its file references (a citation may have been corrected) or a headline that starts with the same first 80 characters, and say so when it is ambiguous or missing.
 2. Append the `> ` lines after the item's existing notes, the action first, then the comment, word for word: the `/todo` page drops the saved answer only when they match it. Keep the `Summary:` and `Recommended:` notes as they are.
 3. Act on each item, in file order:
    - `Fix` or `Fix with option X`: implement it (option X from the item's `Options:` list), following the comment. Mark the item `- [x]` and add `- Fixed: what changed and where`, naming any intended snapshot or drift update.

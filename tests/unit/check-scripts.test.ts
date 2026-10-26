@@ -23,6 +23,7 @@ import {
 } from "../../scripts/check-components.mjs"
 import {
   allowlistErrors,
+  customProperties,
   literals,
   primitives,
 } from "../../scripts/check-css-vars.mjs"
@@ -110,6 +111,67 @@ describe("check-css-vars", () => {
     expect(
       literals(".ui-a { margin: 0px; padding: 4px 0.5rem; }", new Set()),
     ).toEqual(["padding: 4px", "padding: 0.5rem"])
+  })
+
+  test("reports every absolute unit, not the units that scale with the type", () => {
+    expect(
+      literals(
+        ".ui-a { margin: 1cm 2in 3mm 4pc; padding: 5pt 6Q 1em 2ex 3lh 4ch; }",
+        new Set(),
+      ),
+    ).toEqual([
+      "margin: 1cm",
+      "margin: 2in",
+      "margin: 3mm",
+      "margin: 4pc",
+      "padding: 5pt",
+      "padding: 6Q",
+    ])
+  })
+
+  test("reads style attributes and style blocks, and declares only what CSS or a style object sets", () => {
+    const { declared, read } = customProperties(
+      "src/A.astro",
+      `---
+const knob = (name: string) => name
+const size = knob("--ui-tpyo")
+---
+<div style="--_gap: 1rem; color: var(--ui-text-strnog)"></div>
+<div style={\`--count: \${size}\`}></div>
+<p style={{ "--_size": size }}>{"--ui-string"}</p>
+<style>
+  @container style(--ui-contrast: more) {
+    .a { --_accent: var(--ui-primary); }
+  }
+</style>
+<script>
+  element.style.setProperty("--_x", "1")
+</script>`,
+    )
+    expect([...declared].toSorted()).toEqual([
+      "--_accent",
+      "--_gap",
+      "--_size",
+      "--_x",
+      "--count",
+    ])
+    expect([...read].toSorted()).toEqual([
+      "--ui-contrast",
+      "--ui-primary",
+      "--ui-text-strnog",
+    ])
+  })
+
+  test("counts the optional tokens commented out in theme.css as declared", () => {
+    expect([
+      ...customProperties(
+        "css/theme.css",
+        ":root {\n  --ui-a: 1;\n  /* --ui-b: var(--ui-a); */\n  /* a note */\n}",
+      ).declared,
+    ]).toEqual(["--ui-b", "--ui-a"])
+    expect([
+      ...customProperties("css/a.css", "/* --ui-b: 1; */").declared,
+    ]).toEqual([])
   })
 
   test("skips a documented input's :where() default, round() steps, @property initial values and / 1rem divisors", () => {

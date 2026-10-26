@@ -1,6 +1,7 @@
 // @ts-check
 import fs from "node:fs"
 import path from "node:path"
+import postcss from "postcss"
 
 export const BARREL_TYPES = {
   astro: "types.astro",
@@ -13,7 +14,6 @@ const BARREL_EXPORT = /^export \{ default as (\w+) \} from "([^"]+)"/gm
 const COMPONENT_FOLDER = /^\.\.\/components\/([^/]+)\//
 const CLASS_NAME = /\.(ui-[a-z0-9-]+)/g
 const COMMENT = /\/\*[\s\S]*?\*\//g
-const CUSTOM_PROPERTY = /(--[\w-]+)\s*:|["'`](--[\w-]+)["'`]/g
 
 /**
  * @param {string} source
@@ -52,8 +52,12 @@ export const classNamesIn = (dirs) => {
 /** @param {string} source */
 export const stripComments = (source) => source.replaceAll(COMMENT, "")
 
-/** @param {string} source */
-export const declaredProperties = (source) =>
-  [...source.matchAll(CUSTOM_PROPERTY)].map(
-    ([, name, quoted]) => name ?? quoted,
-  )
+/** @param {string} css */
+export const declaredProperties = (css) => {
+  /** @type {string[]} */
+  const names = []
+  postcss.parse(css).walkDecls(({ prop }) => {
+    if (prop.startsWith("--")) names.push(prop)
+  })
+  return names
+}

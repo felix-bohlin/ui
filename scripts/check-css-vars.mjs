@@ -2,6 +2,7 @@ import { realpathSync } from "node:fs"
 import { readdir, readFile, writeFile } from "node:fs/promises"
 import { basename, dirname, extname, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import { parse } from "parse5"
 import postcss from "postcss"
 import { format } from "prettier"
 import { declaredProperties } from "../src/utils/package-source.js"
@@ -19,7 +20,7 @@ const allowlistFile = join(root, "scripts/css-vars-allowlist.json")
 const CONSUMER_SET = ["--ui-anchor-position-area"]
 const PALETTE_STEP = /^--ui-(?:color|font-size|gray)-\d+$/
 const AT_PROPERTY = /@property\s+[\w-]+\s*\{[^}]*\}/g
-const LENGTH = /(?<![\w.-]|\/\s*)(-?\d*\.?\d+)(px|rem)\b/g
+const LENGTH = /(?<![\w.-]|\/\s*)(-?\d*\.?\d+)(cm|in|mm|pc|pt|px|q|rem)\b/gi
 const INPUT = /"(--_[\w-]+)":\s*\{[^}]*kind:\s*"input"/g
 const PIXEL_STEP = /^\s*\d*\.?\d+px\s*$/
 
@@ -34,9 +35,17 @@ const BASES = {
   "toggle-group.css": ["toggle-button.css"],
 }
 
-const READ = /var\(\s*(--[\w-]+)/g
+const READ = /var\(\s*(--[\w-]+)|\bstyle\(\s*(--[\w-]+)/g
 const IMPORT = /@import\s+["']([^"']+)["']/g
 const STYLE = /<style\b[^>]*>([\s\S]*?)<\/style>/g
+const TEMPLATE_STYLE = /^\s*\{`([\s\S]*)`\}\s*$/
+const FRONTMATTER = /^---\n[\s\S]*?\n---\n/
+const INTERPOLATION = /\$?\{[^{}]*\}/g
+const STYLE_EXPRESSION = /\bstyle=\{`([^`]*)`\}/g
+const SCRIPT_DECLARATION =
+  /["'`](--[\w-]+)["'`]\s*:|\b(?:setProperty\(\s*|property:\s*|cssVariable=)["'`](--[\w-]+)["'`]/g
+const STYLE_DIRECTIVE = /^style:(--[\w-]+)$/
+const OPTIONAL_TOKEN = /^\s*(--[\w-]+)\s*:[^;]*;?\s*$/
 
 const listFiles = async (dir, extensions) => {
   const entries = await readdir(dir, { withFileTypes: true })
@@ -69,24 +78,104 @@ const collectImports = async (file, seen = new Set()) => {
   return seen
 }
 
-const scan = async (dir, extensions, css = (_, source) => source) =>
-  Promise.all(
-    (await listFiles(dir, extensions)).toSorted().map(async (file) => {
-      const source = await readFile(file, "utf8")
-      return {
-        declared: new Set(declaredProperties(source)),
-        file,
-        read: new Set(
-          [...css(file, source).matchAll(READ)].map(([, name]) => name),
-        ),
-      }
-    }),
-  )
+const childrenOf = (node) => [
+  ...(node.childNodes ?? []),
+  ...(node.content?.childNodes ?? []),
+]
 
-const styles = (file, source) =>
-  extname(file) === ".css"
-    ? source
-    : [...source.matchAll(STYLE)].map(([, css]) => css).join("\n")
+const markupStyles = (source) => {
+  const blocks = []
+  const directives = []
+  const inline = []
+  const walk = (node) => {
+    if (node.nodeName === "style") {
+      blocks.push(node.childNodes.map(({ value }) => value ?? "").join(""))
+    }
+    for (const { name, value } of node.attrs ?? []) {
+      if (name === "style" && !value.startsWith("{")) inline.push(value)
+      const directive = name.match(STYLE_DIRECTIVE)
+      if (directive) directives.push(directive[1])
+    }
+    childrenOf(node).forEach(walk)
+  }
+  walk(parse(source.replace(FRONTMATTER, "")))
+  return { blocks, directives, inline }
+}
+
+const declarations = (list) => `a{${list.replaceAll(INTERPOLATION, "0")}}`
+
+const optionalTokens = (css) => {
+  const names = []
+  postcss.parse(css).walkComments(({ text }) => {
+    const match = text.match(OPTIONAL_TOKEN)
+    if (match) names.push(match[1])
+  })
+  return names
+}
+
+const styleSources = (file, source) => {
+  if (extname(file) === ".css") {
+    return {
+      css: [source],
+      declared: basename(file) === "theme.css" ? optionalTokens(source) : [],
+      inline: [],
+    }
+  }
+  const script = [
+    ...[...source.matchAll(SCRIPT_DECLARATION)].map(
+      ([, key, value]) => key ?? value,
+    ),
+    ...[...source.matchAll(STYLE_EXPRESSION)].flatMap(([, list]) =>
+      declaredProperties(declarations(list)),
+    ),
+  ]
+  if (extname(file) === ".tsx") {
+    return {
+      css: [...source.matchAll(STYLE)].map(
+        ([, css]) => css.match(TEMPLATE_STYLE)?.[1] ?? css,
+      ),
+      declared: script,
+      inline: [],
+    }
+  }
+  const { blocks, directives, inline } = markupStyles(source)
+  return {
+    css: blocks,
+    declared: [...script, ...directives],
+    inline: inline.map(declarations),
+  }
+}
+
+const readsOf = (text) =>
+  [...text.matchAll(READ)].map(([, name, queried]) => name ?? queried)
+
+export const customProperties = (file, source, readEverywhere = false) => {
+  const { css, declared, inline } = styleSources(file, source)
+  const sheets = [...css, ...inline]
+  const parsed = (sheet) => {
+    try {
+      return declaredProperties(sheet)
+    } catch (error) {
+      throw new Error(`${file}: can't parse its CSS: ${error.message}`)
+    }
+  }
+  return {
+    declared: new Set([...declared, ...sheets.flatMap(parsed)]),
+    read: new Set(readEverywhere ? readsOf(source) : sheets.flatMap(readsOf)),
+  }
+}
+
+const scan = async (dir, extensions, readEverywhere) =>
+  Promise.all(
+    (await listFiles(dir, extensions)).toSorted().map(async (file) => ({
+      file,
+      ...customProperties(
+        relative(root, file),
+        await readFile(file, "utf8"),
+        readEverywhere,
+      ),
+    })),
+  )
 
 const declaredIn = (files) => files.flatMap(({ declared }) => [...declared])
 
@@ -177,17 +266,15 @@ const main = async () => {
       declaredProperties(await readFile(file, "utf8")),
     ),
   )
-  const packageFiles = await scan(opuiDir, [
-    ".astro",
-    ".css",
-    ".svelte",
-    ".tsx",
-    ".vue",
-  ])
+  const packageFiles = await scan(
+    opuiDir,
+    [".astro", ".css", ".svelte", ".tsx", ".vue"],
+    true,
+  )
   const srcFiles = await scan(
     srcDir,
     [".astro", ".css", ".html", ".svelte", ".tsx", ".vue"],
-    styles,
+    false,
   )
 
   const packageDefined = new Set([

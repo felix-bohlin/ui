@@ -115,9 +115,37 @@ interaction(
 )
 
 interaction(
+  "checkbox",
+  "Indeterminate",
+  "a select all checkbox is indeterminate while some children are checked",
+  async ({ root }) => {
+    const all = root.getByRole("checkbox", { name: "Select all" })
+    const children = root.locator(".ui-field-group").getByRole("checkbox")
+    const indeterminate = () =>
+      all.evaluate((input) => (input as HTMLInputElement).indeterminate)
+
+    await expect.poll(indeterminate).toBe(true)
+    await expect(all).not.toBeChecked()
+
+    await root.getByText("Select all", { exact: true }).click()
+    await expect.poll(indeterminate).toBe(false)
+    await expect(all).toBeChecked()
+    for (const child of await children.all()) await expect(child).toBeChecked()
+
+    await root.getByText("Bananas", { exact: true }).click()
+    await expect.poll(indeterminate).toBe(true)
+    await expect(all).not.toBeChecked()
+
+    await root.getByText("Bananas", { exact: true }).click()
+    await expect.poll(indeterminate).toBe(false)
+    await expect(all).toBeChecked()
+  },
+)
+
+interaction(
   "dialog",
   "Basics",
-  "dialog opens, traps focus and closes with Escape",
+  "dialog keeps Tab off the page behind it and closes with Escape",
   async ({ page, root }) => {
     const trigger = root.getByRole("button", { name: "Open dialog" })
     const dialog = root.locator("dialog")
@@ -125,10 +153,22 @@ interaction(
     await trigger.click()
     await expect(dialog).toBeVisible()
     await expectFocusWithin(dialog)
-    await page.keyboard.press("Tab")
-    await page.keyboard.press("Tab")
-    await page.keyboard.press("Tab")
-    await expectFocusWithin(dialog)
+
+    const buttons = await dialog.getByRole("button").count()
+    const visited = new Set<string>()
+    for (let press = 1; press <= 2 * (buttons + 1); press++) {
+      await page.keyboard.press("Tab")
+      const focus = await dialog.evaluate((element) => {
+        const active = document.activeElement
+        return {
+          behind: active !== document.body && !element.contains(active),
+          label: element.contains(active) ? active!.textContent!.trim() : "",
+        }
+      })
+      expect(focus.behind, `Tab ${press} lands behind the dialog`).toBe(false)
+      if (focus.label) visited.add(focus.label)
+    }
+    expect(visited.size, "Tab reaches every button").toBe(buttons)
 
     await page.keyboard.press("Escape")
     await expect(dialog).toBeHidden()
@@ -139,13 +179,15 @@ interaction(
 interaction(
   "dialog",
   "Basics",
-  "dialog closes from its actions",
+  "dialog closes from its actions and returns focus",
   async ({ root }) => {
+    const trigger = root.getByRole("button", { name: "Open dialog" })
     const dialog = root.locator("dialog")
 
-    await root.getByRole("button", { name: "Open dialog" }).click()
+    await trigger.click()
     await dialog.getByRole("button", { name: "Not now" }).click()
     await expect(dialog).toBeHidden()
+    await expect(trigger).toBeFocused()
   },
 )
 
@@ -166,6 +208,57 @@ interaction(
     await expect(trigger).toBeFocused()
   },
 )
+
+const clickBackdrop = async (page: Page, dialog: Locator) => {
+  const box = (await dialog.boundingBox())!
+  const { height, width } = page.viewportSize()!
+  await page.mouse.click(
+    box.x > width / 2 ? 5 : width - 5,
+    Math.min(height - 5, box.y + box.height / 2),
+  )
+}
+
+for (const component of ["dialog", "drawer"]) {
+  interaction(
+    component,
+    "CloseBehaviors",
+    `${component} closes the way its closedby says`,
+    async ({ page, root }) => {
+      test.fail(
+        !(await page.evaluate(() => "closedBy" in HTMLDialogElement.prototype)),
+        "needs the closedby attribute on dialog",
+      )
+      const trigger = root.getByRole("button", { name: /^Open / })
+      const dialog = root.locator("dialog")
+      const open = async (closedby: string) => {
+        await trigger.click()
+        await expect(dialog).toBeVisible()
+        await dialog.getByText(closedby, { exact: true }).click()
+        await expect(dialog).toHaveAttribute("closedby", closedby)
+      }
+
+      await open("any")
+      await page.keyboard.press("Escape")
+      await expect(dialog).toBeHidden()
+      await open("any")
+      await clickBackdrop(page, dialog)
+      await expect(dialog).toBeHidden()
+
+      await open("closerequest")
+      await clickBackdrop(page, dialog)
+      await expect(dialog).toBeVisible()
+      await page.keyboard.press("Escape")
+      await expect(dialog).toBeHidden()
+
+      await open("none")
+      await clickBackdrop(page, dialog)
+      await page.keyboard.press("Escape")
+      await expect(dialog).toBeVisible()
+      await dialog.getByRole("button", { name: "Close manually" }).click()
+      await expect(dialog).toBeHidden()
+    },
+  )
+}
 
 interaction(
   "radio",
@@ -221,16 +314,14 @@ interaction(
   "range",
   "Value",
   "range moves with the keyboard and shows its value",
-  async ({ framework, page, root }) => {
+  async ({ page, root }) => {
     const slider = root.locator('input[type="range"]')
     const before = Number(await slider.inputValue())
 
     await slider.focus()
     await page.keyboard.press("ArrowRight")
     await expect(slider).toHaveValue(String(before + 1))
-    if (framework !== "html") {
-      await expect(root.locator("output")).toHaveText(`${before + 1}°`)
-    }
+    await expect(root.locator("output")).toHaveText(`${before + 1}°`)
   },
 )
 
@@ -281,6 +372,41 @@ interaction(
     expect(padding).not.toBe("0px")
   },
   ["html"],
+)
+
+interaction(
+  "select",
+  "Preselected",
+  "select starts on its preselected option and follows a new pick",
+  async ({ root }) => {
+    const role = root.locator("select").nth(0)
+    const team = root.locator("select").nth(1)
+
+    await expect(role).toHaveValue("developer")
+    await expect(team).toHaveValue("engineering")
+    await role.selectOption("manager")
+    await expect(role).toHaveValue("manager")
+  },
+)
+
+interaction(
+  "select",
+  "Binding",
+  "select binds its value and resets",
+  async ({ root }) => {
+    const select = root.locator("select")
+    const text = root.locator(".select-binding-text")
+
+    await expect(select).toHaveValue("apples")
+    await expect(text).toHaveText("Selected: apples")
+    await select.selectOption("cherries")
+    await expect(text).toHaveText("Selected: cherries")
+    await expect(select).toHaveValue("cherries")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(select).toHaveValue("apples")
+    await expect(text).toHaveText("Selected: apples")
+  },
 )
 
 interaction(
@@ -395,6 +521,46 @@ interaction(
 )
 
 interaction(
+  "text-field",
+  "Binding",
+  "text field binds its value and resets",
+  async ({ root }) => {
+    const input = root.getByRole("textbox", { name: "Name" })
+    const text = root.locator(".text-field-binding-text")
+
+    await expect(input).toHaveValue("Ada")
+    await expect(text).toHaveText("Hello, Ada.")
+    await input.fill("Grace")
+    await expect(text).toHaveText("Hello, Grace.")
+    await input.fill("")
+    await expect(text).toHaveText("Hello, stranger.")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(input).toHaveValue("Ada")
+    await expect(text).toHaveText("Hello, Ada.")
+  },
+)
+
+interaction(
+  "textarea",
+  "Binding",
+  "textarea binds its value and resets",
+  async ({ root }) => {
+    const textarea = root.getByRole("textbox", { name: "Message" })
+    const text = root.locator(".textarea-binding-text")
+
+    await expect(textarea).toHaveValue("Thanks for the update.")
+    await expect(text).toHaveText("22 characters")
+    await textarea.fill("Hi")
+    await expect(text).toHaveText("2 characters")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(textarea).toHaveValue("Thanks for the update.")
+    await expect(text).toHaveText("22 characters")
+  },
+)
+
+interaction(
   "toggle",
   "Interactive",
   "toggle group selects one option at a time",
@@ -433,15 +599,26 @@ interaction(
 interaction(
   "toggle",
   "Binding",
-  "bound toggle groups report the selection",
+  "toggle groups bind their values and reset",
   async ({ root }) => {
-    await root.getByText("Day", { exact: true }).click()
+    const text = root.locator(".toggle-binding-text")
+
+    await expect(text).toHaveText("View: week. Format: bold.")
+    await root.getByText("Month", { exact: true }).click()
+    await expect(text).toHaveText("View: month. Format: bold.")
     await root.getByText("Italic", { exact: true }).click()
-    await expect(root.locator(".toggle-binding-text")).toHaveText(
-      "View: day. Format: bold, italic.",
-    )
+    await expect(text).toHaveText("View: month. Format: bold, italic.")
+    await root.getByText("Bold", { exact: true }).click()
+    await expect(text).toHaveText("View: month. Format: italic.")
+
+    await root.getByRole("button", { name: "Reset" }).click()
+    await expect(text).toHaveText("View: week. Format: bold.")
+    await expect(root.getByRole("radio", { name: "Week" })).toBeChecked()
+    await expect(root.getByRole("checkbox", { name: "Bold" })).toBeChecked()
+    await expect(
+      root.getByRole("checkbox", { name: "Italic" }),
+    ).not.toBeChecked()
   },
-  ["react", "svelte", "vue"],
 )
 
 interaction(
@@ -468,14 +645,16 @@ interaction(
 interaction(
   "tooltip",
   "Basics",
-  "tooltip toggles on click",
+  "tooltip toggles on click without hover",
   async ({ root }) => {
     const trigger = root.getByRole("button", { name: "Save" })
     const tooltip = root.getByText("Save your changes")
 
     await expect(tooltip).toBeHidden()
-    await trigger.click()
+    await trigger.dispatchEvent("click")
     await expect(tooltip).toBeVisible()
+    await trigger.dispatchEvent("click")
+    await expect(tooltip).toBeHidden()
   },
 )
 
@@ -603,8 +782,42 @@ interaction(
 
 interaction(
   "menu",
+  "Basics",
+  "menu closes on an outside click",
+  async ({ page, root }) => {
+    const menu = root.locator("menu.ui-menu")
+
+    await root.getByRole("button", { name: "Options" }).click()
+    await expect(menu).toBeVisible()
+    await expect(menu.getByRole("button", { name: "Archive" })).toBeDisabled()
+    await page.mouse.click(1, 1)
+    await expect(menu).toBeHidden()
+  },
+)
+
+interaction(
+  "menu",
+  "Manual",
+  "a manual menu stays open until Done",
+  async ({ page, root }) => {
+    const menu = root.locator("menu.ui-menu")
+
+    await root.getByRole("button", { name: "View" }).click()
+    await expect(menu).toBeVisible()
+    await page.keyboard.press("Escape")
+    await page.mouse.click(1, 1)
+    await menu.getByRole("button", { name: "Zoom in" }).click()
+    await expect(menu).toBeVisible()
+
+    await menu.getByRole("button", { name: "Done" }).click()
+    await expect(menu).toBeHidden()
+  },
+)
+
+interaction(
+  "menu",
   "Submenu",
-  "submenu opens from its item",
+  "submenu opens from its item and an item in it closes both",
   async ({ root }) => {
     const menu = root.locator("menu.ui-menu").first()
     const submenu = menu.locator("menu.ui-menu")
@@ -614,7 +827,9 @@ interaction(
     await expect(submenu).toBeHidden()
     await menu.getByRole("button", { name: "Export" }).click()
     await expect(submenu).toBeVisible()
-    await expect(submenu.getByRole("button", { name: "PDF" })).toBeVisible()
+    await submenu.getByRole("button", { name: "PDF" }).click()
+    await expect(submenu).toBeHidden()
+    await expect(menu).toBeHidden()
   },
 )
 

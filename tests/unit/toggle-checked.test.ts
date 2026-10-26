@@ -91,9 +91,12 @@ describe("ToggleButton checked", () => {
         ),
       ),
     ).toEqual(["left"])
-    expect(warn).toHaveBeenCalledWith(
-      expect.stringContaining("`checked` is ignored inside a ToggleGroup"),
-    )
+    expect(
+      warn.mock.calls.filter(([message]) =>
+        String(message).includes("`checked` is ignored inside a ToggleGroup"),
+      ),
+      "one warning per framework",
+    ).toHaveLength(3)
     warn.mockRestore()
   })
 })

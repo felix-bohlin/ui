@@ -117,31 +117,71 @@ describe("theme tokens", () => {
     expect(find("--ui-radius")).toBeDefined()
   })
 
-  test("dark overrides are read from the dark rules", () => {
-    expect(find("--ui-color-scheme")).toEqual({
-      dark: "dark",
-      name: "--ui-color-scheme",
-      value: "light",
-    })
-    expect(find("--ui-shadow-color")?.value).toMatch(/^light-dark\(/)
-    expect(find("--ui-shadow-color")?.dark).toBeUndefined()
-    expect(find("--ui-palette-hue")).toEqual({
-      name: "--ui-palette-hue",
-      value: "145",
-    })
-    expect(find("--ui-motion")?.value).toBe("1")
-    expect(find("--ui-motion")?.dark).toBeUndefined()
-    expect(find("--ui-palette-hue-rotate-by")?.value).toBe("0")
-    expect(find("--ui-palette-source")?.optional).toBe(true)
-    expect(find("--ui-focus-ring-color")?.optional).toBeUndefined()
+  test("the parser reads light, dark, more-contrast and optional values", () => {
+    const parsed = parseThemeTokens(`@layer theme.base {
+  :where(html) {
+    /* Text - text colors */
+    --x-text: var(--x-ink);
+    /* --x-source: red; */
+    --x-shadow:
+      0 1px red,
+      0 2px blue;
+
+    /* Motion */
+    --x-motion: 1;
+  }
+
+  :where(html.ui-dark) {
+    --x-text: white;
+    --x-dark-only: 1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :where(html:not(.ui-light)) {
+      --x-text: white;
+    }
+  }
+
+  .ui-card {
+    --x-card: 1;
+  }
+
+  @container style(--ui-contrast: more) {
+    :where(*) {
+      --x-text: black;
+    }
+  }
+}
+`)
+    expect(parsed).toEqual([
+      {
+        note: "text colors",
+        title: "Text",
+        tokens: [
+          {
+            dark: "white",
+            moreContrast: "black",
+            name: "--x-text",
+            value: "var(--x-ink)",
+          },
+          { name: "--x-source", optional: true, value: "red" },
+          { name: "--x-shadow", value: "0 1px red, 0 2px blue" },
+        ],
+      },
+      {
+        note: undefined,
+        title: "Motion",
+        tokens: [{ name: "--x-motion", value: "1" }],
+      },
+    ])
   })
 
-  test("more-contrast overrides are read from the contrast block", () => {
-    expect(find("--ui-text-max-lightness")).toMatchObject({
-      moreContrast: "0.3",
-      value: "0.41",
-    })
-    expect(find("--ui-motion")?.moreContrast).toBeUndefined()
+  test("theme.css has dark and more-contrast overrides, and optional tokens", () => {
+    expect(tokens.filter((token) => token.dark).length).toBeGreaterThan(0)
+    expect(tokens.filter((token) => token.moreContrast).length).toBeGreaterThan(
+      0,
+    )
+    expect(tokens.filter((token) => token.optional).length).toBeGreaterThan(0)
   })
 
   test("every token has a design token type, unless the format has none for it", () => {

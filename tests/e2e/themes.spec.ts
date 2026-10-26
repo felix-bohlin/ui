@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs"
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
-import { STRESS_TESTS, openFixture } from "./fixtures"
+import { STRESS_TESTS, axeNodes, openFixture } from "./fixtures"
 import { expectSizedRows } from "./stress-sizes"
 
 const THEMES = readdirSync(
@@ -26,9 +26,6 @@ const THEMED_BLOCKS = [
   "blocks/shopping-cart",
 ]
 
-const isCarousel = (html: string) =>
-  /^<[^>]*\bclass="[^"]*\bui-carousel\b/.test(html)
-
 for (const theme of THEMES) {
   for (const component of [...THEMED_BLOCKS, ...STRESS_TESTS]) {
     test(`${component} works with the ${theme} theme`, async ({
@@ -45,18 +42,7 @@ for (const theme of THEMES) {
         .include(isBlock ? "body" : "main")
         .exclude('iframe[src*="youtube"]')
         .analyze()
-      const nodes = violations.flatMap((violation) =>
-        violation.nodes
-          .filter(
-            (node) =>
-              violation.id !== "scrollable-region-focusable" ||
-              !isCarousel(node.html),
-          )
-          .map((node) => ({
-            id: violation.id,
-            target: node.target.join(" "),
-          })),
-      )
+      const nodes = axeNodes(violations)
       const examples = await page.evaluate(
         (targets) =>
           targets.map(

@@ -15,8 +15,13 @@ import {
 
 const examplesDir = new URL("../../src/component-examples/", import.meta.url)
 
-const isCarousel = (html: string) =>
-  /^<[^>]*\bclass="[^"]*\bui-carousel\b/.test(html)
+const carouselWithScrollButtonsOrMarkers = (html: string) => {
+  const classes = html.match(/^<[^>]*\bclass="([^"]*)"/)?.[1].split(/\s+/) ?? []
+  return (
+    classes.includes("ui-carousel") &&
+    (!classes.includes("ui-buttons-none") || classes.includes("ui-markers"))
+  )
+}
 
 export const axeNodes = (
   violations: Awaited<ReturnType<AxeBuilder["analyze"]>>["violations"],
@@ -26,7 +31,7 @@ export const axeNodes = (
       .filter(
         (node) =>
           violation.id !== "scrollable-region-focusable" ||
-          !isCarousel(node.html),
+          !carouselWithScrollButtonsOrMarkers(node.html),
       )
       .map((node) => ({
         help: violation.help,

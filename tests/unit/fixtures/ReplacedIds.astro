@@ -1,0 +1,15 @@
+---
+import Dialog from "../../../packages/opui/components/Dialog/Dialog.astro"
+import DialogHeader from "../../../packages/opui/components/Dialog/DialogHeader.astro"
+import Drawer from "../../../packages/opui/components/Drawer/Drawer.astro"
+import DrawerTitle from "../../../packages/opui/components/Drawer/DrawerTitle.astro"
+
+const { labelledby } = Astro.props
+---
+
+<Dialog aria-labelledby={labelledby}>
+  <DialogHeader id="own-header">Header</DialogHeader>
+</Dialog>
+<Drawer aria-labelledby={labelledby} id="drawer">
+  <DrawerTitle id="own-title">Title</DrawerTitle>
+</Drawer>

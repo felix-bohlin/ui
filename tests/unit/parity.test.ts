@@ -2,6 +2,7 @@ import { existsSync } from "node:fs"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import type { AstroInstance } from "astro"
 import { createTwoFilesPatch } from "diff"
+import { parseFragment, type DefaultTreeAdapterMap } from "parse5"
 import { createElement, type ComponentType } from "react"
 import { renderToString as renderReact } from "react-dom/server"
 import type { Component as SvelteComponent } from "svelte"
@@ -162,6 +163,32 @@ const authoredIds = async (example: Example, framework: Framework) => {
   )
 }
 
+const exposedSvgs = (
+  nodes: DefaultTreeAdapterMap["childNode"][],
+  hidden = false,
+): string[] =>
+  nodes.flatMap((node) => {
+    if (!("tagName" in node)) return []
+    const attribute = (name: string) =>
+      node.attrs.find((attr) => attr.name === name)?.value
+    const inner = hidden || attribute("aria-hidden") === "true"
+    const named =
+      attribute("aria-label") ||
+      attribute("aria-labelledby") ||
+      node.childNodes.some(
+        (child) => "tagName" in child && child.tagName === "title",
+      )
+    if (node.tagName === "svg" && !inner && !named) {
+      return [
+        `<svg ${node.attrs.map(({ name, value }) => `${name}="${value}"`).join(" ")}>`,
+      ]
+    }
+    return exposedSvgs(
+      "content" in node ? node.content.childNodes : node.childNodes,
+      inner,
+    )
+  })
+
 describe.each(cases)("$key", (example) => {
   const frameworks = FRAMEWORKS.filter(
     (framework) => example.loaders[framework],
@@ -185,6 +212,13 @@ describe.each(cases)("$key", (example) => {
       expect(unprefixed).toEqual([])
     },
   )
+
+  test.each(frameworks)("%s hides decorative svgs", async (framework) => {
+    expect(
+      exposedSvgs(parseFragment(await rendered(example, framework)).childNodes),
+      'decorative svgs need aria-hidden="true"; name the others with aria-label or a <title>',
+    ).toEqual([])
+  })
 
   test.each(frameworks)(
     "%s ids follow <slug>-<example>-<n> and match html",

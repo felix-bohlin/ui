@@ -57,11 +57,12 @@ Components documented on another component's page:
 | DescriptionListDescription | `description-list.md` |
 | DescriptionListItem | `description-list.md` |
 | DescriptionListTerm | `description-list.md` |
-| DialogActions | `dialog.md` |
 | DialogContent | `dialog.md` |
+| DialogFooter | `dialog.md` |
 | DialogHeader | `dialog.md` |
-| DrawerActions | `drawer.md` |
+| DialogTitle | `dialog.md` |
 | DrawerContent | `drawer.md` |
+| DrawerFooter | `drawer.md` |
 | DrawerHeader | `drawer.md` |
 | DrawerTitle | `drawer.md` |
 | FieldDescription | `form.md` |

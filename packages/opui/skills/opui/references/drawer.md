@@ -10,10 +10,10 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 ### Parts
 
 - `dialog.ui-drawer` (root): Container element.
-- `.ui-header` (`DrawerHeader`): The header, with a close button.
+- `.ui-header` (`DrawerHeader`): The header, a row for the title and anything next to it, with a close button.
 - `<h2>` (`DrawerTitle`): The title. Names the drawer through `aria-labelledby`.
 - `.ui-content` (`DrawerContent`): The scrollable content.
-- `.ui-actions` (`DrawerActions`): The actions, at the end.
+- `.ui-footer` (`DrawerFooter`): The footer, a row at the end.
 
 ### Props and modifiers
 
@@ -48,19 +48,20 @@ Slides in from the sides, top or bottom of the screen. Good for navigation, filt
 
 - `default`: The `DrawerTitle`, and any other content before the close button.
 
-## DrawerActions
+## DrawerFooter
 
 ### Parts
 
-- `.ui-actions` (root): A group of actions, such as buttons.
+- `.ui-footer` (root): A row at the end, for buttons, text or anything else.
+- `.ui-footer > .ui-actions`: Groups buttons. Moves to the end when other content comes first.
 
 ### Props and modifiers
 
-- `align`: `"end"` (default), `"start"` (`.ui-align-start`). Alignment for the actions.
+- `align`: `"end"` (default), `"start"` (`.ui-align-start`). Alignment for the footer content.
 
 ### Slots
 
-- `default`: The actions, such as buttons.
+- `default`: The footer content, such as buttons.
 
 ## Component properties
 
@@ -68,29 +69,29 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 
 ### drawer.css
 
-- `--_actions-gap`: Gap between items in `.ui-actions`.
-- `--_actions-padding`: Padding of `.ui-actions`.
 - `--_backdrop-bg-color`: The backdrop color. Defaults to `--ui-backdrop-bg-color`, `.ui-backdrop-transparent` clears it.
 - `--_backdrop-blur`: The backdrop filter. Defaults to a `--ui-backdrop-blur` blur, `.ui-backdrop-transparent` removes it.
 - `--_bg-color`: The background. Defaults to `--ui-surface-elevated`.
 - `--_block-size`: Height of `.ui-block-start` and `.ui-block-end` drawers.
-- `--_border-color`: Color of the `.ui-header` and `.ui-actions` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.
-- `--_border-width`: Width of the inner edge border and the `.ui-header` and `.ui-actions` dividers.
+- `--_border-color`: Color of the `.ui-header` and `.ui-footer` dividers, and of the inner edge unless a theme sets `--ui-border-color-raised`. Defaults to `--ui-border-color-on-raised`.
+- `--_border-width`: Width of the inner edge border and the `.ui-header` and `.ui-footer` dividers.
 - `--_content-padding`: Padding of `.ui-content`.
 - `--_edge-border-color`: Color of the inner edge border. `--ui-border-color-raised` when a theme sets it, otherwise `--_border-color`.
-- `--_header-font-size`: Font size of headings in `.ui-header`.
+- `--_footer-gap`: Gap between the items in `.ui-footer` and between the buttons in its `.ui-actions`.
+- `--_footer-padding`: Padding of `.ui-footer`.
 - `--_header-padding`: Padding of `.ui-header`.
 - `--_inline-size`: Width of drawers that open from the inline start or end.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_scroll-shadow`: Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
 - `--_shadow`: The shadow. Defaults to `--ui-shadow-overlay`.
 - `--_text-color`: The text color. Defaults to `--ui-text-strong`.
+- `--_title-font-size`: Font size of the title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 
 Outputs: `--_direction`, `--_duration` and `--_ease`.
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-duration-slow`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-font-size-large`, `--ui-motion`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface-elevated` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-duration-slow`, `--ui-ease-enter`, `--ui-ease-exit`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-inset`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-motion`, `--ui-rhythm-step`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-6`, `--ui-surface-elevated` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -172,7 +173,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
       commodo consequat.
     </p>
   </div>
-  <div class="ui-actions">
+  <div class="ui-footer">
     <button
       type="button"
       class="ui-button ui-small"
@@ -210,7 +211,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
       commodo consequat.
     </p>
   </div>
-  <div class="ui-actions">
+  <div class="ui-footer">
     <button
       type="button"
       class="ui-button ui-small"
@@ -253,7 +254,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
   </div>
-  <div class="ui-actions">
+  <div class="ui-footer">
     <button
       type="button"
       class="ui-button ui-small"
@@ -296,7 +297,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
   </div>
-  <div class="ui-actions">
+  <div class="ui-footer">
     <button
       type="button"
       class="ui-button ui-small"
@@ -311,7 +312,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 ## Astro
 
-`import { Drawer, DrawerActions, DrawerContent, DrawerHeader, DrawerTitle } from "opui-css/astro"`
+`import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/astro"`
 
 ### Example: Basics
 
@@ -321,7 +322,7 @@ import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerActions,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from "opui-css/astro"
@@ -352,11 +353,11 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
       commodo consequat.
     </p>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-basics-1" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-basics-2" scrollLock side="inline-end">
@@ -371,11 +372,11 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
       commodo consequat.
     </p>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-basics-2" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-basics-3" scrollLock side="block-start">
@@ -395,11 +396,11 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-basics-3" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-basics-4" scrollLock side="block-end">
@@ -419,17 +420,17 @@ const editIcon = `<svg aria-hidden="true" viewBox="0 0 32 32"></svg>`
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-basics-4" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 ```
 
 ## React
 
-`import { Drawer, DrawerActions, DrawerContent, DrawerHeader, DrawerTitle } from "opui-css/react"`
+`import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/react"`
 
 - Client components (`"use client"`): `Drawer` and `DrawerHeader`.
 - Hydration: `commandfor` on `DrawerHeader`. Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration. Without hydration: Set `commandfor` to the dialog's id.
@@ -441,7 +442,7 @@ import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerActions,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from "opui-css/react"
@@ -479,11 +480,11 @@ export default function Basics() {
             aliquip ex ea commodo consequat.
           </p>
         </DrawerContent>
-        <DrawerActions>
+        <DrawerFooter>
           <Button size="small" commandfor="drawer-basics-1" command="close">
             Close
           </Button>
-        </DrawerActions>
+        </DrawerFooter>
       </Drawer>
 
       <Drawer id="drawer-basics-2" scrollLock side="inline-end">
@@ -498,11 +499,11 @@ export default function Basics() {
             aliquip ex ea commodo consequat.
           </p>
         </DrawerContent>
-        <DrawerActions>
+        <DrawerFooter>
           <Button size="small" commandfor="drawer-basics-2" command="close">
             Close
           </Button>
-        </DrawerActions>
+        </DrawerFooter>
       </Drawer>
 
       <Drawer id="drawer-basics-3" scrollLock side="block-start">
@@ -523,11 +524,11 @@ export default function Basics() {
             anim id est laborum.
           </p>
         </DrawerContent>
-        <DrawerActions>
+        <DrawerFooter>
           <Button size="small" commandfor="drawer-basics-3" command="close">
             Close
           </Button>
-        </DrawerActions>
+        </DrawerFooter>
       </Drawer>
 
       <Drawer id="drawer-basics-4" scrollLock side="block-end">
@@ -548,11 +549,11 @@ export default function Basics() {
             anim id est laborum.
           </p>
         </DrawerContent>
-        <DrawerActions>
+        <DrawerFooter>
           <Button size="small" commandfor="drawer-basics-4" command="close">
             Close
           </Button>
-        </DrawerActions>
+        </DrawerFooter>
       </Drawer>
     </>
   )
@@ -561,7 +562,7 @@ export default function Basics() {
 
 ## Svelte
 
-`import { Drawer, DrawerActions, DrawerContent, DrawerHeader, DrawerTitle } from "opui-css/svelte"`
+`import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/svelte"`
 
 - Hydration: `commandfor` on `DrawerHeader`. Outside a `Drawer` and without `commandfor`, the button closes the nearest `<dialog>` with a click handler, which only works after hydration. Without hydration: Set `commandfor` to the dialog's id.
 
@@ -573,7 +574,7 @@ export default function Basics() {
     Button,
     Drawer,
     DrawerContent,
-    DrawerActions,
+    DrawerFooter,
     DrawerHeader,
     DrawerTitle,
   } from "opui-css/svelte"
@@ -602,11 +603,11 @@ export default function Basics() {
       commodo consequat.
     </p>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-basics-1" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-basics-2" scrollLock side="inline-end">
@@ -621,11 +622,11 @@ export default function Basics() {
       commodo consequat.
     </p>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-basics-2" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-basics-3" scrollLock side="block-start">
@@ -645,11 +646,11 @@ export default function Basics() {
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-basics-3" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 
 <Drawer id="drawer-basics-4" scrollLock side="block-end">
@@ -669,17 +670,17 @@ export default function Basics() {
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
   </DrawerContent>
-  <DrawerActions>
+  <DrawerFooter>
     <Button size="small" commandfor="drawer-basics-4" command="close"
       >Close</Button
     >
-  </DrawerActions>
+  </DrawerFooter>
 </Drawer>
 ```
 
 ## Vue
 
-`import { Drawer, DrawerActions, DrawerContent, DrawerHeader, DrawerTitle } from "opui-css/vue"`
+`import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "opui-css/vue"`
 
 ### Example: Basics
 
@@ -689,7 +690,7 @@ import {
   Button,
   Drawer,
   DrawerContent,
-  DrawerActions,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from "opui-css/vue"
@@ -724,11 +725,11 @@ import {
         commodo consequat.
       </p>
     </DrawerContent>
-    <DrawerActions>
+    <DrawerFooter>
       <Button size="small" commandfor="drawer-basics-1" command="close"
         >Close</Button
       >
-    </DrawerActions>
+    </DrawerFooter>
   </Drawer>
 
   <Drawer id="drawer-basics-2" scrollLock side="inline-end">
@@ -743,11 +744,11 @@ import {
         commodo consequat.
       </p>
     </DrawerContent>
-    <DrawerActions>
+    <DrawerFooter>
       <Button size="small" commandfor="drawer-basics-2" command="close"
         >Close</Button
       >
-    </DrawerActions>
+    </DrawerFooter>
   </Drawer>
 
   <Drawer id="drawer-basics-3" scrollLock side="block-start">
@@ -767,11 +768,11 @@ import {
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </DrawerContent>
-    <DrawerActions>
+    <DrawerFooter>
       <Button size="small" commandfor="drawer-basics-3" command="close"
         >Close</Button
       >
-    </DrawerActions>
+    </DrawerFooter>
   </Drawer>
 
   <Drawer id="drawer-basics-4" scrollLock side="block-end">
@@ -791,11 +792,11 @@ import {
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </DrawerContent>
-    <DrawerActions>
+    <DrawerFooter>
       <Button size="small" commandfor="drawer-basics-4" command="close"
         >Close</Button
       >
-    </DrawerActions>
+    </DrawerFooter>
   </Drawer>
 </template>
 ```

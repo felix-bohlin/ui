@@ -10,9 +10,10 @@ A minimally styled window overlaid on the main content. By design the Dialog is 
 ### Parts
 
 - `dialog.ui-dialog` (root): Container element.
-- `hgroup.ui-header` (`DialogHeader`): The dialog header. Names the dialog through `aria-labelledby`.
-- `.ui-content` (`DialogContent`): The dialog content.
-- `.ui-actions` (`DialogActions`): A group of actions, such as buttons.
+- `.ui-header` (`DialogHeader`): The header, a row for the title and anything next to it.
+- `<h2>` (`DialogTitle`): The title. Names the dialog through `aria-labelledby`.
+- `.ui-content` (`DialogContent`): The scrollable content.
+- `.ui-footer` (`DialogFooter`): The footer, a row at the end.
 
 ### Props and modifiers
 
@@ -25,21 +26,22 @@ A minimally styled window overlaid on the main content. By design the Dialog is 
 ### Notes
 
 - HTML: Add `.ui-elevated` to the root for the raised surface.
-- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogHeader` names the dialog. A dialog without a `DialogHeader` needs an `aria-label`. An `id` on `DialogHeader` only applies when the dialog has `aria-label` or `aria-labelledby`.
+- Astro, React, Svelte and Vue: Attributes that aren't props go to the `<dialog>`, like `id`. Without `aria-label` or `aria-labelledby`, the `DialogTitle` names the dialog. A dialog without a `DialogTitle` needs an `aria-label`. An `id` on `DialogTitle` only applies when the dialog has `aria-label` or `aria-labelledby`.
 
-## DialogActions
+## DialogFooter
 
 ### Parts
 
-- `.ui-actions` (root): A group of actions, such as buttons.
+- `.ui-footer` (root): A row at the end, for buttons, text or anything else.
+- `.ui-footer > .ui-actions`: Groups buttons. Moves to the end when other content comes first.
 
 ### Props and modifiers
 
-- `align`: `"end"` (default), `"start"` (`.ui-align-start`). Alignment for the actions.
+- `align`: `"end"` (default), `"start"` (`.ui-align-start`). Alignment for the footer content.
 
 ### Slots
 
-- `default`: The actions, such as buttons.
+- `default`: The footer content, such as buttons.
 
 ## Component properties
 
@@ -54,6 +56,7 @@ Set inputs on the component, inline or in your CSS. Outputs follow the variant a
 - `--_max-inline-size`: Maximum width, capped to fit the viewport.
 - `--_motion`: Motion multiplier for the transitions. `0` turns them off.
 - `--_scroll-shadow`: Shadow at the edges of `.ui-content` when it scrolls. Defaults to `--ui-shadow-scroll`.
+- `--_title-font-size`: Font size of the title, a heading in `.ui-header`. Defaults to `--ui-font-size-h4`.
 
 Outputs: `--_duration`.
 
@@ -72,7 +75,7 @@ Outputs: `--_bg-color`, `--_border-color`, `--_border-width`, `--_duration` and 
 
 ## Theme tokens
 
-The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-dialog-radius`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal` and `--ui-text`. `theming.md` and `tokens.json` describe them.
+The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-border-color`, `--ui-border-color-on-raised`, `--ui-border-color-raised`, `--ui-border-width`, `--ui-card-padding`, `--ui-dialog-radius`, `--ui-duration`, `--ui-duration-slow`, `--ui-ease`, `--ui-ease-enter`, `--ui-field-border-color-on-raised`, `--ui-focus-ring-color`, `--ui-focus-ring-inset`, `--ui-focus-ring-offset`, `--ui-focus-ring-style`, `--ui-focus-ring-width`, `--ui-font-size-body`, `--ui-font-size-caption`, `--ui-font-size-h4`, `--ui-letter-spacing-heading`, `--ui-line-height-tight`, `--ui-motion`, `--ui-radius`, `--ui-rhythm-step`, `--ui-shadow-elevated`, `--ui-shadow-overlay`, `--ui-shadow-scroll`, `--ui-shadow-surface`, `--ui-space-1`, `--ui-space-2`, `--ui-space-3`, `--ui-space-4`, `--ui-space-6`, `--ui-surface`, `--ui-surface-elevated`, `--ui-surface-tonal`, `--ui-text` and `--ui-text-strong`. `theming.md` and `tokens.json` describe them.
 
 ## HTML
 
@@ -93,15 +96,15 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
   class="ui-dialog ui-elevated"
   aria-labelledby="dialog-basics-1-title"
 >
-  <hgroup class="ui-header" id="dialog-basics-1-title">
-    <h2 class="ui-h4">Newsletter</h2>
-  </hgroup>
+  <div class="ui-header">
+    <h2 id="dialog-basics-1-title">Newsletter</h2>
+  </div>
   <div class="ui-content">
     <p>
       Get a short email when we ship something new. No more than once a month.
     </p>
   </div>
-  <div class="ui-actions">
+  <div class="ui-footer">
     <button
       commandfor="dialog-basics-1"
       command="close"
@@ -124,7 +127,7 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 
 ## Astro
 
-`import { Dialog, DialogActions, DialogContent, DialogHeader } from "opui-css/astro"`
+`import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "opui-css/astro"`
 
 ### Example: Basics
 
@@ -133,9 +136,10 @@ The stylesheets read `--ui-backdrop-bg-color`, `--ui-backdrop-blur`, `--ui-borde
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
+  DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "opui-css/astro"
 ---
 
@@ -145,25 +149,25 @@ import {
 
 <Dialog id="dialog-basics-1">
   <DialogHeader>
-    <h2 class="ui-h4">Newsletter</h2>
+    <DialogTitle>Newsletter</DialogTitle>
   </DialogHeader>
   <DialogContent>
     <p>
       Get a short email when we ship something new. No more than once a month.
     </p>
   </DialogContent>
-  <DialogActions>
+  <DialogFooter>
     <Button commandfor="dialog-basics-1" command="close"> Not now </Button>
     <Button commandfor="dialog-basics-1" command="close" variant="filled">
       Subscribe
     </Button>
-  </DialogActions>
+  </DialogFooter>
 </Dialog>
 ```
 
 ## React
 
-`import { Dialog, DialogActions, DialogContent, DialogHeader } from "opui-css/react"`
+`import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "opui-css/react"`
 
 - Client components (`"use client"`): `Dialog`.
 
@@ -173,9 +177,10 @@ import {
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
+  DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "opui-css/react"
 
 export default function Basics() {
@@ -191,7 +196,7 @@ export default function Basics() {
 
       <Dialog id="dialog-basics-1">
         <DialogHeader>
-          <h2 className="ui-h4">Newsletter</h2>
+          <DialogTitle>Newsletter</DialogTitle>
         </DialogHeader>
         <DialogContent>
           <p>
@@ -199,14 +204,14 @@ export default function Basics() {
             month.
           </p>
         </DialogContent>
-        <DialogActions>
+        <DialogFooter>
           <Button commandfor="dialog-basics-1" command="close">
             Not now
           </Button>
           <Button commandfor="dialog-basics-1" command="close" variant="filled">
             Subscribe
           </Button>
-        </DialogActions>
+        </DialogFooter>
       </Dialog>
     </>
   )
@@ -215,7 +220,7 @@ export default function Basics() {
 
 ## Svelte
 
-`import { Dialog, DialogActions, DialogContent, DialogHeader } from "opui-css/svelte"`
+`import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "opui-css/svelte"`
 
 ### Example: Basics
 
@@ -224,9 +229,10 @@ export default function Basics() {
   import {
     Button,
     Dialog,
-    DialogActions,
     DialogContent,
+    DialogFooter,
     DialogHeader,
+    DialogTitle,
   } from "opui-css/svelte"
 </script>
 
@@ -236,25 +242,25 @@ export default function Basics() {
 
 <Dialog id="dialog-basics-1">
   <DialogHeader>
-    <h2 class="ui-h4">Newsletter</h2>
+    <DialogTitle>Newsletter</DialogTitle>
   </DialogHeader>
   <DialogContent>
     <p>
       Get a short email when we ship something new. No more than once a month.
     </p>
   </DialogContent>
-  <DialogActions>
+  <DialogFooter>
     <Button commandfor="dialog-basics-1" command="close">Not now</Button>
     <Button commandfor="dialog-basics-1" command="close" variant="filled">
       Subscribe
     </Button>
-  </DialogActions>
+  </DialogFooter>
 </Dialog>
 ```
 
 ## Vue
 
-`import { Dialog, DialogActions, DialogContent, DialogHeader } from "opui-css/vue"`
+`import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "opui-css/vue"`
 
 ### Example: Basics
 
@@ -263,9 +269,10 @@ export default function Basics() {
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
+  DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "opui-css/vue"
 </script>
 
@@ -276,19 +283,19 @@ import {
 
   <Dialog id="dialog-basics-1">
     <DialogHeader>
-      <h2 class="ui-h4">Newsletter</h2>
+      <DialogTitle>Newsletter</DialogTitle>
     </DialogHeader>
     <DialogContent>
       <p>
         Get a short email when we ship something new. No more than once a month.
       </p>
     </DialogContent>
-    <DialogActions>
+    <DialogFooter>
       <Button commandfor="dialog-basics-1" command="close"> Not now </Button>
       <Button commandfor="dialog-basics-1" command="close" variant="filled">
         Subscribe
       </Button>
-    </DialogActions>
+    </DialogFooter>
   </Dialog>
 </template>
 ```

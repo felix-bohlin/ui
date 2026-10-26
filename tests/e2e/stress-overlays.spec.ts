@@ -1,13 +1,7 @@
 import { expect, test } from "@playwright/test"
+import { FIREFOX_SELF_RTL, failsIn } from "./engine-bugs"
 import { openFixture } from "./fixtures"
-import {
-  FIREFOX_SELF_RTL,
-  SCENARIOS,
-  id,
-  isOpen,
-  problems,
-  run,
-} from "./stress-overlays"
+import { SCENARIOS, id, isOpen, problems, run } from "./stress-overlays"
 
 for (const {
   failing,
@@ -21,8 +15,8 @@ for (const {
     browserName,
     page,
   }) => {
-    const engineBug = failingIn?.[browserName as "firefox" | "webkit"]
-    test.fail(!!(failing ?? engineBug), failing ?? engineBug)
+    test.fail(!!failing, failing)
+    failsIn(browserName, failingIn)
     test.skip(
       browserName !== "chromium" && steps.some((step) => "container" in step),
       "needs scrollIntoView({ container })",
@@ -47,7 +41,7 @@ test("a menu in a right-to-left part of the page opens from its trigger's right 
   browserName,
   page,
 }) => {
-  test.fail(browserName === "firefox", FIREFOX_SELF_RTL)
+  failsIn(browserName, { firefox: FIREFOX_SELF_RTL })
   await openFixture(page, "html", "stress/overlays")
   await run(page, { open: "rtl-menu" })
   const edges = () =>

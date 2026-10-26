@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
+import { failsIn } from "./engine-bugs"
 import { axeNodes, openFixture } from "./fixtures"
 import { SCENARIOS, id, isOpen, opened, run } from "./stress-overlays"
 
@@ -34,8 +35,7 @@ for (const { name, steps, unreachableIn } of SCENARIOS.filter((scenario) =>
   CHECKED.includes(scenario.name),
 )) {
   test(`open ${name} has no axe violations`, async ({ browserName, page }) => {
-    const engineBug = unreachableIn?.[browserName as "firefox" | "webkit"]
-    test.fail(!!engineBug, engineBug)
+    failsIn(browserName, unreachableIn)
     await openFixture(page, "html", "stress/overlays")
     for (const step of steps) await run(page, step)
     await page.evaluate(() =>

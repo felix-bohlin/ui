@@ -1,11 +1,19 @@
 import { expect, test } from "@playwright/test"
 import type { Page } from "@playwright/test"
+import {
+  ENGINE_BUGS,
+  FIREFOX_SELF_RTL,
+  WEBKIT_TOP_LAYER_ANCHOR,
+  failsIn,
+  type EngineBug,
+} from "./engine-bugs"
 
-const FIREFOX_SELF_RTL =
-  "Firefox places a popover with self- position-area keywords toward the wrong inline side in a right-to-left part of a left-to-right page"
+const reproduced = new Set<EngineBug>()
 
-const WEBKIT_SCROLLED_ANCHOR =
-  "WebKit moves a popover anchored inside a modal dialog up by the page scroll"
+const repro = (bug: EngineBug, define: () => void) => {
+  reproduced.add(bug)
+  test.describe(bug, define)
+}
 
 const placement = (page: Page) =>
   page.evaluate(() => {
@@ -34,50 +42,72 @@ ${body}`
 
 const trigger = `<button id="trigger" commandfor="popover" command="toggle-popover">Open</button><div id="popover" popover>Item</div>`
 
-for (const scrolled of [false, true]) {
-  test(`a popover anchored in a modal dialog opens below its trigger ${scrolled ? "on a scrolled page" : "at the top of the page"}`, async ({
-    browserName,
+test("every engine bug has a repro", () => {
+  expect(
+    Object.values(ENGINE_BUGS)
+      .flat()
+      .filter((bug) => !reproduced.has(bug)),
+    "every reason in engine-bugs.ts needs a plain-HTML repro here, in a repro() block titled with it",
+  ).toEqual([])
+})
+
+repro(WEBKIT_TOP_LAYER_ANCHOR, () => {
+  for (const container of ["modal dialog", "popover"]) {
+    for (const scrolled of [false, true]) {
+      test(`a popover anchored in a ${container} opens below its trigger ${scrolled ? "on a scrolled page" : "at the top of the page"}`, async ({
+        browserName,
+        page: tab,
+      }) => {
+        failsIn(
+          browserName,
+          scrolled ? { webkit: WEBKIT_TOP_LAYER_ANCHOR } : {},
+        )
+        await tab.setContent(
+          page(
+            container === "popover"
+              ? `<div class="spacer"></div><div id="container" popover="manual">${trigger}</div><div class="spacer"></div>`
+              : `<div class="spacer"></div><dialog id="container">${trigger}</dialog><div class="spacer"></div>`,
+          ),
+        )
+        if (scrolled) await tab.evaluate(() => scrollTo(0, 2000))
+        await tab.evaluate(() => {
+          const element = document.getElementById("container")!
+          if (element instanceof HTMLDialogElement) element.showModal()
+          else element.showPopover()
+        })
+        await tab.locator("#trigger").click()
+        await expect.poll(async () => (await placement(tab)).below).toBe(0)
+      })
+    }
+  }
+
+  test("a popover anchored in the page flow opens below its trigger on a scrolled page", async ({
     page: tab,
   }) => {
-    test.fail(scrolled && browserName === "webkit", WEBKIT_SCROLLED_ANCHOR)
     await tab.setContent(
-      page(
-        `<div class="spacer"></div><dialog id="dialog">${trigger}</dialog><div class="spacer"></div>`,
-      ),
+      page(`<div class="spacer"></div>${trigger}<div class="spacer"></div>`),
     )
-    if (scrolled) await tab.evaluate(() => scrollTo(0, 2000))
-    await tab.evaluate(() =>
-      (document.getElementById("dialog") as HTMLDialogElement).showModal(),
-    )
+    await tab.locator("#trigger").scrollIntoViewIfNeeded()
     await tab.locator("#trigger").click()
     await expect.poll(async () => (await placement(tab)).below).toBe(0)
   })
-}
-
-test("a popover anchored in the page flow opens below its trigger on a scrolled page", async ({
-  page: tab,
-}) => {
-  await tab.setContent(
-    page(`<div class="spacer"></div>${trigger}<div class="spacer"></div>`),
-  )
-  await tab.locator("#trigger").scrollIntoViewIfNeeded()
-  await tab.locator("#trigger").click()
-  await expect.poll(async () => (await placement(tab)).below).toBe(0)
 })
 
-test("self- position-area keywords mirror in a right-to-left part of the page", async ({
-  browserName,
-  page: tab,
-}) => {
-  test.fail(browserName === "firefox", FIREFOX_SELF_RTL)
-  await tab.setContent(
-    page(
-      `<div class="center" dir="rtl">${trigger}</div>`,
-      "self-block-end span-self-inline-end",
-    ),
-  )
-  await tab.locator("#trigger").click()
-  await expect
-    .poll(() => placement(tab))
-    .toMatchObject({ below: 0, endEdge: 0 })
+repro(FIREFOX_SELF_RTL, () => {
+  test("self- position-area keywords mirror in a right-to-left part of the page", async ({
+    browserName,
+    page: tab,
+  }) => {
+    failsIn(browserName, { firefox: FIREFOX_SELF_RTL })
+    await tab.setContent(
+      page(
+        `<div class="center" dir="rtl">${trigger}</div>`,
+        "self-block-end span-self-inline-end",
+      ),
+    )
+    await tab.locator("#trigger").click()
+    await expect
+      .poll(() => placement(tab))
+      .toMatchObject({ below: 0, endEdge: 0 })
+  })
 })

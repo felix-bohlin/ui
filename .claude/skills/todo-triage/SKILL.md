@@ -15,11 +15,9 @@ Give every open `TODO.md` item a `Summary:` and a `Recommended:` note. You only 
 
 ## Scope
 
-- No arguments: every `- [ ]` item that lacks a `Summary:` or a `Recommended:` note.
-- Section titles (`Docs`, `Questions`): only the items in those sections.
-- Component names (`Select`, `Tabs`): only the items whose headline starts with that component.
+`node scripts/todo.mjs list --missing-triage` prints, as JSON, the open items that lack a `Summary:` or a `Recommended:` note, with their `section`, `component`, `files`, `options` and the last answer. Section titles (`Docs`, `Questions`) or component names (`Select`, `Tabs`) in the arguments keep only the items with that `section` or `component`.
 
-With more than about 20 items, split them by section across parallel subagents, each following this skill, and merge their edits.
+With more than about 20 items, split them by section across parallel subagents, each following steps 1 to 3 and returning its JSON, and run step 4 once on the merged list.
 
 ## Steps
 
@@ -35,7 +33,7 @@ For each item:
    - A question of taste or scope, for example in `## Questions`: `Explain further`.
    - The user can only decide after seeing it: `Explain further and provide an example`.
      A reason follows after a period, one short sentence.
-4. Insert both notes first under the headline.
+4. Write the notes as JSON, `[{ "line", "summary", "recommended" }]`, leaving out a note the item has, and run `node scripts/todo.mjs triage <file>`. It puts them first under the headline and rejects a recommendation the `/todo` page can't offer.
 
 Then run `pnpm exec prettier --write TODO.md`, `pnpm exec vitest run tests/unit/todo.test.ts` (it checks the format) and `pnpm check-characters`, and commit with `chore: add summaries and recommendations to open todos`.
 

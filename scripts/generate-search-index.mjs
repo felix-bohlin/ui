@@ -1,6 +1,6 @@
 import fs from "fs"
 import path from "path"
-import { pathToFileURL } from "url"
+import { fileURLToPath, pathToFileURL } from "url"
 import { globby } from "globby"
 
 import { blockCategories, blocks } from "../src/utils/blocks-data.ts"
@@ -16,7 +16,9 @@ const CATEGORY_IDS = new Set(SEARCH_CATEGORIES.map((category) => category.id))
 const API_LABEL_PATTERN = FRAMEWORKS.map((f) => f.label).join("|")
 const LABEL_TO_ID = Object.fromEntries(FRAMEWORKS.map((f) => [f.label, f.id]))
 
-const OUTPUT_FILE = path.resolve(process.cwd(), "public/search-index.json")
+process.chdir(fileURLToPath(new URL("..", import.meta.url)))
+
+const OUTPUT_FILE = path.resolve("public/search-index.json")
 
 function frameworkUrl(framework, sharedPath) {
   return `/${framework}${sharedPath}`
@@ -42,15 +44,17 @@ function readHeadings(content) {
 
 function readMeta(file) {
   const content = fs.readFileSync(file, "utf-8").replace(/\r\n/g, "\n")
-  const titleMatch = content.match(/<Fragment slot="title">(.*?)<\/Fragment>/s)
+  const titleMatch = content.match(
+    /<Fragment\s+slot="title"\s*>(.*?)<\/Fragment\s*>/s,
+  )
   const descriptionExportMatch = content.match(
     /export const description\s*=\s*("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/s,
   )
   const preambleMatch = content.match(
-    /<Fragment slot="preamble">(.*?)<\/Fragment>/s,
+    /<Fragment\s+slot="preamble"\s*>(.*?)<\/Fragment\s*>/s,
   )
 
-  if (!titleMatch) return null
+  if (!titleMatch) throw new Error(`${file} has no title slot`)
 
   const title = titleMatch[1].replace(/<[^>]*>/g, "").trim()
   const preamble = descriptionExportMatch
@@ -98,7 +102,6 @@ async function generateIndex() {
   // framework variant is an independent indexable page in the new routing.
   for (const file of componentDocs) {
     const meta = readMeta(file)
-    if (!meta) continue
 
     const slug = path.basename(file, ".astro")
     const sharedPath = `/components/${slug}`
@@ -122,7 +125,6 @@ async function generateIndex() {
   // Framework-agnostic guide pages: one indexable entry per (page × framework).
   for (const file of guidePages) {
     const meta = readMeta(file)
-    if (!meta) continue
 
     const slug = path.basename(file, ".astro")
     const sharedPath = `/guide/${slug}`
@@ -145,11 +147,10 @@ async function generateIndex() {
   // under src/docs/guide/getting-started/). Each maps to the matching variant.
   for (const file of gettingStartedPages) {
     const meta = readMeta(file)
-    if (!meta) continue
 
     const label = path.basename(file, ".astro")
     const framework = FRAMEWORKS.find((f) => f.label === label)
-    if (!framework) continue
+    if (!framework) throw new Error(`${file} names no framework`)
 
     const url = frameworkUrl(framework.id, "/guide/getting-started")
     index.push({
@@ -361,6 +362,13 @@ async function generateIndex() {
   if (unknown.length > 0) {
     throw new Error(
       `Unknown search categories: ${[...new Set(unknown.map((item) => item.category))].toSorted().join(", ")}`,
+    )
+  }
+
+  const empty = index.filter((item) => !item.title || !item.description)
+  if (empty.length > 0) {
+    throw new Error(
+      `Search entries without a title or description: ${empty.map((item) => item.id).join(", ")}`,
     )
   }
 

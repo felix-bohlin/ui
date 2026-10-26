@@ -52,7 +52,7 @@
   {
     "id": "component-anchor-html",
     "title": "Anchor",
-    "description": "",
+    "description": "A structural primitive to enable CSS Anchor Positioning on stuff.",
     "headings": "Always visible Hover trigger Link preview",
     "category": "Component",
     "frameworkId": "html",
@@ -62,7 +62,7 @@
   {
     "id": "component-anchor-astro",
     "title": "Anchor",
-    "description": "",
+    "description": "A structural primitive to enable CSS Anchor Positioning on stuff.",
     "headings": "Always visible Hover trigger Link preview",
     "category": "Component",
     "frameworkId": "astro",
@@ -72,7 +72,7 @@
   {
     "id": "component-anchor-react",
     "title": "Anchor",
-    "description": "",
+    "description": "A structural primitive to enable CSS Anchor Positioning on stuff.",
     "headings": "Always visible Hover trigger Link preview",
     "category": "Component",
     "frameworkId": "react",
@@ -82,7 +82,7 @@
   {
     "id": "component-anchor-svelte",
     "title": "Anchor",
-    "description": "",
+    "description": "A structural primitive to enable CSS Anchor Positioning on stuff.",
     "headings": "Always visible Hover trigger Link preview",
     "category": "Component",
     "frameworkId": "svelte",
@@ -92,7 +92,7 @@
   {
     "id": "component-anchor-vue",
     "title": "Anchor",
-    "description": "",
+    "description": "A structural primitive to enable CSS Anchor Positioning on stuff.",
     "headings": "Always visible Hover trigger Link preview",
     "category": "Component",
     "frameworkId": "vue",

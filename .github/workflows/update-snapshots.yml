@@ -53,11 +53,27 @@ jobs:
           else
             node scripts/baseline-changes.mjs message "$RUNNER_TEMP/before.json" "$RUNNER_TEMP/after.json" > "$RUNNER_TEMP/message.txt"
             git commit --file "$RUNNER_TEMP/message.txt"
-            git lfs fsck --pointers HEAD
-            git push
-            echo "pushed=true" >> "$GITHUB_OUTPUT"
+            for attempt in 1 2 3; do
+              git lfs fsck --pointers HEAD
+              if git push; then
+                echo "pushed=true" >> "$GITHUB_OUTPUT"
+                break
+              fi
+              if [ "$attempt" = 3 ]; then
+                exit 1
+              fi
+              git fetch origin "$BRANCH"
+              if ! tree=$(git merge-tree --write-tree --name-only --merge-base HEAD~1 FETCH_HEAD HEAD); then
+                printf '%s\n' "$tree"
+                echo "::error::Commits pushed to $BRANCH while this ran change the same baselines. Run the workflow again."
+                exit 1
+              fi
+              git reset --soft "$(git commit-tree "$tree" -p FETCH_HEAD -F "$RUNNER_TEMP/message.txt")"
+            done
           fi
           echo "after=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+        env:
+          BRANCH: ${{ github.head_ref || github.ref_name }}
       - name: List the changed baselines
         id: report
         run: |

@@ -1,0 +1,7 @@
+{
+  "citations": [
+    "packages/opui/core/palette.css:2-18,89-136",
+    "tests/unit/naming.test.ts:395-401"
+  ],
+  "prefixes": ["New components the blocks point to."]
+}

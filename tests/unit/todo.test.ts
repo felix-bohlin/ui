@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs"
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs"
 import { describe, expect, test } from "vitest"
 import {
   fixOptions,
@@ -10,6 +10,7 @@ import {
   splitLinks,
   stressRefs,
 } from "../../src/utils/todo"
+import allowlist from "./todo-allowlist.json"
 
 describe("parseTodo", () => {
   test("parses intro, sections and items", () => {
@@ -611,6 +612,104 @@ describe("TODO.md", () => {
               `${headline(item)}: ${"text" in note ? note.text : note.code}`,
           ),
       ),
+    ).toEqual([])
+  })
+
+  test("says how every done item ended", () => {
+    expect(
+      parseTodo(source)
+        .done.flatMap((section) => section.items)
+        .filter(
+          (item) =>
+            !item.notes.some(
+              (note) => "text" in note && /^(Fixed|Removed)\b/.test(note.text),
+            ),
+        )
+        .map(headline),
+      "add a - Fixed: or - Removed: note to the done item",
+    ).toEqual([])
+  })
+
+  const AREAS = [
+    "API docs",
+    "CI",
+    "CSS",
+    "Changelog",
+    "Docs",
+    "Docs site",
+    "Examples",
+    "Learn",
+    "Package",
+    "Release",
+    "Repo",
+    "Tests",
+    "Tokens",
+    "Tooling",
+  ]
+  const names = new Set([
+    ...AREAS,
+    ...[
+      ...readFileSync("packages/opui/astro/index.ts", "utf8").matchAll(
+        /^export \{ default as (\w+) \}/gm,
+      ),
+    ].map(([, name]) => name),
+    ...readdirSync("src/docs/components")
+      .filter((file) => file.endsWith(".astro"))
+      .flatMap(
+        (file) =>
+          readFileSync(`src/docs/components/${file}`, "utf8").match(
+            /<Fragment\s+slot="title"\s*>(.*?)<\/Fragment\s*>/s,
+          )?.[1] ?? [],
+      ),
+  ])
+
+  test("starts every open item with a component, page or area", () => {
+    expect(
+      items
+        .filter(
+          ({ component, text }) =>
+            !component?.split(", ").every((name) => names.has(name)) &&
+            !allowlist.prefixes.some((prefix) => text.startsWith(prefix)),
+        )
+        .map(headline),
+      "start the headline with a component, a docs page title or an area from AREAS",
+    ).toEqual([])
+  })
+
+  test("cites files that exist, with lines inside them", () => {
+    expect(
+      items
+        .flatMap(({ text }) =>
+          (text.match(/ \(([^()]+)\)$/)?.[1].split(", ") ?? [])
+            .flatMap((entry) => entry.match(/^`([^`]+)`$/)?.slice(1) ?? [])
+            .filter((entry) => /[./]/.test(entry))
+            .filter((entry) => {
+              const [path, lines] = entry.split(":")
+              if (!existsSync(path)) return true
+              if (!statSync(path).isFile()) return Boolean(lines)
+              const length = readFileSync(path, "utf8").split("\n").length
+              return (lines?.match(/\d+/g) ?? []).some(
+                (line) => Number(line) > length,
+              )
+            }),
+        )
+        .filter((entry) => !allowlist.citations.includes(entry)),
+      "cite a path from the repo root, with lines that exist in the file",
+    ).toEqual([])
+  })
+
+  test("the allowlist only lists open problems", () => {
+    expect(
+      [
+        ...allowlist.citations.filter(
+          (citation) =>
+            !items.some(({ text }) => text.includes(`\`${citation}\``)),
+        ),
+        ...allowlist.prefixes.filter(
+          (prefix) => !items.some(({ text }) => text.startsWith(prefix)),
+        ),
+      ],
+      "fixed, remove from tests/unit/todo-allowlist.json",
     ).toEqual([])
   })
 })
